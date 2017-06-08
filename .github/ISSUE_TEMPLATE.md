@@ -6,7 +6,7 @@ Because Github only accommodates one issue template at a time, this file lays ou
 * [Bug report](#bug)
 
 ## <a name="feature">Feature tracking template</a>
-We create feature tracking issues when we need to manage a growing number of tasks relating to an overarching activity we're trying to support, such as "Placing a bid"
+We create feature tracking issues when we need to manage a growing number of tasks relating to an overarching activity we're trying to support, such as "Placing a bid."
 
 ## Template
 ### Story
@@ -24,7 +24,7 @@ Acceptance criteria tie back to the story, but do not dictate the solution which
 * Acceptance criteria [...]
 
 ### Resources
-Any assets or links that will be helpful for the people taking on this issue
+Any assets or links that will be helpful for the people taking on this issue.
 * Resource
 * Resource [...]
 
@@ -34,7 +34,7 @@ Their names usually start with a verb such as `design`, `build`, or `decide`.
 
 Since they are action-oriented, they are either in the backlog or in a sprint.
 When they move into a sprint, they are assigned to a team member.
-They often result in a PR and if so are closed by a reviewer who confirms implementation in dev.   
+They often result in a PR and, if so, are closed by a reviewer who confirms implementation in dev.   
 
 ## Template
 ### Story
@@ -64,8 +64,8 @@ Once you are sure the issue is valid, please fill out the details below. Label y
 
 ## Template
 ### Steps to reproduce the issue (please be as specific as possible)
-* Step 1
-* Step 2 [...]
+1. Step 1
+1. Step 2 [...]
 
 ### Expected behavior
 * Behavior 1
@@ -76,10 +76,10 @@ Once you are sure the issue is valid, please fill out the details below. Label y
 When submitting a bug report, it's helpful to include any details that may be necessary to reproduce the bug, including:
 
 - A screenshot
-- Operating system (Windows 7, Mac OS X Yosemite 10.10.5, etc.)
+- URLs, if applicable
 - Web browser and version (Internet Explorer 9,
 Chrome 52.0.2743.116 (64-bit), etc.)
 - Date, specific time and time zone when issue was found.
 Example: 4:24pm ET on September 8, 2016
-- URLs visited
+- Operating system (Windows 7, Mac OS X Yosemite 10.10.5, etc.)
 - Email address used (if relevant and not sensitive)
