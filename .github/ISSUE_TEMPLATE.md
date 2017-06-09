@@ -1,5 +1,7 @@
 ## Choose your template
-Because Github only accommodates one issue template at a time, this file lays out templates for a few of the different kinds of issues we need to create. When you create a new issue, just take out the template you need from the code section and delete everything else you don't need.
+Because Github only accommodates one issue template at a time, this file lays out templates for a few of the different kinds of issues we need to create.
+
+#### When you create a new issue, just take out the template you need from the code section and delete everything else you don't need.
 
 * [Feature tracker](#feature)
 * [Specific task](#task)
