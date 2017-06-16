@@ -1,4 +1,8 @@
 # United States Department of State TalentMAP
+
+[![Test Coverage](https://codeclimate.com/github/18F/State-TalentMAP/badges/coverage.svg)](https://codeclimate.com/github/18F/State-TalentMAP/coverage)
+[![Code Climate](https://codeclimate.com/github/18F/State-TalentMAP/badges/gpa.svg)](https://codeclimate.com/github/18F/State-TalentMAP)
+
 A comprehensive research, bidding, and matching system to match Foreign Service employees with the right skills to available posts and positions.
 
 ## Contributing
