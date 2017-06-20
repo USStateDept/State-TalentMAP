@@ -12,21 +12,21 @@ class Details extends Component {
   componentDidMount() {
     const script = document.createElement('script');
 
-    script.src = '/uswds-1.1.0/js/uswds.min.js';
+    script.src = '/assets/uswds/js/uswds.min.js';
     script.async = true;
 
     document.body.appendChild(script);
 
-    this.getDetails(this.props.match ? this.props.match.params.id : '');
+    this.getDetails(this.props.match ? this.props.match.params.id : ''); // eslint-disable-line react/prop-types
   }
 
   getDetails(id) {
     const query = id;
     axios.get(`http://localhost:3005/posts/${query}`)
-      .then((res) => {
-        const details = res.data;
-        this.setState({ details });
-      });
+        .then((res) => {
+          const details = res.data;
+          this.setState({ details });
+        });
   }
 
   render() {

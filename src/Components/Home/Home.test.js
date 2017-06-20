@@ -1,11 +1,10 @@
-import { shallow, render, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Home from './Home';
 
 describe('HomeComponent', () => {
-
   let home = null;
 
   beforeEach(() => {

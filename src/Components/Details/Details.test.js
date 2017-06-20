@@ -1,6 +1,5 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow, render, mount } from 'enzyme';
 import Details from './Details';
 
 

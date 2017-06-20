@@ -1,4 +1,4 @@
-import { shallow, render, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Results from './Results';

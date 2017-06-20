@@ -1,0 +1,3 @@
+## ignore js dependencies
+exclude_paths:
+- "public/assets/*.js"

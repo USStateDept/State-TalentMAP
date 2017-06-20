@@ -1,11 +1,10 @@
 import React from 'react';
-import logo from './logo.svg';
 
-export default props => {
-  const {children} = props;
+export default (props) => {
+  const { children } = props; // eslint-disable-line react/prop-types
   const style = {
     backgroundColor: '#dfdfdf',
-    //backgroundImage: `url("${logo}")`,
+    // backgroundImage: `url("${logo}")`,
     backgroundPosition: '-0.25rem 0.75rem',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '5rem',

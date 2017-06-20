@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
-import Wrapper from '../../Wrapper';
+import Wrapper from '../Wrapper/Wrapper';
 
 class Home extends Component {
   constructor(props) {
@@ -19,15 +19,15 @@ class Home extends Component {
   componentWillMount() {
     const script = document.createElement('script');
 
-    script.src = '/uswds-1.1.0/js/uswds.min.js';
+    script.src = '/assets/uswds/js/uswds.min.js';
     script.async = true;
 
     document.body.appendChild(script);
   }
 
-  createQueryString(){
-    let { qString, selection } = this.state;
-    const copy = Object.assign({}, selection);
+  createQueryString() {
+    let { qString } = this.state;
+    const copy = Object.assign({}, this.state.selection);
     Object.keys(copy).forEach((key) => {
       if (!copy[key] || !copy[key].length) {
         delete copy[key];
@@ -38,20 +38,20 @@ class Home extends Component {
   }
 
   changeCheck(ref, e) {
-    let { selection } = this.state;
+    const { selection } = this.state;
     if (e.target.checked) {
-      selection[Object.keys(selection)[ref]].push(parseInt(e.target.value));
+      selection[Object.keys(selection)[ref]].push(parseInt(e.target.value, 10));
     } else {
       selection[Object.keys(selection)[ref]]
         .splice(selection[Object.keys(selection)[ref]]
-          .indexOf(parseInt(e.target.value)), 1);
+          .indexOf(parseInt(e.target.value, 10)), 1);
     }
     this.setState({ selection });
     this.createQueryString();
   }
 
   changeText(e) {
-    let { selection } = this.state;
+    const { selection } = this.state;
     selection.q = e.target.value;
     this.setState({ selection });
     this.createQueryString();
@@ -65,14 +65,22 @@ class Home extends Component {
           <ul className="usa-accordion usa-accordion-bordered">
             {items.map((item, i) => {
               const id = item.id || `item${i}`;
-              const checks = item.choices.map((choice) => {
-                return (
-                  <li key={choice.code}>
-                    <input id={`${choice.code} ${choice.description}`} type="checkbox" name="historical-figures-1" value={choice.code} onChange={e => this.changeCheck(i, e)} checked={selection[items[i].selection_ref].indexOf(choice.code) !== -1} />
-                    <label htmlFor={`${choice.code} ${choice.description}`}>{choice.description}</label>
-                  </li>
-                );
-              });
+              const checks = item.choices.map(choice => (
+                <li key={choice.code}>
+                  <input
+                    id={`${choice.code} ${choice.description}`}
+                    type="checkbox"
+                    name="historical-figures-1"
+                    value={choice.code}
+                    onChange={e => this.changeCheck(i, e)}
+                    checked={selection[items[i].selection_ref]
+                                          .indexOf(choice.code) !== -1}
+                  />
+                  <label htmlFor={`${choice.code} ${choice.description}`}>
+                    {choice.description}
+                  </label>
+                </li>
+                              ));
               return (
                 <li key={id}>
                   <button
@@ -101,7 +109,9 @@ class Home extends Component {
             <div className="usa-width-one-half">
               <div className="usa-search usa-search-big">
                 <div role="search">
-                  <label className="usa-sr-only" htmlFor="search-field-big">Search big</label>
+                  <label className="usa-sr-only" htmlFor="search-field-big">
+                                      Search big
+                                    </label>
                   <input
                     id="search-field-big"
                     value={selection.q}
@@ -112,7 +122,8 @@ class Home extends Component {
                   <a href={`/#/results?${qString}`}>
                     <button type="submit">
                       <span className="usa-search-submit-text">Search</span>
-                    </button></a>
+                    </button>
+                  </a>
                 </div>
               </div>
             </div>
