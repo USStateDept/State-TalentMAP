@@ -1,0 +1,7 @@
+{
+    "urls": [
+        "http://localhost:3000",
+        "http://localhost:3000/#/results",
+        "http://localhost:3000/#/details/1"
+    ]
+}
