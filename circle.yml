@@ -1,0 +1,9 @@
+machine:
+  node:
+    version: 6.11.0
+test:
+  pre:
+    - mkdir -p $CIRCLE_ARTIFACTS/react-cov/jest
+    - mkdir -p $CIRCLE_ARTIFACTS/react-cov/pa11y
+  override:
+    - npm test -- --coverageDirectory $CIRCLE_ARTIFACTS/react-cov/jest

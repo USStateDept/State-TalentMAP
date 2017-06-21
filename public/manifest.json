@@ -1,0 +1,15 @@
+{
+  "short_name": "TalentMAP",
+  "name": "TalentMAP",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#112E51",
+  "background_color": "#ffffff"
+}
