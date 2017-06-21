@@ -1,3 +1,5 @@
 # Ignore external assets
 public/assets/*
 src/registerServiceWorker.js
+scripts/*
+config/*
