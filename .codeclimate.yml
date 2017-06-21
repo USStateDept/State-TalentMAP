@@ -1,3 +1,7 @@
-## ignore js dependencies
+JavaScript: truu
+
+engines:
+  eslint:
+    enabled: true
 exclude_paths:
 - "public/assets/*.js"
