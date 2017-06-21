@@ -22,16 +22,26 @@ describe('HomeComponent', () => {
 
   it('can change text', () => {
     const wrapper = shallow(<Home />);
-    wrapper.instance().changeText({ target: { value: 'ch' } });
+    wrapper.find('#search-field-big').simulate('change', { target: { value: 'info Tech' } });
+    expect(wrapper.find('#search-field-big').props().value).toBe('info Tech');
   });
 
   it('can create a query string', () => {
-    const wrapper = shallow(<Home selection={{ selection: { skill: [1], language: [2], grade: [], q: 'test' } }} />);
-    wrapper.instance().createQueryString();
+    const wrapper = shallow(<Home />);
+    wrapper.instance().changeText({ target: { value: 'info Tech' } });
+    expect(wrapper.instance().state.qString).toBe('q=info%20Tech');
   });
 
-  it('can change a checkbox', () => {
+  it('can check a checkbox', () => {
     const wrapper = shallow(<Home />);
-    wrapper.instance().changeCheck('1', { target: { value: '2' } });
+    wrapper.find('#1-1').simulate('change', (1, { target: { checked: true, value: 1 } }));
+    expect(wrapper.instance().state.selection.language[0]).toBe(1);
+  });
+
+  it('can check and then uncheck a checkbox', () => {
+    const wrapper = shallow(<Home />);
+    wrapper.find('#1-1').simulate('change', (1, { target: { checked: true, value: 1 } }));
+    wrapper.find('#1-1').simulate('change', (1, { target: { checked: false, value: 1 } }));
+    expect(wrapper.instance().state.selection.language.length).toBe(0);
   });
 });

@@ -1,5 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import TestUtils from 'react-dom/test-utils';
 import Results from './Results';
 
@@ -35,8 +37,9 @@ describe('ResultsComponent', () => {
     expect(results).toBeDefined();
   });
 
-  it('can get results', () => {
+  it('can set state of posts', () => {
     const wrapper = shallow(<Results />);
-    wrapper.instance().getPosts('?language=3&language=2&skill=1&skill=3&q=ch');
+    wrapper.setState({ posts });
+    expect(wrapper.instance().state.posts.length).toBe(2);
   });
 });

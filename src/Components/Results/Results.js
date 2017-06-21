@@ -28,7 +28,7 @@ class Results extends Component {
       <div id="main-content">
         <div className="usa-grid-full">
           { posts.map(post => (
-            <div key={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px' }}>
+            <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px' }}>
               <a href={`/#/details/${post.id}`}>
                 <h3> ID: {post.id} </h3>
               </a>

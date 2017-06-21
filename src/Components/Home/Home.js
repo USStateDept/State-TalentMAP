@@ -59,7 +59,7 @@ class Home extends Component {
               const checks = item.choices.map(choice => (
                 <li key={choice.code}>
                   <input
-                    id={`${choice.code} ${choice.description}`}
+                    id={`${i}-${choice.code}`}
                     type="checkbox"
                     name="historical-figures-1"
                     value={choice.code}
@@ -67,7 +67,7 @@ class Home extends Component {
                     checked={selection[items[i].selection_ref]
                                           .indexOf(choice.code) !== -1}
                   />
-                  <label htmlFor={`${choice.code} ${choice.description}`}>
+                  <label htmlFor={`${choice.code}-${choice.description}`}>
                     {choice.description}
                   </label>
                 </li>
