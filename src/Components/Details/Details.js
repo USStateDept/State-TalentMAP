@@ -10,13 +10,6 @@ class Details extends Component {
   }
 
   componentDidMount() {
-    const script = document.createElement('script');
-
-    script.src = '/assets/uswds/js/uswds.min.js';
-    script.async = true;
-
-    document.body.appendChild(script);
-
     this.getDetails(this.props.match ? this.props.match.params.id : ''); // eslint-disable-line react/prop-types
   }
 

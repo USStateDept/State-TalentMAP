@@ -10,13 +10,6 @@ class Results extends Component {
   }
 
   componentDidMount() {
-    const script = document.createElement('script');
-
-    script.src = '/assets/uswds/js/uswds.min.js';
-    script.async = true;
-
-    document.body.appendChild(script);
-
     this.getPosts(this.props.location.search); // eslint-disable-line react/prop-types
   }
 

@@ -16,15 +16,6 @@ class Home extends Component {
     };
   }
 
-  componentWillMount() {
-    const script = document.createElement('script');
-
-    script.src = '/assets/uswds/js/uswds.min.js';
-    script.async = true;
-
-    document.body.appendChild(script);
-  }
-
   createQueryString() {
     let { qString } = this.state;
     const copy = Object.assign({}, this.state.selection);
@@ -60,7 +51,7 @@ class Home extends Component {
   render() {
     const { items, selection, qString } = this.state;
     return (
-      <div id="main-content">
+      <div id="main-content" className="Home">
         <Wrapper>
           <ul className="usa-accordion usa-accordion-bordered">
             {items.map((item, i) => {
