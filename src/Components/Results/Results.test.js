@@ -1,7 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import TestUtils from 'react-dom/test-utils';
 import Results from './Results';
 
