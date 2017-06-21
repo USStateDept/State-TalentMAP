@@ -3,5 +3,12 @@ JavaScript: true
 engines:
   eslint:
     enabled: true
-exclude_paths:
-- "public/assets/*.js"
+    channel: "eslint-3"
+    checks:
+      import/no-unresolved:
+        enabled: false
+      import/extensions:
+        enabled: false
+    extensions:
+    - .js
+    - .jsx
