@@ -16,8 +16,10 @@ describe('DetailsComponent', () => {
     city: 'Mazowe',
   };
 
+  const api = 'http://localhost:3005';
+
   beforeEach(() => {
-    detailsItem = TestUtils.renderIntoDocument(<Details details={details} />);
+    detailsItem = TestUtils.renderIntoDocument(<Details details={details} api={api} />);
   });
 
   it('is defined', () => {
@@ -25,7 +27,7 @@ describe('DetailsComponent', () => {
   });
 
   it('can set state of details', () => {
-    const wrapper = shallow(<Details />);
+    const wrapper = shallow(<Details api={api} />);
     wrapper.setState({ details });
     expect(wrapper.instance().state.details.id).toBe(84);
   });

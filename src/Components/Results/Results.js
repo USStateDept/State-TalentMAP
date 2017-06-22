@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 
 class Results extends Component {
@@ -15,7 +16,8 @@ class Results extends Component {
 
   getPosts(q) {
     const query = q;
-    axios.get(`http://localhost:3005/posts${query}`)
+    const api = this.props.api;
+    axios.get(`${api}/posts${query}`)
       .then((res) => {
         const posts = res.data;
         this.setState({ posts });
@@ -48,5 +50,9 @@ class Results extends Component {
     );
   }
 }
+
+Results.propTypes = {
+  api: PropTypes.string.isRequired,
+};
 
 export default Results;

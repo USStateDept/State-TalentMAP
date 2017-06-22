@@ -4,7 +4,6 @@ export default (props) => {
   const { children } = props; // eslint-disable-line react/prop-types
   const style = {
     backgroundColor: '#dfdfdf',
-    // backgroundImage: `url("${logo}")`,
     backgroundPosition: '-0.25rem 0.75rem',
     backgroundRepeat: 'no-repeat',
     backgroundSize: '5rem',

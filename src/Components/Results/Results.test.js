@@ -27,8 +27,10 @@ describe('ResultsComponent', () => {
     },
   ];
 
+  const api = 'http://localhost:3005';
+
   beforeEach(() => {
-    results = TestUtils.renderIntoDocument(<Results posts={posts} location={{}} />);
+    results = TestUtils.renderIntoDocument(<Results posts={posts} api={api} location={{}} />);
   });
 
   it('is defined', () => {
@@ -36,7 +38,7 @@ describe('ResultsComponent', () => {
   });
 
   it('can set state of posts', () => {
-    const wrapper = shallow(<Results />);
+    const wrapper = shallow(<Results api={api} />);
     wrapper.setState({ posts });
     expect(wrapper.instance().state.posts.length).toBe(2);
   });

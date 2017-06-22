@@ -6,13 +6,15 @@ import Results from '../Results/Results';
 import Details from '../Details/Details';
 import items from '../Home/items.json';
 
+const api = 'http://localhost:3005';
+
 const App = () => (
   <HashRouter>
     <main>
       <Switch>
-        <Route exact path="/" render={() => <Home items={items} />} />
-        <Route path="/results" component={Results} />
-        <Route path="/details/:id" component={Details} />
+        <Route exact path="/" component={() => <Home items={items} />} />
+        <Route path="/results" component={props => <Results {...props} api={api} />} />
+        <Route path="/details/:id" component={props => <Details {...props} api={api} />} />
       </Switch>
     </main>
   </HashRouter>
