@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
+import PropTypes from 'prop-types';
 import Wrapper from '../Wrapper/Wrapper';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: [
-        { title: 'Skill Code', selection_ref: 'skill', text: 'Choose skill codes', choices: [{ code: 1, description: 'accounting' }, { code: 2, description: 'economics' }, { code: 3, description: 'information technology' }] },
-        { title: 'Language', selection_ref: 'language', text: 'Choose language', choices: [{ code: 1, description: 'English' }, { code: 2, description: 'Spanish' }, { code: 3, description: 'French' }] },
-        { title: 'Grade', selection_ref: 'grade', text: 'Choose grades', choices: [{ code: 1, description: '1' }, { code: 2, description: '2' }, { code: 3, description: '3' }] },
-      ],
       selection: { skill: [], language: [], grade: [], q: '' },
       qString: null,
     };
+  }
+
+  componentWillMount() {
+    let { items } = this.state;
+    items = this.props.items;
+    this.setState({ items });
   }
 
   createQueryString() {
@@ -124,5 +126,25 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      selection_ref: PropTypes.string,
+      text: PropTypes.string,
+      choices: PropTypes.arrayOf(
+        PropTypes.shape({
+          code: PropTypes.number,
+          description: PropTypes.string,
+        }),
+      ),
+    }),
+  ),
+};
+
+Home.defaultProps = {
+  items: [],
+};
 
 export default Home;
