@@ -1,7 +1,10 @@
+// USWDS
 @import '../../node_modules/uswds/dist/css/uswds.css';
 
-@import "./_variables";
+// Global
+@import 'variables';
 
-@import "_details";
-@import "_home";
-@import "_results";
+// Components
+@import 'details';
+@import 'home';
+@import 'results';
