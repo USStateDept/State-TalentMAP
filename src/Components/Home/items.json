@@ -16,7 +16,8 @@
     "choices": [
       { "code": 1, "description": "English" },
       { "code": 2, "description": "Spanish" },
-      { "code": 3, "description": "French" }
+      { "code": 3, "description": "French" },
+      { "code": 4, "description": "German" }
       ]
     },
   {

@@ -1,3 +1,10 @@
 .home {
-  // empty
+
+  .hidden {
+    display: none;
+  }
+
+  .alert-text {
+    color: $alert-red;
+  }
 }
