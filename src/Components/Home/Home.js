@@ -84,11 +84,11 @@ class Home extends Component {
             <div className="usa-width-one-half">
               <div className="usa-search usa-search-big">
                 <div role="search">
-                  <label className="usa-sr-only" htmlFor="search-field-big">
-                      Search big
+                  <label className="usa-sr-only" htmlFor="search-field">
+                      Search
                   </label>
                   <input
-                    id="search-field-big"
+                    id="search-field"
                     value={selection.q}
                     onChange={e => this.changeText(e)}
                     type="search"
