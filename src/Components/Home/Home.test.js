@@ -23,8 +23,8 @@ describe('HomeComponent', () => {
 
   it('can change text', () => {
     const wrapper = shallow(<Home items={items} />);
-    wrapper.find('#search-field-big').simulate('change', { target: { value: 'info Tech' } });
-    expect(wrapper.find('#search-field-big').props().value).toBe('info Tech');
+    wrapper.find('#search-field').simulate('change', { target: { value: 'info Tech' } });
+    expect(wrapper.find('#search-field').props().value).toBe('info Tech');
   });
 
   it('can create a query string', () => {
@@ -51,12 +51,12 @@ describe('HomeComponent', () => {
     // no filters are initially set, so should return true
     expect(wrapper.instance().shouldDisableSearch()).toBe(true);
     // enable search filter
-    wrapper.find('#search-field-big').simulate('change', { target: { value: 'test' } });
+    wrapper.find('#search-field').simulate('change', { target: { value: 'test' } });
     // select a checkbox filter
     wrapper.find('#1-1').simulate('change', (1, { target: { checked: true, value: 1 } }));
     expect(wrapper.instance().shouldDisableSearch()).toBe(false);
     // remove the original search filter
-    wrapper.find('#search-field-big').simulate('change', { target: { value: '' } });
+    wrapper.find('#search-field').simulate('change', { target: { value: '' } });
     // one filter is selected, should return false
     expect(wrapper.instance().shouldDisableSearch()).toBe(true);
   });
