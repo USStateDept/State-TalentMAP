@@ -11,3 +11,6 @@ insert_final_newline = true
 # Set default charset
 [*.{js,jsx}]
 charset = utf-8
+
+[*.scss]
+trim_trailing_whitespace = true
