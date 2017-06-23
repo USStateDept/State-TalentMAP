@@ -105,7 +105,7 @@ class Home extends Component {
                     <button className="usa-button-disabled" disabled="true" type="submit">
                       <span className="usa-search-submit-text usa-button-disabled">Search</span>
                     </button>
-                    <span className="alert-text">Enter at least two search criteria</span>
+                    <span className="alert-text">Select from at least two search filters</span>
                   </div>
                 </div>
               </div>
