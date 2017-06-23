@@ -12,3 +12,5 @@ engines:
     extensions:
     - .js
     - .jsx
+  scss-lint:
+    enabled: true
