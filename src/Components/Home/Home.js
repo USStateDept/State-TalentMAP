@@ -53,7 +53,7 @@ class Home extends Component {
   render() {
     const { items, selection, qString } = this.state;
     return (
-      <div id="main-content" className="Home">
+      <div id="main-content" className="home">
         <Wrapper>
           <ul className="usa-accordion usa-accordion-bordered">
             {items.map((item, i) => {
