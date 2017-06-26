@@ -8,28 +8,31 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill: [], language: [], grade: [], q: '' },
+      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [], q: '' },
       items: [
         {
           title: 'Skill code',
+          description: 'skill',
           endpoint: 'position/skills',
-          selectionRef: 'skill',
+          selectionRef: 'skill__code__in',
           text: 'Choose skill codes',
           choices: [
           ],
         },
         {
           title: 'Language',
+          description: 'language',
           endpoint: 'language',
-          selectionRef: 'language',
+          selectionRef: 'languages__language__code__in',
           text: 'Choose languages',
           choices: [
           ],
         },
         {
           title: 'Grade',
+          description: 'grade',
           endpoint: 'position/grades',
-          selectionRef: 'grade',
+          selectionRef: 'grade__code__in',
           text: 'Choose grades',
           choices: [
           ],
@@ -51,19 +54,13 @@ class Home extends Component {
     const api = this.props.api;
     this.state.items.forEach((item, i) => {
       const endpoint = item.endpoint;
-      axios.get(`${api}/${endpoint}`)
+      axios.get(`${api}/${endpoint}/`)
         .then((res) => {
           const filters = res.data;
-          console.log(res.data);
           this.state.items[i].choices = filters;
-          console.log(this.state.items);
           const items = this.state.items;
           items[i].choices = filters;
-
-          // update state
-          this.setState({
-            items,
-          });
+          this.setState({ items });
         });
     });
   }
@@ -80,6 +77,8 @@ class Home extends Component {
     Object.keys(copy).forEach((key) => {
       if (!copy[key] || !copy[key].length) {
         delete copy[key];
+      } else if (key !== 'q') {
+        copy[key] = copy[key].join();
       }
     });
     qString = queryString.stringify(copy);
@@ -170,8 +169,8 @@ class Home extends Component {
                 const id = item.id || `item${i}`;
                 const checks = item.choices.map(choice => (
                   <div>
-                    { items[i].selectionRef === 'skill' ?
-                      <div key={choice.code} className="usa-width-one-fourth">
+                    { items[i].description === 'skill' ?
+                      <div key={choice.code} className="usa-width-one-third">
                         <input
                           id={`${i}-${choice.code}`}
                           type="checkbox"
@@ -182,13 +181,13 @@ class Home extends Component {
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${i}-${choice.description}`}>
+                        <label htmlFor={`${i}-${choice.description}`} style={{ 'margin-right': '5px' }}>
                           {choice.description}
                         </label>
                       </div>
                     : null
                     }
-                    { items[i].selectionRef === 'language' ?
+                    { items[i].description === 'language' ?
                       <div key={choice.code} className="usa-width-one-fourth">
                         <input
                           id={`${i}-${choice.code}`}
@@ -203,43 +202,41 @@ class Home extends Component {
                         <label htmlFor={`${i}-${choice.short_description}`}>
                           {choice.short_description}
                         </label>
-                        { items[i].selectionRef === 'language' ?
-                          <div>
-                          Written
-                          <div className="button_wrapper">
-                            {[1, 2, 3, 4, 5].map(a => (
-                              <button
-                                key={`${choice.short_description}-written-${a}`}
-                                id={`${choice.short_description}-written-${a}`}
-                                className={this.state.proficiency[`${choice.short_description}-written`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
-                                onClick={() => this.changeProficiency(`${choice.short_description}-written`, a.toString(), choice.code)}
-                              >
-                                {a}
-                              </button>
-                            ),
-                            )}
-                          </div>
-                          Spoken
-                          <div className="button_wrapper">
-                            {[1, 2, 3, 4, 5].map(a => (
-                              <button
-                                key={`${choice.short_description}-spoken-${a}`}
-                                id={`${choice.short_description}-spoken-${a}`}
-                                className={this.state.proficiency[`${choice.short_description}-spoken`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
-                                onClick={() => this.changeProficiency(`${choice.short_description}-spoken`, a.toString(), choice.code)}
-                              >
-                                {a}
-                              </button>
-                            ),
-                            )}
-                          </div>
-                            <br />
-                          </div>
-                        : null }
+                        <div>
+                        Written
+                        <div className="button_wrapper">
+                          {[1, 2, 3, 4, 5].map(a => (
+                            <button
+                              key={`${choice.short_description}-written-${a}`}
+                              id={`${choice.short_description}-written-${a}`}
+                              className={this.state.proficiency[`${choice.short_description}-written`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
+                              onClick={() => this.changeProficiency(`${choice.short_description}-written`, a.toString(), choice.code)}
+                            >
+                              {a}
+                            </button>
+                          ),
+                          )}
+                        </div>
+                        Spoken
+                        <div className="button_wrapper">
+                          {[1, 2, 3, 4, 5].map(a => (
+                            <button
+                              key={`${choice.short_description}-spoken-${a}`}
+                              id={`${choice.short_description}-spoken-${a}`}
+                              className={this.state.proficiency[`${choice.short_description}-spoken`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
+                              onClick={() => this.changeProficiency(`${choice.short_description}-spoken`, a.toString(), choice.code)}
+                            >
+                              {a}
+                            </button>
+                          ),
+                          )}
+                        </div>
+                          <br />
+                        </div>
                       </div>
                     : null
                     }
-                    { items[i].selectionRef === 'grade' ?
+                    { items[i].description === 'grade' ?
                       <div key={choice.code} className="usa-width-one-fourth">
                         <input
                           id={`${i}-${choice.code}`}

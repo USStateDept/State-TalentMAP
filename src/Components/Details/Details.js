@@ -17,28 +17,40 @@ class Details extends Component {
   getDetails(id) {
     const query = id;
     const api = this.props.api;
-    axios.get(`${api}/posts/${query}`)
+    axios.get(`${api}/position/?position_number=${query}`)
         .then((res) => {
-          const details = res.data;
+          const details = res.data[0];
           this.setState({ details });
         });
   }
 
   render() {
     const { details } = this.state;
+    const languageList = (details.languages && details.languages.length)
+      ? details.languages.map(choice => (
+        <span key={`${choice}-choice`}> {choice.language} </span>
+      )) : <span key="no-languages"> None listed </span>;
     return (
       <div id="main-content">
         <div className="usa-grid-full">
           <div style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px' }}>
-            <h3> ID: {details.id} </h3>
+            <h3> Position Number: {details.position_number} </h3>
             <p>
-              Skill: {details.skill_text}
-              <br />
-              Language: {details.language_text}
-              <br />
               Grade: {details.grade}
               <br />
-              City: {details.city}
+              Skill: {details.skill}
+              <br />
+              Bureau: {details.bureau}
+              <br />
+              Organization: {details.organization}
+              <br />
+              Overseas: {details.is_overseas ? 'Yes' : 'No'}
+              <br />
+              Language: <span>{languageList}</span>
+              <br />
+              Created: {details.create_date}
+              <br />
+              Updated: {details.update_date}
             </p>
           </div>
         </div>
