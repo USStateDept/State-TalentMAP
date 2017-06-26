@@ -89,11 +89,11 @@ class Home extends Component {
   changeCheck(ref, e) {
     const { selection } = this.state;
     if (e.target.checked) {
-      selection[Object.keys(selection)[ref]].push(parseInt(e.target.value, 10));
+      selection[Object.keys(selection)[ref]].push(e.target.value);
     } else {
       selection[Object.keys(selection)[ref]]
         .splice(selection[Object.keys(selection)[ref]]
-          .indexOf(parseInt(e.target.value, 10)), 1);
+          .indexOf(e.target.value), 1);
     }
     this.setState({ selection });
     this.createQueryString();
