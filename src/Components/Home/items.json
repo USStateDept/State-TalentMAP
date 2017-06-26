@@ -1,7 +1,7 @@
 [
   {
     "title": "Skill code",
-    "selection_ref": "skill",
+    "selectionRef": "skill",
     "text": "Choose skill codes",
     "choices": [
       { "code": 1, "description": "accounting" },
@@ -11,7 +11,7 @@
   },
   {
     "title": "Language",
-    "selection_ref": "language",
+    "selectionRef": "language",
     "text": "Choose languages",
     "choices": [
       { "code": 1, "description": "English" },
@@ -22,7 +22,7 @@
     },
   {
     "title": "Grade",
-    "selection_ref": "grade",
+    "selectionRef": "grade",
     "text": "Choose grades",
     "choices": [
       { "code": 1, "description": "1" },
