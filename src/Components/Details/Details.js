@@ -6,7 +6,7 @@ class Details extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      details: {}, // eslint-disable-line react/prop-types
+      details: {},
     };
   }
 

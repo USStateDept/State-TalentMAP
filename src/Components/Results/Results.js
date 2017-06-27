@@ -6,7 +6,7 @@ class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: props.results || [], // eslint-disable-line react/prop-types
+      posts: [],
     };
   }
 

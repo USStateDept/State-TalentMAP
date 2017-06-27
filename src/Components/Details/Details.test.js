@@ -35,10 +35,11 @@ describe('DetailsComponent', () => {
     );
   });
 
-  it('is defined', () => {
+  it('is defined', (done) => {
     const f = () => {
       setTimeout(() => {
         expect(detailsItem).toBeDefined();
+        done();
       }, 0);
     };
     f();

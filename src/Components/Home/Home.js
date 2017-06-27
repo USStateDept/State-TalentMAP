@@ -44,15 +44,15 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    if (this.props.filters) { // eslint-disable-line react/prop-types
-      this.props.filters.forEach((f, i) => { // eslint-disable-line react/prop-types
+    if (this.props.filters.length) {
+      this.props.filters.forEach((f, i) => {
         this.state.items[i].choices = f;
         const items = this.state.items;
         items[i].choices = f;
         this.setState({ items });
       });
     } else {
-      this.getFilters(); // eslint-disable-line react/prop-types
+      this.getFilters();
     }
   }
 
@@ -292,9 +292,22 @@ class Home extends Component {
 
 Home.propTypes = {
   api: PropTypes.string.isRequired,
+  filters: PropTypes.arrayOf(
+  PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      code: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      long_description: PropTypes.string,
+      short_description: PropTypes.string,
+      effective_date: PropTypes.string,
+    }),
+  ),
+),
 };
 
 Home.defaultProps = {
+  filters: [],
 };
 
 export default Home;

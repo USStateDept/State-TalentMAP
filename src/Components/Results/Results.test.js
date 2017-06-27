@@ -7,6 +7,7 @@ import Results from './Results';
 
 describe('ResultsComponent', () => {
   let results = null;
+  let wrapper = null;
 
   const posts = [
     { id: 6, grade: '05', skill: 'OFFICE MANAGEMENT (9017)', bureau: '150000', organization: 'YAOUNDE CAMEROON (YAOUNDE)', position_number: '00025003', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }] },
@@ -17,6 +18,7 @@ describe('ResultsComponent', () => {
 
   beforeEach(() => {
     results = TestUtils.renderIntoDocument(<Results results={posts} api={api} location={{ search: '' }} />);
+    wrapper = shallow(<Results api={api} location={{ search: '' }} />);
     const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onGet('http://localhost:8000/api/v1/position/').reply(200,
@@ -24,10 +26,11 @@ describe('ResultsComponent', () => {
     );
   });
 
-  it('is defined', () => {
+  it('is defined', (done) => {
     const f = () => {
       setTimeout(() => {
         expect(results).toBeDefined();
+        done();
       }, 0);
     };
     f();
@@ -40,7 +43,6 @@ describe('ResultsComponent', () => {
       posts,
     );
 
-    const wrapper = shallow(<Results api={api} location={{ search: '' }} />);
     const f = () => {
       setTimeout(() => {
         expect(wrapper.instance().state.posts.length).toBe(2);
@@ -50,8 +52,13 @@ describe('ResultsComponent', () => {
     f();
   });
 
-  it('can set state of posts', () => {
-    const wrapper = shallow(<Results results={posts} api={api} location={{ search: '' }} />);
-    expect(wrapper.instance().state.posts.length).toBe(2);
+  it('can set state of posts', (done) => {
+    const f = () => {
+      setTimeout(() => {
+        expect(wrapper.instance().state.posts.length).toBe(2);
+        done();
+      }, 0);
+    };
+    f();
   });
 });
