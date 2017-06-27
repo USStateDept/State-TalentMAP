@@ -19,7 +19,6 @@ class Results extends Component {
   getPosts(q) {
     const query = q;
     const api = this.props.api;
-    console.log(`${api}/position/${query}`);
     ajax(`${api}/position/${query}`)
       .then((res) => {
         const posts = res.data;
@@ -32,29 +31,22 @@ class Results extends Component {
     return (
       <div id="main-content">
         <div className="usa-grid-full">
-          { posts.map((post) => {
-            const languageList = post.languages.length ? post.languages.map(choice => (
-              <span key={`${post.position_number}-${choice}-choice`}> {choice.language} </span>
-            )) : <span key={`${post.position_number}-no-languages`}> None listed </span>;
-            return (
-              <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px' }}>
-                <a href={`/#/details/${post.position_number}`}>
-                  <h3> Position Number: {post.position_number} </h3>
-                </a>
-                <p>
+          { posts.map(post => (
+            <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+              <a href={`/#/details/${post.position_number}`}>
+                <h3> Position Number: {post.position_number} </h3>
+              </a>
+              <p>
+                  Grade: {post.grade}
+                <br />
                   Skill: {post.skill}
-                  <br />
+                <br />
                   Bureau: {post.bureau}
-                  <br />
+                <br />
                   Organization: {post.organization}
-                  <br />
-                  Overseas: {post.is_overseas ? 'Yes' : 'No'}
-                  <br />
-                  Language: <span>{languageList}</span>
-                </p>
-              </div>
-            );
-          })}
+              </p>
+            </div>
+            ))}
         </div>
       </div>
     );

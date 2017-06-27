@@ -33,7 +33,7 @@ class Details extends Component {
     return (
       <div id="main-content">
         <div className="usa-grid-full">
-          <div style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px' }}>
+          <div style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <h3> Position Number: {details.position_number} </h3>
             <p>
               Grade: {details.grade}
