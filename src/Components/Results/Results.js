@@ -34,7 +34,7 @@ class Results extends Component {
               <span key={`${post.position_number}-${choice}-choice`}> {choice.language} </span>
             )) : <span key={`${post.position_number}-no-languages`}> None listed </span>;
             return (
-              <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px' }}>
+              <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
                 <a href={`/#/details/${post.position_number}`}>
                   <h3> Position Number: {post.position_number} </h3>
                 </a>
