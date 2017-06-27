@@ -1,34 +1,59 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import Details from './Details';
 
 describe('DetailsComponent', () => {
   let detailsItem = null;
 
+  const id = '00003026';
+
+  const api = 'http://localhost:8000/api/v1';
+
   const details = {
-    id: 84,
-    skill: 1,
-    skill_text: 'accounting',
-    language: 1,
-    language_text: 'english',
-    grade: 1,
-    city: 'Mazowe',
+    id: 4,
+    grade: '05',
+    skill: 'OFFICE MANAGEMENT (9017)',
+    bureau: '150000',
+    organization: 'FREETOWN SIERRA LEONE (FREETOWN)',
+    position_number: '00003026',
+    is_overseas: true,
+    create_date: '2006-09-20',
+    update_date: '2017-06-08',
+    languages: [],
   };
 
-  const api = 'http://localhost:3005';
-
   beforeEach(() => {
-    detailsItem = TestUtils.renderIntoDocument(<Details details={details} api={api} />);
+    detailsItem = TestUtils.renderIntoDocument(<Details id={id} api={api} />);
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number=00003026').reply(200, [
+      details,
+    ],
+    );
   });
 
-  it('is defined', () => {
-    expect(detailsItem).toBeDefined();
+  it('is defined', (done) => {
+    const f = () => {
+      setTimeout(() => {
+        expect(detailsItem).toBeDefined();
+        done();
+      }, 0);
+    };
+    f();
   });
 
-  it('can set state of details', () => {
-    const wrapper = shallow(<Details api={api} />);
-    wrapper.setState({ details });
-    expect(wrapper.instance().state.details.id).toBe(84);
+  it('can set state of details', (done) => {
+    const wrapper = shallow(<Details match={{ params: { id } }} api={api} />);
+
+    const f = () => {
+      setTimeout(() => {
+        expect(wrapper.instance().state.details.id).toBe(4);
+        done();
+      }, 0);
+    };
+    f();
   });
 });

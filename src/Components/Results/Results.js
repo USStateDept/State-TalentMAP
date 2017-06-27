@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { ajax } from '../../utilities';
 
 class Results extends Component {
   constructor(props) {
@@ -10,14 +10,16 @@ class Results extends Component {
     };
   }
 
-  componentDidMount() {
-    this.getPosts(this.props.location.search); // eslint-disable-line react/prop-types
+  componentWillMount() {
+    if (!this.props.results) { // eslint-disable-line react/prop-types
+      this.getPosts(this.props.location.search); // eslint-disable-line react/prop-types
+    }
   }
 
   getPosts(q) {
     const query = q;
     const api = this.props.api;
-    axios.get(`${api}/posts${query}`)
+    ajax(`${api}/position/${query}`)
       .then((res) => {
         const posts = res.data;
         this.setState({ posts });
@@ -30,18 +32,18 @@ class Results extends Component {
       <div id="main-content">
         <div className="usa-grid-full">
           { posts.map(post => (
-            <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px' }}>
-              <a href={`/#/details/${post.id}`}>
-                <h3> ID: {post.id} </h3>
+            <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+              <a href={`/#/details/${post.position_number}`}>
+                <h3> Position Number: {post.position_number} </h3>
               </a>
               <p>
-                Skill: {post.skill_text}
+                  Grade: {post.grade}
                 <br />
-                Language: {post.language_text}
+                  Skill: {post.skill}
                 <br />
-                Grade: {post.grade}
+                  Bureau: {post.bureau}
                 <br />
-                City: {post.city}
+                  Organization: {post.organization}
               </p>
             </div>
             ))}

@@ -1,35 +1,38 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import Wrapper from '../Wrapper/Wrapper';
+import { ajax } from '../../utilities';
 
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill: [], language: [], grade: [], q: '' },
+      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [], position_number__icontains: '' },
       items: [
         {
           title: 'Skill code',
+          description: 'skill',
           endpoint: 'position/skills',
-          selectionRef: 'skill',
+          selectionRef: 'skill__code__in',
           text: 'Choose skill codes',
           choices: [
           ],
         },
         {
           title: 'Language',
+          description: 'language',
           endpoint: 'language',
-          selectionRef: 'language',
+          selectionRef: 'languages__language__code__in',
           text: 'Choose languages',
           choices: [
           ],
         },
         {
           title: 'Grade',
+          description: 'grade',
           endpoint: 'position/grades',
-          selectionRef: 'grade',
+          selectionRef: 'grade__code__in',
           text: 'Choose grades',
           choices: [
           ],
@@ -41,29 +44,29 @@ class Home extends Component {
   }
 
   componentWillMount() {
-  }
-
-  componentDidMount() {
-    this.getFilters(); // eslint-disable-line react/prop-types
+    if (this.props.filters.length) {
+      this.props.filters.forEach((f, i) => {
+        this.state.items[i].choices = f;
+        const items = this.state.items;
+        items[i].choices = f;
+        this.setState({ items });
+      });
+    } else {
+      this.getFilters();
+    }
   }
 
   getFilters() {
     const api = this.props.api;
     this.state.items.forEach((item, i) => {
       const endpoint = item.endpoint;
-      axios.get(`${api}/${endpoint}`)
+      ajax(`${api}/${endpoint}/`)
         .then((res) => {
           const filters = res.data;
-          console.log(res.data);
           this.state.items[i].choices = filters;
-          console.log(this.state.items);
           const items = this.state.items;
           items[i].choices = filters;
-
-          // update state
-          this.setState({
-            items,
-          });
+          this.setState({ items });
         });
     });
   }
@@ -80,6 +83,8 @@ class Home extends Component {
     Object.keys(copy).forEach((key) => {
       if (!copy[key] || !copy[key].length) {
         delete copy[key];
+      } else if (key !== 'position_number__icontains') {
+        copy[key] = copy[key].join();
       }
     });
     qString = queryString.stringify(copy);
@@ -89,11 +94,11 @@ class Home extends Component {
   changeCheck(ref, e) {
     const { selection } = this.state;
     if (e.target.checked) {
-      selection[Object.keys(selection)[ref]].push(parseInt(e.target.value, 10));
+      selection[Object.keys(selection)[ref]].push(e.target.value);
     } else {
       selection[Object.keys(selection)[ref]]
         .splice(selection[Object.keys(selection)[ref]]
-          .indexOf(parseInt(e.target.value, 10)), 1);
+          .indexOf(e.target.value), 1);
     }
     this.setState({ selection });
     this.createQueryString();
@@ -101,7 +106,7 @@ class Home extends Component {
 
   changeText(e) {
     const { selection } = this.state;
-    selection.q = e.target.value;
+    selection.position_number__icontains = e.target.value;
     this.setState({ selection });
     this.createQueryString();
   }
@@ -138,7 +143,7 @@ class Home extends Component {
                   </label>
                   <input
                     id="search-field"
-                    value={selection.q}
+                    value={selection.position_number__icontains}
                     onChange={e => this.changeText(e)}
                     type="search"
                     name="search"
@@ -169,89 +174,87 @@ class Home extends Component {
               {items.map((item, i) => {
                 const id = item.id || `item${i}`;
                 const checks = item.choices.map(choice => (
-                  <div>
-                    { items[i].selectionRef === 'skill' ?
-                      <div key={choice.code} className="usa-width-one-fourth">
+                  <div key={`{id}-${choice.code}`}>
+                    { items[i].description === 'skill' ?
+                      <div key={choice.code} className="usa-width-one-third">
                         <input
-                          id={`${i}-${choice.code}`}
+                          id={`S${choice.code}`}
                           type="checkbox"
-                          title={`${i}-${choice.description}`}
+                          title={`${choice.description}`}
                           name="historical-figures-1"
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${i}-${choice.description}`}>
+                        <label htmlFor={`S${choice.description}`} style={{ marginRight: '5px' }}>
                           {choice.description}
                         </label>
                       </div>
                     : null
                     }
-                    { items[i].selectionRef === 'language' ?
+                    { items[i].description === 'language' ?
                       <div key={choice.code} className="usa-width-one-fourth">
                         <input
-                          id={`${i}-${choice.code}`}
+                          id={`${choice.code}`}
                           type="checkbox"
-                          title={`${i}-${choice.short_description}`}
+                          title={`${choice.short_description}`}
                           name="historical-figures-1"
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${i}-${choice.short_description}`}>
+                        <label htmlFor={`${choice.short_description}`}>
                           {choice.short_description}
                         </label>
-                        { items[i].selectionRef === 'language' ?
-                          <div>
-                          Written
-                          <div className="button_wrapper">
-                            {[1, 2, 3, 4, 5].map(a => (
-                              <button
-                                key={`${choice.short_description}-written-${a}`}
-                                id={`${choice.short_description}-written-${a}`}
-                                className={this.state.proficiency[`${choice.short_description}-written`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
-                                onClick={() => this.changeProficiency(`${choice.short_description}-written`, a.toString(), choice.code)}
-                              >
-                                {a}
-                              </button>
-                            ),
-                            )}
-                          </div>
-                          Spoken
-                          <div className="button_wrapper">
-                            {[1, 2, 3, 4, 5].map(a => (
-                              <button
-                                key={`${choice.short_description}-spoken-${a}`}
-                                id={`${choice.short_description}-spoken-${a}`}
-                                className={this.state.proficiency[`${choice.short_description}-spoken`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
-                                onClick={() => this.changeProficiency(`${choice.short_description}-spoken`, a.toString(), choice.code)}
-                              >
-                                {a}
-                              </button>
-                            ),
-                            )}
-                          </div>
-                            <br />
-                          </div>
-                        : null }
+                        <div>
+                        Written
+                        <div className="button_wrapper">
+                          {[1, 2, 3, 4, 5].map(a => (
+                            <button
+                              key={`${choice.short_description}-written-${a}`}
+                              id={`${choice.short_description}-written-${a}`}
+                              className={this.state.proficiency[`${choice.short_description}-written`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
+                              onClick={() => this.changeProficiency(`${choice.short_description}-written`, a.toString(), choice.code)}
+                            >
+                              {a}
+                            </button>
+                          ),
+                          )}
+                        </div>
+                        Spoken
+                        <div className="button_wrapper">
+                          {[1, 2, 3, 4, 5].map(a => (
+                            <button
+                              key={`${choice.short_description}-spoken-${a}`}
+                              id={`${choice.short_description}-spoken-${a}`}
+                              className={this.state.proficiency[`${choice.short_description}-spoken`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
+                              onClick={() => this.changeProficiency(`${choice.short_description}-spoken`, a.toString(), choice.code)}
+                            >
+                              {a}
+                            </button>
+                          ),
+                          )}
+                        </div>
+                          <br />
+                        </div>
                       </div>
                     : null
                     }
-                    { items[i].selectionRef === 'grade' ?
+                    { items[i].description === 'grade' ?
                       <div key={choice.code} className="usa-width-one-fourth">
                         <input
-                          id={`${i}-${choice.code}`}
+                          id={`G${choice.code}`}
                           type="checkbox"
-                          title={`${i}-${choice.code}`}
+                          title={`grade-${choice.code}`}
                           name="historical-figures-1"
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${i}-${choice.code}`}>
+                        <label htmlFor={`G${choice.code}`}>
                           {choice.code}
                         </label>
                       </div>
@@ -289,9 +292,22 @@ class Home extends Component {
 
 Home.propTypes = {
   api: PropTypes.string.isRequired,
+  filters: PropTypes.arrayOf(
+  PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      code: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      long_description: PropTypes.string,
+      short_description: PropTypes.string,
+      effective_date: PropTypes.string,
+    }),
+  ),
+),
 };
 
 Home.defaultProps = {
+  filters: [],
 };
 
 export default Home;
