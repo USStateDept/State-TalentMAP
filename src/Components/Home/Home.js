@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import Wrapper from '../Wrapper/Wrapper';
+import { ajax } from '../../utilities';
 
 class Home extends Component {
   constructor(props) {
@@ -44,19 +44,24 @@ class Home extends Component {
   }
 
   componentWillMount() {
-  }
-
-  componentDidMount() {
-    this.getFilters(); // eslint-disable-line react/prop-types
+    if (this.props.filters) { // eslint-disable-line react/prop-types
+      this.props.filters.forEach((f, i) => { // eslint-disable-line react/prop-types
+        this.state.items[i].choices = f;
+        const items = this.state.items;
+        items[i].choices = f;
+        this.setState({ items });
+      });
+    } else {
+      this.getFilters(); // eslint-disable-line react/prop-types
+    }
   }
 
   getFilters() {
     const api = this.props.api;
     this.state.items.forEach((item, i) => {
       const endpoint = item.endpoint;
-      axios.get(`${api}/${endpoint}/`)
+      ajax(`${api}/${endpoint}/`)
         .then((res) => {
-          console.log(res.data);
           const filters = res.data;
           this.state.items[i].choices = filters;
           const items = this.state.items;
@@ -89,7 +94,6 @@ class Home extends Component {
   changeCheck(ref, e) {
     const { selection } = this.state;
     if (e.target.checked) {
-      console.log(ref, e.target.value);
       selection[Object.keys(selection)[ref]].push(e.target.value);
     } else {
       selection[Object.keys(selection)[ref]]
@@ -170,7 +174,7 @@ class Home extends Component {
               {items.map((item, i) => {
                 const id = item.id || `item${i}`;
                 const checks = item.choices.map(choice => (
-                  <div>
+                  <div key={`{id}-${choice.code}`}>
                     { items[i].description === 'skill' ?
                       <div key={choice.code} className="usa-width-one-third">
                         <input

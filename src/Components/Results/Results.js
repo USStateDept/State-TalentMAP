@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { ajax } from '../../utilities';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
+      posts: props.results || [], // eslint-disable-line react/prop-types
     };
   }
 
-  componentDidMount() {
-    this.getPosts(this.props.location.search); // eslint-disable-line react/prop-types
+  componentWillMount() {
+    if (!this.props.results) { // eslint-disable-line react/prop-types
+      this.getPosts(this.props.location.search); // eslint-disable-line react/prop-types
+    }
   }
 
   getPosts(q) {
     const query = q;
     const api = this.props.api;
-    axios.get(`${api}/position/${query}`)
+    console.log(`${api}/position/${query}`);
+    ajax(`${api}/position/${query}`)
       .then((res) => {
         const posts = res.data;
         this.setState({ posts });
@@ -39,8 +42,6 @@ class Results extends Component {
                   <h3> Position Number: {post.position_number} </h3>
                 </a>
                 <p>
-                  Grade: {post.grade}
-                  <br />
                   Skill: {post.skill}
                   <br />
                   Bureau: {post.bureau}

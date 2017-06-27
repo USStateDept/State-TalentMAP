@@ -12,7 +12,10 @@ const App = () => (
     <main>
       <Switch>
         <Route exact path="/" component={() => <Home api={api} />} />
-        <Route path="/results" component={props => <Results {...props} api={api} />} />
+        <Route
+          path="/results"
+          component={props => <Results {...props} api={api} />}
+        />
         <Route path="/details/:id" component={props => <Details {...props} api={api} />} />
       </Switch>
     </main>

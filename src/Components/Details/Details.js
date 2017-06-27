@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import { ajax } from '../../utilities';
 
 class Details extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      details: {},
+      details: {}, // eslint-disable-line react/prop-types
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getDetails(this.props.match ? this.props.match.params.id : ''); // eslint-disable-line react/prop-types
   }
 
   getDetails(id) {
     const query = id;
     const api = this.props.api;
-    axios.get(`${api}/position/?position_number=${query}`)
+    ajax(`${api}/position/?position_number=${query}`)
         .then((res) => {
           const details = res.data[0];
           this.setState({ details });
