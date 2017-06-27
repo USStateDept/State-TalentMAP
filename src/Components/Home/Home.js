@@ -8,7 +8,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [], q: '' },
+      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [], position_number__icontains: '' },
       items: [
         {
           title: 'Skill code',
@@ -56,6 +56,7 @@ class Home extends Component {
       const endpoint = item.endpoint;
       axios.get(`${api}/${endpoint}/`)
         .then((res) => {
+          console.log(res.data);
           const filters = res.data;
           this.state.items[i].choices = filters;
           const items = this.state.items;
@@ -77,7 +78,7 @@ class Home extends Component {
     Object.keys(copy).forEach((key) => {
       if (!copy[key] || !copy[key].length) {
         delete copy[key];
-      } else if (key !== 'q') {
+      } else if (key !== 'position_number__icontains') {
         copy[key] = copy[key].join();
       }
     });
@@ -88,6 +89,7 @@ class Home extends Component {
   changeCheck(ref, e) {
     const { selection } = this.state;
     if (e.target.checked) {
+      console.log(ref, e.target.value);
       selection[Object.keys(selection)[ref]].push(e.target.value);
     } else {
       selection[Object.keys(selection)[ref]]
@@ -100,7 +102,7 @@ class Home extends Component {
 
   changeText(e) {
     const { selection } = this.state;
-    selection.q = e.target.value;
+    selection.position_number__icontains = e.target.value;
     this.setState({ selection });
     this.createQueryString();
   }
@@ -137,7 +139,7 @@ class Home extends Component {
                   </label>
                   <input
                     id="search-field"
-                    value={selection.q}
+                    value={selection.position_number__icontains}
                     onChange={e => this.changeText(e)}
                     type="search"
                     name="search"
@@ -172,16 +174,16 @@ class Home extends Component {
                     { items[i].description === 'skill' ?
                       <div key={choice.code} className="usa-width-one-third">
                         <input
-                          id={`${i}-${choice.code}`}
+                          id={`S${choice.code}`}
                           type="checkbox"
-                          title={`${i}-${choice.description}`}
+                          title={`${choice.description}`}
                           name="historical-figures-1"
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${i}-${choice.description}`} style={{ 'margin-right': '5px' }}>
+                        <label htmlFor={`S${choice.description}`} style={{ marginRight: '5px' }}>
                           {choice.description}
                         </label>
                       </div>
@@ -190,16 +192,16 @@ class Home extends Component {
                     { items[i].description === 'language' ?
                       <div key={choice.code} className="usa-width-one-fourth">
                         <input
-                          id={`${i}-${choice.code}`}
+                          id={`${choice.code}`}
                           type="checkbox"
-                          title={`${i}-${choice.short_description}`}
+                          title={`${choice.short_description}`}
                           name="historical-figures-1"
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${i}-${choice.short_description}`}>
+                        <label htmlFor={`${choice.short_description}`}>
                           {choice.short_description}
                         </label>
                         <div>
@@ -239,16 +241,16 @@ class Home extends Component {
                     { items[i].description === 'grade' ?
                       <div key={choice.code} className="usa-width-one-fourth">
                         <input
-                          id={`${i}-${choice.code}`}
+                          id={`G${choice.code}`}
                           type="checkbox"
-                          title={`${i}-${choice.code}`}
+                          title={`grade-${choice.code}`}
                           name="historical-figures-1"
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${i}-${choice.code}`}>
+                        <label htmlFor={`G${choice.code}`}>
                           {choice.code}
                         </label>
                       </div>
