@@ -13,9 +13,9 @@ Install dependencies with `npm i`
 
 ### Running the App
 
-#### JSON API
+#### TalentMAP API
 
-You will need [json-api](https://github.com/ethanresnick/json-api) running locally on port 3005 using the included `db.json` file. You can do so by running `npm i json-api -g` and `json-server --watch db.json --port 3005` from the project root.
+You will need the [State TalentMAP API](https://github.com/18F/State-TalentMAP-API) running locally in order for this application to make requests to the API.
 
 #### React Application 
 
