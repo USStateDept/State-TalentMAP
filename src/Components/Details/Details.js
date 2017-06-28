@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { ajax } from '../../utilities';
+import FavoritesButton from '../FavoritesButton/FavoritesButton';
 
 class Details extends Component {
   constructor(props) {
@@ -24,8 +25,18 @@ class Details extends Component {
         });
   }
 
+  detailsExist() {
+    let exists = false;
+    if (Object.keys(this.state.details).length) {
+      exists = true;
+    }
+    return exists;
+  }
+
   render() {
     const { details } = this.state;
+    const favoritesButton = this.detailsExist() ?
+      (<FavoritesButton refKey={details.position_number} type="fav" />) : null;
     const languageList = (details.languages && details.languages.length)
       ? details.languages.map(choice => (
         <span key={`${choice}-choice`}> {choice.language} </span>
@@ -52,6 +63,8 @@ class Details extends Component {
               <br />
               Updated: {details.update_date}
             </p>
+            <br />
+            {favoritesButton}
           </div>
         </div>
       </div>
