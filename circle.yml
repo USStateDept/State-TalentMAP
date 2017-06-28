@@ -1,9 +1,18 @@
 machine:
   node:
     version: 6.11.0
+  environment:
+    CC_TEST_REPORTER_ID: c05c8cb360b66d7b92767ad0ffdeef2c8519f390d700b8bc2d2b7ee6c2760791
+dependencies:
+  post:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
 test:
   pre:
     - mkdir -p $CIRCLE_ARTIFACTS/react-cov/jest
     - mkdir -p $CIRCLE_ARTIFACTS/react-cov/pa11y
+    - ./cc-test-reporter before-build
   override:
-    - npm test -- --coverageDirectory $CIRCLE_ARTIFACTS/react-cov/jest
+    - npm test --coverageDirectory $CIRCLE_ARTIFACTS/react-cov/jest
+  post:
+    - ./cc-test-reporter after-build --exit-code $?
