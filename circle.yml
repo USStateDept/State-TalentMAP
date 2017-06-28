@@ -13,6 +13,6 @@ test:
     - mkdir -p $CIRCLE_ARTIFACTS/react-cov/pa11y
     - ./cc-test-reporter before-build
   override:
-    - npm test -- --coverageDirectory $CIRCLE_ARTIFACTS/react-cov/jest
+    - npm test --coverageDirectory $CIRCLE_ARTIFACTS/react-cov/jest
   post:
     - ./cc-test-reporter after-build --exit-code $?
