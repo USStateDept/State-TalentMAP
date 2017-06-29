@@ -34,7 +34,7 @@ class Results extends Component {
         <div className="usa-grid-full">
           { posts.map(post => (
             <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-              <div className="usa-grid">
+              <div className="usa-grid-full">
                 <div className="usa-width-one-half">
                   <a href={`/#/details/${post.position_number}`}>
                     <h3> Position Number: {post.position_number} </h3>
@@ -49,7 +49,7 @@ class Results extends Component {
                       Organization: {post.organization}
                   </p>
                 </div>
-                <div className="usa-width-one-half" style={{ 'text-align': 'right', 'padding-top': '20px' }}>
+                <div className="usa-width-one-half" style={{ 'text-align': 'right', 'padding-top': '25px' }}>
                   <FavoritesButton refKey={post.position_number} type="fav" />
                   <FavoritesButton refKey={post.position_number} type="compare" />
                 </div>
