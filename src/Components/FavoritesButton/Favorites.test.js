@@ -16,15 +16,15 @@ describe('FavoritesButton', () => {
 
   it('can add a favorite', () => {
     const wrapper = shallow(<FavoritesButton refKey="0036" type="fav" />);
-    wrapper.find('#changeSaved').simulate('click');
+    wrapper.find('#changeSaved-fav-0').simulate('click');
     expect(wrapper.instance().state.saved).toBe(true);
   });
 
   it('can add and remove a favorite', () => {
     const wrapper = shallow(<FavoritesButton refKey="0037" type="fav" />);
-    wrapper.find('#changeSaved').simulate('click');
+    wrapper.find('#changeSaved-fav-0').simulate('click');
     expect(wrapper.instance().state.saved).toBe(true);
-    wrapper.find('#changeSaved').simulate('click');
+    wrapper.find('#changeSaved-fav-0').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false);
   });
 });

@@ -10,7 +10,7 @@ class ResultsList extends Component {
   render() {
     return (
       <div>
-        { this.props.results.map(result => (
+        { this.props.results.map((result, i) => (
           <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <div className="usa-width-one-half">
               <a href={`/#/details/${result.position_number}`}>
@@ -27,8 +27,8 @@ class ResultsList extends Component {
               </p>
             </div>
             <div className="usa-width-one-half" style={{ textAlign: 'right', paddingTop: '25px' }}>
-              <FavoritesButton refKey={result.position_number} type="fav" />
-              <FavoritesButton refKey={result.position_number} type="compare" />
+              <FavoritesButton refKey={result.position_number} type="fav" iterator={i} />
+              <FavoritesButton refKey={result.position_number} type="compare" iterator={i} />
             </div>
           </div>
           ))}
