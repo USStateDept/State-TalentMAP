@@ -11,7 +11,8 @@
     },
     "globals": {
         "window": true,
-        "document": true
+        "document": true,
+        "localStorage": true,
     },
     "settings": {
         "import/resolver": {

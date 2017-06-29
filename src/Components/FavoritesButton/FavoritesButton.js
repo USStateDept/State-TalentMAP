@@ -11,14 +11,23 @@ class FavoritesButton extends Component {
   }
 
   componentWillMount() {
-    const localStorageKey = `${this.props.refKey}_${this.props.type}`;
+    const localStorageKey = this.props.type;
     this.setState({ localStorageKey });
   }
 
   componentDidMount() {
-    const isSaved = localStorage.getItem( // eslint-disable-line no-undef
-      this.state.localStorageKey);
-    if (isSaved) {
+    const retrievedKey = localStorage
+                          .getItem(this.state.localStorageKey);
+    let parsedKey = JSON.parse(retrievedKey);
+    const arrayExists = Array.isArray(parsedKey);
+    if (!arrayExists) {
+      localStorage.setItem(this.state.localStorageKey,
+        JSON.stringify([]));
+      parsedKey = localStorage
+                   .getItem(this.state.localStorageKey);
+    }
+    const refIsSaved = parsedKey.indexOf(this.props.refKey);
+    if (refIsSaved !== -1) {
       const saved = true;
       this.initSetSaved(saved);
     }
@@ -34,10 +43,17 @@ class FavoritesButton extends Component {
   }
 
   toggleSaved() {
+    const existingArray = JSON.parse(localStorage
+                           .getItem(this.state.localStorageKey));
+    const indexOfId = existingArray.indexOf(this.props.refKey);
     if (this.state.saved) {
-      localStorage.removeItem(this.state.localStorageKey); // eslint-disable-line no-undef
+      existingArray.splice(indexOfId, 1);
+      localStorage.setItem(this.state.localStorageKey,
+        JSON.stringify(existingArray));
     } else {
-      localStorage.setItem(this.state.localStorageKey, true); // eslint-disable-line no-undef
+      existingArray.push(this.props.refKey);
+      localStorage.setItem(this.state.localStorageKey,
+        JSON.stringify(existingArray));
     }
     this.setState({ saved: !this.state.saved });
   }
