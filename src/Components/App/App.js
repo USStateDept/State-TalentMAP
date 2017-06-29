@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route, HashRouter } from 'react-router-dom';
 
-import Home from '../Home/Home';
-import Results from '../Results/Results';
-import Details from '../Details/Details';
+import Home from '../../Containers/Home/Home';
+import Results from '../../Containers/Results/Results';
+import Details from '../../Containers/Details/Details';
 
 const api = 'http://localhost:8000/api/v1';
 
