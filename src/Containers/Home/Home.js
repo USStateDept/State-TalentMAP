@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-import Wrapper from '../Wrapper/Wrapper';
+import Wrapper from '../../Components/Wrapper/Wrapper';
 import { ajax } from '../../utilities';
 
 class Home extends Component {
