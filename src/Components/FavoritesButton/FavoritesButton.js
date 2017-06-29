@@ -43,12 +43,16 @@ class FavoritesButton extends Component {
   }
 
   render() {
-    const buttonText = this.getSavedState() ? 'Remove from Favorites' : 'Add to Favorites';
+    let fromText = null;
+    fromText = this.props.type === 'fav' ? 'Favorites' : fromText;
+    fromText = this.props.type === 'compare' ? 'Comparison' : fromText;
+    const buttonClass = this.state.saved ? 'usa-button-secondary' : '';
+    const buttonText = this.getSavedState() ? `Remove from ${fromText}` : `Add to ${fromText}`;
     return (
       <div>
-        <div className="button_wrapper">
-          <button id="changeSaved" onClick={() => this.toggleSaved()}>{buttonText}</button>
-        </div>
+        <button id="changeSaved" className={buttonClass} onClick={() => this.toggleSaved()}>
+          {buttonText}
+        </button>
       </div>
     );
   }

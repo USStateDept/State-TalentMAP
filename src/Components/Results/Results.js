@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import { ajax } from '../../utilities';
 
 class Results extends Component {
@@ -33,18 +34,26 @@ class Results extends Component {
         <div className="usa-grid-full">
           { posts.map(post => (
             <div key={post.id} id={post.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-              <a href={`/#/details/${post.position_number}`}>
-                <h3> Position Number: {post.position_number} </h3>
-              </a>
-              <p>
-                  Grade: {post.grade}
-                <br />
-                  Skill: {post.skill}
-                <br />
-                  Bureau: {post.bureau}
-                <br />
-                  Organization: {post.organization}
-              </p>
+              <div className="usa-grid">
+                <div className="usa-width-one-half">
+                  <a href={`/#/details/${post.position_number}`}>
+                    <h3> Position Number: {post.position_number} </h3>
+                  </a>
+                  <p>
+                      Grade: {post.grade}
+                    <br />
+                      Skill: {post.skill}
+                    <br />
+                      Bureau: {post.bureau}
+                    <br />
+                      Organization: {post.organization}
+                  </p>
+                </div>
+                <div className="usa-width-one-half" style={{ 'text-align': 'right', 'padding-top': '20px' }}>
+                  <FavoritesButton refKey={post.position_number} type="fav" />
+                  <FavoritesButton refKey={post.position_number} type="compare" />
+                </div>
+              </div>
             </div>
             ))}
         </div>
