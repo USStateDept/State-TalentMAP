@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FavoritesButton from '../FavoritesButton/FavoritesButton';
 
 class ResultsList extends Component {
 
@@ -35,6 +36,7 @@ class ResultsList extends Component {
             <br />
             Post: <a href="/#/post/1">1</a>
           </p>
+          <FavoritesButton refKey={details.position_number} type="fav" />
         </div>
       </div>
     );

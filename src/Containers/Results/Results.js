@@ -31,7 +31,15 @@ class Results extends Component {
     const { results } = this.state;
     return (
       <div id="main-content">
-        <ResultsList results={results} />
+        {results.length ?
+          <ResultsList results={results} />
+          :
+          <div className="usa-grid-full">
+            <center>
+              Loading...
+            </center>
+          </div>
+        }
       </div>
     );
   }
