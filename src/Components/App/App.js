@@ -4,6 +4,7 @@ import { Switch, Route, HashRouter } from 'react-router-dom';
 import Home from '../../Containers/Home/Home';
 import Results from '../../Containers/Results/Results';
 import Details from '../../Containers/Details/Details';
+import Post from '../../Containers/Post/Post';
 
 const api = 'http://localhost:8000/api/v1';
 
@@ -17,6 +18,7 @@ const App = () => (
           component={props => <Results {...props} api={api} />}
         />
         <Route path="/details/:id" component={props => <Details {...props} api={api} />} />
+        <Route path="/post/:id" component={props => <Post {...props} api={api} />} />
       </Switch>
     </main>
   </HashRouter>

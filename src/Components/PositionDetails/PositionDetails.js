@@ -32,6 +32,8 @@ class ResultsList extends Component {
             Created: {details.create_date}
             <br />
             Updated: {details.update_date}
+            <br />
+            Post: <a href="/#/post/1">1</a>
           </p>
         </div>
       </div>
