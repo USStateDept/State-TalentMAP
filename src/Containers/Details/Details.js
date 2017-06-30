@@ -29,7 +29,11 @@ class Details extends Component {
     const { details } = this.state;
     return (
       <div id="main-content">
-        <PositionDetails details={details} />
+        {Object.keys(details).length ?
+          <PositionDetails details={details} />
+          :
+          null
+        }
       </div>
     );
   }

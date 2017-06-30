@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
 
 class ResultsList extends Component {
 
@@ -8,21 +9,27 @@ class ResultsList extends Component {
 
   render() {
     return (
-      <div className="usa-grid-full">
-        { this.props.results.map(result => (
-          <div key={result.id} id={result.id} style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-            <a href={`/#/details/${result.position_number}`}>
-              <h3> Position Number: {result.position_number} </h3>
-            </a>
-            <p>
-                Grade: {result.grade}
-              <br />
-                Skill: {result.skill}
-              <br />
-                Bureau: {result.bureau}
-              <br />
-                Organization: {result.organization}
-            </p>
+      <div>
+        { this.props.results.map((result, i) => (
+          <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+            <div className="usa-width-one-half">
+              <a href={`/#/details/${result.position_number}`}>
+                <h3> Position Number: {result.position_number} </h3>
+              </a>
+              <p>
+                  Grade: {result.grade}
+                <br />
+                  Skill: {result.skill}
+                <br />
+                  Bureau: {result.bureau}
+                <br />
+                  Organization: {result.organization}
+              </p>
+            </div>
+            <div className="usa-width-one-half" style={{ textAlign: 'right', paddingTop: '25px' }}>
+              <FavoritesButton refKey={result.position_number} type="fav" iterator={i} />
+              <FavoritesButton refKey={result.position_number} type="compare" iterator={i} />
+            </div>
           </div>
           ))}
       </div>
