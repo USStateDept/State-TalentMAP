@@ -38,7 +38,7 @@ describe('DetailsComponent', () => {
     update_date: '2017-06-08',
     languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }],
   };
-  
+
   beforeEach(() => {
     detailsItem = TestUtils.renderIntoDocument(<Details id={id} api={api} />);
     const mockAdapter = new MockAdapter(axios);
