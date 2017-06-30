@@ -1,0 +1,39 @@
+version: '2'
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    command: yarn start
+    volumes:
+      - .:/app
+      - node-modules:/app/node_modules/
+    depends_on:
+      - api
+  api:
+    build:
+      context: ../State-TalentMAP-API/
+    ports:
+      - 8000:8000
+    links:
+      - db
+    depends_on:
+      - db
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ../State-TalentMAP-API/:/app
+    environment:
+      - DJANGO_SECRET_KEY=development_secret_key
+      - DATABASE_URL=postgres://talentmap-user@db/talentmap
+      - DJANGO_DEBUG=true
+  db:
+    image: postgres:9.6.3
+    volumes:
+      - pgdata:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=talentmap
+      - POSTGRES_USER=talentmap-user
+volumes:
+  pgdata:
+  node-modules:
