@@ -9,7 +9,7 @@ A comprehensive research, bidding, and matching system to match Foreign Service 
 
 ### Dependencies
 
-We use `yarn` as our package manager, available for [download here](https://yarnpkg.com/).  Where possible, we've included to corresponding commands for `npm`.
+We use `yarn` as our package manager, available for [download here](https://yarnpkg.com/).  Where possible, we've included the corresponding commands for `npm`.
 
 Install dependencies with `yarn install` or `npm i`
 
