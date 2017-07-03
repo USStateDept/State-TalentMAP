@@ -1,5 +1,6 @@
 # United States Department of State TalentMAP
 
+[![Build Status](https://circleci.com/gh/18F/State-TalentMAP.svg?style=shield)](https://circleci.com/gh/18F/State-TalentMAP/)
 [![Test Coverage](https://codeclimate.com/github/18F/State-TalentMAP/badges/coverage.svg)](https://codeclimate.com/github/18F/State-TalentMAP/coverage)
 [![Code Climate](https://codeclimate.com/github/18F/State-TalentMAP/badges/gpa.svg)](https://codeclimate.com/github/18F/State-TalentMAP)
 
@@ -11,15 +12,19 @@ A comprehensive research, bidding, and matching system to match Foreign Service 
 
 Install dependencies with `npm i`
 
-### Running the App
+### EditorConfig
 
-#### TalentMAP API
+We use [EditorConfig](http://editorconfig.org/) to ensure consistency across file formats and code editing environments.  EditorConfig supports a variety of popular code editors listed [here](http://editorconfig.org/#download). 
+
+## Running the App
+
+### TalentMAP API
 
 You will need the [State TalentMAP API](https://github.com/18F/State-TalentMAP-API) running locally in order for this application to make requests to the API.
 
-#### React Application 
+### React Application 
 
-##### `npm start` or `yarn start`
+#### `npm start` or `yarn start`
 
 Runs the app in development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -29,14 +34,14 @@ You will see the build errors and lint warnings in the console.
 
 <img src='https://camo.githubusercontent.com/41678b3254cf583d3186c365528553c7ada53c6e/687474703a2f2f692e696d6775722e636f6d2f466e4c566677362e706e67' width='600' alt='Build errors'>
 
-##### `npm test` or `yarn test`
+#### `npm test` or `yarn test`
 
 Runs the test watcher in an interactive mode.<br>
 By default, runs tests related to files changed since the last commit.
 
 [Read more about testing.](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests)
 
-##### `npm run build` or `yarn build`
+#### `npm run build` or `yarn build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
