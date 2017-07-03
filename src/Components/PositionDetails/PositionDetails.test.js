@@ -21,4 +21,11 @@ describe('PositionDetailsComponent', () => {
     wrapper = shallow(<PositionDetails details={detailsObject} />);
     expect(wrapper.instance().props.details.id).toBe(6);
   });
+
+  it('handles different props', () => {
+    Object.assign(detailsObject, { languages: [], is_overseas: false });
+
+    wrapper = shallow(<PositionDetails details={detailsObject} />);
+    expect(wrapper.instance().props.details.languages.length).toBe(0);
+  });
 });
