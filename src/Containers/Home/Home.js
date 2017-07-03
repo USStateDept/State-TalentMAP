@@ -149,7 +149,7 @@ class Home extends Component {
                     name="search"
                   />
                   <div id="enabled-search" className={enableSearch}>
-                    <a href={`/#/results?${qString}`}>
+                    <a href={`/results?${qString}`}>
                       <button type="submit">
                         <span className="usa-search-submit-text">Search</span>
                       </button>
