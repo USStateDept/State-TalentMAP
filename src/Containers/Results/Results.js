@@ -13,7 +13,7 @@ class Results extends Component {
 
   componentWillMount() {
     if (!this.props.results) { // eslint-disable-line react/prop-types
-      this.getPosts(this.props.location.search); // eslint-disable-line react/prop-types
+      this.getPosts(window.location.search); // eslint-disable-line react/prop-types
     }
   }
 
