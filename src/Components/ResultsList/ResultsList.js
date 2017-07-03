@@ -13,7 +13,7 @@ class ResultsList extends Component {
         { this.props.results.map((result, i) => (
           <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <div className="usa-width-one-half">
-              <a href={`/#/details/${result.position_number}`}>
+              <a href={`/details/${result.position_number}`}>
                 <h3> Position Number: {result.position_number} </h3>
               </a>
               <p>
