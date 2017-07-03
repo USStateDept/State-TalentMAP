@@ -1,5 +1,6 @@
 # United States Department of State TalentMAP
 
+[![Build Status](https://circleci.com/gh/18F/State-TalentMAP.svg?style=shield)](https://circleci.com/gh/18F/State-TalentMAP/)
 [![Test Coverage](https://codeclimate.com/github/18F/State-TalentMAP/badges/coverage.svg)](https://codeclimate.com/github/18F/State-TalentMAP/coverage)
 [![Code Climate](https://codeclimate.com/github/18F/State-TalentMAP/badges/gpa.svg)](https://codeclimate.com/github/18F/State-TalentMAP)
 
