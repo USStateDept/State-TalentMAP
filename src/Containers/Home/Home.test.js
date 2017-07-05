@@ -10,7 +10,6 @@ import Home from './Home';
 const api = 'http://localhost:8000/api/v1';
 
 describe('HomeComponent', () => {
-
   const filters = [
     [
           { id: 2, code: '0010', description: 'EXECUTIVE (PAS)' },
