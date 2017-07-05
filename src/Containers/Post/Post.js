@@ -9,7 +9,7 @@ class Post extends Component {
     this.state = {
       post: {
         id: 100,
-        grade: '05',
+        country: 'United Kingdom',
         city: 'London',
         type: 'type',
         poc: 'John Doe',

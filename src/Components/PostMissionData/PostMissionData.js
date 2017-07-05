@@ -16,7 +16,7 @@ class PostMissionData extends Component {
       <div className="usa-grid-full">
         <div>
           <p>
-            Country: {post.grade}
+            Country: {post.country}
             <br />
             City: {post.city}
             <br />
@@ -47,7 +47,7 @@ class PostMissionData extends Component {
 PostMissionData.propTypes = {
   post: PropTypes.shape({
     id: PropTypes.number,
-    grade: PropTypes.string,
+    country: PropTypes.string,
     city: PropTypes.string,
     type: PropTypes.string,
     poc: PropTypes.string,
