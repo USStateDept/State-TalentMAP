@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Wrapper from '../../Components/Wrapper/Wrapper';
 import { ajax } from '../../utilities';
 
@@ -131,7 +132,7 @@ class Home extends Component {
     const enableSearch = this.shouldDisableSearch() ? 'hidden' : '';
     const disableSearch = this.shouldDisableSearch() ? '' : 'hidden';
     return (
-      <div id="main-content" className="home">
+      <div className="home">
         <br />
         <div className="page-container">
           <div className="usa-grid">
@@ -149,11 +150,11 @@ class Home extends Component {
                     name="search"
                   />
                   <div id="enabled-search" className={enableSearch}>
-                    <a href={`/#/results?${qString}`}>
+                    <Link to={`/results?${qString}`}>
                       <button type="submit">
                         <span className="usa-search-submit-text">Search</span>
                       </button>
-                    </a>
+                    </Link>
                   </div>
                   <div id="disabled-search" className={disableSearch}>
                     <button className="usa-button-disabled" disabled="true" type="submit">
