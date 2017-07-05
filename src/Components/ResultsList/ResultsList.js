@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
 
 class ResultsList extends Component {
@@ -13,9 +14,9 @@ class ResultsList extends Component {
         { this.props.results.map((result, i) => (
           <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <div className="usa-width-one-half">
-              <a href={`/details/${result.position_number}`}>
+              <Link to={`/details/${result.position_number}`}>
                 <h3> Position Number: {result.position_number} </h3>
-              </a>
+              </Link>
               <p>
                   Grade: {result.grade}
                 <br />
