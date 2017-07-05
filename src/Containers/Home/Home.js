@@ -132,7 +132,7 @@ class Home extends Component {
     const enableSearch = this.shouldDisableSearch() ? 'hidden' : '';
     const disableSearch = this.shouldDisableSearch() ? '' : 'hidden';
     return (
-      <div id="main-content" className="home">
+      <div className="home">
         <br />
         <div className="page-container">
           <div className="usa-grid">

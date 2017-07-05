@@ -30,7 +30,7 @@ class Results extends Component {
   render() {
     const { results } = this.state;
     return (
-      <div id="main-content">
+      <div>
         {results.length ?
           <ResultsList results={results} />
           :
