@@ -25,6 +25,8 @@ class ResultsList extends Component {
                   Bureau: {result.bureau}
                 <br />
                   Organization: {result.organization}
+                <br />
+                  Post: <Link to={'/post/100'}>100</Link>
               </p>
             </div>
             <div className="usa-width-one-half" style={{ textAlign: 'right', paddingTop: '25px' }}>
