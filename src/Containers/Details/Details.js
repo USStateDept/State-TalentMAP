@@ -28,7 +28,7 @@ class Details extends Component {
   render() {
     const { details } = this.state;
     return (
-      <div id="main-content">
+      <div>
         {Object.keys(details).length ?
           <PositionDetails details={details} />
           :

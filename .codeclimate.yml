@@ -1,5 +1,4 @@
-JavaScript: true
-
+---
 engines:
   eslint:
     enabled: true
@@ -9,8 +8,17 @@ engines:
         enabled: false
       import/extensions:
         enabled: false
-    extensions:
-    - .js
-    - .jsx
+    config:
+      extensions:
+      - .js
+      - .jsx
   scss-lint:
     enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.js"
+  - "**.jsx"
+  - "**.scss"
+exclude_paths:
+- node_modules/

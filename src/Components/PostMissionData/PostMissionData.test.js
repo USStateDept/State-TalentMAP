@@ -1,10 +1,11 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 import PostMissionData from './PostMissionData';
 
 describe('PostMissionDataComponent', () => {
-  let post = null;
+  let postMissionData = null;
   let wrapper = null;
 
   const postObject = {
@@ -23,11 +24,13 @@ describe('PostMissionDataComponent', () => {
   };
 
   beforeEach(() => {
-    post = TestUtils.renderIntoDocument(<PostMissionData post={postObject} />);
+    postMissionData = TestUtils.renderIntoDocument(<MemoryRouter>
+      <PostMissionData post={postObject} />
+    </MemoryRouter>);
   });
 
   it('is defined', () => {
-    expect(post).toBeDefined();
+    expect(postMissionData).toBeDefined();
   });
 
   it('is can receive props', () => {

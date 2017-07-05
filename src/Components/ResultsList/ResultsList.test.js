@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 import ResultsList from './ResultsList';
 
 describe('ResultsListComponent', () => {
@@ -13,7 +14,9 @@ describe('ResultsListComponent', () => {
   ];
 
   beforeEach(() => {
-    results = TestUtils.renderIntoDocument(<ResultsList results={resultsArray} />);
+    results = TestUtils.renderIntoDocument(<MemoryRouter>
+      <ResultsList results={resultsArray} />
+    </MemoryRouter>);
   });
 
   it('is defined', () => {

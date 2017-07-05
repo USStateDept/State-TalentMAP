@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Home from './Home';
@@ -9,8 +10,6 @@ import Home from './Home';
 const api = 'http://localhost:8000/api/v1';
 
 describe('HomeComponent', () => {
-  let home = null;
-
   const filters = [
     [
           { id: 2, code: '0010', description: 'EXECUTIVE (PAS)' },
@@ -27,8 +26,6 @@ describe('HomeComponent', () => {
   ];
 
   beforeEach(() => {
-    home = TestUtils.renderIntoDocument(<Home api={api} location={{}} />);
-
     const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onGet('http://localhost:8000/api/v1/position/grades/').reply(200, [
@@ -47,10 +44,13 @@ describe('HomeComponent', () => {
 
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Home api={api} />, div);
+    ReactDOM.render(<MemoryRouter><Home api={api} /></MemoryRouter>, div);
   });
 
   it('is defined', () => {
+    const home = TestUtils.renderIntoDocument(<MemoryRouter>
+      <Home api={api} location={{}} />
+    </MemoryRouter>);
     expect(home).toBeDefined();
   });
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 
@@ -34,7 +35,7 @@ class ResultsList extends Component {
             <br />
             Updated: {details.update_date}
             <br />
-            Post: <a href="/#/post/1">1</a>
+            Post: <Link to={'/post/100'}>100</Link>
           </p>
           <FavoritesButton refKey={details.position_number} type="fav" />
         </div>
