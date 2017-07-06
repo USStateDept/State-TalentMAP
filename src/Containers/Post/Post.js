@@ -41,9 +41,9 @@ class Post extends Component {
   render() {
     const { post } = this.state;
     return (
-      <div id="main-content">
+      <div>
         <div className="usa-grid-full">
-          <div style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+          <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <h3> Post Number: {post.id} </h3>
             <PostMissionData post={post} />
           </div>

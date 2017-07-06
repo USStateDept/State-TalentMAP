@@ -16,7 +16,7 @@ class ResultsList extends Component {
       )) : <span key="no-languages"> None listed </span>;
     return (
       <div className="usa-grid-full">
-        <div style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+        <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
           <h3> Position Number: {details.position_number} </h3>
           <p>
             Grade: {details.grade}
