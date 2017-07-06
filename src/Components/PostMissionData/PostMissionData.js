@@ -16,27 +16,29 @@ class PostMissionData extends Component {
       <div className="usa-grid-full">
         <div>
           <p>
-            Country: {post.country}
+            Location: {post.description}
             <br />
-            City: {post.city}
+            Tour of duty: {post.tour_of_duty}
             <br />
-            Type: {post.type}
+            Type: Embassy*
             <br />
-            Inter and intra agency representation: {post.poc}
+            POC: John Doe*
+            <br />
+            Code: {post.code}
             <br />
             Language: <span>{languageList}</span>
             <br />
-            R&R Alignment: {post.rr_alignment}
+            R&R Alignment: {post.rest_relaxation_point}
             <br />
-            Danger Pay: {post.danger}
+            Danger Pay: {post.danger_pay}
             <br />
-            Post Differential: {post.post_diff}
+            Post Differential: {post.differential_rate}
             <br />
-            Service Needs Differential: {post.sn_diff}
+            Service Needs Differential: {post.has_service_needs_differential === true ? 'Yes' : 'No'}
             <br />
-            COLA: {post.cola}
+            COLA: {post.cost_of_living_adjustment}
             <br />
-            Consumables: {post.consumables}
+            Consumables: {post.has_consumable_allowance === true ? 'Yes' : 'No'}
           </p>
         </div>
       </div>
@@ -47,16 +49,15 @@ class PostMissionData extends Component {
 PostMissionData.propTypes = {
   post: PropTypes.shape({
     id: PropTypes.number,
-    country: PropTypes.string,
-    city: PropTypes.string,
-    type: PropTypes.string,
-    poc: PropTypes.string,
-    rr_alignment: PropTypes.string,
-    danger: PropTypes.string,
-    post_diff: PropTypes.string,
-    sn_diff: PropTypes.string,
-    cola: PropTypes.string,
-    consumables: PropTypes.string,
+    tour_of_duty: PropTypes.string,
+    code: PropTypes.string,
+    description: PropTypes.string,
+    cost_of_living_adjustment: PropTypes.number,
+    differential_rate: PropTypes.number,
+    danger_pay: PropTypes.number,
+    rest_relaxation_point: PropTypes.string,
+    has_consumable_allowance: PropTypes.boolean,
+    has_service_needs_differential: PropTypes.boolean,
     languages: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number,

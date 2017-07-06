@@ -31,13 +31,13 @@ class ResultsList extends Component {
             <br />
             Language: <span>{languageList}</span>
             <br />
-            Danger Pay: True*
+            Danger Pay: {details.post ? details.post.danger_pay : 'None listed'}
             <br />
-            Region: North America*
+            Region: 5*
             <br />
-            Post: <Link to={'/post/100'}>100</Link>*
+            Post: {details.post ? <Link to={`/post/${details.post.id}`}>{details.post.description}</Link> : 'None listed' }
             <br />
-            Post Differential: 1.5*
+            Post Differential: {details.post ? details.post.differential_rate : 'None Listed'}
             <br />
             Created: {details.create_date}
             <br />
