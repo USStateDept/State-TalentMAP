@@ -26,7 +26,9 @@ class ResultsList extends Component {
                 <br />
                   Organization: {result.organization}
                 <br />
-                  Post: <Link to={'/post/100'}>100</Link>
+                  Post: <Link to={'/post/100'}>100</Link>*
+                <br />
+                  Post Differential: 1.5*
               </p>
             </div>
             <div className="usa-width-one-half" style={{ textAlign: 'right', paddingTop: '25px' }}>

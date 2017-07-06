@@ -31,11 +31,17 @@ class ResultsList extends Component {
             <br />
             Language: <span>{languageList}</span>
             <br />
+            Danger Pay: True*
+            <br />
+            Region: North America*
+            <br />
+            Post: <Link to={'/post/100'}>100</Link>*
+            <br />
+            Post Differential: 1.5*
+            <br />
             Created: {details.create_date}
             <br />
             Updated: {details.update_date}
-            <br />
-            Post: <Link to={'/post/100'}>100</Link>
           </p>
           <FavoritesButton refKey={details.position_number} type="fav" />
         </div>
