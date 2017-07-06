@@ -41,6 +41,7 @@ class Home extends Component {
       ],
       proficiency: {},
       qString: null,
+      searchText: '',
     };
   }
 
@@ -88,6 +89,12 @@ class Home extends Component {
         copy[key] = copy[key].join();
       }
     });
+
+    const { searchText } = this.state;
+    if (searchText && searchText.length) {
+      copy.q = searchText;
+    }
+
     qString = queryString.stringify(copy);
     this.setState({ qString });
   }
@@ -106,14 +113,14 @@ class Home extends Component {
   }
 
   changeText(e) {
-    const { selection } = this.state;
-    selection.position_number__icontains = e.target.value;
-    this.setState({ selection });
+    let { searchText } = this.state;
+    searchText = e.target.value;
+    this.setState({ searchText });
     this.createQueryString();
   }
 
   shouldDisableSearch() {
-    const { selection } = this.state;
+    const { selection, searchText } = this.state;
     let count = 0;
     let disabled = false;
     Object.keys(selection).forEach((key) => {
@@ -124,11 +131,14 @@ class Home extends Component {
     if (count < 2) {
       disabled = true;
     }
+    if (searchText) {
+      disabled = false;
+    }
     return disabled;
   }
 
   render() {
-    const { items, selection, qString } = this.state;
+    const { items, selection, qString, searchText } = this.state;
     const enableSearch = this.shouldDisableSearch() ? 'hidden' : '';
     const disableSearch = this.shouldDisableSearch() ? '' : 'hidden';
     return (
@@ -144,7 +154,7 @@ class Home extends Component {
                   </label>
                   <input
                     id="search-field"
-                    value={selection.position_number__icontains}
+                    value={searchText}
                     onChange={e => this.changeText(e)}
                     type="search"
                     name="search"
