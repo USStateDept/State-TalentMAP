@@ -13,4 +13,4 @@ ReactDOM.render((
   <BrowserRouter>
     <App api={api} />
   </BrowserRouter>
-), document.getElementById('root') || document.createElement('div'));
+), root || document.createElement('div'));
