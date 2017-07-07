@@ -63,7 +63,7 @@ describe('HomeComponent', () => {
   it('can create a query string', () => {
     const wrapper = shallow(<Home api={api} filters={filters} />);
     wrapper.instance().changeText({ target: { value: 'info Tech' } });
-    expect(wrapper.instance().state.qString).toBe('position_number__icontains=info%20Tech');
+    expect(wrapper.instance().state.qString).toBe('q=info%20Tech');
   });
 
   it('can check a checkbox', () => {
@@ -101,6 +101,17 @@ describe('HomeComponent', () => {
     wrapper.find('#search-field').simulate('change', { target: { value: '' } });
     // one filter is selected, should return false
     expect(wrapper.instance().shouldDisableSearch()).toBe(true);
+  });
+
+  it('should enable search if two filters are selected, excluding search text', () => {
+    const wrapper = shallow(<Home api={api} filters={filters} />);
+    // no filters are initially set, so should return true
+    expect(wrapper.instance().shouldDisableSearch()).toBe(true);
+    // select a language filter
+    wrapper.find('#AB').simulate('change', (1, { target: { checked: true, value: 'AB' } }));
+    // select a skill filter
+    wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
+    expect(wrapper.instance().shouldDisableSearch()).toBe(false);
   });
 
   it('should be able to enable language proficiency filters', () => {
