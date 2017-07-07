@@ -4,6 +4,7 @@ import { ajax } from '../../utilities';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 
 class Details extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,7 +13,7 @@ class Details extends Component {
   }
 
   componentWillMount() {
-    this.getDetails(this.props.match ? this.props.match.params.id : ''); // eslint-disable-line react/prop-types
+    this.getDetails(this.context.router.route.match.params.id);
   }
 
   getDetails(id) {
@@ -38,6 +39,10 @@ class Details extends Component {
     );
   }
 }
+
+Details.contextTypes = {
+  router: PropTypes.object,
+};
 
 Details.propTypes = {
   api: PropTypes.string.isRequired,
