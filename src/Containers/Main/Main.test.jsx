@@ -1,10 +1,34 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter'; // eslint-disable-line
 import Main from './Main';
 
 describe('Main', () => {
   const api = 'http://localhost:8000/api/v1';
+
+  beforeEach(() => {
+    const mockAdapter = new MockAdapter(axios);
+
+    const details = {
+      id: 4,
+      grade: '05',
+      skill: 'OFFICE MANAGEMENT (9017)',
+      bureau: '150000',
+      organization: 'FREETOWN SIERRA LEONE (FREETOWN)',
+      position_number: '00011111',
+      is_overseas: true,
+      create_date: '2006-09-20',
+      update_date: '2017-06-08',
+      languages: [],
+    };
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number=00011111').reply(200, [
+      details,
+    ],
+    );
+  });
 
   it('is defined', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter>

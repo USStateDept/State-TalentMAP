@@ -1,13 +1,11 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import createRouterContext from 'react-router-test-context';
 import Details from './Details';
 
 describe('DetailsComponent', () => {
-  let detailsItem = null;
-
   const id = '00003026';
   const idWithLang = '00003027';
 
@@ -42,7 +40,6 @@ describe('DetailsComponent', () => {
   };
 
   beforeEach(() => {
-    detailsItem = TestUtils.renderIntoDocument(<Details id={id} api={api} />);
     const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number=00003026').reply(200, [
@@ -57,9 +54,12 @@ describe('DetailsComponent', () => {
   });
 
   it('is defined', (done) => {
+    const context = createRouterContext();
+    context.router.route.match.params.id = id;
+    const wrapper = shallow(<Details api={api} />, { context });
     const f = () => {
       setTimeout(() => {
-        expect(detailsItem).toBeDefined();
+        expect(wrapper).toBeDefined();
         done();
       }, 0);
     };
@@ -67,7 +67,9 @@ describe('DetailsComponent', () => {
   });
 
   it('can set state of details', (done) => {
-    const wrapper = shallow(<Details match={{ params: { id } }} api={api} />);
+    const context = createRouterContext();
+    context.router.route.match.params.id = id;
+    const wrapper = shallow(<Details api={api} />, { context });
 
     const f = () => {
       setTimeout(() => {
@@ -79,7 +81,9 @@ describe('DetailsComponent', () => {
   });
 
   it('can set state of details with languages', (done) => {
-    const wrapper = shallow(<Details match={{ params: { id: idWithLang } }} api={api} />);
+    const context = createRouterContext();
+    context.router.route.match.params.id = idWithLang;
+    const wrapper = shallow(<Details api={api} />, { context });
 
     const f = () => {
       setTimeout(() => {
