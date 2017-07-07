@@ -20,9 +20,9 @@ class PostMissionData extends Component {
             <br />
             Tour of duty: {post.tour_of_duty}
             <br />
-            Type: Embassy
+            Type: Embassy {/* TODO replace hard-coded value with API value */}
             <br />
-            POC: John Doe
+            POC: John Doe {/* TODO replace hard-coded value with API value */}
             <br />
             Code: {post.code}
             <br />

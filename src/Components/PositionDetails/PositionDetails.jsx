@@ -33,7 +33,7 @@ class ResultsList extends Component {
             <br />
             Danger Pay: {details.post ? details.post.danger_pay : 'None listed'}
             <br />
-            Region: 5
+            Region: 5 {/* TODO replace hard-coded value with API value */}
             <br />
             Post: {details.post ? <Link to={`/post/${details.post.id}`}>{details.post.description}</Link> : 'None listed' }
             <br />
