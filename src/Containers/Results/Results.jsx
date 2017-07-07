@@ -12,13 +12,11 @@ class Results extends Component {
   }
 
   componentWillMount() {
-    if (!this.props.results) { // eslint-disable-line react/prop-types
-      this.getPosts(window.location.search); // eslint-disable-line react/prop-types
-    }
+    this.getPosts(window.location.search);
   }
 
   getPosts(q) {
-    const query = q;
+    const query = q || '';
     const api = this.props.api;
     ajax(`${api}/position/${query}`)
       .then((res) => {
@@ -34,11 +32,7 @@ class Results extends Component {
         {results.length ?
           <ResultsList results={results} />
           :
-          <div className="usa-grid-full">
-            <center>
-              Loading...
-            </center>
-          </div>
+          <div className="usa-grid-full" />
         }
       </div>
     );
@@ -47,6 +41,10 @@ class Results extends Component {
 
 Results.propTypes = {
   api: PropTypes.string.isRequired,
+};
+
+Results.contextTypes = {
+  router: PropTypes.object,
 };
 
 export default Results;

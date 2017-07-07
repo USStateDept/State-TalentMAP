@@ -9,8 +9,32 @@ describe('ResultsListComponent', () => {
   let wrapper = null;
 
   const resultsArray = [
-    { id: 6, grade: '05', skill: 'OFFICE MANAGEMENT (9017)', bureau: '150000', organization: 'YAOUNDE CAMEROON (YAOUNDE)', position_number: '00025003', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }] },
-    { id: 80, grade: '05', skill: 'INFORMATION MANAGEMENT (2880)', bureau: '110000', organization: 'SAO PAULO BRAZIL (SAO PAULO)', position_number: '55115002', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 22, language: 'Portuguese (PY)', written_proficiency: '1', spoken_proficiency: '1', representation: 'Portuguese (PY) 1/1' }] },
+    { id: 6,
+      grade: '05',
+      skill: 'OFFICE MANAGEMENT (9017)',
+      bureau: '150000',
+      organization: 'YAOUNDE CAMEROON (YAOUNDE)',
+      position_number: '00025003',
+      is_overseas: true,
+      create_date: '2006-09-20',
+      update_date: '2017-06-08',
+      post: { id: 162, tour_of_duty: '2YRR', code: 'LT6000000', description: 'MASERU, LESOTHO', cost_of_living_adjustment: 0, differential_rate: 15, danger_pay: 0, rest_relaxation_point: 'London', has_consumable_allowance: false, has_service_needs_differential: false },
+      languages: [
+        { id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' },
+      ],
+    },
+    { id: 60,
+      grade: '03',
+      skill: 'OFFICE MANAGEMENT (9017)',
+      bureau: '150000',
+      organization: 'YAOUNDE CAMEROON (YAOUNDE)',
+      position_number: '00025003',
+      is_overseas: true,
+      create_date: '2006-09-20',
+      update_date: '2017-06-08',
+      post: null,
+      languages: [],
+    },
   ];
 
   beforeEach(() => {

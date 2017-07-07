@@ -5,7 +5,8 @@
     },
     "urls": [
         "http://localhost:3000",
-        "http://localhost:3000/#/results",
-        "http://localhost:3000/#/details/00011111"
+        "http://localhost:3000/results",
+        "http://localhost:3000/details/00011111",
+        "http://localhost:3000/post/100"
     ]
 }
