@@ -32,11 +32,7 @@ class Results extends Component {
         {results.length ?
           <ResultsList results={results} />
           :
-          <div className="usa-grid-full">
-            <center>
-              Loading...
-            </center>
-          </div>
+          <div className="usa-grid-full" />
         }
       </div>
     );
