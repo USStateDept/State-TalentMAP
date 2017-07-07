@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 
@@ -15,7 +16,7 @@ class ResultsList extends Component {
       )) : <span key="no-languages"> None listed </span>;
     return (
       <div className="usa-grid-full">
-        <div style={{ backgroundColor: '#DFDFDF', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+        <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
           <h3> Position Number: {details.position_number} </h3>
           <p>
             Grade: {details.grade}
@@ -29,6 +30,14 @@ class ResultsList extends Component {
             Overseas: {details.is_overseas ? 'Yes' : 'No'}
             <br />
             Language: <span>{languageList}</span>
+            <br />
+            Danger Pay: {details.post ? details.post.danger_pay : 'None listed'}
+            <br />
+            Region: 5
+            <br />
+            Post: {details.post ? <Link to={`/post/${details.post.id}`}>{details.post.description}</Link> : 'None listed' }
+            <br />
+            Post Differential: {details.post ? details.post.differential_rate : 'None Listed'}
             <br />
             Created: {details.create_date}
             <br />
