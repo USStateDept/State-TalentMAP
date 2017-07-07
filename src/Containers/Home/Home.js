@@ -9,7 +9,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [], position_number__icontains: '' },
+      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [] },
       items: [
         {
           title: 'Skill code',
@@ -41,7 +41,7 @@ class Home extends Component {
       ],
       proficiency: {},
       qString: null,
-      searchText: '',
+      searchText: { value: '' },
     };
   }
 
@@ -85,14 +85,14 @@ class Home extends Component {
     Object.keys(copy).forEach((key) => {
       if (!copy[key] || !copy[key].length) {
         delete copy[key];
-      } else if (key !== 'position_number__icontains') {
+      } else {
         copy[key] = copy[key].join();
       }
     });
 
     const { searchText } = this.state;
-    if (searchText && searchText.length) {
-      copy.q = searchText;
+    if (searchText.value && searchText.value.length) {
+      copy.q = searchText.value;
     }
 
     qString = queryString.stringify(copy);
@@ -108,15 +108,13 @@ class Home extends Component {
         .splice(selection[Object.keys(selection)[ref]]
           .indexOf(e.target.value), 1);
     }
-    this.setState({ selection });
-    this.createQueryString();
+    this.setState({ selection }, this.createQueryString());
   }
 
   changeText(e) {
-    let { searchText } = this.state;
-    searchText = e.target.value;
-    this.setState({ searchText });
-    this.createQueryString();
+    const { searchText } = this.state;
+    searchText.value = e.target.value;
+    this.setState({ searchText }, this.createQueryString());
   }
 
   shouldDisableSearch() {
@@ -131,7 +129,7 @@ class Home extends Component {
     if (count < 2) {
       disabled = true;
     }
-    if (searchText) {
+    if (searchText.value) {
       disabled = false;
     }
     return disabled;
@@ -154,7 +152,7 @@ class Home extends Component {
                   </label>
                   <input
                     id="search-field"
-                    value={searchText}
+                    value={searchText.value}
                     onChange={e => this.changeText(e)}
                     type="search"
                     name="search"
