@@ -12,7 +12,7 @@ class Post extends Component {
   }
 
   componentWillMount() {
-    this.getPost(this.context.router.route.match.params.id); // eslint-disable-line react/prop-types
+    this.getPost(this.context.router.route.match.params.id);
   }
 
   getPost(id) {
