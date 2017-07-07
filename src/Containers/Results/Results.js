@@ -12,15 +12,12 @@ class Results extends Component {
   }
 
   componentWillMount() {
-    console.log('1', window.location.search);
     this.getPosts(window.location.search);
   }
 
   getPosts(q) {
     const query = q || '';
     const api = this.props.api;
-    console.log('2');
-    console.log(`${api}/position/${query}`);
     ajax(`${api}/position/${query}`)
       .then((res) => {
         const results = res.data;

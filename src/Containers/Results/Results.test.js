@@ -25,7 +25,7 @@ describe('ResultsComponent', () => {
     );
 
     results = TestUtils.renderIntoDocument(<MemoryRouter><Results results={posts} api={api} location={{ search: '' }} /></MemoryRouter>);
-    wrapper = shallow(<MemoryRouter><Results results={posts} api={api} location={{ search: '' }} /></MemoryRouter>);
+    wrapper = shallow(<Results results={posts} api={api} location={{ search: '' }} />);
   });
 
   it('is defined', (done) => {
