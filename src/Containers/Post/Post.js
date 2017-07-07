@@ -18,7 +18,7 @@ class Post extends Component {
   getPost(id) {
     const query = id;
     const api = this.props.api;
-    ajax(`${api}/organization/posts/${query}`)
+    ajax(`${api}/organization/posts/${query}/`)
         .then((res) => {
           const post = res.data;
           this.setState({ post });

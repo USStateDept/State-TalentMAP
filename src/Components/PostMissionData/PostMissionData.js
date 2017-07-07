@@ -20,9 +20,9 @@ class PostMissionData extends Component {
             <br />
             Tour of duty: {post.tour_of_duty}
             <br />
-            Type: Embassy*
+            Type: Embassy
             <br />
-            POC: John Doe*
+            POC: John Doe
             <br />
             Code: {post.code}
             <br />

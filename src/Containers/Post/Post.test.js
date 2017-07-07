@@ -27,7 +27,7 @@ describe('PostComponent', () => {
   beforeEach(() => {
     const mockAdapter = new MockAdapter(axios);
 
-    mockAdapter.onGet(`http://localhost:8000/api/v1/organization/posts/${postObject.id}`).reply(200,
+    mockAdapter.onGet(`http://localhost:8000/api/v1/organization/posts/${postObject.id}/`).reply(200,
       postObject,
     );
 
