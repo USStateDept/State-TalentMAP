@@ -24,6 +24,15 @@ nvm install 6.11.0
 node -e "console.log('Running Node.js ' + process.version)"
 ```
 
+## Install yarn
+
+Yarn is the primary package manager for the web app.  Instructions copied from [here](https://yarnpkg.com/lang/en/docs/install/#linux-tab)
+
+```
+sudo wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
+sudo yum install yarn
+```
+
 ## Clone repo
 
 Use git to clone the web app repo
@@ -38,9 +47,9 @@ Build application
 
 ```
 cd State-TalentMAP/
-npm install
-npm rebuild node-sass
-npm run build
+yarn install
+yarn rebuild node-sass
+yarn run build
 ```
 
 ### Copy files
