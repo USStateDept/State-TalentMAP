@@ -190,13 +190,13 @@ class Home extends Component {
                           id={`S${choice.code}`}
                           type="checkbox"
                           title={`${choice.description}`}
-                          name="historical-figures-1"
+                          name={`S${choice.code}`}
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`S${choice.description}`} style={{ marginRight: '5px' }}>
+                        <label htmlFor={`S${choice.code}`} style={{ marginRight: '5px' }}>
                           {choice.description}
                         </label>
                       </div>
@@ -208,13 +208,13 @@ class Home extends Component {
                           id={`${choice.code}`}
                           type="checkbox"
                           title={`${choice.short_description}`}
-                          name="historical-figures-1"
+                          name={`${choice.code}}`}
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
                                     .indexOf(choice.code) !== -1}
                         />
-                        <label htmlFor={`${choice.short_description}`}>
+                        <label htmlFor={`${choice.code}`}>
                           {choice.short_description}
                         </label>
                         <div>
@@ -257,7 +257,7 @@ class Home extends Component {
                           id={`G${choice.code}`}
                           type="checkbox"
                           title={`grade-${choice.code}`}
-                          name="historical-figures-1"
+                          name={`G${choice.code}`}
                           value={choice.code}
                           onChange={e => this.changeCheck(i, e)}
                           checked={selection[items[i].selectionRef]
