@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { itemsFetchDataMultiple } from '../../actions/items';
+import { filtersFetchData } from '../../actions/filters';
 import Wrapper from '../../Components/Wrapper/Wrapper';
 
 class Home extends Component {
@@ -325,13 +325,13 @@ Home.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  items: state.items,
-  hasErrored: state.itemsHasErrored,
-  isLoading: state.itemsIsLoading,
+  items: state.filters,
+  hasErrored: state.filtersHasErrored,
+  isLoading: state.filtersIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: urls => dispatch(itemsFetchDataMultiple(urls)),
+  fetchData: urls => dispatch(filtersFetchData(urls)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
