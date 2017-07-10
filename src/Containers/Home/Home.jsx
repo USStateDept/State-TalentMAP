@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { itemsFetchDataMultiple } from '../../actions/items';
 import Wrapper from '../../Components/Wrapper/Wrapper';
-import { ajax } from '../../utilities';
 
 class Home extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Home extends Component {
       items: [
         {
           title: 'Skill code',
+          sort: 100,
           description: 'skill',
           endpoint: 'position/skills',
           selectionRef: 'skill__code__in',
@@ -22,6 +24,7 @@ class Home extends Component {
         },
         {
           title: 'Language',
+          sort: 200,
           description: 'language',
           endpoint: 'language',
           selectionRef: 'languages__language__code__in',
@@ -31,6 +34,7 @@ class Home extends Component {
         },
         {
           title: 'Grade',
+          sort: 300,
           description: 'grade',
           endpoint: 'position/grades',
           selectionRef: 'grade__code__in',
@@ -60,17 +64,12 @@ class Home extends Component {
 
   getFilters() {
     const api = this.props.api;
-    this.state.items.forEach((item, i) => {
+    const urlArr = [];
+    this.state.items.forEach((item) => {
       const endpoint = item.endpoint;
-      ajax(`${api}/${endpoint}/`)
-        .then((res) => {
-          const filters = res.data;
-          this.state.items[i].choices = filters;
-          const items = this.state.items;
-          items[i].choices = filters;
-          this.setState({ items });
-        });
+      urlArr.push({ url: `${api}/${endpoint}/`, item });
     });
+    this.props.fetchData(urlArr);
   }
 
   changeProficiency(prof, val) {
@@ -136,9 +135,131 @@ class Home extends Component {
   }
 
   render() {
-    const { items, selection, qString, searchText } = this.state;
+    const { selection, qString, searchText } = this.state;
+    const { items } = this.props; //eslint-disable-line
     const enableSearch = this.shouldDisableSearch() ? 'hidden' : '';
     const disableSearch = this.shouldDisableSearch() ? '' : 'hidden';
+    items.sort((a, b) => a.item.sort - b.item.sort);
+    const filters = (
+      <div className="usa-grid">
+        <Wrapper>
+          <p>Filters:</p>
+          <ul className="usa-accordion usa-accordion-bordered">
+            {this.props.items.map((item, i) => { //eslint-disable-line
+              const id = `item${i}`;
+              const checks = item.data.map(choice => (
+                <div key={`{id}-${choice.code}`}>
+                  { items[i].item.description === 'skill' ?
+                    <div key={choice.code} className="usa-width-one-third">
+                      <input
+                        id={`S${choice.code}`}
+                        type="checkbox"
+                        title={`${choice.description}`}
+                        name="historical-figures-1"
+                        value={choice.code}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.code) !== -1}
+                      />
+                      <label htmlFor={`S${choice.description}`} style={{ marginRight: '5px' }}>
+                        {choice.description}
+                      </label>
+                    </div>
+                  : null
+                  }
+                  { items[i].item.description === 'language' ?
+                    <div key={choice.code} className="usa-width-one-fourth">
+                      <input
+                        id={`${choice.code}`}
+                        type="checkbox"
+                        title={`${choice.short_description}`}
+                        name="historical-figures-1"
+                        value={choice.code}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.code) !== -1}
+                      />
+                      <label htmlFor={`${choice.short_description}`}>
+                        {choice.short_description}
+                      </label>
+                      <div>
+                      Written
+                      <div className="button_wrapper">
+                        {[1, 2, 3, 4, 5].map(a => (
+                          <button
+                            key={`${choice.short_description}-written-${a}`}
+                            id={`${choice.short_description}-written-${a}`}
+                            className={this.state.proficiency[`${choice.short_description}-written`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
+                            onClick={() => this.changeProficiency(`${choice.short_description}-written`, a.toString(), choice.code)}
+                          >
+                            {a}
+                          </button>
+                        ),
+                        )}
+                      </div>
+                      Spoken
+                      <div className="button_wrapper">
+                        {[1, 2, 3, 4, 5].map(a => (
+                          <button
+                            key={`${choice.short_description}-spoken-${a}`}
+                            id={`${choice.short_description}-spoken-${a}`}
+                            className={this.state.proficiency[`${choice.short_description}-spoken`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
+                            onClick={() => this.changeProficiency(`${choice.short_description}-spoken`, a.toString(), choice.code)}
+                          >
+                            {a}
+                          </button>
+                        ),
+                        )}
+                      </div>
+                        <br />
+                      </div>
+                    </div>
+                  : null
+                  }
+                  { items[i].item.description === 'grade' ?
+                    <div key={choice.code} className="usa-width-one-fourth">
+                      <input
+                        id={`G${choice.code}`}
+                        type="checkbox"
+                        title={`grade-${choice.code}`}
+                        name="historical-figures-1"
+                        value={choice.code}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.code) !== -1}
+                      />
+                      <label htmlFor={`G${choice.code}`}>
+                        {choice.code}
+                      </label>
+                    </div>
+                  : null
+                  }
+                </div>
+              ));
+              return (
+                <li key={id}>
+                  <button
+                    className="usa-accordion-button"
+                    aria-expanded="false"
+                    aria-controls={`accordion ${id}`}
+                  >
+                    {item.item.title}
+                  </button>
+                  <div id={`accordion ${id}`} className="usa-accordion-content">
+                    <fieldset className="usa-fieldset-inputs usa-sans">
+                      <legend className="usa-sr-only">{item.title}</legend>
+                      <div className="usa-grid">
+                        {checks}
+                      </div>
+                    </fieldset>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </Wrapper>
+      </div>
+    );
     return (
       <div className="home">
         <br />
@@ -176,124 +297,7 @@ class Home extends Component {
           </div>
         </div>
         <br />
-        <div className="usa-grid">
-          <Wrapper>
-            <p>Filters:</p>
-            <ul className="usa-accordion usa-accordion-bordered">
-              {items.map((item, i) => {
-                const id = item.id || `item${i}`;
-                const checks = item.choices.map(choice => (
-                  <div key={`{id}-${choice.code}`}>
-                    { items[i].description === 'skill' ?
-                      <div key={choice.code} className="usa-width-one-third">
-                        <input
-                          id={`S${choice.code}`}
-                          type="checkbox"
-                          title={`${choice.description}`}
-                          name="historical-figures-1"
-                          value={choice.code}
-                          onChange={e => this.changeCheck(i, e)}
-                          checked={selection[items[i].selectionRef]
-                                    .indexOf(choice.code) !== -1}
-                        />
-                        <label htmlFor={`S${choice.description}`} style={{ marginRight: '5px' }}>
-                          {choice.description}
-                        </label>
-                      </div>
-                    : null
-                    }
-                    { items[i].description === 'language' ?
-                      <div key={choice.code} className="usa-width-one-fourth">
-                        <input
-                          id={`${choice.code}`}
-                          type="checkbox"
-                          title={`${choice.short_description}`}
-                          name="historical-figures-1"
-                          value={choice.code}
-                          onChange={e => this.changeCheck(i, e)}
-                          checked={selection[items[i].selectionRef]
-                                    .indexOf(choice.code) !== -1}
-                        />
-                        <label htmlFor={`${choice.short_description}`}>
-                          {choice.short_description}
-                        </label>
-                        <div>
-                        Written
-                        <div className="button_wrapper">
-                          {[1, 2, 3, 4, 5].map(a => (
-                            <button
-                              key={`${choice.short_description}-written-${a}`}
-                              id={`${choice.short_description}-written-${a}`}
-                              className={this.state.proficiency[`${choice.short_description}-written`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
-                              onClick={() => this.changeProficiency(`${choice.short_description}-written`, a.toString(), choice.code)}
-                            >
-                              {a}
-                            </button>
-                          ),
-                          )}
-                        </div>
-                        Spoken
-                        <div className="button_wrapper">
-                          {[1, 2, 3, 4, 5].map(a => (
-                            <button
-                              key={`${choice.short_description}-spoken-${a}`}
-                              id={`${choice.short_description}-spoken-${a}`}
-                              className={this.state.proficiency[`${choice.short_description}-spoken`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
-                              onClick={() => this.changeProficiency(`${choice.short_description}-spoken`, a.toString(), choice.code)}
-                            >
-                              {a}
-                            </button>
-                          ),
-                          )}
-                        </div>
-                          <br />
-                        </div>
-                      </div>
-                    : null
-                    }
-                    { items[i].description === 'grade' ?
-                      <div key={choice.code} className="usa-width-one-fourth">
-                        <input
-                          id={`G${choice.code}`}
-                          type="checkbox"
-                          title={`grade-${choice.code}`}
-                          name="historical-figures-1"
-                          value={choice.code}
-                          onChange={e => this.changeCheck(i, e)}
-                          checked={selection[items[i].selectionRef]
-                                    .indexOf(choice.code) !== -1}
-                        />
-                        <label htmlFor={`G${choice.code}`}>
-                          {choice.code}
-                        </label>
-                      </div>
-                    : null
-                    }
-                  </div>
-                ));
-                return (
-                  <li key={id}>
-                    <button
-                      className="usa-accordion-button"
-                      aria-expanded="false"
-                      aria-controls={`accordion ${id}`}
-                    >
-                      {item.title}
-                    </button>
-                    <div id={`accordion ${id}`} className="usa-accordion-content">
-                      <fieldset className="usa-fieldset-inputs usa-sans">
-                        <legend className="usa-sr-only">{item.title}</legend>
-                        <div className="usa-grid">
-                          {checks}
-                        </div>
-                      </fieldset>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </Wrapper>
-        </div>
+        {filters}
       </div>
     );
   }
@@ -301,6 +305,7 @@ class Home extends Component {
 
 Home.propTypes = {
   api: PropTypes.string.isRequired,
+  fetchData: PropTypes.func.isRequired,
   filters: PropTypes.arrayOf(
   PropTypes.arrayOf(
     PropTypes.shape({
@@ -319,4 +324,14 @@ Home.defaultProps = {
   filters: [],
 };
 
-export default Home;
+const mapStateToProps = state => ({
+  items: state.items,
+  hasErrored: state.itemsHasErrored,
+  isLoading: state.itemsIsLoading,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchData: urls => dispatch(itemsFetchDataMultiple(urls)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
