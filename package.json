@@ -47,6 +47,7 @@
     "promise": "7.1.1",
     "react-dev-utils": "^3.0.0",
     "react-error-overlay": "^1.0.7",
+    "react-router-test-context": "^0.1.0",
     "react-test-renderer": "^15.6.1",
     "sass-loader": "^6.0.6",
     "style-loader": "0.17.0",
@@ -55,7 +56,8 @@
     "webpack": "^2.6.1",
     "webpack-dev-server": "2.4.5",
     "webpack-manifest-plugin": "1.1.0",
-    "whatwg-fetch": "2.0.3"
+    "whatwg-fetch": "2.0.3",
+    "yarn": "^0.24.5"
   },
   "scripts": {
     "start": "node scripts/start.js",

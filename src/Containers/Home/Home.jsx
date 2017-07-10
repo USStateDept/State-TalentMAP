@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Wrapper from '../../Components/Wrapper/Wrapper';
 import { ajax } from '../../utilities';
 
@@ -8,7 +9,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [], position_number__icontains: '' },
+      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [] },
       items: [
         {
           title: 'Skill code',
@@ -40,6 +41,7 @@ class Home extends Component {
       ],
       proficiency: {},
       qString: null,
+      searchText: { value: '' },
     };
   }
 
@@ -83,10 +85,16 @@ class Home extends Component {
     Object.keys(copy).forEach((key) => {
       if (!copy[key] || !copy[key].length) {
         delete copy[key];
-      } else if (key !== 'position_number__icontains') {
+      } else {
         copy[key] = copy[key].join();
       }
     });
+
+    const { searchText } = this.state;
+    if (searchText.value && searchText.value.length) {
+      copy.q = searchText.value;
+    }
+
     qString = queryString.stringify(copy);
     this.setState({ qString });
   }
@@ -100,19 +108,17 @@ class Home extends Component {
         .splice(selection[Object.keys(selection)[ref]]
           .indexOf(e.target.value), 1);
     }
-    this.setState({ selection });
-    this.createQueryString();
+    this.setState({ selection }, this.createQueryString());
   }
 
   changeText(e) {
-    const { selection } = this.state;
-    selection.position_number__icontains = e.target.value;
-    this.setState({ selection });
-    this.createQueryString();
+    const { searchText } = this.state;
+    searchText.value = e.target.value;
+    this.setState({ searchText }, this.createQueryString());
   }
 
   shouldDisableSearch() {
-    const { selection } = this.state;
+    const { selection, searchText } = this.state;
     let count = 0;
     let disabled = false;
     Object.keys(selection).forEach((key) => {
@@ -123,15 +129,18 @@ class Home extends Component {
     if (count < 2) {
       disabled = true;
     }
+    if (searchText.value) {
+      disabled = false;
+    }
     return disabled;
   }
 
   render() {
-    const { items, selection, qString } = this.state;
+    const { items, selection, qString, searchText } = this.state;
     const enableSearch = this.shouldDisableSearch() ? 'hidden' : '';
     const disableSearch = this.shouldDisableSearch() ? '' : 'hidden';
     return (
-      <div id="main-content" className="home">
+      <div className="home">
         <br />
         <div className="page-container">
           <div className="usa-grid">
@@ -143,17 +152,17 @@ class Home extends Component {
                   </label>
                   <input
                     id="search-field"
-                    value={selection.position_number__icontains}
+                    value={searchText.value}
                     onChange={e => this.changeText(e)}
                     type="search"
                     name="search"
                   />
                   <div id="enabled-search" className={enableSearch}>
-                    <a href={`/#/results?${qString}`}>
+                    <Link to={`/results?${qString}`}>
                       <button type="submit">
                         <span className="usa-search-submit-text">Search</span>
                       </button>
-                    </a>
+                    </Link>
                   </div>
                   <div id="disabled-search" className={disableSearch}>
                     <button className="usa-button-disabled" disabled="true" type="submit">
