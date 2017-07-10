@@ -1,0 +1,33 @@
+[
+  {
+    "title": "Skill code",
+    "selectionRef": "skill",
+    "text": "Choose skill codes",
+    "choices": [
+      { "code": 1, "description": "accounting" },
+      { "code": 2, "description": "economics" },
+      { "code": 3, "description": "information technology" }
+    ]
+  },
+  {
+    "title": "Language",
+    "selectionRef": "language",
+    "text": "Choose languages",
+    "choices": [
+      { "code": 1, "description": "English" },
+      { "code": 2, "description": "Spanish" },
+      { "code": 3, "description": "French" },
+      { "code": 4, "description": "German" }
+      ]
+    },
+  {
+    "title": "Grade",
+    "selectionRef": "grade",
+    "text": "Choose grades",
+    "choices": [
+      { "code": 1, "description": "1" },
+      { "code": 2, "description": "2" },
+      { "code": 3, "description": "3" }
+      ]
+    }
+]
