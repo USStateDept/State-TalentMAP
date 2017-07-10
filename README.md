@@ -58,7 +58,7 @@ See the [create-react-app](https://github.com/facebookincubator/create-react-app
 
 ## Accessibility
 
-Accessibility tests can be run in a CI environment using `pa11y-ci`. By default, it tests the URL array found in `.pa11yci`.
+Accessibility tests can be run in a CI environment using `pa11y-ci`. By default, it tests the URL array found in `.pa11yci` using the WCAG 2.0 AA standard. Be sure to update the array of URLs with IDs that exist in your environment's database.
 
 ## Contributing
 
