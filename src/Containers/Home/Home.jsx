@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Wrapper from '../../Components/Wrapper/Wrapper';
 import { ajax } from '../../utilities';
+import { FILTERS } from '../../Constants/PropTypes';
 
 class Home extends Component {
   constructor(props) {
@@ -301,18 +302,7 @@ class Home extends Component {
 
 Home.propTypes = {
   api: PropTypes.string.isRequired,
-  filters: PropTypes.arrayOf(
-  PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      code: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      long_description: PropTypes.string,
-      short_description: PropTypes.string,
-      effective_date: PropTypes.string,
-    }),
-  ),
-),
+  filters: FILTERS,
 };
 
 Home.defaultProps = {
