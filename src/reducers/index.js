@@ -1,12 +1,22 @@
 import { combineReducers } from 'redux';
-import { items, itemsHasErrored, itemsIsLoading } from './items';
+import { routerReducer } from 'react-router-redux';
+import { results, resultsHasErrored, resultsIsLoading } from './results';
 import { filters, filtersHasErrored, filtersIsLoading } from './filters';
+import { post, postHasErrored, postIsLoading } from './post';
+import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 
 export default combineReducers({
-  items,
-  itemsHasErrored,
-  itemsIsLoading,
+  results,
+  resultsHasErrored,
+  resultsIsLoading,
   filters,
   filtersHasErrored,
   filtersIsLoading,
+  post,
+  postHasErrored,
+  postIsLoading,
+  positionDetails,
+  positionDetailsHasErrored,
+  positionDetailsIsLoading,
+  router: routerReducer,
 });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { itemsFetchData } from '../../actions/items';
+import { resultsFetchData } from '../../actions/results';
 import ResultsList from '../../Components/ResultsList/ResultsList';
 
 class Results extends Component {
@@ -18,18 +18,18 @@ class Results extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { results } = this.props;
     const e = this.props.hasErrored ? (
       <span>There was an error loading this post</span>
     ) : null;
     const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const n = !this.props.isLoading && !this.props.hasErrored && !items.length ?
+    const n = !this.props.isLoading && !this.props.hasErrored && !results.length ?
       <span>No results with that search criteria</span> : null;
-    const results = (items.length && !this.props.hasErrored && !this.props.isLoading) ?
-      <ResultsList results={items} /> : null;
+    const resultsCards = (results.length && !this.props.hasErrored && !this.props.isLoading) ?
+      <ResultsList results={results} /> : null;
     return (
       <div>
-        {results}
+        {resultsCards}
         <div className="usa-grid">
           <center> {e} {l} {n} </center>
         </div>
@@ -43,7 +43,7 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  items: PropTypes.arrayOf(
+  results: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       grade: PropTypes.string,
@@ -80,7 +80,7 @@ Results.propTypes = {
 };
 
 Results.defaultProps = {
-  items: [],
+  results: [],
 };
 
 Results.contextTypes = {
@@ -88,13 +88,13 @@ Results.contextTypes = {
 };
 
 const mapStateToProps = state => ({
-  items: state.items,
-  hasErrored: state.itemsHasErrored,
-  isLoading: state.itemsIsLoading,
+  results: state.results,
+  hasErrored: state.resultsHasErrored,
+  isLoading: state.resultsIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: url => dispatch(itemsFetchData(url)),
+  fetchData: url => dispatch(resultsFetchData(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

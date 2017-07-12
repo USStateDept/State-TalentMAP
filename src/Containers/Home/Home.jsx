@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
 import Wrapper from '../../Components/Wrapper/Wrapper';
 
@@ -134,11 +134,14 @@ class Home extends Component {
     return disabled;
   }
 
+  submitSearch(e) {
+    e.preventDefault();
+    this.props.onNavigateTo(`/results?${this.state.qString}`);
+  }
+
   render() {
-    const { selection, qString, searchText } = this.state;
+    const { selection, searchText } = this.state;
     const { items } = this.props; //eslint-disable-line
-    const enableSearch = this.shouldDisableSearch() ? 'hidden' : '';
-    const disableSearch = this.shouldDisableSearch() ? '' : 'hidden';
     items.sort((a, b) => a.item.sort - b.item.sort);
     const filters = (
       <div className="usa-grid">
@@ -268,29 +271,33 @@ class Home extends Component {
             <div className="usa-width-one-half">
               <div className="usa-search usa-search-big">
                 <div role="search">
-                  <label className="usa-sr-only" htmlFor="search-field">
-                      Search
-                  </label>
-                  <input
-                    id="search-field"
-                    value={searchText.value}
-                    onChange={e => this.changeText(e)}
-                    type="search"
-                    name="search"
-                  />
-                  <div id="enabled-search" className={enableSearch}>
-                    <Link to={`/results?${qString}`}>
-                      <button type="submit">
+                  <form onSubmit={e => this.submitSearch(e)}>
+                    <label className="usa-sr-only" htmlFor="search-field">
+                        Search
+                    </label>
+                    <input
+                      id="search-field"
+                      value={searchText.value}
+                      onChange={e => this.changeText(e)}
+                      type="search"
+                      name="search"
+                    />
+                    <div id="enabled-search">
+                      <button
+                        className={this.shouldDisableSearch() ? 'usa-button-disabled' : null}
+                        disabled={this.shouldDisableSearch()}
+                        type="submit"
+                      >
                         <span className="usa-search-submit-text">Search</span>
                       </button>
-                    </Link>
-                  </div>
-                  <div id="disabled-search" className={disableSearch}>
-                    <button className="usa-button-disabled" disabled="true" type="submit">
-                      <span className="usa-search-submit-text usa-button-disabled">Search</span>
-                    </button>
-                    <span className="alert-text">Select from at least two search filters</span>
-                  </div>
+                    </div>
+                    <div id="disabled-search" className={'hidden'}>
+                      <button className="usa-button-disabled" disabled="true" type="submit">
+                        <span className="usa-search-submit-text usa-button-disabled">Search</span>
+                      </button>
+                      <span className="alert-text">Select from at least two search filters</span>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -306,6 +313,7 @@ class Home extends Component {
 Home.propTypes = {
   api: PropTypes.string.isRequired,
   fetchData: PropTypes.func.isRequired,
+  onNavigateTo: PropTypes.func.isRequired,
   filters: PropTypes.arrayOf(
   PropTypes.arrayOf(
     PropTypes.shape({
@@ -332,6 +340,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: urls => dispatch(filtersFetchData(urls)),
+  onNavigateTo: dest => dispatch(push(dest)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

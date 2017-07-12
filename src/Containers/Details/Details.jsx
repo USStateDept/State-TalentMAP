@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { itemsFetchData } from '../../actions/items';
+import { positionDetailsFetchData } from '../../actions/positionDetails';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 
 class Details extends Component {
@@ -23,13 +23,13 @@ class Details extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { positionDetails } = this.props;
     // TODO - need to update the request and have API return 404 if position number not found
     // that way we can return error message and not rely on array length
     const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const details = items.length && !this.props.isLoading && !this.props.hasErrored ? (
+    const details = positionDetails.length && !this.props.isLoading && !this.props.hasErrored ? (
       <div>
-        <PositionDetails details={items[0]} />
+        <PositionDetails details={positionDetails[0]} />
       </div>
     ) : null;
     return (
@@ -54,7 +54,7 @@ Details.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  items: PropTypes.arrayOf(
+  positionDetails: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       grade: PropTypes.string,
@@ -79,17 +79,17 @@ Details.propTypes = {
 };
 
 Details.defaultProps = {
-  items: [],
+  positionDetails: [],
 };
 
 const mapStateToProps = state => ({
-  items: state.items,
-  hasErrored: state.itemsHasErrored,
-  isLoading: state.itemsIsLoading,
+  positionDetails: state.positionDetails,
+  hasErrored: state.positionDetailsHasErrored,
+  isLoading: state.positionDetailsIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: url => dispatch(itemsFetchData(url)),
+  fetchData: url => dispatch(positionDetailsFetchData(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

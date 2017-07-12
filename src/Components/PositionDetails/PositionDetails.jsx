@@ -74,7 +74,7 @@ ResultsList.propTypes = {
 };
 
 ResultsList.defaultProps = {
-  details: null,
+  details: {},
 };
 
 export default ResultsList;

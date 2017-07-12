@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { itemsFetchData } from '../../actions/items';
+import { postFetchData } from '../../actions/post';
 import PostMissionData from '../../Components/PostMissionData/PostMissionData';
 
 class Post extends Component {
@@ -22,7 +22,7 @@ class Post extends Component {
   }
 
   render() {
-    const { items } = this.props;
+    const { post } = this.props;
     const e = this.props.hasErrored ? (
       <span>There was an error loading this post</span>
     ) : null;
@@ -30,8 +30,8 @@ class Post extends Component {
     const postMissionData = !this.props.isLoading && !this.props.hasErrored ? (
       <div className="usa-grid-full">
         <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-          <h3> Post Number: {items.id} </h3>
-          <PostMissionData post={items} />
+          <h3> Post Number: {post.id} </h3>
+          <PostMissionData post={post} />
         </div>
       </div>
     ) : null;
@@ -53,7 +53,7 @@ Post.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  items: PropTypes.shape({
+  post: PropTypes.shape({
     id: PropTypes.number,
     tour_of_duty: PropTypes.string,
     code: PropTypes.string,
@@ -77,7 +77,7 @@ Post.propTypes = {
 };
 
 Post.defaultProps = {
-  items: [],
+  post: [],
 };
 
 Post.contextTypes = {
@@ -85,13 +85,13 @@ Post.contextTypes = {
 };
 
 const mapStateToProps = state => ({
-  items: state.items,
-  hasErrored: state.itemsHasErrored,
-  isLoading: state.itemsIsLoading,
+  post: state.post,
+  hasErrored: state.postHasErrored,
+  isLoading: state.postIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: url => dispatch(itemsFetchData(url)),
+  fetchData: url => dispatch(postFetchData(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Post);
