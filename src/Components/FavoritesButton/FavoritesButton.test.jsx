@@ -14,17 +14,28 @@ describe('FavoritesButton', () => {
     expect(favoritesButton).toBeDefined();
   });
 
+  it('it can accept different kinds of props', () => {
+    const favoritesButtonCompare = shallow(
+      <FavoritesButton refKey="0037" type="compare" />,
+    );
+    expect(favoritesButtonCompare).toBeDefined();
+    const favoritesButtonOther = shallow(
+      <FavoritesButton refKey="0037" type="other" />,
+    );
+    expect(favoritesButtonOther).toBeDefined();
+  });
+
   it('can add a favorite', () => {
     const wrapper = shallow(<FavoritesButton refKey="0036" type="fav" />);
-    wrapper.find('#changeSaved-fav-0').simulate('click');
+    wrapper.find('button').simulate('click');
     expect(wrapper.instance().state.saved).toBe(true);
   });
 
   it('can add and remove a favorite', () => {
     const wrapper = shallow(<FavoritesButton refKey="0037" type="fav" />);
-    wrapper.find('#changeSaved-fav-0').simulate('click');
+    wrapper.find('button').simulate('click');
     expect(wrapper.instance().state.saved).toBe(true);
-    wrapper.find('#changeSaved-fav-0').simulate('click');
+    wrapper.find('button').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false);
   });
 });
