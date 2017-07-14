@@ -8,7 +8,7 @@ import PostDetails from '../../Components/PostDetails/PostDetails';
 class Post extends Component {
 
   componentWillMount() {
-    this.getPost(this.props.match.params.id); // eslint-disable-line
+    this.getPost(this.props.match.params.id);
   }
 
   getPost(id) {
@@ -19,7 +19,7 @@ class Post extends Component {
 
   render() {
     const { post } = this.props;
-    const postComponent = this.props.isLoading ? null : <PostDetails post={post} />; //eslint-disable-line
+    const postComponent = this.props.isLoading ? null : <PostDetails post={post} />;
     return (
       <div>
         {postComponent}
@@ -30,9 +30,11 @@ class Post extends Component {
 
 Post.propTypes = {
   api: PropTypes.string.isRequired,
-  match: PropTypes.object, //eslint-disable-line
-  location: PropTypes.object, //eslint-disable-line
-  history: PropTypes.object, //eslint-disable-line
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
   fetchData: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   post: PropTypes.shape({

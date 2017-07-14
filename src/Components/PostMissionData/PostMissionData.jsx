@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import * as AlertMessages from '../../Constants/AlertMessages';
+import { POST_MISSION_DATA } from '../../Constants/PropTypes';
 
 class PostMissionData extends Component {
 
@@ -10,8 +11,8 @@ class PostMissionData extends Component {
     const { post } = this.props;
     const languageList = (post.languages && post.languages.length)
       ? post.languages.map(choice => (
-        <span key={`${choice}-choice`}> {choice.language} </span>
-      )) : <span key="no-languages"> None listed </span>;
+        `${choice.language} `
+      )) : AlertMessages.NO_LANGUAGES;
     return (
       <div className="usa-grid-full">
         <div>
@@ -47,27 +48,7 @@ class PostMissionData extends Component {
 }
 
 PostMissionData.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number,
-    tour_of_duty: PropTypes.string,
-    code: PropTypes.string,
-    description: PropTypes.string,
-    cost_of_living_adjustment: PropTypes.number,
-    differential_rate: PropTypes.number,
-    danger_pay: PropTypes.number,
-    rest_relaxation_point: PropTypes.string,
-    has_consumable_allowance: PropTypes.boolean,
-    has_service_needs_differential: PropTypes.boolean,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        language: PropTypes.string,
-        written_proficiency: PropTypes.string,
-        spoken_proficiency: PropTypes.string,
-        representation: PropTypes.string,
-      }),
-    ),
-  }),
+  post: POST_MISSION_DATA,
 };
 
 PostMissionData.defaultProps = {

@@ -60,13 +60,16 @@ class FavoritesButton extends Component {
 
   render() {
     let fromText = null;
-    fromText = this.props.type === 'fav' ? 'Favorites' : fromText;
-    fromText = this.props.type === 'compare' ? 'Comparison' : fromText;
+    if (this.props.type === 'fav') {
+      fromText = 'Favorites';
+    } else if (this.props.type === 'compare') {
+      fromText = 'Comparison';
+    }
     const buttonClass = this.state.saved ? 'usa-button-secondary' : '';
     const buttonText = this.getSavedState() ? `Remove from ${fromText}` : `Add to ${fromText}`;
     return (
       <div>
-        <button id={`changeSaved-${this.props.type}-${this.props.iterator}`} className={buttonClass} onClick={() => this.toggleSaved()}>
+        <button className={buttonClass} onClick={() => this.toggleSaved()}>
           {buttonText}
         </button>
       </div>
@@ -77,7 +80,6 @@ class FavoritesButton extends Component {
 FavoritesButton.propTypes = {
   refKey: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  iterator: PropTypes.number,
 };
 
 FavoritesButton.defaultProps = {

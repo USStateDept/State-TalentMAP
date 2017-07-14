@@ -2,10 +2,10 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'; // eslint-disable-line
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 
-import { ConnectedRouter, routerMiddleware, routerReducer } from 'react-router-redux'; // eslint-disable-line
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 
 import createHistory from 'history/createBrowserHistory';
 

@@ -14,7 +14,7 @@ class Position extends Component {
   }
 
   componentWillMount() {
-    this.getDetails(this.props.match.params.id); //eslint-disable-line
+    this.getDetails(this.props.match.params.id);
   }
 
   getDetails(id) {
@@ -52,13 +52,14 @@ Position.contextTypes = {
 
 Position.propTypes = {
   api: PropTypes.string.isRequired,
-  match: PropTypes.object, //eslint-disable-line
-  location: PropTypes.object, //eslint-disable-line
-  history: PropTypes.object, //eslint-disable-line
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
   fetchData: PropTypes.func, //eslint-disable-line
-  hasErrored: PropTypes.bool, //eslint-disable-line
-  isLoading: PropTypes.bool, //eslint-disable-line
-  positionId: PropTypes.string, //eslint-disable-line
+  hasErrored: PropTypes.bool,
+  isLoading: PropTypes.bool,
   positionDetails: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -85,6 +86,8 @@ Position.propTypes = {
 
 Position.defaultProps = {
   positionDetails: [],
+  hasErrored: false,
+  isLoading: true,
 };
 
 const mapStateToProps = (state, ownProps) => ({

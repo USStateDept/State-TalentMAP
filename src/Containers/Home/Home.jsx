@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
 import Filters from '../../Components/Filters/Filters';
+import { ITEMS } from '../../Constants/PropTypes';
 
 class Home extends Component {
   constructor(props) {
@@ -67,7 +68,8 @@ class Home extends Component {
   }
 
   render() {
-    const home = this.props.isLoading ? null : <Filters onSubmit={(e) => this.onChildSubmit(e)} items={this.props.items} />; //eslint-disable-line
+    const home = this.props.isLoading ?
+      null : <Filters onSubmit={e => this.onChildSubmit(e)} items={this.props.items} />;
     return (
       <div>
         {home}
@@ -81,22 +83,11 @@ Home.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  /*filters: PropTypes.arrayOf(
-  PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      code: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      long_description: PropTypes.string,
-      short_description: PropTypes.string,
-      effective_date: PropTypes.string,
-    }),
-  ),
-),*/
+  items: ITEMS,
 };
 
 Home.defaultProps = {
-  filters: [],
+  items: [],
   hasErrored: false,
   isLoading: true,
 };

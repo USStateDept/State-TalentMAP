@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import createRouterContext from 'react-router-test-context';
-import { createStore, combineReducers, applyMiddleware } from 'redux'; // eslint-disable-line
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
-import { routerMiddleware } from 'react-router-redux'; // eslint-disable-line
+import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../../reducers';
 import Filters from './Filters';
 

@@ -24,11 +24,11 @@ export function resultsFetchData(url) {
     dispatch(resultsIsLoading(true));
     axios.get(url)
             .then((response) => {
-              if (response.statusText !== 'OK') {
-                throw Error(response.statusText);
+              if (response.statusText === 'OK' || response.status === 200) {
+                dispatch(resultsIsLoading(false));
+                return response.data;
               }
-              dispatch(resultsIsLoading(false));
-              return response.data;
+              throw Error(response.statusText);
             })
             .then(results => dispatch(resultsFetchDataSuccess(results)))
             .catch(() => dispatch(resultsHasErrored(true)));
