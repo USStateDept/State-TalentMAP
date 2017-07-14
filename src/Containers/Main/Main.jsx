@@ -13,7 +13,7 @@ import rootReducer from '../../reducers';
 
 import Home from '../../Containers/Home/Home';
 import Results from '../../Containers/Results/Results';
-import Details from '../../Containers/Details/Details';
+import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
 
 const history = createHistory();
@@ -40,7 +40,7 @@ const Main = props => (
             path="/results"
             component={() => <Results {...props} />}
           />
-          <Route path="/details/:id" component={() => <Details {...props} />} />
+          <Route path="/details/:id" component={() => <Position {...props} />} />
           <Route path="/post/:id" component={() => <Post {...props} />} />
         </Switch>
       </main>

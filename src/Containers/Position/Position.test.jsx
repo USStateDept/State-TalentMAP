@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Home from './Home';
+import Position from './Position';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -16,9 +16,9 @@ describe('Main', () => {
   });
 
   it('is defined', () => {
-    const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Home api={api} />
+    const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+      <Position api={api} />
     </MemoryRouter></Provider>);
-    expect(home).toBeDefined();
+    expect(position).toBeDefined();
   });
 });

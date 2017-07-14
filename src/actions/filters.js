@@ -27,6 +27,7 @@ export function filtersFetchData(urlArr) {
 
     function dispatchSuccess() {
       if (responses.length === urlArr.length) {
+        dispatch(filtersIsLoading(false));
         dispatch(filtersFetchDataSuccess(responses));
       }
     }

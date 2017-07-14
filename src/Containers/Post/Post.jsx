@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { postFetchData } from '../../actions/post';
-import PostMissionData from '../../Components/PostMissionData/PostMissionData';
+import PostDetails from '../../Components/PostDetails/PostDetails';
 
 class Post extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
   componentWillMount() {
-    this.getPost(this.context.router.route.match.params.id);
+    this.getPost(this.props.match.params.id); // eslint-disable-line
   }
 
   getPost(id) {
@@ -23,26 +19,10 @@ class Post extends Component {
 
   render() {
     const { post } = this.props;
-    const e = this.props.hasErrored ? (
-      <span>There was an error loading this post</span>
-    ) : null;
-    const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const postMissionData = !this.props.isLoading && !this.props.hasErrored ? (
-      <div className="usa-grid-full">
-        <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-          <h3> Post Number: {post.id} </h3>
-          <PostMissionData post={post} />
-        </div>
-      </div>
-    ) : null;
+    const postComponent = this.props.isLoading ? null : <PostDetails post={post} />; //eslint-disable-line
     return (
       <div>
-        <div className="usa-grid">
-          <center>
-            {e} {l}
-          </center>
-        </div>
-        {postMissionData}
+        {postComponent}
       </div>
     );
   }
@@ -50,8 +30,10 @@ class Post extends Component {
 
 Post.propTypes = {
   api: PropTypes.string.isRequired,
+  match: PropTypes.object, //eslint-disable-line
+  location: PropTypes.object, //eslint-disable-line
+  history: PropTypes.object, //eslint-disable-line
   fetchData: PropTypes.func.isRequired,
-  hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   post: PropTypes.shape({
     id: PropTypes.number,
@@ -77,21 +59,23 @@ Post.propTypes = {
 };
 
 Post.defaultProps = {
-  post: [],
+  post: {},
+  isLoading: true,
 };
 
 Post.contextTypes = {
   router: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   post: state.post,
   hasErrored: state.postHasErrored,
   isLoading: state.postIsLoading,
+  id: ownProps,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(postFetchData(url)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Post);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Post));

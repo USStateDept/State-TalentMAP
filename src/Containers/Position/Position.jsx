@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 
-class Details extends Component {
+class Position extends Component {
 
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ class Details extends Component {
   }
 
   componentWillMount() {
-    this.getDetails(this.context.router.route.match.params.id);
+    this.getDetails(this.props.match.params.id); //eslint-disable-line
   }
 
   getDetails(id) {
@@ -45,15 +46,19 @@ class Details extends Component {
   }
 }
 
-Details.contextTypes = {
+Position.contextTypes = {
   router: PropTypes.object,
 };
 
-Details.propTypes = {
+Position.propTypes = {
   api: PropTypes.string.isRequired,
-  fetchData: PropTypes.func.isRequired,
-  hasErrored: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  match: PropTypes.object, //eslint-disable-line
+  location: PropTypes.object, //eslint-disable-line
+  history: PropTypes.object, //eslint-disable-line
+  fetchData: PropTypes.func, //eslint-disable-line
+  hasErrored: PropTypes.bool, //eslint-disable-line
+  isLoading: PropTypes.bool, //eslint-disable-line
+  positionId: PropTypes.string, //eslint-disable-line
   positionDetails: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -78,18 +83,19 @@ Details.propTypes = {
   ),
 };
 
-Details.defaultProps = {
+Position.defaultProps = {
   positionDetails: [],
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, ownProps) => ({
   positionDetails: state.positionDetails,
   hasErrored: state.positionDetailsHasErrored,
   isLoading: state.positionDetailsIsLoading,
+  id: ownProps,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(positionDetailsFetchData(url)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Details);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Position));

@@ -20,7 +20,7 @@ class Results extends Component {
   render() {
     const { results } = this.props;
     const e = this.props.hasErrored ? (
-      <span>There was an error loading this post</span>
+      <span>There was an error loading the results</span>
     ) : null;
     const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
     const n = !this.props.isLoading && !this.props.hasErrored && !results.length ?
@@ -81,6 +81,8 @@ Results.propTypes = {
 
 Results.defaultProps = {
   results: [],
+  hasErrored: false,
+  isLoading: true,
 };
 
 Results.contextTypes = {
