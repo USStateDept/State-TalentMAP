@@ -62,17 +62,15 @@ class Home extends Component {
     const urlArr = [];
     this.state.items.forEach((item) => {
       const endpoint = item.endpoint;
-      urlArr.push({ url: `${api}/${endpoint}/`, item });
+      urlArr.push({ url: `${api}/${endpoint}/?available=true`, item });
     });
     this.props.fetchData(urlArr);
   }
 
   render() {
-    const home = this.props.isLoading ?
-      null : <Filters onSubmit={e => this.onChildSubmit(e)} items={this.props.items} />;
     return (
       <div>
-        {home}
+        <Filters onSubmit={e => this.onChildSubmit(e)} items={this.props.items} />
       </div>
     );
   }
@@ -82,7 +80,6 @@ Home.propTypes = {
   api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   items: ITEMS,
 };
 

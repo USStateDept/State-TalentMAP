@@ -19,10 +19,9 @@ class Post extends Component {
 
   render() {
     const { post } = this.props;
-    const postComponent = this.props.isLoading ? null : <PostDetails post={post} />;
     return (
       <div>
-        {postComponent}
+        <PostDetails post={post} />
       </div>
     );
   }
@@ -36,7 +35,6 @@ Post.propTypes = {
     }),
   }).isRequired,
   fetchData: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   post: PropTypes.shape({
     id: PropTypes.number,
     tour_of_duty: PropTypes.string,
