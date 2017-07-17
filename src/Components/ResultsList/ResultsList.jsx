@@ -6,19 +6,11 @@ import { RESULTS } from '../../Constants/PropTypes';
 import * as AlertMessages from '../../Constants/AlertMessages';
 
 class ResultsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      key: 0,
-    };
-  }
 
   componentWillMount() {
   }
 
   onChildToggle() {
-    const key = Math.random();
-    this.setState({ key });
     this.forceUpdate();
     this.props.onToggle();
   }

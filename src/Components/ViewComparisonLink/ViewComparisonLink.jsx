@@ -23,7 +23,9 @@ class ViewComparisonLink extends Component {
       }
       return result;
     };
-    const compare = exists() ? <Link to="compare">Compare positions</Link> : null;
+    let url = JSON.parse(localStorage.getItem('compare'));
+    url = url ? `compare/${url.toString()}` : 'compare';
+    const compare = exists() ? <Link to={url}>Compare positions</Link> : null;
     return (
       <span>
         {compare}

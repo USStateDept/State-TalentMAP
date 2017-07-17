@@ -2,9 +2,9 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
-import ResultsList from './ResultsList';
+import ResultsPage from './ResultsPage';
 
-describe('ResultsListComponent', () => {
+describe('ResultsPageComponent', () => {
   let results = null;
   let wrapper = null;
 
@@ -39,7 +39,7 @@ describe('ResultsListComponent', () => {
 
   beforeEach(() => {
     results = TestUtils.renderIntoDocument(<MemoryRouter>
-      <ResultsList results={resultsArray} />
+      <ResultsPage results={resultsArray} />
     </MemoryRouter>);
   });
 
@@ -48,12 +48,18 @@ describe('ResultsListComponent', () => {
   });
 
   it('is can receive props', () => {
-    wrapper = shallow(<ResultsList results={resultsArray} />);
+    wrapper = shallow(<ResultsPage results={resultsArray} hasErrored isLoading={false} />);
     expect(wrapper.instance().props.results[0].id).toBe(6);
   });
 
+  it('is can receive props', () => {
+    wrapper = shallow(<ResultsPage hasErrored={false} isLoading={false} />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('is can call the onChildToggle function', () => {
-    wrapper = shallow(<ResultsList results={resultsArray} />);
+    wrapper = shallow(<ResultsPage results={resultsArray} />);
     wrapper.instance().onChildToggle();
+    expect(wrapper).toBeDefined();
   });
 });

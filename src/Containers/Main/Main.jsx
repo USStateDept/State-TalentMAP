@@ -15,6 +15,7 @@ import Home from '../../Containers/Home/Home';
 import Results from '../../Containers/Results/Results';
 import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
+import Compare from '../../Containers/Compare/Compare';
 
 const history = createHistory();
 
@@ -42,6 +43,7 @@ const Main = props => (
           />
           <Route path="/details/:id" component={() => <Position {...props} />} />
           <Route path="/post/:id" component={() => <Post {...props} />} />
+          <Route path="/compare/:ids" component={() => <Compare {...props} />} />
         </Switch>
       </main>
     </ConnectedRouter>

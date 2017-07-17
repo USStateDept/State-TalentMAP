@@ -51,4 +51,10 @@ describe('CompareListComponent', () => {
     wrapper = shallow(<CompareList compare={compareArray} />);
     expect(wrapper.instance().props.compare[0].id).toBe(6);
   });
+
+  it('is can call the onChildToggle function', () => {
+    wrapper = shallow(<CompareList compare={compareArray} />);
+    wrapper.instance().onChildToggle();
+    expect(wrapper).toBeDefined();
+  });
 });
