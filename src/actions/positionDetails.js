@@ -26,7 +26,7 @@ export function positionDetailsFetchData(url) {
             .then((response) => {
               if (response.statusText === 'OK' || response.status === 200) {
                 dispatch(positionDetailsIsLoading(false));
-                return response.data[0];
+                return response.data;
               }
               throw Error(response.statusText);
             })

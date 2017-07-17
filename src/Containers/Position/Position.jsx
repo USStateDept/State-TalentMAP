@@ -31,7 +31,7 @@ class Position extends Component {
     const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
     const details = positionDetails.length && !this.props.isLoading && !this.props.hasErrored ? (
       <div>
-        <PositionDetails details={positionDetails} />
+        <PositionDetails details={positionDetails[0]} />
       </div>
     ) : null;
     return (
@@ -61,7 +61,7 @@ Position.propTypes = {
   fetchData: PropTypes.func, //eslint-disable-line
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
-  positionDetails: DETAILS,
+  positionDetails: PropTypes.arrayOf(DETAILS),
 };
 
 Position.defaultProps = {
