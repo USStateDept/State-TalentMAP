@@ -25,12 +25,12 @@ export const POST_MISSION_DATA = PropTypes.shape({
 });
 
 export const DETAILS = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   grade: PropTypes.string,
   skill: PropTypes.string,
   bureau: PropTypes.string,
   organization: PropTypes.string,
-  position_number: PropTypes.string.isRequired,
+  position_number: PropTypes.string,
   is_overseas: PropTypes.boolean,
   create_date: PropTypes.string,
   update_date: PropTypes.string,

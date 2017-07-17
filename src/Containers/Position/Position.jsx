@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
+import { DETAILS } from '../../Constants/PropTypes';
 
 class Position extends Component {
 
@@ -60,32 +61,11 @@ Position.propTypes = {
   fetchData: PropTypes.func, //eslint-disable-line
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
-  positionDetails: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      grade: PropTypes.string,
-      skill: PropTypes.string,
-      bureau: PropTypes.string,
-      organization: PropTypes.string,
-      position_number: PropTypes.string,
-      is_overseas: PropTypes.boolean,
-      create_date: PropTypes.string,
-      update_date: PropTypes.string,
-      languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        language: PropTypes.string,
-        written_proficiency: PropTypes.string,
-        spoken_proficiency: PropTypes.string,
-        representation: PropTypes.string,
-      }),
-    ),
-    }),
-  ),
+  positionDetails: PropTypes.arrayOf(DETAILS),
 };
 
 Position.defaultProps = {
-  positionDetails: [],
+  positionDetails: {},
   hasErrored: false,
   isLoading: true,
 };

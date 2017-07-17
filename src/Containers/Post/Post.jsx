@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { postFetchData } from '../../actions/post';
 import PostDetails from '../../Components/PostDetails/PostDetails';
+import { POST_MISSION_DATA } from '../../Constants/PropTypes';
 
 class Post extends Component {
 
@@ -35,27 +36,7 @@ Post.propTypes = {
     }),
   }).isRequired,
   fetchData: PropTypes.func.isRequired,
-  post: PropTypes.shape({
-    id: PropTypes.number,
-    tour_of_duty: PropTypes.string,
-    code: PropTypes.string,
-    description: PropTypes.string,
-    cost_of_living_adjustment: PropTypes.number,
-    differential_rate: PropTypes.number,
-    danger_pay: PropTypes.number,
-    rest_relaxation_point: PropTypes.string,
-    has_consumable_allowance: PropTypes.boolean,
-    has_service_needs_differential: PropTypes.boolean,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        language: PropTypes.string,
-        written_proficiency: PropTypes.string,
-        spoken_proficiency: PropTypes.string,
-        representation: PropTypes.string,
-      }),
-    ),
-  }),
+  post: POST_MISSION_DATA,
 };
 
 Post.defaultProps = {
