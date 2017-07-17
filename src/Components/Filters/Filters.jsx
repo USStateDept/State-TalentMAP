@@ -192,16 +192,16 @@ class Filters extends Component {
                   { items[i].item.description === 'tod' ?
                     <div key={choice.code} className="usa-width-one-fourth">
                       <input
-                        id={`G${choice.code}`}
+                        id={`TOD${choice.code}`}
                         type="checkbox"
-                        title={`grade-${choice.code}`}
+                        title={`tod-${choice.code}`}
                         name="historical-figures-1"
-                        value={choice.code}
+                        value={choice.id}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
-                                  .indexOf(choice.code) !== -1}
+                                  .indexOf(choice.id.toString()) !== -1}
                       />
-                      <label htmlFor={`G${choice.code}`}>
+                      <label htmlFor={`TOD${choice.code}`}>
                         {choice.long_description}
                       </label>
                     </div>
@@ -210,16 +210,16 @@ class Filters extends Component {
                   { items[i].item.description === 'region' ?
                     <div key={choice.code} className="usa-width-one-fourth">
                       <input
-                        id={`G${choice.code}`}
+                        id={`R${choice.code}`}
                         type="checkbox"
-                        title={`grade-${choice.code}`}
+                        title={`region-${choice.code}`}
                         name="historical-figures-1"
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
                                   .indexOf(choice.code) !== -1}
                       />
-                      <label htmlFor={`G${choice.code}`}>
+                      <label htmlFor={`R${choice.code}`}>
                         {choice.long_description}
                       </label>
                     </div>
@@ -238,7 +238,7 @@ class Filters extends Component {
                   </button>
                   <div id={`accordion ${id}`} className="usa-accordion-content">
                     <fieldset className="usa-fieldset-inputs usa-sans">
-                      <legend className="usa-sr-only">{item.title}</legend>
+                      <legend className="usa-sr-only">{item.item.title}</legend>
                       <div className="usa-grid">
                         {checks}
                       </div>
