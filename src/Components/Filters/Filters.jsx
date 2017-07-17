@@ -7,7 +7,13 @@ class Filters extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [] },
+      selection: {
+        skill__code__in: [],
+        languages__language__code__in: [],
+        grade__code__in: [],
+        post__tour_of_duty__in: [],
+        organization__code__in: [],
+      },
       proficiency: {},
       qString: null,
       searchText: { value: '' },
@@ -179,6 +185,42 @@ class Filters extends Component {
                       />
                       <label htmlFor={`G${choice.code}`}>
                         {choice.code}
+                      </label>
+                    </div>
+                  : null
+                  }
+                  { items[i].item.description === 'tod' ?
+                    <div key={choice.code} className="usa-width-one-fourth">
+                      <input
+                        id={`G${choice.code}`}
+                        type="checkbox"
+                        title={`grade-${choice.code}`}
+                        name="historical-figures-1"
+                        value={choice.code}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.code) !== -1}
+                      />
+                      <label htmlFor={`G${choice.code}`}>
+                        {choice.long_description}
+                      </label>
+                    </div>
+                  : null
+                  }
+                  { items[i].item.description === 'region' ?
+                    <div key={choice.code} className="usa-width-one-fourth">
+                      <input
+                        id={`G${choice.code}`}
+                        type="checkbox"
+                        title={`grade-${choice.code}`}
+                        name="historical-figures-1"
+                        value={choice.code}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.code) !== -1}
+                      />
+                      <label htmlFor={`G${choice.code}`}>
+                        {choice.long_description}
                       </label>
                     </div>
                   : null

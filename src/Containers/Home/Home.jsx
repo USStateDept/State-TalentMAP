@@ -10,7 +10,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [] },
       items: [
         {
           title: 'Skill code',
@@ -39,6 +38,26 @@ class Home extends Component {
           endpoint: 'position/grades',
           selectionRef: 'grade__code__in',
           text: 'Choose grades',
+          choices: [
+          ],
+        },
+        {
+          title: 'Tour of Duty',
+          sort: 400,
+          description: 'tod',
+          endpoint: 'organization/tod',
+          selectionRef: 'post__tour_of_duty__in',
+          text: 'Choose tour of duty length',
+          choices: [
+          ],
+        },
+        {
+          title: 'Region',
+          sort: 500,
+          description: 'region',
+          endpoint: 'organization',
+          selectionRef: 'organization__code__in',
+          text: 'Choose region',
           choices: [
           ],
         },
