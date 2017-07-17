@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { resultsFetchData } from '../../actions/results';
+import { comparisonsFetchData } from '../../actions/comparisons';
 import CompareList from '../../Components/CompareList/CompareList';
 import { RESULTS } from '../../Constants/PropTypes';
 
@@ -25,10 +25,10 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading } = this.props;
+    const { comparisons, hasErrored, isLoading } = this.props;
     return (
       <div className="usa-grid-full">
-        <CompareList compare={results} hasErrored={hasErrored} isLoading={isLoading} />
+        <CompareList compare={comparisons} hasErrored={hasErrored} isLoading={isLoading} />
       </div>
     );
   }
@@ -44,11 +44,11 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: RESULTS,
+  comparisons: RESULTS,
 };
 
 Results.defaultProps = {
-  results: [],
+  comparisons: [],
   hasErrored: false,
   isLoading: true,
 };
@@ -58,13 +58,13 @@ Results.contextTypes = {
 };
 
 const mapStateToProps = state => ({
-  results: state.results,
-  hasErrored: state.resultsHasErrored,
-  isLoading: state.resultsIsLoading,
+  comparisons: state.comparisons,
+  hasErrored: state.comparisonsHasErrored,
+  isLoading: state.comparisonsIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: url => dispatch(resultsFetchData(url)),
+  fetchData: url => dispatch(comparisonsFetchData(url)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));
