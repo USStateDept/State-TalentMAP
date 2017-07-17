@@ -88,7 +88,6 @@ class Filters extends Component {
   submitSearch(e) {
     e.preventDefault();
     this.props.onSubmit(`/results?${this.state.qString}`);
-    // this.props.onNavigateTo(`/results?${this.state.qString}`);
   }
 
   render() {

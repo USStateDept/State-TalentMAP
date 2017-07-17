@@ -74,6 +74,38 @@ describe('FiltersComponent', () => {
         { id: 3, code: '01' },
       ],
     },
+    {
+      item: {
+        title: 'Tour of Duty',
+        sort: 400,
+        description: 'tod',
+        endpoint: 'organization/tod',
+        selectionRef: 'post__tour_of_duty__in',
+        text: 'Choose tour of duty length',
+        choices: [
+        ],
+      },
+      data: [
+        { id: 2, code: '00', long_description: '13YRR' },
+        { id: 3, code: '01', long_description: '23YRR' },
+      ],
+    },
+    {
+      item: {
+        title: 'Region',
+        sort: 500,
+        description: 'region',
+        endpoint: 'organization',
+        selectionRef: 'organization__code__in',
+        text: 'Choose region',
+        choices: [
+        ],
+      },
+      data: [
+        { id: 2, code: '00', long_description: 'Operations Center' },
+        { id: 3, code: '01', long_description: 'Los Angeles' },
+      ],
+    },
   ];
 
   beforeEach(() => {
