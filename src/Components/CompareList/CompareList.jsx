@@ -5,20 +5,12 @@ import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
 import { RESULTS } from '../../Constants/PropTypes';
 import * as AlertMessages from '../../Constants/AlertMessages';
 
-class ResultsList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      key: 0,
-    };
-  }
+class CompareList extends Component {
 
   componentWillMount() {
   }
 
   onChildToggle() {
-    const key = Math.random();
-    this.setState({ key });
     this.forceUpdate();
     this.props.onToggle();
   }
@@ -26,7 +18,7 @@ class ResultsList extends Component {
   render() {
     return (
       <div>
-        { this.props.results.map(result => (
+        { this.props.compare.map(result => (
           <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <div className="usa-width-one-half">
               <Link to={`/details/${result.position_number}`}>
@@ -63,14 +55,14 @@ class ResultsList extends Component {
   }
 }
 
-ResultsList.propTypes = {
-  results: RESULTS,
+CompareList.propTypes = {
+  compare: RESULTS,
   onToggle: PropTypes.func,
 };
 
-ResultsList.defaultProps = {
-  results: [],
+CompareList.defaultProps = {
+  compare: [],
   onToggle: () => {},
 };
 
-export default ResultsList;
+export default CompareList;
