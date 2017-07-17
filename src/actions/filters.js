@@ -35,11 +35,8 @@ export function filtersFetchData(urlArr) {
     urlArr.forEach((url) => {
       axios.get(url.url)
               .then((response) => {
-                if (response.statusText === 'OK' || response.status === 200) {
-                  responses.push({ data: response.data, item: url.item });
-                  dispatchSuccess();
-                }
-                throw Error(response.statusText);
+                responses.push({ data: response.data, item: url.item });
+                dispatchSuccess();
               })
               .catch(() => dispatch(filtersHasErrored(true)));
     });

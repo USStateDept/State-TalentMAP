@@ -65,7 +65,7 @@ Position.propTypes = {
 };
 
 Position.defaultProps = {
-  positionDetails: {},
+  positionDetails: [],
   hasErrored: false,
   isLoading: true,
 };
