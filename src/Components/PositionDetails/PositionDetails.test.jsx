@@ -1,12 +1,11 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import PositionDetails from './PositionDetails';
 
 describe('PositionDetailsComponent', () => {
-  let details = null;
   let wrapper = null;
+
+  const api = 'localhost:8000/api/v1/';
 
   const detailsObject = {
     id: 6,
@@ -23,25 +22,17 @@ describe('PositionDetailsComponent', () => {
   };
 
   beforeEach(() => {
-    details = TestUtils.renderIntoDocument(
-      <MemoryRouter>
-        <PositionDetails details={detailsObject} />
-      </MemoryRouter>);
-  });
-
-  it('is defined', () => {
-    expect(details).toBeDefined();
   });
 
   it('is can receive props', () => {
-    wrapper = shallow(<PositionDetails details={detailsObject} />);
+    wrapper = shallow(<PositionDetails api={api} details={detailsObject} />);
     expect(wrapper.instance().props.details.id).toBe(6);
   });
 
   it('handles different props', () => {
     Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
 
-    wrapper = shallow(<PositionDetails details={detailsObject} />);
+    wrapper = shallow(<PositionDetails api={api} details={detailsObject} />);
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });
 });
