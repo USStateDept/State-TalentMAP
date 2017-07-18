@@ -15,6 +15,12 @@ class CompareList extends Component {
   }
 
   render() {
+    const { compare } = this.props;
+    // TODO - move language list to its own component, as this is used in multiple places
+    const languageList = (compare.languages && compare.languages.length)
+      ? compare.languages.map(choice => (
+        `${choice.language} `
+      )) : AlertMessages.NO_LANGUAGES;
     return (
       <div>
         { this.props.compare.map(result => (
@@ -32,10 +38,20 @@ class CompareList extends Component {
                 <br />
                   Organization: {result.organization}
                 <br />
+                  Tour of Duty: {result.post && result.post.tour_of_duty ?
+                    result.post.tour_of_duty : AlertMessages.NO_TOUR_OF_DUTY}
+                <br />
+                  Language: <span>{languageList}</span>
+                <br />
                   Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.description}</Link> : AlertMessages.NO_POST }
                 <br />
-                  Post Differential: {result.post
+                  Post Differential: {result.post && result.post.differential_rate
                     ? result.post.differential_rate : AlertMessages.NO_POST_DIFFERENTIAL}
+                <br />
+                  Danger Pay: {result.post ? result.post.danger_pay : AlertMessages.NO_DANGER_PAY}
+                <br />
+                  COLA: {result.post && result.post.cola ?
+                    result.cost_of_living_adjustment : AlertMessages.NO_COLA}
               </p>
             </div>
           </div>
