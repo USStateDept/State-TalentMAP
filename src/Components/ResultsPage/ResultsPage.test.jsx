@@ -1,11 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import ResultsPage from './ResultsPage';
 
 describe('ResultsPageComponent', () => {
-  let results = null;
   let wrapper = null;
 
   const resultsArray = [
@@ -37,14 +34,9 @@ describe('ResultsPageComponent', () => {
     },
   ];
 
-  beforeEach(() => {
-    results = TestUtils.renderIntoDocument(<MemoryRouter>
-      <ResultsPage results={resultsArray} />
-    </MemoryRouter>);
-  });
-
   it('is defined', () => {
-    expect(results).toBeDefined();
+    wrapper = shallow(<ResultsPage results={resultsArray} hasErrored isLoading={false} />);
+    expect(wrapper).toBeDefined();
   });
 
   it('is can receive props', () => {

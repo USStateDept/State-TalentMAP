@@ -4,6 +4,7 @@ import ResultsList from '../ResultsList/ResultsList';
 import { RESULTS } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
+import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
 
 class Results extends Component {
   constructor(props) {
@@ -33,10 +34,13 @@ class Results extends Component {
     return (
       <div className="usa-grid-full">
         <div className="usa-grid-full">
-          <div className="usa-width-one-half" style={{ float: 'left', padding: '15px 5px 0 10px' }}>
+          <div className="usa-width-one-third" style={{ float: 'left', padding: '15px 5px 0 10px' }}>
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
           </div>
-          <div className="usa-width-one-half" style={{ float: 'left', padding: '0px 0px 5px 0px', textAlign: 'right' }}>
+          <div className="usa-width-one-third" style={{ float: 'left', padding: '0px 0px 5px 0px', textAlign: 'center' }}>
+            <ResetFiltersConnect />
+          </div>
+          <div className="usa-width-one-third" style={{ float: 'left', padding: '0px 0px 5px 0px', textAlign: 'right' }}>
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
         </div>

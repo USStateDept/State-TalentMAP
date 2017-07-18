@@ -30,9 +30,9 @@ class ResetComparisons extends Component {
       <button onClick={() => remove()}>Reset comparison choices</button>
       : null;
     return (
-      <span>
+      <div>
         {compare}
-      </span>
+      </div>
     );
   }
 }
