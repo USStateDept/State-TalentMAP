@@ -15,7 +15,7 @@ class Home extends Component {
           title: 'Skill code',
           sort: 100,
           description: 'skill',
-          endpoint: 'position/skills',
+          endpoint: 'position/skills/',
           selectionRef: 'skill__code__in',
           text: 'Choose skill codes',
           choices: [
@@ -25,7 +25,7 @@ class Home extends Component {
           title: 'Language',
           sort: 200,
           description: 'language',
-          endpoint: 'language',
+          endpoint: 'language/',
           selectionRef: 'languages__language__code__in',
           text: 'Choose languages',
           choices: [
@@ -35,7 +35,7 @@ class Home extends Component {
           title: 'Grade',
           sort: 300,
           description: 'grade',
-          endpoint: 'position/grades',
+          endpoint: 'position/grades/',
           selectionRef: 'grade__code__in',
           text: 'Choose grades',
           choices: [
@@ -45,7 +45,7 @@ class Home extends Component {
           title: 'Tour of Duty',
           sort: 400,
           description: 'tod',
-          endpoint: 'organization/tod',
+          endpoint: 'organization/tod/',
           selectionRef: 'post__tour_of_duty__in',
           text: 'Choose tour of duty length',
           choices: [
@@ -55,7 +55,7 @@ class Home extends Component {
           title: 'Region',
           sort: 500,
           description: 'region',
-          endpoint: 'organization',
+          endpoint: 'organization/?is_bureau=true',
           selectionRef: 'organization__code__in',
           text: 'Choose region',
           choices: [
@@ -81,7 +81,7 @@ class Home extends Component {
     const urlArr = [];
     this.state.items.forEach((item) => {
       const endpoint = item.endpoint;
-      urlArr.push({ url: `${api}/${endpoint}/?available=true`, item });
+      urlArr.push({ url: `${api}/${endpoint}`, item });
     });
     this.props.fetchData(urlArr);
   }
