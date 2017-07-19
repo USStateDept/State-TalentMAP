@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as AlertMessages from '../../Constants/AlertMessages';
-import { DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import Share from '../Share/Share';
 
 const PositionDetails = ({ details, api }) => {
@@ -52,7 +52,7 @@ const PositionDetails = ({ details, api }) => {
 };
 
 PositionDetails.propTypes = {
-  details: DETAILS,
+  details: POSITION_DETAILS,
   api: PropTypes.string.isRequired,
 };
 
