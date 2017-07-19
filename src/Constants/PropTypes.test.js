@@ -9,8 +9,8 @@ describe('AlertMessages', () => {
     expect(PropTypes.POST_MISSION_DATA).toBeDefined();
   });
 
-  it('Should return DETAILS', () => {
-    expect(PropTypes.DETAILS).toBeDefined();
+  it('Should return POSITION_DETAILS', () => {
+    expect(PropTypes.POSITION_DETAILS).toBeDefined();
   });
 
   it('Should return RESULTS', () => {
