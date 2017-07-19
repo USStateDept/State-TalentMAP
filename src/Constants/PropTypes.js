@@ -27,7 +27,7 @@ export const POST_MISSION_DATA = PropTypes.shape({
 // TODO - these are the same, but other data will be added later
 export const POST_DETAILS = POST_MISSION_DATA;
 
-export const DETAILS = PropTypes.shape({
+export const POSITION_DETAILS = PropTypes.shape({
   id: PropTypes.number,
   grade: PropTypes.string,
   skill: PropTypes.string,
@@ -42,7 +42,7 @@ export const DETAILS = PropTypes.shape({
 });
 
 export const RESULTS = PropTypes.arrayOf(
-  DETAILS,
+  POSITION_DETAILS,
 );
 
 export const FILTERS = PropTypes.arrayOf(

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as AlertMessages from '../../Constants/AlertMessages';
-import { DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 const PositionDetails = ({ details }) => {
   const languageList = (details.languages && details.languages.length)
@@ -49,7 +49,7 @@ const PositionDetails = ({ details }) => {
 };
 
 PositionDetails.propTypes = {
-  details: DETAILS,
+  details: POSITION_DETAILS,
 };
 
 PositionDetails.defaultProps = {
