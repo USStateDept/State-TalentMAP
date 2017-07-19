@@ -24,6 +24,9 @@ export const POST_MISSION_DATA = PropTypes.shape({
   languages: LANGUAGES,
 });
 
+// TODO - these are the same, but other data will be added later
+export const POST_DETAILS = POST_MISSION_DATA;
+
 export const DETAILS = PropTypes.shape({
   id: PropTypes.number,
   grade: PropTypes.string,
