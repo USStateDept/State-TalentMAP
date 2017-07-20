@@ -20,9 +20,6 @@ class Filters extends Component {
     };
   }
 
-  componentWillMount() {
-  }
-
   changeProficiency(prof, val) {
     const { proficiency } = this.state;
     proficiency[prof] = val;
