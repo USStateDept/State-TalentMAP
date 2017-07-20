@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { RESULTS } from '../../Constants/PropTypes';
+import LanguageList from '../LanguageList/LanguageList';
 import * as AlertMessages from '../../Constants/AlertMessages';
 
 class CompareList extends Component {
@@ -13,14 +14,9 @@ class CompareList extends Component {
 
   render() {
     const { compare } = this.props;
-    // TODO - move language list to its own component, as this is used in multiple places
-    const languageList = (compare.languages && compare.languages.length)
-      ? compare.languages.map(choice => (
-        `${choice.language} `
-      )) : AlertMessages.NO_LANGUAGES;
     return (
       <div>
-        { this.props.compare.map(result => (
+        { compare.map(result => (
           <div key={result.id} id={result.id} className="usa-width-one-half" style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <div className="usa-grid-full">
               <Link to={`/details/${result.position_number}`}>
@@ -38,7 +34,7 @@ class CompareList extends Component {
                   Tour of Duty: {result.post ?
                     result.post.tour_of_duty : AlertMessages.NO_TOUR_OF_DUTY}
                 <br />
-                  Language: <span>{languageList}</span>
+                  Language: <LanguageList languages={result.languages} />
                 <br />
                   Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.description}</Link> : AlertMessages.NO_POST }
                 <br />

@@ -5,51 +5,46 @@ import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as AlertMessages from '../../Constants/AlertMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import Share from '../Share/Share';
+import LanguageList from '../LanguageList/LanguageList';
 
-const PositionDetails = ({ details, api }) => {
-  const languageList = (details.languages && details.languages.length)
-    ? details.languages.map(choice => (
-      `${choice.language} `
-    )) : AlertMessages.NO_LANGUAGES;
-  return (
-    <div className="usa-grid-full">
-      <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-        <h3> Position Number: {details.position_number} </h3>
-        <p>
+const PositionDetails = ({ details, api }) => (
+  <div className="usa-grid-full">
+    <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+      <h3> Position Number: {details.position_number} </h3>
+      <p>
             Grade: {details.grade}
-          <br />
+        <br />
             Skill: {details.skill}
-          <br />
+        <br />
             Bureau: {details.bureau}
-          <br />
+        <br />
             Organization: {details.organization}
-          <br />
+        <br />
             Overseas: {details.is_overseas ? 'Yes' : 'No'}
-          <br />
-            Language: <span>{languageList}</span>
-          <br />
+        <br />
+            Language: <LanguageList languages={details.languages} />
+        <br />
             Danger Pay: {details.post ? details.post.danger_pay : AlertMessages.NO_DANGER_PAY}
-          <br />
+        <br />
             Region: 5 {/* TODO replace hard-coded value with API value */}
-          <br />
+        <br />
             Post: {details.post ? <Link to={`/post/${details.post.id}`}>{details.post.description}</Link> : AlertMessages.NO_POST }
-          <br />
+        <br />
             Post Differential: {
               details.post ?
               details.post.differential_rate
               : AlertMessages.NO_POST_DIFFERENTIAL
             }
-          <br />
+        <br />
             Created: {details.create_date}
-          <br />
+        <br />
             Updated: {details.update_date}
-        </p>
-        <FavoritesButton refKey={details.position_number} type="fav" />
-        <Share api={api} identifier={details.id} />
-      </div>
+      </p>
+      <FavoritesButton refKey={details.position_number} type="fav" />
+      <Share api={api} identifier={details.id} />
     </div>
+  </div>
   );
-};
 
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
