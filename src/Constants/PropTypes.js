@@ -24,13 +24,16 @@ export const POST_MISSION_DATA = PropTypes.shape({
   languages: LANGUAGES,
 });
 
-export const DETAILS = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+// TODO - these are the same, but other data will be added later
+export const POST_DETAILS = POST_MISSION_DATA;
+
+export const POSITION_DETAILS = PropTypes.shape({
+  id: PropTypes.number,
   grade: PropTypes.string,
   skill: PropTypes.string,
   bureau: PropTypes.string,
   organization: PropTypes.string,
-  position_number: PropTypes.string.isRequired,
+  position_number: PropTypes.string,
   is_overseas: PropTypes.boolean,
   create_date: PropTypes.string,
   update_date: PropTypes.string,
@@ -39,7 +42,7 @@ export const DETAILS = PropTypes.shape({
 });
 
 export const RESULTS = PropTypes.arrayOf(
-  DETAILS,
+  POSITION_DETAILS,
 );
 
 export const FILTERS = PropTypes.arrayOf(
@@ -53,4 +56,18 @@ export const FILTERS = PropTypes.arrayOf(
       effective_date: PropTypes.string,
     }),
   ),
+);
+
+export const ITEMS = PropTypes.arrayOf(
+  PropTypes.shape({
+    item: PropTypes.shape({
+      title: PropTypes.string,
+      sort: PropTypes.number,
+      description: PropTypes.string,
+      endpoint: PropTypes.string,
+      selectionRef: PropTypes.string,
+      text: PropTypes.string,
+    }),
+    data: FILTERS,
+  }),
 );

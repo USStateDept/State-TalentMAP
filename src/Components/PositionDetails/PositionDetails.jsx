@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as AlertMessages from '../../Constants/AlertMessages';
-import { DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
-const ResultsList = ({ details }) => {
+const PositionDetails = ({ details }) => {
   const languageList = (details.languages && details.languages.length)
     ? details.languages.map(choice => (
       `${choice.language} `
@@ -48,12 +48,12 @@ const ResultsList = ({ details }) => {
   );
 };
 
-ResultsList.propTypes = {
-  details: DETAILS,
+PositionDetails.propTypes = {
+  details: POSITION_DETAILS,
 };
 
-ResultsList.defaultProps = {
+PositionDetails.defaultProps = {
   details: null,
 };
 
-export default ResultsList;
+export default PositionDetails;
