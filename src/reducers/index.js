@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
 import { results, resultsHasErrored, resultsIsLoading } from './results';
 import { filters, filtersHasErrored, filtersIsLoading } from './filters';
 import { post, postHasErrored, postIsLoading } from './post';
@@ -19,6 +20,9 @@ export default combineReducers({
   positionDetails,
   positionDetailsHasErrored,
   positionDetailsIsLoading,
+  comparisons,
+  comparisonsHasErrored,
+  comparisonsIsLoading,
   share,
   shareHasErrored,
   shareIsSending,

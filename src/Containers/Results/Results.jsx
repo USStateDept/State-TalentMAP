@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resultsFetchData } from '../../actions/results';
-import ResultsList from '../../Components/ResultsList/ResultsList';
+import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { RESULTS } from '../../Constants/PropTypes';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      key: 0,
     };
   }
 
@@ -18,22 +19,17 @@ class Results extends Component {
     this.props.fetchData(`${api}/position/${query}`);
   }
 
+  onChildToggle() {
+    const key = Math.random();
+    this.setState({ key });
+    this.forceUpdate();
+  }
+
   render() {
-    const { results } = this.props;
-    const e = this.props.hasErrored ? (
-      <span>There was an error loading the results</span>
-    ) : null;
-    const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const n = !this.props.isLoading && !this.props.hasErrored && !results.length ?
-      <span>No results with that search criteria</span> : null;
-    const resultsCards = (results.length && !this.props.hasErrored && !this.props.isLoading) ?
-      <ResultsList results={results} /> : null;
+    const { results, hasErrored, isLoading } = this.props;
     return (
-      <div>
-        {resultsCards}
-        <div className="usa-grid">
-          <center> {e} {l} {n} </center>
-        </div>
+      <div className="usa-grid-full">
+        <ResultsPage results={results} hasErrored={hasErrored} isLoading={isLoading} />
       </div>
     );
   }
