@@ -40,19 +40,19 @@ class CompareList extends Component {
                 <br />
                   Organization: {result.organization}
                 <br />
-                  Tour of Duty: {result.post && result.post.tour_of_duty ?
+                  Tour of Duty: {result.post ?
                     result.post.tour_of_duty : AlertMessages.NO_TOUR_OF_DUTY}
                 <br />
                   Language: {languageList(result)}
                 <br />
                   Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.description}</Link> : AlertMessages.NO_POST }
                 <br />
-                  Post Differential: {result.post && result.post.differential_rate
-                    ? result.post.differential_rate : AlertMessages.NO_POST_DIFFERENTIAL}
+                  Post Differential: {result.post ?
+                    result.post.differential_rate : AlertMessages.NO_POST_DIFFERENTIAL}
                 <br />
                   Danger Pay: {result.post ? result.post.danger_pay : AlertMessages.NO_DANGER_PAY}
                 <br />
-                  COLA: {result.post && result.post.cost_of_living_adjustment ?
+                  COLA: {result.post ?
                     result.post.cost_of_living_adjustment : AlertMessages.NO_COLA}
               </p>
             </div>
