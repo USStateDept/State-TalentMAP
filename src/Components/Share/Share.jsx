@@ -6,15 +6,6 @@ import ShareButton from './ShareButton/ShareButton';
 
 class Share extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  componentWillMount() {
-  }
-
   onChildSend(e) {
     this.props.sendData(`${this.props.api}/share/`, e);
   }
