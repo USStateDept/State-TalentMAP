@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { validStateEmail } from '../../../utilities';
 
 class ShareButton extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ShareButton extends Component {
   changeEmail(e) {
     const recipient = e.target.value;
     this.setState({ recipient });
-    const warning = !(/@state.gov\s*$/.test(recipient));
+    const warning = !validStateEmail(recipient);
     this.setState({ warning });
   }
 
