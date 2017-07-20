@@ -6,9 +6,6 @@ import * as AlertMessages from '../../Constants/AlertMessages';
 
 class CompareList extends Component {
 
-  componentWillMount() {
-  }
-
   onChildToggle() {
     this.forceUpdate();
     this.props.onToggle();

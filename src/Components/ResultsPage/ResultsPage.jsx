@@ -14,9 +14,6 @@ class Results extends Component {
     };
   }
 
-  componentWillMount() {
-  }
-
   onChildToggle() {
     const key = Math.random();
     this.setState({ key });

@@ -7,9 +7,6 @@ import * as AlertMessages from '../../Constants/AlertMessages';
 
 class ResultsList extends Component {
 
-  componentWillMount() {
-  }
-
   onChildToggle() {
     this.forceUpdate();
     this.props.onToggle();
