@@ -38,4 +38,11 @@ describe('FavoritesButton', () => {
     wrapper.find('button').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false);
   });
+
+  it('can handle len key in state', () => {
+    const wrapper = shallow(<FavoritesButton refKey="0037" type="fav" />);
+    wrapper.instance().state.len = 100000; // greater than default limit
+    wrapper.find('button').simulate('click');
+    expect(wrapper.instance().state.saved).toBe(true);
+  });
 });
