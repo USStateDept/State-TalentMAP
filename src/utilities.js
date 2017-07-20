@@ -41,4 +41,9 @@ export function localStorageToggleValue(key, value) {
   }
 }
 
+export function validStateEmail(email) {
+  const valid = (/@state.gov\s*$/.test(email));
+  return valid;
+}
+
 export default ajax;

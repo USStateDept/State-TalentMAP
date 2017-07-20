@@ -74,6 +74,38 @@ describe('FiltersComponent', () => {
         { id: 3, code: '01' },
       ],
     },
+    {
+      item: {
+        title: 'Tour of Duty',
+        sort: 400,
+        description: 'tod',
+        endpoint: 'organization/tod',
+        selectionRef: 'post__tour_of_duty__in',
+        text: 'Choose tour of duty length',
+        choices: [
+        ],
+      },
+      data: [
+        { id: 2, code: '00', long_description: '13YRR' },
+        { id: 3, code: '01', long_description: '23YRR' },
+      ],
+    },
+    {
+      item: {
+        title: 'Region',
+        sort: 500,
+        description: 'region',
+        endpoint: 'organization',
+        selectionRef: 'organization__code__in',
+        text: 'Choose region',
+        choices: [
+        ],
+      },
+      data: [
+        { id: 2, code: '00', long_description: 'Operations Center' },
+        { id: 3, code: '01', long_description: 'Los Angeles' },
+      ],
+    },
   ];
 
   beforeEach(() => {
@@ -137,9 +169,9 @@ describe('FiltersComponent', () => {
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
         expect(wrapper.instance().state.selection.skill__code__in.length).toBe(1);
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: false, value: '0010' } }));
-        wrapper.find('#AB').simulate('change', (1, { target: { checked: true, value: 'AB' } }));
+        wrapper.find('#LAB').simulate('change', (1, { target: { checked: true, value: 'AB' } }));
         expect(wrapper.instance().state.selection.languages__language__code__in.length).toBe(1);
-        wrapper.find('#AB').simulate('change', (1, { target: { checked: false, value: 'AB' } }));
+        wrapper.find('#LAB').simulate('change', (1, { target: { checked: false, value: 'AB' } }));
         wrapper.find('#G00').simulate('change', (2, { target: { checked: true, value: '00' } }));
         expect(wrapper.instance().state.selection.grade__code__in.length).toBe(1);
         wrapper.find('#G00').simulate('change', (2, { target: { checked: false, value: '00' } }));
@@ -180,7 +212,7 @@ describe('FiltersComponent', () => {
     // no filters are initially set, so should return true
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
     // select a language filter
-        wrapper.find('#AB').simulate('change', (1, { target: { checked: true, value: 'AB' } }));
+        wrapper.find('#LAB').simulate('change', (1, { target: { checked: true, value: 'AB' } }));
     // select a skill filter
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
         expect(wrapper.instance().shouldDisableSearch()).toBe(false);

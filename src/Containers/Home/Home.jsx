@@ -10,39 +10,6 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [] },
-      items: [
-        {
-          title: 'Skill code',
-          sort: 100,
-          description: 'skill',
-          endpoint: 'position/skills',
-          selectionRef: 'skill__code__in',
-          text: 'Choose skill codes',
-          choices: [
-          ],
-        },
-        {
-          title: 'Language',
-          sort: 200,
-          description: 'language',
-          endpoint: 'language',
-          selectionRef: 'languages__language__code__in',
-          text: 'Choose languages',
-          choices: [
-          ],
-        },
-        {
-          title: 'Grade',
-          sort: 300,
-          description: 'grade',
-          endpoint: 'position/grades',
-          selectionRef: 'grade__code__in',
-          text: 'Choose grades',
-          choices: [
-          ],
-        },
-      ],
       proficiency: {},
       qString: null,
       searchText: { value: '' },
@@ -58,19 +25,18 @@ class Home extends Component {
   }
 
   getFilters() {
-    const api = this.props.api;
-    const urlArr = [];
-    this.state.items.forEach((item) => {
-      const endpoint = item.endpoint;
-      urlArr.push({ url: `${api}/${endpoint}/?available=true`, item });
-    });
-    this.props.fetchData(urlArr);
+    const { api, items } = this.props;
+    this.props.fetchData(api, items);
   }
 
   render() {
     return (
       <div>
-        <Filters onSubmit={e => this.onChildSubmit(e)} items={this.props.items} />
+        <Filters
+          isLoading={this.props.isLoading}
+          onSubmit={e => this.onChildSubmit(e)}
+          items={this.props.items}
+        />
       </div>
     );
   }
@@ -80,6 +46,7 @@ Home.propTypes = {
   api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool,
   items: ITEMS,
 };
 
@@ -96,7 +63,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: urls => dispatch(filtersFetchData(urls)),
+  fetchData: (api, items) => dispatch(filtersFetchData(api, items)),
   onNavigateTo: dest => dispatch(push(dest)),
 });
 
