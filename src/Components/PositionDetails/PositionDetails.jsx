@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as AlertMessages from '../../Constants/AlertMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import Share from '../Share/Share';
 
-const PositionDetails = ({ details }) => {
+const PositionDetails = ({ details, api }) => {
   const languageList = (details.languages && details.languages.length)
     ? details.languages.map(choice => (
       `${choice.language} `
@@ -14,35 +16,36 @@ const PositionDetails = ({ details }) => {
       <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
         <h3> Position Number: {details.position_number} </h3>
         <p>
-          Grade: {details.grade}
+            Grade: {details.grade}
           <br />
-          Skill: {details.skill}
+            Skill: {details.skill}
           <br />
-          Bureau: {details.bureau}
+            Bureau: {details.bureau}
           <br />
-          Organization: {details.organization}
+            Organization: {details.organization}
           <br />
-          Overseas: {details.is_overseas ? 'Yes' : 'No'}
+            Overseas: {details.is_overseas ? 'Yes' : 'No'}
           <br />
-          Language: <span>{languageList}</span>
+            Language: <span>{languageList}</span>
           <br />
-          Danger Pay: {details.post ? details.post.danger_pay : AlertMessages.NO_DANGER_PAY}
+            Danger Pay: {details.post ? details.post.danger_pay : AlertMessages.NO_DANGER_PAY}
           <br />
-          Region: 5 {/* TODO replace hard-coded value with API value */}
+            Region: 5 {/* TODO replace hard-coded value with API value */}
           <br />
-          Post: {details.post ? <Link to={`/post/${details.post.id}`}>{details.post.description}</Link> : AlertMessages.NO_POST }
+            Post: {details.post ? <Link to={`/post/${details.post.id}`}>{details.post.description}</Link> : AlertMessages.NO_POST }
           <br />
-          Post Differential: {
-            details.post ?
-            details.post.differential_rate
-            : AlertMessages.NO_POST_DIFFERENTIAL
-          }
+            Post Differential: {
+              details.post ?
+              details.post.differential_rate
+              : AlertMessages.NO_POST_DIFFERENTIAL
+            }
           <br />
-          Created: {details.create_date}
+            Created: {details.create_date}
           <br />
-          Updated: {details.update_date}
+            Updated: {details.update_date}
         </p>
         <FavoritesButton refKey={details.position_number} type="fav" />
+        <Share api={api} identifier={details.id} />
       </div>
     </div>
   );
@@ -50,6 +53,7 @@ const PositionDetails = ({ details }) => {
 
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
+  api: PropTypes.string.isRequired,
 };
 
 PositionDetails.defaultProps = {

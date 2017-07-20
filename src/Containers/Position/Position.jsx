@@ -31,7 +31,7 @@ class Position extends Component {
     const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
     const details = positionDetails.length && !this.props.isLoading && !this.props.hasErrored ? (
       <div>
-        <PositionDetails details={positionDetails[0]} />
+        <PositionDetails api={this.props.api} details={positionDetails[0]} />
       </div>
     ) : null;
     return (
