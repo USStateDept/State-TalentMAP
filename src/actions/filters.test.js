@@ -7,26 +7,34 @@ import * as actions from './filters';
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
-const items = [{
-  title: 'Skill code',
-  sort: 100,
-  description: 'skill',
-  endpoint: 'position/skills',
-  selectionRef: 'skill__code__in',
-  text: 'Choose skill codes',
-  choices: [
-  ],
-},
-{
-  title: 'Grade',
-  sort: 300,
-  description: 'grade',
-  endpoint: 'position/grades',
-  selectionRef: 'grade__code__in',
-  text: 'Choose grades',
-  choices: [
-  ],
-}];
+const items = [
+  {
+    item: {
+      title: 'Skill code',
+      sort: 100,
+      description: 'skill',
+      endpoint: 'position/skills/',
+      selectionRef: 'skill__code__in',
+      text: 'Choose skill codes',
+    },
+    data: [
+    ],
+  },
+  {
+    item: {
+      title: 'Grade',
+      sort: 300,
+      description: 'grade',
+      endpoint: 'position/grades/',
+      selectionRef: 'grade__code__in',
+      text: 'Choose grades',
+    },
+    data: [
+    ],
+  },
+];
+
+const api = 'http://localhost:8000/api/v1';
 
 describe('async actions', () => {
   beforeEach(() => {
@@ -46,12 +54,12 @@ describe('async actions', () => {
     );
   });
 
-  it('can fetch a position', (done) => {
-    const store = mockStore({ position: [] });
+  it('can fetch filters', (done) => {
+    const store = mockStore({ items: [] });
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.filtersFetchData([{ url: 'http://localhost:8000/api/v1/position/skills/', item: items[0] }, { url: 'http://localhost:8000/api/v1/position/grades/', item: items[1] }]));
+        store.dispatch(actions.filtersFetchData(api, items, 't'));
     // .then(do something)
         store.dispatch(actions.filtersIsLoading());
         done();
