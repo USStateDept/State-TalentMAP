@@ -106,13 +106,13 @@ class Filters extends Component {
                         id={`S${choice.code}`}
                         type="checkbox"
                         title={`${choice.description}`}
-                        name="historical-figures-1"
+                        name={`S${choice.code}`}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
                                   .indexOf(choice.code) !== -1}
                       />
-                      <label htmlFor={`S${choice.description}`} style={{ marginRight: '5px' }}>
+                      <label htmlFor={`S${choice.code}`} style={{ marginRight: '5px' }}>
                         {choice.description}
                       </label>
                     </div>
@@ -121,16 +121,16 @@ class Filters extends Component {
                   { items[i].item.description === 'language' ?
                     <div key={choice.code} className="usa-width-one-fourth">
                       <input
-                        id={`${choice.code}`}
+                        id={`L${choice.code}`}
                         type="checkbox"
                         title={`${choice.short_description}`}
-                        name="historical-figures-1"
+                        name={`L${choice.code}`}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
                                   .indexOf(choice.code) !== -1}
                       />
-                      <label htmlFor={`${choice.short_description}`}>
+                      <label htmlFor={`L${choice.code}`}>
                         {choice.short_description}
                       </label>
                       <div>
@@ -173,7 +173,7 @@ class Filters extends Component {
                         id={`G${choice.code}`}
                         type="checkbox"
                         title={`grade-${choice.code}`}
-                        name="historical-figures-1"
+                        name={`G${choice.code}`}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
@@ -191,7 +191,7 @@ class Filters extends Component {
                         id={`TOD${choice.code}`}
                         type="checkbox"
                         title={`tod-${choice.code}`}
-                        name="historical-figures-1"
+                        name={`TOD${choice.code}`}
                         value={choice.id}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
@@ -209,7 +209,7 @@ class Filters extends Component {
                         id={`R${choice.code}`}
                         type="checkbox"
                         title={`region-${choice.code}`}
-                        name="historical-figures-1"
+                        name={`R${choice.code}`}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
