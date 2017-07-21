@@ -61,7 +61,10 @@ describe('ShareButton', () => {
   });
 
   it('can submit a share', () => {
-    wrapper.instance().share({ preventDefault: () => {} });
+    expect(wrapper.instance().state.timeout).toBe(false);
+    const email = 'test@state.gov';
+    wrapper.find('#share-input').simulate('change', { target: { value: email } });
+    wrapper.find('form').simulate('submit', { preventDefault: () => {} });
     expect(wrapper.instance().state.timeout).toBe(true);
   });
 });

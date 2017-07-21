@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
 import Filters from '../../Components/Filters/Filters';
-import { ITEMS } from '../../Constants/PropTypes';
+import { ITEMS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class Home extends Component {
   constructor(props) {
@@ -44,14 +44,16 @@ class Home extends Component {
 
 Home.propTypes = {
   api: PropTypes.string.isRequired,
-  onNavigateTo: PropTypes.func.isRequired,
-  fetchData: PropTypes.func.isRequired,
+  onNavigateTo: PropTypes.func,
+  fetchData: PropTypes.func,
   isLoading: PropTypes.bool,
   items: ITEMS,
 };
 
 Home.defaultProps = {
   items: [],
+  onNavigateTo: EMPTY_FUNCTION,
+  fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
 };

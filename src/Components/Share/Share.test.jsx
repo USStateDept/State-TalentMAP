@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -17,5 +18,12 @@ describe('Main', () => {
       <Share api={api} identifier={5} />
     </MemoryRouter></Provider>);
     expect(share).toBeDefined();
+  });
+
+  it('it can call the onChildSend function', () => {
+    const wrapper = shallow(
+      <Share.WrappedComponent api="test" identifier={1} onNavigateTo={() => {}} />,
+    );
+    wrapper.instance().onChildSend();
   });
 });

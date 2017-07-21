@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -18,5 +19,12 @@ describe('ResetFilters Connected Component', () => {
       <ResetFiltersConnect />
     </MemoryRouter></Provider>);
     expect(resetFilters).toBeDefined();
+  });
+
+  it('it can call the onChildToggle function', () => {
+    const wrapper = shallow(
+      <ResetFiltersConnect.WrappedComponent onNavigateTo={() => {}} />,
+    );
+    wrapper.instance().onChildToggle();
   });
 });

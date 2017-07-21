@@ -156,6 +156,8 @@ describe('FiltersComponent', () => {
     const f = () => {
       setTimeout(() => {
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
+        wrapper.find('#TOD00').simulate('change', (0, { target: { checked: true, value: '2' } }));
+        wrapper.find('#R00').simulate('change', (0, { target: { checked: true, value: '2' } }));
         done();
       }, 0);
     };
@@ -234,6 +236,18 @@ describe('FiltersComponent', () => {
         expect(wrapper.instance().state.proficiency['Albanian-written']).toBe('1');
     // English spoken should be 1
         expect(wrapper.instance().state.proficiency['Albanian-spoken']).toBe('1');
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('should be able to submit a search', (done) => {
+    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    const f = () => {
+      setTimeout(() => {
+        wrapper.find('#search-field').simulate('change', { target: { value: 'test' } });
+        wrapper.find('form').simulate('submit', { preventDefault: () => {} });
         done();
       }, 0);
     };

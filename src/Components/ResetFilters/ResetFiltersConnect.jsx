@@ -5,11 +5,6 @@ import { push } from 'react-router-redux';
 import ResetFilters from './ResetFilters/ResetFilters';
 
 class ResetFiltersConnect extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
   onChildToggle(e) {
     this.props.onNavigateTo(e);

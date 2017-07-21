@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class ResetComparisons extends Component {
 
@@ -34,7 +35,7 @@ ResetComparisons.propTypes = {
 };
 
 ResetComparisons.defaultProps = {
-  onToggle: () => {},
+  onToggle: EMPTY_FUNCTION,
 };
 
 export default ResetComparisons;

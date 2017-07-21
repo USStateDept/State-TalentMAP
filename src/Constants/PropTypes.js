@@ -71,3 +71,5 @@ export const ITEMS = PropTypes.arrayOf(
     data: FILTERS,
   }),
 );
+
+export const EMPTY_FUNCTION = () => {};

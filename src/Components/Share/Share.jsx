@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { shareSendData } from '../../actions/share';
 import ShareButton from './ShareButton/ShareButton';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class Share extends Component {
 
@@ -39,7 +40,7 @@ Share.propTypes = {
 
 Share.defaultProps = {
   response: false,
-  sendData: () => {},
+  sendData: EMPTY_FUNCTION,
   hasErrored: false,
   isSending: false,
 };
