@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class Position extends Component {
 
@@ -44,7 +44,7 @@ Position.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  fetchData: PropTypes.func, //eslint-disable-line
+  fetchData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
@@ -52,6 +52,7 @@ Position.propTypes = {
 
 Position.defaultProps = {
   positionDetails: [],
+  fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
 };
