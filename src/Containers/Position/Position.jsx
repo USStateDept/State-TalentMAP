@@ -8,12 +8,6 @@ import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 class Position extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
   componentWillMount() {
     this.getDetails(this.props.match.params.id);
   }
