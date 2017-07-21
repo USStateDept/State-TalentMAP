@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import Wrapper from '../Wrapper/Wrapper';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, ITEMS } from '../../Constants/PropTypes';
 
 class Filters extends Component {
   constructor(props) {
@@ -90,14 +90,14 @@ class Filters extends Component {
 
   render() {
     const { selection, searchText } = this.state;
-    const { items } = this.props; //eslint-disable-line
+    const { items } = this.props;
     if (items.length) { items.sort((a, b) => a.item.sort - b.item.sort); }
     const filters = (
       <div className="usa-grid">
         <Wrapper>
           <p>Filters:</p>
           <ul className="usa-accordion usa-accordion-bordered">
-            {this.props.items.map((item, i) => { //eslint-disable-line
+            {items.map((item, i) => {
               const id = `item${i}`;
               const checks = item.data.map(choice => (
                 <div key={`{id}-${choice.code}`}>
@@ -297,10 +297,11 @@ class Filters extends Component {
 
 Filters.propTypes = {
   onSubmit: PropTypes.func,
+  items: ITEMS,
 };
 
 Filters.defaultProps = {
-  filters: [],
+  items: [],
   onSubmit: EMPTY_FUNCTION,
 };
 

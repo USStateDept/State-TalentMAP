@@ -1,8 +1,6 @@
 import React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux'; // eslint-disable-line
 import TestUtils from 'react-dom/test-utils';
 import createRouterContext from 'react-router-test-context';
-import { routerMiddleware } from 'react-router-redux'; // eslint-disable-line
 import { MemoryRouter } from 'react-router-dom';
 import PostDetails from './PostDetails';
 

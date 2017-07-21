@@ -1,8 +1,8 @@
 import React from 'react';
 import * as AlertMessages from '../../Constants/AlertMessages';
+import { LANGUAGES } from '../../Constants/PropTypes';
 
-export default (props) => {
-  const { languages } = props; // eslint-disable-line react/prop-types
+const LanguageList = ({ languages }) => {
   const languageList = (languages && languages.length)
     ? languages.map(choice => (
       `${choice.language} `
@@ -13,3 +13,13 @@ export default (props) => {
     </span>
   );
 };
+
+LanguageList.propTypes = {
+  languages: LANGUAGES,
+};
+
+LanguageList.defaultProps = {
+  languages: [],
+};
+
+export default LanguageList;
