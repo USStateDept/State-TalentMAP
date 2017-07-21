@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import Wrapper from '../Wrapper/Wrapper';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class Filters extends Component {
   constructor(props) {
@@ -300,7 +301,7 @@ Filters.propTypes = {
 
 Filters.defaultProps = {
   filters: [],
-  onSubmit: () => {},
+  onSubmit: EMPTY_FUNCTION,
 };
 
 export default (Filters);

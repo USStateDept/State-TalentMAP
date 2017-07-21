@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { localStorageFetchValue, localStorageToggleValue } from '../../utilities';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class FavoritesButton extends Component {
   constructor(props) {
@@ -82,7 +83,7 @@ FavoritesButton.propTypes = {
 
 FavoritesButton.defaultProps = {
   limit: 99,
-  onToggle: () => {},
+  onToggle: EMPTY_FUNCTION,
 };
 
 export default FavoritesButton;

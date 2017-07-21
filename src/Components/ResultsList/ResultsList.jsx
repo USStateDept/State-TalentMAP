@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
-import { RESULTS } from '../../Constants/PropTypes';
+import { RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import * as AlertMessages from '../../Constants/AlertMessages';
 
 class ResultsList extends Component {
@@ -59,7 +59,7 @@ ResultsList.propTypes = {
 
 ResultsList.defaultProps = {
   results: [],
-  onToggle: () => {},
+  onToggle: EMPTY_FUNCTION,
 };
 
 export default ResultsList;

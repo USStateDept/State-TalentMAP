@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { validStateEmail } from '../../../utilities';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 class ShareButton extends Component {
   constructor(props) {
@@ -78,7 +79,7 @@ ShareButton.defaultProps = {
   isSending: false,
   hasErrored: false,
   response: false,
-  onSend: () => {},
+  onSend: EMPTY_FUNCTION,
 };
 
 export default ShareButton;
