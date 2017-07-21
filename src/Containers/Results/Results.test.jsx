@@ -3,6 +3,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { MemoryRouter } from 'react-router-dom';
 import Results from './Results';
 
 describe('ResultsComponent', () => {
@@ -17,13 +18,14 @@ describe('ResultsComponent', () => {
   const api = 'http://localhost:8000/api/v1';
 
   beforeEach(() => {
-    results = TestUtils.renderIntoDocument(<Results results={posts} api={api} location={{ search: '' }} />);
-    wrapper = shallow(<Results api={api} location={{ search: '' }} />);
     const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onGet('http://localhost:8000/api/v1/position/').reply(200,
       posts,
     );
+
+    results = TestUtils.renderIntoDocument(<MemoryRouter><Results results={posts} api={api} location={{ search: '' }} /></MemoryRouter>);
+    wrapper = shallow(<Results results={posts} api={api} location={{ search: '' }} />);
   });
 
   it('is defined', (done) => {
@@ -37,15 +39,9 @@ describe('ResultsComponent', () => {
   });
 
   it('can retrieve results via ajax', (done) => {
-    const mockAdapter = new MockAdapter(axios);
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/').reply(200,
-      posts,
-    );
-
     const f = () => {
       setTimeout(() => {
-        expect(wrapper.instance().state.posts.length).toBe(2);
+        expect(wrapper.instance().state.results.length).toBe(2);
         done();
       }, 0);
     };
@@ -55,7 +51,7 @@ describe('ResultsComponent', () => {
   it('can set state of posts', (done) => {
     const f = () => {
       setTimeout(() => {
-        expect(wrapper.instance().state.posts.length).toBe(2);
+        expect(wrapper.instance().state.results.length).toBe(2);
         done();
       }, 0);
     };

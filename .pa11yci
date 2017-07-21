@@ -1,8 +1,12 @@
 {
+    "defaults": {
+        "wait": 2000,
+        "standard": "WCAG2AA"
+    },
     "urls": [
         "http://localhost:3000",
-        "http://localhost:3000/#/results",
-        "http://localhost:3000/#/details/1"
-    ],
-    "allowedStandards": "WCAG2AA"
+        "http://localhost:3000/results",
+        "http://localhost:3000/details/00011111",
+        "http://localhost:3000/post/100"
+    ]
 }

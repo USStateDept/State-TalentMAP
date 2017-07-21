@@ -11,7 +11,8 @@
     },
     "globals": {
         "window": true,
-        "document": true
+        "document": true,
+        "localStorage": true,
     },
     "settings": {
         "import/resolver": {
@@ -24,7 +25,8 @@
     "rules": {
         // allow names to be the same as the default for Redux container testing
         "import/no-named-as-default": [0],
-        // will be re-enabled after configuring test and build to use jsx
-        "react/jsx-filename-extension": "off"
+        // allow test files to import packages in devDependencies 
+        // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js?(x)"]}]
     }
 }

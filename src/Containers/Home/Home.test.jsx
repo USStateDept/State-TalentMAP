@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import Home from './Home';
@@ -9,8 +10,6 @@ import Home from './Home';
 const api = 'http://localhost:8000/api/v1';
 
 describe('HomeComponent', () => {
-  let home = null;
-
   const filters = [
     [
           { id: 2, code: '0010', description: 'EXECUTIVE (PAS)' },
@@ -27,8 +26,6 @@ describe('HomeComponent', () => {
   ];
 
   beforeEach(() => {
-    home = TestUtils.renderIntoDocument(<Home api={api} location={{}} />);
-
     const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onGet('http://localhost:8000/api/v1/position/grades/').reply(200, [
@@ -47,10 +44,13 @@ describe('HomeComponent', () => {
 
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Home api={api} />, div);
+    ReactDOM.render(<MemoryRouter><Home api={api} /></MemoryRouter>, div);
   });
 
   it('is defined', () => {
+    const home = TestUtils.renderIntoDocument(<MemoryRouter>
+      <Home api={api} location={{}} />
+    </MemoryRouter>);
     expect(home).toBeDefined();
   });
 
@@ -63,7 +63,7 @@ describe('HomeComponent', () => {
   it('can create a query string', () => {
     const wrapper = shallow(<Home api={api} filters={filters} />);
     wrapper.instance().changeText({ target: { value: 'info Tech' } });
-    expect(wrapper.instance().state.qString).toBe('position_number__icontains=info%20Tech');
+    expect(wrapper.instance().state.qString).toBe('q=info%20Tech');
   });
 
   it('can check a checkbox', () => {
@@ -101,6 +101,17 @@ describe('HomeComponent', () => {
     wrapper.find('#search-field').simulate('change', { target: { value: '' } });
     // one filter is selected, should return false
     expect(wrapper.instance().shouldDisableSearch()).toBe(true);
+  });
+
+  it('should enable search if two filters are selected, excluding search text', () => {
+    const wrapper = shallow(<Home api={api} filters={filters} />);
+    // no filters are initially set, so should return true
+    expect(wrapper.instance().shouldDisableSearch()).toBe(true);
+    // select a language filter
+    wrapper.find('#AB').simulate('change', (1, { target: { checked: true, value: 'AB' } }));
+    // select a skill filter
+    wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
+    expect(wrapper.instance().shouldDisableSearch()).toBe(false);
   });
 
   it('should be able to enable language proficiency filters', () => {
