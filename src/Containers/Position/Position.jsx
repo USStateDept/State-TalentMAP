@@ -25,23 +25,15 @@ class Position extends Component {
   }
 
   render() {
-    const { positionDetails } = this.props;
-    // TODO - need to update the request and have API return 404 if position number not found
-    // that way we can return error message and not rely on array length
-    const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const details = positionDetails.length && !this.props.isLoading && !this.props.hasErrored ? (
-      <div>
-        <PositionDetails api={this.props.api} details={positionDetails[0]} />
-      </div>
-    ) : null;
+    const { positionDetails, isLoading, hasErrored } = this.props;
     return (
       <div>
-        <div className="usa-grid">
-          <center>
-            {l}
-          </center>
-        </div>
-        {details}
+        <PositionDetails
+          api={this.props.api}
+          details={positionDetails[0]}
+          isLoading={isLoading}
+          hasErrored={hasErrored}
+        />
       </div>
     );
   }
