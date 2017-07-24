@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as AlertMessages from '../../Constants/AlertMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import Share from '../Share/Share';
+import LanguageList from '../LanguageList/LanguageList';
+import Loading from '../Loading/Loading';
 
-const PositionDetails = ({ details }) => {
-  const languageList = (details.languages && details.languages.length)
-    ? details.languages.map(choice => (
-      `${choice.language} `
-    )) : AlertMessages.NO_LANGUAGES;
-  return (
-    <div className="usa-grid-full">
+const PositionDetails = ({ details, api, isLoading, hasErrored }) => {
+  const detailsBody = details && !isLoading && !hasErrored ? (
+    <div className="usa-grid">
       <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
         <h3> Position Number: {details.position_number} </h3>
         <p>
@@ -24,7 +24,7 @@ const PositionDetails = ({ details }) => {
           <br />
           Overseas: {details.is_overseas ? 'Yes' : 'No'}
           <br />
-          Language: <span>{languageList}</span>
+          Language: <LanguageList languages={details.languages} />
           <br />
           Danger Pay: {details.post ? details.post.danger_pay : AlertMessages.NO_DANGER_PAY}
           <br />
@@ -43,17 +43,28 @@ const PositionDetails = ({ details }) => {
           Updated: {details.update_date}
         </p>
         <FavoritesButton refKey={details.position_number} type="fav" />
+        <Share api={api} identifier={details.id} />
       </div>
+    </div>
+  ) : <Loading isLoading={isLoading} hasErrored={hasErrored} />;
+  return (
+    <div className="usa-grid-full">
+      {detailsBody}
     </div>
   );
 };
 
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
+  api: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
+  hasErrored: PropTypes.bool,
 };
 
 PositionDetails.defaultProps = {
   details: null,
+  isLoading: true,
+  hasErrored: false,
 };
 
 export default PositionDetails;

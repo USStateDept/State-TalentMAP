@@ -2,19 +2,23 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import Wrapper from '../Wrapper/Wrapper';
+import { EMPTY_FUNCTION, ITEMS } from '../../Constants/PropTypes';
 
 class Filters extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { skill__code__in: [], languages__language__code__in: [], grade__code__in: [] },
+      selection: {
+        skill__code__in: [],
+        languages__language__code__in: [],
+        grade__code__in: [],
+        post__tour_of_duty__in: [],
+        organization__code__in: [],
+      },
       proficiency: {},
       qString: null,
       searchText: { value: '' },
     };
-  }
-
-  componentWillMount() {
   }
 
   changeProficiency(prof, val) {
@@ -82,19 +86,18 @@ class Filters extends Component {
   submitSearch(e) {
     e.preventDefault();
     this.props.onSubmit(`/results?${this.state.qString}`);
-    // this.props.onNavigateTo(`/results?${this.state.qString}`);
   }
 
   render() {
     const { selection, searchText } = this.state;
-    const { items } = this.props; //eslint-disable-line
+    const { items } = this.props;
     if (items.length) { items.sort((a, b) => a.item.sort - b.item.sort); }
     const filters = (
       <div className="usa-grid">
         <Wrapper>
           <p>Filters:</p>
           <ul className="usa-accordion usa-accordion-bordered">
-            {this.props.items.map((item, i) => { //eslint-disable-line
+            {items.map((item, i) => {
               const id = `item${i}`;
               const checks = item.data.map(choice => (
                 <div key={`{id}-${choice.code}`}>
@@ -104,13 +107,13 @@ class Filters extends Component {
                         id={`S${choice.code}`}
                         type="checkbox"
                         title={`${choice.description}`}
-                        name="historical-figures-1"
+                        name={`S${choice.code}`}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
                                   .indexOf(choice.code) !== -1}
                       />
-                      <label htmlFor={`S${choice.description}`} style={{ marginRight: '5px' }}>
+                      <label htmlFor={`S${choice.code}`} style={{ marginRight: '5px' }}>
                         {choice.description}
                       </label>
                     </div>
@@ -119,16 +122,16 @@ class Filters extends Component {
                   { items[i].item.description === 'language' ?
                     <div key={choice.code} className="usa-width-one-fourth">
                       <input
-                        id={`${choice.code}`}
+                        id={`L${choice.code}`}
                         type="checkbox"
                         title={`${choice.short_description}`}
-                        name="historical-figures-1"
+                        name={`L${choice.code}`}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
                                   .indexOf(choice.code) !== -1}
                       />
-                      <label htmlFor={`${choice.short_description}`}>
+                      <label htmlFor={`L${choice.code}`}>
                         {choice.short_description}
                       </label>
                       <div>
@@ -171,7 +174,7 @@ class Filters extends Component {
                         id={`G${choice.code}`}
                         type="checkbox"
                         title={`grade-${choice.code}`}
-                        name="historical-figures-1"
+                        name={`G${choice.code}`}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
@@ -179,6 +182,42 @@ class Filters extends Component {
                       />
                       <label htmlFor={`G${choice.code}`}>
                         {choice.code}
+                      </label>
+                    </div>
+                  : null
+                  }
+                  { items[i].item.description === 'tod' ?
+                    <div key={choice.code} className="usa-width-one-fourth">
+                      <input
+                        id={`TOD${choice.code}`}
+                        type="checkbox"
+                        title={`tod-${choice.code}`}
+                        name={`TOD${choice.code}`}
+                        value={choice.id}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.id.toString()) !== -1}
+                      />
+                      <label htmlFor={`TOD${choice.code}`}>
+                        {choice.long_description}
+                      </label>
+                    </div>
+                  : null
+                  }
+                  { items[i].item.description === 'region' ?
+                    <div key={choice.code} className="usa-width-one-fourth">
+                      <input
+                        id={`R${choice.code}`}
+                        type="checkbox"
+                        title={`region-${choice.code}`}
+                        name={`R${choice.code}`}
+                        value={choice.code}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.code) !== -1}
+                      />
+                      <label htmlFor={`R${choice.code}`}>
+                        {choice.long_description}
                       </label>
                     </div>
                   : null
@@ -196,7 +235,7 @@ class Filters extends Component {
                   </button>
                   <div id={`accordion ${id}`} className="usa-accordion-content">
                     <fieldset className="usa-fieldset-inputs usa-sans">
-                      <legend className="usa-sr-only">{item.title}</legend>
+                      <legend className="usa-sr-only">{item.item.title}</legend>
                       <div className="usa-grid">
                         {checks}
                       </div>
@@ -258,11 +297,12 @@ class Filters extends Component {
 
 Filters.propTypes = {
   onSubmit: PropTypes.func,
+  items: ITEMS,
 };
 
 Filters.defaultProps = {
-  filters: [],
-  onSubmit: () => {},
+  items: [],
+  onSubmit: EMPTY_FUNCTION,
 };
 
 export default (Filters);

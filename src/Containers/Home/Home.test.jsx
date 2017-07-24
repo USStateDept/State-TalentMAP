@@ -1,4 +1,5 @@
 import React from 'react';
+import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -9,7 +10,7 @@ import Home from './Home';
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('Main', () => {
+describe('Home', () => {
   const api = 'http://localhost:8000/api/v1';
 
   beforeEach(() => {
@@ -20,5 +21,10 @@ describe('Main', () => {
       <Home api={api} />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
+  });
+
+  it('it can call the onChildSubmit function', () => {
+    const wrapper = shallow(<Home.WrappedComponent api={api} />);
+    wrapper.instance().onChildSubmit();
   });
 });

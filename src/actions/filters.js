@@ -19,23 +19,25 @@ export function filtersFetchDataSuccess(filters) {
   };
 }
 
-export function filtersFetchData(urlArr) {
+export function filtersFetchData(api, items) {
   return (dispatch) => {
     dispatch(filtersIsLoading(true));
 
     const responses = [];
 
     function dispatchSuccess() {
-      if (responses.length === urlArr.length) {
+      if (responses.length === items.length) {
         dispatch(filtersIsLoading(false));
         dispatch(filtersFetchDataSuccess(responses));
       }
     }
 
-    urlArr.forEach((url) => {
-      axios.get(url.url)
+    items.forEach((item) => {
+      axios.get(`${api}/${item.item.endpoint}`)
               .then((response) => {
-                responses.push({ data: response.data, item: url.item });
+                const itemFilter = item;
+                itemFilter.data = response.data;
+                responses.push({ data: response.data, item: itemFilter.item });
                 dispatchSuccess();
               })
               .catch(() => dispatch(filtersHasErrored(true)));

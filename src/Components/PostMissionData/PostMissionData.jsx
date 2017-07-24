@@ -1,51 +1,38 @@
-import React, { Component } from 'react';
-import * as AlertMessages from '../../Constants/AlertMessages';
+import React from 'react';
 import { POST_MISSION_DATA } from '../../Constants/PropTypes';
+import LanguageList from '../LanguageList/LanguageList';
 
-class PostMissionData extends Component {
-
-  componentWillMount() {
-  }
-
-  render() {
-    const { post } = this.props;
-    const languageList = (post.languages && post.languages.length)
-      ? post.languages.map(choice => (
-        `${choice.language} `
-      )) : AlertMessages.NO_LANGUAGES;
-    return (
-      <div className="usa-grid-full">
-        <div>
-          <p>
+const PostMissionData = ({ post }) => (
+  <div className="usa-grid-full">
+    <div>
+      <p>
             Location: {post.description}
-            <br />
+        <br />
             Tour of duty: {post.tour_of_duty}
-            <br />
+        <br />
             Type: Embassy {/* TODO replace hard-coded value with API value */}
-            <br />
+        <br />
             POC: John Doe {/* TODO replace hard-coded value with API value */}
-            <br />
+        <br />
             Code: {post.code}
-            <br />
-            Language: <span>{languageList}</span>
-            <br />
+        <br />
+            Language: <LanguageList languages={post.language} />
+        <br />
             R&R Alignment: {post.rest_relaxation_point}
-            <br />
+        <br />
             Danger Pay: {post.danger_pay}
-            <br />
+        <br />
             Post Differential: {post.differential_rate}
-            <br />
+        <br />
             Service Needs Differential: {post.has_service_needs_differential === true ? 'Yes' : 'No'}
-            <br />
+        <br />
             COLA: {post.cost_of_living_adjustment}
-            <br />
+        <br />
             Consumables: {post.has_consumable_allowance === true ? 'Yes' : 'No'}
-          </p>
-        </div>
-      </div>
-    );
-  }
-}
+      </p>
+    </div>
+  </div>
+  );
 
 PostMissionData.propTypes = {
   post: POST_MISSION_DATA,

@@ -4,15 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class Position extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
 
   componentWillMount() {
     this.getDetails(this.props.match.params.id);
@@ -25,23 +19,15 @@ class Position extends Component {
   }
 
   render() {
-    const { positionDetails } = this.props;
-    // TODO - need to update the request and have API return 404 if position number not found
-    // that way we can return error message and not rely on array length
-    const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const details = positionDetails.length && !this.props.isLoading && !this.props.hasErrored ? (
-      <div>
-        <PositionDetails details={positionDetails[0]} />
-      </div>
-    ) : null;
+    const { positionDetails, isLoading, hasErrored } = this.props;
     return (
       <div>
-        <div className="usa-grid">
-          <center>
-            {l}
-          </center>
-        </div>
-        {details}
+        <PositionDetails
+          api={this.props.api}
+          details={positionDetails[0]}
+          isLoading={isLoading}
+          hasErrored={hasErrored}
+        />
       </div>
     );
   }
@@ -58,7 +44,7 @@ Position.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  fetchData: PropTypes.func, //eslint-disable-line
+  fetchData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
@@ -66,6 +52,7 @@ Position.propTypes = {
 
 Position.defaultProps = {
   positionDetails: [],
+  fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
 };

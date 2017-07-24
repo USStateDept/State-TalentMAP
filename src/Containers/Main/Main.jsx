@@ -18,6 +18,7 @@ import Results from '../../Containers/Results/Results';
 import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
 import Login from '../../login';
+import Compare from '../../Containers/Compare/Compare';
 
 import {
   checkIndexAuthorization,
@@ -83,6 +84,11 @@ const Main = props => (
             path="/post/:id"
             component={() => (isAuthorized() ?
               (<Post {...props} />) : (<Redirect to="/login" />))}
+          />
+          <Route
+            path="/compare/:ids"
+            component={() => (isAuthorized() ?
+              (<Compare {...props} />) : (<Redirect to="/login" />))}
           />
         </Switch>
       </main>
