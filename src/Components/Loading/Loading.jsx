@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Loading = ({ isLoading, hasErrored, loadingMessage, errorMessage }) => {
-  let message = null;
+  let message = isLoading;
   if (isLoading && !hasErrored) {
     message = loadingMessage;
   } else if (!isLoading && hasErrored) {
@@ -27,7 +27,7 @@ Loading.defaultProps = {
   isLoading: true,
   hasErrored: false,
   loadingMessage: 'Loading...',
-  errorMessage: 'Error loading',
+  errorMessage: 'An error has occured',
 };
 
 export default Loading;
