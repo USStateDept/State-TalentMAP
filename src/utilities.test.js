@@ -1,13 +1,13 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { ajax } from './utilities';
+import { ajax, validStateEmail } from './utilities';
 
 const posts = [
   { id: 6, grade: '05', skill: 'OFFICE MANAGEMENT (9017)', bureau: '150000', organization: 'YAOUNDE CAMEROON (YAOUNDE)', position_number: '00025003', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }] },
   { id: 80, grade: '05', skill: 'INFORMATION MANAGEMENT (2880)', bureau: '110000', organization: 'SAO PAULO BRAZIL (SAO PAULO)', position_number: '55115002', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 22, language: 'Portuguese (PY)', written_proficiency: '1', spoken_proficiency: '1', representation: 'Portuguese (PY) 1/1' }] },
 ];
 
-describe('utils', () => {
+describe('ajax', () => {
   it('Should return data from response', (done) => {
     const mockAdapter = new MockAdapter(axios);
 
@@ -26,5 +26,19 @@ describe('utils', () => {
       }, 0);
     };
     f();
+  });
+});
+
+describe('validStateEmail', () => {
+  it('should return true for a valid State email', () => {
+    const email = 'joe123@state.gov';
+    const output = validStateEmail(email);
+    expect(output).toBe(true);
+  });
+
+  it('should return false for an invalid State email', () => {
+    const email = 'joe123@email.com';
+    const output = validStateEmail(email);
+    expect(output).toBe(false);
   });
 });

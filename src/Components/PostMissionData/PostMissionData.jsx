@@ -1,73 +1,41 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
+import { POST_MISSION_DATA } from '../../Constants/PropTypes';
+import LanguageList from '../LanguageList/LanguageList';
 
-class PostMissionData extends Component {
-
-  componentWillMount() {
-  }
-
-  render() {
-    const { post } = this.props;
-    const languageList = (post.languages && post.languages.length)
-      ? post.languages.map(choice => (
-        <span key={`${choice}-choice`}> {choice.language} </span>
-      )) : <span key="no-languages"> None listed </span>;
-    return (
-      <div className="usa-grid-full">
-        <div>
-          <p>
+const PostMissionData = ({ post }) => (
+  <div className="usa-grid-full">
+    <div>
+      <p>
             Location: {post.description}
-            <br />
+        <br />
             Tour of duty: {post.tour_of_duty}
-            <br />
+        <br />
             Type: Embassy {/* TODO replace hard-coded value with API value */}
-            <br />
+        <br />
             POC: John Doe {/* TODO replace hard-coded value with API value */}
-            <br />
+        <br />
             Code: {post.code}
-            <br />
-            Language: <span>{languageList}</span>
-            <br />
+        <br />
+            Language: <LanguageList languages={post.language} />
+        <br />
             R&R Alignment: {post.rest_relaxation_point}
-            <br />
+        <br />
             Danger Pay: {post.danger_pay}
-            <br />
+        <br />
             Post Differential: {post.differential_rate}
-            <br />
+        <br />
             Service Needs Differential: {post.has_service_needs_differential === true ? 'Yes' : 'No'}
-            <br />
+        <br />
             COLA: {post.cost_of_living_adjustment}
-            <br />
+        <br />
             Consumables: {post.has_consumable_allowance === true ? 'Yes' : 'No'}
-          </p>
-        </div>
-      </div>
-    );
-  }
-}
+      </p>
+    </div>
+  </div>
+  );
 
 PostMissionData.propTypes = {
-  post: PropTypes.shape({
-    id: PropTypes.number,
-    tour_of_duty: PropTypes.string,
-    code: PropTypes.string,
-    description: PropTypes.string,
-    cost_of_living_adjustment: PropTypes.number,
-    differential_rate: PropTypes.number,
-    danger_pay: PropTypes.number,
-    rest_relaxation_point: PropTypes.string,
-    has_consumable_allowance: PropTypes.boolean,
-    has_service_needs_differential: PropTypes.boolean,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        language: PropTypes.string,
-        written_proficiency: PropTypes.string,
-        spoken_proficiency: PropTypes.string,
-        representation: PropTypes.string,
-      }),
-    ),
-  }),
+  post: POST_MISSION_DATA,
 };
 
 PostMissionData.defaultProps = {

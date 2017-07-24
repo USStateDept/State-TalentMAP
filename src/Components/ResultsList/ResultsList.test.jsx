@@ -51,4 +51,9 @@ describe('ResultsListComponent', () => {
     wrapper = shallow(<ResultsList results={resultsArray} />);
     expect(wrapper.instance().props.results[0].id).toBe(6);
   });
+
+  it('is can call the onChildToggle function', () => {
+    wrapper = shallow(<ResultsList results={resultsArray} />);
+    wrapper.instance().onChildToggle();
+  });
 });

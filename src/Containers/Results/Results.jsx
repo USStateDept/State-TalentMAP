@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ajax } from '../../utilities';
-import ResultsList from '../../Components/ResultsList/ResultsList';
+import { connect } from 'react-redux';
+import { resultsFetchData } from '../../actions/results';
+import ResultsPage from '../../Components/ResultsPage/ResultsPage';
+import { RESULTS } from '../../Constants/PropTypes';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      results: [],
+      key: 0,
     };
   }
 
   componentWillMount() {
-    this.getPosts(window.location.search);
+    const query = window.location.search || '';
+    const api = this.props.api;
+    this.props.fetchData(`${api}/position/${query}`);
   }
 
-  getPosts(q) {
-    const query = q || '';
-    const api = this.props.api;
-    ajax(`${api}/position/${query}`)
-      .then((res) => {
-        const results = res.data;
-        this.setState({ results });
-      });
+  onChildToggle() {
+    const key = Math.random();
+    this.setState({ key });
+    this.forceUpdate();
   }
 
   render() {
-    const { results } = this.state;
+    const { results, hasErrored, isLoading } = this.props;
     return (
-      <div>
-        {results.length ?
-          <ResultsList results={results} />
-          :
-          <div className="usa-grid-full" />
-        }
+      <div className="usa-grid-full">
+        <ResultsPage results={results} hasErrored={hasErrored} isLoading={isLoading} />
       </div>
     );
   }
@@ -41,10 +37,30 @@ class Results extends Component {
 
 Results.propTypes = {
   api: PropTypes.string.isRequired,
+  fetchData: PropTypes.func.isRequired,
+  hasErrored: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  results: RESULTS,
+};
+
+Results.defaultProps = {
+  results: [],
+  hasErrored: false,
+  isLoading: true,
 };
 
 Results.contextTypes = {
   router: PropTypes.object,
 };
 
-export default Results;
+const mapStateToProps = state => ({
+  results: state.results,
+  hasErrored: state.resultsHasErrored,
+  isLoading: state.resultsIsLoading,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchData: url => dispatch(resultsFetchData(url)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results);
