@@ -6,8 +6,11 @@ import App from './Components/App/App';
 
 require('../node_modules/uswds/dist/js/uswds.min.js');
 
+const root = document.getElementById('root');
+const api = (root && root.dataset.api) ? root.dataset.api : 'http://localhost:8000/api/v1';
+
 ReactDOM.render((
   <BrowserRouter>
-    <App api={'http://localhost:8000/api/v1'} />
+    <App api={api} />
   </BrowserRouter>
-), document.getElementById('root') || document.createElement('div'));
+), root || document.createElement('div'));
