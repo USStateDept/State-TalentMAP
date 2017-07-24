@@ -5,6 +5,7 @@ import { RESULTS } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
+import Loading from '../Loading/Loading';
 
 class Results extends Component {
   constructor(props) {
@@ -21,13 +22,7 @@ class Results extends Component {
   }
 
   render() {
-    const { results } = this.props;
-    const e = this.props.hasErrored ? (
-      <span>There was an error loading the results</span>
-    ) : null;
-    const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const n = !this.props.isLoading && !this.props.hasErrored && !results.length ?
-      <span>No results with that search criteria</span> : null;
+    const { results, isLoading, hasErrored } = this.props;
     return (
       <div className="usa-grid-full">
         <div className="usa-grid-full">
@@ -42,18 +37,16 @@ class Results extends Component {
           </div>
         </div>
         <div className="usa-grid-full">
-          {results.length ?
-            <ResultsList
-              key={this.state.key}
-              onToggle={() => this.onChildToggle()}
-              results={results}
-            />
+          {
+            results.length ?
+              <ResultsList
+                key={this.state.key}
+                onToggle={() => this.onChildToggle()}
+                results={results}
+              />
           :
-            <div className="usa-grid-full" />
-        }
-        </div>
-        <div className="usa-grid">
-          <center> {e} {l} {n} </center>
+              <Loading isLoading={isLoading} hasErrored={hasErrored} />
+          }
         </div>
       </div>
     );

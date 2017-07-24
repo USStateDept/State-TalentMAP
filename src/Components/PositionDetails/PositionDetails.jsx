@@ -6,9 +6,9 @@ import * as AlertMessages from '../../Constants/AlertMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import Share from '../Share/Share';
 import LanguageList from '../LanguageList/LanguageList';
+import Loading from '../Loading/Loading';
 
 const PositionDetails = ({ details, api, isLoading, hasErrored }) => {
-  const l = isLoading && !hasErrored ? (<center>Loading...</center>) : null;
   const detailsBody = details && !isLoading && !hasErrored ? (
     <div className="usa-grid">
       <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
@@ -46,10 +46,10 @@ const PositionDetails = ({ details, api, isLoading, hasErrored }) => {
         <Share api={api} identifier={details.id} />
       </div>
     </div>
-  ) : null;
+  ) : <Loading isLoading={isLoading} hasErrored={hasErrored} />;
   return (
     <div className="usa-grid-full">
-      {detailsBody} {l}
+      {detailsBody}
     </div>
   );
 };
