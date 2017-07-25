@@ -2,6 +2,8 @@ import {
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGOUT_REQUESTING,
+  LOGOUT_SUCCESS,
 } from './constants';
 
 const initialState = {
@@ -9,6 +11,7 @@ const initialState = {
   successful: false,
   messages: [],
   errors: [],
+  loggedIn: false,
 };
 
 const reducer = function loginReducer(state = initialState, action) {
@@ -20,6 +23,7 @@ const reducer = function loginReducer(state = initialState, action) {
         successful: false,
         messages: [{ body: 'Logging in...', time: new Date() }],
         errors: [],
+        loggedIn: false,
       };
 
     // Successful?  Reset the login state.
@@ -29,6 +33,26 @@ const reducer = function loginReducer(state = initialState, action) {
         messages: [],
         requesting: false,
         successful: true,
+        loggedIn: true,
+      };
+
+    case LOGOUT_REQUESTING:
+      return {
+        requesting: true,
+        successful: false,
+        messages: [{ body: 'Logging out...', time: new Date() }],
+        errors: [],
+        loggedIn: true,
+      };
+
+      // Successful?  Reset the login state.
+    case LOGOUT_SUCCESS:
+      return {
+        errors: [],
+        messages: [],
+        requesting: false,
+        successful: true,
+        loggedIn: false,
       };
 
     // Append the error returned from our api
@@ -42,6 +66,7 @@ const reducer = function loginReducer(state = initialState, action) {
         messages: [],
         requesting: false,
         successful: false,
+        loggedIn: false,
       };
 
     default:

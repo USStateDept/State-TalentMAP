@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Messages from '../notifications/Messages';
 import Errors from '../notifications/Errors';
 
-import loginRequest from './actions';
+import { loginRequest } from './actions';
 
 // If you were testing, you'd want to export this component
 // so that you can test your custom made component and not
@@ -35,7 +35,6 @@ class Login extends Component {
     // Remember, Redux Form passes the form values to our handler
     // In this case it will be an object with `email` and `password`
     const submit = (values) => {
-      console.log(this, values);
       this.props.loginRequest(values);
     };
 

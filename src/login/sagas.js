@@ -14,6 +14,8 @@ import {
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  LOGOUT_REQUESTING,
+  LOGOUT_SUCCESS,
 } from './constants';
 
 // So that we can modify our Client piece of state
@@ -38,14 +40,19 @@ function loginApi(email, password) {
 }
 
 function* logout() {
+  console.log('logout');
+
   // dispatches the CLIENT_UNSET action
   yield put(unsetClient());
 
   // remove our token
   localStorage.removeItem('token');
 
+  // .. inform redux that our logout was successful
+  yield put({ type: LOGOUT_SUCCESS });
+
   // redirect to the /login screen
-  push('/login');
+  yield put(push('/login'));
 }
 
 function* loginFlow(email, password) {
@@ -96,7 +103,7 @@ function* loginWatcher() {
     // it will pull from that ACTION's payload that we send up, its
     // email and password.  ONLY when this happens will the loop move
     // forward...
-    const { email, password } = yield take(LOGIN_REQUESTING);
+    const { email, password } = yield take([LOGIN_REQUESTING, LOGOUT_REQUESTING]);
 
     // ... and pass the email and password to our loginFlow() function.
     // The fork() method spins up another "process" that will deal with
@@ -118,7 +125,7 @@ function* loginWatcher() {
     // and all we need to watch for is either logging out, or a login
     // error.  The moment it does grab either of these though it will
     // once again move forward...
-    const action = yield take([CLIENT_UNSET, LOGIN_ERROR]);
+    const action = yield take([CLIENT_UNSET, LOGIN_ERROR, LOGOUT_REQUESTING]);
 
     // ... if, for whatever reason, we decide to logout during this
     // cancel the current action.  i.e. the user is being logged
@@ -127,7 +134,7 @@ function* loginWatcher() {
     // action, and down here, knowing that we should cancel the
     // forked `task` that was trying to log them in.  It will do so
     // and move forward...
-    if (action.type === CLIENT_UNSET) yield cancel(task);
+    if (action.type === CLIENT_UNSET || action.type === LOGOUT_REQUESTING) yield cancel(task);
 
     // ... finally we'll just log them out.  This will unset the client
     // access token ... -> follow this back up to the top of the while loop
