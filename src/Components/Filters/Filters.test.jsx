@@ -151,6 +151,22 @@ describe('FiltersComponent', () => {
     f();
   });
 
+  it('can call the createQueryString function to create multi-parameter query strings', (done) => {
+    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    const f = () => {
+      setTimeout(() => {
+        wrapper.instance().changeText({ target: { value: 'info Tech' } });
+        wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
+        wrapper.find('#S0020').simulate('change', (0, { target: { checked: true, value: '0020' } }));
+        wrapper.find('#TOD00').simulate('change', (0, { target: { checked: true, value: '2' } }));
+        wrapper.find('#R00').simulate('change', (0, { target: { checked: true, value: '2' } }));
+        expect(wrapper.instance().state.qString).toBe('organization__code__in=2&post__tour_of_duty__in=2&q=info%20Tech&skill__code__in=0010%2C0020');
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it('can check a checkbox', (done) => {
     wrapper = shallow(<Filters api={api} items={items} />, { context });
     const f = () => {
