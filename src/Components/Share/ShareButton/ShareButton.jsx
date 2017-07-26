@@ -54,7 +54,7 @@ class ShareButton extends Component {
           type="text"
           value={this.state.recipient}
           onChange={e => this.changeEmail(e)}
-          placeholder="Receipient's email address"
+          placeholder="Recipient's email address"
         />
         <button className={(recipient.length && !isSending) ? null : 'usa-button-disabled'} disabled={recipient.length ? null : true} id="share-button">
           Share
