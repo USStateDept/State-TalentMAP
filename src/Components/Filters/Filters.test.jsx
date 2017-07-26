@@ -206,16 +206,16 @@ describe('FiltersComponent', () => {
     wrapper = shallow(<Filters api={api} items={items} />, { context });
     const f = () => {
       setTimeout(() => {
-    // no filters are initially set, so should return true
+        // no filters are initially set, so should return true
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
-    // enable search filter
+        // enable search filter
         wrapper.find('#search-field').simulate('change', { target: { value: 'test' } });
-    // select a checkbox filter
+        // select a checkbox filter
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
         expect(wrapper.instance().shouldDisableSearch()).toBe(false);
-    // remove the original search filter
+        // remove the original search filter
         wrapper.find('#search-field').simulate('change', { target: { value: '' } });
-    // one filter is selected, should return false
+        // one filter is selected, should return false
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
         done();
       }, 0);
@@ -227,11 +227,11 @@ describe('FiltersComponent', () => {
     wrapper = shallow(<Filters api={api} items={items} />, { context });
     const f = () => {
       setTimeout(() => {
-    // no filters are initially set, so should return true
+        // no filters are initially set, so should return true
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
-    // select a language filter
+        // select a language filter
         wrapper.find('#LAB').simulate('change', (1, { target: { checked: true, value: 'AB' } }));
-    // select a skill filter
+        // select a skill filter
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
         expect(wrapper.instance().shouldDisableSearch()).toBe(false);
         done();
@@ -244,13 +244,13 @@ describe('FiltersComponent', () => {
     wrapper = shallow(<Filters api={api} items={items} />, { context });
     const f = () => {
       setTimeout(() => {
-    // change English written to 1
+        // change English written to 1
         wrapper.find('#Albanian-written-1').simulate('click', ('Albanian-written', '1', 1));
-    // change English spoken to 1
+        // change English spoken to 1
         wrapper.find('#Albanian-spoken-1').simulate('click', ('Albanian-written', '1', 1));
-    // English written should be 1
+        // English written should be 1
         expect(wrapper.instance().state.proficiency['Albanian-written']).toBe('1');
-    // English spoken should be 1
+        // English spoken should be 1
         expect(wrapper.instance().state.proficiency['Albanian-spoken']).toBe('1');
         done();
       }, 0);
