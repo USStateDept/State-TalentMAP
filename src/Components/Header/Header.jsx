@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -30,9 +31,9 @@ class Login extends Component {
       this.props.logoutRequest();
     };
 
-    let showLogin = (<a href="/login">Login</a>);
+    let showLogin = (<Link to="login">Login</Link>);
     if (this.props.client.token && !requesting) { // eslint-disable-line
-      showLogin = (<a href="/login" onClick={() => logout()}>Logout</a>);
+      showLogin = (<Link to="login" onClick={() => logout()}>Logout</Link>); // eslint-disable-line
     }
 
     console.log(this.props.client); // eslint-disable-line
