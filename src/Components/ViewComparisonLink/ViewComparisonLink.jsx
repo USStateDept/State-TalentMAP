@@ -2,19 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { localStorageFetchValue } from '../../utilities';
 
 class ViewComparisonLink extends Component {
 
   render() {
     const exists = () => {
-      let result = false;
-      const retrievedKey = localStorage
-                            .getItem('compare');
-      const parsedKey = JSON.parse(retrievedKey);
-      if (parsedKey && parsedKey.length) {
-        result = true;
-      }
-      return result;
+      const retrievedKey = localStorageFetchValue('compare', null);
+      return !!retrievedKey.len;
     };
     let url = JSON.parse(localStorage.getItem('compare'));
     url = url ? `compare/${url.toString()}` : 'compare';
