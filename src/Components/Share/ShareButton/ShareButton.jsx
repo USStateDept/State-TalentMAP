@@ -51,7 +51,7 @@ class ShareButton extends Component {
         <input
           id="share-input"
           name="input-type-text"
-          type="text"
+          type="email"
           value={this.state.recipient}
           onChange={e => this.changeEmail(e)}
           placeholder="Recipient's email address"
