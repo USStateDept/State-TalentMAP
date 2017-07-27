@@ -5,12 +5,10 @@ import { connect } from 'react-redux';
 
 import Messages from '../notifications/Messages';
 import Errors from '../notifications/Errors';
+import { EMPTY_FUNCTION } from '../Constants/PropTypes';
 
 import { loginRequest } from './actions';
 
-// If you were testing, you'd want to export this component
-// so that you can test your custom made component and not
-// test whether or not Redux and Redux Form are doing their jobs
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -41,29 +39,31 @@ class Login extends Component {
     return (
       <div className="usa-grid-full">
         <div className="login">
-          <form className="widget-form" onSubmit={handleSubmit(submit)}>
-            <h1>Login</h1>
-            <label htmlFor="email">Email</label>
-            {/*
+          <form className="usa-form" onSubmit={handleSubmit(submit)}>
+            <fieldset>
+              <legend className="usa-drop_text">Sign in</legend>
+              <label htmlFor="email">Username or Email</label>
+              {/*
             Our Redux Form Field components that bind email and password
             to our Redux state's form -> login piece of state.
           */}
-            <Field
-              name="email"
-              type="text"
-              id="email"
-              className="email"
-              component="input"
-            />
-            <label htmlFor="password">Password</label>
-            <Field
-              name="password"
-              type="password"
-              id="password"
-              className="password"
-              component="input"
-            />
-            <button action="submit">LOGIN</button>
+              <Field
+                name="email"
+                type="text"
+                id="email"
+                className="email"
+                component="input"
+              />
+              <label htmlFor="password">Password</label>
+              <Field
+                name="password"
+                type="password"
+                id="password"
+                className="password"
+                component="input"
+              />
+              <input type="submit" value="Sign in" />
+            </fieldset>
           </form>
           <div className="auth-messages">
             {/* As in the signup, we're just using the message and error helpers */}
@@ -84,14 +84,19 @@ class Login extends Component {
 
 // Pass the correct proptypes in for validation
 Login.propTypes = {
-  handleSubmit: PropTypes.func, // eslint-disable-line
-  loginRequest: PropTypes.func, // eslint-disable-line
-  login: PropTypes.shape({ // eslint-disable-line
+  handleSubmit: PropTypes.func,
+  loginRequest: PropTypes.func,
+  login: PropTypes.shape({
     requesting: PropTypes.bool,
     successful: PropTypes.bool,
     messages: PropTypes.array,
     errors: PropTypes.array,
-  }),
+  }).isRequired,
+};
+
+Login.defaultProps = {
+  handleSubmit: EMPTY_FUNCTION,
+  loginRequest: EMPTY_FUNCTION,
 };
 
 // Grab only the piece of state we need

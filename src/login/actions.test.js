@@ -26,7 +26,6 @@ describe('login actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(loginRequest({ email: 'admin', password: 'admin' }));
-    // .then(do something)
         done();
       }, 0);
     };

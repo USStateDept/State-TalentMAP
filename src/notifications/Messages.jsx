@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Iterate over each message object and print them
 // in an unordered list
@@ -16,11 +17,15 @@ const Messages = (props) => {
 };
 
 Messages.propTypes = {
-  messages: PropTypes.arrayOf( // eslint-disable-line
-      PropTypes.shape({
-        body: PropTypes.string,
-        time: PropTypes.date,
-      })),
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      body: PropTypes.string,
+      time: PropTypes.date,
+    })),
+};
+
+Messages.defaultProps = {
+  messages: [{ body: null, time: null }],
 };
 
 export default Messages;

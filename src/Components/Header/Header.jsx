@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 import { loginRequest, logoutRequest } from '../../login/actions';
 
@@ -32,11 +33,9 @@ class Login extends Component {
     };
 
     let showLogin = (<Link to="login">Login</Link>);
-    if (this.props.client.token && !requesting) { // eslint-disable-line
-      showLogin = (<Link to="login" onClick={() => logout()}>Logout</Link>); // eslint-disable-line
+    if (this.props.client.token && !requesting) {
+      showLogin = (<Link to="login" onClick={() => logout()}>Logout</Link>);
     }
-
-    console.log(this.props.client); // eslint-disable-line
 
     return (
       <header className="usa-header usa-header-extended" role="banner">
@@ -197,16 +196,22 @@ class Login extends Component {
 
 // Pass the correct proptypes in for validation
 Login.propTypes = {
-  handleSubmit: PropTypes.func, // eslint-disable-line
-  loginRequest: PropTypes.func, // eslint-disable-line
-  logoutRequest: PropTypes.func, // eslint-disable-line
-  login: PropTypes.shape({ // eslint-disable-line
+  logoutRequest: PropTypes.func,
+  login: PropTypes.shape({
     requesting: PropTypes.bool,
     successful: PropTypes.bool,
     messages: PropTypes.array,
     errors: PropTypes.array,
     loggedIn: PropTypes.bool,
+  }).isRequired,
+  client: PropTypes.shape({
+    token: PropTypes.string,
   }),
+};
+
+Login.defaultProps = {
+  logoutRequest: EMPTY_FUNCTION,
+  client: null,
 };
 
 // Grab only the piece of state we need

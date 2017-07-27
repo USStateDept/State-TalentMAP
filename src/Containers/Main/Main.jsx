@@ -21,9 +21,7 @@ import Login from '../../login';
 import Compare from '../../Containers/Compare/Compare';
 import Header from '../../Components/Header/Header';
 
-import {
-  checkIndexAuthorization,
-} from '../../lib/check-auth';
+import checkIndexAuthorization from '../../lib/check-auth';
 
 import IndexSagas from '../../index-sagas';
 
@@ -33,12 +31,6 @@ const sagaMiddleware = createSagaMiddleware();
 const history = createHistory();
 
 const middleware = routerMiddleware(history);
-
-/*eslint-disable */
-/* const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose */
-/*eslint-enable */
 
 function configureStore(initialState) {
   return createStore(

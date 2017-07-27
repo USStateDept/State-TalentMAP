@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Iterate over each error object and print them
 // in an unordered list
@@ -16,11 +17,15 @@ const Errors = (props) => {
 };
 
 Errors.propTypes = {
-  errors: PropTypes.arrayOf( // eslint-disable-line
+  errors: PropTypes.arrayOf(
       PropTypes.shape({
         body: PropTypes.string,
         time: PropTypes.date,
       })),
+};
+
+Errors.defaultProps = {
+  errors: [{ body: null, time: null }],
 };
 
 export default Errors;

@@ -16,7 +16,6 @@ const initialState = {
 
 const reducer = function loginReducer(state = initialState, action) {
   switch (action.type) {
-    // Set the requesting flag and append a message to be shown
     case LOGIN_REQUESTING:
       return {
         requesting: true,
@@ -26,7 +25,6 @@ const reducer = function loginReducer(state = initialState, action) {
         loggedIn: false,
       };
 
-    // Successful?  Reset the login state.
     case LOGIN_SUCCESS:
       return {
         errors: [],
@@ -45,7 +43,6 @@ const reducer = function loginReducer(state = initialState, action) {
         loggedIn: true,
       };
 
-      // Successful?  Reset the login state.
     case LOGOUT_SUCCESS:
       return {
         errors: [],
@@ -55,8 +52,6 @@ const reducer = function loginReducer(state = initialState, action) {
         loggedIn: false,
       };
 
-    // Append the error returned from our api
-    // set the success and requesting flags to false
     case LOGIN_ERROR:
       return {
         errors: state.errors.concat([{
