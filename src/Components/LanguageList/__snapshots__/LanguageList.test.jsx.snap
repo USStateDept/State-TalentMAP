@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DetailsComponent takes no props 1`] = `
+<span>
+  None listed
+</span>
+`;
+
+exports[`DetailsComponent takes props 1`] = `
+<span>
+  French (FR) 
+  German (GM) 
+</span>
+`;
