@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import LanguageList from './LanguageList';
 
-describe('DetailsComponent', () => {
+describe('LanguageList', () => {
   let languageList = null;
 
   const languages = [
