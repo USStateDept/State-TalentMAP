@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import CompareList from '../../Components/CompareList/CompareList';
-import { RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 
 class Results extends Component {
   constructor(props) {
@@ -44,7 +44,7 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  comparisons: RESULTS,
+  comparisons: POSITION_SEARCH_RESULTS,
 };
 
 Results.defaultProps = {

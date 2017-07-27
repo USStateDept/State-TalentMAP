@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resultsFetchData } from '../../actions/results';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 
 class Results extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: RESULTS,
+  results: POSITION_SEARCH_RESULTS,
 };
 
 Results.defaultProps = {
