@@ -32,6 +32,21 @@ const items = [
     data: [
     ],
   },
+  {
+    item: {
+      title: 'COLA',
+      sort: 600,
+      bool: true, // use bool: true to share a common HTML template
+      description: 'COLA',
+      selectionRef: 'post__cost_of_living_adjustment__gt',
+      text: 'Include only positions with COLA',
+      choices: [
+      ],
+    },
+    data: [
+      { code: '0', description: 'Yes' }, // use a code of 0 to specify we want to return results where COLA > 0
+    ],
+  },
 ];
 
 const api = 'http://localhost:8000/api/v1';
