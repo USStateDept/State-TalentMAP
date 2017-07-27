@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { push } from 'react-router-redux';
 
+import api from '../api';
+
 // Our login constants
 import {
   LOGIN_REQUESTING,
@@ -18,12 +20,18 @@ import {
   unsetClient,
 } from '../client/actions';
 
-const loginUrl = 'http://localhost:8000/api/v1/accounts/token/';
+const loginUrl = `${api}/accounts/token/`;
 
-function loginApi(email, password) {
+export const errorMessage = { message: null };
+
+export function changeErrorMessage(e) {
+  errorMessage.message = e;
+}
+
+export function loginApi(email, password) {
   return axios.post(loginUrl, { username: email, password })
     .then(response => response.data.token)
-    .catch((error) => { throw error; });
+    .catch((error) => { changeErrorMessage(error.message); });
 }
 
 function* logout() {
@@ -41,13 +49,12 @@ function* logout() {
 }
 
 function* loginFlow(email, password) {
-  let token;
-  try {
-    // try to call to our loginApi() function.  Redux Saga
-    // will pause here until we either are successful or
-    // receive an error
-    token = yield call(loginApi, email, password);
+  // try to call to our loginApi() function.  Redux Saga
+  // will pause here until we either are successful or
+  // receive an error
+  const token = yield call(loginApi, email, password);
 
+  if (token) {
     // inform Redux to set our client token
     yield put(setClient(token));
 
@@ -59,15 +66,12 @@ function* loginFlow(email, password) {
 
     // redirect them to home
     yield put(push('/'));
-  } catch (error) {
+  } else {
     // error? send it to redux
-    yield put({ type: LOGIN_ERROR, error });
-  } finally {
-    // No matter what, if our `forked` `task` was cancelled
-    // we will then just redirect them to login
-    if (yield cancelled()) {
-      push('/login');
-    }
+    yield put({ type: LOGIN_ERROR, error: errorMessage.message });
+  }
+  if (yield cancelled()) {
+    push('/login');
   }
 
   // return the token for health and wealth

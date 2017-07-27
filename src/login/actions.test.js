@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { loginRequest } from './actions';
+import { loginRequest, logoutRequest } from './actions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -20,8 +20,8 @@ describe('login actions', () => {
     );
   });
 
-  it('can fetch a position', (done) => {
-    const store = mockStore({ post: [] });
+  it('can perform login', (done) => {
+    const store = mockStore({ login: [] });
 
     const f = () => {
       setTimeout(() => {
@@ -30,5 +30,10 @@ describe('login actions', () => {
       }, 0);
     };
     f();
+  });
+
+  it('can perform logout', () => {
+    const store = mockStore({ login: [] });
+    store.dispatch(logoutRequest());
   });
 });

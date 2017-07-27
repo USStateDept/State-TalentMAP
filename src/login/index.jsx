@@ -9,13 +9,14 @@ import { EMPTY_FUNCTION } from '../Constants/PropTypes';
 
 import { loginRequest } from './actions';
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       loopActive: false,
       shuffleActive: false,
+      emptyFields: false,
     };
   }
 
@@ -44,9 +45,9 @@ class Login extends Component {
               <legend className="usa-drop_text">Sign in</legend>
               <label htmlFor="email">Username or Email</label>
               {/*
-            Our Redux Form Field components that bind email and password
-            to our Redux state's form -> login piece of state.
-          */}
+                Our Redux Form Field components that bind email and password
+                to our Redux state's form -> login piece of state.
+              */}
               <Field
                 name="email"
                 type="text"
