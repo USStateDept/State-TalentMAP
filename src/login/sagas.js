@@ -29,6 +29,9 @@ export function changeErrorMessage(e) {
 }
 
 export function loginApi(email, password) {
+  if (!email || !password) {
+    return changeErrorMessage('Fields cannot be blank');
+  }
   return axios.post(loginUrl, { username: email, password })
     .then(response => response.data.token)
     .catch((error) => { changeErrorMessage(error.message); });

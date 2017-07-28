@@ -16,8 +16,8 @@ describe('login functions', () => {
       // Dispatch any actions that the saga will `take`.
       .dispatch({
         type: 'LOGIN_REQUESTING',
-        username: 'admin',
-        name: 'admin',
+        email: 'admin',
+        password: 'admin',
       })
 
       // Start the test. Returns a Promise.
@@ -35,6 +35,26 @@ describe('login functions', () => {
 
       // Start the test. Returns a Promise.
       .run());
+
+  it('can can catch empty login fields', () => {
+    const mockAdapter = new MockAdapter(axios);
+    mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(200,
+      { token: '12345' },
+    );
+    return expectSaga(loginWatcher)
+      // Assert that the `put` will eventually happen.
+      .put({ type: 'LOGIN_ERROR', error: 'Fields cannot be blank' })
+
+      // Dispatch any actions that the saga will `take`.
+      .dispatch({
+        type: 'LOGIN_REQUESTING',
+        email: '',
+        password: '',
+      })
+
+      // Start the test. Returns a Promise.
+      .run();
+  });
 
   it('can catch AJAX errors', () => {
     const mockAdapter = new MockAdapter(axios);

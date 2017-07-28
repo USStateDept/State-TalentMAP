@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
-
 import { loginRequest, logoutRequest } from '../../login/actions';
 
 // If you were testing, you'd want to export this component
 // so that you can test your custom made component and not
 // test whether or not Redux and Redux Form are doing their jobs
-class Login extends Component {
+export class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -22,10 +21,8 @@ class Login extends Component {
   render() {
     const {
       login: {
-        loggedIn, // eslint-disable-line
         requesting,
       },
-      isAuthorized, // eslint-disable-line
     } = this.props;
 
     const logout = () => {
@@ -195,21 +192,18 @@ class Login extends Component {
 }
 
 // Pass the correct proptypes in for validation
-Login.propTypes = {
+Header.propTypes = {
   logoutRequest: PropTypes.func,
   login: PropTypes.shape({
     requesting: PropTypes.bool,
     successful: PropTypes.bool,
-    messages: PropTypes.array,
-    errors: PropTypes.array,
-    loggedIn: PropTypes.bool,
   }).isRequired,
   client: PropTypes.shape({
     token: PropTypes.string,
   }),
 };
 
-Login.defaultProps = {
+Header.defaultProps = {
   logoutRequest: EMPTY_FUNCTION,
   client: null,
 };
@@ -222,7 +216,7 @@ const mapStateToProps = state => ({
 
 // make Redux state piece of `login` and our action `loginRequest`
 // available in this.props within our component
-const connected = connect(mapStateToProps, { loginRequest, logoutRequest })(Login);
+const connected = connect(mapStateToProps, { loginRequest, logoutRequest })(Header);
 
 // Export our well formed login component
 export default connected;
