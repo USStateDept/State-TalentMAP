@@ -26,6 +26,7 @@ export function shareSendData(url, data) {
             .then((response) => {
               dispatch(shareIsSending(false));
               dispatch(shareSuccess(true));
+              dispatch(shareHasErrored(false));
               return response.data;
             })
             .then(share => dispatch(shareSuccess(share)))

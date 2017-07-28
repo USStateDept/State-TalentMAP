@@ -10,6 +10,7 @@ class ShareButton extends Component {
       recipient: '',
       warning: false,
       timeout: false,
+      shareType: 'email',
     };
   }
 
@@ -29,14 +30,25 @@ class ShareButton extends Component {
 
   share(e) {
     e.preventDefault();
+    const { shareType, recipient } = this.state;
     const message = {
-      type: 'position', // TODO - pass in as a prop if we allow sharing of other pages
-      mode: 'email',
+      type: 'position',
+      mode: this.state.shareType,
       id: this.props.identifier,
-      email: this.state.recipient,
     };
+    if (shareType === 'email') {
+      message.email = recipient;
+    }
+    if (shareType === 'internal') {
+      message.user = recipient;
+    }
     this.props.onSend(message);
     this.createTimeout(8000);
+  }
+
+  changeShareType(e) {
+    const shareType = e.target.value;
+    this.setState({ shareType });
   }
 
   render() {
@@ -46,23 +58,47 @@ class ShareButton extends Component {
     const err = hasErrored ? 'Sorry, there was a problem sharing this.' : null;
     const sent = (response && !hasErrored && !isSending && timeout) ? 'Sent!' : null;
     return (
-      <form onSubmit={e => this.share(e)}>
-        <label htmlFor="share-input">Share this position by email</label>
-        <input
-          id="share-input"
-          name="input-type-text"
-          type="text"
-          value={this.state.recipient}
-          onChange={e => this.changeEmail(e)}
-          placeholder="Receipient's email address"
-        />
-        <button className={(recipient.length && !isSending) ? null : 'usa-button-disabled'} disabled={recipient.length ? null : true} id="share-button">
+      <div>
+        <form onSubmit={e => this.share(e)}>
+          <label htmlFor="share-input">Share this position:</label>
+          <br />
+          <fieldset className="usa-fieldset-inputs usa-sans">
+            <legend className="usa-sr-only">Internal or External Sharing</legend>
+            <input
+              id="external"
+              type="radio"
+              onChange={e => this.changeShareType(e)}
+              checked={this.state.shareType === 'email'}
+              name="external"
+              value="email"
+            />
+            <label htmlFor="stanton">Externally</label>
+            <input
+              id="internal"
+              type="radio"
+              onChange={e => this.changeShareType(e)}
+              checked={this.state.shareType === 'internal'}
+              name="internal"
+              value="internal"
+            />
+            <label htmlFor="anthony">Internally</label>
+          </fieldset>
+          <input
+            id="share-input"
+            name="input-type-text"
+            type="text"
+            value={this.state.recipient}
+            onChange={e => this.changeEmail(e)}
+            placeholder="Receipient's email address"
+          />
+          <button className={(recipient.length && !isSending) ? null : 'usa-button-disabled'} disabled={recipient.length ? null : true} id="share-button">
           Share
         </button>
-        {warning && recipient.length ? 'This is not a state.gov email. Send with caution.' : null}
-        <br />
-        {sendingText} {err} {sent}
-      </form>
+          {warning && recipient.length ? 'This is not a state.gov email. Send with caution.' : null}
+          <br />
+          {sendingText} {err} {sent}
+        </form>
+      </div>
     );
   }
 }
