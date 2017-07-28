@@ -16,6 +16,7 @@ import Results from '../../Containers/Results/Results';
 import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
 import Compare from '../../Containers/Compare/Compare';
+import Footer from '../../Components/Footer/Footer';
 
 const history = createHistory();
 
@@ -34,18 +35,21 @@ const store = configureStore();
 const Main = props => (
   <Provider store={store} history={history}>
     <ConnectedRouter history={history}>
-      <main id="main-content">
-        <Switch {...props}>
-          <Route exact path="/" component={() => <Home {...props} />} />
-          <Route
-            path="/results"
-            component={() => <Results {...props} />}
-          />
-          <Route path="/details/:id" component={() => <Position {...props} />} />
-          <Route path="/post/:id" component={() => <Post {...props} />} />
-          <Route path="/compare/:ids" component={() => <Compare {...props} />} />
-        </Switch>
-      </main>
+      <div>
+        <main id="main-content">
+          <Switch {...props}>
+            <Route exact path="/" component={() => <Home {...props} />} />
+            <Route
+              path="/results"
+              component={() => <Results {...props} />}
+            />
+            <Route path="/details/:id" component={() => <Position {...props} />} />
+            <Route path="/post/:id" component={() => <Post {...props} />} />
+            <Route path="/compare/:ids" component={() => <Compare {...props} />} />
+          </Switch>
+        </main>
+        <Footer />
+      </div>
     </ConnectedRouter>
   </Provider>
 );
