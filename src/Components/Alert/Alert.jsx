@@ -1,0 +1,29 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const Alert = ({ type, title, messages }) => (
+  <div className={`usa-alert usa-alert-${type}`}>
+    <div className="usa-alert-body">
+      <h3 className="usa-alert-heading">{title}</h3>
+      <p className="usa-alert-text">
+        {messages.map(message => message.body)}
+      </p>
+    </div>
+  </div>
+);
+
+Alert.propTypes = {
+  type: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  messages: PropTypes.arrayOf(
+    PropTypes.shape({
+      body: PropTypes.string,
+    })),
+};
+
+Alert.defaultProps = {
+  type: 'success', // should be one of the USWDS alert types
+  messages: [{ body: '' }],
+};
+
+export default Alert;
