@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageList takes different props 1`] = `
+<div
+  className="usa-alert usa-alert-error"
+>
+  <div
+    className="usa-alert-body"
+  >
+    <h3
+      className="usa-alert-heading"
+    >
+      Error title
+    </h3>
+    <p
+      className="usa-alert-text"
+    />
+  </div>
+</div>
+`;
