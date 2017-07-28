@@ -28,11 +28,11 @@ export function changeErrorMessage(e) {
   errorMessage.message = e;
 }
 
-export function loginApi(email, password) {
-  if (!email || !password) {
+export function loginApi(username, password) {
+  if (!username || !password) {
     return changeErrorMessage('Fields cannot be blank');
   }
-  return axios.post(loginUrl, { username: email, password })
+  return axios.post(loginUrl, { username, password })
     .then(response => response.data.token)
     .catch((error) => { changeErrorMessage(error.message); });
 }
@@ -51,11 +51,11 @@ function* logout() {
   yield put(push('/login'));
 }
 
-function* loginFlow(email, password) {
+function* loginFlow(username, password) {
   // try to call to our loginApi() function.  Redux Saga
   // will pause here until we either are successful or
   // receive an error
-  const token = yield call(loginApi, email, password);
+  const token = yield call(loginApi, username, password);
 
   if (token) {
     // inform Redux to set our client token
@@ -92,10 +92,10 @@ function* loginWatcher() {
 
     if (loggingIn) {
       // grab username and password
-      const { email, password } = loggingIn;
+      const { username, password } = loggingIn;
 
       // attempt log in
-      yield call(loginFlow, email, password);
+      yield call(loginFlow, username, password);
     } else {
       // log out
       yield call(logout);

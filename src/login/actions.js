@@ -3,10 +3,10 @@ import {
   LOGOUT_REQUESTING,
 } from './constants';
 
-export const loginRequest = function loginRequest({ email, password }) {
+export const loginRequest = function loginRequest({ username, password }) {
   return {
     type: LOGIN_REQUESTING,
-    email,
+    username,
     password,
   };
 };

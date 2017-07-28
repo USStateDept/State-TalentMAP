@@ -33,7 +33,7 @@ describe('Login', () => {
       ...loginObject, requesting: false,
     }}
     />);
-    wrapper.find('#email').simulate('change', { target: { value: 'admin' } });
+    wrapper.find('#username').simulate('change', { target: { value: 'admin' } });
     wrapper.find('#password').simulate('change', { target: { value: 'admin' } });
     wrapper.find('[type="submit"]').simulate('click');
     expect(wrapper).toBeDefined();
