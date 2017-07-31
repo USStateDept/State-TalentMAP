@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DetailsComponent takes props 1`] = `
+exports[`Footer Component matches snapshot 1`] = `
 <footer
   className="usa-footer usa-footer-medium talentmap-footer"
   role="contentinfo"
@@ -73,7 +73,11 @@ exports[`DetailsComponent takes props 1`] = `
         <div
           className="talentmap-footer-body-contact-item"
         >
-          TalentMAPOutreach@Dos.gov
+          <a
+            href="mailto:TalentMAPOutreach@Dos.gov"
+          >
+            TalentMAPOutreach@Dos.gov
+          </a>
         </div>
         <div
           className="talentmap-footer-body-contact-item"

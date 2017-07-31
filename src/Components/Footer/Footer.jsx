@@ -32,7 +32,9 @@ const Footer = () => (
         </div>
         <div className="usa-footer-contact-links usa-width-one-half talentmap-footer-body-contact">
           <div className="talentmap-footer-body-contact-item">
+            <a href="mailto:TalentMAPOutreach@Dos.gov">
               TalentMAPOutreach@Dos.gov
+            </a>
           </div>
           <div className="talentmap-footer-body-contact-item">
               Join the TalentMAP Community
