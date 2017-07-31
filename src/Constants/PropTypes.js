@@ -41,21 +41,19 @@ export const POSITION_DETAILS = PropTypes.shape({
   languages: LANGUAGES,
 });
 
-export const RESULTS = PropTypes.arrayOf(
+export const POSITION_SEARCH_RESULTS = PropTypes.arrayOf(
   POSITION_DETAILS,
 );
 
 export const FILTERS = PropTypes.arrayOf(
-  PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      code: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      long_description: PropTypes.string,
-      short_description: PropTypes.string,
-      effective_date: PropTypes.string,
-    }),
-  ),
+  PropTypes.shape({
+    id: PropTypes.number,
+    code: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    long_description: PropTypes.string,
+    short_description: PropTypes.string,
+    effective_date: PropTypes.string,
+  }),
 );
 
 export const ITEMS = PropTypes.arrayOf(

@@ -14,7 +14,7 @@ describe('FavoritesButton', () => {
     expect(favoritesButton).toBeDefined();
   });
 
-  it('it can accept different kinds of props', () => {
+  it('can accept different kinds of props', () => {
     const favoritesButtonCompare = shallow(
       <FavoritesButton refKey="0037" type="compare" />,
      );

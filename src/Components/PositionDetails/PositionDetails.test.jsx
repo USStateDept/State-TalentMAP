@@ -24,7 +24,7 @@ describe('PositionDetailsComponent', () => {
   beforeEach(() => {
   });
 
-  it('is can receive props', () => {
+  it('can receive props', () => {
     wrapper = shallow(
       <PositionDetails api={api} details={detailsObject} isLoading={false} hasErrored={false} />,
     );
