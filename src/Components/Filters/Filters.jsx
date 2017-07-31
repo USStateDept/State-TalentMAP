@@ -229,16 +229,16 @@ class Filters extends Component {
                   { items[i].item.bool ?
                     <div key={choice.code} className="usa-width-one-fourth">
                       <input
-                        id={items[i].item.short_description}
+                        id={items[i].item.description}
                         type="checkbox"
-                        title={items[i].item.short_description}
-                        name={items[i].item.short_description}
+                        title={items[i].item.description}
+                        name={items[i].item.description}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
                                   .indexOf(choice.code) !== -1}
                       />
-                      <label htmlFor={items[i].item.short_description}>
+                      <label htmlFor={items[i].item.description}>
                         {choice.short_description}
                       </label>
                     </div>

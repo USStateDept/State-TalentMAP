@@ -118,7 +118,7 @@ describe('FiltersComponent', () => {
         ],
       },
       data: [
-        { code: '0', description: 'Yes' }, // use a code of 0 to specify we want to return results where COLA > 0
+        { code: '0', short_description: 'Yes' }, // use a code of 0 to specify we want to return results where COLA > 0
       ],
     },
     {
@@ -133,7 +133,7 @@ describe('FiltersComponent', () => {
         ],
       },
       data: [
-        { code: '0', description: 'Yes' },
+        { code: '0', short_description: 'Yes' },
       ],
     },
     {
@@ -148,7 +148,7 @@ describe('FiltersComponent', () => {
         ],
       },
       data: [
-        { code: '0', description: 'Yes' },
+        { code: '0', short_description: 'Yes' },
       ],
     },
   ];
