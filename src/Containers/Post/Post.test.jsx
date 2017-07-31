@@ -17,7 +17,14 @@ describe('Main', () => {
 
   it('is defined', () => {
     const post = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Post api={api} />
+      <Post isAuthorized={() => true} api={api} />
+    </MemoryRouter></Provider>);
+    expect(post).toBeDefined();
+  });
+
+  it('it can handle authentication redirects', () => {
+    const post = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+      <Post isAuthorized={() => false} api={api} />
     </MemoryRouter></Provider>);
     expect(post).toBeDefined();
   });

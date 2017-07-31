@@ -18,13 +18,20 @@ describe('Home', () => {
 
   it('is defined', () => {
     const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Home api={api} />
+      <Home isAuthorized={() => true} api={api} />
+    </MemoryRouter></Provider>);
+    expect(home).toBeDefined();
+  });
+
+  it('it can handle authentication redirects', () => {
+    const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+      <Home isAuthorized={() => false} api={api} />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
   });
 
   it('it can call the onChildSubmit function', () => {
-    const wrapper = shallow(<Home.WrappedComponent api={api} />);
+    const wrapper = shallow(<Home.WrappedComponent isAuthorized={() => true} api={api} />);
     wrapper.instance().onChildSubmit();
   });
 });
