@@ -59,6 +59,7 @@
     "redux-mock-store": "^1.2.3",
     "redux-testkit": "^1.0.6",
     "sass-loader": "^6.0.6",
+    "sinon": "^2.4.1",
     "style-loader": "0.17.0",
     "sw-precache-webpack-plugin": "0.9.1",
     "url-loader": "0.5.8",
