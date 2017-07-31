@@ -1,12 +1,11 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import PositionDetails from './PositionDetails';
 
 describe('PositionDetailsComponent', () => {
-  let details = null;
   let wrapper = null;
+
+  const api = 'localhost:8000/api/v1/';
 
   const detailsObject = {
     id: 6,
@@ -23,25 +22,30 @@ describe('PositionDetailsComponent', () => {
   };
 
   beforeEach(() => {
-    details = TestUtils.renderIntoDocument(
-      <MemoryRouter>
-        <PositionDetails details={detailsObject} />
-      </MemoryRouter>);
-  });
-
-  it('is defined', () => {
-    expect(details).toBeDefined();
   });
 
   it('is can receive props', () => {
-    wrapper = shallow(<PositionDetails details={detailsObject} />);
+    wrapper = shallow(
+      <PositionDetails api={api} details={detailsObject} isLoading={false} hasErrored={false} />,
+    );
     expect(wrapper.instance().props.details.id).toBe(6);
   });
 
-  it('handles different props', () => {
+  it('handles different props and different position objects', () => {
     Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
 
-    wrapper = shallow(<PositionDetails details={detailsObject} />);
+    wrapper = shallow(
+      <PositionDetails api={api} details={detailsObject} isLoading={false} hasErrored={false} />,
+    );
+    expect(wrapper.instance().props.details.languages.length).toBe(0);
+  });
+
+  it('handles different types of position objects', () => {
+    Object.assign(detailsObject, { languages: [], is_overseas: true });
+
+    wrapper = shallow(
+      <PositionDetails api={api} details={detailsObject} isLoading hasErrored={false} />,
+    );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });
 });

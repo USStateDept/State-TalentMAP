@@ -2,7 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter'; // eslint-disable-line import/no-extraneous-dependencies
+import MockAdapter from 'axios-mock-adapter';
 import Main from './Main';
 
 describe('Main', () => {
