@@ -36,7 +36,6 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.postFetchData('http://localhost:8000/api/v1/post/100'));
-    // .then(do something)
         store.dispatch(actions.postIsLoading());
         done();
       }, 0);

@@ -41,7 +41,7 @@ export const POSITION_DETAILS = PropTypes.shape({
   languages: LANGUAGES,
 });
 
-export const RESULTS = PropTypes.arrayOf(
+export const POSITION_SEARCH_RESULTS = PropTypes.arrayOf(
   POSITION_DETAILS,
 );
 
