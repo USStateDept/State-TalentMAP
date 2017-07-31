@@ -84,7 +84,7 @@ function* loginFlow(username, password) {
 // Our watcher (saga).  It will watch for many things.
 function* loginWatcher() {
   // Check if user entered already logged in or not
-  while (true) {
+  while (true) { // eslint-disable-line no-constant-condition
     const { loggingIn } = yield race({
       loggingIn: take(LOGIN_REQUESTING),
       loggingOut: take(LOGOUT_REQUESTING),
