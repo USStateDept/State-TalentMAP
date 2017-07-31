@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import toJSON from 'enzyme-to-json';
 import LanguageList from './LanguageList';
 
-describe('DetailsComponent', () => {
+describe('LanguageList', () => {
   let languageList = null;
 
   const languages = [
@@ -15,13 +16,13 @@ describe('DetailsComponent', () => {
     expect(languageList).toBeDefined();
   });
 
-  it('it can take props', () => {
+  it('takes props', () => {
     languageList = shallow(<LanguageList languages={languages} />);
-    expect(languageList).toBeDefined();
+    expect(toJSON(languageList)).toMatchSnapshot();
   });
 
-  it('it can take no props', () => {
+  it('takes no props', () => {
     languageList = shallow(<LanguageList />);
-    expect(languageList).toBeDefined();
+    expect(toJSON(languageList)).toMatchSnapshot();
   });
 });

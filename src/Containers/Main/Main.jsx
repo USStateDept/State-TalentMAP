@@ -20,6 +20,7 @@ import Post from '../../Containers/Post/Post';
 import Login from '../../login';
 import Compare from '../../Containers/Compare/Compare';
 import Header from '../../Components/Header/Header';
+import Footer from '../../Components/Footer/Footer';
 
 import checkIndexAuthorization from '../../lib/check-auth';
 
@@ -87,6 +88,7 @@ const Main = props => (
             />
           </Switch>
         </main>
+        <Footer />
       </div>
     </ConnectedRouter>
   </Provider>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ResultsList from '../ResultsList/ResultsList';
-import { RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
@@ -56,7 +56,7 @@ class Results extends Component {
 Results.propTypes = {
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: RESULTS,
+  results: POSITION_SEARCH_RESULTS,
 };
 
 Results.defaultProps = {

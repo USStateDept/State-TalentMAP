@@ -51,7 +51,6 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.comparisonsFetchData('http://localhost:8000/api/v1/comparisons/'));
-    // .then(do something)
         store.dispatch(actions.comparisonsIsLoading());
         done();
       }, 0);

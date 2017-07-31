@@ -36,11 +36,7 @@ class FavoritesButton extends Component {
   }
 
   exceedsLimit() {
-    let result = false;
-    if (this.state.len >= this.props.limit) {
-      result = true;
-    }
-    return result;
+    return this.state.len >= this.props.limit;
   }
 
   toggleSaved() {

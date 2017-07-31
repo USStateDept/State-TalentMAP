@@ -13,8 +13,8 @@ describe('AlertMessages', () => {
     expect(PropTypes.POSITION_DETAILS).toBeDefined();
   });
 
-  it('Should return RESULTS', () => {
-    expect(PropTypes.RESULTS).toBeDefined();
+  it('Should return POSITION_SEARCH_RESULTS', () => {
+    expect(PropTypes.POSITION_SEARCH_RESULTS).toBeDefined();
   });
 
   it('Should return FILTERS', () => {

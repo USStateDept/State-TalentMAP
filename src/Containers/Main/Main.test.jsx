@@ -36,7 +36,7 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
-  it('is handles a position details route', () => {
+  it('handles a position details route', () => {
     const resultsArray = [
       { id: 6,
         grade: '05',
@@ -70,13 +70,13 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
-  it('is handles a position details route', () => {
+  it('handles a position details route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/details/00011111']}>
       <Main api={api} />
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
-  it('is handles a post details route', () => {
+  it('handles a post details route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/post/00011111']}>
       <Main api={api} />
     </MemoryRouter>);
