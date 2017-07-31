@@ -46,16 +46,14 @@ export const POSITION_SEARCH_RESULTS = PropTypes.arrayOf(
 );
 
 export const FILTERS = PropTypes.arrayOf(
-  PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      code: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      long_description: PropTypes.string,
-      short_description: PropTypes.string,
-      effective_date: PropTypes.string,
-    }),
-  ),
+  PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    code: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    long_description: PropTypes.string,
+    short_description: PropTypes.string,
+    effective_date: PropTypes.string,
+  }),
 );
 
 export const ITEMS = PropTypes.arrayOf(
