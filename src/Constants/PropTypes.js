@@ -48,7 +48,7 @@ export const RESULTS = PropTypes.arrayOf(
 export const FILTERS = PropTypes.arrayOf(
   PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.number,
       code: PropTypes.string.isRequired,
       description: PropTypes.string,
       long_description: PropTypes.string,

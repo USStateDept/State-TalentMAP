@@ -17,6 +17,7 @@ class Filters extends Component {
         post__cost_of_living_adjustment__gt: [],
         post__differential_rate__gt: [],
         post__danger_pay__gt: [],
+        domestic: [],
       },
       proficiency: {},
       qString: null,
@@ -228,17 +229,17 @@ class Filters extends Component {
                   { items[i].item.bool ?
                     <div key={choice.code} className="usa-width-one-fourth">
                       <input
-                        id={items[i].item.description}
+                        id={items[i].item.short_description}
                         type="checkbox"
-                        title={items[i].item.description}
-                        name={items[i].item.description}
+                        title={items[i].item.short_description}
+                        name={items[i].item.short_description}
                         value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
                                   .indexOf(choice.code) !== -1}
                       />
-                      <label htmlFor={items[i].item.description}>
-                        {choice.description}
+                      <label htmlFor={items[i].item.short_description}>
+                        {choice.short_description}
                       </label>
                     </div>
                   : null
