@@ -25,7 +25,6 @@ export class Login extends Component {
       handleSubmit, // remember, Redux Form injects this into our props
       login: {
         requesting,
-        successful,
         messages,
         errors,
       },
@@ -68,14 +67,15 @@ export class Login extends Component {
           </form>
           <div className="auth-messages">
             {/* As in the signup, we're just using the message and error helpers */}
-            {!requesting && !!errors.length && (
-            <Errors message="Failure to login due to:" errors={errors} />
-          )}
-            {!requesting && !!messages.length && (
-            <Messages messages={messages} />
-          )}
+            {
+              !requesting && !!errors.length &&
+              (<Errors message="Failure to login due to:" errors={errors} />)
+            }
+            {
+              !requesting && !!messages.length &&
+              (<Messages messages={messages} />)
+            }
             {requesting && <div>Logging in...</div>}
-            {!requesting && !successful}
           </div>
         </div>
       </div>
