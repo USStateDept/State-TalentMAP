@@ -18,7 +18,7 @@
 }
 
 .account-dropdown--avatar {
-  border-radius: 3px;
+  border-radius: 20px;
   height: 20px;
   margin: 0 5px 0 0;
   width: 20px;
@@ -28,16 +28,16 @@
   line-height: 20px;
 }
 
-.account-dropdown .dropdown__trigger:after {
+.account-dropdown .dropdown__trigger::after {
   content: '\25BE';
   margin: 0 0 0 10px;
 }
 
 .account-dropdown--avatar,
 .account-dropdown--name {
+  height: 35px;
   vertical-align: middle;
-  height: 30px;
-  width: 30px;
+  width: 35px;
 }
 
 .account-dropdown .dropdown__content {
