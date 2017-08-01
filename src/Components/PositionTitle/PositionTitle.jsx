@@ -30,7 +30,7 @@ const PositionTitle = ({ details }) => (
     <img
       className="position-details-header-image"
       alt="department of state seal"
-      src="/assets/img/dos-seal.png"
+      src="/assets/img/dos-seal-bw.png"
     />
   </div>
 );

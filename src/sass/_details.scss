@@ -35,6 +35,10 @@
 
 .position-details-description {
 
+  margin-bottom: 20px;
+  margin-left: 9%;
+  margin-top: 20px;
+
   .position-details-description-section {
     margin-bottom: 1em;
     margin-right: 4.5em;
@@ -52,5 +56,25 @@
       font-size: 1.3em;
     }
 
+  }
+}
+
+.position-details-additional {
+  .position-details-additional-body {
+    font-size: .8em;
+  }
+
+  .map-container {
+    margin: 40px 0 0 40px;
+  }
+
+  @media screen and (max-width: 599px) {
+    .map-container {
+      margin: 0;
+    }
+  }
+
+  .map-title {
+    font-size: .8em;
   }
 }
