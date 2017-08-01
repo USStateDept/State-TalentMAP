@@ -16,7 +16,7 @@ describe('login functions', () => {
       // Dispatch any actions that the saga will `take`.
       .dispatch({
         type: 'LOGIN_REQUESTING',
-        email: 'admin',
+        username: 'admin',
         password: 'admin',
       })
 
@@ -48,7 +48,7 @@ describe('login functions', () => {
       // Dispatch any actions that the saga will `take`.
       .dispatch({
         type: 'LOGIN_REQUESTING',
-        email: '',
+        username: '',
         password: '',
       })
 

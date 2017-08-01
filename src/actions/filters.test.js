@@ -60,7 +60,6 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.filtersFetchData(api, items, 't'));
-    // .then(do something)
         store.dispatch(actions.filtersIsLoading());
         done();
       }, 0);

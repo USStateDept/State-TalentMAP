@@ -24,14 +24,13 @@ export class Login extends Component {
       handleSubmit, // remember, Redux Form injects this into our props
       login: {
         requesting,
-        successful,
         messages,
         errors,
       },
     } = this.props;
 
     // Remember, Redux Form passes the form values to our handler
-    // In this case it will be an object with `email` and `password`
+    // In this case it will be an object with `username` and `password`
     const submit = (values) => {
       this.props.loginRequest(values);
     };
@@ -42,16 +41,16 @@ export class Login extends Component {
           <form className="usa-form" onSubmit={handleSubmit(submit)}>
             <fieldset>
               <legend className="usa-drop_text">Sign in</legend>
-              <label htmlFor="email">Username or Email</label>
+              <label htmlFor="username">Username</label>
               {/*
-                Our Redux Form Field components that bind email and password
+                Our Redux Form Field components that bind username and password
                 to our Redux state's form -> login piece of state.
               */}
               <Field
-                name="email"
+                name="username"
                 type="text"
-                id="email"
-                className="email"
+                id="username"
+                className="username"
                 component="input"
               />
               <label htmlFor="password">Password</label>
@@ -67,20 +66,24 @@ export class Login extends Component {
           </form>
           <div className="auth-messages">
             {/* As in the signup, we're just using the message and error helpers */}
-            {!requesting && !!errors.length && (
-            <div className="usa-width-one-half">
-              <Alert title="Failed to login due to:" messages={errors} type="error" />
-            </div>
-          )}
-            {!requesting && !!messages.length && (
-            <div className="usa-width-one-half">
-              <Alert title="Please see below" messages={messages} type="info" />
-            </div>
-          )}
-            {requesting && <div className="usa-width-one-half">
-              <Alert title="Logging in..." type="info" />
-            </div>}
-            {!requesting && !successful}
+            {
+              !requesting && !!errors.length &&
+              (<div className="usa-width-one-half">
+                <Alert title="Failed to login due to:" messages={errors} type="error" />
+              </div>)
+            }
+            {
+              !requesting && !!messages.length &&
+              (<div className="usa-width-one-half">
+                <Alert title="Please see below" messages={messages} type="info" />
+              </div>)
+            }
+            {
+              requesting &&
+              (<div className="usa-width-one-half">
+                <Alert title="Logging in..." type="info" />
+              </div>)
+            }
           </div>
         </div>
       </div>

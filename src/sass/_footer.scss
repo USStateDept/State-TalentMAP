@@ -1,0 +1,28 @@
+// footer container
+.talentmap-footer {
+  padding: 50px 0 0;
+}
+
+// footer nav
+.talentmap-footer-nav {
+
+  background-color: $color-gray-lighter;
+
+  li {
+    line-height: 0;
+  }
+}
+
+// footer main body
+.talentmap-footer-body {
+  background-color: $color-gray-lightest;
+
+  .talentmap-footer-body-contact {
+
+    padding: 15px;
+
+    .talentmap-footer-body-contact-item {
+      padding: 0 0 12px;
+    }
+  }
+}

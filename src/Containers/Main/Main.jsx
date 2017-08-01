@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { createStore, applyMiddleware } from 'redux';
@@ -20,6 +20,7 @@ import Post from '../../Containers/Post/Post';
 import Login from '../../login';
 import Compare from '../../Containers/Compare/Compare';
 import Header from '../../Components/Header/Header';
+import Footer from '../../Components/Footer/Footer';
 
 import checkIndexAuthorization from '../../lib/check-auth';
 
@@ -56,37 +57,32 @@ const Main = props => (
           <Switch {...props}>
             <Route
               path="/login"
-              component={() => (!isAuthorized() ?
-              (<Login {...props} />) : (<Redirect to="/" />))}
+              component={() => (<Login {...props} isAuthorized={isAuthorized} />)}
             />
             <Route
               exact
               path="/"
-              component={() => (isAuthorized() ?
-                (<Home {...props} />) : (<Redirect to="/login" />))}
+              component={() => (<Home {...props} isAuthorized={isAuthorized} />)}
             />
             <Route
               path="/results"
-              component={() => (isAuthorized() ?
-                (<Results {...props} />) : (<Redirect to="/login" />))}
+              component={() => (<Results {...props} isAuthorized={isAuthorized} />)}
             />
             <Route
               path="/details/:id"
-              component={() => (isAuthorized() ?
-                (<Position {...props} />) : (<Redirect to="/login" />))}
+              component={() => (<Position {...props} isAuthorized={isAuthorized} />)}
             />
             <Route
               path="/post/:id"
-              component={() => (isAuthorized() ?
-                (<Post {...props} />) : (<Redirect to="/login" />))}
+              component={() => (<Post {...props} isAuthorized={isAuthorized} />)}
             />
             <Route
               path="/compare/:ids"
-              component={() => (isAuthorized() ?
-                (<Compare {...props} />) : (<Redirect to="/login" />))}
+              component={() => (<Compare {...props} isAuthorized={isAuthorized} />)}
             />
           </Switch>
         </main>
+        <Footer />
       </div>
     </ConnectedRouter>
   </Provider>
