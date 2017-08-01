@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Alert = ({ type, title, messages }) => (
+  // 'type' is injected into the class name
   <div className={`usa-alert usa-alert-${type}`}>
     <div className="usa-alert-body">
       <h3 className="usa-alert-heading">{title}</h3>
@@ -22,7 +23,7 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
-  type: 'success', // should be one of the USWDS alert types
+  type: 'success', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   messages: [{ body: '' }],
 };
 
