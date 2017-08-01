@@ -1,0 +1,64 @@
+// scss-lint:disable SelectorFormat
+// The react-simple-dropdown uses two underscores in its class names.
+// Instead of modifying the source css, the SelectorFormat rule
+// has been disabled for this file to override styles on the
+// default classes.
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown__content {
+  display: none;
+  min-width: 100px;
+  position: absolute;
+}
+
+.dropdown--active .dropdown__content {
+  display: block;
+}
+
+.account-dropdown--avatar {
+  border-radius: 3px;
+  height: 20px;
+  margin: 0 5px 0 0;
+  width: 20px;
+}
+
+.account-dropdown .dropdown__trigger {
+  line-height: 20px;
+}
+
+.account-dropdown .dropdown__trigger:after {
+  content: '\25BE';
+  margin: 0 0 0 10px;
+}
+
+.account-dropdown--avatar,
+.account-dropdown--name {
+  vertical-align: middle;
+  height: 30px;
+  width: 30px;
+}
+
+.account-dropdown .dropdown__content {
+  background: $avatar-background;
+  border-top: $avatar-dropdown-border-top-color 1px solid;
+  box-shadow: 0 5px 8px $avatar-dropdown-box-shadow-color;
+  margin-top: 5px;
+}
+
+.account-dropdown--quick-links,
+.account-dropdown--management-links {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-dropdown--segment {
+  border-bottom: $avatar-dropdown-account-segment-color 1px solid;
+  padding: 10px 15px;
+}
+
+.account-dropdown--link {
+  margin: 5px 0;
+}

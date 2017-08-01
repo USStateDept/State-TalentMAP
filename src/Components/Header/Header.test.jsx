@@ -16,9 +16,4 @@ describe('Main', () => {
     const header = shallow(<Header client={client} login={loginObject} />);
     expect(header).toBeDefined();
   });
-
-  it('can click the logout link', () => {
-    const header = shallow(<Header client={client} login={loginObject} />);
-    header.find('[to="login"]').simulate('click');
-  });
 });

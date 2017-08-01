@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { loginRequest, logoutRequest } from '../../login/actions';
+import AccountDropdown from '../AccountDropdown/AccountDropdown';
 
-// If you were testing, you'd want to export this component
-// so that you can test your custom made component and not
-// test whether or not Redux and Redux Form are doing their jobs
 export class Header extends Component {
   constructor(props) {
     super(props);
@@ -25,17 +22,13 @@ export class Header extends Component {
       },
     } = this.props;
 
-    const logout = () => {
-      this.props.logoutRequest();
-    };
-
     let showLogin = (<Link to="login">Login</Link>);
     if (this.props.client.token && !requesting) {
-      showLogin = (<Link to="login" onClick={() => logout()}>Logout</Link>);
+      showLogin = (<AccountDropdown />);
     }
 
     return (
-      <header className="usa-header usa-header-extended" role="banner">
+      <header className="usa-header usa-header-extended talentmap-header" role="banner">
         <div className="usa-banner">
           <div className="usa-accordion">
             <header className="usa-banner-header">
@@ -83,7 +76,7 @@ export class Header extends Component {
           <div className="usa-logo" id="logo">
             <em className="usa-logo-text">
               <a href="/" title="Home" aria-label="Home">
-                  DOS TalentMAP
+                  TALENTMAP
                 </a>
             </em>
           </div>
@@ -93,74 +86,6 @@ export class Header extends Component {
             <button className="usa-nav-close">
               <img src="https://unpkg.com/uswds@1.0.0/dist/img/close.svg" alt="close" />
             </button>
-            <ul className="usa-nav-primary usa-accordion">
-              <li>
-                <button
-                  className="
-                  usa-accordion-button usa-nav-link"
-                  aria-expanded="false"
-                  aria-controls="side-nav-1"
-                >
-                  <span>Section title</span>
-                </button>
-                <ul id="side-nav-1" className="usa-nav-submenu" aria-hidden="true">
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <button
-                  className="usa-accordion-button usa-nav-link"
-                  aria-expanded="false"
-                  aria-controls="sidenav-2"
-                >
-                  <span>Simple terms</span>
-                </button>
-                <ul id="sidenav-2" className="usa-nav-submenu" aria-hidden="true">
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a className="usa-nav-link" href="/#">
-                  <span>This is a link</span>
-                </a>
-              </li>
-              <li>
-                <button
-                  className="usa-accordion-button usa-nav-link"
-                  aria-expanded="false"
-                  aria-controls="sidenav-3"
-                >
-                  <span>This is another menu</span>
-                </button>
-                <ul id="sidenav-3" className="usa-nav-submenu" aria-hidden="true">
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                  <li>
-                    <a href="/#">Page title</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
             <div className="usa-nav-secondary">
               <form className="usa-search usa-search-small js-search-form usa-sr-only">
                 <div role="search">
@@ -172,11 +97,17 @@ export class Header extends Component {
                 </div>
               </form>
               <ul className="usa-unstyled-list usa-nav-secondary-links">
-                {/* <li class="js-search-button-container">
-                    <button class="usa-header-search-button js-search-button">Search</button>
-                  </li> */}
+                <li className="js-search-button-container">
+                  <button className="usa-header-search-button js-search-button">Search</button>
+                </li>
                 <li>
-                  <a href="/#">Secondary link</a>
+                  <a href="/#">Home</a>
+                </li>
+                <li>
+                  <a href="https://github.com/18F/State-TalentMAP">About</a>
+                </li>
+                <li>
+                  <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
                 </li>
                 <li>
                   {showLogin}
@@ -191,9 +122,7 @@ export class Header extends Component {
   }
 }
 
-// Pass the correct proptypes in for validation
 Header.propTypes = {
-  logoutRequest: PropTypes.func,
   login: PropTypes.shape({
     requesting: PropTypes.bool,
     successful: PropTypes.bool,
@@ -204,19 +133,14 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  logoutRequest: EMPTY_FUNCTION,
   client: null,
 };
 
-// Grab only the piece of state we need
 const mapStateToProps = state => ({
   login: state.login,
   client: state.client,
 });
 
-// make Redux state piece of `login` and our action `loginRequest`
-// available in this.props within our component
 const connected = connect(mapStateToProps, { loginRequest, logoutRequest })(Header);
 
-// Export our well formed login component
 export default connected;
