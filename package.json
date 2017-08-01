@@ -15,7 +15,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.1",
     "redux-thunk": "^2.2.0",
-    "uswds": "^1.2.1"
+    "uswds": "^1.3.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.0",
