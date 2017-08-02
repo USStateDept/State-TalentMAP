@@ -15,7 +15,7 @@ const Alert = ({ type, title, messages }) => (
 );
 
 Alert.propTypes = {
-  type: PropTypes.string,
+  type: PropTypes.oneOf(['info', 'warning', 'error', 'success']),
   title: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(
     PropTypes.shape({
