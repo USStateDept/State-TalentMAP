@@ -75,9 +75,9 @@ export class Header extends Component {
           <button className="usa-menu-btn">Menu</button>
           <div className="usa-logo" id="logo">
             <em className="usa-logo-text">
-              <a href="/" title="Home" aria-label="Home">
-                  TALENTMAP
-                </a>
+              <Link to="/">
+                TALENTMAP
+              </Link>
             </em>
           </div>
         </div>
@@ -101,7 +101,7 @@ export class Header extends Component {
                   <button className="usa-header-search-button js-search-button">Search</button>
                 </li>
                 <li>
-                  <a href="/#">Home</a>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
                   <a href="https://github.com/18F/State-TalentMAP">About</a>
