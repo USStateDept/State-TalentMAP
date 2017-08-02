@@ -15,9 +15,10 @@ describe('Alert', () => {
     { body: 'Error 2' },
   ];
 
-  it('is defined', () => {
+  it('is defined with a default type of info', () => {
     alert = shallow(<Alert title="test" />);
     expect(alert).toBeDefined();
+    expect(alert.find('.usa-alert-info')).toBeDefined();
   });
 
   it('displays info alert', () => {
@@ -27,7 +28,6 @@ describe('Alert', () => {
     expect(alert.find('.usa-alert-info')).toBeDefined();
     expect(alert.find('.usa-alert-heading').text()).toBe(title);
     expect(alert.find('.usa-alert-text').text()).toBe(alertBody[0].body);
-    
   });
 
   it('displays warning alert', () => {

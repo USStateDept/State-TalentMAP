@@ -24,7 +24,7 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
-  type: 'success', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
+  type: 'info', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   messages: [{ body: '' }],
 };
 
