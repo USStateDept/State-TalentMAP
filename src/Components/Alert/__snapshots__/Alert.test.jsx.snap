@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LanguageList takes different props 1`] = `
+exports[`Alert displays error alert with multiple messages 1`] = `
 <div
   className="usa-alert usa-alert-error"
+  role="alert"
 >
   <div
     className="usa-alert-body"
@@ -14,7 +15,76 @@ exports[`LanguageList takes different props 1`] = `
     </h3>
     <p
       className="usa-alert-text"
-    />
+    >
+      Error 1
+      Error 2
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Alert displays info alert 1`] = `
+<div
+  className="usa-alert usa-alert-info"
+  role={null}
+>
+  <div
+    className="usa-alert-body"
+  >
+    <h3
+      className="usa-alert-heading"
+    >
+      Info title
+    </h3>
+    <p
+      className="usa-alert-text"
+    >
+      Alert body
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Alert displays success alert 1`] = `
+<div
+  className="usa-alert usa-alert-success"
+  role={null}
+>
+  <div
+    className="usa-alert-body"
+  >
+    <h3
+      className="usa-alert-heading"
+    >
+      Success title
+    </h3>
+    <p
+      className="usa-alert-text"
+    >
+      Alert body
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Alert displays warning alert 1`] = `
+<div
+  className="usa-alert usa-alert-info"
+  role={null}
+>
+  <div
+    className="usa-alert-body"
+  >
+    <h3
+      className="usa-alert-heading"
+    >
+      Warning title
+    </h3>
+    <p
+      className="usa-alert-text"
+    >
+      Alert body
+    </p>
   </div>
 </div>
 `;

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 const Alert = ({ type, title, messages }) => (
   // 'type' is injected into the class name
-  <div className={`usa-alert usa-alert-${type}`}>
+  // type 'error' requires an ARIA role
+  <div className={`usa-alert usa-alert-${type}`} role={(type === 'error') ? 'alert' : null}>
     <div className="usa-alert-body">
       <h3 className="usa-alert-heading">{title}</h3>
       <p className="usa-alert-text">
