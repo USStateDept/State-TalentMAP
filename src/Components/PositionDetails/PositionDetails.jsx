@@ -22,7 +22,7 @@ const PositionDetails = ({ details, isLoading, hasErrored }) => (
               <div className="usa-width-one-whole">
                 <div className="usa-width-one-fourth position-details-description-section">
                   <div className="title">ORGANIZATION</div>
-                  <div className="description">ORGANIZATION NAME</div>
+                  <div className="description">{details.organization}</div>
                 </div>
                 <div className="usa-width-one-fourth position-details-description-section">
                   <div className="title">POST</div>
@@ -43,7 +43,7 @@ const PositionDetails = ({ details, isLoading, hasErrored }) => (
                 <div className="usa-width-one-fourth position-details-description-section">
                   <div className="title">OVERSEAS</div>
                   <div className="description">
-                    True
+                    {details.is_overseas ? 'Yes' : 'No'}
                   </div>
                 </div>
                 <div className="usa-width-one-fourth position-details-description-section">
