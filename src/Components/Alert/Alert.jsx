@@ -7,9 +7,11 @@ const Alert = ({ type, title, messages }) => (
   <div className={`usa-alert usa-alert-${type}`} role={(type === 'error') ? 'alert' : null}>
     <div className="usa-alert-body">
       <h3 className="usa-alert-heading">{title}</h3>
-      <p className="usa-alert-text">
-        {messages.map(message => message.body)}
-      </p>
+      {messages.map((message, index) =>
+        (<p className="usa-alert-text" key={index}>{/* eslint-disable react/no-array-index-key */}
+          {message.body}
+        </p>),
+      )}
     </div>
   </div>
 );

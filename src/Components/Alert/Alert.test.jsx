@@ -53,5 +53,6 @@ describe('Alert', () => {
     expect(alert.find('.usa-alert-error')).toBeDefined();
     expect(alert.find('.usa-alert').prop('role')).toBeDefined();
     expect(alert.find('.usa-alert-heading').text()).toBe(title);
+    expect(alert.find('.usa-alert-text').length).toBe(errorBody.length);
   });
 });

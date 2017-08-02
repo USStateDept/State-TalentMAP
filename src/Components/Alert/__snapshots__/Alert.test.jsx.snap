@@ -17,6 +17,10 @@ exports[`Alert displays error alert with multiple messages 1`] = `
       className="usa-alert-text"
     >
       Error 1
+    </p>
+    <p
+      className="usa-alert-text"
+    >
       Error 2
     </p>
   </div>
