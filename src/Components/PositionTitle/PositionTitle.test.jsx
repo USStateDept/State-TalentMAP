@@ -34,6 +34,13 @@ describe('PositionTitleComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('can click the back link', () => {
+    wrapper = shallow(
+      <PositionTitle details={detailsObject} isLoading={false} hasErrored={false} />,
+    );
+    wrapper.find('[role="link"]').simulate('click');
+  });
+
   it('handles different props and different position objects', () => {
     Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
 

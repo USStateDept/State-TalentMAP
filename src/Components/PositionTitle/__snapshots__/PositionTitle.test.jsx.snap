@@ -24,7 +24,17 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
       <div
         className="position-details-header-back"
       >
-        Back to Search Results
+        <span
+          className="back-link"
+          onClick={[Function]}
+          role="link"
+          tabIndex="0"
+        >
+          <FontAwesome
+            name="arrow-left"
+          />
+            Go back
+        </span>
       </div>
       <div
         className="position-details-header-title"
