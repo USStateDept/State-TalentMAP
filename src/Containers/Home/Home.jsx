@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
 import Filters from '../../Components/Filters/Filters';
 import { ITEMS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Home extends Component {
   constructor(props) {
@@ -17,7 +18,11 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    this.getFilters();
+    if (!this.props.isAuthorized()) {
+      this.props.onNavigateTo(PUBLIC_ROOT);
+    } else {
+      this.getFilters();
+    }
   }
 
   onChildSubmit(e) {
@@ -48,6 +53,7 @@ Home.propTypes = {
   fetchData: PropTypes.func,
   isLoading: PropTypes.bool,
   items: ITEMS,
+  isAuthorized: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
