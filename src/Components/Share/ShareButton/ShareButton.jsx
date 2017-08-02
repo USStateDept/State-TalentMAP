@@ -33,15 +33,10 @@ class ShareButton extends Component {
     const { shareType, recipient } = this.state;
     const message = {
       type: 'position',
-      mode: this.state.shareType,
+      mode: shareType,
       id: this.props.identifier,
+      email: recipient,
     };
-    if (shareType === 'email') {
-      message.email = recipient;
-    }
-    if (shareType === 'internal') {
-      message.user = recipient;
-    }
     this.props.onSend(message);
     this.createTimeout(8000);
   }

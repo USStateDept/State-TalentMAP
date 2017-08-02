@@ -1,6 +1,11 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { ajax, validStateEmail, localStorageFetchValue, localStorageToggleValue } from './utilities';
+import { ajax,
+         validStateEmail,
+         localStorageFetchValue,
+         localStorageToggleValue,
+         fetchUserToken,
+       } from './utilities';
 
 const posts = [
   { id: 6, grade: '05', skill: 'OFFICE MANAGEMENT (9017)', bureau: '150000', organization: 'YAOUNDE CAMEROON (YAOUNDE)', position_number: '00025003', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }] },
@@ -80,5 +85,14 @@ describe('validStateEmail', () => {
     const email = 'joe123@email.com';
     const output = validStateEmail(email);
     expect(output).toBe(false);
+  });
+});
+
+describe('fetchUserToken', () => {
+  it('should return true for a valid State email', () => {
+    localStorage.setItem('token', '1234');
+    const output = fetchUserToken();
+    expect(output).toBe('Token 1234');
+    localStorage.clear();
   });
 });
