@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
-import { RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import * as AlertMessages from '../../Constants/AlertMessages';
 
 class ResultsList extends Component {
@@ -53,7 +53,7 @@ class ResultsList extends Component {
 }
 
 ResultsList.propTypes = {
-  results: RESULTS,
+  results: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func,
 };
 

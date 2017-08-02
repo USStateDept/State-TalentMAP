@@ -72,7 +72,7 @@ class ShareButton extends Component {
               name="external"
               value="email"
             />
-            <label htmlFor="stanton">Externally</label>
+            <label htmlFor="external">Externally</label>
             <input
               id="internal"
               type="radio"
@@ -81,7 +81,7 @@ class ShareButton extends Component {
               name="internal"
               value="internal"
             />
-            <label htmlFor="anthony">Internally</label>
+            <label htmlFor="internal">Internally</label>
           </fieldset>
           <input
             id="share-input"

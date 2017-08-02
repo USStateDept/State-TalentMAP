@@ -48,12 +48,12 @@ describe('CompareListComponent', () => {
     expect(compare).toBeDefined();
   });
 
-  it('is can receive props', () => {
+  it('can receive props', () => {
     wrapper = shallow(<CompareList compare={compareArray} />);
     expect(wrapper.instance().props.compare[0].id).toBe(6);
   });
 
-  it('is can call the onChildToggle function', () => {
+  it('can call the onChildToggle function', () => {
     wrapper = shallow(<CompareList compare={compareArray} />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

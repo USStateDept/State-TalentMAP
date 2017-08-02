@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import LanguageList from '../LanguageList/LanguageList';
 import * as AlertMessages from '../../Constants/AlertMessages';
 
@@ -55,7 +55,7 @@ class CompareList extends Component {
 }
 
 CompareList.propTypes = {
-  compare: RESULTS,
+  compare: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func,
 };
 

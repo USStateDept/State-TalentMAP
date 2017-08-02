@@ -51,7 +51,6 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.resultsFetchData('http://localhost:8000/api/v1/results/'));
-    // .then(do something)
         store.dispatch(actions.resultsIsLoading());
         done();
       }, 0);
