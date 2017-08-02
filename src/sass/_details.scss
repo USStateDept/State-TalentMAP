@@ -33,6 +33,12 @@
   }
 }
 
+.position-details-description-container {
+  margin-bottom: 10px;
+  margin-top: 20px;
+  padding: 15px 30px;
+}
+
 .position-details-description {
 
   margin-left: 9%;
@@ -40,7 +46,7 @@
 
   .position-details-description-section {
     height: 80px;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     margin-right: 4.5em;
     margin-top: 1em;
 
@@ -60,8 +66,17 @@
 }
 
 .position-details-additional {
+
+  margin-bottom: 20px;
+  margin-top: 30px;
+
   .position-details-additional-body {
     font-size: .8em;
+
+    .title {
+      font-size: 1.4em;
+      font-weight: bold;
+    }
   }
 
   .map-container {

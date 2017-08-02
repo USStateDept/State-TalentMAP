@@ -1,6 +1,5 @@
 import React from 'react';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
-// import * as AlertMessages from '../../Constants/AlertMessages';
 
 const PositionTitle = ({ details }) => (
   <div className="position-details-header" style={{ overflow: 'hidden', backgroundColor: '#F2F2F2' }}>
