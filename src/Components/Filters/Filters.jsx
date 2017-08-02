@@ -14,6 +14,10 @@ class Filters extends Component {
         grade__code__in: [],
         post__tour_of_duty__in: [],
         organization__code__in: [],
+        post__cost_of_living_adjustment__gt: [],
+        post__differential_rate__gt: [],
+        post__danger_pay__gt: [],
+        domestic: [],
       },
       proficiency: {},
       qString: null,
@@ -218,6 +222,24 @@ class Filters extends Component {
                       />
                       <label htmlFor={`R${choice.code}`}>
                         {choice.long_description}
+                      </label>
+                    </div>
+                  : null
+                  }
+                  { items[i].item.bool ?
+                    <div key={choice.code} className="usa-width-one-fourth">
+                      <input
+                        id={items[i].item.description}
+                        type="checkbox"
+                        title={items[i].item.description}
+                        name={items[i].item.description}
+                        value={choice.code}
+                        onChange={e => this.changeCheck(i, e)}
+                        checked={selection[items[i].item.selectionRef]
+                                  .indexOf(choice.code) !== -1}
+                      />
+                      <label htmlFor={items[i].item.description}>
+                        {choice.short_description}
                       </label>
                     </div>
                   : null
