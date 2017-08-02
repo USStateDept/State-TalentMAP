@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesome from 'react-fontawesome';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 const PositionTitle = ({ details }) => (
@@ -6,7 +7,16 @@ const PositionTitle = ({ details }) => (
     <div className="usa-grid" style={{ overflow: 'hidden' }}>
       <div className="usa-width-one-half">
         <div className="position-details-header-back">
-          Back to Search Results
+          <span
+            role="link"
+            tabIndex="0"
+            className="back-link"
+            onClick={() => { window.history.back(); }}
+          >
+            <FontAwesome name="arrow-left" />
+            &nbsp;
+            Go back
+          </span>
         </div>
         <div className="position-details-header-title">
           <strong>Position Number: {details.position_number}</strong>
