@@ -106,6 +106,51 @@ describe('FiltersComponent', () => {
         { id: 3, code: '01', long_description: 'Los Angeles' },
       ],
     },
+    {
+      item: {
+        title: 'COLA',
+        sort: 600,
+        bool: true, // use bool: true to share a common HTML template
+        description: 'COLA',
+        selectionRef: 'post__cost_of_living_adjustment__gt',
+        text: 'Include only positions with COLA',
+        choices: [
+        ],
+      },
+      data: [
+        { code: '0', short_description: 'Yes' }, // use a code of 0 to specify we want to return results where COLA > 0
+      ],
+    },
+    {
+      item: {
+        title: 'Post Differential',
+        sort: 700,
+        bool: true,
+        description: 'postDiff',
+        selectionRef: 'post__differential_rate__gt',
+        text: 'Include only positions with a post differential',
+        choices: [
+        ],
+      },
+      data: [
+        { code: '0', short_description: 'Yes' },
+      ],
+    },
+    {
+      item: {
+        title: 'Danger pay',
+        sort: 800,
+        bool: true,
+        description: 'dangerPay',
+        selectionRef: 'post__danger_pay__gt',
+        text: 'Include only positions with danger pay',
+        choices: [
+        ],
+      },
+      data: [
+        { code: '0', short_description: 'Yes' },
+      ],
+    },
   ];
 
   beforeEach(() => {
@@ -174,6 +219,8 @@ describe('FiltersComponent', () => {
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
         wrapper.find('#TOD00').simulate('change', (0, { target: { checked: true, value: '2' } }));
         wrapper.find('#R00').simulate('change', (0, { target: { checked: true, value: '2' } }));
+        // test one of the boolean filters
+        wrapper.find('#COLA').simulate('change', (0, { target: { checked: true, value: '0' } }));
         done();
       }, 0);
     };

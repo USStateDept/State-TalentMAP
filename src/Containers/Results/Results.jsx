@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { resultsFetchData } from '../../actions/results';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Results extends Component {
   constructor(props) {
@@ -14,9 +16,13 @@ class Results extends Component {
   }
 
   componentWillMount() {
-    const query = window.location.search || '';
-    const api = this.props.api;
-    this.props.fetchData(`${api}/position/${query}`);
+    if (!this.props.isAuthorized()) {
+      this.props.onNavigateTo(PUBLIC_ROOT);
+    } else {
+      const query = window.location.search || '';
+      const api = this.props.api;
+      this.props.fetchData(`${api}/position/${query}`);
+    }
   }
 
   onChildToggle() {
@@ -37,16 +43,19 @@ class Results extends Component {
 
 Results.propTypes = {
   api: PropTypes.string.isRequired,
+  onNavigateTo: PropTypes.func,
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
+  isAuthorized: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
   results: [],
   hasErrored: false,
   isLoading: true,
+  onNavigateTo: EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {
@@ -61,6 +70,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
+  onNavigateTo: dest => dispatch(push(dest)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

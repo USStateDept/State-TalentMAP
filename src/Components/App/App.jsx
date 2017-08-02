@@ -6,6 +6,6 @@ const App = props => (
   <div>
     <Main {...props} />
   </div>
-);
+  );
 
 export default App;
