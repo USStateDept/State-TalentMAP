@@ -45,4 +45,10 @@ export function validStateEmail(email) {
   return /.+@state.gov$/.test(email.trim());
 }
 
+export function fetchUserToken() {
+  const key = JSON.parse(localStorage.getItem('token'));
+  const token = `Token ${key}`;
+  return token;
+}
+
 export default ajax;
