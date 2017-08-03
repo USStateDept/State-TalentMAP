@@ -13,7 +13,7 @@ const items = [
       title: 'Skill code',
       sort: 100,
       description: 'skill',
-      endpoint: 'position/skills/',
+      endpoint: 'skill/',
       selectionRef: 'skill__code__in',
       text: 'Choose skill codes',
     },
@@ -25,7 +25,7 @@ const items = [
       title: 'Grade',
       sort: 300,
       description: 'grade',
-      endpoint: 'position/grades/',
+      endpoint: 'grade/',
       selectionRef: 'grade__code__in',
       text: 'Choose grades',
     },
@@ -60,11 +60,11 @@ describe('async actions', () => {
 
     const grades = [{ id: 2, code: '00' }, { id: 3, code: '01' }];
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/skills/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/skill/').reply(200,
       skills,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/grades/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/grade/').reply(200,
       grades,
     );
   });
@@ -74,7 +74,23 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.filtersFetchData(api, items, 't'));
+        store.dispatch(actions.filtersFetchData(api, items));
+        store.dispatch(actions.filtersIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle failed fetches of filters', (done) => {
+    const store = mockStore({ items: [] });
+    const invalidItems = items.slice(); // copy the items array
+    invalidItems[0].item.endpoint = 'invalid'; // actually make one of the endpoints invalid
+
+    const f = () => {
+      setTimeout(() => {
+        items[0].item.endpoint = 'invalidEndpoint';
+        store.dispatch(actions.filtersFetchData(api, invalidItems));
         store.dispatch(actions.filtersIsLoading());
         done();
       }, 0);
