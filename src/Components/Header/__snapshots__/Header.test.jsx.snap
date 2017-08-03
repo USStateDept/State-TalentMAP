@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Main matches snapshot 1`] = `
+exports[`Header matches snapshot 1`] = `
 <header
   className="usa-header usa-header-extended talentmap-header"
   role="banner"
