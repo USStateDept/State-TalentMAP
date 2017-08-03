@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header matches snapshot 1`] = `
+<header
+  className="usa-header usa-header-extended talentmap-header"
+  role="banner"
+>
+  <div
+    className="usa-banner"
+  >
+    <div
+      className="usa-accordion"
+    >
+      <header
+        className="usa-banner-header"
+      >
+        <div
+          className="usa-grid usa-banner-inner"
+        >
+          <img
+            alt="U.S. flag"
+            src="https://unpkg.com/uswds@1.0.0/dist/img/favicons/favicon-57.png"
+          />
+          <p>
+            An official website of the United States government
+          </p>
+          <button
+            aria-controls="gov-banner"
+            aria-expanded="false"
+            className="usa-accordion-button usa-banner-button"
+          >
+            <span
+              className="usa-banner-button-text"
+            >
+              Here's how you know
+            </span>
+          </button>
+        </div>
+      </header>
+      <div
+        aria-hidden="true"
+        className="usa-banner-content usa-grid usa-accordion-content"
+        id="gov-banner"
+      >
+        <div
+          className="usa-banner-guidance-gov usa-width-one-half"
+        >
+          <img
+            alt="Dot gov"
+            className="usa-banner-icon usa-media_block-img"
+            src="https://unpkg.com/uswds@1.0.0/dist/img/icon-dot-gov.svg"
+          />
+          <div
+            className="usa-media_block-body"
+          >
+            <p>
+              <strong>
+                The .gov means it’s official.
+              </strong>
+              <br />
+              Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
+            </p>
+          </div>
+        </div>
+        <div
+          className="usa-banner-guidance-ssl usa-width-one-half"
+        >
+          <img
+            alt="SSL"
+            className="usa-banner-icon usa-media_block-img"
+            src="https://unpkg.com/uswds@1.0.0/dist/img/icon-https.svg"
+          />
+          <div
+            className="usa-media_block-body"
+          >
+            <p>
+              This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The 
+              <strong>
+                https://
+              </strong>
+               means all transmitted data is encrypted  — in other words, any information or browsing history that you provide is transmitted securely.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="usa-navbar"
+  >
+    <button
+      className="usa-menu-btn"
+    >
+      Menu
+    </button>
+    <div
+      className="usa-logo"
+      id="logo"
+    >
+      <em
+        className="usa-logo-text"
+      >
+        <Link
+          replace={false}
+          to="/"
+        >
+          TALENTMAP
+        </Link>
+      </em>
+    </div>
+  </div>
+  <nav
+    className="usa-nav"
+  >
+    <div
+      className="usa-nav-inner"
+    >
+      <button
+        className="usa-nav-close"
+      >
+        <img
+          alt="close"
+          src="https://unpkg.com/uswds@1.0.0/dist/img/close.svg"
+        />
+      </button>
+      <div
+        className="usa-nav-secondary"
+      >
+        <form
+          className="usa-search usa-search-small js-search-form usa-sr-only"
+        >
+          <div
+            role="search"
+          >
+            <label
+              className="usa-sr-only"
+              htmlFor="search-field-small"
+            >
+              Search small
+            </label>
+            <input
+              id="search-field-small"
+              name="search"
+              type="search"
+            />
+            <button
+              type="submit"
+            >
+              <span
+                className="usa-sr-only"
+              >
+                Search
+              </span>
+            </button>
+          </div>
+        </form>
+        <ul
+          className="usa-unstyled-list usa-nav-secondary-links"
+        >
+          <li
+            className="js-search-button-container"
+          >
+            <button
+              className="usa-header-search-button js-search-button"
+            >
+              Search
+            </button>
+          </li>
+          <li>
+            <Link
+              replace={false}
+              to="/"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP/issues"
+            >
+              Feedback
+            </a>
+          </li>
+          <li>
+            <Connect(AccountDropdown) />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    className="usa-overlay"
+  />
+</header>
+`;
