@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import * as AlertMessages from '../../Constants/AlertMessages';
+import * as SystemMessages from '../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import Share from '../Share/Share';
 import LanguageList from '../LanguageList/LanguageList';
@@ -25,7 +25,7 @@ const PositionDetails = ({ details, api, isLoading, hasErrored }) => (
                   <div className="usa-width-one-fourth position-details-description-section">
                     <div className="title">ORGANIZATION</div>
                     <div className="description">
-                      {details.organization || AlertMessages.NO_ORG}
+                      {details.organization || SystemMessages.NO_ORG}
                     </div>
                   </div>
                   <div className="usa-width-one-fourth position-details-description-section">
@@ -34,14 +34,14 @@ const PositionDetails = ({ details, api, isLoading, hasErrored }) => (
                       {
                         details.post && details.post.id ?
                           <Link to={`/post/${details.post.id}`}>{details.post.description}</Link>
-                          : AlertMessages.NO_POST
+                          : SystemMessages.NO_POST
                       }
                     </div>
                   </div>
                   <div className="usa-width-one-fourth position-details-description-section">
                     <div className="title">BUREAU</div>
                     <div className="description">
-                      {details.bureau || AlertMessages.NO_BUREAU}
+                      {details.bureau || SystemMessages.NO_BUREAU}
                     </div>
                   </div>
                   <div className="usa-width-one-fourth position-details-description-section">
@@ -50,7 +50,7 @@ const PositionDetails = ({ details, api, isLoading, hasErrored }) => (
                       {
                         details.post && details.post.differential_rate ?
                           details.post.differential_rate
-                          : AlertMessages.NO_POST_DIFFERENTIAL
+                          : SystemMessages.NO_POST_DIFFERENTIAL
                       }
                     </div>
                   </div>
@@ -90,7 +90,7 @@ const PositionDetails = ({ details, api, isLoading, hasErrored }) => (
                   <div className="usa-width-one-fourth position-details-description-section">
                     <div className="title">DANGER PAY</div>
                     <div className="description">
-                      {details.post ? details.post.danger_pay : AlertMessages.NO_DANGER_PAY}
+                      {details.post ? details.post.danger_pay : SystemMessages.NO_DANGER_PAY}
                     </div>
                   </div>
                 </div>
