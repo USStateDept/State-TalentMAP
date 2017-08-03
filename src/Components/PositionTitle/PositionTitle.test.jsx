@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import PositionTitle from './PositionTitle';
-import detailsObject from '../../Constants/TestObjects';
+import detailsObject from '../../__mocks__/detailsObject';
 
 describe('PositionTitleComponent', () => {
   let wrapper = null;

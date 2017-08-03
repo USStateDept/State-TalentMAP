@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import PositionDetails from './PositionDetails';
-import detailsObject from '../../Constants/TestObjects';
+import detailsObject from '../../__mocks__/detailsObject';
 
 describe('PositionDetailsComponent', () => {
   let wrapper = null;
