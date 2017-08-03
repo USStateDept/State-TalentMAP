@@ -31,11 +31,11 @@ export function shareSendData(url, data) {
               return response.data;
             })
             .then(share => dispatch(shareSuccess(share)))
-            .catch((response) => {
-              dispatch(shareHasErrored(true));
+            .catch((err) => {
+              dispatch(shareHasErrored(err.response.data.message));
               dispatch(shareIsSending(false));
               dispatch(shareSuccess(false));
-              return response.data;
+              return err.response.data.message;
             });
   };
 }

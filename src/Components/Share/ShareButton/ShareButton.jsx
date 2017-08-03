@@ -50,7 +50,7 @@ class ShareButton extends Component {
     const { warning, recipient, timeout } = this.state;
     const { isSending, hasErrored, response } = this.props;
     const sendingText = isSending ? 'Sending...' : null;
-    const err = hasErrored ? 'Sorry, there was a problem sharing this.' : null;
+    const err = hasErrored || null;
     const sent = (response && !hasErrored && !isSending && timeout) ? 'Sent!' : null;
     return (
       <div>
@@ -102,7 +102,10 @@ ShareButton.propTypes = {
   identifier: PropTypes.number.isRequired,
   onSend: PropTypes.func,
   isSending: PropTypes.bool,
-  hasErrored: PropTypes.bool,
+  hasErrored: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   response: PropTypes.bool,
 };
 
