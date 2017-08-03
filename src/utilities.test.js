@@ -89,7 +89,7 @@ describe('validStateEmail', () => {
 });
 
 describe('fetchUserToken', () => {
-  it('should return true for a valid State email', () => {
+  it('should be able to fetch the auth token', () => {
     localStorage.setItem('token', '1234');
     const output = fetchUserToken();
     expect(output).toBe('Token 1234');
