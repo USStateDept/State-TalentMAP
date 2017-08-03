@@ -8,7 +8,7 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 class Share extends Component {
 
   onChildSend(e) {
-    this.props.sendData(`${this.props.api}/accounts/profile/share/`, e);
+    this.props.sendData(`${this.props.api}/share/`, e);
   }
 
   render() {
