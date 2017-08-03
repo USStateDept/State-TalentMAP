@@ -29,10 +29,10 @@ const PositionTitle = ({ details }) => (
             took a galley of type and scrambled it to make...
         </p>
         <div className="usa-width-one-half position-details-header-body">
-          <strong>Post website:</strong> www.post.gov
+          <strong>Post website:</strong> <a href="https://www.state.gov">www.state.gov</a>
         </div>
         <div className="usa-width-one-half position-details-header-body">
-          <strong>Point of Contact:</strong> 222-222-2222
+          <strong>Point of Contact:</strong> <a href="tel:222-222-2222">222-222-2222</a>
         </div>
       </div>
     </div>
