@@ -23,10 +23,11 @@ export function shareSuccess(share) {
 export function shareSendData(url, data) {
   return (dispatch) => {
     dispatch(shareIsSending(true));
+    dispatch(shareSuccess(false));
+    dispatch(shareHasErrored(false));
     axios.post(url, data, { headers: { Authorization: fetchUserToken() } })
             .then((response) => {
               dispatch(shareIsSending(false));
-              dispatch(shareSuccess(true));
               dispatch(shareHasErrored(false));
               return response.data;
             })
