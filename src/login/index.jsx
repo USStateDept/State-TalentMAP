@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { connect } from 'react-redux';
 
-import Messages from '../notifications/Messages';
-import Errors from '../notifications/Errors';
 import { EMPTY_FUNCTION } from '../Constants/PropTypes';
+import Alert from '../Components/Alert/Alert';
 
 import { loginRequest } from './actions';
 
@@ -38,7 +37,7 @@ export class Login extends Component {
 
     return (
       <div className="usa-grid" style={{ padding: '15px 0 0 0' }}>
-        <div className="login">
+        <div className="usa-grid login">
           <form className="usa-form" onSubmit={handleSubmit(submit)}>
             <fieldset>
               <legend className="usa-drop_text">Sign in</legend>
@@ -69,13 +68,22 @@ export class Login extends Component {
             {/* As in the signup, we're just using the message and error helpers */}
             {
               !requesting && !!errors.length &&
-              (<Errors message="Failure to login due to:" errors={errors} />)
+              (<div className="usa-width-one-half">
+                <Alert title="Failed to login due to:" messages={errors} type="error" />
+              </div>)
             }
             {
               !requesting && !!messages.length &&
-              (<Messages messages={messages} />)
+              (<div className="usa-width-one-half">
+                <Alert title="Please see below" messages={messages} type="info" />
+              </div>)
             }
-            {requesting && <div>Logging in...</div>}
+            {
+              requesting &&
+              (<div className="usa-width-one-half">
+                <Alert title="Logging in..." type="info" />
+              </div>)
+            }
           </div>
         </div>
       </div>
