@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { Header } from './Header';
 
-describe('Main', () => {
+describe('Header', () => {
   const loginObject = {
     requesting: false,
     successful: true,
