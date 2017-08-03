@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionTitleComponent matches snapshot 1`] = `
+<div
+  className="position-details-header"
+  style={
+    Object {
+      "backgroundColor": "#F2F2F2",
+      "overflow": "hidden",
+    }
+  }
+>
+  <div
+    className="usa-grid"
+    style={
+      Object {
+        "overflow": "hidden",
+      }
+    }
+  >
+    <div
+      className="usa-width-one-half"
+    >
+      <div
+        className="position-details-header-back"
+      >
+        <span
+          className="back-link"
+          onClick={[Function]}
+          role="link"
+          tabIndex="0"
+        >
+          <FontAwesome
+            name="arrow-left"
+          />
+            Go back
+        </span>
+      </div>
+      <div
+        className="position-details-header-title"
+      >
+        <strong>
+          Position Number: 
+          00003027
+        </strong>
+      </div>
+      <p
+        className="position-details-header-body"
+      >
+        <strong>
+          Description: 
+        </strong>
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make...
+      </p>
+      <div
+        className="usa-width-one-half position-details-header-body"
+      >
+        <strong>
+          Post website:
+        </strong>
+         
+        <a
+          href="https://www.state.gov"
+        >
+          www.state.gov
+        </a>
+      </div>
+      <div
+        className="usa-width-one-half position-details-header-body"
+      >
+        <strong>
+          Point of Contact:
+        </strong>
+         
+        <a
+          href="tel:222-222-2222"
+        >
+          222-222-2222
+        </a>
+      </div>
+    </div>
+  </div>
+  <img
+    alt="department of state seal"
+    className="position-details-header-image"
+    src="/assets/img/dos-seal-bw.png"
+  />
+</div>
+`;

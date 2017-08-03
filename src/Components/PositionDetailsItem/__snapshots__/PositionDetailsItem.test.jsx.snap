@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionDetailsItem matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-width-one-whole"
+  >
+    <div
+      className="position-details-description-container"
+    >
+      <div
+        className="usa-width-one-whole position-details-description"
+      >
+        <strong>
+          POST DESCRIPTION
+        </strong>
+        <br />
+        <div
+          className="usa-width-one-whole"
+        >
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              ORGANIZATION
+            </div>
+            <div
+              className="description"
+            >
+              FREETOWN SIERRA LEONE (FREETOWN)
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              POST
+            </div>
+            <div
+              className="description"
+            >
+              <Link
+                replace={false}
+                to="/post/162"
+              >
+                MASERU, LESOTHO
+              </Link>
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              BUREAU
+            </div>
+            <div
+              className="description"
+            >
+              150000
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              POST DIFFERENTIAL
+            </div>
+            <div
+              className="description"
+            >
+              15
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              OVERSEAS
+            </div>
+            <div
+              className="description"
+            >
+              Yes
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              REGION
+            </div>
+            <div
+              className="description"
+            >
+              Region
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr
+        width="85%"
+      />
+      <div
+        className="usa-width-one-whole position-details-description"
+      >
+        <strong>
+          POSITION DESCRIPTION
+        </strong>
+        <br />
+        <div
+          className="usa-width-one-whole"
+        >
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              GRADE
+            </div>
+            <div
+              className="description"
+            >
+              05
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              LANGUAGE
+            </div>
+            <div
+              className="description"
+            >
+              <LanguageList
+                languages={
+                  Array [
+                    Object {
+                      "id": 1,
+                      "language": "French (FR)",
+                      "representation": "French (FR) 2/2",
+                      "spoken_proficiency": "2",
+                      "written_proficiency": "2",
+                    },
+                  ]
+                }
+              />
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              SKILLS
+            </div>
+            <div
+              className="description"
+            >
+              Information Management
+            </div>
+          </div>
+          <div
+            className="usa-width-one-fourth position-details-description-section"
+          >
+            <div
+              className="title"
+            >
+              DANGER PAY
+            </div>
+            <div
+              className="description"
+            >
+              0
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
