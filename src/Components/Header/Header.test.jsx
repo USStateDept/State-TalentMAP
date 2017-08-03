@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import toJSON from 'enzyme-to-json';
 import { Header } from './Header';
 
-describe('Main', () => {
+describe('Header', () => {
   const loginObject = {
     requesting: false,
     successful: true,
@@ -17,8 +18,8 @@ describe('Main', () => {
     expect(header).toBeDefined();
   });
 
-  it('can click the logout link', () => {
+  it('matches snapshot', () => {
     const header = shallow(<Header client={client} login={loginObject} />);
-    header.find('[to="login"]').simulate('click');
+    expect(toJSON(header)).toMatchSnapshot();
   });
 });
