@@ -18,6 +18,7 @@
     "redux-form": "^7.0.1",
     "redux-saga": "^0.15.4",
     "redux-thunk": "^2.2.0",
+    "shortid": "^2.2.8",
     "uswds": "^1.2.1"
   },
   "devDependencies": {
