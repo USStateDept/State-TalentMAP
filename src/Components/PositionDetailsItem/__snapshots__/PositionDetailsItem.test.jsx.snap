@@ -20,95 +20,37 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         <div
           className="usa-width-one-whole"
         >
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              ORGANIZATION
-            </div>
-            <div
-              className="description"
-            >
-              FREETOWN SIERRA LEONE (FREETOWN)
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              POST
-            </div>
-            <div
-              className="description"
-            >
+          <PositionDetailsDataPoint
+            description="FREETOWN SIERRA LEONE (FREETOWN)"
+            title="ORGANIZATION"
+          />
+          <PositionDetailsDataPoint
+            description={
               <Link
                 replace={false}
                 to="/post/162"
               >
                 MASERU, LESOTHO
               </Link>
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              BUREAU
-            </div>
-            <div
-              className="description"
-            >
-              150000
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              POST DIFFERENTIAL
-            </div>
-            <div
-              className="description"
-            >
-              15
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              OVERSEAS
-            </div>
-            <div
-              className="description"
-            >
-              Yes
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              REGION
-            </div>
-            <div
-              className="description"
-            >
-              Region
-            </div>
-          </div>
+            }
+            title="POST"
+          />
+          <PositionDetailsDataPoint
+            description="150000"
+            title="BUREAU"
+          />
+          <PositionDetailsDataPoint
+            description={15}
+            title="POST DIFFERENTIAL"
+          />
+          <PositionDetailsDataPoint
+            description="Yes"
+            title="OVERSEAS"
+          />
+          <PositionDetailsDataPoint
+            description="REGION"
+            title="REGION"
+          />
         </div>
       </div>
       <hr
@@ -124,31 +66,12 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         <div
           className="usa-width-one-whole"
         >
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              GRADE
-            </div>
-            <div
-              className="description"
-            >
-              05
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              LANGUAGE
-            </div>
-            <div
-              className="description"
-            >
+          <PositionDetailsDataPoint
+            description="05"
+            title="GRADE"
+          />
+          <PositionDetailsDataPoint
+            description={
               <LanguageList
                 languages={
                   Array [
@@ -162,36 +85,17 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
                   ]
                 }
               />
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              SKILLS
-            </div>
-            <div
-              className="description"
-            >
-              Information Management
-            </div>
-          </div>
-          <div
-            className="usa-width-one-fourth position-details-description-section"
-          >
-            <div
-              className="title"
-            >
-              DANGER PAY
-            </div>
-            <div
-              className="description"
-            >
-              0
-            </div>
-          </div>
+            }
+            title="LANGUAGE"
+          />
+          <PositionDetailsDataPoint
+            description="Information Management"
+            title="SKILLS"
+          />
+          <PositionDetailsDataPoint
+            description={0}
+            title="DANGER PAY"
+          />
         </div>
       </div>
     </div>
