@@ -11,9 +11,15 @@ const mockStore = configureStore(middlewares);
 
 describe('Routes', () => {
   const api = 'http://localhost:8000/api/v1';
-  it('is defined', () => {
+  it('handles a home route', () => {
     const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Routes api={api} isAuthorized={() => true} />
+    </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
+  it('handles a login route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+      <Routes api={api} isAuthorized={() => false} />
     </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
