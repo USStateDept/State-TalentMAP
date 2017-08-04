@@ -33,7 +33,7 @@ export function shareSendData(url, data) {
             })
             .then(share => dispatch(shareSuccess(share)))
             .catch((err) => {
-              dispatch(shareHasErrored(err.response.data.message));
+              dispatch(shareHasErrored(err.response.data.message || 'An error occurred trying to share this position.'));
               dispatch(shareIsSending(false));
               dispatch(shareSuccess(false));
               return err.response.data.message;
