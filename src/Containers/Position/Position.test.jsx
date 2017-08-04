@@ -12,9 +12,6 @@ const mockStore = configureStore(middlewares);
 describe('Main', () => {
   const api = 'http://localhost:8000/api/v1';
 
-  beforeEach(() => {
-  });
-
   it('is defined', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Position isAuthorized={() => true} api={api} />
