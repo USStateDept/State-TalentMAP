@@ -10,11 +10,7 @@ const PositionDetailsDataPoint = ({ title, description }) => (
 
 PositionDetailsDataPoint.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.element,
-  ]).isRequired,
+  description: PropTypes.node.isRequired,
 };
 
 export default PositionDetailsDataPoint;

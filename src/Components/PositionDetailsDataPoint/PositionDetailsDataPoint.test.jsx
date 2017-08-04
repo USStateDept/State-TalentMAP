@@ -35,4 +35,12 @@ describe('PositionDetailsDataPoint', () => {
     );
     expect(wrapper.instance().props.description).toBe(description);
   });
+
+  it('handles an array of different prop types', () => {
+    const description = ['test', 100, (<span key="a">test</span>)];
+    wrapper = shallow(
+      <PositionDetailsDataPoint title="Title" description={description} />,
+    );
+    expect(wrapper.instance().props.description).toBe(description);
+  });
 });
