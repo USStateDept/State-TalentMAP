@@ -28,6 +28,13 @@ describe('PositionTitleComponent', () => {
     wrapper.find('[role="link"]').simulate('click');
   });
 
+  it('can press enter on the back link', () => {
+    wrapper = shallow(
+      <PositionTitle details={detailsObject} isLoading={false} hasErrored={false} />,
+    );
+    wrapper.find('[role="link"]').simulate('keydown', { keyCode: 13 });
+  });
+
   it('handles different props and different position objects', () => {
     Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
 

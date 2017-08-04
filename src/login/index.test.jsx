@@ -21,18 +21,20 @@ describe('Login', () => {
   });
 
   it('can handle other props', () => {
-    const wrapper = shallow(<Login login={{
-      ...loginObject, requesting: false, errors, messages: errors,
-    }}
-    />);
+    const wrapper = shallow(
+      <Login
+        login={{ ...loginObject, requesting: false, errors, messages: errors }}
+      />,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('can submit a username and password', () => {
-    const wrapper = shallow(<Login login={{
-      ...loginObject, requesting: false,
-    }}
-    />);
+    const wrapper = shallow(
+      <Login
+        login={{ ...loginObject, requesting: false }}
+      />,
+    );
     wrapper.find('#username').simulate('change', { target: { value: 'admin' } });
     wrapper.find('#password').simulate('change', { target: { value: 'admin' } });
     wrapper.find('[type="submit"]').simulate('click');
