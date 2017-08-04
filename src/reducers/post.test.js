@@ -1,9 +1,6 @@
 import * as reducers from './post';
 
 describe('reducers', () => {
-  beforeEach(() => {
-  });
-
   it('can set reducer POST_HAS_ERRORED', () => {
     expect(reducers.postHasErrored(false, { type: 'POST_HAS_ERRORED', hasErrored: true })).toBe(true);
   });
