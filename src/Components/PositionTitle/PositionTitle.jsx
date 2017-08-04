@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import PropTypes from 'prop-types';
+import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class PositionTitle extends Component { // eslint-disable-line
   render() {
-    const { details } = this.props;
-    function goBack(e) {
+    const { details, goBack } = this.props;
+    function navBack(e) {
       if (e.keyCode === 13 || e === 'click') {
-        window.history.back();
+        goBack();
       }
     }
     return (
@@ -19,8 +20,8 @@ class PositionTitle extends Component { // eslint-disable-line
                 role="link"
                 tabIndex="0"
                 className="back-link"
-                onKeyDown={(e) => { goBack(e); }}
-                onClick={() => { goBack('click'); }}
+                onKeyDown={(e) => { navBack(e); }}
+                onClick={() => { navBack('click'); }}
               >
                 <FontAwesome name="arrow-left" />
               &nbsp;
@@ -57,10 +58,12 @@ class PositionTitle extends Component { // eslint-disable-line
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
+  goBack: PropTypes.func,
 };
 
 PositionTitle.defaultProps = {
   details: null,
+  goBack: EMPTY_FUNCTION,
 };
 
 export default PositionTitle;

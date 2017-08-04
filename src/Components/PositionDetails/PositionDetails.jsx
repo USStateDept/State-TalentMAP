@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, api, isLoading, hasErrored }) => (
+const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => (
   <div>
     {(details && !isLoading && !hasErrored) &&
       <div>
-        <PositionTitle details={details} />
+        <PositionTitle details={details} goBack={goBack} />
         <PositionDetailsItem details={details} />
         <PositionAdditionalDetails />
         <div className="usa-grid">
@@ -29,12 +29,14 @@ PositionDetails.propTypes = {
   api: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
+  goBack: PropTypes.func,
 };
 
 PositionDetails.defaultProps = {
   details: null,
   isLoading: true,
   hasErrored: false,
+  goBack: EMPTY_FUNCTION,
 };
 
 export default PositionDetails;

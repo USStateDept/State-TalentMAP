@@ -33,6 +33,7 @@ class Position extends Component {
           details={positionDetails[0]}
           isLoading={isLoading}
           hasErrored={hasErrored}
+          goBack={this.context.router.history.goBack}
         />
       </div>
     );
