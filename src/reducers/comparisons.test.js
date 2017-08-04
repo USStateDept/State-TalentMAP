@@ -1,9 +1,6 @@
 import * as reducers from './comparisons';
 
 describe('reducers', () => {
-  beforeEach(() => {
-  });
-
   it('can set reducer COMPARISONS_HAS_ERRORED', () => {
     expect(reducers.comparisonsHasErrored(false, { type: 'COMPARISONS_HAS_ERRORED', hasErrored: true })).toBe(true);
   });
