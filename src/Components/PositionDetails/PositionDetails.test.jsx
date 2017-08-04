@@ -8,9 +8,6 @@ describe('PositionDetailsComponent', () => {
 
   const api = 'localhost:8000/api/v1/';
 
-  beforeEach(() => {
-  });
-
   it('can receive props', () => {
     wrapper = shallow(
       <PositionDetails api={api} details={detailsObject} isLoading={false} hasErrored={false} />,
