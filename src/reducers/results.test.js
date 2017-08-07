@@ -1,9 +1,6 @@
 import * as reducers from './results';
 
 describe('reducers', () => {
-  beforeEach(() => {
-  });
-
   it('can set reducer RESULTS_HAS_ERRORED', () => {
     expect(reducers.resultsHasErrored(false, { type: 'RESULTS_HAS_ERRORED', hasErrored: true })).toBe(true);
   });

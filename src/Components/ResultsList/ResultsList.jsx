@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
-import { RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
-import * as AlertMessages from '../../Constants/AlertMessages';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import * as SystemMessages from '../../Constants/SystemMessages';
 
 class ResultsList extends Component {
 
@@ -30,10 +30,10 @@ class ResultsList extends Component {
                 <br />
                   Organization: {result.organization}
                 <br />
-                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.description}</Link> : AlertMessages.NO_POST }
+                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.description}</Link> : SystemMessages.NO_POST }
                 <br />
                   Post Differential: {result.post
-                    ? result.post.differential_rate : AlertMessages.NO_POST_DIFFERENTIAL}
+                    ? result.post.differential_rate : SystemMessages.NO_POST_DIFFERENTIAL}
               </p>
             </div>
             <div className="usa-width-one-half" style={{ textAlign: 'right', paddingTop: '25px' }}>
@@ -53,7 +53,7 @@ class ResultsList extends Component {
 }
 
 ResultsList.propTypes = {
-  results: RESULTS,
+  results: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func,
 };
 

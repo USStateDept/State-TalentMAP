@@ -1,9 +1,6 @@
 import * as reducers from './positionDetails';
 
 describe('reducers', () => {
-  beforeEach(() => {
-  });
-
   it('can set reducer POSITION_DETAILS_HAS_ERRORED', () => {
     expect(reducers.positionDetailsHasErrored(false, { type: 'POSITION_DETAILS_HAS_ERRORED', hasErrored: true })).toBe(true);
   });

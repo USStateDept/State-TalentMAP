@@ -39,17 +39,17 @@ describe('ResultsPageComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('is can receive props', () => {
+  it('can receive props', () => {
     wrapper = shallow(<ResultsPage results={resultsArray} hasErrored isLoading={false} />);
     expect(wrapper.instance().props.results[0].id).toBe(6);
   });
 
-  it('is can receive props', () => {
+  it('can receive props', () => {
     wrapper = shallow(<ResultsPage hasErrored={false} isLoading={false} />);
     expect(wrapper).toBeDefined();
   });
 
-  it('is can call the onChildToggle function', () => {
+  it('can call the onChildToggle function', () => {
     wrapper = shallow(<ResultsPage results={resultsArray} />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

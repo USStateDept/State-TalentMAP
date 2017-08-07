@@ -37,7 +37,6 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.shareSendData('http://localhost:8000/api/v1/share/', message));
-    // .then(do something)
         store.dispatch(actions.shareIsSending());
         done();
       }, 0);
@@ -58,7 +57,6 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.shareSendData('http://localhost:8000/api/v1/share/failure', message));
-    // .then(do something)
         store.dispatch(actions.shareIsSending());
         done();
       }, 0);

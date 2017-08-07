@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ResultsList from '../ResultsList/ResultsList';
-import { RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
 import Loading from '../Loading/Loading';
+import Alert from '../Alert/Alert';
 
 class Results extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored } = this.props;
     return (
-      <div className="usa-grid-full">
+      <div className="usa-grid-full results">
         <div className="usa-grid-full">
           <div className="usa-width-one-third" style={{ float: 'left', padding: '15px 5px 0 10px' }}>
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
@@ -38,14 +39,21 @@ class Results extends Component {
         </div>
         <div className="usa-grid-full">
           {
-            results.length ?
+            !isLoading && !!results.length &&
               <ResultsList
                 key={this.state.key}
                 onToggle={() => this.onChildToggle()}
                 results={results}
               />
-          :
-              <Loading isLoading={isLoading} hasErrored={hasErrored} />
+          }
+          {
+            !isLoading && !results.length &&
+              <div className="usa-grid-full no-results">
+                <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
+              </div>
+          }
+          {
+            <Loading isLoading={isLoading} hasErrored={hasErrored} />
           }
         </div>
       </div>
@@ -56,7 +64,7 @@ class Results extends Component {
 Results.propTypes = {
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: RESULTS,
+  results: POSITION_SEARCH_RESULTS,
 };
 
 Results.defaultProps = {

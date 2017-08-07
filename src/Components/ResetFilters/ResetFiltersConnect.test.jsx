@@ -11,9 +11,6 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('ResetFilters Connected Component', () => {
-  beforeEach(() => {
-  });
-
   it('is defined', () => {
     const resetFilters = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <ResetFiltersConnect />

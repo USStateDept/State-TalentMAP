@@ -33,7 +33,10 @@ Share.propTypes = {
   api: PropTypes.string.isRequired,
   response: PropTypes.bool,
   sendData: PropTypes.func,
-  hasErrored: PropTypes.bool,
+  hasErrored: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   isSending: PropTypes.bool,
   identifier: PropTypes.number.isRequired,
 };

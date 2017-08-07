@@ -8,7 +8,7 @@ describe('Loading', () => {
     expect(loading).toBeDefined();
   });
 
-  it('is can take different props', () => {
+  it('can take different props', () => {
     let loading = null;
     loading = shallow(<Loading isLoading={false} hasErrored />);
     expect(loading).toBeDefined();
