@@ -20,14 +20,14 @@ describe('Home', () => {
     expect(home).toBeDefined();
   });
 
-  it('it can handle authentication redirects', () => {
+  it('can handle authentication redirects', () => {
     const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Home isAuthorized={() => false} api={api} />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
   });
 
-  it('it can call the onChildSubmit function', () => {
+  it('can call the onChildSubmit function', () => {
     const wrapper = shallow(<Home.WrappedComponent isAuthorized={() => true} api={api} />);
     wrapper.instance().onChildSubmit();
   });
