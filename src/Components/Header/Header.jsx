@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginRequest, logoutRequest } from '../../login/actions';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
+import flag from '../../../node_modules/uswds/dist/img/favicons/favicon-57.png'; // usa flag
+import iconDotGov from '../../../node_modules/uswds/dist/img/icon-dot-gov.svg'; // government building
+import iconHttps from '../../../node_modules/uswds/dist/img/icon-https.svg'; // pad lock
+import close from '../../../node_modules/uswds/dist/img/close.svg'; // close X icon
 
 export class Header extends Component {
   constructor(props) {
@@ -33,7 +37,7 @@ export class Header extends Component {
           <div className="usa-accordion">
             <header className="usa-banner-header">
               <div className="usa-grid usa-banner-inner">
-                <img src="https://unpkg.com/uswds@1.0.0/dist/img/favicons/favicon-57.png" alt="U.S. flag" />
+                <img src={flag} alt="U.S. flag" />
                 <p>An official website of the United States government</p>
                 <button
                   className="usa-accordion-button usa-banner-button"
@@ -50,7 +54,11 @@ export class Header extends Component {
               aria-hidden="true"
             >
               <div className="usa-banner-guidance-gov usa-width-one-half">
-                <img className="usa-banner-icon usa-media_block-img" src="https://unpkg.com/uswds@1.0.0/dist/img/icon-dot-gov.svg" alt="Dot gov" />
+                <img
+                  className="usa-banner-icon usa-media_block-img"
+                  src={iconDotGov}
+                  alt="Dot gov"
+                />
                 <div className="usa-media_block-body">
                   <p>
                     <strong>The .gov means it’s official.</strong>
@@ -63,7 +71,7 @@ export class Header extends Component {
                 </div>
               </div>
               <div className="usa-banner-guidance-ssl usa-width-one-half">
-                <img className="usa-banner-icon usa-media_block-img" src="https://unpkg.com/uswds@1.0.0/dist/img/icon-https.svg" alt="SSL" />
+                <img className="usa-banner-icon usa-media_block-img" src={iconHttps} alt="SSL" />
                 <div className="usa-media_block-body">
                   <p>This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The <strong>https://</strong> means all transmitted data is encrypted &nbsp;— in other words, any information or browsing history that you provide is transmitted securely.</p>
                 </div>
@@ -84,7 +92,7 @@ export class Header extends Component {
         <nav className="usa-nav">
           <div className="usa-nav-inner">
             <button className="usa-nav-close">
-              <img src="https://unpkg.com/uswds@1.0.0/dist/img/close.svg" alt="close" />
+              <img src={close} alt="close" />
             </button>
             <div className="usa-nav-secondary">
               <form className="usa-search usa-search-small js-search-form usa-sr-only">
