@@ -20,7 +20,7 @@ const PostMissionData = ({ post }) => (
         Language: <LanguageList languages={post.language} />
         <br />
         R&R Alignment: {post.rest_relaxation_point ?
-          post.rest_relaxation_point : SystemMessages.NO_RR}
+          post.rest_relaxation_point : SystemMessages.NO_REST_RELAXATION}
         <br />
         Danger Pay: {post.danger_pay}
         <br />
