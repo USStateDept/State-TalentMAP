@@ -1,5 +1,6 @@
 import React from 'react';
 import { POST_MISSION_DATA } from '../../Constants/PropTypes';
+import * as SystemMessages from '../../Constants/SystemMessages';
 import LanguageList from '../LanguageList/LanguageList';
 
 const PostMissionData = ({ post }) => (
@@ -18,7 +19,8 @@ const PostMissionData = ({ post }) => (
         <br />
         Language: <LanguageList languages={post.language} />
         <br />
-        R&R Alignment: {post.rest_relaxation_point}
+        R&R Alignment: {post.rest_relaxation_point ?
+          post.rest_relaxation_point : SystemMessages.NO_RR}
         <br />
         Danger Pay: {post.danger_pay}
         <br />
