@@ -21,7 +21,7 @@ const PositionDetailsItem = ({ details }) => (
               title="POST"
               description={
                 details.post && details.post.id ?
-                  <Link to={`/post/${details.post.id}`}>{details.post.description}</Link>
+                  <Link to={`/post/${details.post.id}`}>{details.post.location}</Link>
                   : SystemMessages.NO_POST
               }
             />

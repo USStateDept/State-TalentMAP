@@ -6,3 +6,4 @@ export const NO_COLA = 'None listed';
 export const NO_TOUR_OF_DUTY = 'None listed';
 export const NO_BUREAU = 'None listed';
 export const NO_ORG = 'None listed';
+export const NO_REST_RELAXATION = 'None listed';

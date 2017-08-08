@@ -21,7 +21,7 @@ class Post extends Component {
   getPost(id) {
     const query = id;
     const api = this.props.api;
-    this.props.fetchData(`${api}/post/${query}/`);
+    this.props.fetchData(`${api}/orgpost/${query}/`);
   }
 
   render() {
