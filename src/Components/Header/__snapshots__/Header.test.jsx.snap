@@ -2,7 +2,7 @@
 
 exports[`Header matches snapshot 1`] = `
 <header
-  className="usa-header usa-header-extended talentmap-header"
+  className="usa-header usa-header-extended tm-header"
   role="banner"
 >
   <div
@@ -140,7 +140,7 @@ exports[`Header matches snapshot 1`] = `
             </label>
             <input
               id="search-field-small"
-              name="search"
+              name="search-small"
               type="search"
             />
             <button

@@ -1,10 +1,10 @@
 // footer container
-.talentmap-footer {
+.tm-footer {
   padding: 50px 0 0;
 }
 
 // footer nav
-.talentmap-footer-nav {
+.tm-footer-nav {
 
   background-color: $color-gray-lighter;
 
@@ -14,14 +14,14 @@
 }
 
 // footer main body
-.talentmap-footer-body {
+.tm-footer-body {
   background-color: $color-gray-lightest;
 
-  .talentmap-footer-body-contact {
+  .tm-footer-body-contact {
 
     padding: 15px;
 
-    .talentmap-footer-body-contact-item {
+    .tm-footer-body-contact-item {
       padding: 0 0 12px;
     }
   }

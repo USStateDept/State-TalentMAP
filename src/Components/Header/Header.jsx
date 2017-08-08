@@ -28,7 +28,7 @@ export class Header extends Component {
     }
 
     return (
-      <header className="usa-header usa-header-extended talentmap-header" role="banner">
+      <header className="usa-header usa-header-extended tm-header" role="banner">
         <div className="usa-banner">
           <div className="usa-accordion">
             <header className="usa-banner-header">
@@ -90,7 +90,7 @@ export class Header extends Component {
               <form className="usa-search usa-search-small js-search-form usa-sr-only">
                 <div role="search">
                   <label className="usa-sr-only" htmlFor="search-field-small">Search small</label>
-                  <input id="search-field-small" type="search" name="search" />
+                  <input id="search-field-small" type="search" name="search-small" />
                   <button type="submit">
                     <span className="usa-sr-only">Search</span>
                   </button>
