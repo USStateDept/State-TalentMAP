@@ -8,9 +8,11 @@ import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => (
-  <div>
-    {(details && !isLoading && !hasErrored) &&
+const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => {
+  const isReady = details && !isLoading && !hasErrored;
+  return (
+    <div>
+      { isReady &&
       <div>
         <PositionTitle details={details} goBack={goBack} />
         <PositionDetailsItem details={details} />
@@ -20,9 +22,10 @@ const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => (
           <Share api={api} identifier={details.id} />
         </div>
       </div>}
-    {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
-  </div>
-);
+      {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
+    </div>
+  );
+};
 
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
