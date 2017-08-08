@@ -6,7 +6,7 @@ const PostMissionData = ({ post }) => (
   <div className="usa-grid-full">
     <div>
       <p>
-        Location: {post.description}
+        Location: {post.location}
         <br />
         Tour of duty: {post.tour_of_duty}
         <br />

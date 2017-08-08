@@ -30,7 +30,7 @@ class ResultsList extends Component {
                 <br />
                   Organization: {result.organization}
                 <br />
-                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.description}</Link> : SystemMessages.NO_POST }
+                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
                 <br />
                   Post Differential: {result.post
                     ? result.post.differential_rate : SystemMessages.NO_POST_DIFFERENTIAL}

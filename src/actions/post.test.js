@@ -25,7 +25,7 @@ describe('async actions', () => {
       languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }],
     };
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/post/100').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/100').reply(200,
       post,
     );
   });
@@ -35,7 +35,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.postFetchData('http://localhost:8000/api/v1/post/100'));
+        store.dispatch(actions.postFetchData('http://localhost:8000/api/v1/orgpost/100'));
         store.dispatch(actions.postIsLoading());
         done();
       }, 0);

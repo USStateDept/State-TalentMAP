@@ -29,9 +29,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
               <Link
                 replace={false}
                 to="/post/162"
-              >
-                MASERU, LESOTHO
-              </Link>
+              />
             }
             title="POST"
           />
