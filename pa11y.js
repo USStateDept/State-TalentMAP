@@ -33,7 +33,6 @@ const withLogin = pa11y({
 
 let didError = false;
 
-// Start on the http://example.com/login where the beforeScript will be injected
 const runWithLogin = (url, iterator) => {
   withLogin.run(url, (error, result) => {
     if (error) {
