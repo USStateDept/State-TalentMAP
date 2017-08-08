@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class PositionTitle extends Component { // eslint-disable-line
-  render() {
-    const { details, goBack } = this.props;
-    function navBack(e) {
-      if (e.keyCode === 13 || e === 'click') {
-        goBack();
-      }
+  navBack(e) {
+    const { goBack } = this.props;
+    if (e.keyCode === 13 || e === 'click') {
+      goBack();
     }
+  }
+  render() {
+    const { details } = this.props;
     return (
       <div className="position-details-header" style={{ overflow: 'hidden', backgroundColor: '#F2F2F2' }}>
         <div className="usa-grid" style={{ overflow: 'hidden' }}>
@@ -20,8 +21,8 @@ class PositionTitle extends Component { // eslint-disable-line
                 role="link"
                 tabIndex="0"
                 className="back-link"
-                onKeyDown={(e) => { navBack(e); }}
-                onClick={() => { navBack('click'); }}
+                onKeyDown={(e) => { this.navBack(e); }}
+                onClick={() => { this.navBack('click'); }}
               >
                 <FontAwesome name="arrow-left" />
               &nbsp;
