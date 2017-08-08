@@ -19,7 +19,7 @@ exports[`Header matches snapshot 1`] = `
         >
           <img
             alt="U.S. flag"
-            src="https://unpkg.com/uswds@1.0.0/dist/img/favicons/favicon-57.png"
+            src="favicon-57.png"
           />
           <p>
             An official website of the United States government
@@ -48,7 +48,7 @@ exports[`Header matches snapshot 1`] = `
           <img
             alt="Dot gov"
             className="usa-banner-icon usa-media_block-img"
-            src="https://unpkg.com/uswds@1.0.0/dist/img/icon-dot-gov.svg"
+            src="icon-dot-gov.svg"
           />
           <div
             className="usa-media_block-body"
@@ -68,7 +68,7 @@ exports[`Header matches snapshot 1`] = `
           <img
             alt="SSL"
             className="usa-banner-icon usa-media_block-img"
-            src="https://unpkg.com/uswds@1.0.0/dist/img/icon-https.svg"
+            src="icon-https.svg"
           />
           <div
             className="usa-media_block-body"
@@ -120,7 +120,7 @@ exports[`Header matches snapshot 1`] = `
       >
         <img
           alt="close"
-          src="https://unpkg.com/uswds@1.0.0/dist/img/close.svg"
+          src="close.svg"
         />
       </button>
       <div
