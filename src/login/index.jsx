@@ -65,7 +65,6 @@ export class Login extends Component {
             </fieldset>
           </form>
           <div className="auth-messages">
-            {/* As in the signup, we're just using the message and error helpers */}
             {
               !requesting && !!errors.length &&
               (<div className="usa-width-one-half">
