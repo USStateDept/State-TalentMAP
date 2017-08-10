@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import queryString from 'query-string';
 import { resultsFetchData } from '../../actions/results';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import POSITION_SEARCH_SORTS from '../../Constants/Sort';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
       key: 0,
+      query: { value: window.location.search.replace('?', '') || '' },
     };
   }
 
@@ -19,10 +22,16 @@ class Results extends Component {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
-      const query = window.location.search || '';
-      const api = this.props.api;
-      this.props.fetchData(`${api}/position/${query}`);
+      this.callFetchData(`position/?${this.state.query.value}`);
     }
+  }
+
+  onQueryParamUpdate(q) {
+    const parsedQuery = queryString.parse(this.state.query.value);
+    const newQuery = Object.assign({}, parsedQuery, q);
+    const newQueryString = queryString.stringify(newQuery);
+    this.setState({ query: newQueryString });
+    this.callFetchData(`position/?${newQueryString}`);
   }
 
   onChildToggle() {
@@ -31,11 +40,22 @@ class Results extends Component {
     this.forceUpdate();
   }
 
+  callFetchData(q) {
+    const api = this.props.api;
+    this.props.fetchData(`${api}/${q}`);
+  }
+
   render() {
     const { results, hasErrored, isLoading } = this.props;
     return (
       <div className="usa-grid-full">
-        <ResultsPage results={results} hasErrored={hasErrored} isLoading={isLoading} />
+        <ResultsPage
+          results={results}
+          hasErrored={hasErrored}
+          isLoading={isLoading}
+          sortBy={POSITION_SEARCH_SORTS}
+          onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
+        />
       </div>
     );
   }

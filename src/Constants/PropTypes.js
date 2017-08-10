@@ -70,4 +70,16 @@ export const ITEMS = PropTypes.arrayOf(
   }),
 );
 
+export const SORT_BY_ARRAY = PropTypes.arrayOf(
+  PropTypes.shape({
+    value: PropTypes.node,
+    text: PropTypes.node,
+    disabled: PropTypes.boolean,
+  }),
+);
+
+export const SORT_BY_PARENT_OBJECT = PropTypes.shape({
+  options: SORT_BY_ARRAY,
+});
+
 export const EMPTY_FUNCTION = () => {};
