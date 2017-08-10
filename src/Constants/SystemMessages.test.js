@@ -11,6 +11,7 @@ describe('SystemMessages', () => {
       'NO_TOUR_OF_DUTY',
       'NO_BUREAU',
       'NO_ORG',
+      'NO_REST_RELAXATION',
     ];
     expectedMessages.forEach((msg) => {
       expect(SystemMessages[msg]).toBeDefined();
