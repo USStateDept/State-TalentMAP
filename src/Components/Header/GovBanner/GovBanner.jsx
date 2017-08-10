@@ -1,7 +1,7 @@
 import React from 'react';
-import flag from '../../../../node_modules/uswds/dist/img/favicons/favicon-57.png'; // usa flag
-import iconDotGov from '../../../../node_modules/uswds/dist/img/icon-dot-gov.svg'; // government building
-import iconHttps from '../../../../node_modules/uswds/dist/img/icon-https.svg'; // pad lock
+import flag from 'uswds/dist/img/favicons/favicon-57.png'; // usa flag
+import iconDotGov from 'uswds/dist/img/icon-dot-gov.svg'; // government building
+import iconHttps from 'uswds/dist/img/icon-https.svg'; // pad lock
 
 const GovBanner = () => (
   <div className="usa-banner">

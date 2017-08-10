@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import close from 'uswds/dist/img/close.svg'; // close X icon
 import GovBanner from './GovBanner/GovBanner';
 import { loginRequest, logoutRequest } from '../../login/actions';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
-import close from '../../../node_modules/uswds/dist/img/close.svg'; // close X icon
 
 export class Header extends Component {
   constructor(props) {
