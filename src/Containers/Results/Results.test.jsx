@@ -20,14 +20,14 @@ describe('Main', () => {
     expect(results).toBeDefined();
   });
 
-  it('it can handle authentication redirects', () => {
+  it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Results isAuthorized={() => false} api={api} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
 
-  it('it can call the onChildToggle function', () => {
+  it('can call the onChildToggle function', () => {
     const wrapper = shallow(
       <Results.WrappedComponent isAuthorized={() => true} fetchData={() => {}} api={api} />,
     );

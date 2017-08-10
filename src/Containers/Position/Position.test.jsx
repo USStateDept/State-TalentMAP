@@ -19,7 +19,7 @@ describe('Main', () => {
     expect(position).toBeDefined();
   });
 
-  it('it can handle authentication redirects', () => {
+  it('can handle authentication redirects', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Position isAuthorized={() => false} api={api} />
     </MemoryRouter></Provider>);

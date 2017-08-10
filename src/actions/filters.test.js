@@ -89,7 +89,6 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        items[0].item.endpoint = 'invalidEndpoint';
         store.dispatch(actions.filtersFetchData(api, invalidItems));
         store.dispatch(actions.filtersIsLoading());
         done();
