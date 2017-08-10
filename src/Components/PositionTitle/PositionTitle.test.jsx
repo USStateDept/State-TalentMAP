@@ -23,8 +23,15 @@ describe('PositionTitleComponent', () => {
   });
 
   it('can click the back link', () => {
+    // function property to navigate back
+    const goBackSpy = sinon.spy();
     wrapper = shallow(
-      <PositionTitle details={detailsObject} isLoading={false} hasErrored={false} />,
+      <PositionTitle
+        details={detailsObject}
+        goBack={goBackSpy}
+        isLoading={false}
+        hasErrored={false}
+      />,
     );
     // define the instance
     const instance = wrapper.instance();
@@ -34,11 +41,20 @@ describe('PositionTitleComponent', () => {
     wrapper.find('[role="link"]').simulate('click');
     // check that navBack was called
     sinon.assert.calledOnce(handleClickSpy);
+    // check that goBack prop was called
+    sinon.assert.calledOnce(goBackSpy);
   });
 
   it('can press enter on the back link', () => {
+    // function property to navigate back
+    const goBackSpy = sinon.spy();
     wrapper = shallow(
-      <PositionTitle details={detailsObject} isLoading={false} hasErrored={false} />,
+      <PositionTitle
+        details={detailsObject}
+        goBack={goBackSpy}
+        isLoading={false}
+        hasErrored={false}
+      />,
     );
     // define the instance
     const instance = wrapper.instance();
@@ -48,6 +64,31 @@ describe('PositionTitleComponent', () => {
     wrapper.find('[role="link"]').simulate('keydown', { keyCode: 13 });
     // check that navBack was called
     sinon.assert.calledOnce(handleClickSpy);
+    // check that goBack prop was called
+    sinon.assert.calledOnce(goBackSpy);
+  });
+
+  it('can press (space) on the back link', () => {
+    // function property to navigate back
+    const goBackSpy = sinon.spy();
+    wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        goBack={goBackSpy}
+        isLoading={false}
+        hasErrored={false}
+      />,
+    );
+    // define the instance
+    const instance = wrapper.instance();
+    // function that handles going back
+    const handleClickSpy = sinon.spy(instance, 'navBack');
+    // press enter on the link in the title to go back
+    wrapper.find('[role="link"]').simulate('keydown', { keyCode: 32 });
+    // check that navBack was called
+    sinon.assert.calledOnce(handleClickSpy);
+    // check that goBack prop was not called
+    sinon.assert.notCalled(goBackSpy);
   });
 
   it('handles different props and different position objects', () => {
