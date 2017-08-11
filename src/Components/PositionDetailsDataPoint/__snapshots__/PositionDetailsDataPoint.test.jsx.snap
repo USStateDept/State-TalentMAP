@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionDetailsDataPoint matches snapshot 1`] = `
+<div
+  className="usa-width-one-fourth position-details-description-section"
+>
+  <div
+    className="title"
+  >
+    Title
+  </div>
+  <div
+    className="description"
+  >
+    Text
+  </div>
+</div>
+`;

@@ -24,9 +24,6 @@ export function resultsFetchData(url) {
     dispatch(resultsIsLoading(true));
     axios.get(url)
             .then((response) => {
-              if (response.statusText !== 'OK') {
-                throw Error(response.statusText);
-              }
               dispatch(resultsIsLoading(false));
               return response.data;
             })

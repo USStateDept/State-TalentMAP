@@ -14,7 +14,7 @@ export function postIsLoading(state = false, action) {
       return state;
   }
 }
-export function post(state = [], action) {
+export function post(state = {}, action) {
   switch (action.type) {
     case 'POST_FETCH_DATA_SUCCESS':
       return action.post;

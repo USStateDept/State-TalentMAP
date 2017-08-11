@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { localStorageFetchValue, localStorageToggleValue } from '../../utilities';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class FavoritesButton extends Component {
   constructor(props) {
@@ -7,6 +9,7 @@ class FavoritesButton extends Component {
     this.state = {
       saved: false,
       localStorageKey: null,
+      len: 0,
     };
   }
 
@@ -16,57 +19,50 @@ class FavoritesButton extends Component {
   }
 
   componentDidMount() {
-    const retrievedKey = localStorage
-                          .getItem(this.state.localStorageKey);
-    let parsedKey = JSON.parse(retrievedKey);
-    const arrayExists = Array.isArray(parsedKey);
-    if (!arrayExists) {
-      localStorage.setItem(this.state.localStorageKey,
-        JSON.stringify([]));
-      parsedKey = localStorage
-                   .getItem(this.state.localStorageKey);
-    }
-    const refIsSaved = parsedKey.indexOf(this.props.refKey);
-    if (refIsSaved !== -1) {
-      const saved = true;
-      this.initSetSaved(saved);
-    }
+    this.getSaved();
+  }
+
+  onToggle() {
+    this.props.onToggle();
+  }
+
+  getSaved() {
+    const saved = localStorageFetchValue(this.state.localStorageKey, this.props.refKey);
+    this.setState({ saved: saved.exists, len: saved.len });
   }
 
   getSavedState() {
     return this.state.saved;
   }
 
-  initSetSaved(val) {
-    const saved = val;
-    this.setState({ saved });
+  exceedsLimit() {
+    return this.state.len >= this.props.limit;
   }
 
   toggleSaved() {
-    const existingArray = JSON.parse(localStorage
-                           .getItem(this.state.localStorageKey));
-    const indexOfId = existingArray.indexOf(this.props.refKey);
-    if (this.state.saved) {
-      existingArray.splice(indexOfId, 1);
-      localStorage.setItem(this.state.localStorageKey,
-        JSON.stringify(existingArray));
-    } else {
-      existingArray.push(this.props.refKey);
-      localStorage.setItem(this.state.localStorageKey,
-        JSON.stringify(existingArray));
-    }
+    localStorageToggleValue(this.state.localStorageKey, this.props.refKey);
     this.setState({ saved: !this.state.saved });
+    this.onToggle();
   }
 
   render() {
     let fromText = null;
-    fromText = this.props.type === 'fav' ? 'Favorites' : fromText;
-    fromText = this.props.type === 'compare' ? 'Comparison' : fromText;
-    const buttonClass = this.state.saved ? 'usa-button-secondary' : '';
+    if (this.props.type === 'fav') {
+      fromText = 'Favorites';
+    } else if (this.props.type === 'compare') {
+      fromText = 'Comparison';
+    }
+    let buttonClass = this.state.saved ? 'usa-button-secondary' : '';
+    buttonClass = this.exceedsLimit() && !this.state.saved ? 'usa-button-disabled' : buttonClass;
     const buttonText = this.getSavedState() ? `Remove from ${fromText}` : `Add to ${fromText}`;
+    const disabled = this.exceedsLimit() && !this.state.saved;
     return (
       <div>
-        <button id={`changeSaved-${this.props.type}-${this.props.iterator}`} className={buttonClass} onClick={() => this.toggleSaved()}>
+        <button
+          disabled={disabled}
+          className={buttonClass}
+          onClick={() => this.toggleSaved()}
+        >
           {buttonText}
         </button>
       </div>
@@ -77,11 +73,13 @@ class FavoritesButton extends Component {
 FavoritesButton.propTypes = {
   refKey: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  iterator: PropTypes.number,
+  limit: PropTypes.number,
+  onToggle: PropTypes.func,
 };
 
 FavoritesButton.defaultProps = {
-  iterator: 0,
+  limit: 99,
+  onToggle: EMPTY_FUNCTION,
 };
 
 export default FavoritesButton;

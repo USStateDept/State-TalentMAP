@@ -24,9 +24,6 @@ export function postFetchData(url) {
     dispatch(postIsLoading(true));
     axios.get(url)
             .then((response) => {
-              if (response.statusText !== 'OK') {
-                throw Error(response.statusText);
-              }
               dispatch(postIsLoading(false));
               return response.data;
             })

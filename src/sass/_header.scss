@@ -1,0 +1,20 @@
+// header container
+.tm-header {
+  @media screen and (min-width: 951px) {
+    .usa-logo {
+      margin-bottom: 2.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .usa-nav-secondary {
+      top: -5rem;
+    }
+  }
+
+  @media screen and (max-width: 950px) {
+
+    .usa-nav-secondary {
+      padding-top: 30px;
+    }
+  }
+}

@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { resultsFetchData } from '../../actions/results';
-import ResultsList from '../../Components/ResultsList/ResultsList';
+import ResultsPage from '../../Components/ResultsPage/ResultsPage';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      key: 0,
     };
   }
 
   componentWillMount() {
-    const query = window.location.search || '';
-    const api = this.props.api;
-    this.props.fetchData(`${api}/position/${query}`);
+    if (!this.props.isAuthorized()) {
+      this.props.onNavigateTo(PUBLIC_ROOT);
+    } else {
+      const query = window.location.search || '';
+      const api = this.props.api;
+      this.props.fetchData(`${api}/position/${query}`);
+    }
+  }
+
+  onChildToggle() {
+    const key = Math.random();
+    this.setState({ key });
+    this.forceUpdate();
   }
 
   render() {
-    const { results } = this.props;
-    const e = this.props.hasErrored ? (
-      <span>There was an error loading this post</span>
-    ) : null;
-    const l = this.props.isLoading && !this.props.hasErrored ? (<span>Loading...</span>) : null;
-    const n = !this.props.isLoading && !this.props.hasErrored && !results.length ?
-      <span>No results with that search criteria</span> : null;
-    const resultsCards = (results.length && !this.props.hasErrored && !this.props.isLoading) ?
-      <ResultsList results={results} /> : null;
+    const { results, hasErrored, isLoading } = this.props;
     return (
-      <div>
-        {resultsCards}
-        <div className="usa-grid">
-          <center> {e} {l} {n} </center>
-        </div>
+      <div className="usa-grid-full">
+        <ResultsPage results={results} hasErrored={hasErrored} isLoading={isLoading} />
       </div>
     );
   }
@@ -40,47 +43,19 @@ class Results extends Component {
 
 Results.propTypes = {
   api: PropTypes.string.isRequired,
+  onNavigateTo: PropTypes.func,
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      grade: PropTypes.string,
-      skill: PropTypes.string,
-      bureau: PropTypes.string,
-      organization: PropTypes.string,
-      position_number: PropTypes.string.isRequired,
-      is_overseas: PropTypes.boolean,
-      create_date: PropTypes.string,
-      update_date: PropTypes.string,
-      post: PropTypes.shape({
-        id: PropTypes.number,
-        tour_of_duty: PropTypes.string,
-        code: PropTypes.string,
-        description: PropTypes.string,
-        cost_of_living_adjustment: PropTypes.number,
-        differential_rate: PropTypes.number,
-        danger_pay: PropTypes.number,
-        rest_relaxation_point: PropTypes.string,
-        has_consumable_allowance: PropTypes.boolean,
-        has_service_needs_differential: PropTypes.boolean,
-      }),
-      languages: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          language: PropTypes.string,
-          written_proficiency: PropTypes.string,
-          spoken_proficiency: PropTypes.string,
-          representation: PropTypes.string,
-        }),
-      ),
-    }),
-  ),
+  results: POSITION_SEARCH_RESULTS,
+  isAuthorized: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
   results: [],
+  hasErrored: false,
+  isLoading: true,
+  onNavigateTo: EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {
@@ -95,6 +70,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
+  onNavigateTo: dest => dispatch(push(dest)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

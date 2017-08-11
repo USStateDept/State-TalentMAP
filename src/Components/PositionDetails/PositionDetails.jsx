@@ -1,80 +1,45 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
+import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import Share from '../Share/Share';
+import Loading from '../Loading/Loading';
+import PositionTitle from '../PositionTitle/PositionTitle';
+import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
+import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-class ResultsList extends Component {
-
-  componentWillMount() {
-  }
-
-  render() {
-    const { details } = this.props;
-    const languageList = (details.languages && details.languages.length)
-      ? details.languages.map(choice => (
-        <span key={`${choice}-choice`}> {choice.language} </span>
-      )) : <span key="no-languages"> None listed </span>;
-    return (
-      <div className="usa-grid-full">
-        <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-          <h3> Position Number: {details.position_number} </h3>
-          <p>
-            Grade: {details.grade}
-            <br />
-            Skill: {details.skill}
-            <br />
-            Bureau: {details.bureau}
-            <br />
-            Organization: {details.organization}
-            <br />
-            Overseas: {details.is_overseas ? 'Yes' : 'No'}
-            <br />
-            Language: <span>{languageList}</span>
-            <br />
-            Danger Pay: {details.post ? details.post.danger_pay : 'None listed'}
-            <br />
-            Region: 5 {/* TODO replace hard-coded value with API value */}
-            <br />
-            Post: {details.post ? <Link to={`/post/${details.post.id}`}>{details.post.description}</Link> : 'None listed' }
-            <br />
-            Post Differential: {details.post ? details.post.differential_rate : 'None Listed'}
-            <br />
-            Created: {details.create_date}
-            <br />
-            Updated: {details.update_date}
-          </p>
+const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => {
+  const isReady = details && !isLoading && !hasErrored;
+  return (
+    <div>
+      { isReady &&
+      <div>
+        <PositionTitle details={details} goBack={goBack} />
+        <PositionDetailsItem details={details} />
+        <PositionAdditionalDetails />
+        <div className="usa-grid">
           <FavoritesButton refKey={details.position_number} type="fav" />
+          <Share api={api} identifier={details.id} />
         </div>
-      </div>
-    );
-  }
-}
-
-ResultsList.propTypes = {
-  details: PropTypes.shape({
-    id: PropTypes.number,
-    grade: PropTypes.string,
-    skill: PropTypes.string,
-    bureau: PropTypes.string,
-    organization: PropTypes.string,
-    position_number: PropTypes.string,
-    is_overseas: PropTypes.boolean,
-    create_date: PropTypes.string,
-    update_date: PropTypes.string,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        language: PropTypes.string,
-        written_proficiency: PropTypes.string,
-        spoken_proficiency: PropTypes.string,
-        representation: PropTypes.string,
-      }),
-    ),
-  }),
+      </div>}
+      {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
+    </div>
+  );
 };
 
-ResultsList.defaultProps = {
-  details: {},
+PositionDetails.propTypes = {
+  details: POSITION_DETAILS,
+  api: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
+  hasErrored: PropTypes.bool,
+  goBack: PropTypes.func,
 };
 
-export default ResultsList;
+PositionDetails.defaultProps = {
+  details: null,
+  isLoading: true,
+  hasErrored: false,
+  goBack: EMPTY_FUNCTION,
+};
+
+export default PositionDetails;

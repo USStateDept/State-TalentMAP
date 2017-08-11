@@ -1,0 +1,28 @@
+// footer container
+.tm-footer {
+  padding: 50px 0 0;
+}
+
+// footer nav
+.tm-footer-nav {
+
+  background-color: $color-gray-lighter;
+
+  li {
+    line-height: 0;
+  }
+}
+
+// footer main body
+.tm-footer-body {
+  background-color: $color-gray-lightest;
+
+  .tm-footer-body-contact {
+
+    padding: 15px;
+
+    .tm-footer-body-contact-item {
+      padding: 0 0 12px;
+    }
+  }
+}
