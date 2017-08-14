@@ -23,6 +23,12 @@ describe('Routes', () => {
     </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
+  it('handles a not found or 404 route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter initialEntries={['/404']}>
+      <Routes api={api} isAuthorized={() => true} />
+    </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
   it('handles a search results route', () => {
     const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
       <MemoryRouter initialEntries={['/results']}>

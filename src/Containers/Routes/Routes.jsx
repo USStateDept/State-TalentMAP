@@ -7,6 +7,7 @@ import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
 import Login from '../../login';
 import Compare from '../../Containers/Compare/Compare';
+import NotFound from '../../Components/NotFound/NotFound';
 
 const Routes = props => (
   <Switch {...props}>
@@ -34,6 +35,10 @@ const Routes = props => (
     <Route
       path="/compare/:ids"
       component={() => (<Compare {...props} />)}
+    />
+    <Route
+      path="*"
+      component={() => (<NotFound {...props} />)}
     />
   </Switch>
 );
