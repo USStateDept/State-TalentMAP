@@ -13,7 +13,7 @@ export class AccountDropdown extends Component {
   }
 
   render() {
-    const userName = this.props.userProfile.user ? this.props.userProfile.user.first_name : '...';
+    const userName = this.props.userProfile.user ? this.props.userProfile.user.username : '...';
     return (
       <Dropdown className="account-dropdown">
         <DropdownTrigger href="/#">

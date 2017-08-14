@@ -11,7 +11,7 @@ describe('AccountDropdown', () => {
   });
 
   it('can take different props', () => {
-    const accountDropdown = shallow(<AccountDropdown userProfile={{ user: { first_name: 'test' } }} />);
+    const accountDropdown = shallow(<AccountDropdown userProfile={{ user: { username: 'test' } }} />);
     expect(accountDropdown).toBeDefined();
   });
 
