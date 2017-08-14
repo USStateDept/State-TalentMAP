@@ -82,4 +82,23 @@ export const SORT_BY_PARENT_OBJECT = PropTypes.shape({
   options: SORT_BY_ARRAY,
 });
 
+export const USER_PROFILE = PropTypes.shape({
+  id: PropTypes.number,
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+  }),
+  language_qualifications: PropTypes.arrayOf(
+    PropTypes.number,
+  ),
+  favorite_positions: PropTypes.arrayOf(
+    PropTypes.number,
+  ),
+  received_shares: PropTypes.arrayOf(
+    PropTypes.number,
+  ),
+});
+
 export const EMPTY_FUNCTION = () => {};
