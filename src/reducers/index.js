@@ -9,6 +9,7 @@ import { post, postHasErrored, postIsLoading } from './post';
 import { share, shareHasErrored, shareIsSending } from './share';
 import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
+import { userProfile, userProfileHasErrored, userProfileIsLoading } from './userProfile';
 
 
 export default combineReducers({
@@ -30,6 +31,9 @@ export default combineReducers({
   share,
   shareHasErrored,
   shareIsSending,
+  userProfile,
+  userProfileHasErrored,
+  userProfileIsLoading,
   form,
   client,
   login,

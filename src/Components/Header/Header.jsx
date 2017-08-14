@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import close from 'uswds/dist/img/close.svg'; // close X icon
+import { userProfileFetchData } from '../../actions/userProfile';
+import { USER_PROFILE } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
-import { loginRequest, logoutRequest } from '../../login/actions';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
 
 export class Header extends Component {
@@ -17,6 +18,12 @@ export class Header extends Component {
     };
   }
 
+  componentWillMount() {
+    if (this.props.isAuthorized()) {
+      this.props.fetchData();
+    }
+  }
+
   render() {
     const {
       login: {
@@ -26,7 +33,7 @@ export class Header extends Component {
 
     let showLogin = (<Link to="login">Login</Link>);
     if (this.props.client.token && !requesting) {
-      showLogin = (<AccountDropdown />);
+      showLogin = (<AccountDropdown userProfile={this.props.userProfile} />);
     }
 
     return (
@@ -91,17 +98,26 @@ Header.propTypes = {
   client: PropTypes.shape({
     token: PropTypes.string,
   }),
+  fetchData: PropTypes.func.isRequired,
+  isAuthorized: PropTypes.func.isRequired,
+  userProfile: USER_PROFILE,
 };
 
 Header.defaultProps = {
   client: null,
+  userProfile: {},
 };
 
 const mapStateToProps = state => ({
   login: state.login,
   client: state.client,
+  userProfile: state.userProfile,
 });
 
-const connected = connect(mapStateToProps, { loginRequest, logoutRequest })(Header);
+const mapDispatchToProps = dispatch => ({
+  fetchData: url => dispatch(userProfileFetchData(url)),
+});
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(Header);
 
 export default connected;
