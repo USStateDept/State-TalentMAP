@@ -110,7 +110,9 @@ exports[`Header matches snapshot 1`] = `
             </a>
           </li>
           <li>
-            <Connect(AccountDropdown) />
+            <Connect(AccountDropdown)
+              userProfile={Object {}}
+            />
           </li>
         </ul>
       </div>

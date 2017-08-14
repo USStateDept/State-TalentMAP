@@ -10,6 +10,11 @@ describe('AccountDropdown', () => {
     expect(accountDropdown).toBeDefined();
   });
 
+  it('can take different props', () => {
+    const accountDropdown = shallow(<AccountDropdown userProfile={{ user: { first_name: 'test' } }} />);
+    expect(accountDropdown).toBeDefined();
+  });
+
   it('can click the logout link', () => {
     const accountDropdown = shallow(<AccountDropdown />);
 

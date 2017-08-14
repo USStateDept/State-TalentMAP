@@ -16,7 +16,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
     <span
       className="account-dropdown--name"
     >
-      User
+      ...
     </span>
   </DropdownTrigger>
   <DropdownContent
@@ -27,7 +27,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
     >
       Signed in as 
       <strong>
-        User
+        ...
       </strong>
     </div>
     <div
