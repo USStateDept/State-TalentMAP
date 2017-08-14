@@ -19,7 +19,7 @@ describe('Main', () => {
     expect(compare).toBeDefined();
   });
 
-  it('it can handle authentication redirects', () => {
+  it('can handle authentication redirects', () => {
     const compare = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Compare isAuthorized={() => false} api={api} />
     </MemoryRouter></Provider>);
