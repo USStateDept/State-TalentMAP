@@ -40,8 +40,8 @@ export function filtersFetchData(api, items) {
         axios.get(`${api}/${item.item.endpoint}`)
               .then((response) => {
                 const itemFilter = item;
-                itemFilter.data = response.data;
-                responses.push({ data: response.data, item: itemFilter.item });
+                itemFilter.data = response.data.results;
+                responses.push({ data: response.data.results, item: itemFilter.item });
                 dispatchSuccess();
               })
               .catch(() => dispatch(filtersHasErrored(true)));

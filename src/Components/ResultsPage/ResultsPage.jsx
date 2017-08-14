@@ -39,7 +39,7 @@ class Results extends Component {
         </div>
         <div className="usa-grid-full">
           {
-            !isLoading && !!results.length &&
+            !isLoading && results.results && !!results.results.length &&
               <ResultsList
                 key={this.state.key}
                 onToggle={() => this.onChildToggle()}
@@ -47,7 +47,8 @@ class Results extends Component {
               />
           }
           {
-            !isLoading && !results.length &&
+            // is not loading, results array exists, but is empty
+            !isLoading && results.results && !results.results.length &&
               <div className="usa-grid-full no-results">
                 <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
               </div>
@@ -68,7 +69,7 @@ Results.propTypes = {
 };
 
 Results.defaultProps = {
-  results: [],
+  results: { results: [] },
   hasErrored: false,
   isLoading: true,
 };

@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import CompareList from '../../Components/CompareList/CompareList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { COMPARE_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Results extends Component {
@@ -51,7 +51,7 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  comparisons: POSITION_SEARCH_RESULTS,
+  comparisons: COMPARE_LIST,
   isAuthorized: PropTypes.func.isRequired,
 };
 

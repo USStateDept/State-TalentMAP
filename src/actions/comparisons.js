@@ -25,7 +25,7 @@ export function comparisonsFetchData(url) {
     axios.get(url)
             .then((response) => {
               dispatch(comparisonsIsLoading(false));
-              return response.data;
+              return response.data.results;
             })
             .then(comparisons => dispatch(comparisonsFetchDataSuccess(comparisons)))
             .catch(() => dispatch(comparisonsHasErrored(true)));
