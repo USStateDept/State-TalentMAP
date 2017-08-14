@@ -46,7 +46,7 @@ const Main = props => (
   <Provider store={store} history={history}>
     <ConnectedRouter history={history}>
       <div>
-        <Header {...props} isAuthorized={isAuthorized()} />
+        <Header {...props} isAuthorized={isAuthorized} />
         <main id="main-content">
           <Routes {...props} isAuthorized={isAuthorized} />
         </main>
