@@ -22,7 +22,7 @@ export class AccountDropdown extends Component {
             className="account-dropdown--avatar"
             src="/assets/img/avatar.png"
           />
-          <span className="account-dropdown--name">{userName}</span>
+          <span className="account-dropdown--name" id="account-username">{userName}</span>
         </DropdownTrigger>
         <DropdownContent>
           <div className="account-dropdown--identity account-dropdown--segment">
