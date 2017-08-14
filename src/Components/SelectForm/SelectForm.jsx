@@ -6,7 +6,7 @@ class SelectForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { value: this.props.defaultSort },
+      selection: { value: this.props.defaultSort || '' },
     };
   }
 
@@ -18,13 +18,15 @@ class SelectForm extends Component {
   render() {
     const { id, label, options } = this.props;
     const optionList = options.map(option =>
-      (<option
-        key={option.value}
-        disabled={option.disabled}
-        value={option.value}
-      >
-        {option.text}
-      </option>),
+      (
+        <option
+          key={option.value}
+          disabled={option.disabled}
+          value={option.value}
+        >
+          {option.text}
+        </option>
+      ),
     );
     return (
       <form className="usa-form">
@@ -47,13 +49,14 @@ class SelectForm extends Component {
 SelectForm.propTypes = {
   id: PropTypes.node.isRequired,
   label: PropTypes.node.isRequired,
-  defaultSort: PropTypes.node.isRequired,
+  defaultSort: PropTypes.node,
   options: SORT_BY_ARRAY.isRequired,
   onSelectOption: PropTypes.func.isRequired,
 };
 
 SelectForm.defaultProps = {
   languages: [],
+  defaultSort: '',
 };
 
 export default SelectForm;

@@ -15,10 +15,12 @@ class Results extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
+      defaultSort: { value: '' },
     };
   }
 
   componentWillMount() {
+    this.setState({ defaultSort: { value: (queryString.parse(this.state.query.value)).ordering || '' } });
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
@@ -30,8 +32,9 @@ class Results extends Component {
     const parsedQuery = queryString.parse(this.state.query.value);
     const newQuery = Object.assign({}, parsedQuery, q);
     const newQueryString = queryString.stringify(newQuery);
-    this.setState({ query: newQueryString });
-    this.callFetchData(`position/?${newQueryString}`);
+    this.context.router.history.push({
+      search: newQueryString,
+    });
   }
 
   onChildToggle() {
@@ -54,6 +57,7 @@ class Results extends Component {
           hasErrored={hasErrored}
           isLoading={isLoading}
           sortBy={POSITION_SEARCH_SORTS}
+          defaultSort={this.state.defaultSort.value || POSITION_SEARCH_SORTS.defaultSort}
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
         />
       </div>

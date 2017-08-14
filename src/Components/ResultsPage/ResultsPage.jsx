@@ -7,7 +7,7 @@ import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
 import Loading from '../Loading/Loading';
 import Alert from '../Alert/Alert';
-import SelectForm from '../Select/Select';
+import SelectForm from '../SelectForm/SelectForm';
 
 class Results extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class Results extends Component {
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy } = this.props;
+    const { results, isLoading, hasErrored, sortBy, defaultSort } = this.props;
     return (
       <div className="usa-grid-full results">
         <div className="usa-grid-full">
@@ -43,13 +43,13 @@ class Results extends Component {
           </div>
         </div>
         <div className="usa-grid-full">
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '15px 5px 0 10px' }}>
+          <div className="usa-width-one-third" style={{ float: 'left', padding: '0 0 10px 10px' }}>
             <SelectForm
               id="sort"
               label="Sort:"
               onSelectOption={e => this.queryParamUpdate({ ordering: e.target.value })}
               options={sortBy.options}
-              defaultSort={sortBy.defaultSort}
+              defaultSort={defaultSort}
             />
           </div>
         </div>
@@ -83,6 +83,7 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   onQueryParamUpdate: PropTypes.func.isRequired,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
+  defaultSort: PropTypes.node.isRequired,
 };
 
 Results.defaultProps = {

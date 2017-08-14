@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 import ResultsPage from './ResultsPage';
 import POSITION_SEARCH_SORTS from '../../Constants/Sort';
 
@@ -35,12 +36,15 @@ describe('ResultsPageComponent', () => {
     },
   ];
 
+  const defaultSort = '';
+
   it('is defined', () => {
     wrapper = shallow(<ResultsPage
       results={resultsArray}
       hasErrored
       isLoading={false}
       sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
       onQueryParamUpdate={() => {}}
     />);
     expect(wrapper).toBeDefined();
@@ -52,6 +56,7 @@ describe('ResultsPageComponent', () => {
       hasErrored
       isLoading={false}
       sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
       onQueryParamUpdate={() => {}}
     />);
     expect(wrapper.instance().props.results[0].id).toBe(6);
@@ -62,6 +67,7 @@ describe('ResultsPageComponent', () => {
       hasErrored={false}
       isLoading={false}
       sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
       onQueryParamUpdate={() => {}}
     />);
     expect(wrapper).toBeDefined();
@@ -71,9 +77,25 @@ describe('ResultsPageComponent', () => {
     wrapper = shallow(<ResultsPage
       results={resultsArray}
       sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
       onQueryParamUpdate={() => {}}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();
+  });
+
+  it('can call the queryParamUpdate function', () => {
+    wrapper = shallow(<ResultsPage
+      results={resultsArray}
+      sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
+      queryParamUpdate={() => {}}
+    />);
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the queryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'queryParamUpdate');
+    wrapper.instance().queryParamUpdate();
+    sinon.assert.calledOnce(handleUpdateSpy);
   });
 });

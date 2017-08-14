@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import sinon from 'sinon';
 import Results from './Results';
 
 const middlewares = [thunk];
@@ -34,5 +35,19 @@ describe('Main', () => {
     expect(wrapper.instance().state.key).toBe(0);
     wrapper.instance().onChildToggle();
     expect(wrapper.instance().state.key).toBeGreaterThan(0);
+  });
+
+  it('can call the onQueryParamUpdate function', () => {
+    const query = 'ordering=bureau&q=German';
+    const wrapper = shallow(
+      <Results.WrappedComponent isAuthorized={() => true} fetchData={() => {}} api={api} />,
+    );
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the onQueryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamUpdate');
+    wrapper.instance().context.router = { history: { push: () => {} } };
+    wrapper.instance().onQueryParamUpdate(query);
+    sinon.assert.calledOnce(handleUpdateSpy);
   });
 });

@@ -1,9 +1,9 @@
 const POSITION_SEARCH_SORTS = {
   options: [
     { value: '', text: 'Select a sort option', disabled: true },
-    { value: 'sort_placeholder_1', text: 'Position Posted Date (New - Old)' },
-    { value: 'sort_placeholder_2', text: 'Service Need Differential (T - F)' },
-    { value: 'sort_placeholder_3', text: 'Bureau (A - Z)' },
+    { value: 'create_date', text: 'Position Posted Date (New - Old)' },
+    { value: 'post__has_service_needs_differential', text: 'Service Need Differential (T - F)' },
+    { value: 'bureau', text: 'Bureau (A - Z)' },
   ],
 };
 
