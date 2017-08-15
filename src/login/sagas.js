@@ -20,6 +20,11 @@ import {
   unsetClient,
 } from '../client/actions';
 
+// So that we can pull the user's profile
+import {
+  userProfileFetchData,
+} from '../actions/userProfile';
+
 const loginUrl = `${api}/accounts/token/`;
 
 export const errorMessage = { message: null };
@@ -66,6 +71,9 @@ function* loginFlow(username, password) {
 
     // set a stringified version of our token to localstorage on our domain
     localStorage.setItem('token', JSON.stringify(token));
+
+    // get the user's profile data
+    yield put(userProfileFetchData());
 
     // redirect them to home
     yield put(push('/'));
