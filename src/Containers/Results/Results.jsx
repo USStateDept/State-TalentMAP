@@ -7,7 +7,7 @@ import { resultsFetchData } from '../../actions/results';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
-import POSITION_SEARCH_SORTS from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
 class Results extends Component {
   constructor(props) {
@@ -16,14 +16,22 @@ class Results extends Component {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: '' },
+      defaultPageSize: { value: '' },
     };
   }
 
   componentWillMount() {
-    this.setState({ defaultSort: { value: (queryString.parse(this.state.query.value)).ordering || '' } });
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
+      // set our default ordering
+      this.setState({ defaultSort: { value:
+        (queryString.parse(this.state.query.value)).ordering || POSITION_PAGE_SIZES.defaultSort,
+      } });
+      // set our default page size
+      this.setState({ defaultPageSize: { value:
+        (queryString.parse(this.state.query.value)).limit || POSITION_PAGE_SIZES.defaultSort,
+      } });
       this.callFetchData(`position/?${this.state.query.value}`);
     }
   }
@@ -57,7 +65,9 @@ class Results extends Component {
           hasErrored={hasErrored}
           isLoading={isLoading}
           sortBy={POSITION_SEARCH_SORTS}
-          defaultSort={this.state.defaultSort.value || POSITION_SEARCH_SORTS.defaultSort}
+          defaultSort={this.state.defaultSort.value}
+          pageSizes={POSITION_PAGE_SIZES}
+          defaultPageSize={this.state.defaultPageSize.value}
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
         />
       </div>

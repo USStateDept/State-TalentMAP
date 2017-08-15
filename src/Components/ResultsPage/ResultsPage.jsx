@@ -28,7 +28,8 @@ class Results extends Component {
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy, defaultSort } = this.props;
+    const { results, isLoading, hasErrored, sortBy, defaultSort, pageSizes, defaultPageSize }
+      = this.props;
     return (
       <div className="usa-grid-full results">
         <div className="usa-grid-full">
@@ -43,13 +44,22 @@ class Results extends Component {
           </div>
         </div>
         <div className="usa-grid-full">
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0 0 10px 10px' }}>
+          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
             <SelectForm
               id="sort"
               label="Sort:"
               onSelectOption={e => this.queryParamUpdate({ ordering: e.target.value })}
               options={sortBy.options}
               defaultSort={defaultSort}
+            />
+          </div>
+          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
+            <SelectForm
+              id="pageSize"
+              label="Page size:"
+              onSelectOption={e => this.queryParamUpdate({ limit: e.target.value })}
+              options={pageSizes.options}
+              defaultSort={defaultPageSize}
             />
           </div>
         </div>
@@ -84,7 +94,9 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   onQueryParamUpdate: PropTypes.func.isRequired,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
-  defaultSort: PropTypes.node.isRequired,
+  defaultSort: PropTypes.node,
+  pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
+  defaultPageSize: PropTypes.node,
 };
 
 Results.defaultProps = {
@@ -92,6 +104,8 @@ Results.defaultProps = {
   hasErrored: false,
   isLoading: true,
   onQueryParamUpdate: EMPTY_FUNCTION,
+  defaultSort: '',
+  defaultPageSize: '',
 };
 
 Results.contextTypes = {

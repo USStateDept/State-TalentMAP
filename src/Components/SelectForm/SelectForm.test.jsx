@@ -3,9 +3,9 @@ import React from 'react';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import SelectForm from './SelectForm';
-import POSITION_SEARCH_SORTS from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 
-describe('ResultsPageComponent', () => {
+describe('SelectForm', () => {
   let wrapper = null;
 
   it('is defined', () => {

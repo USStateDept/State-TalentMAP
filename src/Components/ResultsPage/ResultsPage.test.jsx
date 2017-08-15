@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 import ResultsPage from './ResultsPage';
-import POSITION_SEARCH_SORTS from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
 describe('ResultsPageComponent', () => {
   let wrapper = null;
@@ -39,6 +39,7 @@ describe('ResultsPageComponent', () => {
   };
 
   const defaultSort = '';
+  const defaultPageSize = '';
 
   it('is defined', () => {
     wrapper = shallow(<ResultsPage
@@ -47,6 +48,8 @@ describe('ResultsPageComponent', () => {
       isLoading={false}
       sortBy={POSITION_SEARCH_SORTS}
       defaultSort={defaultSort}
+      pageSizes={POSITION_PAGE_SIZES}
+      defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
     />);
     expect(wrapper).toBeDefined();
@@ -59,6 +62,8 @@ describe('ResultsPageComponent', () => {
       isLoading={false}
       sortBy={POSITION_SEARCH_SORTS}
       defaultSort={defaultSort}
+      pageSizes={POSITION_PAGE_SIZES}
+      defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
@@ -70,6 +75,8 @@ describe('ResultsPageComponent', () => {
       isLoading={false}
       sortBy={POSITION_SEARCH_SORTS}
       defaultSort={defaultSort}
+      pageSizes={POSITION_PAGE_SIZES}
+      defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
     />);
     expect(wrapper).toBeDefined();
@@ -80,6 +87,8 @@ describe('ResultsPageComponent', () => {
       results={resultsArray}
       sortBy={POSITION_SEARCH_SORTS}
       defaultSort={defaultSort}
+      pageSizes={POSITION_PAGE_SIZES}
+      defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
     />);
     wrapper.instance().onChildToggle();
@@ -91,6 +100,8 @@ describe('ResultsPageComponent', () => {
       results={resultsArray}
       sortBy={POSITION_SEARCH_SORTS}
       defaultSort={defaultSort}
+      pageSizes={POSITION_PAGE_SIZES}
+      defaultPageSize={defaultPageSize}
       queryParamUpdate={() => {}}
     />);
     // define the instance
