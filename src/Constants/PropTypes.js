@@ -41,9 +41,12 @@ export const POSITION_DETAILS = PropTypes.shape({
   languages: LANGUAGES,
 });
 
-export const POSITION_SEARCH_RESULTS = PropTypes.arrayOf(
-  POSITION_DETAILS,
-);
+export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+  count: PropTypes.number,
+  next: PropTypes.string,
+  previous: PropTypes.string,
+  results: PropTypes.arrayOf(POSITION_DETAILS),
+});
 
 export const FILTERS = PropTypes.arrayOf(
   PropTypes.shape({
@@ -69,6 +72,8 @@ export const ITEMS = PropTypes.arrayOf(
     data: FILTERS,
   }),
 );
+
+export const COMPARE_LIST = PropTypes.arrayOf(POSITION_DETAILS);
 
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,

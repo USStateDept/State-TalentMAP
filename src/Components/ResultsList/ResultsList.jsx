@@ -15,7 +15,7 @@ class ResultsList extends Component {
   render() {
     return (
       <div>
-        { this.props.results.map(result => (
+        { this.props.results.results.map(result => (
           <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <div className="usa-width-one-half">
               <Link to={`/details/${result.position_number}`}>
@@ -58,7 +58,7 @@ ResultsList.propTypes = {
 };
 
 ResultsList.defaultProps = {
-  results: [],
+  results: { results: [] },
   onToggle: EMPTY_FUNCTION,
 };
 
