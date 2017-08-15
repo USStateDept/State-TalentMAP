@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TotalResults matches snapshot 1`] = `
+<span>
+  500
+   results matching your search criteria
+</span>
+`;
