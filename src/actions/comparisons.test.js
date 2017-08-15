@@ -12,6 +12,7 @@ describe('async actions', () => {
     const mockAdapter = new MockAdapter(axios);
 
     const comparisons = {
+      count: 2,
       results: [
         { id: 6,
           grade: '05',

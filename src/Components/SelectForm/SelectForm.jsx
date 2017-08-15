@@ -6,7 +6,7 @@ class SelectForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: { value: this.props.defaultSort || '' },
+      selection: this.props.defaultSort || '',
     };
   }
 
@@ -35,7 +35,7 @@ class SelectForm extends Component {
           name={id}
           id={id}
           onChange={e => this.selectOption(e)}
-          value={this.state.selection.value}
+          value={this.state.selection}
         >
           {
             optionList

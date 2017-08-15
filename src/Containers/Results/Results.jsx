@@ -7,7 +7,7 @@ import { resultsFetchData } from '../../actions/results';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
-import POSITION_SEARCH_SORTS from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
 class Results extends Component {
   constructor(props) {
@@ -16,15 +16,39 @@ class Results extends Component {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: '' },
+      defaultPageSize: { value: '' },
+      defaultPageNumber: { value: 1 },
     };
   }
 
   componentWillMount() {
-    this.setState({ defaultSort: { value: (queryString.parse(this.state.query.value)).ordering || '' } });
+    const { query, defaultSort, defaultPageSize, defaultPageNumber } = this.state;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
-      this.callFetchData(`position/?${this.state.query.value}`);
+      // set our default ordering
+      defaultSort.value =
+        (queryString.parse(query.value)).ordering || POSITION_SEARCH_SORTS.defaultSort;
+      // set our default page size
+      defaultPageSize.value =
+        (queryString.parse(query.value)).limit || POSITION_PAGE_SIZES.defaultSort;
+      // set our default page number
+      defaultPageNumber.value =
+        parseInt((queryString.parse(query.value)).page, 10) || defaultPageNumber.value;
+      // set our current query
+      const parsedQuery = queryString.parse(query.value);
+      // add our defaultSort and defaultPageSize to the query,
+      // but don't add them to history on initial render if
+      // they weren't included in the initial query params
+      const newQuery = Object.assign(
+        {},
+        { ordering: defaultSort.value,
+          page: defaultPageNumber.value,
+          limit: defaultPageSize.value },
+        parsedQuery, // this order dictates that query params take precedence over default values
+      );
+      const newQueryString = queryString.stringify(newQuery);
+      this.callFetchData(`position/?${newQueryString}`);
     }
   }
 
@@ -57,7 +81,10 @@ class Results extends Component {
           hasErrored={hasErrored}
           isLoading={isLoading}
           sortBy={POSITION_SEARCH_SORTS}
-          defaultSort={this.state.defaultSort.value || POSITION_SEARCH_SORTS.defaultSort}
+          defaultSort={this.state.defaultSort.value}
+          pageSizes={POSITION_PAGE_SIZES}
+          defaultPageSize={this.state.defaultPageSize.value}
+          defaultPageNumber={this.state.defaultPageNumber.value - 1}
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
         />
       </div>

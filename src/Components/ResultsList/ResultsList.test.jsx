@@ -9,6 +9,7 @@ describe('ResultsListComponent', () => {
   let wrapper = null;
 
   const resultsArray = {
+    count: 2,
     results: [
       { id: 6,
         grade: '05',

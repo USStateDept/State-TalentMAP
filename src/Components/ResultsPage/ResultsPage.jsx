@@ -31,8 +31,24 @@ class Results extends Component {
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy, defaultSort } = this.props;
+    const { results, isLoading, hasErrored, sortBy, defaultSort, pageSizes, defaultPageSize }
+      = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
+    const pageCount = Math.ceil(results.count / defaultPageSize);
+    const pagination = (<div className="usa-grid-full react-paginate">
+      <ReactPaginate
+        previousLabel={'previous'}
+        nextLabel={'next'}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={1}
+        onPageChange={e => this.queryParamUpdate({ page: e.selected + 1 })}
+        containerClassName={'pagination'}
+        subContainerClassName={'pages pagination'}
+        forcePage={this.props.defaultPageNumber}
+        activeClassName={'active'}
+      />
+    </div>);
     return (
       <div className="usa-grid-full results">
         <div className="usa-grid-full">
@@ -46,14 +62,23 @@ class Results extends Component {
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
         </div>
-        <div className="usa-grid-full">
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0 0 10px 10px' }}>
+        <div className="usa-grid-full" style={{ marginTop: '-20px' }}>
+          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
             <SelectForm
               id="sort"
               label="Sort:"
               onSelectOption={e => this.queryParamUpdate({ ordering: e.target.value })}
               options={sortBy.options}
               defaultSort={defaultSort}
+            />
+          </div>
+          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
+            <SelectForm
+              id="pageSize"
+              label="Page size:"
+              onSelectOption={e => this.queryParamUpdate({ limit: e.target.value, page: 1 })}
+              options={pageSizes.options}
+              defaultSort={defaultPageSize}
             />
           </div>
         </div>
@@ -63,7 +88,9 @@ class Results extends Component {
               // if results have loaded, display the total number of results
               hasLoaded &&
                 <TotalResults
-                  totalResults={{ count: results.results.length, total: results.count }}
+                  total={results.count}
+                  pageNumber={this.props.defaultPageNumber}
+                  pageSize={this.props.defaultPageSize}
                 />
             }
           </div>
@@ -88,19 +115,7 @@ class Results extends Component {
             <Loading isLoading={isLoading} hasErrored={hasErrored} />
           }
         </div>
-        <div className="react-paginate">
-          <ReactPaginate
-            previousLabel={'previous'}
-            nextLabel={'next'}
-            pageCount={5}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={1}
-            containerClassName={'pagination'}
-            subContainerClassName={'pages pagination'}
-            forcePage={this.state.currentPage.value}
-            activeClassName={'active'}
-          />
-        </div>
+        {pagination}
       </div>
     );
   }
@@ -112,7 +127,10 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   onQueryParamUpdate: PropTypes.func.isRequired,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
-  defaultSort: PropTypes.node.isRequired,
+  defaultSort: PropTypes.node,
+  pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
+  defaultPageSize: PropTypes.node,
+  defaultPageNumber: PropTypes.number,
 };
 
 Results.defaultProps = {
@@ -120,6 +138,9 @@ Results.defaultProps = {
   hasErrored: false,
   isLoading: true,
   onQueryParamUpdate: EMPTY_FUNCTION,
+  defaultSort: '',
+  defaultPageSize: '',
+  defaultPageNumber: 0,
 };
 
 Results.contextTypes = {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsPageComponent matches snapshot 1`] = `
+exports[`SelectForm matches snapshot 1`] = `
 <form
   className="usa-form"
 >

@@ -55,10 +55,11 @@ describe('async actions', () => {
   beforeEach(() => {
     const mockAdapter = new MockAdapter(axios);
 
-    const skills = { results: [{ id: 2, code: '0010', description: 'EXECUTIVE (PAS)' },
+    const skills = { count: 2,
+      results: [{ id: 2, code: '0010', description: 'EXECUTIVE (PAS)' },
     { id: 3, code: '0020', description: 'EXECUTIVE (CAREER)' }] };
 
-    const grades = { results: [{ id: 2, code: '00' }, { id: 3, code: '01' }] };
+    const grades = { count: 2, results: [{ id: 2, code: '00' }, { id: 3, code: '01' }] };
 
     mockAdapter.onGet('http://localhost:8000/api/v1/skill/').reply(200,
       skills,
