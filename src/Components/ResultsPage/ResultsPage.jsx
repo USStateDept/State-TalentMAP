@@ -35,20 +35,24 @@ class Results extends Component {
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
-    const pagination = (<div className="usa-grid-full react-paginate">
-      <ReactPaginate
-        previousLabel={'previous'}
-        nextLabel={'next'}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={1}
-        onPageChange={e => this.queryParamUpdate({ page: e.selected + 1 })}
-        containerClassName={'pagination'}
-        subContainerClassName={'pages pagination'}
-        forcePage={this.props.defaultPageNumber}
-        activeClassName={'active'}
-      />
-    </div>);
+    const pagination = (
+      <div className="usa-grid-full react-paginate">
+        <nav className="pagination" aria-label="Pagination">
+          <ReactPaginate
+            previousLabel={'previous'}
+            nextLabel={'next'}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={1}
+            onPageChange={e => this.queryParamUpdate({ page: e.selected + 1 })}
+            containerClassName={'pagination'}
+            subContainerClassName={'pages pagination'}
+            forcePage={this.props.defaultPageNumber}
+            activeClassName={'active'}
+          />
+        </nav>
+      </div>
+    );
     return (
       <div className="usa-grid-full results">
         <div className="usa-grid-full">
@@ -139,7 +143,7 @@ Results.defaultProps = {
   isLoading: true,
   onQueryParamUpdate: EMPTY_FUNCTION,
   defaultSort: '',
-  defaultPageSize: '',
+  defaultPageSize: 0,
   defaultPageNumber: 0,
 };
 

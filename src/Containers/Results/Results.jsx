@@ -31,7 +31,7 @@ class Results extends Component {
         (queryString.parse(query.value)).ordering || POSITION_SEARCH_SORTS.defaultSort;
       // set our default page size
       defaultPageSize.value =
-        (queryString.parse(query.value)).limit || POSITION_PAGE_SIZES.defaultSort;
+        parseInt((queryString.parse(query.value)).limit, 10) || POSITION_PAGE_SIZES.defaultSort;
       // set our default page number
       defaultPageNumber.value =
         parseInt((queryString.parse(query.value)).page, 10) || defaultPageNumber.value;
