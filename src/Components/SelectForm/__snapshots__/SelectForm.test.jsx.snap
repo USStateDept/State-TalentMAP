@@ -22,6 +22,16 @@ exports[`ResultsPageComponent matches snapshot 1`] = `
       Select a sort option
     </option>
     <option
+      value="grade"
+    >
+      Grade (Low to High)
+    </option>
+    <option
+      value="position_number"
+    >
+      Position Number (0 - Z)
+    </option>
+    <option
       value="create_date"
     >
       Position Posted Date (New - Old)
@@ -32,7 +42,7 @@ exports[`ResultsPageComponent matches snapshot 1`] = `
       Service Need Differential (T - F)
     </option>
     <option
-      value="bureau"
+      value="bureau__description"
     >
       Bureau (A - Z)
     </option>
