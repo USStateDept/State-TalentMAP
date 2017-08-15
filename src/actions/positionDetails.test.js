@@ -11,7 +11,7 @@ describe('async actions', () => {
   beforeEach(() => {
     const mockAdapter = new MockAdapter(axios);
 
-    const details = {
+    const details = { results: [{
       id: 4,
       grade: '05',
       skill: 'OFFICE MANAGEMENT (9017)',
@@ -22,7 +22,7 @@ describe('async actions', () => {
       create_date: '2006-09-20',
       update_date: '2017-06-08',
       languages: [],
-    };
+    }] };
 
     mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number=00011111').reply(200,
       details,
