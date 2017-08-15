@@ -42,7 +42,7 @@ exports[`ResultsPageComponent matches snapshot 1`] = `
       Service Need Differential (T - F)
     </option>
     <option
-      value="bureau__description"
+      value="bureau__long_description"
     >
       Bureau (A - Z)
     </option>
