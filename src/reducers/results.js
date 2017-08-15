@@ -14,7 +14,7 @@ export function resultsIsLoading(state = false, action) {
       return state;
   }
 }
-export function results(state = [], action) {
+export function results(state = {}, action) {
   switch (action.type) {
     case 'RESULTS_FETCH_DATA_SUCCESS':
       return action.results;

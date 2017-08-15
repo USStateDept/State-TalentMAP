@@ -25,7 +25,7 @@ export function positionDetailsFetchData(url) {
     axios.get(url)
             .then((response) => {
               dispatch(positionDetailsIsLoading(false));
-              return response.data;
+              return response.data.results;
             })
             .then(positionDetails => dispatch(positionDetailsFetchDataSuccess(positionDetails)))
             .catch(() => dispatch(positionDetailsHasErrored(true)));

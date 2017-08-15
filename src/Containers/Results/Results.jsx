@@ -76,7 +76,7 @@ Results.propTypes = {
 };
 
 Results.defaultProps = {
-  results: [],
+  results: { results: [] },
   hasErrored: false,
   isLoading: true,
   onNavigateTo: EMPTY_FUNCTION,
