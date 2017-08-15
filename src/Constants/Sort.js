@@ -5,7 +5,7 @@ const POSITION_SEARCH_SORTS = {
     { value: 'position_number', text: 'Position Number (0 - Z)' },
     { value: 'create_date', text: 'Position Posted Date (New - Old)' },
     { value: 'post__has_service_needs_differential', text: 'Service Need Differential (T - F)' },
-    { value: 'bureau', text: 'Bureau (A - Z)' },
+    { value: 'bureau__description', text: 'Bureau (A - Z)' },
   ],
 };
 
