@@ -101,12 +101,12 @@ class Results extends Component {
         </div>
         <div className="usa-grid-full">
           {
-            hasLoaded &&
-              <ResultsList
-                key={this.state.key}
-                onToggle={() => this.onChildToggle()}
-                results={results}
-              />
+            <ResultsList
+              key={this.state.key}
+              onToggle={() => this.onChildToggle()}
+              results={results}
+              isLoading={!hasLoaded}
+            />
           }
           {
             // is not loading, results array exists, but is empty

@@ -13,9 +13,10 @@ class ResultsList extends Component {
   }
 
   render() {
+    const results = this.props.results.results || [];
     return (
-      <div>
-        { this.props.results.results.map(result => (
+      <div className={this.props.isLoading ? 'results-loading' : null}>
+        { results.map(result => (
           <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
             <div className="usa-width-one-half">
               <Link to={`/details/${result.position_number}`}>
@@ -55,11 +56,13 @@ class ResultsList extends Component {
 ResultsList.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 ResultsList.defaultProps = {
   results: { results: [] },
   onToggle: EMPTY_FUNCTION,
+  isLoading: false,
 };
 
 export default ResultsList;

@@ -40,7 +40,7 @@ describe('ResultsPageComponent', () => {
   };
 
   const defaultSort = '';
-  const defaultPageSize = '';
+  const defaultPageSize = 10;
 
   it('is defined', () => {
     wrapper = shallow(<ResultsPage
