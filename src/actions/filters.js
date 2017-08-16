@@ -33,7 +33,11 @@ export function filtersFetchData(api, items) {
     }
 
     items.forEach((item) => {
-      axios.get(`${api}/${item.item.endpoint}`)
+      // check for filters that don't need to be requested from the API
+      if (!item.item.endpoint) {
+        responses.push(item);
+      } else { // get filters that have an associated endpoint
+        axios.get(`${api}/${item.item.endpoint}`)
               .then((response) => {
                 const itemFilter = item;
                 itemFilter.data = response.data;
@@ -41,6 +45,7 @@ export function filtersFetchData(api, items) {
                 dispatchSuccess();
               })
               .catch(() => dispatch(filtersHasErrored(true)));
+      }
     });
   };
 }

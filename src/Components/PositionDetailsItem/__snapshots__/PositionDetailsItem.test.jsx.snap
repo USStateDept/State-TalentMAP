@@ -1,0 +1,104 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionDetailsItem matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-width-one-whole"
+  >
+    <div
+      className="position-details-description-container"
+    >
+      <div
+        className="usa-width-one-whole position-details-description"
+      >
+        <strong>
+          POST DESCRIPTION
+        </strong>
+        <br />
+        <div
+          className="usa-width-one-whole"
+        >
+          <PositionDetailsDataPoint
+            description="FREETOWN SIERRA LEONE (FREETOWN)"
+            title="ORGANIZATION"
+          />
+          <PositionDetailsDataPoint
+            description={
+              <Link
+                replace={false}
+                to="/post/162"
+              >
+                MASERU, LESOTHO
+              </Link>
+            }
+            title="POST"
+          />
+          <PositionDetailsDataPoint
+            description="150000"
+            title="BUREAU"
+          />
+          <PositionDetailsDataPoint
+            description={15}
+            title="POST DIFFERENTIAL"
+          />
+          <PositionDetailsDataPoint
+            description="Yes"
+            title="OVERSEAS"
+          />
+          <PositionDetailsDataPoint
+            description="REGION"
+            title="REGION"
+          />
+        </div>
+      </div>
+      <hr
+        width="85%"
+      />
+      <div
+        className="usa-width-one-whole position-details-description"
+      >
+        <strong>
+          POSITION DESCRIPTION
+        </strong>
+        <br />
+        <div
+          className="usa-width-one-whole"
+        >
+          <PositionDetailsDataPoint
+            description="05"
+            title="GRADE"
+          />
+          <PositionDetailsDataPoint
+            description={
+              <LanguageList
+                languages={
+                  Array [
+                    Object {
+                      "id": 1,
+                      "language": "French (FR)",
+                      "representation": "French (FR) 2/2",
+                      "spoken_proficiency": "2",
+                      "written_proficiency": "2",
+                    },
+                  ]
+                }
+              />
+            }
+            title="LANGUAGE"
+          />
+          <PositionDetailsDataPoint
+            description="Information Management"
+            title="SKILLS"
+          />
+          <PositionDetailsDataPoint
+            description={0}
+            title="DANGER PAY"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
