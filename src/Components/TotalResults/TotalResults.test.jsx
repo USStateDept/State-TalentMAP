@@ -1,17 +1,10 @@
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import thunk from 'redux-thunk';
-import configureStore from 'redux-mock-store';
 import TotalResults from './TotalResults';
 
 describe('TotalResults', () => {
   let wrapper = null;
-
-  const middlewares = [thunk];
-  const mockStore = configureStore(middlewares);
 
   const total = 103;
   const pageNumber = 4;
@@ -32,20 +25,16 @@ describe('TotalResults', () => {
   });
 
   it('displays pager numbers and total results correctly when reaching the second to last page of the results', () => {
-    wrapper = mount(
-      <Provider store={mockStore({})}><MemoryRouter>
-        <TotalResults total={total} pageNumber={pageNumber - 1} pageSize={pageSize} />
-      </MemoryRouter></Provider>,
+    wrapper = shallow(
+      <TotalResults total={total} pageNumber={pageNumber - 1} pageSize={pageSize} />,
     );
-    expect(wrapper.find('#total-results').text()).toBe('Viewing 76 - 100 of 103 results');
+    expect(wrapper.find('#total-results').text()).toBe('Viewing 76 - 100 of 103 results');
   });
 
   it('displays pager numbers and total results correctly when reaching the end of the results', () => {
-    wrapper = mount(
-      <Provider store={mockStore({})}><MemoryRouter>
-        <TotalResults total={total} pageNumber={pageNumber} pageSize={pageSize} />
-      </MemoryRouter></Provider>,
+    wrapper = shallow(
+      <TotalResults total={total} pageNumber={pageNumber} pageSize={pageSize} />,
     );
-    expect(wrapper.find('#total-results').text()).toBe('Viewing 101 - 103 of 103 results');
+    expect(wrapper.find('#total-results').text()).toBe('Viewing 101 - 103 of 103 results');
   });
 });
