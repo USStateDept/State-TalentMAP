@@ -1,16 +1,14 @@
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
-import ResultsList from './ResultsList';
+import ResultsCard from './ResultsCard';
 
-describe('ResultsListComponent', () => {
-  let results = null;
+describe('ResultsCardComponent', () => {
+  let result = null;
   let wrapper = null;
 
   const resultsArray = {
-    count: 2,
     results: [
       { id: 6,
         grade: '05',
@@ -41,28 +39,20 @@ describe('ResultsListComponent', () => {
     ],
   };
 
-  beforeEach(() => {
-    results = TestUtils.renderIntoDocument(<MemoryRouter>
-      <ResultsList results={resultsArray} />
-    </MemoryRouter>);
-  });
-
   it('is defined', () => {
-    expect(results).toBeDefined();
+    result = TestUtils.renderIntoDocument(<MemoryRouter>
+      <ResultsCard result={resultsArray.results[0]} onToggle={() => {}} />
+    </MemoryRouter>);
+    expect(result).toBeDefined();
   });
 
   it('can receive props', () => {
-    wrapper = shallow(<ResultsList results={resultsArray} />);
-    expect(wrapper.instance().props.results.results[0].id).toBe(6);
+    wrapper = shallow(<ResultsCard result={resultsArray.results[0]} onToggle={() => {}} />);
+    expect(wrapper.instance().props.result.id).toBe(6);
   });
 
-  it('can call the onChildToggle function', () => {
-    wrapper = shallow(<ResultsList results={resultsArray} />);
-    // define the instance
-    const instance = wrapper.instance();
-    // spy the logout function
-    const handleClickSpy = sinon.spy(instance, 'onChildToggle');
-    wrapper.instance().onChildToggle();
-    sinon.assert.calledOnce(handleClickSpy);
+  it('can receive different types of results', () => {
+    wrapper = shallow(<ResultsCard result={resultsArray.results[1]} onToggle={() => {}} />);
+    expect(wrapper.instance().props.result.id).toBe(60);
   });
 });

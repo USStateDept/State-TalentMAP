@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import { resultsFetchData } from '../../actions/results';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
@@ -94,7 +94,7 @@ class Results extends Component {
 
 Results.propTypes = {
   api: PropTypes.string.isRequired,
-  onNavigateTo: PropTypes.func,
+  onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
@@ -106,7 +106,6 @@ Results.defaultProps = {
   results: { results: [] },
   hasErrored: false,
   isLoading: true,
-  onNavigateTo: EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {

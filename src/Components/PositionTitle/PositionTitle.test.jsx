@@ -10,14 +10,24 @@ describe('PositionTitleComponent', () => {
 
   it('can receive props', () => {
     wrapper = shallow(
-      <PositionTitle details={detailsObject} isLoading={false} hasErrored={false} />,
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBack={() => {}}
+      />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
   });
 
   it('matches snapshot', () => {
     wrapper = shallow(
-      <PositionTitle details={detailsObject} isLoading={false} hasErrored={false} />,
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBack={() => {}}
+      />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
@@ -95,7 +105,12 @@ describe('PositionTitleComponent', () => {
     Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
 
     wrapper = shallow(
-      <PositionTitle details={detailsObject} isLoading={false} hasErrored={false} />,
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBack={() => {}}
+      />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });
@@ -104,7 +119,7 @@ describe('PositionTitleComponent', () => {
     Object.assign(detailsObject, { languages: [], is_overseas: true });
 
     wrapper = shallow(
-      <PositionTitle details={detailsObject} isLoading hasErrored={false} />,
+      <PositionTitle details={detailsObject} isLoading hasErrored={false} goBack={() => {}} />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });

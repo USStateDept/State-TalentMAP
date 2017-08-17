@@ -121,5 +121,13 @@ const formed = reduxForm({
   form: 'login',
 })(connected);
 
-// Export our well formed login component
-export default formed;
+// Set sample username and password for the general public to use
+// Currently set to admin/admin
+const formedWithDefaultCreds = connect(
+  () => ({
+    initialValues: { username: 'admin', password: 'admin' }, // set initial values
+  }),
+)(formed);
+
+// Export our well formed login component with default credentials set to the field
+export default formedWithDefaultCreds;

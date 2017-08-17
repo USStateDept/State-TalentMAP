@@ -49,7 +49,7 @@ class Home extends Component {
 
 Home.propTypes = {
   api: PropTypes.string.isRequired,
-  onNavigateTo: PropTypes.func,
+  onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func,
   isLoading: PropTypes.bool,
   items: ITEMS,
@@ -58,7 +58,6 @@ Home.propTypes = {
 
 Home.defaultProps = {
   items: [],
-  onNavigateTo: EMPTY_FUNCTION,
   fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
