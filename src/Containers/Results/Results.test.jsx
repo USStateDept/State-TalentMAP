@@ -15,21 +15,26 @@ describe('Main', () => {
 
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => true} api={api} />
+      <Results isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => false} api={api} />
+      <Results isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
 
   it('can call the onChildToggle function', () => {
     const wrapper = shallow(
-      <Results.WrappedComponent isAuthorized={() => true} fetchData={() => {}} api={api} />,
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        api={api}
+        onNavigateTo={() => {}}
+      />,
     );
     expect(wrapper.instance().state.key).toBe(0);
     wrapper.instance().onChildToggle();
