@@ -54,7 +54,7 @@ const items = [
       title: 'Region',
       sort: 500,
       description: 'region',
-      endpoint: 'organization/?available=true',
+      endpoint: 'organization/?is_available=true',
       selectionRef: 'organization__code__in',
       text: 'Choose region',
       choices: [
@@ -114,7 +114,7 @@ const items = [
       sort: 900,
       bool: true,
       description: 'domestic',
-      selectionRef: 'domestic',
+      selectionRef: 'is_domestic',
       text: 'Include only domestic positions',
       choices: [
       ],

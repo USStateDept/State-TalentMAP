@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectForm matches snapshot 1`] = `
+<form
+  className="usa-form"
+>
+  <label
+    htmlFor={1}
+  >
+    Some label
+  </label>
+  <select
+    id={1}
+    name={1}
+    onChange={[Function]}
+    value=""
+  >
+    <option
+      disabled={true}
+      value=""
+    >
+      Select a sort option
+    </option>
+    <option
+      value="grade"
+    >
+      Grade (Low to High)
+    </option>
+    <option
+      value="position_number"
+    >
+      Position Number (0 - Z)
+    </option>
+    <option
+      value="create_date"
+    >
+      Position Posted Date (New - Old)
+    </option>
+    <option
+      value="post__has_service_needs_differential"
+    >
+      Service Need Differential (T - F)
+    </option>
+    <option
+      value="bureau__long_description"
+    >
+      Bureau (A - Z)
+    </option>
+  </select>
+</form>
+`;
