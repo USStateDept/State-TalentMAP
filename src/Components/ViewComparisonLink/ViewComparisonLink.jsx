@@ -7,10 +7,10 @@ import { localStorageFetchValue } from '../../utilities';
 class ViewComparisonLink extends Component {
 
   render() {
-    // does the compare key exists and is len > 0?
+    // does the compare key exists and is count > 0?
     const exists = () => {
       const retrievedKey = localStorageFetchValue('compare', null);
-      return !!retrievedKey.len;
+      return !!retrievedKey.count;
     };
     // if not, return null
     if (!exists()) {

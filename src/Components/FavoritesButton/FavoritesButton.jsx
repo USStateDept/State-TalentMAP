@@ -9,7 +9,7 @@ class FavoritesButton extends Component {
     this.state = {
       saved: false,
       localStorageKey: null,
-      len: 0,
+      count: 0,
     };
   }
 
@@ -28,7 +28,7 @@ class FavoritesButton extends Component {
 
   getSaved() {
     const saved = localStorageFetchValue(this.state.localStorageKey, this.props.refKey);
-    this.setState({ saved: saved.exists, len: saved.len });
+    this.setState({ saved: saved.exists, count: saved.count });
   }
 
   getSavedState() {
@@ -36,7 +36,7 @@ class FavoritesButton extends Component {
   }
 
   exceedsLimit() {
-    return this.state.len >= this.props.limit;
+    return this.state.count >= this.props.limit;
   }
 
   toggleSaved() {
