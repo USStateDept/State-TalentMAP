@@ -19,14 +19,14 @@ describe('TotalResults', () => {
 
   it('can receive props', () => {
     wrapper = shallow(
-      <TotalResults total={total} pageNumber={pageNumber} pageSize={pageSize} />,
+      <TotalResults total={total} pageNumber={0} pageSize={0} />,
     );
-    expect(wrapper.instance().props.pageSize).toBe(pageSize);
+    expect(wrapper.instance().props.pageSize).toBe(0);
   });
 
   it('matches snapshot', () => {
     wrapper = shallow(
-      <TotalResults total={total} pageNumber={pageNumber} pageSize={pageSize} />,
+      <TotalResults total={total} pageNumber={0} pageSize={0} />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
