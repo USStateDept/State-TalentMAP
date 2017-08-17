@@ -45,7 +45,12 @@ describe('Main', () => {
   it('can call the onQueryParamUpdate function', () => {
     const query = 'ordering=bureau&q=German';
     const wrapper = shallow(
-      <Results.WrappedComponent isAuthorized={() => true} fetchData={() => {}} api={api} />,
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        api={api}
+        onNavigateTo={() => {}}
+      />,
     );
     // define the instance
     const instance = wrapper.instance();
