@@ -143,7 +143,7 @@ Results.defaultProps = {
   isLoading: true,
   onQueryParamUpdate: EMPTY_FUNCTION,
   defaultSort: '',
-  defaultPageSize: 0,
+  defaultPageSize: 10,
   defaultPageNumber: 0,
 };
 
