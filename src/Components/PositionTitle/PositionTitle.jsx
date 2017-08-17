@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
-import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 class PositionTitle extends Component { // eslint-disable-line
   navBack(e) {
@@ -59,12 +59,11 @@ class PositionTitle extends Component { // eslint-disable-line
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
-  goBack: PropTypes.func,
+  goBack: PropTypes.func.isRequired,
 };
 
 PositionTitle.defaultProps = {
   details: null,
-  goBack: EMPTY_FUNCTION,
 };
 
 export default PositionTitle;
