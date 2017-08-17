@@ -42,8 +42,13 @@ export function localStorageToggleValue(key, value) {
 }
 
 export function validStateEmail(email) {
-  const valid = (/@state.gov\s*$/.test(email));
-  return valid;
+  return /.+@state.gov$/.test(email.trim());
+}
+
+export function fetchUserToken() {
+  const key = JSON.parse(localStorage.getItem('token'));
+  const token = `Token ${key}`;
+  return token;
 }
 
 export default ajax;

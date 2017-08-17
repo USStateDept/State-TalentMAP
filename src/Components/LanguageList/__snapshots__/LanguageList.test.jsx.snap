@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageList takes no props 1`] = `
+<span>
+  None listed
+</span>
+`;
+
+exports[`LanguageList takes props 1`] = `
+<span>
+  French (FR) 
+  German (GM) 
+</span>
+`;
