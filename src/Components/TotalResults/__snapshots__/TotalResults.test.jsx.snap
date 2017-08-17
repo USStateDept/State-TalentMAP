@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TotalResults matches snapshot 1`] = `
+<span
+  id="total-results"
+>
+  Viewing 
+  1
+   - 
+  0
+   of 
+  103
+   results
+</span>
+`;

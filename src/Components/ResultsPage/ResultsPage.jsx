@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
@@ -7,6 +8,7 @@ import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
 import Loading from '../Loading/Loading';
 import Alert from '../Alert/Alert';
+import TotalResults from '../TotalResults/TotalResults';
 import SelectForm from '../SelectForm/SelectForm';
 
 class Results extends Component {
@@ -14,6 +16,7 @@ class Results extends Component {
     super(props);
     this.state = {
       key: 0,
+      currentPage: { value: 0 },
     };
   }
 
@@ -30,6 +33,26 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultSort, pageSizes, defaultPageSize }
       = this.props;
+    const hasLoaded = !isLoading && results.results && !!results.results.length;
+    const pageCount = Math.ceil(results.count / defaultPageSize);
+    const pagination = (
+      <div className="usa-grid-full react-paginate">
+        <nav className="pagination" aria-label="Pagination">
+          <ReactPaginate
+            previousLabel={'previous'}
+            nextLabel={'next'}
+            pageCount={pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={1}
+            onPageChange={e => this.queryParamUpdate({ page: e.selected + 1 })}
+            containerClassName={'pagination'}
+            subContainerClassName={'pages pagination'}
+            forcePage={this.props.defaultPageNumber}
+            activeClassName={'active'}
+          />
+        </nav>
+      </div>
+    );
     return (
       <div className="usa-grid-full results">
         <div className="usa-grid-full">
@@ -43,7 +66,7 @@ class Results extends Component {
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
         </div>
-        <div className="usa-grid-full">
+        <div className="usa-grid-full" style={{ marginTop: '-20px' }}>
           <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
             <SelectForm
               id="sort"
@@ -57,20 +80,33 @@ class Results extends Component {
             <SelectForm
               id="pageSize"
               label="Page size:"
-              onSelectOption={e => this.queryParamUpdate({ limit: e.target.value })}
+              onSelectOption={e => this.queryParamUpdate({ limit: e.target.value, page: 1 })}
               options={pageSizes.options}
               defaultSort={defaultPageSize}
             />
           </div>
         </div>
         <div className="usa-grid-full">
+          <div className="usa-width-one-third" style={{ float: 'left', padding: '0 0 10px 10px' }}>
+            {
+              // if results have loaded, display the total number of results
+              hasLoaded &&
+                <TotalResults
+                  total={results.count}
+                  pageNumber={this.props.defaultPageNumber}
+                  pageSize={this.props.defaultPageSize}
+                />
+            }
+          </div>
+        </div>
+        <div className="usa-grid-full">
           {
-            !isLoading && results.results && !!results.results.length &&
-              <ResultsList
-                key={this.state.key}
-                onToggle={() => this.onChildToggle()}
-                results={results}
-              />
+            <ResultsList
+              key={this.state.key}
+              onToggle={() => this.onChildToggle()}
+              results={results}
+              isLoading={!hasLoaded}
+            />
           }
           {
             // is not loading, results array exists, but is empty
@@ -83,6 +119,7 @@ class Results extends Component {
             <Loading isLoading={isLoading} hasErrored={hasErrored} />
           }
         </div>
+        {pagination}
       </div>
     );
   }
@@ -97,6 +134,7 @@ Results.propTypes = {
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
   defaultPageSize: PropTypes.node,
+  defaultPageNumber: PropTypes.number,
 };
 
 Results.defaultProps = {
@@ -105,7 +143,8 @@ Results.defaultProps = {
   isLoading: true,
   onQueryParamUpdate: EMPTY_FUNCTION,
   defaultSort: '',
-  defaultPageSize: '',
+  defaultPageSize: 10,
+  defaultPageNumber: 0,
 };
 
 Results.contextTypes = {

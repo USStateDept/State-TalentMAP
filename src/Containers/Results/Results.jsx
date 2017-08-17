@@ -17,22 +17,38 @@ class Results extends Component {
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: '' },
       defaultPageSize: { value: '' },
+      defaultPageNumber: { value: 1 },
     };
   }
 
   componentWillMount() {
+    const { query, defaultSort, defaultPageSize, defaultPageNumber } = this.state;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
       // set our default ordering
-      this.setState({ defaultSort: { value:
-        (queryString.parse(this.state.query.value)).ordering || POSITION_PAGE_SIZES.defaultSort,
-      } });
+      defaultSort.value =
+        (queryString.parse(query.value)).ordering || POSITION_SEARCH_SORTS.defaultSort;
       // set our default page size
-      this.setState({ defaultPageSize: { value:
-        (queryString.parse(this.state.query.value)).limit || POSITION_PAGE_SIZES.defaultSort,
-      } });
-      this.callFetchData(`position/?${this.state.query.value}`);
+      defaultPageSize.value =
+        parseInt((queryString.parse(query.value)).limit, 10) || POSITION_PAGE_SIZES.defaultSort;
+      // set our default page number
+      defaultPageNumber.value =
+        parseInt((queryString.parse(query.value)).page, 10) || defaultPageNumber.value;
+      // set our current query
+      const parsedQuery = queryString.parse(query.value);
+      // add our defaultSort and defaultPageSize to the query,
+      // but don't add them to history on initial render if
+      // they weren't included in the initial query params
+      const newQuery = Object.assign(
+        {},
+        { ordering: defaultSort.value,
+          page: defaultPageNumber.value,
+          limit: defaultPageSize.value },
+        parsedQuery, // this order dictates that query params take precedence over default values
+      );
+      const newQueryString = queryString.stringify(newQuery);
+      this.callFetchData(`position/?${newQueryString}`);
     }
   }
 
@@ -68,6 +84,7 @@ class Results extends Component {
           defaultSort={this.state.defaultSort.value}
           pageSizes={POSITION_PAGE_SIZES}
           defaultPageSize={this.state.defaultPageSize.value}
+          defaultPageNumber={this.state.defaultPageNumber.value - 1}
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
         />
       </div>

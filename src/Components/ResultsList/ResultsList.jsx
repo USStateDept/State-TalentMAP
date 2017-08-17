@@ -11,9 +11,10 @@ class ResultsList extends Component {
   }
 
   render() {
+    const results = this.props.results.results || [];
     return (
-      <div>
-        { this.props.results.results.map(result => (
+      <div className={this.props.isLoading ? 'results-loading' : null}>
+        { results.map(result => (
           <ResultsCard key={result.id} result={result} onToggle={() => this.onChildToggle()} />
           ))}
       </div>
@@ -24,11 +25,13 @@ class ResultsList extends Component {
 ResultsList.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 ResultsList.defaultProps = {
   results: { results: [] },
   onToggle: EMPTY_FUNCTION,
+  isLoading: false,
 };
 
 export default ResultsList;

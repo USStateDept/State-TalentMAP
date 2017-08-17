@@ -21,4 +21,4 @@ export const POSITION_PAGE_SIZES = {
   ],
 };
 
-POSITION_PAGE_SIZES.defaultSort = POSITION_PAGE_SIZES.options[0].value;
+POSITION_PAGE_SIZES.defaultSort = POSITION_PAGE_SIZES.options[1].value;

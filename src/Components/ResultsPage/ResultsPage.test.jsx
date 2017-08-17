@@ -8,6 +8,7 @@ describe('ResultsPageComponent', () => {
   let wrapper = null;
 
   const resultsArray = {
+    count: 2,
     results: [
       { id: 6,
         grade: '05',
@@ -39,7 +40,7 @@ describe('ResultsPageComponent', () => {
   };
 
   const defaultSort = '';
-  const defaultPageSize = '';
+  const defaultPageSize = 10;
 
   it('is defined', () => {
     wrapper = shallow(<ResultsPage
