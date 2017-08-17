@@ -1,6 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 import ResultsPage from './ResultsPage';
+import POSITION_SEARCH_SORTS from '../../Constants/Sort';
 
 describe('ResultsPageComponent', () => {
   let wrapper = null;
@@ -36,24 +38,66 @@ describe('ResultsPageComponent', () => {
     ],
   };
 
+  const defaultSort = '';
+
   it('is defined', () => {
-    wrapper = shallow(<ResultsPage results={resultsArray} hasErrored isLoading={false} />);
+    wrapper = shallow(<ResultsPage
+      results={resultsArray}
+      hasErrored
+      isLoading={false}
+      sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
+      onQueryParamUpdate={() => {}}
+    />);
     expect(wrapper).toBeDefined();
   });
 
   it('can receive props', () => {
-    wrapper = shallow(<ResultsPage results={resultsArray} hasErrored isLoading={false} />);
+    wrapper = shallow(<ResultsPage
+      results={resultsArray}
+      hasErrored
+      isLoading={false}
+      sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
+      onQueryParamUpdate={() => {}}
+    />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
 
   it('can receive props', () => {
-    wrapper = shallow(<ResultsPage hasErrored={false} isLoading={false} />);
+    wrapper = shallow(<ResultsPage
+      hasErrored={false}
+      isLoading={false}
+      sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
+      onQueryParamUpdate={() => {}}
+    />);
     expect(wrapper).toBeDefined();
   });
 
   it('can call the onChildToggle function', () => {
-    wrapper = shallow(<ResultsPage results={resultsArray} />);
+    wrapper = shallow(<ResultsPage
+      results={resultsArray}
+      sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
+      onQueryParamUpdate={() => {}}
+    />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();
+  });
+
+  it('can call the queryParamUpdate function', () => {
+    wrapper = shallow(<ResultsPage
+      results={resultsArray}
+      sortBy={POSITION_SEARCH_SORTS}
+      defaultSort={defaultSort}
+      queryParamUpdate={() => {}}
+    />);
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the queryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'queryParamUpdate');
+    wrapper.instance().queryParamUpdate();
+    sinon.assert.calledOnce(handleUpdateSpy);
   });
 });
