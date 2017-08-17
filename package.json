@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-    "express": "^4.15.3",
+    "express": "^4.15.4",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "nodemon": "^1.11.0",
