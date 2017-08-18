@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SelectForm matches snapshot 1`] = `
-<form
+<div
   className="usa-form"
 >
   <label
@@ -47,5 +47,5 @@ exports[`SelectForm matches snapshot 1`] = `
       Bureau (A - Z)
     </option>
   </select>
-</form>
+</div>
 `;
