@@ -33,6 +33,7 @@ class Position extends Component {
           details={positionDetails[0]}
           isLoading={isLoading}
           hasErrored={hasErrored}
+          goBack={this.context.router.history.goBack}
         />
       </div>
     );
@@ -45,7 +46,7 @@ Position.contextTypes = {
 
 Position.propTypes = {
   api: PropTypes.string.isRequired,
-  onNavigateTo: PropTypes.func,
+  onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -61,7 +62,6 @@ Position.propTypes = {
 Position.defaultProps = {
   positionDetails: [],
   fetchData: EMPTY_FUNCTION,
-  onNavigateTo: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
 };

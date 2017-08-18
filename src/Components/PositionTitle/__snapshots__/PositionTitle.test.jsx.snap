@@ -24,9 +24,10 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
       <div
         className="position-details-header-back"
       >
-        <span
+        <a
           className="back-link"
           onClick={[Function]}
+          onKeyDown={[Function]}
           role="link"
           tabIndex="0"
         >
@@ -34,7 +35,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             name="arrow-left"
           />
             Go back
-        </span>
+        </a>
       </div>
       <div
         className="position-details-header-title"

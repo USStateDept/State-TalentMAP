@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import sinon from 'sinon';
 import Results from './Results';
 
 const middlewares = [thunk];
@@ -15,24 +16,48 @@ describe('Main', () => {
 
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => true} api={api} />
+      <Results isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
 
-  it('it can handle authentication redirects', () => {
+  it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => false} api={api} />
+      <Results isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
 
-  it('it can call the onChildToggle function', () => {
+  it('can call the onChildToggle function', () => {
     const wrapper = shallow(
-      <Results.WrappedComponent isAuthorized={() => true} fetchData={() => {}} api={api} />,
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        api={api}
+        onNavigateTo={() => {}}
+      />,
     );
     expect(wrapper.instance().state.key).toBe(0);
     wrapper.instance().onChildToggle();
     expect(wrapper.instance().state.key).toBeGreaterThan(0);
+  });
+
+  it('can call the onQueryParamUpdate function', () => {
+    const query = 'ordering=bureau&q=German';
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        api={api}
+        onNavigateTo={() => {}}
+      />,
+    );
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the onQueryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamUpdate');
+    wrapper.instance().context.router = { history: { push: () => {} } };
+    wrapper.instance().onQueryParamUpdate(query);
+    sinon.assert.calledOnce(handleUpdateSpy);
   });
 });

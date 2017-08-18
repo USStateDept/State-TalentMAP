@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { COMPARE_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import LanguageList from '../LanguageList/LanguageList';
 import * as SystemMessages from '../../Constants/SystemMessages';
 
@@ -36,7 +36,7 @@ class CompareList extends Component {
                 <br />
                   Language: <LanguageList languages={result.languages} />
                 <br />
-                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.description}</Link> : SystemMessages.NO_POST }
+                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
                 <br />
                   Post Differential: {result.post ?
                     result.post.differential_rate : SystemMessages.NO_POST_DIFFERENTIAL}
@@ -55,7 +55,7 @@ class CompareList extends Component {
 }
 
 CompareList.propTypes = {
-  compare: POSITION_SEARCH_RESULTS,
+  compare: COMPARE_LIST,
   onToggle: PropTypes.func,
 };
 

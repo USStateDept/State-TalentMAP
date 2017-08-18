@@ -8,12 +8,15 @@ describe('PositionDetailsComponent', () => {
 
   const api = 'localhost:8000/api/v1/';
 
-  beforeEach(() => {
-  });
-
   it('can receive props', () => {
     wrapper = shallow(
-      <PositionDetails api={api} details={detailsObject} isLoading={false} hasErrored={false} />,
+      <PositionDetails
+        api={api}
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBack={() => {}}
+      />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
   });
@@ -22,7 +25,13 @@ describe('PositionDetailsComponent', () => {
     Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
 
     wrapper = shallow(
-      <PositionDetails api={api} details={detailsObject} isLoading={false} hasErrored={false} />,
+      <PositionDetails
+        api={api}
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBack={() => {}}
+      />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });
@@ -31,7 +40,13 @@ describe('PositionDetailsComponent', () => {
     Object.assign(detailsObject, { languages: [], is_overseas: true });
 
     wrapper = shallow(
-      <PositionDetails api={api} details={detailsObject} isLoading hasErrored={false} />,
+      <PositionDetails
+        api={api}
+        details={detailsObject}
+        isLoading
+        hasErrored={false}
+        goBack={() => {}}
+      />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });

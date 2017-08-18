@@ -56,10 +56,10 @@ describe('local storage', () => {
     localStorage.clear();
   });
 
-  it('should be able to fetch the length of an array', () => {
+  it('should be able to fetch the count of an array', () => {
     localStorage.setItem('key', JSON.stringify(['1', '2']));
     const retrieved = localStorageFetchValue('key', '1');
-    expect(retrieved.len).toBe(2);
+    expect(retrieved.count).toBe(2);
     localStorage.clear();
   });
 

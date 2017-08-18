@@ -11,9 +11,6 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('ResetFilters Connected Component', () => {
-  beforeEach(() => {
-  });
-
   it('is defined', () => {
     const resetFilters = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <ResetFiltersConnect />
@@ -21,7 +18,7 @@ describe('ResetFilters Connected Component', () => {
     expect(resetFilters).toBeDefined();
   });
 
-  it('it can call the onChildToggle function', () => {
+  it('can call the onChildToggle function', () => {
     const wrapper = shallow(
       <ResetFiltersConnect.WrappedComponent onNavigateTo={() => {}} />,
     );

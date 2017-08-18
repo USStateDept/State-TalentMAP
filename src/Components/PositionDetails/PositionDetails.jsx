@@ -8,11 +8,13 @@ import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, api, isLoading, hasErrored }) => (
-  <div>
-    {(details && !isLoading && !hasErrored) &&
+const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => {
+  const isReady = details && !isLoading && !hasErrored;
+  return (
+    <div>
+      { isReady &&
       <div>
-        <PositionTitle details={details} />
+        <PositionTitle details={details} goBack={goBack} />
         <PositionDetailsItem details={details} />
         <PositionAdditionalDetails />
         <div className="usa-grid">
@@ -20,15 +22,17 @@ const PositionDetails = ({ details, api, isLoading, hasErrored }) => (
           <Share api={api} identifier={details.id} />
         </div>
       </div>}
-    {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
-  </div>
-);
+      {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
+    </div>
+  );
+};
 
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
   api: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
+  goBack: PropTypes.func.isRequired,
 };
 
 PositionDetails.defaultProps = {
