@@ -4,30 +4,20 @@ import PropTypes from 'prop-types';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 class PositionTitle extends Component { // eslint-disable-line
-  navBack(e) {
-    const { goBack } = this.props;
-    if (e.keyCode === 13 || e === 'click') {
-      goBack();
-    }
-  }
   render() {
-    const { details } = this.props;
+    const { details, goBackLink } = this.props;
     return (
       <div className="position-details-header" style={{ overflow: 'hidden', backgroundColor: '#F2F2F2' }}>
         <div className="usa-grid" style={{ overflow: 'hidden' }}>
           <div className="usa-width-one-half">
             <div className="position-details-header-back">
-              <a
-                role="link"
-                tabIndex="0"
-                className="back-link"
-                onKeyDown={(e) => { this.navBack(e); }}
-                onClick={() => { this.navBack('click'); }}
-              >
+              { goBackLink && // if goBackLink is defined, render...
+              <div>
                 <FontAwesome name="arrow-left" />
-              &nbsp;
-              Go back
-            </a>
+                &nbsp;
+                {goBackLink}
+              </div>
+              }
             </div>
             <div className="position-details-header-title">
               <strong>Position Number: {details.position_number}</strong>
@@ -59,7 +49,7 @@ class PositionTitle extends Component { // eslint-disable-line
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
-  goBack: PropTypes.func.isRequired,
+  goBackLink: PropTypes.node.isRequired,
 };
 
 PositionTitle.defaultProps = {
