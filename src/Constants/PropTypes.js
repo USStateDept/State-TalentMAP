@@ -106,4 +106,11 @@ export const USER_PROFILE = PropTypes.shape({
   ),
 });
 
+export const ROUTER_LOCATIONS = PropTypes.arrayOf(PropTypes.shape({
+  pathname: PropTypes.string,
+  search: PropTypes.string,
+  hash: PropTypes.string,
+  key: PropTypes.string,
+}));
+
 export const EMPTY_FUNCTION = () => {};

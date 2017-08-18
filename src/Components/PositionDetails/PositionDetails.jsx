@@ -8,13 +8,13 @@ import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => {
+const PositionDetails = ({ details, api, isLoading, hasErrored, goBackLink }) => {
   const isReady = details && !isLoading && !hasErrored;
   return (
     <div>
       { isReady &&
       <div>
-        <PositionTitle details={details} goBack={goBack} />
+        <PositionTitle details={details} goBackLink={goBackLink} />
         <PositionDetailsItem details={details} />
         <PositionAdditionalDetails />
         <div className="usa-grid">
@@ -32,7 +32,7 @@ PositionDetails.propTypes = {
   api: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  goBack: PropTypes.func.isRequired,
+  goBackLink: PropTypes.node.isRequired,
 };
 
 PositionDetails.defaultProps = {
