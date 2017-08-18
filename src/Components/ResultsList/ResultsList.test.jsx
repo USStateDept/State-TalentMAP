@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import toJSON from 'enzyme-to-json';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
@@ -25,6 +26,11 @@ describe('ResultsListComponent', () => {
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
 
+  it('matches a snapshot with results', () => {
+    wrapper = shallow(<ResultsList results={resultsArray} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('can call the onChildToggle function', () => {
     wrapper = shallow(<ResultsList results={resultsObject} />);
     // define the instance
@@ -33,5 +39,15 @@ describe('ResultsListComponent', () => {
     const handleClickSpy = sinon.spy(instance, 'onChildToggle');
     wrapper.instance().onChildToggle();
     sinon.assert.calledOnce(handleClickSpy);
+  });
+
+  it('can handle an empty result set', () => {
+    wrapper = shallow(<ResultsList results={{}} />);
+    expect(wrapper.find('div').hasClass('results-loading')).toBe(false);
+  });
+
+  it('matches a snapshot with an empty result set', () => {
+    wrapper = shallow(<ResultsList results={{}} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
