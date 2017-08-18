@@ -27,7 +27,7 @@ describe('ResultsListComponent', () => {
   });
 
   it('matches a snapshot with results', () => {
-    wrapper = shallow(<ResultsList results={resultsArray} />);
+    wrapper = shallow(<ResultsList results={resultsObject} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
