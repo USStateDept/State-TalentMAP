@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Routes from './Routes';
-import routerLocations from '../../__mocks__/routerLocations';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
