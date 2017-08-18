@@ -15,20 +15,24 @@ describe('Home', () => {
 
   it('is defined', () => {
     const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Home isAuthorized={() => true} api={api} />
+      <Home isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
   });
 
-  it('it can handle authentication redirects', () => {
+  it('can handle authentication redirects', () => {
     const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Home isAuthorized={() => false} api={api} />
+      <Home isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
   });
 
-  it('it can call the onChildSubmit function', () => {
-    const wrapper = shallow(<Home.WrappedComponent isAuthorized={() => true} api={api} />);
+  it('can call the onChildSubmit function', () => {
+    const wrapper = shallow(<Home.WrappedComponent
+      isAuthorized={() => true}
+      api={api}
+      onNavigateTo={() => {}}
+    />);
     wrapper.instance().onChildSubmit();
   });
 });

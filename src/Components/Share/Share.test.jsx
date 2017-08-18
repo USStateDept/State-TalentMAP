@@ -20,7 +20,7 @@ describe('Main', () => {
     expect(share).toBeDefined();
   });
 
-  it('it can call the onChildSend function', () => {
+  it('can call the onChildSend function', () => {
     const wrapper = shallow(
       <Share.WrappedComponent api="test" identifier={1} onNavigateTo={() => {}} />,
     );

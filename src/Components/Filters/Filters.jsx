@@ -17,7 +17,7 @@ class Filters extends Component {
         post__cost_of_living_adjustment__gt: [],
         post__differential_rate__gt: [],
         post__danger_pay__gt: [],
-        domestic: [],
+        is_domestic: [],
       },
       proficiency: {},
       qString: null,
