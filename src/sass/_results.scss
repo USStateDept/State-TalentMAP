@@ -1,3 +1,11 @@
 .results {
- // empty
+  .no-results {
+    margin-top: 20px;
+    width: 350px;
+  }
+}
+
+.results-loading {
+  opacity: .5;
+  pointer-events: none;
 }

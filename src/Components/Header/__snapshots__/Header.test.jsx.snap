@@ -1,0 +1,252 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header matches snapshot when logged in 1`] = `
+<header
+  className="usa-header usa-header-extended tm-header"
+  role="banner"
+>
+  <GovBanner />
+  <div
+    className="usa-navbar"
+  >
+    <button
+      className="usa-menu-btn"
+    >
+      Menu
+    </button>
+    <div
+      className="usa-logo"
+      id="logo"
+    >
+      <em
+        className="usa-logo-text"
+      >
+        <Link
+          replace={false}
+          to="/"
+        >
+          TALENTMAP
+        </Link>
+      </em>
+    </div>
+  </div>
+  <nav
+    className="usa-nav"
+  >
+    <div
+      className="usa-nav-inner"
+    >
+      <button
+        className="usa-nav-close"
+      >
+        <img
+          alt="close"
+          src="close.svg"
+        />
+      </button>
+      <div
+        className="usa-nav-secondary"
+      >
+        <form
+          className="usa-search usa-search-small js-search-form usa-sr-only"
+        >
+          <div
+            role="search"
+          >
+            <label
+              className="usa-sr-only"
+              htmlFor="search-field-small"
+            >
+              Search small
+            </label>
+            <input
+              id="search-field-small"
+              name="search-small"
+              type="search"
+            />
+            <button
+              type="submit"
+            >
+              <span
+                className="usa-sr-only"
+              >
+                Search
+              </span>
+            </button>
+          </div>
+        </form>
+        <ul
+          className="usa-unstyled-list usa-nav-secondary-links"
+        >
+          <li
+            className="js-search-button-container"
+          >
+            <button
+              className="usa-header-search-button js-search-button"
+            >
+              Search
+            </button>
+          </li>
+          <li>
+            <Link
+              replace={false}
+              to="/"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP/issues"
+            >
+              Feedback
+            </a>
+          </li>
+          <li>
+            <Connect(AccountDropdown)
+              userProfile={Object {}}
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    className="usa-overlay"
+  />
+</header>
+`;
+
+exports[`Header matches snapshot when logged out 1`] = `
+<header
+  className="usa-header usa-header-extended tm-header"
+  role="banner"
+>
+  <GovBanner />
+  <div
+    className="usa-navbar"
+  >
+    <button
+      className="usa-menu-btn"
+    >
+      Menu
+    </button>
+    <div
+      className="usa-logo"
+      id="logo"
+    >
+      <em
+        className="usa-logo-text"
+      >
+        <Link
+          replace={false}
+          to="/"
+        >
+          TALENTMAP
+        </Link>
+      </em>
+    </div>
+  </div>
+  <nav
+    className="usa-nav"
+  >
+    <div
+      className="usa-nav-inner"
+    >
+      <button
+        className="usa-nav-close"
+      >
+        <img
+          alt="close"
+          src="close.svg"
+        />
+      </button>
+      <div
+        className="usa-nav-secondary"
+      >
+        <form
+          className="usa-search usa-search-small js-search-form usa-sr-only"
+        >
+          <div
+            role="search"
+          >
+            <label
+              className="usa-sr-only"
+              htmlFor="search-field-small"
+            >
+              Search small
+            </label>
+            <input
+              id="search-field-small"
+              name="search-small"
+              type="search"
+            />
+            <button
+              type="submit"
+            >
+              <span
+                className="usa-sr-only"
+              >
+                Search
+              </span>
+            </button>
+          </div>
+        </form>
+        <ul
+          className="usa-unstyled-list usa-nav-secondary-links"
+        >
+          <li
+            className="js-search-button-container"
+          >
+            <button
+              className="usa-header-search-button js-search-button"
+            >
+              Search
+            </button>
+          </li>
+          <li>
+            <Link
+              replace={false}
+              to="/"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP/issues"
+            >
+              Feedback
+            </a>
+          </li>
+          <li>
+            <Link
+              replace={false}
+              to="login"
+            >
+              Login
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div
+    className="usa-overlay"
+  />
+</header>
+`;

@@ -41,13 +41,16 @@ export const POSITION_DETAILS = PropTypes.shape({
   languages: LANGUAGES,
 });
 
-export const POSITION_SEARCH_RESULTS = PropTypes.arrayOf(
-  POSITION_DETAILS,
-);
+export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+  count: PropTypes.number,
+  next: PropTypes.string,
+  previous: PropTypes.string,
+  results: PropTypes.arrayOf(POSITION_DETAILS),
+});
 
 export const FILTERS = PropTypes.arrayOf(
   PropTypes.shape({
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     code: PropTypes.string.isRequired,
     description: PropTypes.string,
     long_description: PropTypes.string,
@@ -69,5 +72,38 @@ export const ITEMS = PropTypes.arrayOf(
     data: FILTERS,
   }),
 );
+
+export const SORT_BY_ARRAY = PropTypes.arrayOf(
+  PropTypes.shape({
+    value: PropTypes.node,
+    text: PropTypes.node,
+    disabled: PropTypes.boolean,
+  }),
+);
+
+export const SORT_BY_PARENT_OBJECT = PropTypes.shape({
+  options: SORT_BY_ARRAY,
+});
+
+export const COMPARE_LIST = PropTypes.arrayOf(POSITION_DETAILS);
+
+export const USER_PROFILE = PropTypes.shape({
+  id: PropTypes.number,
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+  }),
+  language_qualifications: PropTypes.arrayOf(
+    PropTypes.number,
+  ),
+  favorite_positions: PropTypes.arrayOf(
+    PropTypes.number,
+  ),
+  received_shares: PropTypes.arrayOf(
+    PropTypes.number,
+  ),
+});
 
 export const EMPTY_FUNCTION = () => {};

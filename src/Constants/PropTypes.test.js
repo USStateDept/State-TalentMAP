@@ -1,6 +1,6 @@
 import * as PropTypes from './PropTypes';
 
-describe('AlertMessages', () => {
+describe('SystemMessages', () => {
   it('Should return LANGUAGES', () => {
     expect(PropTypes.LANGUAGES).toBeDefined();
   });
@@ -19,5 +19,9 @@ describe('AlertMessages', () => {
 
   it('Should return FILTERS', () => {
     expect(PropTypes.FILTERS).toBeDefined();
+  });
+
+  it('Should return USER_PROFILE', () => {
+    expect(PropTypes.USER_PROFILE).toBeDefined();
   });
 });

@@ -1,0 +1,30 @@
+.react-paginate {
+
+  margin: 15px 0 0;
+
+  ul {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  li {
+    display: inline-block;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  .active {
+    background: $blue-primary;
+    border-radius: 50px;
+    padding: 6px 15px;
+
+    a {
+      color: $color-white;
+    }
+  }
+}

@@ -9,7 +9,7 @@ export const ajax = url => (
 );
 
 export function localStorageFetchValue(key, value) {
-  const saved = { exists: true, len: 0 };
+  const saved = { exists: true, count: 0 };
   const retrievedKey = localStorage.getItem(key);
   let parsedKey = JSON.parse(retrievedKey);
   const arrayExists = Array.isArray(parsedKey);
@@ -17,7 +17,7 @@ export function localStorageFetchValue(key, value) {
     localStorage.setItem(key, JSON.stringify([]));
     parsedKey = JSON.parse(localStorage.getItem(key));
   }
-  saved.len = parsedKey.length;
+  saved.count = parsedKey.length;
   const refIsSaved = parsedKey.indexOf(value);
   if (refIsSaved !== -1) {
     saved.exists = true;
@@ -43,6 +43,12 @@ export function localStorageToggleValue(key, value) {
 
 export function validStateEmail(email) {
   return /.+@state.gov$/.test(email.trim());
+}
+
+export function fetchUserToken() {
+  const key = JSON.parse(localStorage.getItem('token'));
+  const token = `Token ${key}`;
+  return token;
 }
 
 export default ajax;

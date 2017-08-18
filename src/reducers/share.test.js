@@ -1,9 +1,6 @@
 import * as reducers from './share';
 
 describe('reducers', () => {
-  beforeEach(() => {
-  });
-
   it('can set reducer SHARE_HAS_ERRORED', () => {
     expect(reducers.shareHasErrored(false, { type: 'SHARE_HAS_ERRORED', hasErrored: true })).toBe(true);
   });

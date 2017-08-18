@@ -12,12 +12,16 @@ const mockStore = configureStore(middlewares);
 describe('Main', () => {
   const api = 'http://localhost:8000/api/v1';
 
-  beforeEach(() => {
-  });
-
   it('is defined', () => {
     const post = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Post api={api} />
+      <Post isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
+    </MemoryRouter></Provider>);
+    expect(post).toBeDefined();
+  });
+
+  it('can handle authentication redirects', () => {
+    const post = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+      <Post isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(post).toBeDefined();
   });

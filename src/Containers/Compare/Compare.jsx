@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import CompareList from '../../Components/CompareList/CompareList';
-import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { COMPARE_LIST } from '../../Constants/PropTypes';
+import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Results extends Component {
   constructor(props) {
@@ -15,7 +17,11 @@ class Results extends Component {
   }
 
   componentWillMount() {
-    this.getComparisons(this.props.match.params.ids);
+    if (!this.props.isAuthorized()) {
+      this.props.onNavigateTo(PUBLIC_ROOT);
+    } else {
+      this.getComparisons(this.props.match.params.ids);
+    }
   }
 
   getComparisons(ids) {
@@ -36,6 +42,7 @@ class Results extends Component {
 
 Results.propTypes = {
   api: PropTypes.string.isRequired,
+  onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       ids: PropTypes.string,
@@ -44,7 +51,8 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  comparisons: POSITION_SEARCH_RESULTS,
+  comparisons: COMPARE_LIST,
+  isAuthorized: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -65,6 +73,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(comparisonsFetchData(url)),
+  onNavigateTo: dest => dispatch(push(dest)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

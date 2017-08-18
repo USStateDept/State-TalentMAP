@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Position extends Component {
 
   componentWillMount() {
-    this.getDetails(this.props.match.params.id);
+    if (!this.props.isAuthorized()) {
+      this.props.onNavigateTo(PUBLIC_ROOT);
+    } else {
+      this.getDetails(this.props.match.params.id);
+    }
   }
 
   getDetails(id) {
@@ -27,6 +33,7 @@ class Position extends Component {
           details={positionDetails[0]}
           isLoading={isLoading}
           hasErrored={hasErrored}
+          goBack={this.context.router.history.goBack}
         />
       </div>
     );
@@ -39,6 +46,7 @@ Position.contextTypes = {
 
 Position.propTypes = {
   api: PropTypes.string.isRequired,
+  onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -48,6 +56,7 @@ Position.propTypes = {
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
+  isAuthorized: PropTypes.func.isRequired,
 };
 
 Position.defaultProps = {
@@ -66,6 +75,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(positionDetailsFetchData(url)),
+  onNavigateTo: dest => dispatch(push(dest)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Position));

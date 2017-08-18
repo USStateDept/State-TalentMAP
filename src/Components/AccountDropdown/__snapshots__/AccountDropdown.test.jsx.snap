@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountDropdown matches snapshot 1`] = `
+<Dropdown
+  className="account-dropdown"
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <img
+      alt="avatar"
+      className="account-dropdown--avatar"
+      src="/assets/img/avatar.png"
+    />
+    <span
+      className="account-dropdown--name"
+      id="account-username"
+    >
+      ...
+    </span>
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+    >
+      Signed in as 
+      <strong>
+        ...
+      </strong>
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        Profile
+      </Link>
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+    >
+      <Link
+        onClick={[Function]}
+        replace={false}
+        to="login"
+      >
+        Logout
+      </Link>
+    </div>
+  </DropdownContent>
+</Dropdown>
+`;

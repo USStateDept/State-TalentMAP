@@ -19,7 +19,7 @@ describe('ResetFilters Connected Component', () => {
     expect(resetFilters).toBeDefined();
   });
 
-  it('it can call the onChildToggle function', () => {
+  it('can call the onChildToggle function', () => {
     const wrapper = shallow(
       <ResetFiltersConnect.WrappedComponent onNavigateTo={() => {}} />,
     );
