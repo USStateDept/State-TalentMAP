@@ -1,3 +1,8 @@
+const React = require('react');
+const { renderToString } = require('react-dom/server');
+const { match, RouterContext } = require('react-router');
+const { StaticRouter as Router } = require('react-router-dom');
+
 const express = require('express');
 const path = require('path');
 
@@ -9,8 +14,15 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, '../build')));
 
-app.get('*', (request, response) => {
-  response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
+app.get('*', (request, response) => { 
+    let markup = '';
+
+      // eslint-disable-next-line react/jsx-filename-extension
+      markup = renderToString(<RouterContext {...renderProps} />);
+
+    response.render('index', markup);
+
+  //response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
 
 app.listen(port);
