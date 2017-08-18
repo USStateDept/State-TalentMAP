@@ -27,6 +27,13 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
             "spoken_proficiency": "2",
             "written_proficiency": "2",
           },
+          Object {
+            "id": 1,
+            "language": "German (GM)",
+            "representation": "German (GM) 2/2",
+            "spoken_proficiency": "2",
+            "written_proficiency": "2",
+          },
         ],
         "organization": "YAOUNDE CAMEROON (YAOUNDE)",
         "position_number": "00025003",
