@@ -1,10 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import { mount, shallow } from 'enzyme';
-import toJSON from 'enzyme-to-json';
 
 import Main from './Main';
 
@@ -57,12 +53,11 @@ describe('Main', () => {
       <Main api={api} />
     </MemoryRouter>);
     expect(main).toBeDefined();
-    expect(toJSON(main)).toMatchSnapshot();
   });
   it('handles a post details route', () => {
-    const main = mount(<MemoryRouter initialEntries={['/post/00011111']}>
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/post/00011111']}>
       <Main api={api} />
     </MemoryRouter>);
-    expect(toJSON(main)).toMatchSnapshot();
+    expect(main).toBeDefined();
   });
 });
