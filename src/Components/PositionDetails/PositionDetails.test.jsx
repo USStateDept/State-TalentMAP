@@ -7,12 +7,9 @@ import goBackLink from '../../__mocks__/goBackLink';
 describe('PositionDetailsComponent', () => {
   let wrapper = null;
 
-  const api = 'localhost:8000/api/v1/';
-
   it('can receive props', () => {
     wrapper = shallow(
       <PositionDetails
-        api={api}
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
@@ -27,7 +24,6 @@ describe('PositionDetailsComponent', () => {
 
     wrapper = shallow(
       <PositionDetails
-        api={api}
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
@@ -42,7 +38,6 @@ describe('PositionDetailsComponent', () => {
 
     wrapper = shallow(
       <PositionDetails
-        api={api}
         details={detailsObject}
         isLoading
         hasErrored={false}

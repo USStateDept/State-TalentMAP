@@ -20,9 +20,7 @@ class Position extends Component {
   }
 
   getDetails(id) {
-    const query = id;
-    const api = this.props.api;
-    this.props.fetchData(`${api}/position/?position_number=${query}`);
+    this.props.fetchData(id);
   }
 
   render() {
@@ -30,7 +28,6 @@ class Position extends Component {
     return (
       <div>
         <PositionDetails
-          api={this.props.api}
           details={positionDetails[0]}
           isLoading={isLoading}
           hasErrored={hasErrored}
@@ -46,7 +43,6 @@ Position.contextTypes = {
 };
 
 Position.propTypes = {
-  api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({

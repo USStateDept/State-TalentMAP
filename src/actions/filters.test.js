@@ -49,8 +49,6 @@ const items = [
   },
 ];
 
-const api = 'http://localhost:8000/api/v1';
-
 describe('async actions', () => {
   beforeEach(() => {
     const mockAdapter = new MockAdapter(axios);
@@ -75,7 +73,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.filtersFetchData(api, items));
+        store.dispatch(actions.filtersFetchData(items));
         store.dispatch(actions.filtersIsLoading());
         done();
       }, 0);
@@ -90,7 +88,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.filtersFetchData(api, invalidItems));
+        store.dispatch(actions.filtersFetchData(invalidItems));
         store.dispatch(actions.filtersIsLoading());
         done();
       }, 0);

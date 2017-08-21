@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { fetchUserToken } from '../utilities';
+import api from '../api';
 
 export function shareHasErrored(bool) {
   return {
@@ -20,12 +21,12 @@ export function shareSuccess(share) {
   };
 }
 
-export function shareSendData(url, data) {
+export function shareSendData(data) {
   return (dispatch) => {
     dispatch(shareIsSending(true));
     dispatch(shareSuccess(false));
     dispatch(shareHasErrored(false));
-    axios.post(url, data, { headers: { Authorization: fetchUserToken() } })
+    axios.post(`${api}/share/`, data, { headers: { Authorization: fetchUserToken() } })
             .then((response) => {
               dispatch(shareIsSending(false));
               dispatch(shareHasErrored(false));
