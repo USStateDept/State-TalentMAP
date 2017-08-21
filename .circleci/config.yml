@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.11.0
+        environment:
+          PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+          CC_TEST_REPORTER_ID: c05c8cb360b66d7b92767ad0ffdeef2c8519f390d700b8bc2d2b7ee6c2760791
+    steps:
+      - checkout
+      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
+      - run: yarn build
+  
+  test:
+    docker:
+      - image: circleci/node:6.11.0
+    steps:
+      - checkout
+      - run:
+        command: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+      - run: mkdir -p ~/jest
+      - run: ./cc-test-reporter before-build
+      - run: yarn test --coverageDirectory ~/jest
+      - run: ./cc-test-reporter after-build --exit-code $?
+      - store_test_results:
+        path: ~/jest
+      - store_artifacts:
+        path: ~/jest 
