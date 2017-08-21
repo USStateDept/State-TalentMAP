@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBarComponent big matches snapshot 1`] = `
+<div
+  className="usa-search usa-search-big"
+>
+  <div
+    role="search"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="usa-sr-only"
+        htmlFor="search-2"
+      >
+        Label
+      </label>
+      <input
+        id="search-2"
+        name="search"
+        onChange={[Function]}
+        type="search"
+        value=""
+      />
+      <div
+        id="enabled-search"
+      >
+        <button
+          className={null}
+          disabled={false}
+          type="submit"
+        >
+          <span
+            className="usa-search-submit-text"
+          >
+            Submit 2
+          </span>
+        </button>
+      </div>
+      <div
+        className="hidden"
+        id="disabled-search"
+      >
+        <button
+          className="usa-button-disabled"
+          disabled="true"
+          type="submit"
+        >
+          <span
+            className="usa-search-submit-text usa-button-disabled"
+          >
+            Submit 2
+          </span>
+        </button>
+        <span
+          className="alert-text"
+        >
+          Search is disabled
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`SearchBarComponent medium matches snapshot 1`] = `
+<div
+  className="usa-search usa-search-medium"
+>
+  <div
+    role="search"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="usa-sr-only"
+        htmlFor="search-2"
+      >
+        Label
+      </label>
+      <input
+        id="search-2"
+        name="search"
+        onChange={[Function]}
+        type="search"
+        value=""
+      />
+      <div
+        id="enabled-search"
+      >
+        <button
+          className={null}
+          disabled={false}
+          type="submit"
+        >
+          <span
+            className="usa-search-submit-text"
+          >
+            Submit 2
+          </span>
+        </button>
+      </div>
+      <div
+        className="hidden"
+        id="disabled-search"
+      >
+        <button
+          className="usa-button-disabled"
+          disabled="true"
+          type="submit"
+        >
+          <span
+            className="usa-search-submit-text usa-button-disabled"
+          >
+            Submit 2
+          </span>
+        </button>
+        <span
+          className="alert-text"
+        >
+          Search is disabled
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`SearchBarComponent small matches snapshot 1`] = `
+<div
+  className="usa-search usa-search-small"
+>
+  <div
+    role="search"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <label
+        className="usa-sr-only"
+        htmlFor="search-2"
+      >
+        Label
+      </label>
+      <input
+        id="search-2"
+        name="search"
+        onChange={[Function]}
+        type="search"
+        value=""
+      />
+      <div
+        id="enabled-search"
+      >
+        <button
+          className={null}
+          disabled={false}
+          type="submit"
+        >
+          <span
+            className="usa-search-submit-text"
+          />
+        </button>
+      </div>
+      <div
+        className="hidden"
+        id="disabled-search"
+      >
+        <button
+          className="usa-button-disabled"
+          disabled="true"
+          type="submit"
+        >
+          <span
+            className="usa-search-submit-text usa-button-disabled"
+          />
+        </button>
+        <span
+          className="alert-text"
+        >
+          Search is disabled
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
+`;
