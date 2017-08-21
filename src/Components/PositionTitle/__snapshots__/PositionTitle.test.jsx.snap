@@ -24,18 +24,18 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
       <div
         className="position-details-header-back"
       >
-        <a
-          className="back-link"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="link"
-          tabIndex="0"
-        >
+        <div>
           <FontAwesome
             name="arrow-left"
           />
-            Go back
-        </a>
+           
+          <Link
+            replace={false}
+            to="/"
+          >
+            text
+          </Link>
+        </div>
       </div>
       <div
         className="position-details-header-title"

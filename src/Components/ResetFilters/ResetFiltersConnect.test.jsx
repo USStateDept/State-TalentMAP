@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import sinon from 'sinon';
 import ResetFiltersConnect from './ResetFiltersConnect';
 
 const middlewares = [thunk];
@@ -23,5 +24,14 @@ describe('ResetFilters Connected Component', () => {
       <ResetFiltersConnect.WrappedComponent onNavigateTo={() => {}} />,
     );
     wrapper.instance().onChildToggle();
+  });
+
+  it('can call the onNavigateTo function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <ResetFiltersConnect.WrappedComponent onNavigateTo={spy} />,
+    );
+    wrapper.instance().onChildToggle('/');
+    expect(spy.calledOnce).toBe(true);
   });
 });
