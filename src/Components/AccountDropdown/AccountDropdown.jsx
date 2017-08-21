@@ -47,8 +47,7 @@ AccountDropdown.propTypes = {
 
 AccountDropdown.defaultProps = {
   logoutRequest: EMPTY_FUNCTION,
-  userProfile: {
-  },
+  userProfile: {},
 };
 
 const mapStateToProps = state => ({

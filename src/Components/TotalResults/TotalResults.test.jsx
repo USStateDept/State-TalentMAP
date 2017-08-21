@@ -26,7 +26,7 @@ describe('TotalResults', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays pager numbers and total results correctly when on the first page of the results', () => {
+  it('displays page numbers and total results correctly when on the first page of the results', () => {
     wrapper = shallow(
       <TotalResults total={total} pageNumber={pageNumber} pageSize={pageSize} />,
     );
@@ -34,7 +34,7 @@ describe('TotalResults', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays pager numbers and total results correctly when on the second page of the results', () => {
+  it('displays page numbers and total results correctly when on the second page of the results', () => {
     wrapper = shallow(
       <TotalResults total={total} pageNumber={pageNumber + 1} pageSize={pageSize} />,
     );
@@ -42,7 +42,7 @@ describe('TotalResults', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays pager numbers and total results correctly when on the third page of the results', () => {
+  it('displays page numbers and total results correctly when on the third page of the results', () => {
     wrapper = shallow(
       <TotalResults total={total} pageNumber={pageNumber + 2} pageSize={pageSize} />,
     );
@@ -50,7 +50,7 @@ describe('TotalResults', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays pager numbers and total results correctly when reaching the second to last page of the results', () => {
+  it('displays page numbers and total results correctly when reaching the second to last page of the results', () => {
     wrapper = shallow(
       <TotalResults total={total} pageNumber={pageNumber + 3} pageSize={pageSize} />,
     );
@@ -58,7 +58,7 @@ describe('TotalResults', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays pager numbers and total results correctly when reaching the last page of the results', () => {
+  it('displays page numbers and total results correctly when reaching the last page of the results', () => {
     wrapper = shallow(
       <TotalResults total={total} pageNumber={pageNumber + 4} pageSize={pageSize} />,
     );
