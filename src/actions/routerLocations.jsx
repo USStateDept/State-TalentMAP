@@ -1,6 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
 // map paths to readable link text
 export function mapRoutesToNames(route) {
   const preText = 'Go back';
@@ -40,8 +37,8 @@ export function getLastRouteLink(routerLocations) {
   const text = getLastRouteName(routerLocations);
   const lastLocation = getLastRoute(routerLocations);
   if (!text || !lastLocation) {
-    return false;
+    return {};
   }
   const navigateTo = `${lastLocation.pathname}${lastLocation.search}`;
-  return (<Link to={navigateTo}>{text}</Link>);
+  return { text, link: navigateTo };
 }

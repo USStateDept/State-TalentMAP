@@ -23,20 +23,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
     >
       <div
         className="position-details-header-back"
-      >
-        <div>
-          <FontAwesome
-            name="arrow-left"
-          />
-           
-          <Link
-            replace={false}
-            to="/"
-          >
-            text
-          </Link>
-        </div>
-      </div>
+      />
       <div
         className="position-details-header-title"
       >
