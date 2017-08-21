@@ -14,7 +14,7 @@ exports[`SearchBarComponent matches snapshot 1`] = `
         className="usa-sr-only"
         htmlFor="search-2"
       >
-        Search
+        Label
       </label>
       <input
         id="search-2"
@@ -33,9 +33,7 @@ exports[`SearchBarComponent matches snapshot 1`] = `
         >
           <span
             className="usa-search-submit-text"
-          >
-            Submit 2
-          </span>
+          />
         </button>
       </div>
       <div
@@ -49,9 +47,7 @@ exports[`SearchBarComponent matches snapshot 1`] = `
         >
           <span
             className="usa-search-submit-text usa-button-disabled"
-          >
-            Submit 2
-          </span>
+          />
         </button>
         <span
           className="alert-text"

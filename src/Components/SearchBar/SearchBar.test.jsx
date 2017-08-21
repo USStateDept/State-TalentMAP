@@ -25,6 +25,7 @@ describe('SearchBarComponent', () => {
     wrapper = shallow(
       <SearchBar
         id="search-2"
+        label="Label"
         type="small"
         submitDisabled={false}
         submitText="Submit 2"
@@ -56,6 +57,7 @@ describe('SearchBarComponent', () => {
     wrapper = shallow(
       <SearchBar
         id="search-2"
+        label="Label"
         type="small"
         submitDisabled={false}
         submitText="Submit 2"
