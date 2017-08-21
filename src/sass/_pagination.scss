@@ -2,6 +2,10 @@
 
   margin: 15px 0 0;
 
+  .disabled {
+    display: none;
+  }
+
   ul {
     display: inline-block;
     padding-left: 15px;
