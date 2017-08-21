@@ -1,29 +1,169 @@
-version: 2
+version: 2.0
+default-docker-node: &default-docker-node
+  docker:
+    - image: circleci/node:6.11.1
+      environment:
+        CC_TEST_REPORTER_ID: ebe9a3d9a50e47e21b1b7c43a13c7e186b1659d393f8a9c8846574437fb1a74f
+        COMPOSE_FILE_NAME: circleci-docker-compose.yml
+        API_REPO_NAME: tobedeleted-api
+        API_REPO_BRANCH: circle-v2
 jobs:
   build:
-    docker:
-      - image: circleci/node:6.11.0
-        environment:
-          PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
-          CC_TEST_REPORTER_ID: c05c8cb360b66d7b92767ad0ffdeef2c8519f390d700b8bc2d2b7ee6c2760791
+    <<: *default-docker-node
     steps:
       - checkout
-      - run: yarn build
-  
-  test:
-    docker:
-      - image: circleci/node:6.11.0
+      - restore_cache:
+          key: dependency-cache-{{ checksum “package.json” }}
+      - run: yarn
+      - save_cache:
+          key: dependency-cache-{{ checksum “package.json” }}
+          paths:
+            - ./node_modules
+            - ~/.cache/yarn
+  docker-build:
+    <<: *default-docker-node
     steps:
+      - setup_remote_docker
       - checkout
       - run:
-        command: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-      - run: mkdir -p ~/jest
+          name: Docker Build
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            docker build -t talentmap/$CIRCLE_PROJECT_REPONAME:$TAG .
+            docker push talentmap/$CIRCLE_PROJECT_REPONAME:$TAG
+  yarn:
+    <<: *default-docker-node
+    steps:
+      - checkout
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
-      - run: yarn test --coverageDirectory ~/jest
-      - run: ./cc-test-reporter after-build --exit-code $?
-      - store_test_results:
-        path: ~/jest
+      - restore_cache:
+          key: dependency-cache-{{ checksum “package.json” }}
+      - run: yarn
+      - run:
+          name: Jest Test Coverage
+          command: yarn test
+      - run: ./cc-test-reporter after-build --exit-code $? < coverage/lcov.info
       - store_artifacts:
-        path: ~/jest 
+          path: coverage/lcov.info
+          destination: coverage/lcov.info
+  pa11y:
+    <<: *default-docker-node
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Replace placeholders in Compose file
+          command: |
+            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            sed -i “s#@@LABEL@@#${TAG}#g” $COMPOSE_FILE_NAME
+            sed -i “s#@@REPO_NAME@@#${CIRCLE_PROJECT_REPONAME}#g” $COMPOSE_FILE_NAME
+            sed -i “s#@@API_REPO_NAME@@#${API_REPO_NAME}#g” $COMPOSE_FILE_NAME
+            sed -i “s#@@API_REPO_BRANCH@@#${API_REPO_BRANCH}#g” $COMPOSE_FILE_NAME
+      - run:
+          name: Initialize Dummy Data Container
+          command: |
+            docker-compose -f $COMPOSE_FILE_NAME create data
+            docker cp . data:/app
+      - run:
+          name: Migrate DB
+          command: |
+            docker-compose -f $COMPOSE_FILE_NAME \
+              run app bash -c \
+              “./wait-for-postgres.sh db && python manage.py migrate”
+      - run:
+          name: Run Yarn
+          command: |
+            docker-compose -f $COMPOSE_FILE_NAME \
+              run web yarn
+      - run:
+          name: Start Server
+          command: docker-compose -f $COMPOSE_FILE_NAME up -d
+      - run:
+          name: Run Pa11y
+          command: |
+            docker run --name pa11y --network container:web \
+              --volumes-from data -t talentmap/pa11y-ci \
+              pa11y-ci -c /app/.pa11yci
+  zap:
+    <<: *default-docker-node
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Replace placeholders in Compose file
+          command: |
+            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            sed -i “s#@@LABEL@@#${TAG}#g” $COMPOSE_FILE_NAME
+            sed -i “s#@@REPO_NAME@@#${CIRCLE_PROJECT_REPONAME}#g” $COMPOSE_FILE_NAME
+            sed -i “s#@@API_REPO_NAME@@#${API_REPO_NAME}#g” $COMPOSE_FILE_NAME
+            sed -i “s#@@API_REPO_BRANCH@@#${API_REPO_BRANCH}#g” $COMPOSE_FILE_NAME
+      - run:
+          name: Initialize Dummy Data Container
+          command: |
+            docker-compose -f $COMPOSE_FILE_NAME create data
+            docker cp . data:/app
+      - run:
+          name: Migrate DB
+          command: |
+            docker-compose -f $COMPOSE_FILE_NAME \
+              run app bash -c \
+              “./wait-for-postgres.sh db && python manage.py migrate”
+      - run:
+          name: Run Yarn
+          command: |
+            docker-compose -f $COMPOSE_FILE_NAME \
+              run web yarn
+      - run:
+          name: Start Server
+          command: docker-compose -f $COMPOSE_FILE_NAME up -d
+      - run:
+          name: Run ZAP
+          command: |
+            docker run --name zap --network container:web \
+              -v /zap/wrk/ \
+              -t owasp/zap2docker-weekly \
+              zap-baseline.py -d \
+                -t http://web:3000/ \
+                -w “zap_results.md” \
+                -z “-Xmx4g”
+  push-stable:
+    <<: *default-docker-node
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Push Stable Docker Image
+          command: |
+            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker pull talentmap/$CIRCLE_PROJECT_REPONAME:$TAG
+            docker tag talentmap/$CIRCLE_PROJECT_REPONAME:$TAG talentmap/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH
+            docker push talentmap/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - docker-build:
+          requires:
+            - build
+      - yarn:
+          requires:
+            - build
+      - pa11y:
+          requires:
+            - docker-build
+      - zap:
+          requires:
+            - docker-build
+          filters:
+            tags:
+              only: /^zap.*/
+            branches:
+              ignore: /.*/
+      - push-stable:
+          requires:
+            - yarn
+            - pa11y
