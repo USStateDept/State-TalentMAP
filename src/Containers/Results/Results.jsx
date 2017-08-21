@@ -84,7 +84,7 @@ class Results extends Component {
           defaultSort={this.state.defaultSort.value}
           pageSizes={POSITION_PAGE_SIZES}
           defaultPageSize={this.state.defaultPageSize.value}
-          defaultPageNumber={this.state.defaultPageNumber.value - 1}
+          defaultPageNumber={this.state.defaultPageNumber.value}
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
         />
       </div>
