@@ -32,8 +32,13 @@ export class Header extends Component {
     } = this.props;
 
     let showLogin = (<Link to="login">Login</Link>);
+    let signedInAs = null;
     if (this.props.client.token && !requesting) {
+      const { userProfile } = this.props;
       showLogin = (<AccountDropdown userProfile={this.props.userProfile} />);
+      if (userProfile.user && userProfile.user.username) {
+        signedInAs = `Signed in as ${userProfile.user.username}`;
+      }
     }
 
     return (
@@ -65,6 +70,12 @@ export class Header extends Component {
                 </div>
               </form>
               <ul className="usa-unstyled-list usa-nav-secondary-links">
+                <span className="usa-unstyled-list mobile-nav-only">
+                  <li>
+                    {signedInAs}
+                  </li>
+                  <hr />
+                </span>
                 <li className="js-search-button-container">
                   <button className="usa-header-search-button js-search-button">Search</button>
                 </li>
@@ -77,9 +88,20 @@ export class Header extends Component {
                 <li>
                   <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
                 </li>
-                <li>
-                  {showLogin}
-                </li>
+                <span className="usa-unstyled-list mobile-nav-only">
+                  <hr />
+                  <li>
+                    <Link to="/">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="login" onClick={() => this.logout()}>Logout</Link>
+                  </li>
+                </span>
+                <span className="desktop-nav-only">
+                  <li>
+                    {showLogin}
+                  </li>
+                </span>
               </ul>
             </div>
           </div>

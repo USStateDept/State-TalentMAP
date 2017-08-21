@@ -1,0 +1,11 @@
+.mobile-nav-only {
+  @media screen and (min-width: 951px) {
+    display: none;
+  }
+}
+
+.desktop-nav-only {
+  @media screen and (max-width: 950px) {
+    display: none;
+  }
+}
