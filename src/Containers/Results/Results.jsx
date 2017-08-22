@@ -26,17 +26,17 @@ class Results extends Component {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
-      // set our default ordering
-      defaultSort.value =
-        (queryString.parse(query.value)).ordering || POSITION_SEARCH_SORTS.defaultSort;
-      // set our default page size
-      defaultPageSize.value =
-        parseInt((queryString.parse(query.value)).limit, 10) || POSITION_PAGE_SIZES.defaultSort;
-      // set our default page number
-      defaultPageNumber.value =
-        parseInt((queryString.parse(query.value)).page, 10) || defaultPageNumber.value;
       // set our current query
       const parsedQuery = queryString.parse(query.value);
+      // set our default ordering
+      defaultSort.value =
+        parsedQuery.ordering || POSITION_SEARCH_SORTS.defaultSort;
+      // set our default page size
+      defaultPageSize.value =
+        parseInt(parsedQuery.limit, 10) || POSITION_PAGE_SIZES.defaultSort;
+      // set our default page number
+      defaultPageNumber.value =
+        parseInt(parsedQuery.page, 10) || defaultPageNumber.value;
       // add our defaultSort and defaultPageSize to the query,
       // but don't add them to history on initial render if
       // they weren't included in the initial query params
@@ -83,7 +83,7 @@ class Results extends Component {
           defaultSort={this.state.defaultSort.value}
           pageSizes={POSITION_PAGE_SIZES}
           defaultPageSize={this.state.defaultPageSize.value}
-          defaultPageNumber={this.state.defaultPageNumber.value - 1}
+          defaultPageNumber={this.state.defaultPageNumber.value}
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
         />
       </div>

@@ -170,14 +170,6 @@ describe('FiltersComponent', () => {
     f();
   });
 
-  it('can change text', (done) => {
-    wrapper = shallow(<Filters store={store} items={items} />, { context });
-    wrapper.find('#search-field').simulate('change', { target: { value: 'info Tech' } });
-    expect(wrapper.find('#search-field').props().value).toBe('info Tech');
-    wrapper.unmount();
-    done();
-  });
-
   it('can create a query string', (done) => {
     wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
@@ -250,12 +242,12 @@ describe('FiltersComponent', () => {
         // no filters are initially set, so should return true
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
         // enable search filter
-        wrapper.find('#search-field').simulate('change', { target: { value: 'test' } });
+        wrapper.instance().changeText({ target: { value: 'test' } });
         // select a checkbox filter
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
         expect(wrapper.instance().shouldDisableSearch()).toBe(false);
         // remove the original search filter
-        wrapper.find('#search-field').simulate('change', { target: { value: '' } });
+        wrapper.instance().changeText({ target: { value: '' } });
         // one filter is selected, should return false
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
         done();
@@ -303,8 +295,8 @@ describe('FiltersComponent', () => {
     wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
-        wrapper.find('#search-field').simulate('change', { target: { value: 'test' } });
-        wrapper.find('form').simulate('submit', { preventDefault: () => {} });
+        wrapper.instance().changeText({ target: { value: 'test' } });
+        wrapper.instance().submitSearch({ preventDefault: () => {} });
         done();
       }, 0);
     };
