@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
+import FontAwesome from 'react-fontawesome';
 
 // wrapper for react-paginate module
 // reference https://github.com/AdeleD/react-paginate for prop types
@@ -51,8 +52,8 @@ PaginationWrapper.propTypes = {
 };
 
 PaginationWrapper.defaultProps = {
-  previousLabel: 'previous',
-  nextLabel: 'next',
+  previousLabel: (<span><FontAwesome name="angle-left" /> &nbsp; previous</span>),
+  nextLabel: (<span>next &nbsp; <FontAwesome name="angle-right" /></span>),
   marginPagesDisplayed: 2,
   pageRangeDisplayed: 1,
   containerClassName: 'pagination',
