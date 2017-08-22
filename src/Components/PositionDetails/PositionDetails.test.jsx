@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import PositionDetails from './PositionDetails';
 import detailsObject from '../../__mocks__/detailsObject';
+import goBackLink from '../../__mocks__/goBackLink';
 
 describe('PositionDetailsComponent', () => {
   let wrapper = null;
@@ -15,7 +16,7 @@ describe('PositionDetailsComponent', () => {
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -30,7 +31,7 @@ describe('PositionDetailsComponent', () => {
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -45,7 +46,7 @@ describe('PositionDetailsComponent', () => {
         details={detailsObject}
         isLoading
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
