@@ -6,7 +6,7 @@ default-docker-node: &default-docker-node
         CC_TEST_REPORTER_ID: ebe9a3d9a50e47e21b1b7c43a13c7e186b1659d393f8a9c8846574437fb1a74f
         COMPOSE_FILE_NAME: circleci-docker-compose.yml
         API_REPO_NAME: state-talentmap-api
-        API_REPO_BRANCH: dev
+        API_REPO_BRANCH: circleci-2
 jobs:
   build:
     <<: *default-docker-node
