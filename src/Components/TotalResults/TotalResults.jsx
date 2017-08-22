@@ -6,8 +6,8 @@ const TotalResults = ({ total, pageNumber, pageSize }) => {
   const through = Math.min((pageSize * (pageNumber)), total);
   return (
     <span id="total-results">
-    Viewing {beginning} - {through} of {total} results
-  </span>
+      Viewing {beginning} - {through} of {total} results
+    </span>
   );
 };
 
