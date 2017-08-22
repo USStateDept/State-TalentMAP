@@ -138,10 +138,11 @@ jobs:
           name: Push Stable Docker Image
           command: |
             TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker pull talentmap/$CIRCLE_PROJECT_REPONAME:$TAG
-            docker tag talentmap/$CIRCLE_PROJECT_REPONAME:$TAG talentmap/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH
-            docker push talentmap/$CIRCLE_PROJECT_REPONAME:$CIRCLE_BRANCH
+            docker pull talentmap/$DOCKER_HUB_REPO:$TAG
+            docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
+            docker push talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
 workflows:
   version: 2
   build_and_test:
