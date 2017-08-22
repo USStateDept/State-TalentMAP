@@ -60,7 +60,7 @@ jobs:
           command: |
             TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
             sed -i "s#@@LABEL@@#${TAG}#g" $COMPOSE_FILE_NAME
-            sed -i "s#@@REPO_NAME@@#${CIRCLE_PROJECT_REPONAME}#g" $COMPOSE_FILE_NAME
+            sed -i "s#@@REPO_NAME@@#${CIRCLE_PROJECT_REPONAME,,}#g" $COMPOSE_FILE_NAME
             sed -i "s#@@API_REPO_NAME@@#${API_REPO_NAME}#g" $COMPOSE_FILE_NAME
             sed -i "s#@@API_REPO_BRANCH@@#${API_REPO_BRANCH}#g" $COMPOSE_FILE_NAME
       - run:
