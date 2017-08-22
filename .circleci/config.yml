@@ -7,7 +7,6 @@ default-docker-node: &default-docker-node
         COMPOSE_FILE_NAME: circleci-docker-compose.yml
         API_REPO_NAME: state-talentmap-api
         API_REPO_BRANCH: dev
-        DOCKER_HUB_REPO: echo "${CIRCLE_PROJECT_REPONAME,,}"
 jobs:
   build:
     <<: *default-docker-node
@@ -31,6 +30,7 @@ jobs:
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            DOCKER_HUB_REPO:${CIRCLE_PROJECT_REPONAME,,}
             docker build -t talentmap/$DOCKER_HUB_REPO:$TAG .
             docker push talentmap/$DOCKER_HUB_REPO:$TAG
   yarn:
