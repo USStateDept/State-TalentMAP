@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TotalResults = ({ total, pageNumber, pageSize }) => {
-  const beginning = (pageNumber * pageSize) + 1;
-  const through = Math.min((pageSize * (pageNumber + 1)), total);
+  const beginning = ((pageNumber - 1) * pageSize) + 1;
+  const through = Math.min((pageSize * (pageNumber)), total);
   return (
     <span id="total-results">
     Viewing {beginning} - {through} of {total} results
