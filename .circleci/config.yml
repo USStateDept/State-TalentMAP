@@ -30,7 +30,7 @@ jobs:
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
-            DOCKER_HUB_REPO:${CIRCLE_PROJECT_REPONAME,,}
+            DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
             docker build -t talentmap/$DOCKER_HUB_REPO:$TAG .
             docker push talentmap/$DOCKER_HUB_REPO:$TAG
   yarn:
