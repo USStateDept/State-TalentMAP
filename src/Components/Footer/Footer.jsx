@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => (
-  <footer className="usa-footer usa-footer-medium talentmap-footer" role="contentinfo">
-    <div className="usa-footer-primary-section talentmap-footer-nav">
+  <footer className="usa-footer usa-footer-medium tm-footer" role="contentinfo">
+    <div className="usa-footer-primary-section tm-footer-nav">
       <div className="usa-grid-full">
         <nav className="usa-footer-nav">
           <ul className="usa-unstyled-list">
@@ -21,7 +21,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <div className="usa-footer-secondary_section talentmap-footer-body">
+    <div className="usa-footer-secondary_section tm-footer-body">
       <div className="usa-grid">
         <div className="usa-footer-logo usa-width-one-half">
           <img
@@ -30,16 +30,16 @@ const Footer = () => (
             alt="Logo"
           />
         </div>
-        <div className="usa-footer-contact-links usa-width-one-half talentmap-footer-body-contact">
-          <div className="talentmap-footer-body-contact-item">
+        <div className="usa-footer-contact-links usa-width-one-half tm-footer-body-contact">
+          <div className="tm-footer-body-contact-item">
             <a href="mailto:TalentMAPOutreach@Dos.gov">
               TalentMAPOutreach@Dos.gov
             </a>
           </div>
-          <div className="talentmap-footer-body-contact-item">
+          <div className="tm-footer-body-contact-item">
               Join the TalentMAP Community
             </div>
-          <div className="talentmap-footer-body-contact-item">
+          <div className="tm-footer-body-contact-item">
               Need help? Contact TalentMAP Team
           </div>
         </div>

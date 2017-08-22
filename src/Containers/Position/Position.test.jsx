@@ -14,14 +14,14 @@ describe('Main', () => {
 
   it('is defined', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Position isAuthorized={() => true} api={api} />
+      <Position isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(position).toBeDefined();
   });
 
-  it('it can handle authentication redirects', () => {
+  it('can handle authentication redirects', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Position isAuthorized={() => false} api={api} />
+      <Position isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(position).toBeDefined();
   });

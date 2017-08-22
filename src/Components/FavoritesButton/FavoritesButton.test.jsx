@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import toJSON from 'enzyme-to-json';
 import FavoritesButton from './FavoritesButton';
 
 describe('FavoritesButton', () => {
@@ -44,5 +45,15 @@ describe('FavoritesButton', () => {
     wrapper.instance().state.len = 100000; // greater than default limit
     wrapper.find('button').simulate('click');
     expect(wrapper.instance().state.saved).toBe(true);
+  });
+
+  it('can handle a disabled state', () => {
+    // force the limit to be zero so that no more favorites can be added
+    const wrapper = shallow(<FavoritesButton limit={0} refKey="0037" type="fav" />);
+    const button = wrapper.find('button');
+    expect(button.prop('disabled')).toBe(true);
+    expect(button.prop('className')).toEqual('usa-button-disabled');
+    expect(button.text()).toEqual('Add to Favorites');
+    expect(toJSON(button)).toMatchSnapshot();
   });
 });
