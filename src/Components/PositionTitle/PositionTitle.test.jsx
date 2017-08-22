@@ -59,4 +59,18 @@ describe('PositionTitleComponent', () => {
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });
+
+  it('can click on the "go back" link', () => {
+    Object.assign(detailsObject, { languages: [], is_overseas: true });
+
+    wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        isLoading
+        hasErrored={false}
+        goBackLink={goBackLink}
+      />,
+    );
+    wrapper.find('.back-link').simulate('click');
+  });
 });

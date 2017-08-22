@@ -1,6 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-const goBackLink = (<Link to="/">text</Link>);
+const goBackLink = { link: '/post/100', text: 'Go back to Post details' };
 
 export default goBackLink;
