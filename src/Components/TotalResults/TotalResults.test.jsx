@@ -7,21 +7,21 @@ describe('TotalResults', () => {
   let wrapper = null;
 
   const total = 103;
-  const pageNumber = 0;
+  const pageNumber = 1;
   const pageSize = 25;
 
   const applyViewText = (beginning, through, totalNum) => `Viewing ${beginning} - ${through} of ${totalNum} results`;
 
   it('can receive props', () => {
     wrapper = shallow(
-      <TotalResults total={total} pageNumber={0} pageSize={0} />,
+      <TotalResults total={total} pageNumber={1} pageSize={0} />,
     );
     expect(wrapper.instance().props.pageSize).toBe(0);
   });
 
   it('matches snapshot', () => {
     wrapper = shallow(
-      <TotalResults total={total} pageNumber={0} pageSize={0} />,
+      <TotalResults total={total} pageNumber={1} pageSize={0} />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
