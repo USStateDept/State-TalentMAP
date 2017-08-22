@@ -78,6 +78,14 @@ exports[`Header matches snapshot when logged in 1`] = `
         <ul
           className="usa-unstyled-list usa-nav-secondary-links"
         >
+          <span
+            className="usa-unstyled-list mobile-nav-only"
+          >
+            <li>
+              Signed in as test
+            </li>
+            <hr />
+          </span>
           <li
             className="js-search-button-container"
           >
@@ -109,11 +117,45 @@ exports[`Header matches snapshot when logged in 1`] = `
               Feedback
             </a>
           </li>
-          <li>
-            <Connect(AccountDropdown)
-              userProfile={Object {}}
-            />
-          </li>
+          <span
+            className="usa-unstyled-list mobile-nav-only"
+          >
+            <hr />
+            <li>
+              <Link
+                replace={false}
+                to="/"
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                id="login-mobile"
+                onClick={[Function]}
+                replace={false}
+                to="login"
+              >
+                Logout
+              </Link>
+            </li>
+          </span>
+          <span
+            className="desktop-nav-only"
+          >
+            <li>
+              <AccountDropdown
+                logoutRequest={[Function]}
+                userProfile={
+                  Object {
+                    "user": Object {
+                      "username": "test",
+                    },
+                  }
+                }
+              />
+            </li>
+          </span>
         </ul>
       </div>
     </div>
@@ -202,6 +244,12 @@ exports[`Header matches snapshot when logged out 1`] = `
         <ul
           className="usa-unstyled-list usa-nav-secondary-links"
         >
+          <span
+            className="usa-unstyled-list mobile-nav-only"
+          >
+            <li />
+            <hr />
+          </span>
           <li
             className="js-search-button-container"
           >
@@ -233,14 +281,42 @@ exports[`Header matches snapshot when logged out 1`] = `
               Feedback
             </a>
           </li>
-          <li>
-            <Link
-              replace={false}
-              to="login"
-            >
-              Login
-            </Link>
-          </li>
+          <span
+            className="usa-unstyled-list mobile-nav-only"
+          >
+            <hr />
+            <li>
+              <Link
+                replace={false}
+                to="/"
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                id="login-mobile"
+                onClick={[Function]}
+                replace={false}
+                to="login"
+              >
+                Logout
+              </Link>
+            </li>
+          </span>
+          <span
+            className="desktop-nav-only"
+          >
+            <li>
+              <Link
+                id="login-desktop"
+                replace={false}
+                to="login"
+              >
+                Login
+              </Link>
+            </li>
+          </span>
         </ul>
       </div>
     </div>

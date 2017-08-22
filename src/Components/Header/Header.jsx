@@ -31,7 +31,7 @@ export class Header extends Component {
       },
     } = this.props;
 
-    let showLogin = (<Link to="login">Login</Link>);
+    let showLogin = (<Link to="login" id="login-desktop">Login</Link>);
     let signedInAs = null;
     if (this.props.client.token && !requesting) {
       const { userProfile } = this.props;
@@ -94,7 +94,7 @@ export class Header extends Component {
                     <Link to="/">Profile</Link>
                   </li>
                   <li>
-                    <Link to="login" onClick={() => this.logout()}>Logout</Link>
+                    <Link to="login" id="login-mobile" onClick={() => this.logout()}>Logout</Link>
                   </li>
                 </span>
                 <span className="desktop-nav-only">
