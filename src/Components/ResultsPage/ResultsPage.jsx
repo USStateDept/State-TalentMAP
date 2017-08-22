@@ -102,11 +102,14 @@ class Results extends Component {
           }
         </div>
         <div className="usa-grid-full react-paginate">
-          <PaginationWrapper
-            pageCount={pageCount}
-            onPageChange={e => this.queryParamUpdate({ page: e.selected })}
-            forcePage={this.props.defaultPageNumber}
-          />
+          {
+            pageCount > 1 &&
+            <PaginationWrapper
+              pageCount={pageCount}
+              onPageChange={e => this.queryParamUpdate({ page: e.selected })}
+              forcePage={this.props.defaultPageNumber}
+            />
+          }
         </div>
       </div>
     );
