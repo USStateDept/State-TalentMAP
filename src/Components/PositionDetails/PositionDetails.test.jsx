@@ -2,10 +2,11 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import PositionDetails from './PositionDetails';
 import detailsObject from '../../__mocks__/detailsObject';
-import goBackLink from '../../__mocks__/goBackLink';
 
 describe('PositionDetailsComponent', () => {
   let wrapper = null;
+
+  const goBackLink = { text: 'Go back text', link: '/link' };
 
   it('can receive props', () => {
     wrapper = shallow(

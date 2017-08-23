@@ -1,12 +1,14 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import sinon from 'sinon';
 import PositionTitle from './PositionTitle';
 import detailsObject from '../../__mocks__/detailsObject';
-import goBackLink from '../../__mocks__/goBackLink';
 
 describe('PositionTitleComponent', () => {
   let wrapper = null;
+
+  const goBackLink = { text: 'Go back text', link: '/link' };
 
   it('can receive props', () => {
     wrapper = shallow(
@@ -58,5 +60,33 @@ describe('PositionTitleComponent', () => {
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
+  });
+
+  it('displays go back link text', () => {
+    wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+      />,
+    );
+    const link = wrapper.find('a.back-link');
+    expect(link.text()).toEqual(goBackLink.text);
+  });
+
+  it('handles go back link click', () => {
+    const stub = sinon.stub(window.history, 'back');
+    wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+      />,
+    );
+    const link = wrapper.find('a.back-link');
+    link.simulate('click');
+    expect(stub.called).toBe(true);
   });
 });

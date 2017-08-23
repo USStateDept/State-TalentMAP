@@ -20,7 +20,8 @@ describe('routerLocations', () => {
     expect(actions.getLastRouteName(routerLocations)).toBe('Go back to search results');
   });
 
-  it('can get the Link element for last route', () => {
-    expect(actions.getLastRouteLink(routerLocations)).toBeDefined();
+  it('can get the link object for the last route', () => {
+    expect(actions.getLastRouteLink(routerLocations).link).toBeDefined();
+    expect(actions.getLastRouteLink(routerLocations).text).toBeDefined();
   });
 });

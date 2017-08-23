@@ -113,4 +113,9 @@ export const ROUTER_LOCATIONS = PropTypes.arrayOf(PropTypes.shape({
   key: PropTypes.string,
 }));
 
+export const GO_BACK_TO_LINK = PropTypes.shape({
+  text: PropTypes.string,
+  link: PropTypes.string,
+});
+
 export const EMPTY_FUNCTION = () => {};

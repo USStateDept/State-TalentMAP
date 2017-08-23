@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TotalResults displays pager numbers and total results correctly when on the first page of the results 1`] = `
+exports[`TotalResults displays page numbers and total results correctly when on the first page of the results 1`] = `
 <span
   id="total-results"
 >
@@ -14,7 +14,7 @@ exports[`TotalResults displays pager numbers and total results correctly when on
 </span>
 `;
 
-exports[`TotalResults displays pager numbers and total results correctly when on the second page of the results 1`] = `
+exports[`TotalResults displays page numbers and total results correctly when on the second page of the results 1`] = `
 <span
   id="total-results"
 >
@@ -28,7 +28,7 @@ exports[`TotalResults displays pager numbers and total results correctly when on
 </span>
 `;
 
-exports[`TotalResults displays pager numbers and total results correctly when on the third page of the results 1`] = `
+exports[`TotalResults displays page numbers and total results correctly when on the third page of the results 1`] = `
 <span
   id="total-results"
 >
@@ -42,7 +42,7 @@ exports[`TotalResults displays pager numbers and total results correctly when on
 </span>
 `;
 
-exports[`TotalResults displays pager numbers and total results correctly when reaching the last page of the results 1`] = `
+exports[`TotalResults displays page numbers and total results correctly when reaching the last page of the results 1`] = `
 <span
   id="total-results"
 >
@@ -56,7 +56,7 @@ exports[`TotalResults displays pager numbers and total results correctly when re
 </span>
 `;
 
-exports[`TotalResults displays pager numbers and total results correctly when reaching the second to last page of the results 1`] = `
+exports[`TotalResults displays page numbers and total results correctly when reaching the second to last page of the results 1`] = `
 <span
   id="total-results"
 >
