@@ -34,6 +34,7 @@ class SearchBar extends Component {
             />
             <div id="enabled-search">
               <button
+                id="enabled-search-button"
                 className={submitDisabled ? 'usa-button-disabled' : null}
                 disabled={submitDisabled}
                 type="submit"
@@ -42,7 +43,12 @@ class SearchBar extends Component {
               </button>
             </div>
             <div id="disabled-search" className="hidden">
-              <button className="usa-button-disabled" disabled="true" type="submit">
+              <button
+                className="usa-button-disabled"
+                disabled="true"
+                type="submit"
+                id="disabled-search-button"
+              >
                 <span className="usa-search-submit-text usa-button-disabled">
                   {showSubmitText ? submitText : null}
                 </span>

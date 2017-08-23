@@ -29,6 +29,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
         <button
           className={null}
           disabled={false}
+          id="enabled-search-button"
           type="submit"
         >
           <span
@@ -45,6 +46,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
         <button
           className="usa-button-disabled"
           disabled="true"
+          id="disabled-search-button"
           type="submit"
         >
           <span
@@ -93,6 +95,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
         <button
           className={null}
           disabled={false}
+          id="enabled-search-button"
           type="submit"
         >
           <span
@@ -109,6 +112,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
         <button
           className="usa-button-disabled"
           disabled="true"
+          id="disabled-search-button"
           type="submit"
         >
           <span
@@ -157,6 +161,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
         <button
           className={null}
           disabled={false}
+          id="enabled-search-button"
           type="submit"
         >
           <span
@@ -171,6 +176,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
         <button
           className="usa-button-disabled"
           disabled="true"
+          id="disabled-search-button"
           type="submit"
         >
           <span
