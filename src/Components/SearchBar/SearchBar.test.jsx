@@ -51,7 +51,6 @@ import SearchBar from './SearchBar';
           onSubmitSearch={() => {}}
         />,
       );
-      // wrapper.instance().changeText({ target: { value: 'test' } });
       wrapper.find('input').simulate('change', { target: { value: 'test' } });
       expect(wrapper.instance().state.searchText.value).toBe('test');
     });
