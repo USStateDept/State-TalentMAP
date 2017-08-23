@@ -17,7 +17,10 @@
   // Set our borders, keeping in mind that the first and last children
   // may be disabled depending on what page the user is on.
   li {
-    border: solid 0 solid solid;
+    border-bottom: solid;
+    border-left: solid;
+    border-right: 0;
+    border-top: solid;
     border-width: $border-width;
     color: $color-gray;
     display: inline-block;
