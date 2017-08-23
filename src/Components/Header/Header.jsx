@@ -69,13 +69,11 @@ export class Header extends Component {
                   </button>
                 </div>
               </form>
-              <ul className="usa-unstyled-list usa-nav-secondary-links">
-                <span className="usa-unstyled-list mobile-nav-only">
-                  <li>
-                    {signedInAs}
-                  </li>
-                  <hr />
-                </span>
+              <ul className="usa-unstyled-list usa-nav-secondary-links mobile-nav">
+                <li className="mobile-nav-only">
+                  {signedInAs}
+                </li>
+                <hr className="mobile-nav-only" />
                 <li className="js-search-button-container">
                   <button className="usa-header-search-button js-search-button">Search</button>
                 </li>

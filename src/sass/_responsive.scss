@@ -1,6 +1,8 @@
-.mobile-nav-only {
-  @media screen and (min-width: 951px) {
-    display: none;
+.mobile-nav {
+  .mobile-nav-only {
+    @media screen and (min-width: 951px) {
+      display: none;
+    }
   }
 }
 
