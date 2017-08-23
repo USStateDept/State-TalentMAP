@@ -86,7 +86,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   <img
     alt="department of state seal"
     className="position-details-header-image"
-    src="/assets/img/dos-seal-bw.png"
+    src="/assets/img/rsz_dos-seal-bw.png"
   />
 </div>
 `;
