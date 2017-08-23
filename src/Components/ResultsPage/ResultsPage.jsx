@@ -103,7 +103,11 @@ class Results extends Component {
         </div>
         <div className="usa-grid-full react-paginate">
           {
-            pageCount > 1 &&
+            // if there's no results, don't show pagination
+            !!results.results && !!results.results.length
+            // also let page count initiate before trying to render
+            && pageCount > 0 &&
+            // finally, render the pagination
             <PaginationWrapper
               pageCount={pageCount}
               onPageChange={e => this.queryParamUpdate({ page: e.selected })}

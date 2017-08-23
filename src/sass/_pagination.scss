@@ -12,21 +12,38 @@
     padding-right: 15px;
   }
 
+  $border-width: 2px;
+
   li {
+    border-bottom: solid;
+    border-left: solid;
+    border-right: 0;
+    border-top: solid;
+    border-width: $border-width;
+    color: $color-gray;
     display: inline-block;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: .4em 1em;
+  }
+
+  li:nth-last-child(2) {
+    border-right: solid;
+    border-right-width: $border-width;
+  }
+
+  li:last-child {
+    border-left: 0;
+    border-right: solid;
+    border-right-width: $border-width;
   }
 
   a {
+    color: $color-black;
     cursor: pointer;
     text-decoration: none;
   }
 
   .active {
     background: $blue-primary;
-    border-radius: 50px;
-    padding: 6px 15px;
 
     a {
       color: $color-white;
