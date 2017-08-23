@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
 import PositionTitle from '../PositionTitle/PositionTitle';
@@ -32,7 +32,7 @@ PositionDetails.propTypes = {
   api: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  goBackLink: PropTypes.node.isRequired,
+  goBackLink: GO_BACK_TO_LINK.isRequired,
 };
 
 PositionDetails.defaultProps = {

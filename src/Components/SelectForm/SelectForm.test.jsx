@@ -30,6 +30,18 @@ describe('SelectForm', () => {
     expect(wrapper.instance().props.id).toBe(2);
   });
 
+  it('can select an option', () => {
+    wrapper = shallow(<SelectForm
+      id={2}
+      label="Some label"
+      defaultSort=""
+      options={POSITION_SEARCH_SORTS.options}
+      onSelectOption={() => {}}
+    />);
+    wrapper.find('select').simulate('change', { target: { value: 25 } });
+    expect(wrapper.instance().state.selection).toBe(25);
+  });
+
   it('can call the selectOption function', () => {
     wrapper = shallow(<SelectForm
       id={1}

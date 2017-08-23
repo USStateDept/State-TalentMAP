@@ -29,12 +29,14 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             name="arrow-left"
           />
            
-          <Link
-            replace={false}
-            to="/"
+          <a
+            className="back-link"
+            onClick={[Function]}
+            role="link"
+            tabIndex="0"
           >
-            text
-          </Link>
+            Go back text
+          </a>
         </div>
       </div>
       <div
