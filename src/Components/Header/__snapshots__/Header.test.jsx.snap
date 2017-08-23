@@ -76,16 +76,16 @@ exports[`Header matches snapshot when logged in 1`] = `
           </div>
         </form>
         <ul
-          className="usa-unstyled-list usa-nav-secondary-links"
+          className="usa-unstyled-list usa-nav-secondary-links mobile-nav"
         >
-          <span
-            className="usa-unstyled-list mobile-nav-only"
+          <li
+            className="mobile-nav-only"
           >
-            <li>
-              Signed in as test
-            </li>
-            <hr />
-          </span>
+            Signed in as test
+          </li>
+          <hr
+            className="mobile-nav-only"
+          />
           <li
             className="js-search-button-container"
           >
@@ -242,14 +242,14 @@ exports[`Header matches snapshot when logged out 1`] = `
           </div>
         </form>
         <ul
-          className="usa-unstyled-list usa-nav-secondary-links"
+          className="usa-unstyled-list usa-nav-secondary-links mobile-nav"
         >
-          <span
-            className="usa-unstyled-list mobile-nav-only"
-          >
-            <li />
-            <hr />
-          </span>
+          <li
+            className="mobile-nav-only"
+          />
+          <hr
+            className="mobile-nav-only"
+          />
           <li
             className="js-search-button-container"
           >
