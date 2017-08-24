@@ -50,10 +50,10 @@ class Results extends Component {
           </div>
         </div>
         <div className="usa-grid-full">
-          <div className="usa-width-one-fourth" style={{ marginRight: '0px' }}>
+          <div style={{ marginRight: '0px', width: '25%', float: 'left' }}>
             <div style={{ height: '600px', border: 'solid', backgroundColor: 'gray' }} />
           </div>
-          <div className="usa-width-three-fourths" style={{ paddingLeft: '30px' }}>
+          <div style={{ paddingLeft: '30px', width: '75%', float: 'left' }}>
             <div className="usa-grid-full">
               <div className="usa-width-one-third" style={{ float: 'left', marginTop: '10px' }}>
                 {
@@ -97,31 +97,40 @@ class Results extends Component {
               </div>
             </div>
             {
-              <ResultsList
-                key={this.state.key}
-                onToggle={() => this.onChildToggle()}
-                results={results}
-                isLoading={!hasLoaded}
-              />
+              // is not loading, results array exists, but is empty
+              !isLoading && results.results && !results.results.length &&
+                <div className="usa-grid-full no-results">
+                  <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
+                </div>
             }
-            <div className="usa-grid-full react-paginate">
-              <PaginationWrapper
-                pageCount={pageCount}
-                onPageChange={e => this.queryParamUpdate({ page: e.selected })}
-                forcePage={this.props.defaultPageNumber}
-              />
-            </div>
-          </div>
-          {
-            // is not loading, results array exists, but is empty
-            !isLoading && results.results && !results.results.length &&
-              <div className="usa-grid-full no-results">
-                <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
+            {
+              <div style={{ margin: '1em 0' }}>
+                <ResultsList
+                  key={this.state.key}
+                  onToggle={() => this.onChildToggle()}
+                  results={results}
+                  isLoading={!hasLoaded}
+                />
               </div>
-          }
-          {
-            <Loading isLoading={isLoading} hasErrored={hasErrored} />
-          }
+            }
+            {
+              <Loading isLoading={isLoading} hasErrored={hasErrored} />
+            }
+            {
+             // if there's no results, don't show pagination
+             !!results.results && !!results.results.length
+             // also let page count initiate before trying to render
+             && pageCount > 0 &&
+             // finally, render the pagination
+             <div className="usa-grid-full react-paginate">
+               <PaginationWrapper
+                 pageCount={pageCount}
+                 onPageChange={e => this.queryParamUpdate({ page: e.selected })}
+                 forcePage={this.props.defaultPageNumber}
+               />
+             </div>
+           }
+          </div>
         </div>
       </div>
     );

@@ -1,26 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
-// import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
+import PropTypes from 'prop-types';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import * as SystemMessages from '../../Constants/SystemMessages';
 import Favorite from '../Favorite/Favorite';
+import CompareCheck from '../CompareCheck/CompareCheck';
 
-const ResultsCard = ({ result }) => ( // onToggle
-  <div id={result.id} className="usa-grid-full results-card" style={{ backgroundColor: '#fff', margin: '1em 1em', marginBottom: '1em', padding: '1em 1.2em 1em 1.2em' }}>
+const ResultsCard = ({ result, onToggle }) => (
+  <div id={result.id} className="usa-grid-full results-card">
     <div className="usa-grid-full">
-      <div className="usa-width-one-half" style={{ float: 'left' }}>
+      <div className="usa-width-one-half results-card-title">
         Position Number: {result.position_number}
       </div>
-      <div style={{ float: 'right', fontSize: '.8em' }}>
-        <Favorite refKey={result.position_number} />
+      <div className="results-card-favorite">
+        <Favorite refKey={result.position_number} onToggle={onToggle} />
       </div>
     </div>
     <div className="usa-grid-full">
-      <div className="usa-width-five-twelfths data-section" style={{ marginTop: '1em', borderRight: 'solid', borderWidth: '1px' }}>
-        <div className="data-section-left" style={{ marginRight: '40px' }}>
-          <div className="section-title" style={{ marginBottom: '.6em', fontSize: '.8em' }}>POST INFORMATION</div>
-          <div className="section-data-points" style={{ fontSize: '.8em' }}>
+      <div className="usa-width-five-twelfths data-section">
+        <div className="data-section-left">
+          <div className="section-title">POST INFORMATION</div>
+          <div className="section-data-points">
             <strong>Organization:</strong> {result.organization}
             <br />
             <strong>Post:</strong> {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
@@ -32,10 +32,10 @@ const ResultsCard = ({ result }) => ( // onToggle
           </div>
         </div>
       </div>
-      <div className="usa-width-five-twelfths data-section" style={{ marginTop: '1em' }}>
-        <div className="data-section-right" style={{ marginLeft: '40px' }}>
-          <div className="section-title" style={{ marginBottom: '.6em', fontSize: '.8em' }}>POSITION INFORMATION</div>
-          <div className="section-data-points" style={{ fontSize: '.8em' }}>
+      <div className="usa-width-five-twelfths data-section">
+        <div className="data-section-right">
+          <div className="section-title">POSITION INFORMATION</div>
+          <div className="section-data-points">
             <strong>Grade:</strong> {result.grade}
             <br />
             <strong>Skill:</strong> {result.skill}
@@ -45,10 +45,10 @@ const ResultsCard = ({ result }) => ( // onToggle
         </div>
       </div>
     </div>
-    <div className="usa-grid-full" style={{ marginTop: '1em', float: 'left' }}>
-      <span className="button-link">
+    <div className="usa-grid-full bottom-section" >
+      <div className="button-link details-button">
         <Link
-          class="usa-button usa-button-primary"
+          className="usa-button usa-button-primary"
           style={{ fontSize: '.8em' }}
           type="submit"
           role="button"
@@ -56,21 +56,17 @@ const ResultsCard = ({ result }) => ( // onToggle
         >
         View details
         </Link>
-      </span>
-      {/* <FavoritesButton refKey={result.position_number} type="fav" />
-      <FavoritesButton
-        refKey={result.position_number}
-        type="compare"
-        onToggle={onToggle}
-        limit={2}
-      /> */}
+      </div>
+      <div className="compare-check">
+        <CompareCheck refKey={result.position_number} onToggle={onToggle} />
+      </div>
     </div>
   </div>
 );
 
 ResultsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
-  // onToggle: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
 };
 
 export default ResultsCard;

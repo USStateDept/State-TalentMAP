@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { localStorageFetchValue, localStorageToggleValue } from '../../utilities';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
-class Favorite extends Component {
+class CompareCheck extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,15 +36,25 @@ class Favorite extends Component {
     return this.state.saved;
   }
 
+  exceedsLimit() {
+    return this.state.count >= this.props.limit;
+  }
+
+  isDisabled() {
+    return this.exceedsLimit() && !this.state.saved;
+  }
+
   toggleSaved() {
-    localStorageToggleValue(this.state.localStorageKey, this.props.refKey);
-    this.setState({ saved: !this.state.saved });
-    this.onToggle();
+    if (!this.isDisabled()) {
+      localStorageToggleValue(this.state.localStorageKey, this.props.refKey);
+      this.setState({ saved: !this.state.saved });
+      this.onToggle();
+    }
   }
 
   render() {
-    const text = this.getSavedState() ? 'Remove' : 'Favorite';
-    const iconClass = this.getSavedState() ? 'heart' : 'heart-o';
+    const text = this.getSavedState() ? 'Remove' : 'Compare Position';
+    const iconClass = this.getSavedState() ? 'check-square-o' : 'square-o';
     return (
       <div tabIndex="0" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()}>
         <FontAwesome name={iconClass} /> {text}
@@ -53,15 +63,17 @@ class Favorite extends Component {
   }
 }
 
-Favorite.propTypes = {
+CompareCheck.propTypes = {
   refKey: PropTypes.string.isRequired,
   type: PropTypes.string,
+  limit: PropTypes.number,
   onToggle: PropTypes.func,
 };
 
-Favorite.defaultProps = {
-  type: 'fav',
+CompareCheck.defaultProps = {
+  type: 'compare',
+  limit: 2,
   onToggle: EMPTY_FUNCTION,
 };
 
-export default Favorite;
+export default CompareCheck;

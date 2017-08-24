@@ -64,7 +64,7 @@ exports[`Footer Component matches snapshot 1`] = `
         <img
           alt="Logo"
           className="usa-footer-logo-img"
-          src="/assets/img/dos-seal.png"
+          src="/assets/img/rsz_dos-seal.png"
         />
       </div>
       <div

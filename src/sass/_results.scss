@@ -41,6 +41,60 @@
 }
 
 .results-card {
+  background-color: $color-white;
   border: 1px solid $color-gray-lighter;
   border-left-width: 8px;
+  margin-bottom: 1em;
+  padding: 1em 1.2em;
+
+  .results-card-title {
+    float: left;
+  }
+
+  .results-card-favorite {
+    float: right;
+    font-size: .8em;
+  }
+
+  .results-card-data-section {
+    border-right: solid;
+    border-width: 1px;
+    margin-top: 1em;
+  }
+
+  .data-section {
+    margin-top: 1em;
+  }
+
+  .data-section-left {
+    margin-right: 40px;
+  }
+
+  .data-section-right {
+    margin-left: 40px;
+  }
+
+  .section-title {
+    font-size: .8em;
+    margin-bottom: .6em;
+  }
+
+  .section-data-points {
+    font-size: .8em;
+  }
+
+  .bottom-section {
+    float: left;
+    margin-top: 1em;
+
+    .details-button {
+      float: left;
+    }
+
+    .compare-check {
+      float: left;
+      font-size: .8em;
+      margin: 15px;
+    }
+  }
 }
