@@ -30,10 +30,14 @@
     "autoprefixer": "7.1.2",
     "axios-mock-adapter": "^1.9.0",
     "babel-core": "6.26.0",
+    "babel-env": "^2.4.1",
     "babel-eslint": "7.2.3",
     "babel-jest": "20.0.3",
     "babel-loader": "7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-react-app": "^3.0.0",
+    "babel-register": "^6.26.0",
     "babel-runtime": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "^2.1.0",
@@ -41,7 +45,7 @@
     "dotenv": "4.0.0",
     "enzyme": "^2.9.1",
     "enzyme-to-json": "^1.5.1",
-    "eslint": "^4.5.0",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-config-react-app": "^2.0.0",
     "eslint-loader": "1.9.0",
@@ -85,7 +89,7 @@
     "serve": "nodemon ./server/server.js --ignore 'build/**/*'",
     "build": "node scripts/build.js",
     "build-watch": "./node_modules/.bin/onchange 'src/**/*' -- npm run build",
-    "start-express": "npm run build & npm run build-watch & npm run serve",
+    "start-express": "nodemon server/server.js --exec \"node -r babel-register\"",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand"
   },
@@ -118,11 +122,6 @@
     "moduleNameMapper": {
       "^react-native$": "react-native-web"
     }
-  },
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
   },
   "eslintConfig": {
     "extends": "react-app"
