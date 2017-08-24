@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
@@ -36,7 +37,7 @@ class Results extends Component {
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
     return (
-      <div className="usa-grid-full results">
+      <div className="results">
         <div className="usa-grid-full">
           <div className="usa-width-one-third" style={{ float: 'left', padding: '15px 5px 0 10px' }}>
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
@@ -48,48 +49,69 @@ class Results extends Component {
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
         </div>
-        <div className="usa-grid-full" style={{ marginTop: '-20px' }}>
-          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
-            <SelectForm
-              id="sort"
-              label="Sort:"
-              onSelectOption={e => this.queryParamUpdate({ ordering: e.target.value })}
-              options={sortBy.options}
-              defaultSort={defaultSort}
-            />
-          </div>
-          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
-            <SelectForm
-              id="pageSize"
-              label="Page size:"
-              onSelectOption={e => this.queryParamUpdate({ limit: e.target.value, page: 1 })}
-              options={pageSizes.options}
-              defaultSort={defaultPageSize}
-            />
-          </div>
-        </div>
         <div className="usa-grid-full">
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0 0 10px 10px' }}>
+          <div className="usa-width-one-fourth" style={{ marginRight: '0px' }}>
+            <div style={{ height: '600px', border: 'solid', backgroundColor: 'gray' }} />
+          </div>
+          <div className="usa-width-three-fourths" style={{ paddingLeft: '30px' }}>
+            <div className="usa-grid-full">
+              <div className="usa-width-one-third" style={{ float: 'left', marginTop: '10px' }}>
+                {
+                  // if results have loaded, display the total number of results
+                  hasLoaded &&
+                    <TotalResults
+                      total={results.count}
+                      pageNumber={this.props.defaultPageNumber}
+                      pageSize={this.props.defaultPageSize}
+                    />
+                }
+              </div>
+              <div className="usa-width-two-thirds" style={{ float: 'right', marginTop: '4px' }}>
+                <div style={{ float: 'left', marginLeft: '10px' }} className="results-dropdown">
+                  <SelectForm
+                    id="sort"
+                    label="Sort by:"
+                    onSelectOption={e => this.queryParamUpdate({ ordering: e.target.value })}
+                    options={sortBy.options}
+                    defaultSort={defaultSort}
+                  />
+                </div>
+                <div style={{ float: 'left', marginLeft: '10px' }} className="results-dropdown results-dropdown-page-size">
+                  <SelectForm
+                    id="pageSize"
+                    label="Results:"
+                    onSelectOption={e => this.queryParamUpdate({ limit: e.target.value, page: 1 })}
+                    options={pageSizes.options}
+                    defaultSort={defaultPageSize}
+                  />
+                </div>
+                <div style={{ float: 'right' }}>
+                  <div style={{ float: 'left', padding: '7px 7px', fontSize: '0.8em' }}>View:</div>
+                  <div style={{ float: 'left', padding: '5px 10px 0 10px' }}>
+                    <FontAwesome name="th-list" />
+                  </div>
+                  <div style={{ float: 'left', padding: '5px 10px 0 10px', borderLeft: 'solid 1px gray' }}>
+                    <FontAwesome name="th" />
+                  </div>
+                </div>
+              </div>
+            </div>
             {
-              // if results have loaded, display the total number of results
-              hasLoaded &&
-                <TotalResults
-                  total={results.count}
-                  pageNumber={this.props.defaultPageNumber}
-                  pageSize={this.props.defaultPageSize}
-                />
+              <ResultsList
+                key={this.state.key}
+                onToggle={() => this.onChildToggle()}
+                results={results}
+                isLoading={!hasLoaded}
+              />
             }
+            <div className="usa-grid-full react-paginate">
+              <PaginationWrapper
+                pageCount={pageCount}
+                onPageChange={e => this.queryParamUpdate({ page: e.selected })}
+                forcePage={this.props.defaultPageNumber}
+              />
+            </div>
           </div>
-        </div>
-        <div className="usa-grid-full">
-          {
-            <ResultsList
-              key={this.state.key}
-              onToggle={() => this.onChildToggle()}
-              results={results}
-              isLoading={!hasLoaded}
-            />
-          }
           {
             // is not loading, results array exists, but is empty
             !isLoading && results.results && !results.results.length &&
@@ -100,13 +122,6 @@ class Results extends Component {
           {
             <Loading isLoading={isLoading} hasErrored={hasErrored} />
           }
-        </div>
-        <div className="usa-grid-full react-paginate">
-          <PaginationWrapper
-            pageCount={pageCount}
-            onPageChange={e => this.queryParamUpdate({ page: e.selected })}
-            forcePage={this.props.defaultPageNumber}
-          />
         </div>
       </div>
     );

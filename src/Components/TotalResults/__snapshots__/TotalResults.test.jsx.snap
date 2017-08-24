@@ -74,12 +74,11 @@ exports[`TotalResults matches snapshot 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
   1
    - 
   0
    of 
   103
-   results
+   positions found
 </span>
 `;
