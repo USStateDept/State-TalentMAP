@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => {
+const PositionDetails = ({ details, api, isLoading, hasErrored, goBackLink }) => {
   const isReady = details && !isLoading && !hasErrored;
   return (
     <div>
       { isReady &&
       <div>
-        <PositionTitle details={details} goBack={goBack} />
+        <PositionTitle details={details} goBackLink={goBackLink} />
         <PositionDetailsItem details={details} />
         <PositionAdditionalDetails />
         <div className="usa-grid">
@@ -32,7 +32,7 @@ PositionDetails.propTypes = {
   api: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  goBack: PropTypes.func.isRequired,
+  goBackLink: GO_BACK_TO_LINK.isRequired,
 };
 
 PositionDetails.defaultProps = {

@@ -10,6 +10,7 @@ import { share, shareHasErrored, shareIsSending } from './share';
 import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
 import { userProfile, userProfileHasErrored, userProfileIsLoading } from './userProfile';
+import routerLocations from './routerLocations';
 
 
 export default combineReducers({
@@ -37,5 +38,6 @@ export default combineReducers({
   form,
   client,
   login,
+  routerLocations,
   router: routerReducer,
 });

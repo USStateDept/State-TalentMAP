@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoritesButton can handle a disabled state 1`] = `
+<button
+  className="usa-button-disabled"
+  disabled={true}
+  onClick={[Function]}
+>
+  Add to Favorites
+</button>
+`;

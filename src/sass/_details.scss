@@ -12,6 +12,12 @@
 
   .position-details-header-back {
     font-size: .8em;
+    min-height: 17px;
+
+    a {
+      color: $color-black;
+      text-decoration: none;
+    }
   }
 
   .position-details-header-title {

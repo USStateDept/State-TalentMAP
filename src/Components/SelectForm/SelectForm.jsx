@@ -29,7 +29,7 @@ class SelectForm extends Component {
       ),
     );
     return (
-      <form className="usa-form">
+      <div className="usa-form">
         <label htmlFor={id}>{label}</label>
         <select
           name={id}
@@ -41,7 +41,7 @@ class SelectForm extends Component {
             optionList
           }
         </select>
-      </form>
+      </div>
     );
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import Wrapper from '../Wrapper/Wrapper';
+import SearchBar from '../SearchBar/SearchBar';
 import { EMPTY_FUNCTION, ITEMS } from '../../Constants/PropTypes';
 
 class Filters extends Component {
@@ -93,7 +94,7 @@ class Filters extends Component {
   }
 
   render() {
-    const { selection, searchText } = this.state;
+    const { selection } = this.state;
     const { items } = this.props;
     if (items.length) { items.sort((a, b) => a.item.sort - b.item.sort); }
     const filters = (
@@ -276,37 +277,15 @@ class Filters extends Component {
         <div className="page-container">
           <div className="usa-grid">
             <div className="usa-width-one-half">
-              <div className="usa-search usa-search-big">
-                <div role="search">
-                  <form onSubmit={e => this.submitSearch(e)}>
-                    <label className="usa-sr-only" htmlFor="search-field">
-                        Search
-                    </label>
-                    <input
-                      id="search-field"
-                      value={searchText.value}
-                      onChange={e => this.changeText(e)}
-                      type="search"
-                      name="search"
-                    />
-                    <div id="enabled-search">
-                      <button
-                        className={this.shouldDisableSearch() ? 'usa-button-disabled' : null}
-                        disabled={this.shouldDisableSearch()}
-                        type="submit"
-                      >
-                        <span className="usa-search-submit-text">Search</span>
-                      </button>
-                    </div>
-                    <div id="disabled-search" className={'hidden'}>
-                      <button className="usa-button-disabled" disabled="true" type="submit">
-                        <span className="usa-search-submit-text usa-button-disabled">Search</span>
-                      </button>
-                      <span className="alert-text">Select from at least two search filters</span>
-                    </div>
-                  </form>
-                </div>
-              </div>
+              <SearchBar
+                id="search-field"
+                type="big"
+                submitDisabled={this.shouldDisableSearch()}
+                onChangeText={e => this.changeText(e)}
+                submitText="Search"
+                alertText="Select from at least two search filters"
+                onSubmitSearch={e => this.submitSearch(e)}
+              />
             </div>
           </div>
         </div>

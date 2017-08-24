@@ -29,7 +29,7 @@ describe('Header', () => {
 
   it('matches snapshot when logged in', () => {
     const header = shallow(
-      <Header client={client} login={loginObject} fetchData={() => {}} isAuthorized={() => true} />,
+      <Header client={client} login={loginObject} userProfile={{ user: { username: 'test' } }} fetchData={() => {}} isAuthorized={() => true} />,
     );
     expect(toJSON(header)).toMatchSnapshot();
   });
@@ -57,6 +57,6 @@ describe('Header', () => {
         />
       </MemoryRouter></Provider>,
     );
-    expect(header.find('[href="login"]').text()).toBe('Login');
+    expect(header.find('#login-desktop').text()).toBe('Login');
   });
 });

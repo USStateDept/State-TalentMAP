@@ -7,6 +7,7 @@ describe('PositionDetailsComponent', () => {
   let wrapper = null;
 
   const api = 'localhost:8000/api/v1/';
+  const goBackLink = { text: 'Go back text', link: '/link' };
 
   it('can receive props', () => {
     wrapper = shallow(
@@ -15,7 +16,7 @@ describe('PositionDetailsComponent', () => {
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -30,7 +31,7 @@ describe('PositionDetailsComponent', () => {
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -45,7 +46,7 @@ describe('PositionDetailsComponent', () => {
         details={detailsObject}
         isLoading
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);

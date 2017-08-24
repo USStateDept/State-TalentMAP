@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactPaginate from 'react-paginate';
+import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
@@ -35,24 +35,6 @@ class Results extends Component {
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
-    const pagination = (
-      <div className="usa-grid-full react-paginate">
-        <nav className="pagination" aria-label="Pagination">
-          <ReactPaginate
-            previousLabel={'previous'}
-            nextLabel={'next'}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={1}
-            onPageChange={e => this.queryParamUpdate({ page: e.selected + 1 })}
-            containerClassName={'pagination'}
-            subContainerClassName={'pages pagination'}
-            forcePage={this.props.defaultPageNumber}
-            activeClassName={'active'}
-          />
-        </nav>
-      </div>
-    );
     return (
       <div className="usa-grid-full results">
         <div className="usa-grid-full">
@@ -119,7 +101,13 @@ class Results extends Component {
             <Loading isLoading={isLoading} hasErrored={hasErrored} />
           }
         </div>
-        {pagination}
+        <div className="usa-grid-full react-paginate">
+          <PaginationWrapper
+            pageCount={pageCount}
+            onPageChange={e => this.queryParamUpdate({ page: e.selected })}
+            forcePage={this.props.defaultPageNumber}
+          />
+        </div>
       </div>
     );
   }
