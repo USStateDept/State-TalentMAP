@@ -51,7 +51,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
        <div className="usa-grid-full react-paginate">
          <PaginationWrapper
            pageCount={pageCount}
-           onPageChange={e => this.queryParamUpdate({ page: e.selected })}
+           onPageChange={e => queryParamUpdate({ page: e.selected })}
            forcePage={defaultPageNumber}
          />
        </div>

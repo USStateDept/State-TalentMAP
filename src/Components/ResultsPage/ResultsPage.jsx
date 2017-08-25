@@ -52,7 +52,7 @@ class Results extends Component {
             pageSizes={pageSizes}
             defaultPageSize={defaultPageSize}
             defaultPageNumber={defaultPageNumber}
-            onQueryParamUpdate={onQueryParamUpdate}
+            queryParamUpdate={e => onQueryParamUpdate(e)}
             refreshKey={this.state.key}
             onToggle={() => this.onChildToggle()}
           />
