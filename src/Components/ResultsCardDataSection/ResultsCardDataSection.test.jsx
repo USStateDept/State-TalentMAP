@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
+import toJSON from 'enzyme-to-json';
 import ResultsCardDataSection from './ResultsCardDataSection';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -23,5 +24,11 @@ describe('ResultsCardDataSectionComponent', () => {
     const wrapper =
       shallow(<ResultsCardDataSection result={resultsObject.results[1]} />);
     expect(wrapper.instance().props.result.id).toBe(60);
+  });
+
+  it('matches snapshot', () => {
+    const wrapper =
+      shallow(<ResultsCardDataSection result={resultsObject.results[1]} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

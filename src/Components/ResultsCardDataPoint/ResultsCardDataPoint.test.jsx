@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import toJSON from 'enzyme-to-json';
 import ResultsCardDataPoint from './ResultsCardDataPoint';
 
 describe('ResultsCardDataPointComponent', () => {
@@ -10,5 +11,11 @@ describe('ResultsCardDataPointComponent', () => {
     const wrapper =
       shallow(<ResultsCardDataPoint description={description} text={text} />);
     expect(wrapper.instance().props.description).toBe(description);
+  });
+
+  it('matches snapshot', () => {
+    const wrapper =
+      shallow(<ResultsCardDataPoint description={description} text={text} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

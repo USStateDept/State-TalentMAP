@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsCardDataSectionComponent matches snapshot 1`] = `
+<div>
+  <div
+    className="usa-width-five-twelfths data-section-left-container"
+  >
+    <div
+      className="data-section-left"
+    >
+      <ResultsCardDataItem
+        items={
+          Array [
+            Object {
+              "description": "Organization",
+              "text": "YAOUNDE CAMEROON (YAOUNDE)",
+            },
+            Object {
+              "description": "Post",
+              "text": "None listed",
+            },
+            Object {
+              "description": "Post Differential",
+              "text": "None listed",
+            },
+            Object {
+              "description": "Bureau",
+              "text": "150000",
+            },
+          ]
+        }
+        title="POST INFORMATION"
+      />
+    </div>
+  </div>
+  <div
+    className="usa-width-five-twelfths data-section-right-container"
+  >
+    <div
+      className="data-section-right"
+    >
+      <ResultsCardDataItem
+        items={
+          Array [
+            Object {
+              "description": "Grade",
+              "text": "03",
+            },
+            Object {
+              "description": "Skill",
+              "text": "OFFICE MANAGEMENT (9017)",
+            },
+            Object {
+              "description": "Description",
+              "text": "Lorem ipsum lorem",
+            },
+          ]
+        }
+        title="POSITION INFORMATION"
+      />
+    </div>
+  </div>
+</div>
+`;
