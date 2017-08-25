@@ -215,3 +215,32 @@
 .results-section-container {
   max-width: 1140px;
 }
+
+.results-search-bar-container {
+
+  max-width: 1140px;
+
+  padding: 20px 30px;
+
+  .search-keyword {
+    padding: 0 30px;
+
+    button {
+      display: none;
+    }
+
+    input {
+      border-right: solid 1px;
+      width: 400px;
+    }
+  }
+
+  .search-location {
+    padding: 0 30px;
+
+    input {
+      border-right: solid 1px;
+      width: 300px;
+    }
+  }
+}

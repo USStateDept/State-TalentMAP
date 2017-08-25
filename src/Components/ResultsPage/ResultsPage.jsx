@@ -5,6 +5,7 @@ import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
+import SearchBar from '../SearchBar/SearchBar';
 
 class Results extends Component {
   constructor(props) {
@@ -28,6 +29,28 @@ class Results extends Component {
     const pageCount = Math.ceil(results.count / defaultPageSize);
     return (
       <div className="results">
+        <div style={{ backgroundColor: 'rgb(242, 242, 242)', height: 'auto' }}>
+          <div className="usa-grid-full results-search-bar-container">
+            <div className="usa-width-one-half search-keyword" style={{ float: 'left', padding: '15px' }}>
+              <SearchBar
+                id="search-field"
+                label="Keywords"
+                type="medium"
+                submitText="Search"
+                labelSrOnly={false}
+              />
+            </div>
+            <div className="usa-width-one-half search-location" style={{ float: 'left', padding: '15px' }}>
+              <SearchBar
+                id="search-field"
+                label="Location"
+                type="medium"
+                submitText="Search"
+                labelSrOnly={false}
+              />
+            </div>
+          </div>
+        </div>
         <div className="usa-grid-full top-nav">
           <div className="usa-width-one-third compare-link">
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />

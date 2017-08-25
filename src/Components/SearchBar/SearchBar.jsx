@@ -14,7 +14,11 @@ class SearchBar extends Component {
     this.setState({ searchText }, this.props.onChangeText(e));
   }
   render() {
-    const { id, type, submitDisabled, submitText, alertText, onSubmitSearch, label } = this.props;
+    const hidden = {
+      display: 'none',
+    };
+    const { id, type, submitDisabled, submitText, alertText, onSubmitSearch, label, labelSrOnly }
+      = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
     if (type === 'small') { showSubmitText = false; } // small search class should not have text
@@ -22,7 +26,7 @@ class SearchBar extends Component {
       <div className={`usa-search usa-search-${type}`}>
         <div role="search">
           <form onSubmit={e => onSubmitSearch(e)}>
-            <label className="usa-sr-only" htmlFor={id}>
+            <label className={labelSrOnly ? 'usa-sr-only' : null} htmlFor={id}>
               {label}
             </label>
             <input
@@ -42,7 +46,7 @@ class SearchBar extends Component {
                 <span className="usa-search-submit-text">{showSubmitText ? submitText : null}</span>
               </button>
             </div>
-            <div id="disabled-search" className="hidden">
+            <div id="disabled-search" style={hidden}>
               <button
                 className="usa-button-disabled"
                 disabled="true"
@@ -71,13 +75,15 @@ SearchBar.propTypes = {
   alertText: PropTypes.string,
   onChangeText: PropTypes.func.isRequired,
   onSubmitSearch: PropTypes.func.isRequired,
+  labelSrOnly: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
   type: 'big', // should be one of the USWDS search types - https://standards.usa.gov/components/search-bar/
   submitDisabled: false,
   alertText: 'Disabled',
-  label: 'Search', // sr only
+  label: 'Search', // sr only if flagged
+  labelSrOnly: true,
 };
 
 export default SearchBar;
