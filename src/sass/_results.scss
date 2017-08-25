@@ -24,8 +24,30 @@
   }
 
   .results-dropdown-page-size {
+    float: left;
+    margin-left: 10px;
+
     select {
       width: 80px;
+    }
+  }
+
+  .results-viewby-container {
+    float: right;
+
+    .view-icon {
+      float: left;
+      padding: 5px 10px 0;
+    }
+
+    .view-icon-border {
+      border-left: solid 1px $color-gray-light;
+    }
+
+    .view-label {
+      float: left;
+      font-size: .8em;
+      padding: 7px;
     }
   }
 
@@ -53,7 +75,7 @@
 
   .results-card-favorite {
     float: right;
-    font-size: .8em;
+    font-size: .9em;
   }
 
   .results-card-data-section {
@@ -67,20 +89,20 @@
   }
 
   .data-section-left {
-    margin-right: 40px;
+    margin-right: 80px;
   }
 
   .data-section-right {
-    margin-left: 40px;
+    margin-right: 80px;
   }
 
   .section-title {
-    font-size: .8em;
+    font-size: .9em;
     margin-bottom: .6em;
   }
 
   .section-data-points {
-    font-size: .8em;
+    font-size: .9em;
   }
 
   .bottom-section {
@@ -93,8 +115,67 @@
 
     .compare-check {
       float: left;
-      font-size: .8em;
+      font-size: .9em;
       margin: 15px;
     }
   }
+}
+
+.top-nav {
+  .compare-link {
+    float: left;
+    padding: 15px 5px 0 10px;
+  }
+
+  .reset-filters {
+    float: left;
+    padding: 0 0 5px;
+    text-align: center;
+  }
+
+  .reset-comparisons {
+    float: left;
+    padding: 0 0 5px;
+    text-align: right;
+  }
+}
+
+.filter-container {
+  background-color: $color-black;
+  float: left;
+  height: 600px;
+  margin-right: 0;
+  width: 20%;
+
+  @media screen and (max-width: 951px) {
+    height: 100px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+.results-container {
+  float: left;
+  padding-left: 30px;
+  width: 80%;
+
+  @media screen and (max-width: 951px) {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .results-controls {
+    @media screen and (max-width: 951px) {
+      padding: 0 15px;
+    }
+  }
+
+  .total-results {
+    float: left;
+    margin-top: 10px;
+  }
+}
+
+.results-list-container {
+  margin: 1em 0;
 }

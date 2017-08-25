@@ -38,24 +38,22 @@ class Results extends Component {
     const pageCount = Math.ceil(results.count / defaultPageSize);
     return (
       <div className="results">
-        <div className="usa-grid-full">
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '15px 5px 0 10px' }}>
+        <div className="usa-grid-full top-nav">
+          <div className="usa-width-one-third compare-link">
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
           </div>
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0px 0px 5px 0px', textAlign: 'center' }}>
+          <div className="usa-width-one-third reset-filters">
             <ResetFiltersConnect />
           </div>
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0px 0px 5px 0px', textAlign: 'right' }}>
+          <div className="usa-width-one-third reset-comparisons">
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
         </div>
         <div className="usa-grid-full">
-          <div style={{ marginRight: '0px', width: '25%', float: 'left' }}>
-            <div style={{ height: '600px', border: 'solid', backgroundColor: 'gray' }} />
-          </div>
-          <div style={{ paddingLeft: '30px', width: '75%', float: 'left' }}>
-            <div className="usa-grid-full">
-              <div className="usa-width-one-third" style={{ float: 'left', marginTop: '10px' }}>
+          <div className="filter-container" />
+          <div className="results-container">
+            <div className="usa-grid-full results-controls">
+              <div className="usa-width-one-third total-results">
                 {
                   // if results have loaded, display the total number of results
                   hasLoaded &&
@@ -76,7 +74,7 @@ class Results extends Component {
                     defaultSort={defaultSort}
                   />
                 </div>
-                <div style={{ float: 'left', marginLeft: '10px' }} className="results-dropdown results-dropdown-page-size">
+                <div className="results-dropdown results-dropdown-page-size">
                   <SelectForm
                     id="pageSize"
                     label="Results:"
@@ -85,12 +83,12 @@ class Results extends Component {
                     defaultSort={defaultPageSize}
                   />
                 </div>
-                <div style={{ float: 'right' }}>
-                  <div style={{ float: 'left', padding: '7px 7px', fontSize: '0.8em' }}>View:</div>
-                  <div style={{ float: 'left', padding: '5px 10px 0 10px' }}>
+                <div className="results-viewby-container">
+                  <div className="view-label">View:</div>
+                  <div className="view-icon">
                     <FontAwesome name="th-list" />
                   </div>
-                  <div style={{ float: 'left', padding: '5px 10px 0 10px', borderLeft: 'solid 1px gray' }}>
+                  <div className="view-icon view-icon-border">
                     <FontAwesome name="th" />
                   </div>
                 </div>
@@ -104,7 +102,7 @@ class Results extends Component {
                 </div>
             }
             {
-              <div style={{ margin: '1em 0' }}>
+              <div className="results-list-container">
                 <ResultsList
                   key={this.state.key}
                   onToggle={() => this.onChildToggle()}
