@@ -88,16 +88,30 @@
     margin-top: 1em;
   }
 
-  .data-section {
+  .data-section-right-container {
     margin-top: 1em;
+
+    .data-section-right {
+      margin-left: 60px;
+      margin-right: 80px;
+
+      @media screen and (max-width: 951px) {
+        margin-left: 0;
+      }
+    }
   }
 
-  .data-section-left {
-    margin-right: 80px;
-  }
+  .data-section-left-container {
+    border-right: solid 1px;
+    margin-top: 1em;
 
-  .data-section-right {
-    margin-right: 80px;
+    @media screen and (max-width: 599px) {
+      border-right: 0;
+    }
+
+    .data-section-left {
+      margin-right: 80px;
+    }
   }
 
   .section-title {

@@ -10,7 +10,6 @@ class Favorite extends Component {
     this.state = {
       saved: false,
       localStorageKey: null,
-      count: 0,
     };
   }
 
@@ -29,7 +28,7 @@ class Favorite extends Component {
 
   getSaved() {
     const saved = localStorageFetchValue(this.state.localStorageKey, this.props.refKey);
-    this.setState({ saved: saved.exists, count: saved.count });
+    this.setState({ saved: saved.exists });
   }
 
   getSavedState() {

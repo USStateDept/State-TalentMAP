@@ -17,7 +17,7 @@ const ResultsCard = ({ result, onToggle }) => (
       </div>
     </div>
     <div className="usa-grid-full">
-      <div className="usa-width-five-twelfths data-section">
+      <div className="usa-width-five-twelfths data-section-left-container">
         <div className="data-section-left">
           <div className="section-title">POST INFORMATION</div>
           <div className="section-data-points">
@@ -32,7 +32,7 @@ const ResultsCard = ({ result, onToggle }) => (
           </div>
         </div>
       </div>
-      <div className="usa-width-five-twelfths data-section">
+      <div className="usa-width-five-twelfths data-section-right-container">
         <div className="data-section-right">
           <div className="section-title">POSITION INFORMATION</div>
           <div className="section-data-points">

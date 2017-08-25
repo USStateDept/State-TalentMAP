@@ -53,7 +53,8 @@ class CompareCheck extends Component {
   }
 
   render() {
-    const text = this.getSavedState() ? 'Remove' : 'Compare Position';
+    let text = this.getSavedState() ? 'Remove' : 'Compare Position';
+    if (this.isDisabled()) { text = 'Limit reached'; }
     const iconClass = this.getSavedState() ? 'check-square-o' : 'square-o';
     return (
       <div tabIndex="0" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()}>
