@@ -35,6 +35,10 @@
   .results-viewby-container {
     float: right;
 
+    @media screen and (max-width: 951px) {
+      float: left;
+    }
+
     .view-icon {
       float: left;
       padding: 5px 10px 0;
@@ -109,8 +113,12 @@
     float: left;
     margin-top: 1em;
 
-    .details-button {
+    .details-button-container {
       float: left;
+    }
+
+    .details-button {
+      font-size: .9em;
     }
 
     .compare-check {
@@ -178,4 +186,8 @@
 
 .results-list-container {
   margin: 1em 0;
+}
+
+.results-section-container {
+  max-width: 1140px;
 }

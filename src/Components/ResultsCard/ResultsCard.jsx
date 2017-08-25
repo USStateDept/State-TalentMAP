@@ -46,10 +46,9 @@ const ResultsCard = ({ result, onToggle }) => (
       </div>
     </div>
     <div className="usa-grid-full bottom-section" >
-      <div className="button-link details-button">
+      <div className="button-link details-button-container">
         <Link
-          className="usa-button usa-button-primary"
-          style={{ fontSize: '.8em' }}
+          className="usa-button usa-button-primary details-button"
           type="submit"
           role="button"
           to={`/details/${result.position_number}`}

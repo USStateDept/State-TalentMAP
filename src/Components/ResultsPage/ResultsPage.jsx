@@ -49,7 +49,7 @@ class Results extends Component {
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
         </div>
-        <div className="usa-grid-full">
+        <div className="usa-grid-full results-section-container">
           <div className="filter-container" />
           <div className="results-container">
             <div className="usa-grid-full results-controls">
