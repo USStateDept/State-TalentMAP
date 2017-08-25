@@ -37,8 +37,8 @@ const PaginationWrapper = ({
   );
 
 PaginationWrapper.propTypes = {
-  previousLabel: PropTypes.string,
-  nextLabel: PropTypes.string,
+  previousLabel: PropTypes.node,
+  nextLabel: PropTypes.node,
   pageCount: PropTypes.number.isRequired,
   marginPagesDisplayed: PropTypes.number,
   pageRangeDisplayed: PropTypes.number,
@@ -51,8 +51,8 @@ PaginationWrapper.propTypes = {
 };
 
 PaginationWrapper.defaultProps = {
-  previousLabel: 'previous',
-  nextLabel: 'next',
+  previousLabel: 'Previous',
+  nextLabel: 'Next',
   marginPagesDisplayed: 2,
   pageRangeDisplayed: 1,
   containerClassName: 'pagination',
