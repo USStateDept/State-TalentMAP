@@ -10,14 +10,14 @@ exports[`ResultsViewByComponent matches snapshot 1`] = `
     View:
   </div>
   <div
-    className="view-icon view-icon-border"
+    className="view-icon"
   >
     <FontAwesome
       name="th"
     />
   </div>
   <div
-    className="view-icon"
+    className="view-icon view-icon-border"
   >
     <FontAwesome
       name="th-list"

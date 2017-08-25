@@ -18,7 +18,6 @@ class Results extends Component {
   onChildToggle() {
     const key = Math.random();
     this.setState({ key });
-    this.forceUpdate();
   }
 
   render() {
@@ -54,7 +53,7 @@ class Results extends Component {
             defaultPageSize={defaultPageSize}
             defaultPageNumber={defaultPageNumber}
             onQueryParamUpdate={onQueryParamUpdate}
-            keyRef={this.state.key}
+            refreshKey={this.state.key}
             onToggle={() => this.onChildToggle()}
           />
         </div>

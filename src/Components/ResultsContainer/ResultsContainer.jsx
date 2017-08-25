@@ -8,7 +8,8 @@ import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
-        defaultSort, pageSizes, defaultPageSize, defaultPageNumber, queryParamUpdate, onToggle,
+        defaultSort, pageSizes, defaultPageSize, refreshKey,
+        defaultPageNumber, queryParamUpdate, onToggle,
   }) => (
     <div className="results-container">
       <ResultsControls
@@ -31,6 +32,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
       {
         <div className="results-list-container">
           <ResultsList
+            key={refreshKey}
             onToggle={onToggle}
             results={results}
             isLoading={!hasLoaded}
@@ -70,6 +72,7 @@ ResultsContainer.propTypes = {
   pageCount: PropTypes.number.isRequired,
   hasLoaded: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
+  refreshKey: PropTypes.number, // refresh components that rely on local storage
 };
 
 ResultsContainer.defaultProps = {
@@ -80,6 +83,7 @@ ResultsContainer.defaultProps = {
   defaultSort: '',
   defaultPageSize: 10,
   defaultPageNumber: 0,
+  refreshKey: 0,
 };
 
 export default ResultsContainer;
