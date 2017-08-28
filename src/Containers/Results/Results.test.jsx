@@ -62,7 +62,6 @@ describe('Main', () => {
       <Results.WrappedComponent
         isAuthorized={() => true}
         fetchData={() => {}}
-        api={api}
         onNavigateTo={() => {}}
       />,
     );
