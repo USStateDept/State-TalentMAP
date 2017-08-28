@@ -6,7 +6,11 @@ const ResultsContainer = ({ items }) => (
   <div>
     {
       items.map(item =>
-        <Pill name={item.name} code={item.code} onClick={e => this.props.onClick(e)} />,
+        (<Pill
+          description={item.description}
+          code={item.code}
+          onClick={e => this.props.onClick(e)}
+        />),
       )
     }
   </div>
@@ -15,7 +19,7 @@ const ResultsContainer = ({ items }) => (
 ResultsContainer.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string,
+      description: PropTypes.string,
       code: PropTypes.oneOf(PropTypes.string, PropTypes.number),
     }),
   ).isRequired,

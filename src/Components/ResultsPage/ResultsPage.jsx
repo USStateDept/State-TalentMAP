@@ -23,7 +23,8 @@ class Results extends Component {
 
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
-            defaultSort, pageSizes, defaultPageSize, defaultPageNumber, onQueryParamUpdate }
+            pillFilters, defaultSort, pageSizes, defaultPageSize,
+            defaultPageNumber, onQueryParamUpdate }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -61,6 +62,7 @@ class Results extends Component {
             queryParamUpdate={e => onQueryParamUpdate(e)}
             refreshKey={this.state.key}
             onToggle={() => this.onChildToggle()}
+            pillFilters={pillFilters}
           />
         </div>
       </div>
@@ -81,6 +83,12 @@ Results.propTypes = {
   defaultKeyword: PropTypes.string,
   defaultLocation: PropTypes.string,
   resetFilters: PropTypes.func.isRequired,
+  pillFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.string,
+      code: PropTypes.oneOf(PropTypes.string, PropTypes.number),
+    }),
+  ),
 };
 
 Results.defaultProps = {
@@ -93,6 +101,7 @@ Results.defaultProps = {
   defaultPageNumber: 0,
   defaultKeyword: '',
   defaultLocation: '',
+  pillFilters: [],
 };
 
 Results.contextTypes = {

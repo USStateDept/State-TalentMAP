@@ -40,7 +40,7 @@ class Home extends Component {
         <Filters
           isLoading={this.props.isLoading}
           onSubmit={e => this.onChildSubmit(e)}
-          items={this.props.items}
+          items={this.props.items.filters}
         />
       </div>
     );
@@ -69,7 +69,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: (api, items) => dispatch(filtersFetchData(api, items)),
+  fetchData: items => dispatch(filtersFetchData(items)),
   onNavigateTo: dest => dispatch(push(dest)),
 });
 

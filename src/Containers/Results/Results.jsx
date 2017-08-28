@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import { resultsFetchData } from '../../actions/results';
+import { filtersFetchData } from '../../actions/filters';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, ITEMS } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
@@ -58,6 +59,10 @@ class Results extends Component {
       );
       const newQueryString = queryString.stringify(newQuery);
       this.callFetchData(newQueryString);
+
+      // get our filters to map against
+      const { filters } = this.props;
+      this.props.fetchFilters(filters, newQuery);
     }
   }
 
@@ -87,7 +92,7 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading } = this.props;
+    const { results, hasErrored, isLoading, filters } = this.props;
     return (
       <div>
         <ResultsPage
@@ -103,6 +108,7 @@ class Results extends Component {
           defaultKeyword={this.state.defaultKeyword.value}
           defaultLocation={this.state.defaultLocation.value}
           resetFilters={() => this.resetFilters()}
+          pillFilters={filters.mappedParams}
         />
       </div>
     );
@@ -116,12 +122,17 @@ Results.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
+  filters: ITEMS,
+  fetchFilters: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
   results: { results: [] },
   hasErrored: false,
   isLoading: true,
+  filters: [],
+  filtersHasErrored: false,
+  filtersIsLoading: true,
 };
 
 Results.contextTypes = {
@@ -132,10 +143,14 @@ const mapStateToProps = state => ({
   results: state.results,
   hasErrored: state.resultsHasErrored,
   isLoading: state.resultsIsLoading,
+  filters: state.filters,
+  filtersHasErrored: state.filtersHasErrored,
+  filtersIsLoading: state.filtersIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
+  fetchFilters: (items, queryParams) => dispatch(filtersFetchData(items, queryParams)),
   onNavigateTo: dest => dispatch(push(dest)),
 });
 

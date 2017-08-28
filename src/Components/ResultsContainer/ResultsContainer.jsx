@@ -9,11 +9,11 @@ import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
-        defaultSort, pageSizes, defaultPageSize, refreshKey,
+        defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters,
         defaultPageNumber, queryParamUpdate, onToggle,
   }) => (
     <div className="results-container">
-      <ResultsPillContainer />
+      <ResultsPillContainer items={pillFilters} />
       <ResultsControls
         results={results}
         hasLoaded={hasLoaded}
@@ -75,6 +75,12 @@ ResultsContainer.propTypes = {
   hasLoaded: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
   refreshKey: PropTypes.number, // refresh components that rely on local storage
+  pillFilters: PropTypes.arrayOf(
+    PropTypes.shape({
+      description: PropTypes.string,
+      code: PropTypes.oneOf(PropTypes.string, PropTypes.number),
+    }),
+  ),
 };
 
 ResultsContainer.defaultProps = {
@@ -86,6 +92,7 @@ ResultsContainer.defaultProps = {
   defaultPageSize: 10,
   defaultPageNumber: 0,
   refreshKey: 0,
+  pillFilters: [],
 };
 
 export default ResultsContainer;
