@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 class ResetFilters extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class ResetFilters extends Component {
     if (!this.state.confirm) {
       this.setState({ confirm: true });
     } else {
-      this.props.onToggle('/');
+      this.props.resetFilters();
     }
   }
 
@@ -30,11 +29,7 @@ class ResetFilters extends Component {
 }
 
 ResetFilters.propTypes = {
-  onToggle: PropTypes.func,
-};
-
-ResetFilters.defaultProps = {
-  onToggle: () => EMPTY_FUNCTION,
+  resetFilters: PropTypes.func.isRequired,
 };
 
 export default ResetFilters;

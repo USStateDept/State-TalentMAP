@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
-import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
+import ResetFilters from '../ResetFilters/ResetFilters';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 
@@ -22,7 +22,7 @@ class Results extends Component {
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation,
+    const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             defaultSort, pageSizes, defaultPageSize, defaultPageNumber, onQueryParamUpdate }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
@@ -39,7 +39,7 @@ class Results extends Component {
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
           </div>
           <div className="usa-width-one-third reset-filters">
-            <ResetFiltersConnect />
+            <ResetFilters resetFilters={() => resetFilters()} />
           </div>
           <div className="usa-width-one-third reset-comparisons">
             <ResetComparisons onToggle={() => this.onChildToggle()} />
@@ -80,6 +80,7 @@ Results.propTypes = {
   defaultPageNumber: PropTypes.number,
   defaultKeyword: PropTypes.string,
   defaultLocation: PropTypes.string,
+  resetFilters: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
