@@ -30,8 +30,8 @@ class Home extends Component {
   }
 
   getFilters() {
-    const { api, items } = this.props;
-    this.props.fetchData(api, items);
+    const { items } = this.props;
+    this.props.fetchData(items);
   }
 
   render() {
@@ -48,7 +48,6 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func,
   isLoading: PropTypes.bool,
