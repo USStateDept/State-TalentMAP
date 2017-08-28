@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: { value: '' },
+      searchText: { value: this.props.defaultValue || '' },
     };
   }
   changeText(e) {
@@ -17,49 +18,67 @@ class SearchBar extends Component {
     const hidden = {
       display: 'none',
     };
-    const { id, type, submitDisabled, submitText, alertText, onSubmitSearch, label, labelSrOnly }
+    const { id, type, submitDisabled, submitText, placeholder,
+      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton }
       = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
     if (type === 'small') { showSubmitText = false; } // small search class should not have text
+    const child = (
+      <div className="label-input-wrapper">
+        <label className={labelSrOnly ? 'usa-sr-only' : null} htmlFor={id}>
+          {label}
+        </label>
+        <input
+          id={id}
+          value={searchText.value}
+          onChange={e => this.changeText(e)}
+          type="search"
+          name="search"
+          placeholder={placeholder}
+        />
+        <div id="enabled-search">
+          { !noButton &&
+          <button
+            id="enabled-search-button"
+            className={submitDisabled ? 'usa-button-disabled' : null}
+            disabled={submitDisabled}
+            type="submit"
+          >
+            <span className="usa-search-submit-text">{showSubmitText ? submitText : null}</span>
+          </button>
+          }
+        </div>
+        <div id="disabled-search" style={hidden}>
+          {
+            !noButton &&
+            <button
+              className="usa-button-disabled"
+              disabled="true"
+              type="submit"
+              id="disabled-search-button"
+            >
+              <span className="usa-search-submit-text usa-button-disabled">
+                {showSubmitText ? submitText : null}
+              </span>
+            </button>
+          }
+          <span className="alert-text">{alertText}</span>
+        </div>
+      </div>
+    );
     return (
       <div className={`usa-search usa-search-${type}`}>
         <div role="search">
-          <form onSubmit={e => onSubmitSearch(e)}>
-            <label className={labelSrOnly ? 'usa-sr-only' : null} htmlFor={id}>
-              {label}
-            </label>
-            <input
-              id={id}
-              value={searchText.value}
-              onChange={e => this.changeText(e)}
-              type="search"
-              name="search"
-            />
-            <div id="enabled-search">
-              <button
-                id="enabled-search-button"
-                className={submitDisabled ? 'usa-button-disabled' : null}
-                disabled={submitDisabled}
-                type="submit"
-              >
-                <span className="usa-search-submit-text">{showSubmitText ? submitText : null}</span>
-              </button>
-            </div>
-            <div id="disabled-search" style={hidden}>
-              <button
-                className="usa-button-disabled"
-                disabled="true"
-                type="submit"
-                id="disabled-search-button"
-              >
-                <span className="usa-search-submit-text usa-button-disabled">
-                  {showSubmitText ? submitText : null}
-                </span>
-              </button>
-              <span className="alert-text">{alertText}</span>
-            </div>
-          </form>
+          { !noForm &&
+            <form onSubmit={e => onSubmitSearch(e)}>
+              {child}
+            </form>
+          }
+          {
+            noForm &&
+            child
+          }
         </div>
       </div>
     );
@@ -68,14 +87,18 @@ class SearchBar extends Component {
 
 SearchBar.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.string,
+  label: PropTypes.node,
   type: PropTypes.oneOf(['small', 'medium', 'big']),
   submitDisabled: PropTypes.bool,
   submitText: PropTypes.string.isRequired,
   alertText: PropTypes.string,
   onChangeText: PropTypes.func.isRequired,
-  onSubmitSearch: PropTypes.func.isRequired,
+  onSubmitSearch: PropTypes.func,
   labelSrOnly: PropTypes.bool,
+  noForm: PropTypes.bool,
+  noButton: PropTypes.bool,
+  placeholder: PropTypes.string,
+  defaultValue: PropTypes.string,
 };
 
 SearchBar.defaultProps = {
@@ -84,6 +107,11 @@ SearchBar.defaultProps = {
   alertText: 'Disabled',
   label: 'Search', // sr only if flagged
   labelSrOnly: true,
+  noForm: false,
+  noButton: false,
+  placeholder: null,
+  defaultValue: null,
+  onSubmitSearch: EMPTY_FUNCTION,
 };
 
 export default SearchBar;

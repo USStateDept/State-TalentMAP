@@ -172,7 +172,7 @@
   float: left;
   height: 600px;
   margin-right: 0;
-  width: 25%;
+  width: 20%;
 
   @media screen and (max-width: 951px) {
     height: 100px;
@@ -184,7 +184,7 @@
 .results-container {
   float: left;
   padding-left: 30px;
-  width: 75%;
+  width: 80%;
 
   @media screen and (max-width: 951px) {
     padding-left: 0;
@@ -214,33 +214,4 @@
 
 .results-section-container {
   max-width: 1140px;
-}
-
-.results-search-bar-container {
-
-  max-width: 1140px;
-
-  padding: 20px 30px;
-
-  .search-keyword {
-    padding: 0 30px;
-
-    button {
-      display: none;
-    }
-
-    input {
-      border-right: solid 1px;
-      width: 400px;
-    }
-  }
-
-  .search-location {
-    padding: 0 30px;
-
-    input {
-      border-right: solid 1px;
-      width: 300px;
-    }
-  }
 }
