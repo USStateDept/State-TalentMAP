@@ -6,12 +6,14 @@ import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '
 import Loading from '../Loading/Loading';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
+import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
         defaultSort, pageSizes, defaultPageSize, refreshKey,
         defaultPageNumber, queryParamUpdate, onToggle,
   }) => (
     <div className="results-container">
+      <ResultsPillContainer />
       <ResultsControls
         results={results}
         hasLoaded={hasLoaded}
