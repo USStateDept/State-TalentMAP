@@ -10,18 +10,16 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Main', () => {
-  const api = 'http://localhost:8000/api/v1';
-
   it('is defined', () => {
     const compare = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Compare isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
+      <Compare isAuthorized={() => true} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(compare).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
     const compare = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Compare isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
+      <Compare isAuthorized={() => false} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(compare).toBeDefined();
   });

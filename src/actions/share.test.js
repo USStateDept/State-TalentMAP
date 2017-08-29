@@ -10,7 +10,9 @@ const mockStore = configureMockStore(middlewares);
 const testEmail = 'test@email.com';
 
 describe('async actions', () => {
-  beforeEach(() => {
+  it('can submit request to send email', (done) => {
+    const store = mockStore({ share: false });
+
     const mockAdapter = new MockAdapter(axios);
 
     const response = { email: { to: testEmail, subject: '[TalentMAP] Shared position', body: 'Shared' } };
@@ -19,16 +21,8 @@ describe('async actions', () => {
       response,
     );
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/share/failure').reply(404,
-      response,
-    );
-  });
-
-  it('can submit request to send email', (done) => {
-    const store = mockStore({ share: false });
-
     const message = {
-      type: 'position', // TODO - pass in as a prop if we allow sharing of other pages
+      type: 'position',
       mode: 'email',
       id: 1,
       email: testEmail,
@@ -36,7 +30,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.shareSendData('http://localhost:8000/api/v1/share/', message));
+        store.dispatch(actions.shareSendData(message));
         store.dispatch(actions.shareIsSending());
         done();
       }, 0);
@@ -47,8 +41,14 @@ describe('async actions', () => {
   it('can handle a failed submission', (done) => {
     const store = mockStore({ share: false });
 
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPost('http://localhost:8000/api/v1/share/').reply(404,
+      {},
+    );
+
     const message = {
-      type: 'position', // TODO - pass in as a prop if we allow sharing of other pages
+      type: 'position',
       mode: 'email',
       id: 1,
       email: testEmail,
@@ -56,7 +56,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.shareSendData('http://localhost:8000/api/v1/share/failure', message));
+        store.dispatch(actions.shareSendData(message));
         store.dispatch(actions.shareIsSending());
         done();
       }, 0);

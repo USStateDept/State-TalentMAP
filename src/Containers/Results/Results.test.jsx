@@ -12,18 +12,16 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Main', () => {
-  const api = 'http://localhost:8000/api/v1';
-
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
+      <Results isAuthorized={() => true} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
+      <Results isAuthorized={() => false} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
@@ -33,7 +31,6 @@ describe('Main', () => {
       <Results.WrappedComponent
         isAuthorized={() => true}
         fetchData={() => {}}
-        api={api}
         onNavigateTo={() => {}}
       />,
     );
@@ -48,7 +45,6 @@ describe('Main', () => {
       <Results.WrappedComponent
         isAuthorized={() => true}
         fetchData={() => {}}
-        api={api}
         onNavigateTo={() => {}}
       />,
     );
