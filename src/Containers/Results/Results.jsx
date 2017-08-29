@@ -66,6 +66,7 @@ class Results extends Component {
     }
   }
 
+  // for when we need to UPDATE the ENTIRE value of a filter
   onQueryParamUpdate(q) {
     const parsedQuery = queryString.parse(this.state.query.value);
     const newQuery = Object.assign({}, parsedQuery, q);
@@ -73,25 +74,36 @@ class Results extends Component {
     this.updateHistory(newQueryString);
   }
 
+  // for when we need to DELETE a NESTED value of a filter
   onQueryParamRemoval(param, value) {
     const parsedQuery = queryString.parse(this.state.query.value);
+    // watch for quick, back-to-back clicks before page has a chance to reload
     let wasClickedTwice = false;
+    // iterate over the query params
     Object.keys(parsedQuery).forEach((key) => {
       if (key === param) {
+        // split filter strings into array
         const keyArray = parsedQuery[key].split(',');
         const index = keyArray.indexOf(value);
+        // does the filter exist in the query params? if so, delete it
         if (index > -1) {
           keyArray.splice(index, 1);
-        } else {
+        } else { // otherwise, don't refresh the page - the user must have clicked
+        // again before the page reloaded
           wasClickedTwice = true;
         }
+        // convert the array back to a string
         parsedQuery[key] = keyArray.join();
+        // if there's no more filters selected, delete the property so that we don't
+        // end up with empty params like "?skill=&grade=&language="
         if (!parsedQuery[key].length) {
           delete parsedQuery[key];
         }
       }
     });
+    // finally, turn the object back into a string
     const newQueryString = queryString.stringify(parsedQuery);
+    // and if wasClickedTwice wasn't called, update the history with the new filters
     if (!wasClickedTwice) { this.updateHistory(newQueryString); }
   }
 
@@ -101,12 +113,14 @@ class Results extends Component {
     this.forceUpdate();
   }
 
+  // updates the history by passing a string of query params
   updateHistory(q) {
     this.context.router.history.push({
       search: q,
     });
   }
 
+  // reset to no query params
   resetFilters() {
     this.context.router.history.push({
       search: '',

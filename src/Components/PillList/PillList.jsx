@@ -8,7 +8,7 @@ const shortid = require('shortid');
 const PillList = ({ items, onPillClick }) => (
   <div>
     {
-      (items.sort((a, b) => {
+      (items.sort((a, b) => { // sort our pills by description
         const descA = a.description.toLowerCase();
         const descB = b.description.toLowerCase();
         if (descA < descB) { // sort string ascending
