@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import PillList from '../PillList/PillList';
 
-const ResultsContainer = ({ items, onPillClick }) => (
+const ResultsPillContainer = ({ items, onPillClick }) => (
   <div className="usa-grid-full">
     Your Selections:
     <PillList
@@ -13,13 +13,13 @@ const ResultsContainer = ({ items, onPillClick }) => (
   </div>
 );
 
-ResultsContainer.propTypes = {
+ResultsPillContainer.propTypes = {
   items: PILL_ITEM_ARRAY.isRequired,
   onPillClick: PropTypes.func.isRequired,
 };
 
-ResultsContainer.defaultProps = {
+ResultsPillContainer.defaultProps = {
   items: [],
 };
 
-export default ResultsContainer;
+export default ResultsPillContainer;

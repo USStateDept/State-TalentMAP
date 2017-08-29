@@ -5,7 +5,7 @@ import Pill from '../Pill/Pill';
 
 const shortid = require('shortid');
 
-const ResultsContainer = ({ items, onPillClick }) => (
+const PillList = ({ items, onPillClick }) => (
   <div>
     {
       (items.sort((a, b) => {
@@ -30,13 +30,13 @@ const ResultsContainer = ({ items, onPillClick }) => (
   </div>
   );
 
-ResultsContainer.propTypes = {
+PillList.propTypes = {
   items: PILL_ITEM_ARRAY,
   onPillClick: PropTypes.func.isRequired,
 };
 
-ResultsContainer.defaultProps = {
+PillList.defaultProps = {
   items: [],
 };
 
-export default ResultsContainer;
+export default PillList;
