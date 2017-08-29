@@ -149,6 +149,7 @@ class Results extends Component {
           defaultLocation={this.state.defaultLocation.value}
           resetFilters={() => this.resetFilters()}
           pillFilters={filters.mappedParams}
+          filters={filters.filters}
           onQueryParamRemoval={(p, v) => this.onQueryParamRemoval(p, v)}
         />
       </div>

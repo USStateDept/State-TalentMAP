@@ -6,6 +6,9 @@ import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFilters from '../ResetFilters/ResetFilters';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
+import SearchBar from '../SearchBar/SearchBar';
+import Accordion from '../Accordion/Accordion';
+import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 
 class Results extends Component {
   constructor(props) {
@@ -24,7 +27,7 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamRemoval,
-            defaultPageNumber, onQueryParamUpdate }
+            defaultPageNumber, onQueryParamUpdate, filters } // eslint-disable-line
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -47,7 +50,29 @@ class Results extends Component {
           </div>
         </div>
         <div className="usa-grid-full results-section-container">
-          <div className="filter-container" />
+          <div className="filter-container" style={{ fontSize: '.8em', padding: '15px 10px' }}>
+            <div className="usa-grid-full" style={{ color: 'white', marginBottom: '.5em' }}>
+              Keywords
+            </div>
+            <div className="usa-grid-full">
+              <SearchBar
+                type="small"
+                onChangeText={() => {}}
+                onSubmitSearch={() => {}}
+                submitText="search"
+                placeholder="Position, Region, Posts"
+              />
+            </div>
+            <div style={{ margin: '15px 0', color: 'white' }}>
+              <div style={{ width: '50%', float: 'left' }}>Select Filter</div>
+              <div style={{ width: '50%', float: 'left' }}>Reset Filters</div>
+              <br />
+              <div className="usa-grid-full">
+                <Accordion items={[{}, {}, {}]} />
+                <SearchFiltersContainer filters={filters} />
+              </div>
+            </div>
+          </div>
           <ResultsContainer
             results={results}
             isLoading={isLoading}
