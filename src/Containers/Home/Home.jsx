@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
 import Filters from '../../Components/Filters/Filters';
-import { ITEMS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { FILTERS_PARENT, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Home extends Component {
@@ -51,12 +51,12 @@ Home.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func,
   isLoading: PropTypes.bool,
-  items: ITEMS,
+  items: FILTERS_PARENT,
   isAuthorized: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
-  items: [],
+  items: { filters: [] },
   fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,

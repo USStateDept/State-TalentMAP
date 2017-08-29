@@ -59,19 +59,25 @@ export const FILTERS = PropTypes.arrayOf(
   }),
 );
 
+export const ITEM = PropTypes.shape({
+  title: PropTypes.string,
+  sort: PropTypes.number,
+  description: PropTypes.string,
+  endpoint: PropTypes.string,
+  selectionRef: PropTypes.string,
+  text: PropTypes.string,
+});
+
 export const ITEMS = PropTypes.arrayOf(
   PropTypes.shape({
-    item: PropTypes.shape({
-      title: PropTypes.string,
-      sort: PropTypes.number,
-      description: PropTypes.string,
-      endpoint: PropTypes.string,
-      selectionRef: PropTypes.string,
-      text: PropTypes.string,
-    }),
+    item: ITEM,
     data: FILTERS,
   }),
 );
+
+export const FILTERS_PARENT = PropTypes.shape({
+  filters: ITEMS,
+});
 
 export const SORT_BY_ARRAY = PropTypes.arrayOf(
   PropTypes.shape({
@@ -117,5 +123,13 @@ export const GO_BACK_TO_LINK = PropTypes.shape({
   text: PropTypes.string,
   link: PropTypes.string,
 });
+
+export const PILL_ITEM = PropTypes.shape({
+  description: PropTypes.string,
+  codeRef: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  selectionRef: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+});
+
+export const PILL_ITEM_ARRAY = PropTypes.arrayOf(PILL_ITEM);
 
 export const EMPTY_FUNCTION = () => {};

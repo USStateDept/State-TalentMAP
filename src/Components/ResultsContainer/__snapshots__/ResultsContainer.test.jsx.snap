@@ -4,7 +4,10 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
 <div
   className="results-container"
 >
-  <ResultsContainer />
+  <ResultsContainer
+    items={Array []}
+    onPillClick={[Function]}
+  />
   <ResultsControls
     defaultPageNumber={0}
     defaultPageSize={10}

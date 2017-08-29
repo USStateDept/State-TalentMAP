@@ -11,7 +11,7 @@ import Results from './Results';
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('Main', () => {
+describe('Results', () => {
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Results isAuthorized={() => true} onNavigateTo={() => {}} />
@@ -32,6 +32,7 @@ describe('Main', () => {
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
+        fetchFilters={() => {}}
       />,
     );
     expect(wrapper.instance().state.key).toBe(0);
@@ -46,6 +47,7 @@ describe('Main', () => {
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
+        fetchFilters={() => {}}
       />,
     );
     // define the instance
@@ -57,12 +59,13 @@ describe('Main', () => {
     sinon.assert.calledOnce(handleUpdateSpy);
   });
 
-  it('can call the onQueryParamUpdate function', () => {
+  it('can call the resetFilters function', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
+        fetchFilters={() => {}}
       />,
     );
     // define the instance
@@ -72,5 +75,27 @@ describe('Main', () => {
     wrapper.instance().context.router = { history: { push: () => {} } };
     wrapper.instance().resetFilters();
     sinon.assert.calledOnce(handleUpdateSpy);
+  });
+
+  it('can call the onQueryParamRemoval function', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+      />,
+    );
+    const history = { value: { search: null } };
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the onQueryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamRemoval');
+    wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
+    wrapper.instance().state.query.value = 'ordering=bureau&q=German&language=1,2&skill=1';
+    wrapper.instance().onQueryParamRemoval('language', '1');
+    sinon.assert.calledOnce(handleUpdateSpy);
+    wrapper.instance().onQueryParamRemoval('skill', '1');
+    expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German');
   });
 });

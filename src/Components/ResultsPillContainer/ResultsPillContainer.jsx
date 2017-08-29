@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import PillList from '../PillList/PillList';
 
-const ResultsContainer = ({ items }) => (
+const ResultsContainer = ({ items, onPillClick }) => (
   <div className="usa-grid-full">
     Your Selections:
-    <PillList items={items} />
+    <PillList
+      items={items}
+      onPillClick={(p, v) => onPillClick(p, v)}
+    />
   </div>
 );
 
 ResultsContainer.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      description: PropTypes.string,
-      code: PropTypes.oneOf(PropTypes.string, PropTypes.number),
-    }),
-  ).isRequired,
+  items: PILL_ITEM_ARRAY.isRequired,
+  onPillClick: PropTypes.func.isRequired,
 };
 
 ResultsContainer.defaultProps = {

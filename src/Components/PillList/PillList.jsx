@@ -1,28 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import Pill from '../Pill/Pill';
 
-const ResultsContainer = ({ items }) => (
+const shortid = require('shortid');
+
+const ResultsContainer = ({ items, onPillClick }) => (
   <div>
     {
-      items.map(item =>
-        (<Pill
-          description={item.description}
-          code={item.code}
-          onClick={e => this.props.onClick(e)}
-        />),
-      )
+      (items.sort((a, b) => {
+        const descA = a.description.toLowerCase();
+        const descB = b.description.toLowerCase();
+        if (descA < descB) { // sort string ascending
+          return -1;
+        }
+        if (descA > descB) { return 1; }
+        return 0; // default return value (no sorting)
+      }))
+        .map(item =>
+          (<Pill
+            key={shortid.generate()}
+            description={item.description}
+            codeRef={item.codeRef}
+            selectionRef={item.selectionRef}
+            onPillClick={(p, v) => onPillClick(p, v)}
+          />),
+        )
     }
   </div>
   );
 
 ResultsContainer.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      description: PropTypes.string,
-      code: PropTypes.oneOf(PropTypes.string, PropTypes.number),
-    }),
-  ).isRequired,
+  items: PILL_ITEM_ARRAY,
+  onPillClick: PropTypes.func.isRequired,
 };
 
 ResultsContainer.defaultProps = {

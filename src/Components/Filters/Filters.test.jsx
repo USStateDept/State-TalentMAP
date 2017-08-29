@@ -78,7 +78,7 @@ describe('FiltersComponent', () => {
         sort: 400,
         description: 'tod',
         endpoint: 'organization/tod',
-        selectionRef: 'post__tour_of_duty__in',
+        selectionRef: 'post__tour_of_duty__code__in',
         text: 'Choose tour of duty length',
         choices: [
         ],
@@ -191,7 +191,7 @@ describe('FiltersComponent', () => {
         wrapper.find('#S0020').simulate('change', (0, { target: { checked: true, value: '0020' } }));
         wrapper.find('#TOD00').simulate('change', (0, { target: { checked: true, value: '2' } }));
         wrapper.find('#R00').simulate('change', (0, { target: { checked: true, value: '2' } }));
-        expect(wrapper.instance().state.qString).toBe('organization__code__in=2&post__tour_of_duty__in=2&q=info%20Tech&skill__code__in=0010%2C0020');
+        expect(wrapper.instance().state.qString).toBe('organization__code__in=2&post__tour_of_duty__code__in=2&q=info%20Tech&skill__code__in=0010%2C0020');
         done();
       }, 0);
     };

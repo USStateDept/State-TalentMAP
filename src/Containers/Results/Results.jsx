@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, ITEMS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
@@ -70,15 +70,36 @@ class Results extends Component {
     const parsedQuery = queryString.parse(this.state.query.value);
     const newQuery = Object.assign({}, parsedQuery, q);
     const newQueryString = queryString.stringify(newQuery);
-    this.context.router.history.push({
-      search: newQueryString,
+    this.updateHistory(newQueryString);
+  }
+
+  onQueryParamRemoval(param, value) {
+    const parsedQuery = queryString.parse(this.state.query.value);
+    Object.keys(parsedQuery).forEach((key) => {
+      if (key === param) {
+        const keyArray = parsedQuery[key].split(',');
+        const index = keyArray.indexOf(value);
+        keyArray.splice(index, 1);
+        parsedQuery[key] = keyArray.join();
+        if (!parsedQuery[key].length) {
+          delete parsedQuery[key];
+        }
+      }
     });
+    const newQueryString = queryString.stringify(parsedQuery);
+    this.updateHistory(newQueryString);
   }
 
   onChildToggle() {
     const key = Math.random();
     this.setState({ key });
     this.forceUpdate();
+  }
+
+  updateHistory(q) {
+    this.context.router.history.push({
+      search: q,
+    });
   }
 
   resetFilters() {
@@ -109,6 +130,7 @@ class Results extends Component {
           defaultLocation={this.state.defaultLocation.value}
           resetFilters={() => this.resetFilters()}
           pillFilters={filters.mappedParams}
+          onQueryParamRemoval={(p, v) => this.onQueryParamRemoval(p, v)}
         />
       </div>
     );
@@ -122,7 +144,7 @@ Results.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
-  filters: ITEMS,
+  filters: FILTERS_PARENT,
   fetchFilters: PropTypes.func.isRequired,
 };
 
@@ -130,7 +152,7 @@ Results.defaultProps = {
   results: { results: [] },
   hasErrored: false,
   isLoading: true,
-  filters: [],
+  filters: { filters: [] },
   filtersHasErrored: false,
   filtersIsLoading: true,
 };

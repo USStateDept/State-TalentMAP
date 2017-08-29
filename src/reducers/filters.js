@@ -43,7 +43,7 @@ const items =
           sort: 400,
           description: 'tod',
           endpoint: 'tour_of_duty/',
-          selectionRef: 'post__tour_of_duty__in',
+          selectionRef: 'post__tour_of_duty__code__in',
           text: 'Choose tour of duty length',
           choices: [
           ],

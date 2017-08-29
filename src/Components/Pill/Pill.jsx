@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
-const ResultsContainer = ({ description, code }) => {
+const ResultsContainer = ({ description, codeRef, selectionRef, onPillClick }) => {
   const style = {
     borderRadius: '12px',
     fontSize: '.8em',
     padding: '.5em',
   };
   return (
-    <button style={style} onClick={() => this.props.onClick(code)}>
+    <button style={style} onClick={() => onPillClick(selectionRef, codeRef)}>
       {description} <FontAwesome name="times" />
     </button>
   );
@@ -17,7 +17,9 @@ const ResultsContainer = ({ description, code }) => {
 
 ResultsContainer.propTypes = {
   description: PropTypes.string.isRequired,
-  code: PropTypes.oneOf(PropTypes.string, PropTypes.number).isRequired,
+  codeRef: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  selectionRef: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onPillClick: PropTypes.func.isRequired,
 };
 
 export default ResultsContainer;

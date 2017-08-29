@@ -21,6 +21,7 @@ describe('ResultsPageComponent', () => {
       defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
+      onQueryParamRemoval={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -36,6 +37,7 @@ describe('ResultsPageComponent', () => {
       defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
+      onQueryParamRemoval={() => {}}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -50,6 +52,7 @@ describe('ResultsPageComponent', () => {
       defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
+      onQueryParamRemoval={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -63,6 +66,7 @@ describe('ResultsPageComponent', () => {
       defaultPageSize={defaultPageSize}
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
+      onQueryParamRemoval={() => {}}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

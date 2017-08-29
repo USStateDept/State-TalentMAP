@@ -13,7 +13,7 @@ class Filters extends Component {
         skill__code__in: [],
         languages__language__code__in: [],
         grade__code__in: [],
-        post__tour_of_duty__in: [],
+        post__tour_of_duty__code__in: [],
         organization__code__in: [],
         post__cost_of_living_adjustment__gt: [],
         post__differential_rate__gt: [],
@@ -198,10 +198,10 @@ class Filters extends Component {
                         type="checkbox"
                         title={`tod-${choice.code}`}
                         name={`TOD${choice.code}`}
-                        value={choice.id}
+                        value={choice.code}
                         onChange={e => this.changeCheck(i, e)}
                         checked={selection[items[i].item.selectionRef]
-                                  .indexOf(choice.id.toString()) !== -1}
+                                  .indexOf(choice.code.toString()) !== -1}
                       />
                       <label htmlFor={`TOD${choice.code}`}>
                         {choice.long_description}
