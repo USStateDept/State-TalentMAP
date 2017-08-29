@@ -75,11 +75,16 @@ class Results extends Component {
 
   onQueryParamRemoval(param, value) {
     const parsedQuery = queryString.parse(this.state.query.value);
+    let wasClickedTwice = false;
     Object.keys(parsedQuery).forEach((key) => {
       if (key === param) {
         const keyArray = parsedQuery[key].split(',');
         const index = keyArray.indexOf(value);
-        keyArray.splice(index, 1);
+        if (index > -1) {
+          keyArray.splice(index, 1);
+        } else {
+          wasClickedTwice = true;
+        }
         parsedQuery[key] = keyArray.join();
         if (!parsedQuery[key].length) {
           delete parsedQuery[key];
@@ -87,7 +92,7 @@ class Results extends Component {
       }
     });
     const newQueryString = queryString.stringify(parsedQuery);
-    this.updateHistory(newQueryString);
+    if (!wasClickedTwice) { this.updateHistory(newQueryString); }
   }
 
   onChildToggle() {

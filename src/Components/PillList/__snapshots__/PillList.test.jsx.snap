@@ -2,31 +2,31 @@
 
 exports[`PillListComponent matches snapshot 1`] = `
 <div>
-  <ResultsContainer
+  <Pill
     codeRef="code"
     description="a"
     onPillClick={[Function]}
     selectionRef="selection"
   />
-  <ResultsContainer
+  <Pill
     codeRef="code2"
     description="b"
     onPillClick={[Function]}
     selectionRef="selection2"
   />
-  <ResultsContainer
+  <Pill
     codeRef="code2"
     description="c"
     onPillClick={[Function]}
     selectionRef="selection2"
   />
-  <ResultsContainer
+  <Pill
     codeRef="code3"
     description="c"
     onPillClick={[Function]}
     selectionRef="selection3"
   />
-  <ResultsContainer
+  <Pill
     codeRef="code4"
     description="d"
     onPillClick={[Function]}

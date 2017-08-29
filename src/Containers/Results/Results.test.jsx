@@ -98,4 +98,20 @@ describe('Results', () => {
     wrapper.instance().onQueryParamRemoval('skill', '1');
     expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German');
   });
+
+  it('can call the onQueryParamRemoval function and handle non-existent params', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+      />,
+    );
+    const history = { value: { search: null } };
+    wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
+    wrapper.instance().state.query.value = 'ordering=bureau&q=German&language=1,2&skill=1';
+    wrapper.instance().onQueryParamRemoval('skill', '2');
+    expect(history.value.search).toBe(null);
+  });
 });

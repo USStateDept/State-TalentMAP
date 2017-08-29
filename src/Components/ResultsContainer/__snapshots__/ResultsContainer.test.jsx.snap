@@ -4,7 +4,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
 <div
   className="results-container"
 >
-  <ResultsContainer
+  <ResultsPillContainer
     items={Array []}
     onPillClick={[Function]}
   />
