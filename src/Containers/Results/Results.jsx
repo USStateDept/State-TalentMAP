@@ -102,7 +102,6 @@ class Results extends Component {
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
           defaultKeyword={this.state.defaultKeyword.value}
           defaultLocation={this.state.defaultLocation.value}
-          resetFilters={() => this.resetFilters()}
         />
       </div>
     );
