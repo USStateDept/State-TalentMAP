@@ -22,7 +22,7 @@ class Results extends Component {
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation,
+    const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             defaultSort, pageSizes, defaultPageSize, defaultPageNumber, onQueryParamUpdate }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
@@ -80,6 +80,7 @@ Results.propTypes = {
   defaultPageNumber: PropTypes.number,
   defaultKeyword: PropTypes.string,
   defaultLocation: PropTypes.string,
+  resetFilters: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
