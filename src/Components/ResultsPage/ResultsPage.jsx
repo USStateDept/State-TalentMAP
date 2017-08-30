@@ -7,7 +7,6 @@ import ResetFilters from '../ResetFilters/ResetFilters';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 import SearchBar from '../SearchBar/SearchBar';
-import Accordion from '../Accordion/Accordion';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 
 class Results extends Component {
@@ -26,7 +25,7 @@ class Results extends Component {
 
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
-            pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamRemoval,
+            pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
             defaultPageNumber, onQueryParamUpdate, filters, defaultFilters } // eslint-disable-line
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
@@ -68,11 +67,12 @@ class Results extends Component {
               <div style={{ width: '50%', float: 'left' }}>Reset Filters</div>
               <br />
               <div className="usa-grid-full">
-                <Accordion items={[{}, {}, {}]} />
                 <SearchFiltersContainer
-                  key={this.state.key}
                   filters={filters}
                   queryParamUpdate={(e) => { onQueryParamUpdate(e); this.onChildToggle(); }}
+                  queryParamToggle={(p, v, r) => {
+                    onQueryParamToggle(p, v, r); this.onChildToggle();
+                  }}
                 />
               </div>
             </div>
@@ -92,7 +92,7 @@ class Results extends Component {
             refreshKey={this.state.key}
             onToggle={() => this.onChildToggle()}
             pillFilters={pillFilters}
-            onQueryParamRemoval={(p, v) => onQueryParamRemoval(p, v)}
+            onQueryParamToggle={(p, v, r) => onQueryParamToggle(p, v, r)}
           />
         </div>
       </div>
@@ -105,7 +105,7 @@ Results.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   onQueryParamUpdate: PropTypes.func.isRequired,
-  onQueryParamRemoval: PropTypes.func.isRequired,
+  onQueryParamToggle: PropTypes.func.isRequired,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,

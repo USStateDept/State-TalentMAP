@@ -8,7 +8,7 @@ const ResultsPillContainer = ({ items, onPillClick }) => (
     Your Selections:
     <PillList
       items={items}
-      onPillClick={(p, v) => onPillClick(p, v)}
+      onPillClick={(p, v, r) => onPillClick(p, v, r)}
     />
   </div>
 );

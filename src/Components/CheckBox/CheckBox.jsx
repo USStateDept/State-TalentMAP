@@ -12,16 +12,16 @@ class CheckBox extends Component {
   onCheck() {
     const { checked } = this.state;
     checked.value = !checked.value;
-    this.setState({ checked });
-    this.props.onCheckBoxClick(checked.value);
+    this.setState({ checked },
+      this.props.onCheckBoxClick(checked.value, { ...this.props }),
+    );
   }
 
   render() {
-    const { id, label, title, name, legend } = this.props;
+    const { id, label, title, name } = this.props;
     const { checked } = this.state;
     return (
-      <fieldset>
-        <legend>{legend}</legend>
+      <div>
         <input
           type="checkbox"
           id={id}
@@ -32,7 +32,7 @@ class CheckBox extends Component {
           checked={checked.value}
         />
         <label htmlFor={id}>{label}</label>
-      </fieldset>
+      </div>
     );
   }
 }
@@ -43,7 +43,6 @@ CheckBox.propTypes = {
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.node.isRequired,
-  legend: PropTypes.string.isRequired,
   onCheckBoxClick: PropTypes.func.isRequired,
 };
 

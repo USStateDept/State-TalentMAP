@@ -10,12 +10,12 @@ import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
         defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters,
-        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamRemoval,
+        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
   }) => (
     <div className="results-container">
       <ResultsPillContainer
         items={pillFilters}
-        onPillClick={(p, v) => onQueryParamRemoval(p, v)}
+        onPillClick={(p, v, r) => onQueryParamToggle(p, v, r)}
       />
       <ResultsControls
         results={results}
@@ -69,7 +69,7 @@ ResultsContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   queryParamUpdate: PropTypes.func.isRequired,
-  onQueryParamRemoval: PropTypes.func.isRequired,
+  onQueryParamToggle: PropTypes.func.isRequired,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,

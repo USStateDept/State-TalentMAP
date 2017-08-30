@@ -77,7 +77,7 @@ describe('Results', () => {
     sinon.assert.calledOnce(handleUpdateSpy);
   });
 
-  it('can call the onQueryParamRemoval function', () => {
+  it('can call the onQueryParamToggle function', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
         isAuthorized={() => true}
@@ -90,16 +90,16 @@ describe('Results', () => {
     // define the instance
     const instance = wrapper.instance();
     // spy the onQueryParamUpdate function
-    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamRemoval');
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
     wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
     wrapper.instance().state.query.value = 'ordering=bureau&q=German&language=1,2&skill=1';
-    wrapper.instance().onQueryParamRemoval('language', '1');
+    wrapper.instance().onQueryParamToggle('language', '1');
     sinon.assert.calledOnce(handleUpdateSpy);
-    wrapper.instance().onQueryParamRemoval('skill', '1');
+    wrapper.instance().onQueryParamToggle('skill', '1');
     expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German');
   });
 
-  it('can call the onQueryParamRemoval function and handle non-existent params', () => {
+  it('can call the onQueryParamToggle function and handle non-existent params', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
         isAuthorized={() => true}
@@ -111,7 +111,7 @@ describe('Results', () => {
     const history = { value: { search: null } };
     wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
     wrapper.instance().state.query.value = 'ordering=bureau&q=German&language=1,2&skill=1';
-    wrapper.instance().onQueryParamRemoval('skill', '2');
+    wrapper.instance().onQueryParamToggle('skill', '2');
     expect(history.value.search).toBe(null);
   });
 });

@@ -9,7 +9,7 @@ const Pill = ({ description, codeRef, selectionRef, onPillClick }) => {
     padding: '.5em',
   };
   return (
-    <button style={style} onClick={() => onPillClick(selectionRef, codeRef)}>
+    <button style={style} onClick={() => onPillClick(selectionRef, codeRef, true)}>
       {description} <FontAwesome name="times" />
     </button>
   );

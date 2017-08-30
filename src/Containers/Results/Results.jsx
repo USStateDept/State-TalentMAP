@@ -80,23 +80,24 @@ class Results extends Component {
     this.updateHistory(newQueryString);
   }
 
-  // for when we need to DELETE a NESTED value of a filter
-  onQueryParamRemoval(param, value) {
+  // for when we need to ADD or DELETE a NESTED value of a filter
+  onQueryParamToggle(param, value, remove) {
     const parsedQuery = queryString.parse(this.state.query.value);
-    // watch for quick, back-to-back clicks before page has a chance to reload
-    let wasClickedTwice = false;
+    // was the key found?
+    let wasKeyFound = false;
     // iterate over the query params
     Object.keys(parsedQuery).forEach((key) => {
       if (key === param) {
+        // key was found
+        wasKeyFound = true;
         // split filter strings into array
         const keyArray = parsedQuery[key].split(',');
         const index = keyArray.indexOf(value);
         // does the filter exist in the query params? if so, delete it
-        if (index > -1) {
+        if (index > -1 && remove) {
           keyArray.splice(index, 1);
-        } else { // otherwise, don't refresh the page - the user must have clicked
-        // again before the page reloaded
-          wasClickedTwice = true;
+        } else if (!remove) {
+          keyArray.push(value);
         }
         // convert the array back to a string
         parsedQuery[key] = keyArray.join();
@@ -107,10 +108,13 @@ class Results extends Component {
         }
       }
     });
+    if (!wasKeyFound && !remove) {
+      parsedQuery[param] = value;
+    }
     // finally, turn the object back into a string
     const newQueryString = queryString.stringify(parsedQuery);
-    // and if wasClickedTwice wasn't called, update the history with the new filters
-    if (!wasClickedTwice) { this.updateHistory(newQueryString); }
+    // check if there were actually any changes (example - two fast clicks of a pill)
+    if (newQueryString !== this.state.query.value) { this.updateHistory(newQueryString); }
   }
 
   onChildToggle() {
@@ -121,9 +125,10 @@ class Results extends Component {
 
   // updates the history by passing a string of query params
   updateHistory(q) {
-    this.context.router.history.push({
+    /* this.context.router.history.push({
       search: q,
-    });
+    }); */
+    this.props.onNavigateTo(`results?${q}`);
   }
 
   // reset to no query params
@@ -156,7 +161,7 @@ class Results extends Component {
           resetFilters={() => this.resetFilters()}
           pillFilters={filters.mappedParams}
           filters={filters.filters}
-          onQueryParamRemoval={(p, v) => this.onQueryParamRemoval(p, v)}
+          onQueryParamToggle={(p, v, r) => this.onQueryParamToggle(p, v, r)}
         />
       </div>
     );

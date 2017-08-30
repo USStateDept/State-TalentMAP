@@ -11,12 +11,12 @@ const Accordion = ({ items }) => (
           <li key={shortid.generate()}>
             <button
               className="usa-accordion-button"
-              aria-expanded="false"
+              aria-expanded={item.expanded}
               aria-controls={item.id}
             >
               {item.title}
             </button>
-            <div id={item.id} className="usa-accordion-content">
+            <div id={item.id} className="usa-accordion-content" aria-hidden={!item.expanded}>
               {item.content}
             </div>
           </li>
@@ -32,6 +32,7 @@ Accordion.propTypes = {
       id: PropTypes.string,
       title: PropTypes.string,
       content: PropTypes.node,
+      expanded: PropTypes.bool,
     }),
   ).isRequired,
 };

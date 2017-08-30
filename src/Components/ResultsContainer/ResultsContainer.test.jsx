@@ -33,7 +33,7 @@ describe('ResultsContainerComponent', () => {
         pageCount={pageCount}
         hasLoaded={hasLoaded}
         onToggle={onToggle}
-        onQueryParamRemoval={() => {}}
+        onQueryParamToggle={() => {}}
       />
     </MemoryRouter>);
     expect(wrapper).toBeDefined();
@@ -49,7 +49,7 @@ describe('ResultsContainerComponent', () => {
       pageCount={pageCount}
       hasLoaded={hasLoaded}
       onToggle={onToggle}
-      onQueryParamRemoval={() => {}}
+      onQueryParamToggle={() => {}}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -64,7 +64,7 @@ describe('ResultsContainerComponent', () => {
       pageCount={20}
       hasLoaded={false}
       onToggle={onToggle}
-      onQueryParamRemoval={() => {}}
+      onQueryParamToggle={() => {}}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
   });
@@ -79,7 +79,7 @@ describe('ResultsContainerComponent', () => {
       pageCount={pageCount}
       hasLoaded={hasLoaded}
       onToggle={onToggle}
-      onQueryParamRemoval={() => {}}
+      onQueryParamToggle={() => {}}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
