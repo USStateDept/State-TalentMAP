@@ -8,7 +8,7 @@ import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, api, isLoading, hasErrored, goBackLink }) => {
+const PositionDetails = ({ details, isLoading, hasErrored, goBackLink }) => {
   const isReady = details && !isLoading && !hasErrored;
   return (
     <div>
@@ -19,7 +19,7 @@ const PositionDetails = ({ details, api, isLoading, hasErrored, goBackLink }) =>
         <PositionAdditionalDetails />
         <div className="usa-grid">
           <FavoritesButton refKey={details.position_number} type="fav" />
-          <Share api={api} identifier={details.id} />
+          <Share identifier={details.id} />
         </div>
       </div>}
       {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
@@ -29,7 +29,6 @@ const PositionDetails = ({ details, api, isLoading, hasErrored, goBackLink }) =>
 
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
-  api: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   goBackLink: GO_BACK_TO_LINK.isRequired,

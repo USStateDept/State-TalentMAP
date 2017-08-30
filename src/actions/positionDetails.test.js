@@ -35,7 +35,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.positionDetailsFetchData('http://localhost:8000/api/v1/position/?position_number=00011111'));
+        store.dispatch(actions.positionDetailsFetchData('00011111'));
         store.dispatch(actions.positionDetailsIsLoading());
         done();
       }, 0);

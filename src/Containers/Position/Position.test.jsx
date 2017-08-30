@@ -11,13 +11,10 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Main', () => {
-  const api = 'http://localhost:8000/api/v1';
-
   it('is defined', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Position
         isAuthorized={() => true}
-        api={api}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
       />
@@ -29,7 +26,6 @@ describe('Main', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Position
         isAuthorized={() => false}
-        api={api}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
       />

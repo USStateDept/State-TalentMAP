@@ -8,7 +8,7 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 class Share extends Component {
 
   onChildSend(e) {
-    this.props.sendData(`${this.props.api}/share/`, e);
+    this.props.sendData(e);
   }
 
   render() {
@@ -30,7 +30,6 @@ Share.contextTypes = {
 };
 
 Share.propTypes = {
-  api: PropTypes.string.isRequired,
   response: PropTypes.bool,
   sendData: PropTypes.func,
   hasErrored: PropTypes.oneOfType([

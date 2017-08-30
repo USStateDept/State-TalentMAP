@@ -6,13 +6,11 @@ import detailsObject from '../../__mocks__/detailsObject';
 describe('PositionDetailsComponent', () => {
   let wrapper = null;
 
-  const api = 'localhost:8000/api/v1/';
   const goBackLink = { text: 'Go back text', link: '/link' };
 
   it('can receive props', () => {
     wrapper = shallow(
       <PositionDetails
-        api={api}
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
@@ -27,7 +25,6 @@ describe('PositionDetailsComponent', () => {
 
     wrapper = shallow(
       <PositionDetails
-        api={api}
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
@@ -42,7 +39,6 @@ describe('PositionDetailsComponent', () => {
 
     wrapper = shallow(
       <PositionDetails
-        api={api}
         details={detailsObject}
         isLoading
         hasErrored={false}
