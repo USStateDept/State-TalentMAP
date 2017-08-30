@@ -18,11 +18,14 @@ class Results extends Component {
       defaultSort: { value: '' },
       defaultPageSize: { value: '' },
       defaultPageNumber: { value: 1 },
+      defaultKeyword: { value: '' },
+      defaultLocation: { value: '' },
     };
   }
 
   componentWillMount() {
-    const { query, defaultSort, defaultPageSize, defaultPageNumber } = this.state;
+    const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword,
+            defaultLocation } = this.state;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
@@ -37,6 +40,12 @@ class Results extends Component {
       // set our default page number
       defaultPageNumber.value =
         parseInt(parsedQuery.page, 10) || defaultPageNumber.value;
+      // set our default keyword (?q=...)
+      defaultKeyword.value =
+        parsedQuery.q || defaultKeyword.value;
+      // set our default location keyword
+      defaultLocation.value =
+        parsedQuery.location || defaultLocation.value;
       // add our defaultSort and defaultPageSize to the query,
       // but don't add them to history on initial render if
       // they weren't included in the initial query params
@@ -85,6 +94,8 @@ class Results extends Component {
           defaultPageSize={this.state.defaultPageSize.value}
           defaultPageNumber={this.state.defaultPageNumber.value}
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
+          defaultKeyword={this.state.defaultKeyword.value}
+          defaultLocation={this.state.defaultLocation.value}
         />
       </div>
     );

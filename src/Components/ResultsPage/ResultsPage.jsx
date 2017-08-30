@@ -5,6 +5,7 @@ import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
+import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 
 class Results extends Component {
   constructor(props) {
@@ -21,13 +22,18 @@ class Results extends Component {
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy,
+    const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation,
             defaultSort, pageSizes, defaultPageSize, defaultPageNumber, onQueryParamUpdate }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
     return (
       <div className="results">
+        <ResultsSearchHeader
+          queryParamUpdate={e => onQueryParamUpdate(e)}
+          defaultKeyword={defaultKeyword}
+          defaultLocation={defaultLocation}
+        />
         <div className="usa-grid-full top-nav">
           <div className="usa-width-one-third compare-link">
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
@@ -72,6 +78,8 @@ Results.propTypes = {
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
   defaultPageSize: PropTypes.node,
   defaultPageNumber: PropTypes.number,
+  defaultKeyword: PropTypes.string,
+  defaultLocation: PropTypes.string,
 };
 
 Results.defaultProps = {
@@ -82,6 +90,8 @@ Results.defaultProps = {
   defaultSort: '',
   defaultPageSize: 10,
   defaultPageNumber: 0,
+  defaultKeyword: '',
+  defaultLocation: '',
 };
 
 Results.contextTypes = {
