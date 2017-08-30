@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import { resultsFetchData } from '../../actions/results';
+import { filtersFetchData } from '../../actions/filters';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
@@ -58,16 +59,52 @@ class Results extends Component {
       );
       const newQueryString = queryString.stringify(newQuery);
       this.callFetchData(newQueryString);
+
+      // get our filters to map against
+      const { filters } = this.props;
+      this.props.fetchFilters(filters, newQuery);
     }
   }
 
+  // for when we need to UPDATE the ENTIRE value of a filter
   onQueryParamUpdate(q) {
     const parsedQuery = queryString.parse(this.state.query.value);
     const newQuery = Object.assign({}, parsedQuery, q);
     const newQueryString = queryString.stringify(newQuery);
-    this.context.router.history.push({
-      search: newQueryString,
+    this.updateHistory(newQueryString);
+  }
+
+  // for when we need to DELETE a NESTED value of a filter
+  onQueryParamRemoval(param, value) {
+    const parsedQuery = queryString.parse(this.state.query.value);
+    // watch for quick, back-to-back clicks before page has a chance to reload
+    let wasClickedTwice = false;
+    // iterate over the query params
+    Object.keys(parsedQuery).forEach((key) => {
+      if (key === param) {
+        // split filter strings into array
+        const keyArray = parsedQuery[key].split(',');
+        const index = keyArray.indexOf(value);
+        // does the filter exist in the query params? if so, delete it
+        if (index > -1) {
+          keyArray.splice(index, 1);
+        } else { // otherwise, don't refresh the page - the user must have clicked
+        // again before the page reloaded
+          wasClickedTwice = true;
+        }
+        // convert the array back to a string
+        parsedQuery[key] = keyArray.join();
+        // if there's no more filters selected, delete the property so that we don't
+        // end up with empty params like "?skill=&grade=&language="
+        if (!parsedQuery[key].length) {
+          delete parsedQuery[key];
+        }
+      }
     });
+    // finally, turn the object back into a string
+    const newQueryString = queryString.stringify(parsedQuery);
+    // and if wasClickedTwice wasn't called, update the history with the new filters
+    if (!wasClickedTwice) { this.updateHistory(newQueryString); }
   }
 
   onChildToggle() {
@@ -76,6 +113,14 @@ class Results extends Component {
     this.forceUpdate();
   }
 
+  // updates the history by passing a string of query params
+  updateHistory(q) {
+    this.context.router.history.push({
+      search: q,
+    });
+  }
+
+  // reset to no query params
   resetFilters() {
     this.context.router.history.push({
       search: '',
@@ -87,7 +132,7 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading } = this.props;
+    const { results, hasErrored, isLoading, filters } = this.props;
     return (
       <div>
         <ResultsPage
@@ -103,6 +148,8 @@ class Results extends Component {
           defaultKeyword={this.state.defaultKeyword.value}
           defaultLocation={this.state.defaultLocation.value}
           resetFilters={() => this.resetFilters()}
+          pillFilters={filters.mappedParams}
+          onQueryParamRemoval={(p, v) => this.onQueryParamRemoval(p, v)}
         />
       </div>
     );
@@ -116,12 +163,17 @@ Results.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
+  filters: FILTERS_PARENT,
+  fetchFilters: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
   results: { results: [] },
   hasErrored: false,
   isLoading: true,
+  filters: { filters: [] },
+  filtersHasErrored: false,
+  filtersIsLoading: true,
 };
 
 Results.contextTypes = {
@@ -132,10 +184,14 @@ const mapStateToProps = state => ({
   results: state.results,
   hasErrored: state.resultsHasErrored,
   isLoading: state.resultsIsLoading,
+  filters: state.filters,
+  filtersHasErrored: state.filtersHasErrored,
+  filtersIsLoading: state.filtersIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
+  fetchFilters: (items, queryParams) => dispatch(filtersFetchData(items, queryParams)),
   onNavigateTo: dest => dispatch(push(dest)),
 });
 

@@ -2,16 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import Loading from '../Loading/Loading';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
+import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
-        defaultSort, pageSizes, defaultPageSize, refreshKey,
-        defaultPageNumber, queryParamUpdate, onToggle,
+        defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters,
+        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamRemoval,
   }) => (
     <div className="results-container">
+      <ResultsPillContainer
+        items={pillFilters}
+        onPillClick={(p, v) => onQueryParamRemoval(p, v)}
+      />
       <ResultsControls
         results={results}
         hasLoaded={hasLoaded}
@@ -64,6 +69,7 @@ ResultsContainer.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   queryParamUpdate: PropTypes.func.isRequired,
+  onQueryParamRemoval: PropTypes.func.isRequired,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
@@ -73,6 +79,7 @@ ResultsContainer.propTypes = {
   hasLoaded: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
   refreshKey: PropTypes.number, // refresh components that rely on local storage
+  pillFilters: PILL_ITEM_ARRAY,
 };
 
 ResultsContainer.defaultProps = {
@@ -84,6 +91,7 @@ ResultsContainer.defaultProps = {
   defaultPageSize: 10,
   defaultPageNumber: 0,
   refreshKey: 0,
+  pillFilters: [],
 };
 
 export default ResultsContainer;

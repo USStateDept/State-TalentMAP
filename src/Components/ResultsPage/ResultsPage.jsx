@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFilters from '../ResetFilters/ResetFilters';
@@ -23,7 +23,8 @@ class Results extends Component {
 
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
-            defaultSort, pageSizes, defaultPageSize, defaultPageNumber, onQueryParamUpdate }
+            pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamRemoval,
+            defaultPageNumber, onQueryParamUpdate }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -61,6 +62,8 @@ class Results extends Component {
             queryParamUpdate={e => onQueryParamUpdate(e)}
             refreshKey={this.state.key}
             onToggle={() => this.onChildToggle()}
+            pillFilters={pillFilters}
+            onQueryParamRemoval={(p, v) => onQueryParamRemoval(p, v)}
           />
         </div>
       </div>
@@ -73,6 +76,7 @@ Results.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   onQueryParamUpdate: PropTypes.func.isRequired,
+  onQueryParamRemoval: PropTypes.func.isRequired,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
@@ -81,6 +85,7 @@ Results.propTypes = {
   defaultKeyword: PropTypes.string,
   defaultLocation: PropTypes.string,
   resetFilters: PropTypes.func.isRequired,
+  pillFilters: PILL_ITEM_ARRAY,
 };
 
 Results.defaultProps = {
@@ -93,6 +98,7 @@ Results.defaultProps = {
   defaultPageNumber: 0,
   defaultKeyword: '',
   defaultLocation: '',
+  pillFilters: [],
 };
 
 Results.contextTypes = {
