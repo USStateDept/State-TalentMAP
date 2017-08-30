@@ -74,7 +74,7 @@ class Results extends Component {
   render() {
     const { results, hasErrored, isLoading } = this.props;
     return (
-      <div className="usa-grid-full">
+      <div>
         <ResultsPage
           results={results}
           hasErrored={hasErrored}

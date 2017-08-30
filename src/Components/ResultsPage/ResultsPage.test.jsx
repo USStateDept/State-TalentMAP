@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import sinon from 'sinon';
 import ResultsPage from './ResultsPage';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 import resultsObject from '../../__mocks__/resultsObject';
@@ -63,22 +62,5 @@ describe('ResultsPageComponent', () => {
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();
-  });
-
-  it('can call the queryParamUpdate function', () => {
-    wrapper = shallow(<ResultsPage
-      results={resultsObject}
-      sortBy={POSITION_SEARCH_SORTS}
-      defaultSort={defaultSort}
-      pageSizes={POSITION_PAGE_SIZES}
-      defaultPageSize={defaultPageSize}
-      queryParamUpdate={() => {}}
-    />);
-    // define the instance
-    const instance = wrapper.instance();
-    // spy the queryParamUpdate function
-    const handleUpdateSpy = sinon.spy(instance, 'queryParamUpdate');
-    wrapper.instance().queryParamUpdate();
-    sinon.assert.calledOnce(handleUpdateSpy);
   });
 });

@@ -28,7 +28,7 @@ export function localStorageFetchValue(key, value) {
 }
 
 export function localStorageToggleValue(key, value) {
-  const existingArray = JSON.parse(localStorage.getItem(key));
+  const existingArray = JSON.parse(localStorage.getItem(key)) || [];
   const indexOfId = existingArray.indexOf(value);
   if (indexOfId !== -1) {
     existingArray.splice(indexOfId, 1);

@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
-import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResetFiltersConnect from '../ResetFilters/ResetFiltersConnect';
-import Loading from '../Loading/Loading';
-import Alert from '../Alert/Alert';
-import TotalResults from '../TotalResults/TotalResults';
-import SelectForm from '../SelectForm/SelectForm';
+import ResultsContainer from '../ResultsContainer/ResultsContainer';
 
 class Results extends Component {
   constructor(props) {
@@ -23,97 +18,44 @@ class Results extends Component {
   onChildToggle() {
     const key = Math.random();
     this.setState({ key });
-    this.forceUpdate();
-  }
-
-  queryParamUpdate(e) {
-    this.props.onQueryParamUpdate(e);
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy, defaultSort, pageSizes, defaultPageSize }
+    const { results, isLoading, hasErrored, sortBy,
+            defaultSort, pageSizes, defaultPageSize, defaultPageNumber, onQueryParamUpdate }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
     return (
-      <div className="usa-grid-full results">
-        <div className="usa-grid-full">
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '15px 5px 0 10px' }}>
+      <div className="results">
+        <div className="usa-grid-full top-nav">
+          <div className="usa-width-one-third compare-link">
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
           </div>
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0px 0px 5px 0px', textAlign: 'center' }}>
+          <div className="usa-width-one-third reset-filters">
             <ResetFiltersConnect />
           </div>
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0px 0px 5px 0px', textAlign: 'right' }}>
+          <div className="usa-width-one-third reset-comparisons">
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
         </div>
-        <div className="usa-grid-full" style={{ marginTop: '-20px' }}>
-          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
-            <SelectForm
-              id="sort"
-              label="Sort:"
-              onSelectOption={e => this.queryParamUpdate({ ordering: e.target.value })}
-              options={sortBy.options}
-              defaultSort={defaultSort}
-            />
-          </div>
-          <div className="usa-width-one-half" style={{ float: 'left', padding: '0 0 10px 10px' }}>
-            <SelectForm
-              id="pageSize"
-              label="Page size:"
-              onSelectOption={e => this.queryParamUpdate({ limit: e.target.value, page: 1 })}
-              options={pageSizes.options}
-              defaultSort={defaultPageSize}
-            />
-          </div>
-        </div>
-        <div className="usa-grid-full">
-          <div className="usa-width-one-third" style={{ float: 'left', padding: '0 0 10px 10px' }}>
-            {
-              // if results have loaded, display the total number of results
-              hasLoaded &&
-                <TotalResults
-                  total={results.count}
-                  pageNumber={this.props.defaultPageNumber}
-                  pageSize={this.props.defaultPageSize}
-                />
-            }
-          </div>
-        </div>
-        <div className="usa-grid-full">
-          {
-            <ResultsList
-              key={this.state.key}
-              onToggle={() => this.onChildToggle()}
-              results={results}
-              isLoading={!hasLoaded}
-            />
-          }
-          {
-            // is not loading, results array exists, but is empty
-            !isLoading && results.results && !results.results.length &&
-              <div className="usa-grid-full no-results">
-                <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
-              </div>
-          }
-          {
-            <Loading isLoading={isLoading} hasErrored={hasErrored} />
-          }
-        </div>
-        <div className="usa-grid-full react-paginate">
-          {
-            // if there's no results, don't show pagination
-            !!results.results && !!results.results.length
-            // also let page count initiate before trying to render
-            && pageCount > 0 &&
-            // finally, render the pagination
-            <PaginationWrapper
-              pageCount={pageCount}
-              onPageChange={e => this.queryParamUpdate({ page: e.selected })}
-              forcePage={this.props.defaultPageNumber}
-            />
-          }
+        <div className="usa-grid-full results-section-container">
+          <div className="filter-container" />
+          <ResultsContainer
+            results={results}
+            isLoading={isLoading}
+            hasErrored={hasErrored}
+            sortBy={sortBy}
+            pageCount={pageCount}
+            hasLoaded={hasLoaded || false}
+            defaultSort={defaultSort}
+            pageSizes={pageSizes}
+            defaultPageSize={defaultPageSize}
+            defaultPageNumber={defaultPageNumber}
+            queryParamUpdate={e => onQueryParamUpdate(e)}
+            refreshKey={this.state.key}
+            onToggle={() => this.onChildToggle()}
+          />
         </div>
       </div>
     );

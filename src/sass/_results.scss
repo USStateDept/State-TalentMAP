@@ -1,4 +1,65 @@
 .results {
+
+  // dropdown labels should appear to the left of the input
+  label {
+    float: left;
+    font-size: .8em;
+    margin-right: 10px;
+    margin-top: 6px;
+  }
+
+  .results-dropdown {
+    select {
+      background-color: $color-gray-lightest;
+      border: 0;
+      border-radius: 7px;
+      font-size: .8em;
+      height: 28px;
+      overflow: hidden;
+      padding: 0 .7em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 130px;
+    }
+  }
+
+  .results-dropdown-page-size {
+    float: left;
+    margin-left: 20px;
+
+    select {
+      width: 80px;
+    }
+  }
+
+  .results-dropdown-sort {
+    float: left;
+    margin-left: 10px;
+  }
+
+  .results-viewby-container {
+    float: right;
+
+    @media screen and (max-width: 951px) {
+      float: left;
+    }
+
+    .view-icon {
+      float: left;
+      padding: 5px 10px 0;
+    }
+
+    .view-icon-border {
+      border-left: solid 1px $color-gray-light;
+    }
+
+    .view-label {
+      float: left;
+      font-size: .8em;
+      padding: 7px;
+    }
+  }
+
   .no-results {
     margin-top: 20px;
     width: 350px;
@@ -8,4 +69,149 @@
 .results-loading {
   opacity: .5;
   pointer-events: none;
+}
+
+.results-card {
+  background-color: $color-white;
+  border: 1px solid $color-gray-lighter;
+  border-left-width: 8px;
+  margin-bottom: 1em;
+  padding: 1em 1.2em;
+
+  .results-card-title {
+    float: left;
+  }
+
+  .results-card-favorite {
+    float: right;
+    font-size: .9em;
+  }
+
+  .results-card-data-section {
+    border-right: solid;
+    border-width: 1px;
+    margin-top: 1em;
+  }
+
+  .data-section-right-container {
+    margin-top: 1em;
+
+    .data-section-right {
+      margin-left: 60px;
+      margin-right: 80px;
+
+      @media screen and (max-width: 951px) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .data-section-left-container {
+    border-right: solid 1px;
+    margin-top: 1em;
+
+    @media screen and (max-width: 599px) {
+      border-right: 0;
+    }
+
+    .data-section-left {
+      margin-right: 80px;
+    }
+  }
+
+  .section-title {
+    font-size: .9em;
+    margin-bottom: .6em;
+  }
+
+  .section-data-points {
+    font-size: .9em;
+  }
+
+  .bottom-section {
+    float: left;
+    margin-top: 1em;
+
+    .details-button-container {
+      float: left;
+    }
+
+    .details-button {
+      font-size: .9em;
+    }
+
+    .compare-check {
+      float: left;
+      font-size: .9em;
+      margin: 15px;
+    }
+  }
+}
+
+.top-nav {
+  .compare-link {
+    float: left;
+    padding: 15px 5px 0 10px;
+  }
+
+  .reset-filters {
+    float: left;
+    padding: 0 0 5px;
+    text-align: center;
+  }
+
+  .reset-comparisons {
+    float: left;
+    padding: 0 0 5px;
+    text-align: right;
+  }
+}
+
+.filter-container {
+  background-color: $color-black;
+  float: left;
+  height: 600px;
+  margin-right: 0;
+  width: 25%;
+
+  @media screen and (max-width: 951px) {
+    height: 100px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+}
+
+.results-container {
+  float: left;
+  padding-left: 30px;
+  width: 75%;
+
+  @media screen and (max-width: 951px) {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .results-controls {
+    @media screen and (max-width: 951px) {
+      padding: 0 15px;
+    }
+  }
+
+  .total-results {
+    float: left;
+    margin-top: 10px;
+  }
+
+  .drop-downs {
+    float: right;
+    margin-top: 4px;
+  }
+}
+
+.results-list-container {
+  margin: 1em 0;
+}
+
+.results-section-container {
+  max-width: 1140px;
 }
