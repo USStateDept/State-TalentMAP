@@ -70,6 +70,12 @@ class Results extends Component {
   onQueryParamUpdate(q) {
     const parsedQuery = queryString.parse(this.state.query.value);
     const newQuery = Object.assign({}, parsedQuery, q);
+    // remove any params with no value
+    Object.keys(newQuery).forEach((key) => {
+      if (!newQuery[key].length) {
+        delete newQuery[key];
+      }
+    });
     const newQueryString = queryString.stringify(newQuery);
     this.updateHistory(newQueryString);
   }

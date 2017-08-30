@@ -18,7 +18,7 @@ const BooleanFilterList = ({ items, onBooleanFilterClick }) => (
             value={item.value}
             selectionRef={item.selectionRef}
             legend={item.title}
-            onCheckBoxClick={(p, v) => onBooleanFilterClick(p, v)}
+            onCheckBoxClick={(p, v) => onBooleanFilterClick(item, p, v)}
           />),
         )
     }

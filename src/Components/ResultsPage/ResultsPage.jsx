@@ -27,7 +27,7 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamRemoval,
-            defaultPageNumber, onQueryParamUpdate, filters } // eslint-disable-line
+            defaultPageNumber, onQueryParamUpdate, filters, defaultFilters } // eslint-disable-line
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -69,7 +69,11 @@ class Results extends Component {
               <br />
               <div className="usa-grid-full">
                 <Accordion items={[{}, {}, {}]} />
-                <SearchFiltersContainer filters={filters} />
+                <SearchFiltersContainer
+                  key={this.state.key}
+                  filters={filters}
+                  queryParamUpdate={(e) => { onQueryParamUpdate(e); this.onChildToggle(); }}
+                />
               </div>
             </div>
           </div>

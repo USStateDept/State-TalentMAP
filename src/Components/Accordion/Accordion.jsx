@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const shortid = require('shortid');
+
 const Accordion = ({ items }) => (
   <ul className="usa-accordion">
     {
       items.map(item =>
         (
-          <li>
+          <li key={shortid.generate()}>
             <button
               className="usa-accordion-button"
               aria-expanded="false"

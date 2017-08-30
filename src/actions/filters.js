@@ -34,6 +34,13 @@ export function filtersFetchData(items, queryParams) {
     const responses = { mappedParams: [], filters: [] };
 
     function dispatchSuccess() {
+      // Set all of our isSelected values back to false.
+      // We'll check if they should be set to true later
+      responses.filters.forEach((responseFilter, i) => {
+        responseFilter.data.forEach((responseFilterData, ii) => {
+          responses.filters[i].data[ii].isSelected = false;
+        });
+      });
       // check if we've gotten all the filters we asked for
       if (responses.filters.length === items.filters.length) {
         // check for option queryParamObject to map against (used for pill filters)
@@ -50,11 +57,11 @@ export function filtersFetchData(items, queryParams) {
                     selectionRef: filterRef,
                     codeRef: paramArrayItem,
                   };
-                  responses.filters.forEach((filterItem) => {
-                    filterItem.data.forEach((filterItemObject) => {
-                      if (filterItemObject.code === mappedObject.codeRef) {
-                        // handle boolean filters a little differently
-                        // we want to show the title in the pill, not the value
+                  responses.filters.forEach((filterItem, i) => {
+                    filterItem.data.forEach((filterItemObject, ii) => {
+                      if (filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
+                          filterItem.item.selectionRef === mappedObject.selectionRef) {
+                        responses.filters[i].data[ii].isSelected = true;
                         if (
                           response.item.title === 'COLA' ||
                           response.item.title === 'Post Differential' ||
