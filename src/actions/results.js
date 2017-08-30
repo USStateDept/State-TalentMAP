@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../api';
 
 export function resultsHasErrored(bool) {
   return {
@@ -19,10 +20,10 @@ export function resultsFetchDataSuccess(results) {
   };
 }
 
-export function resultsFetchData(url) {
+export function resultsFetchData(query) {
   return (dispatch) => {
     dispatch(resultsIsLoading(true));
-    axios.get(url)
+    axios.get(`${api}/position/?${query}`)
             .then((response) => {
               dispatch(resultsIsLoading(false));
               return response.data;

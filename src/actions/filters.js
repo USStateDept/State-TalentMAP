@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../api';
 
 export function filtersHasErrored(bool) {
   return {
@@ -19,7 +20,7 @@ export function filtersFetchDataSuccess(filters) {
   };
 }
 
-export function filtersFetchData(api, items) {
+export function filtersFetchData(items) {
   return (dispatch) => {
     dispatch(filtersIsLoading(true));
 

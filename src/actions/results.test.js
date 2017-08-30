@@ -40,7 +40,7 @@ describe('async actions', () => {
       },
     ];
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/results/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?').reply(200,
       results,
     );
   });
@@ -50,7 +50,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.resultsFetchData('http://localhost:8000/api/v1/results/'));
+        store.dispatch(actions.resultsFetchData(''));
         store.dispatch(actions.resultsIsLoading());
         done();
       }, 0);

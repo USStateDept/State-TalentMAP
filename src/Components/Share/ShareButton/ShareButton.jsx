@@ -10,7 +10,6 @@ class ShareButton extends Component {
       recipient: '',
       warning: false,
       timeout: false,
-      shareType: 'email',
     };
   }
 
@@ -30,20 +29,14 @@ class ShareButton extends Component {
 
   share(e) {
     e.preventDefault();
-    const { shareType, recipient } = this.state;
+    const { recipient } = this.state;
     const message = {
       type: 'position',
-      mode: shareType,
       id: this.props.identifier,
       email: recipient,
     };
     this.props.onSend(message);
     this.createTimeout(8000);
-  }
-
-  changeShareType(e) {
-    const shareType = e.target.value;
-    this.setState({ shareType });
   }
 
   render() {
@@ -57,27 +50,6 @@ class ShareButton extends Component {
         <form onSubmit={e => this.share(e)}>
           <label htmlFor="share-input">Share this position:</label>
           <br />
-          <fieldset className="usa-fieldset-inputs usa-sans">
-            <legend className="usa-sr-only">Internal or External Sharing</legend>
-            <input
-              id="external"
-              type="radio"
-              onChange={e => this.changeShareType(e)}
-              checked={this.state.shareType === 'email'}
-              name="external"
-              value="email"
-            />
-            <label htmlFor="external">Externally</label>
-            <input
-              id="internal"
-              type="radio"
-              onChange={e => this.changeShareType(e)}
-              checked={this.state.shareType === 'internal'}
-              name="internal"
-              value="internal"
-            />
-            <label htmlFor="internal">Internally</label>
-          </fieldset>
           <input
             id="share-input"
             name="input-type-text"

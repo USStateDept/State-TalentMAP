@@ -57,7 +57,7 @@ class Results extends Component {
         parsedQuery, // this order dictates that query params take precedence over default values
       );
       const newQueryString = queryString.stringify(newQuery);
-      this.callFetchData(`position/?${newQueryString}`);
+      this.callFetchData(newQueryString);
     }
   }
 
@@ -77,8 +77,7 @@ class Results extends Component {
   }
 
   callFetchData(q) {
-    const api = this.props.api;
-    this.props.fetchData(`${api}/${q}`);
+    this.props.fetchData(q);
   }
 
   render() {
@@ -104,7 +103,6 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-  api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
