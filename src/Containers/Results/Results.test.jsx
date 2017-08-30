@@ -56,4 +56,21 @@ describe('Main', () => {
     wrapper.instance().onQueryParamUpdate(query);
     sinon.assert.calledOnce(handleUpdateSpy);
   });
+
+  it('can call the onQueryParamUpdate function', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+      />,
+    );
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the onQueryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'resetFilters');
+    wrapper.instance().context.router = { history: { push: () => {} } };
+    wrapper.instance().resetFilters();
+    sinon.assert.calledOnce(handleUpdateSpy);
+  });
 });

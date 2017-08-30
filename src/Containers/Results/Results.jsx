@@ -76,6 +76,12 @@ class Results extends Component {
     this.forceUpdate();
   }
 
+  resetFilters() {
+    this.context.router.history.push({
+      search: '',
+    });
+  }
+
   callFetchData(q) {
     this.props.fetchData(q);
   }
@@ -96,6 +102,7 @@ class Results extends Component {
           onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
           defaultKeyword={this.state.defaultKeyword.value}
           defaultLocation={this.state.defaultLocation.value}
+          resetFilters={() => this.resetFilters()}
         />
       </div>
     );
