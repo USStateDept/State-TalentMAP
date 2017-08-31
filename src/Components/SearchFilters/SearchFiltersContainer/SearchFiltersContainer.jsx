@@ -42,7 +42,6 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
                       selectionRef={item.item.selectionRef}
                       onCheckBoxClick={
                           (value, props) => {
-                            console.log(value, props);
                             this.props.queryParamToggle(
                               props.selectionRef,
                               props.code,
@@ -56,7 +55,7 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
   </FieldSet>,
         title: item.item.title,
         id: `accordion-${item.item.title}`,
-        expanded: item.item.title === 'Grade',
+        expanded: item.item.title === this.props.selectedAccordion,
       }
     )).sort((a, b) => { // sort our pills by description
       const descA = a.title.toLowerCase();
@@ -69,7 +68,10 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
     });
     return (
       <div>
-        {<Accordion items={multiSelectFilterList} />}
+        {<Accordion
+          items={multiSelectFilterList}
+          setAccordion={a => this.props.setAccordion(a)}
+        />}
         <div>
           {
             booleanFilters
@@ -104,6 +106,8 @@ SearchFiltersContainer.propTypes = {
   filters: PropTypes.object, // eslint-disable-line
   queryParamUpdate: PropTypes.func.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
+  selectedAccordion: PropTypes.string.isRequired,
+  setAccordion: PropTypes.func.isRequired,
 };
 
 export default SearchFiltersContainer;

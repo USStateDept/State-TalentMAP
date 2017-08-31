@@ -26,7 +26,8 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
-            defaultPageNumber, onQueryParamUpdate, filters, defaultFilters } // eslint-disable-line
+            defaultPageNumber, onQueryParamUpdate, filters, defaultFilters, // eslint-disable-line
+            selectedAccordion, setAccordion }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -73,6 +74,8 @@ class Results extends Component {
                   queryParamToggle={(p, v, r) => {
                     onQueryParamToggle(p, v, r); this.onChildToggle();
                   }}
+                  selectedAccordion={selectedAccordion}
+                  setAccordion={a => setAccordion(a)}
                 />
               </div>
             </div>
@@ -115,6 +118,8 @@ Results.propTypes = {
   defaultLocation: PropTypes.string,
   resetFilters: PropTypes.func.isRequired,
   pillFilters: PILL_ITEM_ARRAY,
+  selectedAccordion: PropTypes.string,
+  setAccordion: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -128,6 +133,7 @@ Results.defaultProps = {
   defaultKeyword: '',
   defaultLocation: '',
   pillFilters: [],
+  selectedAccordion: '',
 };
 
 Results.contextTypes = {

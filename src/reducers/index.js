@@ -11,6 +11,7 @@ import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } 
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
 import { userProfile, userProfileHasErrored, userProfileIsLoading } from './userProfile';
 import routerLocations from './routerLocations';
+import selectedAccordion from './selectedAccordion';
 
 
 export default combineReducers({
@@ -38,6 +39,7 @@ export default combineReducers({
   form,
   client,
   login,
+  selectedAccordion,
   routerLocations,
   router: routerReducer,
 });

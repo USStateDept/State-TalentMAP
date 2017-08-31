@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
+import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
@@ -58,11 +59,14 @@ class Results extends Component {
         parsedQuery, // this order dictates that query params take precedence over default values
       );
       const newQueryString = queryString.stringify(newQuery);
-      this.callFetchData(newQueryString);
-
       // get our filters to map against
       const { filters } = this.props;
-      this.props.fetchFilters(filters, newQuery);
+      if (filters.hasFetched) {
+        this.props.fetchFilters(filters, newQuery, filters);
+      } else {
+        this.props.fetchFilters(filters, newQuery);
+      }
+      this.callFetchData(newQueryString);
     }
   }
 
@@ -125,10 +129,9 @@ class Results extends Component {
 
   // updates the history by passing a string of query params
   updateHistory(q) {
-    /* this.context.router.history.push({
+    this.context.router.history.push({
       search: q,
-    }); */
-    this.props.onNavigateTo(`results?${q}`);
+    });
   }
 
   // reset to no query params
@@ -143,7 +146,7 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading, filters } = this.props;
+    const { results, hasErrored, isLoading, filters, selectedAccordion, setAccordion } = this.props;
     return (
       <div>
         <ResultsPage
@@ -162,6 +165,8 @@ class Results extends Component {
           pillFilters={filters.mappedParams}
           filters={filters.filters}
           onQueryParamToggle={(p, v, r) => this.onQueryParamToggle(p, v, r)}
+          selectedAccordion={selectedAccordion}
+          setAccordion={a => setAccordion(a)}
         />
       </div>
     );
@@ -177,6 +182,8 @@ Results.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
   fetchFilters: PropTypes.func.isRequired,
+  selectedAccordion: PropTypes.string,
+  setAccordion: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -186,6 +193,7 @@ Results.defaultProps = {
   filters: { filters: [] },
   filtersHasErrored: false,
   filtersIsLoading: true,
+  selectedAccordion: '',
 };
 
 Results.contextTypes = {
@@ -199,11 +207,14 @@ const mapStateToProps = state => ({
   filters: state.filters,
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
+  selectedAccordion: state.selectedAccordion,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
-  fetchFilters: (items, queryParams) => dispatch(filtersFetchData(items, queryParams)),
+  fetchFilters: (items, queryParams, savedFilters) =>
+    dispatch(filtersFetchData(items, queryParams, savedFilters)),
+  setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
 });
 
