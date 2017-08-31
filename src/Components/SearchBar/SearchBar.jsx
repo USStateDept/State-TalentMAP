@@ -46,6 +46,7 @@ class SearchBar extends Component {
             type="submit"
           >
             <span className="usa-search-submit-text">{showSubmitText ? submitText : null}</span>
+            <span className="usa-sr-only">{showSubmitText ? submitText : 'Search'}</span>
           </button>
           }
         </div>

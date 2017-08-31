@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import Pill from '../Pill/Pill';
 
-const shortid = require('shortid');
-
 const PillList = ({ items, onPillClick }) => (
   <div>
     {
@@ -19,7 +17,7 @@ const PillList = ({ items, onPillClick }) => (
       }))
         .map(item =>
           (<Pill
-            key={shortid.generate()}
+            key={`${item.codeRef}-${item.description}`}
             description={item.description}
             codeRef={item.codeRef}
             selectionRef={item.selectionRef}

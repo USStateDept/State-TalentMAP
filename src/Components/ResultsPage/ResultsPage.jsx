@@ -42,9 +42,6 @@ class Results extends Component {
           <div className="usa-width-one-third compare-link">
             <ViewComparisonLink onToggle={() => this.onChildToggle()} />
           </div>
-          <div className="usa-width-one-third reset-filters">
-            <ResetFilters resetFilters={() => resetFilters()} />
-          </div>
           <div className="usa-width-one-third reset-comparisons">
             <ResetComparisons onToggle={() => this.onChildToggle()} />
           </div>
@@ -66,9 +63,9 @@ class Results extends Component {
             </div>
             <div style={{ margin: '15px 0', color: 'white' }}>
               <div style={{ width: '50%', float: 'left' }}>Select Filter</div>
-              <div style={{ width: '50%', float: 'left' }}>Reset Filters</div>
+              <div style={{ width: '50%', float: 'left' }}><ResetFilters resetFilters={() => resetFilters()} /></div>
               <br />
-              <div className="usa-grid-full">
+              <div className="usa-grid-full search-filters-container">
                 <SearchFiltersContainer
                   filters={filters}
                   queryParamUpdate={(e) => { onQueryParamUpdate(e); this.onChildToggle(); }}

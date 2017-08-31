@@ -58,7 +58,7 @@ class Results extends Component {
           limit: defaultPageSize.value },
         parsedQuery, // this order dictates that query params take precedence over default values
       );
-      const newQueryString = queryString.stringify(newQuery);
+      const newQueryString = queryString.stringify(newQuery); // eslint-disable-line
       // get our filters to map against
       const { filters } = this.props;
       // have the filters already been fetched?
@@ -125,12 +125,6 @@ class Results extends Component {
     const newQueryString = queryString.stringify(parsedQuery);
     // check if there were actually any changes (example - two fast clicks of a pill)
     if (newQueryString !== this.state.query.value) { this.updateHistory(newQueryString); }
-  }
-
-  onChildToggle() {
-    const key = Math.random();
-    this.setState({ key });
-    this.forceUpdate();
   }
 
   // updates the history by passing a string of query params

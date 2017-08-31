@@ -21,7 +21,7 @@ class CheckBox extends Component {
     const { id, label, title, name } = this.props;
     const { checked } = this.state;
     return (
-      <div>
+      <div className="usa-grid-full tm-checkbox">
         <input
           type="checkbox"
           id={id}

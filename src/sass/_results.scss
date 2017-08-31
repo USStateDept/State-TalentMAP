@@ -172,7 +172,6 @@
   float: left;
   height: auto;
   margin-right: 0;
-  overflow-y: scroll;
   width: 20%;
 
   @media screen and (max-width: 951px) {
@@ -215,4 +214,37 @@
 
 .results-section-container {
   max-width: 1140px;
+}
+
+.search-filters-container {
+
+  .boolean-filter-container {
+    margin-left: 10px;
+  }
+
+  .tm-checkbox {
+    width: 100%;
+  }
+
+  fieldset {
+    margin: 0 0 10px;
+  }
+
+  legend {
+    font-size: 1em;
+  }
+
+  .usa-accordion-content {
+    background-color: $color-black;
+    color: $color-white;
+    font-size: 1.1em;
+    padding: 1rem;
+  }
+
+  .accordion-checkbox-grade {
+    .tm-checkbox {
+      float: left;
+      width: 35%;
+    }
+  }
 }

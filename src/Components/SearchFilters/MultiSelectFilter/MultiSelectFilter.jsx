@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import FieldSet from '../../FieldSet/FieldSet';
 import CheckBox from '../../CheckBox/CheckBox';
 
-const shortid = require('shortid');
-
 class MultiSelectFilter extends Component { // eslint-disable-line
   render() {
     const { item } = this.props;
     return (
-      <FieldSet key={shortid.generate()} legend={item.item.title}>
+      <FieldSet key={item.item.title} legend={item.item.title}>
         {
           item.data.map(itemData => (
             <CheckBox
-              id={`checkbox-${itemData.long_description || itemData.description || itemData.code}`}
-              key={shortid.generate()}
+              id={`checkbox${itemData.long_description || itemData.description || itemData.code}`}
+              key={`${item.item.selectionRef}-${itemData.code}`}
               label={itemData.long_description || itemData.description || itemData.code}
               title={itemData.long_description || itemData.description || itemData.code}
               name={itemData.long_description || itemData.description || itemData.code}

@@ -12,7 +12,7 @@ const AccordionItem = ({ id, title, expanded, setAccordion, children }) => (
     >
       {title}
     </button>
-    <div id={id} className="usa-accordion-content" aria-hidden={!expanded}>
+    <div id={id} className={`usa-accordion-content accordion-${id.toLowerCase()}`} aria-hidden={!expanded}>
       {children}
     </div>
   </li>

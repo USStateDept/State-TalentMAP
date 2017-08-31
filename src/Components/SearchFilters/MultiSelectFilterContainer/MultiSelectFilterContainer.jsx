@@ -4,8 +4,6 @@ import Accordion from '../../Accordion/Accordion';
 import AccordionItem from '../../Accordion/AccordionItem/AccordionItem';
 import { FILTER_ITEMS_ARRAY, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-const shortid = require('shortid');
-
 class MultiSelectFilterContainer extends Component { // eslint-disable-line
   render() {
     return (
@@ -13,7 +11,7 @@ class MultiSelectFilterContainer extends Component { // eslint-disable-line
         {
           this.props.multiSelectFilterList.map(item => (
             <AccordionItem
-              key={shortid.generate()}
+              key={item.title}
               id={`checkbox-${item.title}`}
               title={item.title}
               expanded={item.expanded}

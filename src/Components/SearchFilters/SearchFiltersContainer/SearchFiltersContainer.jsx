@@ -5,8 +5,6 @@ import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import { FILTER_ITEMS_ARRAY } from '../../../Constants/PropTypes';
 
-const shortid = require('shortid');
-
 class SearchFiltersContainer extends Component { // eslint-disable-line
   render() {
     const onBooleanFilterClick = (isChecked, code, selectionRef) => {
@@ -31,7 +29,7 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
     const multiSelectFilterList = multiSelectFilters.map((item, i) => ( // eslint-disable-line
       { content:
         (<MultiSelectFilter
-          key={shortid.generate()}
+          key={item.item.title}
           item={item}
           queryParamToggle={(v, p, r) => { this.props.queryParamToggle(v, p, r); }}
         />),
@@ -55,7 +53,7 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
           setAccordion={a => this.props.setAccordion(a)}
           multiSelectFilterList={multiSelectFilterList}
         />
-        <div>
+        <div className="boolean-filter-container">
           <BooleanFilterContainer
             filters={booleanFilters}
             onBooleanFilterClick={(e, code, ref, iterator, value) => {

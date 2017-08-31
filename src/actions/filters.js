@@ -105,6 +105,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
     if (savedResponses) {
       dispatchSuccess();
     } else {
+      dispatch(filtersHasErrored(false));
       items.filters.forEach((item) => {
         // check for filters that don't need to be requested from the API
         if (!item.item.endpoint) {

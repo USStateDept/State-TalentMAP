@@ -21,8 +21,15 @@ class ResetFilters extends Component {
     const { confirm } = this.state;
     const text = confirm ? 'Are you sure?' : 'Reset Filters';
     return (
-      <div>
-        <button className={confirm ? 'usa-button-secondary' : null} onClick={() => this.resetFilters()}>{text}</button>
+      <div className="reset-filters-container">
+        <span
+          className="reset-filters"
+          tabIndex="0"
+          role="link"
+          onClick={() => this.resetFilters()}
+        >
+          {text}
+        </span>
       </div>
     );
   }

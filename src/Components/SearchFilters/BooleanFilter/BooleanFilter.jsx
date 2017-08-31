@@ -4,11 +4,9 @@ import CheckBox from '../../CheckBox/CheckBox';
 import FieldSet from '../../FieldSet/FieldSet';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 
-const shortid = require('shortid');
-
 const BooleanFilter = ({ item, onBooleanFilterClick }) => (
   <div>
-    <FieldSet key={shortid.generate()} legend={item.item.title}>
+    <FieldSet key={item.item.title} legend={item.item.title}>
       <CheckBox
         id={`checkbox-${item.item.title}`}
         label="Yes"
