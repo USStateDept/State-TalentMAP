@@ -32,7 +32,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
     // in order to supplement them with human-readable data.
     // "filters" will store our selectable filters.
     const responses = savedResponses
-      || { mappedParams: [], filters: [], allMapping: [], hasFetched: false };
+      || { mappedParams: [], filters: [], hasFetched: false };
 
     function dispatchSuccess() {
       // check if we've gotten all the filters we asked for
@@ -44,17 +44,6 @@ export function filtersFetchData(items, queryParams, savedResponses) {
             responses.filters[i].data[ii].isSelected = false;
           });
         });
-        /* responses.filters.forEach((responseFilter, i) => {
-          responseFilter.data.forEach((responseFilterData, ii) => {
-            responses.filters[i].data[ii].isSelected = false;
-            const allMappingObject = {
-              selectionRef: responseFilter.item.selectionRef,
-              codeRef: responseFilterData.code,
-              ...responseFilterData,
-            };
-            responses.allMapping.push(allMappingObject);
-          });
-        }); */
         // check for option queryParamObject to map against (used for pill filters)
         responses.mappedParams = [];
         if (queryParamObject) {
@@ -75,7 +64,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                       if (filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
                           filterItem.item.selectionRef === mappedObject.selectionRef) {
                         responses.filters[i].data[ii].isSelected = true;
-                        if (
+                        if ( // boolean filters are special since they don't rely on AJAX
                           response.item.title === 'COLA' ||
                           response.item.title === 'Post Differential' ||
                           response.item.title === 'Danger pay' ||
@@ -100,18 +89,22 @@ export function filtersFetchData(items, queryParams, savedResponses) {
             });
           });
         }
-        // finally, dispatch a success
+        // set the hasFetched property so that our component knows when
+        // to avoid an AJAX refresh
         responses.hasFetched = true;
+        // finally, dispatch a success
+        dispatch(filtersHasErrored(false));
         dispatch(filtersIsLoading(false));
         dispatch(filtersFetchDataSuccess(responses));
       }
     }
 
+    // If saved responses are returned, don't run AJAX.
+    // This way, we can map any new query params without
+    // needlessly refreshing the filters via AJAX.
     if (savedResponses) {
       dispatchSuccess();
-      console.log('skipping');
     } else {
-      console.log('running');
       items.filters.forEach((item) => {
         // check for filters that don't need to be requested from the API
         if (!item.item.endpoint) {

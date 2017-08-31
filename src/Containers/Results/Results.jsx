@@ -61,11 +61,17 @@ class Results extends Component {
       const newQueryString = queryString.stringify(newQuery);
       // get our filters to map against
       const { filters } = this.props;
+      // have the filters already been fetched?
+      // if so, we'll pass back the saved filters
+      // as a param, which tells our filters action
+      // to not perform AJAX, and simply compare
+      // the query params against the filters
       if (filters.hasFetched) {
         this.props.fetchFilters(filters, newQuery, filters);
-      } else {
+      } else { // if not, we'll perform AJAX
         this.props.fetchFilters(filters, newQuery);
       }
+      // fetch new results
       this.callFetchData(newQueryString);
     }
   }

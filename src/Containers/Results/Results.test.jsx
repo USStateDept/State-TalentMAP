@@ -92,14 +92,16 @@ describe('Results', () => {
     // spy the onQueryParamUpdate function
     const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
     wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
-    wrapper.instance().state.query.value = 'ordering=bureau&q=German&language=1,2&skill=1';
+    wrapper.instance().state.query.value = 'language=1%2C2&ordering=bureau&q=German&skill=1';
     wrapper.instance().onQueryParamToggle('language', '1');
     sinon.assert.calledOnce(handleUpdateSpy);
-    wrapper.instance().onQueryParamToggle('skill', '1');
+    // remove the skill
+    wrapper.instance().onQueryParamToggle('skill', '1', true);
+    // make sure the skill was removed
     expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German');
   });
 
-  it('can call the onQueryParamToggle function and handle non-existent params', () => {
+  it('can call the onQueryParamToggle function and handle removing non-existent params', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
         isAuthorized={() => true}
@@ -110,8 +112,10 @@ describe('Results', () => {
     );
     const history = { value: { search: null } };
     wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
-    wrapper.instance().state.query.value = 'ordering=bureau&q=German&language=1,2&skill=1';
-    wrapper.instance().onQueryParamToggle('skill', '2');
+    wrapper.instance().state.query.value = 'language=1&ordering=bureau&q=German&skill=1';
+    wrapper.instance().onQueryParamToggle('skill', '2', true);
+    // There wasn't a change, so we should refresh the page - i.e., value.search
+    // shouldn't change.
     expect(history.value.search).toBe(null);
   });
 });

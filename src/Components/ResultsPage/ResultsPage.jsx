@@ -56,6 +56,7 @@ class Results extends Component {
             </div>
             <div className="usa-grid-full">
               <SearchBar
+                id="searchbar-filter-container"
                 type="small"
                 onChangeText={() => {}}
                 onSubmitSearch={() => {}}

@@ -19,8 +19,8 @@ export const POST_MISSION_DATA = PropTypes.shape({
   differential_rate: PropTypes.number,
   danger_pay: PropTypes.number,
   rest_relaxation_point: PropTypes.string,
-  has_consumable_allowance: PropTypes.boolean,
-  has_service_needs_differential: PropTypes.boolean,
+  has_consumable_allowance: PropTypes.bool,
+  has_service_needs_differential: PropTypes.bool,
   languages: LANGUAGES,
 });
 
@@ -34,7 +34,7 @@ export const POSITION_DETAILS = PropTypes.shape({
   bureau: PropTypes.string,
   organization: PropTypes.string,
   position_number: PropTypes.string,
-  is_overseas: PropTypes.boolean,
+  is_overseas: PropTypes.bool,
   create_date: PropTypes.string,
   update_date: PropTypes.string,
   post: POST_MISSION_DATA,
@@ -56,6 +56,7 @@ export const FILTERS = PropTypes.arrayOf(
     long_description: PropTypes.string,
     short_description: PropTypes.string,
     effective_date: PropTypes.string,
+    isSelected: PropTypes.bool,
   }),
 );
 
@@ -75,15 +76,34 @@ export const ITEMS = PropTypes.arrayOf(
   }),
 );
 
+export const FILTER_ITEM = PropTypes.shape({
+  item: ITEM,
+  data: FILTERS,
+});
+
+export const FILTER_ITEMS_ARRAY = PropTypes.arrayOf(
+  FILTER_ITEM,
+);
+
+export const MAPPED_PARAM = PropTypes.shape({
+  selectionRef: PropTypes.string,
+  codeRef: PropTypes.string,
+  description: PropTypes.string,
+});
+
+export const MAPPED_PARAM_ARRAY = PropTypes.arrayOf(MAPPED_PARAM);
+
 export const FILTERS_PARENT = PropTypes.shape({
   filters: ITEMS,
+  mappedParams: MAPPED_PARAM_ARRAY,
+  hasFetched: PropTypes.bool,
 });
 
 export const SORT_BY_ARRAY = PropTypes.arrayOf(
   PropTypes.shape({
     value: PropTypes.node,
     text: PropTypes.node,
-    disabled: PropTypes.boolean,
+    disabled: PropTypes.bool,
   }),
 );
 

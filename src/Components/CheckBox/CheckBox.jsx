@@ -42,7 +42,7 @@ CheckBox.propTypes = {
   label: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.node.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   onCheckBoxClick: PropTypes.func.isRequired,
 };
 
