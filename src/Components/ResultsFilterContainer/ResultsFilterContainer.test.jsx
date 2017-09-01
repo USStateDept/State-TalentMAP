@@ -2,11 +2,14 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import ResultsFilterContainer from './ResultsFilterContainer';
+import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 
 describe('ResultsFilterContainerComponent', () => {
   const items = [{
     title: 'title', expanded: true,
   }];
+
+  const accordion = ACCORDION_SELECTION;
 
   it('is defined', () => {
     const wrapper = shallow(
@@ -17,7 +20,7 @@ describe('ResultsFilterContainerComponent', () => {
         onQueryParamToggle={() => {}}
         resetFilters={() => {}}
         setAccordion={() => {}}
-        selectedAccordion=""
+        selectedAccordion={accordion}
       />);
     expect(wrapper).toBeDefined();
   });
@@ -30,7 +33,7 @@ describe('ResultsFilterContainerComponent', () => {
       onQueryParamToggle={() => {}}
       resetFilters={() => {}}
       setAccordion={() => {}}
-      selectedAccordion=""
+      selectedAccordion={accordion}
     />);
     expect(wrapper.instance().props.filters).toBe(items);
   });
@@ -43,7 +46,7 @@ describe('ResultsFilterContainerComponent', () => {
       onQueryParamToggle={() => {}}
       resetFilters={() => {}}
       setAccordion={() => {}}
-      selectedAccordion=""
+      selectedAccordion={accordion}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

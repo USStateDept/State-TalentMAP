@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import BooleanFilter from '../BooleanFilter/BooleanFilter';
 import { FILTER_ITEMS_ARRAY } from '../../../Constants/PropTypes';
 
+const shortid = require('shortid'); // eslint-disable-line
+
 class BooleanFilterContainer extends Component { // eslint-disable-line
   render() {
     return (
@@ -12,7 +14,7 @@ class BooleanFilterContainer extends Component { // eslint-disable-line
           .map((item, i) =>
             (
               <BooleanFilter
-                key={item.item.title}
+                key={shortid.generate()}
                 item={item}
                 onBooleanFilterClick={
                 (e, code, ref, isSelected) => {

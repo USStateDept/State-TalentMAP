@@ -152,4 +152,9 @@ export const PILL_ITEM = PropTypes.shape({
 
 export const PILL_ITEM_ARRAY = PropTypes.arrayOf(PILL_ITEM);
 
+export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
+  main: PropTypes.string,
+  sub: PropTypes.string,
+});
+
 export const EMPTY_FUNCTION = () => {};

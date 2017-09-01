@@ -7,7 +7,8 @@ import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT } from '../../Constants/PropTypes';
+import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
@@ -201,7 +202,7 @@ Results.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
   fetchFilters: PropTypes.func.isRequired,
-  selectedAccordion: PropTypes.string,
+  selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
 };
 
@@ -212,7 +213,7 @@ Results.defaultProps = {
   filters: { filters: [] },
   filtersHasErrored: false,
   filtersIsLoading: true,
-  selectedAccordion: '',
+  selectedAccordion: ACCORDION_SELECTION,
 };
 
 Results.contextTypes = {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
+  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../Constants/PropTypes';
+import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
@@ -92,7 +94,7 @@ Results.propTypes = {
   defaultLocation: PropTypes.string,
   resetFilters: PropTypes.func.isRequired,
   pillFilters: PILL_ITEM_ARRAY,
-  selectedAccordion: PropTypes.string,
+  selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
 };
 
@@ -107,7 +109,7 @@ Results.defaultProps = {
   defaultKeyword: '',
   defaultLocation: '',
   pillFilters: [],
-  selectedAccordion: '',
+  selectedAccordion: ACCORDION_SELECTION,
 };
 
 Results.contextTypes = {

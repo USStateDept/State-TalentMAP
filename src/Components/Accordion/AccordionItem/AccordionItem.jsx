@@ -8,11 +8,11 @@ const AccordionItem = ({ id, title, expanded, setAccordion, children }) => (
       className="usa-accordion-button"
       aria-expanded={expanded}
       aria-controls={id}
-      onClick={() => setAccordion(expanded ? '' : title)}
+      onClick={() => setAccordion(expanded || !title ? '' : title)}
     >
       {title}
     </button>
-    <div id={id} className={`usa-accordion-content accordion-${id.toLowerCase()}`} aria-hidden={!expanded}>
+    <div id={id} className={`usa-accordion-content accordion-${(id || 'accordion').toLowerCase()}`} aria-hidden={!expanded}>
       {children}
     </div>
   </li>
@@ -20,13 +20,14 @@ const AccordionItem = ({ id, title, expanded, setAccordion, children }) => (
 
 AccordionItem.propTypes = {
   id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   expanded: PropTypes.bool,
   setAccordion: PropTypes.func,
   children: PropTypes.node,
 };
 
 AccordionItem.defaultProps = {
+  title: '',
   setAccordion: EMPTY_FUNCTION,
   expanded: false,
   children: null,

@@ -62,7 +62,12 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
         }
         queryParamToggle={[Function]}
         queryParamUpdate={[Function]}
-        selectedAccordion=""
+        selectedAccordion={
+          Object {
+            "main": "",
+            "sub": "",
+          }
+        }
         setAccordion={[Function]}
       />
     </div>

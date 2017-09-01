@@ -18,7 +18,7 @@ const items =
           title: 'Language',
           sort: 200,
           description: 'language',
-          endpoint: 'language/',
+          endpoint: 'language/?is_available=true',
           selectionRef: 'languages__language__code__in',
           text: 'Choose languages',
         },

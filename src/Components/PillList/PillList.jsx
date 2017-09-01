@@ -6,9 +6,9 @@ import Pill from '../Pill/Pill';
 const PillList = ({ items, onPillClick }) => (
   <div>
     {
-      (items.sort((a, b) => { // sort our pills by description
-        const descA = a.description.toLowerCase();
-        const descB = b.description.toLowerCase();
+      (items.sort((a, b) => { // sort our pills by description or code
+        const descA = (a.description || a.code).toLowerCase();
+        const descB = (b.description || b.code).toLowerCase();
         if (descA < descB) { // sort string ascending
           return -1;
         }

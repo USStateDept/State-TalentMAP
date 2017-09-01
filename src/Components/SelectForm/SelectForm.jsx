@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SORT_BY_ARRAY } from '../../Constants/PropTypes';
+import { SORT_BY_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class SelectForm extends Component {
   constructor(props) {
@@ -57,6 +57,7 @@ SelectForm.propTypes = {
 SelectForm.defaultProps = {
   languages: [],
   defaultSort: '',
+  onSelectOption: EMPTY_FUNCTION,
 };
 
 export default SelectForm;

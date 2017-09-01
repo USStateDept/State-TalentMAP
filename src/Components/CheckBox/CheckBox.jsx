@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class CheckBox extends Component {
   constructor(props) {
@@ -43,7 +44,11 @@ CheckBox.propTypes = {
   title: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
-  onCheckBoxClick: PropTypes.func.isRequired,
+  onCheckBoxClick: PropTypes.func,
+};
+
+CheckBox.defaultProps = {
+  onCheckBoxClick: EMPTY_FUNCTION,
 };
 
 export default CheckBox;

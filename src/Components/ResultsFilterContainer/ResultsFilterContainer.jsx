@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../Constants/PropTypes';
+import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import SearchBar from '../SearchBar/SearchBar';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 import ResetFilters from '../ResetFilters/ResetFilters';
@@ -54,11 +55,11 @@ ResultsFilterContainer.propTypes = {
   onQueryParamToggle: PropTypes.func.isRequired,
   resetFilters: PropTypes.func.isRequired,
   setAccordion: PropTypes.func.isRequired,
-  selectedAccordion: PropTypes.string,
+  selectedAccordion: ACCORDION_SELECTION_OBJECT,
 };
 
 ResultsFilterContainer.defaultProps = {
-  selectedAccordion: '',
+  selectedAccordion: ACCORDION_SELECTION,
 };
 
 export default ResultsFilterContainer;

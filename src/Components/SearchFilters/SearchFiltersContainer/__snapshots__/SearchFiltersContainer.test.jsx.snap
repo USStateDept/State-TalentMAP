@@ -3,7 +3,30 @@
 exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
 <div>
   <MultiSelectFilterContainer
-    multiSelectFilterList={Array []}
+    multiSelectFilterList={
+      Array [
+        Object {
+          "content": <LanguageFilter
+            item={
+                  Object {
+                        "item": Object {},
+                      }
+            }
+            queryParamUpdate={[Function]}
+            selectedAccordion={
+                  Object {
+                        "main": "",
+                        "sub": "",
+                      }
+            }
+            setAccordion={[Function]}
+      />,
+          "expanded": false,
+          "id": "accordion-undefined",
+          "title": undefined,
+        },
+      ]
+    }
     setAccordion={[Function]}
   />
   <div

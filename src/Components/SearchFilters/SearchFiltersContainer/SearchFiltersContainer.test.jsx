@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import SearchFiltersContainer from './SearchFiltersContainer';
+import { ACCORDION_SELECTION } from '../../../Constants/DefaultProps';
 
 describe('SearchFiltersContainerComponent', () => {
   const items = [{
@@ -14,12 +15,14 @@ describe('SearchFiltersContainerComponent', () => {
   },
   ];
 
+  const accordion = ACCORDION_SELECTION;
+
   it('can receive props', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
         queryParamUpdate={() => {}}
         queryParamToggle={() => {}}
-        selectedAccordion=""
+        selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
       />,
@@ -32,7 +35,7 @@ describe('SearchFiltersContainerComponent', () => {
       <SearchFiltersContainer
         queryParamUpdate={() => {}}
         queryParamToggle={() => {}}
-        selectedAccordion=""
+        selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
       />,
@@ -46,7 +49,7 @@ describe('SearchFiltersContainerComponent', () => {
       <SearchFiltersContainer
         queryParamUpdate={(e) => { toggleValue.value = e; }}
         queryParamToggle={() => {}}
-        selectedAccordion=""
+        selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
       />,
