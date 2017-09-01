@@ -73,6 +73,8 @@ describe('async actions', () => {
     );
   });
 
+  const queryParams = { post__cost_of_living_adjustment__gt: '0', skill__code__in: '0010,0020' };
+
   it('can fetch filters', (done) => {
     const store = mockStore({ filters: [] });
 
@@ -91,7 +93,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.filtersFetchData(items, { post__cost_of_living_adjustment__gt: '0', skill__code__in: '0010,0020' }));
+        store.dispatch(actions.filtersFetchData(items, queryParams));
         store.dispatch(actions.filtersIsLoading());
         done();
       }, 0);
@@ -107,6 +109,28 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.filtersFetchData(invalidItems));
+        store.dispatch(actions.filtersIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle passing an optional savedResponses argument', (done) => {
+    const store = mockStore({ filters: [] });
+
+    const filters = {
+      filters: [
+        {
+          item: { title: 'COLA', description: 'COLA', selectionRef: 'post__cost_of_living_adjustment__gt' },
+          data: [{ code: '0', short_description: 'Yes', isSelected: false }],
+        },
+      ],
+    };
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.filtersFetchData(items, queryParams, filters));
         store.dispatch(actions.filtersIsLoading());
         done();
       }, 0);
