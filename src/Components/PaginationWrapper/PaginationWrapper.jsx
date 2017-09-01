@@ -26,8 +26,9 @@ const PaginationWrapper = ({
         pageCount={pageCount}
         marginPagesDisplayed={marginPagesDisplayed}
         pageRangeDisplayed={pageRangeDisplayed}
-        onPageChange={
-          (e) => { e.selected += 1; onPageChange(e); /* reconciles zero-based pagination */ }}
+        onPageChange={(e) => {
+          e.selected += 1; onPageChange({ page: e.selected }); /* reconciles zero-base */
+        }}
         containerClassName={containerClassName}
         subContainerClassName={subContainerClassName}
         forcePage={forcePage - 1 /* reconciles zero-based pagination */}

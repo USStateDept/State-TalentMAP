@@ -1,7 +1,7 @@
 import descriptionSort from './descriptionSort';
 
 describe('SearchFiltersContainerComponent', () => {
-  const items = [{ item: { description: 'a' } }, { item: { description: 'b' } }];
+  const items = [{ title: 'a' }, { title: 'b' }];
 
   it('can sort', () => {
     expect(descriptionSort(items[0], items[1])).toBe(-1);

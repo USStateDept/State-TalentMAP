@@ -170,14 +170,41 @@
 .filter-container {
   background-color: $color-black;
   float: left;
+  font-size: .8em;
   height: auto;
   margin-right: 0;
+  overflow-y: scroll;
+  padding: 15px 10px;
   width: 20%;
 
   @media screen and (max-width: 951px) {
     height: 100px;
     margin-bottom: 10px;
     width: 100%;
+  }
+
+  .filter-container-top {
+    color: $color-white;
+    margin-bottom: .5em;
+  }
+
+  .filter-container-bottom {
+    color: $color-white;
+    margin: 15px 0;
+  }
+
+  .filter-control-container {
+    padding-bottom: 10px;
+  }
+
+  .filter-control-left {
+    float: left;
+    width: 50%;
+  }
+
+  .filter-control-right {
+    float: left;
+    width: 50%;
   }
 }
 
@@ -220,6 +247,7 @@
 
   .boolean-filter-container {
     margin-left: 10px;
+    padding-top: 10px;
   }
 
   .tm-checkbox {

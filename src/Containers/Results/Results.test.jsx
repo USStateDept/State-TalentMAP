@@ -27,7 +27,7 @@ describe('Results', () => {
   });
 
   it('can call the onQueryParamUpdate function', () => {
-    const query = 'ordering=bureau&q=German';
+    const query = { ordering: 'bureau', q: 'German' };
     const wrapper = shallow(
       <Results.WrappedComponent
         isAuthorized={() => true}
@@ -44,6 +44,72 @@ describe('Results', () => {
     wrapper.instance().context.router = { history: { push: () => {} } };
     wrapper.instance().onQueryParamUpdate(query);
     sinon.assert.calledOnce(handleUpdateSpy);
+  });
+
+  it('can call the onQueryParamUpdate function when page is set', () => {
+    const query = { q: 'German' };
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+      />,
+    );
+    // define the instance
+    const instance = wrapper.instance();
+    // set a previously defined search query
+    instance.state.query.value = 'ordering=bureau&page=2';
+    // spy the onQueryParamUpdate function
+    const value = { value: null };
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamUpdate');
+    wrapper.instance().context.router = { history: { push: (e) => { value.value = e; } } };
+    wrapper.instance().onQueryParamUpdate(query);
+    // page should be gone and our new param should be present
+    expect(value.value.search).toBe('ordering=bureau&q=German');
+    sinon.assert.calledOnce(handleUpdateSpy);
+  });
+
+  it('can call the onQueryParamUpdate function and remove any empty params', () => {
+    const query = { ordering: '' };
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+      />,
+    );
+    // define the instance
+    const instance = wrapper.instance();
+    // set a previously defined search query
+    instance.state.query.value = 'ordering=bureau';
+    // spy the onQueryParamUpdate function
+    const value = { value: null };
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamUpdate');
+    wrapper.instance().context.router = { history: { push: (e) => { value.value = e; } } };
+    wrapper.instance().onQueryParamUpdate(query);
+    // ordering was deleted since we passed an empty value
+    expect(value.value.search).toBe('');
+    sinon.assert.calledOnce(handleUpdateSpy);
+  });
+
+  it('can handle filters being already fetched', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={spy}
+        setAccordion={() => {}}
+        filters={{ hasFetched: true }}
+      />,
+    );
+    expect(wrapper.instance().props.filters.hasFetched).toBe(true);
+    sinon.assert.calledOnce(spy);
   });
 
   it('can call the resetFilters function', () => {
@@ -65,7 +131,7 @@ describe('Results', () => {
     sinon.assert.calledOnce(handleUpdateSpy);
   });
 
-  it('can call the onQueryParamToggle function', () => {
+  it('can call the onQueryParamToggle function when removing a param', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
         isAuthorized={() => true}
@@ -82,12 +148,59 @@ describe('Results', () => {
     const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
     wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
     wrapper.instance().state.query.value = 'language=1%2C2&ordering=bureau&q=German&skill=1';
-    wrapper.instance().onQueryParamToggle('language', '1');
-    sinon.assert.calledOnce(handleUpdateSpy);
     // remove the skill
     wrapper.instance().onQueryParamToggle('skill', '1', true);
+    sinon.assert.calledOnce(handleUpdateSpy);
     // make sure the skill was removed
     expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German');
+  });
+
+  it('can call the onQueryParamToggle function when adding a param value and that param already exists', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+      />,
+    );
+    const history = { value: { search: null } };
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the onQueryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
+    wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
+    wrapper.instance().state.query.value = 'language=1%2C2&ordering=bureau&q=German&skill=1&page=2';
+    // add the skill
+    wrapper.instance().onQueryParamToggle('skill', '2', false);
+    sinon.assert.calledOnce(handleUpdateSpy);
+    // make sure the skill was added
+    expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German&skill=1%2C2');
+  });
+
+  it('can call the onQueryParamToggle function when adding a param value and that param does not exist', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+      />,
+    );
+    const history = { value: { search: null } };
+    // define the instance
+    const instance = wrapper.instance();
+    // spy the onQueryParamUpdate function
+    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
+    wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
+    wrapper.instance().state.query.value = 'language=1%2C2&ordering=bureau&q=German&page=2';
+    // add the skill
+    wrapper.instance().onQueryParamToggle('skill', '2', false);
+    sinon.assert.calledOnce(handleUpdateSpy);
+    // make sure the skill was added
+    expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German&skill=2');
   });
 
   it('can call the onQueryParamToggle function and handle removing non-existent params', () => {

@@ -15,7 +15,7 @@ class MultiSelectFilterContainer extends Component { // eslint-disable-line
               id={`checkbox-${item.title}`}
               title={item.title}
               expanded={item.expanded}
-              setAccordion={a => this.props.setAccordion(a)}
+              setAccordion={this.props.setAccordion}
             >
               {item.content}
             </AccordionItem>))

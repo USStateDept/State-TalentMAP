@@ -21,14 +21,18 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
           searchFilter.item.description === 'skill' ||
           searchFilter.item.description === 'grade' ||
           searchFilter.item.description === 'tod' ||
-          searchFilter.item.description === 'region' ||
+          searchFilter.item.description === 'region'
+        ),
+    );
+
+    const languageFilters = this.props.filters.filter( // eslint-disable-line
+      searchFilter =>
+        (
           searchFilter.item.description === 'language'
         ),
     );
 
-    const sortedFilters = multiSelectFilters.sort(descriptionSort);
-
-    const multiSelectFilterList = sortedFilters.map(item => (
+    const multiSelectFilterList = multiSelectFilters.map(item => (
       { content:
         (<MultiSelectFilter
           key={item.item.title}
@@ -41,11 +45,13 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
       }
     ));
 
+    const sortedFilters = multiSelectFilterList.sort(descriptionSort);
+
     return (
       <div>
         <MultiSelectFilterContainer
           setAccordion={a => this.props.setAccordion(a)}
-          multiSelectFilterList={multiSelectFilterList}
+          multiSelectFilterList={sortedFilters}
         />
         <div className="boolean-filter-container">
           <BooleanFilterContainer

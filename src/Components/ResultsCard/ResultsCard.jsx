@@ -13,7 +13,7 @@ const ResultsCard = ({ result, onToggle }) => (
         Position Number: {result.position_number}
       </div>
       <div className="results-card-favorite">
-        <Favorite refKey={result.position_number} onToggle={() => onToggle()} />
+        <Favorite refKey={result.position_number} onToggle={onToggle} />
       </div>
     </div>
     <div className="usa-grid-full">

@@ -19,7 +19,7 @@ class ResultsSearchHeader extends Component {
     e.preventDefault();
     const { q, location } = this.state;
     // send any updates to q and location back to the Results container, and reset our page number
-    this.props.queryParamUpdate({ q: q.value, location: location.value, page: 1 });
+    this.props.queryParamUpdate({ q: q.value, location: location.value });
   }
   render() {
     return (

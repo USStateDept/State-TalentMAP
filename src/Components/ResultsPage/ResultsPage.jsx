@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
-import ResetFilters from '../ResetFilters/ResetFilters';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
-import SearchBar from '../SearchBar/SearchBar';
-import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
+import ResultsFilterContainer from '../ResultsFilterContainer/ResultsFilterContainer';
 
 class Results extends Component {
   constructor(props) {
@@ -34,7 +32,7 @@ class Results extends Component {
     return (
       <div className="results">
         <ResultsSearchHeader
-          queryParamUpdate={e => onQueryParamUpdate(e)}
+          queryParamUpdate={onQueryParamUpdate}
           defaultKeyword={defaultKeyword}
           defaultLocation={defaultLocation}
         />
@@ -47,37 +45,15 @@ class Results extends Component {
           </div>
         </div>
         <div className="usa-grid-full results-section-container">
-          <div className="filter-container" style={{ fontSize: '.8em', padding: '15px 10px' }}>
-            <div className="usa-grid-full" style={{ color: 'white', marginBottom: '.5em' }}>
-              Keywords
-            </div>
-            <div className="usa-grid-full">
-              <SearchBar
-                id="searchbar-filter-container"
-                type="small"
-                onChangeText={() => {}}
-                onSubmitSearch={() => {}}
-                submitText="search"
-                placeholder="Position, Region, Posts"
-              />
-            </div>
-            <div style={{ margin: '15px 0', color: 'white' }}>
-              <div style={{ width: '50%', float: 'left' }}>Select Filter</div>
-              <div style={{ width: '50%', float: 'left' }}><ResetFilters resetFilters={() => resetFilters()} /></div>
-              <br />
-              <div className="usa-grid-full search-filters-container">
-                <SearchFiltersContainer
-                  filters={filters}
-                  queryParamUpdate={(e) => { onQueryParamUpdate(e); this.onChildToggle(); }}
-                  queryParamToggle={(p, v, r) => {
-                    onQueryParamToggle(p, v, r); this.onChildToggle();
-                  }}
-                  selectedAccordion={selectedAccordion}
-                  setAccordion={a => setAccordion(a)}
-                />
-              </div>
-            </div>
-          </div>
+          <ResultsFilterContainer
+            filters={filters}
+            onQueryParamUpdate={onQueryParamUpdate}
+            onChildToggle={() => this.onChildToggle()}
+            onQueryParamToggle={onQueryParamToggle}
+            resetFilters={resetFilters}
+            setAccordion={setAccordion}
+            selectedAccordion={selectedAccordion}
+          />
           <ResultsContainer
             results={results}
             isLoading={isLoading}
@@ -89,11 +65,11 @@ class Results extends Component {
             pageSizes={pageSizes}
             defaultPageSize={defaultPageSize}
             defaultPageNumber={defaultPageNumber}
-            queryParamUpdate={e => onQueryParamUpdate(e)}
+            queryParamUpdate={onQueryParamUpdate}
             refreshKey={this.state.key}
             onToggle={() => this.onChildToggle()}
             pillFilters={pillFilters}
-            onQueryParamToggle={(p, v, r) => onQueryParamToggle(p, v, r)}
+            onQueryParamToggle={onQueryParamToggle}
           />
         </div>
       </div>

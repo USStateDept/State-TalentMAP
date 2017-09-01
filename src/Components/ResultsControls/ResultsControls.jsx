@@ -40,7 +40,7 @@ const ResultsControls = ({
             <SelectForm
               id="pageSize"
               label="Results:"
-              onSelectOption={e => queryParamUpdate({ limit: e.target.value, page: 1 })}
+              onSelectOption={e => queryParamUpdate({ limit: e.target.value })}
               options={pageSizes.options}
               defaultSort={defaultPageSize}
             />

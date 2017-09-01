@@ -1,6 +1,6 @@
 const descriptionSort = (a, b) => {
-  const A = a.item.description.toLowerCase();
-  const B = b.item.description.toLowerCase();
+  const A = a.title.toLowerCase();
+  const B = b.title.toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }

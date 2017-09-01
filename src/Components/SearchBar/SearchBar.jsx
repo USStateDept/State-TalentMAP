@@ -93,7 +93,7 @@ SearchBar.propTypes = {
   submitDisabled: PropTypes.bool,
   submitText: PropTypes.string.isRequired,
   alertText: PropTypes.string,
-  onChangeText: PropTypes.func.isRequired,
+  onChangeText: PropTypes.func,
   onSubmitSearch: PropTypes.func,
   labelSrOnly: PropTypes.bool,
   noForm: PropTypes.bool,
@@ -112,7 +112,8 @@ SearchBar.defaultProps = {
   noButton: false,
   placeholder: null,
   defaultValue: null,
-  onSubmitSearch: EMPTY_FUNCTION,
+  onSubmitSearch: e => e.preventDefault(),
+  onChangeText: EMPTY_FUNCTION,
 };
 
 export default SearchBar;

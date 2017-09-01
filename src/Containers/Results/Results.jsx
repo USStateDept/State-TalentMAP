@@ -79,14 +79,25 @@ class Results extends Component {
   // for when we need to UPDATE the ENTIRE value of a filter
   onQueryParamUpdate(q) {
     const parsedQuery = queryString.parse(this.state.query.value);
+    // unless we're changing the page number, go back to page 1
+    if (Object.keys(q).indexOf('page') <= -1) {
+      if (parsedQuery.page) {
+        // deleting the key does the same thing as going back to page 1
+        // and also makes our query params cleaner
+        delete parsedQuery.page;
+      }
+    }
+    // combine our old and new query objects, overwriting any diffs with new
     const newQuery = Object.assign({}, parsedQuery, q);
     // remove any params with no value
     Object.keys(newQuery).forEach((key) => {
-      if (!newQuery[key].length) {
+      if (!(newQuery[key].toString().length)) {
         delete newQuery[key];
       }
     });
+    // convert the object to a string
     const newQueryString = queryString.stringify(newQuery);
+    // and push to history
     this.updateHistory(newQueryString);
   }
 
@@ -120,6 +131,14 @@ class Results extends Component {
     });
     if (!wasKeyFound && !remove) {
       parsedQuery[param] = value;
+    }
+    // Go back to page 1 if a page number >1 was set.
+    // We never change the page number from this function, so we can always assume this
+    // should be 1.
+    if (parsedQuery.page) {
+      // deleting the page does the same thing as setting it to 1
+      // and makes our params cleaner
+      delete parsedQuery.page;
     }
     // finally, turn the object back into a string
     const newQueryString = queryString.stringify(parsedQuery);

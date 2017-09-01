@@ -15,7 +15,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
     <div className="results-container">
       <ResultsPillContainer
         items={pillFilters}
-        onPillClick={(p, v, r) => onQueryParamToggle(p, v, r)}
+        onPillClick={onQueryParamToggle}
       />
       <ResultsControls
         results={results}
@@ -25,7 +25,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
         defaultPageSize={defaultPageSize}
         sortBy={sortBy}
         defaultPageNumber={defaultPageNumber}
-        queryParamUpdate={e => queryParamUpdate(e)}
+        queryParamUpdate={queryParamUpdate}
       />
       {
         // is not loading, results array exists, but is empty
@@ -56,7 +56,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
        <div className="usa-grid-full react-paginate">
          <PaginationWrapper
            pageCount={pageCount}
-           onPageChange={e => queryParamUpdate({ page: e.selected })}
+           onPageChange={queryParamUpdate}
            forcePage={defaultPageNumber}
          />
        </div>
