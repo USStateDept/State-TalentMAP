@@ -31,7 +31,7 @@ const PaginationWrapper = ({
         }}
         containerClassName={containerClassName}
         subContainerClassName={subContainerClassName}
-        forcePage={forcePage - 1 /* reconciles zero-based pagination */}
+        forcePage={forcePage - 1/* reconciles zero-based pagination */}
         activeClassName={activeClassName}
       />
     </nav>
