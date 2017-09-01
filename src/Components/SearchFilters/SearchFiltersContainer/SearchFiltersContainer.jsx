@@ -5,7 +5,7 @@ import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constants/PropTypes';
-import descriptionSort from './descriptionSort';
+import { titleSort, descriptionSort } from './descriptionSort';
 
 class SearchFiltersContainer extends Component {
   onBooleanFilterClick(isChecked, code, selectionRef) {
@@ -27,6 +27,12 @@ class SearchFiltersContainer extends Component {
           searchFilter.item.description === 'region'
         ),
     );
+
+    multiSelectFilters.forEach((filters, i) => {
+      if (filters.item.description === 'skill') {
+        multiSelectFilters[i].data = multiSelectFilters[i].data.sort(descriptionSort);
+      }
+    });
 
     // get our language filter, which we'll render differently
     const languageFilters = this.props.filters.filter(
@@ -69,7 +75,7 @@ class SearchFiltersContainer extends Component {
       }
     ));
 
-    const sortedFilters = multiSelectFilterList.sort(descriptionSort);
+    const sortedFilters = multiSelectFilterList.sort(titleSort);
     sortedFilters.push(languageFilterObject);
 
     return (

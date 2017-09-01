@@ -177,6 +177,12 @@
   padding: 15px 10px;
   width: 20%;
 
+  .reset-filters {
+    border-bottom: solid 1px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
   @media screen and (max-width: 951px) {
     height: 100px;
     margin-bottom: 10px;
@@ -194,7 +200,7 @@
   }
 
   .filter-control-container {
-    padding-bottom: 10px;
+    padding: 0 0 10px 1px;
   }
 
   .filter-control-left {
@@ -280,4 +286,18 @@
 .language-view-all {
   font-size: .8em;
   padding: .4em;
+}
+
+.accordion-checkbox-language {
+
+  .usa-accordion-content {
+    background-color: $color-white;
+    color: $color-black;
+  }
+
+  .language-accordion-item {
+    background-color: $color-white;
+    color: $color-black;
+  }
+
 }

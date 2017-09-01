@@ -3,6 +3,7 @@
 exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
 <Accordion>
   <AccordionItem
+    divClass=""
     expanded={true}
     id="checkbox-title"
     setAccordion={[Function]}

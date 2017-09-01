@@ -10,7 +10,7 @@ exports[`AccordionItemComponent matches snapshot 1`] = `
   />
   <div
     aria-hidden={false}
-    className="usa-accordion-content accordion-accordion"
+    className="usa-accordion-content  accordion-accordion"
     id=""
   >
     <span>

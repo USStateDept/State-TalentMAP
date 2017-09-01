@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-const AccordionItem = ({ id, title, expanded, setAccordion, children }) => (
+const AccordionItem = ({ id, title, expanded, setAccordion, children, divClass }) => (
   <li>
     <button
       className="usa-accordion-button"
@@ -12,7 +12,7 @@ const AccordionItem = ({ id, title, expanded, setAccordion, children }) => (
     >
       {title}
     </button>
-    <div id={id} className={`usa-accordion-content accordion-${(id || 'accordion').toLowerCase()}`} aria-hidden={!expanded}>
+    <div id={id} className={`usa-accordion-content ${divClass} accordion-${(id || 'accordion').toLowerCase()}`} aria-hidden={!expanded}>
       {children}
     </div>
   </li>
@@ -24,6 +24,7 @@ AccordionItem.propTypes = {
   expanded: PropTypes.bool,
   setAccordion: PropTypes.func,
   children: PropTypes.node,
+  divClass: PropTypes.string,
 };
 
 AccordionItem.defaultProps = {
@@ -31,6 +32,7 @@ AccordionItem.defaultProps = {
   setAccordion: EMPTY_FUNCTION,
   expanded: false,
   children: null,
+  divClass: '',
 };
 
 export default AccordionItem;
