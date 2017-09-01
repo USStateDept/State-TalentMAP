@@ -51,4 +51,35 @@ export function fetchUserToken() {
   return token;
 }
 
+// keep sort functions separate in case we want to adjust the logic for some but not others
+export const titleSort = (a, b) => {
+  const A = a.title.toLowerCase();
+  const B = b.title.toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+export const descriptionSort = (a, b) => {
+  const A = a.description.toLowerCase();
+  const B = b.description.toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+export const pillSort = (a, b) => {
+  const A = (a.description || a.code).toLowerCase();
+  const B = (b.description || b.code).toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
 export default ajax;
