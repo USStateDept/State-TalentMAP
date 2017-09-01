@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FieldSet from '../../FieldSet/FieldSet';
 import CheckBox from '../../CheckBox/CheckBox';
@@ -8,12 +8,9 @@ import SelectForm from '../../SelectForm/SelectForm';
 import { FILTER_ITEM, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import Proficiencies from '../../../Constants/Language';
 
-class LanguageFilter extends Component { // eslint-disable-line
-  render() {
-    const { item, setAccordion, selectedAccordion, queryParamUpdate } = this.props;
-    return (
-      <Accordion>
-        {
+const LanguageFilter = ({ item, setAccordion, selectedAccordion, queryParamUpdate }) => (
+  <Accordion>
+    {
           (item.data || []).map(itemData => (
             <AccordionItem
               key={itemData.short_description}
@@ -65,10 +62,8 @@ class LanguageFilter extends Component { // eslint-disable-line
             </AccordionItem>
           ))
         }
-      </Accordion>
-    );
-  }
-}
+  </Accordion>
+);
 
 LanguageFilter.propTypes = {
   item: FILTER_ITEM.isRequired,

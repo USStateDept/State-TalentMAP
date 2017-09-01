@@ -59,7 +59,7 @@ class Results extends Component {
           limit: defaultPageSize.value },
         parsedQuery, // this order dictates that query params take precedence over default values
       );
-      const newQueryString = queryString.stringify(newQuery); // eslint-disable-line
+      const newQueryString = queryString.stringify(newQuery);
       // get our filters to map against
       const { filters } = this.props;
       // have the filters already been fetched?

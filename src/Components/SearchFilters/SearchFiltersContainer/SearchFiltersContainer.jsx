@@ -7,7 +7,7 @@ import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constants/PropTypes';
 import descriptionSort from './descriptionSort';
 
-class SearchFiltersContainer extends Component { // eslint-disable-line
+class SearchFiltersContainer extends Component {
   onBooleanFilterClick(isChecked, code, selectionRef) {
     const object = Object.assign({});
     object[selectionRef] = isChecked ? code : '';

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
-  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../Constants/PropTypes';
+  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, ITEMS } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
@@ -26,7 +26,7 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
-            defaultPageNumber, onQueryParamUpdate, filters, defaultFilters, // eslint-disable-line
+            defaultPageNumber, onQueryParamUpdate, filters,
             selectedAccordion, setAccordion }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
@@ -96,6 +96,7 @@ Results.propTypes = {
   pillFilters: PILL_ITEM_ARRAY,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
+  filters: ITEMS,
 };
 
 Results.defaultProps = {
@@ -110,6 +111,7 @@ Results.defaultProps = {
   defaultLocation: '',
   pillFilters: [],
   selectedAccordion: ACCORDION_SELECTION,
+  filters: [],
 };
 
 Results.contextTypes = {
