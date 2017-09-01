@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FieldSet from '../../FieldSet/FieldSet';
 import CheckBox from '../../CheckBox/CheckBox';
+import { FILTER_ITEM } from '../../../Constants/PropTypes';
 
 class MultiSelectFilter extends Component { // eslint-disable-line
   render() {
@@ -37,19 +38,8 @@ class MultiSelectFilter extends Component { // eslint-disable-line
 }
 
 MultiSelectFilter.propTypes = {
-  item: PropTypes.object, // eslint-disable-line
-  filters: PropTypes.object, // eslint-disable-line
-  queryParamUpdate: PropTypes.func.isRequired, // eslint-disable-line
-  queryParamToggle: PropTypes.func.isRequired,// eslint-disable-line
-  setAccordion: PropTypes.func.isRequired, // eslint-disable-line
-  booleanToggle: PropTypes.func.isRequired, // eslint-disable-line
-};
-
-MultiSelectFilter.defaultProps = {
-  booleanToggle: () => {},
-  setAccordion: () => {},
-  queryParamUpdate: () => {},
-  queryParamToggle: () => {},
+  item: FILTER_ITEM.isRequired,
+  queryParamToggle: PropTypes.func.isRequired,
 };
 
 export default MultiSelectFilter;

@@ -23,12 +23,13 @@ AccordionItem.propTypes = {
   title: PropTypes.string.isRequired,
   expanded: PropTypes.bool,
   setAccordion: PropTypes.func,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 AccordionItem.defaultProps = {
   setAccordion: EMPTY_FUNCTION,
   expanded: false,
+  children: null,
 };
 
 export default AccordionItem;

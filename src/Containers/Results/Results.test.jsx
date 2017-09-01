@@ -14,30 +14,16 @@ const mockStore = configureStore(middlewares);
 describe('Results', () => {
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => true} onNavigateTo={() => {}} />
+      <Results isAuthorized={() => true} onNavigateTo={() => {}} setAccordion={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => false} onNavigateTo={() => {}} />
+      <Results isAuthorized={() => false} onNavigateTo={() => {}} setAccordion={() => {}} />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
-  });
-
-  it('can call the onChildToggle function', () => {
-    const wrapper = shallow(
-      <Results.WrappedComponent
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-      />,
-    );
-    expect(wrapper.instance().state.key).toBe(0);
-    wrapper.instance().onChildToggle();
-    expect(wrapper.instance().state.key).toBeGreaterThan(0);
   });
 
   it('can call the onQueryParamUpdate function', () => {
@@ -48,6 +34,7 @@ describe('Results', () => {
         fetchData={() => {}}
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
+        setAccordion={() => {}}
       />,
     );
     // define the instance
@@ -66,6 +53,7 @@ describe('Results', () => {
         fetchData={() => {}}
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
+        setAccordion={() => {}}
       />,
     );
     // define the instance
@@ -84,6 +72,7 @@ describe('Results', () => {
         fetchData={() => {}}
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
+        setAccordion={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -108,6 +97,7 @@ describe('Results', () => {
         fetchData={() => {}}
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
+        setAccordion={() => {}}
       />,
     );
     const history = { value: { search: null } };

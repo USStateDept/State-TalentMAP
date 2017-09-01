@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MultiSelectFilterComponent matches snapshot 1`] = `
+<FieldSet
+  legend="title"
+>
+  <CheckBox
+    id="checkboxdescription"
+    label="description"
+    name="description"
+    onCheckBoxClick={[Function]}
+    selectionRef="ref"
+    title="description"
+    value={true}
+  />
+</FieldSet>
+`;

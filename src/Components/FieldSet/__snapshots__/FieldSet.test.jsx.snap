@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldSetComponent matches snapshot 1`] = `
+<fieldset>
+  <legend>
+    legend
+  </legend>
+  <span>
+    child
+  </span>
+</fieldset>
+`;

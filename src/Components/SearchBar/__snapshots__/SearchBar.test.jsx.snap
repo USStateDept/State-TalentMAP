@@ -41,6 +41,11 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
             >
               Submit 2
             </span>
+            <span
+              className="usa-sr-only"
+            >
+              Submit 2
+            </span>
           </button>
         </div>
         <div
@@ -113,6 +118,11 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
           >
             <span
               className="usa-search-submit-text"
+            >
+              Submit 2
+            </span>
+            <span
+              className="usa-sr-only"
             >
               Submit 2
             </span>
@@ -189,6 +199,11 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
             <span
               className="usa-search-submit-text"
             />
+            <span
+              className="usa-sr-only"
+            >
+              Search
+            </span>
           </button>
         </div>
         <div

@@ -17,7 +17,7 @@ describe('ResetFilters', () => {
 
   it('can click on the button', () => {
     const wrapper = shallow(<ResetFilters resetFilters={() => {}} />);
-    wrapper.find('button').simulate('click');
+    wrapper.find('span').simulate('click');
   });
 
   it('can call resetFilters function', () => {
@@ -27,9 +27,9 @@ describe('ResetFilters', () => {
     const instance = wrapper.instance();
     // spy the onQueryParamUpdate function
     const handleUpdateSpy = sinon.spy(instance, 'resetFilters');
-    wrapper.find('button').simulate('click');
+    wrapper.find('span').simulate('click');
     sinon.assert.calledOnce(handleUpdateSpy);
-    wrapper.find('button').simulate('click');
+    wrapper.find('span').simulate('click');
     sinon.assert.calledOnce(propSpy);
   });
 });

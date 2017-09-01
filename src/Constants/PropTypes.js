@@ -51,7 +51,7 @@ export const POSITION_SEARCH_RESULTS = PropTypes.shape({
 export const FILTERS = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number,
-    code: PropTypes.string.isRequired,
+    code: PropTypes.string,
     description: PropTypes.string,
     long_description: PropTypes.string,
     short_description: PropTypes.string,

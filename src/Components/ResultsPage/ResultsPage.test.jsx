@@ -10,6 +10,16 @@ describe('ResultsPageComponent', () => {
   const defaultSort = '';
   const defaultPageSize = 10;
 
+  const items = [{
+    item: { title: 'title', selectionRef: 'ref' },
+    data: [{ isSelected: true }],
+  },
+  {
+    item: { title: 'title2', selectionRef: 'ref2' },
+    data: [{ isSelected: false }],
+  },
+  ];
+
   it('is defined', () => {
     wrapper = shallow(<ResultsPage
       results={resultsObject}
@@ -22,6 +32,8 @@ describe('ResultsPageComponent', () => {
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
       onQueryParamToggle={() => {}}
+      setAccordion={() => {}}
+      filters={items}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -38,6 +50,8 @@ describe('ResultsPageComponent', () => {
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
       onQueryParamToggle={() => {}}
+      setAccordion={() => {}}
+      filters={items}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -53,6 +67,8 @@ describe('ResultsPageComponent', () => {
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
       onQueryParamToggle={() => {}}
+      setAccordion={() => {}}
+      filters={items}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -67,6 +83,8 @@ describe('ResultsPageComponent', () => {
       onQueryParamUpdate={() => {}}
       resetFilters={() => {}}
       onQueryParamToggle={() => {}}
+      setAccordion={() => {}}
+      filters={items}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

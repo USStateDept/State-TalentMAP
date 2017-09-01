@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
+<Accordion>
+  <AccordionItem
+    expanded={true}
+    id="checkbox-title"
+    setAccordion={[Function]}
+    title="title"
+  />
+</Accordion>
+`;

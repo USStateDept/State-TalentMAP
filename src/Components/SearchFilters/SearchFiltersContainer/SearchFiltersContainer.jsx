@@ -4,15 +4,15 @@ import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelec
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import { FILTER_ITEMS_ARRAY } from '../../../Constants/PropTypes';
+import descriptionSort from './descriptionSort';
 
 class SearchFiltersContainer extends Component { // eslint-disable-line
+  onBooleanFilterClick(isChecked, code, selectionRef) {
+    const object = Object.assign({});
+    object[selectionRef] = isChecked ? code : '';
+    this.props.queryParamUpdate(object);
+  }
   render() {
-    const onBooleanFilterClick = (isChecked, code, selectionRef) => {
-      const object = Object.assign({});
-      object[selectionRef] = isChecked ? code : '';
-      this.props.queryParamUpdate(object);
-    };
-
     const booleanFilters = this.props.filters.filter(searchFilter => searchFilter.item.bool);
 
     const multiSelectFilters = this.props.filters.filter(
@@ -26,7 +26,9 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
         ),
     );
 
-    const multiSelectFilterList = multiSelectFilters.map((item, i) => ( // eslint-disable-line
+    const sortedFilters = multiSelectFilters.sort(descriptionSort);
+
+    const multiSelectFilterList = sortedFilters.map(item => (
       { content:
         (<MultiSelectFilter
           key={item.item.title}
@@ -37,15 +39,7 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
         id: `accordion-${item.item.title}`,
         expanded: item.item.title === this.props.selectedAccordion,
       }
-    )).sort((a, b) => { // sort our pills by description
-      const A = a.title.toLowerCase();
-      const B = b.title.toLowerCase();
-      if (A < B) { // sort string ascending
-        return -1;
-      }
-      if (A > B) { return 1; }
-      return 0; // default return value (no sorting)
-    });
+    ));
 
     return (
       <div>
@@ -58,7 +52,7 @@ class SearchFiltersContainer extends Component { // eslint-disable-line
             filters={booleanFilters}
             onBooleanFilterClick={(e, code, ref, iterator, value) => {
               booleanFilters[iterator].data[0].isSelected = !value;
-              onBooleanFilterClick(e, code, ref);
+              this.onBooleanFilterClick(e, code, ref);
             }
             }
           />
