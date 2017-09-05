@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import close from 'uswds/dist/img/close.svg'; // close X icon
 import { userProfileFetchData } from '../../actions/userProfile';
-import { USER_PROFILE } from '../../Constants/PropTypes';
+import { logoutRequest } from '../../login/actions';
+import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
 
@@ -33,9 +34,14 @@ export class Header extends Component {
 
     let showLogin = (<Link to="login" id="login-desktop">Login</Link>);
     let signedInAs = null;
+    const { logout } = this.props;
     if (this.props.client.token && !requesting) {
       const { userProfile } = this.props;
-      showLogin = (<AccountDropdown userProfile={this.props.userProfile} />);
+      showLogin = (
+        <AccountDropdown
+          userProfile={this.props.userProfile}
+          logoutRequest={logout}
+        />);
       if (userProfile.user && userProfile.user.username) {
         signedInAs = `Signed in as ${userProfile.user.username}`;
       }
@@ -92,7 +98,7 @@ export class Header extends Component {
                     <Link to="/">Profile</Link>
                   </li>
                   <li>
-                    <Link to="login" id="login-mobile" onClick={() => this.logout()}>Logout</Link>
+                    <Link to="login" id="login-mobile" onClick={() => logout()}>Logout</Link>
                   </li>
                 </span>
                 <span className="desktop-nav-only">
@@ -121,11 +127,13 @@ Header.propTypes = {
   fetchData: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
+  logout: PropTypes.func,
 };
 
 Header.defaultProps = {
   client: null,
   userProfile: {},
+  logout: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -136,6 +144,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
+  logout: () => dispatch(logoutRequest()),
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Header);
