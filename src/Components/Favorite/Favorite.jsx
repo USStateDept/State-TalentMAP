@@ -47,7 +47,7 @@ class Favorite extends Component {
     return (
       // At the time of writing, CodeClimate's version of eslint-a11y-plugin
       // did not take role="button" into account with the following error:
-      // eslint-disable-next-line no-static-element-interactions
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div tabIndex="0" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()}>
         <FontAwesome name={iconClass} /> {text}
       </div>

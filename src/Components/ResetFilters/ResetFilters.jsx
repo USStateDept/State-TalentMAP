@@ -24,7 +24,7 @@ class ResetFilters extends Component {
       <div className="reset-filters-container">
         { /* At the time of writing, CodeClimate's version of eslint-a11y-plugin
           did not take role="button" into account with the following error */ }
-        <span // eslint-disable-line no-static-element-interactions
+        <span // eslint-disable-line jsx-a11y/no-static-element-interactions
           className="reset-filters"
           tabIndex="0"
           role="link"
