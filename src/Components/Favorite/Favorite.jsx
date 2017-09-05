@@ -45,6 +45,9 @@ class Favorite extends Component {
     const text = this.getSavedState() ? 'Remove' : 'Favorite';
     const iconClass = this.getSavedState() ? 'heart' : 'heart-o';
     return (
+      // At the time of writing, CodeClimate's version of eslint-a11y-plugin
+      // did not take role="button" into account with the following error:
+      // eslint-disable-next-line no-static-element-interactions
       <div tabIndex="0" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()}>
         <FontAwesome name={iconClass} /> {text}
       </div>

@@ -57,7 +57,10 @@ class CompareCheck extends Component {
     if (this.isDisabled()) { text = 'Limit reached'; }
     const iconClass = this.getSavedState() ? 'check-square-o' : 'square-o';
     return (
-      <div tabIndex="0" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()}>
+      // At the time of writing, CodeClimate's version of eslint-a11y-plugin
+      // did not take role="button" into account with the following error:
+      // eslint-disable-next-line no-static-element-interactions
+      <div tabIndex="0" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()} >
         <FontAwesome name={iconClass} /> {text}
       </div>
     );

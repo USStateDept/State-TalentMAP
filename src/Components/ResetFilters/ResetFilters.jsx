@@ -22,7 +22,9 @@ class ResetFilters extends Component {
     const text = confirm ? 'Are you sure?' : 'Reset Filters';
     return (
       <div className="reset-filters-container">
-        <span
+        { /* At the time of writing, CodeClimate's version of eslint-a11y-plugin
+          did not take role="button" into account with the following error */ }
+        <span // eslint-disable-line no-static-element-interactions
           className="reset-filters"
           tabIndex="0"
           role="link"
