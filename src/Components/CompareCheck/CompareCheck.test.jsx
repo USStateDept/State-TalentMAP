@@ -7,7 +7,7 @@ describe('CompareCheck', () => {
   let compareCheck = null;
 
   beforeEach(() => {
-    compareCheck = TestUtils.renderIntoDocument(<CompareCheck refKey="0036" type="fav" />);
+    compareCheck = TestUtils.renderIntoDocument(<CompareCheck refKey="0036" type="compare" />);
   });
 
   it('is defined', () => {
