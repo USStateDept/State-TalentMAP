@@ -10,6 +10,7 @@ exports[`PillComponent matches snapshot 1`] = `
       "padding": ".5em",
     }
   }
+  title="Remove test filter"
 >
   test
    
