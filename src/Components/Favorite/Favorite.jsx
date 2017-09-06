@@ -22,10 +22,6 @@ class Favorite extends Component {
     this.getSaved();
   }
 
-  onToggle() {
-    this.props.onToggle();
-  }
-
   getSaved() {
     const saved = localStorageFetchValue(this.state.localStorageKey, this.props.refKey);
     this.setState({ saved: saved.exists });
@@ -38,7 +34,6 @@ class Favorite extends Component {
   toggleSaved() {
     localStorageToggleValue(this.state.localStorageKey, this.props.refKey);
     this.setState({ saved: !this.state.saved });
-    this.onToggle();
   }
 
   render() {
@@ -58,7 +53,6 @@ class Favorite extends Component {
 Favorite.propTypes = {
   refKey: PropTypes.string.isRequired,
   type: PropTypes.string,
-  onToggle: PropTypes.func,
 };
 
 Favorite.defaultProps = {
