@@ -32,10 +32,12 @@ const ResultsFilterContainer = ({ filters, onQueryParamUpdate, onChildToggle,
           <SearchFiltersContainer
             filters={filters}
             queryParamUpdate={(e) => {
-              onQueryParamUpdate(e); onChildToggle();
+              onQueryParamUpdate(e);
+              onChildToggle();
             }}
             queryParamToggle={(p, v, r) => {
-              onQueryParamToggle(p, v, r); onChildToggle();
+              onQueryParamToggle(p, v, r);
+              onChildToggle();
             }}
             selectedAccordion={selectedAccordion}
             setAccordion={setAccordion}
