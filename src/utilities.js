@@ -1,13 +1,3 @@
-import axios from 'axios';
-
-export const ajax = url => (
-  axios.get(url)
-    .then((res) => {
-      const data = res;
-      return data;
-    })
-);
-
 export function localStorageFetchValue(key, value) {
   const saved = { exists: true, count: 0 };
   const retrievedKey = localStorage.getItem(key);
@@ -81,5 +71,3 @@ export const pillSort = (a, b) => {
   if (A > B) { return 1; }
   return 0; // default return value (no sorting)
 };
-
-export default ajax;
