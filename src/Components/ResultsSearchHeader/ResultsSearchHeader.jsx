@@ -27,7 +27,7 @@ class ResultsSearchHeader extends Component {
           <form className="usa-grid-full" onSubmit={e => this.submitSearch(e)} >
             <fieldset className="usa-width-five-sixths">
               <legend className="usa-grid-full usa-sr-only">Search keyword and location</legend>
-              <div className="usa-width-one-whole search-results-inputs search-keyword" style={{ float: 'left', padding: '15px' }}>
+              <div className="usa-width-one-whole search-results-inputs search-keyword" style={{ float: 'left', padding: '15px 0' }}>
                 <SearchBar
                   id="search-keyword-field"
                   label={<div><FontAwesome name="search" style={{ marginRight: '9px' }} />Keywords</div>}

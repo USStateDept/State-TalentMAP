@@ -24,7 +24,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
           style={
             Object {
               "float": "left",
-              "padding": "15px",
+              "padding": "15px 0",
             }
           }
         >

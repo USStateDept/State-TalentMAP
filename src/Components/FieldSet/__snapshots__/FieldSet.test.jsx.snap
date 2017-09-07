@@ -2,7 +2,9 @@
 
 exports[`FieldSetComponent matches snapshot 1`] = `
 <fieldset>
-  <legend>
+  <legend
+    className={null}
+  >
     legend
   </legend>
   <span>

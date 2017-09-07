@@ -122,6 +122,7 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
     />
     <FieldSet
       legend="Other"
+      legendSrOnly={false}
     >
       <CheckBox
         code="Passed Language Test"
