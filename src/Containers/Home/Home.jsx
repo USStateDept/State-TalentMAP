@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
-import Homepage from '../../Components/Homepage/Homepage';
+import Homepage from '../../Containers/Homepage/Homepage';
 import { FILTERS_PARENT, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
@@ -49,7 +49,6 @@ class Home extends Component {
 Home.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func,
-  // isLoading: PropTypes.bool,
   items: FILTERS_PARENT,
   isAuthorized: PropTypes.func.isRequired,
 };
