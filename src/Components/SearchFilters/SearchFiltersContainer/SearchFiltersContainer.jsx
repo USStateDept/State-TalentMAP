@@ -18,13 +18,11 @@ class SearchFiltersContainer extends Component {
     const booleanFilters = this.props.filters.filter(searchFilter => searchFilter.item.bool);
 
     // get our normal multi-select filters
+    const multiSelectFilterNames = ['skill', 'grade', 'tod', 'region'];
     const multiSelectFilters = this.props.filters.filter(
-      searchFilter =>
+      s =>
         (
-          searchFilter.item.description === 'skill' ||
-          searchFilter.item.description === 'grade' ||
-          searchFilter.item.description === 'tod' ||
-          searchFilter.item.description === 'region'
+          multiSelectFilterNames.indexOf(s.item.description) > -1
         ),
     );
 
