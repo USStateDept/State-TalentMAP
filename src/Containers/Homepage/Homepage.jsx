@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ITEMS } from '../../Constants/PropTypes';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
+import ExploreRegionDropdown from '../../Components/ExploreRegionDropdown/ExploreRegionDropdown';
 
 class Results extends Component {
   constructor(props) {
@@ -22,12 +24,25 @@ class Results extends Component {
   }
 
   render() {
+    const { filters } = this.props;
     return (
       <div className="home">
         <div className="results results-search-bar-homepage">
           <ResultsSearchHeader
             onUpdate={this.submitSearch}
           />
+        </div>
+        <div className="explore-section">
+          <div className="explore-section-inner usa-grid-full">
+            <div>
+              <ExploreRegionDropdown
+                filters={filters}
+              />
+            </div>
+            <div className="explore-map-container">
+              <img alt="world map" src="/assets/img/gray-world-map.png" className="explore-map" />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -36,6 +51,7 @@ class Results extends Component {
 
 Results.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
+  filters: ITEMS.isRequired,
 };
 
 Results.defaultProps = {

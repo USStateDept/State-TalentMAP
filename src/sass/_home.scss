@@ -7,4 +7,31 @@
   .alert-text {
     color: $alert-red;
   }
+
+  .explore-section {
+    background-color: $tm-white-smoke;
+
+    label {
+      font-family: Vollkorn;
+      font-size: 34px;
+    }
+
+    select {
+      padding: 0 30px 0 10px;
+      -webkit-padding-end: 30px;
+      -webkit-padding-start: 10px;
+      width: auto;
+    }
+  }
+
+  .explore-section-inner {
+    padding-top: 25px;
+  }
+
+  .explore-map-container {
+
+    .explore-map {
+      width: 90%;
+    }
+  }
 }

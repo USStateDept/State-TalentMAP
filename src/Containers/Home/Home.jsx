@@ -35,11 +35,12 @@ class Home extends Component {
   }
 
   render() {
-    const { onNavigateTo } = this.props;
+    const { onNavigateTo, items } = this.props;
     return (
       <div>
         <Homepage
           onNavigateTo={onNavigateTo}
+          filters={items.filters}
         />
       </div>
     );
