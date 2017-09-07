@@ -8,7 +8,6 @@ class ResultsSearchHeader extends Component {
     super(props);
     this.state = {
       q: { value: this.props.defaultKeyword || '' },
-      location: { value: this.props.defaultLocation || '' },
     };
   }
   changeText(type, e) {
@@ -17,48 +16,34 @@ class ResultsSearchHeader extends Component {
   submitSearch(e) {
     // resolves “Form submission canceled because the form is not connected” warning
     e.preventDefault();
-    const { q, location } = this.state;
+    const { q } = this.state;
     // send any updates to q and location back to the Results container, and reset our page number
-    this.props.queryParamUpdate({ q: q.value, location: location.value });
+    this.props.onUpdate({ q: q.value });
   }
   render() {
     return (
       <div className="results-search-bar">
         <div className="usa-grid-full results-search-bar-container">
-          <form onSubmit={e => this.submitSearch(e)} >
+          <form className="usa-grid-full" onSubmit={e => this.submitSearch(e)} >
             <fieldset className="usa-width-five-sixths">
-              <legend className="usa-sr-only">Search keyword and location</legend>
-              <div className="usa-width-one-half search-results-inputs search-keyword" style={{ float: 'left', padding: '15px' }}>
+              <legend className="usa-grid-full usa-sr-only">Search keyword and location</legend>
+              <div className="usa-width-one-whole search-results-inputs search-keyword" style={{ float: 'left', padding: '15px' }}>
                 <SearchBar
                   id="search-keyword-field"
-                  label={<div><FontAwesome name="search" style={{ marginRight: '10px' }} />Keywords</div>}
+                  label={<div><FontAwesome name="search" style={{ marginRight: '9px' }} />Keywords</div>}
                   type="medium"
                   submitText="Search"
                   labelSrOnly={false}
                   noForm
                   noButton
-                  placeholder="Skill code, Grade Code, Language, Post Name"
+                  placeholder="Location, Skill Code, Grade, Language, Position Number"
                   onChangeText={(e) => { this.changeText('q', e); }}
                   defaultValue={this.props.defaultKeyword}
                 />
               </div>
-              <div className="usa-width-one-half search-results-inputs search-location" style={{ float: 'left', padding: '15px' }}>
-                <SearchBar
-                  id="search-location-field"
-                  label={<div><FontAwesome name="map-marker" style={{ marginRight: '10px' }} />Location</div>}
-                  type="medium"
-                  submitText="Search"
-                  labelSrOnly={false}
-                  noForm
-                  noButton
-                  placeholder="City, State, or Country"
-                  onChangeText={(e) => { this.changeText('location', e); }}
-                  defaultValue={this.props.defaultLocation}
-                />
-              </div>
             </fieldset>
             <div className="usa-width-one-sixth search-submit-button">
-              <button className="usa-button" type="submit">Search</button>
+              <button className="usa-button" type="submit"><FontAwesome name="search" style={{ marginRight: '9px' }} />Search</button>
             </div>
           </form>
         </div>
@@ -68,9 +53,8 @@ class ResultsSearchHeader extends Component {
 }
 
 ResultsSearchHeader.propTypes = {
-  queryParamUpdate: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   defaultKeyword: PropTypes.string,
-  defaultLocation: PropTypes.string,
 };
 
 ResultsSearchHeader.defaultProps = {

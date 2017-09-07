@@ -34,7 +34,7 @@ class Results extends Component {
     return (
       <div className="results">
         <ResultsSearchHeader
-          queryParamUpdate={onQueryParamUpdate}
+          onUpdate={onQueryParamUpdate}
           defaultKeyword={defaultKeyword}
           defaultLocation={defaultLocation}
         />

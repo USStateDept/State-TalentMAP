@@ -34,6 +34,7 @@ describe('ResultsPageComponent', () => {
       onQueryParamToggle={() => {}}
       setAccordion={() => {}}
       filters={items}
+      onUpdate={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -52,6 +53,7 @@ describe('ResultsPageComponent', () => {
       onQueryParamToggle={() => {}}
       setAccordion={() => {}}
       filters={items}
+      onUpdate={() => {}}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -69,6 +71,7 @@ describe('ResultsPageComponent', () => {
       onQueryParamToggle={() => {}}
       setAccordion={() => {}}
       filters={items}
+      onUpdate={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -85,6 +88,7 @@ describe('ResultsPageComponent', () => {
       onQueryParamToggle={() => {}}
       setAccordion={() => {}}
       filters={items}
+      onUpdate={() => {}}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

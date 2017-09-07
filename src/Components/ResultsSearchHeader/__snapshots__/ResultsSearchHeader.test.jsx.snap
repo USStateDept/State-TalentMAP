@@ -8,18 +8,19 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
     className="usa-grid-full results-search-bar-container"
   >
     <form
+      className="usa-grid-full"
       onSubmit={[Function]}
     >
       <fieldset
         className="usa-width-five-sixths"
       >
         <legend
-          className="usa-sr-only"
+          className="usa-grid-full usa-sr-only"
         >
           Search keyword and location
         </legend>
         <div
-          className="usa-width-one-half search-results-inputs search-keyword"
+          className="usa-width-one-whole search-results-inputs search-keyword"
           style={
             Object {
               "float": "left",
@@ -37,7 +38,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
                   name="search"
                   style={
                     Object {
-                      "marginRight": "10px",
+                      "marginRight": "9px",
                     }
                   }
                 />
@@ -49,44 +50,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
             noForm={true}
             onChangeText={[Function]}
             onSubmitSearch={[Function]}
-            placeholder="Skill code, Grade Code, Language, Post Name"
-            submitDisabled={false}
-            submitText="Search"
-            type="medium"
-          />
-        </div>
-        <div
-          className="usa-width-one-half search-results-inputs search-location"
-          style={
-            Object {
-              "float": "left",
-              "padding": "15px",
-            }
-          }
-        >
-          <SearchBar
-            alertText="Disabled"
-            defaultValue="a location"
-            id="search-location-field"
-            label={
-              <div>
-                <FontAwesome
-                  name="map-marker"
-                  style={
-                    Object {
-                      "marginRight": "10px",
-                    }
-                  }
-                />
-                Location
-              </div>
-            }
-            labelSrOnly={false}
-            noButton={true}
-            noForm={true}
-            onChangeText={[Function]}
-            onSubmitSearch={[Function]}
-            placeholder="City, State, or Country"
+            placeholder="Location, Skill Code, Grade, Language, Position Number"
             submitDisabled={false}
             submitText="Search"
             type="medium"
@@ -100,6 +64,14 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
           className="usa-button"
           type="submit"
         >
+          <FontAwesome
+            name="search"
+            style={
+              Object {
+                "marginRight": "9px",
+              }
+            }
+          />
           Search
         </button>
       </div>

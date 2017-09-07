@@ -25,7 +25,7 @@ class SearchBar extends Component {
     let showSubmitText = true; // do not hide submit text initially
     if (type === 'small') { showSubmitText = false; } // small search class should not have text
     const child = (
-      <div className="label-input-wrapper">
+      <div className="usa-grid-full label-input-wrapper">
         <label className={labelSrOnly ? 'usa-sr-only' : null} htmlFor={id}>
           {label}
         </label>
@@ -70,7 +70,7 @@ class SearchBar extends Component {
     );
     return (
       <div className={`usa-search usa-search-${type}`}>
-        <div role="search">
+        <div role="search" className="usa-grid-full">
           { !noForm &&
             <form onSubmit={e => onSubmitSearch(e)}>
               {child}

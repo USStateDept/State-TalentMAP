@@ -5,13 +5,14 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
   className="usa-search usa-search-big"
 >
   <div
+    className="usa-grid-full"
     role="search"
   >
     <form
       onSubmit={[Function]}
     >
       <div
-        className="label-input-wrapper"
+        className="usa-grid-full label-input-wrapper"
       >
         <label
           className="usa-sr-only"
@@ -85,13 +86,14 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
   className="usa-search usa-search-medium"
 >
   <div
+    className="usa-grid-full"
     role="search"
   >
     <form
       onSubmit={[Function]}
     >
       <div
-        className="label-input-wrapper"
+        className="usa-grid-full label-input-wrapper"
       >
         <label
           className="usa-sr-only"
@@ -165,13 +167,14 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
   className="usa-search usa-search-small"
 >
   <div
+    className="usa-grid-full"
     role="search"
   >
     <form
       onSubmit={[Function]}
     >
       <div
-        className="label-input-wrapper"
+        className="usa-grid-full label-input-wrapper"
       >
         <label
           className="usa-sr-only"
