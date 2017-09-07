@@ -19,6 +19,7 @@
     input {
       border-right: solid 1px;
       display: inline-block;
+      max-width: unset;
     }
 
     label {
@@ -27,7 +28,7 @@
   }
 
   .search-submit-button {
-    margin-top: 37px;
+    margin-top: 35px;
 
     button {
       font-size: .9em;
@@ -45,25 +46,22 @@
     label {
       display: block;
       text-align: left;
+      text-transform: uppercase;
     }
   }
 
-  .search-location {
-    padding: 0 30px;
+  .usa-button {
+    min-width: 150px;
+    padding: inherit 40px;
+  }
+}
 
-    form {
-      border-radius: 3px;
-      display: inline-grid;
-      font-size: .9em;
-      margin-left: 30px;
-    }
+.results-search-bar-homepage {
 
-    input {
-      width: 100%;
-    }
+  color: $color-white;
 
-    label {
-      display: inline-block;
-    }
+  .results-search-bar {
+    background-color: $tm-dark-blue;
+    height: auto;
   }
 }
