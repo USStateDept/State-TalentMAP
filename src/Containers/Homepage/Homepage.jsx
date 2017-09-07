@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { ITEMS } from '../../Constants/PropTypes';
 import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
-import ExploreRegionDropdown from '../../Components/ExploreRegionDropdown/ExploreRegionDropdown';
+import Explore from '../../Components/Explore/Explore';
 
-class Results extends Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.submitSearch = this.submitSearch.bind(this);
@@ -14,11 +14,6 @@ class Results extends Component {
       key: 0,
       currentPage: { value: 0 },
     };
-  }
-
-  onChildToggle() {
-    const key = Math.random();
-    this.setState({ key });
   }
 
   submitSearch(q) {
@@ -38,32 +33,18 @@ class Results extends Component {
             onUpdate={this.submitSearch}
           />
         </div>
-        <div className="explore-section">
-          <div className="explore-section-inner usa-grid-full">
-            <ExploreRegionDropdown
-              filters={filters}
-              onRegionSubmit={this.submitRegion}
-            />
-            <div className="explore-map-container">
-              <img alt="world map" src="/assets/img/gray-world-map.png" className="explore-map" />
-            </div>
-          </div>
-        </div>
+        <Explore
+          filters={filters}
+          onRegionSubmit={this.submitRegion}
+        />
       </div>
     );
   }
 }
 
-Results.propTypes = {
+HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   filters: ITEMS.isRequired,
 };
 
-Results.defaultProps = {
-};
-
-Results.contextTypes = {
-  router: PropTypes.object,
-};
-
-export default Results;
+export default HomePage;
