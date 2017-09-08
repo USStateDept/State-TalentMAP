@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../api';
 
 export function postHasErrored(bool) {
   return {
@@ -19,10 +20,10 @@ export function postFetchDataSuccess(post) {
   };
 }
 
-export function postFetchData(url) {
+export function postFetchData(query) {
   return (dispatch) => {
     dispatch(postIsLoading(true));
-    axios.get(url)
+    axios.get(`${api}/orgpost/${query}/`)
             .then((response) => {
               dispatch(postIsLoading(false));
               return response.data;

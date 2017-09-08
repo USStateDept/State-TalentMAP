@@ -25,9 +25,7 @@ class Results extends Component {
   }
 
   getComparisons(ids) {
-    const query = ids;
-    const api = this.props.api;
-    this.props.fetchData(`${api}/position/?position_number__in=${query}`);
+    this.props.fetchData(ids);
   }
 
   render() {
@@ -41,7 +39,6 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-  api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({

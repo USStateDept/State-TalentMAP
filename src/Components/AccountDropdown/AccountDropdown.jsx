@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
-import { logoutRequest } from '../../login/actions';
 
 export class AccountDropdown extends Component {
 
@@ -47,14 +45,7 @@ AccountDropdown.propTypes = {
 
 AccountDropdown.defaultProps = {
   logoutRequest: EMPTY_FUNCTION,
-  userProfile: {
-  },
+  userProfile: {},
 };
 
-const mapStateToProps = state => ({
-  login: state.login,
-});
-
-const connected = connect(mapStateToProps, { logoutRequest })(AccountDropdown);
-
-export default connected;
+export default AccountDropdown;

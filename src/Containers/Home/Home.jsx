@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
 import Filters from '../../Components/Filters/Filters';
-import { ITEMS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { FILTERS_PARENT, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Home extends Component {
@@ -30,8 +30,8 @@ class Home extends Component {
   }
 
   getFilters() {
-    const { api, items } = this.props;
-    this.props.fetchData(api, items);
+    const { items } = this.props;
+    this.props.fetchData(items);
   }
 
   render() {
@@ -40,7 +40,7 @@ class Home extends Component {
         <Filters
           isLoading={this.props.isLoading}
           onSubmit={e => this.onChildSubmit(e)}
-          items={this.props.items}
+          items={this.props.items.filters}
         />
       </div>
     );
@@ -48,16 +48,15 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-  api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func,
   isLoading: PropTypes.bool,
-  items: ITEMS,
+  items: FILTERS_PARENT,
   isAuthorized: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
-  items: [],
+  items: { filters: [] },
   fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
@@ -70,7 +69,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: (api, items) => dispatch(filtersFetchData(api, items)),
+  fetchData: items => dispatch(filtersFetchData(items)),
   onNavigateTo: dest => dispatch(push(dest)),
 });
 

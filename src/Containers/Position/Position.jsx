@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
+import { getLastRouteLink } from '../../actions/routerLocations';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
-import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, EMPTY_FUNCTION, ROUTER_LOCATIONS } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Position extends Component {
@@ -19,21 +20,18 @@ class Position extends Component {
   }
 
   getDetails(id) {
-    const query = id;
-    const api = this.props.api;
-    this.props.fetchData(`${api}/position/?position_number=${query}`);
+    this.props.fetchData(id);
   }
 
   render() {
-    const { positionDetails, isLoading, hasErrored } = this.props;
+    const { positionDetails, isLoading, hasErrored, routerLocations } = this.props;
     return (
       <div>
         <PositionDetails
-          api={this.props.api}
           details={positionDetails[0]}
           isLoading={isLoading}
           hasErrored={hasErrored}
-          goBack={this.context.router.history.goBack}
+          goBackLink={getLastRouteLink(routerLocations)}
         />
       </div>
     );
@@ -45,7 +43,6 @@ Position.contextTypes = {
 };
 
 Position.propTypes = {
-  api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -57,6 +54,7 @@ Position.propTypes = {
   isLoading: PropTypes.bool,
   positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
   isAuthorized: PropTypes.func.isRequired,
+  routerLocations: ROUTER_LOCATIONS,
 };
 
 Position.defaultProps = {
@@ -64,12 +62,14 @@ Position.defaultProps = {
   fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
+  routerLocations: [],
 };
 
 const mapStateToProps = (state, ownProps) => ({
   positionDetails: state.positionDetails,
   hasErrored: state.positionDetailsHasErrored,
   isLoading: state.positionDetailsIsLoading,
+  routerLocations: state.routerLocations,
   id: ownProps,
 });
 

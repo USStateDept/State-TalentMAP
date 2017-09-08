@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
+<div
+  className="results-search-bar"
+>
+  <div
+    className="usa-grid-full results-search-bar-container"
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <fieldset
+        className="usa-width-five-sixths"
+      >
+        <legend
+          className="usa-sr-only"
+        >
+          Search keyword and location
+        </legend>
+        <div
+          className="usa-width-one-half search-results-inputs search-keyword"
+          style={
+            Object {
+              "float": "left",
+              "padding": "15px",
+            }
+          }
+        >
+          <SearchBar
+            alertText="Disabled"
+            defaultValue="keyword"
+            id="search-keyword-field"
+            label={
+              <div>
+                <FontAwesome
+                  name="search"
+                  style={
+                    Object {
+                      "marginRight": "10px",
+                    }
+                  }
+                />
+                Keywords
+              </div>
+            }
+            labelSrOnly={false}
+            noButton={true}
+            noForm={true}
+            onChangeText={[Function]}
+            onSubmitSearch={[Function]}
+            placeholder="Skill code, Grade Code, Language, Post Name"
+            submitDisabled={false}
+            submitText="Search"
+            type="medium"
+          />
+        </div>
+        <div
+          className="usa-width-one-half search-results-inputs search-location"
+          style={
+            Object {
+              "float": "left",
+              "padding": "15px",
+            }
+          }
+        >
+          <SearchBar
+            alertText="Disabled"
+            defaultValue="a location"
+            id="search-location-field"
+            label={
+              <div>
+                <FontAwesome
+                  name="map-marker"
+                  style={
+                    Object {
+                      "marginRight": "10px",
+                    }
+                  }
+                />
+                Location
+              </div>
+            }
+            labelSrOnly={false}
+            noButton={true}
+            noForm={true}
+            onChangeText={[Function]}
+            onSubmitSearch={[Function]}
+            placeholder="City, State, or Country"
+            submitDisabled={false}
+            submitText="Search"
+            type="medium"
+          />
+        </div>
+      </fieldset>
+      <div
+        className="usa-width-one-sixth search-submit-button"
+      >
+        <button
+          className="usa-button"
+          type="submit"
+        >
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

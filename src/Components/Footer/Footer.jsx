@@ -26,7 +26,7 @@ const Footer = () => (
         <div className="usa-footer-logo usa-width-one-half">
           <img
             className="usa-footer-logo-img"
-            src="/assets/img/dos-seal.png"
+            src="/assets/img/rsz_dos-seal.png"
             alt="Logo"
           />
         </div>

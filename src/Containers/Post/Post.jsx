@@ -19,9 +19,7 @@ class Post extends Component {
   }
 
   getPost(id) {
-    const query = id;
-    const api = this.props.api;
-    this.props.fetchData(`${api}/orgpost/${query}/`);
+    this.props.fetchData(id);
   }
 
   render() {
@@ -35,7 +33,6 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  api: PropTypes.string.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
