@@ -1,0 +1,50 @@
+.condensed-card {
+
+  border: 1px solid $color-gray-light;
+
+  .condensed-card-top {
+    background-color: $blue-primary;
+    color: $color-white;
+    overflow: hidden;
+    padding: 3px 0 0 10px;
+    position: relative;
+  }
+
+  .condensed-top-background-image {
+    filter: alpha(opacity = 10);
+    font-size: 150px;
+    left: 28%;
+    opacity: .1;
+    position: absolute;
+    top: -23%;
+  }
+
+  .condensed-card-last-updated {
+    font-size: 14px;
+    margin: 10px;
+  }
+
+  .condensed-card-bottom {
+    max-height: 115px;
+  }
+}
+
+.condensed-card-first-big {
+  .condensed-card-top {
+    min-height: 200px;
+  }
+
+  .condensed-top-background-image {
+    top: 17%;
+  }
+
+  .condensed-card-bottom {
+    min-height: 200px;
+  }
+}
+
+.condensed-card-popular {
+  .condensed-card-top {
+    background-color: $tm-navy;
+  }
+}

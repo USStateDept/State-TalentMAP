@@ -4,7 +4,7 @@ import NewPositionsCardList from '../NewPositionsCardList';
 
 const NewPositionsSection = () => (
   <div className="usa-grid-full">
-    <PositionsSectionTitle />
+    <PositionsSectionTitle title="New Positions" />
     <NewPositionsCardList />
   </div>
 );

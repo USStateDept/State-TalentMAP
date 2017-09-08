@@ -3,8 +3,9 @@ import React from 'react';
 const ResultsNewFlag = () => {
   const style = {
     align: 'auto',
-    border: 'solid 1px',
+    backgroundColor: 'white',
     borderRadius: '100px',
+    color: 'black',
     fontSize: '13px',
     padding: '.1em',
     textAlign: 'center',

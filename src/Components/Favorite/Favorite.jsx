@@ -44,7 +44,7 @@ class Favorite extends Component {
       // did not take role="button" into account with the following error:
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div tabIndex="0" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()}>
-        <FontAwesome name={iconClass} /> {text}
+        <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}
       </div>
     );
   }
@@ -53,11 +53,13 @@ class Favorite extends Component {
 Favorite.propTypes = {
   refKey: PropTypes.string.isRequired,
   type: PropTypes.string,
+  hideText: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
   type: 'fav',
   onToggle: EMPTY_FUNCTION,
+  hideText: false,
 };
 
 export default Favorite;

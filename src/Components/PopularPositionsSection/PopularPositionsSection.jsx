@@ -4,7 +4,7 @@ import PopularPositionsCardList from '../PopularPositionsCardList';
 
 const PopularPositionsSection = () => (
   <div className="usa-grid-full">
-    <PositionsSectionTitle />
+    <PositionsSectionTitle title="Popular Positions" />
     <PopularPositionsCardList />
   </div>
 );
