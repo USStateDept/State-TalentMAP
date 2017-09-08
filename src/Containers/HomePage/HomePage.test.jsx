@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
-import HomePageContainer from './HomePageContainer';
+import HomePage from './HomePage';
 import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 
-describe('HomePageContainerComponent', () => {
+describe('HomePageComponent', () => {
   const items = [{
     item: { title: 'title', selectionRef: 'ref' },
     data: [{ isSelected: true }],
@@ -16,7 +16,7 @@ describe('HomePageContainerComponent', () => {
   ];
 
   it('is defined', () => {
-    const wrapper = shallow(<HomePageContainer
+    const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={() => {}}
     />);
@@ -24,7 +24,7 @@ describe('HomePageContainerComponent', () => {
   });
 
   it('can receive props', () => {
-    const wrapper = shallow(<HomePageContainer
+    const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={() => {}}
     />);
@@ -33,7 +33,7 @@ describe('HomePageContainerComponent', () => {
 
   it('can call the onNavigateTo function', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<HomePageContainer
+    const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={spy}
     />);
@@ -44,7 +44,7 @@ describe('HomePageContainerComponent', () => {
   it('can call the submitSearch function', () => {
     const nav = { value: null };
     const text = 'test';
-    const wrapper = shallow(<HomePageContainer
+    const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={(q) => { nav.value = q; }}
     />);
@@ -55,7 +55,7 @@ describe('HomePageContainerComponent', () => {
   it('can call the submitRegion function', () => {
     const nav = { value: null };
     const text = 'test';
-    const wrapper = shallow(<HomePageContainer
+    const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={(q) => { nav.value = q; }}
     />);

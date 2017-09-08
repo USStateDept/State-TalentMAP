@@ -5,7 +5,7 @@ import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
 
-class HomePageContainer extends Component {
+class HomePage extends Component {
   constructor(props) {
     super(props);
     this.submitSearch = this.submitSearch.bind(this);
@@ -42,9 +42,9 @@ class HomePageContainer extends Component {
   }
 }
 
-HomePageContainer.propTypes = {
+HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   filters: ITEMS.isRequired,
 };
 
-export default HomePageContainer;
+export default HomePage;
