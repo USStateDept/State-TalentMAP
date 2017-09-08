@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import close from 'uswds/dist/img/close.svg'; // close X icon
 import { userProfileFetchData } from '../../actions/userProfile';
-import { USER_PROFILE } from '../../Constants/PropTypes';
+import { logoutRequest } from '../../login/actions';
+import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
 
@@ -31,9 +32,19 @@ export class Header extends Component {
       },
     } = this.props;
 
-    let showLogin = (<Link to="login">Login</Link>);
+    let showLogin = (<Link to="login" id="login-desktop">Login</Link>);
+    let signedInAs = null;
+    const { logout } = this.props;
     if (this.props.client.token && !requesting) {
-      showLogin = (<AccountDropdown userProfile={this.props.userProfile} />);
+      const { userProfile } = this.props;
+      showLogin = (
+        <AccountDropdown
+          userProfile={this.props.userProfile}
+          logoutRequest={logout}
+        />);
+      if (userProfile.user && userProfile.user.username) {
+        signedInAs = `Signed in as ${userProfile.user.username}`;
+      }
     }
 
     return (
@@ -64,7 +75,11 @@ export class Header extends Component {
                   </button>
                 </div>
               </form>
-              <ul className="usa-unstyled-list usa-nav-secondary-links">
+              <ul className="usa-unstyled-list usa-nav-secondary-links mobile-nav">
+                <li className="mobile-nav-only">
+                  {signedInAs}
+                </li>
+                <hr className="mobile-nav-only" />
                 <li className="js-search-button-container">
                   <button className="usa-header-search-button js-search-button">Search</button>
                 </li>
@@ -77,9 +92,20 @@ export class Header extends Component {
                 <li>
                   <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
                 </li>
-                <li>
-                  {showLogin}
-                </li>
+                <span className="usa-unstyled-list mobile-nav-only">
+                  <hr />
+                  <li>
+                    <Link to="/">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="login" id="login-mobile" onClick={() => logout()}>Logout</Link>
+                  </li>
+                </span>
+                <span className="desktop-nav-only">
+                  <li>
+                    {showLogin}
+                  </li>
+                </span>
               </ul>
             </div>
           </div>
@@ -101,11 +127,13 @@ Header.propTypes = {
   fetchData: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
+  logout: PropTypes.func,
 };
 
 Header.defaultProps = {
   client: null,
   userProfile: {},
+  logout: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -116,6 +144,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
+  logout: () => dispatch(logoutRequest()),
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Header);

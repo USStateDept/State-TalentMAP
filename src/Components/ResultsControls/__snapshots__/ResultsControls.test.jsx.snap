@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsControlsComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full results-controls"
+>
+  <div
+    className="usa-width-one-third total-results"
+  >
+    <TotalResults
+      pageNumber={0}
+      pageSize={10}
+      total={2}
+    />
+  </div>
+  <div
+    className="usa-width-two-thirds drop-downs"
+  >
+    <div
+      className="results-dropdown results-dropdown-sort"
+    >
+      <SelectForm
+        defaultSort=""
+        id="sort"
+        label="Sort by:"
+        languages={Array []}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "sort",
+              "value": "sort",
+            },
+          ]
+        }
+      />
+    </div>
+    <div
+      className="results-dropdown results-dropdown-page-size"
+    >
+      <SelectForm
+        defaultSort={10}
+        id="pageSize"
+        label="Results:"
+        languages={Array []}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "10",
+              "value": 10,
+            },
+          ]
+        }
+      />
+    </div>
+    <ResultsViewBy />
+  </div>
+</div>
+`;

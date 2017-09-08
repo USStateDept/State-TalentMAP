@@ -1,4 +1,65 @@
 .results {
+
+  // dropdown labels should appear to the left of the input
+  label {
+    float: left;
+    font-size: .8em;
+    margin-right: 10px;
+    margin-top: 6px;
+  }
+
+  .results-dropdown {
+    select {
+      background-color: $color-gray-lightest;
+      border: 0;
+      border-radius: 7px;
+      font-size: .8em;
+      height: 28px;
+      overflow: hidden;
+      padding: 0 .7em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 130px;
+    }
+  }
+
+  .results-dropdown-page-size {
+    float: left;
+    margin-left: 20px;
+
+    select {
+      width: 80px;
+    }
+  }
+
+  .results-dropdown-sort {
+    float: left;
+    margin-left: 10px;
+  }
+
+  .results-viewby-container {
+    float: right;
+
+    @media screen and (max-width: 951px) {
+      float: left;
+    }
+
+    .view-icon {
+      float: left;
+      padding: 5px 10px 0;
+    }
+
+    .view-icon-border {
+      border-left: solid 1px $color-gray-light;
+    }
+
+    .view-label {
+      float: left;
+      font-size: .8em;
+      padding: 7px;
+    }
+  }
+
   .no-results {
     margin-top: 20px;
     width: 350px;
@@ -8,4 +69,235 @@
 .results-loading {
   opacity: .5;
   pointer-events: none;
+}
+
+.results-card {
+  background-color: $color-white;
+  border: 1px solid $color-gray-lighter;
+  border-left-width: 8px;
+  margin-bottom: 1em;
+  padding: 1em 1.2em;
+
+  .results-card-title {
+    float: left;
+  }
+
+  .results-card-favorite {
+    float: right;
+    font-size: .9em;
+  }
+
+  .results-card-data-section {
+    border-right: solid;
+    border-width: 1px;
+    margin-top: 1em;
+  }
+
+  .data-section-right-container {
+    margin-top: 1em;
+
+    .data-section-right {
+      margin-left: 60px;
+      margin-right: 80px;
+
+      @media screen and (max-width: 951px) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .data-section-left-container {
+    border-right: solid 1px;
+    margin-top: 1em;
+
+    @media screen and (max-width: 599px) {
+      border-right: 0;
+    }
+
+    .data-section-left {
+      margin-right: 80px;
+    }
+  }
+
+  .section-title {
+    font-size: .9em;
+    margin-bottom: .6em;
+  }
+
+  .section-data-points {
+    font-size: .9em;
+  }
+
+  .bottom-section {
+    float: left;
+    margin-top: 1em;
+
+    .details-button-container {
+      float: left;
+    }
+
+    .details-button {
+      font-size: .9em;
+    }
+
+    .compare-check {
+      float: left;
+      font-size: .9em;
+      margin: 15px;
+    }
+  }
+}
+
+.top-nav {
+  .compare-link {
+    float: left;
+    padding: 15px 5px 0 10px;
+  }
+
+  .reset-filters {
+    float: left;
+    padding: 0 0 5px;
+    text-align: center;
+  }
+
+  .reset-comparisons {
+    float: left;
+    padding: 0 0 5px;
+    text-align: right;
+  }
+}
+
+.filter-container {
+  background-color: $color-black;
+  float: left;
+  font-size: .8em;
+  height: auto;
+  margin-right: 0;
+  overflow-y: scroll;
+  padding: 15px 10px;
+  width: 20%;
+
+  .reset-filters {
+    border-bottom: solid 1px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 951px) {
+    height: 100px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .filter-container-top {
+    color: $color-white;
+    margin-bottom: .5em;
+  }
+
+  .filter-container-bottom {
+    color: $color-white;
+    margin: 15px 0;
+  }
+
+  .filter-control-container {
+    padding: 0 0 10px 1px;
+  }
+
+  .filter-control-left {
+    float: left;
+    width: 50%;
+  }
+
+  .filter-control-right {
+    float: left;
+    width: 50%;
+  }
+}
+
+.results-container {
+  float: left;
+  padding-left: 30px;
+  width: 80%;
+
+  @media screen and (max-width: 951px) {
+    padding-left: 0;
+    width: 100%;
+  }
+
+  .results-controls {
+    @media screen and (max-width: 951px) {
+      padding: 0 15px;
+    }
+  }
+
+  .total-results {
+    float: left;
+    margin-top: 10px;
+  }
+
+  .drop-downs {
+    float: right;
+    margin-top: 4px;
+  }
+}
+
+.results-list-container {
+  margin: 1em 0;
+}
+
+.results-section-container {
+  max-width: 1140px;
+}
+
+.search-filters-container {
+
+  .boolean-filter-container {
+    margin-left: 10px;
+    padding-top: 10px;
+  }
+
+  .tm-checkbox {
+    width: 100%;
+  }
+
+  fieldset {
+    margin: 0 0 10px;
+  }
+
+  legend {
+    font-size: 1em;
+  }
+
+  .usa-accordion-content {
+    background-color: $color-black;
+    color: $color-white;
+    font-size: 1.1em;
+    padding: 1rem;
+  }
+
+  .accordion-checkbox-grade {
+    .tm-checkbox {
+      float: left;
+      width: 35%;
+    }
+  }
+}
+
+.language-view-all {
+  font-size: .8em;
+  padding: .4em;
+}
+
+.accordion-checkbox-language {
+
+  .usa-accordion-content {
+    background-color: $color-white;
+    color: $color-black;
+  }
+
+  .language-accordion-item {
+    background-color: $color-white;
+    color: $color-black;
+  }
+
 }

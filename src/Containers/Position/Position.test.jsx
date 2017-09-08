@@ -5,23 +5,30 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Position from './Position';
+import routerLocations from '../../__mocks__/routerLocations';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Main', () => {
-  const api = 'http://localhost:8000/api/v1';
-
   it('is defined', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Position isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
+      <Position
+        isAuthorized={() => true}
+        onNavigateTo={() => {}}
+        routerLocations={routerLocations}
+      />
     </MemoryRouter></Provider>);
     expect(position).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Position isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
+      <Position
+        isAuthorized={() => false}
+        onNavigateTo={() => {}}
+        routerLocations={routerLocations}
+      />
     </MemoryRouter></Provider>);
     expect(position).toBeDefined();
   });

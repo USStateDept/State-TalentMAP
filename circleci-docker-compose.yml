@@ -1,0 +1,41 @@
+version: '2'
+services:
+  web:
+    image: talentmap/@@REPO_NAME@@:@@LABEL@@
+    ports:
+      - 3000:3000
+    command: yarn start
+    container_name: web
+    volumes_from:
+      - data
+    depends_on:
+      - app
+  data:
+    image: alpine:3.4
+    volumes:
+      - /app
+    command: /bin/true
+    container_name: data
+  app:
+    image: talentmap/@@API_REPO_NAME@@:@@API_REPO_BRANCH@@
+    ports:
+      - 8000:8000
+    links:
+      - db
+      - data
+    depends_on:
+      - db
+      - data
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: app
+    environment:
+      - DJANGO_SECRET_KEY=development_secret_key
+      - DATABASE_URL=postgres://talentmap-user@db/talentmap
+      - DJANGO_DEBUG=true
+  db:
+    image: postgres:9.6.3
+    volumes:
+      - /var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=talentmap
+      - POSTGRES_USER=talentmap-user

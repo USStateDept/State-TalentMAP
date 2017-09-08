@@ -1,12 +1,14 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
+import sinon from 'sinon';
 import PositionTitle from './PositionTitle';
 import detailsObject from '../../__mocks__/detailsObject';
 
 describe('PositionTitleComponent', () => {
   let wrapper = null;
+
+  const goBackLink = { text: 'Go back text', link: '/link' };
 
   it('can receive props', () => {
     wrapper = shallow(
@@ -14,7 +16,7 @@ describe('PositionTitleComponent', () => {
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -26,79 +28,10 @@ describe('PositionTitleComponent', () => {
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
-  it('can click the back link', () => {
-    // function property to navigate back
-    const goBackSpy = sinon.spy();
-    wrapper = shallow(
-      <PositionTitle
-        details={detailsObject}
-        goBack={goBackSpy}
-        isLoading={false}
-        hasErrored={false}
-      />,
-    );
-    // define the instance
-    const instance = wrapper.instance();
-    // function that handles going back
-    const handleClickSpy = sinon.spy(instance, 'navBack');
-    // click the link in the title to go back
-    wrapper.find('[role="link"]').simulate('click');
-    // check that navBack was called
-    sinon.assert.calledOnce(handleClickSpy);
-    // check that goBack prop was called
-    sinon.assert.calledOnce(goBackSpy);
-  });
-
-  it('can press enter on the back link', () => {
-    // function property to navigate back
-    const goBackSpy = sinon.spy();
-    wrapper = shallow(
-      <PositionTitle
-        details={detailsObject}
-        goBack={goBackSpy}
-        isLoading={false}
-        hasErrored={false}
-      />,
-    );
-    // define the instance
-    const instance = wrapper.instance();
-    // function that handles going back
-    const handleClickSpy = sinon.spy(instance, 'navBack');
-    // press enter on the link in the title to go back
-    wrapper.find('[role="link"]').simulate('keydown', { keyCode: 13 });
-    // check that navBack was called
-    sinon.assert.calledOnce(handleClickSpy);
-    // check that goBack prop was called
-    sinon.assert.calledOnce(goBackSpy);
-  });
-
-  it('can press (space) on the back link', () => {
-    // function property to navigate back
-    const goBackSpy = sinon.spy();
-    wrapper = shallow(
-      <PositionTitle
-        details={detailsObject}
-        goBack={goBackSpy}
-        isLoading={false}
-        hasErrored={false}
-      />,
-    );
-    // define the instance
-    const instance = wrapper.instance();
-    // function that handles going back
-    const handleClickSpy = sinon.spy(instance, 'navBack');
-    // press enter on the link in the title to go back
-    wrapper.find('[role="link"]').simulate('keydown', { keyCode: 32 });
-    // check that navBack was called
-    sinon.assert.calledOnce(handleClickSpy);
-    // check that goBack prop was not called
-    sinon.assert.notCalled(goBackSpy);
   });
 
   it('handles different props and different position objects', () => {
@@ -109,7 +42,7 @@ describe('PositionTitleComponent', () => {
         details={detailsObject}
         isLoading={false}
         hasErrored={false}
-        goBack={() => {}}
+        goBackLink={goBackLink}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -119,8 +52,41 @@ describe('PositionTitleComponent', () => {
     Object.assign(detailsObject, { languages: [], is_overseas: true });
 
     wrapper = shallow(
-      <PositionTitle details={detailsObject} isLoading hasErrored={false} goBack={() => {}} />,
+      <PositionTitle
+        details={detailsObject}
+        isLoading
+        hasErrored={false}
+        goBackLink={goBackLink}
+      />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
+  });
+
+  it('displays go back link text', () => {
+    wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+      />,
+    );
+    const link = wrapper.find('a.back-link');
+    expect(link.text()).toEqual(goBackLink.text);
+  });
+
+  it('handles go back link click', () => {
+    const stub = sinon.stub(window.history, 'back');
+    wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+      />,
+    );
+    const link = wrapper.find('a.back-link');
+    link.simulate('click');
+    expect(stub.called).toBe(true);
   });
 });

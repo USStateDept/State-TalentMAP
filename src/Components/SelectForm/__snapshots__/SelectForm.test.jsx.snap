@@ -19,32 +19,32 @@ exports[`SelectForm matches snapshot 1`] = `
       disabled={true}
       value=""
     >
-      Select a sort option
+      Sort option
     </option>
     <option
       value="grade"
     >
-      Grade (Low to High)
+      Grade
     </option>
     <option
       value="position_number"
     >
-      Position Number (0 - Z)
+      Number
     </option>
     <option
       value="create_date"
     >
-      Position Posted Date (New - Old)
+      Posted Date
     </option>
     <option
       value="post__has_service_needs_differential"
     >
-      Service Need Differential (T - F)
+      Service Need
     </option>
     <option
       value="bureau__long_description"
     >
-      Bureau (A - Z)
+      Bureau
     </option>
   </select>
 </div>

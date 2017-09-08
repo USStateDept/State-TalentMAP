@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
+<div
+  className="filter-container"
+>
+  <div
+    className="usa-grid-full filter-container-top"
+  >
+    Keywords
+  </div>
+  <div
+    className="usa-grid-full filter-container-search"
+  >
+    <SearchBar
+      alertText="Disabled"
+      defaultValue={null}
+      id="searchbar-filter-container"
+      label="Search"
+      labelSrOnly={true}
+      noButton={false}
+      noForm={false}
+      onChangeText={[Function]}
+      onSubmitSearch={[Function]}
+      placeholder="Position, Region, Posts"
+      submitDisabled={false}
+      submitText="search"
+      type="small"
+    />
+  </div>
+  <div
+    className="filter-container-bottom"
+  >
+    <div
+      className="filter-control-container"
+    >
+      <div
+        className="filter-control-left"
+      >
+        Select Filter
+      </div>
+      <div
+        className="filter-control-right"
+      >
+        <ResetFilters
+          resetFilters={[Function]}
+        />
+      </div>
+    </div>
+    <br />
+    <div
+      className="usa-grid-full search-filters-container"
+    >
+      <SearchFiltersContainer
+        filters={
+          Array [
+            Object {
+              "expanded": true,
+              "title": "title",
+            },
+          ]
+        }
+        queryParamToggle={[Function]}
+        queryParamUpdate={[Function]}
+        selectedAccordion={
+          Object {
+            "main": "",
+            "sub": "",
+          }
+        }
+        setAccordion={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 class ResetFilters extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class ResetFilters extends Component {
     if (!this.state.confirm) {
       this.setState({ confirm: true });
     } else {
-      this.props.onToggle('/');
+      this.props.resetFilters();
     }
   }
 
@@ -22,19 +21,24 @@ class ResetFilters extends Component {
     const { confirm } = this.state;
     const text = confirm ? 'Are you sure?' : 'Reset Filters';
     return (
-      <div>
-        <button className={confirm ? 'usa-button-secondary' : null} onClick={() => this.resetFilters()}>{text}</button>
+      <div className="reset-filters-container">
+        { /* At the time of writing, CodeClimate's version of eslint-a11y-plugin
+          did not take role="button" into account with the following error */ }
+        <span // eslint-disable-line jsx-a11y/no-static-element-interactions
+          className="reset-filters"
+          tabIndex="0"
+          role="link"
+          onClick={() => this.resetFilters()}
+        >
+          {text}
+        </span>
       </div>
     );
   }
 }
 
 ResetFilters.propTypes = {
-  onToggle: PropTypes.func,
-};
-
-ResetFilters.defaultProps = {
-  onToggle: () => EMPTY_FUNCTION,
+  resetFilters: PropTypes.func.isRequired,
 };
 
 export default ResetFilters;

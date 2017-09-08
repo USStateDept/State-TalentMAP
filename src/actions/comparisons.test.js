@@ -43,7 +43,7 @@ describe('async actions', () => {
       ],
     };
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/comparisons/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number__in=6,60').reply(200,
       comparisons,
     );
   });
@@ -53,7 +53,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.comparisonsFetchData('http://localhost:8000/api/v1/comparisons/'));
+        store.dispatch(actions.comparisonsFetchData('6,60'));
         store.dispatch(actions.comparisonsIsLoading());
         done();
       }, 0);
