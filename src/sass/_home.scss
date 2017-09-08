@@ -7,4 +7,63 @@
   .alert-text {
     color: $alert-red;
   }
+
+  .explore-section {
+    background-color: $tm-white-smoke;
+
+    border-bottom: 1px solid $color-gray-light;
+
+    .explore-section-fieldset {
+      float: left;
+    }
+
+    .view-results-button {
+      float: left;
+      margin: 62px 0 0;
+
+      @media screen and (max-width: 599px) {
+        margin: 0;
+      }
+    }
+
+    label {
+      font-family: Vollkorn;
+      font-size: 34px;
+      margin-top: 1rem;
+    }
+
+    select {
+      $explore-select-width: 300px;
+
+      max-width: 100%;
+      min-width: $explore-select-width;
+      padding: 0 30px 0 10px;
+      -webkit-padding-end: 30px;
+      -webkit-padding-start: 10px;
+
+      @media screen and (max-width: 625px) {
+        max-width: 100%;
+        min-width: none;
+      }
+    }
+
+    @media screen and (min-width: 600px) {
+      .usa-form {
+        max-width: none;
+      }
+    }
+  }
+
+  .explore-section-inner {
+    padding-top: 5px;
+  }
+
+  .explore-map-container {
+    margin: 10px 0 0;
+
+    .explore-map {
+      margin: 10px 0 0;
+      width: 90%;
+    }
+  }
 }

@@ -3,6 +3,7 @@
 exports[`MultiSelectFilterComponent matches snapshot 1`] = `
 <FieldSet
   legend="title"
+  legendSrOnly={false}
 >
   <CheckBox
     id="checkboxdescription"

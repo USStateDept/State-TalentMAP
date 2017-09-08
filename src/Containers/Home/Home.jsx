@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
-import Homepage from '../../Containers/Homepage/Homepage';
+import HomePage from '../../Containers/HomePage/HomePage';
 import { FILTERS_PARENT, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
@@ -35,11 +35,12 @@ class Home extends Component {
   }
 
   render() {
-    const { onNavigateTo } = this.props;
+    const { onNavigateTo, items } = this.props;
     return (
       <div>
-        <Homepage
+        <HomePage
           onNavigateTo={onNavigateTo}
+          filters={items.filters}
         />
       </div>
     );

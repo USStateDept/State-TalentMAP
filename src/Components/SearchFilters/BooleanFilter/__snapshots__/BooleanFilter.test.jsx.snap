@@ -4,6 +4,7 @@ exports[`BooleanFilterComponent matches snapshot 1`] = `
 <div>
   <FieldSet
     legend="title"
+    legendSrOnly={false}
   >
     <CheckBox
       id="checkbox-title"

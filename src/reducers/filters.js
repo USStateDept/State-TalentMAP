@@ -1,3 +1,5 @@
+import ENDPOINT_PARAMS from '../Constants/EndpointParams';
+
 const items =
   {
     filters: [
@@ -7,7 +9,7 @@ const items =
           sort: 100,
           description: 'skill',
           endpoint: 'skill/',
-          selectionRef: 'skill__code__in',
+          selectionRef: ENDPOINT_PARAMS.skill,
           text: 'Choose skill codes',
         },
         data: [
@@ -19,7 +21,7 @@ const items =
           sort: 200,
           description: 'language',
           endpoint: 'language/?is_available=true',
-          selectionRef: 'languages__language__code__in',
+          selectionRef: ENDPOINT_PARAMS.language,
           text: 'Choose languages',
         },
         data: [
@@ -31,7 +33,7 @@ const items =
           sort: 300,
           description: 'grade',
           endpoint: 'grade/',
-          selectionRef: 'grade__code__in',
+          selectionRef: ENDPOINT_PARAMS.grade,
           text: 'Choose grades',
         },
         data: [
@@ -43,7 +45,7 @@ const items =
           sort: 400,
           description: 'tod',
           endpoint: 'tour_of_duty/',
-          selectionRef: 'post__tour_of_duty__code__in',
+          selectionRef: ENDPOINT_PARAMS.tod,
           text: 'Choose tour of duty length',
           choices: [
           ],
@@ -57,7 +59,7 @@ const items =
           sort: 500,
           description: 'region',
           endpoint: 'organization/?is_available=true',
-          selectionRef: 'organization__code__in',
+          selectionRef: ENDPOINT_PARAMS.org,
           text: 'Choose region',
           choices: [
           ],
@@ -71,7 +73,7 @@ const items =
           sort: 600,
           bool: true, // use bool: true to share a common HTML template
           description: 'COLA',
-          selectionRef: 'post__cost_of_living_adjustment__gt',
+          selectionRef: ENDPOINT_PARAMS.cola,
           text: 'Include only positions with COLA',
           choices: [
           ],
@@ -86,7 +88,7 @@ const items =
           sort: 700,
           bool: true,
           description: 'postDiff',
-          selectionRef: 'post__differential_rate__gt',
+          selectionRef: ENDPOINT_PARAMS.postDiff,
           text: 'Include only positions with a post differential',
           choices: [
           ],
@@ -101,7 +103,7 @@ const items =
           sort: 800,
           bool: true,
           description: 'dangerPay',
-          selectionRef: 'post__danger_pay__gt',
+          selectionRef: ENDPOINT_PARAMS.danger,
           text: 'Include only positions with danger pay',
           choices: [
           ],
@@ -116,7 +118,7 @@ const items =
           sort: 900,
           bool: true,
           description: 'domestic',
-          selectionRef: 'is_domestic',
+          selectionRef: ENDPOINT_PARAMS.domestic,
           text: 'Include only domestic positions',
           choices: [
           ],
