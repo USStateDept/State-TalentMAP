@@ -5,6 +5,7 @@ import { validStateEmail,
          descriptionSort,
          titleSort,
          pillSort,
+         formExploreRegionDropdown,
        } from './utilities';
 
 describe('local storage', () => {
@@ -90,5 +91,22 @@ describe('sort functions', () => {
     expect(pillSort(pills[0], pills[1])).toBe(-1);
     expect(pillSort(pills[1], pills[0])).toBe(1);
     expect(pillSort(pills[0], pills[0])).toBe(0);
+  });
+});
+
+describe('formExploreRegionDropdown function', () => {
+  const filters = [{ item: { title: 'Region' }, data: [{ long_description: 'regionA', code: 'code' }] }, { item: { title: 'Language' } }];
+  const regions = formExploreRegionDropdown(filters);
+
+  it('can filter for region', () => {
+    expect(regions[1].long_description).toBe(filters[0].data[0].long_description);
+  });
+
+  it('can add new properties', () => {
+    expect(regions[1].text).toBe(filters[0].data[0].long_description);
+  });
+
+  it('can the placeholder object to the beginning of the array', () => {
+    expect(regions[0].disabled).toBe(true);
   });
 });

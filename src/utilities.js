@@ -71,3 +71,33 @@ export const pillSort = (a, b) => {
   if (A > B) { return 1; }
   return 0; // default return value (no sorting)
 };
+
+// function to find the Region filters
+export const formExploreRegionDropdown = (filters) => {
+  function filterRegion(filterItem) {
+    return (filterItem.item && filterItem.item.title === 'Region');
+  }
+  // set an array so we can render in case we don't find Region
+  let regions = [];
+  // find the Region filters
+  // use .filter and [0] instead of .find because .find breaks pa11y test
+  const foundRegion = filters.filter(filterRegion)[0];
+  // if found, set foundRegion to a copy of the data
+  if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
+  if (regions) {
+    regions.forEach((region, i) => {
+      // set up our prop names so that SelectForm can read them
+      regions[i].text = region.long_description;
+      regions[i].value = region.code;
+    });
+    // also add a placeholder to the top
+    regions.unshift(
+      {
+        text: 'Select a region',
+        value: '',
+        disabled: true,
+      },
+    );
+  }
+  return regions;
+};

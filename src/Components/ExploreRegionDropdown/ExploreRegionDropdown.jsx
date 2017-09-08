@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ITEMS } from '../../Constants/PropTypes';
 import FieldSet from '../../Components/FieldSet/FieldSet';
 import SelectForm from '../../Components/SelectForm/SelectForm';
+import { formExploreRegionDropdown } from '../../utilities';
 
 class ExploreRegionDropdown extends Component {
   constructor(props) {
@@ -28,31 +29,7 @@ class ExploreRegionDropdown extends Component {
   render() {
     const { filters } = this.props;
     // function to find the Region filters
-    function filterRegion(filterItem) {
-      return (filterItem.item && filterItem.item.title === 'Region');
-    }
-    // set an array so we can render in case we don't find Region
-    let regions = [];
-    // find the Region filters
-    // use .filter and [0] instead of .find because .find breaks pa11y test
-    const foundRegion = filters.filter(filterRegion)[0];
-    // if found, set foundRegion to a copy of the data
-    if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
-    if (regions) {
-      regions.forEach((region, i) => {
-        // set up our prop names so that SelectForm can read them
-        regions[i].text = region.long_description;
-        regions[i].value = region.code;
-      });
-      // also add a placeholder to the top
-      regions.unshift(
-        {
-          text: 'Select a region',
-          value: '',
-          disabled: true,
-        },
-      );
-    }
+    const regions = formExploreRegionDropdown(filters);
 
     const { selection } = this.state;
     return (
