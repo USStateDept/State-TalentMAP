@@ -34,7 +34,8 @@ class ExploreRegionDropdown extends Component {
     // set an array so we can render in case we don't find Region
     let regions = [];
     // find the Region filters
-    const foundRegion = filters.find(filterRegion);
+    // use .filter and [0] instead of .find because .find breaks pa11y test
+    const foundRegion = filters.filter(filterRegion)[0];
     // if found, set foundRegion to a copy of the data
     if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
     if (regions) {
