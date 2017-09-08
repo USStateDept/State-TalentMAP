@@ -4,6 +4,8 @@ import { ITEMS } from '../../Constants/PropTypes';
 import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
+import NewPositionsSection from '../../Components/NewPositionsSection';
+// import PopularPositionsSection from '../../Components/PopularPositionsSection';
 
 class HomePage extends Component {
   constructor(props) {
@@ -37,6 +39,9 @@ class HomePage extends Component {
           filters={filters}
           onRegionSubmit={this.submitRegion}
         />
+        <div className="usa-grid-full positions-section">
+          <NewPositionsSection />
+        </div>
       </div>
     );
   }
