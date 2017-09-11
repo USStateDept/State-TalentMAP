@@ -4,10 +4,6 @@
   font-family: Roboto;
   margin-bottom: 15px;
 
-  .condensed-card-inner {
-    margin-bottom: 15px;
-  }
-
   .bid-list-button {
     margin-top: 15px;
   }
@@ -56,6 +52,7 @@
   }
 
   .condensed-card-bottom-container {
+    min-height: 170px;
     padding: 18px;
   }
 
@@ -73,7 +70,7 @@
   float: left;
 
   .condensed-card-top {
-    min-height: 255px;
+    min-height: 241px;
   }
 
   .condensed-card-last-updated {
