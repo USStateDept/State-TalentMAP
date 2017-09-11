@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const PositionsSectionTitleHeader = ({ title }) => (
-  <div className="condensed-card-title-header">
+  <div className="positions-section-title-header">
     <span>
       {title}
     </span>
