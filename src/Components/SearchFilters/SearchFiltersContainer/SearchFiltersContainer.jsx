@@ -5,7 +5,7 @@ import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constants/PropTypes';
-import { titleSort, descriptionSort } from '../../../utilities';
+import { descriptionSort } from '../../../utilities';
 
 class SearchFiltersContainer extends Component {
   onBooleanFilterClick(isChecked, code, selectionRef) {
@@ -15,20 +15,37 @@ class SearchFiltersContainer extends Component {
   }
   render() {
     // get our boolean filters
-    const booleanFilters = this.props.filters.filter(searchFilter => searchFilter.item.bool);
+    const sortedBooleanNames = ['Post Differential', 'Danger pay', 'COLA', 'Domestic'];
+    const booleanFiltersMap = new Map();
+    this.props.filters.forEach((searchFilter) => {
+      if (searchFilter.item.bool) {
+        booleanFiltersMap.set(searchFilter.item.title, searchFilter);
+      }
+    });
+
+    // sort boolean filters
+    const booleanFilters = [];
+    sortedBooleanNames.forEach((b) => {
+      const filter = booleanFiltersMap.get(b);
+      if (filter) {
+        booleanFilters.push(filter);
+      }
+    });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['skill', 'grade', 'tod', 'region'];
-    const multiSelectFilters = this.props.filters.filter(
-      s =>
-        (
-          multiSelectFilterNames.indexOf(s.item.description) > -1
-        ),
-    );
+    const multiSelectFilterNames = ['region', 'skill', 'grade', 'tod'];
 
-    multiSelectFilters.forEach((filters, i) => {
-      if (filters.item.description === 'skill') {
-        multiSelectFilters[i].data = multiSelectFilters[i].data.sort(descriptionSort);
+    // create set from array
+    const multiSelectFilterMap = new Map();
+
+    this.props.filters.forEach((f) => {
+      if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
+        // extra handling for skill
+        if (f.item.description === 'skill') {
+          f.data.sort(descriptionSort);
+        }
+        // add to map
+        multiSelectFilterMap.set(f.item.description, f);
       }
     });
 
@@ -60,20 +77,26 @@ class SearchFiltersContainer extends Component {
         expanded: languageFilter.item.title === this.props.selectedAccordion.main,
       };
 
-    const multiSelectFilterList = multiSelectFilters.map(item => (
-      { content:
-        (<MultiSelectFilter
-          key={item.item.title}
-          item={item}
-          queryParamToggle={(v, p, r) => { this.props.queryParamToggle(v, p, r); }}
-        />),
-        title: item.item.title,
-        id: `accordion-${item.item.title}`,
-        expanded: item.item.title === this.props.selectedAccordion.main,
+    // adding filters based on multiSelectFilterNames
+    const sortedFilters = [];
+    multiSelectFilterNames.forEach((n) => {
+      const item = multiSelectFilterMap.get(n);
+      if (item) {
+        sortedFilters.push(
+          { content:
+            (<MultiSelectFilter
+              key={item.item.title}
+              item={item}
+              queryParamToggle={(v, p, r) => { this.props.queryParamToggle(v, p, r); }}
+            />),
+            title: item.item.title,
+            id: `accordion-${item.item.title}`,
+            expanded: item.item.title === this.props.selectedAccordion.main,
+          },
+        );
       }
-    ));
-
-    const sortedFilters = multiSelectFilterList.sort(titleSort);
+    });
+    // add language last
     sortedFilters.push(languageFilterObject);
 
     return (
