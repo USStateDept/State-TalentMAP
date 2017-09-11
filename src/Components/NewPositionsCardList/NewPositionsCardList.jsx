@@ -8,7 +8,7 @@ const NewPositionsCardList = ({ positions }) => {
   positions.slice().forEach((p) => {
     positionList.push(
       <div className="usa-width-one-whole condensed-card">
-        <ResultsCondensedCard result={p} />
+        <ResultsCondensedCard position={p} />
       </div>,
     );
   });
@@ -31,11 +31,11 @@ const NewPositionsCardList = ({ positions }) => {
 };
 
 NewPositionsCardList.propTypes = {
-  positions: POSITION_DETAILS_ARRAY,
+  positions: POSITION_DETAILS_ARRAY.isRequired,
 };
 
 NewPositionsCardList.defaultProps = {
-  positions: [{}, {}, {}, {}, {}],
+  positions: [],
 };
 
 export default NewPositionsCardList;

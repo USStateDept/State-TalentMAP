@@ -1,32 +1,33 @@
 import React from 'react';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
-const CondensedCardData = ({ result }) => (
+const CondensedCardData = ({ position }) => (
   <div className="usa-grid-full condensed-card-data">
+    {/* TODO use placeholder constants */}
     <div>
-      <strong>{result.position || 'Position Name'}</strong>
+      <strong>{ position.title }</strong>
     </div>
     <div>
       <strong>Location: </strong>
-      { result.post || 'Abuja, Nigeria' /* TODO only use real data */ }
+      { position.post ? position.post.location : 'None listed' /* TODO use placeholder from constant */ }
     </div>
     <div>
       <strong>Skill: </strong>
-      { result.skill || 'INFORMATION SECURITY' /* TODO only use real data */ }
+      { position.skill }
     </div>
     <div>
       <strong>Grade: </strong>
-      { result.grade || '05' /* TODO only use real data */ }
+      { position.grade }
     </div>
   </div>
 );
 
 CondensedCardData.propTypes = {
-  result: POSITION_DETAILS,
+  position: POSITION_DETAILS,
 };
 
 CondensedCardData.defaultProps = {
-  result: {}, // TODO - remove and pass real result as prop
+  position: {}, // TODO - remove and pass real result as prop
 };
 
 export default CondensedCardData;

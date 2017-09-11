@@ -7,7 +7,7 @@ const shortid = require('shortid');
 const PopularPositionsCardList = ({ positions }) => {
   const positionList = positions.slice().map(p => (
     <div key={shortid.generate()} className="usa-width-one-third condensed-card">
-      <ResultsCondensedCard type="popular" result={p} />
+      <ResultsCondensedCard type="popular" position={p} />
     </div>
   ));
   return (
@@ -23,7 +23,7 @@ PopularPositionsCardList.propTypes = {
 };
 
 PopularPositionsCardList.defaultProps = {
-  positions: [{}, {}, {}], // TODO remove and only use real data
+  positions: [],
 };
 
 export default PopularPositionsCardList;

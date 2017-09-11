@@ -5,7 +5,9 @@
   margin-bottom: 15px;
 
   .bid-list-button {
+    bottom: 17px;
     margin-top: 15px;
+    position: absolute;
   }
 
   .condensed-card-top {
@@ -20,10 +22,10 @@
   .condensed-top-background-image {
     filter: alpha(opacity = 10);
     font-size: 150px;
-    left: 28%;
+    left: 32%;
     opacity: .1;
     position: absolute;
-    top: -23%;
+    top: -36%;
   }
 
   .condensed-card-top-header {
@@ -47,8 +49,9 @@
   }
 
   .condensed-card-bottom-container {
-    min-height: 170px;
+    min-height: 176px;
     padding: 18px;
+    position: relative;
   }
 
   .condensed-card-bottom {

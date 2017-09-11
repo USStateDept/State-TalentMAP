@@ -27,7 +27,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { filters } = this.props;
+    const { filters, homePagePositions } = this.props;
     return (
       <div className="home">
         <div className="results results-search-bar-homepage">
@@ -40,8 +40,8 @@ class HomePage extends Component {
           onRegionSubmit={this.submitRegion}
         />
         <div className="usa-grid-full positions-section">
-          <NewPositionsSection />
-          <PopularPositionsSection />
+          <NewPositionsSection positions={homePagePositions.isNew} />
+          <PopularPositionsSection positions={homePagePositions.isPopular} />
         </div>
       </div>
     );
@@ -51,6 +51,7 @@ class HomePage extends Component {
 HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   filters: ITEMS.isRequired,
+  homePagePositions: PropTypes.shape({}).isRequired,
 };
 
 export default HomePage;

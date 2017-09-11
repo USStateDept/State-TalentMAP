@@ -1,9 +1,10 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
+import PropTypes from 'prop-types';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import NewPositionsCardList from '../NewPositionsCardList';
 
-const NewPositionsSection = () => (
+const NewPositionsSection = ({ positions }) => (
   <div className="usa-grid-full positions-section positions-section-new">
     <PositionsSectionTitle
       title={
@@ -11,8 +12,12 @@ const NewPositionsSection = () => (
       }
       viewMoreLink="/results?ordering=create_date"
     />
-    <NewPositionsCardList />
+    <NewPositionsCardList positions={positions} />
   </div>
 );
+
+NewPositionsSection.propTypes = {
+  positions: PropTypes.arrayOf({}).isRequired,
+};
 
 export default NewPositionsSection;
