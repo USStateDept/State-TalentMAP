@@ -87,7 +87,8 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
-      "!src/registerServiceWorker.js"
+      "!src/registerServiceWorker.js",
+      "!src/Components/**/index.js"
     ],
     "coverageReporters": [
       "lcov"
