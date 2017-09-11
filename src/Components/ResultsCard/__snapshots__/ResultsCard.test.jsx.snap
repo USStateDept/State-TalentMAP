@@ -18,6 +18,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
       className="results-card-favorite"
     >
       <Favorite
+        hideText={false}
         onToggle={[Function]}
         refKey="00025003"
         type="fav"
