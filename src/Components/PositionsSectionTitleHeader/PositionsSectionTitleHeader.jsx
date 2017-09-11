@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const PositionsSectionTitleHeader = ({ title }) => (
   <div className="condensed-card-title-header">
-    <span style={{ borderBottom: 'solid 1px black' }}>
+    <span>
       {title}
     </span>
   </div>

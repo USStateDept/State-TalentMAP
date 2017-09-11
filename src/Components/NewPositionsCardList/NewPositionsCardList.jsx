@@ -1,9 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
+import { POSITION_DETAILS_ARRAY } from '../../Constants/PropTypes';
 
-const NewPositionsCardList = ({ positions }) => { // eslint-disable-line
-
+const NewPositionsCardList = ({ positions }) => {
   const positionList = [];
 
   positions.slice().forEach((p) => {
@@ -16,14 +15,14 @@ const NewPositionsCardList = ({ positions }) => { // eslint-disable-line
 
   return (
     <div className="usa-grid-full">
-      <div className="usa-width-one-third condensed-card-first-big" style={{ float: 'left' }}>
+      <div className="usa-width-one-third condensed-card-first-big">
         {positionList[0]}
       </div>
-      <div className="usa-width-one-third condensed-card-second" style={{ float: 'left' }}>
+      <div className="usa-width-one-third condensed-card-second">
         {positionList[1]}
         {positionList[2]}
       </div>
-      <div className="usa-width-one-third condensed-card-third" style={{ float: 'left' }}>
+      <div className="usa-width-one-third condensed-card-third">
         {positionList[3]}
         {positionList[4]}
       </div>
@@ -32,11 +31,11 @@ const NewPositionsCardList = ({ positions }) => { // eslint-disable-line
 };
 
 NewPositionsCardList.propTypes = {
-  positions: PropTypes.arrayOf() // eslint-disable-line
+  positions: POSITION_DETAILS_ARRAY,
 };
 
 NewPositionsCardList.defaultProps = {
-  positions: ['a', 'b', 'c', 'd', 'e'],
+  positions: [{}, {}, {}, {}, {}],
 };
 
 export default NewPositionsCardList;

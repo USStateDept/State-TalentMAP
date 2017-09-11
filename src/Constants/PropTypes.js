@@ -41,11 +41,13 @@ export const POSITION_DETAILS = PropTypes.shape({
   languages: LANGUAGES,
 });
 
+export const POSITION_DETAILS_ARRAY = PropTypes.arrayOf(POSITION_DETAILS);
+
 export const POSITION_SEARCH_RESULTS = PropTypes.shape({
   count: PropTypes.number,
   next: PropTypes.string,
   previous: PropTypes.string,
-  results: PropTypes.arrayOf(POSITION_DETAILS),
+  results: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTERS = PropTypes.arrayOf(

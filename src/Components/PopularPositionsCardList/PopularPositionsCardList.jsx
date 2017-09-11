@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
+import { POSITION_DETAILS_ARRAY } from '../../Constants/PropTypes';
 
-const PopularPositionsCardList = ({ positions }) => { // eslint-disable-line
+const shortid = require('shortid');
+
+const PopularPositionsCardList = ({ positions }) => {
   const positionList = positions.slice().map(p => (
-    <div className="usa-width-one-third condensed-card">
+    <div key={shortid.generate()} className="usa-width-one-third condensed-card">
       <ResultsCondensedCard type="popular" result={p} />
     </div>
   ));
@@ -16,11 +18,12 @@ const PopularPositionsCardList = ({ positions }) => { // eslint-disable-line
 };
 
 PopularPositionsCardList.propTypes = {
-  positions: PropTypes.arrayOf() // eslint-disable-line
+   // TODO next round - add prop types
+  positions: POSITION_DETAILS_ARRAY,
 };
 
 PopularPositionsCardList.defaultProps = {
-  positions: ['a', 'b', 'c'],
+  positions: [{}, {}, {}], // TODO remove and only use real data
 };
 
 export default PopularPositionsCardList;

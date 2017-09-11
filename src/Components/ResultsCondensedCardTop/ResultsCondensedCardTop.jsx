@@ -5,13 +5,14 @@ import ResultsNewFlag from '../ResultsNewFlag';
 import Favorite from '../Favorite/Favorite';
 
 const ResultsCondensedCardTop = ({ type }) => (
-  <div className="usa-grid-full condensed-card-top" style={{ borderBottom: '1px solid gray' }}>
-    <div className="usa-grid-full" style={{ marginBottom: '20px' }}>
-      <div style={{ width: '48%', margin: '3px 0 0 1%', float: 'left' }}>
+  <div className="usa-grid-full condensed-card-top">
+    <div className="usa-grid-full condensed-card-top-header-container">
+      <div className="condensed-card-top-header condensed-card-top-header-left">
         <ResultsNewFlag />
       </div>
-      <div style={{ width: '48%', margin: '3px 1% 0 0', float: 'left', textAlign: 'right' }}>
-        <Favorite hideText />
+      <div className="condensed-card-top-header condensed-card-top-header-right">
+        {/* TODO use real favorite identifier instead of random number */}
+        <Favorite type="fav" refKey={Math.random().toString()} hideText />
       </div>
     </div>
     <FontAwesome className="condensed-top-background-image" name={type === 'popular' ? 'building' : 'flag'} size="3x" />

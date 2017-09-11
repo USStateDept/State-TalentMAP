@@ -4,9 +4,9 @@ import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';
 
 const ResultsCondensedCard = ({ type }) => (
-  <div className="usa-grid-full" style={{ marginBottom: '15px' }}>
+  <div className="usa-grid-full condensed-card-inner">
     <ResultsCondensedCardTop type={type} />
-    <div style={{ padding: '10px' }}>
+    <div className="condensed-card-bottom-container">
       <ResultsCondensedCardBottom />
     </div>
   </div>

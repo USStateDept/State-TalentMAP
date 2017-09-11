@@ -22,6 +22,7 @@
     "redux-saga": "^0.15.4",
     "redux-thunk": "^2.2.0",
     "shortid": "^2.2.8",
+    "typeface-roboto": "0.0.35",
     "typeface-vollkorn": "0.0.35",
     "uswds": "^1.3.0"
   },
