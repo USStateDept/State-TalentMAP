@@ -14,8 +14,10 @@ class SearchFiltersContainer extends Component {
     this.props.queryParamUpdate(object);
   }
   render() {
-    // get our boolean filters
+    // get our boolean filter names
     const sortedBooleanNames = ['Post Differential', 'Danger pay', 'COLA', 'Domestic'];
+
+    // store filters in Map
     const booleanFiltersMap = new Map();
     this.props.filters.forEach((searchFilter) => {
       if (searchFilter.item.bool) {
@@ -23,7 +25,8 @@ class SearchFiltersContainer extends Component {
       }
     });
 
-    // sort boolean filters
+    // sort boolean filters by sortedBooleanNames
+    // pull from Map
     const booleanFilters = [];
     sortedBooleanNames.forEach((b) => {
       const filter = booleanFiltersMap.get(b);
@@ -35,16 +38,17 @@ class SearchFiltersContainer extends Component {
     // get our normal multi-select filters
     const multiSelectFilterNames = ['region', 'skill', 'grade', 'tod'];
 
-    // create set from array
+    // create map
     const multiSelectFilterMap = new Map();
 
+    // pull filters from props and add to Map
     this.props.filters.forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill') {
           f.data.sort(descriptionSort);
         }
-        // add to map
+        // add to Map
         multiSelectFilterMap.set(f.item.description, f);
       }
     });
