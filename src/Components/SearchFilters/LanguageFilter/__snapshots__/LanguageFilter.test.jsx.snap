@@ -9,7 +9,6 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
     setAccordion={[Function]}
     title="language"
   >
-    language
     <SelectForm
       defaultSort=""
       id="speaking-language-dropdown"
@@ -120,40 +119,6 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
         ]
       }
     />
-    <FieldSet
-      legend="Other"
-      legendSrOnly={false}
-    >
-      <CheckBox
-        code="Passed Language Test"
-        id="checkbox-language-passed"
-        label="Passed Language Test"
-        name="Passed Language Test"
-        onCheckBoxClick={[Function]}
-        selectionRef="language"
-        title="Passed Language Test"
-        value="passed"
-      />
-      <CheckBox
-        code="No Test"
-        id="checkbox-language-notest"
-        label="No Test"
-        name="No Test"
-        onCheckBoxClick={[Function]}
-        selectionRef="language"
-        title="No Test"
-        value="no test"
-      />
-    </FieldSet>
-    <button
-      className="usa-button language-view-all"
-      onClick={[Function]}
-      type="submit"
-    >
-      View all 
-      language
-       positions
-    </button>
   </AccordionItem>
 </Accordion>
 `;
