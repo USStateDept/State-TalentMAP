@@ -893,7 +893,7 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-polyfill@^6.8.0:
+babel-polyfill@^6.26.0, babel-polyfill@^6.8.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
   dependencies:
@@ -7093,7 +7093,7 @@ typedarray@^0.0.6, typedarray@~0.0.5:
 typeface-roboto@0.0.35:
   version "0.0.35"
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.35.tgz#5965d3f6d4cd72b7b2833d6b7d42c9b59b8392ba"
-
+  
 typeface-vollkorn@0.0.35:
   version "0.0.35"
   resolved "https://registry.yarnpkg.com/typeface-vollkorn/-/typeface-vollkorn-0.0.35.tgz#df4142ca267ad1fe39f151868469fc02bfb752d0"
