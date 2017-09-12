@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionsSectionTitleViewMoreComponent matches snapshot 1`] = `
+<div
+  className="positions-section-view-more"
+>
+  <Link
+    replace={false}
+    to="title"
+  >
+    View More 
+    <FontAwesome
+      name="angle-right"
+    />
+  </Link>
+</div>
+`;

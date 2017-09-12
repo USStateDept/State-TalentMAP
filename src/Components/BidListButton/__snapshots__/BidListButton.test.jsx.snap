@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidListButtonComponent matches snapshot 1`] = `
+<button
+  className="bid-list-button"
+>
+  <span
+    className="bid-list-button-icon"
+  >
+    <FontAwesome
+      name="plus-circle"
+    />
+  </span>
+  <span>
+    Add to bid list
+  </span>
+</button>
+`;

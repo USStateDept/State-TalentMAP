@@ -18,7 +18,6 @@ const PopularPositionsCardList = ({ positions }) => {
 };
 
 PopularPositionsCardList.propTypes = {
-   // TODO next round - add prop types
   positions: POSITION_DETAILS_ARRAY,
 };
 

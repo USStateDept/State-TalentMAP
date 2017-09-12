@@ -5,7 +5,8 @@ import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import HomePage from '../../Containers/HomePage/HomePage';
-import { FILTERS_PARENT, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS } from '../../Constants/PropTypes';
+import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Home extends Component {
@@ -55,8 +56,8 @@ Home.propTypes = {
   fetchData: PropTypes.func,
   items: FILTERS_PARENT,
   isAuthorized: PropTypes.func.isRequired,
-  homePagePositionsFetchData: PropTypes.func.isRequired,
-  homePagePositions: PropTypes.shape({}),
+  homePagePositionsFetchData: PropTypes.func,
+  homePagePositions: HOME_PAGE_POSITIONS,
 };
 
 Home.defaultProps = {
@@ -64,7 +65,8 @@ Home.defaultProps = {
   fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
-  homePagePositions: {},
+  homePagePositionsFetchData: EMPTY_FUNCTION,
+  homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
   homePagePositionsHasErrored: false,
   homePagePositionsIsLoading: true,
 };

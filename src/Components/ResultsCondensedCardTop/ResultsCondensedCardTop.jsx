@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import ResultsNewFlag from '../ResultsNewFlag';
 import Favorite from '../Favorite/Favorite';
 import * as SystemMessages from '../../Constants/SystemMessages';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 const ResultsCondensedCardTop = ({ type, position }) => (
   <div className="usa-grid-full condensed-card-top">
@@ -24,12 +25,11 @@ const ResultsCondensedCardTop = ({ type, position }) => (
 
 ResultsCondensedCardTop.propTypes = {
   type: PropTypes.string,
-  position: PropTypes.shape({}).isRequired,
+  position: POSITION_DETAILS.isRequired,
 };
 
 ResultsCondensedCardTop.defaultProps = {
   type: 'new',
-  position: {},
 };
 
 export default ResultsCondensedCardTop;

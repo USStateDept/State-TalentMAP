@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ITEMS } from '../../Constants/PropTypes';
+import { ITEMS, HOME_PAGE_POSITIONS } from '../../Constants/PropTypes';
 import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
@@ -51,7 +51,7 @@ class HomePage extends Component {
 HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   filters: ITEMS.isRequired,
-  homePagePositions: PropTypes.shape({}).isRequired,
+  homePagePositions: HOME_PAGE_POSITIONS.isRequired,
 };
 
 export default HomePage;

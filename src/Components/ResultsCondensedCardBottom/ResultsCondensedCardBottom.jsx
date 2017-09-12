@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CondensedCardData from '../CondensedCardData';
 import BidListButton from '../BidListButton';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 const ResultsCondensedCardBottom = ({ position }) => (
   <div className="usa-grid-full condensed-card-bottom">
@@ -11,12 +11,11 @@ const ResultsCondensedCardBottom = ({ position }) => (
 );
 
 ResultsCondensedCardBottom.propTypes = {
-  position: PropTypes.shape({}).isRequired,
+  position: POSITION_DETAILS.isRequired,
 };
 
 ResultsCondensedCardBottom.defaultProps = {
   type: 'new',
-  position: {},
 };
 
 export default ResultsCondensedCardBottom;

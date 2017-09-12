@@ -1,8 +1,8 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
-import PropTypes from 'prop-types';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import PopularPositionsCardList from '../PopularPositionsCardList';
+import { POSITION_DETAILS_ARRAY } from '../../Constants/PropTypes';
 
 const PopularPositionsSection = ({ positions }) => (
   <div className="usa-grid-full positions-section positions-section-popular">
@@ -20,7 +20,7 @@ const PopularPositionsSection = ({ positions }) => (
 );
 
 PopularPositionsSection.propTypes = {
-  positions: PropTypes.arrayOf({}).isRequired,
+  positions: POSITION_DETAILS_ARRAY.isRequired,
 };
 
 export default PopularPositionsSection;

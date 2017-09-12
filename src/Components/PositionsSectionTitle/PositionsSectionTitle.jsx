@@ -16,7 +16,7 @@ const PositionsSectionTitle = ({ title, viewMoreLink }) => (
 
 PositionsSectionTitle.propTypes = {
   title: PropTypes.node.isRequired,
-  viewMoreLink: PropTypes.string.isRequired,
+  viewMoreLink: PropTypes.node.isRequired,
 };
 
 export default PositionsSectionTitle;

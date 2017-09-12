@@ -1,8 +1,8 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
-import PropTypes from 'prop-types';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import NewPositionsCardList from '../NewPositionsCardList';
+import { POSITION_DETAILS_ARRAY } from '../../Constants/PropTypes';
 
 const NewPositionsSection = ({ positions }) => (
   <div className="usa-grid-full positions-section positions-section-new">
@@ -17,7 +17,7 @@ const NewPositionsSection = ({ positions }) => (
 );
 
 NewPositionsSection.propTypes = {
-  positions: PropTypes.arrayOf({}).isRequired,
+  positions: POSITION_DETAILS_ARRAY.isRequired,
 };
 
 export default NewPositionsSection;

@@ -4,7 +4,6 @@ import * as SystemMessages from '../../Constants/SystemMessages';
 
 const CondensedCardData = ({ position }) => (
   <div className="usa-grid-full condensed-card-data">
-    {/* TODO use placeholder constants */}
     <div>
       <strong>{ position.title || SystemMessages.NO_POSITION_TITLE }</strong>
     </div>
@@ -24,11 +23,7 @@ const CondensedCardData = ({ position }) => (
 );
 
 CondensedCardData.propTypes = {
-  position: POSITION_DETAILS,
-};
-
-CondensedCardData.defaultProps = {
-  position: {}, // TODO - remove and pass real result as prop
+  position: POSITION_DETAILS.isRequired,
 };
 
 export default CondensedCardData;

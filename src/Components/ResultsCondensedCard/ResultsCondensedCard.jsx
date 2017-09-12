@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 const ResultsCondensedCard = ({ type, position }) => (
   <div className="usa-grid-full condensed-card-inner">
@@ -14,7 +15,7 @@ const ResultsCondensedCard = ({ type, position }) => (
 
 ResultsCondensedCard.propTypes = {
   type: PropTypes.string,
-  position: PropTypes.shape({}).isRequired,
+  position: POSITION_DETAILS.isRequired,
 };
 
 ResultsCondensedCard.defaultProps = {
