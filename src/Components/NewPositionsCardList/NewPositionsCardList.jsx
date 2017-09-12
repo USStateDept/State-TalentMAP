@@ -5,10 +5,13 @@ import { POSITION_DETAILS_ARRAY } from '../../Constants/PropTypes';
 const NewPositionsCardList = ({ positions }) => {
   const positionList = [];
 
-  positions.slice().forEach((p) => {
+  // Form positions into component and push them to array.
+  // We want to explicitly call each index of our array
+  // since we only want to show 5 results
+  positions.forEach((p) => {
     positionList.push(
       <div className="usa-width-one-whole condensed-card">
-        <ResultsCondensedCard result={p} />
+        <ResultsCondensedCard position={p} />
       </div>,
     );
   });
@@ -31,11 +34,11 @@ const NewPositionsCardList = ({ positions }) => {
 };
 
 NewPositionsCardList.propTypes = {
-  positions: POSITION_DETAILS_ARRAY,
+  positions: POSITION_DETAILS_ARRAY.isRequired,
 };
 
 NewPositionsCardList.defaultProps = {
-  positions: [{}, {}, {}, {}, {}],
+  positions: [],
 };
 
 export default NewPositionsCardList;

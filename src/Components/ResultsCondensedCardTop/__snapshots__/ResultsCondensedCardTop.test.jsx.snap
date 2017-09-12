@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full condensed-card-top"
+>
+  <div
+    className="usa-grid-full condensed-card-top-header-container"
+  >
+    <div
+      className="condensed-card-top-header condensed-card-top-header-left"
+    >
+      <ResultsNewFlag />
+    </div>
+    <div
+      className="condensed-card-top-header condensed-card-top-header-right"
+    >
+      <Favorite
+        hideText={true}
+        onToggle={[Function]}
+        refKey="00025003"
+        type="fav"
+      />
+    </div>
+  </div>
+  <FontAwesome
+    className="condensed-top-background-image"
+    name="flag"
+    size="3x"
+  />
+  <div
+    className="usa-width-one-whole condensed-card-last-updated"
+  >
+    <span
+      className="last-updated-title"
+    >
+      Last Updated: 
+    </span>
+    <span
+      className="last-updated-date"
+    >
+      2017-06-08
+    </span>
+  </div>
+</div>
+`;

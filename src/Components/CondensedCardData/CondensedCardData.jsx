@@ -1,32 +1,29 @@
 import React from 'react';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import * as SystemMessages from '../../Constants/SystemMessages';
 
-const CondensedCardData = ({ result }) => (
+const CondensedCardData = ({ position }) => (
   <div className="usa-grid-full condensed-card-data">
     <div>
-      <strong>{result.position || 'Position Name'}</strong>
+      <strong>{ position.title || SystemMessages.NO_POSITION_TITLE }</strong>
     </div>
     <div>
       <strong>Location: </strong>
-      { result.post || 'Abuja, Nigeria' /* TODO only use real data */ }
+      { position.post ? position.post.location : SystemMessages.NO_POST }
     </div>
     <div>
       <strong>Skill: </strong>
-      { result.skill || 'INFORMATION SECURITY' /* TODO only use real data */ }
+      { position.skill || SystemMessages.NO_SKILL }
     </div>
     <div>
       <strong>Grade: </strong>
-      { result.grade || '05' /* TODO only use real data */ }
+      { position.grade || SystemMessages.NO_GRADE }
     </div>
   </div>
 );
 
 CondensedCardData.propTypes = {
-  result: POSITION_DETAILS,
-};
-
-CondensedCardData.defaultProps = {
-  result: {}, // TODO - remove and pass real result as prop
+  position: POSITION_DETAILS.isRequired,
 };
 
 export default CondensedCardData;

@@ -41,7 +41,7 @@ describe('CompareCheck', () => {
 
   it('can handle disabling when count is reached', () => {
     const wrapper = shallow(<CompareCheck refKey="0038" />);
-    wrapper.instance().state.count = 100000; // greater than default limit
+    wrapper.instance().state.count = 100000; // greater than default limit.
     wrapper.find('div').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false); // should not be able to add another compare
   });

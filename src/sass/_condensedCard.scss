@@ -4,8 +4,20 @@
   font-family: Roboto;
   margin-bottom: 15px;
 
+  .new-flag {
+    background-color: $color-white;
+    border-radius: 100px;
+    color: $color-black;
+    font-size: 13px;
+    padding: .1em;
+    text-align: center;
+    width: 50px;
+  }
+
   .bid-list-button {
+    bottom: 17px;
     margin-top: 15px;
+    position: absolute;
   }
 
   .condensed-card-top {
@@ -20,10 +32,10 @@
   .condensed-top-background-image {
     filter: alpha(opacity = 10);
     font-size: 150px;
-    left: 28%;
+    left: 32%;
     opacity: .1;
     position: absolute;
-    top: -23%;
+    top: -36%;
   }
 
   .condensed-card-top-header {
@@ -47,8 +59,9 @@
   }
 
   .condensed-card-bottom-container {
-    min-height: 170px;
+    min-height: 171px;
     padding: 18px;
+    position: relative;
   }
 
   .condensed-card-bottom {
@@ -59,10 +72,19 @@
   .condensed-card-data {
     margin-bottom: 10px;
   }
+
+  .last-updated-date {
+    font-weight: 300;
+  }
 }
 
 .condensed-card-first-big {
   float: left;
+
+  .bid-list-button {
+    bottom: unset;
+    position: unset;
+  }
 
   .condensed-card-top {
     min-height: 241px;

@@ -7,7 +7,7 @@ const shortid = require('shortid');
 const PopularPositionsCardList = ({ positions }) => {
   const positionList = positions.slice().map(p => (
     <div key={shortid.generate()} className="usa-width-one-third condensed-card">
-      <ResultsCondensedCard type="popular" result={p} />
+      <ResultsCondensedCard type="popular" position={p} />
     </div>
   ));
   return (
@@ -18,12 +18,11 @@ const PopularPositionsCardList = ({ positions }) => {
 };
 
 PopularPositionsCardList.propTypes = {
-   // TODO next round - add prop types
   positions: POSITION_DETAILS_ARRAY,
 };
 
 PopularPositionsCardList.defaultProps = {
-  positions: [{}, {}, {}], // TODO remove and only use real data
+  positions: [],
 };
 
 export default PopularPositionsCardList;

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CondensedCardDataComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full condensed-card-data"
+>
+  <div>
+    <strong>
+      None listed
+    </strong>
+  </div>
+  <div>
+    <strong>
+      Location: 
+    </strong>
+    MASERU, LESOTHO
+  </div>
+  <div>
+    <strong>
+      Skill: 
+    </strong>
+    OFFICE MANAGEMENT (9017)
+  </div>
+  <div>
+    <strong>
+      Grade: 
+    </strong>
+    05
+  </div>
+</div>
+`;

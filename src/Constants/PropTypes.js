@@ -50,6 +50,11 @@ export const POSITION_SEARCH_RESULTS = PropTypes.shape({
   results: POSITION_DETAILS_ARRAY,
 });
 
+export const HOME_PAGE_POSITIONS = PropTypes.shape({
+  isNew: POSITION_DETAILS_ARRAY,
+  isPopular: POSITION_DETAILS_ARRAY,
+});
+
 export const FILTERS = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number,

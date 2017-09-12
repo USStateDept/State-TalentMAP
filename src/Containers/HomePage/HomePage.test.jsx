@@ -3,6 +3,7 @@ import React from 'react';
 import sinon from 'sinon';
 import HomePage from './HomePage';
 import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
+import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 
 describe('HomePageComponent', () => {
   const items = [{
@@ -19,6 +20,7 @@ describe('HomePageComponent', () => {
     const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={() => {}}
+      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -27,6 +29,7 @@ describe('HomePageComponent', () => {
     const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={() => {}}
+      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
     />);
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
   });
@@ -36,6 +39,7 @@ describe('HomePageComponent', () => {
     const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={spy}
+      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
     />);
     wrapper.instance().props.onNavigateTo();
     sinon.assert.calledOnce(spy);
@@ -47,6 +51,7 @@ describe('HomePageComponent', () => {
     const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={(q) => { nav.value = q; }}
+      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
     />);
     wrapper.instance().submitSearch({ q: text });
     expect(nav.value).toEqual(`/results?q=${text}`);
@@ -58,6 +63,7 @@ describe('HomePageComponent', () => {
     const wrapper = shallow(<HomePage
       filters={items}
       onNavigateTo={(q) => { nav.value = q; }}
+      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
     />);
     wrapper.instance().submitRegion(text);
     expect(nav.value).toEqual(`/results?${ENDPOINT_PARAMS.org}=${text}`);
