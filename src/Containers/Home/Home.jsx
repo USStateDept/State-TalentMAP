@@ -38,13 +38,16 @@ class Home extends Component {
   }
 
   render() {
-    const { onNavigateTo, items, homePagePositions } = this.props;
+    const { onNavigateTo, items, homePagePositions,
+      homePagePositionsHasErrored, homePagePositionsIsLoading } = this.props;
     return (
       <div>
         <HomePage
           onNavigateTo={onNavigateTo}
           filters={items.filters}
           homePagePositions={homePagePositions}
+          homePagePositionsHasErrored={homePagePositionsHasErrored}
+          homePagePositionsIsLoading={homePagePositionsIsLoading}
         />
       </div>
     );
@@ -58,6 +61,8 @@ Home.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   homePagePositionsFetchData: PropTypes.func,
   homePagePositions: HOME_PAGE_POSITIONS,
+  homePagePositionsHasErrored: PropTypes.bool,
+  homePagePositionsIsLoading: PropTypes.bool,
 };
 
 Home.defaultProps = {
