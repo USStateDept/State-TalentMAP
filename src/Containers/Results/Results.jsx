@@ -7,7 +7,7 @@ import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -74,6 +74,19 @@ class Results extends Component {
       }
       // fetch new results
       this.callFetchData(newQueryString);
+    }
+  }
+
+  componentDidMount() {
+    // Check if the user came from another page.
+    // If so, scroll the user to the top of the page.
+    const { routerLocations } = this.props;
+    const rLength = routerLocations.length;
+    if (rLength > 1) {
+      // compare the most recent and second-most recent pathnames
+      if (routerLocations[rLength - 1].pathname !== routerLocations[rLength - 2].pathname) {
+        window.scrollTo(0, 0);
+      }
     }
   }
 
@@ -204,6 +217,7 @@ Results.propTypes = {
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
+  routerLocations: ROUTER_LOCATIONS,
 };
 
 Results.defaultProps = {
@@ -214,6 +228,7 @@ Results.defaultProps = {
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
+  routerLocations: [],
 };
 
 Results.contextTypes = {
@@ -228,6 +243,7 @@ const mapStateToProps = state => ({
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
   selectedAccordion: state.selectedAccordion,
+  routerLocations: state.routerLocations,
 });
 
 const mapDispatchToProps = dispatch => ({
