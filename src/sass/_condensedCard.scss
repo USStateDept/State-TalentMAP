@@ -4,6 +4,16 @@
   font-family: Roboto;
   margin-bottom: 15px;
 
+  .new-flag {
+    background-color: $color-white;
+    border-radius: 100px;
+    color: $color-white;
+    font-size: 13px;
+    padding: .1em;
+    text-align: center;
+    width: 50px;
+  }
+
   .bid-list-button {
     bottom: 17px;
     margin-top: 15px;
