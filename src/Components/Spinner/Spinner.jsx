@@ -17,15 +17,15 @@ const Spinner = ({ type, size, color, filled, inverse }) => (
 );
 
 Spinner.propTypes = {
-  type: PropTypes.oneOf(['position-results', 'homepage-position-results']), // optional class to be defined
-  size: PropTypes.oneOf(['small', 'big']),
-  color: PropTypes.oneOf(['primary', 'success', 'muted']),
+  type: PropTypes.string, // user defined classes stored elsewhere using "tm-spinner-" as a prefix
+  size: PropTypes.oneOf(['small', 'big', '']),
+  color: PropTypes.oneOf(['primary', 'success', 'muted', '']),
   filled: PropTypes.bool,
   inverse: PropTypes.bool,
 };
 
 Spinner.defaultProps = {
-  type: '', // user defined classes stored elsewhere using "tm-spinner-" as a prefix
+  type: '',
   size: undefined,
   color: undefined,
   filled: false,
