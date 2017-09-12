@@ -43,7 +43,8 @@ const runWithLogin = (url, iterator) => {
       console.log(chalk.green(`${url} passed!`));
     }
     if (result.length > 0) {
-      console.error(chalk.red(`${url} failed with ${result.length} errors`), JSON.stringify(result));
+      console.error(chalk.red(`${url} failed with ${result.length} errors`));
+      console.error(result);
       didError = true;
     }
     if (iterator === routes.length) {
