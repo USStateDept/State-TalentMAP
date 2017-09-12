@@ -18,7 +18,10 @@ const ResultsCondensedCardTop = ({ type, position }) => (
     </div>
     <FontAwesome className="condensed-top-background-image" name={type === 'popular' ? 'building' : 'flag'} size="3x" />
     <div className="usa-width-one-whole condensed-card-last-updated">
-      Last Updated: {position.update_date || SystemMessages.NO_LAST_UPDATED_DATE}
+      <span className="last-updated-title">Last Updated: </span>
+      <span className="last-updated-date">
+        {position.update_date || SystemMessages.NO_LAST_UPDATED_DATE}
+      </span>
     </div>
   </div>
 );

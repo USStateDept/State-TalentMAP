@@ -31,8 +31,16 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
   <div
     className="usa-width-one-whole condensed-card-last-updated"
   >
-    Last Updated: 
-    2017-06-08
+    <span
+      className="last-updated-title"
+    >
+      Last Updated: 
+    </span>
+    <span
+      className="last-updated-date"
+    >
+      2017-06-08
+    </span>
   </div>
 </div>
 `;
