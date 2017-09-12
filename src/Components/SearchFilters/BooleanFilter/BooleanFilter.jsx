@@ -5,7 +5,6 @@ import FieldSet from '../../FieldSet/FieldSet';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 
 const BooleanFilter = ({ item, onBooleanFilterClick }) => (
-  <div>
     <FieldSet key={item.item.title} legend={item.item.title}>
       <CheckBox
         id={`checkbox-${item.item.title}`}
@@ -23,7 +22,6 @@ const BooleanFilter = ({ item, onBooleanFilterClick }) => (
         }
       />
     </FieldSet>
-  </div>
 );
 
 BooleanFilter.propTypes = {
