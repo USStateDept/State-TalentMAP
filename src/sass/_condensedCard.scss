@@ -1,0 +1,97 @@
+.condensed-card {
+
+  border: 1px solid $color-gray-light;
+  font-family: Roboto;
+  margin-bottom: 15px;
+
+  .bid-list-button {
+    margin-top: 15px;
+  }
+
+  .condensed-card-top {
+    background-color: $blue-primary;
+    border-bottom: 1px solid $color-gray-lightest;
+    color: $color-white;
+    overflow: hidden;
+    padding: 3px 0 0 10px;
+    position: relative;
+  }
+
+  .condensed-top-background-image {
+    filter: alpha(opacity = 10);
+    font-size: 150px;
+    left: 28%;
+    opacity: .1;
+    position: absolute;
+    top: -23%;
+  }
+
+  .condensed-card-top-header {
+    float: left;
+    margin: 3px 0 0 1%;
+    width: 48%;
+  }
+
+  .condensed-card-top-header-container {
+    margin-bottom: 5px;
+  }
+
+  .condensed-card-top-header-right {
+    margin: 3px 1% 0 0;
+    text-align: right;
+  }
+
+  .condensed-card-last-updated {
+    font-size: 14px;
+    margin: 10px;
+  }
+
+  .condensed-card-bottom-container {
+    min-height: 170px;
+    padding: 18px;
+  }
+
+  .condensed-card-bottom {
+    font-size: 16px;
+    max-height: 135px;
+  }
+
+  .condensed-card-data {
+    margin-bottom: 10px;
+  }
+}
+
+.condensed-card-first-big {
+  float: left;
+
+  .condensed-card-top {
+    min-height: 241px;
+  }
+
+  .condensed-card-last-updated {
+    bottom: 0;
+    position: absolute;
+  }
+
+  .condensed-top-background-image {
+    top: 17%;
+  }
+
+  .condensed-card-bottom {
+    min-height: 219px;
+  }
+}
+
+.condensed-card-second {
+  float: left;
+}
+
+.condensed-card-third {
+  float: left;
+}
+
+.condensed-card-popular {
+  .condensed-card-top {
+    background-color: $tm-navy;
+  }
+}

@@ -71,21 +71,8 @@ describe('ShareButton', () => {
   it('can submit an internal share', () => {
     expect(wrapper.instance().state.timeout).toBe(false);
     const email = 'test@state.gov';
-    wrapper.find('#internal').simulate('change', { target: { value: 'internal' } });
     wrapper.find('#share-input').simulate('change', { target: { value: email } });
     wrapper.find('form').simulate('submit', { preventDefault: () => {} });
     expect(wrapper.instance().state.timeout).toBe(true);
-  });
-
-  it('can switch to a different share type', () => {
-    wrapper.find('#internal').simulate('change', { target: { value: 'internal' } });
-    expect(wrapper.instance().state.shareType).toBe('internal');
-  });
-
-  it('can switch back and forth between different share types', () => {
-    wrapper.find('#internal').simulate('change', { target: { value: 'internal' } });
-    expect(wrapper.instance().state.shareType).toBe('internal');
-    wrapper.find('#external').simulate('change', { target: { value: 'external' } });
-    expect(wrapper.instance().state.shareType).toBe('external');
   });
 });

@@ -5,11 +5,9 @@ import { MemoryRouter } from 'react-router-dom';
 import Main from './Main';
 
 describe('Main', () => {
-  const api = 'http://localhost:8000/api/v1';
-
   it('is defined', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter>
-      <Main api={api} />
+      <Main />
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
@@ -44,19 +42,19 @@ describe('Main', () => {
       },
     ];
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/results']}>
-      <Main api={api} results={resultsArray} />
+      <Main results={resultsArray} />
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
   it('handles a position details route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/details/00011111']}>
-      <Main api={api} />
+      <Main />
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
   it('handles a post details route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/post/00011111']}>
-      <Main api={api} />
+      <Main />
     </MemoryRouter>);
     expect(main).toBeDefined();
   });

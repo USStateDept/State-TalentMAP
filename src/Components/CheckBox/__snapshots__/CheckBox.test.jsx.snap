@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckBoxComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full tm-checkbox"
+>
+  <input
+    checked="value"
+    id="id"
+    name="name"
+    onChange={[Function]}
+    title="title"
+    type="checkbox"
+    value="value"
+  />
+  <label
+    htmlFor="id"
+  >
+    label
+  </label>
+</div>
+`;

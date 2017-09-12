@@ -1,0 +1,67 @@
+.results-search-bar {
+  background-color: $color-gray-lightest;
+  height: auto;
+}
+
+.results-search-bar-container {
+
+  height: auto;
+
+  max-width: 1140px;
+
+  padding: 0 30px 15px;
+
+  .label-input-wrapper {
+    width: 100%;
+  }
+
+  .search-results-inputs {
+    input {
+      border-right: solid 1px;
+      display: inline-block;
+      max-width: unset;
+    }
+
+    label {
+      margin: 0 0 5px 5px;
+    }
+  }
+
+  .search-submit-button {
+    margin-top: 35px;
+
+    button {
+      font-size: .9em;
+      padding: 10px 25px;
+    }
+  }
+
+  .search-keyword {
+    padding: 0 30px;
+
+    input {
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      text-transform: uppercase;
+    }
+  }
+
+  .usa-button {
+    min-width: 150px;
+    padding: inherit 40px;
+  }
+}
+
+.results-search-bar-homepage {
+
+  color: $color-white;
+
+  .results-search-bar {
+    background-color: $tm-dark-blue;
+    height: auto;
+  }
+}

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PillComponent matches snapshot 1`] = `
+<button
+  onClick={[Function]}
+  style={
+    Object {
+      "borderRadius": "12px",
+      "fontSize": ".8em",
+      "padding": ".5em",
+    }
+  }
+  title="Remove test filter"
+>
+  test
+   
+  <FontAwesome
+    name="times"
+  />
+</button>
+`;

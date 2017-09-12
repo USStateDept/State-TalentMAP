@@ -1,20 +1,27 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
-import PropTypes from 'prop-types';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
 
 const PositionTitle = ({ details, goBackLink }) => (
   <div className="position-details-header" style={{ overflow: 'hidden', backgroundColor: '#F2F2F2' }}>
     <div className="usa-grid" style={{ overflow: 'hidden' }}>
       <div className="usa-width-one-half">
         <div className="position-details-header-back">
-          { goBackLink && // if goBackLink is defined, render...
-          <div>
-            <FontAwesome name="arrow-left" />
-                &nbsp;
-            {goBackLink}
-          </div>
-              }
+          {
+            goBackLink.text && // if goBackLink.text is defined, render...
+            <div>
+              <FontAwesome name="arrow-left" />
+                  &nbsp;
+              <a
+                className="back-link"
+                tabIndex="0"
+                role="link"
+                onClick={() => window.history.back()}
+              >
+                {goBackLink.text}
+              </a>
+            </div>
+          }
         </div>
         <div className="position-details-header-title">
           <strong>Position Number: {details.position_number}</strong>
@@ -37,14 +44,14 @@ const PositionTitle = ({ details, goBackLink }) => (
     <img
       className="position-details-header-image"
       alt="department of state seal"
-      src="/assets/img/dos-seal-bw.png"
+      src="/assets/img/rsz_dos-seal-bw.png"
     />
   </div>
 );
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
-  goBackLink: PropTypes.node.isRequired,
+  goBackLink: GO_BACK_TO_LINK.isRequired,
 };
 
 PositionTitle.defaultProps = {

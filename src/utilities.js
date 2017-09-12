@@ -1,13 +1,3 @@
-import axios from 'axios';
-
-export const ajax = url => (
-  axios.get(url)
-    .then((res) => {
-      const data = res;
-      return data;
-    })
-);
-
 export function localStorageFetchValue(key, value) {
   const saved = { exists: true, count: 0 };
   const retrievedKey = localStorage.getItem(key);
@@ -28,7 +18,7 @@ export function localStorageFetchValue(key, value) {
 }
 
 export function localStorageToggleValue(key, value) {
-  const existingArray = JSON.parse(localStorage.getItem(key));
+  const existingArray = JSON.parse(localStorage.getItem(key)) || [];
   const indexOfId = existingArray.indexOf(value);
   if (indexOfId !== -1) {
     existingArray.splice(indexOfId, 1);
@@ -51,4 +41,63 @@ export function fetchUserToken() {
   return token;
 }
 
-export default ajax;
+// keep sort functions separate in case we want to adjust the logic for some but not others
+export const titleSort = (a, b) => {
+  const A = a.title.toLowerCase();
+  const B = b.title.toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+export const descriptionSort = (a, b) => {
+  const A = a.description.toLowerCase();
+  const B = b.description.toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+export const pillSort = (a, b) => {
+  const A = (a.description || a.code).toLowerCase();
+  const B = (b.description || b.code).toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+// function to find the Region filters
+export const formExploreRegionDropdown = (filters) => {
+  function filterRegion(filterItem) {
+    return (filterItem.item && filterItem.item.title === 'Region');
+  }
+  // set an array so we can render in case we don't find Region
+  let regions = [];
+  // find the Region filters
+  // use .filter and [0] instead of .find because .find breaks pa11y test
+  const foundRegion = filters.filter(filterRegion)[0];
+  // if found, set foundRegion to a copy of the data
+  if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
+  if (regions) {
+    regions.forEach((region, i) => {
+      // set up our prop names so that SelectForm can read them
+      regions[i].text = region.long_description;
+      regions[i].value = region.code;
+    });
+    // also add a placeholder to the top
+    regions.unshift(
+      {
+        text: 'Select a region',
+        value: '',
+        disabled: true,
+      },
+    );
+  }
+  return regions;
+};
