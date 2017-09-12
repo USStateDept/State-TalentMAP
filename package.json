@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-polyfill": "^6.26.0",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
     "prop-types": "^15.5.10",
@@ -87,7 +88,8 @@
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
-      "!src/registerServiceWorker.js"
+      "!src/registerServiceWorker.js",
+      "!src/Components/**/index.js"
     ],
     "coverageReporters": [
       "lcov"
