@@ -49,7 +49,7 @@
   }
 
   .condensed-card-bottom-container {
-    min-height: 176px;
+    min-height: 171px;
     padding: 18px;
     position: relative;
   }
@@ -66,6 +66,11 @@
 
 .condensed-card-first-big {
   float: left;
+
+  .bid-list-button {
+    bottom: unset;
+    position: unset;
+  }
 
   .condensed-card-top {
     min-height: 241px;
