@@ -7,6 +7,7 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 class Favorite extends Component {
   constructor(props) {
     super(props);
+    this.toggleSaved = this.toggleSaved.bind(this);
     this.state = {
       saved: false,
       localStorageKey: null,
@@ -43,7 +44,7 @@ class Favorite extends Component {
       // At the time of writing, CodeClimate's version of eslint-a11y-plugin
       // did not take role="button" into account with the following error:
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div tabIndex="0" title="Add to favorites" role="button" style={{ cursor: 'pointer' }} onClick={() => this.toggleSaved()}>
+      <div tabIndex="0" title="Add to favorites" role="button" style={{ cursor: 'pointer' }} onClick={this.toggleSaved}>
         <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}
       </div>
     );

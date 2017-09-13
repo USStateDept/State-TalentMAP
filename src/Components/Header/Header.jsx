@@ -98,7 +98,7 @@ export class Header extends Component {
                     <Link to="/">Profile</Link>
                   </li>
                   <li>
-                    <Link to="login" id="login-mobile" onClick={() => logout()}>Logout</Link>
+                    <Link to="login" id="login-mobile" onClick={logout}>Logout</Link>
                   </li>
                 </span>
                 <span className="desktop-nav-only">
