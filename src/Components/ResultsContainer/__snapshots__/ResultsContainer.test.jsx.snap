@@ -99,6 +99,12 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
   <div
     className="results-list-container"
   >
+    <Spinner
+      filled={false}
+      inverse={false}
+      size="big"
+      type="position-results"
+    />
     <ResultsList
       isLoading={false}
       onToggle={[Function]}
@@ -163,13 +169,6 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       }
     />
   </div>
-  <Loading
-    details={null}
-    errorMessage="An error has occured"
-    hasErrored={false}
-    isLoading={true}
-    loadingMessage="Loading..."
-  />
   <div
     className="usa-grid-full react-paginate"
   >

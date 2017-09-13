@@ -6,6 +6,7 @@ import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSea
 import Explore from '../../Components/Explore/Explore';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import PopularPositionsSection from '../../Components/PopularPositionsSection';
+import Spinner from '../../Components/Spinner';
 
 class HomePage extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class HomePage extends Component {
   }
 
   render() {
-    const { filters, homePagePositions } = this.props;
+    const { filters, homePagePositions,
+      homePagePositionsIsLoading, homePagePositionsHasErrored } = this.props;
     return (
       <div className="home">
         <div className="results results-search-bar-homepage">
@@ -39,7 +41,11 @@ class HomePage extends Component {
           filters={filters}
           onRegionSubmit={this.submitRegion}
         />
-        <div className="usa-grid-full positions-section">
+        <div className="usa-grid-full positions-section" style={{ position: 'relative' }}>
+          {
+            homePagePositionsIsLoading && !homePagePositionsHasErrored &&
+              <Spinner type="homepage-position-results" size="big" />
+          }
           <NewPositionsSection positions={homePagePositions.isNew} />
           <PopularPositionsSection positions={homePagePositions.isPopular} />
         </div>
@@ -52,6 +58,13 @@ HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   filters: ITEMS.isRequired,
   homePagePositions: HOME_PAGE_POSITIONS.isRequired,
+  homePagePositionsIsLoading: PropTypes.bool,
+  homePagePositionsHasErrored: PropTypes.bool,
+};
+
+HomePage.defaultProps = {
+  homePagePositionsIsLoading: true,
+  homePagePositionsHasErrored: false,
 };
 
 export default HomePage;
