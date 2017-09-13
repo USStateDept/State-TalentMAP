@@ -48,7 +48,7 @@ exports[`Header matches snapshot when logged in 1`] = `
         className="usa-nav-secondary"
       >
         <form
-          className="usa-search usa-search-small js-search-form usa-sr-only"
+          className="usa-search usa-search-small usa-sr-only"
         >
           <div
             role="search"
@@ -214,7 +214,7 @@ exports[`Header matches snapshot when logged out 1`] = `
         className="usa-nav-secondary"
       >
         <form
-          className="usa-search usa-search-small js-search-form usa-sr-only"
+          className="usa-search usa-search-small usa-sr-only"
         >
           <div
             role="search"
