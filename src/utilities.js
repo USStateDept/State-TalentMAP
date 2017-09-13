@@ -1,3 +1,7 @@
+import Scroll from 'react-scroll';
+
+const scroll = Scroll.animateScroll;
+
 export function localStorageFetchValue(key, value) {
   const saved = { exists: true, count: 0 };
   const retrievedKey = localStorage.getItem(key);
@@ -100,4 +104,12 @@ export const formExploreRegionDropdown = (filters) => {
     );
   }
   return regions;
+};
+
+export const scrollToTop = () => {
+  scroll.scrollToTop({
+    duration: 700,
+    delay: 270,
+    smooth: 'easeOutQuad',
+  });
 };
