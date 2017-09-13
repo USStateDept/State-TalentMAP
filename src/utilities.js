@@ -113,3 +113,7 @@ export const scrollToTop = () => {
     smooth: 'easeOutQuad',
   });
 };
+
+// when we want to grab a label, but aren't sure which one exists
+export const getItemLabel = itemData =>
+  itemData.long_description || itemData.description || itemData.code;

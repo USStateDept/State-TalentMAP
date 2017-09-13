@@ -7,6 +7,7 @@ import { validStateEmail,
          pillSort,
          formExploreRegionDropdown,
          scrollToTop,
+         getItemLabel,
        } from './utilities';
 
 describe('local storage', () => {
@@ -95,8 +96,9 @@ describe('sort functions', () => {
   });
 });
 
+const filters = [{ item: { title: 'Region' }, data: [{ long_description: 'regionA', code: 'code' }] }, { item: { title: 'Language' } }];
+
 describe('formExploreRegionDropdown function', () => {
-  const filters = [{ item: { title: 'Region' }, data: [{ long_description: 'regionA', code: 'code' }] }, { item: { title: 'Language' } }];
   const regions = formExploreRegionDropdown(filters);
 
   it('can filter for region', () => {
@@ -115,5 +117,13 @@ describe('formExploreRegionDropdown function', () => {
 describe('scrollToTop function', () => {
   it('can call the scrollToTop function', () => {
     scrollToTop();
+  });
+});
+
+describe('getItemLabel function', () => {
+  it('can can get an item label', () => {
+    expect(getItemLabel(filters[0].data[0])).toBe(filters[0].data[0].long_description);
+    expect(getItemLabel({ description: 'test' })).toBe('test');
+    expect(getItemLabel({ code: '0' })).toBe('0');
   });
 });

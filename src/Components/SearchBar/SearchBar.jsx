@@ -37,27 +37,29 @@ class SearchBar extends Component {
           name="search"
           placeholder={placeholder}
         />
-        <div id="enabled-search">
+        <div id={`enabled-search-${id}`}>
           { !noButton &&
           <button
-            id="enabled-search-button"
+            id={`enabled-search-button-${id}`}
             className={submitDisabled ? 'usa-button-disabled' : null}
             disabled={submitDisabled}
             type="submit"
+            title="submit search"
           >
             <span className="usa-search-submit-text">{showSubmitText ? submitText : null}</span>
             <span className="usa-sr-only">{showSubmitText ? submitText : 'Search'}</span>
           </button>
           }
         </div>
-        <div id="disabled-search" style={hidden}>
+        <div id={`disabled-search-${id}`} style={hidden}>
           {
             !noButton &&
             <button
               className="usa-button-disabled"
               disabled="true"
               type="submit"
-              id="disabled-search-button"
+              id={`disabled-search-button-${id}`}
+              title="search button disabled"
             >
               <span className="usa-search-submit-text usa-button-disabled">
                 {showSubmitText ? submitText : null}

@@ -6,7 +6,12 @@
 // footer nav
 .tm-footer-nav {
 
-  background-color: $color-gray-lighter;
+  background-color: $tm-dark-blue;
+  font-size: 19px;
+
+  .usa-footer-primary-link {
+    color: $color-white;
+  }
 
   li {
     line-height: 0;
