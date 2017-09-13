@@ -6,6 +6,11 @@ import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
 
 export class AccountDropdown extends Component {
 
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+
   logout() {
     this.props.logoutRequest();
   }
@@ -30,7 +35,7 @@ export class AccountDropdown extends Component {
             <Link to="/">Profile</Link>
           </div>
           <div className="account-dropdown--identity account-dropdown--segment">
-            <Link to="login" onClick={() => this.logout()}>Logout</Link>
+            <Link to="login" onClick={this.logout}>Logout</Link>
           </div>
         </DropdownContent>
       </Dropdown>

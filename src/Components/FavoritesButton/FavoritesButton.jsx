@@ -6,6 +6,7 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 class FavoritesButton extends Component {
   constructor(props) {
     super(props);
+    this.toggleSaved = this.toggleSaved.bind(this);
     this.state = {
       saved: false,
       localStorageKey: null,
@@ -61,7 +62,7 @@ class FavoritesButton extends Component {
         <button
           disabled={disabled}
           className={buttonClass}
-          onClick={() => this.toggleSaved()}
+          onClick={this.toggleSaved}
         >
           {buttonText}
         </button>
