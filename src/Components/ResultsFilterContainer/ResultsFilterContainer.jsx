@@ -35,8 +35,8 @@ const ResultsFilterContainer = ({ filters, onQueryParamUpdate, onChildToggle,
               onQueryParamUpdate(e);
               onChildToggle();
             }}
-            queryParamToggle={(p, v, r) => {
-              onQueryParamToggle(p, v, r);
+            queryParamToggle={(param, value, remove) => {
+              onQueryParamToggle(param, value, remove);
               onChildToggle();
             }}
             selectedAccordion={selectedAccordion}

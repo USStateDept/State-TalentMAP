@@ -197,7 +197,8 @@ class Results extends Component {
           resetFilters={() => this.resetFilters()}
           pillFilters={filters.mappedParams}
           filters={filters.filters}
-          onQueryParamToggle={(p, v, r) => this.onQueryParamToggle(p, v, r)}
+          onQueryParamToggle={(param, value, remove) =>
+            this.onQueryParamToggle(param, value, remove)}
           selectedAccordion={selectedAccordion}
           setAccordion={a => setAccordion(a)}
         />
