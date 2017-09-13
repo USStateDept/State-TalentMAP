@@ -106,10 +106,13 @@ export const formExploreRegionDropdown = (filters) => {
   return regions;
 };
 
-export const scrollToTop = () => {
-  scroll.scrollToTop({
-    duration: 700,
-    delay: 270,
-    smooth: 'easeOutQuad',
-  });
+// see all props at https://github.com/fisshy/react-scroll#propsoptions
+const defaultScrollConfig = {
+  duration: 700,
+  delay: 270,
+  smooth: 'easeOutQuad',
+};
+
+export const scrollToTop = (config = defaultScrollConfig) => {
+  scroll.scrollToTop(config);
 };
