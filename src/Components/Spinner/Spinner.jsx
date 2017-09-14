@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 
 const Spinner = ({ type, size, color, filled, inverse }) => (
   <div className={`tm-spinner tm-spinner-${type}`}>
-    <span className={
-      `ds-c-spinner
-      ${size ? `ds-c-spinner--${size}` : ''}
-      ${filled ? 'ds-c-spinner--filled' : ''}
-      ${inverse ? 'ds-u-fill--background-inverse ds-u-color--base-inverse' : ''}
-      ${color ? `ds-u-color--${color}` : ''}`
+    <span
+      className={
+        `ds-c-spinner
+        ${size ? `ds-c-spinner--${size}` : ''}
+        ${filled ? 'ds-c-spinner--filled' : ''}
+        ${inverse ? 'ds-u-fill--background-inverse ds-u-color--base-inverse' : ''}
+        ${color ? `ds-u-color--${color}` : ''}`
       }
     />
   </div>

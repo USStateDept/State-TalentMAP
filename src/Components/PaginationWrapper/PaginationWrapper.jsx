@@ -27,7 +27,8 @@ const PaginationWrapper = ({
         marginPagesDisplayed={marginPagesDisplayed}
         pageRangeDisplayed={pageRangeDisplayed}
         onPageChange={(e) => {
-          e.selected += 1; onPageChange({ page: e.selected }); /* reconciles zero-base */
+          /* reconciles zero-base */
+          const selected = e.selected + 1; onPageChange({ page: selected });
         }}
         containerClassName={containerClassName}
         subContainerClassName={subContainerClassName}
