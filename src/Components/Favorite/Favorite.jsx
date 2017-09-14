@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
 class Favorite extends Component {
 
@@ -53,9 +54,9 @@ class Favorite extends Component {
 
 Favorite.propTypes = {
   onToggle: PropTypes.func.isRequired,
-  refKey: PropTypes.string.isRequired,
+  refKey: PropTypes.node.isRequired,
   hideText: PropTypes.bool,
-  compareArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+  compareArray: FAVORITE_POSITIONS_ARRAY.isRequired,
   isLoading: PropTypes.bool,
 };
 

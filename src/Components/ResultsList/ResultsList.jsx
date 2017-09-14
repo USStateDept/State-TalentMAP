@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCard from '../../Components/ResultsCard/ResultsCard';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
 const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
                        userProfileFavoritePositionIsLoading,
@@ -28,7 +28,7 @@ ResultsList.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func,
   isLoading: PropTypes.bool,
-  favorites: PropTypes.arrayOf(PropTypes.string).isRequired,
+  favorites: FAVORITE_POSITIONS_ARRAY,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
@@ -38,6 +38,7 @@ ResultsList.defaultProps = {
   results: { results: [] },
   onToggle: EMPTY_FUNCTION,
   isLoading: false,
+  favorites: [],
 };
 
 export default ResultsList;

@@ -8,6 +8,7 @@ exports[`PopularPositionsCardListComponent matches snapshot 1`] = `
     className="usa-width-one-third condensed-card"
   >
     <ResultsCondensedCard
+      favorites={Array []}
       position={
         Object {
           "bureau": "150000",
@@ -56,6 +57,7 @@ exports[`PopularPositionsCardListComponent matches snapshot 1`] = `
     className="usa-width-one-third condensed-card"
   >
     <ResultsCondensedCard
+      favorites={Array []}
       position={
         Object {
           "bureau": "150000",

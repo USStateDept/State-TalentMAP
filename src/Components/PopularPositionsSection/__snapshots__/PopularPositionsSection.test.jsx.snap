@@ -18,6 +18,7 @@ exports[`PopularPositionsSectionComponent matches snapshot 1`] = `
     viewMoreLink="/results"
   />
   <PopularPositionsCardList
+    favorites={Array []}
     positions={
       Array [
         Object {

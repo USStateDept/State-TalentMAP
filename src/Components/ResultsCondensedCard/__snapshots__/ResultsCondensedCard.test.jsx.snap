@@ -5,6 +5,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-inner"
 >
   <ResultsCondensedCardTop
+    favorites={Array []}
     position={
       Object {
         "bureau": "150000",

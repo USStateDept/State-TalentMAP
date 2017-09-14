@@ -18,10 +18,10 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
       className="results-card-favorite"
     >
       <Favorite
+        compareArray={Array []}
         hideText={false}
-        onToggle={[Function]}
-        refKey="00025003"
-        type="fav"
+        isLoading={false}
+        refKey={6}
       />
     </div>
   </div>

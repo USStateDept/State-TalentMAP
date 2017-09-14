@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
 class FavoritesButton extends Component {
   constructor(props) {
@@ -51,7 +52,7 @@ class FavoritesButton extends Component {
 FavoritesButton.propTypes = {
   onToggle: PropTypes.func.isRequired,
   refKey: PropTypes.number.isRequired,
-  compareArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+  compareArray: FAVORITE_POSITIONS_ARRAY.isRequired,
   isLoading: PropTypes.bool,
 };
 

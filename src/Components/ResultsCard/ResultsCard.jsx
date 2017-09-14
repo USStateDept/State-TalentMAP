@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import Favorite from '../Favorite/Favorite';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import ResultsCardDataSection from '../ResultsCardDataSection/ResultsCardDataSection';
@@ -50,10 +50,14 @@ const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
 ResultsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   onToggle: PropTypes.func.isRequired,
-  favorites: PropTypes.arrayOf(PropTypes.string).isRequired,
+  favorites: FAVORITE_POSITIONS_ARRAY,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+};
+
+ResultsCard.defaultProps = {
+  favorites: [],
 };
 
 export default ResultsCard;

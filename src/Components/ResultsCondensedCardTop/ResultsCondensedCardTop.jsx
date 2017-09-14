@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import ResultsNewFlag from '../ResultsNewFlag';
 import Favorite from '../Favorite/Favorite';
 import * as SystemMessages from '../../Constants/SystemMessages';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
 const ResultsCondensedCardTop = ({ type, position, toggleFavorite, favorites,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => (
@@ -40,7 +40,7 @@ const ResultsCondensedCardTop = ({ type, position, toggleFavorite, favorites,
 ResultsCondensedCardTop.propTypes = {
   type: PropTypes.string,
   position: POSITION_DETAILS.isRequired,
-  favorites: PropTypes.arrayOf(PropTypes.string).isRequired,
+  favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,

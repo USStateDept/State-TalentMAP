@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
-import { POSITION_DETAILS_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
 const PopularPositionsCardList = ({ positions, toggleFavorite, favorites,
     userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
@@ -26,7 +26,7 @@ const PopularPositionsCardList = ({ positions, toggleFavorite, favorites,
 
 PopularPositionsCardList.propTypes = {
   positions: POSITION_DETAILS_ARRAY,
-  favorites: PropTypes.arrayOf(PropTypes.string).isRequired,
+  favorites: FAVORITE_POSITIONS_ARRAY,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
@@ -34,6 +34,7 @@ PopularPositionsCardList.propTypes = {
 
 PopularPositionsCardList.defaultProps = {
   positions: [],
+  favorites: [],
 };
 
 export default PopularPositionsCardList;

@@ -106,6 +106,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       type="position-results"
     />
     <ResultsList
+      favorites={Array []}
       isLoading={false}
       onToggle={[Function]}
       results={
