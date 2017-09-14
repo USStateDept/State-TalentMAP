@@ -28,7 +28,7 @@ class Results extends Component {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
             defaultPageNumber, onQueryParamUpdate, filters,
-            selectedAccordion, setAccordion }
+            selectedAccordion, setAccordion, scrollToTop }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -73,6 +73,7 @@ class Results extends Component {
             onToggle={this.onChildToggle}
             pillFilters={pillFilters}
             onQueryParamToggle={onQueryParamToggle}
+            scrollToTop={scrollToTop}
           />
         </div>
       </div>
@@ -98,6 +99,7 @@ Results.propTypes = {
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
   filters: ITEMS,
+  scrollToTop: PropTypes.func,
 };
 
 Results.defaultProps = {
@@ -113,6 +115,7 @@ Results.defaultProps = {
   pillFilters: [],
   selectedAccordion: ACCORDION_SELECTION,
   filters: [],
+  scrollToTop: EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {

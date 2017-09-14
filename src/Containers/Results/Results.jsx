@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
+import { scrollToTop } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
@@ -15,6 +16,9 @@ import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort
 class Results extends Component {
   constructor(props) {
     super(props);
+    this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
+    this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
+    this.resetFilters = this.resetFilters.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -191,16 +195,16 @@ class Results extends Component {
           pageSizes={POSITION_PAGE_SIZES}
           defaultPageSize={this.state.defaultPageSize.value}
           defaultPageNumber={this.state.defaultPageNumber.value}
-          onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
+          onQueryParamUpdate={this.onQueryParamUpdate}
           defaultKeyword={this.state.defaultKeyword.value}
           defaultLocation={this.state.defaultLocation.value}
-          resetFilters={() => this.resetFilters()}
+          resetFilters={this.resetFilters}
           pillFilters={filters.mappedParams}
           filters={filters.filters}
-          onQueryParamToggle={(param, value, remove) =>
-            this.onQueryParamToggle(param, value, remove)}
+          onQueryParamToggle={this.onQueryParamToggle}
           selectedAccordion={selectedAccordion}
-          setAccordion={a => setAccordion(a)}
+          setAccordion={setAccordion}
+          scrollToTop={scrollToTop}
         />
       </div>
     );

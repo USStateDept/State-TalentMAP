@@ -10,7 +10,7 @@ import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
         defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters,
-        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
+        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle, scrollToTop,
   }) => (
     <div className="results-container">
       <ResultsPillContainer
@@ -57,7 +57,11 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
        <div className="usa-grid-full react-paginate">
          <PaginationWrapper
            pageCount={pageCount}
-           onPageChange={queryParamUpdate}
+           onPageChange={(q) => {
+             queryParamUpdate(q);
+             scrollToTop();
+           }
+           }
            forcePage={defaultPageNumber}
          />
        </div>
@@ -81,6 +85,7 @@ ResultsContainer.propTypes = {
   onToggle: PropTypes.func.isRequired,
   refreshKey: PropTypes.number, // refresh components that rely on local storage
   pillFilters: PILL_ITEM_ARRAY,
+  scrollToTop: PropTypes.func,
 };
 
 ResultsContainer.defaultProps = {
@@ -93,6 +98,7 @@ ResultsContainer.defaultProps = {
   defaultPageNumber: 0,
   refreshKey: 0,
   pillFilters: [],
+  scrollToTop: EMPTY_FUNCTION,
 };
 
 export default ResultsContainer;
