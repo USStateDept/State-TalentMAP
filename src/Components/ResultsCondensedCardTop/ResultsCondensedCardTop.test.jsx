@@ -35,4 +35,16 @@ describe('ResultsCondensedCardTopComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('can receive alternate props', () => {
+    const position = resultsObject.results[0];
+    position.update_date = null;
+    const wrapper = shallow(
+      <ResultsCondensedCardTop
+        position={position}
+        type={'popular'}
+      />,
+    );
+    expect(wrapper.instance().props.type).toBe('popular');
+  });
 });
