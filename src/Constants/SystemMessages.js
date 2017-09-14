@@ -12,3 +12,4 @@ export const NO_LAST_UPDATED_DATE = 'Unknown';
 export const NO_POSITION_TITLE = DEFAULT_TEXT;
 export const NO_SKILL = DEFAULT_TEXT;
 export const NO_GRADE = DEFAULT_TEXT;
+export const NO_POSITION_DESCRIPTION = 'There is no description for this position';

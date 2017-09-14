@@ -1,6 +1,8 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
+import * as SystemMessages from '../../Constants/SystemMessages';
+import { shortenString } from '../../utilities';
 
 const PositionTitle = ({ details, goBackLink }) => (
   <div className="position-details-header" style={{ overflow: 'hidden', backgroundColor: '#F2F2F2' }}>
@@ -28,11 +30,12 @@ const PositionTitle = ({ details, goBackLink }) => (
         </div>
         <p className="position-details-header-body">
           <strong>Description: </strong>
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              Lorem Ipsum has been the industry standard dummy text
-              ever since the 1500s, when an unknown printer
-              took a galley of type and scrambled it to make...
-          </p>
+          {
+            details.description && details.description.content ?
+              shortenString(details.description.content) :
+              SystemMessages.NO_POSITION_DESCRIPTION
+          }
+        </p>
         <div className="usa-width-one-half position-details-header-body">
           <strong>Post website:</strong> <a href="https://www.state.gov">www.state.gov</a>
         </div>

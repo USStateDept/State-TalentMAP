@@ -105,3 +105,15 @@ export const formExploreRegionDropdown = (filters) => {
 // when we want to grab a label, but aren't sure which one exists
 export const getItemLabel = itemData =>
   itemData.long_description || itemData.description || itemData.code;
+
+// shortens descriptions to varying lengths
+export const shortenString = (string, shortenBy = 250) => {
+  let newString = string;
+  if (string.length > shortenBy) {
+    newString = string.slice(0, shortenBy); // shorten by shortenBy
+    newString = newString.trim(); // in case the last character(s) was whitespace
+    newString += '...'; // append ellipsis
+    return newString; // return newly formed string
+  }
+  return newString;
+};

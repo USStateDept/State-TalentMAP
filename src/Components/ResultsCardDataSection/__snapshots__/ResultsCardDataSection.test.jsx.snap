@@ -48,7 +48,7 @@ exports[`ResultsCardDataSectionComponent matches snapshot 1`] = `
             },
             Object {
               "description": "Description",
-              "text": "Lorem ipsum lorem",
+              "text": "There is no description for this position",
             },
           ]
         }
