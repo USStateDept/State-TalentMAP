@@ -12,6 +12,11 @@ describe('SystemMessages', () => {
       'NO_BUREAU',
       'NO_ORG',
       'NO_REST_RELAXATION',
+      'NO_LAST_UPDATED_DATE',
+      'NO_POSITION_TITLE',
+      'NO_SKILL',
+      'NO_GRADE',
+      'NO_POSITION_DESCRIPTION',
     ];
     expectedMessages.forEach((msg) => {
       expect(SystemMessages[msg]).toBeDefined();

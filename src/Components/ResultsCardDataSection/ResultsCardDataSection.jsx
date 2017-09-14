@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import * as SystemMessages from '../../Constants/SystemMessages';
 import ResultsCardDataItem from '../ResultsCardDataItem/ResultsCardDataItem';
+import { shortenString } from '../../utilities';
 
 const ResultsCardDataSection = ({ result }) => (
   <div>
@@ -31,7 +32,9 @@ const ResultsCardDataSection = ({ result }) => (
             { description: 'Skill', text: result.skill },
             { description: 'Grade', text: result.grade },
             { description: 'Description',
-              text: 'Lorem ipsum lorem' },
+              text: result.description && result.description.content ?
+                shortenString(result.description.content, 35) :
+                SystemMessages.NO_POSITION_DESCRIPTION },
           ]
           }
         />

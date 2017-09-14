@@ -6,12 +6,10 @@ import PositionTitle from './PositionTitle';
 import detailsObject from '../../__mocks__/detailsObject';
 
 describe('PositionTitleComponent', () => {
-  let wrapper = null;
-
   const goBackLink = { text: 'Go back text', link: '/link' };
 
   it('can receive props', () => {
-    wrapper = shallow(
+    const wrapper = shallow(
       <PositionTitle
         details={detailsObject}
         isLoading={false}
@@ -23,7 +21,7 @@ describe('PositionTitleComponent', () => {
   });
 
   it('matches snapshot', () => {
-    wrapper = shallow(
+    const wrapper = shallow(
       <PositionTitle
         details={detailsObject}
         isLoading={false}
@@ -35,9 +33,10 @@ describe('PositionTitleComponent', () => {
   });
 
   it('handles different props and different position objects', () => {
-    Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
+    Object.assign(detailsObject,
+      { desription: null, languages: [], post: null, is_overseas: false });
 
-    wrapper = shallow(
+    const wrapper = shallow(
       <PositionTitle
         details={detailsObject}
         isLoading={false}
@@ -51,7 +50,7 @@ describe('PositionTitleComponent', () => {
   it('handles different types of position objects', () => {
     Object.assign(detailsObject, { languages: [], is_overseas: true });
 
-    wrapper = shallow(
+    const wrapper = shallow(
       <PositionTitle
         details={detailsObject}
         isLoading
@@ -63,7 +62,7 @@ describe('PositionTitleComponent', () => {
   });
 
   it('displays go back link text', () => {
-    wrapper = shallow(
+    const wrapper = shallow(
       <PositionTitle
         details={detailsObject}
         isLoading={false}
@@ -77,7 +76,7 @@ describe('PositionTitleComponent', () => {
 
   it('handles go back link click', () => {
     const stub = sinon.stub(window.history, 'back');
-    wrapper = shallow(
+    const wrapper = shallow(
       <PositionTitle
         details={detailsObject}
         isLoading={false}

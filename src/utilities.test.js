@@ -8,6 +8,7 @@ import { validStateEmail,
          formExploreRegionDropdown,
          scrollToTop,
          getItemLabel,
+         shortenString,
        } from './utilities';
 
 describe('local storage', () => {
@@ -125,5 +126,12 @@ describe('getItemLabel function', () => {
     expect(getItemLabel(filters[0].data[0])).toBe(filters[0].data[0].long_description);
     expect(getItemLabel({ description: 'test' })).toBe('test');
     expect(getItemLabel({ code: '0' })).toBe('0');
+  });
+});
+
+describe('shortenString function', () => {
+  it('can shorten a string', () => {
+    const string = '012345';
+    expect(shortenString(string, 3)).toBe('012...');
   });
 });
