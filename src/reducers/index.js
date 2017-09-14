@@ -10,7 +10,8 @@ import { share, shareHasErrored, shareIsSending } from './share';
 import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
 import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
-import { userProfile, userProfileHasErrored, userProfileIsLoading } from './userProfile';
+import { userProfile, userProfileHasErrored, userProfileIsLoading,
+        userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -40,6 +41,8 @@ export default combineReducers({
   userProfile,
   userProfileHasErrored,
   userProfileIsLoading,
+  userProfileFavoritePositionIsLoading,
+  userProfileFavoritePositionHasErrored,
   form,
   client,
   login,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE,
   SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, ITEMS } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
@@ -27,8 +27,9 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
-            defaultPageNumber, onQueryParamUpdate, filters,
-            selectedAccordion, setAccordion, scrollToTop }
+            defaultPageNumber, onQueryParamUpdate, filters, userProfile, toggleFavorite,
+            selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
+            userProfileFavoritePositionHasErrored }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -74,6 +75,10 @@ class Results extends Component {
             pillFilters={pillFilters}
             onQueryParamToggle={onQueryParamToggle}
             scrollToTop={scrollToTop}
+            userProfile={userProfile}
+            toggleFavorite={toggleFavorite}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           />
         </div>
       </div>
@@ -100,6 +105,10 @@ Results.propTypes = {
   setAccordion: PropTypes.func.isRequired,
   filters: ITEMS,
   scrollToTop: PropTypes.func,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 Results.defaultProps = {
@@ -116,6 +125,7 @@ Results.defaultProps = {
   selectedAccordion: ACCORDION_SELECTION,
   filters: [],
   scrollToTop: EMPTY_FUNCTION,
+  userProfile: {},
 };
 
 Results.contextTypes = {
