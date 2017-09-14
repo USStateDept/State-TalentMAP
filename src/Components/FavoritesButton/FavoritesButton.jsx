@@ -1,66 +1,43 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { localStorageFetchValue, localStorageToggleValue } from '../../utilities';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class FavoritesButton extends Component {
   constructor(props) {
     super(props);
     this.toggleSaved = this.toggleSaved.bind(this);
-    this.state = {
-      saved: false,
-      localStorageKey: null,
-      count: 0,
-    };
-  }
-
-  componentWillMount() {
-    const localStorageKey = this.props.type;
-    this.setState({ localStorageKey });
-  }
-
-  componentDidMount() {
-    this.getSaved();
-  }
-
-  onToggle() {
-    this.props.onToggle();
-  }
-
-  getSaved() {
-    const saved = localStorageFetchValue(this.state.localStorageKey, this.props.refKey);
-    this.setState({ saved: saved.exists, count: saved.count });
   }
 
   getSavedState() {
-    return this.state.saved;
-  }
-
-  exceedsLimit() {
-    return this.state.count >= this.props.limit;
+    // Is the refKey in the array? If so, return true
+    const { compareArray, refKey } = this.props;
+    let found = false;
+    compareArray.forEach((item) => {
+      if (item.id === refKey) {
+        found = true;
+      }
+    });
+    return found;
   }
 
   toggleSaved() {
-    localStorageToggleValue(this.state.localStorageKey, this.props.refKey);
-    this.setState({ saved: !this.state.saved });
-    this.onToggle();
+    const { onToggle, refKey } = this.props;
+    // pass the key and the "remove" param
+    onToggle(refKey, this.getSavedState());
   }
 
   render() {
-    let fromText = null;
-    if (this.props.type === 'fav') {
-      fromText = 'Favorites';
-    } else if (this.props.type === 'compare') {
-      fromText = 'Comparison';
-    }
-    let buttonClass = this.state.saved ? 'usa-button-secondary' : '';
-    buttonClass = this.exceedsLimit() && !this.state.saved ? 'usa-button-disabled' : buttonClass;
-    const buttonText = this.getSavedState() ? `Remove from ${fromText}` : `Add to ${fromText}`;
-    const disabled = this.exceedsLimit() && !this.state.saved;
+    const fromText = 'Favorites';
+    const savedState = this.getSavedState();
+    const buttonClass = savedState ? 'usa-button-secondary' : '';
+    const buttonText = savedState ? `Remove from ${fromText}` : `Add to ${fromText}`;
+    const style = {
+      pointerEvents: this.props.isLoading ? 'none' : 'inherit',
+      cursor: 'pointer',
+    };
     return (
-      <div>
+      <div style={style}>
         <button
-          disabled={disabled}
+          disabled={this.props.isLoading}
           className={buttonClass}
           onClick={this.toggleSaved}
         >
@@ -72,15 +49,16 @@ class FavoritesButton extends Component {
 }
 
 FavoritesButton.propTypes = {
-  refKey: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  limit: PropTypes.number,
-  onToggle: PropTypes.func,
+  onToggle: PropTypes.func.isRequired,
+  refKey: PropTypes.number.isRequired,
+  compareArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isLoading: PropTypes.bool,
 };
 
 FavoritesButton.defaultProps = {
-  limit: 99,
-  onToggle: EMPTY_FUNCTION,
+  hideText: false,
+  isLoading: false,
+  compareArray: [],
 };
 
 export default FavoritesButton;

@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
 import { POSITION_DETAILS_ARRAY } from '../../Constants/PropTypes';
 
-const NewPositionsCardList = ({ positions }) => {
+const NewPositionsCardList = ({ positions, toggleFavorite, favorites,
+  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
   const positionList = [];
 
   // Form positions into component and push them to array.
@@ -11,7 +13,13 @@ const NewPositionsCardList = ({ positions }) => {
   positions.forEach((p) => {
     positionList.push(
       <div className="usa-width-one-whole condensed-card">
-        <ResultsCondensedCard position={p} />
+        <ResultsCondensedCard
+          favorites={favorites}
+          toggleFavorite={toggleFavorite}
+          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+          position={p}
+        />
       </div>,
     );
   });
@@ -35,6 +43,10 @@ const NewPositionsCardList = ({ positions }) => {
 
 NewPositionsCardList.propTypes = {
   positions: POSITION_DETAILS_ARRAY.isRequired,
+  favorites: PropTypes.arrayOf(PropTypes.string).isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 NewPositionsCardList.defaultProps = {

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { filtersFetchData } from '../../actions/filters';
+import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import HomePage from '../../Containers/HomePage/HomePage';
-import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS } from '../../Constants/PropTypes';
+import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
@@ -39,7 +40,10 @@ class Home extends Component {
 
   render() {
     const { onNavigateTo, items, homePagePositions,
-      homePagePositionsHasErrored, homePagePositionsIsLoading } = this.props;
+      homePagePositionsHasErrored, homePagePositionsIsLoading,
+      userProfile, toggleFavorite,
+      userProfileFavoritePositionIsLoading,
+      userProfileFavoritePositionHasErrored } = this.props;
     return (
       <div>
         <HomePage
@@ -48,6 +52,10 @@ class Home extends Component {
           homePagePositions={homePagePositions}
           homePagePositionsHasErrored={homePagePositionsHasErrored}
           homePagePositionsIsLoading={homePagePositionsIsLoading}
+          userProfile={userProfile}
+          toggleFavorite={toggleFavorite}
+          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         />
       </div>
     );
@@ -63,6 +71,10 @@ Home.propTypes = {
   homePagePositions: HOME_PAGE_POSITIONS,
   homePagePositionsHasErrored: PropTypes.bool,
   homePagePositionsIsLoading: PropTypes.bool,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 Home.defaultProps = {
@@ -74,6 +86,9 @@ Home.defaultProps = {
   homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
   homePagePositionsHasErrored: false,
   homePagePositionsIsLoading: true,
+  userProfile: {},
+  userProfileFavoritePositionIsLoading: false,
+  userProfileFavoritePositionHasErrored: false,
 };
 
 const mapStateToProps = state => ({
@@ -83,12 +98,16 @@ const mapStateToProps = state => ({
   homePagePositions: state.homePagePositions,
   homePagePositionsHasErrored: state.homePagePositionsHasErrored,
   homePagePositionsIsLoading: state.homePagePositionsIsLoading,
+  userProfile: state.userProfile,
+  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
+  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: items => dispatch(filtersFetchData(items)),
   homePagePositionsFetchData: () => dispatch(homePagePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
+  toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

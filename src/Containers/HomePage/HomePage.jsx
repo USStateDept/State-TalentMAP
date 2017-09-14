@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ITEMS, HOME_PAGE_POSITIONS } from '../../Constants/PropTypes';
+import { ITEMS, HOME_PAGE_POSITIONS, USER_PROFILE } from '../../Constants/PropTypes';
 import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
@@ -29,7 +29,10 @@ class HomePage extends Component {
 
   render() {
     const { filters, homePagePositions,
-      homePagePositionsIsLoading, homePagePositionsHasErrored } = this.props;
+      homePagePositionsIsLoading, homePagePositionsHasErrored,
+      userProfile, toggleFavorite,
+      userProfileFavoritePositionIsLoading,
+      userProfileFavoritePositionHasErrored } = this.props;
     return (
       <div className="home">
         <div className="results results-search-bar-homepage">
@@ -46,8 +49,20 @@ class HomePage extends Component {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&
               <Spinner type="homepage-position-results" size="big" />
           }
-          <NewPositionsSection positions={homePagePositions.isNew} />
-          <PopularPositionsSection positions={homePagePositions.isPopular} />
+          <NewPositionsSection
+            favorites={userProfile.favorite_positions}
+            toggleFavorite={toggleFavorite}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+            positions={homePagePositions.isNew}
+          />
+          <PopularPositionsSection
+            favorites={userProfile.favorite_positions}
+            toggleFavorite={toggleFavorite}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+            positions={homePagePositions.isPopular}
+          />
         </div>
       </div>
     );
@@ -60,11 +75,16 @@ HomePage.propTypes = {
   homePagePositions: HOME_PAGE_POSITIONS.isRequired,
   homePagePositionsIsLoading: PropTypes.bool,
   homePagePositionsHasErrored: PropTypes.bool,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 HomePage.defaultProps = {
   homePagePositionsIsLoading: true,
   homePagePositionsHasErrored: false,
+  userProfile: {},
 };
 
 export default HomePage;

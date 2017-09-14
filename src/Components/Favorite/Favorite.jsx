@@ -62,6 +62,7 @@ Favorite.propTypes = {
 Favorite.defaultProps = {
   hideText: false,
   isLoading: false,
+  compareArray: [],
 };
 
 export default Favorite;
