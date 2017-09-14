@@ -1,6 +1,7 @@
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import sinon from 'sinon';
 import BooleanFilterContainer from './BooleanFilterContainer';
 
 describe('BooleanFilterContainerComponent', () => {
@@ -27,5 +28,17 @@ describe('BooleanFilterContainerComponent', () => {
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('can handle click events', () => {
+    const onClick = sinon.spy();
+    const wrapper = mount(
+      <BooleanFilterContainer
+        onBooleanFilterClick={onClick}
+        filters={items}
+      />,
+    );
+    wrapper.find('input').simulate('change', { target: { checked: true } });
+    expect(onClick.calledOnce).toBe(true);
   });
 });
