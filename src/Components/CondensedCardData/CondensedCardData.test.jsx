@@ -34,7 +34,7 @@ describe('CondensedCardDataComponent', () => {
   });
 
   it('can display system defaults', () => {
-    let position = resultsObject.results[0];
+    const position = resultsObject.results[0];
     position.post = null;
     position.skill = null;
     position.grade = null;
@@ -44,6 +44,6 @@ describe('CondensedCardDataComponent', () => {
         position={position}
       />,
     );
-    expect(wrapper.instance().props.position.id).toBe(resultsObject.results[0].id);
+    expect(wrapper.find('.condensed-card-data div strong').first().text()).toBe(SystemMessages.NO_POSITION_TITLE);
   });
 });
