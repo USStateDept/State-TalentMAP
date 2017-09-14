@@ -6,6 +6,7 @@ import { validStateEmail,
          titleSort,
          pillSort,
          formExploreRegionDropdown,
+         scrollToTop,
          getItemLabel,
        } from './utilities';
 
@@ -110,6 +111,12 @@ describe('formExploreRegionDropdown function', () => {
 
   it('can the placeholder object to the beginning of the array', () => {
     expect(regions[0].disabled).toBe(true);
+  });
+});
+
+describe('scrollToTop function', () => {
+  it('can call the scrollToTop function', () => {
+    scrollToTop();
   });
 });
 

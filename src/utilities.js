@@ -1,3 +1,7 @@
+import Scroll from 'react-scroll';
+
+const scroll = Scroll.animateScroll;
+
 export function localStorageFetchValue(key, value) {
   const saved = { exists: true, count: 0 };
   const retrievedKey = localStorage.getItem(key);
@@ -100,6 +104,17 @@ export const formExploreRegionDropdown = (filters) => {
     );
   }
   return regions;
+};
+
+// see all props at https://github.com/fisshy/react-scroll#propsoptions
+const defaultScrollConfig = {
+  duration: 700,
+  delay: 270,
+  smooth: 'easeOutQuad',
+};
+
+export const scrollToTop = (config = defaultScrollConfig) => {
+  scroll.scrollToTop(config);
 };
 
 // when we want to grab a label, but aren't sure which one exists

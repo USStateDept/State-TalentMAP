@@ -18,6 +18,7 @@
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
     "react-router-redux": "^5.0.0-alpha.6",
+    "react-scroll": "^1.5.4",
     "react-simple-dropdown": "^3.0.0",
     "redux": "^3.7.1",
     "redux-form": "^7.0.1",
