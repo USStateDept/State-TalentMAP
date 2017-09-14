@@ -8,7 +8,7 @@ const ResultsList = ({ results, onToggle, isLoading }) => {
   return (
     <div className={isLoading ? 'results-loading' : null}>
       { mapResults.map(result => (
-        <ResultsCard key={result.id} result={result} onToggle={() => onToggle()} />
+        <ResultsCard key={result.id} result={result} onToggle={onToggle} />
           ))}
     </div>
   );

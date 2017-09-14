@@ -91,7 +91,7 @@ class SearchFiltersContainer extends Component {
             (<MultiSelectFilter
               key={item.item.title}
               item={item}
-              queryParamToggle={(v, p, r) => { this.props.queryParamToggle(v, p, r); }}
+              queryParamToggle={this.props.queryParamToggle}
             />),
             title: item.item.title,
             id: `accordion-${item.item.title}`,
