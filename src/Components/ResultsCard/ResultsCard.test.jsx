@@ -12,23 +12,50 @@ describe('ResultsCardComponent', () => {
 
   it('is defined', () => {
     result = TestUtils.renderIntoDocument(<MemoryRouter>
-      <ResultsCard result={resultsObject.results[0]} onToggle={() => {}} />
+      <ResultsCard
+        result={resultsObject.results[0]}
+        onToggle={() => {}}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+      />
     </MemoryRouter>);
     expect(result).toBeDefined();
   });
 
   it('can receive props', () => {
-    wrapper = shallow(<ResultsCard result={resultsObject.results[0]} onToggle={() => {}} />);
+    wrapper = shallow(
+      <ResultsCard
+        result={resultsObject.results[0]}
+        onToggle={() => {}}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+      />);
     expect(wrapper.instance().props.result.id).toBe(6);
   });
 
   it('can receive different types of results', () => {
-    wrapper = shallow(<ResultsCard result={resultsObject.results[1]} onToggle={() => {}} />);
+    wrapper = shallow(
+      <ResultsCard
+        result={resultsObject.results[1]}
+        onToggle={() => {}}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+      />);
     expect(wrapper.instance().props.result.id).toBe(60);
   });
 
   it('matches snapshot', () => {
-    wrapper = shallow(<ResultsCard result={resultsObject.results[0]} onToggle={() => {}} />);
+    wrapper = shallow(
+      <ResultsCard
+        result={resultsObject.results[0]}
+        onToggle={() => {}}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+      />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

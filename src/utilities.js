@@ -132,3 +132,14 @@ export const shortenString = (string, shortenBy = 250) => {
   }
   return newString;
 };
+
+// for checking if a favorite_position exists in the user's profile
+export const existsInArray = (ref, array) => {
+  let found = false;
+  array.forEach((i) => {
+    if (i.id === ref) {
+      found = true;
+    }
+  });
+  return found;
+};

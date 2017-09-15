@@ -33,6 +33,9 @@ describe('ResultsControlsComponent', () => {
         pageCount={pageCount}
         hasLoaded={hasLoaded}
         onToggle={onToggle}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />
     </MemoryRouter>);
     expect(wrapper).toBeDefined();
@@ -48,6 +51,9 @@ describe('ResultsControlsComponent', () => {
       pageCount={pageCount}
       hasLoaded={hasLoaded}
       onToggle={onToggle}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -62,6 +68,9 @@ describe('ResultsControlsComponent', () => {
       pageCount={20}
       hasLoaded={false}
       onToggle={onToggle}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
   });
@@ -76,6 +85,9 @@ describe('ResultsControlsComponent', () => {
       pageCount={pageCount}
       hasLoaded={hasLoaded}
       onToggle={onToggle}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

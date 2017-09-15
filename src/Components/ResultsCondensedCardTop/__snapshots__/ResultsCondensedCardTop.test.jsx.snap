@@ -16,10 +16,12 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
       className="condensed-card-top-header condensed-card-top-header-right"
     >
       <Favorite
+        compareArray={Array []}
+        hasErrored={false}
         hideText={true}
+        isLoading={false}
         onToggle={[Function]}
-        refKey="00025003"
-        type="fav"
+        refKey={6}
       />
     </div>
   </div>

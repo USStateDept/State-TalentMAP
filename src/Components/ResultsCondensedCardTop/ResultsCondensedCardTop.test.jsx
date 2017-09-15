@@ -6,11 +6,16 @@ import resultsObject from '../../__mocks__/resultsObject';
 
 describe('ResultsCondensedCardTopComponent', () => {
   const type = 'new';
+  const favorites = [];
   it('is defined', () => {
     const wrapper = shallow(
       <ResultsCondensedCardTop
         position={resultsObject.results[0]}
         type={type}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        favorites={favorites}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -21,6 +26,10 @@ describe('ResultsCondensedCardTopComponent', () => {
       <ResultsCondensedCardTop
         position={resultsObject.results[0]}
         type={type}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        favorites={favorites}
       />,
     );
     expect(wrapper.instance().props.type).toBe(type);
@@ -31,6 +40,10 @@ describe('ResultsCondensedCardTopComponent', () => {
       <ResultsCondensedCardTop
         position={resultsObject.results[0]}
         type={type}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        favorites={favorites}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -43,6 +56,10 @@ describe('ResultsCondensedCardTopComponent', () => {
       <ResultsCondensedCardTop
         position={position}
         type={'popular'}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        favorites={favorites}
       />,
     );
     expect(wrapper.instance().props.type).toBe('popular');

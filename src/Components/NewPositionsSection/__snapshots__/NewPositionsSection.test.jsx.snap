@@ -18,6 +18,7 @@ exports[`NewPositionsSectionComponent matches snapshot 1`] = `
     viewMoreLink="/results?ordering=create_date"
   />
   <NewPositionsCardList
+    favorites={Array []}
     positions={
       Array [
         Object {
@@ -74,6 +75,9 @@ exports[`NewPositionsSectionComponent matches snapshot 1`] = `
         },
       ]
     }
+    toggleFavorite={[Function]}
+    userProfileFavoritePositionHasErrored={false}
+    userProfileFavoritePositionIsLoading={false}
   />
 </div>
 `;
