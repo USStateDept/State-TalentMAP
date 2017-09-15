@@ -121,15 +121,24 @@ export const scrollToTop = (config = defaultScrollConfig) => {
 export const getItemLabel = itemData =>
   itemData.long_description || itemData.description || itemData.code;
 
-// shortens descriptions to varying lengths
-export const shortenString = (string, shortenBy = 250) => {
+// abcde 4 // a...
+// Shortens strings to varying lengths
+export const shortenString = (string, shortenTo = 250) => {
   let newString = string;
-  if (string.length > shortenBy) {
-    newString = string.slice(0, shortenBy); // shorten by shortenBy
-    newString = newString.trim(); // in case the last character(s) was whitespace
-    newString += '...'; // append ellipsis
-    return newString; // return newly formed string
+  // return the suffix even if the shortenTo is less than its length
+  const suffix = '...';
+  if (shortenTo < suffix.length) {
+    return suffix;
   }
+  if (string.length > shortenTo) {
+    // shorten to the shortenTo param, less the length of our suffix
+    newString = string.slice(0, shortenTo - suffix.length);
+    // in case the last character(s) was whitespace
+    newString = newString.trim();
+    // append suffix
+    newString += suffix;
+  }
+  // return the string
   return newString;
 };
 

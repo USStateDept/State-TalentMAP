@@ -132,6 +132,12 @@ describe('getItemLabel function', () => {
 describe('shortenString function', () => {
   it('can shorten a string', () => {
     const string = '012345';
-    expect(shortenString(string, 3)).toBe('012...');
+    expect(shortenString(string, 0)).toBe('...');
+    expect(shortenString(string, 2)).toBe('...');
+    expect(shortenString(string, 3)).toBe('...');
+    expect(shortenString(string, 4)).toBe('0...');
+    expect(shortenString(string, 5)).toBe('01...');
+    expect(shortenString(string, 6)).toBe('012345');
+    expect(shortenString(string, 7)).toBe('012345');
   });
 });
