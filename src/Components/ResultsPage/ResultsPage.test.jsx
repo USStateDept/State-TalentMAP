@@ -35,6 +35,9 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -54,6 +57,9 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -72,6 +78,9 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -89,6 +98,9 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

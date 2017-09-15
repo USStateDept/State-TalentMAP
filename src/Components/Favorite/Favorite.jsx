@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { existsInArray } from '../../utilities';
 
 class Favorite extends Component {
 
@@ -13,13 +14,7 @@ class Favorite extends Component {
   getSavedState() {
     // Is the refKey in the array? If so, return true
     const { compareArray, refKey } = this.props;
-    let found = false;
-    compareArray.forEach((item) => {
-      if (item.id === refKey) {
-        found = true;
-      }
-    });
-    return found;
+    return existsInArray(refKey, compareArray);
   }
 
   toggleSaved() {

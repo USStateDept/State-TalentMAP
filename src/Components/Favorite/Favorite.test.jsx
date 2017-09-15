@@ -1,48 +1,39 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 import TestUtils from 'react-dom/test-utils';
+import toJSON from 'enzyme-to-json';
 import Favorite from './Favorite';
 
 describe('Favorite', () => {
-  let favorite = null;
-
-  beforeEach(() => {
-    favorite = TestUtils.renderIntoDocument(<Favorite refKey="0036" type="fav" />);
-  });
+  const refKey = 36;
 
   it('is defined', () => {
+    const favorite = TestUtils.renderIntoDocument(
+      <Favorite
+        compareArray={[]}
+        refKey={refKey}
+        onToggle={() => {}}
+      />);
     expect(favorite).toBeDefined();
   });
 
-  it('can accept different kinds of props', () => {
+  it('can handle being in the enabled state', () => {
+    const spy = sinon.spy();
     const wrapper = shallow(
-      <Favorite refKey="0037" type="compare" />,
-     );
-    expect(wrapper).toBeDefined();
-    const favoriteOther = shallow(
-      <Favorite refKey="0037" type="other" />,
-     );
-    expect(favoriteOther).toBeDefined();
+      <Favorite onToggle={spy} compareArray={[{ id: refKey }]} refKey={refKey} />);
+    expect(wrapper.find('.usa-button-secondary')).toBeDefined();
   });
 
-  it('can add a favorite', () => {
-    const wrapper = shallow(<Favorite refKey="0036" />);
+  it('can call the onToggle function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<Favorite onToggle={spy} compareArray={[]} refKey={refKey} />);
     wrapper.find('div').simulate('click');
-    expect(wrapper.instance().state.saved).toBe(true);
+    sinon.assert.calledOnce(spy);
   });
 
-  it('can add and remove a favorite', () => {
-    const wrapper = shallow(<Favorite refKey="0037" />);
-    wrapper.find('div').simulate('click');
-    expect(wrapper.instance().state.saved).toBe(true);
-    wrapper.find('div').simulate('click');
-    expect(wrapper.instance().state.saved).toBe(false);
-  });
-
-  it('can handle count key in state', () => {
-    const wrapper = shallow(<Favorite refKey="0038" />);
-    wrapper.instance().state.len = 100000; // greater than default limit
-    wrapper.find('div').simulate('click');
-    expect(wrapper.instance().state.saved).toBe(true);
+  it('matches snapshot', () => {
+    const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[]} refKey={refKey} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

@@ -63,8 +63,8 @@ Position.propTypes = {
   routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool,
+  userProfileFavoritePositionHasErrored: PropTypes.bool,
 };
 
 Position.defaultProps = {
@@ -74,6 +74,8 @@ Position.defaultProps = {
   isLoading: true,
   routerLocations: [],
   userProfile: {},
+  userProfileFavoritePositionIsLoading: true,
+  userProfileFavoritePositionHasErrored: false,
 };
 
 const mapStateToProps = (state, ownProps) => ({

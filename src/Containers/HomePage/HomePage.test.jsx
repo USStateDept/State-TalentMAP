@@ -21,6 +21,9 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={() => {}}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -30,6 +33,9 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={() => {}}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
   });
@@ -40,6 +46,9 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={spy}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     wrapper.instance().props.onNavigateTo();
     sinon.assert.calledOnce(spy);
@@ -52,6 +61,9 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={(q) => { nav.value = q; }}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     wrapper.instance().submitSearch({ q: text });
     expect(nav.value).toEqual(`/results?q=${text}`);
@@ -64,6 +76,9 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={(q) => { nav.value = q; }}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     wrapper.instance().submitRegion(text);
     expect(nav.value).toEqual(`/results?${ENDPOINT_PARAMS.org}=${text}`);

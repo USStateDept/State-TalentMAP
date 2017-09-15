@@ -24,14 +24,14 @@ export function userProfileFetchDataSuccess(userProfile) {
 export function userProfileFavoritePositionIsLoading(bool) {
   return {
     type: 'USER_PROFILE_FAVORITE_POSITION_IS_LOADING',
-    isLoading: bool,
+    userProfileFavoritePositionIsLoading: bool,
   };
 }
 // when adding or removing a favorite has errored
 export function userProfileFavoritePositionHasErrored(bool) {
   return {
     type: 'USER_PROFILE_FAVORITE_POSITION_HAS_ERRORED',
-    isLoading: bool,
+    userProfileFavoritePositionHasErrored: bool,
   };
 }
 

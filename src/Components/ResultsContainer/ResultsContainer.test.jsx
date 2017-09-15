@@ -34,6 +34,9 @@ describe('ResultsContainerComponent', () => {
         hasLoaded={hasLoaded}
         onToggle={onToggle}
         onQueryParamToggle={() => {}}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />
     </MemoryRouter>);
     expect(wrapper).toBeDefined();
@@ -50,6 +53,9 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -65,6 +71,9 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={false}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
   });
@@ -80,6 +89,9 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

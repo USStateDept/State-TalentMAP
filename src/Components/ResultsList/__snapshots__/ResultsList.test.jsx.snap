@@ -54,6 +54,9 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08",
       }
     }
+    toggleFavorite={[Function]}
+    userProfileFavoritePositionHasErrored={false}
+    userProfileFavoritePositionIsLoading={false}
   />
   <ResultsCard
     favorites={Array []}
@@ -73,6 +76,9 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08",
       }
     }
+    toggleFavorite={[Function]}
+    userProfileFavoritePositionHasErrored={false}
+    userProfileFavoritePositionIsLoading={false}
   />
 </div>
 `;

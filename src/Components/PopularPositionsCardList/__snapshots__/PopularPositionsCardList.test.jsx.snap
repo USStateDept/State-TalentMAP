@@ -50,7 +50,10 @@ exports[`PopularPositionsCardListComponent matches snapshot 1`] = `
           "update_date": "2017-06-08",
         }
       }
+      toggleFavorite={[Function]}
       type="popular"
+      userProfileFavoritePositionHasErrored={false}
+      userProfileFavoritePositionIsLoading={false}
     />
   </div>
   <div
@@ -73,7 +76,10 @@ exports[`PopularPositionsCardListComponent matches snapshot 1`] = `
           "update_date": "2017-06-08",
         }
       }
+      toggleFavorite={[Function]}
       type="popular"
+      userProfileFavoritePositionHasErrored={false}
+      userProfileFavoritePositionIsLoading={false}
     />
   </div>
 </div>

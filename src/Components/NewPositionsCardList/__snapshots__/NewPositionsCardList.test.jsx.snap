@@ -53,7 +53,10 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
             "update_date": "2017-06-08",
           }
         }
+        toggleFavorite={[Function]}
         type="new"
+        userProfileFavoritePositionHasErrored={false}
+        userProfileFavoritePositionIsLoading={false}
       />
     </div>
   </div>
@@ -80,7 +83,10 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
             "update_date": "2017-06-08",
           }
         }
+        toggleFavorite={[Function]}
         type="new"
+        userProfileFavoritePositionHasErrored={false}
+        userProfileFavoritePositionIsLoading={false}
       />
     </div>
   </div>

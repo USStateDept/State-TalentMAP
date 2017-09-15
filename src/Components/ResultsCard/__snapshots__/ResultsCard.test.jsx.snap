@@ -19,8 +19,10 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
     >
       <Favorite
         compareArray={Array []}
+        hasErrored={false}
         hideText={false}
         isLoading={false}
+        onToggle={[Function]}
         refKey={6}
       />
     </div>

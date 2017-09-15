@@ -14,7 +14,12 @@ const mockStore = configureStore(middlewares);
 describe('Results', () => {
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => true} onNavigateTo={() => {}} setAccordion={() => {}} />
+      <Results
+        isAuthorized={() => true}
+        onNavigateTo={() => {}}
+        setAccordion={() => {}}
+        toggleFavorite={() => {}}
+      />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
@@ -35,6 +40,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     // define the instance
@@ -55,6 +61,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     // define the instance
@@ -80,6 +87,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     // define the instance
@@ -106,6 +114,7 @@ describe('Results', () => {
         fetchFilters={spy}
         setAccordion={() => {}}
         filters={{ hasFetched: true }}
+        toggleFavorite={() => {}}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
@@ -120,6 +129,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     // define the instance
@@ -139,6 +149,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -163,6 +174,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -187,6 +199,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -211,6 +224,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
+        toggleFavorite={() => {}}
       />,
     );
     const history = { value: { search: null } };
