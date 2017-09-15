@@ -29,6 +29,7 @@ class Favorite extends Component {
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
       cursor: 'pointer',
+      float: 'right',
     };
     return (
       // At the time of writing, CodeClimate's version of eslint-a11y-plugin
