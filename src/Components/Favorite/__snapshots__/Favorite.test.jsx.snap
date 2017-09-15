@@ -7,6 +7,7 @@ exports[`Favorite matches snapshot 1`] = `
   style={
     Object {
       "cursor": "pointer",
+      "float": "right",
       "pointerEvents": "inherit",
     }
   }
