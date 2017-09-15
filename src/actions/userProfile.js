@@ -74,7 +74,7 @@ export function userProfileToggleFavoritePosition(id, remove) {
               favorites = favorites.map(f => f.id.toString());
               // the index of the position in question
               const indexOfFavorite = favorites.indexOf(idString);
-              // did we explicitly called to remove this position?
+              // did we explicitly call to remove this position?
               if (remove) {
                 // and does the id actually exist in the array? if so, remove it
                 if (indexOfFavorite > -1) {
