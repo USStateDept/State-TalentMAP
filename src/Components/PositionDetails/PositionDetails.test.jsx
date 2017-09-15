@@ -15,6 +15,9 @@ describe('PositionDetailsComponent', () => {
         isLoading={false}
         hasErrored={false}
         goBackLink={goBackLink}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -29,6 +32,9 @@ describe('PositionDetailsComponent', () => {
         isLoading={false}
         hasErrored={false}
         goBackLink={goBackLink}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -43,6 +49,9 @@ describe('PositionDetailsComponent', () => {
         isLoading
         hasErrored={false}
         goBackLink={goBackLink}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);

@@ -120,6 +120,13 @@ export const SORT_BY_PARENT_OBJECT = PropTypes.shape({
 
 export const COMPARE_LIST = PropTypes.arrayOf(POSITION_DETAILS);
 
+export const FAVORITE_POSITION = PropTypes.shape({
+  id: PropTypes.number,
+  representation: PropTypes.string,
+});
+
+export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
+
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
   user: PropTypes.shape({
@@ -131,9 +138,7 @@ export const USER_PROFILE = PropTypes.shape({
   language_qualifications: PropTypes.arrayOf(
     PropTypes.number,
   ),
-  favorite_positions: PropTypes.arrayOf(
-    PropTypes.number,
-  ),
+  favorite_positions: FAVORITE_POSITIONS_ARRAY,
   received_shares: PropTypes.arrayOf(
     PropTypes.number,
   ),

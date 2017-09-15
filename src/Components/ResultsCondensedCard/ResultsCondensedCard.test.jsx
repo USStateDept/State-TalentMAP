@@ -11,6 +11,9 @@ describe('ResultsCondensedCardComponent', () => {
       <ResultsCondensedCard
         position={resultsObject.results[0]}
         type={type}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -21,6 +24,9 @@ describe('ResultsCondensedCardComponent', () => {
       <ResultsCondensedCard
         position={resultsObject.results[0]}
         type={type}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(wrapper.instance().props.type).toBe(type);
@@ -31,6 +37,9 @@ describe('ResultsCondensedCardComponent', () => {
       <ResultsCondensedCard
         position={resultsObject.results[0]}
         type={type}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

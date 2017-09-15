@@ -2,15 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
+         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
-        defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters,
+        defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
         defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle, scrollToTop,
+        toggleFavorite, userProfileFavoritePositionIsLoading,
+        userProfileFavoritePositionHasErrored,
   }) => (
     <div className="results-container">
       <ResultsPillContainer
@@ -45,6 +48,10 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
             onToggle={onToggle}
             results={results}
             isLoading={!hasLoaded}
+            favorites={userProfile.favorite_positions}
+            toggleFavorite={toggleFavorite}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           />
         </div>
       }
@@ -86,6 +93,10 @@ ResultsContainer.propTypes = {
   refreshKey: PropTypes.number, // refresh components that rely on local storage
   pillFilters: PILL_ITEM_ARRAY,
   scrollToTop: PropTypes.func,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 ResultsContainer.defaultProps = {
@@ -99,6 +110,7 @@ ResultsContainer.defaultProps = {
   refreshKey: 0,
   pillFilters: [],
   scrollToTop: EMPTY_FUNCTION,
+  userProfile: {},
 };
 
 export default ResultsContainer;

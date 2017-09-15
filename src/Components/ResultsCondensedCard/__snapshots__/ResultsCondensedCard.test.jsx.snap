@@ -5,6 +5,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-inner"
 >
   <ResultsCondensedCardTop
+    favorites={Array []}
     position={
       Object {
         "bureau": "150000",
@@ -46,7 +47,10 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
         "update_date": "2017-06-08",
       }
     }
+    toggleFavorite={[Function]}
     type="new"
+    userProfileFavoritePositionHasErrored={false}
+    userProfileFavoritePositionIsLoading={false}
   />
   <div
     className="condensed-card-bottom-container"

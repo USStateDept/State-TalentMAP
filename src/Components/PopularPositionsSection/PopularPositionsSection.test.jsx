@@ -9,6 +9,9 @@ describe('PopularPositionsSectionComponent', () => {
     const wrapper = shallow(
       <PopularPositionsSection
         positions={resultsObject.results}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -18,6 +21,9 @@ describe('PopularPositionsSectionComponent', () => {
     const wrapper = shallow(
       <PopularPositionsSection
         positions={resultsObject.results}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(wrapper.instance().props.positions[0].id).toBe(resultsObject.results[0].id);
@@ -27,6 +33,9 @@ describe('PopularPositionsSectionComponent', () => {
     const wrapper = shallow(
       <PopularPositionsSection
         positions={resultsObject.results}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
