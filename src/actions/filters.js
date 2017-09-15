@@ -61,7 +61,8 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                   };
                   responses.filters.forEach((filterItem, i) => {
                     filterItem.data.forEach((filterItemObject, ii) => {
-                      if (filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
+                      if (filterItemObject.code &&
+                          filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
                           filterItem.item.selectionRef === mappedObject.selectionRef) {
                         responses.filters[i].data[ii].isSelected = true;
                         if ( // boolean filters are special since they don't rely on AJAX

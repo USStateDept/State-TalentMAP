@@ -66,7 +66,7 @@ export class Header extends Component {
               <img src={close} alt="close" />
             </button>
             <div className="usa-nav-secondary">
-              <form className="usa-search usa-search-small js-search-form usa-sr-only">
+              <form className="usa-search usa-search-small usa-sr-only">
                 <div role="search">
                   <label className="usa-sr-only" htmlFor="search-field-small">Search small</label>
                   <input id="search-field-small" type="search" name="search-small" />
@@ -98,7 +98,7 @@ export class Header extends Component {
                     <Link to="/">Profile</Link>
                   </li>
                   <li>
-                    <Link to="login" id="login-mobile" onClick={() => logout()}>Logout</Link>
+                    <Link to="login" id="login-mobile" onClick={logout}>Logout</Link>
                   </li>
                 </span>
                 <span className="desktop-nav-only">

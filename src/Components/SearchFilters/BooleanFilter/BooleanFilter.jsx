@@ -5,25 +5,23 @@ import FieldSet from '../../FieldSet/FieldSet';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 
 const BooleanFilter = ({ item, onBooleanFilterClick }) => (
-  <div>
-    <FieldSet key={item.item.title} legend={item.item.title}>
-      <CheckBox
-        id={`checkbox-${item.item.title}`}
-        label="Yes"
-        title={item.item.title}
-        name={item.item.title}
-        value={item.data[0].isSelected || false}
-        selectionRef={item.item.selectionRef}
-        onCheckBoxClick={
+  <FieldSet key={item.item.title} legend={item.item.title}>
+    <CheckBox
+      id={`checkbox-${item.item.title}`}
+      label="Yes"
+      title={item.item.title}
+      name={item.item.title}
+      value={item.data[0].isSelected || false}
+      selectionRef={item.item.selectionRef}
+      onCheckBoxClick={
           (e) => {
             onBooleanFilterClick(
               e, item.data[0].code, item.item.selectionRef, item.data[0].isSelected,
             );
           }
         }
-      />
-    </FieldSet>
-  </div>
+    />
+  </FieldSet>
 );
 
 BooleanFilter.propTypes = {

@@ -14,7 +14,7 @@ const PillList = ({ items, onPillClick }) => (
             description={item.description}
             codeRef={item.codeRef}
             selectionRef={item.selectionRef}
-            onPillClick={(p, v, r) => onPillClick(p, v, r)}
+            onPillClick={onPillClick}
           />),
         )
     }

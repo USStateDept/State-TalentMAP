@@ -12,20 +12,16 @@ exports[`ResultsCardDataSectionComponent matches snapshot 1`] = `
         items={
           Array [
             Object {
-              "description": "Organization",
-              "text": "YAOUNDE CAMEROON (YAOUNDE)",
-            },
-            Object {
               "description": "Post",
-              "text": "None listed",
-            },
-            Object {
-              "description": "Post Differential",
               "text": "None listed",
             },
             Object {
               "description": "Bureau",
               "text": "150000",
+            },
+            Object {
+              "description": "Post Differential",
+              "text": "None listed",
             },
           ]
         }
@@ -43,16 +39,16 @@ exports[`ResultsCardDataSectionComponent matches snapshot 1`] = `
         items={
           Array [
             Object {
-              "description": "Grade",
-              "text": "03",
-            },
-            Object {
               "description": "Skill",
               "text": "OFFICE MANAGEMENT (9017)",
             },
             Object {
+              "description": "Grade",
+              "text": "03",
+            },
+            Object {
               "description": "Description",
-              "text": "Lorem ipsum lorem",
+              "text": "There is no description for this position",
             },
           ]
         }

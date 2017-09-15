@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
-import Loading from '../Loading/Loading';
+import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
         defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters,
-        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
+        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle, scrollToTop,
   }) => (
     <div className="results-container">
       <ResultsPillContainer
@@ -36,6 +36,10 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
       }
       {
         <div className="results-list-container">
+          {
+            isLoading && !hasErrored &&
+              <Spinner size="big" type="position-results" />
+          }
           <ResultsList
             key={refreshKey}
             onToggle={onToggle}
@@ -43,9 +47,6 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
             isLoading={!hasLoaded}
           />
         </div>
-      }
-      {
-        <Loading isLoading={isLoading} hasErrored={hasErrored} />
       }
       {
        // if there's no results, don't show pagination
@@ -56,7 +57,11 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
        <div className="usa-grid-full react-paginate">
          <PaginationWrapper
            pageCount={pageCount}
-           onPageChange={queryParamUpdate}
+           onPageChange={(q) => {
+             queryParamUpdate(q);
+             scrollToTop();
+           }
+           }
            forcePage={defaultPageNumber}
          />
        </div>
@@ -80,6 +85,7 @@ ResultsContainer.propTypes = {
   onToggle: PropTypes.func.isRequired,
   refreshKey: PropTypes.number, // refresh components that rely on local storage
   pillFilters: PILL_ITEM_ARRAY,
+  scrollToTop: PropTypes.func,
 };
 
 ResultsContainer.defaultProps = {
@@ -92,6 +98,7 @@ ResultsContainer.defaultProps = {
   defaultPageNumber: 0,
   refreshKey: 0,
   pillFilters: [],
+  scrollToTop: EMPTY_FUNCTION,
 };
 
 export default ResultsContainer;

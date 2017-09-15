@@ -5,13 +5,14 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
   className="usa-search usa-search-big"
 >
   <div
+    className="usa-grid-full"
     role="search"
   >
     <form
       onSubmit={[Function]}
     >
       <div
-        className="label-input-wrapper"
+        className="usa-grid-full label-input-wrapper"
       >
         <label
           className="usa-sr-only"
@@ -28,12 +29,13 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
           value=""
         />
         <div
-          id="enabled-search"
+          id="enabled-search-search-2"
         >
           <button
             className={null}
             disabled={false}
-            id="enabled-search-button"
+            id="enabled-search-button-search-2"
+            title="submit search"
             type="submit"
           >
             <span
@@ -49,7 +51,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
           </button>
         </div>
         <div
-          id="disabled-search"
+          id="disabled-search-search-2"
           style={
             Object {
               "display": "none",
@@ -59,7 +61,8 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
           <button
             className="usa-button-disabled"
             disabled="true"
-            id="disabled-search-button"
+            id="disabled-search-button-search-2"
+            title="search button disabled"
             type="submit"
           >
             <span
@@ -85,13 +88,14 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
   className="usa-search usa-search-medium"
 >
   <div
+    className="usa-grid-full"
     role="search"
   >
     <form
       onSubmit={[Function]}
     >
       <div
-        className="label-input-wrapper"
+        className="usa-grid-full label-input-wrapper"
       >
         <label
           className="usa-sr-only"
@@ -108,12 +112,13 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
           value=""
         />
         <div
-          id="enabled-search"
+          id="enabled-search-search-2"
         >
           <button
             className={null}
             disabled={false}
-            id="enabled-search-button"
+            id="enabled-search-button-search-2"
+            title="submit search"
             type="submit"
           >
             <span
@@ -129,7 +134,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
           </button>
         </div>
         <div
-          id="disabled-search"
+          id="disabled-search-search-2"
           style={
             Object {
               "display": "none",
@@ -139,7 +144,8 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
           <button
             className="usa-button-disabled"
             disabled="true"
-            id="disabled-search-button"
+            id="disabled-search-button-search-2"
+            title="search button disabled"
             type="submit"
           >
             <span
@@ -165,13 +171,14 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
   className="usa-search usa-search-small"
 >
   <div
+    className="usa-grid-full"
     role="search"
   >
     <form
       onSubmit={[Function]}
     >
       <div
-        className="label-input-wrapper"
+        className="usa-grid-full label-input-wrapper"
       >
         <label
           className="usa-sr-only"
@@ -188,12 +195,13 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
           value=""
         />
         <div
-          id="enabled-search"
+          id="enabled-search-search-2"
         >
           <button
             className={null}
             disabled={false}
-            id="enabled-search-button"
+            id="enabled-search-button-search-2"
+            title="submit search"
             type="submit"
           >
             <span
@@ -207,7 +215,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
           </button>
         </div>
         <div
-          id="disabled-search"
+          id="disabled-search-search-2"
           style={
             Object {
               "display": "none",
@@ -217,7 +225,8 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
           <button
             className="usa-button-disabled"
             disabled="true"
-            id="disabled-search-button"
+            id="disabled-search-button-search-2"
+            title="search button disabled"
             type="submit"
           >
             <span

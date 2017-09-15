@@ -12,34 +12,34 @@ describe('ResultsSearchHeaderComponent', () => {
 
   it('is defined', () => {
     wrapper = shallow(<ResultsSearchHeader
-      queryParamUpdate={() => {}}
+      onUpdate={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
 
   it('can receive props', () => {
     wrapper = shallow(<ResultsSearchHeader
-      queryParamUpdate={() => {}}
+      onUpdate={() => {}}
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
     expect(wrapper.instance().props.defaultKeyword).toBe(defaultKeyword);
   });
 
-  it('can call the queryParamUpdate function', () => {
+  it('can call the onUpdate function', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader
-      queryParamUpdate={spy}
+      onUpdate={spy}
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
-    wrapper.instance().props.queryParamUpdate();
+    wrapper.instance().props.onUpdate();
     expect(spy.calledOnce).toBe(true);
   });
 
   it('can call the changeText function', () => {
     wrapper = shallow(<ResultsSearchHeader
-      queryParamUpdate={() => {}}
+      onUpdate={() => {}}
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
@@ -50,7 +50,7 @@ describe('ResultsSearchHeaderComponent', () => {
   it('can submit a search', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader
-      queryParamUpdate={spy}
+      onUpdate={spy}
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
@@ -61,7 +61,7 @@ describe('ResultsSearchHeaderComponent', () => {
   it('can call the submitSearch function', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader
-      queryParamUpdate={spy}
+      onUpdate={spy}
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
@@ -71,7 +71,7 @@ describe('ResultsSearchHeaderComponent', () => {
 
   it('matches snapshot', () => {
     wrapper = shallow(<ResultsSearchHeader
-      queryParamUpdate={() => {}}
+      onUpdate={() => {}}
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);

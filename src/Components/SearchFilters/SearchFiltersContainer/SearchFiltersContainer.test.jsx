@@ -54,7 +54,59 @@ describe('SearchFiltersContainerComponent', () => {
         filters={items}
       />,
     );
+
+    // check the filter
     wrapper.instance().onBooleanFilterClick(true, '0', 'skill');
     expect(toggleValue.value.skill).toBe('0');
+
+    // un-check the filter
+    wrapper.instance().onBooleanFilterClick(false, '0', 'skill');
+    expect(toggleValue.value.skill).toBe('');
+  });
+
+  it('contains Language', () => {
+    const filters = [{
+      item: { title: 'language', selectionRef: 'ref', description: 'language' },
+    }];
+
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        queryParamUpdate={() => {}}
+        queryParamToggle={() => {}}
+        selectedAccordion={accordion}
+        setAccordion={() => {}}
+        filters={filters}
+      />,
+    );
+    expect(wrapper.instance().props.filters[0].item.description).toBe('language');
+  });
+
+  it('contains Skills', () => {
+    const filters = [{
+      item: { title: 'skill', selectionRef: 'ref', description: 'skill' },
+      data: [
+        {
+          id: 1,
+          code: '001',
+          description: 'SKILL 1',
+        },
+        {
+          id: 2,
+          code: '002',
+          description: 'SKILL 2',
+        },
+      ],
+    }];
+
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        queryParamUpdate={() => {}}
+        queryParamToggle={() => {}}
+        selectedAccordion={accordion}
+        setAccordion={() => {}}
+        filters={filters}
+      />,
+    );
+    expect(wrapper.instance().props.filters[0].item.description).toBe('skill');
   });
 });

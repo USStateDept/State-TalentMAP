@@ -2,24 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import SearchBar from '../SearchBar/SearchBar';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 import ResetFilters from '../ResetFilters/ResetFilters';
 
 const ResultsFilterContainer = ({ filters, onQueryParamUpdate, onChildToggle,
   onQueryParamToggle, resetFilters, setAccordion, selectedAccordion }) => (
     <div className="filter-container">
-      <div className="usa-grid-full filter-container-top">
-          Keywords
-        </div>
-      <div className="usa-grid-full filter-container-search">
-        <SearchBar
-          id="searchbar-filter-container"
-          type="small"
-          submitText="search"
-          placeholder="Position, Region, Posts"
-        />
-      </div>
       <div className="filter-container-bottom">
         <div className="filter-control-container">
           <div className="filter-control-left">Select Filter</div>
@@ -35,8 +23,8 @@ const ResultsFilterContainer = ({ filters, onQueryParamUpdate, onChildToggle,
               onQueryParamUpdate(e);
               onChildToggle();
             }}
-            queryParamToggle={(p, v, r) => {
-              onQueryParamToggle(p, v, r);
+            queryParamToggle={(param, value, remove) => {
+              onQueryParamToggle(param, value, remove);
               onChildToggle();
             }}
             selectedAccordion={selectedAccordion}
