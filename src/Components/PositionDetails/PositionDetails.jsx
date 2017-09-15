@@ -18,11 +18,12 @@ const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
       <div>
         <PositionTitle details={details} goBackLink={goBackLink} />
         <PositionDetailsItem details={details} />
-        <PositionAdditionalDetails content={
-          details.description && details.description.content ?
-          details.description.content :
-          SystemMessages.NO_POSITION_DESCRIPTION
-        }
+        <PositionAdditionalDetails
+          content={
+            details.description && details.description.content ?
+            details.description.content :
+            SystemMessages.NO_POSITION_DESCRIPTION
+          }
         />
         <div className="usa-grid">
           {
