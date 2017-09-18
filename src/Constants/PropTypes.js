@@ -4,7 +4,7 @@ export const LANGUAGES = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number,
     language: PropTypes.string,
-    written_proficiency: PropTypes.string,
+    reading_proficiency: PropTypes.string,
     spoken_proficiency: PropTypes.string,
     representation: PropTypes.string,
   }),

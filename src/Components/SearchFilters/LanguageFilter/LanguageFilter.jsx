@@ -24,8 +24,8 @@ const LanguageFilter = ({ item, setAccordion, selectedAccordion }) => (
                 options={Proficiencies}
               />
               <SelectForm
-                id={`written-${itemData.short_description}-dropdown`}
-                label="Written"
+                id={`reading-${itemData.short_description}-dropdown`}
+                label="Reading"
                 options={Proficiencies}
               />
             </AccordionItem>

@@ -66,8 +66,8 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
     />
     <SelectForm
       defaultSort=""
-      id="written-language-dropdown"
-      label="Written"
+      id="reading-language-dropdown"
+      label="Reading"
       languages={Array []}
       onSelectOption={[Function]}
       options={
