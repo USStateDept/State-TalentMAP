@@ -69,21 +69,19 @@ export function userProfileToggleFavoritePosition(id, remove) {
     axios.get(`${api}/profile/`, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then((userProfile) => {
-              // the user's refreshed favorites
-              let favorites = userProfile.favorite_positions;
-              // map down to an array of IDs
-              favorites = favorites.map(f => f.id.toString());
+              // the user's refreshed favorites, mapped down to an array of IDs
+              const favorites = userProfile.favorite_positions.map(f => f.id.toString());
               // convert the array to a Set
-              favorites = new Set(favorites);
+              const favoritesSet = new Set(favorites);
               // did we explicitly call to remove this position?
               if (remove) {
                 // if so, remove it
-                favorites.delete(idString);
+                favoritesSet.delete(idString);
               } else if (!remove) { // did we call to add the position?
-                favorites.add(idString);
+                favoritesSet.add(idString);
               }
               // make sure we have a clean object with no other params
-              const favoritesObject = Object.assign({}, { favorite_positions: favorites });
+              const favoritesObject = Object.assign({}, { favorite_positions: favoritesSet });
               // now we can patch our profile with the new favorites
               axios.patch(`${api}/profile/`, favoritesObject, { headers: { Authorization: fetchUserToken() } })
                       .then(() => {
