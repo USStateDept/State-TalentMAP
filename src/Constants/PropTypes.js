@@ -169,4 +169,8 @@ export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
   sub: PropTypes.string,
 });
 
+export const REGION_SELECTION = PropTypes.shape({
+  value: PropTypes.string,
+});
+
 export const EMPTY_FUNCTION = () => {};
