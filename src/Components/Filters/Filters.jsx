@@ -140,14 +140,14 @@ class Filters extends Component {
                         {choice.short_description}
                       </label>
                       <div>
-                      Written
+                      Reading
                       <div className="button_wrapper">
                         {[1, 2, 3, 4, 5].map(a => (
                           <button
-                            key={`${choice.short_description}-written-${a}`}
-                            id={`${choice.short_description}-written-${a}`}
-                            className={this.state.proficiency[`${choice.short_description}-written`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
-                            onClick={() => this.changeProficiency(`${choice.short_description}-written`, a.toString(), choice.code)}
+                            key={`${choice.short_description}-reading-${a}`}
+                            id={`${choice.short_description}-reading-${a}`}
+                            className={this.state.proficiency[`${choice.short_description}-reading`] === a.toString() ? 'usa-button-primary-alt usa-button-active' : 'usa-button-primary-alt'}
+                            onClick={() => this.changeProficiency(`${choice.short_description}-reading`, a.toString(), choice.code)}
                           >
                             {a}
                           </button>
