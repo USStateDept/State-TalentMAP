@@ -58,7 +58,7 @@ const items =
           title: 'Bureau',
           sort: 100,
           description: 'region',
-          endpoint: 'organization/?is_available=true&is_regional=true',
+          endpoint: 'organization/?is_bureau=true&is_regional=true',
           selectionRef: ENDPOINT_PARAMS.org,
           text: 'Choose bureau',
           choices: [
