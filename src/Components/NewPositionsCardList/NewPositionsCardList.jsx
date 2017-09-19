@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
 import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
-const NewPositionsCardList = ({ positions, toggleFavorite, favorites,
+const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
   const positionList = [];
 
@@ -25,7 +25,7 @@ const NewPositionsCardList = ({ positions, toggleFavorite, favorites,
   });
 
   return (
-    <div className="usa-grid-full">
+    <div className={`usa-grid-full ${isLoading ? 'results-loading' : ''}`}>
       <div className="usa-width-one-third condensed-card-first-big">
         {positionList[0]}
       </div>
@@ -47,11 +47,13 @@ NewPositionsCardList.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 NewPositionsCardList.defaultProps = {
   positions: [],
   favorites: [],
+  isLoading: false,
 };
 
 export default NewPositionsCardList;

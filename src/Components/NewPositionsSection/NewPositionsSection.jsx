@@ -5,7 +5,7 @@ import PositionsSectionTitle from '../PositionsSectionTitle';
 import NewPositionsCardList from '../NewPositionsCardList';
 import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
-const NewPositionsSection = ({ positions, toggleFavorite, favorites,
+const NewPositionsSection = ({ positions, toggleFavorite, favorites, isLoading,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => (
 
     <div className="usa-grid-full positions-section positions-section-new">
@@ -21,6 +21,7 @@ const NewPositionsSection = ({ positions, toggleFavorite, favorites,
         userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         positions={positions}
+        isLoading={isLoading}
       />
     </div>
 );
@@ -31,10 +32,12 @@ NewPositionsSection.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 NewPositionsSection.defaultProps = {
   favorites: [],
+  isLoading: false,
 };
 
 export default NewPositionsSection;
