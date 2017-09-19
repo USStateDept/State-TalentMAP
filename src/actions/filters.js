@@ -103,10 +103,11 @@ export function filtersFetchData(items, queryParams, savedResponses) {
     if (savedResponses) {
       dispatchSuccess();
     } else {
-      dispatch(filtersHasErrored(false));
+      // our static filters
       const staticFilters = items.filters.slice().filter(item => (!item.item.endpoint));
       responses.filters.push(...staticFilters);
 
+      // our dynamic filters
       const dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
       const queryProms = dynamicFilters.map(item => (
         axios.get(`${api}/${item.item.endpoint}`)
@@ -121,8 +122,6 @@ export function filtersFetchData(items, queryParams, savedResponses) {
       Promise.all(queryProms)
         // Promise.all returns a single array which matches the order of the originating array
         .then((results) => {
-          // because of that, we can be sure results[x] aligns with queryTypes[x]
-          // and set the relevant resultsType property accordingly
           results.forEach((result) => {
             responses.filters.push({ data: result.data, item: result.item });
           });
