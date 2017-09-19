@@ -99,7 +99,7 @@ const items =
       },
       {
         item: {
-          title: 'Danger pay',
+          title: 'Danger Pay',
           sort: 700,
           bool: true,
           description: 'dangerPay',
