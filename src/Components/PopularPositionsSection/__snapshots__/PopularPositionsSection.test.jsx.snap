@@ -10,9 +10,9 @@ exports[`PopularPositionsSectionComponent matches snapshot 1`] = `
         className="positions-section-title"
       >
         <FontAwesome
-          name="gratipay"
+          name="star"
         />
-        Popular Positions
+        Highlighted Positions
       </span>
     }
     viewMoreLink="/results"
