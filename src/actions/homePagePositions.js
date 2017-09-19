@@ -28,28 +28,24 @@ export function homePagePositionsFetchData() {
 
     const resultsTypes = { isPopular: [], isNew: [] };
 
-    // Have results been pushed to isPopular and isNew? If so, return success
-    function checkForCompletion() {
-      if (resultsTypes.isPopular.length && resultsTypes.isNew.length) {
-        dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
-        dispatch(homePagePositionsIsLoading(false));
-        dispatch(homePagePositionsHasErrored(false));
-      }
-    }
-
     const queryTypes = [{ name: 'isPopular', query: 'limit=3' }, { name: 'isNew', query: 'ordering=create_date&limit=5' }];
-    queryTypes.forEach((type) => {
-      axios.get(`${api}/position/?${type.query}`)
-              .then((response) => {
-                dispatch(homePagePositionsIsLoading(false));
-                resultsTypes[type.name] = response.data.results;
-                return true;
-              })
-              .then(() => checkForCompletion())
-              .catch(() => {
-                dispatch(homePagePositionsHasErrored(true));
-                dispatch(homePagePositionsIsLoading(false));
-              });
-    });
+
+    const queryProms = queryTypes.map(type => axios.get(`${api}/position/?${type.query}`));
+
+    Promise.all(queryProms)
+      // Promise.all returns a single array which matches the order of the originating array
+      .then((results) => {
+        // because of that, we can be sure results[x] aligns with queryTypes[x]
+        // and set the relevant resultsType property accordingly
+        resultsTypes[queryTypes[0].name] = results[0].data.results;
+        resultsTypes[queryTypes[1].name] = results[1].data.results;
+        dispatch(homePagePositionsHasErrored(false));
+        dispatch(homePagePositionsIsLoading(false));
+        dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
+      })
+      .catch(() => {
+        dispatch(homePagePositionsHasErrored(true));
+        dispatch(homePagePositionsIsLoading(false));
+      });
   };
 }
