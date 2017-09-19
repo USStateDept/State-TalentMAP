@@ -1,8 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidListButtonComponent matches snapshot 1`] = `
-<button
+exports[`ViewDetailsButtonComponent matches snapshot 1`] = `
+<LinkButton
   className="white-button"
+  toLink="/details/1"
 >
   <span
     className="white-button-icon"
@@ -11,8 +12,6 @@ exports[`BidListButtonComponent matches snapshot 1`] = `
       name="plus-circle"
     />
   </span>
-  <span>
-    Add to bid list
-  </span>
-</button>
+  View details
+</LinkButton>
 `;

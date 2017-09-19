@@ -47,6 +47,8 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       }
     }
   />
-  <BidListButton />
+  <ViewDetailsButton
+    id="00025003"
+  />
 </div>
 `;
