@@ -58,6 +58,11 @@
   margin-left: 9%;
   margin-top: 20px;
 
+  .position-details-description-title {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
   .position-details-description-section {
     height: 80px;
     margin-bottom: 2em;
@@ -91,6 +96,7 @@
     .title {
       font-size: 1.4em;
       font-weight: bold;
+      text-transform: uppercase;
     }
   }
 

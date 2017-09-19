@@ -13,7 +13,7 @@ exports[`PositionAdditionalDetails matches snapshot 1`] = `
       <span
         className="title"
       >
-        ABOUT
+        About
       </span>
       <br />
       test
