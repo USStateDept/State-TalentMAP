@@ -88,7 +88,7 @@ export const formExploreRegionDropdown = (filters) => {
   const foundRegion = filters.filter(filterRegion)[0];
   // if found, set foundRegion to a copy of the data
   if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
-  if (regions) {
+  if (regions.length) {
     regions.forEach((region, i) => {
       // set up our prop names so that SelectForm can read them
       regions[i].text = region.long_description;
