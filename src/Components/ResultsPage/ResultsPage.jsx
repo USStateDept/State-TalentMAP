@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE,
-  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, ITEMS } from '../../Constants/PropTypes';
+  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
@@ -103,7 +103,7 @@ Results.propTypes = {
   pillFilters: PILL_ITEM_ARRAY,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
-  filters: ITEMS,
+  filters: FILTER_ITEMS_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
