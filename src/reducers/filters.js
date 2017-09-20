@@ -44,7 +44,7 @@ const items =
           title: 'Tour of Duty',
           sort: 400,
           description: 'tod',
-          endpoint: 'tour_of_duty/',
+          endpoint: 'tour_of_duty/?is_available=true&ordering=months',
           selectionRef: ENDPOINT_PARAMS.tod,
           text: 'Choose tour of duty length',
           choices: [
