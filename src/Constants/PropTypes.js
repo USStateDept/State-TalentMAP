@@ -67,7 +67,7 @@ export const FILTERS = PropTypes.arrayOf(
   }),
 );
 
-export const ITEM = PropTypes.shape({
+export const FILTER_META_DATA = PropTypes.shape({
   title: PropTypes.string,
   sort: PropTypes.number,
   description: PropTypes.string,
@@ -76,15 +76,8 @@ export const ITEM = PropTypes.shape({
   text: PropTypes.string,
 });
 
-export const ITEMS = PropTypes.arrayOf(
-  PropTypes.shape({
-    item: ITEM,
-    data: FILTERS,
-  }),
-);
-
 export const FILTER_ITEM = PropTypes.shape({
-  item: ITEM,
+  item: FILTER_META_DATA,
   data: FILTERS,
 });
 
@@ -101,7 +94,7 @@ export const MAPPED_PARAM = PropTypes.shape({
 export const MAPPED_PARAM_ARRAY = PropTypes.arrayOf(MAPPED_PARAM);
 
 export const FILTERS_PARENT = PropTypes.shape({
-  filters: ITEMS,
+  filters: FILTER_ITEMS_ARRAY,
   mappedParams: MAPPED_PARAM_ARRAY,
   hasFetched: PropTypes.bool,
 });

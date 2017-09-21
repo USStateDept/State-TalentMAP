@@ -10,15 +10,15 @@ const PositionDetailsItem = ({ details }) => (
     <div className="usa-width-one-whole">
       <div className="position-details-description-container">
         <div className="usa-width-one-whole position-details-description">
-          <strong>POST DESCRIPTION</strong>
+          <span className="position-details-description-title">Post Description</span>
           <br />
           <div className="usa-width-one-whole">
             <PositionDetailsDataPoint
-              title="ORGANIZATION"
+              title="Organization"
               description={details.organization || SystemMessages.NO_ORG}
             />
             <PositionDetailsDataPoint
-              title="POST"
+              title="Post"
               description={
                 details.post && details.post.id ?
                   <Link to={`/post/${details.post.id}`}>{details.post.location}</Link>
@@ -26,11 +26,11 @@ const PositionDetailsItem = ({ details }) => (
               }
             />
             <PositionDetailsDataPoint
-              title="BUREAU"
+              title="Bureau"
               description={details.bureau || SystemMessages.NO_BUREAU}
             />
             <PositionDetailsDataPoint
-              title="POST DIFFERENTIAL"
+              title="Post Differential"
               description={
                 details.post && details.post.differential_rate ?
                   details.post.differential_rate
@@ -38,34 +38,34 @@ const PositionDetailsItem = ({ details }) => (
               }
             />
             <PositionDetailsDataPoint
-              title="OVERSEAS"
+              title="Overseas"
               description={details.is_overseas ? 'Yes' : 'No'}
             />
             <PositionDetailsDataPoint
-              title="REGION"
-              description="REGION"
+              title="Region"
+              description="Region"
             />
           </div>
         </div>
         <hr width="85%" />
         <div className="usa-width-one-whole position-details-description">
-          <strong>POSITION DESCRIPTION</strong>
+          <span className="position-details-description-title">Position Description</span>
           <br />
           <div className="usa-width-one-whole">
             <PositionDetailsDataPoint
-              title="GRADE"
+              title="Grade"
               description={details.grade}
             />
             <PositionDetailsDataPoint
-              title="LANGUAGE"
+              title="Language"
               description={<LanguageList languages={details.languages} />}
             />
             <PositionDetailsDataPoint
-              title="SKILLS"
+              title="Skills"
               description="Information Management"
             />
             <PositionDetailsDataPoint
-              title="DANGER PAY"
+              title="Danger Pay"
               description={details.post ? details.post.danger_pay : SystemMessages.NO_DANGER_PAY}
             />
           </div>
