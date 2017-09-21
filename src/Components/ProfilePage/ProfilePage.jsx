@@ -17,17 +17,20 @@ const Topic2 = () => (
 const ProfilePage = ({ user }) => (
   <div className="usa-grid-full">
     <h1>
-    Hello, user {JSON.stringify(user)}
+      {
+        user.user && user.user.username &&
+        `Hello, ${user.user.username}!`
+      }
     </h1>
-    <Link to="/profile/child">
-      Example topic
+    <Link to="/profile/favorites">
+      Favorites
     </Link>
     <br />
-    <Link to="/profile/child2">
-      Another topic
+    <Link to="/profile/searches">
+      Saved Searches
     </Link>
-    <Route path="/profile/child" component={Topic} />
-    <Route path="/profile/child2" component={Topic2} />
+    <Route path="/profile/favorites" component={Topic} />
+    <Route path="/profile/searches" component={Topic2} />
   </div>
 );
 

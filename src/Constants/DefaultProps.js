@@ -5,4 +5,10 @@ export const DEFAULT_HOME_PAGE_POSITIONS = {
   isNew: [],
 };
 
+export const DEFAULT_USER_PROFILE = {
+  user: {
+    username: null,
+  },
+};
+
 export default ACCORDION_SELECTION;

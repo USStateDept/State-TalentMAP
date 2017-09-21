@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { postFetchData } from '../../actions/post';
+import { USER_PROFILE } from '../../Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
@@ -22,9 +24,10 @@ class Post extends Component {
   }
 
   render() {
+    const { userProfile } = this.props;
     return (
       <div>
-        <ProfilePage />
+        <ProfilePage user={userProfile} />
       </div>
     );
   }
@@ -39,10 +42,12 @@ Post.propTypes = {
   }).isRequired,
   fetchData: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
+  userProfile: USER_PROFILE,
 };
 
 Post.defaultProps = {
   isLoading: true,
+  userProfile: DEFAULT_USER_PROFILE,
 };
 
 Post.contextTypes = {
@@ -50,6 +55,7 @@ Post.contextTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
+  userProfile: state.userProfile,
   hasErrored: state.postHasErrored,
   isLoading: state.postIsLoading,
   id: ownProps,
