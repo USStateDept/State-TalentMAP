@@ -2,7 +2,7 @@
 
 exports[`PopularPositionsCardListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full condensed-card-popular"
+  className="usa-grid-full condensed-card-popular "
 >
   <div
     className="usa-width-one-third condensed-card"
