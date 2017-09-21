@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionsSectionTitleComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full positions-section-container"
+>
+  <div
+    className="usa-width-one-half positions-section-container-left"
+  >
+    <PositionsSectionTitleHeader
+      title="title"
+    />
+  </div>
+  <div
+    className="usa-width-one-half positions-section-container-right"
+  >
+    <PositionsSectionTitleViewMore
+      viewMoreLink="link"
+    />
+  </div>
+</div>
+`;

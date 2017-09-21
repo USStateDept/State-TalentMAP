@@ -10,13 +10,15 @@ import routerLocations from '../../__mocks__/routerLocations';
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('Main', () => {
+describe('Position', () => {
   it('is defined', () => {
     const position = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Position
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />
     </MemoryRouter></Provider>);
     expect(position).toBeDefined();
@@ -28,6 +30,8 @@ describe('Main', () => {
         isAuthorized={() => false}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
       />
     </MemoryRouter></Provider>);
     expect(position).toBeDefined();

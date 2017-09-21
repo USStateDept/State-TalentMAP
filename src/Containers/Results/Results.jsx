@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
+import { scrollToTop } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
+import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS, USER_PROFILE } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -15,6 +17,9 @@ import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort
 class Results extends Component {
   constructor(props) {
     super(props);
+    this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
+    this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
+    this.resetFilters = this.resetFilters.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -74,6 +79,19 @@ class Results extends Component {
       }
       // fetch new results
       this.callFetchData(newQueryString);
+    }
+  }
+
+  componentDidMount() {
+    // Check if the user came from another page.
+    // If so, scroll the user to the top of the page.
+    const { routerLocations } = this.props;
+    const rLength = routerLocations.length;
+    if (rLength > 1) {
+      // compare the most recent and second-most recent pathnames
+      if (routerLocations[rLength - 1].pathname !== routerLocations[rLength - 2].pathname) {
+        window.scrollTo(0, 0);
+      }
     }
   }
 
@@ -166,7 +184,10 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading, filters, selectedAccordion, setAccordion } = this.props;
+    const { results, hasErrored, isLoading, filters, toggleFavorite,
+            selectedAccordion, setAccordion, userProfile,
+            userProfileFavoritePositionIsLoading,
+            userProfileFavoritePositionHasErrored } = this.props;
     return (
       <div>
         <ResultsPage
@@ -178,15 +199,20 @@ class Results extends Component {
           pageSizes={POSITION_PAGE_SIZES}
           defaultPageSize={this.state.defaultPageSize.value}
           defaultPageNumber={this.state.defaultPageNumber.value}
-          onQueryParamUpdate={q => this.onQueryParamUpdate(q)}
+          onQueryParamUpdate={this.onQueryParamUpdate}
           defaultKeyword={this.state.defaultKeyword.value}
           defaultLocation={this.state.defaultLocation.value}
-          resetFilters={() => this.resetFilters()}
+          resetFilters={this.resetFilters}
           pillFilters={filters.mappedParams}
           filters={filters.filters}
-          onQueryParamToggle={(p, v, r) => this.onQueryParamToggle(p, v, r)}
+          onQueryParamToggle={this.onQueryParamToggle}
           selectedAccordion={selectedAccordion}
-          setAccordion={a => setAccordion(a)}
+          setAccordion={setAccordion}
+          scrollToTop={scrollToTop}
+          userProfile={userProfile}
+          toggleFavorite={toggleFavorite}
+          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         />
       </div>
     );
@@ -204,6 +230,11 @@ Results.propTypes = {
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
+  routerLocations: ROUTER_LOCATIONS,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 Results.defaultProps = {
@@ -214,6 +245,10 @@ Results.defaultProps = {
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
+  routerLocations: [],
+  userProfile: {},
+  userProfileFavoritePositionIsLoading: false,
+  userProfileFavoritePositionHasErrored: false,
 };
 
 Results.contextTypes = {
@@ -228,6 +263,10 @@ const mapStateToProps = state => ({
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
   selectedAccordion: state.selectedAccordion,
+  routerLocations: state.routerLocations,
+  userProfile: state.userProfile,
+  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
+  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -236,6 +275,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
+  toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

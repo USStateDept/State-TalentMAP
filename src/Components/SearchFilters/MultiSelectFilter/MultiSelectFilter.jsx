@@ -3,17 +3,19 @@ import PropTypes from 'prop-types';
 import FieldSet from '../../FieldSet/FieldSet';
 import CheckBox from '../../CheckBox/CheckBox';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
+import { getItemLabel } from '../../../utilities';
 
 const MultiSelectFilter = ({ item, queryParamToggle }) => (
   <FieldSet key={item.item.title} legend={item.item.title}>
     {
-      item.data.map(itemData => (
-        <CheckBox
-          id={`checkbox${itemData.long_description || itemData.description || itemData.code}`}
+      item.data.map((itemData) => {
+        const itemLabel = getItemLabel(itemData);
+        return (<CheckBox
+          id={`checkbox${itemLabel}`}
           key={`${item.item.selectionRef}-${itemData.code}`}
-          label={itemData.long_description || itemData.description || itemData.code}
-          title={itemData.long_description || itemData.description || itemData.code}
-          name={itemData.long_description || itemData.description || itemData.code}
+          label={itemLabel}
+          title={itemLabel}
+          name={itemLabel}
           value={itemData.isSelected}
           code={itemData.code}
           selectionRef={item.item.selectionRef}
@@ -26,8 +28,8 @@ const MultiSelectFilter = ({ item, queryParamToggle }) => (
                 );
               }
             }
-        />
-      ))
+        />);
+      })
     }
   </FieldSet>
 );

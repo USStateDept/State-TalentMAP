@@ -80,6 +80,7 @@
 
   .results-card-title {
     float: left;
+    text-transform: uppercase;
   }
 
   .results-card-favorite {
@@ -243,6 +244,7 @@
 
 .results-list-container {
   margin: 1em 0;
+  position: relative;
 }
 
 .results-section-container {

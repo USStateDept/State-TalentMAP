@@ -99,7 +99,14 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
   <div
     className="results-list-container"
   >
+    <Spinner
+      filled={false}
+      inverse={false}
+      size="big"
+      type="position-results"
+    />
     <ResultsList
+      favorites={Array []}
       isLoading={false}
       onToggle={[Function]}
       results={
@@ -161,15 +168,11 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
           ],
         }
       }
+      toggleFavorite={[Function]}
+      userProfileFavoritePositionHasErrored={false}
+      userProfileFavoritePositionIsLoading={false}
     />
   </div>
-  <Loading
-    details={null}
-    errorMessage="An error has occured"
-    hasErrored={false}
-    isLoading={true}
-    loadingMessage="Loading..."
-  />
   <div
     className="usa-grid-full react-paginate"
   >
