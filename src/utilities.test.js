@@ -110,7 +110,7 @@ describe('formExploreRegionDropdown function', () => {
     expect(regions[1].text).toBe(filters[0].data[0].long_description);
   });
 
-  it('can the placeholder object to the beginning of the array', () => {
+  it('adds the placeholder object to the beginning of the array', () => {
     expect(regions[0].disabled).toBe(true);
   });
 });
