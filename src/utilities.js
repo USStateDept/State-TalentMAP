@@ -84,11 +84,10 @@ export const formExploreRegionDropdown = (filters) => {
   // set an array so we can render in case we don't find Region
   let regions = [];
   // find the Region filters
-  // use .filter and [0] instead of .find because .find breaks pa11y test
-  const foundRegion = filters.filter(filterRegion)[0];
+  const foundRegion = filters.find(filterRegion);
   // if found, set foundRegion to a copy of the data
   if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
-  if (regions) {
+  if (regions.length) {
     regions.forEach((region, i) => {
       // set up our prop names so that SelectForm can read them
       regions[i].text = region.long_description;

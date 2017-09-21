@@ -58,7 +58,7 @@ const items =
           title: 'Region',
           sort: 500,
           description: 'region',
-          endpoint: 'organization/?is_available=true',
+          endpoint: 'organization/?is_available=true&is_regional=true',
           selectionRef: ENDPOINT_PARAMS.org,
           text: 'Choose region',
           choices: [
