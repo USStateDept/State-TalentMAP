@@ -130,8 +130,8 @@ describe('getItemLabel function', () => {
 });
 
 describe('shortenString function', () => {
-  it('can shorten a string', () => {
-    const string = '012345';
+  const string = '012345';
+  it('can shorten a string with the default suffix', () => {
     expect(shortenString(string, 0)).toBe('...');
     expect(shortenString(string, 2)).toBe('...');
     expect(shortenString(string, 3)).toBe('...');
@@ -139,5 +139,15 @@ describe('shortenString function', () => {
     expect(shortenString(string, 5)).toBe('01...');
     expect(shortenString(string, 6)).toBe('012345');
     expect(shortenString(string, 7)).toBe('012345');
+  });
+
+  it('can shorten a string with a null suffix', () => {
+    expect(shortenString(string, 0, null)).toBe('');
+    expect(shortenString(string, 2, null)).toBe('01');
+    expect(shortenString(string, 3, null)).toBe('012');
+    expect(shortenString(string, 4, null)).toBe('0123');
+    expect(shortenString(string, 5, null)).toBe('01234');
+    expect(shortenString(string, 6, null)).toBe('012345');
+    expect(shortenString(string, 7, null)).toBe('012345');
   });
 });

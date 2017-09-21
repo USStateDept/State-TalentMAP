@@ -122,20 +122,23 @@ export const getItemLabel = itemData =>
 
 // abcde 4 // a...
 // Shortens strings to varying lengths
-export const shortenString = (string, shortenTo = 250) => {
+export const shortenString = (string, shortenTo = 250, suffix = '...') => {
   let newString = string;
+  let newSuffix = suffix;
+  if (!newSuffix) {
+    newSuffix = '';
+  }
   // return the suffix even if the shortenTo is less than its length
-  const suffix = '...';
-  if (shortenTo < suffix.length) {
+  if (shortenTo < newSuffix.length) {
     return suffix;
   }
   if (string.length > shortenTo) {
     // shorten to the shortenTo param, less the length of our suffix
-    newString = string.slice(0, shortenTo - suffix.length);
+    newString = string.slice(0, shortenTo - newSuffix.length);
     // in case the last character(s) was whitespace
     newString = newString.trim();
     // append suffix
-    newString += suffix;
+    newString += newSuffix;
   }
   // return the string
   return newString;
