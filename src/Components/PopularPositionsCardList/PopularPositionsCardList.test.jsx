@@ -29,6 +29,19 @@ describe('PopularPositionsCardListComponent', () => {
     expect(wrapper.instance().props.positions[0].id).toBe(resultsObject.results[0].id);
   });
 
+  it('can change className based on isLoading', () => {
+    const wrapper = shallow(
+      <PopularPositionsCardList
+        positions={resultsObject.results}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        isLoading
+      />,
+    );
+    expect(wrapper.find('.results-loading')).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <PopularPositionsCardList

@@ -55,6 +55,7 @@ class HomePage extends Component {
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             positions={homePagePositions.isNew}
+            isLoading={homePagePositionsIsLoading}
           />
           <PopularPositionsSection
             favorites={userProfile.favorite_positions}
@@ -62,6 +63,7 @@ class HomePage extends Component {
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             positions={homePagePositions.isPopular}
+            isLoading={homePagePositionsIsLoading}
           />
         </div>
       </div>

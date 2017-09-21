@@ -19,6 +19,7 @@ exports[`NewPositionsSectionComponent matches snapshot 1`] = `
   />
   <NewPositionsCardList
     favorites={Array []}
+    isLoading={false}
     positions={
       Array [
         Object {

@@ -19,6 +19,7 @@ exports[`PopularPositionsSectionComponent matches snapshot 1`] = `
   />
   <PopularPositionsCardList
     favorites={Array []}
+    isLoading={false}
     positions={
       Array [
         Object {
