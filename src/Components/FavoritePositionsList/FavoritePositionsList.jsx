@@ -6,6 +6,7 @@ import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 const FavoritePositionsList = ({ favorites, toggleFavorite,
     toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored }) => {
   const positionList = favorites.slice().map((p, i) => (
+    // use the .usa-end-row class for the last item in each row
     <div key={p.id} className={`usa-width-one-half condensed-card ${(i + 1) % 2 === 0 ? 'usa-end-row' : ''}`}>
       <ResultsCondensedCard
         favorites={favorites}
