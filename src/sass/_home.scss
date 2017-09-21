@@ -74,8 +74,10 @@
 
   .positions-section-container {
     border-bottom: solid 1px $color-gray-lightest;
+    bottom: -1px;
     line-height: 40px;
     margin-bottom: 20px;
+    position: relative;
   }
 
   .positions-section-container-left {
@@ -89,7 +91,9 @@
 
   .positions-section-title-header {
     border-bottom: 1px solid;
+    bottom: -1px;
     display: inline-block;
+    position: relative;
   }
 
   .positions-section-title {
