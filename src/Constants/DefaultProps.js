@@ -9,6 +9,11 @@ export const DEFAULT_USER_PROFILE = {
   user: {
     username: null,
   },
+  favorite_positions: [],
+};
+
+export const RESULTS_OBJECT = {
+  results: [],
 };
 
 export default ACCORDION_SELECTION;

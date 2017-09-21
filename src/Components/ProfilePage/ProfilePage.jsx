@@ -1,13 +1,10 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProfileNavigation from '../ProfileNavigation';
 import FavoritePositions from '../FavoritePositions';
-
-const Topic2 = () => (
-  <div>
-    <h2>Select an area to navigate to.</h2>
-  </div>
-);
+import ProfileLanding from '../ProfileLanding';
+import { POSITION_SEARCH_RESULTS, USER_PROFILE } from '../../Constants/PropTypes';
 
 const ProfilePage = ({ user, favoritePositions, toggleFavorite, favoritePositionsIsLoading,
 favoritePositionsHasErrored, toggleFavoritePositionIsLoading,
@@ -20,17 +17,7 @@ toggleFavoritePositionHasErrored }) => (
       }
     </h1>
     <div className="usa-width-one-fourth">
-      <Link to="/profile">
-        Profile home
-      </Link>
-      <br />
-      <Link to="/profile/favorites">
-        Favorites
-      </Link>
-      <br />
-      <Link to="/profile/searches">
-        Saved Searches
-      </Link>
+      <ProfileNavigation />
     </div>
     <div className="usa-grid-full usa-width-three-fourths profile-subroute-container">
       <Route
@@ -48,25 +35,25 @@ toggleFavoritePositionHasErrored }) => (
           )
         }
       />
-      <Route path="/profile" exact component={Topic2} />
+      <Route path="/profile" exact component={ProfileLanding} />
     </div>
   </div>
 );
 
 ProfilePage.propTypes = {
-  user: PropTypes.shape({}).isRequired,
-  favoritePositions: PropTypes.arrayOf().isRequired,
+  user: USER_PROFILE.isRequired,
+  favoritePositions: POSITION_SEARCH_RESULTS,
   toggleFavorite: PropTypes.func.isRequired,
-  favoritePositionsIsLoading: PropTypes.bool,
-  favoritePositionsHasErrored: PropTypes.bool,
+  favoritePositionsIsLoading: PropTypes.bool.isRequired,
+  favoritePositionsHasErrored: PropTypes.bool.isRequired,
   toggleFavoritePositionIsLoading: PropTypes.bool,
   toggleFavoritePositionHasErrored: PropTypes.bool,
 };
 
 ProfilePage.defaultProps = {
-  favoritePositions: [],
-  favoritesListIsLoading: false,
-  favoritesListHasErrored: false,
+  favoritePositions: {},
+  toggleFavoritePositionIsLoading: false,
+  toggleFavoritePositionHasErrored: false,
 };
 
 export default ProfilePage;

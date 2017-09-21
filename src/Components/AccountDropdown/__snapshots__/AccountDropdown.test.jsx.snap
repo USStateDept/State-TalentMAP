@@ -36,7 +36,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
     >
       <Link
         replace={false}
-        to="/"
+        to="/profile"
       >
         Profile
       </Link>

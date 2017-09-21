@@ -24,7 +24,7 @@ class Favorite extends Component {
   }
 
   render() {
-    const text = this.getSavedState() ? 'Remove' : 'Favorite';
+    const text = this.getSavedState() ? 'Remove from' : 'Add to';
     const iconClass = this.getSavedState() ? 'heart' : 'heart-o';
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
@@ -37,7 +37,7 @@ class Favorite extends Component {
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         tabIndex="0"
-        title="Add to favorites"
+        title={`${text} favorites`}
         role="button"
         style={style}
         onClick={this.toggleSaved}

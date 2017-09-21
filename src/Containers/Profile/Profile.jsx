@@ -5,8 +5,8 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
-import { USER_PROFILE } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
+import { USER_PROFILE, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { DEFAULT_USER_PROFILE, RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
@@ -58,7 +58,7 @@ Post.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
-  favoritePositions: PropTypes.arrayOf().isRequired,
+  favoritePositions: POSITION_SEARCH_RESULTS,
   favoritePositionsIsLoading: PropTypes.bool.isRequired,
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
@@ -68,7 +68,11 @@ Post.propTypes = {
 Post.defaultProps = {
   isLoading: true,
   userProfile: DEFAULT_USER_PROFILE,
-  favoritePositions: { results: [] },
+  favoritePositions: RESULTS_OBJECT,
+  favoritePositionsIsLoading: false,
+  favoritePositionsHasErrored: false,
+  userProfileFavoritePositionIsLoading: false,
+  userProfileFavoritePositionHasErrored: false,
 };
 
 Post.contextTypes = {

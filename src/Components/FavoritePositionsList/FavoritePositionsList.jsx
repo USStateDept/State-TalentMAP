@@ -4,20 +4,20 @@ import ResultsCondensedCard from '../ResultsCondensedCard';
 import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
 const FavoritePositionsList = ({ favorites, toggleFavorite,
-    userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
+    toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored }) => {
   const positionList = favorites.slice().map((p, i) => (
-    <div key={p.id} className={`usa-width-one-third condensed-card ${(i + 1) % 3 === 0 ? 'usa-end-row' : ''}`}>
+    <div key={p.id} className={`usa-width-one-half condensed-card ${(i + 1) % 2 === 0 ? 'usa-end-row' : ''}`}>
       <ResultsCondensedCard
         favorites={favorites}
         toggleFavorite={toggleFavorite}
-        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+        userProfileFavoritePositionIsLoading={toggleFavoritePositionIsLoading}
+        userProfileFavoritePositionHasErrored={toggleFavoritePositionHasErrored}
         position={p}
       />
     </div>
   ));
   return (
-    <div className="usa-grid-full condensed-card-popular">
+    <div className="usa-grid-full positions-section positions-section-new">
       {positionList}
     </div>
   );
@@ -26,8 +26,8 @@ const FavoritePositionsList = ({ favorites, toggleFavorite,
 FavoritePositionsList.propTypes = {
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  toggleFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  toggleFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 export default FavoritePositionsList;
