@@ -14,7 +14,7 @@ class Filters extends Component {
         languages__language__code__in: [],
         grade__code__in: [],
         post__tour_of_duty__code__in: [],
-        organization__code__in: [],
+        bureau__code__in: [],
         post__cost_of_living_adjustment__gt: [],
         post__differential_rate__gt: [],
         post__danger_pay__gt: [],
