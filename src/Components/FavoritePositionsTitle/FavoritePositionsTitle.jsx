@@ -2,7 +2,7 @@ import React from 'react';
 
 const FavoritePositionsTitle = () => (
   <div className="usa-grid-full">
-    Your Favorited Positions
+    Your Favorited Positions:
   </div>
 );
 

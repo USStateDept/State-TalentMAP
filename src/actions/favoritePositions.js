@@ -26,12 +26,15 @@ export function favoritePositionsFetchData() {
     dispatch(favoritePositionsIsLoading(true));
     dispatch(favoritePositionsHasErrored(false));
     axios.get(`${api}/position/favorites/`, { headers: { Authorization: fetchUserToken() } })
-            .then((response) => {
+            .then(response => response.data)
+            .then((results) => {
               dispatch(favoritePositionsHasErrored(false));
               dispatch(favoritePositionsIsLoading(false));
-              return response.data.results;
+              dispatch(favoritePositionsFetchDataSuccess(results));
             })
-            .then(results => dispatch(favoritePositionsFetchDataSuccess(results)))
-            .catch(() => dispatch(favoritePositionsHasErrored(true)));
+            .catch(() => {
+              dispatch(favoritePositionsHasErrored(true));
+              dispatch(favoritePositionsIsLoading(false));
+            });
   };
 }

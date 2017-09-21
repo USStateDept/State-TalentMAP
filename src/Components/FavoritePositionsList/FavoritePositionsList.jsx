@@ -24,14 +24,10 @@ const FavoritePositionsList = ({ favorites, toggleFavorite,
 };
 
 FavoritePositionsList.propTypes = {
-  favorites: FAVORITE_POSITIONS_ARRAY,
+  favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-};
-
-FavoritePositionsList.defaultProps = {
-  favorites: [1, 2],
 };
 
 export default FavoritePositionsList;
