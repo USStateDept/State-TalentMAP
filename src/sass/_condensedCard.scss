@@ -2,6 +2,7 @@
 
   border: 1px solid $color-gray-light;
   font-family: Roboto;
+  min-height: 275px;
   margin-bottom: 15px;
 
   .new-flag {
@@ -59,7 +60,7 @@
   }
 
   .condensed-card-bottom-container {
-    min-height: 171px;
+    min-height: 210px;
     padding: 18px;
     position: relative;
   }
@@ -87,7 +88,7 @@
   }
 
   .condensed-card-top {
-    min-height: 241px;
+    min-height: 279px;
   }
 
   .condensed-card-last-updated {
@@ -100,7 +101,7 @@
   }
 
   .condensed-card-bottom {
-    min-height: 219px;
+    min-height: 258px;
   }
 }
 

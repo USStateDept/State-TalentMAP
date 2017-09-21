@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
-import { postFetchData } from '../../actions/post';
+import { favoritePositionsFetchData } from '../../actions/favoritePositions';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
@@ -15,19 +15,25 @@ class Post extends Component {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
-      this.getPost(this.props.match.params.id);
+      this.getFavorites();
     }
   }
 
-  getPost(id) {
-    this.props.fetchData(id);
+  getFavorites() {
+    this.props.fetchData();
   }
 
   render() {
-    const { userProfile } = this.props;
+    const { userProfile, favoritePositions,
+      favoritePositionsIsLoading, favoritePositionsHasErrored } = this.props;
     return (
       <div>
-        <ProfilePage user={userProfile} />
+        <ProfilePage
+          user={userProfile}
+          favoritePositions={favoritePositions}
+          favoritePositionsIsLoading={favoritePositionsIsLoading}
+          favoritePositionsHasErrored={favoritePositionsHasErrored}
+        />
       </div>
     );
   }
@@ -35,19 +41,20 @@ class Post extends Component {
 
 Post.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string,
-    }),
-  }).isRequired,
   fetchData: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
+  favoritePositions: PropTypes.arrayOf().isRequired,
+  favoritePositionsIsLoading: PropTypes.bool.isRequired,
+  favoritePositionsHasErrored: PropTypes.bool.isRequired,
 };
 
 Post.defaultProps = {
   isLoading: true,
   userProfile: DEFAULT_USER_PROFILE,
+  favoritePositions: [],
+  favoritePositionsIsLoading: true,
+  favoritePositionsHasErrored: false,
 };
 
 Post.contextTypes = {
@@ -56,13 +63,14 @@ Post.contextTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   userProfile: state.userProfile,
-  hasErrored: state.postHasErrored,
-  isLoading: state.postIsLoading,
+  favoritePositions: state.favoritePositions,
+  favoritesPositionsHasErrored: state.favoritePositionsHasErrored,
+  favoritesPositionsIsLoading: state.favoritePositionsIsLoading,
   id: ownProps,
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: url => dispatch(postFetchData(url)),
+  fetchData: () => dispatch(favoritePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
 });
 

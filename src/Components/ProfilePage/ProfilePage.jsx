@@ -1,20 +1,15 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-const Topic = () => (
-  <div>
-    <h3>some child</h3>
-  </div>
-);
+import FavoritePositions from '../FavoritePositions';
 
 const Topic2 = () => (
   <div>
-    <h3>some other child</h3>
+    <h2>Select an area to navigate to above.</h2>
   </div>
 );
 
-const ProfilePage = ({ user }) => (
+const ProfilePage = ({ user, favoritePositions }) => (
   <div className="usa-grid-full">
     <h1>
       {
@@ -29,13 +24,23 @@ const ProfilePage = ({ user }) => (
     <Link to="/profile/searches">
       Saved Searches
     </Link>
-    <Route path="/profile/favorites" component={Topic} />
-    <Route path="/profile/searches" component={Topic2} />
+    <div className="usa-grid-full profile-subroute-container">
+      <Route
+        path="/profile/favorites"
+        component={() => <FavoritePositions favorites={favoritePositions} />}
+      />
+      <Route path="/profile" exact component={Topic2} />
+    </div>
   </div>
 );
 
 ProfilePage.propTypes = {
   user: PropTypes.shape({}).isRequired,
+  favoritePositions: PropTypes.arrayOf().isRequired,
+};
+
+ProfilePage.defaultProps = {
+  favoritePositions: [],
 };
 
 export default ProfilePage;
