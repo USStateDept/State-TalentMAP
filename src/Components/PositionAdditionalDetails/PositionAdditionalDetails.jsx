@@ -5,7 +5,7 @@ const PositionAdditionalDetails = ({ content }) => (
   <div className="usa-grid position-details-additional">
     <div className="usa-width-two-thirds">
       <p className="position-details-additional-body">
-        <span className="title">ABOUT</span>
+        <span className="title">About</span>
         <br />
         { content }
       </p>

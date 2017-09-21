@@ -45,5 +45,8 @@ describe('CondensedCardDataComponent', () => {
       />,
     );
     expect(wrapper.find('.condensed-card-data div strong').first().text()).toBe(SystemMessages.NO_POSITION_TITLE);
+    expect(wrapper.find('.condensed-card-data div').at(1).text()).toContain(SystemMessages.NO_POST);
+    expect(wrapper.find('.condensed-card-data div').at(2).text()).toContain(SystemMessages.NO_SKILL);
+    expect(wrapper.find('.condensed-card-data div').at(3).text()).toContain(SystemMessages.NO_GRADE);
   });
 });

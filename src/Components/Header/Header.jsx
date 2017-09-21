@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 import close from 'uswds/dist/img/close.svg'; // close X icon
 import { userProfileFetchData } from '../../actions/userProfile';
 import { logoutRequest } from '../../login/actions';
@@ -66,22 +67,13 @@ export class Header extends Component {
               <img src={close} alt="close" />
             </button>
             <div className="usa-nav-secondary">
-              <form className="usa-search usa-search-small usa-sr-only">
-                <div role="search">
-                  <label className="usa-sr-only" htmlFor="search-field-small">Search small</label>
-                  <input id="search-field-small" type="search" name="search-small" />
-                  <button type="submit">
-                    <span className="usa-sr-only">Search</span>
-                  </button>
-                </div>
-              </form>
               <ul className="usa-unstyled-list usa-nav-secondary-links mobile-nav">
                 <li className="mobile-nav-only">
                   {signedInAs}
                 </li>
                 <hr className="mobile-nav-only" />
-                <li className="js-search-button-container">
-                  <button className="usa-header-search-button js-search-button">Search</button>
+                <li>
+                  <Link to="/results"><FontAwesome name="search" /> Search</Link>
                 </li>
                 <li>
                   <Link to="/">Home</Link>

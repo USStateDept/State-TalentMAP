@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ITEMS } from '../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import ExploreRegionDropdown from '../../Components/ExploreRegionDropdown/ExploreRegionDropdown';
 
 const Explore = ({ filters, onRegionSubmit }) => (
@@ -18,7 +18,7 @@ const Explore = ({ filters, onRegionSubmit }) => (
 );
 
 Explore.propTypes = {
-  filters: ITEMS.isRequired,
+  filters: FILTER_ITEMS_ARRAY.isRequired,
   onRegionSubmit: PropTypes.func.isRequired,
 };
 
