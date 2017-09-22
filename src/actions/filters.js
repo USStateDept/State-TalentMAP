@@ -64,10 +64,10 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                           filterItem.item.selectionRef === mappedObject.selectionRef) {
                       responses.filters[i].data[ii].isSelected = true;
                       if ( // boolean filters are special since they don't rely on AJAX
-                          response.item.title === 'COLA' ||
-                          response.item.title === 'Post Differential' ||
-                          response.item.title === 'Danger pay' ||
-                          response.item.title === 'Domestic'
+                          response.item.description === 'COLA' ||
+                          response.item.description === 'postDiff' ||
+                          response.item.description === 'dangerPay' ||
+                          response.item.description === 'domestic'
                         ) {
                         mappedObject.description = response.item.title;
                       } else {
