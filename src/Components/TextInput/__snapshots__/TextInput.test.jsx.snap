@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TextInputComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full "
+>
+  <label
+    className=""
+  />
+  <input
+    className=""
+    name="input-type-text"
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+</div>
+`;

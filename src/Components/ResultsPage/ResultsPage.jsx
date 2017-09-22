@@ -29,7 +29,8 @@ class Results extends Component {
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
             defaultPageNumber, onQueryParamUpdate, filters, userProfile, toggleFavorite,
             selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
-            userProfileFavoritePositionHasErrored }
+            userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
+            newSavedSearchHasErrored }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -79,6 +80,9 @@ class Results extends Component {
             toggleFavorite={toggleFavorite}
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+            saveSearch={saveSearch}
+            newSavedSearchSuccess={newSavedSearchSuccess}
+            newSavedSearchHasErrored={newSavedSearchHasErrored}
           />
         </div>
       </div>
@@ -109,6 +113,9 @@ Results.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  saveSearch: PropTypes.func.isRequired,
+  newSavedSearchSuccess: PropTypes.string.isRequired,
+  newSavedSearchHasErrored: PropTypes.string.isRequired,
 };
 
 Results.defaultProps = {

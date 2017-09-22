@@ -7,6 +7,7 @@ import { results, resultsHasErrored, resultsIsLoading } from './results';
 import { filters, filtersHasErrored, filtersIsLoading } from './filters';
 import { post, postHasErrored, postIsLoading } from './post';
 import { share, shareHasErrored, shareIsSending } from './share';
+import { newSavedSearchIsSaving, newSavedSearchHasErrored, newSavedSearchSuccess } from './savedSearch';
 import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
 import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
@@ -38,6 +39,9 @@ export default combineReducers({
   share,
   shareHasErrored,
   shareIsSending,
+  newSavedSearchIsSaving,
+  newSavedSearchHasErrored,
+  newSavedSearchSuccess,
   userProfile,
   userProfileHasErrored,
   userProfileIsLoading,
