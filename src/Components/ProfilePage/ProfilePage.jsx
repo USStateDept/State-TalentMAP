@@ -12,7 +12,6 @@ toggleFavoritePositionHasErrored }) => (
   <div className="usa-grid-full">
     <h1>
       {
-        user.user && user.user.username &&
         `Hello, ${user.user.username}!`
       }
     </h1>
