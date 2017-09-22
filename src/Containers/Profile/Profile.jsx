@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { USER_PROFILE, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE, RESULTS_OBJECT } from '../../Constants/DefaultProps';
+import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
@@ -68,7 +68,7 @@ Post.propTypes = {
 Post.defaultProps = {
   isLoading: true,
   userProfile: DEFAULT_USER_PROFILE,
-  favoritePositions: RESULTS_OBJECT,
+  favoritePositions: POSITION_RESULTS_OBJECT,
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
   userProfileFavoritePositionIsLoading: false,

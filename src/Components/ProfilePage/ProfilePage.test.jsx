@@ -6,6 +6,11 @@ import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import resultsObject from '../../__mocks__/resultsObject';
 
 describe('ProfilePageComponent', () => {
+  const user = {
+    user: {
+      username: 'john',
+    },
+  };
   it('is defined', () => {
     const wrapper = shallow(
       <ProfilePage
@@ -22,11 +27,6 @@ describe('ProfilePageComponent', () => {
   });
 
   it('it can handle a username', () => {
-    const user = {
-      user: {
-        username: 'john',
-      },
-    };
     const wrapper = shallow(
       <ProfilePage
         user={user}
@@ -44,7 +44,7 @@ describe('ProfilePageComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ProfilePage
-        user={DEFAULT_USER_PROFILE}
+        user={user}
         favoritePositions={resultsObject}
         toggleFavorite={() => {}}
         favoritePositionsIsLoading={false}

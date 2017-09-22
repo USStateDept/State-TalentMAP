@@ -7,12 +7,12 @@ export const DEFAULT_HOME_PAGE_POSITIONS = {
 
 export const DEFAULT_USER_PROFILE = {
   user: {
-    username: null,
+    username: '',
   },
   favorite_positions: [],
 };
 
-export const RESULTS_OBJECT = {
+export const POSITION_RESULTS_OBJECT = {
   results: [],
 };
 

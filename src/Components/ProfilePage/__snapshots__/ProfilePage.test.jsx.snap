@@ -4,7 +4,9 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  <h1 />
+  <h1>
+    Hello, john!
+  </h1>
   <div
     className="usa-width-one-fourth"
   >
