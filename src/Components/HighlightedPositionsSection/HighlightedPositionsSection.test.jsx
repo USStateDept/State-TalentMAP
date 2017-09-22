@@ -1,13 +1,13 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import PopularPositionsSection from './PopularPositionsSection';
+import HighlightedPositionsSection from './HighlightedPositionsSection';
 import resultsObject from '../../__mocks__/resultsObject';
 
-describe('PopularPositionsSectionComponent', () => {
+describe('HighlightedPositionsSectionComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <PopularPositionsSection
+      <HighlightedPositionsSection
         positions={resultsObject.results}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
@@ -19,7 +19,7 @@ describe('PopularPositionsSectionComponent', () => {
 
   it('can receive props', () => {
     const wrapper = shallow(
-      <PopularPositionsSection
+      <HighlightedPositionsSection
         positions={resultsObject.results}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
@@ -31,7 +31,7 @@ describe('PopularPositionsSectionComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <PopularPositionsSection
+      <HighlightedPositionsSection
         positions={resultsObject.results}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}

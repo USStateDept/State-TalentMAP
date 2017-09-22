@@ -26,20 +26,20 @@ export function homePagePositionsFetchData() {
     dispatch(homePagePositionsIsLoading(true));
     dispatch(homePagePositionsHasErrored(false));
 
-    const resultsTypes = { isPopular: [], isNew: [] };
+    const resultsTypes = { isHighlighted: [], isNew: [] };
 
-    // Have results been pushed to isPopular and isNew? If so, return success
+    // Have results been pushed to isHighlighted and isNew? If so, return success
     function checkForCompletion() {
-      if (resultsTypes.isPopular.length && resultsTypes.isNew.length) {
+      if (resultsTypes.isHighlighted.length && resultsTypes.isNew.length) {
         dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
         dispatch(homePagePositionsIsLoading(false));
         dispatch(homePagePositionsHasErrored(false));
       }
     }
 
-    const queryTypes = [{ name: 'isPopular', query: 'limit=3' }, { name: 'isNew', query: 'ordering=create_date&limit=5' }];
+    const queryTypes = [{ name: 'isHighlighted', query: 'highlighted/?limit=3' }, { name: 'isNew', query: '?ordering=create_date&limit=5' }];
     queryTypes.forEach((type) => {
-      axios.get(`${api}/position/?${type.query}`)
+      axios.get(`${api}/position/${type.query}`)
               .then((response) => {
                 dispatch(homePagePositionsIsLoading(false));
                 resultsTypes[type.name] = response.data.results;
