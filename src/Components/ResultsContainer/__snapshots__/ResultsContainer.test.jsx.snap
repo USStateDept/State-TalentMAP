@@ -8,7 +8,11 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     items={Array []}
     onPillClick={[Function]}
   />
-  <SaveNewSearchContainer />
+  <SaveNewSearchContainer
+    newSavedSearchHasErrored={false}
+    newSavedSearchSuccess={false}
+    saveSearch={[Function]}
+  />
   <ResultsControls
     defaultPageNumber={0}
     defaultPageSize={10}

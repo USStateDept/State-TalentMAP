@@ -9,6 +9,8 @@ import { validStateEmail,
          scrollToTop,
          getItemLabel,
          shortenString,
+         cleanQueryParams,
+         inputKeyUp,
        } from './utilities';
 
 describe('local storage', () => {
@@ -149,5 +151,21 @@ describe('shortenString function', () => {
     expect(shortenString(string, 5, null)).toBe('01234');
     expect(shortenString(string, 6, null)).toBe('012345');
     expect(shortenString(string, 7, null)).toBe('012345');
+  });
+});
+
+describe('cleanQueryParams', () => {
+  const query = { q: 'test', fake: 'test' };
+  it('retain only real query params', () => {
+    expect(cleanQueryParams(query).fake).toBe(undefined);
+    expect(cleanQueryParams(query).q).toBe(query.q);
+    expect(Object.keys(cleanQueryParams(query)).length).toBe(1);
+  });
+});
+
+describe('inputKeyUp', () => {
+  it('only returns true for keyCode of 13', () => {
+    expect(inputKeyUp({ keyCode: 13 })).toBe(true);
+    expect(inputKeyUp({ keyCode: 14 })).toBe(false);
   });
 });

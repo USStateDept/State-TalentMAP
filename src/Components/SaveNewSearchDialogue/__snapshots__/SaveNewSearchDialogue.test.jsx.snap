@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveNewSearchDialogueComponent matches snapshot 1`] = `
+<Form
+  className="usa-grid-full saved-search-form"
+  onFormSubmit={[Function]}
+>
+  <FieldSet
+    className="saved-search-fieldset usa-width-one-half"
+    legend="Add a new saved search"
+    legendSrOnly={true}
+  >
+    <TextInput
+      changeText={[Function]}
+      id="saved-search"
+      label="Name:"
+      labelMessage=""
+      labelSrOnly={false}
+    />
+  </FieldSet>
+  <div
+    className="saved-search-form-buttons"
+  >
+    <button
+      className="saved-search-form-submit"
+      type="submit"
+    >
+      Submit
+    </button>
+    <button
+      className="saved-search-form-cancel"
+      onClick={[Function]}
+    >
+      Cancel
+    </button>
+  </div>
+</Form>
+`;

@@ -3,6 +3,7 @@
 exports[`FormComponent matches snapshot 1`] = `
 <form
   className=""
+  onSubmit={[Function]}
 >
   <span>
     child

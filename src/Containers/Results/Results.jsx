@@ -280,6 +280,7 @@ Results.defaultProps = {
   userProfileFavoritePositionHasErrored: false,
   newSavedSearchSuccess: false,
   newSavedSearchHasErrored: false,
+  newSavedSearchIsSaving: false,
 };
 
 Results.contextTypes = {

@@ -6,9 +6,11 @@ exports[`TextInputComponent matches snapshot 1`] = `
 >
   <label
     className=""
+    htmlFor="1"
   />
   <input
     className=""
+    id="1"
     name="input-type-text"
     onChange={[Function]}
     type="text"
