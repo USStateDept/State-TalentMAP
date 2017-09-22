@@ -10,7 +10,8 @@ import { saveSearch } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS, USER_PROFILE } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
+  ROUTER_LOCATIONS, USER_PROFILE, SAVED_SEARCH_MESSAGE } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -259,9 +260,9 @@ Results.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  newSavedSearchSuccess: PropTypes.string.isRequired,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  newSavedSearchHasErrored: PropTypes.bool.isRequired,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
 };
 
@@ -277,6 +278,8 @@ Results.defaultProps = {
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
+  newSavedSearchSuccess: false,
+  newSavedSearchHasErrored: false,
 };
 
 Results.contextTypes = {

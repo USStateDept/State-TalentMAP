@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE,
          SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
@@ -109,8 +109,8 @@ ResultsContainer.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   saveSearch: PropTypes.func.isRequired,
-  newSavedSearchSuccess: PropTypes.string.isRequired,
-  newSavedSearchHasErrored: PropTypes.string.isRequired,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
 };
 
 ResultsContainer.defaultProps = {

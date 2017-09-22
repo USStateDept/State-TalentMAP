@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE,
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE, SAVED_SEARCH_MESSAGE,
   SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
@@ -114,8 +114,8 @@ Results.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   saveSearch: PropTypes.func.isRequired,
-  newSavedSearchSuccess: PropTypes.string.isRequired,
-  newSavedSearchHasErrored: PropTypes.string.isRequired,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
 };
 
 Results.defaultProps = {

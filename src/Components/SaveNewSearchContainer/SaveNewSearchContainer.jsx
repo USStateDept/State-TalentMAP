@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { SAVED_SEARCH_MESSAGE } from '../../Constants/PropTypes';
 import SaveNewSearchDialogue from '../SaveNewSearchDialogue';
 import SaveNewSearchPrompt from '../SaveNewSearchPrompt';
 
@@ -68,8 +69,8 @@ class SaveNewSearchContainer extends Component {
 
 SaveNewSearchContainer.propTypes = {
   saveSearch: PropTypes.func.isRequired,
-  newSavedSearchHasErrored: PropTypes.string.isRequired,
-  newSavedSearchSuccess: PropTypes.string.isRequired,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
 };
 
 export default SaveNewSearchContainer;

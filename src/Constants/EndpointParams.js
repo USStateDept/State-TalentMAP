@@ -22,6 +22,7 @@ export const VALID_PARAMS = [
   ENDPOINT_PARAMS.postDiff,
   ENDPOINT_PARAMS.danger,
   ENDPOINT_PARAMS.domestic,
+  'q',
 ];
 
 export default ENDPOINT_PARAMS;
