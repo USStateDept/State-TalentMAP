@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { fetchUserToken } from '../utilities';
 import api from '../api';
+import { favoritePositionsFetchData } from './favoritePositions';
 
 export function userProfileHasErrored(bool) {
   return {
@@ -86,6 +87,7 @@ export function userProfileToggleFavoritePosition(id, remove) {
               axios.patch(`${api}/profile/`, favoritesObject, { headers: { Authorization: fetchUserToken() } })
                       .then(() => {
                         dispatch(userProfileFetchData(true));
+                        dispatch(favoritePositionsFetchData());
                       })
                       .catch(() => {
                         dispatch(userProfileFavoritePositionHasErrored(true));

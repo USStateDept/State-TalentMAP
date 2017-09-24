@@ -37,6 +37,20 @@ describe('AccountDropdown', () => {
     sinon.assert.calledOnce(handleClickSpy);
   });
 
+  it('can call the hideDropdown function', () => {
+    const accountDropdown = shallow(<AccountDropdown />);
+
+    // define the instance
+    const instance = accountDropdown.instance();
+    instance.dropdown = { hide: () => {} };
+    // spy the logout function
+    const spy = sinon.spy(instance, 'hideDropdown');
+    // click to logout
+    instance.hideDropdown();
+    // logout function should have been called once
+    sinon.assert.calledOnce(spy);
+  });
+
   it('matches snapshot', () => {
     const accountDropdown = shallow(<AccountDropdown />);
     expect(toJSON(accountDropdown)).toMatchSnapshot();

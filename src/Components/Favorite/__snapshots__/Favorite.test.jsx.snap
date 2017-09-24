@@ -18,6 +18,6 @@ exports[`Favorite matches snapshot 1`] = `
     name="heart-o"
   />
    
-  Favorite
+  Add to
 </div>
 `;
