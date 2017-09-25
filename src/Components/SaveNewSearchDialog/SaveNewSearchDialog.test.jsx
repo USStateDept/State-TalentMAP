@@ -2,14 +2,14 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import SaveNewSearchDialogue from './SaveNewSearchDialogue';
+import SaveNewSearchDialog from './SaveNewSearchDialog';
 
-describe('SaveNewSearchDialogueComponent', () => {
+describe('SaveNewSearchDialogComponent', () => {
   let wrapper = null;
 
   it('is defined', () => {
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
         onFormSubmit={() => {}}
@@ -24,7 +24,7 @@ describe('SaveNewSearchDialogueComponent', () => {
     const textSpy = sinon.spy();
     const formSubmitSpy = sinon.spy();
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={cancelSpy}
         onTextChange={textSpy}
         onFormSubmit={formSubmitSpy}
@@ -40,7 +40,7 @@ describe('SaveNewSearchDialogueComponent', () => {
 
   it('matches snapshot', () => {
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
         onFormSubmit={() => {}}

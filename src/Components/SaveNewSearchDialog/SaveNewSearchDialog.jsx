@@ -5,7 +5,7 @@ import Form from '../Form';
 import FieldSet from '../FieldSet/FieldSet';
 import TextInput from '../TextInput';
 
-const SaveNewSearchDialogue = ({ onCancel, onTextChange, onFormSubmit,
+const SaveNewSearchDialog = ({ onCancel, onTextChange, onFormSubmit,
   newSavedSearchHasErrored, newSavedSearchSuccess }) => {
   // Check the "type" prop.
   // Setting this as an if statement allows us to easily add conditions if needed
@@ -36,7 +36,7 @@ const SaveNewSearchDialogue = ({ onCancel, onTextChange, onFormSubmit,
   );
 };
 
-SaveNewSearchDialogue.propTypes = {
+SaveNewSearchDialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onTextChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
@@ -44,9 +44,9 @@ SaveNewSearchDialogue.propTypes = {
   newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
 };
 
-SaveNewSearchDialogue.defaultProps = {
+SaveNewSearchDialog.defaultProps = {
   newSavedSearchHasErrored: '',
   newSavedSearchSuccess: '',
 };
 
-export default SaveNewSearchDialogue;
+export default SaveNewSearchDialog;

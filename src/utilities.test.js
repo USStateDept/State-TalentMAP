@@ -10,7 +10,7 @@ import { validStateEmail,
          getItemLabel,
          shortenString,
          cleanQueryParams,
-         inputKeyUp,
+         ifEnter,
        } from './utilities';
 
 describe('local storage', () => {
@@ -163,9 +163,9 @@ describe('cleanQueryParams', () => {
   });
 });
 
-describe('inputKeyUp', () => {
+describe('ifEnter', () => {
   it('only returns true for keyCode of 13', () => {
-    expect(inputKeyUp({ keyCode: 13 })).toBe(true);
-    expect(inputKeyUp({ keyCode: 14 })).toBe(false);
+    expect(ifEnter({ keyCode: 13 })).toBe(true);
+    expect(ifEnter({ keyCode: 14 })).toBe(false);
   });
 });

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class TextInput extends Component {
   constructor(props) {
@@ -68,7 +67,7 @@ class TextInput extends Component {
 TextInput.propTypes = {
   id: PropTypes.string.isRequired,
   labelSrOnly: PropTypes.bool,
-  changeText: PropTypes.func,
+  changeText: PropTypes.func.isRequired,
   type: PropTypes.oneOf(['success', 'error', 'focus']),
   label: PropTypes.string,
   labelMessage: PropTypes.string,
@@ -76,7 +75,6 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   labelSrOnly: false,
-  changeText: EMPTY_FUNCTION,
   type: undefined,
   label: '',
   labelMessage: '',

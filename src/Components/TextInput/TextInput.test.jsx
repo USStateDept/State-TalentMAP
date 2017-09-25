@@ -10,6 +10,7 @@ describe('TextInputComponent', () => {
     const wrapper = shallow(
       <TextInput
         id={id}
+        changeText={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -20,6 +21,7 @@ describe('TextInputComponent', () => {
     const wrapper = shallow(
       <TextInput
         id={id}
+        changeText={() => {}}
       />,
     );
     wrapper.instance().changeText({ target: { value: text } });
@@ -32,6 +34,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         label={text}
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find(text)).toBeDefined();
@@ -43,6 +46,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         labelMessage={text}
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find(text)).toBeDefined();
@@ -53,6 +57,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         labelSrOnly
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-sr-only')).toBeDefined();
@@ -63,6 +68,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         type="success"
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-input-success')).toBeDefined();
@@ -70,6 +76,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         type="error"
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-input-error-message')).toBeDefined();
@@ -79,6 +86,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         type="focus"
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-input-focus')).toBeDefined();
@@ -88,6 +96,7 @@ describe('TextInputComponent', () => {
     const wrapper = shallow(
       <TextInput
         id={id}
+        changeText={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
