@@ -12,6 +12,16 @@ describe('Explore', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('can call the onRegionChange function', () => {
+    const region = 'test';
+    const wrapper = shallow(<Explore
+      filters={items}
+      onRegionSubmit={() => {}}
+    />);
+    wrapper.instance().onRegionChange(region);
+    expect(wrapper.instance().state.selectedRegion.value).toBe(region);
+  });
+
   it('can receive props', () => {
     const wrapper = shallow(<Explore
       filters={items}

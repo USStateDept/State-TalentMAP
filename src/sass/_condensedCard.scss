@@ -14,10 +14,27 @@
     width: 50px;
   }
 
-  .bid-list-button {
+  .white-button {
     bottom: 17px;
     margin-top: 15px;
     position: absolute;
+  }
+
+  .link-button-wrapper {
+    a:visited {
+      color: $color-black;
+    }
+  }
+
+  .link-button-wrapper:hover,
+  .link-button-wrapper:active {
+    a:visited {
+      color: $color-white;
+    }
+
+    .fa {
+      color: $color-white;
+    }
   }
 
   .condensed-card-top {
@@ -81,7 +98,7 @@
 .condensed-card-first-big {
   float: left;
 
-  .bid-list-button {
+  .white-button {
     bottom: unset;
     position: unset;
   }

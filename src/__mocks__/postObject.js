@@ -9,7 +9,7 @@ const postObject = {
   rest_relaxation_point: 'London',
   has_consumable_allowance: true,
   has_service_needs_differential: true,
-  languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }],
+  languages: [{ id: 1, language: 'French (FR)', reading_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }],
 };
 
 export default postObject;

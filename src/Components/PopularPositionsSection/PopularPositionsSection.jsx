@@ -11,8 +11,8 @@ const PopularPositionsSection = ({ positions, toggleFavorite, favorites,
       <PositionsSectionTitle
         title={
           <span className="positions-section-title">
-            <FontAwesome name="gratipay" />
-            Popular Positions
+            <FontAwesome name="star" />
+            Highlighted Positions
           </span>
         }
         viewMoreLink="/results"

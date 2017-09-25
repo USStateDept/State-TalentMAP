@@ -78,9 +78,9 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
                     Object {
                       "id": 1,
                       "language": "French (FR)",
+                      "reading_proficiency": "2",
                       "representation": "French (FR) 2/2",
                       "spoken_proficiency": "2",
-                      "written_proficiency": "2",
                     },
                   ]
                 }
