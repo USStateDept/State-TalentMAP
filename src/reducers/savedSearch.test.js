@@ -12,4 +12,8 @@ describe('savedSearch reducers', () => {
   it('can set reducer NEW_SAVED_SEARCH_SUCCESS', () => {
     expect(reducers.newSavedSearchSuccess(false, { type: 'NEW_SAVED_SEARCH_SUCCESS', newSavedSearch: true })).toBe(true);
   });
+
+  it('can set reducer CURRENT_SAVED_SEARCH', () => {
+    expect(reducers.currentSavedSearch(false, { type: 'CURRENT_SAVED_SEARCH', searchObject: true })).toBe(true);
+  });
 });

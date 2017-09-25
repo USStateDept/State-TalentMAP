@@ -19,6 +19,39 @@ describe('SaveNewSearchDialogueComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('can call the submitNewSavedSearch function', () => {
+    const form = { value: null };
+    wrapper = shallow(
+      <SaveNewSearchDialogue
+        onCancel={() => {}}
+        onTextChange={() => {}}
+        onFormSubmit={(e) => { form.value = e; }}
+        newSavedSearchHasErrored="error"
+      />,
+    );
+    const formValue = 1;
+    wrapper.instance().submitNewSavedSearch(formValue);
+    expect(form.value).toBe(formValue);
+  });
+
+  it('can call the submitUpdatedSavedSearch function', () => {
+    const form = { value: null, valueSec: null };
+    const savedSearch = { id: 1, name: 'test' };
+    wrapper = shallow(
+      <SaveNewSearchDialogue
+        onCancel={() => {}}
+        onTextChange={() => {}}
+        onFormSubmit={(e, id) => { form.value = e; form.valueSec = id; }}
+        newSavedSearchHasErrored="error"
+        currentSavedSearch={savedSearch}
+      />,
+    );
+    const formValue = 1;
+    wrapper.instance().submitUpdatedSavedSearch(formValue);
+    expect(form.value).toBe(formValue);
+    expect(form.valueSec).toBe(savedSearch.id);
+  });
+
   it('it can call functions', () => {
     const cancelSpy = sinon.spy();
     const textSpy = sinon.spy();
