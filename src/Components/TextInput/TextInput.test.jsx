@@ -15,7 +15,7 @@ describe('TextInputComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('it can change text', () => {
+  it('can change text', () => {
     const text = 'test';
     const wrapper = shallow(
       <TextInput
@@ -26,7 +26,7 @@ describe('TextInputComponent', () => {
     expect(wrapper.instance().state.input.value).toBe(text);
   });
 
-  it('it can add a label', () => {
+  it('can add a label', () => {
     const text = 'test';
     const wrapper = shallow(
       <TextInput
@@ -37,7 +37,7 @@ describe('TextInputComponent', () => {
     expect(wrapper.find(text)).toBeDefined();
   });
 
-  it('it can add a label message', () => {
+  it('can add a label message', () => {
     const text = 'test';
     const wrapper = shallow(
       <TextInput
@@ -48,7 +48,7 @@ describe('TextInputComponent', () => {
     expect(wrapper.find(text)).toBeDefined();
   });
 
-  it('it can add a sr-only class', () => {
+  it('can add a sr-only class', () => {
     const wrapper = shallow(
       <TextInput
         id={id}

@@ -19,7 +19,7 @@ describe('SaveNewSearchDialogueComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('it can call functions', () => {
+  it('can call functions', () => {
     const cancelSpy = sinon.spy();
     const textSpy = sinon.spy();
     const formSubmitSpy = sinon.spy();
