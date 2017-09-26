@@ -87,7 +87,7 @@ export class Header extends Component {
                 <span className="usa-unstyled-list mobile-nav-only">
                   <hr />
                   <li>
-                    <Link to="/">Profile</Link>
+                    <Link to="/profile">Profile</Link>
                   </li>
                   <li>
                     <Link to="login" id="login-mobile" onClick={logout}>Logout</Link>

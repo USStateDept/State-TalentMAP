@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveNewSearchPromptComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <a
+      className="save-search-link"
+      onClick={[Function]}
+      onKeyUp={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      Save this search
+    </a>
+    . You will be able to come back to these results later.
+  </div>
+  <div
+    className="usa-grid-full"
+  >
+    success
+  </div>
+</div>
+`;

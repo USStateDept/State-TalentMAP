@@ -98,7 +98,7 @@ exports[`Header matches snapshot when logged in 1`] = `
             <li>
               <Link
                 replace={false}
-                to="/"
+                to="/profile"
               >
                 Profile
               </Link>
@@ -236,7 +236,7 @@ exports[`Header matches snapshot when logged out 1`] = `
             <li>
               <Link
                 replace={false}
-                to="/"
+                to="/profile"
               >
                 Profile
               </Link>

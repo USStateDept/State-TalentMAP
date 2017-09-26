@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormComponent matches snapshot 1`] = `
+<form
+  className=""
+  onSubmit={[Function]}
+>
+  <span>
+    child
+  </span>
+</form>
+`;

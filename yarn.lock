@@ -7118,13 +7118,13 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
+typeface-merriweather@^0.0.35:
+  version "0.0.35"
+  resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-0.0.35.tgz#2539221f5519c93c2b93902103c6605c5d3cd2f3"
+
 typeface-roboto@0.0.35:
   version "0.0.35"
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.35.tgz#5965d3f6d4cd72b7b2833d6b7d42c9b59b8392ba"
-
-typeface-vollkorn@0.0.35:
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/typeface-vollkorn/-/typeface-vollkorn-0.0.35.tgz#df4142ca267ad1fe39f151868469fc02bfb752d0"
 
 typescript@^2.4.1:
   version "2.5.1"
