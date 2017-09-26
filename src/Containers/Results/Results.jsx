@@ -11,7 +11,7 @@ import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-  ROUTER_LOCATIONS, USER_PROFILE, SAVED_SEARCH_MESSAGE } from '../../Constants/PropTypes';
+  ROUTER_LOCATIONS, USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -188,7 +188,8 @@ class Results extends Component {
 
   // When we want to save a search, the child component passes a string for the name (e)
   // We'll handle the actual "filters" object here
-  saveSearch(e) {
+  // An optional "id" can be passed if we want to patch an existing saved search
+  saveSearch(e, id) {
     // parse the string to an object
     const parsedQuery = queryString.parse(this.state.query.value);
     // remove an invalid filters
@@ -200,14 +201,14 @@ class Results extends Component {
       filters: cleanedQuery,
     });
     // send formed object to our redux action
-    this.props.saveSearch(queryObject);
+    this.props.saveSearch(queryObject, id);
   }
 
   render() {
     const { results, hasErrored, isLoading, filters, toggleFavorite,
             selectedAccordion, setAccordion, userProfile,
             userProfileFavoritePositionIsLoading,
-            userProfileFavoritePositionHasErrored,
+            userProfileFavoritePositionHasErrored, currentSavedSearch,
             newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored } = this.props;
     return (
       <div>
@@ -238,6 +239,7 @@ class Results extends Component {
           newSavedSearchIsSaving={newSavedSearchIsSaving}
           newSavedSearchHasErrored={newSavedSearchHasErrored}
           saveSearch={this.saveSearch}
+          currentSavedSearch={currentSavedSearch}
         />
       </div>
     );
@@ -264,6 +266,7 @@ Results.propTypes = {
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
+  currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 
 Results.defaultProps = {
@@ -281,6 +284,7 @@ Results.defaultProps = {
   newSavedSearchSuccess: false,
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
+  currentSavedSearch: {},
 };
 
 Results.contextTypes = {
@@ -302,6 +306,7 @@ const mapStateToProps = state => ({
   newSavedSearchSuccess: state.newSavedSearchSuccess,
   newSavedSearchIsSaving: state.newSavedSearchIsSaving,
   newSavedSearchHasErrored: state.newSavedSearchHasErrored,
+  currentSavedSearch: state.currentSavedSearch,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -311,7 +316,7 @@ const mapDispatchToProps = dispatch => ({
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
-  saveSearch: object => dispatch(saveSearch(object)),
+  saveSearch: (object, id) => dispatch(saveSearch(object, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SAVED_SEARCH_MESSAGE } from '../../Constants/PropTypes';
+import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
 import SaveNewSearchDialog from '../SaveNewSearchDialog';
 import SaveNewSearchPrompt from '../SaveNewSearchPrompt';
 
@@ -12,20 +12,13 @@ class SaveNewSearchContainer extends Component {
     this.submitSavedSearch = this.submitSavedSearch.bind(this);
     this.state = {
       showInput: { value: false },
-      newSearchName: { value: '' },
+      newSearchName: { value: this.props.currentSavedSearch.name || '' },
     };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.state.showInput.value && nextProps.newSavedSearchSuccess) {
-      this.toggleInput();
-    }
   }
 
   toggleInput() {
     const { showInput, newSearchName } = this.state;
     // reset the input field, since the component will re-render and be out of sync with state
-    newSearchName.value = '';
     showInput.value = !showInput.value;
     this.setState({ showInput, newSearchName });
   }
@@ -36,14 +29,16 @@ class SaveNewSearchContainer extends Component {
     this.setState({ newSearchName });
   }
 
-  submitSavedSearch(e) {
-    e.preventDefault();
-    this.props.saveSearch(this.state.newSearchName.value);
+  submitSavedSearch(e, id) {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    this.props.saveSearch(this.state.newSearchName.value, id);
   }
 
   render() {
     const { showInput } = this.state;
-    const { newSavedSearchHasErrored } = this.props;
+    const { newSavedSearchHasErrored, currentSavedSearch } = this.props;
     return (
       <div className="usa-grid-full save-new-search-container">
         {
@@ -54,11 +49,13 @@ class SaveNewSearchContainer extends Component {
               onTextChange={this.changeNewSearchName}
               onCancel={this.toggleInput}
               newSavedSearchHasErrored={newSavedSearchHasErrored}
+              currentSavedSearch={currentSavedSearch}
             />
           ) :
           (
             <SaveNewSearchPrompt
               toggleInput={this.toggleInput}
+              currentSavedSearch={currentSavedSearch}
             />
           )
         }
@@ -70,7 +67,11 @@ class SaveNewSearchContainer extends Component {
 SaveNewSearchContainer.propTypes = {
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
+  currentSavedSearch: SAVED_SEARCH_OBJECT,
+};
+
+SaveNewSearchContainer.defaultProps = {
+  currentSavedSearch: {},
 };
 
 export default SaveNewSearchContainer;

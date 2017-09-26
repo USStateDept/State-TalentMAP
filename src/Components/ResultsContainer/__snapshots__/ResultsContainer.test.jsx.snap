@@ -9,6 +9,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     onPillClick={[Function]}
   />
   <SaveNewSearchContainer
+    currentSavedSearch={Object {}}
     newSavedSearchHasErrored={false}
     newSavedSearchSuccess={false}
     saveSearch={[Function]}

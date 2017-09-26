@@ -29,6 +29,27 @@ describe('saved search async actions', () => {
     f();
   });
 
+  it('can submit request to patch an existing saved search', (done) => {
+    const store = mockStore({ share: false });
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/searches/1/').reply(200,
+      {},
+    );
+
+    const message = {};
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.saveSearch(message, 1));
+        store.dispatch(actions.newSavedSearchIsSaving(true));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it('can handle a failed submission', (done) => {
     const store = mockStore({ share: false });
 

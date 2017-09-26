@@ -84,19 +84,6 @@ describe('SaveNewSearchContainerComponent', () => {
     expect(textToChange.value).toBe(text);
   });
 
-  it('can call the componentWillReceiveProps function and call the toggleInput function', () => {
-    wrapper = shallow(
-      <SaveNewSearchContainer
-        saveSearch={() => {}}
-        newSavedSearchHasErrored={false}
-        newSavedSearchSuccess="success"
-      />,
-    );
-    wrapper.instance().state.showInput.value = true;
-    wrapper.instance().componentWillReceiveProps({ newSavedSearchSuccess: true });
-    expect(wrapper.instance().state.showInput.value).toBe(false);
-  });
-
   it('matches snapshot', () => {
     wrapper = shallow(
       <SaveNewSearchContainer

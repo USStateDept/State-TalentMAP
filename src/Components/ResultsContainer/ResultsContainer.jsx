@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE,
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
          SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
@@ -16,6 +16,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
         defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle, scrollToTop,
         toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
         userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
+        currentSavedSearch,
   }) => (
     <div className="results-container">
       {
@@ -30,6 +31,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
         saveSearch={saveSearch}
         newSavedSearchSuccess={newSavedSearchSuccess}
         newSavedSearchHasErrored={newSavedSearchHasErrored}
+        currentSavedSearch={currentSavedSearch}
       />
       <ResultsControls
         results={results}
@@ -111,6 +113,7 @@ ResultsContainer.propTypes = {
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
+  currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 
 ResultsContainer.defaultProps = {
@@ -125,6 +128,7 @@ ResultsContainer.defaultProps = {
   pillFilters: [],
   scrollToTop: EMPTY_FUNCTION,
   userProfile: {},
+  currentSavedSearch: {},
 };
 
 export default ResultsContainer;

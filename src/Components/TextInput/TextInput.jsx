@@ -6,7 +6,7 @@ class TextInput extends Component {
     super(props);
     this.changeText = this.changeText.bind(this);
     this.state = {
-      input: { value: '' },
+      input: { value: this.props.value || '' },
     };
   }
   changeText(e) {
@@ -71,6 +71,7 @@ TextInput.propTypes = {
   type: PropTypes.oneOf(['success', 'error', 'focus']),
   label: PropTypes.string,
   labelMessage: PropTypes.string,
+  value: PropTypes.string,
 };
 
 TextInput.defaultProps = {
@@ -78,6 +79,7 @@ TextInput.defaultProps = {
   type: undefined,
   label: '',
   labelMessage: '',
+  value: null,
 };
 
 export default TextInput;

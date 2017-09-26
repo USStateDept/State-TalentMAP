@@ -14,9 +14,10 @@ exports[`SaveNewSearchPromptComponent matches snapshot 1`] = `
       role="link"
       tabIndex="0"
     >
-      Save this search
+      Save this search.
     </a>
-    . You will be able to come back to these results later.
+     
+    You will be able to come back to these results later.
   </div>
   <div
     className="usa-grid-full"

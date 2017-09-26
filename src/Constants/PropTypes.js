@@ -164,4 +164,15 @@ export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
 
 export const SAVED_SEARCH_MESSAGE = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
 
+export const SAVED_SEARCH_OBJECT = PropTypes.shape({
+  count: PropTypes.number,
+  date_created: PropTypes.string,
+  date_updated: PropTypes.string,
+  endpoint: PropTypes.string,
+  filters: PropTypes.shape({}),
+  id: PropTypes.number,
+  name: PropTypes.string,
+  owner: PropTypes.string,
+});
+
 export const EMPTY_FUNCTION = () => {};

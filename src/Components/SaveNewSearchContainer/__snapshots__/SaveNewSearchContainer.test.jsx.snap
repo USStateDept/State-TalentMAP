@@ -5,6 +5,7 @@ exports[`SaveNewSearchContainerComponent matches snapshot 1`] = `
   className="usa-grid-full save-new-search-container"
 >
   <SaveNewSearchPrompt
+    currentSavedSearch={Object {}}
     newSavedSearchSuccess={false}
     toggleInput={[Function]}
   />

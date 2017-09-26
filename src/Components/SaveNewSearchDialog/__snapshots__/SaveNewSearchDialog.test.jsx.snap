@@ -16,19 +16,20 @@ exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
       label="Name:"
       labelMessage=""
       labelSrOnly={false}
+      value={null}
     />
   </FieldSet>
   <div
     className="saved-search-form-buttons"
   >
     <button
-      className="saved-search-form-submit"
+      className="saved-search-form-primary-button"
       type="submit"
     >
-      Submit
+      Save
     </button>
     <button
-      className="saved-search-form-cancel"
+      className="saved-search-form-secondary-button"
       onClick={[Function]}
     >
       Cancel

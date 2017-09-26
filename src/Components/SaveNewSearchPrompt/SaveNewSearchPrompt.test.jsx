@@ -17,6 +17,19 @@ describe('SaveNewSearchPromptComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('can handle receiving currently selected saved searches', () => {
+    const savedSearch = { id: 1, name: 'test' };
+    wrapper = shallow(
+      <SaveNewSearchPrompt
+        toggleInput={() => {}}
+        newSavedSearchSuccess="success"
+        currentSavedSearch={savedSearch}
+      />,
+    );
+    expect(wrapper.find(savedSearch.name)).toBeDefined();
+    expect(wrapper.find('Edit')).toBeDefined();
+  });
+
   it('can respond to an enter key on the link', () => {
     const spy = sinon.spy();
     wrapper = shallow(

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as SystemMessages from '../Constants/SystemMessages';
 import { fetchUserToken } from '../utilities';
 import api from '../api';
 
@@ -20,17 +21,43 @@ export function newSavedSearchSuccess(newSavedSearch) {
     newSavedSearch,
   };
 }
+export function currentSavedSearch(searchObject) {
+  return {
+    type: 'CURRENT_SAVED_SEARCH',
+    searchObject,
+  };
+}
+export function setCurrentSavedSearch(searchObject) {
+  return (dispatch) => {
+    dispatch(currentSavedSearch(searchObject));
+  };
+}
 
-export function saveSearch(data) {
+// save a new search OR pass an ID to patch an existing search
+export function saveSearch(data, id) {
   return (dispatch) => {
     dispatch(newSavedSearchIsSaving(true));
     dispatch(newSavedSearchSuccess(false));
     dispatch(newSavedSearchHasErrored(false));
-    axios.post(`${api}/searches/`, data, { headers: { Authorization: fetchUserToken() } })
+    // here we handle based on the "id" param to decide whether
+    // to post or patch to the correct endpoint
+    let action = 'post';
+    let endpoint = `${api}/searches/`;
+    if (id) {
+      action = 'patch';
+      endpoint = `${api}/searches/${id}/`;
+    }
+    axios[action](endpoint, data, { headers: { Authorization: fetchUserToken() } })
             .then((response) => {
               dispatch(newSavedSearchIsSaving(false));
               dispatch(newSavedSearchHasErrored(false));
-              dispatch(newSavedSearchSuccess(`Saved search with the name "${response.data.name}" has been saved! You can go to your profile to view all of your saved searches.`));
+              dispatch(newSavedSearchSuccess(
+                // if an ID was passed, we know to use the UPDATED message
+                id ?
+                  SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) :
+                  SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name),
+              ));
+              dispatch(setCurrentSavedSearch(response.data));
             })
             .catch((err) => {
               dispatch(newSavedSearchHasErrored(JSON.stringify(err.response.data) || 'An error occurred trying to save this search.'));

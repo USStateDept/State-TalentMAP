@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE, SAVED_SEARCH_MESSAGE,
-  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
+  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY,
+  SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
@@ -30,7 +31,7 @@ class Results extends Component {
             defaultPageNumber, onQueryParamUpdate, filters, userProfile, toggleFavorite,
             selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            newSavedSearchHasErrored }
+            newSavedSearchHasErrored, currentSavedSearch }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -83,6 +84,7 @@ class Results extends Component {
             saveSearch={saveSearch}
             newSavedSearchSuccess={newSavedSearchSuccess}
             newSavedSearchHasErrored={newSavedSearchHasErrored}
+            currentSavedSearch={currentSavedSearch}
           />
         </div>
       </div>
@@ -116,6 +118,7 @@ Results.propTypes = {
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
+  currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 
 Results.defaultProps = {
@@ -133,6 +136,7 @@ Results.defaultProps = {
   filters: [],
   scrollToTop: EMPTY_FUNCTION,
   userProfile: {},
+  currentSavedSearch: {},
 };
 
 Results.contextTypes = {
