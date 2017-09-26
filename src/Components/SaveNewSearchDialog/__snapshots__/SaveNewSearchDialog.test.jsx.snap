@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SaveNewSearchDialogueComponent matches snapshot 1`] = `
+exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
 <Form
   className="usa-grid-full saved-search-form"
   onFormSubmit={[Function]}

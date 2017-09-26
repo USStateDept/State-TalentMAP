@@ -10,49 +10,54 @@ describe('TextInputComponent', () => {
     const wrapper = shallow(
       <TextInput
         id={id}
+        changeText={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
   });
 
-  it('it can change text', () => {
+  it('can change text', () => {
     const text = 'test';
     const wrapper = shallow(
       <TextInput
         id={id}
+        changeText={() => {}}
       />,
     );
     wrapper.instance().changeText({ target: { value: text } });
     expect(wrapper.instance().state.input.value).toBe(text);
   });
 
-  it('it can add a label', () => {
+  it('can add a label', () => {
     const text = 'test';
     const wrapper = shallow(
       <TextInput
         id={id}
         label={text}
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find(text)).toBeDefined();
   });
 
-  it('it can add a label message', () => {
+  it('can add a label message', () => {
     const text = 'test';
     const wrapper = shallow(
       <TextInput
         id={id}
         labelMessage={text}
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find(text)).toBeDefined();
   });
 
-  it('it can add a sr-only class', () => {
+  it('can add a sr-only class', () => {
     const wrapper = shallow(
       <TextInput
         id={id}
         labelSrOnly
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-sr-only')).toBeDefined();
@@ -63,6 +68,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         type="success"
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-input-success')).toBeDefined();
@@ -70,6 +76,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         type="error"
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-input-error-message')).toBeDefined();
@@ -79,6 +86,7 @@ describe('TextInputComponent', () => {
       <TextInput
         id={id}
         type="focus"
+        changeText={() => {}}
       />,
     );
     expect(wrapper.find('.usa-input-focus')).toBeDefined();
@@ -88,6 +96,7 @@ describe('TextInputComponent', () => {
     const wrapper = shallow(
       <TextInput
         id={id}
+        changeText={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

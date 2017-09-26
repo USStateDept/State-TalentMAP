@@ -35,8 +35,9 @@ exports[`AccountDropdown matches snapshot 1`] = `
       className="account-dropdown--identity account-dropdown--segment"
     >
       <Link
+        onClick={[Function]}
         replace={false}
-        to="/"
+        to="profile"
       >
         Profile
       </Link>

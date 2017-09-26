@@ -17,7 +17,7 @@ describe('PaginationWrapper', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('it can take different props', () => {
+  it('can take different props', () => {
     wrapper = shallow(<PaginationWrapper
       pageCount={5}
       onPageChange={() => {}}

@@ -30,7 +30,7 @@ describe('SaveNewSearchContainerComponent', () => {
     expect(wrapper.instance().props.newSavedSearchSuccess).toBe(success);
   });
 
-  it('it can call the save search function', () => {
+  it('can call the save search function', () => {
     const spy = sinon.spy();
     wrapper = shallow(
       <SaveNewSearchContainer
@@ -43,7 +43,7 @@ describe('SaveNewSearchContainerComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('it can call the toggleInput function', () => {
+  it('can call the toggleInput function', () => {
     wrapper = shallow(
       <SaveNewSearchContainer
         saveSearch={() => {}}
@@ -56,7 +56,7 @@ describe('SaveNewSearchContainerComponent', () => {
     expect(wrapper.instance().state.showInput.value).toBe(true);
   });
 
-  it('it can call the changeNewSearchName function', () => {
+  it('can call the changeNewSearchName function', () => {
     const text = 'text';
     wrapper = shallow(
       <SaveNewSearchContainer
@@ -69,7 +69,7 @@ describe('SaveNewSearchContainerComponent', () => {
     expect(wrapper.instance().state.newSearchName.value).toBe(text);
   });
 
-  it('it can call the submitSavedSearch function', () => {
+  it('can call the submitSavedSearch function', () => {
     const text = 'text';
     const textToChange = { value: 'old' };
     wrapper = shallow(

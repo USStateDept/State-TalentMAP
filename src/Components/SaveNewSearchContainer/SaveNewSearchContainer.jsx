@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
-import SaveNewSearchDialogue from '../SaveNewSearchDialogue';
+import SaveNewSearchDialog from '../SaveNewSearchDialog';
 import SaveNewSearchPrompt from '../SaveNewSearchPrompt';
 
 class SaveNewSearchContainer extends Component {
@@ -45,7 +45,7 @@ class SaveNewSearchContainer extends Component {
         {
           showInput.value ?
           (
-            <SaveNewSearchDialogue
+            <SaveNewSearchDialog
               onFormSubmit={this.submitSavedSearch}
               onTextChange={this.changeNewSearchName}
               onCancel={this.toggleInput}

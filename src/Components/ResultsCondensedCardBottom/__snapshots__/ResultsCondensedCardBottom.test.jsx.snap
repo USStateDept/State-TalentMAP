@@ -47,6 +47,10 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       }
     }
   />
-  <BidListButton />
+  <div
+    className="usa-grid-full"
+  >
+    <BidListButton />
+  </div>
 </div>
 `;

@@ -2,14 +2,14 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import SaveNewSearchDialogue from './SaveNewSearchDialogue';
+import SaveNewSearchDialog from './SaveNewSearchDialog';
 
-describe('SaveNewSearchDialogueComponent', () => {
+describe('SaveNewSearchDialogComponent', () => {
   let wrapper = null;
 
   it('is defined', () => {
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
         onFormSubmit={() => {}}
@@ -22,7 +22,7 @@ describe('SaveNewSearchDialogueComponent', () => {
   it('can call the submitNewSavedSearch function', () => {
     const form = { value: null };
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
         onFormSubmit={(e) => { form.value = e; }}
@@ -38,7 +38,7 @@ describe('SaveNewSearchDialogueComponent', () => {
     const form = { value: null, valueSec: null };
     const savedSearch = { id: 1, name: 'test' };
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
         onFormSubmit={(e, id) => { form.value = e; form.valueSec = id; }}
@@ -52,12 +52,12 @@ describe('SaveNewSearchDialogueComponent', () => {
     expect(form.valueSec).toBe(savedSearch.id);
   });
 
-  it('it can call functions', () => {
+  it('can call functions', () => {
     const cancelSpy = sinon.spy();
     const textSpy = sinon.spy();
     const formSubmitSpy = sinon.spy();
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={cancelSpy}
         onTextChange={textSpy}
         onFormSubmit={formSubmitSpy}
@@ -73,7 +73,7 @@ describe('SaveNewSearchDialogueComponent', () => {
 
   it('matches snapshot', () => {
     wrapper = shallow(
-      <SaveNewSearchDialogue
+      <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
         onFormSubmit={() => {}}

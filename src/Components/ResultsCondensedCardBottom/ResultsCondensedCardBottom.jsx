@@ -6,7 +6,9 @@ import { POSITION_DETAILS } from '../../Constants/PropTypes';
 const ResultsCondensedCardBottom = ({ position }) => (
   <div className="usa-grid-full condensed-card-bottom">
     <CondensedCardData position={position} />
-    <BidListButton />
+    <div className="usa-grid-full">
+      <BidListButton />
+    </div>
   </div>
 );
 

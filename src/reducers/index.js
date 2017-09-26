@@ -13,6 +13,7 @@ import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comp
 import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
 import { userProfile, userProfileHasErrored, userProfileIsLoading,
         userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
+import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading } from './favoritePositions';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -53,5 +54,8 @@ export default combineReducers({
   login,
   selectedAccordion,
   routerLocations,
+  favoritePositions,
+  favoritePositionsHasErrored,
+  favoritePositionsIsLoading,
   router: routerReducer,
 });

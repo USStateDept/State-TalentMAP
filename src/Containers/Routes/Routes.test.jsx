@@ -50,4 +50,25 @@ describe('Routes', () => {
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
+  it('handles a profile route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/profile']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
+  it('handles a profile/favorites route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/profile/favorites']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
+  it('handles a profile/searches route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/profile/searches']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
 });

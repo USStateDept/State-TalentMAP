@@ -170,7 +170,7 @@ export const cleanQueryParams = (q) => {
   return object;
 };
 
-export const inputKeyUp = (e) => {
+export const ifEnter = (e) => {
   if (e.keyCode === 13) {
     return true;
   }

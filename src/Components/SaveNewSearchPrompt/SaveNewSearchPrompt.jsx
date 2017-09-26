@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
-import { inputKeyUp } from '../../utilities';
+import { ifEnter } from '../../utilities';
 
 const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
   currentSavedSearch }) => {
@@ -17,7 +17,7 @@ const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
           tabIndex="0"
           role="link"
           onClick={toggleInput}
-          onKeyUp={(e) => { if (inputKeyUp(e)) { toggleInput(); } }}
+          onKeyUp={(e) => { if (ifEnter(e)) { toggleInput(); } }}
         >
           {currentSearchExists ? 'Edit this search.' : 'Save this search.'}
         </a>

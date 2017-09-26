@@ -5,7 +5,7 @@ import Form from '../Form';
 import FieldSet from '../FieldSet/FieldSet';
 import TextInput from '../TextInput';
 
-class SaveNewSearchDialogue extends Component {
+class SaveNewSearchDialog extends Component {
   constructor(props) {
     super(props);
     this.submitNewSavedSearch = this.submitNewSavedSearch.bind(this);
@@ -65,7 +65,7 @@ class SaveNewSearchDialogue extends Component {
   }
 }
 
-SaveNewSearchDialogue.propTypes = {
+SaveNewSearchDialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onTextChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
@@ -74,10 +74,10 @@ SaveNewSearchDialogue.propTypes = {
   currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 
-SaveNewSearchDialogue.defaultProps = {
+SaveNewSearchDialog.defaultProps = {
   newSavedSearchHasErrored: '',
   newSavedSearchSuccess: '',
   currentSavedSearch: {},
 };
 
-export default SaveNewSearchDialogue;
+export default SaveNewSearchDialog;
