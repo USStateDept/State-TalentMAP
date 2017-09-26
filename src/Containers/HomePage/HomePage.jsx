@@ -5,7 +5,7 @@ import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
 import NewPositionsSection from '../../Components/NewPositionsSection';
-import PopularPositionsSection from '../../Components/PopularPositionsSection';
+import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import Spinner from '../../Components/Spinner';
 
 class HomePage extends Component {
@@ -57,12 +57,12 @@ class HomePage extends Component {
             positions={homePagePositions.isNew}
             isLoading={homePagePositionsIsLoading}
           />
-          <PopularPositionsSection
+          <HighlightedPositionsSection
             favorites={userProfile.favorite_positions}
             toggleFavorite={toggleFavorite}
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-            positions={homePagePositions.isPopular}
+            positions={homePagePositions.isHighlighted}
             isLoading={homePagePositionsIsLoading}
           />
         </div>

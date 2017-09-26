@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
 import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
-const PopularPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
+const HighlightedPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
     userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
   const positionList = positions.slice().map(p => (
     <div key={p.id} className="usa-width-one-third condensed-card">
@@ -12,19 +12,19 @@ const PopularPositionsCardList = ({ positions, toggleFavorite, favorites, isLoad
         toggleFavorite={toggleFavorite}
         userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        type="popular"
+        type="highlighted"
         position={p}
       />
     </div>
   ));
   return (
-    <div className={`usa-grid-full condensed-card-popular ${isLoading ? 'results-loading' : ''}`}>
+    <div className={`usa-grid-full condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
       {positionList}
     </div>
   );
 };
 
-PopularPositionsCardList.propTypes = {
+HighlightedPositionsCardList.propTypes = {
   positions: POSITION_DETAILS_ARRAY,
   favorites: FAVORITE_POSITIONS_ARRAY,
   toggleFavorite: PropTypes.func.isRequired,
@@ -33,10 +33,10 @@ PopularPositionsCardList.propTypes = {
   isLoading: PropTypes.bool,
 };
 
-PopularPositionsCardList.defaultProps = {
+HighlightedPositionsCardList.defaultProps = {
   positions: [],
   favorites: [],
   isLoading: false,
 };
 
-export default PopularPositionsCardList;
+export default HighlightedPositionsCardList;

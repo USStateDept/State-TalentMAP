@@ -26,11 +26,11 @@ export function homePagePositionsFetchData() {
     dispatch(homePagePositionsIsLoading(true));
     dispatch(homePagePositionsHasErrored(false));
 
-    const resultsTypes = { isPopular: [], isNew: [] };
+    const resultsTypes = { isHighlighted: [], isNew: [] };
 
-    const queryTypes = [{ name: 'isPopular', query: 'limit=3' }, { name: 'isNew', query: 'ordering=create_date&limit=5' }];
+    const queryTypes = [{ name: 'isHighlighted', query: 'highlighted/?limit=3' }, { name: 'isNew', query: '?ordering=create_date&limit=5' }];
 
-    const queryProms = queryTypes.map(type => axios.get(`${api}/position/?${type.query}`));
+    const queryProms = queryTypes.map(type => axios.get(`${api}/position/${type.query}`));
 
     Promise.all(queryProms)
       // Promise.all returns a single array which matches the order of the originating array...

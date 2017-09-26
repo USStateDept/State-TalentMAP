@@ -1,13 +1,13 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import PopularPositionsCardList from './PopularPositionsCardList';
+import HighlightedPositionsCardList from './HighlightedPositionsCardList';
 import resultsObject from '../../__mocks__/resultsObject';
 
-describe('PopularPositionsCardListComponent', () => {
+describe('HighlightedPositionsCardListComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <PopularPositionsCardList
+      <HighlightedPositionsCardList
         positions={resultsObject.results}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
@@ -19,7 +19,7 @@ describe('PopularPositionsCardListComponent', () => {
 
   it('can receive props', () => {
     const wrapper = shallow(
-      <PopularPositionsCardList
+      <HighlightedPositionsCardList
         positions={resultsObject.results}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
@@ -31,7 +31,7 @@ describe('PopularPositionsCardListComponent', () => {
 
   it('can change className based on isLoading', () => {
     const wrapper = shallow(
-      <PopularPositionsCardList
+      <HighlightedPositionsCardList
         positions={resultsObject.results}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
@@ -44,7 +44,7 @@ describe('PopularPositionsCardListComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <PopularPositionsCardList
+      <HighlightedPositionsCardList
         positions={resultsObject.results}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
