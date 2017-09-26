@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SavedSearchesCard from '../SavedSearchesCard';
+import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch }) => {
   const searchList = savedSearches.results.slice().map(savedSearch => (
@@ -18,7 +19,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch }) => 
 };
 
 SavedSearchesList.propTypes = {
-  savedSearches: PropTypes.shape({}).isRequired,
+  savedSearches: SAVED_SEARCH_PARENT_OBJECT.isRequired,
   goToSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
 };

@@ -1,4 +1,5 @@
 import Scroll from 'react-scroll';
+import queryString from 'query-string';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -176,3 +177,6 @@ export const ifEnter = (e) => {
   }
   return false;
 };
+
+// convert a query object to a query string
+export const formQueryString = queryObject => queryString.stringify(queryObject);

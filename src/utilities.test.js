@@ -11,6 +11,7 @@ import { validStateEmail,
          shortenString,
          cleanQueryParams,
          ifEnter,
+         formQueryString,
        } from './utilities';
 
 describe('local storage', () => {
@@ -167,5 +168,11 @@ describe('ifEnter', () => {
   it('only returns true for keyCode of 13', () => {
     expect(ifEnter({ keyCode: 13 })).toBe(true);
     expect(ifEnter({ keyCode: 14 })).toBe(false);
+  });
+});
+
+describe('formQueryString', () => {
+  it('can return a string', () => {
+    expect(formQueryString({ q: 'test' })).toBe('q=test');
   });
 });

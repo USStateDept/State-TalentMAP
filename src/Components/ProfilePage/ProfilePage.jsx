@@ -5,7 +5,7 @@ import ProfileNavigation from '../ProfileNavigation';
 import FavoritePositions from '../FavoritePositions';
 import SavedSearches from '../SavedSearches';
 import ProfileLanding from '../ProfileLanding';
-import { POSITION_SEARCH_RESULTS, USER_PROFILE } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, USER_PROFILE, SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
 
 const ProfilePage = ({ user, favoritePositions, toggleFavorite, favoritePositionsIsLoading,
 favoritePositionsHasErrored, toggleFavoritePositionIsLoading,
@@ -63,7 +63,7 @@ ProfilePage.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   toggleFavoritePositionIsLoading: PropTypes.bool,
   toggleFavoritePositionHasErrored: PropTypes.bool,
-  savedSearches: PropTypes.shape({}).isRequired,
+  savedSearches: SAVED_SEARCH_PARENT_OBJECT.isRequired,
   savedSearchesIsLoading: PropTypes.bool.isRequired,
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   goToSavedSearch: PropTypes.func.isRequired,

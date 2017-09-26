@@ -14,7 +14,11 @@ const mockStore = configureStore(middlewares);
 describe('Profile', () => {
   it('is defined', () => {
     const profile = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Profile isAuthorized={() => true} onNavigateTo={() => {}} />
+      <Profile
+        isAuthorized={() => true}
+        onNavigateTo={() => {}}
+        savedSearchesFetchData={() => {}}
+      />
     </MemoryRouter></Provider>);
     expect(profile).toBeDefined();
   });
@@ -27,15 +31,36 @@ describe('Profile', () => {
         onNavigateTo={() => {}}
         fetchData={() => {}}
         toggleFavorite={spy}
+        savedSearchesFetchData={() => {}}
       />,
     );
     wrapper.instance().onToggleFavorite();
     sinon.assert.calledOnce(spy);
   });
 
+  it('can call the goToSavedSearch function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Profile.WrappedComponent
+        isAuthorized={() => true}
+        onNavigateTo={spy}
+        fetchData={() => {}}
+        toggleFavorite={() => {}}
+        savedSearchesFetchData={() => {}}
+        setCurrentSavedSearch={() => {}}
+      />,
+    );
+    wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
+    sinon.assert.calledOnce(spy);
+  });
+
   it('can handle authentication redirects', () => {
     const profile = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Profile isAuthorized={() => false} onNavigateTo={() => {}} />
+      <Profile
+        isAuthorized={() => false}
+        onNavigateTo={() => {}}
+        savedSearchesFetchData={() => {}}
+      />
     </MemoryRouter></Provider>);
     expect(profile).toBeDefined();
   });

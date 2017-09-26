@@ -175,4 +175,13 @@ export const SAVED_SEARCH_OBJECT = PropTypes.shape({
   owner: PropTypes.string,
 });
 
+export const SAVED_SEARCH_PARENT_OBJECT = PropTypes.shape({
+  count: PropTypes.number,
+  next: PropTypes.string,
+  previous: PropTypes.string,
+  results: PropTypes.arrayOf([
+    SAVED_SEARCH_OBJECT,
+  ]),
+});
+
 export const EMPTY_FUNCTION = () => {};

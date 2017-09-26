@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import SavedSearchesList from '../SavedSearchesList';
 
@@ -21,15 +21,11 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
 );
 
 SavedSearches.propTypes = {
-  savedSearches: PropTypes.shape({}),
+  savedSearches: SAVED_SEARCH_PARENT_OBJECT.isRequired,
   savedSearchesIsLoading: PropTypes.bool.isRequired,
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   goToSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
-};
-
-SavedSearches.defaultProps = {
-  savedSearches: {},
 };
 
 export default SavedSearches;
