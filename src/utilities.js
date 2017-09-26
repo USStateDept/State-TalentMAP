@@ -1,4 +1,5 @@
 import Scroll from 'react-scroll';
+import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
 
@@ -153,4 +154,25 @@ export const existsInArray = (ref, array) => {
     }
   });
   return found;
+};
+
+// clean our query object for use with the saved search endpoint
+// make sure query object only uses real parameters (no extras that may have been added to the URL)
+// we also want to get rid of page and limit,
+// since those aren't valid params in the saved search endpoint
+export const cleanQueryParams = (q) => {
+  const object = Object.assign({}, q);
+  Object.keys(object).forEach((key) => {
+    if (VALID_PARAMS.indexOf(key) <= -1) {
+      delete object[key];
+    }
+  });
+  return object;
+};
+
+export const ifEnter = (e) => {
+  if (e.keyCode === 13) {
+    return true;
+  }
+  return false;
 };

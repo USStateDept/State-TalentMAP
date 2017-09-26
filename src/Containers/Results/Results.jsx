@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
-import { scrollToTop } from '../../utilities';
+import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
+import { saveSearch } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS, USER_PROFILE } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
+  ROUTER_LOCATIONS, USER_PROFILE, SAVED_SEARCH_MESSAGE } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -20,6 +22,7 @@ class Results extends Component {
     this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
     this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
+    this.saveSearch = this.saveSearch.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -183,11 +186,29 @@ class Results extends Component {
     this.props.fetchData(q);
   }
 
+  // When we want to save a search, the child component passes a string for the name (e)
+  // We'll handle the actual "filters" object here
+  saveSearch(e) {
+    // parse the string to an object
+    const parsedQuery = queryString.parse(this.state.query.value);
+    // remove an invalid filters
+    const cleanedQuery = cleanQueryParams(parsedQuery);
+    // form our object for the API
+    const queryObject = Object.assign({}, {
+      name: e,
+      endpoint: '/api/v1/position/',
+      filters: cleanedQuery,
+    });
+    // send formed object to our redux action
+    this.props.saveSearch(queryObject);
+  }
+
   render() {
     const { results, hasErrored, isLoading, filters, toggleFavorite,
             selectedAccordion, setAccordion, userProfile,
             userProfileFavoritePositionIsLoading,
-            userProfileFavoritePositionHasErrored } = this.props;
+            userProfileFavoritePositionHasErrored,
+            newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored } = this.props;
     return (
       <div>
         <ResultsPage
@@ -213,6 +234,10 @@ class Results extends Component {
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+          newSavedSearchSuccess={newSavedSearchSuccess}
+          newSavedSearchIsSaving={newSavedSearchIsSaving}
+          newSavedSearchHasErrored={newSavedSearchHasErrored}
+          saveSearch={this.saveSearch}
         />
       </div>
     );
@@ -235,6 +260,10 @@ Results.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
+  newSavedSearchIsSaving: PropTypes.bool.isRequired,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
+  saveSearch: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -249,6 +278,9 @@ Results.defaultProps = {
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
+  newSavedSearchSuccess: false,
+  newSavedSearchHasErrored: false,
+  newSavedSearchIsSaving: false,
 };
 
 Results.contextTypes = {
@@ -267,6 +299,9 @@ const mapStateToProps = state => ({
   userProfile: state.userProfile,
   userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
+  newSavedSearchSuccess: state.newSavedSearchSuccess,
+  newSavedSearchIsSaving: state.newSavedSearchIsSaving,
+  newSavedSearchHasErrored: state.newSavedSearchHasErrored,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -276,6 +311,7 @@ const mapDispatchToProps = dispatch => ({
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
+  saveSearch: object => dispatch(saveSearch(object)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

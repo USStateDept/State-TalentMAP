@@ -162,4 +162,6 @@ export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
   sub: PropTypes.string,
 });
 
+export const SAVED_SEARCH_MESSAGE = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
+
 export const EMPTY_FUNCTION = () => {};

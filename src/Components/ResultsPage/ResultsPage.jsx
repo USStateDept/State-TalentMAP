@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE,
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE, SAVED_SEARCH_MESSAGE,
   SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
@@ -29,7 +29,8 @@ class Results extends Component {
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
             defaultPageNumber, onQueryParamUpdate, filters, userProfile, toggleFavorite,
             selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
-            userProfileFavoritePositionHasErrored }
+            userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
+            newSavedSearchHasErrored }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -79,6 +80,9 @@ class Results extends Component {
             toggleFavorite={toggleFavorite}
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+            saveSearch={saveSearch}
+            newSavedSearchSuccess={newSavedSearchSuccess}
+            newSavedSearchHasErrored={newSavedSearchHasErrored}
           />
         </div>
       </div>
@@ -109,6 +113,9 @@ Results.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  saveSearch: PropTypes.func.isRequired,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
 };
 
 Results.defaultProps = {

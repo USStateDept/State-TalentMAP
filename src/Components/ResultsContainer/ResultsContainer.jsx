@@ -2,23 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE,
          SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
+import SaveNewSearchContainer from '../SaveNewSearchContainer';
+import SaveNewSearchAlert from '../SaveNewSearchAlert';
 
 const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
         defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
         defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle, scrollToTop,
-        toggleFavorite, userProfileFavoritePositionIsLoading,
-        userProfileFavoritePositionHasErrored,
+        toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
+        userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
   }) => (
     <div className="results-container">
+      {
+        newSavedSearchSuccess &&
+        <SaveNewSearchAlert newSavedSearchSuccess={newSavedSearchSuccess} />
+      }
       <ResultsPillContainer
         items={pillFilters}
         onPillClick={onQueryParamToggle}
+      />
+      <SaveNewSearchContainer
+        saveSearch={saveSearch}
+        newSavedSearchSuccess={newSavedSearchSuccess}
+        newSavedSearchHasErrored={newSavedSearchHasErrored}
       />
       <ResultsControls
         results={results}
@@ -97,6 +108,9 @@ ResultsContainer.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  saveSearch: PropTypes.func.isRequired,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
 };
 
 ResultsContainer.defaultProps = {

@@ -304,3 +304,47 @@
   }
 
 }
+
+.save-new-search-container {
+  background-color: $color-gray-lightest;
+  border: solid 1px $color-black;
+  margin: 0 0 10px;
+  padding: 10px;
+
+  .save-search-link {
+    cursor: pointer;
+  }
+
+  .usa-input-error {
+    border-left: unset;
+    margin-top: unset;
+    padding-bottom: unset;
+    padding-left: unset;
+    padding-top: unset;
+    position: unset;
+    right: unset;
+
+    input {
+      width: 100%;
+    }
+   }
+
+  .saved-search-form-buttons {
+    float: left;
+  }
+
+  .saved-search-form-submit {
+    float: left;
+    margin: 18px 0 0;
+    padding: 1rem 2rem;
+  }
+
+  .saved-search-form-cancel {
+    float: left;
+    margin: 18px 0 0 17px;
+  }
+}
+
+.saved-search-alert {
+  margin: 0 0 10px;
+}
