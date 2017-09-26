@@ -3,12 +3,14 @@ import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProfileNavigation from '../ProfileNavigation';
 import FavoritePositions from '../FavoritePositions';
+import SavedSearches from '../SavedSearches';
 import ProfileLanding from '../ProfileLanding';
 import { POSITION_SEARCH_RESULTS, USER_PROFILE } from '../../Constants/PropTypes';
 
 const ProfilePage = ({ user, favoritePositions, toggleFavorite, favoritePositionsIsLoading,
 favoritePositionsHasErrored, toggleFavoritePositionIsLoading,
-toggleFavoritePositionHasErrored }) => (
+toggleFavoritePositionHasErrored, savedSearches, goToSavedSearch,
+savedSearchesHasErrored, savedSearchesIsLoading, deleteSearch }) => (
   <div className="usa-grid-full">
     <h1>
       {
@@ -19,6 +21,7 @@ toggleFavoritePositionHasErrored }) => (
       <ProfileNavigation />
     </div>
     <div className="usa-grid-full usa-width-three-fourths profile-subroute-container">
+      <Route path="/profile" exact component={ProfileLanding} />
       <Route
         path="/profile/favorites"
         component={() =>
@@ -34,7 +37,20 @@ toggleFavoritePositionHasErrored }) => (
           )
         }
       />
-      <Route path="/profile" exact component={ProfileLanding} />
+      <Route
+        path="/profile/searches"
+        component={() =>
+          (
+            <SavedSearches
+              savedSearches={savedSearches}
+              savedSearchesHasErrored={savedSearchesHasErrored}
+              savedSearchesIsLoading={savedSearchesIsLoading}
+              goToSavedSearch={goToSavedSearch}
+              deleteSearch={deleteSearch}
+            />
+          )
+        }
+      />
     </div>
   </div>
 );
@@ -47,6 +63,11 @@ ProfilePage.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   toggleFavoritePositionIsLoading: PropTypes.bool,
   toggleFavoritePositionHasErrored: PropTypes.bool,
+  savedSearches: PropTypes.shape({}).isRequired,
+  savedSearchesIsLoading: PropTypes.bool.isRequired,
+  savedSearchesHasErrored: PropTypes.bool.isRequired,
+  goToSavedSearch: PropTypes.func.isRequired,
+  deleteSearch: PropTypes.func.isRequired,
 };
 
 ProfilePage.defaultProps = {

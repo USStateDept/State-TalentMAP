@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
+import queryString from 'query-string';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
+import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { USER_PROFILE, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -14,6 +16,7 @@ class Post extends Component {
   constructor(props) {
     super(props);
     this.onToggleFavorite = this.onToggleFavorite.bind(this);
+    this.goToSavedSearch = this.goToSavedSearch.bind(this);
   }
 
   componentWillMount() {
@@ -21,6 +24,7 @@ class Post extends Component {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
       this.getFavorites();
+      this.getSavedSearches();
     }
   }
 
@@ -32,10 +36,26 @@ class Post extends Component {
     this.props.fetchData();
   }
 
+  getSavedSearches() {
+    this.props.savedSearchesFetchData();
+  }
+
+  formQueryString(queryObject) {
+    console.log(this);
+    return queryString.stringify(queryObject);
+  }
+
+  goToSavedSearch(savedSearchObject) {
+    const stringifiedQuery = this.formQueryString(savedSearchObject.filters);
+    this.props.setCurrentSavedSearch(savedSearchObject);
+    this.props.onNavigateTo(`/results?${stringifiedQuery}`);
+  }
+
   render() {
     const { userProfile, favoritePositions, userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored, favoritePositionsIsLoading,
-      favoritePositionsHasErrored } = this.props;
+      favoritePositionsHasErrored, savedSearches, deleteSearch,
+      savedSearchesHasErrored, savedSearchesIsLoading } = this.props;
     return (
       <div>
         <ProfilePage
@@ -46,6 +66,11 @@ class Post extends Component {
           toggleFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           toggleFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           toggleFavorite={this.onToggleFavorite}
+          savedSearches={savedSearches}
+          savedSearchesHasErrored={savedSearchesHasErrored}
+          savedSearchesIsLoading={savedSearchesIsLoading}
+          goToSavedSearch={this.goToSavedSearch}
+          deleteSearch={deleteSearch}
         />
       </div>
     );
@@ -63,6 +88,12 @@ Post.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  savedSearchesFetchData: PropTypes.func.isRequired,
+  savedSearches: PropTypes.shape({}).isRequired,
+  savedSearchesIsLoading: PropTypes.bool.isRequired,
+  savedSearchesHasErrored: PropTypes.bool.isRequired,
+  setCurrentSavedSearch: PropTypes.func.isRequired,
+  deleteSearch: PropTypes.func.isRequired,
 };
 
 Post.defaultProps = {
@@ -87,12 +118,18 @@ const mapStateToProps = (state, ownProps) => ({
   id: ownProps,
   userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
+  savedSearches: state.savedSearchesSuccess,
+  savedSearchesIsLoading: state.savedSearchesIsLoading,
+  savedSearchesHasErrored: state.savedSearchesHasErrored,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: () => dispatch(favoritePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
+  savedSearchesFetchData: () => dispatch(savedSearchesFetchData()),
+  setCurrentSavedSearch: e => dispatch(setCurrentSavedSearch(e)),
+  deleteSearch: id => dispatch(deleteSavedSearch(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Post));
