@@ -2,22 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import PositionsSectionTitle from '../PositionsSectionTitle';
-import PopularPositionsCardList from '../PopularPositionsCardList';
+import HighlightedPositionsCardList from '../HighlightedPositionsCardList';
 import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
-const PopularPositionsSection = ({ positions, toggleFavorite, favorites, isLoading,
+const HighlightedPositionsSection = ({ positions, toggleFavorite, favorites, isLoading,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => (
-    <div className="usa-grid-full positions-section positions-section-popular">
+    <div className="usa-grid-full positions-section positions-section-highlighted">
       <PositionsSectionTitle
         title={
           <span className="positions-section-title">
             <FontAwesome name="gratipay" />
-            Popular Positions
+            Highlighted Positions
           </span>
         }
         viewMoreLink="/results"
       />
-      <PopularPositionsCardList
+      <HighlightedPositionsCardList
         favorites={favorites}
         toggleFavorite={toggleFavorite}
         userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
@@ -28,7 +28,7 @@ const PopularPositionsSection = ({ positions, toggleFavorite, favorites, isLoadi
     </div>
 );
 
-PopularPositionsSection.propTypes = {
+HighlightedPositionsSection.propTypes = {
   positions: POSITION_DETAILS_ARRAY.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
   toggleFavorite: PropTypes.func.isRequired,
@@ -37,9 +37,9 @@ PopularPositionsSection.propTypes = {
   isLoading: PropTypes.bool,
 };
 
-PopularPositionsSection.defaultProps = {
+HighlightedPositionsSection.defaultProps = {
   favorites: [],
   isLoading: false,
 };
 
-export default PopularPositionsSection;
+export default HighlightedPositionsSection;

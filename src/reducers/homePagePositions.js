@@ -1,4 +1,4 @@
-export const positions = { isPopular: [], isNew: [] };
+export const positions = { isHighlighted: [], isNew: [] };
 
 export function homePagePositionsHasErrored(state = false, action) {
   switch (action.type) {

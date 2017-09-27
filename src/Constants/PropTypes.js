@@ -54,7 +54,7 @@ export const POSITION_SEARCH_RESULTS = PropTypes.shape({
 
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
   isNew: POSITION_DETAILS_ARRAY,
-  isPopular: POSITION_DETAILS_ARRAY,
+  isHighlighted: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTERS = PropTypes.arrayOf(

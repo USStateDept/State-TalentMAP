@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PopularPositionsSectionComponent matches snapshot 1`] = `
+exports[`HighlightedPositionsSectionComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full positions-section positions-section-popular"
+  className="usa-grid-full positions-section positions-section-highlighted"
 >
   <PositionsSectionTitle
     title={
@@ -12,12 +12,12 @@ exports[`PopularPositionsSectionComponent matches snapshot 1`] = `
         <FontAwesome
           name="gratipay"
         />
-        Popular Positions
+        Highlighted Positions
       </span>
     }
     viewMoreLink="/results"
   />
-  <PopularPositionsCardList
+  <HighlightedPositionsCardList
     favorites={Array []}
     isLoading={false}
     positions={

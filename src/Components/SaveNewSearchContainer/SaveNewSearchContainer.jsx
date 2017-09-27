@@ -19,7 +19,6 @@ class SaveNewSearchContainer extends Component {
   toggleInput() {
     const { showInput, newSearchName } = this.state;
     // reset the input field, since the component will re-render and be out of sync with state
-    // newSearchName.value = '';
     showInput.value = !showInput.value;
     this.setState({ showInput, newSearchName });
   }
