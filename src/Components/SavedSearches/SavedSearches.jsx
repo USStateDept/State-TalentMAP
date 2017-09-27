@@ -14,6 +14,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
     <div className={`usa-grid-full saved-searches-container ${savedSearchesIsLoading ? 'results-loading' : ''}`}>
       <ProfileSectionTitle title="Your Saved Searches:" />
       {
+        // Deleting a saved search has errored
         !deleteSavedSearchIsLoading && !deleteSavedSearchSuccess && deleteSavedSearchHasErrored &&
           <Alert
             type="error"
@@ -22,6 +23,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
           />
       }
       {
+        // Deleting a saved search was successful
         !deleteSavedSearchIsLoading && deleteSavedSearchSuccess && !deleteSavedSearchHasErrored &&
           <Alert
             type="success"
@@ -30,6 +32,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
           />
       }
       {
+        // Cloning a saved search has errored
         !cloneSavedSearchIsLoading && !cloneSavedSearchSuccess && cloneSavedSearchHasErrored &&
           <Alert
             type="error"
@@ -38,6 +41,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
           />
       }
       {
+        // Cloning a saved search was successful
         !cloneSavedSearchIsLoading && cloneSavedSearchSuccess && !cloneSavedSearchHasErrored &&
           <Alert
             type="success"

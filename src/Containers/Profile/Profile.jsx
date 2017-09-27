@@ -149,6 +149,9 @@ const mapStateToProps = (state, ownProps) => ({
   deleteSavedSearchIsLoading: state.deleteSavedSearchIsLoading,
   deleteSavedSearchHasErrored: state.deleteSavedSearchHasErrored,
   deleteSavedSearchSuccess: state.deleteSavedSearchSuccess,
+  cloneSavedSearchIsLoading: state.cloneSavedSearchIsLoading,
+  cloneSavedSearchHasErrored: state.cloneSavedSearchHasErrored,
+  cloneSavedSearchSuccess: state.cloneSavedSearchSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
