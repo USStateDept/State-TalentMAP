@@ -27,6 +27,9 @@ describe('ProfilePageComponent', () => {
         savedSearchesHasErrored={false}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -47,6 +50,9 @@ describe('ProfilePageComponent', () => {
         savedSearchesHasErrored={false}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(wrapper.find(user.user.username)).toBeDefined();
@@ -67,6 +73,9 @@ describe('ProfilePageComponent', () => {
         savedSearchesHasErrored={false}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

@@ -4,6 +4,6 @@ exports[`FavoritePositionsTitleComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  Your Favorited Positions:
+  test
 </div>
 `;

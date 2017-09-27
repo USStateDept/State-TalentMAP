@@ -2,9 +2,10 @@
 
 exports[`SavedSearchesListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full positions-section positions-section-new"
+  className="usa-grid-full"
 >
   <SavedSearchesList
+    deleteSearch={[Function]}
     goToSavedSearch={[Function]}
     savedSearch={
       Object {

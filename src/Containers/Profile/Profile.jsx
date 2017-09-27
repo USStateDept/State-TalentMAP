@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
-import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch } from '../../actions/savedSearch';
+import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
-import { USER_PROFILE, POSITION_SEARCH_RESULTS, SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
+import * as PROP_TYPES from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
@@ -25,6 +25,8 @@ class Profile extends Component {
     } else {
       this.getFavorites();
       this.getSavedSearches();
+      // reset the alert messages
+      this.props.routeChangeResetState();
     }
   }
 
@@ -50,7 +52,8 @@ class Profile extends Component {
     const { userProfile, favoritePositions, userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored, favoritePositionsIsLoading,
       favoritePositionsHasErrored, savedSearches, deleteSearch,
-      savedSearchesHasErrored, savedSearchesIsLoading } = this.props;
+      savedSearchesHasErrored, savedSearchesIsLoading, deleteSavedSearchHasErrored,
+      deleteSavedSearchIsLoading, deleteSavedSearchSuccess } = this.props;
     return (
       <div>
         <ProfilePage
@@ -66,6 +69,9 @@ class Profile extends Component {
           savedSearchesIsLoading={savedSearchesIsLoading}
           goToSavedSearch={this.goToSavedSearch}
           deleteSearch={deleteSearch}
+          deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
+          deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
+          deleteSavedSearchSuccess={deleteSavedSearchSuccess}
         />
       </div>
     );
@@ -76,19 +82,23 @@ Profile.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
-  userProfile: USER_PROFILE,
+  userProfile: PROP_TYPES.USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
-  favoritePositions: POSITION_SEARCH_RESULTS,
+  favoritePositions: PROP_TYPES.POSITION_SEARCH_RESULTS,
   favoritePositionsIsLoading: PropTypes.bool.isRequired,
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   savedSearchesFetchData: PropTypes.func.isRequired,
-  savedSearches: SAVED_SEARCH_PARENT_OBJECT,
+  savedSearches: PROP_TYPES.SAVED_SEARCH_PARENT_OBJECT,
   savedSearchesIsLoading: PropTypes.bool.isRequired,
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   setCurrentSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
+  deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
+  deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
+  routeChangeResetState: PropTypes.func.isRequired,
 };
 
 Profile.defaultProps = {
@@ -102,6 +112,10 @@ Profile.defaultProps = {
   savedSearches: POSITION_RESULTS_OBJECT,
   savedSearchesIsLoading: false,
   savedSearchesHasErrored: false,
+  deleteSavedSearchIsLoading: false,
+  deleteSavedSearchHasErrored: false,
+  deleteSavedSearchSuccess: false,
+  routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
 };
 
 Profile.contextTypes = {
@@ -119,6 +133,9 @@ const mapStateToProps = (state, ownProps) => ({
   savedSearches: state.savedSearchesSuccess,
   savedSearchesIsLoading: state.savedSearchesIsLoading,
   savedSearchesHasErrored: state.savedSearchesHasErrored,
+  deleteSavedSearchIsLoading: state.deleteSavedSearchIsLoading,
+  deleteSavedSearchHasErrored: state.deleteSavedSearchHasErrored,
+  deleteSavedSearchSuccess: state.deleteSavedSearchSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -128,6 +145,7 @@ const mapDispatchToProps = dispatch => ({
   savedSearchesFetchData: () => dispatch(savedSearchesFetchData()),
   setCurrentSavedSearch: e => dispatch(setCurrentSavedSearch(e)),
   deleteSearch: id => dispatch(deleteSavedSearch(id)),
+  routeChangeResetState: () => dispatch(routeChangeResetState()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));

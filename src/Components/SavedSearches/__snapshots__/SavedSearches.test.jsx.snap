@@ -2,14 +2,11 @@
 
 exports[`SavedSearchesComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full saved-searches-container null"
-  style={
-    Object {
-      "position": "relative",
-    }
-  }
+  className="usa-grid-full saved-searches-container "
 >
-  Your Saved Searches:
+  <ProfileSectionTitle
+    title="Your Saved Searches:"
+  />
   <SavedSearchesList
     deleteSearch={[Function]}
     goToSavedSearch={[Function]}

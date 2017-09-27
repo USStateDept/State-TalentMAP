@@ -5,12 +5,13 @@ import ProfileNavigation from '../ProfileNavigation';
 import FavoritePositions from '../FavoritePositions';
 import SavedSearches from '../SavedSearches';
 import ProfileLanding from '../ProfileLanding';
-import { POSITION_SEARCH_RESULTS, USER_PROFILE, SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
+import * as PROP_TYPES from '../../Constants/PropTypes';
 
 const ProfilePage = ({ user, favoritePositions, toggleFavorite, favoritePositionsIsLoading,
 favoritePositionsHasErrored, toggleFavoritePositionIsLoading,
 toggleFavoritePositionHasErrored, savedSearches, goToSavedSearch,
-savedSearchesHasErrored, savedSearchesIsLoading, deleteSearch }) => (
+savedSearchesHasErrored, savedSearchesIsLoading, deleteSearch,
+deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess }) => (
   <div className="usa-grid-full">
     <h1>
       {
@@ -47,6 +48,9 @@ savedSearchesHasErrored, savedSearchesIsLoading, deleteSearch }) => (
               savedSearchesIsLoading={savedSearchesIsLoading}
               goToSavedSearch={goToSavedSearch}
               deleteSearch={deleteSearch}
+              deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
+              deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
+              deleteSavedSearchSuccess={deleteSavedSearchSuccess}
             />
           )
         }
@@ -56,18 +60,21 @@ savedSearchesHasErrored, savedSearchesIsLoading, deleteSearch }) => (
 );
 
 ProfilePage.propTypes = {
-  user: USER_PROFILE.isRequired,
-  favoritePositions: POSITION_SEARCH_RESULTS,
+  user: PROP_TYPES.USER_PROFILE.isRequired,
+  favoritePositions: PROP_TYPES.POSITION_SEARCH_RESULTS,
   toggleFavorite: PropTypes.func.isRequired,
   favoritePositionsIsLoading: PropTypes.bool.isRequired,
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   toggleFavoritePositionIsLoading: PropTypes.bool,
   toggleFavoritePositionHasErrored: PropTypes.bool,
-  savedSearches: SAVED_SEARCH_PARENT_OBJECT.isRequired,
+  savedSearches: PROP_TYPES.SAVED_SEARCH_PARENT_OBJECT.isRequired,
   savedSearchesIsLoading: PropTypes.bool.isRequired,
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   goToSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
+  deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
+  deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
 };
 
 ProfilePage.defaultProps = {

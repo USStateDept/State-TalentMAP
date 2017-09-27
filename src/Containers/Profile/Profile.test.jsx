@@ -18,6 +18,8 @@ describe('Profile', () => {
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         savedSearchesFetchData={() => {}}
+        setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(profile).toBeDefined();
@@ -32,6 +34,8 @@ describe('Profile', () => {
         fetchData={() => {}}
         toggleFavorite={spy}
         savedSearchesFetchData={() => {}}
+        setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
       />,
     );
     wrapper.instance().onToggleFavorite();
@@ -48,6 +52,7 @@ describe('Profile', () => {
         toggleFavorite={() => {}}
         savedSearchesFetchData={() => {}}
         setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
       />,
     );
     wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
@@ -60,6 +65,8 @@ describe('Profile', () => {
         isAuthorized={() => false}
         onNavigateTo={() => {}}
         savedSearchesFetchData={() => {}}
+        setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(profile).toBeDefined();

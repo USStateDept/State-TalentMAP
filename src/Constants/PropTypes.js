@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+export const STRING_OR_BOOL = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
+
 export const LANGUAGES = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number,
@@ -162,7 +164,7 @@ export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
   sub: PropTypes.string,
 });
 
-export const SAVED_SEARCH_MESSAGE = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
+export const SAVED_SEARCH_MESSAGE = STRING_OR_BOOL;
 
 export const SAVED_SEARCH_OBJECT = PropTypes.shape({
   count: PropTypes.number,
@@ -179,9 +181,13 @@ export const SAVED_SEARCH_PARENT_OBJECT = PropTypes.shape({
   count: PropTypes.number,
   next: PropTypes.string,
   previous: PropTypes.string,
-  results: PropTypes.arrayOf([
+  results: PropTypes.arrayOf(
     SAVED_SEARCH_OBJECT,
-  ]),
+  ),
 });
+
+export const DELETE_SAVED_SEARCH_SUCCESS = STRING_OR_BOOL;
+
+export const DELETE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};

@@ -9,10 +9,11 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch }) => 
       savedSearch={savedSearch}
       goToSavedSearch={goToSavedSearch}
       deleteSearch={deleteSearch}
+      key={savedSearch.id}
     />
   ));
   return (
-    <div className="usa-grid-full positions-section positions-section-new">
+    <div className="usa-grid-full">
       {searchList}
     </div>
   );

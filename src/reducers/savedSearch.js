@@ -46,7 +46,7 @@ export function deleteSavedSearchSuccess(state = false, action) {
       return state;
   }
 }
-export function currentSavedSearch(state = false, action) {
+export function currentSavedSearch(state = {}, action) {
   switch (action.type) {
     case 'CURRENT_SAVED_SEARCH':
       return action.searchObject;

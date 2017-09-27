@@ -13,6 +13,9 @@ describe('SavedSearchesComponent', () => {
         savedSearchesHasErrored={false}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -26,6 +29,9 @@ describe('SavedSearchesComponent', () => {
         savedSearchesHasErrored={false}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(wrapper.instance().props.savedSearches.results[0].id)
@@ -40,6 +46,9 @@ describe('SavedSearchesComponent', () => {
         savedSearchesHasErrored={false}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
