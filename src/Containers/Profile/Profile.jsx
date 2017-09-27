@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
-import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch, routeChangeResetState, cloneSavedSearch } from '../../actions/savedSearch';
+import * as savedSearchActions from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import * as PROP_TYPES from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -155,11 +155,11 @@ const mapDispatchToProps = dispatch => ({
   fetchData: () => dispatch(favoritePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
-  savedSearchesFetchData: () => dispatch(savedSearchesFetchData()),
-  setCurrentSavedSearch: e => dispatch(setCurrentSavedSearch(e)),
-  deleteSearch: id => dispatch(deleteSavedSearch(id)),
-  routeChangeResetState: () => dispatch(routeChangeResetState()),
-  cloneSearch: id => dispatch(cloneSavedSearch(id)),
+  savedSearchesFetchData: () => dispatch(savedSearchActions.savedSearchesFetchData()),
+  setCurrentSavedSearch: e => dispatch(savedSearchActions.setCurrentSavedSearch(e)),
+  deleteSearch: id => dispatch(savedSearchActions.deleteSavedSearch(id)),
+  routeChangeResetState: () => dispatch(savedSearchActions.routeChangeResetState()),
+  cloneSearch: id => dispatch(savedSearchActions.cloneSavedSearch(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));

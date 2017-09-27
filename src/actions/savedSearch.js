@@ -89,6 +89,14 @@ export function routeChangeResetState() {
     dispatch(deleteSavedSearchHasErrored(false));
     dispatch(cloneSavedSearchSuccess(false));
     dispatch(cloneSavedSearchHasErrored(false));
+    dispatch(newSavedSearchSuccess(false));
+    dispatch(newSavedSearchHasErrored(false));
+  };
+}
+
+export function routeChangeUnsetCurrentSearch() {
+  return (dispatch) => {
+    dispatch(currentSavedSearch({}));
   };
 }
 

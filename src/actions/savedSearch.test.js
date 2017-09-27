@@ -209,4 +209,10 @@ describe('saved search async actions', () => {
     };
     f();
   });
+
+  it('can call the routeChangeUnsetCurrentSearch function', () => {
+    const store = mockStore({ share: false });
+
+    store.dispatch(actions.routeChangeUnsetCurrentSearch());
+  });
 });
