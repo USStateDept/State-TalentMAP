@@ -2,14 +2,8 @@
 
 exports[`PillComponent matches snapshot 1`] = `
 <button
+  className="pill"
   onClick={[Function]}
-  style={
-    Object {
-      "borderRadius": "12px",
-      "fontSize": ".8em",
-      "padding": ".5em",
-    }
-  }
   title="Remove test filter"
 >
   test

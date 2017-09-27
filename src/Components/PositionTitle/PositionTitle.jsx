@@ -5,7 +5,7 @@ import * as SystemMessages from '../../Constants/SystemMessages';
 import { shortenString } from '../../utilities';
 
 const PositionTitle = ({ details, goBackLink }) => (
-  <div className="position-details-header" style={{ overflow: 'hidden', backgroundColor: '#F2F2F2' }}>
+  <div className="position-details-header">
     <div className="usa-grid" style={{ overflow: 'hidden' }}>
       <div className="usa-width-one-half">
         <div className="position-details-header-back">
