@@ -8,7 +8,9 @@ import ProfileSectionTitle from '../ProfileSectionTitle';
 
 const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
   savedSearchesHasErrored, goToSavedSearch, deleteSearch,
-  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess }) => (
+  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
+  cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
+  cloneSavedSearchSuccess }) => (
     <div className={`usa-grid-full saved-searches-container ${savedSearchesIsLoading ? 'results-loading' : ''}`}>
       <ProfileSectionTitle title="Your Saved Searches:" />
       {
@@ -28,6 +30,22 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
           />
       }
       {
+        !cloneSavedSearchIsLoading && !cloneSavedSearchSuccess && cloneSavedSearchHasErrored &&
+          <Alert
+            type="error"
+            title="Error"
+            messages={[{ body: cloneSavedSearchHasErrored }]}
+          />
+      }
+      {
+        !cloneSavedSearchIsLoading && cloneSavedSearchSuccess && !cloneSavedSearchHasErrored &&
+          <Alert
+            type="success"
+            title="Success"
+            messages={[{ body: cloneSavedSearchSuccess }]}
+          />
+      }
+      {
         savedSearchesIsLoading && !savedSearchesHasErrored &&
           <Spinner type="homepage-position-results" size="big" />
       }
@@ -35,6 +53,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
         savedSearches={savedSearches}
         goToSavedSearch={goToSavedSearch}
         deleteSearch={deleteSearch}
+        cloneSavedSearch={cloneSavedSearch}
       />
     </div>
 );
@@ -48,6 +67,10 @@ SavedSearches.propTypes = {
   deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
   deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
+  cloneSavedSearch: PropTypes.func.isRequired,
+  cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
+  cloneSavedSearchHasErrored: PROP_TYPES.CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  cloneSavedSearchSuccess: PROP_TYPES.CLONE_SAVED_SEARCH_SUCCESS.isRequired,
 };
 
 export default SavedSearches;

@@ -105,6 +105,72 @@ describe('saved search async actions', () => {
     f();
   });
 
+  it('can handle cloning a saved search', (done) => {
+    const store = mockStore({ share: false });
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/searches/1/').reply(200,
+      { name: 'test', filters: {}, endpoint: '/api/v1/position' },
+    );
+
+    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(204,
+      { name: 'test 2' },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.cloneSavedSearch(1));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors at the first step when cloning a saved search', (done) => {
+    const store = mockStore({ share: false });
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/searches/1/').reply(404,
+      'error',
+    );
+
+    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(204,
+      { name: 'test 2' },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.cloneSavedSearch(1));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors at the second step when cloning a saved search', (done) => {
+    const store = mockStore({ share: false });
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/searches/1/').reply(200,
+      { name: 'test', filters: {}, endpoint: '/api/v1/position' },
+    );
+
+    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(404,
+      'error',
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.cloneSavedSearch(1));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it('can handle errors when deleting a saved search', (done) => {
     const store = mockStore({ share: false });
 

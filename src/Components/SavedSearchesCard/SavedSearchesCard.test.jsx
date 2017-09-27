@@ -12,6 +12,7 @@ describe('SavedSearchesCardComponent', () => {
         savedSearch={searchObject}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -23,6 +24,7 @@ describe('SavedSearchesCardComponent', () => {
         savedSearch={searchObject}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(wrapper.instance().props.savedSearch.id).toBe(searchObject.id);
@@ -31,16 +33,20 @@ describe('SavedSearchesCardComponent', () => {
   it('can call functions on button click', () => {
     const goToSpy = sinon.spy();
     const deleteSpy = sinon.spy();
+    const cloneSpy = sinon.spy();
     const wrapper = shallow(
       <SavedSearchesCard
         savedSearch={searchObject}
         goToSavedSearch={goToSpy}
         deleteSearch={deleteSpy}
+        cloneSavedSearch={cloneSpy}
       />,
     );
     wrapper.find('button').at(0).simulate('click');
-    wrapper.find('button').at(1).simulate('click');
     sinon.assert.calledOnce(goToSpy);
+    wrapper.find('button').at(1).simulate('click');
+    sinon.assert.calledOnce(cloneSpy);
+    wrapper.find('button').at(2).simulate('click');
     sinon.assert.calledOnce(deleteSpy);
   });
 
@@ -50,6 +56,7 @@ describe('SavedSearchesCardComponent', () => {
         savedSearch={searchObject}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

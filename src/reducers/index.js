@@ -10,7 +10,8 @@ import { share, shareHasErrored, shareIsSending } from './share';
 import { newSavedSearchIsSaving, newSavedSearchHasErrored,
   newSavedSearchSuccess, currentSavedSearch, savedSearchesSuccess,
   savedSearchesIsLoading, savedSearchesHasErrored,
-  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess } from './savedSearch';
+  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
+  cloneSavedSearchIsLoading, cloneSavedSearchHasErrored, cloneSavedSearchSuccess } from './savedSearch';
 import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
 import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
@@ -53,6 +54,9 @@ export default combineReducers({
   deleteSavedSearchIsLoading,
   deleteSavedSearchHasErrored,
   deleteSavedSearchSuccess,
+  cloneSavedSearchIsLoading,
+  cloneSavedSearchHasErrored,
+  cloneSavedSearchSuccess,
   userProfile,
   userProfileHasErrored,
   userProfileIsLoading,

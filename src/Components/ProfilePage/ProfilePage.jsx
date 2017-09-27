@@ -11,7 +11,9 @@ const ProfilePage = ({ user, favoritePositions, toggleFavorite, favoritePosition
 favoritePositionsHasErrored, toggleFavoritePositionIsLoading,
 toggleFavoritePositionHasErrored, savedSearches, goToSavedSearch,
 savedSearchesHasErrored, savedSearchesIsLoading, deleteSearch,
-deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess }) => (
+deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
+cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
+cloneSavedSearchSuccess }) => (
   <div className="usa-grid-full">
     <h1>
       {
@@ -51,6 +53,10 @@ deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSucces
               deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
               deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
               deleteSavedSearchSuccess={deleteSavedSearchSuccess}
+              cloneSavedSearch={cloneSavedSearch}
+              cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
+              cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
+              cloneSavedSearchSuccess={cloneSavedSearchSuccess}
             />
           )
         }
@@ -75,6 +81,10 @@ ProfilePage.propTypes = {
   deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
   deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
+  cloneSavedSearch: PropTypes.func.isRequired,
+  cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
+  cloneSavedSearchHasErrored: PROP_TYPES.CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  cloneSavedSearchSuccess: PROP_TYPES.CLONE_SAVED_SEARCH_SUCCESS.isRequired,
 };
 
 ProfilePage.defaultProps = {
