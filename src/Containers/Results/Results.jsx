@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
-import { saveSearch, routeChangeResetState, routeChangeUnsetCurrentSearch } from '../../actions/savedSearch';
+import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
@@ -98,10 +98,6 @@ class Results extends Component {
         window.scrollTo(0, 0);
       }
     }
-  }
-
-  componentWillUnmount() {
-    this.props.routeChangeUnsetCurrentSearch();
   }
 
   // for when we need to UPDATE the ENTIRE value of a filter
@@ -274,7 +270,6 @@ Results.propTypes = {
   saveSearch: PropTypes.func.isRequired,
   currentSavedSearch: PROP_TYPES.SAVED_SEARCH_OBJECT,
   routeChangeResetState: PropTypes.func.isRequired,
-  routeChangeUnsetCurrentSearch: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -294,7 +289,6 @@ Results.defaultProps = {
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},
   routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
-  routeChangeUnsetCurrentSearch: PROP_TYPES.EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {
@@ -328,7 +322,6 @@ const mapDispatchToProps = dispatch => ({
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
   routeChangeResetState: () => dispatch(routeChangeResetState()),
-  routeChangeUnsetCurrentSearch: () => dispatch(routeChangeUnsetCurrentSearch()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);
