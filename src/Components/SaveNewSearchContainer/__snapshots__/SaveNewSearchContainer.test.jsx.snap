@@ -2,7 +2,7 @@
 
 exports[`SaveNewSearchContainerComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full save-new-search-container"
+  className="usa-grid-full save-new-search-container "
 >
   <SaveNewSearchPrompt
     currentSavedSearch={Object {}}
