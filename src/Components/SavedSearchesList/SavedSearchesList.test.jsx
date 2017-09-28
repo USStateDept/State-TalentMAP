@@ -12,6 +12,7 @@ describe('SavedSearchesListComponent', () => {
         goToSavedSearch={() => {}}
         deleteSavedSearch={() => {}}
         deleteSearch={() => {}}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -24,6 +25,7 @@ describe('SavedSearchesListComponent', () => {
         goToSavedSearch={() => {}}
         deleteSavedSearch={() => {}}
         deleteSearch={() => {}}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(wrapper.instance().props.savedSearches.results[0].id)
@@ -37,6 +39,7 @@ describe('SavedSearchesListComponent', () => {
         goToSavedSearch={() => {}}
         deleteSavedSearch={() => {}}
         deleteSearch={() => {}}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

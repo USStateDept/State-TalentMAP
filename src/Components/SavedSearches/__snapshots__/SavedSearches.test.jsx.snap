@@ -8,6 +8,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
     title="Your Saved Searches:"
   />
   <SavedSearchesList
+    cloneSavedSearch={[Function]}
     deleteSearch={[Function]}
     goToSavedSearch={[Function]}
     savedSearches={

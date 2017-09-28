@@ -5,6 +5,7 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
   className="usa-grid-full"
 >
   <SavedSearchesList
+    cloneSavedSearch={[Function]}
     deleteSearch={[Function]}
     goToSavedSearch={[Function]}
     savedSearch={

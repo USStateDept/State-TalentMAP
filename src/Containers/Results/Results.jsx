@@ -6,12 +6,11 @@ import queryString from 'query-string';
 import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
-import { saveSearch } from '../../actions/savedSearch';
+import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-  ROUTER_LOCATIONS, USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
+import * as PROP_TYPES from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -37,6 +36,9 @@ class Results extends Component {
   componentWillMount() {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword,
             defaultLocation } = this.state;
+    // clear out old alert messages
+    this.props.routeChangeResetState();
+    // check auth
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
@@ -251,22 +253,23 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: POSITION_SEARCH_RESULTS,
+  results: PROP_TYPES.POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
-  filters: FILTERS_PARENT,
+  filters: PROP_TYPES.FILTERS_PARENT,
   fetchFilters: PropTypes.func.isRequired,
-  selectedAccordion: ACCORDION_SELECTION_OBJECT,
+  selectedAccordion: PROP_TYPES.ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
-  userProfile: USER_PROFILE,
+  routerLocations: PROP_TYPES.ROUTER_LOCATIONS,
+  userProfile: PROP_TYPES.USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
+  newSavedSearchSuccess: PROP_TYPES.SAVED_SEARCH_MESSAGE,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
+  newSavedSearchHasErrored: PROP_TYPES.SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
-  currentSavedSearch: SAVED_SEARCH_OBJECT,
+  currentSavedSearch: PROP_TYPES.SAVED_SEARCH_OBJECT,
+  routeChangeResetState: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -285,6 +288,7 @@ Results.defaultProps = {
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},
+  routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {
@@ -317,6 +321,7 @@ const mapDispatchToProps = dispatch => ({
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
+  routeChangeResetState: () => dispatch(routeChangeResetState()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

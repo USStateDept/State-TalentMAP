@@ -46,6 +46,30 @@ export function deleteSavedSearchSuccess(state = false, action) {
       return state;
   }
 }
+export function cloneSavedSearchIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'CLONE_SAVED_SEARCH_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function cloneSavedSearchHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'CLONE_SAVED_SEARCH_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function cloneSavedSearchSuccess(state = false, action) {
+  switch (action.type) {
+    case 'CLONE_SAVED_SEARCH_SUCCESS':
+      return action.hasCloned;
+    default:
+      return state;
+  }
+}
 export function currentSavedSearch(state = {}, action) {
   switch (action.type) {
     case 'CURRENT_SAVED_SEARCH':

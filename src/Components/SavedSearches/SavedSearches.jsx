@@ -8,10 +8,13 @@ import ProfileSectionTitle from '../ProfileSectionTitle';
 
 const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
   savedSearchesHasErrored, goToSavedSearch, deleteSearch,
-  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess }) => (
+  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
+  cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
+  cloneSavedSearchSuccess }) => (
     <div className={`usa-grid-full saved-searches-container ${savedSearchesIsLoading ? 'results-loading' : ''}`}>
       <ProfileSectionTitle title="Your Saved Searches:" />
       {
+        // Deleting a saved search has errored
         !deleteSavedSearchIsLoading && !deleteSavedSearchSuccess && deleteSavedSearchHasErrored &&
           <Alert
             type="error"
@@ -20,11 +23,30 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
           />
       }
       {
+        // Deleting a saved search was successful
         !deleteSavedSearchIsLoading && deleteSavedSearchSuccess && !deleteSavedSearchHasErrored &&
           <Alert
             type="success"
             title="Success"
             messages={[{ body: deleteSavedSearchSuccess }]}
+          />
+      }
+      {
+        // Cloning a saved search has errored
+        !cloneSavedSearchIsLoading && !cloneSavedSearchSuccess && cloneSavedSearchHasErrored &&
+          <Alert
+            type="error"
+            title="Error"
+            messages={[{ body: cloneSavedSearchHasErrored }]}
+          />
+      }
+      {
+        // Cloning a saved search was successful
+        !cloneSavedSearchIsLoading && cloneSavedSearchSuccess && !cloneSavedSearchHasErrored &&
+          <Alert
+            type="success"
+            title="Success"
+            messages={[{ body: cloneSavedSearchSuccess }]}
           />
       }
       {
@@ -35,6 +57,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
         savedSearches={savedSearches}
         goToSavedSearch={goToSavedSearch}
         deleteSearch={deleteSearch}
+        cloneSavedSearch={cloneSavedSearch}
       />
     </div>
 );
@@ -48,6 +71,10 @@ SavedSearches.propTypes = {
   deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
   deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
+  cloneSavedSearch: PropTypes.func.isRequired,
+  cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
+  cloneSavedSearchHasErrored: PROP_TYPES.CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  cloneSavedSearchSuccess: PROP_TYPES.CLONE_SAVED_SEARCH_SUCCESS.isRequired,
 };
 
 export default SavedSearches;
