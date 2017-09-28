@@ -1,27 +1,13 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import ProfilePage from './ProfilePage';
-import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
-import resultsObject from '../../__mocks__/resultsObject';
-import searchObjectParent from '../../__mocks__/searchObject';
+import SavedSearches from './SavedSearches';
+import searchObjectParent from '../../__mocks__/searchObjectParent';
 
-describe('ProfilePageComponent', () => {
-  const user = {
-    user: {
-      username: 'john',
-    },
-  };
+describe('SavedSearchesComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <ProfilePage
-        user={DEFAULT_USER_PROFILE}
-        favoritePositions={resultsObject}
-        toggleFavorite={() => {}}
-        favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
+      <SavedSearches
         savedSearches={searchObjectParent}
         savedSearchesIsLoading={false}
         savedSearchesHasErrored={false}
@@ -39,18 +25,11 @@ describe('ProfilePageComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('it can handle a username', () => {
+  it('can receive props', () => {
     const wrapper = shallow(
-      <ProfilePage
-        user={user}
-        favoritePositions={resultsObject}
-        toggleFavorite={() => {}}
-        favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
+      <SavedSearches
         savedSearches={searchObjectParent}
-        savedSearchesIsLoading={false}
+        savedSearchesIsLoading
         savedSearchesHasErrored={false}
         goToSavedSearch={() => {}}
         deleteSearch={() => {}}
@@ -63,19 +42,13 @@ describe('ProfilePageComponent', () => {
         cloneSavedSearch={() => {}}
       />,
     );
-    expect(wrapper.find(user.user.username)).toBeDefined();
+    expect(wrapper.instance().props.savedSearches.results[0].id)
+      .toBe(searchObjectParent.results[0].id);
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <ProfilePage
-        user={user}
-        favoritePositions={resultsObject}
-        toggleFavorite={() => {}}
-        favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
+      <SavedSearches
         savedSearches={searchObjectParent}
         savedSearchesIsLoading={false}
         savedSearchesHasErrored={false}

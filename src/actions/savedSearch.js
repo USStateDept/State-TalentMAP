@@ -15,6 +15,42 @@ export function newSavedSearchIsSaving(bool) {
     isSaving: bool,
   };
 }
+export function deleteSavedSearchIsLoading(bool) {
+  return {
+    type: 'DELETE_SAVED_SEARCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function deleteSavedSearchHasErrored(bool) {
+  return {
+    type: 'DELETE_SAVED_SEARCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function deleteSavedSearchSuccess(bool) {
+  return {
+    type: 'DELETE_SAVED_SEARCH_SUCCESS',
+    hasDeleted: bool,
+  };
+}
+export function cloneSavedSearchIsLoading(bool) {
+  return {
+    type: 'CLONE_SAVED_SEARCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function cloneSavedSearchHasErrored(bool) {
+  return {
+    type: 'CLONE_SAVED_SEARCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function cloneSavedSearchSuccess(bool) {
+  return {
+    type: 'CLONE_SAVED_SEARCH_SUCCESS',
+    hasCloned: bool,
+  };
+}
 export function newSavedSearchSuccess(newSavedSearch) {
   return {
     type: 'NEW_SAVED_SEARCH_SUCCESS',
@@ -27,6 +63,121 @@ export function currentSavedSearch(searchObject) {
     searchObject,
   };
 }
+export function savedSearchesSuccess(savedSearches) {
+  return {
+    type: 'SAVED_SEARCHES_SUCCESS',
+    savedSearches,
+  };
+}
+export function savedSearchesIsLoading(bool) {
+  return {
+    type: 'SAVED_SEARCHES_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function savedSearchesHasErrored(bool) {
+  return {
+    type: 'SAVED_SEARCHES_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+// when we want to reset alert messages after the user navigates away and comes back later
+export function routeChangeResetState() {
+  return (dispatch) => {
+    dispatch(deleteSavedSearchSuccess(false));
+    dispatch(deleteSavedSearchHasErrored(false));
+    dispatch(cloneSavedSearchSuccess(false));
+    dispatch(cloneSavedSearchHasErrored(false));
+    dispatch(newSavedSearchSuccess(false));
+    dispatch(newSavedSearchHasErrored(false));
+  };
+}
+
+export function routeChangeUnsetCurrentSearch() {
+  return (dispatch) => {
+    dispatch(currentSavedSearch({}));
+  };
+}
+
+export function savedSearchesFetchData() {
+  return (dispatch) => {
+    dispatch(savedSearchesIsLoading(true));
+    dispatch(savedSearchesHasErrored(false));
+    axios.get(`${api}/searches/`, { headers: { Authorization: fetchUserToken() } })
+            .then(response => response.data)
+            .then((results) => {
+              dispatch(savedSearchesIsLoading(false));
+              dispatch(savedSearchesHasErrored(false));
+              dispatch(savedSearchesSuccess(results));
+            })
+            .catch(() => {
+              dispatch(savedSearchesIsLoading(false));
+              dispatch(savedSearchesHasErrored(true));
+            });
+  };
+}
+
+export function deleteSavedSearch(id) {
+  return (dispatch) => {
+    dispatch(deleteSavedSearchIsLoading(true));
+    dispatch(routeChangeResetState());
+    axios.delete(`${api}/searches/${id}/`, { headers: { Authorization: fetchUserToken() } })
+            .then(() => {
+              dispatch(deleteSavedSearchIsLoading(false));
+              dispatch(deleteSavedSearchHasErrored(false));
+              dispatch(deleteSavedSearchSuccess('Successfully deleted the selected search.'));
+              dispatch(currentSavedSearch(false));
+              dispatch(savedSearchesFetchData());
+            })
+            .catch((err) => {
+              dispatch(deleteSavedSearchHasErrored(JSON.stringify(err.response.data) || 'An error occurred trying to delete this search.'));
+              dispatch(deleteSavedSearchIsLoading(false));
+              dispatch(deleteSavedSearchSuccess(false));
+            });
+  };
+}
+
+// clone a saved search
+export function cloneSavedSearch(id) {
+  return (dispatch) => {
+    dispatch(cloneSavedSearchIsLoading(true));
+    dispatch(routeChangeResetState());
+    const onCatch = (err) => {
+      dispatch(cloneSavedSearchHasErrored(JSON.stringify(err.response.data) || 'An error occurred trying to clone this search.'));
+      dispatch(cloneSavedSearchIsLoading(false));
+      dispatch(cloneSavedSearchSuccess(false));
+    };
+    // get the original saved search
+    axios.get(`${api}/searches/${id}/`, { headers: { Authorization: fetchUserToken() } })
+            .then((response) => {
+              const responseObject = response.data;
+              // copy the object, but only with the properties we need
+              const clonedResponse = Object.assign({},
+                { name: responseObject.name,
+                  endpoint: responseObject.endpoint,
+                  filters: responseObject.filters },
+              );
+              // append a timestamp to the end of the name
+              clonedResponse.name += ` - Copy - ${new Date()}`;
+              axios.post(`${api}/searches/`, clonedResponse, { headers: { Authorization: fetchUserToken() } })
+                      .then((postResponse) => {
+                        dispatch(cloneSavedSearchIsLoading(false));
+                        dispatch(cloneSavedSearchHasErrored(false));
+                        dispatch(cloneSavedSearchSuccess(`Successfully cloned the selected search as "${postResponse.data.name}".`));
+                        dispatch(currentSavedSearch(false));
+                        dispatch(savedSearchesFetchData());
+                      })
+                      .catch((err) => {
+                        onCatch(err);
+                      });
+            })
+            .catch((err) => {
+              onCatch(err);
+            });
+  };
+}
+
 export function setCurrentSavedSearch(searchObject) {
   return (dispatch) => {
     dispatch(currentSavedSearch(searchObject));

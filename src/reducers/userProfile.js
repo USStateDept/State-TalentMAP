@@ -1,3 +1,5 @@
+import { DEFAULT_USER_PROFILE } from '../Constants/DefaultProps';
+
 export function userProfileHasErrored(state = false, action) {
   switch (action.type) {
     case 'USER_PROFILE_HAS_ERRORED':
@@ -14,7 +16,7 @@ export function userProfileIsLoading(state = false, action) {
       return state;
   }
 }
-export function userProfile(state = {}, action) {
+export function userProfile(state = DEFAULT_USER_PROFILE, action) {
   switch (action.type) {
     case 'USER_PROFILE_FETCH_DATA_SUCCESS':
       return action.userProfile;
