@@ -87,7 +87,7 @@ jobs:
           command: |
             docker run --name pa11y --network container:web \
               --volumes-from data -t talentmap/pa11y-ci \
-              pa11y-ci -c /app/.pa11yci
+              node pa11y
   zap:
     <<: *default-docker-node
     steps:
