@@ -11,7 +11,10 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
   deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
   cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
   cloneSavedSearchSuccess }) => (
-    <div className={`usa-grid-full saved-searches-container ${savedSearchesIsLoading ? 'results-loading' : ''}`}>
+    <div
+      className={`usa-grid-full saved-searches-container
+      ${(savedSearchesIsLoading || cloneSavedSearchIsLoading) ? 'results-loading' : ''}`}
+    >
       <ProfileSectionTitle title="Your Saved Searches:" />
       {
         // Deleting a saved search has errored

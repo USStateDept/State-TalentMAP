@@ -12,7 +12,7 @@ exports[`Favorite matches snapshot 1`] = `
     }
   }
   tabIndex="0"
-  title="Favorite favorites"
+  title="Favorite from favorites"
 >
   <FontAwesome
     name="heart-o"
