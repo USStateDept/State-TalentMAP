@@ -4,6 +4,7 @@ import toJSON from 'enzyme-to-json';
 import ProfilePage from './ProfilePage';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import resultsObject from '../../__mocks__/resultsObject';
+import searchObjectParent from '../../__mocks__/searchObject';
 
 describe('ProfilePageComponent', () => {
   const user = {
@@ -21,6 +22,14 @@ describe('ProfilePageComponent', () => {
         favoritePositionsHasErrored={false}
         toggleFavoritePositionIsLoading={false}
         toggleFavoritePositionHasErrored={false}
+        savedSearches={searchObjectParent}
+        savedSearchesIsLoading={false}
+        savedSearchesHasErrored={false}
+        goToSavedSearch={() => {}}
+        deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -36,6 +45,14 @@ describe('ProfilePageComponent', () => {
         favoritePositionsHasErrored={false}
         toggleFavoritePositionIsLoading={false}
         toggleFavoritePositionHasErrored={false}
+        savedSearches={searchObjectParent}
+        savedSearchesIsLoading={false}
+        savedSearchesHasErrored={false}
+        goToSavedSearch={() => {}}
+        deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(wrapper.find(user.user.username)).toBeDefined();
@@ -51,6 +68,14 @@ describe('ProfilePageComponent', () => {
         favoritePositionsHasErrored={false}
         toggleFavoritePositionIsLoading={false}
         toggleFavoritePositionHasErrored={false}
+        savedSearches={searchObjectParent}
+        savedSearchesIsLoading={false}
+        savedSearchesHasErrored={false}
+        goToSavedSearch={() => {}}
+        deleteSearch={() => {}}
+        deleteSavedSearchIsLoading={false}
+        deleteSavedSearchHasErrored={false}
+        deleteSavedSearchSuccess={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

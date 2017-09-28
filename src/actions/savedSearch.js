@@ -15,6 +15,24 @@ export function newSavedSearchIsSaving(bool) {
     isSaving: bool,
   };
 }
+export function deleteSavedSearchIsLoading(bool) {
+  return {
+    type: 'DELETE_SAVED_SEARCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function deleteSavedSearchHasErrored(bool) {
+  return {
+    type: 'DELETE_SAVED_SEARCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function deleteSavedSearchSuccess(bool) {
+  return {
+    type: 'DELETE_SAVED_SEARCH_SUCCESS',
+    hasDeleted: bool,
+  };
+}
 export function newSavedSearchSuccess(newSavedSearch) {
   return {
     type: 'NEW_SAVED_SEARCH_SUCCESS',
@@ -27,6 +45,71 @@ export function currentSavedSearch(searchObject) {
     searchObject,
   };
 }
+export function savedSearchesSuccess(savedSearches) {
+  return {
+    type: 'SAVED_SEARCHES_SUCCESS',
+    savedSearches,
+  };
+}
+export function savedSearchesIsLoading(bool) {
+  return {
+    type: 'SAVED_SEARCHES_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function savedSearchesHasErrored(bool) {
+  return {
+    type: 'SAVED_SEARCHES_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+// when we want to reset alert messages after the user navigates away and comes back later
+export function routeChangeResetState() {
+  return (dispatch) => {
+    dispatch(deleteSavedSearchSuccess(false));
+    dispatch(deleteSavedSearchHasErrored(false));
+  };
+}
+
+export function savedSearchesFetchData() {
+  return (dispatch) => {
+    dispatch(savedSearchesIsLoading(true));
+    dispatch(savedSearchesHasErrored(false));
+    axios.get(`${api}/searches/`, { headers: { Authorization: fetchUserToken() } })
+            .then(response => response.data)
+            .then((results) => {
+              dispatch(savedSearchesIsLoading(false));
+              dispatch(savedSearchesHasErrored(false));
+              dispatch(savedSearchesSuccess(results));
+            })
+            .catch(() => {
+              dispatch(savedSearchesIsLoading(false));
+              dispatch(savedSearchesHasErrored(true));
+            });
+  };
+}
+
+export function deleteSavedSearch(id) {
+  return (dispatch) => {
+    dispatch(deleteSavedSearchIsLoading(true));
+    dispatch(deleteSavedSearchHasErrored(false));
+    axios.delete(`${api}/searches/${id}/`, { headers: { Authorization: fetchUserToken() } })
+            .then(() => {
+              dispatch(deleteSavedSearchIsLoading(false));
+              dispatch(deleteSavedSearchHasErrored(false));
+              dispatch(deleteSavedSearchSuccess('Successfully deleted the selected search.'));
+              dispatch(currentSavedSearch(false));
+              dispatch(savedSearchesFetchData());
+            })
+            .catch((err) => {
+              dispatch(deleteSavedSearchHasErrored(JSON.stringify(err.response.data) || 'An error occurred trying to delete this search.'));
+              dispatch(deleteSavedSearchIsLoading(false));
+              dispatch(deleteSavedSearchSuccess(false));
+            });
+  };
+}
+
 export function setCurrentSavedSearch(searchObject) {
   return (dispatch) => {
     dispatch(currentSavedSearch(searchObject));

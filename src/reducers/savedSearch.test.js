@@ -16,4 +16,16 @@ describe('savedSearch reducers', () => {
   it('can set reducer CURRENT_SAVED_SEARCH', () => {
     expect(reducers.currentSavedSearch(false, { type: 'CURRENT_SAVED_SEARCH', searchObject: true })).toBe(true);
   });
+
+  it('can set reducer DELETE_SAVED_SEARCH_IS_LOADING', () => {
+    expect(reducers.deleteSavedSearchIsLoading(false, { type: 'DELETE_SAVED_SEARCH_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
+  it('can set reducer DELETE_SAVED_SEARCH_HAS_ERRORED', () => {
+    expect(reducers.deleteSavedSearchHasErrored(false, { type: 'DELETE_SAVED_SEARCH_HAS_ERRORED', hasErrored: true })).toBe(true);
+  });
+
+  it('can set reducer DELETE_SAVED_SEARCH_SUCCESS', () => {
+    expect(reducers.deleteSavedSearchSuccess(false, { type: 'DELETE_SAVED_SEARCH_SUCCESS', hasDeleted: true })).toBe(true);
+  });
 });
