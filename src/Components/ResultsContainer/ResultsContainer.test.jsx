@@ -40,6 +40,7 @@ describe('ResultsContainerComponent', () => {
         saveSearch={() => {}}
         newSavedSearchSuccess={false}
         newSavedSearchHasErrored={false}
+        newSavedSearchIsSaving={false}
       />
     </MemoryRouter>);
     expect(wrapper).toBeDefined();
@@ -62,6 +63,7 @@ describe('ResultsContainerComponent', () => {
       saveSearch={() => {}}
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -83,6 +85,7 @@ describe('ResultsContainerComponent', () => {
       saveSearch={() => {}}
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
   });
@@ -104,6 +107,7 @@ describe('ResultsContainerComponent', () => {
       saveSearch={() => {}}
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
