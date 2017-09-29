@@ -151,21 +151,15 @@
 }
 
 .top-nav {
-  .compare-link {
+  .reset-compare-link {
     float: left;
-    padding: 15px 5px 0 10px;
+    padding: 15px;
   }
 
-  .reset-filters {
+  .comparisons-button {
     float: left;
-    padding: 0 0 5px;
+    padding: 15px 0;
     text-align: center;
-  }
-
-  .reset-comparisons {
-    float: left;
-    padding: 0 0 5px;
-    text-align: right;
   }
 }
 
