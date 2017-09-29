@@ -9,6 +9,7 @@ describe('ExploreRegionDropdownComponent', () => {
     const wrapper = shallow(<ExploreRegionDropdown
       filters={items}
       onRegionSubmit={() => {}}
+      selectRegion={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -17,6 +18,7 @@ describe('ExploreRegionDropdownComponent', () => {
     const wrapper = shallow(<ExploreRegionDropdown
       filters={items}
       onRegionSubmit={() => {}}
+      selectRegion={() => {}}
     />);
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
   });
@@ -26,6 +28,7 @@ describe('ExploreRegionDropdownComponent', () => {
     const wrapper = shallow(<ExploreRegionDropdown
       filters={items}
       onRegionSubmit={spy}
+      selectRegion={() => {}}
     />);
     wrapper.instance().props.onRegionSubmit();
     sinon.assert.calledOnce(spy);
@@ -33,12 +36,15 @@ describe('ExploreRegionDropdownComponent', () => {
 
   it('can call the selectRegion function', () => {
     const value = 'test';
+    const spy = sinon.spy();
     const wrapper = shallow(<ExploreRegionDropdown
       filters={items}
       onRegionSubmit={() => {}}
+      selectRegion={spy}
     />);
     wrapper.instance().selectRegion({ target: { value } });
     expect(wrapper.instance().state.selection.value).toBe(value);
+    sinon.assert.calledOnce(spy);
   });
 
   it('can call the searchRegion function', () => {
@@ -47,6 +53,7 @@ describe('ExploreRegionDropdownComponent', () => {
     const wrapper = shallow(<ExploreRegionDropdown
       filters={items}
       onRegionSubmit={(e) => { submittedValue.value = e; }}
+      selectRegion={() => {}}
     />);
     wrapper.instance().state.selection.value = value;
     wrapper.instance().searchRegion({ preventDefault: () => {} });

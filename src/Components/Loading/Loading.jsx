@@ -9,7 +9,7 @@ const Loading = ({ isLoading, hasErrored, loadingMessage, errorMessage }) => {
     message = errorMessage;
   }
   return (
-    <div className="usa-grid" style={{ textAlign: 'center' }}>
+    <div className="usa-grid loading-message">
       {message}
     </div>
   );

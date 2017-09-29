@@ -28,8 +28,6 @@ class Favorite extends Component {
     const iconClass = this.getSavedState() ? 'heart' : 'heart-o';
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
-      cursor: 'pointer',
-      float: 'right',
     };
     return (
       // At the time of writing, CodeClimate's version of eslint-a11y-plugin
@@ -40,6 +38,7 @@ class Favorite extends Component {
         title={`${text} from favorites`}
         role="button"
         style={style}
+        className="favorite-container"
         onClick={this.toggleSaved}
       >
         <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}

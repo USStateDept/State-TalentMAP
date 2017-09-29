@@ -2,12 +2,11 @@
 
 exports[`Favorite matches snapshot 1`] = `
 <div
+  className="favorite-container"
   onClick={[Function]}
   role="button"
   style={
     Object {
-      "cursor": "pointer",
-      "float": "right",
       "pointerEvents": "inherit",
     }
   }
