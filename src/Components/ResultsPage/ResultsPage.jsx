@@ -44,10 +44,10 @@ class Results extends Component {
         />
         <div className="usa-grid-full top-nav">
           <div className="usa-width-one-third compare-link">
-            <ViewComparisonLink onToggle={this.onChildToggle} />
+            <ResetComparisons onToggle={this.onChildToggle} />
           </div>
           <div className="usa-width-one-third reset-comparisons">
-            <ResetComparisons onToggle={this.onChildToggle} />
+            <ViewComparisonLink onToggle={this.onChildToggle} />
           </div>
         </div>
         <div className="usa-grid-full results-section-container">
