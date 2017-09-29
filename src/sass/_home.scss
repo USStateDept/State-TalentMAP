@@ -63,7 +63,7 @@
 
     .explore-map {
       margin: 10px 0 0;
-      width: 90%;
+      width: 97%;
     }
   }
 }
@@ -119,5 +119,11 @@
     .fa {
       margin-left: 6px;
     }
+  }
+}
+
+.explore-region-fieldset {
+  label {
+    max-width: unset;
   }
 }

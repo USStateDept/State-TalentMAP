@@ -100,7 +100,7 @@ describe('sort functions', () => {
   });
 });
 
-const filters = [{ item: { title: 'Region' }, data: [{ long_description: 'regionA', code: 'code' }] }, { item: { title: 'Language' } }];
+const filters = [{ item: { title: 'Bureau' }, data: [{ long_description: 'regionA', code: 'code' }] }, { item: { title: 'Language' } }];
 
 describe('formExploreRegionDropdown function', () => {
   const regions = formExploreRegionDropdown(filters);

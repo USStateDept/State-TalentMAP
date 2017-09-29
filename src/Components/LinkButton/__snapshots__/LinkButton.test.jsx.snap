@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LinkButtonComponent matches snapshot 1`] = `
+<span
+  className="link-button-wrapper"
+>
+  <Link
+    className="link-button "
+    replace={false}
+    role="button"
+    to="/test/100"
+    type="submit"
+  >
+    <span>
+      Text
+    </span>
+  </Link>
+</span>
+`;

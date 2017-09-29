@@ -6,7 +6,7 @@ export const LANGUAGES = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number,
     language: PropTypes.string,
-    written_proficiency: PropTypes.string,
+    reading_proficiency: PropTypes.string,
     spoken_proficiency: PropTypes.string,
     representation: PropTypes.string,
   }),
@@ -193,5 +193,9 @@ export const DELETE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
 export const CLONE_SAVED_SEARCH_SUCCESS = STRING_OR_BOOL;
 
 export const CLONE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
+
+export const REGION_SELECTION = PropTypes.shape({
+  value: PropTypes.string,
+});
 
 export const EMPTY_FUNCTION = () => {};
