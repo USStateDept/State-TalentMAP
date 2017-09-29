@@ -38,9 +38,9 @@ class SaveNewSearchContainer extends Component {
 
   render() {
     const { showInput } = this.state;
-    const { newSavedSearchHasErrored, currentSavedSearch } = this.props;
+    const { newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving } = this.props;
     return (
-      <div className="usa-grid-full save-new-search-container">
+      <div className={`usa-grid-full save-new-search-container ${newSavedSearchIsSaving ? 'results-loading' : ''}`}>
         {
           showInput.value ?
           (
@@ -67,6 +67,7 @@ class SaveNewSearchContainer extends Component {
 SaveNewSearchContainer.propTypes = {
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 

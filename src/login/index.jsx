@@ -36,7 +36,7 @@ export class Login extends Component {
     };
 
     return (
-      <div className="usa-grid" style={{ padding: '15px 0 0 0' }}>
+      <div className="usa-grid login-container">
         <div className="usa-grid login">
           <form className="usa-form" onSubmit={handleSubmit(submit)}>
             <fieldset>

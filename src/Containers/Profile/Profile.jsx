@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
-import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch, routeChangeResetState } from '../../actions/savedSearch';
+import * as savedSearchActions from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import * as PROP_TYPES from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -51,9 +51,10 @@ class Profile extends Component {
   render() {
     const { userProfile, favoritePositions, userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored, favoritePositionsIsLoading,
-      favoritePositionsHasErrored, savedSearches, deleteSearch,
+      favoritePositionsHasErrored, savedSearches, deleteSearch, cloneSearch,
       savedSearchesHasErrored, savedSearchesIsLoading, deleteSavedSearchHasErrored,
-      deleteSavedSearchIsLoading, deleteSavedSearchSuccess } = this.props;
+      deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
+      cloneSavedSearchHasErrored, cloneSavedSearchSuccess } = this.props;
     return (
       <div>
         <ProfilePage
@@ -72,6 +73,10 @@ class Profile extends Component {
           deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
           deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
           deleteSavedSearchSuccess={deleteSavedSearchSuccess}
+          cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
+          cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
+          cloneSavedSearchSuccess={cloneSavedSearchSuccess}
+          cloneSavedSearch={cloneSearch}
         />
       </div>
     );
@@ -99,6 +104,10 @@ Profile.propTypes = {
   deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
   routeChangeResetState: PropTypes.func.isRequired,
+  cloneSearch: PropTypes.func.isRequired,
+  cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
+  cloneSavedSearchHasErrored: PROP_TYPES.CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  cloneSavedSearchSuccess: PROP_TYPES.CLONE_SAVED_SEARCH_SUCCESS.isRequired,
 };
 
 Profile.defaultProps = {
@@ -116,6 +125,10 @@ Profile.defaultProps = {
   deleteSavedSearchHasErrored: false,
   deleteSavedSearchSuccess: false,
   routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
+  cloneSearch: PROP_TYPES.EMPTY_FUNCTION,
+  cloneSavedSearchIsLoading: false,
+  cloneSavedSearchHasErrored: false,
+  cloneSavedSearchSuccess: false,
 };
 
 Profile.contextTypes = {
@@ -136,16 +149,20 @@ const mapStateToProps = (state, ownProps) => ({
   deleteSavedSearchIsLoading: state.deleteSavedSearchIsLoading,
   deleteSavedSearchHasErrored: state.deleteSavedSearchHasErrored,
   deleteSavedSearchSuccess: state.deleteSavedSearchSuccess,
+  cloneSavedSearchIsLoading: state.cloneSavedSearchIsLoading,
+  cloneSavedSearchHasErrored: state.cloneSavedSearchHasErrored,
+  cloneSavedSearchSuccess: state.cloneSavedSearchSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: () => dispatch(favoritePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
-  savedSearchesFetchData: () => dispatch(savedSearchesFetchData()),
-  setCurrentSavedSearch: e => dispatch(setCurrentSavedSearch(e)),
-  deleteSearch: id => dispatch(deleteSavedSearch(id)),
-  routeChangeResetState: () => dispatch(routeChangeResetState()),
+  savedSearchesFetchData: () => dispatch(savedSearchActions.savedSearchesFetchData()),
+  setCurrentSavedSearch: e => dispatch(savedSearchActions.setCurrentSavedSearch(e)),
+  deleteSearch: id => dispatch(savedSearchActions.deleteSavedSearch(id)),
+  routeChangeResetState: () => dispatch(savedSearchActions.routeChangeResetState()),
+  cloneSearch: id => dispatch(savedSearchActions.cloneSavedSearch(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));

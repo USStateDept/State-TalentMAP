@@ -23,6 +23,11 @@ exports[`SavedSearchesCardComponent matches snapshot 1`] = `
       View Results
     </button>
     <button
+      onClick={[Function]}
+    >
+      Clone
+    </button>
+    <button
       className="usa-button-secondary"
       onClick={[Function]}
     >

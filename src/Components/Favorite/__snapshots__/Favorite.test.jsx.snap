@@ -2,17 +2,16 @@
 
 exports[`Favorite matches snapshot 1`] = `
 <div
+  className="favorite-container"
   onClick={[Function]}
   role="button"
   style={
     Object {
-      "cursor": "pointer",
-      "float": "right",
       "pointerEvents": "inherit",
     }
   }
   tabIndex="0"
-  title="Favorite favorites"
+  title="Favorite from favorites"
 >
   <FontAwesome
     name="heart-o"

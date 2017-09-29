@@ -16,7 +16,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
         defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle, scrollToTop,
         toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
         userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-        currentSavedSearch,
+        currentSavedSearch, newSavedSearchIsSaving,
   }) => (
     <div className="results-container">
       {
@@ -32,6 +32,7 @@ const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, h
         newSavedSearchSuccess={newSavedSearchSuccess}
         newSavedSearchHasErrored={newSavedSearchHasErrored}
         currentSavedSearch={currentSavedSearch}
+        newSavedSearchIsSaving={newSavedSearchIsSaving}
       />
       <ResultsControls
         results={results}
@@ -113,6 +114,7 @@ ResultsContainer.propTypes = {
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 

@@ -16,6 +16,10 @@ describe('SavedSearchesComponent', () => {
         deleteSavedSearchIsLoading={false}
         deleteSavedSearchHasErrored={false}
         deleteSavedSearchSuccess={false}
+        cloneSavedSearchIsLoading={false}
+        cloneSavedSearchHasErrored={false}
+        cloneSavedSearchSuccess={false}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -32,6 +36,10 @@ describe('SavedSearchesComponent', () => {
         deleteSavedSearchIsLoading={false}
         deleteSavedSearchHasErrored={false}
         deleteSavedSearchSuccess={false}
+        cloneSavedSearchIsLoading={false}
+        cloneSavedSearchHasErrored={false}
+        cloneSavedSearchSuccess={false}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(wrapper.instance().props.savedSearches.results[0].id)
@@ -49,6 +57,10 @@ describe('SavedSearchesComponent', () => {
         deleteSavedSearchIsLoading={false}
         deleteSavedSearchHasErrored={false}
         deleteSavedSearchSuccess={false}
+        cloneSavedSearchIsLoading={false}
+        cloneSavedSearchHasErrored={false}
+        cloneSavedSearchSuccess={false}
+        cloneSavedSearch={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
