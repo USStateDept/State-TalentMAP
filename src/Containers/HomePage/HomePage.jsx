@@ -44,7 +44,7 @@ class HomePage extends Component {
           filters={filters}
           onRegionSubmit={this.submitRegion}
         />
-        <div className="usa-grid-full positions-section" style={{ position: 'relative' }}>
+        <div className="usa-grid-full positions-section">
           {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&
               <Spinner type="homepage-position-results" size="big" />
