@@ -3,6 +3,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import toJSON from 'enzyme-to-json';
+import sinon from 'sinon';
 import ResultsContainer from './ResultsContainer';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -88,6 +89,33 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchIsSaving={false}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
+  });
+
+  it('can call the onPageChange function', () => {
+    const spy = sinon.spy();
+    const scrollSpy = sinon.spy();
+    wrapper = shallow(<ResultsContainer
+      results={{ results: [] }}
+      isLoading={!isLoading}
+      queryParamUpdate={spy}
+      sortBy={sortBy}
+      pageSizes={pageSizes}
+      pageCount={20}
+      hasLoaded={false}
+      onToggle={onToggle}
+      onQueryParamToggle={() => {}}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
+      scrollToTop={scrollSpy}
+    />);
+    wrapper.instance().onPageChange(1);
+    sinon.assert.calledOnce(spy);
+    sinon.assert.calledOnce(scrollSpy);
   });
 
   it('matches snapshot', () => {
