@@ -81,7 +81,7 @@ export const pillSort = (a, b) => {
 // function to find the Region filters
 export const formExploreRegionDropdown = (filters) => {
   function filterRegion(filterItem) {
-    return (filterItem.item && filterItem.item.title === 'Region');
+    return (filterItem.item && filterItem.item.title === 'Bureau');
   }
   // set an array so we can render in case we don't find Region
   let regions = [];

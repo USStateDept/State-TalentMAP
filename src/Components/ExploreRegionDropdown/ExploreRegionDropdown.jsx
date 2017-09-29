@@ -17,8 +17,10 @@ class ExploreRegionDropdown extends Component {
 
   selectRegion(e) {
     const { selection } = this.state;
+    const { selectRegion } = this.props;
     selection.value = e.target.value;
     this.setState({ selection });
+    selectRegion(e.target.value);
   }
 
   searchRegion(e) {
@@ -39,7 +41,7 @@ class ExploreRegionDropdown extends Component {
             <FieldSet legend="region" legendSrOnly>
               <SelectForm
                 id="explore-region-dropdown"
-                label="Explore by Region"
+                label="Explore by Regional Bureau"
                 onSelectOption={this.selectRegion}
                 options={regions}
               />
@@ -63,6 +65,7 @@ class ExploreRegionDropdown extends Component {
 ExploreRegionDropdown.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,
   onRegionSubmit: PropTypes.func.isRequired,
+  selectRegion: PropTypes.func.isRequired,
 };
 
 ExploreRegionDropdown.defaultProps = {

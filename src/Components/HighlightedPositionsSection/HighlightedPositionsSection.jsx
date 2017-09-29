@@ -11,7 +11,7 @@ const HighlightedPositionsSection = ({ positions, toggleFavorite, favorites, isL
       <PositionsSectionTitle
         title={
           <span className="positions-section-title">
-            <FontAwesome name="gratipay" />
+            <FontAwesome name="star" />
             Highlighted Positions
           </span>
         }
