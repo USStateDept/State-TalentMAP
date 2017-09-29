@@ -2,10 +2,10 @@
 
 exports[`BidListButtonComponent matches snapshot 1`] = `
 <button
-  className="bid-list-button"
+  className="white-button"
 >
   <span
-    className="bid-list-button-icon"
+    className="white-button-icon"
   >
     <FontAwesome
       name="plus-circle"

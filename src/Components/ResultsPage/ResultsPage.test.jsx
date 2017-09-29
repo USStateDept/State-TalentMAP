@@ -41,6 +41,7 @@ describe('ResultsPageComponent', () => {
       saveSearch={() => {}}
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -66,6 +67,7 @@ describe('ResultsPageComponent', () => {
       saveSearch={() => {}}
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -90,6 +92,7 @@ describe('ResultsPageComponent', () => {
       saveSearch={() => {}}
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -113,6 +116,7 @@ describe('ResultsPageComponent', () => {
       saveSearch={() => {}}
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

@@ -12,7 +12,7 @@ const PositionAdditionalDetails = ({ content }) => (
     </div>
     <div className="usa-width-one-third">
       <div className="map-container">
-        <img src="/assets/img/map.png" alt="map" />
+        <img src="/assets/img/map.png" alt="Map of nearby area" />
         <span className="map-title">Map location here</span>
       </div>
     </div>

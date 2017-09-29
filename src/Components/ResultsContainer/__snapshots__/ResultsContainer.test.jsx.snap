@@ -11,6 +11,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
   <SaveNewSearchContainer
     currentSavedSearch={Object {}}
     newSavedSearchHasErrored={false}
+    newSavedSearchIsSaving={false}
     newSavedSearchSuccess={false}
     saveSearch={[Function]}
   />
@@ -46,16 +47,16 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
               Object {
                 "id": 1,
                 "language": "French (FR)",
+                "reading_proficiency": "2",
                 "representation": "French (FR) 2/2",
                 "spoken_proficiency": "2",
-                "written_proficiency": "2",
               },
               Object {
                 "id": 1,
                 "language": "German (GM)",
+                "reading_proficiency": "2",
                 "representation": "German (GM) 2/2",
                 "spoken_proficiency": "2",
-                "written_proficiency": "2",
               },
             ],
             "organization": "YAOUNDE CAMEROON (YAOUNDE)",
@@ -129,16 +130,16 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
                 Object {
                   "id": 1,
                   "language": "French (FR)",
+                  "reading_proficiency": "2",
                   "representation": "French (FR) 2/2",
                   "spoken_proficiency": "2",
-                  "written_proficiency": "2",
                 },
                 Object {
                   "id": 1,
                   "language": "German (GM)",
+                  "reading_proficiency": "2",
                   "representation": "German (GM) 2/2",
                   "spoken_proficiency": "2",
-                  "written_proficiency": "2",
                 },
               ],
               "organization": "YAOUNDE CAMEROON (YAOUNDE)",

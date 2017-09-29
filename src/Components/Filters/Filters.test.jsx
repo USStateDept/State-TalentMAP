@@ -277,12 +277,12 @@ describe('FiltersComponent', () => {
     wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
-        // change English written to 1
-        wrapper.find('#Albanian-written-1').simulate('click', ('Albanian-written', '1', 1));
+        // change English reading to 1
+        wrapper.find('#Albanian-reading-1').simulate('click', ('Albanian-reading', '1', 1));
         // change English spoken to 1
-        wrapper.find('#Albanian-spoken-1').simulate('click', ('Albanian-written', '1', 1));
-        // English written should be 1
-        expect(wrapper.instance().state.proficiency['Albanian-written']).toBe('1');
+        wrapper.find('#Albanian-spoken-1').simulate('click', ('Albanian-spoken', '1', 1));
+        // English reading should be 1
+        expect(wrapper.instance().state.proficiency['Albanian-reading']).toBe('1');
         // English spoken should be 1
         expect(wrapper.instance().state.proficiency['Albanian-spoken']).toBe('1');
         done();

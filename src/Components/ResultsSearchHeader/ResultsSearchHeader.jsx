@@ -27,10 +27,10 @@ class ResultsSearchHeader extends Component {
           <form className="usa-grid-full" onSubmit={e => this.submitSearch(e)} >
             <fieldset className="usa-width-five-sixths">
               <legend className="usa-grid-full usa-sr-only">Search keyword and location</legend>
-              <div className="usa-width-one-whole search-results-inputs search-keyword" style={{ float: 'left', padding: '15px 0' }}>
+              <div className="usa-width-one-whole search-results-inputs search-keyword">
                 <SearchBar
                   id="search-keyword-field"
-                  label={<div><FontAwesome name="search" style={{ marginRight: '9px' }} />Keywords</div>}
+                  label={<div><FontAwesome name="search" className="label-icon" />Keywords</div>}
                   type="medium"
                   submitText="Search"
                   labelSrOnly={false}
@@ -43,7 +43,10 @@ class ResultsSearchHeader extends Component {
               </div>
             </fieldset>
             <div className="usa-width-one-sixth search-submit-button">
-              <button className="usa-button" type="submit"><FontAwesome name="search" style={{ marginRight: '9px' }} />Search</button>
+              <button className="usa-button" type="submit">
+                <FontAwesome name="search" className="label-icon" />
+                Search
+              </button>
             </div>
           </form>
         </div>

@@ -31,7 +31,7 @@ class Results extends Component {
             defaultPageNumber, onQueryParamUpdate, filters, userProfile, toggleFavorite,
             selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            newSavedSearchHasErrored, currentSavedSearch }
+            newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -43,11 +43,11 @@ class Results extends Component {
           defaultLocation={defaultLocation}
         />
         <div className="usa-grid-full top-nav">
-          <div className="usa-width-one-third compare-link">
-            <ViewComparisonLink onToggle={this.onChildToggle} />
-          </div>
-          <div className="usa-width-one-third reset-comparisons">
+          <div className="usa-width-one-third reset-compare-link">
             <ResetComparisons onToggle={this.onChildToggle} />
+          </div>
+          <div className="usa-width-one-third comparisons-button">
+            <ViewComparisonLink onToggle={this.onChildToggle} />
           </div>
         </div>
         <div className="usa-grid-full results-section-container">
@@ -84,6 +84,7 @@ class Results extends Component {
             saveSearch={saveSearch}
             newSavedSearchSuccess={newSavedSearchSuccess}
             newSavedSearchHasErrored={newSavedSearchHasErrored}
+            newSavedSearchIsSaving={newSavedSearchIsSaving}
             currentSavedSearch={currentSavedSearch}
           />
         </div>
@@ -118,6 +119,7 @@ Results.propTypes = {
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 

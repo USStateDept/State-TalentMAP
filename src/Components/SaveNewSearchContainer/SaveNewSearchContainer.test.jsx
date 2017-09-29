@@ -13,6 +13,7 @@ describe('SaveNewSearchContainerComponent', () => {
         saveSearch={() => {}}
         newSavedSearchHasErrored="message"
         newSavedSearchSuccess={false}
+        newSavedSearchIsSaving={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -25,6 +26,7 @@ describe('SaveNewSearchContainerComponent', () => {
         saveSearch={() => {}}
         newSavedSearchHasErrored={false}
         newSavedSearchSuccess="success"
+        newSavedSearchIsSaving={false}
       />,
     );
     expect(wrapper.instance().props.newSavedSearchSuccess).toBe(success);
@@ -37,6 +39,7 @@ describe('SaveNewSearchContainerComponent', () => {
         saveSearch={spy}
         newSavedSearchHasErrored={false}
         newSavedSearchSuccess="success"
+        newSavedSearchIsSaving={false}
       />,
     );
     wrapper.instance().props.saveSearch();
@@ -49,6 +52,7 @@ describe('SaveNewSearchContainerComponent', () => {
         saveSearch={() => {}}
         newSavedSearchHasErrored={false}
         newSavedSearchSuccess={false}
+        newSavedSearchIsSaving={false}
       />,
     );
     expect(wrapper.instance().state.showInput.value).toBe(false);
@@ -63,6 +67,7 @@ describe('SaveNewSearchContainerComponent', () => {
         saveSearch={() => {}}
         newSavedSearchHasErrored={false}
         newSavedSearchSuccess="success"
+        newSavedSearchIsSaving={false}
       />,
     );
     wrapper.instance().changeNewSearchName(text);
@@ -77,6 +82,7 @@ describe('SaveNewSearchContainerComponent', () => {
         saveSearch={(e) => { textToChange.value = e; }}
         newSavedSearchHasErrored={false}
         newSavedSearchSuccess="success"
+        newSavedSearchIsSaving={false}
       />,
     );
     wrapper.instance().changeNewSearchName(text);
@@ -90,6 +96,7 @@ describe('SaveNewSearchContainerComponent', () => {
         saveSearch={() => {}}
         newSavedSearchHasErrored="message"
         newSavedSearchSuccess={false}
+        newSavedSearchIsSaving={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

@@ -5,8 +5,8 @@ const items =
     filters: [
       {
         item: {
-          title: 'Skill code',
-          sort: 100,
+          title: 'Skill Code',
+          sort: 200,
           description: 'skill',
           endpoint: 'skill/',
           selectionRef: ENDPOINT_PARAMS.skill,
@@ -18,7 +18,7 @@ const items =
       {
         item: {
           title: 'Language',
-          sort: 200,
+          sort: 500,
           description: 'language',
           endpoint: 'language/?is_available=true',
           selectionRef: ENDPOINT_PARAMS.language,
@@ -44,7 +44,7 @@ const items =
           title: 'Tour of Duty',
           sort: 400,
           description: 'tod',
-          endpoint: 'tour_of_duty/',
+          endpoint: 'tour_of_duty/?is_available=true&ordering=months',
           selectionRef: ENDPOINT_PARAMS.tod,
           text: 'Choose tour of duty length',
           choices: [
@@ -55,12 +55,12 @@ const items =
       },
       {
         item: {
-          title: 'Region',
-          sort: 500,
+          title: 'Bureau',
+          sort: 100,
           description: 'region',
-          endpoint: 'organization/?is_available=true&is_regional=true',
+          endpoint: 'organization/?is_bureau=true&is_regional=true',
           selectionRef: ENDPOINT_PARAMS.org,
-          text: 'Choose region',
+          text: 'Choose bureau',
           choices: [
           ],
         },
@@ -70,7 +70,7 @@ const items =
       {
         item: {
           title: 'COLA',
-          sort: 600,
+          sort: 800,
           bool: true, // use bool: true to share a common HTML template
           description: 'COLA',
           selectionRef: ENDPOINT_PARAMS.cola,
@@ -85,7 +85,7 @@ const items =
       {
         item: {
           title: 'Post Differential',
-          sort: 700,
+          sort: 600,
           bool: true,
           description: 'postDiff',
           selectionRef: ENDPOINT_PARAMS.postDiff,
@@ -99,8 +99,8 @@ const items =
       },
       {
         item: {
-          title: 'Danger pay',
-          sort: 800,
+          title: 'Danger Pay',
+          sort: 700,
           bool: true,
           description: 'dangerPay',
           selectionRef: ENDPOINT_PARAMS.danger,
