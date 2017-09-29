@@ -3,7 +3,7 @@ import routerLocations from '../__mocks__/routerLocations';
 
 describe('routerLocations', () => {
   it('maps routes to names', () => {
-    ['/results', '/', '/details', '/post', 'fakeroute'].map(route => (
+    ['/results', '/', '/details', '/post', 'fakeroute', '/profile', '/compare'].map(route => (
       expect(actions.mapRoutesToNames(route)).toBeDefined()
     ));
   });
@@ -18,6 +18,15 @@ describe('routerLocations', () => {
 
   it('can get the last route name', () => {
     expect(actions.getLastRouteName(routerLocations)).toBe('Go back to search results');
+  });
+
+  it('returns false if there is only one item in history', () => {
+    expect(actions.getLastRoute(
+      [routerLocations[0], routerLocations[1], routerLocations[0]])).toBe(false);
+  });
+
+  it('returns false for arrays that do not have pathname', () => {
+    expect(actions.getLastRoute([1, 2, 3, 4])).toBe(false);
   });
 
   it('can get the link object for the last route', () => {
