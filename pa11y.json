@@ -1,0 +1,23 @@
+{
+    "defaults": {
+        "wait": 7000,
+        "standard": "WCAG2AA",
+        "ignore": ["notice", "warning"]
+    },
+    "host": "http://localhost:3000",
+    "token": {
+      "name": "token",
+      "value": "\"someToken\""
+    },
+    "urls": [
+        "/",
+        "/login",
+        "/results",
+        "/details/55360000",
+        "/post/100",
+        "/compare/55360000,56001700",
+        "/profile",
+        "/profile/searches",
+        "/profile/favorites"
+    ]
+}
