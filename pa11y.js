@@ -1,7 +1,8 @@
 // run node pa11y.js
 // you can pass optional parameters
-// -config : relative path to the config file
-// -host : hostname where front-end web app is running
+// --c : relative path to the config file
+// --host : hostname where front-end web app is running
+// --h --help : show help
 
 // We want to output the results to console to visualize and save in circleci,
 // so we can ignore no-console lint errors.
@@ -31,7 +32,7 @@ if (help) {
   Parameters take precendence over config file values.
   --host : hostname where front-end web app is running.
   --c : relative path to the config file.
-  example config:
+  example config.json:
   {
       "defaults": {
           "wait": 7000,
