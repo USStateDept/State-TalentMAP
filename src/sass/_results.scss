@@ -154,6 +154,10 @@
   .reset-compare-link {
     float: left;
     padding: 15px;
+
+    a {
+      cursor: pointer;
+    }
   }
 
   .comparisons-button {
