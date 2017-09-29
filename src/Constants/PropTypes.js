@@ -195,3 +195,5 @@ export const CLONE_SAVED_SEARCH_SUCCESS = STRING_OR_BOOL;
 export const CLONE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};
+
+export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };

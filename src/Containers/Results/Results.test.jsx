@@ -147,6 +147,24 @@ describe('Results', () => {
     sinon.assert.calledOnce(handleUpdateSpy);
   });
 
+  it('can call the saveSearch function', () => {
+    const savedSearch = { q: null, id: null };
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+        toggleFavorite={() => {}}
+        saveSearch={(q, id) => { savedSearch.q = q; savedSearch.id = id; }}
+      />,
+    );
+    wrapper.instance().saveSearch('test', 1);
+    expect(savedSearch.q.name).toBe('test');
+    expect(savedSearch.id).toBe(1);
+  });
+
   it('can call the onQueryParamToggle function when removing a param', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
