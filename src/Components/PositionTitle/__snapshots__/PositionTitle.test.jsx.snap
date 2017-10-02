@@ -24,18 +24,20 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
       <div
         className="position-details-header-back"
       >
-        <a
-          className="back-link"
-          onClick={[Function]}
-          onKeyDown={[Function]}
-          role="link"
-          tabIndex="0"
-        >
+        <div>
           <FontAwesome
             name="arrow-left"
           />
-            Go back
-        </a>
+           
+          <a
+            className="back-link"
+            onClick={[Function]}
+            role="link"
+            tabIndex="0"
+          >
+            Go back text
+          </a>
+        </div>
       </div>
       <div
         className="position-details-header-title"
@@ -51,7 +53,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
         <strong>
           Description: 
         </strong>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make...
+        a description
       </p>
       <div
         className="usa-width-one-half position-details-header-body"
@@ -84,7 +86,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   <img
     alt="department of state seal"
     className="position-details-header-image"
-    src="/assets/img/dos-seal-bw.png"
+    src="/assets/img/rsz_dos-seal-bw.png"
   />
 </div>
 `;

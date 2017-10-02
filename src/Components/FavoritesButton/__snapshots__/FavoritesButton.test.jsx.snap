@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoriteButton matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "cursor": "pointer",
+      "pointerEvents": "inherit",
+    }
+  }
+>
+  <button
+    className=""
+    disabled={false}
+    onClick={[Function]}
+  >
+    Add to Favorites
+  </button>
+</div>
+`;

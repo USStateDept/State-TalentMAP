@@ -1,38 +1,15 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import { ajax,
-         validStateEmail,
+import { validStateEmail,
          localStorageFetchValue,
          localStorageToggleValue,
          fetchUserToken,
+         descriptionSort,
+         titleSort,
+         pillSort,
+         formExploreRegionDropdown,
+         scrollToTop,
+         getItemLabel,
+         shortenString,
        } from './utilities';
-
-const posts = [
-  { id: 6, grade: '05', skill: 'OFFICE MANAGEMENT (9017)', bureau: '150000', organization: 'YAOUNDE CAMEROON (YAOUNDE)', position_number: '00025003', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }] },
-  { id: 80, grade: '05', skill: 'INFORMATION MANAGEMENT (2880)', bureau: '110000', organization: 'SAO PAULO BRAZIL (SAO PAULO)', position_number: '55115002', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 22, language: 'Portuguese (PY)', written_proficiency: '1', spoken_proficiency: '1', representation: 'Portuguese (PY) 1/1' }] },
-];
-
-describe('ajax', () => {
-  it('Should return data from response', (done) => {
-    const mockAdapter = new MockAdapter(axios);
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/').reply(200,
-      posts,
-    );
-
-    const f = () => {
-      setTimeout(() => {
-        ajax('http://localhost:8000/api/v1/position/')
-       .then((res) => {
-         const data = res;
-         expect(data).toBeDefined();
-         done();
-       });
-      }, 0);
-    };
-    f();
-  });
-});
 
 describe('local storage', () => {
   it('should be able to fetch the existence of a value when there is one values in the array', () => {
@@ -56,10 +33,10 @@ describe('local storage', () => {
     localStorage.clear();
   });
 
-  it('should be able to fetch the length of an array', () => {
+  it('should be able to fetch the count of an array', () => {
     localStorage.setItem('key', JSON.stringify(['1', '2']));
     const retrieved = localStorageFetchValue('key', '1');
-    expect(retrieved.len).toBe(2);
+    expect(retrieved.count).toBe(2);
     localStorage.clear();
   });
 
@@ -94,5 +71,67 @@ describe('fetchUserToken', () => {
     const output = fetchUserToken();
     expect(output).toBe('Token 1234');
     localStorage.clear();
+  });
+});
+
+describe('sort functions', () => {
+  const items = [{ title: 'a', description: 'a' }, { title: 'b', description: 'b' }];
+  const pills = [{ description: 'a' }, { code: 'b' }];
+
+  it('can sort by description', () => {
+    expect(descriptionSort(items[0], items[1])).toBe(-1);
+    expect(descriptionSort(items[1], items[0])).toBe(1);
+    expect(descriptionSort(items[0], items[0])).toBe(0);
+  });
+
+  it('can sort by title', () => {
+    expect(titleSort(items[0], items[1])).toBe(-1);
+    expect(titleSort(items[1], items[0])).toBe(1);
+    expect(titleSort(items[0], items[0])).toBe(0);
+  });
+
+  it('can sort by description or code', () => {
+    expect(pillSort(pills[0], pills[1])).toBe(-1);
+    expect(pillSort(pills[1], pills[0])).toBe(1);
+    expect(pillSort(pills[0], pills[0])).toBe(0);
+  });
+});
+
+const filters = [{ item: { title: 'Region' }, data: [{ long_description: 'regionA', code: 'code' }] }, { item: { title: 'Language' } }];
+
+describe('formExploreRegionDropdown function', () => {
+  const regions = formExploreRegionDropdown(filters);
+
+  it('can filter for region', () => {
+    expect(regions[1].long_description).toBe(filters[0].data[0].long_description);
+  });
+
+  it('can add new properties', () => {
+    expect(regions[1].text).toBe(filters[0].data[0].long_description);
+  });
+
+  it('adds the placeholder object to the beginning of the array', () => {
+    expect(regions[0].disabled).toBe(true);
+  });
+});
+
+describe('scrollToTop function', () => {
+  it('can call the scrollToTop function', () => {
+    scrollToTop();
+  });
+});
+
+describe('getItemLabel function', () => {
+  it('can can get an item label', () => {
+    expect(getItemLabel(filters[0].data[0])).toBe(filters[0].data[0].long_description);
+    expect(getItemLabel({ description: 'test' })).toBe('test');
+    expect(getItemLabel({ code: '0' })).toBe('0');
+  });
+});
+
+describe('shortenString function', () => {
+  it('can shorten a string', () => {
+    const string = '012345';
+    expect(shortenString(string, 3)).toBe('012...');
   });
 });

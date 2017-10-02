@@ -1,42 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, GO_BACK_TO_LINK, USER_PROFILE } from '../../Constants/PropTypes';
+import * as SystemMessages from '../../Constants/SystemMessages';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, api, isLoading, hasErrored, goBack }) => (
-  <div>
-    {(details && !isLoading && !hasErrored) &&
+const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
+    userProfile, toggleFavorite, userProfileFavoritePositionIsLoading }) => {
+  const isReady = details && !isLoading && !hasErrored;
+  return (
+    <div>
+      { isReady &&
       <div>
-        <PositionTitle details={details} goBack={goBack} />
+        <PositionTitle details={details} goBackLink={goBackLink} />
         <PositionDetailsItem details={details} />
-        <PositionAdditionalDetails />
+        <PositionAdditionalDetails
+          content={
+            details.description && details.description.content ?
+            details.description.content :
+            SystemMessages.NO_POSITION_DESCRIPTION
+          }
+        />
         <div className="usa-grid">
-          <FavoritesButton refKey={details.position_number} type="fav" />
-          <Share api={api} identifier={details.id} />
+          {
+            !!userProfile.favorite_positions &&
+            <FavoritesButton
+              onToggle={toggleFavorite}
+              refKey={details.id}
+              isLoading={userProfileFavoritePositionIsLoading}
+              compareArray={userProfile.favorite_positions}
+            />
+          }
+          <Share identifier={details.id} />
         </div>
       </div>}
-    {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
-  </div>
-);
+      {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
+    </div>
+  );
+};
 
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
-  api: PropTypes.string.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  goBack: PropTypes.func,
+  goBackLink: GO_BACK_TO_LINK.isRequired,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
 };
 
 PositionDetails.defaultProps = {
   details: null,
   isLoading: true,
   hasErrored: false,
-  goBack: EMPTY_FUNCTION,
+  userProfile: {},
 };
 
 export default PositionDetails;

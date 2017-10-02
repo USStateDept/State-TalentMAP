@@ -9,6 +9,11 @@ import { post, postHasErrored, postIsLoading } from './post';
 import { share, shareHasErrored, shareIsSending } from './share';
 import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
+import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
+import { userProfile, userProfileHasErrored, userProfileIsLoading,
+        userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
+import routerLocations from './routerLocations';
+import selectedAccordion from './selectedAccordion';
 
 
 export default combineReducers({
@@ -27,11 +32,21 @@ export default combineReducers({
   comparisons,
   comparisonsHasErrored,
   comparisonsIsLoading,
+  homePagePositions,
+  homePagePositionsHasErrored,
+  homePagePositionsIsLoading,
   share,
   shareHasErrored,
   shareIsSending,
+  userProfile,
+  userProfileHasErrored,
+  userProfileIsLoading,
+  userProfileFavoritePositionIsLoading,
+  userProfileFavoritePositionHasErrored,
   form,
   client,
   login,
+  selectedAccordion,
+  routerLocations,
   router: routerReducer,
 });

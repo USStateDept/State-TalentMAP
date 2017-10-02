@@ -1,65 +1,44 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
-import FavoritesButton from '../../Components/FavoritesButton/FavoritesButton';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import ResultsCard from '../../Components/ResultsCard/ResultsCard';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
-class ResultsList extends Component {
-
-  onChildToggle() {
-    this.forceUpdate();
-    this.props.onToggle();
-  }
-
-  render() {
-    return (
-      <div>
-        { this.props.results.map(result => (
-          <div key={result.id} id={result.id} className="usa-grid-full" style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
-            <div className="usa-width-one-half">
-              <Link to={`/details/${result.position_number}`}>
-                <h3> Position Number: {result.position_number} </h3>
-              </Link>
-              <p>
-                  Grade: {result.grade}
-                <br />
-                  Skill: {result.skill}
-                <br />
-                  Bureau: {result.bureau}
-                <br />
-                  Organization: {result.organization}
-                <br />
-                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
-                <br />
-                  Post Differential: {result.post
-                    ? result.post.differential_rate : SystemMessages.NO_POST_DIFFERENTIAL}
-              </p>
-            </div>
-            <div className="usa-width-one-half" style={{ textAlign: 'right', paddingTop: '25px' }}>
-              <FavoritesButton refKey={result.position_number} type="fav" />
-              <FavoritesButton
-                refKey={result.position_number}
-                type="compare"
-                onToggle={() => this.onChildToggle()}
-                limit={2}
-              />
-            </div>
-          </div>
+const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
+                       userProfileFavoritePositionIsLoading,
+                       userProfileFavoritePositionHasErrored }) => {
+  const mapResults = results.results || [];
+  return (
+    <div className={isLoading ? 'results-loading' : null}>
+      { mapResults.map(result => (
+        <ResultsCard
+          toggleFavorite={toggleFavorite}
+          favorites={favorites}
+          key={result.id}
+          result={result}
+          onToggle={onToggle}
+          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+        />
           ))}
-      </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 ResultsList.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func,
+  isLoading: PropTypes.bool,
+  favorites: FAVORITE_POSITIONS_ARRAY,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
 };
 
 ResultsList.defaultProps = {
-  results: [],
+  results: { results: [] },
   onToggle: EMPTY_FUNCTION,
+  isLoading: false,
+  favorites: [],
 };
 
 export default ResultsList;

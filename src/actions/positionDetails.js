@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../api';
 
 export function positionDetailsHasErrored(bool) {
   return {
@@ -19,13 +20,13 @@ export function positionDetailsFetchDataSuccess(positionDetails) {
   };
 }
 
-export function positionDetailsFetchData(url) {
+export function positionDetailsFetchData(query) {
   return (dispatch) => {
     dispatch(positionDetailsIsLoading(true));
-    axios.get(url)
+    axios.get(`${api}/position/?position_number=${query}`)
             .then((response) => {
               dispatch(positionDetailsIsLoading(false));
-              return response.data;
+              return response.data.results;
             })
             .then(positionDetails => dispatch(positionDetailsFetchDataSuccess(positionDetails)))
             .catch(() => dispatch(positionDetailsHasErrored(true)));

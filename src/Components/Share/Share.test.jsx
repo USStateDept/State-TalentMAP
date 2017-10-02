@@ -11,18 +11,16 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Main', () => {
-  const api = 'http://localhost:8000/api/v1';
-
   it('is defined', () => {
     const share = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Share api={api} identifier={5} />
+      <Share identifier={5} />
     </MemoryRouter></Provider>);
     expect(share).toBeDefined();
   });
 
-  it('it can call the onChildSend function', () => {
+  it('can call the onChildSend function', () => {
     const wrapper = shallow(
-      <Share.WrappedComponent api="test" identifier={1} onNavigateTo={() => {}} />,
+      <Share.WrappedComponent identifier={1} onNavigateTo={() => {}} />,
     );
     wrapper.instance().onChildSend();
   });

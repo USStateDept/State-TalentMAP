@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { postFetchData } from '../../actions/post';
 import PostDetails from '../../Components/PostDetails/PostDetails';
-import { POST_MISSION_DATA, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POST_MISSION_DATA } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Post extends Component {
@@ -19,9 +19,7 @@ class Post extends Component {
   }
 
   getPost(id) {
-    const query = id;
-    const api = this.props.api;
-    this.props.fetchData(`${api}/orgpost/${query}/`);
+    this.props.fetchData(id);
   }
 
   render() {
@@ -35,8 +33,7 @@ class Post extends Component {
 }
 
 Post.propTypes = {
-  api: PropTypes.string.isRequired,
-  onNavigateTo: PropTypes.func,
+  onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -49,7 +46,6 @@ Post.propTypes = {
 
 Post.defaultProps = {
   post: {},
-  onNavigateTo: EMPTY_FUNCTION,
   isLoading: true,
 };
 

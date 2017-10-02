@@ -2,11 +2,11 @@
 
 exports[`Footer Component matches snapshot 1`] = `
 <footer
-  className="usa-footer usa-footer-medium talentmap-footer"
+  className="usa-footer usa-footer-medium tm-footer"
   role="contentinfo"
 >
   <div
-    className="usa-footer-primary-section talentmap-footer-nav"
+    className="usa-footer-primary-section tm-footer-nav"
   >
     <div
       className="usa-grid-full"
@@ -53,7 +53,7 @@ exports[`Footer Component matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="usa-footer-secondary_section talentmap-footer-body"
+    className="usa-footer-secondary_section tm-footer-body"
   >
     <div
       className="usa-grid"
@@ -64,14 +64,14 @@ exports[`Footer Component matches snapshot 1`] = `
         <img
           alt="Logo"
           className="usa-footer-logo-img"
-          src="/assets/img/dos-seal.png"
+          src="/assets/img/rsz_dos-seal.png"
         />
       </div>
       <div
-        className="usa-footer-contact-links usa-width-one-half talentmap-footer-body-contact"
+        className="usa-footer-contact-links usa-width-one-half tm-footer-body-contact"
       >
         <div
-          className="talentmap-footer-body-contact-item"
+          className="tm-footer-body-contact-item"
         >
           <a
             href="mailto:TalentMAPOutreach@Dos.gov"
@@ -80,12 +80,12 @@ exports[`Footer Component matches snapshot 1`] = `
           </a>
         </div>
         <div
-          className="talentmap-footer-body-contact-item"
+          className="tm-footer-body-contact-item"
         >
           Join the TalentMAP Community
         </div>
         <div
-          className="talentmap-footer-body-contact-item"
+          className="tm-footer-body-contact-item"
         >
           Need help? Contact TalentMAP Team
         </div>

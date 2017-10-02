@@ -26,8 +26,6 @@ const store = configureStore();
 
 const context = createRouterContext();
 
-const api = 'http://localhost:8000/api/v1';
-
 let wrapper = null;
 
 describe('FiltersComponent', () => {
@@ -80,7 +78,7 @@ describe('FiltersComponent', () => {
         sort: 400,
         description: 'tod',
         endpoint: 'organization/tod',
-        selectionRef: 'post__tour_of_duty__in',
+        selectionRef: 'post__tour_of_duty__code__in',
         text: 'Choose tour of duty length',
         choices: [
         ],
@@ -96,7 +94,7 @@ describe('FiltersComponent', () => {
         sort: 500,
         description: 'region',
         endpoint: 'organization',
-        selectionRef: 'organization__code__in',
+        selectionRef: 'bureau__code__in',
         text: 'Choose region',
         choices: [
         ],
@@ -156,12 +154,12 @@ describe('FiltersComponent', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
     ReactDOM.render(<MemoryRouter>
-      <Filters api={api} items={items} store={store} /></MemoryRouter>, div);
+      <Filters items={items} store={store} /></MemoryRouter>, div);
   });
 
   it('is defined', (done) => {
     const home = TestUtils.renderIntoDocument(<MemoryRouter>
-      <Filters api={api} store={store} items={items} location={{}} />
+      <Filters store={store} items={items} location={{}} />
     </MemoryRouter>, { context });
     const f = () => {
       setTimeout(() => {
@@ -172,16 +170,8 @@ describe('FiltersComponent', () => {
     f();
   });
 
-  it('can change text', (done) => {
-    wrapper = shallow(<Filters store={store} items={items} api={api} />, { context });
-    wrapper.find('#search-field').simulate('change', { target: { value: 'info Tech' } });
-    expect(wrapper.find('#search-field').props().value).toBe('info Tech');
-    wrapper.unmount();
-    done();
-  });
-
   it('can create a query string', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
         wrapper.instance().changeText({ target: { value: 'info Tech' } });
@@ -193,7 +183,7 @@ describe('FiltersComponent', () => {
   });
 
   it('can call the createQueryString function to create multi-parameter query strings', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
         wrapper.instance().changeText({ target: { value: 'info Tech' } });
@@ -201,7 +191,7 @@ describe('FiltersComponent', () => {
         wrapper.find('#S0020').simulate('change', (0, { target: { checked: true, value: '0020' } }));
         wrapper.find('#TOD00').simulate('change', (0, { target: { checked: true, value: '2' } }));
         wrapper.find('#R00').simulate('change', (0, { target: { checked: true, value: '2' } }));
-        expect(wrapper.instance().state.qString).toBe('organization__code__in=2&post__tour_of_duty__in=2&q=info%20Tech&skill__code__in=0010%2C0020');
+        expect(wrapper.instance().state.qString).toBe('bureau__code__in=2&post__tour_of_duty__code__in=2&q=info%20Tech&skill__code__in=0010%2C0020');
         done();
       }, 0);
     };
@@ -209,7 +199,7 @@ describe('FiltersComponent', () => {
   });
 
   it('can check a checkbox', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
@@ -224,7 +214,7 @@ describe('FiltersComponent', () => {
   });
 
   it('can check and then uncheck a checkbox', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
@@ -246,18 +236,18 @@ describe('FiltersComponent', () => {
   });
 
   it('should disable search if less than two filters are selected', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
         // no filters are initially set, so should return true
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
         // enable search filter
-        wrapper.find('#search-field').simulate('change', { target: { value: 'test' } });
+        wrapper.instance().changeText({ target: { value: 'test' } });
         // select a checkbox filter
         wrapper.find('#S0010').simulate('change', (0, { target: { checked: true, value: '0010' } }));
         expect(wrapper.instance().shouldDisableSearch()).toBe(false);
         // remove the original search filter
-        wrapper.find('#search-field').simulate('change', { target: { value: '' } });
+        wrapper.instance().changeText({ target: { value: '' } });
         // one filter is selected, should return false
         expect(wrapper.instance().shouldDisableSearch()).toBe(true);
         done();
@@ -267,7 +257,7 @@ describe('FiltersComponent', () => {
   });
 
   it('should enable search if two filters are selected, excluding search text', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
         // no filters are initially set, so should return true
@@ -284,7 +274,7 @@ describe('FiltersComponent', () => {
   });
 
   it('should be able to enable language proficiency filters', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
         // change English written to 1
@@ -302,11 +292,11 @@ describe('FiltersComponent', () => {
   });
 
   it('should be able to submit a search', (done) => {
-    wrapper = shallow(<Filters api={api} items={items} />, { context });
+    wrapper = shallow(<Filters items={items} />, { context });
     const f = () => {
       setTimeout(() => {
-        wrapper.find('#search-field').simulate('change', { target: { value: 'test' } });
-        wrapper.find('form').simulate('submit', { preventDefault: () => {} });
+        wrapper.instance().changeText({ target: { value: 'test' } });
+        wrapper.instance().submitSearch({ preventDefault: () => {} });
         done();
       }, 0);
     };

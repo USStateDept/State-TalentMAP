@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TotalResults displays page numbers and total results correctly when on the first page of the results 1`] = `
+<span
+  id="total-results"
+>
+  1
+   - 
+  25
+   of 
+  103
+   positions found
+</span>
+`;
+
+exports[`TotalResults displays page numbers and total results correctly when on the second page of the results 1`] = `
+<span
+  id="total-results"
+>
+  26
+   - 
+  50
+   of 
+  103
+   positions found
+</span>
+`;
+
+exports[`TotalResults displays page numbers and total results correctly when on the third page of the results 1`] = `
+<span
+  id="total-results"
+>
+  51
+   - 
+  75
+   of 
+  103
+   positions found
+</span>
+`;
+
+exports[`TotalResults displays page numbers and total results correctly when reaching the last page of the results 1`] = `
+<span
+  id="total-results"
+>
+  101
+   - 
+  103
+   of 
+  103
+   positions found
+</span>
+`;
+
+exports[`TotalResults displays page numbers and total results correctly when reaching the second to last page of the results 1`] = `
+<span
+  id="total-results"
+>
+  76
+   - 
+  100
+   of 
+  103
+   positions found
+</span>
+`;
+
+exports[`TotalResults matches snapshot 1`] = `
+<span
+  id="total-results"
+>
+  1
+   - 
+  0
+   of 
+  103
+   positions found
+</span>
+`;

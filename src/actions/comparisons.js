@@ -1,4 +1,5 @@
 import axios from 'axios';
+import api from '../api';
 
 export function comparisonsHasErrored(bool) {
   return {
@@ -19,13 +20,13 @@ export function comparisonsFetchDataSuccess(comparisons) {
   };
 }
 
-export function comparisonsFetchData(url) {
+export function comparisonsFetchData(query) {
   return (dispatch) => {
     dispatch(comparisonsIsLoading(true));
-    axios.get(url)
+    axios.get(`${api}/position/?position_number__in=${query}`)
             .then((response) => {
               dispatch(comparisonsIsLoading(false));
-              return response.data;
+              return response.data.results;
             })
             .then(comparisons => dispatch(comparisonsFetchDataSuccess(comparisons)))
             .catch(() => dispatch(comparisonsHasErrored(true)));

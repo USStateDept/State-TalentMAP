@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsCardComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full results-card"
+  id={6}
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-one-half results-card-title"
+    >
+      Position Number: 
+      00025003
+    </div>
+    <div
+      className="results-card-favorite"
+    >
+      <Favorite
+        compareArray={Array []}
+        hasErrored={false}
+        hideText={false}
+        isLoading={false}
+        onToggle={[Function]}
+        refKey={6}
+      />
+    </div>
+  </div>
+  <div
+    className="usa-grid-full"
+  >
+    <ResultsCardDataSection
+      result={
+        Object {
+          "bureau": "150000",
+          "create_date": "2006-09-20",
+          "grade": "05",
+          "id": 6,
+          "is_overseas": true,
+          "languages": Array [
+            Object {
+              "id": 1,
+              "language": "French (FR)",
+              "representation": "French (FR) 2/2",
+              "spoken_proficiency": "2",
+              "written_proficiency": "2",
+            },
+            Object {
+              "id": 1,
+              "language": "German (GM)",
+              "representation": "German (GM) 2/2",
+              "spoken_proficiency": "2",
+              "written_proficiency": "2",
+            },
+          ],
+          "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+          "position_number": "00025003",
+          "post": Object {
+            "code": "LT6000000",
+            "cost_of_living_adjustment": 0,
+            "danger_pay": 0,
+            "differential_rate": 15,
+            "has_consumable_allowance": false,
+            "has_service_needs_differential": false,
+            "id": 162,
+            "location": "MASERU, LESOTHO",
+            "rest_relaxation_point": "London",
+            "tour_of_duty": "2YRR",
+          },
+          "skill": "OFFICE MANAGEMENT (9017)",
+          "update_date": "2017-06-08",
+        }
+      }
+    />
+  </div>
+  <div
+    className="usa-grid-full bottom-section"
+  >
+    <div
+      className="button-link details-button-container"
+    >
+      <Link
+        className="usa-button usa-button-primary details-button"
+        replace={false}
+        role="button"
+        to="/details/00025003"
+        type="submit"
+      >
+        View details
+      </Link>
+    </div>
+    <div
+      className="compare-check"
+    >
+      <CompareCheck
+        limit={2}
+        onToggle={[Function]}
+        refKey="00025003"
+        type="compare"
+      />
+    </div>
+  </div>
+</div>
+`;

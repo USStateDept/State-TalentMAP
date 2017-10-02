@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
+import { getLastRouteLink } from '../../actions/routerLocations';
+import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
-import { POSITION_DETAILS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, EMPTY_FUNCTION, ROUTER_LOCATIONS, USER_PROFILE } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Position extends Component {
@@ -19,21 +21,23 @@ class Position extends Component {
   }
 
   getDetails(id) {
-    const query = id;
-    const api = this.props.api;
-    this.props.fetchData(`${api}/position/?position_number=${query}`);
+    this.props.fetchData(id);
   }
 
   render() {
-    const { positionDetails, isLoading, hasErrored } = this.props;
+    const { positionDetails, isLoading, hasErrored, routerLocations, userProfile, toggleFavorite,
+        userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } = this.props;
     return (
       <div>
         <PositionDetails
-          api={this.props.api}
           details={positionDetails[0]}
           isLoading={isLoading}
           hasErrored={hasErrored}
-          goBack={this.context.router.history.goBack}
+          goBackLink={getLastRouteLink(routerLocations)}
+          userProfile={userProfile}
+          toggleFavorite={toggleFavorite}
+          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         />
       </div>
     );
@@ -45,8 +49,7 @@ Position.contextTypes = {
 };
 
 Position.propTypes = {
-  api: PropTypes.string.isRequired,
-  onNavigateTo: PropTypes.func,
+  onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -57,26 +60,39 @@ Position.propTypes = {
   isLoading: PropTypes.bool,
   positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
   isAuthorized: PropTypes.func.isRequired,
+  routerLocations: ROUTER_LOCATIONS,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool,
+  userProfileFavoritePositionHasErrored: PropTypes.bool,
 };
 
 Position.defaultProps = {
   positionDetails: [],
   fetchData: EMPTY_FUNCTION,
-  onNavigateTo: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
+  routerLocations: [],
+  userProfile: {},
+  userProfileFavoritePositionIsLoading: true,
+  userProfileFavoritePositionHasErrored: false,
 };
 
 const mapStateToProps = (state, ownProps) => ({
   positionDetails: state.positionDetails,
   hasErrored: state.positionDetailsHasErrored,
   isLoading: state.positionDetailsIsLoading,
+  routerLocations: state.routerLocations,
   id: ownProps,
+  userProfile: state.userProfile,
+  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
+  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(positionDetailsFetchData(url)),
   onNavigateTo: dest => dispatch(push(dest)),
+  toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Position));

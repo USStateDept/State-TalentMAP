@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import CompareList from '../../Components/CompareList/CompareList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { COMPARE_LIST } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Results extends Component {
@@ -25,9 +25,7 @@ class Results extends Component {
   }
 
   getComparisons(ids) {
-    const query = ids;
-    const api = this.props.api;
-    this.props.fetchData(`${api}/position/?position_number__in=${query}`);
+    this.props.fetchData(ids);
   }
 
   render() {
@@ -41,8 +39,7 @@ class Results extends Component {
 }
 
 Results.propTypes = {
-  api: PropTypes.string.isRequired,
-  onNavigateTo: PropTypes.func,
+  onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       ids: PropTypes.string,
@@ -51,7 +48,7 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  comparisons: POSITION_SEARCH_RESULTS,
+  comparisons: COMPARE_LIST,
   isAuthorized: PropTypes.func.isRequired,
 };
 
@@ -59,7 +56,6 @@ Results.defaultProps = {
   comparisons: [],
   hasErrored: false,
   isLoading: true,
-  onNavigateTo: EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {

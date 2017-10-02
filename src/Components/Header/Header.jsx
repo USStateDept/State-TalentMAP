@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { loginRequest, logoutRequest } from '../../login/actions';
+import close from 'uswds/dist/img/close.svg'; // close X icon
+import { userProfileFetchData } from '../../actions/userProfile';
+import { logoutRequest } from '../../login/actions';
+import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
 
 export class Header extends Component {
@@ -15,6 +19,12 @@ export class Header extends Component {
     };
   }
 
+  componentWillMount() {
+    if (this.props.isAuthorized()) {
+      this.props.fetchData();
+    }
+  }
+
   render() {
     const {
       login: {
@@ -22,55 +32,24 @@ export class Header extends Component {
       },
     } = this.props;
 
-    let showLogin = (<Link to="login">Login</Link>);
+    let showLogin = (<Link to="login" id="login-desktop">Login</Link>);
+    let signedInAs = null;
+    const { logout } = this.props;
     if (this.props.client.token && !requesting) {
-      showLogin = (<AccountDropdown />);
+      const { userProfile } = this.props;
+      showLogin = (
+        <AccountDropdown
+          userProfile={this.props.userProfile}
+          logoutRequest={logout}
+        />);
+      if (userProfile.user && userProfile.user.username) {
+        signedInAs = `Signed in as ${userProfile.user.username}`;
+      }
     }
 
     return (
-      <header className="usa-header usa-header-extended talentmap-header" role="banner">
-        <div className="usa-banner">
-          <div className="usa-accordion">
-            <header className="usa-banner-header">
-              <div className="usa-grid usa-banner-inner">
-                <img src="https://unpkg.com/uswds@1.0.0/dist/img/favicons/favicon-57.png" alt="U.S. flag" />
-                <p>An official website of the United States government</p>
-                <button
-                  className="usa-accordion-button usa-banner-button"
-                  aria-expanded="false"
-                  aria-controls="gov-banner"
-                >
-                  <span className="usa-banner-button-text">Here&#39;s how you know</span>
-                </button>
-              </div>
-            </header>
-            <div
-              className="usa-banner-content usa-grid usa-accordion-content"
-              id="gov-banner"
-              aria-hidden="true"
-            >
-              <div className="usa-banner-guidance-gov usa-width-one-half">
-                <img className="usa-banner-icon usa-media_block-img" src="https://unpkg.com/uswds@1.0.0/dist/img/icon-dot-gov.svg" alt="Dot gov" />
-                <div className="usa-media_block-body">
-                  <p>
-                    <strong>The .gov means it’s official.</strong>
-                    <br />
-                      Federal government websites always use a .gov or .mil domain.
-                      Before sharing sensitive information online,
-                      make sure you’re on a .gov or .mil
-                      site by inspecting your browser’s address (or “location”) bar.
-                    </p>
-                </div>
-              </div>
-              <div className="usa-banner-guidance-ssl usa-width-one-half">
-                <img className="usa-banner-icon usa-media_block-img" src="https://unpkg.com/uswds@1.0.0/dist/img/icon-https.svg" alt="SSL" />
-                <div className="usa-media_block-body">
-                  <p>This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The <strong>https://</strong> means all transmitted data is encrypted &nbsp;— in other words, any information or browsing history that you provide is transmitted securely.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <header className="usa-header usa-header-extended tm-header" role="banner">
+        <GovBanner />
         <div className="usa-navbar">
           <button className="usa-menu-btn">Menu</button>
           <div className="usa-logo" id="logo">
@@ -84,19 +63,23 @@ export class Header extends Component {
         <nav className="usa-nav">
           <div className="usa-nav-inner">
             <button className="usa-nav-close">
-              <img src="https://unpkg.com/uswds@1.0.0/dist/img/close.svg" alt="close" />
+              <img src={close} alt="close" />
             </button>
             <div className="usa-nav-secondary">
-              <form className="usa-search usa-search-small js-search-form usa-sr-only">
+              <form className="usa-search usa-search-small usa-sr-only">
                 <div role="search">
                   <label className="usa-sr-only" htmlFor="search-field-small">Search small</label>
-                  <input id="search-field-small" type="search" name="search" />
+                  <input id="search-field-small" type="search" name="search-small" />
                   <button type="submit">
                     <span className="usa-sr-only">Search</span>
                   </button>
                 </div>
               </form>
-              <ul className="usa-unstyled-list usa-nav-secondary-links">
+              <ul className="usa-unstyled-list usa-nav-secondary-links mobile-nav">
+                <li className="mobile-nav-only">
+                  {signedInAs}
+                </li>
+                <hr className="mobile-nav-only" />
                 <li className="js-search-button-container">
                   <button className="usa-header-search-button js-search-button">Search</button>
                 </li>
@@ -109,9 +92,20 @@ export class Header extends Component {
                 <li>
                   <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
                 </li>
-                <li>
-                  {showLogin}
-                </li>
+                <span className="usa-unstyled-list mobile-nav-only">
+                  <hr />
+                  <li>
+                    <Link to="/">Profile</Link>
+                  </li>
+                  <li>
+                    <Link to="login" id="login-mobile" onClick={logout}>Logout</Link>
+                  </li>
+                </span>
+                <span className="desktop-nav-only">
+                  <li>
+                    {showLogin}
+                  </li>
+                </span>
               </ul>
             </div>
           </div>
@@ -130,17 +124,29 @@ Header.propTypes = {
   client: PropTypes.shape({
     token: PropTypes.string,
   }),
+  fetchData: PropTypes.func.isRequired,
+  isAuthorized: PropTypes.func.isRequired,
+  userProfile: USER_PROFILE,
+  logout: PropTypes.func,
 };
 
 Header.defaultProps = {
   client: null,
+  userProfile: {},
+  logout: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
   login: state.login,
   client: state.client,
+  userProfile: state.userProfile,
 });
 
-const connected = connect(mapStateToProps, { loginRequest, logoutRequest })(Header);
+const mapDispatchToProps = dispatch => ({
+  fetchData: url => dispatch(userProfileFetchData(url)),
+  logout: () => dispatch(logoutRequest()),
+});
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(Header);
 
 export default connected;
