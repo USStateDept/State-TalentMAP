@@ -15,7 +15,7 @@ class SearchFiltersContainer extends Component {
   }
   render() {
     // get our boolean filter names
-    const sortedBooleanNames = ['Post Differential', 'Danger pay', 'COLA', 'Domestic'];
+    const sortedBooleanNames = ['Post Differential', 'Danger Pay', 'COLA', 'Domestic'];
 
     // store filters in Map
     const booleanFiltersMap = new Map();
