@@ -54,7 +54,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our language filter, which we'll render differently
-    const languageFilters = this.props.filters.filter(
+    const languageFilters = this.props.filters.find(
       searchFilter =>
         (
           searchFilter.item.description === 'language'
@@ -62,7 +62,7 @@ class SearchFiltersContainer extends Component {
     );
 
     // make sure we have an object to use in case there were no languages passed down
-    const languageFilter = languageFilters.length ? languageFilters[0] : { item: {} };
+    const languageFilter = languageFilters || { item: {} };
 
     // languageFilters should only have one object, so we simply call languageFilters[0]
     const languageFilterObject =

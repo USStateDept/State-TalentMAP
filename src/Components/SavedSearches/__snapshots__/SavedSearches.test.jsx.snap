@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SavedSearchesComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full saved-searches-container
+      "
+>
+  <ProfileSectionTitle
+    title="Your Saved Searches:"
+  />
+  <SavedSearchesList
+    cloneSavedSearch={[Function]}
+    deleteSearch={[Function]}
+    goToSavedSearch={[Function]}
+    savedSearches={
+      Object {
+        "results": Array [
+          Object {
+            "id": 1,
+            "name": "search",
+          },
+        ],
+      }
+    }
+  />
+</div>
+`;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { fetchUserToken } from '../utilities';
 import api from '../api';
+import { favoritePositionsFetchData } from './favoritePositions';
 
 export function userProfileHasErrored(bool) {
   return {
@@ -69,29 +70,24 @@ export function userProfileToggleFavoritePosition(id, remove) {
     axios.get(`${api}/profile/`, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then((userProfile) => {
-              // the user's refreshed favorites
-              let favorites = userProfile.favorite_positions;
-              favorites = favorites.map(f => f.id.toString());
-              // the index of the position in question
-              const indexOfFavorite = favorites.indexOf(idString);
+              // the user's refreshed favorites, mapped down to an array of IDs
+              const favorites = userProfile.favorite_positions.map(f => f.id.toString());
+              // convert the array to a Set
+              const favoritesSet = new Set(favorites);
               // did we explicitly call to remove this position?
               if (remove) {
-                // and does the id actually exist in the array? if so, remove it
-                if (indexOfFavorite > -1) {
-                  favorites.splice(indexOfFavorite, 1);
-                }
+                // if so, remove it
+                favoritesSet.delete(idString);
               } else if (!remove) { // did we call to add the position?
-                // and was it not already present in the array? if so, add it
-                if (indexOfFavorite <= -1) {
-                  favorites.push(idString);
-                }
+                favoritesSet.add(idString);
               }
               // make sure we have a clean object with no other params
-              const favoritesObject = Object.assign({}, { favorite_positions: favorites });
+              const favoritesObject = Object.assign({}, { favorite_positions: favoritesSet });
               // now we can patch our profile with the new favorites
               axios.patch(`${api}/profile/`, favoritesObject, { headers: { Authorization: fetchUserToken() } })
                       .then(() => {
                         dispatch(userProfileFetchData(true));
+                        dispatch(favoritePositionsFetchData());
                       })
                       .catch(() => {
                         dispatch(userProfileFavoritePositionHasErrored(true));

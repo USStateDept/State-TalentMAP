@@ -16,3 +16,7 @@ $avatar-background: #fff;
 $avatar-dropdown-border-top-color: rgba(0, 0, 0, .05);
 $avatar-dropdown-box-shadow-color: rgba(0, 0, 0, .15);
 $avatar-dropdown-account-segment-color: #e1e1e1;
+
+// z-index values
+// we'll use this section to keep track of and order them
+$spinner-z: 100;

@@ -9,6 +9,9 @@ import { validStateEmail,
          scrollToTop,
          getItemLabel,
          shortenString,
+         cleanQueryParams,
+         ifEnter,
+         formQueryString,
        } from './utilities';
 
 describe('local storage', () => {
@@ -130,8 +133,46 @@ describe('getItemLabel function', () => {
 });
 
 describe('shortenString function', () => {
-  it('can shorten a string', () => {
-    const string = '012345';
-    expect(shortenString(string, 3)).toBe('012...');
+  const string = '012345';
+  it('can shorten a string with the default suffix', () => {
+    expect(shortenString(string, 0)).toBe('...');
+    expect(shortenString(string, 2)).toBe('...');
+    expect(shortenString(string, 3)).toBe('...');
+    expect(shortenString(string, 4)).toBe('0...');
+    expect(shortenString(string, 5)).toBe('01...');
+    expect(shortenString(string, 6)).toBe('012345');
+    expect(shortenString(string, 7)).toBe('012345');
+  });
+
+  it('can shorten a string with a null suffix', () => {
+    expect(shortenString(string, 0, null)).toBe('');
+    expect(shortenString(string, 2, null)).toBe('01');
+    expect(shortenString(string, 3, null)).toBe('012');
+    expect(shortenString(string, 4, null)).toBe('0123');
+    expect(shortenString(string, 5, null)).toBe('01234');
+    expect(shortenString(string, 6, null)).toBe('012345');
+    expect(shortenString(string, 7, null)).toBe('012345');
+  });
+});
+
+describe('cleanQueryParams', () => {
+  const query = { q: 'test', fake: 'test' };
+  it('retain only real query params', () => {
+    expect(cleanQueryParams(query).fake).toBe(undefined);
+    expect(cleanQueryParams(query).q).toBe(query.q);
+    expect(Object.keys(cleanQueryParams(query)).length).toBe(1);
+  });
+});
+
+describe('ifEnter', () => {
+  it('only returns true for keyCode of 13', () => {
+    expect(ifEnter({ keyCode: 13 })).toBe(true);
+    expect(ifEnter({ keyCode: 14 })).toBe(false);
+  });
+});
+
+describe('formQueryString', () => {
+  it('can return a string', () => {
+    expect(formQueryString({ q: 'test' })).toBe('q=test');
   });
 });

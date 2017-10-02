@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import Wrapper from '../Wrapper/Wrapper';
 import SearchBar from '../SearchBar/SearchBar';
-import { EMPTY_FUNCTION, ITEMS } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 
 class Filters extends Component {
   constructor(props) {
@@ -298,7 +298,7 @@ class Filters extends Component {
 
 Filters.propTypes = {
   onSubmit: PropTypes.func,
-  items: ITEMS,
+  items: FILTER_ITEMS_ARRAY,
 };
 
 Filters.defaultProps = {

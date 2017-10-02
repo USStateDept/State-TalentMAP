@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ITEMS } from '../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import ExploreRegionDropdown from '../../Components/ExploreRegionDropdown/ExploreRegionDropdown';
 
 class Explore extends Component {
@@ -41,7 +41,7 @@ class Explore extends Component {
 }
 
 Explore.propTypes = {
-  filters: ITEMS.isRequired,
+  filters: FILTER_ITEMS_ARRAY.isRequired,
   onRegionSubmit: PropTypes.func.isRequired,
 };
 

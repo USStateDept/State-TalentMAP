@@ -15,7 +15,14 @@
     width: 100%;
   }
 
+  .label-icon {
+    margin-right: 9px;
+  }
+
   .search-results-inputs {
+    float: left;
+    padding: 15px 0;
+
     input {
       border-right: solid 1px;
       display: inline-block;
@@ -37,7 +44,8 @@
   }
 
   .search-keyword {
-    padding: 0 30px;
+    float: left;
+    padding: 15px 0;
 
     input {
       width: 100%;

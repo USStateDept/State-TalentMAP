@@ -37,6 +37,10 @@ describe('ResultsContainerComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        saveSearch={() => {}}
+        newSavedSearchSuccess={false}
+        newSavedSearchHasErrored={false}
+        newSavedSearchIsSaving={false}
       />
     </MemoryRouter>);
     expect(wrapper).toBeDefined();
@@ -56,6 +60,10 @@ describe('ResultsContainerComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -74,6 +82,10 @@ describe('ResultsContainerComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
   });
@@ -92,6 +104,10 @@ describe('ResultsContainerComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

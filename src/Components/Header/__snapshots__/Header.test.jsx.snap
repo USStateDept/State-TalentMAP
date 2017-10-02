@@ -47,34 +47,6 @@ exports[`Header matches snapshot when logged in 1`] = `
       <div
         className="usa-nav-secondary"
       >
-        <form
-          className="usa-search usa-search-small usa-sr-only"
-        >
-          <div
-            role="search"
-          >
-            <label
-              className="usa-sr-only"
-              htmlFor="search-field-small"
-            >
-              Search small
-            </label>
-            <input
-              id="search-field-small"
-              name="search-small"
-              type="search"
-            />
-            <button
-              type="submit"
-            >
-              <span
-                className="usa-sr-only"
-              >
-                Search
-              </span>
-            </button>
-          </div>
-        </form>
         <ul
           className="usa-unstyled-list usa-nav-secondary-links mobile-nav"
         >
@@ -86,14 +58,16 @@ exports[`Header matches snapshot when logged in 1`] = `
           <hr
             className="mobile-nav-only"
           />
-          <li
-            className="js-search-button-container"
-          >
-            <button
-              className="usa-header-search-button js-search-button"
+          <li>
+            <Link
+              replace={false}
+              to="/results"
             >
-              Search
-            </button>
+              <FontAwesome
+                name="search"
+              />
+               Search
+            </Link>
           </li>
           <li>
             <Link
@@ -124,7 +98,7 @@ exports[`Header matches snapshot when logged in 1`] = `
             <li>
               <Link
                 replace={false}
-                to="/"
+                to="/profile"
               >
                 Profile
               </Link>
@@ -213,34 +187,6 @@ exports[`Header matches snapshot when logged out 1`] = `
       <div
         className="usa-nav-secondary"
       >
-        <form
-          className="usa-search usa-search-small usa-sr-only"
-        >
-          <div
-            role="search"
-          >
-            <label
-              className="usa-sr-only"
-              htmlFor="search-field-small"
-            >
-              Search small
-            </label>
-            <input
-              id="search-field-small"
-              name="search-small"
-              type="search"
-            />
-            <button
-              type="submit"
-            >
-              <span
-                className="usa-sr-only"
-              >
-                Search
-              </span>
-            </button>
-          </div>
-        </form>
         <ul
           className="usa-unstyled-list usa-nav-secondary-links mobile-nav"
         >
@@ -250,14 +196,16 @@ exports[`Header matches snapshot when logged out 1`] = `
           <hr
             className="mobile-nav-only"
           />
-          <li
-            className="js-search-button-container"
-          >
-            <button
-              className="usa-header-search-button js-search-button"
+          <li>
+            <Link
+              replace={false}
+              to="/results"
             >
-              Search
-            </button>
+              <FontAwesome
+                name="search"
+              />
+               Search
+            </Link>
           </li>
           <li>
             <Link
@@ -288,7 +236,7 @@ exports[`Header matches snapshot when logged out 1`] = `
             <li>
               <Link
                 replace={false}
-                to="/"
+                to="/profile"
               >
                 Profile
               </Link>

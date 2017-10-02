@@ -3,6 +3,7 @@
   border: 1px solid $color-gray-light;
   font-family: Roboto;
   margin-bottom: 15px;
+  min-height: 275px;
 
   .new-flag {
     background-color: $color-white;
@@ -76,7 +77,7 @@
   }
 
   .condensed-card-bottom-container {
-    min-height: 171px;
+    min-height: 210px;
     padding: 18px;
     position: relative;
   }
@@ -104,7 +105,7 @@
   }
 
   .condensed-card-top {
-    min-height: 241px;
+    min-height: 279px;
   }
 
   .condensed-card-last-updated {
@@ -117,7 +118,7 @@
   }
 
   .condensed-card-bottom {
-    min-height: 219px;
+    min-height: 258px;
   }
 }
 
@@ -129,7 +130,7 @@
   float: left;
 }
 
-.condensed-card-popular {
+.condensed-card-highlighted {
   .condensed-card-top {
     background-color: $tm-navy;
   }

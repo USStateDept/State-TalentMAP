@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveNewSearchAlertComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full saved-search-alert"
+>
+  <Alert
+    messages={
+      Array [
+        Object {
+          "body": "message",
+        },
+      ]
+    }
+    title="Success"
+    type="success"
+  />
+</div>
+`;
