@@ -10,7 +10,7 @@ describe('SearchFiltersContainerComponent', () => {
     data: [{ isSelected: true }],
   },
   {
-    item: { title: 'title2', selectionRef: 'ref2' },
+    item: { title: 'title2', selectionRef: 'ref2', bool: true },
     data: [{ isSelected: false }],
   },
   ];
@@ -62,6 +62,23 @@ describe('SearchFiltersContainerComponent', () => {
     // un-check the filter
     wrapper.instance().onBooleanFilterClick(false, '0', 'skill');
     expect(toggleValue.value.skill).toBe('');
+  });
+
+  it('can call the onSetAccordion function', () => {
+    const toggleValue = { a: null, b: null };
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        queryParamUpdate={() => {}}
+        queryParamToggle={() => {}}
+        selectedAccordion={accordion}
+        setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
+        filters={items}
+      />,
+    );
+
+    wrapper.instance().onSetAccordion(1, 2);
+    expect(toggleValue.a).toBe(1);
+    expect(toggleValue.b).toBe(2);
   });
 
   it('contains Language', () => {

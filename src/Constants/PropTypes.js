@@ -199,3 +199,5 @@ export const REGION_SELECTION = PropTypes.shape({
 });
 
 export const EMPTY_FUNCTION = () => {};
+
+export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };

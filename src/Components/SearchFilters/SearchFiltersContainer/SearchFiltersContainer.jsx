@@ -8,10 +8,20 @@ import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constan
 import { descriptionSort } from '../../../utilities';
 
 class SearchFiltersContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onSetAccordion = this.onSetAccordion.bind(this);
+  }
+
   onBooleanFilterClick(isChecked, code, selectionRef) {
     const object = Object.assign({});
     object[selectionRef] = isChecked ? code : '';
     this.props.queryParamUpdate(object);
+  }
+
+  onSetAccordion(a, b) {
+    this.props.setAccordion({ main: a, sub: b });
   }
   render() {
     // get our boolean filter names
@@ -106,7 +116,7 @@ class SearchFiltersContainer extends Component {
     return (
       <div>
         <MultiSelectFilterContainer
-          setAccordion={(a, b) => this.props.setAccordion({ main: a, sub: b })}
+          setAccordion={this.onSetAccordion}
           multiSelectFilterList={sortedFilters}
         />
         <div className="boolean-filter-container">
