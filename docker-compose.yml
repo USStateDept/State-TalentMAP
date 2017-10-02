@@ -34,6 +34,11 @@ services:
     environment:
       - POSTGRES_DB=talentmap
       - POSTGRES_USER=talentmap-user
+  pa11y:
+    build:
+      context: .
+      dockerfile: Dockerfile.pa11y
+    command: node pa11y.js --c pa11y.json --host web:3000
 volumes:
   pgdata:
   node-modules:
