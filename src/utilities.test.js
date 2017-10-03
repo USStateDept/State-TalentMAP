@@ -2,8 +2,6 @@ import { validStateEmail,
          localStorageFetchValue,
          localStorageToggleValue,
          fetchUserToken,
-         descriptionSort,
-         titleSort,
          pillSort,
          formExploreRegionDropdown,
          scrollToTop,
@@ -12,6 +10,7 @@ import { validStateEmail,
          cleanQueryParams,
          ifEnter,
          formQueryString,
+         propSort,
        } from './utilities';
 
 describe('local storage', () => {
@@ -82,15 +81,15 @@ describe('sort functions', () => {
   const pills = [{ description: 'a' }, { code: 'b' }];
 
   it('can sort by description', () => {
-    expect(descriptionSort(items[0], items[1])).toBe(-1);
-    expect(descriptionSort(items[1], items[0])).toBe(1);
-    expect(descriptionSort(items[0], items[0])).toBe(0);
+    expect(propSort('description')(items[0], items[1])).toBe(-1);
+    expect(propSort('description')(items[1], items[0])).toBe(1);
+    expect(propSort('description')(items[0], items[0])).toBe(0);
   });
 
   it('can sort by title', () => {
-    expect(titleSort(items[0], items[1])).toBe(-1);
-    expect(titleSort(items[1], items[0])).toBe(1);
-    expect(titleSort(items[0], items[0])).toBe(0);
+    expect(propSort('title')(items[0], items[1])).toBe(-1);
+    expect(propSort('title')(items[1], items[0])).toBe(1);
+    expect(propSort('title')(items[0], items[0])).toBe(0);
   });
 
   it('can sort by description or code', () => {

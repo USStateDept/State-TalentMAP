@@ -5,7 +5,7 @@ import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constants/PropTypes';
-import { descriptionSort } from '../../../utilities';
+import { propSort } from '../../../utilities';
 
 class SearchFiltersContainer extends Component {
 
@@ -56,7 +56,7 @@ class SearchFiltersContainer extends Component {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill') {
-          f.data.sort(descriptionSort);
+          f.data.sort(propSort('description'));
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
