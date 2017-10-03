@@ -158,7 +158,7 @@ const mapDispatchToProps = dispatch => ({
   fetchData: () => dispatch(favoritePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) =>
-    // Since this page reference the full Favorites route, pass true to explicitly refresh them
+    // Since this page references the full Favorites route, pass true to explicitly refresh them
     dispatch(userProfileToggleFavoritePosition(id, remove, true)),
   savedSearchesFetchData: () => dispatch(savedSearchActions.savedSearchesFetchData()),
   setCurrentSavedSearch: e => dispatch(savedSearchActions.setCurrentSavedSearch(e)),

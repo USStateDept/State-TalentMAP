@@ -322,8 +322,8 @@ const mapDispatchToProps = dispatch => ({
   toggleFavorite: (id, remove) =>
     // We don't need to pull the full Favorite Positions route, since
     // all we want to do is check that they exist in the profile, so
-    // we pass false
-    dispatch(userProfileToggleFavoritePosition(id, remove, false)),
+    // we don't pass the refreshFavorites arg
+    dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
   routeChangeResetState: () => dispatch(routeChangeResetState()),
 });

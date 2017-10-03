@@ -64,7 +64,7 @@ export function userProfileFetchData(bypass) {
 // Since we have to pass the entire array to the API, we want to make sure it's accurate.
 // If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
 // we can pass a third arg, refreshFavorites.
-export function userProfileToggleFavoritePosition(id, remove, refreshFavorites) {
+export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false) {
   const idString = id.toString();
   return (dispatch) => {
     dispatch(userProfileFavoritePositionIsLoading(true));
@@ -74,11 +74,13 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites) 
       action = 'delete';
     }
     const auth = { headers: { Authorization: fetchUserToken() } };
-    // now we can patch our profile with the new favorites
-    // axios is a little weird here in that for PUTs, it expect a body as the second argument,
+    // Now we can patch our profile with the new favorites.
+    // Axios is a little weird here in that for PUTs, it expects a body as the second argument,
     // whereas for DELETEs, it expects the headers object...
-    // so we have to conditionally decide what position to put the headers object in
-    axios[action](`${api}/position/${idString}/favorite/`, action === 'delete' ? auth : {}, action === 'put' ? auth : null)
+    // so we have to conditionally decide what position to put the headers object in.
+    const firstArg = action === 'delete' ? auth : {};
+    const secondArg = action === 'put' ? auth : null;
+    axios[action](`${api}/position/${idString}/favorite/`, firstArg, secondArg)
             .then(() => {
               dispatch(userProfileFetchData(true));
               dispatch(userProfileFavoritePositionIsLoading(false));
