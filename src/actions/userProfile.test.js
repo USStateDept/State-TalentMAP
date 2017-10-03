@@ -44,17 +44,13 @@ describe('async actions', () => {
 
     const mockAdapter = new MockAdapter(axios);
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(200,
-      profile,
-    );
-
-    mockAdapter.onPatch('http://localhost:8000/api/v1/profile/').reply(200,
-      Object.assign({}, { favorite_positions: [] }),
+    mockAdapter.onDelete('http://localhost:8000/api/v1/position/1/favorite/').reply(204,
+      null,
     );
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.userProfileToggleFavoritePosition('1', true));
+        store.dispatch(actions.userProfileToggleFavoritePosition('1', true, true));
         done();
       }, 0);
     };
@@ -66,39 +62,13 @@ describe('async actions', () => {
 
     const mockAdapter = new MockAdapter(axios);
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(200,
-      profile,
-    );
-
-    mockAdapter.onPatch('http://localhost:8000/api/v1/profile/').reply(200,
-      Object.assign({}, { favorite_positions: profile.favorite_positions }),
+    mockAdapter.onPut('http://localhost:8000/api/v1/position/1/favorite/').reply(204,
+      null,
     );
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.userProfileToggleFavoritePosition('2'));
-        done();
-      }, 0);
-    };
-    f();
-  });
-
-  it('can handle favoriting errors when the profile fails', (done) => {
-    const store = mockStore({ profile: {} });
-
-    const mockAdapter = new MockAdapter(axios);
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(404,
-      {},
-    );
-
-    mockAdapter.onPatch('http://localhost:8000/api/v1/profile/').reply(404,
-      {},
-    );
-
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.userProfileToggleFavoritePosition('2'));
+        store.dispatch(actions.userProfileToggleFavoritePosition('1', false, true));
         done();
       }, 0);
     };
@@ -110,17 +80,13 @@ describe('async actions', () => {
 
     const mockAdapter = new MockAdapter(axios);
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(200,
-      profile,
-    );
-
-    mockAdapter.onPatch('http://localhost:8000/api/v1/profile/').reply(404,
-      {},
+    mockAdapter.onPut('http://localhost:8000/api/v1/position/1/favorite/').reply(404,
+      null,
     );
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.userProfileToggleFavoritePosition('2'));
+        store.dispatch(actions.userProfileToggleFavoritePosition('1', false, true));
         done();
       }, 0);
     };
