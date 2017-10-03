@@ -6,13 +6,13 @@ import SearchBar from '../SearchBar/SearchBar';
 class ResultsSearchHeader extends Component {
   constructor(props) {
     super(props);
-    this.onChangeTextQ = this.onChangeTextQ.bind(this);
+    this.onChangeQueryText = this.onChangeQueryText.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.state = {
       q: { value: this.props.defaultKeyword || '' },
     };
   }
-  onChangeTextQ(e) {
+  onChangeQueryText(e) {
     this.changeText('q', e);
   }
   submitSearch(e) {
@@ -42,7 +42,7 @@ class ResultsSearchHeader extends Component {
                   noForm
                   noButton
                   placeholder="Location, Skill Code, Grade, Language, Position Number"
-                  onChangeText={this.onChangeTextQ}
+                  onChangeText={this.onChangeQueryText}
                   defaultValue={this.props.defaultKeyword}
                 />
               </div>

@@ -47,13 +47,13 @@ describe('ResultsSearchHeaderComponent', () => {
     expect(wrapper.instance().state.q.value).toBe(defaultKeyword);
   });
 
-  it('can call the changeTextQ function', () => {
+  it('can call the onChangeQueryText function', () => {
     wrapper = shallow(<ResultsSearchHeader
       onUpdate={() => {}}
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
-    wrapper.instance().onChangeTextQ({ target: { value: defaultKeyword } });
+    wrapper.instance().onChangeQueryText({ target: { value: defaultKeyword } });
     expect(wrapper.instance().state.q.value).toBe(defaultKeyword);
   });
 
