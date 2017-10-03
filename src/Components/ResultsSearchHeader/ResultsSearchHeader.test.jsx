@@ -47,6 +47,16 @@ describe('ResultsSearchHeaderComponent', () => {
     expect(wrapper.instance().state.q.value).toBe(defaultKeyword);
   });
 
+  it('can call the changeTextQ function', () => {
+    wrapper = shallow(<ResultsSearchHeader
+      onUpdate={() => {}}
+      defaultKeyword={defaultKeyword}
+      defaultLocation={defaultLocation}
+    />);
+    wrapper.instance().onChangeTextQ({ target: { value: defaultKeyword } });
+    expect(wrapper.instance().state.q.value).toBe(defaultKeyword);
+  });
+
   it('can submit a search', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader

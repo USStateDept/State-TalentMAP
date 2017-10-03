@@ -263,4 +263,23 @@ describe('Results', () => {
     // shouldn't change.
     expect(history.value.search).toBe(null);
   });
+
+  it('can handle routerLocations upon mount', () => {
+    global.scrollTo = jest.fn();
+    const routerLocations = [{ pathname: 'test' }, { pathname: 'test2' }];
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+        toggleFavorite={() => {}}
+        saveSearch={() => {}}
+        routerLocations={routerLocations}
+      />,
+    );
+    wrapper.instance().componentDidMount();
+    expect(global.scrollTo).toBeCalled();
+  });
 });
