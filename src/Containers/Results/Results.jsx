@@ -194,7 +194,7 @@ class Results extends Component {
   saveSearch(e, id) {
     // parse the string to an object
     const parsedQuery = queryString.parse(this.state.query.value);
-    // remove an invalid filters
+    // remove any invalid filters
     const cleanedQuery = cleanQueryParams(parsedQuery);
     // form our object for the API
     const queryObject = Object.assign({}, {
