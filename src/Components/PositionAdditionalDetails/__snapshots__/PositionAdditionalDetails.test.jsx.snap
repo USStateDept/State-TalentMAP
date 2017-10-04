@@ -13,7 +13,7 @@ exports[`PositionAdditionalDetails matches snapshot 1`] = `
       <span
         className="title"
       >
-        ABOUT
+        About
       </span>
       <br />
       test
@@ -26,7 +26,7 @@ exports[`PositionAdditionalDetails matches snapshot 1`] = `
       className="map-container"
     >
       <img
-        alt="map"
+        alt="Map of nearby area"
         src="/assets/img/map.png"
       />
       <span

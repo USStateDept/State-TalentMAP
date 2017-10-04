@@ -55,13 +55,13 @@ describe('ResultsCondensedCardTopComponent', () => {
     const wrapper = shallow(
       <ResultsCondensedCardTop
         position={position}
-        type={'popular'}
+        type={'highlighted'}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
       />,
     );
-    expect(wrapper.instance().props.type).toBe('popular');
+    expect(wrapper.instance().props.type).toBe('highlighted');
   });
 });

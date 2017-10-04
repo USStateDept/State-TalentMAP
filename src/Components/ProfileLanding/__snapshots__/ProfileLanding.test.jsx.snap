@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileLandingComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <h2>
+    This is your profile. Please select an area to navigate to.
+  </h2>
+</div>
+`;

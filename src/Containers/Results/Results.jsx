@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
-import { scrollToTop } from '../../utilities';
+import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
+import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS, USER_PROFILE } from '../../Constants/PropTypes';
+import * as PROP_TYPES from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -20,6 +21,7 @@ class Results extends Component {
     this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
     this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
+    this.saveSearch = this.saveSearch.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -34,6 +36,9 @@ class Results extends Component {
   componentWillMount() {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword,
             defaultLocation } = this.state;
+    // clear out old alert messages
+    this.props.routeChangeResetState();
+    // check auth
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
@@ -183,11 +188,30 @@ class Results extends Component {
     this.props.fetchData(q);
   }
 
+  // When we want to save a search, the child component passes a string for the name (e)
+  // We'll handle the actual "filters" object here
+  // An optional "id" can be passed if we want to patch an existing saved search
+  saveSearch(e, id) {
+    // parse the string to an object
+    const parsedQuery = queryString.parse(this.state.query.value);
+    // remove any invalid filters
+    const cleanedQuery = cleanQueryParams(parsedQuery);
+    // form our object for the API
+    const queryObject = Object.assign({}, {
+      name: e,
+      endpoint: '/api/v1/position/',
+      filters: cleanedQuery,
+    });
+    // send formed object to our redux action
+    this.props.saveSearch(queryObject, id);
+  }
+
   render() {
     const { results, hasErrored, isLoading, filters, toggleFavorite,
             selectedAccordion, setAccordion, userProfile,
             userProfileFavoritePositionIsLoading,
-            userProfileFavoritePositionHasErrored } = this.props;
+            userProfileFavoritePositionHasErrored, currentSavedSearch,
+            newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored } = this.props;
     return (
       <div>
         <ResultsPage
@@ -213,6 +237,11 @@ class Results extends Component {
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+          newSavedSearchSuccess={newSavedSearchSuccess}
+          newSavedSearchIsSaving={newSavedSearchIsSaving}
+          newSavedSearchHasErrored={newSavedSearchHasErrored}
+          saveSearch={this.saveSearch}
+          currentSavedSearch={currentSavedSearch}
         />
       </div>
     );
@@ -224,17 +253,23 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: POSITION_SEARCH_RESULTS,
+  results: PROP_TYPES.POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
-  filters: FILTERS_PARENT,
+  filters: PROP_TYPES.FILTERS_PARENT,
   fetchFilters: PropTypes.func.isRequired,
-  selectedAccordion: ACCORDION_SELECTION_OBJECT,
+  selectedAccordion: PROP_TYPES.ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
-  userProfile: USER_PROFILE,
+  routerLocations: PROP_TYPES.ROUTER_LOCATIONS,
+  userProfile: PROP_TYPES.USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  newSavedSearchSuccess: PROP_TYPES.SAVED_SEARCH_MESSAGE,
+  newSavedSearchIsSaving: PropTypes.bool.isRequired,
+  newSavedSearchHasErrored: PROP_TYPES.SAVED_SEARCH_MESSAGE,
+  saveSearch: PropTypes.func.isRequired,
+  currentSavedSearch: PROP_TYPES.SAVED_SEARCH_OBJECT,
+  routeChangeResetState: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -249,6 +284,11 @@ Results.defaultProps = {
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
+  newSavedSearchSuccess: false,
+  newSavedSearchHasErrored: false,
+  newSavedSearchIsSaving: false,
+  currentSavedSearch: {},
+  routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {
@@ -267,6 +307,10 @@ const mapStateToProps = state => ({
   userProfile: state.userProfile,
   userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
+  newSavedSearchSuccess: state.newSavedSearchSuccess,
+  newSavedSearchIsSaving: state.newSavedSearchIsSaving,
+  newSavedSearchHasErrored: state.newSavedSearchHasErrored,
+  currentSavedSearch: state.currentSavedSearch,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -276,6 +320,8 @@ const mapDispatchToProps = dispatch => ({
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
+  saveSearch: (object, id) => dispatch(saveSearch(object, id)),
+  routeChangeResetState: () => dispatch(routeChangeResetState()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

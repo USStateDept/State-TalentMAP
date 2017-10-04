@@ -9,7 +9,7 @@ import Post from './Post';
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('Main', () => {
+describe('Post', () => {
   it('is defined', () => {
     const post = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Post isAuthorized={() => true} onNavigateTo={() => {}} />

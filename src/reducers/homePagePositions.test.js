@@ -11,6 +11,6 @@ describe('reducers', () => {
 
   it('can set reducer HOME_PAGE_POSITIONS_FETCH_DATA_SUCCESS', () => {
     expect(reducers.homePagePositions(
-      {}, { type: 'HOME_PAGE_POSITIONS_FETCH_DATA_SUCCESS', results: { isPopular: ['test'], isNew: ['test'] } }).isPopular.length).toBe(1);
+      {}, { type: 'HOME_PAGE_POSITIONS_FETCH_DATA_SUCCESS', results: { isHighlighted: ['test'], isNew: ['test'] } }).isHighlighted.length).toBe(1);
   });
 });

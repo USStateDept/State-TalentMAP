@@ -1,4 +1,6 @@
 import Scroll from 'react-scroll';
+import queryString from 'query-string';
+import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
 
@@ -84,11 +86,10 @@ export const formExploreRegionDropdown = (filters) => {
   // set an array so we can render in case we don't find Region
   let regions = [];
   // find the Region filters
-  // use .filter and [0] instead of .find because .find breaks pa11y test
-  const foundRegion = filters.filter(filterRegion)[0];
+  const foundRegion = filters.find(filterRegion);
   // if found, set foundRegion to a copy of the data
   if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
-  if (regions) {
+  if (regions.length) {
     regions.forEach((region, i) => {
       // set up our prop names so that SelectForm can read them
       regions[i].text = region.long_description;
@@ -121,15 +122,27 @@ export const scrollToTop = (config = defaultScrollConfig) => {
 export const getItemLabel = itemData =>
   itemData.long_description || itemData.description || itemData.code;
 
-// shortens descriptions to varying lengths
-export const shortenString = (string, shortenBy = 250) => {
+// abcde 4 // a...
+// Shortens strings to varying lengths
+export const shortenString = (string, shortenTo = 250, suffix = '...') => {
   let newString = string;
-  if (string.length > shortenBy) {
-    newString = string.slice(0, shortenBy); // shorten by shortenBy
-    newString = newString.trim(); // in case the last character(s) was whitespace
-    newString += '...'; // append ellipsis
-    return newString; // return newly formed string
+  let newSuffix = suffix;
+  if (!newSuffix) {
+    newSuffix = '';
   }
+  // return the suffix even if the shortenTo is less than its length
+  if (shortenTo < newSuffix.length) {
+    return suffix;
+  }
+  if (string.length > shortenTo) {
+    // shorten to the shortenTo param, less the length of our suffix
+    newString = string.slice(0, shortenTo - newSuffix.length);
+    // in case the last character(s) was whitespace
+    newString = newString.trim();
+    // append suffix
+    newString += newSuffix;
+  }
+  // return the string
   return newString;
 };
 
@@ -143,3 +156,27 @@ export const existsInArray = (ref, array) => {
   });
   return found;
 };
+
+// clean our query object for use with the saved search endpoint
+// make sure query object only uses real parameters (no extras that may have been added to the URL)
+// we also want to get rid of page and limit,
+// since those aren't valid params in the saved search endpoint
+export const cleanQueryParams = (q) => {
+  const object = Object.assign({}, q);
+  Object.keys(object).forEach((key) => {
+    if (VALID_PARAMS.indexOf(key) <= -1) {
+      delete object[key];
+    }
+  });
+  return object;
+};
+
+export const ifEnter = (e) => {
+  if (e.keyCode === 13) {
+    return true;
+  }
+  return false;
+};
+
+// convert a query object to a query string
+export const formQueryString = queryObject => queryString.stringify(queryObject);

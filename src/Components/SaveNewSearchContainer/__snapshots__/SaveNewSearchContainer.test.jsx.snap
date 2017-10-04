@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveNewSearchContainerComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full save-new-search-container "
+>
+  <SaveNewSearchPrompt
+    currentSavedSearch={Object {}}
+    newSavedSearchSuccess={false}
+    toggleInput={[Function]}
+  />
+</div>
+`;

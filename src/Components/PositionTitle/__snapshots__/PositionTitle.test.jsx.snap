@@ -3,20 +3,9 @@
 exports[`PositionTitleComponent matches snapshot 1`] = `
 <div
   className="position-details-header"
-  style={
-    Object {
-      "backgroundColor": "#F2F2F2",
-      "overflow": "hidden",
-    }
-  }
 >
   <div
-    className="usa-grid"
-    style={
-      Object {
-        "overflow": "hidden",
-      }
-    }
+    className="usa-grid positions-details-header-grid"
   >
     <div
       className="usa-width-one-half"

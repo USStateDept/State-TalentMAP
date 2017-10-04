@@ -19,6 +19,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -41,6 +42,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     // define the instance
@@ -62,6 +64,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     // define the instance
@@ -88,6 +91,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     // define the instance
@@ -115,6 +119,7 @@ describe('Results', () => {
         setAccordion={() => {}}
         filters={{ hasFetched: true }}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
@@ -130,6 +135,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     // define the instance
@@ -150,6 +156,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -175,6 +182,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -200,6 +208,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -225,6 +234,7 @@ describe('Results', () => {
         fetchFilters={() => {}}
         setAccordion={() => {}}
         toggleFavorite={() => {}}
+        saveSearch={() => {}}
       />,
     );
     const history = { value: { search: null } };

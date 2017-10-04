@@ -7,11 +7,17 @@ import { results, resultsHasErrored, resultsIsLoading } from './results';
 import { filters, filtersHasErrored, filtersIsLoading } from './filters';
 import { post, postHasErrored, postIsLoading } from './post';
 import { share, shareHasErrored, shareIsSending } from './share';
+import { newSavedSearchIsSaving, newSavedSearchHasErrored,
+  newSavedSearchSuccess, currentSavedSearch, savedSearchesSuccess,
+  savedSearchesIsLoading, savedSearchesHasErrored,
+  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
+  cloneSavedSearchIsLoading, cloneSavedSearchHasErrored, cloneSavedSearchSuccess } from './savedSearch';
 import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
 import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
 import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
 import { userProfile, userProfileHasErrored, userProfileIsLoading,
         userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
+import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading } from './favoritePositions';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -38,6 +44,19 @@ export default combineReducers({
   share,
   shareHasErrored,
   shareIsSending,
+  newSavedSearchIsSaving,
+  newSavedSearchHasErrored,
+  newSavedSearchSuccess,
+  currentSavedSearch,
+  savedSearchesSuccess,
+  savedSearchesIsLoading,
+  savedSearchesHasErrored,
+  deleteSavedSearchIsLoading,
+  deleteSavedSearchHasErrored,
+  deleteSavedSearchSuccess,
+  cloneSavedSearchIsLoading,
+  cloneSavedSearchHasErrored,
+  cloneSavedSearchSuccess,
   userProfile,
   userProfileHasErrored,
   userProfileIsLoading,
@@ -48,5 +67,8 @@ export default combineReducers({
   login,
   selectedAccordion,
   routerLocations,
+  favoritePositions,
+  favoritePositionsHasErrored,
+  favoritePositionsIsLoading,
   router: routerReducer,
 });

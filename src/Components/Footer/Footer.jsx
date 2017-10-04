@@ -27,7 +27,7 @@ const Footer = () => (
           <img
             className="usa-footer-logo-img"
             src="/assets/img/rsz_dos-seal.png"
-            alt="Logo"
+            alt="DOS Seal"
           />
         </div>
         <div className="usa-footer-contact-links usa-width-one-half tm-footer-body-contact">

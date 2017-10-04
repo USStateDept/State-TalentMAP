@@ -25,7 +25,7 @@ exports[`ResultsCardDataSectionComponent matches snapshot 1`] = `
             },
           ]
         }
-        title="POST INFORMATION"
+        title="Post Information"
       />
     </div>
   </div>
@@ -52,7 +52,7 @@ exports[`ResultsCardDataSectionComponent matches snapshot 1`] = `
             },
           ]
         }
-        title="POSITION INFORMATION"
+        title="Position Information"
       />
     </div>
   </div>

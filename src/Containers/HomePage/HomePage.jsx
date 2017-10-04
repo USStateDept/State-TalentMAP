@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ITEMS, HOME_PAGE_POSITIONS, USER_PROFILE } from '../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, HOME_PAGE_POSITIONS, USER_PROFILE } from '../../Constants/PropTypes';
 import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
 import NewPositionsSection from '../../Components/NewPositionsSection';
-import PopularPositionsSection from '../../Components/PopularPositionsSection';
+import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import Spinner from '../../Components/Spinner';
 
 class HomePage extends Component {
@@ -44,7 +44,7 @@ class HomePage extends Component {
           filters={filters}
           onRegionSubmit={this.submitRegion}
         />
-        <div className="usa-grid-full positions-section" style={{ position: 'relative' }}>
+        <div className="usa-grid-full positions-section">
           {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&
               <Spinner type="homepage-position-results" size="big" />
@@ -55,13 +55,15 @@ class HomePage extends Component {
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             positions={homePagePositions.isNew}
+            isLoading={homePagePositionsIsLoading}
           />
-          <PopularPositionsSection
+          <HighlightedPositionsSection
             favorites={userProfile.favorite_positions}
             toggleFavorite={toggleFavorite}
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-            positions={homePagePositions.isPopular}
+            positions={homePagePositions.isHighlighted}
+            isLoading={homePagePositionsIsLoading}
           />
         </div>
       </div>
@@ -71,7 +73,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
-  filters: ITEMS.isRequired,
+  filters: FILTER_ITEMS_ARRAY.isRequired,
   homePagePositions: HOME_PAGE_POSITIONS.isRequired,
   homePagePositionsIsLoading: PropTypes.bool,
   homePagePositionsHasErrored: PropTypes.bool,
