@@ -39,7 +39,7 @@ exports[`ResultsCardDataSectionComponent matches snapshot 1`] = `
         items={
           Array [
             Object {
-              "description": "Skill",
+              "description": "Skill Code",
               "text": "OFFICE MANAGEMENT (9017)",
             },
             Object {

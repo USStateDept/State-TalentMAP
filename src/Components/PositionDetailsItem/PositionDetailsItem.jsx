@@ -61,8 +61,8 @@ const PositionDetailsItem = ({ details }) => (
               description={<LanguageList languages={details.languages} />}
             />
             <PositionDetailsDataPoint
-              title="Skills"
-              description="Information Management"
+              title="Skill Code"
+              description={details.skill}
             />
             <PositionDetailsDataPoint
               title="Danger Pay"

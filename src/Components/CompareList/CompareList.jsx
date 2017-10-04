@@ -25,7 +25,7 @@ class CompareList extends Component {
               <p>
                   Grade: {result.grade}
                 <br />
-                  Skill: {result.skill}
+                  Skill Code: {result.skill}
                 <br />
                   Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
                 <br />
