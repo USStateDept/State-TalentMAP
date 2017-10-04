@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { localStorageFetchValue } from '../../utilities';
 
 class ViewComparisonLink extends Component {
@@ -23,13 +21,5 @@ class ViewComparisonLink extends Component {
     );
   }
 }
-
-ViewComparisonLink.propTypes = {
-  onToggle: PropTypes.func,
-};
-
-ViewComparisonLink.defaultProps = {
-  onToggle: EMPTY_FUNCTION,
-};
 
 export default ViewComparisonLink;
