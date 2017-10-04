@@ -1,18 +1,22 @@
 // header container
 .tm-header {
 
-  .usa-logo-text {
-    font-size: 24px;
-  }
-
   @media screen and (min-width: 951px) {
     .usa-logo {
-      margin-bottom: 2.5rem;
-      margin-top: 2.5rem;
+      line-height: 7.5rem;
+      margin-top: 2rem;
+      margin-bottom: 0;
+
+      a {
+        img {
+          width: 250px;
+          height: auto;
+        }
+      }
     }
 
     .usa-nav-secondary {
-      top: -5rem;
+      top: -6.5rem;
     }
   }
 
