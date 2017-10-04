@@ -319,7 +319,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
-  toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
+  toggleFavorite: (id, remove) =>
+    // We don't need to pull the full Favorite Positions route, since
+    // all we want to do is check that they exist in the profile, so
+    // we don't pass the refreshFavorites arg
+    dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
   routeChangeResetState: () => dispatch(routeChangeResetState()),
 });
