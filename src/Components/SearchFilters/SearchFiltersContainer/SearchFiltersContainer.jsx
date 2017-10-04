@@ -12,6 +12,7 @@ class SearchFiltersContainer extends Component {
   constructor(props) {
     super(props);
     this.onSetAccordion = this.onSetAccordion.bind(this);
+    this.onSetAccordionLanguage = this.onSetAccordionLanguage.bind(this);
   }
 
   onBooleanFilterClick(isChecked, code, selectionRef) {
@@ -22,6 +23,10 @@ class SearchFiltersContainer extends Component {
 
   onSetAccordion(a, b) {
     this.props.setAccordion({ main: a, sub: b });
+  }
+
+  onSetAccordionLanguage(a) {
+    this.props.setAccordion({ main: 'Language', sub: a });
   }
   render() {
     // get our boolean filter names
@@ -84,7 +89,7 @@ class SearchFiltersContainer extends Component {
           queryParamUpdate={(l) => {
             this.props.queryParamUpdate({ [languageFilter.item.selectionRef]: l });
           }}
-          setAccordion={a => this.props.setAccordion({ main: 'Language', sub: a })}
+          setAccordion={this.onSetAccordionLanguage}
         />),
         title: languageFilter.item.title,
         id: `accordion-${languageFilter.item.title}`,
