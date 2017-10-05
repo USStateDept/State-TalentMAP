@@ -5,7 +5,9 @@ import toJSON from 'enzyme-to-json';
 import BidListButton from './BidListButton';
 
 describe('BidListButtonComponent', () => {
-  const bidList = [{ id: 1 }];
+  const bidList = [{ position: { id: 1 } }];
+  const bidListFalse = [{ position: { id: 2 } }];
+
   it('is defined', () => {
     const wrapper = shallow(
       <BidListButton
@@ -35,7 +37,7 @@ describe('BidListButtonComponent', () => {
       <BidListButton
         id={1}
         toggleBidPosition={() => {}}
-        compareArray={[{ id: 2 }]}
+        compareArray={bidListFalse}
         isLoading={false}
       />,
     );
@@ -48,7 +50,7 @@ describe('BidListButtonComponent', () => {
       <BidListButton
         id={1}
         toggleBidPosition={spy}
-        compareArray={[{ id: 2 }]}
+        compareArray={bidListFalse}
         isLoading={false}
       />,
     );
@@ -56,7 +58,19 @@ describe('BidListButtonComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot when the user can add the position', () => {
+    const wrapper = shallow(
+      <BidListButton
+        id={1}
+        toggleBidPosition={() => {}}
+        compareArray={bidListFalse}
+        isLoading={false}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when the user can remove the position', () => {
     const wrapper = shallow(
       <BidListButton
         id={1}
