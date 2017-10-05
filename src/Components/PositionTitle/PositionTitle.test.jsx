@@ -8,6 +8,8 @@ import detailsObject from '../../__mocks__/detailsObject';
 describe('PositionTitleComponent', () => {
   const goBackLink = { text: 'Go back text', link: '/link' };
 
+  const bidList = { results: [] };
+
   it('can receive props', () => {
     const wrapper = shallow(
       <PositionTitle
@@ -15,6 +17,8 @@ describe('PositionTitleComponent', () => {
         isLoading={false}
         hasErrored={false}
         goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -27,6 +31,8 @@ describe('PositionTitleComponent', () => {
         isLoading={false}
         hasErrored={false}
         goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -42,6 +48,8 @@ describe('PositionTitleComponent', () => {
         isLoading={false}
         hasErrored={false}
         goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -56,6 +64,8 @@ describe('PositionTitleComponent', () => {
         isLoading
         hasErrored={false}
         goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -68,6 +78,8 @@ describe('PositionTitleComponent', () => {
         isLoading={false}
         hasErrored={false}
         goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
       />,
     );
     const link = wrapper.find('a.back-link');
@@ -82,6 +94,8 @@ describe('PositionTitleComponent', () => {
         isLoading={false}
         hasErrored={false}
         goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
       />,
     );
     const link = wrapper.find('a.back-link');

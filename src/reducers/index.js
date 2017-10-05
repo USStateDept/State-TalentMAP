@@ -18,6 +18,7 @@ import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoad
 import { userProfile, userProfileHasErrored, userProfileIsLoading,
         userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
 import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading } from './favoritePositions';
+import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess, bidListToggleHasErrored, bidListToggleIsLoading, bidListToggleSuccess } from './bidList';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -70,5 +71,11 @@ export default combineReducers({
   favoritePositions,
   favoritePositionsHasErrored,
   favoritePositionsIsLoading,
+  bidListHasErrored,
+  bidListIsLoading,
+  bidListFetchDataSuccess,
+  bidListToggleHasErrored,
+  bidListToggleIsLoading,
+  bidListToggleSuccess,
   router: routerReducer,
 });

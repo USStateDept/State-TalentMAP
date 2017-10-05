@@ -2,17 +2,23 @@
 
 exports[`BidListButtonComponent matches snapshot 1`] = `
 <button
-  className="white-button"
+  className="bid-list-button"
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
 >
   <span
-    className="white-button-icon"
+    className="button-icon"
   >
     <FontAwesome
       name="plus-circle"
     />
   </span>
   <span>
-    Add to bid list
+    Add to Bid List
   </span>
 </button>
 `;

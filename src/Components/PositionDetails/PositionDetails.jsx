@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import { POSITION_DETAILS, GO_BACK_TO_LINK, USER_PROFILE } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, GO_BACK_TO_LINK, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
 import * as SystemMessages from '../../Constants/SystemMessages';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
@@ -10,13 +10,20 @@ import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
 const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
-    userProfile, toggleFavorite, userProfileFavoritePositionIsLoading }) => {
+    userProfile, toggleFavorite, userProfileFavoritePositionIsLoading,
+    toggleBidPosition, bidList, bidListToggleIsLoading }) => {
   const isReady = details && !isLoading && !hasErrored;
   return (
     <div>
       { isReady &&
       <div>
-        <PositionTitle details={details} goBackLink={goBackLink} />
+        <PositionTitle
+          details={details}
+          goBackLink={goBackLink}
+          toggleBidPosition={toggleBidPosition}
+          bidList={bidList}
+          bidListToggleIsLoading={bidListToggleIsLoading}
+        />
         <PositionDetailsItem details={details} />
         <PositionAdditionalDetails
           content={
@@ -51,6 +58,9 @@ PositionDetails.propTypes = {
   userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  toggleBidPosition: PropTypes.func.isRequired,
+  bidList: BID_LIST.isRequired,
+  bidListToggleIsLoading: PropTypes.bool,
 };
 
 PositionDetails.defaultProps = {
@@ -58,6 +68,7 @@ PositionDetails.defaultProps = {
   isLoading: true,
   hasErrored: false,
   userProfile: {},
+  bidListToggleIsLoading: false,
 };
 
 export default PositionDetails;
