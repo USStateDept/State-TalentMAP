@@ -28,7 +28,7 @@ exports[`GovBanner matches snapshot 1`] = `
           <span
             className="usa-banner-button-text"
           >
-            Here's how you know
+            Here's how you know 
           </span>
         </button>
       </div>

@@ -17,6 +17,6 @@ describe('ResetComparisons', () => {
 
   it('can click on the button', () => {
     const wrapper = shallow(<ResetComparisons />);
-    wrapper.find('button').simulate('click');
+    wrapper.find('a').simulate('click');
   });
 });

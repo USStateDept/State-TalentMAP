@@ -6,14 +6,25 @@ import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
 
 export class AccountDropdown extends Component {
 
+  constructor(props) {
+    super(props);
+    this.hideDropdown = this.hideDropdown.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+
   logout() {
     this.props.logoutRequest();
+  }
+
+  hideDropdown() {
+    // Explicitly hide the dropdown using the built-in hide() function from react-simple-dropdown
+    this.dropdown.hide();
   }
 
   render() {
     const userName = this.props.userProfile.user ? this.props.userProfile.user.username : '...';
     return (
-      <Dropdown className="account-dropdown">
+      <Dropdown className="account-dropdown" ref={(dropdown) => { this.dropdown = dropdown; }} >
         <DropdownTrigger href="/#">
           <img
             alt="avatar"
@@ -27,10 +38,10 @@ export class AccountDropdown extends Component {
             Signed in as <strong>{userName}</strong>
           </div>
           <div className="account-dropdown--identity account-dropdown--segment">
-            <Link to="/">Profile</Link>
+            <Link to="/profile" onClick={this.hideDropdown}>Profile</Link>
           </div>
           <div className="account-dropdown--identity account-dropdown--segment">
-            <Link to="login" onClick={() => this.logout()}>Logout</Link>
+            <Link to="/login" onClick={this.logout}>Logout</Link>
           </div>
         </DropdownContent>
       </Dropdown>

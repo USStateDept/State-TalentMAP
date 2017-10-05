@@ -17,7 +17,19 @@ describe('PaginationWrapper', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('it can take different props', () => {
+  it('can call the onPageChange function to reconcile zero base', () => {
+    const value = 1;
+    const page = { value: null };
+    wrapper = shallow(<PaginationWrapper
+      pageCount={5}
+      onPageChange={(e) => { page.value = e; }}
+      forcePage={1}
+    />);
+    wrapper.instance().onPageChange({ selected: value });
+    expect(page.value.page).toBe(value + 1);
+  });
+
+  it('can take different props', () => {
     wrapper = shallow(<PaginationWrapper
       pageCount={5}
       onPageChange={() => {}}

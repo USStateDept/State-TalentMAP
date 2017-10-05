@@ -1,38 +1,17 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import { ajax,
-         validStateEmail,
+import { validStateEmail,
          localStorageFetchValue,
          localStorageToggleValue,
          fetchUserToken,
+         pillSort,
+         formExploreRegionDropdown,
+         scrollToTop,
+         getItemLabel,
+         shortenString,
+         cleanQueryParams,
+         ifEnter,
+         formQueryString,
+         propSort,
        } from './utilities';
-
-const posts = [
-  { id: 6, grade: '05', skill: 'OFFICE MANAGEMENT (9017)', bureau: '150000', organization: 'YAOUNDE CAMEROON (YAOUNDE)', position_number: '00025003', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 1, language: 'French (FR)', written_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }] },
-  { id: 80, grade: '05', skill: 'INFORMATION MANAGEMENT (2880)', bureau: '110000', organization: 'SAO PAULO BRAZIL (SAO PAULO)', position_number: '55115002', is_overseas: true, create_date: '2006-09-20', update_date: '2017-06-08', languages: [{ id: 22, language: 'Portuguese (PY)', written_proficiency: '1', spoken_proficiency: '1', representation: 'Portuguese (PY) 1/1' }] },
-];
-
-describe('ajax', () => {
-  it('Should return data from response', (done) => {
-    const mockAdapter = new MockAdapter(axios);
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/').reply(200,
-      posts,
-    );
-
-    const f = () => {
-      setTimeout(() => {
-        ajax('http://localhost:8000/api/v1/position/')
-       .then((res) => {
-         const data = res;
-         expect(data).toBeDefined();
-         done();
-       });
-      }, 0);
-    };
-    f();
-  });
-});
 
 describe('local storage', () => {
   it('should be able to fetch the existence of a value when there is one values in the array', () => {
@@ -94,5 +73,105 @@ describe('fetchUserToken', () => {
     const output = fetchUserToken();
     expect(output).toBe('Token 1234');
     localStorage.clear();
+  });
+});
+
+describe('sort functions', () => {
+  const items = [{ title: 'a', description: 'a' }, { title: 'b', description: 'b' }];
+  const pills = [{ description: 'a' }, { code: 'b' }];
+
+  it('can sort by description', () => {
+    expect(propSort('description')(items[0], items[1])).toBe(-1);
+    expect(propSort('description')(items[1], items[0])).toBe(1);
+    expect(propSort('description')(items[0], items[0])).toBe(0);
+  });
+
+  it('can sort by title', () => {
+    expect(propSort('title')(items[0], items[1])).toBe(-1);
+    expect(propSort('title')(items[1], items[0])).toBe(1);
+    expect(propSort('title')(items[0], items[0])).toBe(0);
+  });
+
+  it('can sort by description or code', () => {
+    expect(pillSort(pills[0], pills[1])).toBe(-1);
+    expect(pillSort(pills[1], pills[0])).toBe(1);
+    expect(pillSort(pills[0], pills[0])).toBe(0);
+  });
+});
+
+const filters = [{ item: { title: 'Bureau' }, data: [{ long_description: 'regionA', code: 'code' }] }, { item: { title: 'Language' } }];
+
+describe('formExploreRegionDropdown function', () => {
+  const regions = formExploreRegionDropdown(filters);
+
+  it('can filter for region', () => {
+    expect(regions[1].long_description).toBe(filters[0].data[0].long_description);
+  });
+
+  it('can add new properties', () => {
+    expect(regions[1].text).toBe(filters[0].data[0].long_description);
+  });
+
+  it('adds the placeholder object to the beginning of the array', () => {
+    expect(regions[0].disabled).toBe(true);
+  });
+});
+
+describe('scrollToTop function', () => {
+  it('can call the scrollToTop function', () => {
+    scrollToTop();
+  });
+});
+
+describe('getItemLabel function', () => {
+  it('can can get an item label', () => {
+    expect(getItemLabel(filters[0].data[0])).toBe(filters[0].data[0].long_description);
+    expect(getItemLabel({ description: 'test' })).toBe('test');
+    expect(getItemLabel({ code: '0' })).toBe('0');
+  });
+});
+
+describe('shortenString function', () => {
+  const string = '012345';
+  it('can shorten a string with the default suffix', () => {
+    expect(shortenString(string, 0)).toBe('...');
+    expect(shortenString(string, 2)).toBe('...');
+    expect(shortenString(string, 3)).toBe('...');
+    expect(shortenString(string, 4)).toBe('0...');
+    expect(shortenString(string, 5)).toBe('01...');
+    expect(shortenString(string, 6)).toBe('012345');
+    expect(shortenString(string, 7)).toBe('012345');
+  });
+
+  it('can shorten a string with a null suffix', () => {
+    expect(shortenString(string, 0, null)).toBe('');
+    expect(shortenString(string, 2, null)).toBe('01');
+    expect(shortenString(string, 3, null)).toBe('012');
+    expect(shortenString(string, 4, null)).toBe('0123');
+    expect(shortenString(string, 5, null)).toBe('01234');
+    expect(shortenString(string, 6, null)).toBe('012345');
+    expect(shortenString(string, 7, null)).toBe('012345');
+  });
+});
+
+describe('cleanQueryParams', () => {
+  const query = { q: 'test', fake: 'test' };
+  it('retain only real query params', () => {
+    expect(cleanQueryParams(query).fake).toBe(undefined);
+    expect(cleanQueryParams(query).q).toBe(query.q);
+    expect(Object.keys(cleanQueryParams(query)).length).toBe(1);
+  });
+});
+
+describe('ifEnter', () => {
+  it('only returns true for keyCode of 13', () => {
+    expect(ifEnter({ keyCode: 13 })).toBe(true);
+    expect(ifEnter({ keyCode: 14 })).toBe(false);
+  });
+});
+
+describe('formQueryString', () => {
+  it('can return a string', () => {
+    expect(formQueryString({ q: 'test' })).toBe('q=test');
   });
 });

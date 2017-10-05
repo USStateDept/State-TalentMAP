@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
+<div
+  className="results-search-bar"
+>
+  <div
+    className="usa-grid-full results-search-bar-container"
+  >
+    <form
+      className="usa-grid-full"
+      onSubmit={[Function]}
+    >
+      <fieldset
+        className="usa-width-five-sixths"
+      >
+        <legend
+          className="usa-grid-full usa-sr-only"
+        >
+          Search keyword and location
+        </legend>
+        <div
+          className="usa-width-one-whole search-results-inputs search-keyword"
+        >
+          <SearchBar
+            alertText="Disabled"
+            defaultValue="keyword"
+            id="search-keyword-field"
+            label={
+              <div>
+                <FontAwesome
+                  className="label-icon"
+                  name="search"
+                />
+                Keywords
+              </div>
+            }
+            labelSrOnly={false}
+            noButton={true}
+            noForm={true}
+            onChangeText={[Function]}
+            onSubmitSearch={[Function]}
+            placeholder="Location, Skill Code, Grade, Language, Position Number"
+            submitDisabled={false}
+            submitText="Search"
+            type="medium"
+          />
+        </div>
+      </fieldset>
+      <div
+        className="usa-width-one-sixth search-submit-button"
+      >
+        <button
+          className="usa-button"
+          type="submit"
+        >
+          <FontAwesome
+            className="label-icon"
+            name="search"
+          />
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Home from '../../Containers/Home/Home';
+import Profile from '../../Containers/Profile/Profile';
 import Results from '../../Containers/Results/Results';
 import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
@@ -19,6 +20,10 @@ const Routes = props => (
       exact
       path="/"
       component={() => (<Home {...props} />)}
+    />
+    <Route
+      path="/profile"
+      component={() => (<Profile {...props} />)}
     />
     <Route
       path="/results"

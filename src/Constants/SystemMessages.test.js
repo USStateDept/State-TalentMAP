@@ -12,9 +12,25 @@ describe('SystemMessages', () => {
       'NO_BUREAU',
       'NO_ORG',
       'NO_REST_RELAXATION',
+      'NO_LAST_UPDATED_DATE',
+      'NO_POSITION_TITLE',
+      'NO_SKILL',
+      'NO_GRADE',
+      'NO_POSITION_DESCRIPTION',
+      'GENERAL_SAVED_SEARCH_ERROR',
     ];
     expectedMessages.forEach((msg) => {
       expect(SystemMessages[msg]).toBeDefined();
+    });
+  });
+  it('should have all expected messages that accept parameters defined', () => {
+    const expectedMessages = [
+      'UPDATED_SAVED_SEARCH_SUCCESS',
+      'NEW_SAVED_SEARCH_SUCCESS',
+    ];
+    expectedMessages.forEach((msg) => {
+      const textToCheck = 'test_word';
+      expect(SystemMessages[msg](textToCheck).indexOf(textToCheck)).toBeDefined();
     });
   });
 });

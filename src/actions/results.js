@@ -1,4 +1,8 @@
 import axios from 'axios';
+import api from '../api';
+
+const CancelToken = axios.CancelToken;
+let cancel;
 
 export function resultsHasErrored(bool) {
   return {
@@ -19,15 +23,21 @@ export function resultsFetchDataSuccess(results) {
   };
 }
 
-export function resultsFetchData(url) {
+export function resultsFetchData(query) {
   return (dispatch) => {
+    if (cancel) { cancel(); }
     dispatch(resultsIsLoading(true));
-    axios.get(url)
-            .then((response) => {
-              dispatch(resultsIsLoading(false));
-              return response.data;
-            })
-            .then(results => dispatch(resultsFetchDataSuccess(results)))
-            .catch(() => dispatch(resultsHasErrored(true)));
+    axios.get(`${api}/position/?${query}`, {
+      cancelToken: new CancelToken((c) => {
+        cancel = c;
+      }),
+    },
+    )
+      .then((response) => {
+        dispatch(resultsIsLoading(false));
+        return response.data;
+      })
+      .then(results => dispatch(resultsFetchDataSuccess(results)))
+      .catch(() => dispatch(resultsHasErrored(true)));
   };
 }

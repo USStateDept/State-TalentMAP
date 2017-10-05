@@ -1,12 +1,8 @@
-import axios from 'axios';
+import Scroll from 'react-scroll';
+import queryString from 'query-string';
+import { VALID_PARAMS } from './Constants/EndpointParams';
 
-export const ajax = url => (
-  axios.get(url)
-    .then((res) => {
-      const data = res;
-      return data;
-    })
-);
+const scroll = Scroll.animateScroll;
 
 export function localStorageFetchValue(key, value) {
   const saved = { exists: true, count: 0 };
@@ -28,7 +24,7 @@ export function localStorageFetchValue(key, value) {
 }
 
 export function localStorageToggleValue(key, value) {
-  const existingArray = JSON.parse(localStorage.getItem(key));
+  const existingArray = JSON.parse(localStorage.getItem(key)) || [];
   const indexOfId = existingArray.indexOf(value);
   if (indexOfId !== -1) {
     existingArray.splice(indexOfId, 1);
@@ -51,4 +47,125 @@ export function fetchUserToken() {
   return token;
 }
 
-export default ajax;
+export const pillSort = (a, b) => {
+  const A = (a.description || a.code).toLowerCase();
+  const B = (b.description || b.code).toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+export const propSort = propName => (a, b) => {
+  const A = a[propName].toLowerCase();
+  const B = b[propName].toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+// function to find the Region filters
+export const formExploreRegionDropdown = (filters) => {
+  function filterRegion(filterItem) {
+    return (filterItem.item && filterItem.item.title === 'Bureau');
+  }
+  // set an array so we can render in case we don't find Region
+  let regions = [];
+  // find the Region filters
+  const foundRegion = filters.find(filterRegion);
+  // if found, set foundRegion to a copy of the data
+  if (foundRegion && foundRegion.data) { regions = foundRegion.data.slice(); }
+  if (regions.length) {
+    regions.forEach((region, i) => {
+      // set up our prop names so that SelectForm can read them
+      regions[i].text = region.long_description;
+      regions[i].value = region.code;
+    });
+    // also add a placeholder to the top
+    regions.unshift(
+      {
+        text: 'Select a region',
+        value: '',
+        disabled: true,
+      },
+    );
+  }
+  return regions;
+};
+
+// see all props at https://github.com/fisshy/react-scroll#propsoptions
+const defaultScrollConfig = {
+  duration: 700,
+  delay: 270,
+  smooth: 'easeOutQuad',
+};
+
+export const scrollToTop = (config = defaultScrollConfig) => {
+  scroll.scrollToTop(config);
+};
+
+// when we want to grab a label, but aren't sure which one exists
+export const getItemLabel = itemData =>
+  itemData.long_description || itemData.description || itemData.code;
+
+// abcde 4 // a...
+// Shortens strings to varying lengths
+export const shortenString = (string, shortenTo = 250, suffix = '...') => {
+  let newString = string;
+  let newSuffix = suffix;
+  if (!newSuffix) {
+    newSuffix = '';
+  }
+  // return the suffix even if the shortenTo is less than its length
+  if (shortenTo < newSuffix.length) {
+    return suffix;
+  }
+  if (string.length > shortenTo) {
+    // shorten to the shortenTo param, less the length of our suffix
+    newString = string.slice(0, shortenTo - newSuffix.length);
+    // in case the last character(s) was whitespace
+    newString = newString.trim();
+    // append suffix
+    newString += newSuffix;
+  }
+  // return the string
+  return newString;
+};
+
+// for checking if a favorite_position exists in the user's profile
+export const existsInArray = (ref, array) => {
+  let found = false;
+  array.forEach((i) => {
+    if (i.id === ref) {
+      found = true;
+    }
+  });
+  return found;
+};
+
+// clean our query object for use with the saved search endpoint
+// make sure query object only uses real parameters (no extras that may have been added to the URL)
+// we also want to get rid of page and limit,
+// since those aren't valid params in the saved search endpoint
+export const cleanQueryParams = (q) => {
+  const object = Object.assign({}, q);
+  Object.keys(object).forEach((key) => {
+    if (VALID_PARAMS.indexOf(key) <= -1) {
+      delete object[key];
+    }
+  });
+  return object;
+};
+
+export const ifEnter = (e) => {
+  if (e.keyCode === 13) {
+    return true;
+  }
+  return false;
+};
+
+// convert a query object to a query string
+export const formQueryString = queryObject => queryString.stringify(queryObject);

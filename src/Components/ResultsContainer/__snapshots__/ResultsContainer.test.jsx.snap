@@ -1,0 +1,201 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsContainerComponent matches snapshot 1`] = `
+<div
+  className="results-container"
+>
+  <ResultsPillContainer
+    items={Array []}
+    onPillClick={[Function]}
+  />
+  <SaveNewSearchContainer
+    currentSavedSearch={Object {}}
+    newSavedSearchHasErrored={false}
+    newSavedSearchIsSaving={false}
+    newSavedSearchSuccess={false}
+    saveSearch={[Function]}
+  />
+  <ResultsControls
+    defaultPageNumber={0}
+    defaultPageSize={10}
+    defaultSort=""
+    hasErrored={false}
+    hasLoaded={true}
+    isLoading={true}
+    pageSizes={
+      Object {
+        "options": Array [
+          Object {
+            "text": "10",
+            "value": 10,
+          },
+        ],
+      }
+    }
+    queryParamUpdate={[Function]}
+    results={
+      Object {
+        "count": 2,
+        "results": Array [
+          Object {
+            "bureau": "150000",
+            "create_date": "2006-09-20",
+            "grade": "05",
+            "id": 6,
+            "is_overseas": true,
+            "languages": Array [
+              Object {
+                "id": 1,
+                "language": "French (FR)",
+                "reading_proficiency": "2",
+                "representation": "French (FR) 2/2",
+                "spoken_proficiency": "2",
+              },
+              Object {
+                "id": 1,
+                "language": "German (GM)",
+                "reading_proficiency": "2",
+                "representation": "German (GM) 2/2",
+                "spoken_proficiency": "2",
+              },
+            ],
+            "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+            "position_number": "00025003",
+            "post": Object {
+              "code": "LT6000000",
+              "cost_of_living_adjustment": 0,
+              "danger_pay": 0,
+              "differential_rate": 15,
+              "has_consumable_allowance": false,
+              "has_service_needs_differential": false,
+              "id": 162,
+              "location": "MASERU, LESOTHO",
+              "rest_relaxation_point": "London",
+              "tour_of_duty": "2YRR",
+            },
+            "skill": "OFFICE MANAGEMENT (9017)",
+            "update_date": "2017-06-08",
+          },
+          Object {
+            "bureau": "150000",
+            "create_date": "2006-09-20",
+            "grade": "03",
+            "id": 60,
+            "is_overseas": true,
+            "languages": Array [],
+            "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+            "position_number": "00025003",
+            "post": null,
+            "skill": "OFFICE MANAGEMENT (9017)",
+            "update_date": "2017-06-08",
+          },
+        ],
+      }
+    }
+    sortBy={
+      Object {
+        "options": Array [
+          Object {
+            "text": "sort",
+            "value": "sort",
+          },
+        ],
+      }
+    }
+  />
+  <div
+    className="results-list-container"
+  >
+    <Spinner
+      filled={false}
+      inverse={false}
+      size="big"
+      type="position-results"
+    />
+    <ResultsList
+      favorites={Array []}
+      isLoading={false}
+      onToggle={[Function]}
+      results={
+        Object {
+          "count": 2,
+          "results": Array [
+            Object {
+              "bureau": "150000",
+              "create_date": "2006-09-20",
+              "grade": "05",
+              "id": 6,
+              "is_overseas": true,
+              "languages": Array [
+                Object {
+                  "id": 1,
+                  "language": "French (FR)",
+                  "reading_proficiency": "2",
+                  "representation": "French (FR) 2/2",
+                  "spoken_proficiency": "2",
+                },
+                Object {
+                  "id": 1,
+                  "language": "German (GM)",
+                  "reading_proficiency": "2",
+                  "representation": "German (GM) 2/2",
+                  "spoken_proficiency": "2",
+                },
+              ],
+              "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+              "position_number": "00025003",
+              "post": Object {
+                "code": "LT6000000",
+                "cost_of_living_adjustment": 0,
+                "danger_pay": 0,
+                "differential_rate": 15,
+                "has_consumable_allowance": false,
+                "has_service_needs_differential": false,
+                "id": 162,
+                "location": "MASERU, LESOTHO",
+                "rest_relaxation_point": "London",
+                "tour_of_duty": "2YRR",
+              },
+              "skill": "OFFICE MANAGEMENT (9017)",
+              "update_date": "2017-06-08",
+            },
+            Object {
+              "bureau": "150000",
+              "create_date": "2006-09-20",
+              "grade": "03",
+              "id": 60,
+              "is_overseas": true,
+              "languages": Array [],
+              "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+              "position_number": "00025003",
+              "post": null,
+              "skill": "OFFICE MANAGEMENT (9017)",
+              "update_date": "2017-06-08",
+            },
+          ],
+        }
+      }
+      toggleFavorite={[Function]}
+      userProfileFavoritePositionHasErrored={false}
+      userProfileFavoritePositionIsLoading={false}
+    />
+  </div>
+  <div
+    className="usa-grid-full react-paginate"
+  >
+    <PaginationWrapper
+      activeClassName="active"
+      containerClassName="pagination"
+      forcePage={0}
+      marginPagesDisplayed={2}
+      nextLabel="Next"
+      onPageChange={[Function]}
+      pageCount={10}
+      pageRangeDisplayed={1}
+      paginationStyle="pagination"
+      previousLabel="Previous"
+      subContainerClassName="pages pagination"
+    />
+  </div>
+</div>
+`;

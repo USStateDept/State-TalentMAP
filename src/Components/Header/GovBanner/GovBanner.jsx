@@ -15,7 +15,7 @@ const GovBanner = () => (
             aria-expanded="false"
             aria-controls="gov-banner"
           >
-            <span className="usa-banner-button-text">Here&#39;s how you know</span>
+            <span className="usa-banner-button-text">Here&#39;s how you know&nbsp;</span>
           </button>
         </div>
       </header>

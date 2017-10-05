@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PillListComponent matches snapshot 1`] = `
+<div>
+  <Pill
+    codeRef="code"
+    description="a"
+    onPillClick={[Function]}
+    selectionRef="selection"
+  />
+  <Pill
+    codeRef="code2"
+    description="b"
+    onPillClick={[Function]}
+    selectionRef="selection2"
+  />
+  <Pill
+    codeRef="code2"
+    description="c"
+    onPillClick={[Function]}
+    selectionRef="selection2"
+  />
+  <Pill
+    codeRef="code3"
+    description="c"
+    onPillClick={[Function]}
+    selectionRef="selection3"
+  />
+  <Pill
+    codeRef="code4"
+    description="d"
+    onPillClick={[Function]}
+    selectionRef="selection3"
+  />
+</div>
+`;

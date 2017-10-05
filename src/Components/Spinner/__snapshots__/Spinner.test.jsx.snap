@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner can accept the color prop 1`] = `
+<div
+  className="tm-spinner tm-spinner-"
+>
+  <span
+    className="ds-c-spinner
+          
+          
+          
+          ds-u-color--primary"
+  />
+</div>
+`;
+
+exports[`Spinner can accept the filled prop 1`] = `
+<div
+  className="tm-spinner tm-spinner-"
+>
+  <span
+    className="ds-c-spinner
+          
+          ds-c-spinner--filled
+          
+          "
+  />
+</div>
+`;
+
+exports[`Spinner can accept the inverse prop 1`] = `
+<div
+  className="tm-spinner tm-spinner-"
+>
+  <span
+    className="ds-c-spinner
+          
+          
+          ds-u-fill--background-inverse ds-u-color--base-inverse
+          "
+  />
+</div>
+`;
+
+exports[`Spinner can accept the size prop 1`] = `
+<div
+  className="tm-spinner tm-spinner-"
+>
+  <span
+    className="ds-c-spinner
+          ds-c-spinner--big
+          
+          
+          "
+  />
+</div>
+`;
+
+exports[`Spinner can accept the type prop 1`] = `
+<div
+  className="tm-spinner tm-spinner-results"
+>
+  <span
+    className="ds-c-spinner
+          
+          
+          
+          "
+  />
+</div>
+`;

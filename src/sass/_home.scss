@@ -7,4 +7,123 @@
   .alert-text {
     color: $alert-red;
   }
+
+  .explore-section {
+    background-color: $tm-white-smoke;
+
+    border-bottom: 1px solid $color-gray-light;
+
+    .explore-section-fieldset {
+      float: left;
+    }
+
+    .view-results-button {
+      float: left;
+      margin: 62px 0 0;
+
+      @media screen and (max-width: 599px) {
+        margin: 0;
+      }
+    }
+
+    label {
+      font-family: Merriweather;
+      font-size: 34px;
+      margin-top: 1rem;
+    }
+
+    select {
+      $explore-select-width: 300px;
+
+      max-width: 100%;
+      min-width: $explore-select-width;
+      padding: 0 30px 0 10px;
+      -webkit-padding-end: 30px;
+      -webkit-padding-start: 10px;
+
+      @media screen and (max-width: 625px) {
+        max-width: 100%;
+        min-width: none;
+      }
+    }
+
+    @media screen and (min-width: 600px) {
+      .usa-form {
+        max-width: none;
+      }
+    }
+  }
+
+  .explore-section-inner {
+    padding-top: 5px;
+  }
+
+  .explore-map-container {
+    margin: 10px 0 0;
+
+    .explore-map {
+      margin: 10px 0 0;
+      width: 97%;
+    }
+  }
+}
+
+.positions-section {
+
+  margin-top: 25px;
+
+  position: relative;
+
+  .positions-section-container {
+    border-bottom: solid 1px $color-gray-lightest;
+    bottom: -1px;
+    line-height: 40px;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .positions-section-container-left {
+    float: left;
+  }
+
+  .positions-section-container-right {
+    float: left;
+    text-align: right;
+  }
+
+  .positions-section-title-header {
+    border-bottom: 1px solid;
+    bottom: -1px;
+    display: inline-block;
+    position: relative;
+  }
+
+  .positions-section-title {
+    font-family: Merriweather;
+    font-size: 19px;
+
+    .fa {
+      color: $blue-primary;
+      margin-right: 8px;
+    }
+  }
+
+  .positions-section-view-more {
+    font-family: Roboto;
+    font-size: 16px;
+
+    a {
+      text-decoration: none;
+    }
+
+    .fa {
+      margin-left: 6px;
+    }
+  }
+}
+
+.explore-region-fieldset {
+  label {
+    max-width: unset;
+  }
 }

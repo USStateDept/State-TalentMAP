@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BooleanFilterComponent matches snapshot 1`] = `
+<FieldSet
+  className=""
+  legend="title"
+  legendSrOnly={false}
+>
+  <CheckBox
+    id="checkbox-title"
+    label="Yes"
+    name="title"
+    onCheckBoxClick={[Function]}
+    selectionRef="ref"
+    title="title"
+    value={false}
+  />
+</FieldSet>
+`;

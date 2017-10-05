@@ -17,7 +17,7 @@ class CompareList extends Component {
     return (
       <div>
         { compare.map(result => (
-          <div key={result.id} id={result.id} className="usa-width-one-half" style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
+          <div key={result.id} id={result.id} className="usa-width-one-half compare-card">
             <div className="usa-grid-full">
               <Link to={`/details/${result.position_number}`}>
                 <h3> Position Number: {result.position_number} </h3>
@@ -25,18 +25,16 @@ class CompareList extends Component {
               <p>
                   Grade: {result.grade}
                 <br />
-                  Skill: {result.skill}
+                  Skill Code: {result.skill}
+                <br />
+                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
                 <br />
                   Bureau: {result.bureau}
-                <br />
-                  Organization: {result.organization}
                 <br />
                   Tour of Duty: {result.post ?
                     result.post.tour_of_duty : SystemMessages.NO_TOUR_OF_DUTY}
                 <br />
                   Language: <LanguageList languages={result.languages} />
-                <br />
-                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
                 <br />
                   Post Differential: {result.post ?
                     result.post.differential_rate : SystemMessages.NO_POST_DIFFERENTIAL}

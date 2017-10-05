@@ -4,13 +4,12 @@ exports[`TotalResults displays page numbers and total results correctly when on 
 <span
   id="total-results"
 >
-  Viewing 
   1
    - 
   25
    of 
   103
-   results
+   positions found
 </span>
 `;
 
@@ -18,13 +17,12 @@ exports[`TotalResults displays page numbers and total results correctly when on 
 <span
   id="total-results"
 >
-  Viewing 
   26
    - 
   50
    of 
   103
-   results
+   positions found
 </span>
 `;
 
@@ -32,13 +30,12 @@ exports[`TotalResults displays page numbers and total results correctly when on 
 <span
   id="total-results"
 >
-  Viewing 
   51
    - 
   75
    of 
   103
-   results
+   positions found
 </span>
 `;
 
@@ -46,13 +43,12 @@ exports[`TotalResults displays page numbers and total results correctly when rea
 <span
   id="total-results"
 >
-  Viewing 
   101
    - 
   103
    of 
   103
-   results
+   positions found
 </span>
 `;
 
@@ -60,13 +56,12 @@ exports[`TotalResults displays page numbers and total results correctly when rea
 <span
   id="total-results"
 >
-  Viewing 
   76
    - 
   100
    of 
   103
-   results
+   positions found
 </span>
 `;
 
@@ -74,12 +69,11 @@ exports[`TotalResults matches snapshot 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
   1
    - 
   0
    of 
   103
-   results
+   positions found
 </span>
 `;

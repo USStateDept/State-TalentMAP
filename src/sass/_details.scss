@@ -1,5 +1,7 @@
 .position-details-header {
 
+  background-color: $color-gray-lightest;
+  overflow: hidden;
   padding-bottom: 15px;
   padding-top: 10px;
   position: relative;
@@ -20,10 +22,15 @@
     }
   }
 
+  .position-details-header-grid {
+    overflow: hidden;
+  }
+
   .position-details-header-title {
     font-size: 1.5em;
     margin-bottom: 1em;
     margin-top: 1em;
+    text-transform: uppercase;
   }
 
   .position-details-header-body {
@@ -57,6 +64,11 @@
   margin-left: 9%;
   margin-top: 20px;
 
+  .position-details-description-title {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
   .position-details-description-section {
     height: 80px;
     margin-bottom: 2em;
@@ -69,6 +81,7 @@
 
     .title {
       font-size: .8em;
+      text-transform: uppercase;
     }
 
     .description {
@@ -89,6 +102,7 @@
     .title {
       font-size: 1.4em;
       font-weight: bold;
+      text-transform: uppercase;
     }
   }
 

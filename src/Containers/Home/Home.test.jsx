@@ -11,18 +11,16 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Home', () => {
-  const api = 'http://localhost:8000/api/v1';
-
   it('is defined', () => {
     const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Home isAuthorized={() => true} api={api} onNavigateTo={() => {}} />
+      <Home isAuthorized={() => true} toggleFavorite={() => {}} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
     const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Home isAuthorized={() => false} api={api} onNavigateTo={() => {}} />
+      <Home isAuthorized={() => false} toggleFavorite={() => {}} onNavigateTo={() => {}} />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
   });
@@ -30,8 +28,8 @@ describe('Home', () => {
   it('can call the onChildSubmit function', () => {
     const wrapper = shallow(<Home.WrappedComponent
       isAuthorized={() => true}
-      api={api}
       onNavigateTo={() => {}}
+      toggleFavorite={() => {}}
     />);
     wrapper.instance().onChildSubmit();
   });

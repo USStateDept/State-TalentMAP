@@ -11,6 +11,7 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
   className={null}
 >
   <ResultsCard
+    favorites={Array []}
     onToggle={[Function]}
     result={
       Object {
@@ -23,16 +24,16 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
           Object {
             "id": 1,
             "language": "French (FR)",
+            "reading_proficiency": "2",
             "representation": "French (FR) 2/2",
             "spoken_proficiency": "2",
-            "written_proficiency": "2",
           },
           Object {
             "id": 1,
             "language": "German (GM)",
+            "reading_proficiency": "2",
             "representation": "German (GM) 2/2",
             "spoken_proficiency": "2",
-            "written_proficiency": "2",
           },
         ],
         "organization": "YAOUNDE CAMEROON (YAOUNDE)",
@@ -53,8 +54,12 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08",
       }
     }
+    toggleFavorite={[Function]}
+    userProfileFavoritePositionHasErrored={false}
+    userProfileFavoritePositionIsLoading={false}
   />
   <ResultsCard
+    favorites={Array []}
     onToggle={[Function]}
     result={
       Object {
@@ -71,6 +76,9 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08",
       }
     }
+    toggleFavorite={[Function]}
+    userProfileFavoritePositionHasErrored={false}
+    userProfileFavoritePositionIsLoading={false}
   />
 </div>
 `;

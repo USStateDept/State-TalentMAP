@@ -5,12 +5,12 @@ import PositionAdditionalDetails from './PositionAdditionalDetails';
 
 describe('PositionAdditionalDetails', () => {
   it('is defined', () => {
-    const wrapper = shallow(<PositionAdditionalDetails />);
+    const wrapper = shallow(<PositionAdditionalDetails content="test" />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<PositionAdditionalDetails />);
+    const wrapper = shallow(<PositionAdditionalDetails content="test" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
