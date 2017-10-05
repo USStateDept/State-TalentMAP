@@ -110,7 +110,7 @@ export const scrollToTop = (config = defaultScrollConfig) => {
 // When we want to grab a label, but aren't sure which one exists.
 // We set custom ones first in the list.
 export const getItemLabel = itemData =>
-  itemData.custom_region_description || itemData.long_description ||
+  itemData.custom_description || itemData.long_description ||
   itemData.description || itemData.code;
 
 // abcde 4 // a...

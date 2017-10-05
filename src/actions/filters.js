@@ -44,15 +44,28 @@ export function filtersFetchData(items, queryParams, savedResponses) {
       });
       // check for option queryParamObject to map against (used for pill filters)
       responses.mappedParams = [];
+
+      // set any custom descriptions
+      responses.filters.forEach((filterItem, i) => {
+        filterItem.data.forEach((filterItemObject, ii) => {
+          if (filterItem.item.description === 'region') {
+            responses.filters[i].data[ii].custom_description =
+              `${filterItemObject.long_description}
+              (${filterItemObject.short_description})`;
+          }
+        });
+      });
+
+      // map any query params
       if (queryParamObject) {
         responses.filters.forEach((response) => {
           const filterRef = response.item.selectionRef;
           Object.keys(queryParamObject).forEach((key) => {
             if (key === filterRef) {
-                // convert the string to an array
+              // convert the string to an array
               const paramArray = queryParamObject[key].split(',');
               paramArray.forEach((paramArrayItem) => {
-                  // create a base config object
+                // create a base config object
                 const mappedObject = {
                   selectionRef: filterRef,
                   codeRef: paramArrayItem,
@@ -71,7 +84,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                         ) {
                         mappedObject.description = response.item.title;
                       } else {
-                          // try to get the shortest description since pills should be small
+                        // try to get the shortest description since pills should be small
                         mappedObject.description =
                             filterItemObject.short_description ||
                             filterItemObject.description ||

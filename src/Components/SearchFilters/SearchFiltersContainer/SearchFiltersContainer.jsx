@@ -63,17 +63,8 @@ class SearchFiltersContainer extends Component {
         if (f.item.description === 'skill') {
           f.data.sort(propSort('description'));
         }
-        // append the code to region descriptions
-        if (f.item.description === 'region') {
-          const regionCopy = { ...f };
-          regionCopy.data.forEach((d, i) => {
-            regionCopy.data[i].custom_region_description = `${d.long_description} (${d.short_description})`;
-          });
-          multiSelectFilterMap.set(f.item.description, regionCopy);
-        } else {
         // add to Map
-          multiSelectFilterMap.set(f.item.description, f);
-        }
+        multiSelectFilterMap.set(f.item.description, f);
       }
     });
 

@@ -47,6 +47,20 @@ const items = {
       { code: '0', description: 'Yes' }, // use a code of 0 to specify we want to return results where COLA > 0
       ],
     },
+    {
+      item: {
+        title: 'Bureau',
+        sort: 100,
+        description: 'region',
+        endpoint: 'organization/?is_bureau=true&is_regional=true',
+        selectionRef: 'bureau__code__in',
+        text: 'Choose bureau',
+        choices: [
+        ],
+      },
+      data: [
+      ],
+    },
   ],
 };
 
@@ -60,8 +74,14 @@ describe('async actions', () => {
 
     const grades = { count: 2, results: [{ id: 2, code: '00' }, { id: 3, code: '01' }] };
 
+    const regions = { count: 1, results: [{ long_description: 'test', short_description: 'test' }] };
+
     mockAdapter.onGet('http://localhost:8000/api/v1/skill/').reply(200,
       skills,
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/organization/?is_bureau=true&is_regional=true').reply(200,
+      regions,
     );
 
     mockAdapter.onGet('http://localhost:8000/api/v1/grade/').reply(200,
