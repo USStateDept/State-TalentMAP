@@ -13,6 +13,10 @@ describe('SearchFiltersContainerComponent', () => {
     item: { title: 'COLA', selectionRef: 'ref2', bool: true },
     data: [{ isSelected: false }],
   },
+  {
+    item: { title: 'region', description: 'region', selectionRef: 'ref3' },
+    data: [{ isSelected: false, long_description: 'test', short_description: 'test' }],
+  },
   ];
 
   const accordion = ACCORDION_SELECTION;
