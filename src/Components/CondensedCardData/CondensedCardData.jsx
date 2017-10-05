@@ -12,7 +12,7 @@ const CondensedCardData = ({ position }) => (
       { position.post ? position.post.location : SystemMessages.NO_POST }
     </div>
     <div>
-      <strong>Skill: </strong>
+      <strong>Skill Code: </strong>
       { position.skill || SystemMessages.NO_SKILL }
     </div>
     <div>

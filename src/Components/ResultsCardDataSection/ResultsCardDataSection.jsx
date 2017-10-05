@@ -29,7 +29,7 @@ const ResultsCardDataSection = ({ result }) => (
           title="Position Information"
           items={
           [
-            { description: 'Skill', text: result.skill },
+            { description: 'Skill Code', text: result.skill },
             { description: 'Grade', text: result.grade },
             { description: 'Description',
               text: result.description && result.description.content ?
