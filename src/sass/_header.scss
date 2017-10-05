@@ -16,12 +16,26 @@
     .usa-nav-secondary {
       top: -6.5rem;
     }
+
+    .usa-logo-text {
+      line-height: unset;
+    }
   }
 
   @media screen and (max-width: 950px) {
 
+    .usa-logo {
+      img {
+        padding-top: 5px;
+      }
+    }
+
     .usa-nav-secondary {
       padding-top: 30px;
+    }
+
+    .usa-logo {
+      line-height: unset;
     }
   }
 }
