@@ -38,8 +38,8 @@ export function filtersFetchData(items, queryParams, savedResponses) {
       // Set all of our isSelected values back to false.
       // We'll check if they should be set to true later
       responses.filters.forEach((responseFilter, i) => {
-        responseFilter.data.forEach((responseFilterData, ii) => {
-          responses.filters[i].data[ii].isSelected = false;
+        responseFilter.data.forEach((responseFilterData, j) => {
+          responses.filters[i].data[j].isSelected = false;
         });
       });
       // check for option queryParamObject to map against (used for pill filters)
@@ -47,9 +47,9 @@ export function filtersFetchData(items, queryParams, savedResponses) {
 
       // set any custom descriptions
       responses.filters.forEach((filterItem, i) => {
-        filterItem.data.forEach((filterItemObject, ii) => {
+        filterItem.data.forEach((filterItemObject, j) => {
           if (filterItem.item.description === 'region') {
-            responses.filters[i].data[ii].custom_description =
+            responses.filters[i].data[j].custom_description =
               `${filterItemObject.long_description}
               (${filterItemObject.short_description})`;
           }
@@ -71,11 +71,11 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                   codeRef: paramArrayItem,
                 };
                 responses.filters.forEach((filterItem, i) => {
-                  filterItem.data.forEach((filterItemObject, ii) => {
+                  filterItem.data.forEach((filterItemObject, j) => {
                     if (filterItemObject.code &&
                           filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
                           filterItem.item.selectionRef === mappedObject.selectionRef) {
-                      responses.filters[i].data[ii].isSelected = true;
+                      responses.filters[i].data[j].isSelected = true;
                       if ( // boolean filters are special since they don't rely on AJAX
                           response.item.description === 'COLA' ||
                           response.item.description === 'postDiff' ||
