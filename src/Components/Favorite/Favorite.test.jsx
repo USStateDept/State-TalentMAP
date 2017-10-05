@@ -38,7 +38,8 @@ describe('Favorite', () => {
   });
 
   it('matches snapshot - Remove state', () => {
-    const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[{ id: refKey }]} refKey={refKey} />);
+    const array = [{ id: refKey }];
+    const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={array} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
