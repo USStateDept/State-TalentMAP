@@ -52,8 +52,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
             responses.filters[i].data[j].custom_description =
               `${filterItemObject.long_description}
               (${filterItemObject.short_description})`;
-          }
-          if (filterItem.item.description === 'skill') {
+          } else if (filterItem.item.description === 'skill') {
             responses.filters[i].data[j].custom_description =
               `${filterItemObject.description}
               (${filterItemObject.code})`;
