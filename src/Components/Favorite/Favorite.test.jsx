@@ -32,8 +32,13 @@ describe('Favorite', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot - Add state', () => {
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[]} refKey={refKey} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot - Remove state', () => {
+    const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[{ id: refKey }]} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
