@@ -53,6 +53,11 @@ export function filtersFetchData(items, queryParams, savedResponses) {
               `${filterItemObject.long_description}
               (${filterItemObject.short_description})`;
           }
+          if (filterItem.item.description === 'skill') {
+            responses.filters[i].data[j].custom_description =
+              `${filterItemObject.description}
+              (${filterItemObject.code})`;
+          }
         });
       });
 
