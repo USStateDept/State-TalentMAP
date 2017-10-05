@@ -57,14 +57,23 @@ class SearchFiltersContainer extends Component {
     const multiSelectFilterMap = new Map();
 
     // pull filters from props and add to Map
-    this.props.filters.forEach((f) => {
+    this.props.filters.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill') {
           f.data.sort(propSort('description'));
         }
+        // append the code to region descriptions
+        if (f.item.description === 'region') {
+          const regionCopy = { ...f };
+          regionCopy.data.forEach((d, i) => {
+            regionCopy.data[i].custom_region_description = `${d.long_description} (${d.short_description})`;
+          });
+          multiSelectFilterMap.set(f.item.description, regionCopy);
+        } else {
         // add to Map
-        multiSelectFilterMap.set(f.item.description, f);
+          multiSelectFilterMap.set(f.item.description, f);
+        }
       }
     });
 

@@ -6,6 +6,31 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     multiSelectFilterList={
       Array [
         Object {
+          "content": <MultiSelectFilter
+            item={
+                  Object {
+                        "data": Array [
+                          Object {
+                            "custom_region_description": "test (test)",
+                            "isSelected": false,
+                            "long_description": "test",
+                            "short_description": "test",
+                          },
+                        ],
+                        "item": Object {
+                          "description": "region",
+                          "selectionRef": "ref3",
+                          "title": "region",
+                        },
+                      }
+            }
+            queryParamToggle={[Function]}
+      />,
+          "expanded": false,
+          "id": "accordion-region",
+          "title": "region",
+        },
+        Object {
           "content": <LanguageFilter
             item={
                   Object {
