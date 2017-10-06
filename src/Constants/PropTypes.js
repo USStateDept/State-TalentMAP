@@ -45,10 +45,14 @@ export const POSITION_DETAILS = PropTypes.shape({
 
 export const POSITION_DETAILS_ARRAY = PropTypes.arrayOf(POSITION_DETAILS);
 
-export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+export const PAGINATION_PROPS = {
   count: PropTypes.number,
   next: PropTypes.string,
   previous: PropTypes.string,
+};
+
+export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+  ...PAGINATION_PROPS,
   results: POSITION_DETAILS_ARRAY,
 });
 
@@ -178,9 +182,7 @@ export const SAVED_SEARCH_OBJECT = PropTypes.shape({
 });
 
 export const SAVED_SEARCH_PARENT_OBJECT = PropTypes.shape({
-  count: PropTypes.number,
-  next: PropTypes.string,
-  previous: PropTypes.string,
+  ...PAGINATION_PROPS,
   results: PropTypes.arrayOf(
     SAVED_SEARCH_OBJECT,
   ),
@@ -196,6 +198,36 @@ export const CLONE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
 
 export const REGION_SELECTION = PropTypes.shape({
   value: PropTypes.string,
+});
+
+export const BID_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  bidcycle: PropTypes.string,
+  user: PropTypes.string,
+  position: PropTypes.shape({
+    id: PropTypes.number,
+    grade: PropTypes.string,
+    skill: PropTypes.string,
+    position_number: PropTypes.string,
+    title: PropTypes.string,
+    create_date: PropTypes.string,
+    update_date: PropTypes.string,
+    post: PropTypes.shape({
+      id: PropTypes.number,
+      location: PropTypes.string,
+    }),
+  }),
+  status: PropTypes.string,
+  submission_date: PropTypes.string,
+});
+
+export const BID_RESULTS = PropTypes.arrayOf(
+  BID_OBJECT,
+);
+
+export const BID_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: BID_RESULTS,
 });
 
 export const EMPTY_FUNCTION = () => {};

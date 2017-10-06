@@ -1,18 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidListButtonComponent matches snapshot 1`] = `
+exports[`BidListButtonComponent matches snapshot when the user can add the position 1`] = `
 <button
-  className="white-button"
+  className="bid-list-button"
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
 >
   <span
-    className="white-button-icon"
+    className="button-icon"
   >
     <FontAwesome
       name="plus-circle"
     />
   </span>
   <span>
-    Add to bid list
+    Add to Bid List
+  </span>
+</button>
+`;
+
+exports[`BidListButtonComponent matches snapshot when the user can remove the position 1`] = `
+<button
+  className="bid-list-button"
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+>
+  <span
+    className="button-icon"
+  >
+    <FontAwesome
+      name="minus-circle"
+    />
+  </span>
+  <span>
+    Remove from Bid List
   </span>
 </button>
 `;

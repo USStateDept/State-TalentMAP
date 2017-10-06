@@ -148,6 +148,17 @@ export const existsInArray = (ref, array) => {
   return found;
 };
 
+// for checking if a position is in the user's bid list
+export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
+  let found = false;
+  array.forEach((i) => {
+    if (i[prop] && i[prop][nestedProp] === ref) {
+      found = true;
+    }
+  });
+  return found;
+};
+
 // clean our query object for use with the saved search endpoint
 // make sure query object only uses real parameters (no extras that may have been added to the URL)
 // we also want to get rid of page and limit,
