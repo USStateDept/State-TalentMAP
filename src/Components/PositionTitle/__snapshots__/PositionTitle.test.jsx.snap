@@ -2,11 +2,7 @@
 
 exports[`PositionTitleComponent matches snapshot 1`] = `
 <div
-  style={
-    Object {
-      "position": "relative",
-    }
-  }
+  className="position-details-header-container"
 >
   <div
     className="position-details-header"

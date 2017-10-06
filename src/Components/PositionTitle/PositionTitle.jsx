@@ -8,7 +8,7 @@ import { shortenString } from '../../utilities';
 
 const PositionTitle = ({ details, goBackLink, toggleBidPosition, bidList,
   bidListToggleIsLoading }) => (
-    <div style={{ position: 'relative' }}>
+    <div className="position-details-header-container">
       <div className="position-details-header">
         <div className="usa-grid positions-details-header-grid">
           <div className="usa-width-one-half">
