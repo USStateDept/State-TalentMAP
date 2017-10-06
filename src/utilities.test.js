@@ -189,7 +189,17 @@ describe('existsInNestedObject', () => {
 });
 
 describe('existsInArray', () => {
+  const array = [{ id: 1 }, { id: 2 }];
+
   it('can handle an empty array', () => {
-    expect(existsInArray('1', [])).toBe(false);
+    expect(existsInArray(1, [])).toBe(false);
+  });
+
+  it('can handle a match', () => {
+    expect(existsInArray(1, array)).toBe(true);
+  });
+
+  it('can handle no matches', () => {
+    expect(existsInArray('1', array)).toBe(false);
   });
 });
