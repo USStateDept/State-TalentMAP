@@ -130,9 +130,9 @@ Profile.propTypes = {
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
   bidList: PROP_TYPES.BID_LIST,
-  bidListToggleHasErrored: PropTypes.bool,
+  bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED,
   bidListToggleIsLoading: PropTypes.bool,
-  bidListToggleSuccess: PropTypes.bool,
+  bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS,
 };
 
 Profile.defaultProps = {

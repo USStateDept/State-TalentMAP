@@ -20,16 +20,12 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="usa-width-one-whole"
+    className="usa-width-one-whole bid-list-delete-button-container"
   >
     <button
       className="usa-button-secondary"
       onClick={[Function]}
-      style={
-        Object {
-          "marginTop": ".5em",
-        }
-      }
+      title="Delete this position from your bid list"
     >
       Delete
     </button>

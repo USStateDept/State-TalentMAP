@@ -110,9 +110,9 @@ ProfilePage.propTypes = {
   bidListHasErrored: PropTypes.bool.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
   bidList: PROP_TYPES.BID_LIST.isRequired,
-  bidListToggleHasErrored: PropTypes.bool.isRequired,
+  bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED.isRequired,
   bidListToggleIsLoading: PropTypes.bool.isRequired,
-  bidListToggleSuccess: PropTypes.bool.isRequired,
+  bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS.isRequired,
 };
 
 ProfilePage.defaultProps = {

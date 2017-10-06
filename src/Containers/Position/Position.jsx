@@ -8,7 +8,7 @@ import { getLastRouteLink } from '../../actions/routerLocations';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import * as bidListActions from '../../actions/bidList';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
-import { POSITION_DETAILS, EMPTY_FUNCTION, ROUTER_LOCATIONS, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
+import * as PROP_TYPES from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Position extends Component {
@@ -69,10 +69,10 @@ Position.propTypes = {
   fetchData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
-  positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
+  positionDetails: PropTypes.arrayOf(PROP_TYPES.POSITION_DETAILS),
   isAuthorized: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
-  userProfile: USER_PROFILE,
+  routerLocations: PROP_TYPES.ROUTER_LOCATIONS,
+  userProfile: PROP_TYPES.USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool,
   userProfileFavoritePositionHasErrored: PropTypes.bool,
@@ -80,23 +80,23 @@ Position.propTypes = {
   toggleBidPosition: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
-  bidList: BID_LIST,
-  bidListToggleHasErrored: PropTypes.bool,
+  bidList: PROP_TYPES.BID_LIST,
+  bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED,
   bidListToggleIsLoading: PropTypes.bool,
-  bidListToggleSuccess: PropTypes.bool,
+  bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS,
 };
 
 Position.defaultProps = {
   positionDetails: [],
-  fetchData: EMPTY_FUNCTION,
+  fetchData: PROP_TYPES.EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
   routerLocations: [],
   userProfile: {},
   userProfileFavoritePositionIsLoading: true,
   userProfileFavoritePositionHasErrored: false,
-  fetchBidList: EMPTY_FUNCTION,
-  toggleBidPosition: EMPTY_FUNCTION,
+  fetchBidList: PROP_TYPES.EMPTY_FUNCTION,
+  toggleBidPosition: PROP_TYPES.EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
