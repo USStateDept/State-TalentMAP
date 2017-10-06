@@ -12,6 +12,7 @@ import { validStateEmail,
          formQueryString,
          propSort,
          existsInNestedObject,
+         existsInArray,
        } from './utilities';
 
 describe('local storage', () => {
@@ -184,5 +185,11 @@ describe('existsInNestedObject', () => {
 
   it('can return false when something does not exist in a nested object', () => {
     expect(existsInNestedObject(1, [{ position: { otherId: 2 } }])).toBe(false);
+  });
+});
+
+describe('existsInArray', () => {
+  it('can handle an empty array', () => {
+    expect(existsInArray('1', [])).toBe(false);
   });
 });
