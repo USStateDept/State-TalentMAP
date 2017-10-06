@@ -104,6 +104,42 @@ describe('async actions', () => {
     f();
   });
 
+  it('can submit a bid', (done) => {
+    const store = mockStore({ profile: {} });
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/bid/1/submit/').reply(204,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.submitBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when submitting a bid', (done) => {
+    const store = mockStore({ profile: {} });
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/bid/1/submit/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.submitBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it('can handle errors when adding a position to the bid list', (done) => {
     const store = mockStore({ profile: {} });
 

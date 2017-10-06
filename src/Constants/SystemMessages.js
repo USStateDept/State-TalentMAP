@@ -22,3 +22,5 @@ export const DELETE_BID_ITEM_SUCCESS = 'Bid successfully removed.';
 export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
 export const ADD_BID_ITEM_SUCCESS = 'Bid successfully added.';
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
+export const SUBMIT_BID_SUCCESS = 'Bid successfully submitted.';
+export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';

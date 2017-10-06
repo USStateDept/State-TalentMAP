@@ -46,3 +46,27 @@ export function bidListToggleSuccess(state = false, action) {
       return state;
   }
 }
+export function submitBidHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'SUBMIT_BID_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function submitBidIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'SUBMIT_BID_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function submitBidSuccess(state = false, action) {
+  switch (action.type) {
+    case 'SUBMIT_BID_SUCCESS':
+      return action.response;
+    default:
+      return state;
+  }
+}
