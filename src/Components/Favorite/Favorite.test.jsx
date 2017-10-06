@@ -38,12 +38,18 @@ describe('Favorite', () => {
     expect(wrapper.find('div').prop('style')).toEqual({pointerEvents: 'none'});
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot - Add state', () => {
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[]} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('matches snapshot hiding text', () => {
+  it('matches snapshot - Remove state', () => {
+    const array = [{ id: refKey }];
+    const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={array} refKey={refKey} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot - Hide text', () => {
     /* eslint-disable */
     const wrapper = shallow(<Favorite hideText onToggle={() => {}} compareArray={[]} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();

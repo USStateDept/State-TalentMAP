@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Favorite matches snapshot 1`] = `
+exports[`Favorite matches snapshot - Add state 1`] = `
 <div
   className="favorite-container"
   onClick={[Function]}
@@ -11,12 +11,53 @@ exports[`Favorite matches snapshot 1`] = `
     }
   }
   tabIndex="0"
-  title="Favorite from favorites"
+  title="Add to Favorites"
 >
   <FontAwesome
     name="heart-o"
   />
    
   Favorite
+</div>
+`;
+
+exports[`Favorite matches snapshot - Hide text 1`] = `
+<div
+  className="favorite-container"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+  tabIndex="0"
+  title="Add to Favorites"
+>
+  <FontAwesome
+    name="heart-o"
+  />
+   
+</div>
+`;
+
+exports[`Favorite matches snapshot - Remove state 1`] = `
+<div
+  className="favorite-container"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+  tabIndex="0"
+  title="Remove from Favorites"
+>
+  <FontAwesome
+    name="heart"
+  />
+   
+  Remove
 </div>
 `;
