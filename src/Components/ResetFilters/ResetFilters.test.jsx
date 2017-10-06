@@ -14,7 +14,7 @@ describe('ResetFilters', () => {
   it('is defined', () => {
     expect(resetButton).toBeDefined();
   });
-  
+
   it('can call resetFilters function', () => {
     const propSpy = sinon.spy();
     const wrapper = shallow(<ResetFilters resetFilters={propSpy} />);
