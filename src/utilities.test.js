@@ -11,6 +11,7 @@ import { validStateEmail,
          ifEnter,
          formQueryString,
          propSort,
+         existsInNestedObject,
        } from './utilities';
 
 describe('local storage', () => {
@@ -173,5 +174,15 @@ describe('ifEnter', () => {
 describe('formQueryString', () => {
   it('can return a string', () => {
     expect(formQueryString({ q: 'test' })).toBe('q=test');
+  });
+});
+
+describe('existsInNestedObject', () => {
+  it('can return true when something exists in a nested object', () => {
+    expect(existsInNestedObject(1, [{ position: { id: 1 } }])).toBe(true);
+  });
+
+  it('can return false when something does not exist in a nested object', () => {
+    expect(existsInNestedObject(1, [{ position: { otherId: 2 } }])).toBe(false);
   });
 });

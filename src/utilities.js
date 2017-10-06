@@ -107,9 +107,11 @@ export const scrollToTop = (config = defaultScrollConfig) => {
   scroll.scrollToTop(config);
 };
 
-// when we want to grab a label, but aren't sure which one exists
+// When we want to grab a label, but aren't sure which one exists.
+// We set custom ones first in the list.
 export const getItemLabel = itemData =>
-  itemData.long_description || itemData.description || itemData.code;
+  itemData.custom_description || itemData.long_description ||
+  itemData.description || itemData.code;
 
 // abcde 4 // a...
 // Shortens strings to varying lengths
@@ -140,6 +142,17 @@ export const existsInArray = (ref, array) => {
   let found = false;
   array.forEach((i) => {
     if (i.id === ref) {
+      found = true;
+    }
+  });
+  return found;
+};
+
+// for checking if a position is in the user's bid list
+export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
+  let found = false;
+  array.forEach((i) => {
+    if (i[prop] && i[prop][nestedProp] === ref) {
       found = true;
     }
   });
