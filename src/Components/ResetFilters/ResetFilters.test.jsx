@@ -14,12 +14,7 @@ describe('ResetFilters', () => {
   it('is defined', () => {
     expect(resetButton).toBeDefined();
   });
-
-  it('can click on the button', () => {
-    const wrapper = shallow(<ResetFilters resetFilters={() => {}} />);
-    wrapper.find('span').simulate('click');
-  });
-
+  
   it('can call resetFilters function', () => {
     const propSpy = sinon.spy();
     const wrapper = shallow(<ResetFilters resetFilters={propSpy} />);
