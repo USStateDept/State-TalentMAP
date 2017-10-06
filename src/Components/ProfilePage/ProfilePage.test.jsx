@@ -12,28 +12,39 @@ describe('ProfilePageComponent', () => {
       username: 'john',
     },
   };
+  const props = {
+    user: DEFAULT_USER_PROFILE,
+    favoritePositions: resultsObject,
+    toggleFavorite: () => {},
+    favoritePositionsIsLoading: false,
+    favoritePositionsHasErrored: false,
+    toggleFavoritePositionIsLoading: false,
+    toggleFavoritePositionHasErrored: false,
+    savedSearches: searchObjectParent,
+    savedSearchesIsLoading: false,
+    savedSearchesHasErrored: false,
+    goToSavedSearch: () => {},
+    deleteSearch: () => {},
+    deleteSavedSearchIsLoading: false,
+    deleteSavedSearchHasErrored: false,
+    deleteSavedSearchSuccess: false,
+    cloneSavedSearchIsLoading: false,
+    cloneSavedSearchHasErrored: false,
+    cloneSavedSearchSuccess: false,
+    cloneSavedSearch: () => {},
+    toggleBidPosition: () => {},
+    bidListHasErrored: false,
+    bidListIsLoading: false,
+    bidList: { results: [] },
+    bidListToggleHasErrored: false,
+    bidListToggleIsLoading: false,
+    bidListToggleSuccess: false,
+  };
+
   it('is defined', () => {
     const wrapper = shallow(
       <ProfilePage
-        user={DEFAULT_USER_PROFILE}
-        favoritePositions={resultsObject}
-        toggleFavorite={() => {}}
-        favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
-        savedSearches={searchObjectParent}
-        savedSearchesIsLoading={false}
-        savedSearchesHasErrored={false}
-        goToSavedSearch={() => {}}
-        deleteSearch={() => {}}
-        deleteSavedSearchIsLoading={false}
-        deleteSavedSearchHasErrored={false}
-        deleteSavedSearchSuccess={false}
-        cloneSavedSearchIsLoading={false}
-        cloneSavedSearchHasErrored={false}
-        cloneSavedSearchSuccess={false}
-        cloneSavedSearch={() => {}}
+        {...props}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -42,25 +53,7 @@ describe('ProfilePageComponent', () => {
   it('it can handle a username', () => {
     const wrapper = shallow(
       <ProfilePage
-        user={user}
-        favoritePositions={resultsObject}
-        toggleFavorite={() => {}}
-        favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
-        savedSearches={searchObjectParent}
-        savedSearchesIsLoading={false}
-        savedSearchesHasErrored={false}
-        goToSavedSearch={() => {}}
-        deleteSearch={() => {}}
-        deleteSavedSearchIsLoading={false}
-        deleteSavedSearchHasErrored={false}
-        deleteSavedSearchSuccess={false}
-        cloneSavedSearchIsLoading={false}
-        cloneSavedSearchHasErrored={false}
-        cloneSavedSearchSuccess={false}
-        cloneSavedSearch={() => {}}
+        {...Object.assign({}, props, { user: DEFAULT_USER_PROFILE })}
       />,
     );
     expect(wrapper.find(user.user.username)).toBeDefined();
@@ -69,25 +62,7 @@ describe('ProfilePageComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ProfilePage
-        user={user}
-        favoritePositions={resultsObject}
-        toggleFavorite={() => {}}
-        favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
-        savedSearches={searchObjectParent}
-        savedSearchesIsLoading={false}
-        savedSearchesHasErrored={false}
-        goToSavedSearch={() => {}}
-        deleteSearch={() => {}}
-        deleteSavedSearchIsLoading={false}
-        deleteSavedSearchHasErrored={false}
-        deleteSavedSearchSuccess={false}
-        cloneSavedSearchIsLoading={false}
-        cloneSavedSearchHasErrored={false}
-        cloneSavedSearchSuccess={false}
-        cloneSavedSearch={() => {}}
+        {...props}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

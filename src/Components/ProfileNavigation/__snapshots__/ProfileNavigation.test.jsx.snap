@@ -24,5 +24,12 @@ exports[`ProfileNavigationComponent matches snapshot 1`] = `
   >
     Saved Searches
   </Link>
+  <br />
+  <Link
+    replace={false}
+    to="/profile/bidlist"
+  >
+    Bid List
+  </Link>
 </div>
 `;

@@ -18,3 +18,7 @@ export const NEW_SAVED_SEARCH_SUCCESS = name =>
 export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
   `Search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
+export const DELETE_BID_ITEM_SUCCESS = 'Bid successfully removed.';
+export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
+export const ADD_BID_ITEM_SUCCESS = 'Bid successfully added.';
+export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';

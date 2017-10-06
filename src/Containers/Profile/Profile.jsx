@@ -5,6 +5,7 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
 import * as savedSearchActions from '../../actions/savedSearch';
+import * as bidListActions from '../../actions/bidList';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import * as PROP_TYPES from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -25,8 +26,10 @@ class Profile extends Component {
     } else {
       this.getFavorites();
       this.getSavedSearches();
+      this.getBidList();
       // reset the alert messages
       this.props.routeChangeResetState();
+      this.props.bidListRouteChangeResetState();
     }
   }
 
@@ -42,6 +45,10 @@ class Profile extends Component {
     this.props.savedSearchesFetchData();
   }
 
+  getBidList() {
+    this.props.fetchBidList();
+  }
+
   goToSavedSearch(savedSearchObject) {
     const stringifiedQuery = formQueryString(savedSearchObject.filters);
     this.props.setCurrentSavedSearch(savedSearchObject);
@@ -54,7 +61,9 @@ class Profile extends Component {
       favoritePositionsHasErrored, savedSearches, deleteSearch, cloneSearch,
       savedSearchesHasErrored, savedSearchesIsLoading, deleteSavedSearchHasErrored,
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
-      cloneSavedSearchHasErrored, cloneSavedSearchSuccess } = this.props;
+      cloneSavedSearchHasErrored, cloneSavedSearchSuccess, bidList, toggleBidPosition,
+      bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
+      bidListToggleIsLoading, bidListToggleSuccess } = this.props;
     return (
       <div>
         <ProfilePage
@@ -77,6 +86,13 @@ class Profile extends Component {
           cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
           cloneSavedSearchSuccess={cloneSavedSearchSuccess}
           cloneSavedSearch={cloneSearch}
+          toggleBidPosition={toggleBidPosition}
+          bidList={bidList}
+          bidListHasErrored={bidListHasErrored}
+          bidListIsLoading={bidListIsLoading}
+          bidListToggleHasErrored={bidListToggleHasErrored}
+          bidListToggleIsLoading={bidListToggleIsLoading}
+          bidListToggleSuccess={bidListToggleSuccess}
         />
       </div>
     );
@@ -104,10 +120,19 @@ Profile.propTypes = {
   deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
   routeChangeResetState: PropTypes.func.isRequired,
+  bidListRouteChangeResetState: PropTypes.func.isRequired,
   cloneSearch: PropTypes.func.isRequired,
   cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
   cloneSavedSearchHasErrored: PROP_TYPES.CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   cloneSavedSearchSuccess: PROP_TYPES.CLONE_SAVED_SEARCH_SUCCESS.isRequired,
+  fetchBidList: PropTypes.func,
+  toggleBidPosition: PropTypes.func,
+  bidListHasErrored: PropTypes.bool,
+  bidListIsLoading: PropTypes.bool,
+  bidList: PROP_TYPES.BID_LIST,
+  bidListToggleHasErrored: PropTypes.bool,
+  bidListToggleIsLoading: PropTypes.bool,
+  bidListToggleSuccess: PropTypes.bool,
 };
 
 Profile.defaultProps = {
@@ -125,10 +150,19 @@ Profile.defaultProps = {
   deleteSavedSearchHasErrored: false,
   deleteSavedSearchSuccess: false,
   routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
+  bidListRouteChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
   cloneSearch: PROP_TYPES.EMPTY_FUNCTION,
   cloneSavedSearchIsLoading: false,
   cloneSavedSearchHasErrored: false,
   cloneSavedSearchSuccess: false,
+  fetchBidList: PROP_TYPES.EMPTY_FUNCTION,
+  toggleBidPosition: PROP_TYPES.EMPTY_FUNCTION,
+  bidList: { results: [] },
+  bidListHasErrored: false,
+  bidListIsLoading: false,
+  bidListToggleHasErrored: false,
+  bidListToggleIsLoading: false,
+  bidListToggleSuccess: false,
 };
 
 Profile.contextTypes = {
@@ -152,6 +186,12 @@ const mapStateToProps = (state, ownProps) => ({
   cloneSavedSearchIsLoading: state.cloneSavedSearchIsLoading,
   cloneSavedSearchHasErrored: state.cloneSavedSearchHasErrored,
   cloneSavedSearchSuccess: state.cloneSavedSearchSuccess,
+  bidListHasErrored: state.bidListHasErrored,
+  bidListIsLoading: state.bidListIsLoading,
+  bidList: state.bidListFetchDataSuccess,
+  bidListToggleHasErrored: state.bidListToggleHasErrored,
+  bidListToggleIsLoading: state.bidListToggleIsLoading,
+  bidListToggleSuccess: state.bidListToggleSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -165,6 +205,9 @@ const mapDispatchToProps = dispatch => ({
   deleteSearch: id => dispatch(savedSearchActions.deleteSavedSearch(id)),
   routeChangeResetState: () => dispatch(savedSearchActions.routeChangeResetState()),
   cloneSearch: id => dispatch(savedSearchActions.cloneSavedSearch(id)),
+  fetchBidList: () => dispatch(bidListActions.bidListFetchData()),
+  toggleBidPosition: (id, remove) => dispatch(bidListActions.toggleBidPosition(id, remove)),
+  bidListRouteChangeResetState: () => dispatch(bidListActions.routeChangeResetState()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));
