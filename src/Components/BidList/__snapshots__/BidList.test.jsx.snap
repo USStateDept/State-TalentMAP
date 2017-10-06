@@ -2,8 +2,7 @@
 
 exports[`BidListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full saved-searches-container
-    "
+  className="usa-grid-full saved-searches-container "
 >
   <ProfileSectionTitle
     title="Your Bid List:"
