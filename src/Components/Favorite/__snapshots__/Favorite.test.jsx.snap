@@ -17,7 +17,7 @@ exports[`Favorite matches snapshot - Add state 1`] = `
     name="heart-o"
   />
    
-  Add to Favorites
+  Favorite
 </div>
 `;
 
@@ -38,6 +38,6 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
     name="heart"
   />
    
-  Remove from Favorites
+  Remove
 </div>
 `;
