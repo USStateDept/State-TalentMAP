@@ -1,5 +1,6 @@
 import axios from 'axios';
 import api from '../api';
+import * as SystemMessages from '../Constants/SystemMessages';
 import { fetchUserToken } from '../utilities';
 
 export function bidListHasErrored(bool) {
@@ -44,6 +45,15 @@ export function bidListToggleSuccess(response) {
   };
 }
 
+// to reset state
+export function routeChangeResetState() {
+  return (dispatch) => {
+    dispatch(bidListToggleSuccess(false));
+    dispatch(bidListToggleHasErrored(false));
+    dispatch(bidListToggleSuccess(false));
+  };
+}
+
 export function bidListFetchData() {
   return (dispatch) => {
     dispatch(bidListIsLoading(true));
@@ -66,6 +76,7 @@ export function toggleBidPosition(id, remove) {
   const idString = id.toString();
   return (dispatch) => {
     dispatch(bidListToggleIsLoading(true));
+    dispatch(bidListToggleSuccess(false));
     dispatch(bidListToggleHasErrored(false));
     let action = 'put';
     if (remove) {
@@ -80,13 +91,19 @@ export function toggleBidPosition(id, remove) {
     const secondArg = action === 'put' ? auth : null;
     axios[action](`${api}/bidlist/position/${idString}/`, firstArg, secondArg)
             .then(() => {
-              dispatch(bidListToggleSuccess(true));
+              dispatch(bidListToggleSuccess(
+                remove ?
+                  SystemMessages.DELETE_BID_ITEM_SUCCESS : SystemMessages.ADD_BID_ITEM_SUCCESS,
+              ));
               dispatch(bidListToggleIsLoading(false));
               dispatch(bidListToggleHasErrored(false));
               dispatch(bidListFetchData());
             })
             .catch(() => {
-              dispatch(bidListToggleHasErrored(true));
+              dispatch(bidListToggleHasErrored(
+                remove ?
+                  SystemMessages.DELETE_BID_ITEM_ERROR : SystemMessages.ADD_BID_ITEM_ERROR,
+              ));
               dispatch(bidListToggleIsLoading(false));
             });
   };

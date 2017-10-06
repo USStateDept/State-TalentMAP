@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import { POSITION_DETAILS, GO_BACK_TO_LINK, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
+import * as PROP_TYPES from '../../Constants/PropTypes';
 import * as SystemMessages from '../../Constants/SystemMessages';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
@@ -51,15 +51,15 @@ const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
 };
 
 PositionDetails.propTypes = {
-  details: POSITION_DETAILS,
+  details: PROP_TYPES.POSITION_DETAILS,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  goBackLink: GO_BACK_TO_LINK.isRequired,
-  userProfile: USER_PROFILE,
+  goBackLink: PROP_TYPES.GO_BACK_TO_LINK.isRequired,
+  userProfile: PROP_TYPES.USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   toggleBidPosition: PropTypes.func.isRequired,
-  bidList: BID_LIST.isRequired,
+  bidList: PROP_TYPES.BID_LIST.isRequired,
   bidListToggleIsLoading: PropTypes.bool,
 };
 

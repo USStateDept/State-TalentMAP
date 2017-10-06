@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full saved-searches-container "
+>
+  <ProfileSectionTitle
+    title="Your Bid List:"
+  />
+  <BidListResultsList
+    bidList={
+      Object {
+        "results": Array [],
+      }
+    }
+    toggleBidPosition={[Function]}
+  />
+</div>
+`;
