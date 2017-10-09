@@ -14,51 +14,52 @@ submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => {
       && bidListToggleHasErrored;
   const showSuccess = !bidListToggleIsLoading && bidListToggleSuccess
       && !bidListToggleHasErrored;
-  const isLoading = bidListIsLoading && !bidListHasErrored;
   const showSubmitBidError = !submitBidIsLoading && submitBidHasErrored && !submitBidSuccess;
   const showSubmitBidSuccess = !submitBidIsLoading && !submitBidHasErrored && submitBidSuccess;
+  const isLoading = bidListIsLoading && !bidListHasErrored;
+  const isLoadingClass = bidListIsLoading ? 'results-loading' : '';
+  const showAlert = () => {
+    if (showError) {
+      return (
+        <Alert
+          type="error"
+          title="Error"
+          messages={[{ body: bidListToggleHasErrored }]}
+        />
+      );
+    } else if (showSuccess) {
+      return (
+        <Alert
+          type="success"
+          title="Success"
+          messages={[{ body: bidListToggleSuccess }]}
+        />
+      );
+    } else if (showSubmitBidError) {
+      return (
+        <Alert
+          type="error"
+          title="Error"
+          messages={[{ body: submitBidHasErrored }]}
+        />
+      );
+    } else if (showSubmitBidSuccess) {
+      return (
+        <Alert
+          type="success"
+          title="Success"
+          messages={[{ body: submitBidSuccess }]}
+        />
+      );
+    }
+    return null;
+  };
   return (
     <div
-      className={`usa-grid-full saved-searches-container
-    ${bidListIsLoading ? 'results-loading' : ''}`}
+      className={`usa-grid-full saved-searches-container ${isLoadingClass}`}
     >
       <ProfileSectionTitle title="Your Bid List:" />
-      {
-        // Deleting a bid has errored
-        showError &&
-          <Alert
-            type="error"
-            title="Error"
-            messages={[{ body: bidListToggleHasErrored }]}
-          />
-      }
-      {
-        // Deleting a bid was successful
-        showSuccess &&
-          <Alert
-            type="success"
-            title="Success"
-            messages={[{ body: bidListToggleSuccess }]}
-          />
-      }
-      {
-        // Submitting a bid has errored
-        showSubmitBidError &&
-          <Alert
-            type="error"
-            title="Error"
-            messages={[{ body: submitBidHasErrored }]}
-          />
-      }
-      {
-        // Submitting a bid was successful
-        showSubmitBidSuccess &&
-          <Alert
-            type="success"
-            title="Success"
-            messages={[{ body: submitBidSuccess }]}
-          />
-      }
+      {showAlert()}
       {
         isLoading &&
         <Spinner type="homepage-position-results" size="big" />

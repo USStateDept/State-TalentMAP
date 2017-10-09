@@ -125,6 +125,7 @@ export function toggleBidPosition(id, remove) {
     // reset the states to ensure only one message can be shown
     dispatch(routeChangeResetState());
     dispatch(bidListToggleIsLoading(true));
+    dispatch(bidListToggleSuccess(false));
     dispatch(bidListToggleHasErrored(false));
     let action = 'put';
     if (remove) {
