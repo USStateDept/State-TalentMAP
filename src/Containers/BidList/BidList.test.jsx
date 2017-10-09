@@ -4,27 +4,20 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Profile from './Profile';
+import BidListContainer from './BidList';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('Profile', () => {
+describe('BidListContainer', () => {
   it('is defined', () => {
     const profile = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Profile
+      <BidListContainer
         isAuthorized={() => true}
         onNavigateTo={() => {}}
-      />
-    </MemoryRouter></Provider>);
-    expect(profile).toBeDefined();
-  });
-
-  it('can handle authentication redirects', () => {
-    const profile = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Profile
-        isAuthorized={() => false}
-        onNavigateTo={() => {}}
+        savedSearchesFetchData={() => {}}
+        setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(profile).toBeDefined();
