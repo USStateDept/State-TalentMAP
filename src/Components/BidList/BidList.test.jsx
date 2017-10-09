@@ -15,6 +15,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -30,6 +34,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.instance().props.bidList)
@@ -46,6 +54,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored="Removed"
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.find('Removed')).toBeDefined();
@@ -61,6 +73,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess="Added"
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.find('Added')).toBeDefined();
@@ -76,6 +92,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.find('.results-loading')).toBeDefined();
@@ -92,6 +112,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

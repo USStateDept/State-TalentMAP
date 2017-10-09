@@ -10,6 +10,7 @@ describe('BidListResultsListComponent', () => {
       <BidListResultsList
         bidList={bidList}
         toggleBidPosition={() => {}}
+        submitBid={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -20,6 +21,7 @@ describe('BidListResultsListComponent', () => {
       <BidListResultsList
         bidList={bidList}
         toggleBidPosition={() => {}}
+        submitBid={() => {}}
       />,
     );
     expect(wrapper.instance().props.bidList)
@@ -31,6 +33,7 @@ describe('BidListResultsListComponent', () => {
       <BidListResultsList
         bidList={bidList}
         toggleBidPosition={() => {}}
+        submitBid={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

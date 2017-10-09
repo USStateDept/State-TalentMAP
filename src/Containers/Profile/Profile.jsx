@@ -63,7 +63,8 @@ class Profile extends Component {
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
       cloneSavedSearchHasErrored, cloneSavedSearchSuccess, bidList, toggleBidPosition,
       bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
-      bidListToggleIsLoading, bidListToggleSuccess } = this.props;
+      bidListToggleIsLoading, bidListToggleSuccess, submitBid,
+      submitBidHasErrored, submitBidIsLoading, submitBidSuccess } = this.props;
     return (
       <div>
         <ProfilePage
@@ -93,6 +94,10 @@ class Profile extends Component {
           bidListToggleHasErrored={bidListToggleHasErrored}
           bidListToggleIsLoading={bidListToggleIsLoading}
           bidListToggleSuccess={bidListToggleSuccess}
+          submitBid={submitBid}
+          submitBidHasErrored={submitBidHasErrored}
+          submitBidIsLoading={submitBidIsLoading}
+          submitBidSuccess={submitBidSuccess}
         />
       </div>
     );
@@ -133,6 +138,10 @@ Profile.propTypes = {
   bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED,
   bidListToggleIsLoading: PropTypes.bool,
   bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS,
+  submitBid: PropTypes.func.isRequired,
+  submitBidHasErrored: PROP_TYPES.SUBMIT_BID_HAS_ERRORED.isRequired,
+  submitBidIsLoading: PropTypes.bool.isRequired,
+  submitBidSuccess: PROP_TYPES.SUBMIT_BID_SUCCESS.isRequired,
 };
 
 Profile.defaultProps = {
@@ -163,6 +172,10 @@ Profile.defaultProps = {
   bidListToggleHasErrored: false,
   bidListToggleIsLoading: false,
   bidListToggleSuccess: false,
+  submitBid: PROP_TYPES.EMPTY_FUNCTION,
+  submitBidHasErrored: false,
+  submitBidIsLoading: false,
+  submitBidSuccess: false,
 };
 
 Profile.contextTypes = {
@@ -192,6 +205,9 @@ const mapStateToProps = (state, ownProps) => ({
   bidListToggleHasErrored: state.bidListToggleHasErrored,
   bidListToggleIsLoading: state.bidListToggleIsLoading,
   bidListToggleSuccess: state.bidListToggleSuccess,
+  submitBidHasErrored: state.submitBidHasErrored,
+  submitBidIsLoading: state.submitBidIsLoading,
+  submitBidSuccess: state.submitBidSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -208,6 +224,7 @@ const mapDispatchToProps = dispatch => ({
   fetchBidList: () => dispatch(bidListActions.bidListFetchData()),
   toggleBidPosition: (id, remove) => dispatch(bidListActions.toggleBidPosition(id, remove)),
   bidListRouteChangeResetState: () => dispatch(bidListActions.routeChangeResetState()),
+  submitBid: id => dispatch(bidListActions.submitBid(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));

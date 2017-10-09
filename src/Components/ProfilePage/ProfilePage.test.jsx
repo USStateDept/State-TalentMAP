@@ -39,6 +39,10 @@ describe('ProfilePageComponent', () => {
     bidListToggleHasErrored: false,
     bidListToggleIsLoading: false,
     bidListToggleSuccess: false,
+    submitBid: () => {},
+    submitBidHasErrored: false,
+    submitBidIsLoading: false,
+    submitBidSuccess: false,
   };
 
   it('is defined', () => {

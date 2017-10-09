@@ -72,6 +72,9 @@ export function routeChangeResetState() {
     dispatch(bidListToggleSuccess(false));
     dispatch(bidListToggleHasErrored(false));
     dispatch(bidListToggleSuccess(false));
+    dispatch(submitBidSuccess(false));
+    dispatch(submitBidHasErrored(false));
+    dispatch(submitBidSuccess(false));
   };
 }
 
@@ -95,14 +98,19 @@ export function bidListFetchData() {
 
 export function submitBid(id) {
   return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    dispatch(routeChangeResetState());
     dispatch(submitBidIsLoading(true));
     dispatch(submitBidHasErrored(false));
-    axios.put(`${api}/bidlist/bid/${id}/submit/`, { headers: { Authorization: fetchUserToken() } })
+    // Since this is a PUT, we need an empty body as the second argument
+    axios.put(`${api}/bidlist/bid/${idString}/submit/`, null, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then(() => {
               dispatch(submitBidHasErrored(false));
               dispatch(submitBidIsLoading(false));
               dispatch(submitBidSuccess(SystemMessages.SUBMIT_BID_SUCCESS));
+              dispatch(bidListFetchData());
             })
             .catch(() => {
               dispatch(submitBidHasErrored(SystemMessages.SUBMIT_BID_ERROR));
@@ -114,6 +122,8 @@ export function submitBid(id) {
 export function toggleBidPosition(id, remove) {
   const idString = id.toString();
   return (dispatch) => {
+    // reset the states to ensure only one message can be shown
+    dispatch(routeChangeResetState());
     dispatch(bidListToggleIsLoading(true));
     dispatch(bidListToggleHasErrored(false));
     let action = 'put';
