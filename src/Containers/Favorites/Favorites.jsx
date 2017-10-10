@@ -60,6 +60,8 @@ FavoritePositionsContainer.defaultProps = {
   favoritePositions: POSITION_RESULTS_OBJECT,
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
+  userProfileFavoritePositionIsLoading: false,
+  userProfileFavoritePositionHasErrored: false,
 };
 
 FavoritePositionsContainer.contextTypes = {
