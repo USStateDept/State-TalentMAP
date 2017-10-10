@@ -41,10 +41,20 @@ const PositionTitle = ({ details, goBackLink, toggleBidPosition, bidList,
             }
             </p>
             <div className="usa-width-one-half position-details-header-body">
-              <strong>Post website:</strong> <a href="https://www.state.gov">www.state.gov</a>
+              <strong>Post website: </strong>
+              {
+                details.description && details.description.website ?
+                  <a href={details.description.website}>{details.description.website}</a> :
+                  SystemMessages.NO_POSITION_WEB_SITE
+              }
             </div>
             <div className="usa-width-one-half position-details-header-body">
-              <strong>Point of Contact:</strong> <a href="tel:222-222-2222">222-222-2222</a>
+              <strong>Point of Contact: </strong>
+              {
+                details.description && details.description.point_of_contact ?
+                  <a href={`tel:${details.description.point_of_contact}`}>{details.description.point_of_contact}</a> :
+                  SystemMessages.NO_POSITION_POC
+              }
             </div>
           </div>
         </div>
