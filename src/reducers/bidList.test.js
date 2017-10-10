@@ -24,4 +24,16 @@ describe('reducers', () => {
   it('can set reducer BID_LIST_TOGGLE_SUCCESS', () => {
     expect(reducers.bidListToggleSuccess(false, { type: 'BID_LIST_TOGGLE_SUCCESS', response: true })).toBe(true);
   });
+
+  it('can set reducer SUBMIT_BID_HAS_ERRORED', () => {
+    expect(reducers.submitBidHasErrored(false, { type: 'SUBMIT_BID_HAS_ERRORED', hasErrored: true })).toBe(true);
+  });
+
+  it('can set reducer SUBMIT_BID_IS_LOADING', () => {
+    expect(reducers.submitBidIsLoading(false, { type: 'SUBMIT_BID_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
+  it('can set reducer SUBMIT_BID_SUCCESS', () => {
+    expect(reducers.submitBidSuccess(false, { type: 'SUBMIT_BID_SUCCESS', response: true })).toBe(true);
+  });
 });

@@ -18,6 +18,12 @@ describe('SystemMessages', () => {
       'NO_GRADE',
       'NO_POSITION_DESCRIPTION',
       'GENERAL_SAVED_SEARCH_ERROR',
+      'DELETE_BID_ITEM_SUCCESS',
+      'DELETE_BID_ITEM_ERROR',
+      'ADD_BID_ITEM_SUCCESS',
+      'ADD_BID_ITEM_ERROR',
+      'SUBMIT_BID_SUCCESS',
+      'SUBMIT_BID_ERROR',
     ];
     expectedMessages.forEach((msg) => {
       expect(SystemMessages[msg]).toBeDefined();

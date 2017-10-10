@@ -45,6 +45,27 @@ export function bidListToggleSuccess(response) {
   };
 }
 
+export function submitBidHasErrored(bool) {
+  return {
+    type: 'SUBMIT_BID_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function submitBidIsLoading(bool) {
+  return {
+    type: 'SUBMIT_BID_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function submitBidSuccess(response) {
+  return {
+    type: 'SUBMIT_BID_SUCCESS',
+    response,
+  };
+}
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
@@ -68,6 +89,24 @@ export function bidListFetchData() {
             .catch(() => {
               dispatch(bidListHasErrored(true));
               dispatch(bidListIsLoading(false));
+            });
+  };
+}
+
+export function submitBid(id) {
+  return (dispatch) => {
+    dispatch(submitBidIsLoading(true));
+    dispatch(submitBidHasErrored(false));
+    axios.put(`${api}/bidlist/bid/${id}/submit/`, { headers: { Authorization: fetchUserToken() } })
+            .then(response => response.data)
+            .then(() => {
+              dispatch(submitBidHasErrored(false));
+              dispatch(submitBidIsLoading(false));
+              dispatch(submitBidSuccess(SystemMessages.SUBMIT_BID_SUCCESS));
+            })
+            .catch(() => {
+              dispatch(submitBidHasErrored(SystemMessages.SUBMIT_BID_ERROR));
+              dispatch(submitBidIsLoading(false));
             });
   };
 }
