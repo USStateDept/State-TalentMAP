@@ -57,7 +57,7 @@ class SearchFiltersContainer extends Component {
     const multiSelectFilterMap = new Map();
 
     // pull filters from props and add to Map
-    this.props.filters.forEach((f) => {
+    this.props.filters.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill') {

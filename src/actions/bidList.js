@@ -115,6 +115,7 @@ export function toggleBidPosition(id, remove) {
   const idString = id.toString();
   return (dispatch) => {
     dispatch(bidListToggleIsLoading(true));
+    dispatch(bidListToggleSuccess(false));
     dispatch(bidListToggleHasErrored(false));
     let action = 'put';
     if (remove) {

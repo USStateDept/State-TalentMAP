@@ -53,7 +53,7 @@ describe('ProfilePageComponent', () => {
   it('it can handle a username', () => {
     const wrapper = shallow(
       <ProfilePage
-        {...Object.assign({}, props, { user: DEFAULT_USER_PROFILE })}
+        {...Object.assign({}, props, { user })}
       />,
     );
     expect(wrapper.find(user.user.username)).toBeDefined();
@@ -62,7 +62,7 @@ describe('ProfilePageComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ProfilePage
-        {...props}
+        {...Object.assign({}, props, { user })}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

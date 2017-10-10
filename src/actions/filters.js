@@ -38,31 +38,48 @@ export function filtersFetchData(items, queryParams, savedResponses) {
       // Set all of our isSelected values back to false.
       // We'll check if they should be set to true later
       responses.filters.forEach((responseFilter, i) => {
-        responseFilter.data.forEach((responseFilterData, ii) => {
-          responses.filters[i].data[ii].isSelected = false;
+        responseFilter.data.forEach((responseFilterData, j) => {
+          responses.filters[i].data[j].isSelected = false;
         });
       });
       // check for option queryParamObject to map against (used for pill filters)
       responses.mappedParams = [];
+
+      // set any custom descriptions
+      responses.filters.forEach((filterItem, i) => {
+        filterItem.data.forEach((filterItemObject, j) => {
+          if (filterItem.item.description === 'region') {
+            responses.filters[i].data[j].custom_description =
+              `${filterItemObject.long_description}
+              (${filterItemObject.short_description})`;
+          } else if (filterItem.item.description === 'skill') {
+            responses.filters[i].data[j].custom_description =
+              `${filterItemObject.description}
+              (${filterItemObject.code})`;
+          }
+        });
+      });
+
+      // map any query params
       if (queryParamObject) {
         responses.filters.forEach((response) => {
           const filterRef = response.item.selectionRef;
           Object.keys(queryParamObject).forEach((key) => {
             if (key === filterRef) {
-                // convert the string to an array
+              // convert the string to an array
               const paramArray = queryParamObject[key].split(',');
               paramArray.forEach((paramArrayItem) => {
-                  // create a base config object
+                // create a base config object
                 const mappedObject = {
                   selectionRef: filterRef,
                   codeRef: paramArrayItem,
                 };
                 responses.filters.forEach((filterItem, i) => {
-                  filterItem.data.forEach((filterItemObject, ii) => {
+                  filterItem.data.forEach((filterItemObject, j) => {
                     if (filterItemObject.code &&
                           filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
                           filterItem.item.selectionRef === mappedObject.selectionRef) {
-                      responses.filters[i].data[ii].isSelected = true;
+                      responses.filters[i].data[j].isSelected = true;
                       if ( // boolean filters are special since they don't rely on AJAX
                           response.item.description === 'COLA' ||
                           response.item.description === 'postDiff' ||
@@ -71,7 +88,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                         ) {
                         mappedObject.description = response.item.title;
                       } else {
-                          // try to get the shortest description since pills should be small
+                        // try to get the shortest description since pills should be small
                         mappedObject.description =
                             filterItemObject.short_description ||
                             filterItemObject.description ||
