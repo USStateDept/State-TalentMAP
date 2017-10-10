@@ -51,26 +51,24 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
           className="usa-width-one-half position-details-header-body"
         >
           <strong>
-            Post website:
+            Post website: 
           </strong>
-           
           <a
-            href="https://www.state.gov"
+            href="https://www.state.gov/post"
           >
-            www.state.gov
+            https://www.state.gov/post
           </a>
         </div>
         <div
           className="usa-width-one-half position-details-header-body"
         >
           <strong>
-            Point of Contact:
+            Point of Contact: 
           </strong>
-           
           <a
-            href="tel:222-222-2222"
+            href="tel:202-555-5555"
           >
-            222-222-2222
+            202-555-5555
           </a>
         </div>
       </div>

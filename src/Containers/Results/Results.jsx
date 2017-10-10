@@ -37,7 +37,7 @@ class Results extends Component {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword,
             defaultLocation } = this.state;
     // clear out old alert messages
-    this.props.routeChangeResetState();
+    this.props.resetSavedSearchAlerts();
     // check auth
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
@@ -194,7 +194,7 @@ class Results extends Component {
   saveSearch(e, id) {
     // parse the string to an object
     const parsedQuery = queryString.parse(this.state.query.value);
-    // remove an invalid filters
+    // remove any invalid filters
     const cleanedQuery = cleanQueryParams(parsedQuery);
     // form our object for the API
     const queryObject = Object.assign({}, {
@@ -209,7 +209,7 @@ class Results extends Component {
   render() {
     const { results, hasErrored, isLoading, filters, toggleFavorite,
             selectedAccordion, setAccordion, userProfile,
-            userProfileFavoritePositionIsLoading,
+            userProfileFavoritePositionIsLoading, resetSavedSearchAlerts,
             userProfileFavoritePositionHasErrored, currentSavedSearch,
             newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored } = this.props;
     return (
@@ -242,6 +242,7 @@ class Results extends Component {
           newSavedSearchHasErrored={newSavedSearchHasErrored}
           saveSearch={this.saveSearch}
           currentSavedSearch={currentSavedSearch}
+          resetSavedSearchAlerts={resetSavedSearchAlerts}
         />
       </div>
     );
@@ -269,7 +270,7 @@ Results.propTypes = {
   newSavedSearchHasErrored: PROP_TYPES.SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
   currentSavedSearch: PROP_TYPES.SAVED_SEARCH_OBJECT,
-  routeChangeResetState: PropTypes.func.isRequired,
+  resetSavedSearchAlerts: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -288,7 +289,7 @@ Results.defaultProps = {
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},
-  routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
+  resetSavedSearchAlerts: PROP_TYPES.EMPTY_FUNCTION,
 };
 
 Results.contextTypes = {
@@ -325,7 +326,7 @@ const mapDispatchToProps = dispatch => ({
     // we don't pass the refreshFavorites arg
     dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
-  routeChangeResetState: () => dispatch(routeChangeResetState()),
+  resetSavedSearchAlerts: () => dispatch(routeChangeResetState()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);
