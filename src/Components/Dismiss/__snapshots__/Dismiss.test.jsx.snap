@@ -17,6 +17,11 @@ exports[`DismissComponent matches snapshot 1`] = `
     <FontAwesome
       name="close"
     />
+    <span
+      className="usa-sr-only"
+    >
+      Dismiss this alert
+    </span>
   </button>
 </div>
 `;

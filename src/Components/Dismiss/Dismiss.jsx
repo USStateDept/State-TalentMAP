@@ -7,6 +7,7 @@ const Dismiss = ({ children, onDismiss, className, buttonClassName, buttonTitle 
     {children}
     <button className={buttonClassName} title={buttonTitle} onClick={onDismiss}>
       <FontAwesome name="close" />
+      <span className="usa-sr-only">{buttonTitle}</span>
     </button>
   </div>
   );
