@@ -30,15 +30,28 @@ export const POST_MISSION_DATA = PropTypes.shape({
 export const POST_DETAILS = POST_MISSION_DATA;
 
 export const POSITION_DETAILS = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   grade: PropTypes.string,
   skill: PropTypes.string,
   bureau: PropTypes.string,
   organization: PropTypes.string,
+  representation: PropTypes.string,
+  classifications: PropTypes.arrayOf(PropTypes.string),
   position_number: PropTypes.string,
+  title: PropTypes.string,
   is_overseas: PropTypes.bool,
   create_date: PropTypes.string,
   update_date: PropTypes.string,
+  effective_date: PropTypes.string,
+  description: PropTypes.shape({
+    id: PropTypes.number,
+    last_editing_user: PropTypes.string,
+    date_created: PropTypes.string,
+    date_updated: PropTypes.string,
+    content: PropTypes.string,
+    point_of_contact: PropTypes.string,
+    website: PropTypes.string,
+  }),
   post: POST_MISSION_DATA,
   languages: LANGUAGES,
 });

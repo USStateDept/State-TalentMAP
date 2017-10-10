@@ -17,6 +17,8 @@ describe('SystemMessages', () => {
       'NO_SKILL',
       'NO_GRADE',
       'NO_POSITION_DESCRIPTION',
+      'NO_POSITION_POC',
+      'NO_POSITION_WEB_SITE',
       'GENERAL_SAVED_SEARCH_ERROR',
       'DELETE_BID_ITEM_SUCCESS',
       'DELETE_BID_ITEM_ERROR',

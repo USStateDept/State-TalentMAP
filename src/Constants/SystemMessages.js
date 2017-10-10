@@ -13,6 +13,8 @@ export const NO_POSITION_TITLE = DEFAULT_TEXT;
 export const NO_SKILL = DEFAULT_TEXT;
 export const NO_GRADE = DEFAULT_TEXT;
 export const NO_POSITION_DESCRIPTION = 'There is no description for this position.';
+export const NO_POSITION_POC = 'None listed.';
+export const NO_POSITION_WEB_SITE = 'None listed.';
 export const NEW_SAVED_SEARCH_SUCCESS = name =>
   `New search with the name "${name}" has been saved! You can go to your profile to view all of your saved searches.`;
 export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
