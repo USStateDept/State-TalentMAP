@@ -11,6 +11,7 @@ describe('BidListResultsCardComponent', () => {
       <BidListResultsCard
         bid={bid}
         toggleBidPosition={() => {}}
+        submitBid={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -21,6 +22,7 @@ describe('BidListResultsCardComponent', () => {
       <BidListResultsCard
         bid={bid}
         toggleBidPosition={() => {}}
+        submitBid={() => {}}
       />,
     );
     expect(wrapper.instance().props.bid.id).toBe(bid.id);
@@ -28,13 +30,19 @@ describe('BidListResultsCardComponent', () => {
 
   it('can call functions on button click', () => {
     const spy = sinon.spy();
+    const submitSpy = sinon.spy();
     const wrapper = shallow(
       <BidListResultsCard
         bid={bid}
         toggleBidPosition={spy}
+        submitBid={submitSpy}
       />,
     );
+    // submitting is the first button
     wrapper.find('button').at(0).simulate('click');
+    sinon.assert.calledOnce(submitSpy);
+    // deleting is the second button
+    wrapper.find('button').at(1).simulate('click');
     sinon.assert.calledOnce(spy);
   });
 
@@ -43,6 +51,7 @@ describe('BidListResultsCardComponent', () => {
       <BidListResultsCard
         bid={bid}
         toggleBidPosition={() => {}}
+        submitBid={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

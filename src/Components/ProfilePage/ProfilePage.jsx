@@ -16,7 +16,8 @@ deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSucces
 cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
 cloneSavedSearchSuccess, bidList, toggleBidPosition,
 bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
-bidListToggleIsLoading, bidListToggleSuccess }) => (
+bidListToggleIsLoading, bidListToggleSuccess, submitBid,
+submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => (
   <div className="usa-grid-full">
     <h1>
       {
@@ -77,6 +78,10 @@ bidListToggleIsLoading, bidListToggleSuccess }) => (
                 bidListToggleHasErrored={bidListToggleHasErrored}
                 bidListToggleIsLoading={bidListToggleIsLoading}
                 bidListToggleSuccess={bidListToggleSuccess}
+                submitBid={submitBid}
+                submitBidHasErrored={submitBidHasErrored}
+                submitBidIsLoading={submitBidIsLoading}
+                submitBidSuccess={submitBidSuccess}
               />
             )
           }
@@ -113,6 +118,10 @@ ProfilePage.propTypes = {
   bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED.isRequired,
   bidListToggleIsLoading: PropTypes.bool.isRequired,
   bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS.isRequired,
+  submitBid: PropTypes.func.isRequired,
+  submitBidHasErrored: PROP_TYPES.SUBMIT_BID_HAS_ERRORED.isRequired,
+  submitBidIsLoading: PropTypes.bool.isRequired,
+  submitBidSuccess: PROP_TYPES.SUBMIT_BID_SUCCESS.isRequired,
 };
 
 ProfilePage.defaultProps = {

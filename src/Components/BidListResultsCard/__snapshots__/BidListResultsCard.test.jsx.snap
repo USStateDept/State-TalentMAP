@@ -20,8 +20,14 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="usa-width-one-whole bid-list-delete-button-container"
+    className="usa-width-one-whole"
   >
+    <button
+      onClick={[Function]}
+      title="Submit this bid"
+    >
+      Submit Bid
+    </button>
     <button
       className="usa-button-secondary"
       onClick={[Function]}

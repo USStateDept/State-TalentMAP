@@ -15,6 +15,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -30,6 +34,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.instance().props.bidList)
@@ -46,6 +54,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored="Removed"
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.find('Removed')).toBeDefined();
@@ -61,9 +73,51 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess="Added"
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.find('Added')).toBeDefined();
+  });
+
+  it('can show error message submitting a bid', () => {
+    const wrapper = shallow(
+      <BidList
+        bidList={bidList}
+        toggleBidPosition={() => {}}
+        bidListHasErrored={false}
+        bidListIsLoading={false}
+        bidListToggleHasErrored={false}
+        bidListToggleIsLoading={false}
+        bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored="Error"
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
+      />,
+    );
+    expect(wrapper.find('Error')).toBeDefined();
+  });
+
+  it('can show success message submitting a bid', () => {
+    const wrapper = shallow(
+      <BidList
+        bidList={bidList}
+        toggleBidPosition={() => {}}
+        bidListHasErrored={false}
+        bidListIsLoading={false}
+        bidListToggleHasErrored={false}
+        bidListToggleIsLoading={false}
+        bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess="Submitted"
+      />,
+    );
+    expect(wrapper.find('Submitted')).toBeDefined();
   });
 
   it('can render elements when bid list is loading', () => {
@@ -76,6 +130,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(wrapper.find('.results-loading')).toBeDefined();
@@ -92,6 +150,10 @@ describe('BidListComponent', () => {
         bidListToggleHasErrored={false}
         bidListToggleIsLoading={false}
         bidListToggleSuccess={false}
+        submitBid={() => {}}
+        submitBidHasErrored={false}
+        submitBidIsLoading={false}
+        submitBidSuccess={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

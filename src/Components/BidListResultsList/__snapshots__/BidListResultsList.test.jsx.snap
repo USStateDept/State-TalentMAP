@@ -10,6 +10,7 @@ exports[`BidListResultsListComponent matches snapshot 1`] = `
         "id": 1,
       }
     }
+    submitBid={[Function]}
     toggleBidPosition={[Function]}
   />
 </div>

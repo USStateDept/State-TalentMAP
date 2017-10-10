@@ -234,6 +234,10 @@ export const BID_LIST = PropTypes.shape({
   results: BID_RESULTS,
 });
 
+export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
+
+export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
+
 export const EMPTY_FUNCTION = () => {};
 
 export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };
