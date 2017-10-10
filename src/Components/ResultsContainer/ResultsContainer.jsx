@@ -10,6 +10,7 @@ import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 import SaveNewSearchContainer from '../SaveNewSearchContainer';
 import SaveNewSearchAlert from '../SaveNewSearchAlert';
+import Dismiss from '../Dismiss';
 
 class ResultsContainer extends Component {
   constructor(props) {
@@ -28,13 +29,15 @@ class ResultsContainer extends Component {
             defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
             toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            currentSavedSearch, newSavedSearchIsSaving,
+            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts,
       } = this.props;
     return (
       <div className="results-container">
         {
           newSavedSearchSuccess &&
-          <SaveNewSearchAlert newSavedSearchSuccess={newSavedSearchSuccess} />
+          <Dismiss onDismiss={resetSavedSearchAlerts}>
+            <SaveNewSearchAlert newSavedSearchSuccess={newSavedSearchSuccess} />
+          </Dismiss>
         }
         <ResultsPillContainer
           items={pillFilters}
@@ -127,6 +130,7 @@ ResultsContainer.propTypes = {
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
+  resetSavedSearchAlerts: PropTypes.func.isRequired,
 };
 
 ResultsContainer.defaultProps = {

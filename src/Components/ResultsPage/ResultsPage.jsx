@@ -31,7 +31,8 @@ class Results extends Component {
             defaultPageNumber, onQueryParamUpdate, filters, userProfile, toggleFavorite,
             selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving }
+            newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
+            resetSavedSearchAlerts }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -86,6 +87,7 @@ class Results extends Component {
             newSavedSearchHasErrored={newSavedSearchHasErrored}
             newSavedSearchIsSaving={newSavedSearchIsSaving}
             currentSavedSearch={currentSavedSearch}
+            resetSavedSearchAlerts={resetSavedSearchAlerts}
           />
         </div>
       </div>
@@ -121,6 +123,7 @@ Results.propTypes = {
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
+  resetSavedSearchAlerts: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
