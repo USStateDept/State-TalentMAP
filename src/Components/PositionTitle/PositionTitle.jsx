@@ -7,27 +7,34 @@ import * as SystemMessages from '../../Constants/SystemMessages';
 import { shortenString } from '../../utilities';
 
 const PositionTitle = ({ details, goBackLink, toggleBidPosition, bidList,
-  bidListToggleIsLoading }) => (
+  bidListToggleIsLoading }) => {
+  const postWebSite = details.description && details.description.website ?
+    <a href={details.description.website}>{details.description.website}</a> :
+    SystemMessages.NO_POSITION_WEB_SITE;
+  const pointOfContact = details.description && details.description.point_of_contact ?
+    <a href={`tel:${details.description.point_of_contact}`}>{details.description.point_of_contact}</a> :
+    SystemMessages.NO_POSITION_POC;
+  return (
     <div className="position-details-header-container">
       <div className="position-details-header">
         <div className="usa-grid positions-details-header-grid">
           <div className="usa-width-one-half">
             <div className="position-details-header-back">
               {
-              goBackLink.text && // if goBackLink.text is defined, render...
-              <div>
-                <FontAwesome name="arrow-left" />
-                    &nbsp;
-                <a
-                  className="back-link"
-                  tabIndex="0"
-                  role="link"
-                  onClick={() => window.history.back()}
-                >
-                  {goBackLink.text}
-                </a>
-              </div>
-            }
+                goBackLink.text && // if goBackLink.text is defined, render...
+                <div>
+                  <FontAwesome name="arrow-left" />
+                      &nbsp;
+                  <a
+                    className="back-link"
+                    tabIndex="0"
+                    role="link"
+                    onClick={() => window.history.back()}
+                  >
+                    {goBackLink.text}
+                  </a>
+                </div>
+              }
             </div>
             <div className="position-details-header-title">
               <strong>Position Number: {details.position_number}</strong>
@@ -38,23 +45,15 @@ const PositionTitle = ({ details, goBackLink, toggleBidPosition, bidList,
               details.description && details.description.content ?
                 shortenString(details.description.content) :
                 SystemMessages.NO_POSITION_DESCRIPTION
-            }
+              }
             </p>
             <div className="usa-width-one-half position-details-header-body">
               <strong>Post website: </strong>
-              {
-                details.description && details.description.website ?
-                  <a href={details.description.website}>{details.description.website}</a> :
-                  SystemMessages.NO_POSITION_WEB_SITE
-              }
+              {postWebSite}
             </div>
             <div className="usa-width-one-half position-details-header-body">
               <strong>Point of Contact: </strong>
-              {
-                details.description && details.description.point_of_contact ?
-                  <a href={`tel:${details.description.point_of_contact}`}>{details.description.point_of_contact}</a> :
-                  SystemMessages.NO_POSITION_POC
-              }
+              {pointOfContact}
             </div>
           </div>
         </div>
@@ -73,7 +72,8 @@ const PositionTitle = ({ details, goBackLink, toggleBidPosition, bidList,
         />
       </div>
     </div>
-);
+  );
+};
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
