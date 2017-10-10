@@ -82,7 +82,8 @@ export function savedSearchesHasErrored(bool) {
   };
 }
 
-// when we want to reset alert messages after the user navigates away and comes back later
+// When we want to reset alert messages after the user navigates away and comes back later,
+// or when we want the user to be able to clear the current alert message.
 export function routeChangeResetState() {
   return (dispatch) => {
     dispatch(deleteSavedSearchSuccess(false));
