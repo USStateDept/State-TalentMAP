@@ -29,21 +29,21 @@ describe('BidListResultsCardComponent', () => {
   });
 
   it('can call functions on button click', () => {
-    const spy = sinon.spy();
-    const submitSpy = sinon.spy();
+    const toggleBidSpy = sinon.spy();
+    const submitBidSpy = sinon.spy();
     const wrapper = shallow(
       <BidListResultsCard
         bid={bid}
-        toggleBidPosition={spy}
-        submitBid={submitSpy}
+        toggleBidPosition={toggleBidSpy}
+        submitBid={submitBidSpy}
       />,
     );
     // submitting is the first button
     wrapper.find('button').at(0).simulate('click');
-    sinon.assert.calledOnce(submitSpy);
+    sinon.assert.calledOnce(submitBidSpy);
     // deleting is the second button
     wrapper.find('button').at(1).simulate('click');
-    sinon.assert.calledOnce(spy);
+    sinon.assert.calledOnce(toggleBidSpy);
   });
 
   it('matches snapshot', () => {
