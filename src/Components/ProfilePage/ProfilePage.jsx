@@ -1,23 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import ProfileNavigation from '../ProfileNavigation';
-import FavoritePositions from '../FavoritePositions';
-import SavedSearches from '../SavedSearches';
 import ProfileLanding from '../ProfileLanding';
-import BidList from '../BidList';
+import BidListContainer from '../../Containers/BidList/BidList';
+import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
+import SavedSearchesContainer from '../../Containers/SavedSearches/SavedSearches';
 import * as PROP_TYPES from '../../Constants/PropTypes';
 
-const ProfilePage = ({ user, favoritePositions, toggleFavorite, favoritePositionsIsLoading,
-favoritePositionsHasErrored, toggleFavoritePositionIsLoading,
-toggleFavoritePositionHasErrored, savedSearches, goToSavedSearch,
-savedSearchesHasErrored, savedSearchesIsLoading, deleteSearch,
-deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
-cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
-cloneSavedSearchSuccess, bidList, toggleBidPosition,
-bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
-bidListToggleIsLoading, bidListToggleSuccess, submitBid,
-submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => (
+const ProfilePage = ({ user }) => (
   <div className="usa-grid-full">
     <h1>
       {
@@ -32,59 +22,15 @@ submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => (
         <Route path="/profile" exact component={ProfileLanding} />
         <Route
           path="/profile/favorites"
-          component={() =>
-            (
-              <FavoritePositions
-                toggleFavorite={toggleFavorite}
-                favorites={favoritePositions}
-                favoritePositionsIsLoading={favoritePositionsIsLoading}
-                favoritePositionsHasErrored={favoritePositionsHasErrored}
-                toggleFavoritePositionIsLoading={toggleFavoritePositionIsLoading}
-                toggleFavoritePositionHasErrored={toggleFavoritePositionHasErrored}
-              />
-            )
-          }
+          component={FavoritePositionsContainer}
         />
         <Route
           path="/profile/searches"
-          component={() =>
-            (
-              <SavedSearches
-                savedSearches={savedSearches}
-                savedSearchesHasErrored={savedSearchesHasErrored}
-                savedSearchesIsLoading={savedSearchesIsLoading}
-                goToSavedSearch={goToSavedSearch}
-                deleteSearch={deleteSearch}
-                deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
-                deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
-                deleteSavedSearchSuccess={deleteSavedSearchSuccess}
-                cloneSavedSearch={cloneSavedSearch}
-                cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
-                cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
-                cloneSavedSearchSuccess={cloneSavedSearchSuccess}
-              />
-            )
-          }
+          component={SavedSearchesContainer}
         />
         <Route
           path="/profile/bidlist"
-          component={() =>
-            (
-              <BidList
-                toggleBidPosition={toggleBidPosition}
-                bidList={bidList}
-                bidListHasErrored={bidListHasErrored}
-                bidListIsLoading={bidListIsLoading}
-                bidListToggleHasErrored={bidListToggleHasErrored}
-                bidListToggleIsLoading={bidListToggleIsLoading}
-                bidListToggleSuccess={bidListToggleSuccess}
-                submitBid={submitBid}
-                submitBidHasErrored={submitBidHasErrored}
-                submitBidIsLoading={submitBidIsLoading}
-                submitBidSuccess={submitBidSuccess}
-              />
-            )
-          }
+          component={BidListContainer}
         />
       </Switch>
     </div>
@@ -93,41 +39,6 @@ submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => (
 
 ProfilePage.propTypes = {
   user: PROP_TYPES.USER_PROFILE.isRequired,
-  favoritePositions: PROP_TYPES.POSITION_SEARCH_RESULTS,
-  toggleFavorite: PropTypes.func.isRequired,
-  favoritePositionsIsLoading: PropTypes.bool.isRequired,
-  favoritePositionsHasErrored: PropTypes.bool.isRequired,
-  toggleFavoritePositionIsLoading: PropTypes.bool,
-  toggleFavoritePositionHasErrored: PropTypes.bool,
-  savedSearches: PROP_TYPES.SAVED_SEARCH_PARENT_OBJECT.isRequired,
-  savedSearchesIsLoading: PropTypes.bool.isRequired,
-  savedSearchesHasErrored: PropTypes.bool.isRequired,
-  goToSavedSearch: PropTypes.func.isRequired,
-  deleteSearch: PropTypes.func.isRequired,
-  deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
-  deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
-  deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
-  cloneSavedSearch: PropTypes.func.isRequired,
-  cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
-  cloneSavedSearchHasErrored: PROP_TYPES.CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
-  cloneSavedSearchSuccess: PROP_TYPES.CLONE_SAVED_SEARCH_SUCCESS.isRequired,
-  toggleBidPosition: PropTypes.func.isRequired,
-  bidListHasErrored: PropTypes.bool.isRequired,
-  bidListIsLoading: PropTypes.bool.isRequired,
-  bidList: PROP_TYPES.BID_LIST.isRequired,
-  bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED.isRequired,
-  bidListToggleIsLoading: PropTypes.bool.isRequired,
-  bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS.isRequired,
-  submitBid: PropTypes.func.isRequired,
-  submitBidHasErrored: PROP_TYPES.SUBMIT_BID_HAS_ERRORED.isRequired,
-  submitBidIsLoading: PropTypes.bool.isRequired,
-  submitBidSuccess: PROP_TYPES.SUBMIT_BID_SUCCESS.isRequired,
-};
-
-ProfilePage.defaultProps = {
-  favoritePositions: {},
-  toggleFavoritePositionIsLoading: false,
-  toggleFavoritePositionHasErrored: false,
 };
 
 export default ProfilePage;
