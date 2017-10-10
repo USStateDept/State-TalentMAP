@@ -21,6 +21,26 @@ exports[`Favorite matches snapshot - Add state 1`] = `
 </div>
 `;
 
+exports[`Favorite matches snapshot - Hide text 1`] = `
+<div
+  className="favorite-container"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+  tabIndex="0"
+  title="Add to Favorites"
+>
+  <FontAwesome
+    name="heart-o"
+  />
+   
+</div>
+`;
+
 exports[`Favorite matches snapshot - Remove state 1`] = `
 <div
   className="favorite-container"

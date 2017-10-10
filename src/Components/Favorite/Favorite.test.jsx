@@ -32,6 +32,12 @@ describe('Favorite', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('handles isLoading state', () => {
+    /* eslint-disable */
+    const wrapper = shallow(<Favorite isLoading onToggle={() => {}} compareArray={[]} refKey={refKey} />);
+    expect(wrapper.find('div').prop('style')).toEqual({pointerEvents: 'none'});
+  });
+
   it('matches snapshot - Add state', () => {
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[]} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -40,6 +46,12 @@ describe('Favorite', () => {
   it('matches snapshot - Remove state', () => {
     const array = [{ id: refKey }];
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={array} refKey={refKey} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot - Hide text', () => {
+    /* eslint-disable */
+    const wrapper = shallow(<Favorite hideText onToggle={() => {}} compareArray={[]} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

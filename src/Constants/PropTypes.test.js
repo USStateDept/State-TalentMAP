@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import * as PropTypes from './PropTypes';
 
 describe('SystemMessages', () => {
@@ -23,5 +24,17 @@ describe('SystemMessages', () => {
 
   it('Should return USER_PROFILE', () => {
     expect(PropTypes.USER_PROFILE).toBeDefined();
+  });
+});
+
+describe('PREVENT_DEFAULT', () => {
+  it('Should return PREVENT_DEFAULT', () => {
+    expect(PropTypes.PREVENT_DEFAULT).toBeDefined();
+  });
+
+  it('should handle a function call', () => {
+    const e = { preventDefault: sinon.spy() };
+    PropTypes.PREVENT_DEFAULT(e);
+    expect(e.preventDefault.calledOnce).toBe(true);
   });
 });
