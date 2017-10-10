@@ -1,11 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import sinon from 'sinon';
 import Profile from './Profile';
 
 const middlewares = [thunk];
@@ -17,46 +15,9 @@ describe('Profile', () => {
       <Profile
         isAuthorized={() => true}
         onNavigateTo={() => {}}
-        savedSearchesFetchData={() => {}}
-        setCurrentSavedSearch={() => {}}
-        deleteSearch={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(profile).toBeDefined();
-  });
-
-  it('can call the onToggleFavorite function', () => {
-    const spy = sinon.spy();
-    const wrapper = shallow(
-      <Profile.WrappedComponent
-        isAuthorized={() => true}
-        onNavigateTo={() => {}}
-        fetchData={() => {}}
-        toggleFavorite={spy}
-        savedSearchesFetchData={() => {}}
-        setCurrentSavedSearch={() => {}}
-        deleteSearch={() => {}}
-      />,
-    );
-    wrapper.instance().onToggleFavorite();
-    sinon.assert.calledOnce(spy);
-  });
-
-  it('can call the goToSavedSearch function', () => {
-    const spy = sinon.spy();
-    const wrapper = shallow(
-      <Profile.WrappedComponent
-        isAuthorized={() => true}
-        onNavigateTo={spy}
-        fetchData={() => {}}
-        toggleFavorite={() => {}}
-        savedSearchesFetchData={() => {}}
-        setCurrentSavedSearch={() => {}}
-        deleteSearch={() => {}}
-      />,
-    );
-    wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
-    sinon.assert.calledOnce(spy);
   });
 
   it('can handle authentication redirects', () => {
@@ -64,9 +25,6 @@ describe('Profile', () => {
       <Profile
         isAuthorized={() => false}
         onNavigateTo={() => {}}
-        savedSearchesFetchData={() => {}}
-        setCurrentSavedSearch={() => {}}
-        deleteSearch={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(profile).toBeDefined();

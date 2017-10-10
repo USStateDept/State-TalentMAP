@@ -9,6 +9,7 @@ import { logoutRequest } from '../../login/actions';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
+import logo from '../../assets/logos/png/horizontal_color.png';
 
 export class Header extends Component {
   constructor(props) {
@@ -54,11 +55,11 @@ export class Header extends Component {
         <div className="usa-navbar">
           <button className="usa-menu-btn">Menu</button>
           <div className="usa-logo" id="logo">
-            <em className="usa-logo-text">
+            <div className="usa-logo-text">
               <Link to="/">
-                TALENTMAP
+                <img src={logo} width="200" alt="TalentMAP logo" />
               </Link>
-            </em>
+            </div>
           </div>
         </div>
         <nav className="usa-nav">

@@ -5,13 +5,28 @@ import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constants/PropTypes';
-import { descriptionSort } from '../../../utilities';
+import { propSort } from '../../../utilities';
 
 class SearchFiltersContainer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onSetAccordion = this.onSetAccordion.bind(this);
+    this.onSetAccordionLanguage = this.onSetAccordionLanguage.bind(this);
+  }
+
   onBooleanFilterClick(isChecked, code, selectionRef) {
     const object = Object.assign({});
     object[selectionRef] = isChecked ? code : '';
     this.props.queryParamUpdate(object);
+  }
+
+  onSetAccordion(a, b) {
+    this.props.setAccordion({ main: a, sub: b });
+  }
+
+  onSetAccordionLanguage(a) {
+    this.props.setAccordion({ main: 'Language', sub: a });
   }
   render() {
     // get our boolean filter names
@@ -42,11 +57,11 @@ class SearchFiltersContainer extends Component {
     const multiSelectFilterMap = new Map();
 
     // pull filters from props and add to Map
-    this.props.filters.forEach((f) => {
+    this.props.filters.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill') {
-          f.data.sort(descriptionSort);
+          f.data.sort(propSort('description'));
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
@@ -74,7 +89,7 @@ class SearchFiltersContainer extends Component {
           queryParamUpdate={(l) => {
             this.props.queryParamUpdate({ [languageFilter.item.selectionRef]: l });
           }}
-          setAccordion={a => this.props.setAccordion({ main: 'Language', sub: a })}
+          setAccordion={this.onSetAccordionLanguage}
         />),
         title: languageFilter.item.title,
         id: `accordion-${languageFilter.item.title}`,
@@ -106,7 +121,7 @@ class SearchFiltersContainer extends Component {
     return (
       <div>
         <MultiSelectFilterContainer
-          setAccordion={(a, b) => this.props.setAccordion({ main: a, sub: b })}
+          setAccordion={this.onSetAccordion}
           multiSelectFilterList={sortedFilters}
         />
         <div className="boolean-filter-container">

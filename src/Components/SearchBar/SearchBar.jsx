@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, PREVENT_DEFAULT } from '../../Constants/PropTypes';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -114,7 +114,7 @@ SearchBar.defaultProps = {
   noButton: false,
   placeholder: null,
   defaultValue: null,
-  onSubmitSearch: e => e.preventDefault(),
+  onSubmitSearch: PREVENT_DEFAULT,
   onChangeText: EMPTY_FUNCTION,
 };
 

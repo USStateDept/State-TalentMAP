@@ -1,0 +1,19 @@
+.dismiss-container {
+  position: relative;
+}
+
+.dismiss-button {
+  background-color: $color-gray-light;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 2px none;
+  color: $color-white;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 0 0 1px;
+  position: absolute;
+  right: -.5rem;
+  text-decoration: none;
+  top: -.5rem;
+  width: 30px;
+}

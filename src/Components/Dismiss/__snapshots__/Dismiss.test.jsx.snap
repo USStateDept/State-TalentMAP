@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DismissComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full dismiss-container"
+>
+  <div>
+    <span>
+      My content
+    </span>
+  </div>
+  <button
+    className="dismiss-button"
+    onClick={[Function]}
+    title="Dismiss this alert"
+  >
+    <FontAwesome
+      name="close"
+    />
+    <span
+      className="usa-sr-only"
+    >
+      Dismiss this alert
+    </span>
+  </button>
+</div>
+`;

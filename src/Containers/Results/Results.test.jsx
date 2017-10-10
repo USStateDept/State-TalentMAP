@@ -147,6 +147,24 @@ describe('Results', () => {
     sinon.assert.calledOnce(handleUpdateSpy);
   });
 
+  it('can call the saveSearch function', () => {
+    const savedSearch = { q: null, id: null };
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+        toggleFavorite={() => {}}
+        saveSearch={(q, id) => { savedSearch.q = q; savedSearch.id = id; }}
+      />,
+    );
+    wrapper.instance().saveSearch('test', 1);
+    expect(savedSearch.q.name).toBe('test');
+    expect(savedSearch.id).toBe(1);
+  });
+
   it('can call the onQueryParamToggle function when removing a param', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
@@ -244,5 +262,24 @@ describe('Results', () => {
     // There wasn't a change, so we should refresh the page - i.e., value.search
     // shouldn't change.
     expect(history.value.search).toBe(null);
+  });
+
+  it('can handle routerLocations upon mount', () => {
+    global.scrollTo = jest.fn();
+    const routerLocations = [{ pathname: 'test' }, { pathname: 'test2' }];
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        isAuthorized={() => true}
+        fetchData={() => {}}
+        onNavigateTo={() => {}}
+        fetchFilters={() => {}}
+        setAccordion={() => {}}
+        toggleFavorite={() => {}}
+        saveSearch={() => {}}
+        routerLocations={routerLocations}
+      />,
+    );
+    wrapper.instance().componentDidMount();
+    expect(global.scrollTo).toBeCalled();
   });
 });

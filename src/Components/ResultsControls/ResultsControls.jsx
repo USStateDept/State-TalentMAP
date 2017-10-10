@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ResultsViewBy from '../ResultsViewBy/ResultsViewBy';
 import TotalResults from '../TotalResults/TotalResults';
 import SelectForm from '../SelectForm/SelectForm';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 
-const ResultsControls = ({
-    results,
-    hasLoaded,
-    defaultSort,
-    pageSizes,
-    defaultPageSize,
-    defaultPageNumber,
-    queryParamUpdate,
-    sortBy }) => (
+class ResultsControls extends Component {
+  constructor(props) {
+    super(props);
+    this.onSelectOrdering = this.onSelectOrdering.bind(this);
+    this.onSelectLimit = this.onSelectLimit.bind(this);
+  }
+
+  onSelectOrdering(e) {
+    this.props.queryParamUpdate({ ordering: e.target.value });
+  }
+
+  onSelectLimit(e) {
+    this.props.queryParamUpdate({ limit: e.target.value });
+  }
+
+  render() {
+    const { results, hasLoaded, defaultSort, pageSizes,
+            defaultPageSize, defaultPageNumber, sortBy } = this.props;
+    return (
       <div className="usa-grid-full results-controls">
         <div className="usa-width-one-third total-results">
           {
@@ -31,7 +41,7 @@ const ResultsControls = ({
             <SelectForm
               id="sort"
               label="Sort by:"
-              onSelectOption={e => queryParamUpdate({ ordering: e.target.value })}
+              onSelectOption={this.onSelectOrdering}
               options={sortBy.options}
               defaultSort={defaultSort}
             />
@@ -40,7 +50,7 @@ const ResultsControls = ({
             <SelectForm
               id="pageSize"
               label="Results:"
-              onSelectOption={e => queryParamUpdate({ limit: e.target.value })}
+              onSelectOption={this.onSelectLimit}
               options={pageSizes.options}
               defaultSort={defaultPageSize}
             />
@@ -48,7 +58,9 @@ const ResultsControls = ({
           <ResultsViewBy />
         </div>
       </div>
-);
+    );
+  }
+}
 
 ResultsControls.propTypes = {
   results: POSITION_SEARCH_RESULTS,
