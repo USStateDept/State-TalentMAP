@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
 import * as bidListActions from '../../actions/bidList';
 import * as PROP_TYPES from '../../Constants/PropTypes';
 import BidList from '../../Components/BidList';
@@ -92,7 +91,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onNavigateTo: dest => dispatch(push(dest)),
   fetchBidList: () => dispatch(bidListActions.bidListFetchData()),
   toggleBidPosition: (id, remove) => dispatch(bidListActions.toggleBidPosition(id, remove)),
   bidListRouteChangeResetState: () => dispatch(bidListActions.routeChangeResetState()),
