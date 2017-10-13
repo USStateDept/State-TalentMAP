@@ -80,14 +80,17 @@ if (!configFile || !configFile.urls) {
   routes = configFile.urls;
 }
 
-// set our local storage key and value
-let token = 'token';
-let tokenValue = '"someToken"';
-if (configFile && configFile.token && configFile.token.name && configFile.token.value) {
-  token = configFile.token.name;
-  tokenValue = configFile.token.value;
+// set our default local storage values
+let localStorageConfig = {
+  'token': '"someToken"',
+  'compare': '["00003026","00003033"]'
+};
+
+if (configFile && configFile.localStorage && Object.keys(configFile.localStorage).length > 0) {
+  localStorageConfig = configFile.localStorage;
   if (debug) {
-    console.log("Token found:\n\tName: %s\n\tValue: %s", token, tokenValue)
+    console.log("localStorageConfig:")
+    console.log(localStorageConfig)
   }
 }
 
@@ -102,8 +105,14 @@ const staticConfig = {
     page.evaluate(() => {
       // clear any old local storage values from other tests
       window.localStorage.clear();
-      // Apply the local storage token so that routes can pass auth checks
-      window.localStorage.setItem(token, tokenValue);
+      // Apply the local storage config so that routes can pass auth checks
+      Object.keys(localStorageConfig).forEach(function(key) {
+        window.localStorage.setItem(localStorageConfig, localStorageConfig[key]);
+      });
+      if (debug) {
+        console.log("Dump of window.localStorage:")
+        console.log(window.localStorage)
+      }
     });
     next();
   },
@@ -113,9 +122,9 @@ const staticConfig = {
 const pa11yConfig = _extends(staticConfig, configFile.defaults);
 // set up pa11y and its config
 const withLogin = pa11y(pa11yConfig);
-if (debug) {
-  console.log(withLogin)
-}
+// if (debug) {
+//   console.log(withLogin)
+// }
 // watch for pa11y errors
 let didError = false;
 

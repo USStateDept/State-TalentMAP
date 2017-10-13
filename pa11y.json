@@ -5,17 +5,21 @@
         "ignore": ["notice", "warning"]
     },
     "host": "http://localhost:3000",
+    "localStorage": {
+        "compare": "[\"00003026\",\"00003033\"]",
+        "token": "\"a879ab8982784617ddcb72036a5a5b44f53932dd\""
+    },
     "token": {
       "name": "token",
-      "value": "\"someToken\""
+      "value": "\"a879ab8982784617ddcb72036a5a5b44f53932dd\""
     },
     "urls": [
         "/",
         "/login",
         "/results",
-        "/details/55360000",
+        "/details/00003026",
         "/post/100",
-        "/compare/55360000,56001700",
+        "/compare/00003026,00003033",
         "/profile",
         "/profile/searches",
         "/profile/favorites"
