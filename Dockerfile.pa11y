@@ -1,9 +1,10 @@
-FROM mhart/alpine-node:6
+FROM node:6
 
 RUN mkdir /app
 WORKDIR /app
 
 ADD package.json yarn.lock /app/
+#RUN apk add --no-cache bzip2
 RUN npm i yargs pa11y chalk
 
 COPY pa11y.js /app/

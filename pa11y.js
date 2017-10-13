@@ -24,6 +24,15 @@ const _extends = Object.assign || function (target) { for (let i = 1; i < argume
 const configRef = argv.c || './pa11y.json'; // the config file
 const host = argv.host || 'localhost:3000'; // the host where the web app is running (defaults to localhost:3000)
 const help = argv.h || argv.help; // show help
+const debug = argv.d || argv.debug; // show debug
+
+// show arguments passed and recognized
+if (debug) {
+  console.log(
+    "Arguments passed:\n\tconfigRef: %s\n\thost: %s\n\thelp: %s\n\tdebug: %s",
+    configRef, host, help, debug
+  )
+}
 
 // show help and exit if -help is passed
 if (help) {
@@ -57,12 +66,17 @@ if (help) {
 // get config file
 const configFile = require(configRef); // eslint-disable-line import/no-dynamic-require
 
+
 // set up the routes to check
 let routes;
 if (!configFile || !configFile.urls) {
   console.error(chalk.red('Need a valid config file with "urls" property'));
   process.exit(1);
 } else {
+  if (debug) {
+    console.log('Config File found')
+    console.log(configFile)
+  }
   routes = configFile.urls;
 }
 
@@ -72,6 +86,9 @@ let tokenValue = '"someToken"';
 if (configFile && configFile.token && configFile.token.name && configFile.token.value) {
   token = configFile.token.name;
   tokenValue = configFile.token.value;
+  if (debug) {
+    console.log("Token found:\n\tName: %s\n\tValue: %s", token, tokenValue)
+  }
 }
 
 // configure phantom's local storage
@@ -94,10 +111,11 @@ const staticConfig = {
 
 // combine objects
 const pa11yConfig = _extends(staticConfig, configFile.defaults);
-
 // set up pa11y and its config
 const withLogin = pa11y(pa11yConfig);
-
+if (debug) {
+  console.log(withLogin)
+}
 // watch for pa11y errors
 let didError = false;
 
@@ -108,10 +126,14 @@ const runWithLogin = (url, iterator) => {
       console.error(error.message);
       didError = true;
     }
-    if (result.length === 0) {
+    if ( typeof result === 'undefined' || result === null ) {
+      console.error("Result object is undefined or null");
+      didError = true;
+    }
+    else if (result.length === 0) {
       console.log(chalk.green(`${url} passed!`));
     }
-    if (result.length > 0) {
+    else if (result.length > 0) {
       console.error(chalk.red(`${url} failed with ${result.length} errors`));
       console.error(result);
       didError = true;
