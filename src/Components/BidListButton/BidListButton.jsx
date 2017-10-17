@@ -11,7 +11,7 @@ class BidListButton extends Component {
     this.toggleSaved = this.toggleSaved.bind(this);
   }
 
-  getSavedState() {
+  getIsSaved() {
     // Is the id in the array? If so, return true
     const { compareArray, id } = this.props;
     return existsInNestedObject(id, compareArray);
@@ -20,12 +20,15 @@ class BidListButton extends Component {
   toggleSaved() {
     const { toggleBidPosition, id } = this.props;
     // pass the id and the "remove" param
-    toggleBidPosition(id, this.getSavedState());
+    toggleBidPosition(id, this.getIsSaved());
   }
 
   render() {
-    const text = this.getSavedState() ? 'Remove from Bid List' : 'Add to Bid List';
-    const iconClass = this.getSavedState() ? 'minus-circle' : 'plus-circle';
+    // is the bid currently saved?
+    // save value and avoid interogating the array more than once
+    const bidIsSaved = this.getIsSaved();
+    const text = bidIsSaved ? 'Remove from Bid List' : 'Add to Bid List';
+    const iconClass = bidIsSaved ? 'minus-circle' : 'plus-circle';
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
