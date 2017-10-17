@@ -8,23 +8,23 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
         Object {
           "content": <MultiSelectFilter
             item={
+              Object {
+                "data": Array [
                   Object {
-                        "data": Array [
-                          Object {
-                            "isSelected": false,
-                            "long_description": "test",
-                            "short_description": "test",
-                          },
-                        ],
-                        "item": Object {
-                          "description": "region",
-                          "selectionRef": "ref3",
-                          "title": "region",
-                        },
-                      }
+                    "isSelected": false,
+                    "long_description": "test",
+                    "short_description": "test",
+                  },
+                ],
+                "item": Object {
+                  "description": "region",
+                  "selectionRef": "ref3",
+                  "title": "region",
+                },
+              }
             }
             queryParamToggle={[Function]}
-      />,
+          />,
           "expanded": false,
           "id": "accordion-region",
           "title": "region",
@@ -32,19 +32,19 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
         Object {
           "content": <LanguageFilter
             item={
-                  Object {
-                        "item": Object {},
-                      }
+              Object {
+                "item": Object {},
+              }
             }
             queryParamUpdate={[Function]}
             selectedAccordion={
-                  Object {
-                        "main": "",
-                        "sub": "",
-                      }
+              Object {
+                "main": "",
+                "sub": "",
+              }
             }
             setAccordion={[Function]}
-      />,
+          />,
           "expanded": false,
           "id": "accordion-undefined",
           "title": undefined,
