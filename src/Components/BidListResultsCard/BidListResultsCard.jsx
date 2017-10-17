@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
+import { BID_OBJECT } from '../../Constants/PropTypes';
 
 class BidListResultsCard extends Component {
   constructor(props) {
@@ -59,7 +59,7 @@ class BidListResultsCard extends Component {
 }
 
 BidListResultsCard.propTypes = {
-  bid: SAVED_SEARCH_PARENT_OBJECT.isRequired,
+  bid: BID_OBJECT.isRequired,
   toggleBidPosition: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
 };
