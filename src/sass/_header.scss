@@ -7,6 +7,10 @@
       margin-bottom: 0;
       margin-top: 2rem;
 
+      a {
+        font-size: 3.6rem;
+      }
+
       img {
         height: auto;
         width: 250px;
@@ -15,10 +19,6 @@
 
     .usa-nav-secondary {
       top: -6.5rem;
-    }
-
-    .usa-logo-text {
-      line-height: unset;
     }
   }
 

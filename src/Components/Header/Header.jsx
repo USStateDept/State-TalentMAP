@@ -55,11 +55,9 @@ export class Header extends Component {
         <div className="usa-navbar">
           <button className="usa-menu-btn">Menu</button>
           <div className="usa-logo" id="logo">
-            <div className="usa-logo-text">
-              <Link to="/">
-                <img src={logo} width="200" alt="TalentMAP logo" />
-              </Link>
-            </div>
+            <Link to="/">
+              <img src={logo} alt="TalentMAP logo" />
+            </Link>
           </div>
         </div>
         <nav className="usa-nav">
