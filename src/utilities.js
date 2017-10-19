@@ -47,30 +47,19 @@ export function fetchUserToken() {
   return token;
 }
 
-// keep sort functions separate in case we want to adjust the logic for some but not others
-export const titleSort = (a, b) => {
-  const A = a.title.toLowerCase();
-  const B = b.title.toLowerCase();
-  if (A < B) { // sort string ascending
-    return -1;
-  }
-  if (A > B) { return 1; }
-  return 0; // default return value (no sorting)
-};
-
-export const descriptionSort = (a, b) => {
-  const A = a.description.toLowerCase();
-  const B = b.description.toLowerCase();
-  if (A < B) { // sort string ascending
-    return -1;
-  }
-  if (A > B) { return 1; }
-  return 0; // default return value (no sorting)
-};
-
 export const pillSort = (a, b) => {
   const A = (a.description || a.code).toLowerCase();
   const B = (b.description || b.code).toLowerCase();
+  if (A < B) { // sort string ascending
+    return -1;
+  }
+  if (A > B) { return 1; }
+  return 0; // default return value (no sorting)
+};
+
+export const propSort = propName => (a, b) => {
+  const A = a[propName].toLowerCase();
+  const B = b[propName].toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -118,9 +107,11 @@ export const scrollToTop = (config = defaultScrollConfig) => {
   scroll.scrollToTop(config);
 };
 
-// when we want to grab a label, but aren't sure which one exists
+// When we want to grab a label, but aren't sure which one exists.
+// We set custom ones first in the list.
 export const getItemLabel = itemData =>
-  itemData.long_description || itemData.description || itemData.code;
+  itemData.custom_description || itemData.long_description ||
+  itemData.description || itemData.code;
 
 // abcde 4 // a...
 // Shortens strings to varying lengths
@@ -151,6 +142,17 @@ export const existsInArray = (ref, array) => {
   let found = false;
   array.forEach((i) => {
     if (i.id === ref) {
+      found = true;
+    }
+  });
+  return found;
+};
+
+// for checking if a position is in the user's bid list
+export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
+  let found = false;
+  array.forEach((i) => {
+    if (i[prop] && i[prop][nestedProp] === ref) {
       found = true;
     }
   });

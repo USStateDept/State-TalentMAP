@@ -14,6 +14,10 @@ const ProfileNavigation = () => (
     <Link to="/profile/searches">
       Saved Searches
     </Link>
+    <br />
+    <Link to="/profile/bidlist">
+      Bid List
+    </Link>
   </div>
 );
 
