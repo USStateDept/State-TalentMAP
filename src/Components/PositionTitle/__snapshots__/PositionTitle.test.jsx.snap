@@ -39,7 +39,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             00003027
           </strong>
         </div>
-        <p
+        <div
           className="position-details-header-body editable-position-field"
         >
           <strong>
@@ -53,7 +53,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
               onToggle={[Function]}
             />
           </span>
-        </p>
+        </div>
         <PositionTitleSubDescription
           formattedContent={
             <a

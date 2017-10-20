@@ -130,7 +130,7 @@ class PositionTitle extends Component {
               <div className="position-details-header-title">
                 <strong>Position Number: {details.position_number}</strong>
               </div>
-              <p className="position-details-header-body editable-position-field">
+              <div className="position-details-header-body editable-position-field">
                 <strong>Description: </strong>
                 {
                   !shouldShowDescriptionEditor.value &&
@@ -153,7 +153,7 @@ class PositionTitle extends Component {
                     cancel={this.toggleDescriptionEditor}
                   />
                 }
-              </p>
+              </div>
               <PositionTitleSubDescription
                 title="Post website"
                 formattedContent={postWebsite}
