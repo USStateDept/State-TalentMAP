@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditContentButtonComponent matches snapshot 1`] = `
+<FontAwesome
+  id="description-edit"
+  name="pencil"
+  onClick={[Function]}
+  onKeyUp={[Function]}
+  tabIndex="0"
+/>
+`;

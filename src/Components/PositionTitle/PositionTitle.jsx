@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import BidListButton from '../BidListButton';
 import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
+import EditContentButton from '../EditContentButton';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
 import * as SystemMessages from '../../Constants/SystemMessages';
 import { shortenString } from '../../utilities';
@@ -17,7 +18,6 @@ class PositionTitle extends Component {
     this.submitWebsiteEdit = this.submitWebsiteEdit.bind(this);
     this.submitPocEdit = this.submitPocEdit.bind(this);
     this.submitDescriptionEdit = this.submitDescriptionEdit.bind(this);
-    // this.submitDescriptionEdit = this.submitDescriptionEdit.bind(this);
     this.state = {
       shouldShowWebsiteEditor: { value: false },
       shouldShowPocEditor: { value: false },
@@ -140,10 +140,8 @@ class PositionTitle extends Component {
                           description :
                           SystemMessages.NO_POSITION_DESCRIPTION
                       }
-                      <FontAwesome
-                        onClick={this.toggleDescriptionEditor}
-                        name="pencil"
-                        id="description-edit"
+                      <EditContentButton
+                        onToggle={this.toggleDescriptionEditor}
                       />
                     </span>
                 }

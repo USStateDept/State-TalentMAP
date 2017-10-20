@@ -49,10 +49,8 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             a description
-            <FontAwesome
-              id="description-edit"
-              name="pencil"
-              onClick={[Function]}
+            <EditContentButton
+              onToggle={[Function]}
             />
           </span>
         </p>

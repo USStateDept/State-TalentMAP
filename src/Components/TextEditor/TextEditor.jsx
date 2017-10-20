@@ -1,9 +1,6 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
-import { stateToMarkdown } from 'draft-js-export-markdown'; // eslint-disable-line
-import { stateFromMarkdown } from 'draft-js-import-markdown'; // eslint-disable-line
 import * as PROP_TYPES from '../../Constants/PropTypes';
 
 export default class TextEditor extends Component {
@@ -43,7 +40,7 @@ export default class TextEditor extends Component {
     const { readOnly } = this.props;
     return (
       <div>
-        <div className={readOnly ? '' : 'editor'} onClick={this.focus}>
+        <div role="textbox" tabIndex="0" className={readOnly ? '' : 'editor'} onClick={this.focus}>
           <Editor
             editorState={this.state.editorState}
             onChange={this.onChange}

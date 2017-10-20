@@ -1,65 +1,80 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as PROP_TYPES from '../../Constants/PropTypes';
+import * as SystemMessages from '../../Constants/SystemMessages';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 
-const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
-    userProfile, toggleFavorite, userProfileFavoritePositionIsLoading,
-    toggleBidPosition, bidList, bidListToggleIsLoading, editDescriptionContent,
-    editPocContent, editWebsiteContent,
-    descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess,
-    resetDescriptionEditMessages }) => {
-  const isReady = details && !isLoading && !hasErrored;
-  return (
-    <div>
-      { isReady &&
+class PositionDetails extends Component {
+  constructor(props) {
+    super(props);
+    this.editDescriptionContent = this.editDescriptionContent.bind(this);
+    this.state = {
+      newDescriptionContent: { value: null },
+    };
+  }
+
+  // The additional details section should match after edits are made,
+  // so we set the content to a value in local state when ever any edits are made.
+  editDescriptionContent(content) {
+    this.props.editDescriptionContent(content);
+    const { newDescriptionContent } = this.state;
+    newDescriptionContent.value = content;
+    this.setState({ newDescriptionContent });
+  }
+
+  render() {
+    const { details, isLoading, hasErrored, goBackLink,
+        userProfile, toggleFavorite, userProfileFavoritePositionIsLoading,
+        toggleBidPosition, bidList, bidListToggleIsLoading,
+        editPocContent, editWebsiteContent,
+        resetDescriptionEditMessages } = this.props;
+    const isReady = details && !isLoading && !hasErrored;
+    return (
       <div>
-        <PositionTitle
-          details={details}
-          goBackLink={goBackLink}
-          toggleBidPosition={toggleBidPosition}
-          bidList={bidList}
-          bidListToggleIsLoading={bidListToggleIsLoading}
-          editDescriptionContent={editDescriptionContent}
-          editPocContent={editPocContent}
-          editWebsiteContent={editWebsiteContent}
-          resetDescriptionEditMessages={resetDescriptionEditMessages}
-        />
-        <PositionDetailsItem details={details} />
-        <PositionAdditionalDetails
-          content={
-            details.description && details.description.content ?
-            details.description.content :
-            ''
-          }
-          editDescriptionContent={editDescriptionContent}
-          descriptionEditHasErrored={descriptionEditHasErrored}
-          descriptionEditIsLoading={descriptionEditIsLoading}
-          descriptionEditSuccess={descriptionEditSuccess}
-          resetDescriptionEditMessages={resetDescriptionEditMessages}
-        />
-        <div className="usa-grid">
-          {
-            !!userProfile.favorite_positions &&
-            <FavoritesButton
-              onToggle={toggleFavorite}
-              refKey={details.id}
-              isLoading={userProfileFavoritePositionIsLoading}
-              compareArray={userProfile.favorite_positions}
-            />
-          }
-          <Share identifier={details.id} />
-        </div>
-      </div>}
-      {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
-    </div>
-  );
-};
+        { isReady &&
+        <div>
+          <PositionTitle
+            details={details}
+            goBackLink={goBackLink}
+            toggleBidPosition={toggleBidPosition}
+            bidList={bidList}
+            bidListToggleIsLoading={bidListToggleIsLoading}
+            editDescriptionContent={this.editDescriptionContent}
+            editPocContent={editPocContent}
+            editWebsiteContent={editWebsiteContent}
+            resetDescriptionEditMessages={resetDescriptionEditMessages}
+          />
+          <PositionDetailsItem details={details} />
+          <PositionAdditionalDetails
+            content={
+              details.description && details.description.content ?
+              this.state.newDescriptionContent.value || details.description.content :
+              SystemMessages.NO_POSITION_DESCRIPTION
+            }
+          />
+          <div className="usa-grid">
+            {
+              !!userProfile.favorite_positions &&
+              <FavoritesButton
+                onToggle={toggleFavorite}
+                refKey={details.id}
+                isLoading={userProfileFavoritePositionIsLoading}
+                compareArray={userProfile.favorite_positions}
+              />
+            }
+            <Share identifier={details.id} />
+          </div>
+        </div>}
+        {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
+      </div>
+    );
+  }
+}
 
 PositionDetails.propTypes = {
   details: PROP_TYPES.POSITION_DETAILS,
@@ -73,9 +88,6 @@ PositionDetails.propTypes = {
   bidList: PROP_TYPES.BID_LIST.isRequired,
   bidListToggleIsLoading: PropTypes.bool,
   editDescriptionContent: PropTypes.func,
-  descriptionEditHasErrored: PropTypes.bool,
-  descriptionEditIsLoading: PropTypes.bool,
-  descriptionEditSuccess: PropTypes.bool,
   resetDescriptionEditMessages: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
   editWebsiteContent: PropTypes.func.isRequired,

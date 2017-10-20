@@ -54,6 +54,28 @@ describe('PositionDetailsComponent', () => {
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });
 
+  it('can call the editDescriptionContent function', () => {
+    wrapper = shallow(
+      <PositionDetails
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        toggleBidPosition={() => {}}
+        bidList={bidList}
+        bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
+      />,
+    );
+    wrapper.instance().editDescriptionContent('test');
+    expect(wrapper.instance().state.newDescriptionContent.value).toBe('test');
+  });
+
   it('handles different types of position objects', () => {
     Object.assign(detailsObject, { languages: [], is_overseas: true });
 

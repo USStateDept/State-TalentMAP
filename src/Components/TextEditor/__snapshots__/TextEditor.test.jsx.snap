@@ -5,6 +5,8 @@ exports[`TextEditorComponent matches snapshot 1`] = `
   <div
     className="editor"
     onClick={[Function]}
+    role="textbox"
+    tabIndex="0"
   >
     <PluginEditor
       customStyleMap={Object {}}
@@ -17,11 +19,11 @@ exports[`TextEditorComponent matches snapshot 1`] = `
             "allowUndo": true,
             "currentContent": Object {
               "blockMap": Object {
-                "74do3": Object {
+                "7ehf9": Object {
                   "characterList": Array [],
                   "data": Object {},
                   "depth": 0,
-                  "key": "74do3",
+                  "key": "7ehf9",
                   "text": "",
                   "type": "unstyled",
                 },
@@ -41,17 +43,17 @@ exports[`TextEditorComponent matches snapshot 1`] = `
                 "replaceData": [Function],
               },
               "selectionAfter": Object {
-                "anchorKey": "74do3",
+                "anchorKey": "7ehf9",
                 "anchorOffset": 0,
-                "focusKey": "74do3",
+                "focusKey": "7ehf9",
                 "focusOffset": 0,
                 "hasFocus": false,
                 "isBackward": false,
               },
               "selectionBefore": Object {
-                "anchorKey": "74do3",
+                "anchorKey": "7ehf9",
                 "anchorOffset": 0,
-                "focusKey": "74do3",
+                "focusKey": "7ehf9",
                 "focusOffset": 0,
                 "hasFocus": false,
                 "isBackward": false,
@@ -59,7 +61,7 @@ exports[`TextEditorComponent matches snapshot 1`] = `
             },
             "decorator": null,
             "directionMap": Object {
-              "74do3": "LTR",
+              "7ehf9": "LTR",
             },
             "forceSelection": false,
             "inCompositionMode": false,
@@ -68,15 +70,15 @@ exports[`TextEditorComponent matches snapshot 1`] = `
             "nativelyRenderedContent": null,
             "redoStack": Array [],
             "selection": Object {
-              "anchorKey": "74do3",
+              "anchorKey": "7ehf9",
               "anchorOffset": 0,
-              "focusKey": "74do3",
+              "focusKey": "7ehf9",
               "focusOffset": 0,
               "hasFocus": false,
               "isBackward": false,
             },
             "treeMap": Object {
-              "74do3": Array [
+              "7ehf9": Array [
                 Object {
                   "decoratorKey": null,
                   "end": 0,

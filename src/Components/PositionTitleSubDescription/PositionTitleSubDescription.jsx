@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import TextEditor from '../TextEditor';
+import EditContentButton from '../EditContentButton';
 
 const PositionTitleSubDescription = ({ title, formattedContent, plainContent, shouldShowEditor,
   onSubmitText, toggleEditor }) => (
@@ -10,23 +10,22 @@ const PositionTitleSubDescription = ({ title, formattedContent, plainContent, sh
     >
       <strong>{title}: </strong>
       {
-          !shouldShowEditor &&
-            <div className="usa-grid-full">
-              {formattedContent}
-              <FontAwesome
-                onClick={toggleEditor}
-                name="pencil"
-              />
-            </div>
-        }
+        !shouldShowEditor &&
+          <div className="usa-grid-full">
+            {formattedContent}
+            <EditContentButton
+              onToggle={toggleEditor}
+            />
+          </div>
+      }
       {
-          shouldShowEditor &&
-          <TextEditor
-            initialText={plainContent}
-            onSubmitText={onSubmitText}
-            cancel={toggleEditor}
-          />
-        }
+        shouldShowEditor &&
+        <TextEditor
+          initialText={plainContent}
+          onSubmitText={onSubmitText}
+          cancel={toggleEditor}
+        />
+      }
     </div>
 );
 

@@ -19,13 +19,27 @@ describe('PositionTitleSubDescriptionComponent', () => {
     expect(wrapper.instance().props.title).toBe('title');
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot when editor is hidden', () => {
     const wrapper = shallow(
       <PositionTitleSubDescription
         title="title"
         formattedContent={<span>content</span>}
         plainContent="content"
         shouldShowEditor={false}
+        onSubmitText={() => {}}
+        toggleEditor={() => {}}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when editor is shown', () => {
+    const wrapper = shallow(
+      <PositionTitleSubDescription
+        title="title"
+        formattedContent={<span>content</span>}
+        plainContent="content"
+        shouldShowEditor
         onSubmitText={() => {}}
         toggleEditor={() => {}}
       />,
