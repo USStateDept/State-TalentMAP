@@ -130,3 +130,27 @@
   position: absolute;
   top: 79%;
 }
+
+.edit-description-alert-container {
+  margin-top: 5px;
+}
+
+.edit-description-button-container {
+  margin-top: 5px;
+}
+
+.editable-position-field {
+  .fa {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  .editor {
+    margin-bottom: unset;
+    padding: 10px;
+  }
+
+  .editor :global(.public-DraftEditor-content) {
+    min-height: 10px;
+  }
+}

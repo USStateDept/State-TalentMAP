@@ -7,17 +7,41 @@ exports[`PositionAdditionalDetails matches snapshot 1`] = `
   <div
     className="usa-width-two-thirds"
   >
-    <p
-      className="position-details-additional-body"
+    <div
+      className="usa-grid-full"
     >
-      <span
-        className="title"
+      <div
+        className="position-details-additional-body"
       >
-        About
-      </span>
-      <br />
-      test
-    </p>
+        <span
+          className="title"
+        >
+          About
+          <span
+            className="usa-grid-full editable-position-field"
+          >
+            <FontAwesome
+              name="pencil"
+              onClick={[Function]}
+              onKeyUp={[Function]}
+              tabIndex="0"
+            />
+          </span>
+        </span>
+        <TextEditor
+          cancel={[Function]}
+          initialText="test"
+          onSubmitText={[Function]}
+          readOnly={true}
+        />
+        <div
+          className="usa-grid-full"
+        />
+        <div
+          className="edit-description-alert-container"
+        />
+      </div>
+    </div>
   </div>
   <div
     className="usa-width-one-third"

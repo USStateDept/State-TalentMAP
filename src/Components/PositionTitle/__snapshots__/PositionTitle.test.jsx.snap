@@ -48,28 +48,44 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
           a description
         </p>
         <div
-          className="usa-width-one-half position-details-header-body"
+          className="usa-width-one-half position-details-header-body editable-position-field"
         >
           <strong>
             Post website: 
           </strong>
-          <a
-            href="https://www.state.gov/post"
+          <div
+            className="usa-grid-full"
           >
-            https://www.state.gov/post
-          </a>
+            <a
+              href="https://www.state.gov/post"
+            >
+              https://www.state.gov/post
+            </a>
+            <FontAwesome
+              name="pencil"
+              onClick={[Function]}
+            />
+          </div>
         </div>
         <div
-          className="usa-width-one-half position-details-header-body"
+          className="usa-width-one-half position-details-header-body editable-position-field"
         >
           <strong>
             Point of Contact: 
           </strong>
-          <a
-            href="tel:202-555-5555"
+          <div
+            className="usa-grid-full"
           >
-            202-555-5555
-          </a>
+            <a
+              href="tel:202-555-5555"
+            >
+              202-555-5555
+            </a>
+            <FontAwesome
+              name="pencil"
+              onClick={[Function]}
+            />
+          </div>
         </div>
       </div>
     </div>

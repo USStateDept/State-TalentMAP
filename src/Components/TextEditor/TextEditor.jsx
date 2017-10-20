@@ -3,14 +3,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import { stateToMarkdown } from 'draft-js-export-markdown'; // eslint-disable-line
-
-const text = 'The toolbar above the editor can be used for formatting text, as in conventional static editors  …';
+import { stateFromMarkdown } from 'draft-js-import-markdown'; // eslint-disable-line
+import * as PROP_TYPES from '../../Constants/PropTypes';
 
 export default class TextEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: createEditorStateWithText(text),
+      editorState: createEditorStateWithText(props.initialText),
+      editorStateCopy: createEditorStateWithText(props.initialText),
     };
 
     this.onChange = (editorState) => {
@@ -23,8 +24,18 @@ export default class TextEditor extends Component {
       this.editor.focus();
     };
 
-    this.show = () => {
-      console.log({ blah: stateToMarkdown(this.state.editorState.getCurrentContent()) }); // eslint-disable-line
+    this.submit = () => {
+      // set our primary state and copied state to match
+      this.setState({ editorStateCopy: this.state.editorState });
+      this.props.onSubmitText(this.state.editorState.getCurrentContent().getPlainText());
+    };
+
+    this.cancel = () => {
+      // reset our state back to a copy we made when we rendered
+      this.setState({
+        editorState: this.state.editorStateCopy,
+      });
+      this.props.cancel();
     };
   }
 
@@ -32,15 +43,22 @@ export default class TextEditor extends Component {
     const { readOnly } = this.props;
     return (
       <div>
-        <div className="editor" onClick={this.focus}>
+        <div className={readOnly ? '' : 'editor'} onClick={this.focus}>
           <Editor
             editorState={this.state.editorState}
             onChange={this.onChange}
             ref={(element) => { this.editor = element; }}
             readOnly={readOnly}
           />
-          <button onClick={() => this.show()} />
         </div>
+        {
+          readOnly ?
+          null :
+          <div>
+            <button className="usa-button" onClick={this.submit}>Submit</button>
+            <button className="usa-button-secondary" onClick={this.cancel}>Cancel</button>
+          </div>
+        }
       </div>
     );
   }
@@ -48,8 +66,13 @@ export default class TextEditor extends Component {
 
 TextEditor.propTypes = {
   readOnly: PropTypes.bool,
+  initialText: PropTypes.string,
+  onSubmitText: PropTypes.func.isRequired,
+  cancel: PropTypes.func,
 };
 
 TextEditor.defaultProps = {
   readOnly: false,
+  initialText: '',
+  cancel: PROP_TYPES.EMPTY_FUNCTION,
 };

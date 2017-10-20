@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import * as PROP_TYPES from '../../Constants/PropTypes';
-import * as SystemMessages from '../../Constants/SystemMessages';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
 import PositionTitle from '../PositionTitle/PositionTitle';
@@ -11,7 +10,10 @@ import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAddi
 
 const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
     userProfile, toggleFavorite, userProfileFavoritePositionIsLoading,
-    toggleBidPosition, bidList, bidListToggleIsLoading }) => {
+    toggleBidPosition, bidList, bidListToggleIsLoading, editDescriptionContent,
+    editPocContent, editWebsiteContent,
+    descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess,
+    resetDescriptionEditMessages }) => {
   const isReady = details && !isLoading && !hasErrored;
   return (
     <div>
@@ -23,14 +25,22 @@ const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
           toggleBidPosition={toggleBidPosition}
           bidList={bidList}
           bidListToggleIsLoading={bidListToggleIsLoading}
+          editPocContent={editPocContent}
+          editWebsiteContent={editWebsiteContent}
+          resetDescriptionEditMessages={resetDescriptionEditMessages}
         />
         <PositionDetailsItem details={details} />
         <PositionAdditionalDetails
           content={
             details.description && details.description.content ?
             details.description.content :
-            SystemMessages.NO_POSITION_DESCRIPTION
+            ''
           }
+          editDescriptionContent={editDescriptionContent}
+          descriptionEditHasErrored={descriptionEditHasErrored}
+          descriptionEditIsLoading={descriptionEditIsLoading}
+          descriptionEditSuccess={descriptionEditSuccess}
+          resetDescriptionEditMessages={resetDescriptionEditMessages}
         />
         <div className="usa-grid">
           {
@@ -61,6 +71,13 @@ PositionDetails.propTypes = {
   toggleBidPosition: PropTypes.func.isRequired,
   bidList: PROP_TYPES.BID_LIST.isRequired,
   bidListToggleIsLoading: PropTypes.bool,
+  editDescriptionContent: PropTypes.func,
+  descriptionEditHasErrored: PropTypes.bool,
+  descriptionEditIsLoading: PropTypes.bool,
+  descriptionEditSuccess: PropTypes.bool,
+  resetDescriptionEditMessages: PropTypes.func.isRequired,
+  editPocContent: PropTypes.func.isRequired,
+  editWebsiteContent: PropTypes.func.isRequired,
 };
 
 PositionDetails.defaultProps = {
@@ -69,6 +86,10 @@ PositionDetails.defaultProps = {
   hasErrored: false,
   userProfile: {},
   bidListToggleIsLoading: false,
+  editDescriptionContent: PROP_TYPES.EMPTY_FUNCTION,
+  descriptionEditHasErrored: false,
+  descriptionEditIsLoading: false,
+  descriptionEditSuccess: false,
 };
 
 export default PositionDetails;
