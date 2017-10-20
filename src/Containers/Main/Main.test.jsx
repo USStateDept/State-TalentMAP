@@ -58,4 +58,28 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
+  it('handles a profile route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles a profile/favorites route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/favorites']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles a profile/searches route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/searches']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles a profile/bidlist route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/bidlist']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
 });

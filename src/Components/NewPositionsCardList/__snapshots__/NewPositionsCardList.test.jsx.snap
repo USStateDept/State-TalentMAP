@@ -2,7 +2,7 @@
 
 exports[`NewPositionsCardListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full "
 >
   <div
     className="usa-width-one-third condensed-card-first-big"

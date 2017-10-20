@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileNavigationComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <Link
+    replace={false}
+    to="/profile"
+  >
+    Profile home
+  </Link>
+  <br />
+  <Link
+    replace={false}
+    to="/profile/favorites"
+  >
+    Favorites
+  </Link>
+  <br />
+  <Link
+    replace={false}
+    to="/profile/searches"
+  >
+    Saved Searches
+  </Link>
+  <br />
+  <Link
+    replace={false}
+    to="/profile/bidlist"
+  >
+    Bid List
+  </Link>
+</div>
+`;

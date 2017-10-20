@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HighlightedPositionsCardListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full condensed-card-highlighted "
+>
+  <div
+    className="usa-width-one-third condensed-card"
+  >
+    <ResultsCondensedCard
+      favorites={Array []}
+      position={
+        Object {
+          "bureau": "150000",
+          "create_date": "2006-09-20",
+          "grade": "05",
+          "id": 6,
+          "is_overseas": true,
+          "languages": Array [
+            Object {
+              "id": 1,
+              "language": "French (FR)",
+              "reading_proficiency": "2",
+              "representation": "French (FR) 2/2",
+              "spoken_proficiency": "2",
+            },
+            Object {
+              "id": 1,
+              "language": "German (GM)",
+              "reading_proficiency": "2",
+              "representation": "German (GM) 2/2",
+              "spoken_proficiency": "2",
+            },
+          ],
+          "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+          "position_number": "00025003",
+          "post": Object {
+            "code": "LT6000000",
+            "cost_of_living_adjustment": 0,
+            "danger_pay": 0,
+            "differential_rate": 15,
+            "has_consumable_allowance": false,
+            "has_service_needs_differential": false,
+            "id": 162,
+            "location": "MASERU, LESOTHO",
+            "rest_relaxation_point": "London",
+            "tour_of_duty": "2YRR",
+          },
+          "skill": "OFFICE MANAGEMENT (9017)",
+          "update_date": "2017-06-08",
+        }
+      }
+      toggleFavorite={[Function]}
+      type="highlighted"
+      userProfileFavoritePositionHasErrored={false}
+      userProfileFavoritePositionIsLoading={false}
+    />
+  </div>
+  <div
+    className="usa-width-one-third condensed-card"
+  >
+    <ResultsCondensedCard
+      favorites={Array []}
+      position={
+        Object {
+          "bureau": "150000",
+          "create_date": "2006-09-20",
+          "grade": "03",
+          "id": 60,
+          "is_overseas": true,
+          "languages": Array [],
+          "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+          "position_number": "00025003",
+          "post": null,
+          "skill": "OFFICE MANAGEMENT (9017)",
+          "update_date": "2017-06-08",
+        }
+      }
+      toggleFavorite={[Function]}
+      type="highlighted"
+      userProfileFavoritePositionHasErrored={false}
+      userProfileFavoritePositionIsLoading={false}
+    />
+  </div>
+</div>
+`;

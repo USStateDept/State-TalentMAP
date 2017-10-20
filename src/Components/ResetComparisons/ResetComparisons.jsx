@@ -20,7 +20,7 @@ class ResetComparisons extends Component {
       this.props.onToggle();
     };
     const compare = exists() ?
-      <button onClick={remove}>Reset comparison choices</button>
+      <a onClick={remove} role="button" tabIndex={0}>Reset comparison choices</a>
       : null;
     return (
       <div>

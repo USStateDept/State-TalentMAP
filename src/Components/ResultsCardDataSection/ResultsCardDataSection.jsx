@@ -10,7 +10,7 @@ const ResultsCardDataSection = ({ result }) => (
     <div className="usa-width-five-twelfths data-section-left-container">
       <div className="data-section-left">
         <ResultsCardDataItem
-          title="POST INFORMATION"
+          title="Post Information"
           items={
           [
             { description: 'Post', text: result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST },
@@ -26,10 +26,10 @@ const ResultsCardDataSection = ({ result }) => (
     <div className="usa-width-five-twelfths data-section-right-container">
       <div className="data-section-right">
         <ResultsCardDataItem
-          title="POSITION INFORMATION"
+          title="Position Information"
           items={
           [
-            { description: 'Skill', text: result.skill },
+            { description: 'Skill Code', text: result.skill },
             { description: 'Grade', text: result.grade },
             { description: 'Description',
               text: result.description && result.description.content ?

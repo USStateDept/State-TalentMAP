@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FontAwesome from 'react-fontawesome';
 import close from 'uswds/dist/img/close.svg'; // close X icon
 import { userProfileFetchData } from '../../actions/userProfile';
 import { logoutRequest } from '../../login/actions';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
+import logo from '../../assets/logos/png/horizontal_color.png';
 
 export class Header extends Component {
   constructor(props) {
@@ -53,11 +55,11 @@ export class Header extends Component {
         <div className="usa-navbar">
           <button className="usa-menu-btn">Menu</button>
           <div className="usa-logo" id="logo">
-            <em className="usa-logo-text">
+            <div className="usa-logo-text">
               <Link to="/">
-                TALENTMAP
+                <img src={logo} width="200" alt="TalentMAP logo" />
               </Link>
-            </em>
+            </div>
           </div>
         </div>
         <nav className="usa-nav">
@@ -66,22 +68,13 @@ export class Header extends Component {
               <img src={close} alt="close" />
             </button>
             <div className="usa-nav-secondary">
-              <form className="usa-search usa-search-small usa-sr-only">
-                <div role="search">
-                  <label className="usa-sr-only" htmlFor="search-field-small">Search small</label>
-                  <input id="search-field-small" type="search" name="search-small" />
-                  <button type="submit">
-                    <span className="usa-sr-only">Search</span>
-                  </button>
-                </div>
-              </form>
               <ul className="usa-unstyled-list usa-nav-secondary-links mobile-nav">
                 <li className="mobile-nav-only">
                   {signedInAs}
                 </li>
                 <hr className="mobile-nav-only" />
-                <li className="js-search-button-container">
-                  <button className="usa-header-search-button js-search-button">Search</button>
+                <li>
+                  <Link to="/results"><FontAwesome name="search" /> Search</Link>
                 </li>
                 <li>
                   <Link to="/">Home</Link>
@@ -95,7 +88,7 @@ export class Header extends Component {
                 <span className="usa-unstyled-list mobile-nav-only">
                   <hr />
                   <li>
-                    <Link to="/">Profile</Link>
+                    <Link to="/profile">Profile</Link>
                   </li>
                   <li>
                     <Link to="login" id="login-mobile" onClick={logout}>Logout</Link>

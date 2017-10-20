@@ -27,7 +27,7 @@ const ResultsCondensedCardTop = ({ type, position, toggleFavorite, favorites,
           }
         </div>
       </div>
-      <FontAwesome className="condensed-top-background-image" name={type === 'popular' ? 'building' : 'flag'} size="3x" />
+      <FontAwesome className="condensed-top-background-image" name={type === 'highlighted' ? 'building' : 'flag'} size="3x" />
       <div className="usa-width-one-whole condensed-card-last-updated">
         <span className="last-updated-title">Last Updated: </span>
         <span className="last-updated-date">

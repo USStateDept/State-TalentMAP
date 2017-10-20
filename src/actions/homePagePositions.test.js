@@ -16,7 +16,7 @@ describe('async actions', () => {
       resultsObject,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/?limit=3').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/highlighted/?limit=3').reply(200,
       resultsObject,
     );
   });

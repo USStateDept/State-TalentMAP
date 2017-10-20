@@ -25,11 +25,10 @@ class Favorite extends Component {
 
   render() {
     const text = this.getSavedState() ? 'Remove' : 'Favorite';
+    const title = this.getSavedState() ? 'Remove from Favorites' : 'Add to Favorites';
     const iconClass = this.getSavedState() ? 'heart' : 'heart-o';
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
-      cursor: 'pointer',
-      float: 'right',
     };
     return (
       // At the time of writing, CodeClimate's version of eslint-a11y-plugin
@@ -37,9 +36,10 @@ class Favorite extends Component {
       // eslint-disable-next-line jsx-a11y/no-static-element-interactions
       <div
         tabIndex="0"
-        title="Add to favorites"
+        title={title}
         role="button"
         style={style}
+        className="favorite-container"
         onClick={this.toggleSaved}
       >
         <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}

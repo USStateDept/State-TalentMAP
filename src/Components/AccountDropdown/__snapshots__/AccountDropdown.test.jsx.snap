@@ -35,8 +35,9 @@ exports[`AccountDropdown matches snapshot 1`] = `
       className="account-dropdown--identity account-dropdown--segment"
     >
       <Link
+        onClick={[Function]}
         replace={false}
-        to="/"
+        to="/profile"
       >
         Profile
       </Link>
@@ -47,7 +48,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
       <Link
         onClick={[Function]}
         replace={false}
-        to="login"
+        to="/login"
       >
         Logout
       </Link>

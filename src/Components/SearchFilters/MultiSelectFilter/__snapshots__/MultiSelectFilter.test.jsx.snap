@@ -2,6 +2,7 @@
 
 exports[`MultiSelectFilterComponent matches snapshot 1`] = `
 <FieldSet
+  className=""
   legend="title"
   legendSrOnly={false}
 >

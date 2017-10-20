@@ -29,6 +29,18 @@ describe('Login', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('can call the submit function', () => {
+    const loginRequest = { values: null };
+    const wrapper = shallow(
+      <Login
+        login={{ ...loginObject, requesting: false, errors, messages: errors }}
+        loginRequest={(values) => { loginRequest.values = values; }}
+      />,
+    );
+    wrapper.instance().submit(1);
+    expect(loginRequest.values).toBe(1);
+  });
+
   it('can submit a username and password', () => {
     const wrapper = shallow(
       <Login

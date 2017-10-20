@@ -17,9 +17,28 @@ describe('SystemMessages', () => {
       'NO_SKILL',
       'NO_GRADE',
       'NO_POSITION_DESCRIPTION',
+      'NO_POSITION_POC',
+      'NO_POSITION_WEB_SITE',
+      'GENERAL_SAVED_SEARCH_ERROR',
+      'DELETE_BID_ITEM_SUCCESS',
+      'DELETE_BID_ITEM_ERROR',
+      'ADD_BID_ITEM_SUCCESS',
+      'ADD_BID_ITEM_ERROR',
+      'SUBMIT_BID_SUCCESS',
+      'SUBMIT_BID_ERROR',
     ];
     expectedMessages.forEach((msg) => {
       expect(SystemMessages[msg]).toBeDefined();
+    });
+  });
+  it('should have all expected messages that accept parameters defined', () => {
+    const expectedMessages = [
+      'UPDATED_SAVED_SEARCH_SUCCESS',
+      'NEW_SAVED_SEARCH_SUCCESS',
+    ];
+    expectedMessages.forEach((msg) => {
+      const textToCheck = 'test_word';
+      expect(SystemMessages[msg](textToCheck).indexOf(textToCheck)).toBeDefined();
     });
   });
 });

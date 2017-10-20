@@ -6,6 +6,8 @@ import detailsObject from '../../__mocks__/detailsObject';
 describe('PositionDetailsComponent', () => {
   let wrapper = null;
 
+  const bidList = { results: [{ id: 1 }] };
+
   const goBackLink = { text: 'Go back text', link: '/link' };
 
   it('can receive props', () => {
@@ -18,6 +20,9 @@ describe('PositionDetailsComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBidPosition={() => {}}
+        bidList={bidList}
+        bidListToggleIsLoading
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -35,6 +40,9 @@ describe('PositionDetailsComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBidPosition={() => {}}
+        bidList={bidList}
+        bidListToggleIsLoading
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -52,6 +60,9 @@ describe('PositionDetailsComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBidPosition={() => {}}
+        bidList={bidList}
+        bidListToggleIsLoading
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);

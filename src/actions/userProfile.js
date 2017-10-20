@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { fetchUserToken } from '../utilities';
 import api from '../api';
+import { favoritePositionsFetchData } from './favoritePositions';
 
 export function userProfileHasErrored(bool) {
   return {
@@ -61,42 +62,32 @@ export function userProfileFetchData(bypass) {
 // what we're actually doing.
 // We also want to refresh their favorites, in case they made changes on another page.
 // Since we have to pass the entire array to the API, we want to make sure it's accurate.
-export function userProfileToggleFavoritePosition(id, remove) {
+// If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
+// we can pass a third arg, refreshFavorites.
+export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false) {
   const idString = id.toString();
   return (dispatch) => {
     dispatch(userProfileFavoritePositionIsLoading(true));
     dispatch(userProfileFavoritePositionHasErrored(false));
-    axios.get(`${api}/profile/`, { headers: { Authorization: fetchUserToken() } })
-            .then(response => response.data)
-            .then((userProfile) => {
-              // the user's refreshed favorites
-              let favorites = userProfile.favorite_positions;
-              favorites = favorites.map(f => f.id.toString());
-              // the index of the position in question
-              const indexOfFavorite = favorites.indexOf(idString);
-              // did we explicitly call to remove this position?
-              if (remove) {
-                // and does the id actually exist in the array? if so, remove it
-                if (indexOfFavorite > -1) {
-                  favorites.splice(indexOfFavorite, 1);
-                }
-              } else if (!remove) { // did we call to add the position?
-                // and was it not already present in the array? if so, add it
-                if (indexOfFavorite <= -1) {
-                  favorites.push(idString);
-                }
+    let action = 'put';
+    if (remove) {
+      action = 'delete';
+    }
+    const auth = { headers: { Authorization: fetchUserToken() } };
+    // Now we can patch our profile with the new favorites.
+    // Axios is a little weird here in that for PUTs, it expects a body as the second argument,
+    // whereas for DELETEs, it expects the headers object...
+    // so we have to conditionally decide what position to put the headers object in.
+    const firstArg = action === 'delete' ? auth : {};
+    const secondArg = action === 'put' ? auth : null;
+    axios[action](`${api}/position/${idString}/favorite/`, firstArg, secondArg)
+            .then(() => {
+              dispatch(userProfileFetchData(true));
+              dispatch(userProfileFavoritePositionIsLoading(false));
+              dispatch(userProfileFavoritePositionHasErrored(false));
+              if (refreshFavorites) {
+                dispatch(favoritePositionsFetchData());
               }
-              // make sure we have a clean object with no other params
-              const favoritesObject = Object.assign({}, { favorite_positions: favorites });
-              // now we can patch our profile with the new favorites
-              axios.patch(`${api}/profile/`, favoritesObject, { headers: { Authorization: fetchUserToken() } })
-                      .then(() => {
-                        dispatch(userProfileFetchData(true));
-                      })
-                      .catch(() => {
-                        dispatch(userProfileFavoritePositionHasErrored(true));
-                        dispatch(userProfileFavoritePositionIsLoading(false));
-                      });
             })
             .catch(() => {
               dispatch(userProfileFavoritePositionHasErrored(true));

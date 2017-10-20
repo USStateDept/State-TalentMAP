@@ -1,25 +1,41 @@
 // header container
 .tm-header {
 
-  .usa-logo-text {
-    font-size: 24px;
-  }
-
   @media screen and (min-width: 951px) {
     .usa-logo {
-      margin-bottom: 2.5rem;
-      margin-top: 2.5rem;
+      line-height: 7.5rem;
+      margin-bottom: 0;
+      margin-top: 2rem;
+
+      img {
+        height: auto;
+        width: 250px;
+      }
     }
 
     .usa-nav-secondary {
-      top: -5rem;
+      top: -6.5rem;
+    }
+
+    .usa-logo-text {
+      line-height: unset;
     }
   }
 
   @media screen and (max-width: 950px) {
 
+    .usa-logo {
+      img {
+        padding-top: 5px;
+      }
+    }
+
     .usa-nav-secondary {
       padding-top: 30px;
+    }
+
+    .usa-logo {
+      line-height: unset;
     }
   }
 }

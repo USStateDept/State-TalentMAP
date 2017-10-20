@@ -13,16 +13,18 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
       <div
         className="usa-width-one-whole position-details-description"
       >
-        <strong>
-          POST DESCRIPTION
-        </strong>
+        <span
+          className="position-details-description-title"
+        >
+          Post Description
+        </span>
         <br />
         <div
           className="usa-width-one-whole"
         >
           <PositionDetailsDataPoint
             description="FREETOWN SIERRA LEONE (FREETOWN)"
-            title="ORGANIZATION"
+            title="Organization"
           />
           <PositionDetailsDataPoint
             description={
@@ -33,23 +35,23 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
                 MASERU, LESOTHO
               </Link>
             }
-            title="POST"
+            title="Post"
           />
           <PositionDetailsDataPoint
             description="150000"
-            title="BUREAU"
+            title="Bureau"
           />
           <PositionDetailsDataPoint
             description={15}
-            title="POST DIFFERENTIAL"
+            title="Post Differential"
           />
           <PositionDetailsDataPoint
             description="Yes"
-            title="OVERSEAS"
+            title="Overseas"
           />
           <PositionDetailsDataPoint
-            description="REGION"
-            title="REGION"
+            description="Region"
+            title="Region"
           />
         </div>
       </div>
@@ -59,16 +61,18 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
       <div
         className="usa-width-one-whole position-details-description"
       >
-        <strong>
-          POSITION DESCRIPTION
-        </strong>
+        <span
+          className="position-details-description-title"
+        >
+          Position Description
+        </span>
         <br />
         <div
           className="usa-width-one-whole"
         >
           <PositionDetailsDataPoint
             description="05"
-            title="GRADE"
+            title="Grade"
           />
           <PositionDetailsDataPoint
             description={
@@ -86,15 +90,15 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
                 }
               />
             }
-            title="LANGUAGE"
+            title="Language"
           />
           <PositionDetailsDataPoint
-            description="Information Management"
-            title="SKILLS"
+            description="OFFICE MANAGEMENT (9017)"
+            title="Skill Code"
           />
           <PositionDetailsDataPoint
             description={0}
-            title="DANGER PAY"
+            title="Danger Pay"
           />
         </div>
       </div>

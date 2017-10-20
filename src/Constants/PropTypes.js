@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 
+export const STRING_OR_BOOL = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
+
 export const LANGUAGES = PropTypes.arrayOf(
   PropTypes.shape({
     id: PropTypes.number,
@@ -28,31 +30,48 @@ export const POST_MISSION_DATA = PropTypes.shape({
 export const POST_DETAILS = POST_MISSION_DATA;
 
 export const POSITION_DETAILS = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   grade: PropTypes.string,
   skill: PropTypes.string,
   bureau: PropTypes.string,
   organization: PropTypes.string,
+  representation: PropTypes.string,
+  classifications: PropTypes.arrayOf(PropTypes.string),
   position_number: PropTypes.string,
+  title: PropTypes.string,
   is_overseas: PropTypes.bool,
   create_date: PropTypes.string,
   update_date: PropTypes.string,
+  effective_date: PropTypes.string,
+  description: PropTypes.shape({
+    id: PropTypes.number,
+    last_editing_user: PropTypes.string,
+    date_created: PropTypes.string,
+    date_updated: PropTypes.string,
+    content: PropTypes.string,
+    point_of_contact: PropTypes.string,
+    website: PropTypes.string,
+  }),
   post: POST_MISSION_DATA,
   languages: LANGUAGES,
 });
 
 export const POSITION_DETAILS_ARRAY = PropTypes.arrayOf(POSITION_DETAILS);
 
-export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+export const PAGINATION_PROPS = {
   count: PropTypes.number,
   next: PropTypes.string,
   previous: PropTypes.string,
+};
+
+export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+  ...PAGINATION_PROPS,
   results: POSITION_DETAILS_ARRAY,
 });
 
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
   isNew: POSITION_DETAILS_ARRAY,
-  isPopular: POSITION_DETAILS_ARRAY,
+  isHighlighted: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTERS = PropTypes.arrayOf(
@@ -67,7 +86,7 @@ export const FILTERS = PropTypes.arrayOf(
   }),
 );
 
-export const ITEM = PropTypes.shape({
+export const FILTER_META_DATA = PropTypes.shape({
   title: PropTypes.string,
   sort: PropTypes.number,
   description: PropTypes.string,
@@ -76,15 +95,8 @@ export const ITEM = PropTypes.shape({
   text: PropTypes.string,
 });
 
-export const ITEMS = PropTypes.arrayOf(
-  PropTypes.shape({
-    item: ITEM,
-    data: FILTERS,
-  }),
-);
-
 export const FILTER_ITEM = PropTypes.shape({
-  item: ITEM,
+  item: FILTER_META_DATA,
   data: FILTERS,
 });
 
@@ -101,7 +113,7 @@ export const MAPPED_PARAM = PropTypes.shape({
 export const MAPPED_PARAM_ARRAY = PropTypes.arrayOf(MAPPED_PARAM);
 
 export const FILTERS_PARENT = PropTypes.shape({
-  filters: ITEMS,
+  filters: FILTER_ITEMS_ARRAY,
   mappedParams: MAPPED_PARAM_ARRAY,
   hasFetched: PropTypes.bool,
 });
@@ -169,8 +181,76 @@ export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
   sub: PropTypes.string,
 });
 
+export const SAVED_SEARCH_MESSAGE = STRING_OR_BOOL;
+
+export const SAVED_SEARCH_OBJECT = PropTypes.shape({
+  count: PropTypes.number,
+  date_created: PropTypes.string,
+  date_updated: PropTypes.string,
+  endpoint: PropTypes.string,
+  filters: PropTypes.shape({}),
+  id: PropTypes.number,
+  name: PropTypes.string,
+  owner: PropTypes.string,
+});
+
+export const SAVED_SEARCH_PARENT_OBJECT = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: PropTypes.arrayOf(
+    SAVED_SEARCH_OBJECT,
+  ),
+});
+
+export const DELETE_SAVED_SEARCH_SUCCESS = STRING_OR_BOOL;
+
+export const DELETE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
+
+export const CLONE_SAVED_SEARCH_SUCCESS = STRING_OR_BOOL;
+
+export const CLONE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
+
+export const BID_LIST_TOGGLE_SUCCESS = STRING_OR_BOOL;
+
+export const BID_LIST_TOGGLE_HAS_ERRORED = STRING_OR_BOOL;
+
 export const REGION_SELECTION = PropTypes.shape({
   value: PropTypes.string,
 });
 
+export const BID_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  bidcycle: PropTypes.string,
+  user: PropTypes.string,
+  position: PropTypes.shape({
+    id: PropTypes.number,
+    grade: PropTypes.string,
+    skill: PropTypes.string,
+    position_number: PropTypes.string,
+    title: PropTypes.string,
+    create_date: PropTypes.string,
+    update_date: PropTypes.string,
+    post: PropTypes.shape({
+      id: PropTypes.number,
+      location: PropTypes.string,
+    }),
+  }),
+  status: PropTypes.string,
+  submission_date: PropTypes.string,
+});
+
+export const BID_RESULTS = PropTypes.arrayOf(
+  BID_OBJECT,
+);
+
+export const BID_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: BID_RESULTS,
+});
+
+export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
+
+export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
+
 export const EMPTY_FUNCTION = () => {};
+
+export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };

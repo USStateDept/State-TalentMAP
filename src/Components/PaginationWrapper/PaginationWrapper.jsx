@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 
@@ -6,37 +6,47 @@ import ReactPaginate from 'react-paginate';
 // reference https://github.com/AdeleD/react-paginate for prop types
 // wrapper performs reconciliation for react-paginate's zero-based pagination
 
-const PaginationWrapper = ({
-    previousLabel,
-    nextLabel,
-    pageCount,
-    marginPagesDisplayed,
-    pageRangeDisplayed,
-    onPageChange,
-    paginationStyle,
-    containerClassName,
-    subContainerClassName,
-    forcePage,
-    activeClassName,
-  }) => (
-    <nav className={paginationStyle} aria-label="Pagination">
-      <ReactPaginate
-        previousLabel={previousLabel}
-        nextLabel={nextLabel}
-        pageCount={pageCount}
-        marginPagesDisplayed={marginPagesDisplayed}
-        pageRangeDisplayed={pageRangeDisplayed}
-        onPageChange={(e) => {
-          /* reconciles zero-base */
-          const selected = e.selected + 1; onPageChange({ page: selected });
-        }}
-        containerClassName={containerClassName}
-        subContainerClassName={subContainerClassName}
-        forcePage={forcePage - 1/* reconciles zero-based pagination */}
-        activeClassName={activeClassName}
-      />
-    </nav>
-  );
+class PaginationWrapper extends Component {
+  constructor(props) {
+    super(props);
+    this.onPageChange = this.onPageChange.bind(this);
+  }
+  // reconciles zero-base
+  onPageChange(e) {
+    const selected = e.selected + 1;
+    this.props.onPageChange({ page: selected });
+  }
+  render() {
+    const {
+        previousLabel,
+        nextLabel,
+        pageCount,
+        marginPagesDisplayed,
+        pageRangeDisplayed,
+        paginationStyle,
+        containerClassName,
+        subContainerClassName,
+        forcePage,
+        activeClassName,
+      } = this.props;
+    return (
+      <nav className={paginationStyle} aria-label="Pagination">
+        <ReactPaginate
+          previousLabel={previousLabel}
+          nextLabel={nextLabel}
+          pageCount={pageCount}
+          marginPagesDisplayed={marginPagesDisplayed}
+          pageRangeDisplayed={pageRangeDisplayed}
+          onPageChange={this.onPageChange}
+          containerClassName={containerClassName}
+          subContainerClassName={subContainerClassName}
+          forcePage={forcePage - 1/* reconciles zero-based pagination */}
+          activeClassName={activeClassName}
+        />
+      </nav>
+    );
+  }
+}
 
 PaginationWrapper.propTypes = {
   previousLabel: PropTypes.node,

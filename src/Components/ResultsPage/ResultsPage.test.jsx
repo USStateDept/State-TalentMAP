@@ -38,6 +38,11 @@ describe('ResultsPageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -60,6 +65,11 @@ describe('ResultsPageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -81,6 +91,11 @@ describe('ResultsPageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -101,6 +116,11 @@ describe('ResultsPageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      saveSearch={() => {}}
+      newSavedSearchSuccess={false}
+      newSavedSearchHasErrored={false}
+      newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

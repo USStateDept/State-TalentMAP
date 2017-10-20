@@ -5,6 +5,7 @@ $tm-spinner-filled-ratio: 1.15;
 
 .tm-spinner {
   color: $tm-navy;
+  z-index: $spinner-z; // make sure spinner is on top
 }
 
 .tm-spinner-homepage-position-results {
