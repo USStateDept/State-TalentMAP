@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import BidListButton from '../BidListButton';
 import TextEditor from '../TextEditor';
+import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
 import * as SystemMessages from '../../Constants/SystemMessages';
 import { shortenString } from '../../utilities';
@@ -12,14 +13,18 @@ class PositionTitle extends Component {
     super(props);
     this.toggleWebsiteEditor = this.toggleWebsiteEditor.bind(this);
     this.togglePocEditor = this.togglePocEditor.bind(this);
+    this.toggleDescriptionEditor = this.toggleDescriptionEditor.bind(this);
     this.submitWebsiteEdit = this.submitWebsiteEdit.bind(this);
     this.submitPocEdit = this.submitPocEdit.bind(this);
+    this.submitDescriptionEdit = this.submitDescriptionEdit.bind(this);
     // this.submitDescriptionEdit = this.submitDescriptionEdit.bind(this);
     this.state = {
       shouldShowWebsiteEditor: { value: false },
       shouldShowPocEditor: { value: false },
+      shouldShowDescriptionEditor: { value: false },
       newWebsiteContent: { value: null },
       newPocContent: { value: null },
+      newDescriptionContent: { value: null },
     };
   }
 
@@ -39,6 +44,14 @@ class PositionTitle extends Component {
     this.setState({ shouldShowPocEditor });
   }
 
+  toggleDescriptionEditor() {
+    // reset any alert messages
+    this.props.resetDescriptionEditMessages();
+    const { shouldShowDescriptionEditor } = this.state;
+    shouldShowDescriptionEditor.value = !shouldShowDescriptionEditor.value;
+    this.setState({ shouldShowDescriptionEditor });
+  }
+
   submitWebsiteEdit(content) {
     const { newWebsiteContent } = this.state;
     newWebsiteContent.value = content;
@@ -55,20 +68,43 @@ class PositionTitle extends Component {
     this.togglePocEditor();
   }
 
+  submitDescriptionEdit(content) {
+    const { newDescriptionContent } = this.state;
+    newDescriptionContent.value = content;
+    this.setState({ newDescriptionContent });
+    this.props.editDescriptionContent(content);
+    this.toggleDescriptionEditor();
+  }
+
   render() {
     const { details, goBackLink, toggleBidPosition, bidList,
       bidListToggleIsLoading } = this.props;
-    const { shouldShowWebsiteEditor, shouldShowPocEditor, newWebsiteContent, newPocContent } = this.state; // eslint-disable-line
+    const { shouldShowWebsiteEditor, shouldShowPocEditor, shouldShowDescriptionEditor,
+      newWebsiteContent, newPocContent, newDescriptionContent } = this.state;
+
+    // For each editable section, we need to set three variables:
+    // 1. To check if it exists (not null)
+    // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
+    // 3. A formatted version for public viewing
+
+    const descriptionExists = details.description && details.description.content;
+    const plainTextDescription = descriptionExists ? newDescriptionContent.value || details.description.content : '';
+    const description = descriptionExists ?
+      shortenString(plainTextDescription) :
+      SystemMessages.NO_POSITION_WEB_SITE;
+
     const postWebsiteExists = details.description && details.description.website;
     const plainTextPostWebsite = postWebsiteExists ? newWebsiteContent.value || details.description.website : '';
     const postWebsite = postWebsiteExists ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
     SystemMessages.NO_POSITION_WEB_SITE;
+
     const pointOfContactExists = details.description && details.description.point_of_contact;
     const plainTextPointOfContact = pointOfContactExists ? newPocContent.value || details.description.point_of_contact : '';
     const pointOfContact = pointOfContactExists ?
       <a href={`tel:${plainTextPointOfContact}`}>{plainTextPointOfContact}</a> :
     SystemMessages.NO_POSITION_POC;
+
     return (
       <div className="position-details-header-container">
         <div className="position-details-header">
@@ -94,60 +130,48 @@ class PositionTitle extends Component {
               <div className="position-details-header-title">
                 <strong>Position Number: {details.position_number}</strong>
               </div>
-              <p className="position-details-header-body">
+              <p className="position-details-header-body editable-position-field">
                 <strong>Description: </strong>
                 {
-              details.description && details.description.content ?
-                shortenString(details.description.content) :
-                SystemMessages.NO_POSITION_DESCRIPTION
-              }
+                  !shouldShowDescriptionEditor.value &&
+                    <span className="usa-grid-full">
+                      {
+                        details.description && details.description.content ?
+                          description :
+                          SystemMessages.NO_POSITION_DESCRIPTION
+                      }
+                      <FontAwesome
+                        onClick={this.toggleDescriptionEditor}
+                        name="pencil"
+                        id="description-edit"
+                      />
+                    </span>
+                }
+                {
+                  shouldShowDescriptionEditor.value &&
+                  <TextEditor
+                    initialText={plainTextDescription}
+                    onSubmitText={this.submitDescriptionEdit}
+                    cancel={this.toggleDescriptionEditor}
+                  />
+                }
               </p>
-              <div
-                className="usa-width-one-half position-details-header-body editable-position-field"
-              >
-                <strong>Post website: </strong>
-                {
-                  !shouldShowWebsiteEditor.value &&
-                    <div className="usa-grid-full">
-                      {postWebsite}
-                      <FontAwesome
-                        onClick={this.toggleWebsiteEditor}
-                        name="pencil"
-                      />
-                    </div>
-                }
-                {
-                  shouldShowWebsiteEditor.value &&
-                  <TextEditor
-                    initialText={plainTextPostWebsite}
-                    onSubmitText={this.submitWebsiteEdit}
-                    cancel={this.toggleWebsiteEditor}
-                  />
-                }
-              </div>
-              <div
-                className="usa-width-one-half position-details-header-body editable-position-field"
-              >
-                <strong>Point of Contact: </strong>
-                {
-                  !shouldShowPocEditor.value &&
-                    <div className="usa-grid-full">
-                      {pointOfContact}
-                      <FontAwesome
-                        onClick={this.togglePocEditor}
-                        name="pencil"
-                      />
-                    </div>
-                }
-                {
-                  shouldShowPocEditor.value &&
-                  <TextEditor
-                    initialText={plainTextPointOfContact}
-                    onSubmitText={this.submitPocEdit}
-                    cancel={this.togglePocEditor}
-                  />
-                }
-              </div>
+              <PositionTitleSubDescription
+                title="Post website"
+                formattedContent={postWebsite}
+                plainContent={plainTextPostWebsite}
+                shouldShowEditor={shouldShowWebsiteEditor.value}
+                onSubmitText={this.submitWebsiteEdit}
+                toggleEditor={this.toggleWebsiteEditor}
+              />
+              <PositionTitleSubDescription
+                title="Point of Contact"
+                formattedContent={pointOfContact}
+                plainContent={plainTextPointOfContact}
+                shouldShowEditor={shouldShowPocEditor.value}
+                onSubmitText={this.submitPocEdit}
+                toggleEditor={this.togglePocEditor}
+              />
             </div>
           </div>
           <img
@@ -177,6 +201,7 @@ PositionTitle.propTypes = {
   bidListToggleIsLoading: PropTypes.bool,
   editWebsiteContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
+  editDescriptionContent: PropTypes.func.isRequired,
   resetDescriptionEditMessages: PropTypes.func.isRequired,
 };
 

@@ -17,11 +17,11 @@ exports[`TextEditorComponent matches snapshot 1`] = `
             "allowUndo": true,
             "currentContent": Object {
               "blockMap": Object {
-                "dva2r": Object {
+                "74do3": Object {
                   "characterList": Array [],
                   "data": Object {},
                   "depth": 0,
-                  "key": "dva2r",
+                  "key": "74do3",
                   "text": "",
                   "type": "unstyled",
                 },
@@ -41,17 +41,17 @@ exports[`TextEditorComponent matches snapshot 1`] = `
                 "replaceData": [Function],
               },
               "selectionAfter": Object {
-                "anchorKey": "dva2r",
+                "anchorKey": "74do3",
                 "anchorOffset": 0,
-                "focusKey": "dva2r",
+                "focusKey": "74do3",
                 "focusOffset": 0,
                 "hasFocus": false,
                 "isBackward": false,
               },
               "selectionBefore": Object {
-                "anchorKey": "dva2r",
+                "anchorKey": "74do3",
                 "anchorOffset": 0,
-                "focusKey": "dva2r",
+                "focusKey": "74do3",
                 "focusOffset": 0,
                 "hasFocus": false,
                 "isBackward": false,
@@ -59,7 +59,7 @@ exports[`TextEditorComponent matches snapshot 1`] = `
             },
             "decorator": null,
             "directionMap": Object {
-              "dva2r": "LTR",
+              "74do3": "LTR",
             },
             "forceSelection": false,
             "inCompositionMode": false,
@@ -68,15 +68,15 @@ exports[`TextEditorComponent matches snapshot 1`] = `
             "nativelyRenderedContent": null,
             "redoStack": Array [],
             "selection": Object {
-              "anchorKey": "dva2r",
+              "anchorKey": "74do3",
               "anchorOffset": 0,
-              "focusKey": "dva2r",
+              "focusKey": "74do3",
               "focusOffset": 0,
               "hasFocus": false,
               "isBackward": false,
             },
             "treeMap": Object {
-              "dva2r": Array [
+              "74do3": Array [
                 Object {
                   "decoratorKey": null,
                   "end": 0,

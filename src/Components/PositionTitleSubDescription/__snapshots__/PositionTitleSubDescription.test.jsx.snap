@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionTitleSubDescriptionComponent matches snapshot 1`] = `
+<div
+  className="usa-width-one-half position-details-header-body editable-position-field"
+>
+  <strong>
+    title
+    : 
+  </strong>
+  <div
+    className="usa-grid-full"
+  >
+    <span>
+      content
+    </span>
+    <FontAwesome
+      name="pencil"
+      onClick={[Function]}
+    />
+  </div>
+</div>
+`;

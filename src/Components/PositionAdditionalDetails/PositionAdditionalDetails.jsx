@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { ifEnter } from '../../utilities';
 import * as SystemMessages from '../../Constants/SystemMessages';
-import * as PROP_TYPES from '../../Constants/PropTypes';
 import TextEditor from '../TextEditor';
 import Alert from '../Alert/Alert';
 
@@ -79,6 +78,7 @@ class PositionAdditionalDetails extends Component {
                       onKeyUp={(e) => { if (ifEnter(e)) { this.toggleDescriptionEditor(); } }}
                       onClick={this.toggleDescriptionEditor}
                       name="pencil"
+                      id="additional-details-edit"
                     />
                   </span>
                 }
@@ -115,7 +115,7 @@ class PositionAdditionalDetails extends Component {
 
 PositionAdditionalDetails.propTypes = {
   content: PropTypes.string.isRequired,
-  editDescriptionContent: PropTypes.func,
+  editDescriptionContent: PropTypes.func.isRequired,
   descriptionEditHasErrored: PropTypes.bool.isRequired,
   descriptionEditIsLoading: PropTypes.bool.isRequired,
   descriptionEditSuccess: PropTypes.bool.isRequired,
@@ -124,7 +124,6 @@ PositionAdditionalDetails.propTypes = {
 
 PositionAdditionalDetails.defaultProps = {
   content: '',
-  editDescriptionContent: PROP_TYPES.EMPTY_FUNCTION,
 };
 
 export default PositionAdditionalDetails;

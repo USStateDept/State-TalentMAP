@@ -25,6 +25,7 @@ const PositionDetails = ({ details, isLoading, hasErrored, goBackLink,
           toggleBidPosition={toggleBidPosition}
           bidList={bidList}
           bidListToggleIsLoading={bidListToggleIsLoading}
+          editDescriptionContent={editDescriptionContent}
           editPocContent={editPocContent}
           editWebsiteContent={editWebsiteContent}
           resetDescriptionEditMessages={resetDescriptionEditMessages}

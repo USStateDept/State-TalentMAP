@@ -21,6 +21,7 @@ exports[`PositionAdditionalDetails matches snapshot 1`] = `
             className="usa-grid-full editable-position-field"
           >
             <FontAwesome
+              id="additional-details-edit"
               name="pencil"
               onClick={[Function]}
               onKeyUp={[Function]}

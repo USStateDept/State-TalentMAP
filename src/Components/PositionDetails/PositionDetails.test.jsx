@@ -23,6 +23,9 @@ describe('PositionDetailsComponent', () => {
         toggleBidPosition={() => {}}
         bidList={bidList}
         bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -43,6 +46,9 @@ describe('PositionDetailsComponent', () => {
         toggleBidPosition={() => {}}
         bidList={bidList}
         bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -63,6 +69,9 @@ describe('PositionDetailsComponent', () => {
         toggleBidPosition={() => {}}
         bidList={bidList}
         bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
