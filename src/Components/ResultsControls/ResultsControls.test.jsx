@@ -3,6 +3,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import toJSON from 'enzyme-to-json';
+import sinon from 'sinon';
 import ResultsControls from './ResultsControls';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -73,6 +74,44 @@ describe('ResultsControlsComponent', () => {
       userProfileFavoritePositionHasErrored={false}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
+  });
+
+  it('can call the onSelectOrdering function', () => {
+    const spy = sinon.spy();
+    wrapper = shallow(<ResultsControls
+      results={resultsObject}
+      isLoading={!isLoading}
+      queryParamUpdate={spy}
+      sortBy={sortBy}
+      pageSizes={pageSizes}
+      pageCount={20}
+      hasLoaded={false}
+      onToggle={onToggle}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
+    />);
+    wrapper.instance().onSelectOrdering({ target: { value: 1 } });
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('can call the onSelectLimit function', () => {
+    const spy = sinon.spy();
+    wrapper = shallow(<ResultsControls
+      results={resultsObject}
+      isLoading={!isLoading}
+      queryParamUpdate={spy}
+      sortBy={sortBy}
+      pageSizes={pageSizes}
+      pageCount={20}
+      hasLoaded={false}
+      onToggle={onToggle}
+      toggleFavorite={() => {}}
+      userProfileFavoritePositionIsLoading={false}
+      userProfileFavoritePositionHasErrored={false}
+    />);
+    wrapper.instance().onSelectLimit({ target: { value: 1 } });
+    sinon.assert.calledOnce(spy);
   });
 
   it('matches snapshot', () => {

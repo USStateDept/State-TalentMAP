@@ -6,6 +6,30 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     multiSelectFilterList={
       Array [
         Object {
+          "content": <MultiSelectFilter
+            item={
+                  Object {
+                        "data": Array [
+                          Object {
+                            "isSelected": false,
+                            "long_description": "test",
+                            "short_description": "test",
+                          },
+                        ],
+                        "item": Object {
+                          "description": "region",
+                          "selectionRef": "ref3",
+                          "title": "region",
+                        },
+                      }
+            }
+            queryParamToggle={[Function]}
+      />,
+          "expanded": false,
+          "id": "accordion-region",
+          "title": "region",
+        },
+        Object {
           "content": <LanguageFilter
             item={
                   Object {
@@ -33,7 +57,22 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     className="boolean-filter-container"
   >
     <BooleanFilterContainer
-      filters={Array []}
+      filters={
+        Array [
+          Object {
+            "data": Array [
+              Object {
+                "isSelected": false,
+              },
+            ],
+            "item": Object {
+              "bool": true,
+              "selectionRef": "ref2",
+              "title": "COLA",
+            },
+          },
+        ]
+      }
       onBooleanFilterClick={[Function]}
     />
   </div>

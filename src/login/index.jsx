@@ -11,12 +11,19 @@ import { loginRequest } from './actions';
 export class Login extends Component {
   constructor(props) {
     super(props);
+    this.submit = this.submit.bind(this);
 
     this.state = {
       loopActive: false,
       shuffleActive: false,
       emptyFields: false,
     };
+  }
+
+  // Remember, Redux Form passes the form values to our handler
+  // In this case it will be an object with `username` and `password`
+  submit(values) {
+    this.props.loginRequest(values);
   }
 
   render() {
@@ -29,16 +36,10 @@ export class Login extends Component {
       },
     } = this.props;
 
-    // Remember, Redux Form passes the form values to our handler
-    // In this case it will be an object with `username` and `password`
-    const submit = (values) => {
-      this.props.loginRequest(values);
-    };
-
     return (
       <div className="usa-grid login-container">
         <div className="usa-grid login">
-          <form className="usa-form" onSubmit={handleSubmit(submit)}>
+          <form className="usa-form" onSubmit={handleSubmit(this.submit)}>
             <fieldset>
               <legend className="usa-drop_text">Sign in</legend>
               <label htmlFor="username">Username</label>

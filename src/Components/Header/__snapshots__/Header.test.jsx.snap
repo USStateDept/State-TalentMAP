@@ -18,16 +18,20 @@ exports[`Header matches snapshot when logged in 1`] = `
       className="usa-logo"
       id="logo"
     >
-      <em
+      <div
         className="usa-logo-text"
       >
         <Link
           replace={false}
           to="/"
         >
-          TALENTMAP
+          <img
+            alt="TalentMAP logo"
+            src="horizontal_color.png"
+            width="200"
+          />
         </Link>
-      </em>
+      </div>
     </div>
   </div>
   <nav
@@ -158,16 +162,20 @@ exports[`Header matches snapshot when logged out 1`] = `
       className="usa-logo"
       id="logo"
     >
-      <em
+      <div
         className="usa-logo-text"
       >
         <Link
           replace={false}
           to="/"
         >
-          TALENTMAP
+          <img
+            alt="TalentMAP logo"
+            src="horizontal_color.png"
+            width="200"
+          />
         </Link>
-      </em>
+      </div>
     </div>
   </div>
   <nav

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
@@ -10,85 +10,99 @@ import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 import SaveNewSearchContainer from '../SaveNewSearchContainer';
 import SaveNewSearchAlert from '../SaveNewSearchAlert';
+import Dismiss from '../Dismiss';
 
-const ResultsContainer = ({ results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
-        defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-        defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle, scrollToTop,
-        toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
-        userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-        currentSavedSearch, newSavedSearchIsSaving,
-  }) => (
-    <div className="results-container">
-      {
-        newSavedSearchSuccess &&
-        <SaveNewSearchAlert newSavedSearchSuccess={newSavedSearchSuccess} />
-      }
-      <ResultsPillContainer
-        items={pillFilters}
-        onPillClick={onQueryParamToggle}
-      />
-      <SaveNewSearchContainer
-        saveSearch={saveSearch}
-        newSavedSearchSuccess={newSavedSearchSuccess}
-        newSavedSearchHasErrored={newSavedSearchHasErrored}
-        currentSavedSearch={currentSavedSearch}
-        newSavedSearchIsSaving={newSavedSearchIsSaving}
-      />
-      <ResultsControls
-        results={results}
-        hasLoaded={hasLoaded}
-        defaultSort={defaultSort}
-        pageSizes={pageSizes}
-        defaultPageSize={defaultPageSize}
-        sortBy={sortBy}
-        defaultPageNumber={defaultPageNumber}
-        queryParamUpdate={queryParamUpdate}
-      />
-      {
-        // is not loading, results array exists, but is empty
-        !isLoading && results.results && !results.results.length &&
-          <div className="usa-grid-full no-results">
-            <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
+class ResultsContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.onPageChange = this.onPageChange.bind(this);
+  }
+
+  onPageChange(q) {
+    this.props.queryParamUpdate(q);
+    this.props.scrollToTop();
+  }
+
+  render() {
+    const { results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
+            defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
+            defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
+            toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
+            userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
+            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts,
+      } = this.props;
+    return (
+      <div className="results-container">
+        {
+          newSavedSearchSuccess &&
+          <Dismiss onDismiss={resetSavedSearchAlerts}>
+            <SaveNewSearchAlert newSavedSearchSuccess={newSavedSearchSuccess} />
+          </Dismiss>
+        }
+        <ResultsPillContainer
+          items={pillFilters}
+          onPillClick={onQueryParamToggle}
+        />
+        <SaveNewSearchContainer
+          saveSearch={saveSearch}
+          newSavedSearchSuccess={newSavedSearchSuccess}
+          newSavedSearchHasErrored={newSavedSearchHasErrored}
+          currentSavedSearch={currentSavedSearch}
+          newSavedSearchIsSaving={newSavedSearchIsSaving}
+        />
+        <ResultsControls
+          results={results}
+          hasLoaded={hasLoaded}
+          defaultSort={defaultSort}
+          pageSizes={pageSizes}
+          defaultPageSize={defaultPageSize}
+          sortBy={sortBy}
+          defaultPageNumber={defaultPageNumber}
+          queryParamUpdate={queryParamUpdate}
+        />
+        {
+          // is not loading, results array exists, but is empty
+          !isLoading && results.results && !results.results.length &&
+            <div className="usa-grid-full no-results">
+              <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
+            </div>
+        }
+        {
+          <div className="results-list-container">
+            {
+              isLoading && !hasErrored &&
+                <Spinner size="big" type="position-results" />
+            }
+            <ResultsList
+              key={refreshKey}
+              onToggle={onToggle}
+              results={results}
+              isLoading={!hasLoaded}
+              favorites={userProfile.favorite_positions}
+              toggleFavorite={toggleFavorite}
+              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+            />
           </div>
-      }
-      {
-        <div className="results-list-container">
-          {
-            isLoading && !hasErrored &&
-              <Spinner size="big" type="position-results" />
-          }
-          <ResultsList
-            key={refreshKey}
-            onToggle={onToggle}
-            results={results}
-            isLoading={!hasLoaded}
-            favorites={userProfile.favorite_positions}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          />
-        </div>
-      }
-      {
-       // if there's no results, don't show pagination
-       !!results.results && !!results.results.length
-       // also let page count initiate before trying to render
-       && pageCount > 0 &&
-       // finally, render the pagination
-       <div className="usa-grid-full react-paginate">
-         <PaginationWrapper
-           pageCount={pageCount}
-           onPageChange={(q) => {
-             queryParamUpdate(q);
-             scrollToTop();
-           }
-           }
-           forcePage={defaultPageNumber}
-         />
-       </div>
-     }
-    </div>
-);
+        }
+        {
+         // if there's no results, don't show pagination
+         !!results.results && !!results.results.length
+         // also let page count initiate before trying to render
+         && pageCount > 0 &&
+         // finally, render the pagination
+         <div className="usa-grid-full react-paginate">
+           <PaginationWrapper
+             pageCount={pageCount}
+             onPageChange={this.onPageChange}
+             forcePage={defaultPageNumber}
+           />
+         </div>
+        }
+      </div>
+    );
+  }
+}
 
 ResultsContainer.propTypes = {
   hasErrored: PropTypes.bool,
@@ -116,6 +130,7 @@ ResultsContainer.propTypes = {
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
+  resetSavedSearchAlerts: PropTypes.func.isRequired,
 };
 
 ResultsContainer.defaultProps = {
