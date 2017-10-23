@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
+import TextEditorSubmit from '../TextEditorSubmit';
 import * as PROP_TYPES from '../../Constants/PropTypes';
 
 export default class TextEditor extends Component {
@@ -51,10 +52,7 @@ export default class TextEditor extends Component {
         {
           readOnly ?
           null :
-          <div>
-            <button className="usa-button" onClick={this.submit}>Submit</button>
-            <button className="usa-button-secondary" onClick={this.cancel}>Cancel</button>
-          </div>
+          <TextEditorSubmit submit={this.submit} cancel={this.cancel} />
         }
       </div>
     );

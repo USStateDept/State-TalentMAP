@@ -25,7 +25,7 @@ describe('TextEditorComponent', () => {
         onSubmitText={spy}
       />,
     );
-    wrapper.find('.usa-button').simulate('click');
+    wrapper.instance().submit();
     sinon.assert.calledOnce(spy);
   });
 
