@@ -21,6 +21,17 @@ describe('EditContentButtonComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('can respond to an enter keyUp', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <EditContentButton onToggle={spy} />,
+    );
+    // should only respond to 13
+    wrapper.find('FontAwesome').simulate('keyUp', { keyCode: 13 });
+    wrapper.find('FontAwesome').simulate('keyUp', { keyCode: 14 });
+    sinon.assert.calledOnce(spy);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <EditContentButton onToggle={() => {}} />,
