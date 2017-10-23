@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
+import { BID_OBJECT } from '../../Constants/PropTypes';
 
 class BidListResultsCard extends Component {
   constructor(props) {
     super(props);
-    this.toggleBidPosition = this.toggleBidPosition.bind(this);
+    this.removeBidPosition = this.removeBidPosition.bind(this);
     this.submitBid = this.submitBid.bind(this);
   }
-  toggleBidPosition() {
+  removeBidPosition() {
     const { bid, toggleBidPosition } = this.props;
     toggleBidPosition(bid.position.id, true);
   }
@@ -46,7 +46,7 @@ class BidListResultsCard extends Component {
               </button>
               <button
                 className="usa-button-secondary"
-                onClick={this.toggleBidPosition}
+                onClick={this.removeBidPosition}
                 title="Delete this position from your bid list"
               >
                 Delete
@@ -59,7 +59,7 @@ class BidListResultsCard extends Component {
 }
 
 BidListResultsCard.propTypes = {
-  bid: SAVED_SEARCH_PARENT_OBJECT.isRequired,
+  bid: BID_OBJECT.isRequired,
   toggleBidPosition: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
 };
