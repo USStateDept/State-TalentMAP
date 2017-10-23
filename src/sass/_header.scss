@@ -29,6 +29,9 @@
   @media screen and (max-width: 950px) {
 
     .usa-logo {
+      a {
+        font-size: 5.0rem;
+      }
       img {
         padding-top: 5px;
       }
@@ -39,6 +42,12 @@
     }
 
     .usa-logo {
+      line-height: unset;
+      margin-left: unset;
+      background-color: #ffffff;
+    }
+
+    .usa-logo-text {
       line-height: unset;
     }
   }
