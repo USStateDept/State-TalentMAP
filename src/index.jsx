@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import './sass/styles.scss';
 import App from './Components/App/App';
 
-require('../node_modules/es6-shim/es6-shim.js');
+require('../node_modules/uswds/dist/js/uswds.min.js');
 
 ReactDOM.render((
   <App />
