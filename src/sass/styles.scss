@@ -13,6 +13,11 @@
 // USWDS
 @import '../../node_modules/uswds/dist/css/uswds.css';
 
+// Draft.js
+@import '../../node_modules/draft-js/dist/Draft.css';
+// Draft.js plugin
+@import '../../node_modules/draft-js-inline-toolbar-plugin/lib/plugin.css';
+
 // Global
 @import 'variables';
 
@@ -34,4 +39,5 @@
 @import 'responsive';
 @import 'overrides';
 @import 'spinner';
+@import 'editor';
 @import 'dismiss';

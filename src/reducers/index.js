@@ -21,6 +21,7 @@ import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoad
 import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
   bidListToggleHasErrored, bidListToggleIsLoading, bidListToggleSuccess,
   submitBidHasErrored, submitBidIsLoading, submitBidSuccess } from './bidList';
+import { descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess } from './descriptionEdit';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -82,5 +83,8 @@ export default combineReducers({
   submitBidHasErrored,
   submitBidIsLoading,
   submitBidSuccess,
+  descriptionEditHasErrored,
+  descriptionEditIsLoading,
+  descriptionEditSuccess,
   router: routerReducer,
 });
