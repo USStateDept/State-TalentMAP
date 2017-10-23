@@ -1,6 +1,12 @@
 // header container
 .tm-header {
 
+  .usa-logo {
+    a {
+      display: inline-block;
+    }
+  }
+
   @media screen and (min-width: 951px) {
     .usa-logo {
       line-height: 7.5rem;
@@ -29,9 +35,6 @@
   @media screen and (max-width: 950px) {
 
     .usa-logo {
-      a {
-        font-size: 5.0rem;
-      }
       img {
         padding-top: 5px;
       }
@@ -42,12 +45,6 @@
     }
 
     .usa-logo {
-      line-height: unset;
-      margin-left: unset;
-      background-color: #ffffff;
-    }
-
-    .usa-logo-text {
       line-height: unset;
     }
   }
