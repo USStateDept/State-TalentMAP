@@ -49,9 +49,6 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             a description
-            <EditContentButton
-              onToggle={[Function]}
-            />
           </span>
         </div>
         <PositionTitleSubDescription
@@ -62,6 +59,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
               https://www.state.gov/post
             </a>
           }
+          isAllowedToEdit={false}
           onSubmitText={[Function]}
           plainContent="https://www.state.gov/post"
           shouldShowEditor={false}
@@ -76,6 +74,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
               202-555-5555
             </a>
           }
+          isAllowedToEdit={false}
           onSubmitText={[Function]}
           plainContent="202-555-5555"
           shouldShowEditor={false}

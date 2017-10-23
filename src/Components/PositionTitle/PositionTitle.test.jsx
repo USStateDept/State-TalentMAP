@@ -106,6 +106,44 @@ describe('PositionTitleComponent', () => {
     expect(link.text()).toEqual(goBackLink.text);
   });
 
+  it('shows the editor button when the user has permission', () => {
+    Object.assign(detailsObject, { description: { is_editable_by_user: true } });
+    const wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
+        editWebsiteContent={() => {}}
+        editPocContent={() => {}}
+        editDescriptionContent={() => {}}
+        resetDescriptionEditMessages={() => {}}
+      />,
+    );
+    expect(wrapper.find('EditContentButton')).toHaveLength(1);
+  });
+
+  it('hides the editor button when the user does not have permission', () => {
+    Object.assign(detailsObject, { description: { is_editable_by_user: false } });
+    const wrapper = shallow(
+      <PositionTitle
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+        bidList={bidList}
+        toggleBidPosition={() => {}}
+        editWebsiteContent={() => {}}
+        editPocContent={() => {}}
+        editDescriptionContent={() => {}}
+        resetDescriptionEditMessages={() => {}}
+      />,
+    );
+    expect(wrapper.find('EditContentButton')).toHaveLength(0);
+  });
+
   it('handles go back link click', () => {
     const stub = sinon.stub(window.history, 'back');
     const wrapper = shallow(

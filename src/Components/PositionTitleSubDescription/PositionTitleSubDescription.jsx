@@ -4,7 +4,7 @@ import TextEditor from '../TextEditor';
 import EditContentButton from '../EditContentButton';
 
 const PositionTitleSubDescription = ({ title, formattedContent, plainContent, shouldShowEditor,
-  onSubmitText, toggleEditor }) => (
+  onSubmitText, toggleEditor, isAllowedToEdit }) => (
     <div
       className="usa-width-one-half position-details-header-body editable-position-field"
     >
@@ -13,9 +13,12 @@ const PositionTitleSubDescription = ({ title, formattedContent, plainContent, sh
         !shouldShowEditor &&
           <div className="usa-grid-full">
             {formattedContent}
-            <EditContentButton
-              onToggle={toggleEditor}
-            />
+            {
+              isAllowedToEdit &&
+                <EditContentButton
+                  onToggle={toggleEditor}
+                />
+            }
           </div>
       }
       {
@@ -36,6 +39,7 @@ PositionTitleSubDescription.propTypes = {
   shouldShowEditor: PropTypes.bool.isRequired,
   onSubmitText: PropTypes.func.isRequired,
   toggleEditor: PropTypes.func.isRequired,
+  isAllowedToEdit: PropTypes.bool.isRequired,
 };
 
 export default PositionTitleSubDescription;

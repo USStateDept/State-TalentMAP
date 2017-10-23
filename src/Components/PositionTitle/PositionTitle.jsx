@@ -105,6 +105,8 @@ class PositionTitle extends Component {
       <a href={`tel:${plainTextPointOfContact}`}>{plainTextPointOfContact}</a> :
     SystemMessages.NO_POSITION_POC;
 
+    const isAllowedToEdit = !!(details.description && details.description.is_editable_by_user);
+
     return (
       <div className="position-details-header-container">
         <div className="position-details-header">
@@ -140,9 +142,12 @@ class PositionTitle extends Component {
                           description :
                           SystemMessages.NO_POSITION_DESCRIPTION
                       }
-                      <EditContentButton
-                        onToggle={this.toggleDescriptionEditor}
-                      />
+                      {
+                        isAllowedToEdit &&
+                          <EditContentButton
+                            onToggle={this.toggleDescriptionEditor}
+                          />
+                      }
                     </span>
                 }
                 {
@@ -161,6 +166,7 @@ class PositionTitle extends Component {
                 shouldShowEditor={shouldShowWebsiteEditor.value}
                 onSubmitText={this.submitWebsiteEdit}
                 toggleEditor={this.toggleWebsiteEditor}
+                isAllowedToEdit={isAllowedToEdit}
               />
               <PositionTitleSubDescription
                 title="Point of Contact"
@@ -169,6 +175,7 @@ class PositionTitle extends Component {
                 shouldShowEditor={shouldShowPocEditor.value}
                 onSubmitText={this.submitPocEdit}
                 toggleEditor={this.togglePocEditor}
+                isAllowedToEdit={isAllowedToEdit}
               />
             </div>
           </div>
