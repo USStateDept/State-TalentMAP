@@ -1,7 +1,8 @@
+// draft-js creates dynamic keys, so we won't do any snapshot testing here
+
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import React from 'react';
-import toJSON from 'enzyme-to-json';
 import TextEditor from './TextEditor';
 
 describe('TextEditorComponent', () => {
@@ -52,15 +53,5 @@ describe('TextEditorComponent', () => {
     );
     wrapper.instance().onChange(text);
     expect(wrapper.instance().state.editorState).toBeDefined();
-  });
-
-  it('matches snapshot', () => {
-    const wrapper = shallow(
-      <TextEditor
-        id={id}
-        onSubmitText={() => {}}
-      />,
-    );
-    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
