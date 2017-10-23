@@ -26,6 +26,7 @@ describe('PositionDetailsComponent', () => {
         resetDescriptionEditMessages={() => {}}
         editPocContent={() => {}}
         editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -49,6 +50,7 @@ describe('PositionDetailsComponent', () => {
         resetDescriptionEditMessages={() => {}}
         editPocContent={() => {}}
         editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
@@ -70,6 +72,7 @@ describe('PositionDetailsComponent', () => {
         resetDescriptionEditMessages={() => {}}
         editPocContent={() => {}}
         editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
       />,
     );
     wrapper.instance().editDescriptionContent('test');
@@ -94,6 +97,7 @@ describe('PositionDetailsComponent', () => {
         resetDescriptionEditMessages={() => {}}
         editPocContent={() => {}}
         editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
