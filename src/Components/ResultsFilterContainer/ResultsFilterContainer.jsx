@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 import ResetFilters from '../ResetFilters/ResetFilters';
@@ -69,11 +69,11 @@ ResultsFilterContainer.propTypes = {
   setAccordion: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
-  missionSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   missionSearchIsLoading: PropTypes.bool.isRequired,
   missionSearchHasErrored: PropTypes.bool.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
-  postSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  postSearchResults: POST_DETAILS_ARRAY.isRequired,
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
 };

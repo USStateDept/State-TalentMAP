@@ -22,6 +22,14 @@ describe('ResultsFilterContainerComponent', () => {
         resetFilters={() => {}}
         setAccordion={() => {}}
         selectedAccordion={accordion}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />);
     expect(wrapper).toBeDefined();
   });
@@ -35,6 +43,14 @@ describe('ResultsFilterContainerComponent', () => {
       resetFilters={() => {}}
       setAccordion={() => {}}
       selectedAccordion={accordion}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     expect(wrapper.instance().props.filters).toBe(items);
   });
@@ -51,6 +67,14 @@ describe('ResultsFilterContainerComponent', () => {
       resetFilters={() => {}}
       setAccordion={() => {}}
       selectedAccordion={accordion}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     wrapper.instance().onQueryParamUpdate(value);
     sinon.assert.calledOnce(queryUpdateSpy);
@@ -69,6 +93,14 @@ describe('ResultsFilterContainerComponent', () => {
       resetFilters={() => {}}
       setAccordion={() => {}}
       selectedAccordion={accordion}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     wrapper.instance().onQueryParamToggle(value, value, value);
     sinon.assert.calledOnce(queryToggleSpy);
@@ -84,6 +116,14 @@ describe('ResultsFilterContainerComponent', () => {
       resetFilters={() => {}}
       setAccordion={() => {}}
       selectedAccordion={accordion}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

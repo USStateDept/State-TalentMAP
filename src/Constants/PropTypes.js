@@ -29,6 +29,8 @@ export const POST_MISSION_DATA = PropTypes.shape({
 // TODO - these are the same, but other data will be added later
 export const POST_DETAILS = POST_MISSION_DATA;
 
+export const POST_DETAILS_ARRAY = PropTypes.arrayOf(POST_DETAILS);
+
 export const POSITION_DETAILS = PropTypes.shape({
   id: PropTypes.number.isRequired,
   grade: PropTypes.string,
@@ -67,6 +69,11 @@ export const PAGINATION_PROPS = {
 export const POSITION_SEARCH_RESULTS = PropTypes.shape({
   ...PAGINATION_PROPS,
   results: POSITION_DETAILS_ARRAY,
+});
+
+export const POST_SEARCH_RESULTS = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: POST_DETAILS_ARRAY,
 });
 
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
@@ -247,16 +254,16 @@ export const BID_LIST = PropTypes.shape({
   results: BID_RESULTS,
 });
 
-export const MISSION_SEARCH_RESULTS = PropTypes.arrayOf(
-  PropTypes.shape({
-    id: PropTypes.number,
-    code: PropTypes.string,
-    short_code: PropTypes.string,
-    location_prefix: PropTypes.string,
-    name: PropTypes.string,
-    short_name: PropTypes.string,
-  }),
-);
+export const MISSION_DETAILS = PropTypes.shape({
+  id: PropTypes.number,
+  code: PropTypes.string,
+  short_code: PropTypes.string,
+  location_prefix: PropTypes.string,
+  name: PropTypes.string,
+  short_name: PropTypes.string,
+});
+
+export const MISSION_DETAILS_ARRAY = PropTypes.arrayOf(MISSION_DETAILS);
 
 export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
 

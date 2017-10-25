@@ -6,7 +6,7 @@ import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterConta
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import AutoSuggest from '../../AutoSuggest';
 import RenderSuggestionPost from '../../AutoSuggest/RenderSuggestionPost';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_SEARCH_RESULTS } from '../../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
@@ -202,9 +202,9 @@ SearchFiltersContainer.propTypes = {
   selectedAccordion: ACCORDION_SELECTION_OBJECT.isRequired,
   setAccordion: PropTypes.func.isRequired,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
-  missionSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
-  postSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  postSearchResults: POST_DETAILS_ARRAY.isRequired,
 };
 
 export default SearchFiltersContainer;

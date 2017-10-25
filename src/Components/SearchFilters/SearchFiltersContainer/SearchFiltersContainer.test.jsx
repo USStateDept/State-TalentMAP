@@ -29,6 +29,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
@@ -42,6 +46,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -56,6 +64,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
 
@@ -77,6 +89,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
 
@@ -94,6 +110,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
 
@@ -114,6 +134,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={filters}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('language');
@@ -143,6 +167,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={filters}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('skill');

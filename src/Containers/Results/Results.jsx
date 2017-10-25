@@ -289,11 +289,11 @@ Results.propTypes = {
   currentSavedSearch: PROP_TYPES.SAVED_SEARCH_OBJECT,
   resetSavedSearchAlerts: PropTypes.func.isRequired,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
-  missionSearchResults: PROP_TYPES.MISSION_SEARCH_RESULTS.isRequired,
+  missionSearchResults: PROP_TYPES.MISSION_DETAILS_ARRAY.isRequired,
   missionSearchIsLoading: PropTypes.bool.isRequired,
   missionSearchHasErrored: PropTypes.bool.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
-  postSearchResults: PROP_TYPES.MISSION_SEARCH_RESULTS.isRequired,
+  postSearchResults: PROP_TYPES.POST_DETAILS_ARRAY.isRequired,
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
 };
@@ -315,6 +315,14 @@ Results.defaultProps = {
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},
   resetSavedSearchAlerts: PROP_TYPES.EMPTY_FUNCTION,
+  fetchMissionAutocomplete: PROP_TYPES.EMPTY_FUNCTION,
+  missionSearchResults: [],
+  missionSearchIsLoading: false,
+  missionSearchHasErrored: false,
+  fetchPostAutocomplete: PROP_TYPES.EMPTY_FUNCTION,
+  postSearchResults: [],
+  postSearchIsLoading: false,
+  postSearchHasErrored: false,
 };
 
 Results.contextTypes = {
