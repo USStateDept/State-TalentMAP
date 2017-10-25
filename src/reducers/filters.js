@@ -133,6 +133,7 @@ const items =
           sort: 1000,
           bool: false,
           description: 'mission',
+          endpoint: 'country/?limit=7',
           selectionRef: ENDPOINT_PARAMS.mission,
           choices: [
           ],
@@ -146,6 +147,7 @@ const items =
           sort: 1100,
           bool: false,
           description: 'post',
+          endpoint: 'orgpost/?limit=7',
           selectionRef: ENDPOINT_PARAMS.post,
           choices: [
           ],

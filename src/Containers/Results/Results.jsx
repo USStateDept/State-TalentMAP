@@ -129,6 +129,7 @@ class Results extends Component {
 
   // for when we need to ADD or DELETE a NESTED value of a filter
   onQueryParamToggle(param, value, remove) {
+    const stringifiedValue = value.toString();
     const parsedQuery = queryString.parse(this.state.query.value);
     // was the key found?
     let wasKeyFound = false;
@@ -139,14 +140,14 @@ class Results extends Component {
         wasKeyFound = true;
         // split filter strings into array
         const keyArray = parsedQuery[key].split(',');
-        const index = keyArray.indexOf(value);
+        const index = keyArray.indexOf(stringifiedValue);
         // does the filter exist in the query params? if so, delete it
         if (index > -1 && remove) {
           keyArray.splice(index, 1);
         } else if (!remove) {
           // value should not be a duplicate
-          if (keyArray.indexOf(value) <= -1) {
-            keyArray.push(value);
+          if (keyArray.indexOf(stringifiedValue) <= -1) {
+            keyArray.push(stringifiedValue);
           }
         }
         // convert the array back to a string
@@ -159,7 +160,7 @@ class Results extends Component {
       }
     });
     if (!wasKeyFound && !remove) {
-      parsedQuery[param] = value;
+      parsedQuery[param] = stringifiedValue;
     }
     // Go back to page 1 if a page number >1 was set.
     // We never change the page number from this function, so we can always assume this

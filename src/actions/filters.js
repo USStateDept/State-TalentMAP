@@ -154,6 +154,9 @@ export function filtersFetchData(items, queryParams, savedResponses) {
             responses.filters[i].data[j].custom_description =
               `${filterItemObject.description}
               (${filterItemObject.code})`;
+          } else if (filterItem.item.description === 'post') {
+            responses.filters[i].data[j].custom_description =
+              filterItemObject.location;
           }
         });
       });
@@ -174,9 +177,14 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                 };
                 responses.filters.forEach((filterItem, i) => {
                   filterItem.data.forEach((filterItemObject, j) => {
-                    if (filterItemObject.code &&
+                    if (
+                      (filterItemObject.code &&
                           filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
-                          filterItem.item.selectionRef === mappedObject.selectionRef) {
+                          filterItem.item.selectionRef === mappedObject.selectionRef) ||
+                      (filterItemObject.id &&
+                          filterItemObject.id.toString() === mappedObject.codeRef.toString() &&
+                          filterItem.item.selectionRef === mappedObject.selectionRef)
+                        ) {
                       responses.filters[i].data[j].isSelected = true;
                       if ( // boolean filters are special since they don't rely on AJAX
                           response.item.description === 'COLA' ||

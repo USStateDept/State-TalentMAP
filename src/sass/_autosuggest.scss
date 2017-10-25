@@ -24,8 +24,8 @@
 
 .react-autosuggest__suggestions-container--open {
   display: block;
-  position: relative;
-  top: -5px;
+  position: absolute;
+  top: 29px;
   width: 100%;
   border: 1px solid #aaa;
   background-color: #fff;
