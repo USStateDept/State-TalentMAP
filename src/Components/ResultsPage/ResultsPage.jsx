@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, USER_PROFILE, SAVED_SEARCH_MESSAGE,
   SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY,
-  SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
+  SAVED_SEARCH_OBJECT, MISSION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
@@ -32,7 +32,9 @@ class Results extends Component {
             selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
             newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
-            resetSavedSearchAlerts }
+            fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
+            missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
+            postSearchResults, postSearchIsLoading, postSearchHasErrored }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
@@ -60,6 +62,14 @@ class Results extends Component {
             resetFilters={resetFilters}
             setAccordion={setAccordion}
             selectedAccordion={selectedAccordion}
+            fetchMissionAutocomplete={fetchMissionAutocomplete}
+            missionSearchResults={missionSearchResults}
+            missionSearchIsLoading={missionSearchIsLoading}
+            missionSearchHasErrored={missionSearchHasErrored}
+            fetchPostAutocomplete={fetchPostAutocomplete}
+            postSearchResults={postSearchResults}
+            postSearchIsLoading={postSearchIsLoading}
+            postSearchHasErrored={postSearchHasErrored}
           />
           <ResultsContainer
             results={results}
@@ -124,6 +134,14 @@ Results.propTypes = {
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
   resetSavedSearchAlerts: PropTypes.func.isRequired,
+  fetchMissionAutocomplete: PropTypes.func.isRequired,
+  missionSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  missionSearchIsLoading: PropTypes.bool.isRequired,
+  missionSearchHasErrored: PropTypes.bool.isRequired,
+  fetchPostAutocomplete: PropTypes.func.isRequired,
+  postSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  postSearchIsLoading: PropTypes.bool.isRequired,
+  postSearchHasErrored: PropTypes.bool.isRequired,
 };
 
 Results.defaultProps = {

@@ -247,6 +247,17 @@ export const BID_LIST = PropTypes.shape({
   results: BID_RESULTS,
 });
 
+export const MISSION_SEARCH_RESULTS = PropTypes.arrayOf(
+  PropTypes.shape({
+    id: PropTypes.number,
+    code: PropTypes.string,
+    short_code: PropTypes.string,
+    location_prefix: PropTypes.string,
+    name: PropTypes.string,
+    short_name: PropTypes.string,
+  }),
+);
+
 export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
 
 export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;

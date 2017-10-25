@@ -4,7 +4,7 @@ import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelec
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_SEARCH_RESULTS } from '../../../Constants/PropTypes';
 import { propSort } from '../../../utilities';
 
 class SearchFiltersContainer extends Component {
@@ -29,6 +29,10 @@ class SearchFiltersContainer extends Component {
     this.props.setAccordion({ main: 'Language', sub: a });
   }
   render() {
+    const { fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
+    missionSearchHasErrored, fetchPostAutocomplete,
+    postSearchResults, postSearchIsLoading, postSearchHasErrored } = this.props;
+
     // get our boolean filter names
     const sortedBooleanNames = ['Post Differential', 'Danger Pay', 'COLA', 'Domestic'];
 
@@ -118,11 +122,27 @@ class SearchFiltersContainer extends Component {
     // add language last
     sortedFilters.push(languageFilterObject);
 
+    const missionTitle = 'Mission';
+    const postTitle = 'Post';
+
     return (
       <div>
         <MultiSelectFilterContainer
           setAccordion={this.onSetAccordion}
           multiSelectFilterList={sortedFilters}
+          fetchMissionAutocomplete={fetchMissionAutocomplete}
+          missionSearchResults={missionSearchResults}
+          missionExpanded={this.props.selectedAccordion.main === missionTitle}
+          missionTitle={missionTitle}
+          queryParamToggle={this.props.queryParamToggle}
+          missionSearchIsLoading={missionSearchIsLoading}
+          missionSearchHasErrored={missionSearchHasErrored}
+          postTitle={postTitle}
+          postExpanded={this.props.selectedAccordion.main === postTitle}
+          fetchPostAutocomplete={fetchPostAutocomplete}
+          postSearchResults={postSearchResults}
+          postSearchIsLoading={postSearchIsLoading}
+          postSearchHasErrored={postSearchHasErrored}
         />
         <div className="boolean-filter-container">
           <BooleanFilterContainer
@@ -145,6 +165,14 @@ SearchFiltersContainer.propTypes = {
   queryParamToggle: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT.isRequired,
   setAccordion: PropTypes.func.isRequired,
+  fetchMissionAutocomplete: PropTypes.func.isRequired,
+  missionSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  missionSearchIsLoading: PropTypes.bool.isRequired,
+  missionSearchHasErrored: PropTypes.bool.isRequired,
+  fetchPostAutocomplete: PropTypes.func.isRequired,
+  postSearchResults: MISSION_SEARCH_RESULTS.isRequired,
+  postSearchIsLoading: PropTypes.bool.isRequired,
+  postSearchHasErrored: PropTypes.bool.isRequired,
 };
 
 export default SearchFiltersContainer;

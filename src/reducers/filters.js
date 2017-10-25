@@ -127,6 +127,32 @@ const items =
           { code: 'true', short_description: 'Yes' },
         ],
       },
+      {
+        item: {
+          title: 'Mission',
+          sort: 1000,
+          bool: false,
+          description: 'mission',
+          selectionRef: ENDPOINT_PARAMS.mission,
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Post',
+          sort: 1100,
+          bool: false,
+          description: 'post',
+          selectionRef: ENDPOINT_PARAMS.post,
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
     ],
   };
 
