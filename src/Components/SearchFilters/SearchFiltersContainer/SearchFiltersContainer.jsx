@@ -116,19 +116,20 @@ class SearchFiltersContainer extends Component {
     const sortedFilters = [];
     multiSelectFilterNames.forEach((n) => {
       const item = multiSelectFilterMap.get(n);
+      // let some variables that will change based on whether n is a post or mission
       let getSuggestions;
       let suggestions;
       let placeholder;
       let onSuggestionSelected;
       let displayProperty;
-      let suggestionTemplate;
+      let suggestionTemplate; // AutoSuggest will use default template if this stays undefined
       if (n === 'post') {
         getSuggestions = fetchPostAutocomplete;
         suggestions = postSearchResults;
         placeholder = 'Start typing a post';
         onSuggestionSelected = this.onPostSuggestionSelected;
         displayProperty = 'location';
-        suggestionTemplate = RenderSuggestionPost; /* special template for posts */
+        suggestionTemplate = RenderSuggestionPost; // special template for posts
       }
       if (n === 'mission') {
         getSuggestions = fetchMissionAutocomplete;
@@ -142,7 +143,7 @@ class SearchFiltersContainer extends Component {
             (
               <div className="usa-grid-full">
                 {
-                // only show the autosuggest for post and mission filters
+                // Only show the autosuggest for post and mission filters.
                 (n === 'post' || n === 'mission') ?
                   <AutoSuggest
                     getSuggestions={getSuggestions}
