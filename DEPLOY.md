@@ -20,7 +20,8 @@ Install Node version 6.11.5
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
 . ~/.nvm/nvm.sh
-nvm install 6.11.5
+nvm install
+nvm use
 node -e "console.log('Running Node.js ' + process.version)"
 ```
 
