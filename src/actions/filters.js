@@ -51,45 +51,56 @@ export function filtersFetchData(items, queryParams, savedResponses) {
     function mapAsyncParams() {
       const asyncFilters = responses.asyncParams;
 
+      // create a promise to retrieve our filters that rely on ajax
       const asyncQueryProms = asyncFilters.map((item) => {
         let cacheFound = false;
+        // check our cache to see if we already have data saved on the filter
         responses.asyncFilterCache.forEach((a) => {
           if (a.codeRef === item.codeRef) {
             cacheFound = a;
           }
         });
+        // function to check an async retrieved object is already in the cache
+        const isRefCached = (i) => {
+          let found = false;
+          responses.asyncFilterCache.forEach((a) => {
+            if (a.codeRef === i.codeRef) {
+              found = true;
+            }
+          });
+          return found;
+        };
+        // Is it already cached? if so, return it.
         if (cacheFound) {
           return cacheFound;
+        // Else, we'll want to retrieve it.
+        // We'll do this for posts and missions.
         } else if (item.selectionRef === ENDPOINT_PARAMS.post) {
           return axios.get(`${api}/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', codeRef: item.codeRef });
-            let found = false;
-            responses.asyncFilterCache.forEach((a) => {
-              if (a.codeRef === item.codeRef) {
-                found = true;
-              }
-            });
-            if (!found) {
+            // check if a copy is already in the cache
+            if (!isRefCached(item)) {
               responses.asyncFilterCache.push(obj);
             }
+            // finally return the object
             return obj;
+          })
+          .catch((error) => {
+            throw error;
           });
         }
         if (item.selectionRef === ENDPOINT_PARAMS.mission) {
           return axios.get(`${api}/country/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'mission', codeRef: item.codeRef });
-            let found = false;
-            responses.asyncFilterCache.forEach((a) => {
-              if (a.codeRef === item.codeRef) {
-                found = true;
-              }
-            });
-            if (!found) {
+            if (!isRefCached(item)) {
               responses.asyncFilterCache.push(obj);
             }
             return obj;
+          })
+          .catch((error) => {
+            throw error;
           });
         }
         return {};
@@ -97,6 +108,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
 
       const asyncData = [];
 
+      // actually execute our async calls
       Promise.all(asyncQueryProms)
         // Promise.all returns a single array which matches the order of the originating array
         .then((results) => {
@@ -107,17 +119,19 @@ export function filtersFetchData(items, queryParams, savedResponses) {
         .then(() => {
           asyncFilters.forEach((item, i) => {
             asyncData.forEach((data) => {
+              // Do some formatting for post and mission data
+              // for when they get put inside Pills/
               if (item.codeRef === data.codeRef) {
                 if (data.type === 'post') {
                   asyncFilters[i].description = `${data.location} (Post)`;
                 } else if (data.type === 'mission') {
                   asyncFilters[i].description = `${data.short_name} (Mission)`;
-                } else {
-                  asyncFilters[i].description = '';
                 }
               }
             });
           });
+          // Finally add our async params to the original mappedParams
+          // and remove and any duplicates by the 'description' prop
           responses.mappedParams.push(...responses.asyncParams);
           responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
           // finally, dispatch a success
@@ -178,6 +192,8 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                 responses.filters.forEach((filterItem, i) => {
                   filterItem.data.forEach((filterItemObject, j) => {
                     if (
+                      // Check if code or ID matches, since we use both.
+                      // TODO - consider standardizing to ID?
                       (filterItemObject.code &&
                           filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
                           filterItem.item.selectionRef === mappedObject.selectionRef) ||

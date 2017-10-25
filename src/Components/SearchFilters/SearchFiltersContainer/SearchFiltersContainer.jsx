@@ -120,11 +120,15 @@ class SearchFiltersContainer extends Component {
       let suggestions;
       let placeholder;
       let onSuggestionSelected;
+      let displayProperty;
+      let suggestionTemplate;
       if (n === 'post') {
         getSuggestions = fetchPostAutocomplete;
         suggestions = postSearchResults;
         placeholder = 'Start typing a post';
         onSuggestionSelected = this.onPostSuggestionSelected;
+        displayProperty = 'location';
+        suggestionTemplate = RenderSuggestionPost; /* special template for posts */
       }
       if (n === 'mission') {
         getSuggestions = fetchMissionAutocomplete;
@@ -146,7 +150,8 @@ class SearchFiltersContainer extends Component {
                     placeholder={placeholder}
                     onSuggestionSelected={onSuggestionSelected}
                     queryProperty="id"
-                    suggestionTemplate={n === 'post' ? RenderSuggestionPost : undefined /* special template for posts */}
+                    displayProperty={displayProperty}
+                    suggestionTemplate={suggestionTemplate}
                   />
                   : null
                 }

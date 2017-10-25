@@ -4,11 +4,7 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import RenderSuggestion from './RenderSuggestion';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
-
-// When suggestion is clicked, Autosuggest needs to populate the input
-// based on the clicked suggestion. Teach Autosuggest how to calculate the
-// input value for every given suggestion.
-const getSuggestionValue = suggestion => suggestion;
+import getSuggestionValue from './helpers';
 
 // Configure our debounced function.
 // It needs to be global so we can cancel any pending requests while the user types.
@@ -107,7 +103,7 @@ AutoSuggest.propTypes = {
   queryProperty: PropTypes.string,
 
   // the template to use for rendering suggestions
-  suggestionTemplate: PropTypes.node,
+  suggestionTemplate: PropTypes.func,
 };
 
 AutoSuggest.defaultProps = {
