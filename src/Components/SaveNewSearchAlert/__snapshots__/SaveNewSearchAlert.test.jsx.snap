@@ -8,7 +8,10 @@ exports[`SaveNewSearchAlertComponent matches snapshot 1`] = `
     messages={
       Array [
         Object {
-          "body": "message",
+          "body": <SaveNewSearchAlertBody
+            text="text"
+            type="type"
+      />,
         },
       ]
     }

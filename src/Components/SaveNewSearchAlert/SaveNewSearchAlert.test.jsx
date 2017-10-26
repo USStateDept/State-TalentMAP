@@ -9,7 +9,7 @@ describe('SaveNewSearchAlertComponent', () => {
   it('is defined', () => {
     wrapper = shallow(
       <SaveNewSearchAlert
-        newSavedSearchSuccess="message"
+        newSavedSearchSuccess={{ type: 'type', text: 'text' }}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -18,7 +18,7 @@ describe('SaveNewSearchAlertComponent', () => {
   it('matches snapshot', () => {
     wrapper = shallow(
       <SaveNewSearchAlert
-        newSavedSearchSuccess="message"
+        newSavedSearchSuccess={{ type: 'type', text: 'text' }}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

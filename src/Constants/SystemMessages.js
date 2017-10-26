@@ -15,10 +15,23 @@ export const NO_GRADE = DEFAULT_TEXT;
 export const NO_POSITION_DESCRIPTION = 'There is no description for this position.';
 export const NO_POSITION_POC = 'None listed.';
 export const NO_POSITION_WEB_SITE = 'None listed.';
-export const NEW_SAVED_SEARCH_SUCCESS = name =>
-  `New search with the name "${name}" has been saved! You can go to your profile to view all of your saved searches.`;
-export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
-  `Search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;
+export const NEW_SAVED_SEARCH_SUCCESS = {
+  one: 'New search with the name "',
+  // the name will be placed second
+  three: '" has been saved! You can ',
+  // four will be a link
+  four: 'go to your profile',
+  five: ' to view all of your saved searches.',
+};
+// a link will be placed between start and end
+export const UPDATED_SAVED_SEARCH_SUCCESS = {
+  one: 'Search with the name "',
+  // the name will be placed second
+  three: '" has been updated! You can ',
+  // four will be a link
+  four: 'go to your profile',
+  five: ' to view all of your saved searches.',
+};
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
 export const DELETE_BID_ITEM_SUCCESS = 'Bid successfully removed.';
 export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';

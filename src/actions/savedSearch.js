@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as SystemMessages from '../Constants/SystemMessages';
+import { NEW_SAVED_SEARCH_SUCCESS, UPDATED_SAVED_SEARCH_SUCCESS } from '../Constants/ResponseMessages';
 import { fetchUserToken } from '../utilities';
 import api from '../api';
 
@@ -206,8 +206,8 @@ export function saveSearch(data, id) {
               dispatch(newSavedSearchSuccess(
                 // if an ID was passed, we know to use the UPDATED message
                 id ?
-                  SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) :
-                  SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name),
+                  { type: UPDATED_SAVED_SEARCH_SUCCESS, text: response.data.name } :
+                  { type: NEW_SAVED_SEARCH_SUCCESS, text: response.data.name },
               ));
               dispatch(setCurrentSavedSearch(response.data));
             })

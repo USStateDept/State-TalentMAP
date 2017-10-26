@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
+import { SAVED_SEARCH_OBJECT, NEW_SAVED_SEARCH_SUCCESS_MESSAGE } from '../../Constants/PropTypes';
 import { ifEnter } from '../../utilities';
 
 const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
@@ -35,7 +35,7 @@ const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
 
 SaveNewSearchPrompt.propTypes = {
   toggleInput: PropTypes.func.isRequired,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
+  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_MESSAGE,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 

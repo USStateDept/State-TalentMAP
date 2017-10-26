@@ -265,7 +265,7 @@ Results.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  newSavedSearchSuccess: PROP_TYPES.SAVED_SEARCH_MESSAGE,
+  newSavedSearchSuccess: PROP_TYPES.NEW_SAVED_SEARCH_SUCCESS_MESSAGE,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   newSavedSearchHasErrored: PROP_TYPES.SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,

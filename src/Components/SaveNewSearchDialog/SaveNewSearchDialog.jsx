@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
+import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, NEW_SAVED_SEARCH_SUCCESS_MESSAGE } from '../../Constants/PropTypes';
 import Form from '../Form';
 import FieldSet from '../FieldSet/FieldSet';
 import TextInput from '../TextInput';
@@ -70,7 +70,7 @@ SaveNewSearchDialog.propTypes = {
   onTextChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
+  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_MESSAGE,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
 };
 

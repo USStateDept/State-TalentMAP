@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SaveNewSearchAlertBodyComponent matches snapshot 1`] = `
+<span>
+  New search with the name "
+  text
+  " has been saved! You can 
+  <Link
+    replace={false}
+    to="/profile/searches/"
+  >
+    go to your profile
+  </Link>
+   to view all of your saved searches.
+</span>
+`;

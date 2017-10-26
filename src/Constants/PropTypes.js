@@ -253,4 +253,13 @@ export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};
 
+export const NEW_SAVED_SEARCH_SUCCESS_MESSAGE = PropTypes.oneOfType([
+  PropTypes.shape({
+    type: PropTypes.string,
+    text: PropTypes.string,
+  }),
+  PropTypes.bool,
+  PropTypes.string,
+]);
+
 export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };

@@ -23,7 +23,7 @@ Alert.propTypes = {
   title: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(
     PropTypes.shape({
-      body: PropTypes.string,
+      body: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     })),
 };
 
