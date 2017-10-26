@@ -28,7 +28,7 @@ export function missionSearchFetchData(query) {
     if (cancel) { cancel(); }
     dispatch(missionSearchHasErrored(false));
     dispatch(missionSearchIsLoading(true));
-    axios.get(`${api}/country/?short_name__icontains=${query}&limit=3`, {
+    axios.get(`${api}/country/?q=${query}&limit=3`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),

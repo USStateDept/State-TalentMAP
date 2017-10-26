@@ -22,11 +22,11 @@ describe('async actions', () => {
       },
     ];
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/?short_name__icontains=Afgh&limit=3').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/country/?q=Afgh&limit=3').reply(200,
       results,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/?short_name__icontains=fake&limit=3').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/country/?q=fake&limit=3').reply(404,
       null,
     );
   });
