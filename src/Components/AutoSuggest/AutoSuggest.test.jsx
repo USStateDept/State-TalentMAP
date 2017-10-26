@@ -18,6 +18,8 @@ describe('AutoSuggestComponent', () => {
         suggestions={suggestions}
         getSuggestions={() => {}}
         onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
       />,
     );
     expect(wrapper).toBeDefined();
@@ -29,6 +31,8 @@ describe('AutoSuggestComponent', () => {
         suggestions={suggestions}
         getSuggestions={() => {}}
         onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
       />,
     );
     expect(wrapper.instance().props.suggestions[0].short_name).toBe(suggestions[0].short_name);
@@ -40,6 +44,8 @@ describe('AutoSuggestComponent', () => {
         suggestions={suggestions}
         getSuggestions={() => {}}
         onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
       />,
     );
     wrapper.instance().onKeyChange(null, { newValue: { short_name: 'test' } });
@@ -53,6 +59,8 @@ describe('AutoSuggestComponent', () => {
         suggestions={suggestions}
         getSuggestions={() => {}}
         onSuggestionSelected={spy}
+        inputId="input"
+        label="label"
       />,
     );
     wrapper.instance().onSuggestionSelected(null, { suggestion: { short_name: 'test' } });
@@ -65,10 +73,30 @@ describe('AutoSuggestComponent', () => {
         suggestions={suggestions}
         getSuggestions={() => {}}
         onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
       />,
     );
     const template = wrapper.instance().renderSuggestion({ short_name: 'test', code: '01a' });
     expect(template).toBeDefined();
+  });
+
+  it('can add a label', () => {
+    const label = 'label';
+    const inputId = 'input';
+    const wrapper = shallow(
+      <AutoSuggest
+        suggestions={suggestions}
+        getSuggestions={() => {}}
+        onSuggestionSelected={() => {}}
+        inputId={inputId}
+        label={label}
+      />,
+    );
+    // check that the inner text is "label"
+    expect(wrapper.find('label').text()).toContain(label);
+    // and that the htmlFor attribute is "inputId"
+    expect(wrapper.find('label').prop('htmlFor')).toBe(inputId);
   });
 
   it('can call the onSuggestionsFetchRequested function and perform debounce', (done) => {
@@ -80,6 +108,8 @@ describe('AutoSuggestComponent', () => {
         getSuggestions={spy}
         onSuggestionSelected={() => {}}
         debounce={debounce}
+        inputId="input"
+        label="label"
       />,
     );
     wrapper.instance().onSuggestionsFetchRequested({ value: 'test' });

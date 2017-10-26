@@ -153,6 +153,9 @@ class SearchFiltersContainer extends Component {
                     queryProperty="id"
                     displayProperty={displayProperty}
                     suggestionTemplate={suggestionTemplate}
+                    id={`${n}-autosuggest-container`}
+                    inputId={`${n}-autosuggest-input`}
+                    label={`${item.item.title} name`}
                   />
                   : null
                 }

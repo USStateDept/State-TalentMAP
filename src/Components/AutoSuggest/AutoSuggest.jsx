@@ -6,7 +6,7 @@ import RenderSuggestion from './RenderSuggestion';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import getSuggestionValue from './helpers';
 
-// Configure our debounced function.
+// Configure our debounce function.
 // It needs to be global so we can cancel any pending requests while the user types.
 let debounced = debounce(() => {});
 
@@ -59,35 +59,62 @@ export default class AutoSuggest extends Component {
 
   render() {
     const { value } = this.state;
-    const { placeholder, suggestions, onSuggestionsClearRequested } = this.props;
+    const { placeholder, suggestions, onSuggestionsClearRequested, id,
+      customInputProps, inputId, label, labelSrOnly } = this.props;
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
       placeholder,
       value,
       onChange: this.onKeyChange,
+      id: inputId,
+      ...customInputProps,
     };
 
     // Finally, render it.
     return (
-      <AutoSuggestComponent
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-        onSuggestionSelected={this.onSuggestionSelected}
-        onSuggestionsClearRequested={onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={this.renderSuggestion}
-        inputProps={inputProps}
-      />
+      <div className="usa-grid-full">
+        <label htmlFor={inputId} className={labelSrOnly ? 'usa-sr-only' : undefined}>{label}</label>
+        <AutoSuggestComponent
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+          onSuggestionSelected={this.onSuggestionSelected}
+          onSuggestionsClearRequested={onSuggestionsClearRequested}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={this.renderSuggestion}
+          inputProps={inputProps}
+          id={id}
+        />
+      </div>
     );
   }
 }
 
 AutoSuggest.propTypes = {
+  // use an id when there are multiple AutoSuggest components on a single view
+  id: PropTypes.string,
+
+  customInputProps: PropTypes.shape({
+    // Pass any other arbitrary props to the input element in this object.
+    // The "placholder" and "inputId" props (see below) will eventually get
+    // passed to this object, but we explicitly
+    // declare them as props since they're more commonly used.
+    // Any duplicated props in this object will overwrite the others.
+    // https://github.com/moroshko/react-autosuggest#inputprops-required
+  }),
+
   suggestions: PropTypes.arrayOf(
     PropTypes.shape({}),
   ).isRequired,
   placeholder: PropTypes.string,
+
+  // We should always add an input id for accessibility.
+  inputId: PropTypes.string.isRequired,
+  // Additionally, we should always an associated label for accessibility.
+  label: PropTypes.string.isRequired,
+  // ...but we can make that label srOnly if we want. It will default to true.
+  labelSrOnly: PropTypes.bool,
+
   getSuggestions: PropTypes.func.isRequired,
   debounce: PropTypes.number, // Number in milliseconds to debounce typing.
   onSuggestionSelected: PropTypes.func.isRequired,
@@ -107,8 +134,11 @@ AutoSuggest.propTypes = {
 };
 
 AutoSuggest.defaultProps = {
+  id: undefined,
+  customInputProps: {},
   suggestions: [],
   placeholder: '',
+  labelSrOnly: true,
   debounce: 350,
   onSuggestionsClearRequested: EMPTY_FUNCTION,
   displayProperty: 'short_name',
