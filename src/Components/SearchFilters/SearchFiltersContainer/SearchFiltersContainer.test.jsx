@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import SearchFiltersContainer from './SearchFiltersContainer';
 import { ACCORDION_SELECTION } from '../../../Constants/DefaultProps';
@@ -120,6 +121,27 @@ describe('SearchFiltersContainerComponent', () => {
     wrapper.instance().onSetAccordionLanguage(1);
     expect(toggleValue.a).toBe('Language');
     expect(toggleValue.b).toBe(1);
+  });
+
+  it('can call the on[x]SuggestionSelected functions', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        queryParamUpdate={() => {}}
+        queryParamToggle={spy}
+        selectedAccordion={accordion}
+        setAccordion={() => {}}
+        filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+      />,
+    );
+    wrapper.instance().onMissionSuggestionSelected(1);
+    sinon.assert.calledOnce(spy);
+    wrapper.instance().onPostSuggestionSelected(1);
+    sinon.assert.calledTwice(spy);
   });
 
   it('contains Language', () => {

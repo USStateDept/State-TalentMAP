@@ -56,20 +56,11 @@ export function filtersFetchData(items, queryParams, savedResponses) {
         let cacheFound = false;
         // check our cache to see if we already have data saved on the filter
         responses.asyncFilterCache.forEach((a) => {
-          if (a.codeRef === item.codeRef) {
+          // check that the ID and source match
+          if (a.codeRef === item.codeRef && a.selectionRef === item.selectionRef) {
             cacheFound = a;
           }
         });
-        // function to check an async retrieved object is already in the cache
-        const isRefCached = (i) => {
-          let found = false;
-          responses.asyncFilterCache.forEach((a) => {
-            if (a.codeRef === i.codeRef) {
-              found = true;
-            }
-          });
-          return found;
-        };
         // Is it already cached? if so, return it.
         if (cacheFound) {
           return cacheFound;
@@ -78,11 +69,9 @@ export function filtersFetchData(items, queryParams, savedResponses) {
         } else if (item.selectionRef === ENDPOINT_PARAMS.post) {
           return axios.get(`${api}/orgpost/${item.codeRef}/`)
           .then((response) => {
-            const obj = Object.assign(response.data, { type: 'post', codeRef: item.codeRef });
-            // check if a copy is already in the cache
-            if (!isRefCached(item)) {
-              responses.asyncFilterCache.push(obj);
-            }
+            const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
+            // push the object to cache
+            responses.asyncFilterCache.push(obj);
             // finally return the object
             return obj;
           })
@@ -93,10 +82,10 @@ export function filtersFetchData(items, queryParams, savedResponses) {
         if (item.selectionRef === ENDPOINT_PARAMS.mission) {
           return axios.get(`${api}/country/${item.codeRef}/`)
           .then((response) => {
-            const obj = Object.assign(response.data, { type: 'mission', codeRef: item.codeRef });
-            if (!isRefCached(item)) {
-              responses.asyncFilterCache.push(obj);
-            }
+            const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
+            // push the object to cache
+            responses.asyncFilterCache.push(obj);
+            // finally return the object
             return obj;
           })
           .catch((error) => {
@@ -157,7 +146,8 @@ export function filtersFetchData(items, queryParams, savedResponses) {
       responses.mappedParams = [];
       responses.asyncParams = [];
 
-      // set any custom descriptions
+      // Set any custom descriptions
+      // TODO externalize these to some kind of template helper?
       responses.filters.forEach((filterItem, i) => {
         filterItem.data.forEach((filterItemObject, j) => {
           if (filterItem.item.description === 'region') {
