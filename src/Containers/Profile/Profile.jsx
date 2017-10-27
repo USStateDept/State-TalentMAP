@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { USER_PROFILE } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
@@ -31,7 +31,7 @@ class Profile extends Component {
 Profile.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
-  userProfile: PROP_TYPES.USER_PROFILE,
+  userProfile: USER_PROFILE,
 };
 
 Profile.defaultProps = {

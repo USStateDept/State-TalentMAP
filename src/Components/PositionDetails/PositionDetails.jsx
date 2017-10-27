@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import Share from '../Share/Share';
 import Loading from '../Loading/Loading';
 import PositionTitle from '../PositionTitle/PositionTitle';
@@ -54,7 +54,7 @@ class PositionDetails extends Component {
             content={
               details.description && details.description.content ?
               this.state.newDescriptionContent.value || details.description.content :
-              SystemMessages.NO_POSITION_DESCRIPTION
+              NO_POSITION_DESCRIPTION
             }
           />
           <div className="usa-grid">

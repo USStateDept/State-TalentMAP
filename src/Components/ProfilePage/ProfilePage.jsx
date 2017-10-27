@@ -5,7 +5,7 @@ import ProfileLanding from '../ProfileLanding';
 import BidListContainer from '../../Containers/BidList/BidList';
 import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
 import SavedSearchesContainer from '../../Containers/SavedSearches/SavedSearches';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { USER_PROFILE } from '../../Constants/PropTypes';
 
 const ProfilePage = ({ user }) => (
   <div className="usa-grid-full">
@@ -38,7 +38,7 @@ const ProfilePage = ({ user }) => (
 );
 
 ProfilePage.propTypes = {
-  user: PROP_TYPES.USER_PROFILE.isRequired,
+  user: USER_PROFILE.isRequired,
 };
 
 export default ProfilePage;

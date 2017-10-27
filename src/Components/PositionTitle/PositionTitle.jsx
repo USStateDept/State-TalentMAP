@@ -6,7 +6,7 @@ import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import EditContentButton from '../EditContentButton';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import { shortenString } from '../../utilities';
 
 class PositionTitle extends Component {
@@ -91,19 +91,19 @@ class PositionTitle extends Component {
     const plainTextDescription = descriptionExists ? newDescriptionContent.value || details.description.content : '';
     const description = descriptionExists ?
       shortenString(plainTextDescription) :
-      SystemMessages.NO_POSITION_WEB_SITE;
+      NO_POSITION_WEB_SITE;
 
     const postWebsiteExists = details.description && details.description.website;
     const plainTextPostWebsite = postWebsiteExists ? newWebsiteContent.value || details.description.website : '';
     const postWebsite = postWebsiteExists ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
-    SystemMessages.NO_POSITION_WEB_SITE;
+    NO_POSITION_WEB_SITE;
 
     const pointOfContactExists = details.description && details.description.point_of_contact;
     const plainTextPointOfContact = pointOfContactExists ? newPocContent.value || details.description.point_of_contact : '';
     const pointOfContact = pointOfContactExists ?
       <a href={`tel:${plainTextPointOfContact}`}>{plainTextPointOfContact}</a> :
-    SystemMessages.NO_POSITION_POC;
+    NO_POSITION_POC;
 
     return (
       <div className="position-details-header-container">
@@ -138,7 +138,7 @@ class PositionTitle extends Component {
                       {
                         details.description && details.description.content ?
                           description :
-                          SystemMessages.NO_POSITION_DESCRIPTION
+                          NO_POSITION_DESCRIPTION
                       }
                       <EditContentButton
                         onToggle={this.toggleDescriptionEditor}

@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import * as bidListActions from '../../actions/bidList';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { bidListFetchData, toggleBidPosition, routeChangeResetState,
+submitBid } from '../../actions/bidList';
+import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
+SUBMIT_BID_SUCCESS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import BidList from '../../Components/BidList';
 
 class BidListContainer extends Component {
@@ -19,21 +21,21 @@ class BidListContainer extends Component {
   }
 
   render() {
-    const { bidList, toggleBidPosition,
+    const { bidList, toggleBid,
       bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
-      bidListToggleIsLoading, bidListToggleSuccess, submitBid,
+      bidListToggleIsLoading, bidListToggleSuccess, submitBidPosition,
       submitBidHasErrored, submitBidIsLoading, submitBidSuccess } = this.props;
     return (
       <div>
         <BidList
-          toggleBidPosition={toggleBidPosition}
+          toggleBidPosition={toggleBid}
           bidList={bidList}
           bidListHasErrored={bidListHasErrored}
           bidListIsLoading={bidListIsLoading}
           bidListToggleHasErrored={bidListToggleHasErrored}
           bidListToggleIsLoading={bidListToggleIsLoading}
           bidListToggleSuccess={bidListToggleSuccess}
-          submitBid={submitBid}
+          submitBid={submitBidPosition}
           submitBidHasErrored={submitBidHasErrored}
           submitBidIsLoading={submitBidIsLoading}
           submitBidSuccess={submitBidSuccess}
@@ -46,29 +48,29 @@ class BidListContainer extends Component {
 BidListContainer.propTypes = {
   bidListRouteChangeResetState: PropTypes.func.isRequired,
   fetchBidList: PropTypes.func,
-  toggleBidPosition: PropTypes.func,
+  toggleBid: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
-  bidList: PROP_TYPES.BID_LIST,
-  bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED,
+  bidList: BID_LIST,
+  bidListToggleHasErrored: BID_LIST_TOGGLE_HAS_ERRORED,
   bidListToggleIsLoading: PropTypes.bool,
-  bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS,
-  submitBid: PropTypes.func.isRequired,
-  submitBidHasErrored: PROP_TYPES.SUBMIT_BID_HAS_ERRORED.isRequired,
+  bidListToggleSuccess: BID_LIST_TOGGLE_SUCCESS,
+  submitBidPosition: PropTypes.func.isRequired,
+  submitBidHasErrored: SUBMIT_BID_HAS_ERRORED.isRequired,
   submitBidIsLoading: PropTypes.bool.isRequired,
-  submitBidSuccess: PROP_TYPES.SUBMIT_BID_SUCCESS.isRequired,
+  submitBidSuccess: SUBMIT_BID_SUCCESS.isRequired,
 };
 
 BidListContainer.defaultProps = {
-  fetchBidList: PROP_TYPES.EMPTY_FUNCTION,
-  toggleBidPosition: PROP_TYPES.EMPTY_FUNCTION,
+  fetchBidList: EMPTY_FUNCTION,
+  toggleBid: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
   bidListToggleHasErrored: false,
   bidListToggleIsLoading: false,
   bidListToggleSuccess: false,
-  submitBid: PROP_TYPES.EMPTY_FUNCTION,
+  submitBid: EMPTY_FUNCTION,
   submitBidHasErrored: false,
   submitBidIsLoading: false,
   submitBidSuccess: false,
@@ -91,10 +93,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBidList: () => dispatch(bidListActions.bidListFetchData()),
-  toggleBidPosition: (id, remove) => dispatch(bidListActions.toggleBidPosition(id, remove)),
-  bidListRouteChangeResetState: () => dispatch(bidListActions.routeChangeResetState()),
-  submitBid: id => dispatch(bidListActions.submitBid(id)),
+  fetchBidList: () => dispatch(bidListFetchData()),
+  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
+  bidListRouteChangeResetState: () => dispatch(routeChangeResetState()),
+  submitBidPosition: id => dispatch(submitBid(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidListContainer));
