@@ -15,7 +15,7 @@ sudo yum install git -y
 
 ## Install nvm
 
-Install Node via [nvm](https://github.com/creationix/nvm)
+Install Node via [nvm](https://github.com/creationix/nvm), exact version is specified in `.nvmrc`.
 
 ```bash
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
