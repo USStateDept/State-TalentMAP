@@ -83,6 +83,7 @@
     "redux-mock-store": "^1.2.3",
     "redux-saga-test-plan": "^3.1.0",
     "redux-testkit": "^1.0.6",
+    "sass-lint": "^1.12.1",
     "sass-loader": "^6.0.6",
     "sinon": "^2.4.1",
     "style-loader": "0.17.0",
