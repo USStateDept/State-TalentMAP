@@ -23,7 +23,7 @@ class MultiSelectFilter extends Component {
           item.data.map((itemData) => {
             const itemLabel = getItemLabel(itemData);
             return (<CheckBox
-              _id={itemData.id /* when we need the original id */}
+              _id={itemData.id} /* when we need the original id */
               id={`checkbox${itemLabel}`}
               key={`${item.item.selectionRef}-${itemData.code}`}
               label={itemLabel}
