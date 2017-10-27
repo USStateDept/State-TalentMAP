@@ -41,6 +41,7 @@ export default class TextEditor extends Component {
     const { readOnly } = this.props;
     return (
       <div>
+        { /* eslint "jsx-a11y/no-static-element-interactions": 0 */ }
         <div role="textbox" tabIndex="0" className={readOnly ? '' : 'editor'} onClick={this.focus}>
           <Editor
             editorState={this.state.editorState}
