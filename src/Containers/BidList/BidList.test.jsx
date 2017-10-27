@@ -11,7 +11,7 @@ const mockStore = configureStore(middlewares);
 
 describe('BidListContainer', () => {
   it('is defined', () => {
-    const profile = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+    const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <BidListContainer
         isAuthorized={() => true}
         onNavigateTo={() => {}}
@@ -20,6 +20,6 @@ describe('BidListContainer', () => {
         deleteSearch={() => {}}
       />
     </MemoryRouter></Provider>);
-    expect(profile).toBeDefined();
+    expect(wrapper).toBeDefined();
   });
 });

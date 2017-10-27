@@ -182,3 +182,8 @@ export const ifEnter = (e) => {
 
 // convert a query object to a query string
 export const formQueryString = queryObject => queryString.stringify(queryObject);
+
+// remove duplicates from an array by object property
+export const removeDuplicates = (myArr, prop) => (
+    myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
+);

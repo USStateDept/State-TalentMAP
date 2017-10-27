@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BidListResultsCard from '../BidListResultsCard';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { BID_LIST } from '../../Constants/PropTypes';
 
 const BidListResultsList = ({ bidList, toggleBidPosition, submitBid }) => (
   <div className="usa-grid-full">
@@ -19,7 +19,7 @@ const BidListResultsList = ({ bidList, toggleBidPosition, submitBid }) => (
   );
 
 BidListResultsList.propTypes = {
-  bidList: PROP_TYPES.BID_LIST.isRequired,
+  bidList: BID_LIST.isRequired,
   toggleBidPosition: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
 };

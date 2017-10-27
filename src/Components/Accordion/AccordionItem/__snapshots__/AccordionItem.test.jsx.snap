@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AccordionItemComponent matches snapshot 1`] = `
-<li>
+<li
+  className=""
+>
   <button
     aria-controls=""
     aria-expanded={true}

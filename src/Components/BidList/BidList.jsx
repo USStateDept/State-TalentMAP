@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import {
+  BID_LIST,
+  BID_LIST_TOGGLE_HAS_ERRORED,
+  BID_LIST_TOGGLE_SUCCESS,
+  SUBMIT_BID_HAS_ERRORED,
+  SUBMIT_BID_SUCCESS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import BidListResultsList from '../BidListResultsList';
 import Alert from '../Alert/Alert';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 
-const SavedSearches = ({ bidList, toggleBidPosition,
+const BidList = ({ bidList, toggleBidPosition,
 bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
 bidListToggleIsLoading, bidListToggleSuccess, submitBid,
 submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => {
@@ -73,18 +78,18 @@ submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => {
   );
 };
 
-SavedSearches.propTypes = {
+BidList.propTypes = {
   toggleBidPosition: PropTypes.func.isRequired,
   bidListHasErrored: PropTypes.bool.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
-  bidList: PROP_TYPES.BID_LIST.isRequired,
-  bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED.isRequired,
+  bidList: BID_LIST.isRequired,
+  bidListToggleHasErrored: BID_LIST_TOGGLE_HAS_ERRORED.isRequired,
   bidListToggleIsLoading: PropTypes.bool.isRequired,
-  bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS.isRequired,
+  bidListToggleSuccess: BID_LIST_TOGGLE_SUCCESS.isRequired,
   submitBid: PropTypes.func.isRequired,
-  submitBidHasErrored: PROP_TYPES.SUBMIT_BID_HAS_ERRORED.isRequired,
+  submitBidHasErrored: SUBMIT_BID_HAS_ERRORED.isRequired,
   submitBidIsLoading: PropTypes.bool.isRequired,
-  submitBidSuccess: PROP_TYPES.SUBMIT_BID_SUCCESS.isRequired,
+  submitBidSuccess: SUBMIT_BID_SUCCESS.isRequired,
 };
 
-export default SavedSearches;
+export default BidList;
