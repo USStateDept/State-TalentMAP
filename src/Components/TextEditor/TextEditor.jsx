@@ -43,8 +43,12 @@ export default class TextEditor extends Component {
       <div>
         { /* outer div here exists to override styling & behavior of the interior component */ }
         { /* this eslint rule seems to fire even though the role is defined */}
-        { /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */ }
-        <div role="textbox" tabIndex="0" className={readOnly ? '' : 'editor'} onClick={this.focus}>
+        <div // eslint-disable-line jsx-a11y/no-static-element-interactions
+          role="textbox"
+          tabIndex="0"
+          className={readOnly ? '' : 'editor'}
+          onClick={this.focus}
+        >
           <Editor
             editorState={this.state.editorState}
             onChange={this.onChange}
