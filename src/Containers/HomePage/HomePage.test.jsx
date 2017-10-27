@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 import HomePage from './HomePage';
-import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 
 describe('HomePageComponent', () => {

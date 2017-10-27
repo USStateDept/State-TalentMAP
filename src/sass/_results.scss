@@ -365,3 +365,13 @@
   cursor: pointer;
   float: right;
 }
+
+.mission-accordion {
+  .usa-accordion-content {
+    padding: 1rem 1rem 1rem .5rem;
+  }
+}
+
+.render-suggestion {
+  color: $color-black;
+}

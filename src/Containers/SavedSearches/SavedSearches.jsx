@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
-import * as savedSearchActions from '../../actions/savedSearch';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch, routeChangeResetState,
+cloneSavedSearch } from '../../actions/savedSearch';
+import { SAVED_SEARCH_PARENT_OBJECT, DELETE_SAVED_SEARCH_HAS_ERRORED, DELETE_SAVED_SEARCH_SUCCESS,
+CLONE_SAVED_SEARCH_HAS_ERRORED, CLONE_SAVED_SEARCH_SUCCESS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import SavedSearches from '../../Components/SavedSearches';
 import { formQueryString } from '../../utilities';
@@ -60,19 +62,19 @@ class SavedSearchesContainer extends Component {
 SavedSearchesContainer.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   savedSearchesFetchData: PropTypes.func.isRequired,
-  savedSearches: PROP_TYPES.SAVED_SEARCH_PARENT_OBJECT,
+  savedSearches: SAVED_SEARCH_PARENT_OBJECT,
   savedSearchesIsLoading: PropTypes.bool.isRequired,
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   setCurrentSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
-  deleteSavedSearchHasErrored: PROP_TYPES.DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
-  deleteSavedSearchSuccess: PROP_TYPES.DELETE_SAVED_SEARCH_SUCCESS.isRequired,
+  deleteSavedSearchHasErrored: DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  deleteSavedSearchSuccess: DELETE_SAVED_SEARCH_SUCCESS.isRequired,
   routeChangeResetState: PropTypes.func.isRequired,
   cloneSearch: PropTypes.func.isRequired,
   cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
-  cloneSavedSearchHasErrored: PROP_TYPES.CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
-  cloneSavedSearchSuccess: PROP_TYPES.CLONE_SAVED_SEARCH_SUCCESS.isRequired,
+  cloneSavedSearchHasErrored: CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
+  cloneSavedSearchSuccess: CLONE_SAVED_SEARCH_SUCCESS.isRequired,
 };
 
 SavedSearchesContainer.defaultProps = {
@@ -84,8 +86,8 @@ SavedSearchesContainer.defaultProps = {
   deleteSavedSearchIsLoading: false,
   deleteSavedSearchHasErrored: false,
   deleteSavedSearchSuccess: false,
-  routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
-  cloneSearch: PROP_TYPES.EMPTY_FUNCTION,
+  routeChangeResetState: EMPTY_FUNCTION,
+  cloneSearch: EMPTY_FUNCTION,
   cloneSavedSearchIsLoading: false,
   cloneSavedSearchHasErrored: false,
   cloneSavedSearchSuccess: false,
@@ -111,11 +113,11 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   onNavigateTo: dest => dispatch(push(dest)),
-  savedSearchesFetchData: () => dispatch(savedSearchActions.savedSearchesFetchData()),
-  setCurrentSavedSearch: e => dispatch(savedSearchActions.setCurrentSavedSearch(e)),
-  deleteSearch: id => dispatch(savedSearchActions.deleteSavedSearch(id)),
-  routeChangeResetState: () => dispatch(savedSearchActions.routeChangeResetState()),
-  cloneSearch: id => dispatch(savedSearchActions.cloneSavedSearch(id)),
+  savedSearchesFetchData: () => dispatch(savedSearchesFetchData()),
+  setCurrentSavedSearch: e => dispatch(setCurrentSavedSearch(e)),
+  deleteSearch: id => dispatch(deleteSavedSearch(id)),
+  routeChangeResetState: () => dispatch(routeChangeResetState()),
+  cloneSearch: id => dispatch(cloneSavedSearch(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SavedSearchesContainer));

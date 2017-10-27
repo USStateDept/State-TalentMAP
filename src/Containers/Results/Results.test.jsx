@@ -20,6 +20,15 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        resetSavedSearchAlerts={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -27,7 +36,22 @@ describe('Results', () => {
 
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Results isAuthorized={() => false} onNavigateTo={() => {}} setAccordion={() => {}} />
+      <Results
+        isAuthorized={() => false}
+        onNavigateTo={() => {}}
+        setAccordion={() => {}}
+        toggleFavorite={() => {}}
+        saveSearch={() => {}}
+        resetSavedSearchAlerts={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
+      />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
   });
@@ -43,6 +67,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     // define the instance
@@ -65,6 +97,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     // define the instance
@@ -92,6 +132,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     // define the instance
@@ -120,6 +168,14 @@ describe('Results', () => {
         filters={{ hasFetched: true }}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
@@ -136,6 +192,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     // define the instance
@@ -158,6 +222,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={(q, id) => { savedSearch.q = q; savedSearch.id = id; }}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     wrapper.instance().saveSearch('test', 1);
@@ -175,6 +247,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     const history = { value: { search: null } };
@@ -201,6 +281,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     const history = { value: { search: null } };
@@ -227,6 +315,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     const history = { value: { search: null } };
@@ -253,6 +349,14 @@ describe('Results', () => {
         setAccordion={() => {}}
         toggleFavorite={() => {}}
         saveSearch={() => {}}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     const history = { value: { search: null } };
@@ -277,6 +381,14 @@ describe('Results', () => {
         toggleFavorite={() => {}}
         saveSearch={() => {}}
         routerLocations={routerLocations}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        missionSearchIsLoading={false}
+        missionSearchHasErrored={false}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        postSearchIsLoading={false}
+        postSearchHasErrored={false}
       />,
     );
     wrapper.instance().componentDidMount();

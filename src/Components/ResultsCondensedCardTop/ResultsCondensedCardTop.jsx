@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import ResultsNewFlag from '../ResultsNewFlag';
 import Favorite from '../Favorite/Favorite';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_LAST_UPDATED_DATE } from '../../Constants/SystemMessages';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 
 const ResultsCondensedCardTop = ({ type, position, toggleFavorite, favorites,
@@ -31,7 +31,7 @@ const ResultsCondensedCardTop = ({ type, position, toggleFavorite, favorites,
       <div className="usa-width-one-whole condensed-card-last-updated">
         <span className="last-updated-title">Last Updated: </span>
         <span className="last-updated-date">
-          {position.update_date || SystemMessages.NO_LAST_UPDATED_DATE}
+          {position.update_date || NO_LAST_UPDATED_DATE}
         </span>
       </div>
     </div>

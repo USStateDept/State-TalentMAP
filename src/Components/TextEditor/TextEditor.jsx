@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import TextEditorSubmit from '../TextEditorSubmit';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 export default class TextEditor extends Component {
   constructor(props) {
@@ -69,5 +69,5 @@ TextEditor.propTypes = {
 TextEditor.defaultProps = {
   readOnly: false,
   initialText: '',
-  cancel: PROP_TYPES.EMPTY_FUNCTION,
+  cancel: EMPTY_FUNCTION,
 };

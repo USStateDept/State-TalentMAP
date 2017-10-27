@@ -6,25 +6,30 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     multiSelectFilterList={
       Array [
         Object {
-          "content": <MultiSelectFilter
-            item={
-                  Object {
-                        "data": Array [
-                          Object {
-                            "isSelected": false,
-                            "long_description": "test",
-                            "short_description": "test",
-                          },
-                        ],
-                        "item": Object {
-                          "description": "region",
-                          "selectionRef": "ref3",
-                          "title": "region",
-                        },
-                      }
-            }
-            queryParamToggle={[Function]}
-      />,
+          "content": <div
+            className="usa-grid-full"
+      >
+            <MultiSelectFilter
+                  item={
+                        Object {
+                              "data": Array [
+                                Object {
+                                  "isSelected": false,
+                                  "long_description": "test",
+                                  "short_description": "test",
+                                },
+                              ],
+                              "item": Object {
+                                "description": "region",
+                                "selectionRef": "ref3",
+                                "title": "region",
+                              },
+                            }
+                  }
+                  queryParamToggle={[Function]}
+                  queryProperty="code"
+            />
+      </div>,
           "expanded": false,
           "id": "accordion-region",
           "title": "region",
@@ -51,6 +56,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
         },
       ]
     }
+    queryParamToggle={[Function]}
     setAccordion={[Function]}
   />
   <div

@@ -12,7 +12,7 @@ class MultiSelectFilter extends Component {
   }
 
   onCheckBoxClick(value, props) {
-    this.props.queryParamToggle(props.selectionRef, props.code, !value);
+    this.props.queryParamToggle(props.selectionRef, props[this.props.queryProperty], !value);
   }
 
   render() {
@@ -23,6 +23,7 @@ class MultiSelectFilter extends Component {
           item.data.map((itemData) => {
             const itemLabel = getItemLabel(itemData);
             return (<CheckBox
+              _id={itemData.id /* when we need the original id */}
               id={`checkbox${itemLabel}`}
               key={`${item.item.selectionRef}-${itemData.code}`}
               label={itemLabel}
@@ -43,6 +44,11 @@ class MultiSelectFilter extends Component {
 MultiSelectFilter.propTypes = {
   item: FILTER_ITEM.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
+  queryProperty: PropTypes.string,
+};
+
+MultiSelectFilter.defaultProps = {
+  queryProperty: 'code',
 };
 
 export default MultiSelectFilter;

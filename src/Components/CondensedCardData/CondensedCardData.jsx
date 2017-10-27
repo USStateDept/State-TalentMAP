@@ -1,23 +1,23 @@
 import React from 'react';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_POSITION_TITLE, NO_POST, NO_SKILL, NO_GRADE } from '../../Constants/SystemMessages';
 
 const CondensedCardData = ({ position }) => (
   <div className="usa-grid-full condensed-card-data">
     <div>
-      <strong>{ position.title || SystemMessages.NO_POSITION_TITLE }</strong>
+      <strong>{ position.title || NO_POSITION_TITLE }</strong>
     </div>
     <div>
       <strong>Location: </strong>
-      { position.post ? position.post.location : SystemMessages.NO_POST }
+      { position.post ? position.post.location : NO_POST }
     </div>
     <div>
       <strong>Skill Code: </strong>
-      { position.skill || SystemMessages.NO_SKILL }
+      { position.skill || NO_SKILL }
     </div>
     <div>
       <strong>Grade: </strong>
-      { position.grade || SystemMessages.NO_GRADE }
+      { position.grade || NO_GRADE }
     </div>
   </div>
 );
