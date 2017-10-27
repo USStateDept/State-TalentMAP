@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AutoSuggestComponent from 'react-autosuggest';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
-import RenderSuggestion from './RenderSuggestion';
+import SuggestionChoice from './SuggestionChoice';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import getSuggestionValue from './helpers';
 
@@ -143,5 +143,5 @@ AutoSuggest.defaultProps = {
   onSuggestionsClearRequested: EMPTY_FUNCTION,
   displayProperty: 'short_name',
   queryProperty: '',
-  suggestionTemplate: RenderSuggestion,
+  suggestionTemplate: SuggestionChoice,
 };

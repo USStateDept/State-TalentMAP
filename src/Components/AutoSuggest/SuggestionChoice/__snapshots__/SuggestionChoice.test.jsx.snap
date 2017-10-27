@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RenderSuggestionComponent matches snapshot 1`] = `
+exports[`SuggestionChoiceComponent matches snapshot 1`] = `
 <div
   className="render-suggestion"
 >

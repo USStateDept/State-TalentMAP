@@ -1,15 +1,15 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import RenderSuggestionPost from './RenderSuggestionPost';
+import SuggestionChoicePost from './SuggestionChoicePost';
 
-describe('RenderSuggestionPostComponent', () => {
+describe('SuggestionChoicePostComponent', () => {
   const suggestion = {
     location: 'test',
   };
   it('is defined', () => {
     const wrapper = shallow(
-      <RenderSuggestionPost
+      <SuggestionChoicePost
         suggestion={suggestion}
       />,
     );
@@ -18,7 +18,7 @@ describe('RenderSuggestionPostComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <RenderSuggestionPost
+      <SuggestionChoicePost
         suggestion={suggestion}
       />,
     );

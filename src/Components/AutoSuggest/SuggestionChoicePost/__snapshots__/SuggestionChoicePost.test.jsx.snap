@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RenderSuggestionPostComponent matches snapshot 1`] = `
+exports[`SuggestionChoicePostComponent matches snapshot 1`] = `
 <div
   className="render-suggestion render-suggestion--post"
 >

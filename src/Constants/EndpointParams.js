@@ -33,5 +33,3 @@ export const ASYNC_PARAMS = [
   ENDPOINT_PARAMS.mission,
   ENDPOINT_PARAMS.post,
 ];
-
-export default ENDPOINT_PARAMS;

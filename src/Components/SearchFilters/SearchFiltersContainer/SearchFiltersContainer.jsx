@@ -5,7 +5,7 @@ import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import AutoSuggest from '../../AutoSuggest';
-import RenderSuggestionPost from '../../AutoSuggest/RenderSuggestionPost';
+import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
@@ -129,7 +129,7 @@ class SearchFiltersContainer extends Component {
         placeholder = 'Start typing a post';
         onSuggestionSelected = this.onPostSuggestionSelected;
         displayProperty = 'location';
-        suggestionTemplate = RenderSuggestionPost; // special template for posts
+        suggestionTemplate = SuggestionChoicePost; // special template for posts
       }
       if (n === 'mission') {
         getSuggestions = fetchMissionAutocomplete;
