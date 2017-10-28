@@ -98,7 +98,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand"
+    "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand",
+    "sass-lint": "node ./node_modules/.bin/sass-lint -v -q"
   },
   "jest": {
     "collectCoverageFrom": [
