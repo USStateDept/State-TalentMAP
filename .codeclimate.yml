@@ -13,7 +13,7 @@ engines:
       - .js
       - .jsx
   scss-lint:
-    enabled: true
+    enabled: false
 ratings:
   paths:
   - "**.css"
