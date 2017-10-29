@@ -22,19 +22,19 @@
   }
 
   .link-button-wrapper {
-    a:visited {
+    :visited {
       color: $color-black;
     }
-  }
 
-  .link-button-wrapper:hover,
-  .link-button-wrapper:active {
-    a:visited {
-      color: $color-white;
-    }
+    :hover,
+    :active {
+      :visited {
+        color: $color-white;
+      }
 
-    .fa {
-      color: $color-white;
+      .fa {
+        color: $color-white;
+      }
     }
   }
 

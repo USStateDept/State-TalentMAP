@@ -25,23 +25,23 @@
     color: $color-gray;
     display: inline-block;
     padding: .4em 1em;
-  }
 
-  // The second to last element gets a border-right, unlike our general <li>s.
-  li:nth-last-child(2) {
-    border-right: solid;
-    border-right-width: $border-width;
-  }
+    // The second to last element gets a border-right, unlike our general <li>s.
+    :nth-last-child(2) {
+      border-right: solid;
+      border-right-width: $border-width;
+    }
 
-  // The last element has no border-left, but does have a border-right.
-  // This would be the "last" page link.
-  // Now we have even borders regardless of whether or not the "first" or "last"
-  // links are visible.
-  li:last-child {
-    border-left: 0;
-    border-right: solid;
-    border-right-width: $border-width;
-  }
+    // The last element has no border-left, but does have a border-right.
+    // This would be the "last" page link.
+    // Now we have even borders regardless of whether or not the "first" or "last"
+    // links are visible.
+    :last-child {
+      border-left: 0;
+      border-right: solid;
+      border-right-width: $border-width;
+    }
+}
 
   a {
     color: $color-black;

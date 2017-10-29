@@ -35,11 +35,12 @@
     select {
       $explore-select-width: 300px;
 
+      // sass-lint:disable no-vendor-prefixes
+      -webkit-padding-end: 30px;
+      -webkit-padding-start: 10px;
       max-width: 100%;
       min-width: $explore-select-width;
       padding: 0 30px 0 10px;
-      -webkit-padding-end: 30px;
-      -webkit-padding-start: 10px;
 
       @media screen and (max-width: 625px) {
         max-width: 100%;

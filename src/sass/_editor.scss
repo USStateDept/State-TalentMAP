@@ -1,4 +1,4 @@
-// scss-lint:disable SelectorFormat,VendorPrefix
+// sass-lint:disable class-name-format
 .editor {
   background: $editor-background;
   border: 1px solid $editor-border;
@@ -35,9 +35,10 @@
 }
 
 .draftJsToolbar__toolbar__dNtBH {
+  // sass-lint:disable no-vendor-prefixes
+  -webkit-transform: unset;
   left: unset;
   position: unset;
-  -webkit-transform: unset;
   transform: unset;
 
   button {

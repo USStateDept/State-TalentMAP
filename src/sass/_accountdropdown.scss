@@ -1,8 +1,8 @@
-// scss-lint:disable SelectorFormat
+// sass-lint:disable class-name-format,force-element-nesting
 // The react-simple-dropdown module uses two underscores in its class names.
-// Instead of modifying the source css, the SelectorFormat rule
-// has been disabled for this file in order to override styles on the
-// default classes.
+// Instead of modifying the source css, the class-name-format
+// and force-element-nesting rule have been disabled for this file
+// in order to override styles on the default classes.
 .dropdown {
   display: inline-block;
 }
@@ -26,11 +26,11 @@
 
 .account-dropdown .dropdown__trigger {
   line-height: 20px;
-}
 
-.account-dropdown .dropdown__trigger::after {
-  content: '\25BE';
-  margin: 0 0 0 10px;
+  ::after {
+    content: '\25BE';
+    margin: 0 0 0 10px;
+  }
 }
 
 .account-dropdown--avatar,

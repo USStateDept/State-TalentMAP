@@ -13,21 +13,24 @@ $tm-spinner-filled-ratio: 1.15;
   position: absolute;
   top: 7px;
 
+  // sass-lint:disable force-element-nesting
   .ds-c-spinner--big.ds-c-spinner--filled {
     height: $tm-spinner-default-size * $tm-spinner-filled-ratio;
     width: $tm-spinner-default-size * $tm-spinner-filled-ratio;
   }
 
-  .ds-c-spinner--big::before {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
-  }
+  .ds-c-spinner--big {
+    ::before {
+      border-width: $tm-spinner-default-border-width;
+      height: $tm-spinner-default-size;
+      width: $tm-spinner-default-size;
+    }
 
-  .ds-c-spinner--big::after {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
+    ::after {
+      border-width: $tm-spinner-default-border-width;
+      height: $tm-spinner-default-size;
+      width: $tm-spinner-default-size;
+    }
   }
 }
 
@@ -41,16 +44,18 @@ $tm-spinner-filled-ratio: 1.15;
     width: $tm-spinner-default-size * $tm-spinner-filled-ratio;
   }
 
-  .ds-c-spinner--big::before {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
-  }
+  .ds-c-spinner--big {
+    ::before {
+      border-width: $tm-spinner-default-border-width;
+      height: $tm-spinner-default-size;
+      width: $tm-spinner-default-size;
+    }
 
-  .ds-c-spinner--big::after {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
+    ::after {
+      border-width: $tm-spinner-default-border-width;
+      height: $tm-spinner-default-size;
+      width: $tm-spinner-default-size;
+    }
   }
 }
 
