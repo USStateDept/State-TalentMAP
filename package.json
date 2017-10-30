@@ -17,6 +17,7 @@
     "draft-js-static-toolbar-plugin": "^2.0.0-rc8",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
+    "immutable": "^3.8.2",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
