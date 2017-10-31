@@ -24,8 +24,7 @@ export default class AutoSuggest extends Component {
       suggestions: [],
     };
 
-    // Configure our debounce function.
-    // It needs to be global so we can cancel any pending requests while the user types.
+    // Create an instance attribute for storing a reference to debounced requests
     this.debounced = debounce(() => {});
   }
 
