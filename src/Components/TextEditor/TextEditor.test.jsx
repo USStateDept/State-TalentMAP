@@ -54,4 +54,22 @@ describe('TextEditorComponent', () => {
     wrapper.instance().onChange(text);
     expect(wrapper.instance().state.editorState).toBeDefined();
   });
+
+  it('can properly set editorState and editorStateCopy', () => {
+    const wrapper = shallow(
+      <TextEditor
+        id={id}
+        onSubmitText={() => {}}
+        initialText="test"
+      />,
+    );
+    // get our "normal" and "copy" states, then use the plain text
+    // function to check for equality, as the root object is a nested immutable
+    // object with different keys.
+    const instanceEditorState = wrapper.instance().state.editorState
+      .getCurrentContent().getPlainText();
+    const instanceEditorStateCopy = wrapper.instance().state.editorStateCopy
+      .getCurrentContent().getPlainText();
+    expect(instanceEditorState).toBe(instanceEditorStateCopy);
+  });
 });
