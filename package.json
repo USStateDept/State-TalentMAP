@@ -99,7 +99,7 @@
     "serve": "nodemon ./server/server.js --ignore 'build/**/*'",
     "build": "node scripts/build.js",
     "build-watch": "./node_modules/.bin/onchange 'src/**/*' -- npm run build",
-    "start-express": "nodemon server/server.js --exec \"node -r babel-register\"",
+    "start-express": "nodemon src/server.js --exec \"node -r babel-register\"",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand"
   },
