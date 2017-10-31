@@ -66,11 +66,11 @@ describe('TextEditorComponent', () => {
     // get our "normal" and "copy" states, then use the plain text
     // function to check for equality, as the root object is a nested immutable
     // object with different keys.
-    const instanceEditorState = wrapper.instance().state.editorState
+    const originalEditorState = wrapper.instance().state.editorState
       .getCurrentContent().getPlainText();
     const instanceEditorStateCopy = wrapper.instance().state.editorStateCopy
       .getCurrentContent().getPlainText();
-    expect(instanceEditorState).toBe(instanceEditorStateCopy);
+    expect(originalEditorState).toBe(instanceEditorStateCopy);
   });
 
   it('can properly maintain the value of the editorState and editorStateCopy after canceling', () => {
@@ -82,16 +82,19 @@ describe('TextEditorComponent', () => {
       />,
     );
     // regular and copied state should initialize as different objects
-    let instanceEditorState = wrapper.instance().state.editorState;
-    let instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
-    expect(instanceEditorState).not.toEqual(instanceEditorStateCopy);
+    let originalEditorState = wrapper.instance().state.editorState;
+    let copiedEditorState = wrapper.instance().state.editorStateCopy;
+    expect(originalEditorState).not.toEqual(copiedEditorState);
 
     // then we'll simulate a cancel
     wrapper.instance().cancel();
     // and now the regular and copied states should match
-    instanceEditorState = wrapper.instance().state.editorState;
-    instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
-    expect(instanceEditorState).toEqual(instanceEditorStateCopy);
+    originalEditorState = wrapper.instance().state.editorState;
+    copiedEditorState = wrapper.instance().state.editorStateCopy;
+    expect(originalEditorState).toEqual(copiedEditorState);
+    // Draftjs changes the name of Editor to PluginEditor.
+    // We'll ensure that the correct prop is passed here as well.
+    expect(wrapper.find('PluginEditor').prop('editorState')).toBe(originalEditorState);
   });
 
   it('can properly maintain the value of the editorState and editorStateCopy after submitting', () => {
@@ -103,15 +106,18 @@ describe('TextEditorComponent', () => {
       />,
     );
     // regular and copied state should initialize as different objects
-    let instanceEditorState = wrapper.instance().state.editorState;
-    let instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
-    expect(instanceEditorState).not.toEqual(instanceEditorStateCopy);
+    let originalEditorState = wrapper.instance().state.editorState;
+    let copiedEditorState = wrapper.instance().state.editorStateCopy;
+    expect(originalEditorState).not.toEqual(copiedEditorState);
 
     // then we'll simulate a cancel
     wrapper.instance().submit();
     // and now the regular and copied states should match
-    instanceEditorState = wrapper.instance().state.editorState;
-    instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
-    expect(instanceEditorState).toEqual(instanceEditorStateCopy);
+    originalEditorState = wrapper.instance().state.editorState;
+    copiedEditorState = wrapper.instance().state.editorStateCopy;
+    expect(originalEditorState).toEqual(copiedEditorState);
+    // Draftjs changes the name of Editor to PluginEditor.
+    // We'll ensure that the correct prop is passed here as well.
+    expect(wrapper.find('PluginEditor').prop('editorState')).toBe(copiedEditorState);
   });
 });
