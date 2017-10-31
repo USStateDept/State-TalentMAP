@@ -72,4 +72,46 @@ describe('TextEditorComponent', () => {
       .getCurrentContent().getPlainText();
     expect(instanceEditorState).toBe(instanceEditorStateCopy);
   });
+
+  it('can properly maintain the value of the editorState and editorStateCopy after canceling', () => {
+    const wrapper = shallow(
+      <TextEditor
+        id={id}
+        onSubmitText={() => {}}
+        initialText="test"
+      />,
+    );
+    // regular and copied state should initialize as different objects
+    let instanceEditorState = wrapper.instance().state.editorState;
+    let instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
+    expect(instanceEditorState).not.toEqual(instanceEditorStateCopy);
+
+    // then we'll simulate a cancel
+    wrapper.instance().cancel();
+    // and now the regular and copied states should match
+    instanceEditorState = wrapper.instance().state.editorState;
+    instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
+    expect(instanceEditorState).toEqual(instanceEditorStateCopy);
+  });
+
+  it('can properly maintain the value of the editorState and editorStateCopy after submitting', () => {
+    const wrapper = shallow(
+      <TextEditor
+        id={id}
+        onSubmitText={() => {}}
+        initialText="test"
+      />,
+    );
+    // regular and copied state should initialize as different objects
+    let instanceEditorState = wrapper.instance().state.editorState;
+    let instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
+    expect(instanceEditorState).not.toEqual(instanceEditorStateCopy);
+
+    // then we'll simulate a cancel
+    wrapper.instance().submit();
+    // and now the regular and copied states should match
+    instanceEditorState = wrapper.instance().state.editorState;
+    instanceEditorStateCopy = wrapper.instance().state.editorStateCopy;
+    expect(instanceEditorState).toEqual(instanceEditorStateCopy);
+  });
 });
