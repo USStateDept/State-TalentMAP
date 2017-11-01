@@ -27,7 +27,7 @@ describe('async actions', () => {
     ];
 
     mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?q=Dubai&limit=3').reply(200,
-      results,
+      { results },
     );
 
     mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?q=fake&limit=3').reply(404,
