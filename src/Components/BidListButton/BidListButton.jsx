@@ -25,7 +25,7 @@ class BidListButton extends Component {
 
   render() {
     // is the bid currently saved?
-    // save value and avoid interogating the array more than once
+    // save value and avoid interrogating the array more than once
     const bidIsSaved = this.getIsSaved();
     const text = bidIsSaved ? 'Remove from Bid List' : 'Add to Bid List';
     const iconClass = bidIsSaved ? 'minus-circle' : 'plus-circle';
