@@ -6,10 +6,6 @@ import SuggestionChoice from './SuggestionChoice';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import getSuggestionValue from './helpers';
 
-// Configure our debounce function.
-// It needs to be global so we can cancel any pending requests while the user types.
-let debounced = debounce(() => {});
-
 export default class AutoSuggest extends Component {
   constructor(props) {
     super(props);
@@ -27,6 +23,9 @@ export default class AutoSuggest extends Component {
       value: '',
       suggestions: [],
     };
+
+    // Create an instance attribute for storing a reference to debounced requests
+    this.debounced = debounce(() => {});
   }
 
   onKeyChange(event, { newValue }) {
@@ -39,9 +38,9 @@ export default class AutoSuggest extends Component {
 
   // Autosuggest will call this function every time you need to update suggestions.
   onSuggestionsFetchRequested({ value }) {
-    debounced.cancel();
-    debounced = debounce(q => this.props.getSuggestions(q), this.props.debounce);
-    debounced(value);
+    this.debounced.cancel();
+    this.debounced = debounce(q => this.props.getSuggestions(q), this.props.debounce);
+    this.debounced(value);
   }
 
   // when a suggestion is actually selected
