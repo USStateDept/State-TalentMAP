@@ -28,6 +28,8 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
       className="usa-grid-full search-filters-container"
     >
       <SearchFiltersContainer
+        fetchMissionAutocomplete={[Function]}
+        fetchPostAutocomplete={[Function]}
         filters={
           Array [
             Object {
@@ -36,6 +38,12 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
             },
           ]
         }
+        missionSearchHasErrored={false}
+        missionSearchIsLoading={false}
+        missionSearchResults={Array []}
+        postSearchHasErrored={false}
+        postSearchIsLoading={false}
+        postSearchResults={Array []}
         queryParamToggle={[Function]}
         queryParamUpdate={[Function]}
         selectedAccordion={

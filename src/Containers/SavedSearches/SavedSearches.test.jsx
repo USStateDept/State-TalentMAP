@@ -13,7 +13,7 @@ const mockStore = configureStore(middlewares);
 
 describe('SavedSearchesContainer', () => {
   it('is defined', () => {
-    const profile = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+    const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <SavedSearchesContainer
         onNavigateTo={() => {}}
         savedSearchesFetchData={() => {}}
@@ -21,7 +21,7 @@ describe('SavedSearchesContainer', () => {
         deleteSearch={() => {}}
       />
     </MemoryRouter></Provider>);
-    expect(profile).toBeDefined();
+    expect(wrapper).toBeDefined();
   });
 
   it('can call the goToSavedSearch function', () => {

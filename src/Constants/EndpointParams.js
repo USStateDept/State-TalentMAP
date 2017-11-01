@@ -1,6 +1,6 @@
 // valid query params to filter positions against
 
-const ENDPOINT_PARAMS = {
+export const ENDPOINT_PARAMS = {
   skill: 'skill__code__in',
   language: 'languages__language__code__in',
   grade: 'grade__code__in',
@@ -10,6 +10,8 @@ const ENDPOINT_PARAMS = {
   postDiff: 'post__differential_rate__gt',
   danger: 'post__danger_pay__gt',
   domestic: 'is_domestic',
+  mission: 'post__location__country__in',
+  post: 'post__in',
 };
 
 export const VALID_PARAMS = [
@@ -22,7 +24,12 @@ export const VALID_PARAMS = [
   ENDPOINT_PARAMS.postDiff,
   ENDPOINT_PARAMS.danger,
   ENDPOINT_PARAMS.domestic,
+  ENDPOINT_PARAMS.mission,
+  ENDPOINT_PARAMS.post,
   'q',
 ];
 
-export default ENDPOINT_PARAMS;
+export const ASYNC_PARAMS = [
+  ENDPOINT_PARAMS.mission,
+  ENDPOINT_PARAMS.post,
+];

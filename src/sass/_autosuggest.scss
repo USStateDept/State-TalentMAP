@@ -1,0 +1,65 @@
+// scss-lint:disable SelectorFormat
+// The react-autosuggest module uses two underscores in its class names.
+// Instead of modifying the source css, the SelectorFormat rule
+// has been disabled for this file in order to override styles on the
+// default classes.
+
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__input {
+  border: 1px solid $color-gray-lighter;
+  border-radius: 4px;
+  height: 30px;
+  width: 100%;
+}
+
+.react-autosuggest__input--focused {
+  outline: none;
+}
+
+.react-autosuggest__input--open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.react-autosuggest__suggestions-container {
+  display: none;
+}
+
+.react-autosuggest__suggestions-container--open {
+  background-color: $color-white;
+  border: 1px solid $color-gray-lighter;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  display: block;
+  position: absolute;
+  top: 29px;
+  width: 100%;
+  z-index: $autosuggest-suggestions-container-open-z;
+}
+
+.react-autosuggest__suggestions-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin-bottom: unset;
+  }
+}
+
+.react-autosuggest__suggestion {
+  border-top: 1px solid $color-gray;
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.react-autosuggest__suggestion--first {
+  border-bottom: unset;
+}
+
+.react-autosuggest__suggestion--highlighted {
+  background-color: $color-primary-alt-light;
+}

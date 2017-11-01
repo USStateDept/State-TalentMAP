@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_ORG, NO_POST, NO_BUREAU, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from '../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import PositionDetailsDataPoint from '../../Components/PositionDetailsDataPoint/PositionDetailsDataPoint';
@@ -15,26 +15,26 @@ const PositionDetailsItem = ({ details }) => (
           <div className="usa-width-one-whole">
             <PositionDetailsDataPoint
               title="Organization"
-              description={details.organization || SystemMessages.NO_ORG}
+              description={details.organization || NO_ORG}
             />
             <PositionDetailsDataPoint
               title="Post"
               description={
                 details.post && details.post.id ?
                   <Link to={`/post/${details.post.id}`}>{details.post.location}</Link>
-                  : SystemMessages.NO_POST
+                  : NO_POST
               }
             />
             <PositionDetailsDataPoint
               title="Bureau"
-              description={details.bureau || SystemMessages.NO_BUREAU}
+              description={details.bureau || NO_BUREAU}
             />
             <PositionDetailsDataPoint
               title="Post Differential"
               description={
                 details.post && details.post.differential_rate ?
                   details.post.differential_rate
-                  : SystemMessages.NO_POST_DIFFERENTIAL
+                  : NO_POST_DIFFERENTIAL
               }
             />
             <PositionDetailsDataPoint
@@ -66,7 +66,7 @@ const PositionDetailsItem = ({ details }) => (
             />
             <PositionDetailsDataPoint
               title="Danger Pay"
-              description={details.post ? details.post.danger_pay : SystemMessages.NO_DANGER_PAY}
+              description={details.post ? details.post.danger_pay : NO_DANGER_PAY}
             />
           </div>
         </div>

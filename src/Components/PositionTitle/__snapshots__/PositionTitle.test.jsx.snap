@@ -39,38 +39,48 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             00003027
           </strong>
         </div>
-        <p
-          className="position-details-header-body"
+        <div
+          className="position-details-header-body editable-position-field"
         >
           <strong>
             Description: 
           </strong>
-          a description
-        </p>
-        <div
-          className="usa-width-one-half position-details-header-body"
-        >
-          <strong>
-            Post website: 
-          </strong>
-          <a
-            href="https://www.state.gov/post"
+          <span
+            className="usa-grid-full"
           >
-            https://www.state.gov/post
-          </a>
+            a description
+          </span>
         </div>
-        <div
-          className="usa-width-one-half position-details-header-body"
-        >
-          <strong>
-            Point of Contact: 
-          </strong>
-          <a
-            href="tel:202-555-5555"
-          >
-            202-555-5555
-          </a>
-        </div>
+        <PositionTitleSubDescription
+          formattedContent={
+            <a
+              href="https://www.state.gov/post"
+            >
+              https://www.state.gov/post
+            </a>
+          }
+          isAllowedToEdit={false}
+          onSubmitText={[Function]}
+          plainContent="https://www.state.gov/post"
+          shouldShowEditor={false}
+          title="Post website"
+          toggleEditor={[Function]}
+        />
+        <PositionTitleSubDescription
+          formattedContent={
+            <a
+              href="tel:202-555-5555"
+            >
+              202-555-5555
+            </a>
+          }
+          isAllowedToEdit={false}
+          onSubmitText={[Function]}
+          plainContent="202-555-5555"
+          shouldShowEditor={false}
+          title="Point of Contact"
+          toggleEditor={[Function]}
+        />
       </div>
     </div>
     <img

@@ -13,10 +13,10 @@ const mockStore = configureStore(middlewares);
 
 describe('FavoritesContainer', () => {
   it('is defined', () => {
-    const profile = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+    const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <FavoritesContainer />
     </MemoryRouter></Provider>);
-    expect(profile).toBeDefined();
+    expect(wrapper).toBeDefined();
   });
 
   it('can call the onToggleFavorite function', () => {
