@@ -34,12 +34,12 @@ export function postSearchFetchData(query) {
       }),
     },
     )
-      .then((response) => {
+      .then(({ data }) => {
         dispatch(postSearchIsLoading(false));
         let filteredResults = [];
-        if (response.data && response.data.results) {
+        if (data.results) {
           // results should have a location
-          filteredResults = response.data.results.filter(post => post.location !== null);
+          filteredResults = data.results.filter(post => post.location !== null);
         }
         return filteredResults;
       })
