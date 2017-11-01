@@ -39,7 +39,7 @@ export default class AutoSuggest extends Component {
   // Autosuggest will call this function every time you need to update suggestions.
   onSuggestionsFetchRequested({ value }) {
     this.debounced.cancel();
-    this.debounced = debounce(q => this.props.getSuggestions(q), this.props.debounce);
+    this.debounced = debounce(q => this.props.getSuggestions(q), this.props.debounceMillis);
     this.debounced(value);
   }
 
@@ -115,7 +115,7 @@ AutoSuggest.propTypes = {
   labelSrOnly: PropTypes.bool,
 
   getSuggestions: PropTypes.func.isRequired,
-  debounce: PropTypes.number, // Number in milliseconds to debounce typing.
+  debounceMillis: PropTypes.number, // Number in milliseconds to debounce typing.
   onSuggestionSelected: PropTypes.func.isRequired,
 
   // This is required by the AutoSuggest component, but is not necessary for our use.
@@ -138,7 +138,7 @@ AutoSuggest.defaultProps = {
   suggestions: [],
   placeholder: '',
   labelSrOnly: true,
-  debounce: 350,
+  debounceMillis: 350,
   onSuggestionsClearRequested: EMPTY_FUNCTION,
   displayProperty: 'short_name',
   queryProperty: '',
