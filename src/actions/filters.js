@@ -72,7 +72,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
-            // finally return the object
+            // and return the object
             return obj;
           })
           .catch((error) => {
@@ -85,7 +85,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
             const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
-            // finally return the object
+            // and return the object
             return obj;
           })
           .catch((error) => {
@@ -119,11 +119,11 @@ export function filtersFetchData(items, queryParams, savedResponses) {
               }
             });
           });
-          // Finally add our async params to the original mappedParams
-          // and remove and any duplicates by the 'description' prop
+          // Add our async params to the original mappedParams
+          // and remove and any duplicates by the 'description' prop.
           responses.mappedParams.push(...responses.asyncParams);
           responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
-          // finally, dispatch a success
+          // Finally, dispatch a success
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
           dispatch(filtersFetchDataSuccess(responses));

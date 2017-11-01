@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
 import api from '../../api';
 
-const CancelToken = axios.CancelToken;
+// const CancelToken = axios.CancelToken;
 let cancel;
 
 export function postSearchHasErrored(bool) {
