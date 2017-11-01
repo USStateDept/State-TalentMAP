@@ -36,7 +36,12 @@ export function postSearchFetchData(query) {
     )
       .then((response) => {
         dispatch(postSearchIsLoading(false));
-        return response.data.results;
+        let filteredResults = [];
+        if (response.data && response.data.results) {
+          // results should have a location
+          filteredResults = response.data.results.filter(post => post.location !== null);
+        }
+        return filteredResults;
       })
       .then(results => dispatch(postSearchSuccess(results)))
       .catch(() => {
