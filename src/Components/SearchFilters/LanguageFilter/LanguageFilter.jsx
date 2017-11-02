@@ -12,7 +12,7 @@ const LanguageFilter = ({ item, setAccordion, selectedAccordion }) => (
           (item.data || []).map(itemData => (
             <AccordionItem
               key={itemData.short_description}
-              divClass="language-accordion-item"
+              className="language-accordion-item"
               id={`language-${itemData.short_description}-section`}
               title={itemData.short_description}
               expanded={selectedAccordion.sub === itemData.short_description}
