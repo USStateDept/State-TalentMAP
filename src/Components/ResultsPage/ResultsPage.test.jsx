@@ -42,6 +42,15 @@ describe('ResultsPageComponent', () => {
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -68,6 +77,15 @@ describe('ResultsPageComponent', () => {
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -93,6 +111,15 @@ describe('ResultsPageComponent', () => {
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -117,6 +144,15 @@ describe('ResultsPageComponent', () => {
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
+      fetchMissionAutocomplete={() => {}}
+      missionSearchResults={[]}
+      missionSearchIsLoading={false}
+      missionSearchHasErrored={false}
+      fetchPostAutocomplete={() => {}}
+      postSearchResults={[]}
+      postSearchIsLoading={false}
+      postSearchHasErrored={false}
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionTitleSubDescriptionComponent matches snapshot when editor is hidden 1`] = `
+<div
+  className="usa-width-one-half position-details-header-body editable-position-field"
+>
+  <strong>
+    title
+    : 
+  </strong>
+  <div
+    className="usa-grid-full"
+  >
+    <span>
+      content
+    </span>
+    <EditContentButton
+      onToggle={[Function]}
+    />
+  </div>
+</div>
+`;
+
+exports[`PositionTitleSubDescriptionComponent matches snapshot when editor is shown 1`] = `
+<div
+  className="usa-width-one-half position-details-header-body editable-position-field"
+>
+  <strong>
+    title
+    : 
+  </strong>
+  <TextEditor
+    cancel={[Function]}
+    initialText="content"
+    onSubmitText={[Function]}
+    readOnly={false}
+  />
+</div>
+`;

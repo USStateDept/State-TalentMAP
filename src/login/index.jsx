@@ -22,8 +22,8 @@ export class Login extends Component {
 
   // Remember, Redux Form passes the form values to our handler
   // In this case it will be an object with `username` and `password`
-  submit(values) {
-    this.props.loginRequest(values);
+  submit({ username, password }) {
+    this.props.loginRequest({ username, password });
   }
 
   render() {

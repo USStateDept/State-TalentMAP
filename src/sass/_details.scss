@@ -1,3 +1,7 @@
+.position-details-header-container {
+  position: relative;
+}
+
 .position-details-header {
 
   background-color: $color-gray-lightest;
@@ -118,5 +122,38 @@
 
   .map-title {
     font-size: .8em;
+  }
+}
+
+.offset-bid-button-container {
+  left: 63%;
+  position: absolute;
+  top: 85%;
+}
+
+.edit-description-alert-container {
+  margin-top: 5px;
+}
+
+.edit-description-button-container {
+  margin-top: 5px;
+}
+
+.editable-position-field {
+
+  margin-bottom: 15px;
+
+  .fa {
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
+  .editor {
+    margin-bottom: unset;
+    padding: 10px;
+  }
+
+  .editor :global(.public-DraftEditor-content) {
+    min-height: 10px;
   }
 }

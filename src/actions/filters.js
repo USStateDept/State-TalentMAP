@@ -1,5 +1,7 @@
 import axios from 'axios';
 import api from '../api';
+import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../Constants/EndpointParams';
+import { removeDuplicates } from '../utilities';
 
 export function filtersHasErrored(bool) {
   return {
@@ -23,6 +25,7 @@ export function filtersFetchDataSuccess(filters) {
 export function filtersFetchData(items, queryParams, savedResponses) {
   return (dispatch) => {
     dispatch(filtersIsLoading(true));
+    dispatch(filtersHasErrored(false));
 
     const queryParamObject = queryParams;
 
@@ -32,37 +35,163 @@ export function filtersFetchData(items, queryParams, savedResponses) {
     // in order to supplement them with human-readable data.
     // "filters" will store our selectable filters.
     const responses = savedResponses
-      || { mappedParams: [], filters: [], hasFetched: false };
+      || {
+        mappedParams: [],
+        asyncParams: [],
+        filters: [],
+        hasFetched: false,
+        asyncFilterCache: [],
+      };
+
+    // Map our props that are retrieved on the fly and don't have
+    // anything to reference against (posts and missions).
+    // We could easily check the originating param (selectionRef)
+    // and perform any custom, conditional labeling.
+    // TODO we should verify these against VALID_PARAMS.
+    function mapAsyncParams() {
+      const asyncFilters = responses.asyncParams;
+
+      // create a promise to retrieve our filters that rely on ajax
+      const asyncQueryProms = asyncFilters.map((item) => {
+        let cacheFound = false;
+        // check our cache to see if we already have data saved on the filter
+        responses.asyncFilterCache.forEach((a) => {
+          // check that the ID and source match
+          if (a.codeRef === item.codeRef && a.selectionRef === item.selectionRef) {
+            cacheFound = a;
+          }
+        });
+        // Is it already cached? if so, return it.
+        if (cacheFound) {
+          return cacheFound;
+        // Else, we'll want to retrieve it.
+        // We'll do this for posts and missions.
+        } else if (item.selectionRef === ENDPOINT_PARAMS.post) {
+          return axios.get(`${api}/orgpost/${item.codeRef}/`)
+          .then((response) => {
+            const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
+            // push the object to cache
+            responses.asyncFilterCache.push(obj);
+            // and return the object
+            return obj;
+          })
+          .catch((error) => {
+            throw error;
+          });
+        }
+        if (item.selectionRef === ENDPOINT_PARAMS.mission) {
+          return axios.get(`${api}/country/${item.codeRef}/`)
+          .then((response) => {
+            const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
+            // push the object to cache
+            responses.asyncFilterCache.push(obj);
+            // and return the object
+            return obj;
+          })
+          .catch((error) => {
+            throw error;
+          });
+        }
+        return {};
+      });
+
+      const asyncData = [];
+
+      // actually execute our async calls
+      Promise.all(asyncQueryProms)
+        // Promise.all returns a single array which matches the order of the originating array
+        .then((results) => {
+          results.forEach((result) => {
+            asyncData.push(result);
+          });
+        })
+        .then(() => {
+          asyncFilters.forEach((item, i) => {
+            asyncData.forEach((data) => {
+              // Do some formatting for post and mission data
+              // for when they get put inside Pills/
+              if (item.codeRef === data.codeRef) {
+                if (data.type === 'post') {
+                  asyncFilters[i].description = `${data.location} (Post)`;
+                } else if (data.type === 'mission') {
+                  asyncFilters[i].description = `${data.short_name} (Mission)`;
+                }
+              }
+            });
+          });
+          // Add our async params to the original mappedParams
+          // and remove and any duplicates by the 'description' prop.
+          responses.mappedParams.push(...responses.asyncParams);
+          responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
+          // Finally, dispatch a success
+          dispatch(filtersHasErrored(false));
+          dispatch(filtersIsLoading(false));
+          dispatch(filtersFetchDataSuccess(responses));
+        })
+        .catch(() => {
+          dispatch(filtersHasErrored(true));
+          dispatch(filtersIsLoading(false));
+        });
+    }
 
     function dispatchSuccess() {
       // Set all of our isSelected values back to false.
       // We'll check if they should be set to true later
       responses.filters.forEach((responseFilter, i) => {
-        responseFilter.data.forEach((responseFilterData, ii) => {
-          responses.filters[i].data[ii].isSelected = false;
+        responseFilter.data.forEach((responseFilterData, j) => {
+          responses.filters[i].data[j].isSelected = false;
         });
       });
       // check for option queryParamObject to map against (used for pill filters)
       responses.mappedParams = [];
+      responses.asyncParams = [];
+
+      // Set any custom descriptions
+      // TODO externalize these to some kind of template helper?
+      responses.filters.forEach((filterItem, i) => {
+        filterItem.data.forEach((filterItemObject, j) => {
+          if (filterItem.item.description === 'region') {
+            responses.filters[i].data[j].custom_description =
+              `${filterItemObject.long_description}
+              (${filterItemObject.short_description})`;
+          } else if (filterItem.item.description === 'skill') {
+            responses.filters[i].data[j].custom_description =
+              `${filterItemObject.description}
+              (${filterItemObject.code})`;
+          } else if (filterItem.item.description === 'post') {
+            responses.filters[i].data[j].custom_description =
+              filterItemObject.location;
+          }
+        });
+      });
+
+      // map any query params
       if (queryParamObject) {
         responses.filters.forEach((response) => {
           const filterRef = response.item.selectionRef;
           Object.keys(queryParamObject).forEach((key) => {
             if (key === filterRef) {
-                // convert the string to an array
+              // convert the string to an array
               const paramArray = queryParamObject[key].split(',');
               paramArray.forEach((paramArrayItem) => {
-                  // create a base config object
+                // create a base config object
                 const mappedObject = {
                   selectionRef: filterRef,
                   codeRef: paramArrayItem,
                 };
                 responses.filters.forEach((filterItem, i) => {
-                  filterItem.data.forEach((filterItemObject, ii) => {
-                    if (filterItemObject.code &&
+                  filterItem.data.forEach((filterItemObject, j) => {
+                    if (
+                      // Check if code or ID matches, since we use both.
+                      // TODO - consider standardizing to ID?
+                      (filterItemObject.code &&
                           filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
-                          filterItem.item.selectionRef === mappedObject.selectionRef) {
-                      responses.filters[i].data[ii].isSelected = true;
+                          filterItem.item.selectionRef === mappedObject.selectionRef) ||
+                      (filterItemObject.id &&
+                          filterItemObject.id.toString() === mappedObject.codeRef.toString() &&
+                          filterItem.item.selectionRef === mappedObject.selectionRef)
+                        ) {
+                      responses.filters[i].data[j].isSelected = true;
                       if ( // boolean filters are special since they don't rely on AJAX
                           response.item.description === 'COLA' ||
                           response.item.description === 'postDiff' ||
@@ -71,7 +200,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                         ) {
                         mappedObject.description = response.item.title;
                       } else {
-                          // try to get the shortest description since pills should be small
+                        // try to get the shortest description since pills should be small
                         mappedObject.description =
                             filterItemObject.short_description ||
                             filterItemObject.description ||
@@ -81,8 +210,12 @@ export function filtersFetchData(items, queryParams, savedResponses) {
                     }
                   });
                 });
-                  // push our formed object to the mappedParams array
-                responses.mappedParams.push(mappedObject);
+                // push our formed object to the mappedParams array
+                if (ASYNC_PARAMS.indexOf(mappedObject.selectionRef) > -1) {
+                  responses.asyncParams.push(mappedObject);
+                } else {
+                  responses.mappedParams.push(mappedObject);
+                }
               });
             }
           });
@@ -91,16 +224,15 @@ export function filtersFetchData(items, queryParams, savedResponses) {
       // set the hasFetched property so that our component knows when
       // to avoid an AJAX refresh
       responses.hasFetched = true;
-      // finally, dispatch a success
-      dispatch(filtersHasErrored(false));
-      dispatch(filtersIsLoading(false));
-      dispatch(filtersFetchDataSuccess(responses));
+      // add any arbitrary filters
+      mapAsyncParams();
     }
 
     // If saved responses are returned, don't run AJAX.
     // This way, we can map any new query params without
     // needlessly refreshing the filters via AJAX.
     if (savedResponses) {
+      // we still need to map any new arbitrary filters that were added
       dispatchSuccess();
     } else {
       // our static filters

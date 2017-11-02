@@ -8,9 +8,13 @@ import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters';
 import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
+import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
+import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS,
+USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
+EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
@@ -37,7 +41,7 @@ class Results extends Component {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword,
             defaultLocation } = this.state;
     // clear out old alert messages
-    this.props.routeChangeResetState();
+    this.props.resetSavedSearchAlerts();
     // check auth
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(PUBLIC_ROOT);
@@ -127,6 +131,7 @@ class Results extends Component {
 
   // for when we need to ADD or DELETE a NESTED value of a filter
   onQueryParamToggle(param, value, remove) {
+    const stringifiedValue = value.toString();
     const parsedQuery = queryString.parse(this.state.query.value);
     // was the key found?
     let wasKeyFound = false;
@@ -137,12 +142,15 @@ class Results extends Component {
         wasKeyFound = true;
         // split filter strings into array
         const keyArray = parsedQuery[key].split(',');
-        const index = keyArray.indexOf(value);
+        const index = keyArray.indexOf(stringifiedValue);
         // does the filter exist in the query params? if so, delete it
         if (index > -1 && remove) {
           keyArray.splice(index, 1);
         } else if (!remove) {
-          keyArray.push(value);
+          // value should not be a duplicate
+          if (keyArray.indexOf(stringifiedValue) <= -1) {
+            keyArray.push(stringifiedValue);
+          }
         }
         // convert the array back to a string
         parsedQuery[key] = keyArray.join();
@@ -154,7 +162,7 @@ class Results extends Component {
       }
     });
     if (!wasKeyFound && !remove) {
-      parsedQuery[param] = value;
+      parsedQuery[param] = stringifiedValue;
     }
     // Go back to page 1 if a page number >1 was set.
     // We never change the page number from this function, so we can always assume this
@@ -194,7 +202,7 @@ class Results extends Component {
   saveSearch(e, id) {
     // parse the string to an object
     const parsedQuery = queryString.parse(this.state.query.value);
-    // remove an invalid filters
+    // remove any invalid filters
     const cleanedQuery = cleanQueryParams(parsedQuery);
     // form our object for the API
     const queryObject = Object.assign({}, {
@@ -208,10 +216,13 @@ class Results extends Component {
 
   render() {
     const { results, hasErrored, isLoading, filters, toggleFavorite,
-            selectedAccordion, setAccordion, userProfile,
-            userProfileFavoritePositionIsLoading,
+            selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
+            missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
+            userProfileFavoritePositionIsLoading, resetSavedSearchAlerts,
             userProfileFavoritePositionHasErrored, currentSavedSearch,
-            newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored } = this.props;
+            newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored,
+            fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
+            postSearchHasErrored } = this.props;
     return (
       <div>
         <ResultsPage
@@ -242,6 +253,15 @@ class Results extends Component {
           newSavedSearchHasErrored={newSavedSearchHasErrored}
           saveSearch={this.saveSearch}
           currentSavedSearch={currentSavedSearch}
+          resetSavedSearchAlerts={resetSavedSearchAlerts}
+          fetchMissionAutocomplete={fetchMissionAutocomplete}
+          missionSearchResults={missionSearchResults}
+          missionSearchIsLoading={missionSearchIsLoading}
+          missionSearchHasErrored={missionSearchHasErrored}
+          fetchPostAutocomplete={fetchPostAutocomplete}
+          postSearchResults={postSearchResults}
+          postSearchIsLoading={postSearchIsLoading}
+          postSearchHasErrored={postSearchHasErrored}
         />
       </div>
     );
@@ -253,23 +273,31 @@ Results.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  results: PROP_TYPES.POSITION_SEARCH_RESULTS,
+  results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
-  filters: PROP_TYPES.FILTERS_PARENT,
+  filters: FILTERS_PARENT,
   fetchFilters: PropTypes.func.isRequired,
-  selectedAccordion: PROP_TYPES.ACCORDION_SELECTION_OBJECT,
+  selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
-  routerLocations: PROP_TYPES.ROUTER_LOCATIONS,
-  userProfile: PROP_TYPES.USER_PROFILE,
+  routerLocations: ROUTER_LOCATIONS,
+  userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  newSavedSearchSuccess: PROP_TYPES.SAVED_SEARCH_MESSAGE,
+  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  newSavedSearchHasErrored: PROP_TYPES.SAVED_SEARCH_MESSAGE,
+  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
-  currentSavedSearch: PROP_TYPES.SAVED_SEARCH_OBJECT,
-  routeChangeResetState: PropTypes.func.isRequired,
+  currentSavedSearch: SAVED_SEARCH_OBJECT,
+  resetSavedSearchAlerts: PropTypes.func.isRequired,
+  fetchMissionAutocomplete: PropTypes.func.isRequired,
+  missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
+  missionSearchIsLoading: PropTypes.bool.isRequired,
+  missionSearchHasErrored: PropTypes.bool.isRequired,
+  fetchPostAutocomplete: PropTypes.func.isRequired,
+  postSearchResults: POST_DETAILS_ARRAY.isRequired,
+  postSearchIsLoading: PropTypes.bool.isRequired,
+  postSearchHasErrored: PropTypes.bool.isRequired,
 };
 
 Results.defaultProps = {
@@ -288,7 +316,15 @@ Results.defaultProps = {
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},
-  routeChangeResetState: PROP_TYPES.EMPTY_FUNCTION,
+  resetSavedSearchAlerts: EMPTY_FUNCTION,
+  fetchMissionAutocomplete: EMPTY_FUNCTION,
+  missionSearchResults: [],
+  missionSearchIsLoading: false,
+  missionSearchHasErrored: false,
+  fetchPostAutocomplete: EMPTY_FUNCTION,
+  postSearchResults: [],
+  postSearchIsLoading: false,
+  postSearchHasErrored: false,
 };
 
 Results.contextTypes = {
@@ -311,6 +347,12 @@ const mapStateToProps = state => ({
   newSavedSearchIsSaving: state.newSavedSearchIsSaving,
   newSavedSearchHasErrored: state.newSavedSearchHasErrored,
   currentSavedSearch: state.currentSavedSearch,
+  missionSearchResults: state.missionSearchSuccess,
+  missionSearchIsLoading: state.missionSearchIsLoading,
+  missionSearchHasErrored: state.missionSearchHasErrored,
+  postSearchResults: state.postSearchSuccess,
+  postSearchIsLoading: state.postSearchIsLoading,
+  postSearchHasErrored: state.postSearchHasErrored,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -325,7 +367,9 @@ const mapDispatchToProps = dispatch => ({
     // we don't pass the refreshFavorites arg
     dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
-  routeChangeResetState: () => dispatch(routeChangeResetState()),
+  resetSavedSearchAlerts: () => dispatch(routeChangeResetState()),
+  fetchMissionAutocomplete: query => dispatch(missionSearchFetchData(query)),
+  fetchPostAutocomplete: query => dispatch(postSearchFetchData(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

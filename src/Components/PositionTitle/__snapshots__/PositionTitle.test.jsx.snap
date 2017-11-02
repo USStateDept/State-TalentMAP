@@ -2,80 +2,102 @@
 
 exports[`PositionTitleComponent matches snapshot 1`] = `
 <div
-  className="position-details-header"
+  className="position-details-header-container"
 >
   <div
-    className="usa-grid positions-details-header-grid"
+    className="position-details-header"
   >
     <div
-      className="usa-width-one-half"
+      className="usa-grid positions-details-header-grid"
     >
       <div
-        className="position-details-header-back"
+        className="usa-width-one-half"
       >
-        <div>
-          <FontAwesome
-            name="arrow-left"
-          />
-           
-          <a
-            className="back-link"
-            onClick={[Function]}
-            role="link"
-            tabIndex="0"
-          >
-            Go back text
-          </a>
+        <div
+          className="position-details-header-back"
+        >
+          <div>
+            <FontAwesome
+              name="arrow-left"
+            />
+             
+            <a
+              className="back-link"
+              onClick={[Function]}
+              role="link"
+              tabIndex="0"
+            >
+              Go back text
+            </a>
+          </div>
         </div>
-      </div>
-      <div
-        className="position-details-header-title"
-      >
-        <strong>
-          Position Number: 
-          00003027
-        </strong>
-      </div>
-      <p
-        className="position-details-header-body"
-      >
-        <strong>
-          Description: 
-        </strong>
-        a description
-      </p>
-      <div
-        className="usa-width-one-half position-details-header-body"
-      >
-        <strong>
-          Post website:
-        </strong>
-         
-        <a
-          href="https://www.state.gov"
+        <div
+          className="position-details-header-title"
         >
-          www.state.gov
-        </a>
-      </div>
-      <div
-        className="usa-width-one-half position-details-header-body"
-      >
-        <strong>
-          Point of Contact:
-        </strong>
-         
-        <a
-          href="tel:222-222-2222"
+          <strong>
+            Position Number: 
+            00003027
+          </strong>
+        </div>
+        <div
+          className="position-details-header-body editable-position-field"
         >
-          222-222-2222
-        </a>
+          <strong>
+            Description: 
+          </strong>
+          <span
+            className="usa-grid-full"
+          >
+            a description
+          </span>
+        </div>
+        <PositionTitleSubDescription
+          formattedContent={
+            <a
+              href="https://www.state.gov/post"
+            >
+              https://www.state.gov/post
+            </a>
+          }
+          isAllowedToEdit={false}
+          onSubmitText={[Function]}
+          plainContent="https://www.state.gov/post"
+          shouldShowEditor={false}
+          title="Post website"
+          toggleEditor={[Function]}
+        />
+        <PositionTitleSubDescription
+          formattedContent={
+            <a
+              href="tel:202-555-5555"
+            >
+              202-555-5555
+            </a>
+          }
+          isAllowedToEdit={false}
+          onSubmitText={[Function]}
+          plainContent="202-555-5555"
+          shouldShowEditor={false}
+          title="Point of Contact"
+          toggleEditor={[Function]}
+        />
       </div>
     </div>
+    <img
+      alt="department of state seal"
+      className="position-details-header-image"
+      src="/assets/img/rsz_dos-seal-bw.png"
+    />
   </div>
-  <img
-    alt="department of state seal"
-    className="position-details-header-image"
-    src="/assets/img/rsz_dos-seal-bw.png"
-  />
+  <div
+    className="offset-bid-button-container"
+  >
+    <BidListButton
+      compareArray={Array []}
+      id={6}
+      isLoading={false}
+      toggleBidPosition={[Function]}
+    />
+  </div>
 </div>
 `;

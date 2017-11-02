@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import SearchFiltersContainer from './SearchFiltersContainer';
 import { ACCORDION_SELECTION } from '../../../Constants/DefaultProps';
@@ -13,6 +14,10 @@ describe('SearchFiltersContainerComponent', () => {
     item: { title: 'COLA', selectionRef: 'ref2', bool: true },
     data: [{ isSelected: false }],
   },
+  {
+    item: { title: 'region', description: 'region', selectionRef: 'ref3' },
+    data: [{ isSelected: false, long_description: 'test', short_description: 'test' }],
+  },
   ];
 
   const accordion = ACCORDION_SELECTION;
@@ -25,6 +30,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
@@ -38,6 +47,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -52,6 +65,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
 
@@ -73,6 +90,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
 
@@ -90,12 +111,37 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
         filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
 
     wrapper.instance().onSetAccordionLanguage(1);
     expect(toggleValue.a).toBe('Language');
     expect(toggleValue.b).toBe(1);
+  });
+
+  it('can call the on[x]SuggestionSelected functions', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        queryParamUpdate={() => {}}
+        queryParamToggle={spy}
+        selectedAccordion={accordion}
+        setAccordion={() => {}}
+        filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+      />,
+    );
+    wrapper.instance().onMissionSuggestionSelected(1);
+    sinon.assert.calledOnce(spy);
+    wrapper.instance().onPostSuggestionSelected(1);
+    sinon.assert.calledTwice(spy);
   });
 
   it('contains Language', () => {
@@ -110,6 +156,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={filters}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('language');
@@ -139,6 +189,10 @@ describe('SearchFiltersContainerComponent', () => {
         selectedAccordion={accordion}
         setAccordion={() => {}}
         filters={filters}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('skill');

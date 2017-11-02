@@ -4,8 +4,11 @@ import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelec
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import LanguageFilter from '../LanguageFilter/LanguageFilter';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT } from '../../../Constants/PropTypes';
+import AutoSuggest from '../../AutoSuggest';
+import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
+import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort } from '../../../utilities';
+import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
 class SearchFiltersContainer extends Component {
 
@@ -13,6 +16,16 @@ class SearchFiltersContainer extends Component {
     super(props);
     this.onSetAccordion = this.onSetAccordion.bind(this);
     this.onSetAccordionLanguage = this.onSetAccordionLanguage.bind(this);
+    this.onMissionSuggestionSelected = this.onMissionSuggestionSelected.bind(this);
+    this.onPostSuggestionSelected = this.onPostSuggestionSelected.bind(this);
+  }
+
+  onMissionSuggestionSelected(value) {
+    this.props.queryParamToggle(ENDPOINT_PARAMS.mission, value);
+  }
+
+  onPostSuggestionSelected(value) {
+    this.props.queryParamToggle(ENDPOINT_PARAMS.post, value);
   }
 
   onBooleanFilterClick(isChecked, code, selectionRef) {
@@ -29,6 +42,9 @@ class SearchFiltersContainer extends Component {
     this.props.setAccordion({ main: 'Language', sub: a });
   }
   render() {
+    const { fetchMissionAutocomplete, missionSearchResults, fetchPostAutocomplete,
+    postSearchResults } = this.props;
+
     // get our boolean filter names
     const sortedBooleanNames = ['Post Differential', 'Danger Pay', 'COLA', 'Domestic'];
 
@@ -51,13 +67,13 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['region', 'skill', 'grade', 'tod'];
+    const multiSelectFilterNames = ['region', 'skill', 'grade', 'tod', 'mission', 'post'];
 
     // create map
     const multiSelectFilterMap = new Map();
 
     // pull filters from props and add to Map
-    this.props.filters.forEach((f) => {
+    this.props.filters.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill') {
@@ -100,14 +116,57 @@ class SearchFiltersContainer extends Component {
     const sortedFilters = [];
     multiSelectFilterNames.forEach((n) => {
       const item = multiSelectFilterMap.get(n);
+      // let some variables that will change based on whether n is a post or mission
+      let getSuggestions;
+      let suggestions;
+      let placeholder;
+      let onSuggestionSelected;
+      let displayProperty;
+      let suggestionTemplate; // AutoSuggest will use default template if this stays undefined
+      if (n === 'post') {
+        getSuggestions = fetchPostAutocomplete;
+        suggestions = postSearchResults;
+        placeholder = 'Start typing a post';
+        onSuggestionSelected = this.onPostSuggestionSelected;
+        displayProperty = 'location';
+        suggestionTemplate = SuggestionChoicePost; // special template for posts
+      }
+      if (n === 'mission') {
+        getSuggestions = fetchMissionAutocomplete;
+        suggestions = missionSearchResults;
+        placeholder = 'Start typing a mission';
+        onSuggestionSelected = this.onMissionSuggestionSelected;
+      }
       if (item) {
         sortedFilters.push(
           { content:
-            (<MultiSelectFilter
-              key={item.item.title}
-              item={item}
-              queryParamToggle={this.props.queryParamToggle}
-            />),
+            (
+              <div className="usa-grid-full">
+                {
+                // Only show the autosuggest for post and mission filters.
+                (n === 'post' || n === 'mission') ?
+                  <AutoSuggest
+                    getSuggestions={getSuggestions}
+                    suggestions={suggestions}
+                    placeholder={placeholder}
+                    onSuggestionSelected={onSuggestionSelected}
+                    queryProperty="id"
+                    displayProperty={displayProperty}
+                    suggestionTemplate={suggestionTemplate}
+                    id={`${n}-autosuggest-container`}
+                    inputId={`${n}-autosuggest-input`}
+                    label={`${item.item.title} name`}
+                  />
+                  : null
+                }
+                <MultiSelectFilter
+                  key={item.item.title}
+                  item={item}
+                  queryParamToggle={this.props.queryParamToggle}
+                  queryProperty={(n === 'post' || n === 'mission') ? '_id' : 'code'}
+                />
+              </div>
+            ),
             title: item.item.title,
             id: `accordion-${item.item.title}`,
             expanded: item.item.title === this.props.selectedAccordion.main,
@@ -123,6 +182,7 @@ class SearchFiltersContainer extends Component {
         <MultiSelectFilterContainer
           setAccordion={this.onSetAccordion}
           multiSelectFilterList={sortedFilters}
+          queryParamToggle={this.props.queryParamToggle}
         />
         <div className="boolean-filter-container">
           <BooleanFilterContainer
@@ -145,6 +205,10 @@ SearchFiltersContainer.propTypes = {
   queryParamToggle: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT.isRequired,
   setAccordion: PropTypes.func.isRequired,
+  fetchMissionAutocomplete: PropTypes.func.isRequired,
+  missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
+  fetchPostAutocomplete: PropTypes.func.isRequired,
+  postSearchResults: POST_DETAILS_ARRAY.isRequired,
 };
 
 export default SearchFiltersContainer;

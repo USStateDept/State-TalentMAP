@@ -42,6 +42,7 @@ describe('ResultsContainerComponent', () => {
         newSavedSearchSuccess={false}
         newSavedSearchHasErrored={false}
         newSavedSearchIsSaving={false}
+        resetSavedSearchAlerts={() => {}}
       />
     </MemoryRouter>);
     expect(wrapper).toBeDefined();
@@ -65,6 +66,7 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -87,6 +89,7 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
     />);
     expect(wrapper.instance().props.pageCount).toBe(20);
   });
@@ -112,6 +115,7 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       scrollToTop={scrollSpy}
+      resetSavedSearchAlerts={() => {}}
     />);
     wrapper.instance().onPageChange(1);
     sinon.assert.calledOnce(spy);
@@ -136,6 +140,7 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchSuccess={false}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
+      resetSavedSearchAlerts={() => {}}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

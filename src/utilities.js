@@ -107,9 +107,11 @@ export const scrollToTop = (config = defaultScrollConfig) => {
   scroll.scrollToTop(config);
 };
 
-// when we want to grab a label, but aren't sure which one exists
+// When we want to grab a label, but aren't sure which one exists.
+// We set custom ones first in the list.
 export const getItemLabel = itemData =>
-  itemData.long_description || itemData.description || itemData.code;
+  itemData.custom_description || itemData.long_description ||
+  itemData.description || itemData.code;
 
 // abcde 4 // a...
 // Shortens strings to varying lengths
@@ -146,6 +148,17 @@ export const existsInArray = (ref, array) => {
   return found;
 };
 
+// for checking if a position is in the user's bid list
+export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
+  let found = false;
+  array.forEach((i) => {
+    if (i[prop] && i[prop][nestedProp] === ref) {
+      found = true;
+    }
+  });
+  return found;
+};
+
 // clean our query object for use with the saved search endpoint
 // make sure query object only uses real parameters (no extras that may have been added to the URL)
 // we also want to get rid of page and limit,
@@ -169,3 +182,8 @@ export const ifEnter = (e) => {
 
 // convert a query object to a query string
 export const formQueryString = queryObject => queryString.stringify(queryObject);
+
+// remove duplicates from an array by object property
+export const removeDuplicates = (myArr, prop) => (
+    myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
+);

@@ -18,6 +18,12 @@ import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoad
 import { userProfile, userProfileHasErrored, userProfileIsLoading,
         userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
 import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading } from './favoritePositions';
+import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
+  bidListToggleHasErrored, bidListToggleIsLoading, bidListToggleSuccess,
+  submitBidHasErrored, submitBidIsLoading, submitBidSuccess } from './bidList';
+import { descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess } from './descriptionEdit';
+import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess } from './autocomplete/missionAutocomplete';
+import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -70,5 +76,23 @@ export default combineReducers({
   favoritePositions,
   favoritePositionsHasErrored,
   favoritePositionsIsLoading,
+  bidListHasErrored,
+  bidListIsLoading,
+  bidListFetchDataSuccess,
+  bidListToggleHasErrored,
+  bidListToggleIsLoading,
+  bidListToggleSuccess,
+  submitBidHasErrored,
+  submitBidIsLoading,
+  submitBidSuccess,
+  descriptionEditHasErrored,
+  descriptionEditIsLoading,
+  descriptionEditSuccess,
+  missionSearchHasErrored,
+  missionSearchIsLoading,
+  missionSearchSuccess,
+  postSearchHasErrored,
+  postSearchIsLoading,
+  postSearchSuccess,
   router: routerReducer,
 });

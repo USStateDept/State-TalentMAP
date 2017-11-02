@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SavedSearchesCard from '../SavedSearchesCard';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch, cloneSavedSearch }) => (
   <div className="usa-grid-full">
@@ -20,7 +20,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch, clone
   );
 
 SavedSearchesList.propTypes = {
-  savedSearches: PROP_TYPES.SAVED_SEARCH_PARENT_OBJECT.isRequired,
+  savedSearches: SAVED_SEARCH_PARENT_OBJECT.isRequired,
   goToSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   cloneSavedSearch: PropTypes.func.isRequired,

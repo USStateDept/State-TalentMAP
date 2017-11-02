@@ -29,27 +29,51 @@ export const POST_MISSION_DATA = PropTypes.shape({
 // TODO - these are the same, but other data will be added later
 export const POST_DETAILS = POST_MISSION_DATA;
 
+export const POST_DETAILS_ARRAY = PropTypes.arrayOf(POST_DETAILS);
+
 export const POSITION_DETAILS = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.number.isRequired,
   grade: PropTypes.string,
   skill: PropTypes.string,
   bureau: PropTypes.string,
   organization: PropTypes.string,
+  representation: PropTypes.string,
+  classifications: PropTypes.arrayOf(PropTypes.string),
   position_number: PropTypes.string,
+  title: PropTypes.string,
   is_overseas: PropTypes.bool,
   create_date: PropTypes.string,
   update_date: PropTypes.string,
+  effective_date: PropTypes.string,
+  description: PropTypes.shape({
+    id: PropTypes.number,
+    last_editing_user: PropTypes.string,
+    date_created: PropTypes.string,
+    date_updated: PropTypes.string,
+    content: PropTypes.string,
+    point_of_contact: PropTypes.string,
+    website: PropTypes.string,
+  }),
   post: POST_MISSION_DATA,
   languages: LANGUAGES,
 });
 
 export const POSITION_DETAILS_ARRAY = PropTypes.arrayOf(POSITION_DETAILS);
 
-export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+export const PAGINATION_PROPS = {
   count: PropTypes.number,
   next: PropTypes.string,
   previous: PropTypes.string,
+};
+
+export const POSITION_SEARCH_RESULTS = PropTypes.shape({
+  ...PAGINATION_PROPS,
   results: POSITION_DETAILS_ARRAY,
+});
+
+export const POST_SEARCH_RESULTS = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: POST_DETAILS_ARRAY,
 });
 
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
@@ -178,9 +202,7 @@ export const SAVED_SEARCH_OBJECT = PropTypes.shape({
 });
 
 export const SAVED_SEARCH_PARENT_OBJECT = PropTypes.shape({
-  count: PropTypes.number,
-  next: PropTypes.string,
-  previous: PropTypes.string,
+  ...PAGINATION_PROPS,
   results: PropTypes.arrayOf(
     SAVED_SEARCH_OBJECT,
   ),
@@ -194,9 +216,60 @@ export const CLONE_SAVED_SEARCH_SUCCESS = STRING_OR_BOOL;
 
 export const CLONE_SAVED_SEARCH_HAS_ERRORED = STRING_OR_BOOL;
 
+export const BID_LIST_TOGGLE_SUCCESS = STRING_OR_BOOL;
+
+export const BID_LIST_TOGGLE_HAS_ERRORED = STRING_OR_BOOL;
+
 export const REGION_SELECTION = PropTypes.shape({
   value: PropTypes.string,
 });
+
+export const BID_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  bidcycle: PropTypes.string,
+  user: PropTypes.string,
+  position: PropTypes.shape({
+    id: PropTypes.number,
+    grade: PropTypes.string,
+    skill: PropTypes.string,
+    position_number: PropTypes.string,
+    title: PropTypes.string,
+    create_date: PropTypes.string,
+    update_date: PropTypes.string,
+    post: PropTypes.shape({
+      id: PropTypes.number,
+      location: PropTypes.string,
+    }),
+  }),
+  status: PropTypes.string,
+  submission_date: PropTypes.string,
+});
+
+export const BID_RESULTS = PropTypes.arrayOf(
+  BID_OBJECT,
+);
+
+export const BID_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: BID_RESULTS,
+});
+
+export const MISSION_DETAILS = PropTypes.shape({
+  id: PropTypes.number,
+  code: PropTypes.string,
+  short_code: PropTypes.string,
+  location_prefix: PropTypes.string,
+  name: PropTypes.string,
+  short_name: PropTypes.string,
+});
+
+export const MISSION_DETAILS_ARRAY = PropTypes.arrayOf(MISSION_DETAILS);
+
+export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
+
+export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
+
+export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};
 

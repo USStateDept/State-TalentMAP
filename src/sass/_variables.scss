@@ -10,6 +10,8 @@ $color-gray: #5b616b;
 $tm-dark-blue: #00293f;
 $tm-white-smoke: #f5f5f5;
 $tm-navy: #215493;
+$color-primary-alt-light: #9bdaf1;
+$color-primary-alt-lightest: #e1f3f8;
 
 //avatar dropdown
 $avatar-background: #fff;
@@ -17,6 +19,15 @@ $avatar-dropdown-border-top-color: rgba(0, 0, 0, .05);
 $avatar-dropdown-box-shadow-color: rgba(0, 0, 0, .15);
 $avatar-dropdown-account-segment-color: #e1e1e1;
 
+// editor
+$editor-background: #fefefe;
+$editor-border: #ddd;
+$editor-box-shadow: #ababab;
+$editor-headline-background: #fbfbfb;
+$editor-headline-background-focus: #f3f3f3;
+$editor-headline-color: #888;
+
 // z-index values
 // we'll use this section to keep track of and order them
+$autosuggest-suggestions-container-open-z: 2;
 $spinner-z: 100;

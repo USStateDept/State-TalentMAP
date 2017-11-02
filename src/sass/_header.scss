@@ -1,29 +1,51 @@
 // header container
 .tm-header {
 
+  .usa-logo {
+    a {
+      display: inline-block;
+    }
+  }
+
   @media screen and (min-width: 951px) {
     .usa-logo {
       line-height: 7.5rem;
-      margin-top: 2rem;
       margin-bottom: 0;
+      margin-top: 2rem;
 
       a {
-        img {
-          width: 250px;
-          height: auto;
-        }
+        font-size: 3.6rem;
+      }
+
+      img {
+        height: auto;
+        width: 250px;
       }
     }
 
     .usa-nav-secondary {
       top: -6.5rem;
     }
+
+    .usa-logo-text {
+      line-height: unset;
+    }
   }
 
   @media screen and (max-width: 950px) {
 
+    .usa-logo {
+      img {
+        padding-top: 5px;
+      }
+    }
+
     .usa-nav-secondary {
       padding-top: 30px;
+    }
+
+    .usa-logo {
+      line-height: unset;
     }
   }
 }
