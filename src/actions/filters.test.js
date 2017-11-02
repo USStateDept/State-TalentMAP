@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import * as actions from './filters';
+import { ENDPOINT_PARAMS } from '../Constants/EndpointParams';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -61,10 +62,47 @@ const items = {
       data: [
       ],
     },
+    {
+      item: {
+        title: 'Post',
+        sort: 1100,
+        bool: false,
+        description: 'post',
+        endpoint: 'orgpost/?limit=7',
+        selectionRef: ENDPOINT_PARAMS.post,
+        choices: [
+        ],
+      },
+      data: [
+      ],
+    },
+    {
+      item: {
+        title: 'Mission',
+        sort: 1000,
+        bool: false,
+        description: 'mission',
+        endpoint: 'country/?limit=7',
+        selectionRef: ENDPOINT_PARAMS.mission,
+        choices: [
+        ],
+      },
+      data: [
+      ],
+    },
   ],
 };
 
 describe('async actions', () => {
+  const filters = {
+    filters: [
+      {
+        item: { title: 'COLA', description: 'COLA', selectionRef: 'post__cost_of_living_adjustment__gt' },
+        data: [{ code: '0', short_description: 'Yes', isSelected: false }],
+      },
+    ],
+  };
+
   beforeEach(() => {
     const mockAdapter = new MockAdapter(axios);
 
@@ -75,6 +113,39 @@ describe('async actions', () => {
     const grades = { count: 2, results: [{ id: 2, code: '00' }, { id: 3, code: '01' }] };
 
     const regions = { count: 1, results: [{ long_description: 'test', short_description: 'test' }] };
+
+    const missions = { count: 1,
+      results: [
+        {
+          id: 1,
+          code: 'AFG',
+          short_code: 'AF',
+          location_prefix: 'AF',
+          name: 'Islamic Republic of Afghanistan',
+          short_name: 'Afghanistan',
+        },
+      ],
+    };
+
+    const posts = {
+      count: 292,
+      next: 'http://localhost:8000/api/v1/orgpost/?page=2',
+      previous: null,
+      results: [
+        {
+          id: 1,
+          code: '061980037',
+          location: 'Los Angeles, CA, United States',
+          tour_of_duty: null,
+          cost_of_living_adjustment: 0,
+          differential_rate: 0,
+          danger_pay: 0,
+          rest_relaxation_point: '',
+          has_consumable_allowance: false,
+          has_service_needs_differential: false,
+        },
+      ],
+    };
 
     mockAdapter.onGet('http://localhost:8000/api/v1/skill/').reply(200,
       skills,
@@ -88,12 +159,34 @@ describe('async actions', () => {
       grades,
     );
 
+    mockAdapter.onGet('http://localhost:8000/api/v1/country/?limit=7').reply(200,
+      missions,
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/country/1/').reply(200,
+      missions.results[0],
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?limit=7').reply(200,
+      posts,
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/1/').reply(200,
+      posts.results[0],
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/2/').reply(404,
+      null,
+    );
+
     mockAdapter.onGet('http://localhost:8000/api/v1/invalid/').reply(404,
       {},
     );
   });
 
-  const queryParams = { post__cost_of_living_adjustment__gt: '0', skill__code__in: '0010,0020' };
+  const queryParams = {
+    post__cost_of_living_adjustment__gt: '0', skill__code__in: '0010,0020', post__location__country__in: '1', post__in: '1',
+  };
 
   it('can fetch filters', (done) => {
     const store = mockStore({ filters: [] });
@@ -138,15 +231,6 @@ describe('async actions', () => {
 
   it('can handle passing an optional savedResponses argument', (done) => {
     const store = mockStore({ filters: [] });
-
-    const filters = {
-      filters: [
-        {
-          item: { title: 'COLA', description: 'COLA', selectionRef: 'post__cost_of_living_adjustment__gt' },
-          data: [{ code: '0', short_description: 'Yes', isSelected: false }],
-        },
-      ],
-    };
 
     const f = () => {
       setTimeout(() => {

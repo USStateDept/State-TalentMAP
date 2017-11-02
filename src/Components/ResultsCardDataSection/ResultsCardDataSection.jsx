@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_POST, NO_POST_DIFFERENTIAL, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import ResultsCardDataItem from '../ResultsCardDataItem/ResultsCardDataItem';
 import { shortenString } from '../../utilities';
 
@@ -13,11 +13,11 @@ const ResultsCardDataSection = ({ result }) => (
           title="Post Information"
           items={
           [
-            { description: 'Post', text: result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST },
+            { description: 'Post', text: result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : NO_POST },
             { description: 'Bureau', text: result.bureau },
             { description: 'Post Differential',
               text: result.post
-                ? result.post.differential_rate : SystemMessages.NO_POST_DIFFERENTIAL },
+                ? result.post.differential_rate : NO_POST_DIFFERENTIAL },
           ]
           }
         />
@@ -34,7 +34,7 @@ const ResultsCardDataSection = ({ result }) => (
             { description: 'Description',
               text: result.description && result.description.content ?
                 shortenString(result.description.content, 35) :
-                SystemMessages.NO_POSITION_DESCRIPTION },
+                NO_POSITION_DESCRIPTION },
           ]
           }
         />

@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import FavoritePositions from '../../Components/FavoritePositions';
 
@@ -49,7 +48,7 @@ class FavoritePositionsContainer extends Component {
 FavoritePositionsContainer.propTypes = {
   fetchData: PropTypes.func.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
-  favoritePositions: PROP_TYPES.POSITION_SEARCH_RESULTS,
+  favoritePositions: POSITION_SEARCH_RESULTS,
   favoritePositionsIsLoading: PropTypes.bool.isRequired,
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
@@ -78,7 +77,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchData: () => dispatch(favoritePositionsFetchData()),
-  onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) =>
     // Since this page references the full Favorites route, pass true to explicitly refresh them
     dispatch(userProfileToggleFavoritePosition(id, remove, true)),

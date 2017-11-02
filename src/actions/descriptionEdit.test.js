@@ -1,0 +1,94 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import * as actions from './descriptionEdit';
+
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
+describe('async actions', () => {
+  it('can call the editDescriptionContent function', (done) => {
+    const store = mockStore({});
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
+      'success',
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.editDescriptionContent(1, {}));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can call the editPocContent function', (done) => {
+    const store = mockStore({});
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
+      'success',
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.editPocContent(1, {}));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can call the editWebsiteContent function', (done) => {
+    const store = mockStore({});
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
+      'success',
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.editWebsiteContent(1, {}));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can call the resetMessages function', (done) => {
+    const store = mockStore({});
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.resetMessages());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle a failed edit', (done) => {
+    const store = mockStore({});
+
+    const mockAdapter = new MockAdapter(axios);
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(404,
+      { message: 'unauthorized' },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.editWebsiteContent(1, {}));
+        done();
+      }, 0);
+    };
+    f();
+  });
+});

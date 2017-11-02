@@ -9,19 +9,19 @@ const shortid = require('shortid'); // only use shortid if we don't have a key t
 const MultiSelectFilterContainer = ({ multiSelectFilterList, setAccordion }) => (
   <Accordion>
     {
-      multiSelectFilterList.map(item => (
-        <AccordionItem
-          key={item.title || shortid.generate()}
-          id={`checkbox-${item.title}`}
-          title={item.title}
-          expanded={item.expanded}
-          setAccordion={setAccordion}
-        >
-          {item.content}
-        </AccordionItem>))
-    }
+          multiSelectFilterList.map(item => (
+            <AccordionItem
+              key={item.title || shortid.generate()}
+              id={`checkbox-${item.title}`}
+              title={item.title}
+              expanded={item.expanded}
+              setAccordion={setAccordion}
+            >
+              {item.content}
+            </AccordionItem>))
+        }
   </Accordion>
-  );
+);
 
 MultiSelectFilterContainer.propTypes = {
   multiSelectFilterList: FILTER_ITEMS_ARRAY.isRequired,

@@ -1,12 +1,12 @@
 import React from 'react';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_LANGUAGES } from '../../Constants/SystemMessages';
 import { LANGUAGES } from '../../Constants/PropTypes';
 
 const LanguageList = ({ languages }) => {
   const languageList = (languages && languages.length)
     ? languages.map(choice => (
       `${choice.language} `
-    )) : SystemMessages.NO_LANGUAGES;
+    )) : NO_LANGUAGES;
   return (
     <span>
       {languageList}

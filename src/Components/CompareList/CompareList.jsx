@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { COMPARE_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import LanguageList from '../LanguageList/LanguageList';
-import * as SystemMessages from '../../Constants/SystemMessages';
+import { NO_POST, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL, NO_DANGER_PAY, NO_COLA } from '../../Constants/SystemMessages';
 
 class CompareList extends Component {
 
@@ -27,22 +27,22 @@ class CompareList extends Component {
                 <br />
                   Skill Code: {result.skill}
                 <br />
-                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : SystemMessages.NO_POST }
+                  Post: {result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : NO_POST }
                 <br />
                   Bureau: {result.bureau}
                 <br />
                   Tour of Duty: {result.post ?
-                    result.post.tour_of_duty : SystemMessages.NO_TOUR_OF_DUTY}
+                    result.post.tour_of_duty : NO_TOUR_OF_DUTY}
                 <br />
                   Language: <LanguageList languages={result.languages} />
                 <br />
                   Post Differential: {result.post ?
-                    result.post.differential_rate : SystemMessages.NO_POST_DIFFERENTIAL}
+                    result.post.differential_rate : NO_POST_DIFFERENTIAL}
                 <br />
-                  Danger Pay: {result.post ? result.post.danger_pay : SystemMessages.NO_DANGER_PAY}
+                  Danger Pay: {result.post ? result.post.danger_pay : NO_DANGER_PAY}
                 <br />
                   COLA: {result.post ?
-                    result.post.cost_of_living_adjustment : SystemMessages.NO_COLA}
+                    result.post.cost_of_living_adjustment : NO_COLA}
               </p>
             </div>
           </div>

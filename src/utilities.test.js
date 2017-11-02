@@ -12,6 +12,7 @@ import { validStateEmail,
          formQueryString,
          propSort,
          existsInNestedObject,
+         removeDuplicates,
        } from './utilities';
 
 describe('local storage', () => {
@@ -184,5 +185,31 @@ describe('existsInNestedObject', () => {
 
   it('can return false when something does not exist in a nested object', () => {
     expect(existsInNestedObject(1, [{ position: { otherId: 2 } }])).toBe(false);
+  });
+});
+
+describe('removeDuplicates', () => {
+  const arr = [
+    { id: 1, prop: 'a' },
+    { id: 2, prop: 'b' },
+    { id: 1, prop: 'c' },
+  ];
+  it('can remove duplicate objects from an array by property', () => {
+    // it should remove the last object since id is a duplicate
+    const newArr = removeDuplicates(arr, 'id');
+    expect(newArr.length).toBe(2);
+    expect(newArr[0].id).toBe(1);
+    expect(newArr[0].prop).toBe('a');
+    expect(newArr[1].id).toBe(2);
+  });
+  it('can retains duplicates by properties other than the one specified', () => {
+    // no objects should be removed since all prop properties are unique
+    const newArr = removeDuplicates(arr, 'prop');
+    expect(newArr.length).toBe(3);
+    expect(newArr[0].id).toBe(1);
+    expect(newArr[0].prop).toBe('a');
+    expect(newArr[1].id).toBe(2);
+    expect(newArr[2].id).toBe(1);
+    expect(newArr[2].prop).toBe('c');
   });
 });

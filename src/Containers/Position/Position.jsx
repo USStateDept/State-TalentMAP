@@ -6,12 +6,22 @@ import { withRouter } from 'react-router';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import { getLastRouteLink } from '../../actions/routerLocations';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
-import * as bidListActions from '../../actions/bidList';
+import { bidListFetchData, toggleBidPosition } from '../../actions/bidList';
+import { editDescriptionContent, editPocContent, editWebsiteContent,
+resetMessages } from '../../actions/descriptionEdit';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
-import * as PROP_TYPES from '../../Constants/PropTypes';
+import { POSITION_DETAILS, ROUTER_LOCATIONS, USER_PROFILE, BID_LIST,
+BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Position extends Component {
+
+  constructor(props) {
+    super(props);
+    this.editDescriptionContent = this.editDescriptionContent.bind(this);
+    this.editPocContent = this.editPocContent.bind(this);
+    this.editWebsiteContent = this.editWebsiteContent.bind(this);
+  }
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
@@ -26,11 +36,25 @@ class Position extends Component {
     this.props.fetchData(id);
   }
 
+  editDescriptionContent(content) {
+    this.props.editDescriptionContent(this.props.positionDetails[0].description.id, content);
+  }
+
+  editPocContent(content) {
+    this.props.editPocContent(this.props.positionDetails[0].description.id, content);
+  }
+
+  editWebsiteContent(content) {
+    this.props.editWebsiteContent(this.props.positionDetails[0].description.id, content);
+  }
+
   render() {
     const { positionDetails, isLoading, hasErrored, routerLocations, userProfile, toggleFavorite,
         userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored,
-        bidList, toggleBidPosition, bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
-        bidListToggleIsLoading, bidListToggleSuccess } = this.props;
+        bidList, toggleBid, bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
+        bidListToggleIsLoading, bidListToggleSuccess, descriptionEditHasErrored,
+        descriptionEditIsLoading, descriptionEditSuccess,
+        resetDescriptionEditMessages } = this.props;
     return (
       <div>
         <PositionDetails
@@ -42,13 +66,20 @@ class Position extends Component {
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          toggleBidPosition={toggleBidPosition}
+          toggleBidPosition={toggleBid}
           bidList={bidList}
           bidListHasErrored={bidListHasErrored}
           bidListIsLoading={bidListIsLoading}
           bidListToggleHasErrored={bidListToggleHasErrored}
           bidListToggleIsLoading={bidListToggleIsLoading}
           bidListToggleSuccess={bidListToggleSuccess}
+          editDescriptionContent={this.editDescriptionContent}
+          editPocContent={this.editPocContent}
+          editWebsiteContent={this.editWebsiteContent}
+          descriptionEditHasErrored={descriptionEditHasErrored}
+          descriptionEditIsLoading={descriptionEditIsLoading}
+          descriptionEditSuccess={descriptionEditSuccess}
+          resetDescriptionEditMessages={resetDescriptionEditMessages}
         />
       </div>
     );
@@ -69,40 +100,53 @@ Position.propTypes = {
   fetchData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
-  positionDetails: PropTypes.arrayOf(PROP_TYPES.POSITION_DETAILS),
+  positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
   isAuthorized: PropTypes.func.isRequired,
-  routerLocations: PROP_TYPES.ROUTER_LOCATIONS,
-  userProfile: PROP_TYPES.USER_PROFILE,
+  routerLocations: ROUTER_LOCATIONS,
+  userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool,
   userProfileFavoritePositionHasErrored: PropTypes.bool,
   fetchBidList: PropTypes.func,
-  toggleBidPosition: PropTypes.func,
+  toggleBid: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
-  bidList: PROP_TYPES.BID_LIST,
-  bidListToggleHasErrored: PROP_TYPES.BID_LIST_TOGGLE_HAS_ERRORED,
+  bidList: BID_LIST,
+  bidListToggleHasErrored: BID_LIST_TOGGLE_HAS_ERRORED,
   bidListToggleIsLoading: PropTypes.bool,
-  bidListToggleSuccess: PROP_TYPES.BID_LIST_TOGGLE_SUCCESS,
+  bidListToggleSuccess: BID_LIST_TOGGLE_SUCCESS,
+  editDescriptionContent: PropTypes.func.isRequired,
+  editPocContent: PropTypes.func.isRequired,
+  editWebsiteContent: PropTypes.func.isRequired,
+  descriptionEditHasErrored: PropTypes.bool,
+  descriptionEditIsLoading: PropTypes.bool,
+  descriptionEditSuccess: PropTypes.bool,
+  resetDescriptionEditMessages: PropTypes.func.isRequired,
 };
 
 Position.defaultProps = {
   positionDetails: [],
-  fetchData: PROP_TYPES.EMPTY_FUNCTION,
+  fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
   routerLocations: [],
   userProfile: {},
   userProfileFavoritePositionIsLoading: true,
   userProfileFavoritePositionHasErrored: false,
-  fetchBidList: PROP_TYPES.EMPTY_FUNCTION,
-  toggleBidPosition: PROP_TYPES.EMPTY_FUNCTION,
+  fetchBidList: EMPTY_FUNCTION,
+  toggleBid: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
   bidListToggleHasErrored: false,
   bidListToggleIsLoading: false,
   bidListToggleSuccess: false,
+  editDescriptionContent: EMPTY_FUNCTION,
+  editPocContent: EMPTY_FUNCTION,
+  editWebsiteContent: EMPTY_FUNCTION,
+  descriptionEditHasErrored: false,
+  descriptionEditIsLoading: false,
+  descriptionEditSuccess: false,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -120,14 +164,24 @@ const mapStateToProps = (state, ownProps) => ({
   bidListToggleHasErrored: state.bidListToggleHasErrored,
   bidListToggleIsLoading: state.bidListToggleIsLoading,
   bidListToggleSuccess: state.bidListToggleSuccess,
+  descriptionEditHasErrored: state.descriptionEditHasErrored,
+  descriptionEditIsLoading: state.descriptionEditIsLoading,
+  descriptionEditSuccess: state.descriptionEditSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(positionDetailsFetchData(url)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
-  fetchBidList: () => dispatch(bidListActions.bidListFetchData()),
-  toggleBidPosition: (id, remove) => dispatch(bidListActions.toggleBidPosition(id, remove)),
+  fetchBidList: () => dispatch(bidListFetchData()),
+  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
+  editDescriptionContent: (id, content) => dispatch(
+    editDescriptionContent(id, content)),
+  editPocContent: (id, content) => dispatch(
+    editPocContent(id, content)),
+  editWebsiteContent: (id, content) => dispatch(
+    editWebsiteContent(id, content)),
+  resetDescriptionEditMessages: () => dispatch(resetMessages()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Position));

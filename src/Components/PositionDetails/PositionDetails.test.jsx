@@ -23,6 +23,10 @@ describe('PositionDetailsComponent', () => {
         toggleBidPosition={() => {}}
         bidList={bidList}
         bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
@@ -43,9 +47,36 @@ describe('PositionDetailsComponent', () => {
         toggleBidPosition={() => {}}
         bidList={bidList}
         bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
+  });
+
+  it('can call the editDescriptionContent function', () => {
+    wrapper = shallow(
+      <PositionDetails
+        details={detailsObject}
+        isLoading={false}
+        hasErrored={false}
+        goBackLink={goBackLink}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        toggleBidPosition={() => {}}
+        bidList={bidList}
+        bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
+      />,
+    );
+    wrapper.instance().editDescriptionContent('test');
+    expect(wrapper.instance().state.newDescriptionContent.value).toBe('test');
   });
 
   it('handles different types of position objects', () => {
@@ -63,6 +94,10 @@ describe('PositionDetailsComponent', () => {
         toggleBidPosition={() => {}}
         bidList={bidList}
         bidListToggleIsLoading
+        resetDescriptionEditMessages={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
+        editDescriptionContent={() => {}}
       />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);

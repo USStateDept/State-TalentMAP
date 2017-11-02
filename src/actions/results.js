@@ -33,11 +33,15 @@ export function resultsFetchData(query) {
       }),
     },
     )
-      .then((response) => {
+      .then(response => response.data)
+      .then((results) => {
+        dispatch(resultsFetchDataSuccess(results));
         dispatch(resultsIsLoading(false));
-        return response.data;
+        dispatch(resultsHasErrored(false));
       })
-      .then(results => dispatch(resultsFetchDataSuccess(results)))
-      .catch(() => dispatch(resultsHasErrored(true)));
+      .catch(() => {
+        dispatch(resultsIsLoading(false));
+        dispatch(resultsHasErrored(true));
+      });
   };
 }

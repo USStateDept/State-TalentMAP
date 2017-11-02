@@ -6,6 +6,7 @@ exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
     divClass=""
     expanded={true}
     id="checkbox-title"
+    liClass=""
     setAccordion={[Function]}
     title="title"
   />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY, HOME_PAGE_POSITIONS, USER_PROFILE } from '../../Constants/PropTypes';
-import ENDPOINT_PARAMS from '../../Constants/EndpointParams';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
 import NewPositionsSection from '../../Components/NewPositionsSection';

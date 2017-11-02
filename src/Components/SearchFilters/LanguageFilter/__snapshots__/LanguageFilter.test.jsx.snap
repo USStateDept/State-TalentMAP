@@ -6,6 +6,7 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
     divClass="language-accordion-item"
     expanded={false}
     id="language-language-section"
+    liClass=""
     setAccordion={[Function]}
     title="language"
   >

@@ -1,0 +1,48 @@
+// scss-lint:disable SelectorFormat,VendorPrefix
+.editor {
+  background: $editor-background;
+  border: 1px solid $editor-border;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 8px -3px $editor-box-shadow;
+  box-sizing: border-box;
+  cursor: text;
+  margin-bottom: 2em;
+  padding: 16px;
+}
+
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
+}
+
+.headlineButtonWrapper {
+  display: inline-block;
+}
+
+.headlineButton {
+  background: $editor-headline-background;
+  border: 0;
+  color: $editor-headline-color;
+  font-size: 18px;
+  height: 34px;
+  padding-top: 5px;
+  vertical-align: bottom;
+  width: 36px;
+
+  :hover,
+  :focus {
+    background: $editor-headline-background-focus;
+  }
+}
+
+.draftJsToolbar__toolbar__dNtBH {
+  left: unset;
+  position: unset;
+  -webkit-transform: unset;
+  transform: unset;
+
+  button {
+    cursor: pointer;
+    margin: unset;
+    padding: unset;
+  }
+}
