@@ -2,38 +2,45 @@
 
 exports[`ProfilePageComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="profile-page"
 >
-  <h1>
-    Hello, john!
-  </h1>
+  <ProfileMenu
+    currentPath="/profile/favorites/"
+  />
   <div
-    className="usa-width-one-fourth"
+    className="usa-grid-full profile-content-container"
   >
-    <ProfileNavigation />
-  </div>
-  <div
-    className="usa-grid-full usa-width-three-fourths profile-subroute-container"
-  >
-    <Switch>
-      <Route
-        component={[Function]}
-        exact={true}
-        path="/profile"
-      />
-      <Route
-        component={[Function]}
-        path="/profile/favorites"
-      />
-      <Route
-        component={[Function]}
-        path="/profile/searches"
-      />
-      <Route
-        component={[Function]}
-        path="/profile/bidlist"
-      />
-    </Switch>
+    <h1>
+      Hello, john!
+    </h1>
+    <div
+      className="usa-width-one-fourth"
+    >
+      <ProfileNavigation />
+    </div>
+    <div
+      className="usa-grid-full usa-width-three-fourths profile-subroute-container"
+    >
+      <Switch>
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/profile"
+        />
+        <Route
+          component={[Function]}
+          path="/profile/favorites"
+        />
+        <Route
+          component={[Function]}
+          path="/profile/searches"
+        />
+        <Route
+          component={[Function]}
+          path="/profile/bidlist"
+        />
+      </Switch>
+    </div>
   </div>
 </div>
 `;

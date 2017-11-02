@@ -19,11 +19,10 @@ class Profile extends Component {
   render() {
     const { userProfile } = this.props;
     return (
-      <div>
-        <ProfilePage
-          user={userProfile}
-        />
-      </div>
+      <ProfilePage
+        user={userProfile}
+        currentPath={this.props.location.pathname}
+      />
     );
   }
 }
@@ -32,11 +31,15 @@ Profile.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
 };
 
 Profile.defaultProps = {
   isLoading: true,
   userProfile: DEFAULT_USER_PROFILE,
+  location: { pathname: '' },
 };
 
 Profile.contextTypes = {

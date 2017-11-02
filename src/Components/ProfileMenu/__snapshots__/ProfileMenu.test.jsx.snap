@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileMenuComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full profile-menu"
+>
+  <div
+    className="menu-title"
+  >
+    Menu
+  </div>
+  <NavLinksContainer>
+    <NavLink
+      currentPath=""
+      iconName="home"
+      isHighlighted={false}
+      link="/profile/"
+      title="Home"
+    />
+    <NavLink
+      currentPath="/profile/favorites/"
+      iconName="user"
+      isHighlighted={false}
+      link=""
+      title="Profile"
+    >
+      <NavLink
+        currentPath=""
+        iconName=""
+        isHighlighted={false}
+        link="/profile/dashboard/"
+        title="Dashboard"
+      />
+      <NavLink
+        currentPath=""
+        iconName=""
+        isHighlighted={false}
+        link="/profile/bidlist/"
+        title="Bid List"
+      />
+      <NavLink
+        currentPath=""
+        iconName=""
+        isHighlighted={true}
+        link="/profile/favorites/"
+        title="Favorites"
+      />
+      <NavLink
+        currentPath=""
+        iconName=""
+        isHighlighted={false}
+        link="/profile/searches/"
+        title="Saved Searches"
+      />
+    </NavLink>
+    <NavLink
+      currentPath=""
+      iconName="comments-o"
+      isHighlighted={false}
+      link="/profile/inbox/"
+      title="Inbox"
+    />
+    <NavLink
+      currentPath=""
+      iconName="globe"
+      isHighlighted={false}
+      link="/profile/notifications/"
+      title="Notifications"
+    />
+    <NavLink
+      currentPath=""
+      iconName="users"
+      isHighlighted={false}
+      link="/profile/contacts/"
+      title="Contacts"
+    />
+    <NavLink
+      currentPath=""
+      iconName="file-text"
+      isHighlighted={false}
+      link="/profile/documents/"
+      title="Documents"
+    />
+  </NavLinksContainer>
+</div>
+`;
