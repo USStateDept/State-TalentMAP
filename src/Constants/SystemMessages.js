@@ -26,3 +26,6 @@ export const ADD_BID_ITEM_SUCCESS = 'Bid successfully added.';
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
 export const SUBMIT_BID_SUCCESS = 'Bid successfully submitted.';
 export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
+export const NO_ASSIGNMENT_POSITION = DEFAULT_TEXT;
+export const NO_ASSIGNMENT_DATE = DEFAULT_TEXT;
+export const NO_EMAIL = DEFAULT_TEXT;

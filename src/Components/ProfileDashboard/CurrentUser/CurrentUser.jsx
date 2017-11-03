@@ -1,5 +1,6 @@
 import React from 'react';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
+import { NO_EMAIL } from '../../../Constants/SystemMessages';
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import Status from './Status';
@@ -23,7 +24,7 @@ const CurrentUser = ({ userProfile }) => (
     <div className="current-user-bottom">
       <div className="section-padded-inner-container">
         <SectionTitle small title="Contact Information" />
-        <InformationDataPoint title="Email Address" content={userProfile.user.email} />
+        <InformationDataPoint title="Email Address" content={userProfile.user.email || NO_EMAIL} />
         <InformationDataPoint title="Office Number" content="+301-779-0379 ext. 3" />
         <InformationDataPoint title="Personal Contact Number" content="+240-331-7189" />
         <InformationDataPoint
