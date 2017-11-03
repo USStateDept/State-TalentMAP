@@ -43,7 +43,7 @@ exports[`ProfileDashboardComponent matches snapshot when editor is shown 1`] = `
     <div
       className="usa-width-one-whole user-dashboard-section inbox-section"
     >
-      <CDOInfo />
+      <Inbox />
     </div>
   </div>
 </div>

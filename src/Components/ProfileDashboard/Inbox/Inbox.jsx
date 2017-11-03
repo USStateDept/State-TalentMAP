@@ -1,9 +1,9 @@
 import React from 'react';
 
-const CDOInfo = () => (
+const Inbox = () => (
   <div className="usa-grid-full">
     Inbox
   </div>
 );
 
-export default CDOInfo;
+export default Inbox;
