@@ -47,7 +47,7 @@ describe('NavLinkComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can apply link-highlighted class when isHighlighted is true', () => {
+  it('applies link-highlighted class when isHighlighted is true', () => {
     const wrapper = shallow(
       <NavLink
         title="test"
@@ -62,7 +62,7 @@ describe('NavLinkComponent', () => {
     expect(wrapper.find('.link-unhighlighted')).toHaveLength(0);
   });
 
-  it('can apply link-unhighlighted class when isHighlighted is false', () => {
+  it('applies link-unhighlighted class when isHighlighted is false', () => {
     const wrapper = shallow(
       <NavLink
         title="test"

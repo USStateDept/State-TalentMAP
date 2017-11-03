@@ -20,7 +20,7 @@ const ProfilePage = ({ user, currentPath }) => (
       </div>
       <Switch>
         <Route path="/profile" exact component={ProfileLanding} />
-        <Route path="/profile/dashboard" exact component={Dashboard} />
+        <Route path="/profile/dashboard" component={Dashboard} />
         <Route
           path="/profile/favorites"
           component={FavoritePositionsContainer}
