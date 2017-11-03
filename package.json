@@ -91,6 +91,7 @@
     "yarn": "^0.24.5"
   },
   "scripts": {
+    "ci": "node scripts/build.js && node ./scripts/ci.js",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand"
