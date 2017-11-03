@@ -3,10 +3,9 @@
 exports[`LanguageFilterComponent matches snapshot 1`] = `
 <Accordion>
   <AccordionItem
-    divClass="language-accordion-item"
+    className="language-accordion-item"
     expanded={false}
     id="language-language-section"
-    liClass=""
     setAccordion={[Function]}
     title="language"
   >
