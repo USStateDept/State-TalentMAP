@@ -25,7 +25,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
                 <CurrentUser userProfile={userProfile} />
               </div>
               <div className="usa-width-one-whole user-dashboard-section cdo-section">
-                <CDOInfo />
+                <CDOInfo name="Leah Shadtrach" />
               </div>
             </div>
             <div

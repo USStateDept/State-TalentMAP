@@ -5,17 +5,14 @@ import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import Status from './Status';
 import EditProfile from './EditProfile';
+import ProfilePicture from '../../ProfilePicture';
 
 const CurrentUser = ({ userProfile }) => (
   <div className="usa-grid-full current-user">
     <div className="current-user-top">
       <div className="section-padded-inner-container">
         <Status />
-        <img
-          alt="avatar"
-          className="dashboard-user-profile-picture"
-          src="/assets/img/avatar.png"
-        />
+        <ProfilePicture />
         <EditProfile />
         <SectionTitle small title={`${userProfile.user.first_name} ${userProfile.user.last_name}`} className="current-user-name" />
         <InformationDataPoint
