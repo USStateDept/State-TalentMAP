@@ -35,7 +35,7 @@ describe('TextEditorSubmitComponent', () => {
         cancel={cancelSpy}
       />,
     );
-    // submit is the second button (1 index)
+    // cancel is the second button (1 index)
     wrapper.find('button').at(1).simulate('click');
     sinon.assert.calledOnce(cancelSpy);
   });

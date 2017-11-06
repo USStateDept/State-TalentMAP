@@ -107,7 +107,7 @@ describe('AutoSuggestComponent', () => {
         suggestions={suggestions}
         getSuggestions={spy}
         onSuggestionSelected={() => {}}
-        debounce={debounce}
+        debounceMillis={debounce}
         inputId="input"
         label="label"
       />,

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import api from '../api';
+import { fetchUserToken } from '../utilities';
 
 const CancelToken = axios.CancelToken;
 let cancel;
@@ -28,6 +29,7 @@ export function resultsFetchData(query) {
     if (cancel) { cancel(); }
     dispatch(resultsIsLoading(true));
     axios.get(`${api}/position/?${query}`, {
+      headers: { Authorization: fetchUserToken() },
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),

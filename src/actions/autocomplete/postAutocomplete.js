@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios, { CancelToken } from 'axios';
 import api from '../../api';
 
-const CancelToken = axios.CancelToken;
+// const CancelToken = axios.CancelToken;
 let cancel;
 
 export function postSearchHasErrored(bool) {
@@ -34,9 +34,14 @@ export function postSearchFetchData(query) {
       }),
     },
     )
-      .then((response) => {
+      .then(({ data }) => {
         dispatch(postSearchIsLoading(false));
-        return response.data.results;
+        let filteredResults = [];
+        if (data.results) {
+          // results should have a location
+          filteredResults = data.results.filter(post => post.location !== null);
+        }
+        return filteredResults;
       })
       .then(results => dispatch(postSearchSuccess(results)))
       .catch(() => {
