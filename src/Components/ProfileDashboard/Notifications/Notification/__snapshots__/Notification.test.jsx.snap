@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationComponent matches snapshot when editor is shown 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <InformationDataPoint
+    className=""
+    content="content"
+    title="10-10-2017"
+    titleOnBottom={true}
+  />
+</div>
+`;
