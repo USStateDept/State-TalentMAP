@@ -42,6 +42,7 @@ DashboardContainer.defaultProps = {
   userProfile: DEFAULT_USER_PROFILE,
   userProfileIsLoading: true,
   assignmentIsLoading: true,
+  assignment: {},
 };
 
 const mapStateToProps = state => ({

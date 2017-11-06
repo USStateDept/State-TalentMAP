@@ -4,6 +4,40 @@ exports[`PositionInformationComponent matches snapshot when editor is shown 1`] 
 <div
   className="usa-grid-full"
 >
-  Position Information
+  <div
+    className="section-padded-inner-container"
+  >
+    <PositionInformation
+      className=""
+      icon="flag"
+      small={false}
+      title="Position Information"
+    />
+    <InformationDataPoint
+      className=""
+      content={
+        <StartEnd
+          end="10-10-2018"
+          start="10-10-2016"
+        />
+      }
+      title="Start & End of Position"
+    />
+    <InformationDataPoint
+      className=""
+      content="Bureau of Western Hemispheric Affairs"
+      title="Bureau"
+    />
+    <InformationDataPoint
+      className=""
+      content="Specialist"
+      title="Position Title"
+    />
+    <InformationDataPoint
+      className=""
+      content="Medical Technology (6145)"
+      title="Skill Code"
+    />
+  </div>
 </div>
 `;
