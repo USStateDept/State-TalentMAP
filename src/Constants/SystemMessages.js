@@ -29,3 +29,4 @@ export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 export const NO_ASSIGNMENT_POSITION = DEFAULT_TEXT;
 export const NO_ASSIGNMENT_DATE = DEFAULT_TEXT;
 export const NO_EMAIL = DEFAULT_TEXT;
+export const NO_USER_SKILL_CODE = 'No skill listed';

@@ -2,22 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { assignmentFetchData } from '../../actions/assignment';
-import { USER_PROFILE } from '../../Constants/PropTypes';
+import { USER_PROFILE, ASSIGNMENT_OBJECT } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
 class DashboardContainer extends Component {
-  // eslint-disable-next-line
-  constructor(props) {
-    super(props);
-  }
 
   componentWillMount() {
     this.props.fetchAssignment();
   }
 
   render() {
-    // eslint-disable-next-line
     const { userProfile, userProfileIsLoading, assignment, assignmentIsLoading } = this.props;
     return (
       <ProfileDashboard
@@ -34,14 +29,14 @@ DashboardContainer.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
   fetchAssignment: PropTypes.func.isRequired,
-  assignment: PropTypes.shape({}).isRequired,
+  assignment: ASSIGNMENT_OBJECT.isRequired,
   assignmentIsLoading: PropTypes.bool.isRequired,
 };
 
 DashboardContainer.defaultProps = {
   userProfile: DEFAULT_USER_PROFILE,
-  userProfileIsLoading: true,
-  assignmentIsLoading: true,
+  userProfileIsLoading: false,
+  assignmentIsLoading: false,
   assignment: {},
 };
 
