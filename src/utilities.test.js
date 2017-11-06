@@ -194,7 +194,7 @@ describe('removeDuplicates', () => {
     { id: 2, prop: 'b' },
     { id: 1, prop: 'c' },
   ];
-  it('can remove duplicate objects from an array by property', () => {
+  it('removes duplicate objects from an array by property', () => {
     // it should remove the last object since id is a duplicate
     const newArr = removeDuplicates(arr, 'id');
     expect(newArr.length).toBe(2);
@@ -202,7 +202,7 @@ describe('removeDuplicates', () => {
     expect(newArr[0].prop).toBe('a');
     expect(newArr[1].id).toBe(2);
   });
-  it('can retains duplicates by properties other than the one specified', () => {
+  it('retains duplicates by properties other than the one specified', () => {
     // no objects should be removed since all prop properties are unique
     const newArr = removeDuplicates(arr, 'prop');
     expect(newArr.length).toBe(3);

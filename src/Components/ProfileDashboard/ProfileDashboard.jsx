@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { USER_PROFILE, NOTIFICATION_RESULTS } from '../../Constants/PropTypes';
+import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT } from '../../Constants/PropTypes';
 import CurrentUser from './CurrentUser';
 import CDOInfo from './CDOInfo';
 import BidList from './BidList';
@@ -58,7 +58,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  assignment: PropTypes.shape({}).isRequired,
+  assignment: ASSIGNMENT_OBJECT.isRequired,
   assignmentIsLoading: PropTypes.bool.isRequired,
   notifications: NOTIFICATION_RESULTS.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,

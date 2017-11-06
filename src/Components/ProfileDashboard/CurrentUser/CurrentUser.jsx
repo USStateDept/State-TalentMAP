@@ -1,6 +1,6 @@
 import React from 'react';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
-import { NO_EMAIL } from '../../../Constants/SystemMessages';
+import { NO_EMAIL, NO_USER_SKILL_CODE } from '../../../Constants/SystemMessages';
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import Status from './Status';
@@ -18,7 +18,10 @@ const CurrentUser = ({ userProfile }) => (
         />
         <EditProfile />
         <SectionTitle small title={`${userProfile.user.first_name} ${userProfile.user.last_name}`} className="current-user-name" />
-        <InformationDataPoint content={userProfile.skill_code} className="current-user-position" />
+        <InformationDataPoint
+          content={userProfile.skill_code || NO_USER_SKILL_CODE}
+          className="current-user-position"
+        />
       </div>
     </div>
     <div className="current-user-bottom">

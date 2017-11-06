@@ -3,7 +3,7 @@ const userObject = {
   user: {
     first_name: 'John',
     last_name: 'Doe',
-    email: 'jdoe@state.gov',
+    email: 'doej@state.gov',
   },
 };
 

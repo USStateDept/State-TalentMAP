@@ -45,7 +45,7 @@ exports[`CurrentUserComponent matches snapshot when editor is shown 1`] = `
       />
       <InformationDataPoint
         className=""
-        content="jdoe@state.gov"
+        content="doej@state.gov"
         title="Email Address"
         titleOnBottom={false}
       />

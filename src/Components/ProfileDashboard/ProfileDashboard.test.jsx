@@ -12,12 +12,25 @@ describe('ProfileDashboardComponent', () => {
       <ProfileDashboard
         userProfile={userObject}
         assignment={assignmentObject}
-        isLoading
-        assignmentIsLoading
+        isLoading={false}
+        assignmentIsLoading={false}
         notifications={notificationsObject.results}
         notificationsIsLoading={false}
       />);
     expect(wrapper).toBeDefined();
+  });
+
+  it('matches snapshot when loading', () => {
+    const wrapper = shallow(
+      <ProfileDashboard
+        userProfile={userObject}
+        assignment={assignmentObject}
+        isLoading
+        assignmentIsLoading
+        notifications={notificationsObject.results}
+        notificationsIsLoading
+      />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot when editor is shown', () => {
@@ -25,8 +38,8 @@ describe('ProfileDashboardComponent', () => {
       <ProfileDashboard
         userProfile={userObject}
         assignment={assignmentObject}
-        isLoading
-        assignmentIsLoading
+        isLoading={false}
+        assignmentIsLoading={false}
         notifications={notificationsObject.results}
         notificationsIsLoading={false}
       />);

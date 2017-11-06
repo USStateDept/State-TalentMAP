@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
 import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE } from '../../../Constants/SystemMessages';
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import StartEnd from './StartEnd';
 
-// eslint-disable-next-line
 const PositionInformation = ({ assignment }) => (
   <div className="usa-grid-full">
     <div className="section-padded-inner-container">
@@ -31,7 +30,7 @@ const PositionInformation = ({ assignment }) => (
 );
 
 PositionInformation.propTypes = {
-  assignment: PropTypes.shape({}).isRequired,
+  assignment: ASSIGNMENT_OBJECT.isRequired,
 };
 
 export default PositionInformation;
