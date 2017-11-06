@@ -124,7 +124,7 @@
 
   .data-point-title {
     color: $color-gray;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .data-point-content {
@@ -133,6 +133,10 @@
 
   .section-padded-inner-container {
     padding: 15px;
+  }
+
+  .padded-container-no-bottom {
+    padding-bottom: 0;
   }
 
   .status {
@@ -273,5 +277,43 @@ $padding-no-border: $total-padding - $border;
     .fa {
       margin-right: 10px;
     }
+  }
+}
+
+.bordered-list {
+  padding-right: 15px;
+
+  ul {
+    list-style-type: none;
+    margin-top: 0px;
+    padding: 0;
+  }
+
+  li {
+    border-left: 5px solid $blue-primary;
+  }
+
+  .bordered-list-content {
+    padding-left: 10px;
+  }
+}
+
+.dashboard-notifications {
+
+}
+
+.small-link-container {
+  font-size: 12px;
+
+  a {
+    color: $blue-primary;
+    text-decoration: none;
+  }
+}
+
+.small-link-container-settings {
+  a {
+    display: inline-block;
+    padding-top: 5px;
   }
 }
