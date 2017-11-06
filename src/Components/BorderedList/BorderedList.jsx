@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import shortId from 'shortid';
 
 const BorderedList = ({ contentArray }) => {
   const mappedContent = contentArray.slice().map(content => (
-    <li>
+    <li key={shortId.generate()}>
       <div className="bordered-list-content">
         {content}
       </div>

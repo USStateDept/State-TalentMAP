@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { assignmentFetchData } from '../../actions/assignment';
 import { notificationsFetchData } from '../../actions/notifications';
-import { USER_PROFILE } from '../../Constants/PropTypes';
+import { USER_PROFILE, NOTIFICATION_RESULTS } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
@@ -41,16 +41,16 @@ DashboardContainer.propTypes = {
   assignment: PropTypes.shape({}).isRequired,
   assignmentIsLoading: PropTypes.bool.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
-  notifications: PropTypes.shape({}).isRequired,
+  notifications: NOTIFICATION_RESULTS.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
 };
 
 DashboardContainer.defaultProps = {
   userProfile: DEFAULT_USER_PROFILE,
-  userProfileIsLoading: true,
-  assignmentIsLoading: true,
+  userProfileIsLoading: false,
+  assignmentIsLoading: false,
   assignment: {},
-  notificationsIsLoading: true,
+  notificationsIsLoading: false,
   notifications: [],
 };
 

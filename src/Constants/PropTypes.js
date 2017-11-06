@@ -269,6 +269,24 @@ export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
 
 export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
 
+export const NOTIFICATION_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  owner: PropTypes.string,
+  message: PropTypes.string,
+  is_read: PropTypes.bool,
+  date_created: PropTypes.string,
+  date_updated: PropTypes.string,
+});
+
+export const NOTIFICATION_RESULTS = PropTypes.arrayOf(
+  NOTIFICATION_OBJECT,
+);
+
+export const NOTIFICATION_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: NOTIFICATION_RESULTS,
+});
+
 export const EMPTY_FUNCTION = () => {};
 
 export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };

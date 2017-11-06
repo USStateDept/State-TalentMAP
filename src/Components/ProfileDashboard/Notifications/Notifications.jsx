@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { NOTIFICATION_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import Notification from './Notification';
 
 const Notifications = ({ notifications }) => {
   const notificationArray = [];
+  // only show the first 3
   notifications.slice(0, 3).forEach(notification => (
     notificationArray.push(
       <Notification
@@ -34,7 +35,7 @@ const Notifications = ({ notifications }) => {
 };
 
 Notifications.propTypes = {
-  notifications: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  notifications: NOTIFICATION_RESULTS.isRequired,
 };
 
 Notifications.defaultProps = {

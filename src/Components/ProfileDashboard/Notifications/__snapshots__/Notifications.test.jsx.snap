@@ -4,6 +4,48 @@ exports[`NotificationsComponent matches snapshot when editor is shown 1`] = `
 <div
   className="usa-grid-full"
 >
-  Notifications
+  <div
+    className="usa-grid-full section-padded-inner-container padded-container-no-bottom"
+  >
+    <div
+      className="usa-width-three-fourths"
+    >
+      <PositionInformation
+        className=""
+        icon="globe"
+        small={false}
+        title="Notifications"
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth small-link-container small-link-container-settings"
+    >
+      <Link
+        replace={false}
+        to="/profile/dashboard/"
+      >
+        Settings
+      </Link>
+    </div>
+  </div>
+  <BorderedList
+    contentArray={Array []}
+  />
+  <div
+    className="section-padded-inner-container small-link-container"
+    style={
+      Object {
+        "borderTop": "1px solid gray",
+        "textAlign": "center",
+      }
+    }
+  >
+    <Link
+      replace={false}
+      to="/profile/dashboard/"
+    >
+      See all
+    </Link>
+  </div>
 </div>
 `;
