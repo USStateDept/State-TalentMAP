@@ -1,41 +1,54 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
+import { assignmentFetchData } from '../../actions/assignment';
+import { USER_PROFILE, ASSIGNMENT_OBJECT } from '../../Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
 class DashboardContainer extends Component {
-  // eslint-disable-next-line
-  constructor(props) {
-    super(props);
-  }
 
   componentWillMount() {
+    this.props.fetchAssignment();
   }
 
   render() {
+    const { userProfile, userProfileIsLoading, assignment, assignmentIsLoading } = this.props;
     return (
-      <ProfileDashboard />
+      <ProfileDashboard
+        userProfile={userProfile}
+        isLoading={userProfileIsLoading}
+        assignmentIsLoading={assignmentIsLoading}
+        assignment={assignment}
+      />
     );
   }
 }
 
 DashboardContainer.propTypes = {
+  userProfile: USER_PROFILE.isRequired,
+  userProfileIsLoading: PropTypes.bool.isRequired,
+  fetchAssignment: PropTypes.func.isRequired,
+  assignment: ASSIGNMENT_OBJECT.isRequired,
+  assignmentIsLoading: PropTypes.bool.isRequired,
 };
 
 DashboardContainer.defaultProps = {
+  userProfile: DEFAULT_USER_PROFILE,
+  userProfileIsLoading: false,
+  assignmentIsLoading: false,
+  assignment: {},
 };
 
-DashboardContainer.contextTypes = {
-  router: PropTypes.object,
-};
-
-// eslint-disable-next-line
 const mapStateToProps = state => ({
+  userProfile: state.userProfile,
+  userProfileIsLoading: state.userProfileIsLoading,
+  assignment: state.assignment,
+  assignmentIsLoading: state.assignmentIsLoading,
 });
 
-// eslint-disable-next-line
 const mapDispatchToProps = dispatch => ({
+  fetchAssignment: () => dispatch(assignmentFetchData()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DashboardContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

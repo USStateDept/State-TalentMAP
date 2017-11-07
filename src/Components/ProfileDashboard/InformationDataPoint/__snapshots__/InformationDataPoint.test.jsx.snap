@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InformationDataPointComponent matches snapshot when editor is shown 1`] = `
+<div
+  className="usa-grid-full data-point-container "
+>
+  <div
+    className="data-point-content"
+  >
+    content
+  </div>
+</div>
+`;

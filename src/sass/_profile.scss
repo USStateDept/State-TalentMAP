@@ -50,6 +50,9 @@
 }
 
 .user-dashboard {
+  font-size: 15px;
+  position: relative;
+
   .user-dashboard-section-container {
     float: left;
   }
@@ -76,6 +79,11 @@
     min-height: 450px;
   }
 
+  .current-user-top {
+    border-bottom: 1px solid $color-gray-light;
+    text-align: center;
+  }
+
   .cdo-section {
     min-height: 50px;
   }
@@ -94,6 +102,78 @@
 
   .inbox-section {
     min-height: 300px;
+  }
+
+  .dashboard-section-title {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  .dashboard-section-title-small {
+    font-size: 15px;
+  }
+
+  .data-point-container {
+    margin-bottom: 10px;
+  }
+
+  .data-point-title {
+    color: $color-gray;
+    font-size: 14px;
+  }
+
+  .data-point-content {
+    font-size: 15px;
+  }
+
+  .section-padded-inner-container {
+    padding: 15px;
+  }
+
+  .status {
+    font-size: 13px;
+    margin-bottom: 10px;
+    margin-left: -5px; // centers more cleanly
+
+    .fa {
+      color: $color-green;
+      margin-right: 5px;
+    }
+  }
+
+  .edit-profile-link {
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+
+    a {
+      color: $blue-primary;
+      text-decoration: none;
+    }
+  }
+
+  .dashboard-user-profile-picture {
+    border-radius: 75px;
+    height: 100px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    width: 100px;
+  }
+
+  .start-end {
+    .fa {
+      color: $color-green;
+      margin: 0 5px;
+    }
+  }
+
+  .current-user-name {
+    margin-bottom: 5px;
   }
 }
 

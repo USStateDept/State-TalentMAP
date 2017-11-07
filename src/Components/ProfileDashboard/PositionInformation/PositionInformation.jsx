@@ -1,9 +1,36 @@
 import React from 'react';
+import { ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
+import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE } from '../../../Constants/SystemMessages';
+import SectionTitle from '../SectionTitle';
+import InformationDataPoint from '../InformationDataPoint';
+import StartEnd from './StartEnd';
 
-const PositionInformation = () => (
+const PositionInformation = ({ assignment }) => (
   <div className="usa-grid-full">
-    Position Information
+    <div className="section-padded-inner-container">
+      <SectionTitle title="Position Information" icon="flag" />
+      <InformationDataPoint
+        title="Start & End of Position"
+        content={(assignment.start_date && assignment.estimated_end_date) ?
+          <StartEnd
+            start={assignment.start_date}
+            end={assignment.estimated_end_date}
+          />
+          : NO_ASSIGNMENT_DATE
+        }
+      />
+      <InformationDataPoint title="Bureau" content="Bureau of Western Hemispheric Affairs" />
+      <InformationDataPoint
+        title="Position Title"
+        content={assignment.position || NO_ASSIGNMENT_POSITION}
+      />
+      <InformationDataPoint title="Skill Code" content="Medical Technology (6145)" />
+    </div>
   </div>
 );
+
+PositionInformation.propTypes = {
+  assignment: ASSIGNMENT_OBJECT.isRequired,
+};
 
 export default PositionInformation;

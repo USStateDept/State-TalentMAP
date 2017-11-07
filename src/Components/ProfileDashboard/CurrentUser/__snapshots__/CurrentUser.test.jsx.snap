@@ -2,8 +2,67 @@
 
 exports[`CurrentUserComponent matches snapshot when editor is shown 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full current-user"
 >
-  Current user information
+  <div
+    className="current-user-top"
+  >
+    <div
+      className="section-padded-inner-container"
+    >
+      <Status />
+      <img
+        alt="avatar"
+        className="dashboard-user-profile-picture"
+        src="/assets/img/avatar.png"
+      />
+      <Status />
+      <PositionInformation
+        className="current-user-name"
+        icon=""
+        small={true}
+        title="John Doe"
+      />
+      <InformationDataPoint
+        className="current-user-position"
+        content="INFORMATION MANAGEMENT (2880)"
+        title=""
+      />
+    </div>
+  </div>
+  <div
+    className="current-user-bottom"
+  >
+    <div
+      className="section-padded-inner-container"
+    >
+      <PositionInformation
+        className=""
+        icon=""
+        small={true}
+        title="Contact Information"
+      />
+      <InformationDataPoint
+        className=""
+        content="doej@state.gov"
+        title="Email Address"
+      />
+      <InformationDataPoint
+        className=""
+        content="+301-779-0379 ext. 3"
+        title="Office Number"
+      />
+      <InformationDataPoint
+        className=""
+        content="+240-331-7189"
+        title="Personal Contact Number"
+      />
+      <InformationDataPoint
+        className=""
+        content="1234 Washington St. NW, Washington, DC 20009"
+        title="Post/Office Address"
+      />
+    </div>
+  </div>
 </div>
 `;
