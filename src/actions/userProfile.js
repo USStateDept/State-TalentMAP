@@ -52,7 +52,10 @@ export function userProfileFetchData(bypass) {
               return response.data;
             })
             .then(userProfile => dispatch(userProfileFetchDataSuccess(userProfile)))
-            .catch(() => dispatch(userProfileHasErrored(true)));
+            .catch(() => {
+              dispatch(userProfileHasErrored(true));
+              dispatch(userProfileFavoritePositionIsLoading(false));
+            });
   };
 }
 
