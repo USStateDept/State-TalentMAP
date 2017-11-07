@@ -25,9 +25,8 @@
   }
 
   .saved-search-card {
-    border-top: 1px solid $color-black;
     min-height: 50px;
-    padding: 10px;
+    padding: 5px 10px;
   }
 
   .saved-searches-container {
@@ -97,7 +96,7 @@
   }
 
   .bidlist-section {
-    min-height: 400px;
+    min-height: 300px;
   }
 
   .inbox-section {
@@ -133,6 +132,10 @@
 
   .section-padded-inner-container {
     padding: 15px;
+  }
+
+  .section-padded-inner-container-narrow {
+    padding: 10px 15px;
   }
 
   .padded-container-no-bottom {
@@ -281,20 +284,18 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bordered-list {
-  padding-right: 15px;
-
   ul {
     list-style-type: none;
-    margin-top: 0px;
+    margin-top: 0;
     padding: 0;
   }
 
   li {
-    border-left: 5px solid $blue-primary;
+    margin-bottom: 1em;
   }
 
   .bordered-list-content {
-    padding-left: 10px;
+    border-left: 5px solid $blue-primary;
   }
 }
 
@@ -332,4 +333,96 @@ $padding-no-border: $total-padding - $border;
     display: inline-block;
     padding-top: 5px;
   }
+}
+
+.saved-search-card {
+  .bid-list-card-title-position {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .bid-list-card-title-post {
+    font-weight: bold;
+  }
+
+  .bid-list-card-title-status {
+    text-transform: capitalize;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  .bid-status-declined {
+    color: $alert-red;
+  }
+}
+
+.bid-list-header {
+  background-color: $blue-primary;
+  color: $color-white;
+
+  .bid-list-header-button-container {
+
+    text-align: right;
+
+    .bid-list-header-button {
+      border: 1px solid $color-white;
+      font-size: 12px;
+      padding: 5px 25px;
+    }
+  }
+
+  .fa {
+    margin-right: 5px;
+  }
+}
+
+.bid-list-container {
+  margin-bottom: 60px;
+}
+
+.parent-container-bid-status-declined {
+  background-color: $color-gray-lightest;
+
+  .fa {
+    color: $alert-red;
+  }
+
+  .bordered-list-content {
+    border-left: 5px solid $color-black;
+  }
+}
+
+.parent-container-bid-status-hand-shake-accepted {
+  background-color: $color-green-light;
+
+  .bordered-list-content {
+    border-left: 5px solid $color-green;
+  }
+}
+
+.parent-container-bid-status-hand-shake-offered {
+  background-color: $color-green-light;
+
+  .fa {
+    color: $color-green;
+  }
+
+  .bordered-list-content {
+    border-left: 5px solid $color-green;
+  }
+}
+
+.parent-container-bid-status-closed {
+  filter: alpha(opacity = 40); // msie
+  opacity: .4;
+
+  .bordered-list-content {
+    border-left: 5px solid $color-black;
+  }
+}
+
+.notification-card {
+  padding: 0px 10px;
 }

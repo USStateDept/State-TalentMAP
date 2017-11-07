@@ -2,7 +2,7 @@
 
 exports[`NotificationComponent matches snapshot when editor is shown 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full notification-card"
 >
   <InformationDataPoint
     className=""

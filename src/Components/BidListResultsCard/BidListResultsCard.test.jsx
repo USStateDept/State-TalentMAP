@@ -2,10 +2,11 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
+import { SUBMITTED, DRAFT } from '../../Constants/BidStatuses';
 import BidListResultsCard from './BidListResultsCard';
 
 describe('BidListResultsCardComponent', () => {
-  const bid = { id: 1, position: { id: 2, position: { position_number: '05A', title: 'AO' } } };
+  const bid = { id: 1, status: SUBMITTED.property, post: 'Paris', position: { id: 2, position_number: '05A', title: 'AO' } };
   it('is defined', () => {
     const wrapper = shallow(
       <BidListResultsCard
@@ -31,9 +32,10 @@ describe('BidListResultsCardComponent', () => {
   it('can call functions on button click', () => {
     const toggleBidSpy = sinon.spy();
     const submitBidSpy = sinon.spy();
+    const bidOtherStatus = Object.assign({}, bid, { status: DRAFT.property });
     const wrapper = shallow(
       <BidListResultsCard
-        bid={bid}
+        bid={bidOtherStatus}
         toggleBidPosition={toggleBidSpy}
         submitBid={submitBidSpy}
       />,

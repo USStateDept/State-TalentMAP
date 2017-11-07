@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { assignmentFetchData } from '../../actions/assignment';
 import { notificationsFetchData } from '../../actions/notifications';
-import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT } from '../../Constants/PropTypes';
+import { bidListFetchData } from '../../actions/bidList';
+import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
@@ -12,11 +13,12 @@ class DashboardContainer extends Component {
   componentWillMount() {
     this.props.fetchAssignment();
     this.props.fetchNotifications();
+    this.props.fetchBidList();
   }
 
   render() {
     const { userProfile, userProfileIsLoading, assignment, assignmentIsLoading,
-      notifications, notificationsIsLoading } = this.props;
+      notifications, notificationsIsLoading, bidList, bidListIsLoading } = this.props;
     return (
       <ProfileDashboard
         userProfile={userProfile}
@@ -25,6 +27,8 @@ class DashboardContainer extends Component {
         assignment={assignment}
         notifications={notifications}
         notificationsIsLoading={notificationsIsLoading}
+        bidList={bidList.results}
+        bidListIsLoading={bidListIsLoading}
       />
     );
   }
@@ -39,6 +43,9 @@ DashboardContainer.propTypes = {
   fetchNotifications: PropTypes.func.isRequired,
   notifications: NOTIFICATION_RESULTS.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
+  fetchBidList: PropTypes.func.isRequired,
+  bidList: BID_LIST.isRequired,
+  bidListIsLoading: PropTypes.bool.isRequired,
 };
 
 DashboardContainer.defaultProps = {
@@ -48,6 +55,8 @@ DashboardContainer.defaultProps = {
   assignment: {},
   notificationsIsLoading: false,
   notifications: [],
+  bidList: { results: [] },
+  bidListIsLoading: false,
 };
 
 const mapStateToProps = state => ({
@@ -57,11 +66,14 @@ const mapStateToProps = state => ({
   assignmentIsLoading: state.assignmentIsLoading,
   notifications: state.notifications,
   notificationsIsLoading: state.notificationsIsLoading,
+  bidList: state.bidListFetchDataSuccess,
+  bidListIsLoading: state.bidListIsLoading,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchAssignment: () => dispatch(assignmentFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
+  fetchBidList: () => dispatch(bidListFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

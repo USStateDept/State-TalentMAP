@@ -10,31 +10,26 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
     <div
       className="usa-width-one-whole saved-search-card-name"
     >
-      Position: 
-      <Link
-        replace={false}
-        to="/details/undefined"
-      >
-         - 
-      </Link>
+      <InformationDataPoint
+        className=""
+        content={
+          <BidContent
+            positionNumber="05A"
+            postName="Paris"
+            status="submitted"
+          />
+        }
+        title="Updated on undefined"
+        titleOnBottom={true}
+      />
     </div>
   </div>
-  <div
-    className="usa-width-one-whole"
-  >
-    <button
-      onClick={[Function]}
-      title="Submit this bid"
+  <div>
+    <div
+      className="usa-width-one-whole"
     >
-      Submit Bid
-    </button>
-    <button
-      className="usa-button-secondary"
-      onClick={[Function]}
-      title="Delete this position from your bid list"
-    >
-      Delete
-    </button>
+      You submitted this bid on 
+    </div>
   </div>
 </div>
 `;

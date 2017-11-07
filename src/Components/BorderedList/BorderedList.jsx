@@ -4,7 +4,7 @@ import shortId from 'shortid';
 
 const BorderedList = ({ contentArray }) => {
   const mappedContent = contentArray.slice().map(content => (
-    <li key={shortId.generate()}>
+    <li key={shortId.generate()} className={content.props.parentClassName}>
       <div className="bordered-list-content">
         {content}
       </div>
