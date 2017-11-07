@@ -43,6 +43,10 @@ exports[`NotificationsComponent matches snapshot when editor is shown 1`] = `
           content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) is under panel review."
           notificationTime="2017-11-01T14:57:10.189803Z"
       />,
+        <Notification
+          content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
+          notificationTime="2017-11-01T14:57:17.257866Z"
+      />,
       ]
     }
   />

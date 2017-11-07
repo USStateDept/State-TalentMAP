@@ -7,8 +7,7 @@ import Notification from './Notification';
 
 const Notifications = ({ notifications }) => {
   const notificationArray = [];
-  // only show the first 3
-  notifications.slice(0, 3).forEach(notification => (
+  notifications.slice().forEach(notification => (
     notificationArray.push(
       <Notification
         content={notification.message}

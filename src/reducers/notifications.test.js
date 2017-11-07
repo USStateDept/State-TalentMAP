@@ -1,6 +1,6 @@
 import * as reducers from './notifications';
 
-describe('reducers', () => {
+describe('notifications reducers', () => {
   it('can set reducer NOTIFICATIONS_HAS_ERRORED', () => {
     expect(reducers.notificationsHasErrored(false, { type: 'NOTIFICATIONS_HAS_ERRORED', hasErrored: true })).toBe(true);
   });

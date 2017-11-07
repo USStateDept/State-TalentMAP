@@ -1,6 +1,6 @@
 import * as reducers from './assignment';
 
-describe('reducers', () => {
+describe('assignment reducers', () => {
   it('can set reducer ASSIGNMENT_HAS_ERRORED', () => {
     expect(reducers.assignmentHasErrored(false, { type: 'ASSIGNMENT_HAS_ERRORED', hasErrored: true })).toBe(true);
   });

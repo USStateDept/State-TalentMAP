@@ -10,6 +10,18 @@ describe('NotificationsComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('can render with one notification', () => {
+    const wrapper = shallow(
+      <Notifications notifications={notificationsObject.results.slice(0, 1)} />);
+    expect(wrapper).toBeDefined();
+  });
+
+  it('can render with zero notifications', () => {
+    const wrapper = shallow(
+      <Notifications notifications={[]} />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot when editor is shown', () => {
     const wrapper = shallow(<Notifications notifications={notificationsObject.results} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
