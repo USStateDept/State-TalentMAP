@@ -263,11 +263,52 @@ export const MISSION_DETAILS = PropTypes.shape({
   short_name: PropTypes.string,
 });
 
+export const ASSIGNMENT_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  user: PropTypes.string,
+  position: PropTypes.string,
+  tour_of_duty: PropTypes.string,
+  status: PropTypes.string,
+  curtailment_reason: PropTypes.string,
+  create_date: PropTypes.string,
+  start_date: PropTypes.string,
+  estimated_end_date: PropTypes.string,
+  end_date: PropTypes.string,
+  update_date: PropTypes.string,
+});
+
+export const ASSIGNMENT_RESULTS = PropTypes.arrayOf(
+  ASSIGNMENT_OBJECT,
+);
+
+export const ASSIGNMENT_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: ASSIGNMENT_RESULTS,
+});
+
 export const MISSION_DETAILS_ARRAY = PropTypes.arrayOf(MISSION_DETAILS);
 
 export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
 
 export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
+
+export const NOTIFICATION_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  owner: PropTypes.string,
+  message: PropTypes.string,
+  is_read: PropTypes.bool,
+  date_created: PropTypes.string,
+  date_updated: PropTypes.string,
+});
+
+export const NOTIFICATION_RESULTS = PropTypes.arrayOf(
+  NOTIFICATION_OBJECT,
+);
+
+export const NOTIFICATION_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: NOTIFICATION_RESULTS,
+});
 
 export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 

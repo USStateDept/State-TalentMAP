@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileDashboardComponent matches snapshot when editor is shown 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <div>
+    <div
+      className="usa-width-one-fourth user-dashboard-section-container
+                    user-dashboard-column-1"
+    >
+      <div
+        className="usa-width-one-whole user-dashboard-section current-user-section"
+      >
+        <CurrentUser
+          userProfile={
+            Object {
+              "skill_code": "INFORMATION MANAGEMENT (2880)",
+              "user": Object {
+                "email": "doej@state.gov",
+                "first_name": "John",
+                "last_name": "Doe",
+              },
+            }
+          }
+        />
+      </div>
+      <div
+        className="usa-width-one-whole user-dashboard-section cdo-section"
+      >
+        <CDOInfo />
+      </div>
+    </div>
+    <div
+      className="usa-width-one-fourth user-dashboard-section-container
+                    user-dashboard-column-2"
+    >
+      <div
+        className="usa-width-one-whole user-dashboard-section position-info-section"
+      >
+        <PositionInformation
+          assignment={
+            Object {
+              "estimated_end_date": "10-10-2018",
+              "position": "Specialist",
+              "start_date": "10-10-2016",
+            }
+          }
+        />
+      </div>
+      <div
+        className="usa-width-one-whole user-dashboard-section notifications-section"
+      >
+        <Notifications
+          notifications={
+            Array [
+              Object {
+                "date_created": "2017-10-31T18:14:07.262935Z",
+                "date_updated": "2017-10-31T18:14:07.262965Z",
+                "id": 1,
+                "is_read": false,
+                "message": "Saved search New BidCycle has 13 new results available",
+                "owner": "townpostj",
+              },
+              Object {
+                "date_created": "2017-11-01T14:56:55.508891Z",
+                "date_updated": "2017-11-01T14:56:55.508920Z",
+                "id": 6,
+                "is_read": true,
+                "message": "Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been offered a handshake.",
+                "owner": "townpostj",
+              },
+              Object {
+                "date_created": "2017-11-01T14:57:10.189772Z",
+                "date_updated": "2017-11-01T14:57:10.189803Z",
+                "id": 8,
+                "is_read": false,
+                "message": "Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) is under panel review.",
+                "owner": "townpostj",
+              },
+              Object {
+                "date_created": "2017-11-01T14:57:17.257837Z",
+                "date_updated": "2017-11-01T14:57:17.257866Z",
+                "id": 9,
+                "is_read": false,
+                "message": "Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel.",
+                "owner": "townpostj",
+              },
+            ]
+          }
+        />
+      </div>
+    </div>
+    <div
+      className="usa-width-one-half user-dashboard-section-container
+                    user-dashboard-column-3"
+    >
+      <div
+        className="usa-width-one-whole user-dashboard-section bidlist-section"
+      >
+        <BidList />
+      </div>
+      <div
+        className="usa-width-one-whole user-dashboard-section inbox-section"
+      >
+        <Inbox />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProfileDashboardComponent matches snapshot when loading 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <Spinner
+    filled={false}
+    inverse={false}
+    size="big"
+    type="homepage-position-results"
+  />
+</div>
+`;

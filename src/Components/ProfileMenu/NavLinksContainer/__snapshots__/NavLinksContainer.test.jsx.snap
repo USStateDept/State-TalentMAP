@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavLinksContainerComponent matches snapshot 1`] = `
+<ul>
+  <li>
+    test 1
+  </li>
+  <li>
+    test 2
+  </li>
+</ul>
+`;

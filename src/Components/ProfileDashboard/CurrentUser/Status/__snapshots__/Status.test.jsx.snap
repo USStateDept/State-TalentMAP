@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatusComponent matches snapshot when editor is shown 1`] = `
+<div
+  className="usa-grid-full status"
+>
+  <FontAwesome
+    name="circle"
+  />
+   Status: On-Post
+</div>
+`;

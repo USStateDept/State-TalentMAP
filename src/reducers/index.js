@@ -24,6 +24,8 @@ import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
 import { descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess } from './descriptionEdit';
 import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess } from './autocomplete/missionAutocomplete';
 import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
+import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
+import { notificationsHasErrored, notificationsIsLoading, notifications } from './notifications';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -94,5 +96,11 @@ export default combineReducers({
   postSearchHasErrored,
   postSearchIsLoading,
   postSearchSuccess,
+  assignment,
+  assignmentHasErrored,
+  assignmentIsLoading,
+  notificationsHasErrored,
+  notificationsIsLoading,
+  notifications,
   router: routerReducer,
 });
