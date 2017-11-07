@@ -68,6 +68,14 @@ const PositionDetailsItem = ({ details }) => (
               title="Danger Pay"
               description={details.post ? details.post.danger_pay : NO_DANGER_PAY}
             />
+            <PositionDetailsDataPoint
+              title="Tour End Date"
+              description="09-01-2019"
+            />
+            <PositionDetailsDataPoint
+              title="Incumbent"
+              description="Incumbent"
+            />
           </div>
         </div>
       </div>
