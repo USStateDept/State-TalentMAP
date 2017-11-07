@@ -22,21 +22,25 @@ exports[`PositionInformationComponent matches snapshot when editor is shown 1`] 
         />
       }
       title="Start & End of Position"
+      titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
       content="Bureau of Western Hemispheric Affairs"
       title="Bureau"
+      titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
       content="Specialist"
       title="Position Title"
+      titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
       content="Medical Technology (6145)"
       title="Skill Code"
+      titleOnBottom={false}
     />
   </div>
 </div>

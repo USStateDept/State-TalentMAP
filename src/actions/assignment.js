@@ -21,7 +21,6 @@ export function assignmentFetchDataSuccess(assignment) {
   };
 }
 
-// include an optional bypass for when we want to silently update the profile
 export function assignmentFetchData() {
   return (dispatch) => {
     axios.get(`${api}/profile/assignments/`, { headers: { Authorization: fetchUserToken() } })

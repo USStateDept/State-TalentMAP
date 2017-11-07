@@ -4,6 +4,7 @@ import toJSON from 'enzyme-to-json';
 import ProfileDashboard from './ProfileDashboard';
 import userObject from '../../__mocks__/userObject';
 import assignmentObject from '../../__mocks__/assignmentObject';
+import notificationsObject from '../../__mocks__/notificationsObject';
 
 describe('ProfileDashboardComponent', () => {
   it('is defined', () => {
@@ -13,6 +14,8 @@ describe('ProfileDashboardComponent', () => {
         assignment={assignmentObject}
         isLoading={false}
         assignmentIsLoading={false}
+        notifications={notificationsObject.results}
+        notificationsIsLoading={false}
       />);
     expect(wrapper).toBeDefined();
   });
@@ -24,6 +27,8 @@ describe('ProfileDashboardComponent', () => {
         assignment={assignmentObject}
         isLoading
         assignmentIsLoading
+        notifications={notificationsObject.results}
+        notificationsIsLoading
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
@@ -35,6 +40,8 @@ describe('ProfileDashboardComponent', () => {
         assignment={assignmentObject}
         isLoading={false}
         assignmentIsLoading={false}
+        notifications={notificationsObject.results}
+        notificationsIsLoading={false}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

@@ -4,6 +4,67 @@ exports[`NotificationsComponent matches snapshot when editor is shown 1`] = `
 <div
   className="usa-grid-full"
 >
-  Notifications
+  <div
+    className="usa-grid-full section-padded-inner-container padded-container-no-bottom"
+  >
+    <div
+      className="usa-width-three-fourths"
+    >
+      <PositionInformation
+        className=""
+        icon="globe"
+        small={false}
+        title="Notifications"
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth small-link-container small-link-container-settings"
+    >
+      <Link
+        replace={false}
+        to="/profile/dashboard/"
+      >
+        Settings
+      </Link>
+    </div>
+  </div>
+  <BorderedList
+    contentArray={
+      Array [
+        <Notification
+          content="Saved search New BidCycle has 13 new results available"
+          notificationTime="2017-10-31T18:14:07.262965Z"
+      />,
+        <Notification
+          content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been offered a handshake."
+          notificationTime="2017-11-01T14:56:55.508920Z"
+      />,
+        <Notification
+          content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) is under panel review."
+          notificationTime="2017-11-01T14:57:10.189803Z"
+      />,
+        <Notification
+          content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
+          notificationTime="2017-11-01T14:57:17.257866Z"
+      />,
+      ]
+    }
+  />
+  <div
+    className="section-padded-inner-container small-link-container"
+    style={
+      Object {
+        "borderTop": "1px solid gray",
+        "textAlign": "center",
+      }
+    }
+  >
+    <Link
+      replace={false}
+      to="/profile/dashboard/"
+    >
+      See all
+    </Link>
+  </div>
 </div>
 `;
