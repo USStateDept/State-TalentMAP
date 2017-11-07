@@ -100,6 +100,14 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             description={0}
             title="Danger Pay"
           />
+          <PositionDetailsDataPoint
+            description="09-01-2019"
+            title="Tour End Date"
+          />
+          <PositionDetailsDataPoint
+            description="Incumbent"
+            title="Incumbent"
+          />
         </div>
       </div>
     </div>
