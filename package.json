@@ -66,7 +66,7 @@
     "jest-localstorage-mock": "^1.2.0",
     "node-sass": "^4.5.3",
     "object-assign": "4.1.1",
-    "pa11y-ci": "^1.2.0",
+    "pa11y": "^4.13.1",
     "postcss-flexbugs-fixes": "3.0.0",
     "postcss-loader": "2.0.5",
     "promise": "7.1.1",
