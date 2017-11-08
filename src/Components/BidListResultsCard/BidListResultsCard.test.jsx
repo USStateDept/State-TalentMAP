@@ -29,7 +29,7 @@ describe('BidListResultsCardComponent', () => {
     expect(wrapper.instance().props.bid.id).toBe(bid.id);
   });
 
-  it('can call functions on button click', () => {
+  it('can call functions', () => {
     const toggleBidSpy = sinon.spy();
     const submitBidSpy = sinon.spy();
     const bidOtherStatus = Object.assign({}, bid, { status: DRAFT.property });
@@ -40,11 +40,10 @@ describe('BidListResultsCardComponent', () => {
         submitBid={submitBidSpy}
       />,
     );
-    // submitting is the first button
-    wrapper.find('button').at(0).simulate('click');
+    wrapper.instance().submitBid();
     sinon.assert.calledOnce(submitBidSpy);
     // deleting is the second button
-    wrapper.find('button').at(1).simulate('click');
+    wrapper.instance().removeBidPosition();
     sinon.assert.calledOnce(toggleBidSpy);
   });
 

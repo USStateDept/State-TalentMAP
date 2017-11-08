@@ -24,12 +24,10 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
       />
     </div>
   </div>
-  <div>
-    <div
-      className="usa-width-one-whole"
-    >
-      You submitted this bid on 
-    </div>
-  </div>
+  <BidActions
+    onRemoveBid={[Function]}
+    onSubmitBid={[Function]}
+    status="submitted"
+  />
 </div>
 `;

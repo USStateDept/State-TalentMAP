@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BID_OBJECT, EMPTY_FUNCTION } from '../../Constants/PropTypes';
-import { SUBMITTED } from '../../Constants/BidStatuses';
 import { NO_POST } from '../../Constants/SystemMessages';
 import InformationDataPoint from '../ProfileDashboard/InformationDataPoint';
 import BidContent from './BidContent';
+import BidActions from './BidActions';
 
 class BidListResultsCard extends Component {
   constructor(props) {
@@ -42,32 +42,11 @@ class BidListResultsCard extends Component {
         {
           // this section we'll only show if condensedView is false
           !condensedView &&
-            <div>
-              {
-                // check if the bid has already been submitted
-                bid.status === SUBMITTED.property ?
-                  // if so, let the user know when they submitted this bid
-                  <div className="usa-width-one-whole">
-                    You submitted this bid on {bid.submission_date}
-                  </div> :
-                  // else, display action buttons
-                  <div className="usa-width-one-whole">
-                    <button
-                      onClick={this.submitBid}
-                      title="Submit this bid"
-                    >
-                      Submit Bid
-                    </button>
-                    <button
-                      className="usa-button-secondary"
-                      onClick={this.removeBidPosition}
-                      title="Delete this position from your bid list"
-                    >
-                      Delete
-                    </button>
-                  </div>
-              }
-            </div>
+            <BidActions
+              status={bid.status}
+              onSubmitBid={this.submitBid}
+              onRemoveBid={this.removeBidPosition}
+            />
         }
       </div>
     );
