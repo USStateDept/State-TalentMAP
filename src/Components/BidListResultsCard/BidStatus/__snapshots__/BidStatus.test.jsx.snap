@@ -5,10 +5,10 @@ exports[`BidStatusComponent matches snapshot for APPROVED 1`] = `
   className="bid-list-card-title-status"
 >
   <FontAwesome
-    name="trophy"
+    name="check"
   />
    
-  Bid Approved
+  Approved
 </div>
 `;
 
@@ -17,7 +17,7 @@ exports[`BidStatusComponent matches snapshot for CLOSED 1`] = `
   className="bid-list-card-title-status"
 >
   <FontAwesome
-    name="clock-o"
+    name="times-circle-o"
   />
    
   Closed
@@ -32,7 +32,7 @@ exports[`BidStatusComponent matches snapshot for DECLINED 1`] = `
     name="times"
   />
    
-  Declined
+  Bid Unapproved
 </div>
 `;
 
@@ -44,7 +44,7 @@ exports[`BidStatusComponent matches snapshot for DRAFT 1`] = `
     name="bookmark"
   />
    
-  Draft
+  Draft Bid
 </div>
 `;
 
@@ -56,7 +56,7 @@ exports[`BidStatusComponent matches snapshot for HAND_SHAKE_ACCEPTED 1`] = `
     name="handshake-o"
   />
    
-  Hand Shake Accepted
+  Handshake Accepted
 </div>
 `;
 
@@ -65,10 +65,10 @@ exports[`BidStatusComponent matches snapshot for HAND_SHAKE_OFFERED 1`] = `
   className="bid-list-card-title-status"
 >
   <FontAwesome
-    name="exclamation-circle"
+    name="star"
   />
    
-  Hand Shake Offered
+  Handshake Offered
 </div>
 `;
 
@@ -77,7 +77,7 @@ exports[`BidStatusComponent matches snapshot for IN_PANEL 1`] = `
   className="bid-list-card-title-status"
 >
   <FontAwesome
-    name="gavel"
+    name="clock-o"
   />
    
   In Panel
@@ -89,10 +89,10 @@ exports[`BidStatusComponent matches snapshot for SUBMITTED 1`] = `
   className="bid-list-card-title-status"
 >
   <FontAwesome
-    name="check"
+    name="thumbs-o-up"
   />
    
-  Submitted
+  Bid Submitted
 </div>
 `;
 

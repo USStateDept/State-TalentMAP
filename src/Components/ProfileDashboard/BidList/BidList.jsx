@@ -24,7 +24,7 @@ const BidList = ({ bids }) => {
       <BidListHeader />
       <div className="usa-grid-full section-padded-inner-container">
         <div className="usa-width-one-whole">
-          <SectionTitle title="Bid List" icon="clipboard" />
+          <SectionTitle title={`Bid List (${bids.length}/10)`} icon="clipboard" />
         </div>
       </div>
       <div className="bid-list-container">

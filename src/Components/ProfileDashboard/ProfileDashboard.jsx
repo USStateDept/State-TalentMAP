@@ -43,7 +43,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
                 user-dashboard-column-3`}
             >
               <div className="usa-width-one-whole user-dashboard-section bidlist-section">
-                <BidList bids={bidList.slice(0, 4)} />
+                <BidList bids={bidList} />
               </div>
             </div>
           </div>

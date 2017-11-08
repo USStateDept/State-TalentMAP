@@ -15,7 +15,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         className=""
         icon="clipboard"
         small={false}
-        title="Bid List"
+        title="Bid List (0/10)"
       />
     </div>
   </div>

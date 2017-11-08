@@ -384,7 +384,8 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
-  margin-bottom: 60px;
+  max-height: 450px;
+  overflow-y: scroll;
 }
 
 .parent-container-bid-status-declined {
@@ -393,6 +394,26 @@ $padding-no-border: $total-padding - $border;
   .fa {
     color: $alert-red;
   }
+
+  .bordered-list-content {
+    border-left: 5px solid $alert-red;
+  }
+}
+
+.parent-container-bid-status-hand-shake-offered {
+  background-color: $color-green-light;
+
+  .fa {
+    color: $color-green;
+  }
+
+  .bordered-list-content {
+    border-left: 5px solid $blue-primary-light;
+  }
+}
+
+.parent-container-bid-status-closed {
+  background-color: $color-gray-lightest;
 
   .bordered-list-content {
     border-left: 5px solid $color-black;
@@ -407,27 +428,14 @@ $padding-no-border: $total-padding - $border;
   }
 }
 
-.parent-container-bid-status-hand-shake-offered {
-  background-color: $color-green-light;
+.parent-container-bid-status-approved {
+  background-color: $blue-primary-light;
 
   .fa {
-    color: $color-green;
-  }
-
-  .bordered-list-content {
-    border-left: 5px solid $color-green;
-  }
-}
-
-.parent-container-bid-status-closed {
-  filter: alpha(opacity = 40); // msie
-  opacity: .4;
-
-  .bordered-list-content {
-    border-left: 5px solid $color-black;
+    color: $blue-primary;
   }
 }
 
 .notification-card {
-  padding: 0px 10px;
+  padding: 0 10px;
 }

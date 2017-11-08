@@ -9,11 +9,11 @@ const BidStatus = ({ status }) => {
   let text;
   switch (status) {
     case APPROVED.property:
-      icon = 'trophy';
+      icon = 'check';
       text = APPROVED.text;
       break;
     case CLOSED.property:
-      icon = 'clock-o';
+      icon = 'times-circle-o';
       text = CLOSED.text;
       break;
     case DRAFT.property:
@@ -29,15 +29,15 @@ const BidStatus = ({ status }) => {
       text = HAND_SHAKE_ACCEPTED.text;
       break;
     case HAND_SHAKE_OFFERED.property:
-      icon = 'exclamation-circle';
+      icon = 'star';
       text = HAND_SHAKE_OFFERED.text;
       break;
     case IN_PANEL.property:
-      icon = 'gavel';
+      icon = 'clock-o';
       text = IN_PANEL.text;
       break;
     case SUBMITTED.property:
-      icon = 'check';
+      icon = 'thumbs-o-up';
       text = SUBMITTED.text;
       break;
     default:
