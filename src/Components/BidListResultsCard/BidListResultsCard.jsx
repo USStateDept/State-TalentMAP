@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { BID_OBJECT } from '../../Constants/PropTypes';
+import { BID_OBJECT, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { NO_POST } from '../../Constants/SystemMessages';
+import InformationDataPoint from '../ProfileDashboard/InformationDataPoint';
+import BidContent from './BidContent';
+import BidActions from './BidActions';
 
 class BidListResultsCard extends Component {
   constructor(props) {
@@ -18,40 +21,32 @@ class BidListResultsCard extends Component {
     submitBid(bid.id);
   }
   render() {
-    const { bid } = this.props;
+    const { bid, condensedView } = this.props;
     return (
       <div className="usa-grid-full saved-search-card" key={bid.id}>
         <div className="usa-grid-full">
           <div className="usa-width-one-whole saved-search-card-name">
-            Position:&nbsp;
-            <Link to={`/details/${bid.position.position_number}`}>
-              {bid.position.position_number} - {bid.position.title}
-            </Link>
+            <InformationDataPoint
+              titleOnBottom
+              content={
+                <BidContent
+                  status={bid.status}
+                  positionNumber={bid.position.position_number}
+                  postName={bid.post || NO_POST}
+                />
+              }
+              title={`Updated on ${bid.update_date}`}
+            />
           </div>
         </div>
         {
-          // check if the bid has already been submitted
-          bid.status === 'submitted' ?
-            // if so, let the user know when they submitted this bid
-            <div className="usa-width-one-whole">
-              You submitted this bid on {bid.submission_date}
-            </div> :
-            // else, display action buttons
-            <div className="usa-width-one-whole">
-              <button
-                onClick={this.submitBid}
-                title="Submit this bid"
-              >
-                Submit Bid
-              </button>
-              <button
-                className="usa-button-secondary"
-                onClick={this.removeBidPosition}
-                title="Delete this position from your bid list"
-              >
-                Delete
-              </button>
-            </div>
+          // this section we'll only show if condensedView is false
+          !condensedView &&
+            <BidActions
+              status={bid.status}
+              onSubmitBid={this.submitBid}
+              onRemoveBid={this.removeBidPosition}
+            />
         }
       </div>
     );
@@ -60,8 +55,15 @@ class BidListResultsCard extends Component {
 
 BidListResultsCard.propTypes = {
   bid: BID_OBJECT.isRequired,
-  toggleBidPosition: PropTypes.func.isRequired,
-  submitBid: PropTypes.func.isRequired,
+  toggleBidPosition: PropTypes.func,
+  submitBid: PropTypes.func,
+  condensedView: PropTypes.bool,
+};
+
+BidListResultsCard.defaultProps = {
+  condensedView: false,
+  toggleBidPosition: EMPTY_FUNCTION,
+  submitBid: EMPTY_FUNCTION,
 };
 
 export default BidListResultsCard;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import InformationDataPoint from '../../InformationDataPoint';
 
 const Notification = ({ content, notificationTime }) => (
-  <div className="usa-grid-full">
+  <div className="usa-grid-full notification-card">
     <InformationDataPoint content={content} title={notificationTime} titleOnBottom />
   </div>
 );

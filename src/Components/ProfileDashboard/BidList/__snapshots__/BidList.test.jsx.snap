@@ -1,9 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidListComponent matches snapshot when editor is shown 1`] = `
+exports[`BidListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  Bid list
+  <BidListHeader />
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-whole"
+    >
+      <PositionInformation
+        className=""
+        icon="clipboard"
+        small={false}
+        title="Bid List (0/10)"
+      />
+    </div>
+  </div>
+  <div
+    className="bid-list-container"
+  >
+    <BorderedList
+      contentArray={Array []}
+    />
+  </div>
+  <div
+    className="section-padded-inner-container small-link-container view-more-link-centered"
+  >
+    <Link
+      replace={false}
+      to="/profile/bidlist/"
+    >
+      See Bid List
+    </Link>
+  </div>
 </div>
 `;
