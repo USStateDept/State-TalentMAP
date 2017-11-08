@@ -335,6 +335,11 @@ $padding-no-border: $total-padding - $border;
   }
 }
 
+.view-more-link-centered {
+  border-top: 1px solid $color-gray-light;
+  text-align: center;
+}
+
 .saved-search-card {
   .bid-list-card-title-position {
     font-weight: bold;

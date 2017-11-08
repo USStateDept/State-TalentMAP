@@ -1,6 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
+// Due date is static for now
 const BidListHeader = () => (
   <div className="usa-grid-full bid-list-header section-padded-inner-container-narrow">
     <div className="usa-width-two-thirds">

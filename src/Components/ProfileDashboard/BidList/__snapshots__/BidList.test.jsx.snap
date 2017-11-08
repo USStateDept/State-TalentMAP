@@ -27,13 +27,7 @@ exports[`BidListComponent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="section-padded-inner-container small-link-container"
-    style={
-      Object {
-        "borderTop": "1px solid gray",
-        "textAlign": "center",
-      }
-    }
+    className="section-padded-inner-container small-link-container view-more-link-centered"
   >
     <Link
       replace={false}

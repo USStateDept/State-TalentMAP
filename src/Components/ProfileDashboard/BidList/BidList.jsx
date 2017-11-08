@@ -14,6 +14,7 @@ const BidList = ({ bids }) => {
       <BidListResultsCard
         bid={bid}
         condensedView
+        /* pass a parentClassName that we can use from the BorderedList component */
         parentClassName={`parent-container-bid-status-${getStatusClass(bid.status)}`}
       />,
     )
@@ -29,7 +30,7 @@ const BidList = ({ bids }) => {
       <div className="bid-list-container">
         <BorderedList contentArray={bidArray} />
       </div>
-      <div className="section-padded-inner-container small-link-container" style={{ textAlign: 'center', borderTop: '1px solid gray' }}>
+      <div className="section-padded-inner-container small-link-container view-more-link-centered">
         <Link to="/profile/bidlist/">See Bid List</Link>
       </div>
     </div>

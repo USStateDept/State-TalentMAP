@@ -27,7 +27,7 @@ const Notifications = ({ notifications }) => {
         </div>
       </div>
       <BorderedList contentArray={notificationArray} />
-      <div className="section-padded-inner-container small-link-container" style={{ textAlign: 'center', borderTop: '1px solid gray' }}>
+      <div className="section-padded-inner-container small-link-container view-more-link-centered">
         <Link to="/profile/dashboard/">See all</Link>
       </div>
     </div>
