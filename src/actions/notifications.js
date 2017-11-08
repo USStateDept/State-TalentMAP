@@ -30,6 +30,9 @@ export function notificationsFetchData() {
               dispatch(notificationsIsLoading(false));
               dispatch(notificationsHasErrored(false));
             })
-            .catch(() => dispatch(notificationsHasErrored(true)));
+            .catch(() => {
+              dispatch(notificationsHasErrored(true));
+              dispatch(notificationsIsLoading(false));
+            });
   };
 }
