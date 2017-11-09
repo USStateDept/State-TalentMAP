@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import ProfileLanding from '../ProfileLanding';
 import BidListContainer from '../../Containers/BidList/BidList';
 import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
@@ -9,9 +8,9 @@ import Dashboard from '../../Containers/Dashboard/Dashboard';
 import ProfileMenu from '../ProfileMenu';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 
-const ProfilePage = ({ user, currentPath }) => (
+const ProfilePage = ({ user }) => (
   <div className="profile-page">
-    <ProfileMenu currentPath={currentPath} />
+    <ProfileMenu />
     <div className="usa-grid-full profile-content-container">
       <div className="hello-greeting">
         {
@@ -40,7 +39,6 @@ const ProfilePage = ({ user, currentPath }) => (
 
 ProfilePage.propTypes = {
   user: USER_PROFILE.isRequired,
-  currentPath: PropTypes.string.isRequired,
 };
 
 export default ProfilePage;

@@ -10,72 +10,57 @@ exports[`ProfileMenuComponent matches snapshot 1`] = `
     Menu
   </div>
   <NavLinksContainer>
-    <NavLink
-      currentPath=""
+    <withRouter(NavLink)
       iconName="home"
       isHighlighted={false}
       link="/profile/"
       title="Home"
     />
-    <NavLink
+    <withRouter(NavLink)
       currentPath="/profile/favorites/"
       iconName="user"
-      isHighlighted={false}
-      link=""
       title="Profile"
     >
-      <NavLink
-        currentPath=""
-        iconName=""
+      <withRouter(NavLink)
         isHighlighted={false}
         link="/profile/dashboard/"
         title="Dashboard"
       />
-      <NavLink
-        currentPath=""
-        iconName=""
+      <withRouter(NavLink)
         isHighlighted={false}
         link="/profile/bidlist/"
         title="Bid List"
       />
-      <NavLink
-        currentPath=""
-        iconName=""
+      <withRouter(NavLink)
         isHighlighted={true}
         link="/profile/favorites/"
         title="Favorites"
       />
-      <NavLink
-        currentPath=""
-        iconName=""
+      <withRouter(NavLink)
         isHighlighted={false}
         link="/profile/searches/"
         title="Saved Searches"
       />
-    </NavLink>
-    <NavLink
-      currentPath=""
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
       iconName="comments-o"
       isHighlighted={false}
       link="/profile/inbox/"
       title="Inbox"
     />
-    <NavLink
-      currentPath=""
+    <withRouter(NavLink)
       iconName="globe"
       isHighlighted={false}
       link="/profile/notifications/"
       title="Notifications"
     />
-    <NavLink
-      currentPath=""
+    <withRouter(NavLink)
       iconName="users"
       isHighlighted={false}
       link="/profile/contacts/"
       title="Contacts"
     />
-    <NavLink
-      currentPath=""
+    <withRouter(NavLink)
       iconName="file-text"
       isHighlighted={false}
       link="/profile/documents/"
