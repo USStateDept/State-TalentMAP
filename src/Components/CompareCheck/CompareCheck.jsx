@@ -54,7 +54,7 @@ class CompareCheck extends Component {
   }
 
   render() {
-    let text = this.getSavedState() ? 'Remove' : 'Compare Position';
+    let text = 'Compare Position';
     if (this.isDisabled()) { text = 'Limit reached'; }
     const iconClass = this.getSavedState() ? 'check-square-o' : 'square-o';
     return (

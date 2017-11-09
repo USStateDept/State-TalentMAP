@@ -48,7 +48,7 @@ describe('PositionTitleComponent', () => {
 
   it('handles different props and different position objects', () => {
     Object.assign(detailsObject,
-      { desription: null, languages: [], post: null, is_overseas: false });
+      { description: null, languages: [], post: null, is_overseas: false });
 
     const wrapper = shallow(
       <PositionTitle
