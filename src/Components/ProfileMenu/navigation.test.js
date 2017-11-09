@@ -1,6 +1,6 @@
-import isCurrentPath from './helpers';
+import isCurrentPath from './navigation';
 
-describe('nav menu helpers', () => {
+describe('navigation helpers', () => {
   const locationMock = {
     pathname: '/profile/favorites/',
   };

@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import NavLinksContainer from './NavLinksContainer';
 import NavLink from './NavLink';
-import isCurrentPath from './helpers';
+import isCurrentPath from './navigation';
 
 class ProfileMenu extends Component {
   checkForCurrentPath(pathName) {

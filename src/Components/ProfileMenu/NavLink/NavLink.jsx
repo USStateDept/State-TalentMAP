@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { ROUTER_LOCATION_OBJECT } from '../../../Constants/PropTypes';
 import { ifEnter } from '../../../utilities';
-import isCurrentPath from '../helpers';
+import isCurrentPath from '../navigation';
 
 class NavLink extends Component {
   constructor(props) {
