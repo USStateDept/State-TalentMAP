@@ -1,13 +1,17 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import NavLink from './NavLink';
+import { NavLinkUnwrapped } from './NavLink';
 
 describe('NavLinkComponent', () => {
+  const locationMock = {
+    pathname: '/profile/favorites/',
+  };
   it('is defined with no children', () => {
     const wrapper = shallow(
-      <NavLink
+      <NavLinkUnwrapped
         title="test"
+        location={locationMock}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -15,43 +19,46 @@ describe('NavLinkComponent', () => {
 
   it('is defined with one child', () => {
     const wrapper = shallow(
-      <NavLink
+      <NavLinkUnwrapped
         title="test"
-        currentPath="/profile/favorites/"
+        location={locationMock}
       >
-        <NavLink
+        <NavLinkUnwrapped
           title="test2"
           link="/profile/favorites/"
+          location={locationMock}
         />
-      </NavLink>,
+      </NavLinkUnwrapped>,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('is defined with multiple children', () => {
     const wrapper = shallow(
-      <NavLink
+      <NavLinkUnwrapped
         title="test"
-        currentPath="/profile/favorites/"
+        location={locationMock}
       >
-        <NavLink
+        <NavLinkUnwrapped
           title="test2"
           link="/profile/favorites/"
+          location={locationMock}
         />
-        <NavLink
+        <NavLinkUnwrapped
           title="test3"
           link="/profile/searches/"
+          location={locationMock}
         />
-      </NavLink>,
+      </NavLinkUnwrapped>,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('applies link-highlighted class when isHighlighted is true', () => {
     const wrapper = shallow(
-      <NavLink
+      <NavLinkUnwrapped
         title="test"
-        currentPath="/profile/favorites/"
+        location={locationMock}
         link="/profile/favorites/"
         isHighlighted
       />,
@@ -64,9 +71,9 @@ describe('NavLinkComponent', () => {
 
   it('applies link-unhighlighted class when isHighlighted is false', () => {
     const wrapper = shallow(
-      <NavLink
+      <NavLinkUnwrapped
         title="test"
-        currentPath="/profile/favorites/"
+        location={locationMock}
         link="/profile/favorites/"
         isHighlighted={false}
       />,
@@ -77,21 +84,25 @@ describe('NavLinkComponent', () => {
     expect(wrapper.find('.link-unhighlighted')).toHaveLength(1);
   });
 
+  // We can't use ".WrappedComponent" here because of nested elements,
+  // so we use the Unwrapped import of the component.
   it('can expand and close a grouped list', () => {
     const wrapper = shallow(
-      <NavLink
+      <NavLinkUnwrapped
         title="test"
-        currentPath="/profile/favorites/"
+        location={locationMock}
       >
-        <NavLink
+        <NavLinkUnwrapped
           title="test2"
           link="/profile/favorites/"
+          location={locationMock}
         />
-        <NavLink
+        <NavLinkUnwrapped
           title="test3"
           link="/profile/searches/"
+          location={locationMock}
         />
-      </NavLink>,
+      </NavLinkUnwrapped>,
     );
     // children should be rendered, since we have a child link that matches the current path
     expect(wrapper.find('.children-ul')).toHaveLength(1);
@@ -111,9 +122,9 @@ describe('NavLinkComponent', () => {
 
   it('matches snapshot without children', () => {
     const wrapper = shallow(
-      <NavLink
+      <NavLinkUnwrapped
         title="test"
-        currentPath="/profile/favorites/"
+        location={locationMock}
         link="/profile/favorites/"
         isHighlighted
       />,

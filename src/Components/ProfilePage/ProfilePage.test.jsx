@@ -43,7 +43,6 @@ describe('ProfilePageComponent', () => {
     submitBidHasErrored: false,
     submitBidIsLoading: false,
     submitBidSuccess: false,
-    currentPath: '/profile/favorites/',
   };
 
   it('is defined', () => {
