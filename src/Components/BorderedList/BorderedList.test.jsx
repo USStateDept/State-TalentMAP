@@ -3,7 +3,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import BorderedList from './BorderedList';
 
-describe('BidListResultsListComponent', () => {
+describe('BorderedListComponent', () => {
   const contentArray = [
     <span>test 1</span>,
     <div className="my-div">test 2</div>,

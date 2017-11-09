@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidListResultsListComponent matches snapshot 1`] = `
+exports[`BorderedListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full bordered-list"
 >

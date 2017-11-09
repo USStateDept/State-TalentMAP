@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { NOTIFICATION_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
-import Notification from './Notification';
+import NotificationItem from './NotificationItem';
 
 const Notifications = ({ notifications }) => {
   const notificationArray = [];
   notifications.slice().forEach(notification => (
     notificationArray.push(
-      <Notification
+      <NotificationItem
         content={notification.message}
         notificationTime={notification.date_updated}
       />,
