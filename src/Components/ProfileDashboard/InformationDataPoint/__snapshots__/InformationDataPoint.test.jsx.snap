@@ -5,6 +5,11 @@ exports[`InformationDataPointComponent matches snapshot 1`] = `
   className="usa-grid-full data-point-container "
 >
   <div
+    className="data-point-title"
+  >
+    title
+  </div>
+  <div
     className="data-point-content"
   >
     content
@@ -20,6 +25,11 @@ exports[`InformationDataPointComponent matches snapshot when titleOnBottom is tr
     className="data-point-content"
   >
     content
+  </div>
+  <div
+    className="data-point-title"
+  >
+    title
   </div>
 </div>
 `;
