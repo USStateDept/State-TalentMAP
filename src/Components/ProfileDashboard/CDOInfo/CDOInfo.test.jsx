@@ -9,7 +9,7 @@ describe('CDOInfoComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<CDOInfo name="John Doe" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

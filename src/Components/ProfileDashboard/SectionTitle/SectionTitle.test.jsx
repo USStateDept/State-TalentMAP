@@ -19,7 +19,7 @@ describe('SectionTitleComponent', () => {
     expect(wrapper.find('.my-class').exists()).toBe(true);
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<SectionTitle title="title" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

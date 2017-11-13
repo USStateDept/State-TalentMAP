@@ -9,7 +9,7 @@ describe('EditProfileComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<EditProfile />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
