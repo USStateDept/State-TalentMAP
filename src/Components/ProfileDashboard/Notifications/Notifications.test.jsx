@@ -26,4 +26,9 @@ describe('NotificationsComponent', () => {
     const wrapper = shallow(<Notifications notifications={notificationsObject.results} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when there are zero notifications', () => {
+    const wrapper = shallow(<Notifications notifications={[]} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });
