@@ -24,7 +24,7 @@ describe('InformationDataPointComponent', () => {
     expect(wrapper.find('.data-point-title').exists()).toBe(false);
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<InformationDataPoint content="content" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

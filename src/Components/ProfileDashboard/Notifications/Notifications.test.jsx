@@ -22,7 +22,7 @@ describe('NotificationsComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<Notifications notifications={notificationsObject.results} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
