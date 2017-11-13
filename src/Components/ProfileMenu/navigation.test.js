@@ -11,7 +11,6 @@ describe('navigation helpers', () => {
   });
 
   it('returns false for non-matching paths', () => {
-    // should be true with or without trailing slash
     expect(isCurrentPath(locationMock.pathname, '/profile')).toBe(false);
     expect(isCurrentPath(locationMock.pathname, '/profile/')).toBe(false);
     expect(isCurrentPath(locationMock.pathname, '/favorites')).toBe(false);
