@@ -86,8 +86,8 @@ jobs:
           name: Run Pa11y
           command: |
             docker run --name pa11y --network container:web \
-              --volumes-from data -t talentmap/pa11y-ci \
-              pa11y-ci -c /app/.pa11yci
+              --volumes-from data -t talentmap/pa11y \
+              node ./scripts/pa11y.js --c ../config/pa11y/pa11y.json --host web:3000
   zap:
     <<: *default-docker-node
     steps:
