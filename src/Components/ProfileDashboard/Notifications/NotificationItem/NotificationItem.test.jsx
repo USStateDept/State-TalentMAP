@@ -14,7 +14,7 @@ describe('NotificationItemComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(
       <NotificationItem
         content="content"

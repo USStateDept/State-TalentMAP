@@ -10,7 +10,7 @@ describe('CurrentUserComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<CurrentUser userProfile={userObject} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

@@ -9,7 +9,7 @@ describe('InboxComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<Inbox />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
