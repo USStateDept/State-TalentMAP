@@ -1,0 +1,10 @@
+FROM node:6
+
+RUN mkdir /app
+WORKDIR /app
+
+ADD package.json yarn.lock /app/
+RUN yarn add yargs phantomjs-prebuilt -D
+
+COPY config /app/config/
+COPY scripts /app/scripts/
