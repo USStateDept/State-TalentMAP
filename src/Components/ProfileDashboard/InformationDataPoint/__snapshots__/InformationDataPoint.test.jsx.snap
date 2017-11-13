@@ -11,3 +11,15 @@ exports[`InformationDataPointComponent matches snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`InformationDataPointComponent matches snapshot when titleOnBottom is true 1`] = `
+<div
+  className="usa-grid-full data-point-container "
+>
+  <div
+    className="data-point-content"
+  >
+    content
+  </div>
+</div>
+`;
