@@ -45,19 +45,17 @@ class Home extends Component {
       userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored } = this.props;
     return (
-      <div>
-        <HomePage
-          onNavigateTo={onNavigateTo}
-          filters={items.filters}
-          homePagePositions={homePagePositions}
-          homePagePositionsHasErrored={homePagePositionsHasErrored}
-          homePagePositionsIsLoading={homePagePositionsIsLoading}
-          userProfile={userProfile}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        />
-      </div>
+      <HomePage
+        onNavigateTo={onNavigateTo}
+        filters={items.filters}
+        homePagePositions={homePagePositions}
+        homePagePositionsHasErrored={homePagePositionsHasErrored}
+        homePagePositionsIsLoading={homePagePositionsIsLoading}
+        userProfile={userProfile}
+        toggleFavorite={toggleFavorite}
+        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+      />
     );
   }
 }

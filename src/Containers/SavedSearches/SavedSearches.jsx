@@ -39,22 +39,20 @@ class SavedSearchesContainer extends Component {
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
       cloneSavedSearchHasErrored, cloneSavedSearchSuccess } = this.props;
     return (
-      <div>
-        <SavedSearches
-          savedSearches={savedSearches}
-          savedSearchesHasErrored={savedSearchesHasErrored}
-          savedSearchesIsLoading={savedSearchesIsLoading}
-          goToSavedSearch={this.goToSavedSearch}
-          deleteSearch={deleteSearch}
-          deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
-          deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
-          deleteSavedSearchSuccess={deleteSavedSearchSuccess}
-          cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
-          cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
-          cloneSavedSearchSuccess={cloneSavedSearchSuccess}
-          cloneSavedSearch={cloneSearch}
-        />
-      </div>
+      <SavedSearches
+        savedSearches={savedSearches}
+        savedSearchesHasErrored={savedSearchesHasErrored}
+        savedSearchesIsLoading={savedSearchesIsLoading}
+        goToSavedSearch={this.goToSavedSearch}
+        deleteSearch={deleteSearch}
+        deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
+        deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
+        deleteSavedSearchSuccess={deleteSavedSearchSuccess}
+        cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
+        cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
+        cloneSavedSearchSuccess={cloneSavedSearchSuccess}
+        cloneSavedSearch={cloneSearch}
+      />
     );
   }
 }

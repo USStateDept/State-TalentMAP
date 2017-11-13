@@ -31,9 +31,7 @@ class Results extends Component {
   render() {
     const { comparisons, hasErrored, isLoading } = this.props;
     return (
-      <div className="usa-grid-full">
-        <CompareList compare={comparisons} hasErrored={hasErrored} isLoading={isLoading} />
-      </div>
+      <CompareList compare={comparisons} hasErrored={hasErrored} isLoading={isLoading} />
     );
   }
 }
