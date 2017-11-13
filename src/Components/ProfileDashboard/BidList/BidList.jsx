@@ -28,7 +28,14 @@ const BidList = ({ bids }) => {
         </div>
       </div>
       <div className="bid-list-container">
-        <BorderedList contentArray={bidArray} />
+        {
+          bidArray.length === 0 ?
+            <div className="usa-grid-full section-padded-inner-container">
+              You have not added any bids to your bid list.
+            </div>
+          :
+            <BorderedList contentArray={bidArray} />
+        }
       </div>
       <div className="section-padded-inner-container small-link-container view-more-link-centered">
         <Link to="/profile/bidlist/">See Bid List</Link>
