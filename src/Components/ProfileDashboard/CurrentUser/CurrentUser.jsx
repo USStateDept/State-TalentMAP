@@ -17,7 +17,6 @@ const CurrentUser = ({ userProfile }) => (
         <SectionTitle small title={`${userProfile.user.first_name} ${userProfile.user.last_name}`} className="current-user-name" />
         <InformationDataPoint
           content={userProfile.skill_code || NO_USER_SKILL_CODE}
-          className="current-user-position"
         />
       </div>
     </div>
