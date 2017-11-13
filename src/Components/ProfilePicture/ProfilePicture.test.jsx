@@ -22,8 +22,8 @@ describe('ProfilePicture', () => {
     expect(wrapper.find(`.${className}`).exists()).toBe(true);
   });
 
-  it('can accept the inverse prop', () => {
-    const wrapper = shallow(<ProfilePicture inverse />);
+  it('matches snapshot', () => {
+    const wrapper = shallow(<ProfilePicture />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
