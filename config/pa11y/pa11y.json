@@ -1,0 +1,27 @@
+{
+    "defaults": {
+        "wait": 7000,
+        "standard": "WCAG2AA",
+        "ignore": ["notice", "warning"]
+    },
+    "host": "http://localhost:3000",
+    "localStorage": {
+        "compare": "[\"00003026\",\"00003033\"]",
+        "token": "\"a879ab8982784617ddcb72036a5a5b44f53932dd\""
+    },
+    "token": {
+      "name": "token",
+      "value": "\"a879ab8982784617ddcb72036a5a5b44f53932dd\""
+    },
+    "urls": [
+        "/",
+        "/login",
+        "/results",
+        "/details/00003026",
+        "/post/100",
+        "/compare/00003026,00003033",
+        "/profile",
+        "/profile/searches",
+        "/profile/favorites"
+    ]
+}
