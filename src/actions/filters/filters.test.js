@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import * as actions from './filters';
-import { ENDPOINT_PARAMS } from '../Constants/EndpointParams';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

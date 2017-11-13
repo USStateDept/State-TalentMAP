@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
-import { filtersFetchData } from '../../actions/filters';
+import { filtersFetchData } from '../../actions/filters/filters';
 import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';

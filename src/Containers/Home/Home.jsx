@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { filtersFetchData } from '../../actions/filters';
+import { filtersFetchData } from '../../actions/filters/filters';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import HomePage from '../../Containers/HomePage/HomePage';
