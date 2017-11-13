@@ -8,6 +8,8 @@ export const DEFAULT_HOME_PAGE_POSITIONS = {
 export const DEFAULT_USER_PROFILE = {
   user: {
     username: '...', // show '...' when loading
+    first_name: '',
+    last_name: '',
   },
   favorite_positions: [],
 };

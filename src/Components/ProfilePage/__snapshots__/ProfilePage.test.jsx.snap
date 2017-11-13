@@ -11,7 +11,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
     <div
       className="hello-greeting"
     >
-      Hello, john
+      Hello, John Doe
     </div>
     <Switch>
       <Route
