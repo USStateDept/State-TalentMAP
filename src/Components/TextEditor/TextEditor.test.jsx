@@ -17,6 +17,16 @@ describe('TextEditorComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when the readOnly prop is true', () => {
+    const wrapper = shallow(
+      <TextEditor
+        onSubmitText={() => {}}
+        readOnly
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('can submit text', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
