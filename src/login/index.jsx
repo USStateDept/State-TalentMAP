@@ -37,7 +37,7 @@ export class Login extends Component {
     } = this.props;
 
     return (
-      <div className="usa-grid login-container content-container">
+      <div className="usa-grid login-container">
         <div className="usa-grid login">
           <form className="usa-form" onSubmit={handleSubmit(this.submit)}>
             <fieldset>

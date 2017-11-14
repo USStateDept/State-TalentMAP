@@ -40,7 +40,7 @@ class Results extends Component {
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const pageCount = Math.ceil(results.count / defaultPageSize);
     return (
-      <div className="results content-container">
+      <div className="results">
         <ResultsSearchHeader
           onUpdate={onQueryParamUpdate}
           defaultKeyword={defaultKeyword}
