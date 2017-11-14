@@ -25,7 +25,13 @@ const Notifications = ({ notifications }) => {
           <Link to="/profile/dashboard/">Settings</Link>
         </div>
       </div>
-      <BorderedList contentArray={notificationArray} />
+      {
+        notificationArray.length === 0 ?
+          <div className="usa-grid-full section-padded-inner-container" >
+            You have no notifications at this time
+          </div> :
+          <BorderedList contentArray={notificationArray} />
+      }
       <div className="section-padded-inner-container small-link-container view-more-link-centered">
         <Link to="/profile/dashboard/">See all</Link>
       </div>
