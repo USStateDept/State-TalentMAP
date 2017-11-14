@@ -39,9 +39,8 @@
 
   .profile-content-container {
     background-color: $tm-white-smoke-light;
-    height: 700px;
     margin-left: 200px;
-    overflow-y: auto;
+    min-height: 700px;
     padding: 20px 35px;
     right: 0;
     width: auto;
