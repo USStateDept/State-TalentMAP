@@ -21,9 +21,9 @@ export function notificationsFetchDataSuccess(notifications) {
   };
 }
 
-export function notificationsFetchData() {
+export function notificationsFetchData(limit = 3) {
   return (dispatch) => {
-    axios.get(`${api}/notification/?limit=3`, { headers: { Authorization: fetchUserToken() } })
+    axios.get(`${api}/notification/?limit=${limit}`, { headers: { Authorization: fetchUserToken() } })
             .then(({ data }) => data.results)
             .then((notifications) => {
               dispatch(notificationsFetchDataSuccess(notifications));
