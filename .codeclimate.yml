@@ -14,8 +14,6 @@ engines:
       - .jsx
   scss-lint:
     enabled: true
-  shellcheck:
-    enabled: true
 ratings:
   paths:
   - "**.css"
