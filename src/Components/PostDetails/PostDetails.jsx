@@ -5,7 +5,7 @@ import { POST_DETAILS } from '../../Constants/PropTypes';
 
 const PostDetails = ({ post }) => {
   const postMissionData = (
-    <div className="usa-grid-full">
+    <div className="usa-grid-full content-container">
       <div style={{ backgroundColor: '#F2F2F2', marginTop: '10px', marginBottom: '10px', padding: '15px 30px' }}>
         <h3> Post Number: {post.id} </h3>
         <PostMissionData post={post} />
