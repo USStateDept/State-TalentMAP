@@ -28,6 +28,11 @@ describe('async actions', () => {
     ],
   };
 
+  // reset the mockAdapter since we repeat specific requests
+  beforeEach(() => {
+    mockAdapter.reset();
+  });
+
   it('can fetch a bid list', (done) => {
     const store = mockStore({ });
 
