@@ -22,7 +22,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.notificationsFetchData());
+        store.dispatch(actions.notificationsFetchData(3));
         store.dispatch(actions.notificationsIsLoading());
         done();
       }, 0);
