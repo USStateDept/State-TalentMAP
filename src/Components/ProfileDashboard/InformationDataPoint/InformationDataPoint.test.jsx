@@ -25,7 +25,12 @@ describe('InformationDataPointComponent', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<InformationDataPoint content="content" />);
+    const wrapper = shallow(<InformationDataPoint content="content" title="title" />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when titleOnBottom is true', () => {
+    const wrapper = shallow(<InformationDataPoint content="content" titleOnBottom title="title" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

@@ -24,7 +24,7 @@ exports[`CurrentUserComponent matches snapshot 1`] = `
         title="John Doe"
       />
       <InformationDataPoint
-        className="current-user-position"
+        className=""
         content="INFORMATION MANAGEMENT (2880)"
         title=""
         titleOnBottom={false}
