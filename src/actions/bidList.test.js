@@ -28,7 +28,7 @@ describe('async actions', () => {
     ],
   };
 
-// reset the mockAdapter since we repeat specific requests
+  // reset the mockAdapter since we repeat specific requests
   beforeEach(() => {
     mockAdapter.reset();
   });
