@@ -48,7 +48,10 @@ class NavLink extends Component {
     }
   }
 
-  // This function
+  // This function wraps an element based on whether it contains a link or has children.
+  // This allows us to wrap elements with a link prop within a navigation <Link>, while
+  // elements with children and no link become a clickable, epxandable list with its children.
+  // If neither criteria is met, we simply return the unwrapped element.
   wrapInLink(element) {
     const { link, children, iconName } = this.props;
     // If there's no link prop, then we don't want to wrap the element in a <Link>
