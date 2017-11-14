@@ -67,6 +67,7 @@
     "node-sass": "^4.5.3",
     "object-assign": "4.1.1",
     "pa11y": "^4.13.1",
+    "phantomjs-prebuilt": "^2.1.16",
     "postcss-flexbugs-fixes": "3.0.0",
     "postcss-loader": "2.0.5",
     "promise": "7.1.1",
@@ -88,6 +89,7 @@
     "webpack-dev-server": "2.4.5",
     "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3",
+    "yargs": "^10.0.3",
     "yarn": "^0.24.5"
   },
   "scripts": {
