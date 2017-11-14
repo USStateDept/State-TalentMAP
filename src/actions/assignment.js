@@ -30,6 +30,9 @@ export function assignmentFetchData() {
               dispatch(assignmentIsLoading(false));
               dispatch(assignmentHasErrored(false));
             })
-            .catch(() => dispatch(assignmentHasErrored(true)));
+            .catch(() => {
+              dispatch(assignmentHasErrored(true));
+              dispatch(assignmentIsLoading(false));
+            });
   };
 }

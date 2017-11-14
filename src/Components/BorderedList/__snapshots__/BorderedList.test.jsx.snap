@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BorderedListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bordered-list"
+>
+  <ul>
+    <li>
+      <div
+        className="bordered-list-content"
+      >
+        <span>
+          test 1
+        </span>
+      </div>
+    </li>
+    <li>
+      <div
+        className="bordered-list-content"
+      >
+        <div
+          className="my-div"
+        >
+          test 2
+        </div>
+      </div>
+    </li>
+    <li>
+      <div
+        className="bordered-list-content"
+      >
+        <p>
+          test 3
+        </p>
+      </div>
+    </li>
+  </ul>
+</div>
+`;

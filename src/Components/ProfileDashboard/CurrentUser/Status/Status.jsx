@@ -1,9 +1,9 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
+import StatusCircle from '../../../StatusCircle';
 
 const Status = () => (
   <div className="usa-grid-full status">
-    <FontAwesome name="circle" /> Status: On-Post
+    <StatusCircle /> Status: On-Post
   </div>
 );
 

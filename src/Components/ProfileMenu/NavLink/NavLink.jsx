@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { ROUTER_LOCATION_OBJECT } from '../../../Constants/PropTypes';
 import { ifEnter } from '../../../utilities';
+import isCurrentPath from '../navigation';
 
 class NavLink extends Component {
   constructor(props) {
@@ -20,20 +23,21 @@ class NavLink extends Component {
   // Checks if any of the children links match the current path.
   // If so, we'll toggle the visibility to true
   shouldExpandIfChildActive() {
-    const { children, currentPath } = this.props;
+    const { children } = this.props;
     let found = false;
     // Iterate through the children.
     // When there's only one child, we can't use forEach...
     if (children && children.length > 1) {
       children.forEach((c) => {
-        if (c.props && c.props.link && c.props.link && c.props.link === currentPath) {
+        if (c.props && c.props.link && c.props.link &&
+          isCurrentPath(this.props.location.pathname, c.props.link)) {
           found = true;
         }
       });
     // So we'll check here and act directly on the only child, if it exists
     } else if (children) {
       if (children.props && children.props.link && children.props.link &&
-          children.props.link === currentPath) {
+          isCurrentPath(this.props.location.pathname, children.props.link)) {
         found = true;
       }
     }
@@ -44,7 +48,10 @@ class NavLink extends Component {
     }
   }
 
-  // This function
+  // This function wraps an element based on whether it contains a link or has children.
+  // This allows us to wrap elements with a link prop within a navigation <Link>, while
+  // elements with children and no link become a clickable, epxandable list with its children.
+  // If neither criteria is met, we simply return the unwrapped element.
   wrapInLink(element) {
     const { link, children, iconName } = this.props;
     // If there's no link prop, then we don't want to wrap the element in a <Link>
@@ -123,7 +130,7 @@ NavLink.propTypes = {
   iconName: PropTypes.string,
   link: PropTypes.string, // ex: "/profile/", "/profile/favorites/", etc.
   children: PropTypes.node, // a group of child links. Should be rendered using this component
-  currentPath: PropTypes.string, // path the user is currently on
+  location: ROUTER_LOCATION_OBJECT.isRequired,
 
   // whether or not the item should be highlighted. Typically when pathname matches the link
   isHighlighted: PropTypes.bool,
@@ -137,4 +144,7 @@ NavLink.defaultProps = {
   isHighlighted: false,
 };
 
-export default NavLink;
+export default withRouter(NavLink);
+
+// we also need to export an unwrapped version for testing
+export const NavLinkUnwrapped = NavLink;

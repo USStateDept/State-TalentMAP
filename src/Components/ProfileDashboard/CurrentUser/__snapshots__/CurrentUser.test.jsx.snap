@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CurrentUserComponent matches snapshot when editor is shown 1`] = `
+exports[`CurrentUserComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full current-user"
 >
@@ -11,10 +11,10 @@ exports[`CurrentUserComponent matches snapshot when editor is shown 1`] = `
       className="section-padded-inner-container"
     >
       <Status />
-      <img
+      <ProfilePicture
         alt="avatar"
-        className="dashboard-user-profile-picture"
-        src="/assets/img/avatar.png"
+        className=""
+        source="/assets/img/avatar.png"
       />
       <EditProfile />
       <PositionInformation
@@ -24,7 +24,7 @@ exports[`CurrentUserComponent matches snapshot when editor is shown 1`] = `
         title="John Doe"
       />
       <InformationDataPoint
-        className="current-user-position"
+        className=""
         content="INFORMATION MANAGEMENT (2880)"
         title=""
         titleOnBottom={false}

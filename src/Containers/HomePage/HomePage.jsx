@@ -34,7 +34,7 @@ class HomePage extends Component {
       userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored } = this.props;
     return (
-      <div className="home">
+      <div className="home content-container">
         <div className="results results-search-bar-homepage">
           <ResultsSearchHeader
             onUpdate={this.submitSearch}

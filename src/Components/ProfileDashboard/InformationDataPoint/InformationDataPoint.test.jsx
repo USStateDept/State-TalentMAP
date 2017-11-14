@@ -24,8 +24,13 @@ describe('InformationDataPointComponent', () => {
     expect(wrapper.find('.data-point-title').exists()).toBe(false);
   });
 
-  it('matches snapshot when editor is shown', () => {
-    const wrapper = shallow(<InformationDataPoint content="content" />);
+  it('matches snapshot', () => {
+    const wrapper = shallow(<InformationDataPoint content="content" title="title" />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when titleOnBottom is true', () => {
+    const wrapper = shallow(<InformationDataPoint content="content" titleOnBottom title="title" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

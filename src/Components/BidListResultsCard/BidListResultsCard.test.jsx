@@ -2,10 +2,11 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
+import { SUBMITTED, DRAFT } from '../../Constants/BidStatuses';
 import BidListResultsCard from './BidListResultsCard';
 
 describe('BidListResultsCardComponent', () => {
-  const bid = { id: 1, position: { id: 2, position: { position_number: '05A', title: 'AO' } } };
+  const bid = { id: 1, status: SUBMITTED.property, post: 'Paris', position: { id: 2, position_number: '05A', title: 'AO' } };
   it('is defined', () => {
     const wrapper = shallow(
       <BidListResultsCard
@@ -28,21 +29,21 @@ describe('BidListResultsCardComponent', () => {
     expect(wrapper.instance().props.bid.id).toBe(bid.id);
   });
 
-  it('can call functions on button click', () => {
+  it('can call functions', () => {
     const toggleBidSpy = sinon.spy();
     const submitBidSpy = sinon.spy();
+    const bidOtherStatus = Object.assign({}, bid, { status: DRAFT.property });
     const wrapper = shallow(
       <BidListResultsCard
-        bid={bid}
+        bid={bidOtherStatus}
         toggleBidPosition={toggleBidSpy}
         submitBid={submitBidSpy}
       />,
     );
-    // submitting is the first button
-    wrapper.find('button').at(0).simulate('click');
+    wrapper.instance().submitBid();
     sinon.assert.calledOnce(submitBidSpy);
     // deleting is the second button
-    wrapper.find('button').at(1).simulate('click');
+    wrapper.instance().removeBidPosition();
     sinon.assert.calledOnce(toggleBidSpy);
   });
 
