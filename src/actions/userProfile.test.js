@@ -1,11 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import setupAsyncMocks from './setupAsyncMocks';
 import * as actions from './userProfile';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   const profile = {
@@ -24,8 +20,6 @@ describe('async actions', () => {
   it('can fetch a position', (done) => {
     const store = mockStore({ profile: {} });
 
-    const mockAdapter = new MockAdapter(axios);
-
     mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(200,
       profile,
     );
@@ -41,8 +35,6 @@ describe('async actions', () => {
 
   it('can remove a favorite position', (done) => {
     const store = mockStore({ profile: {} });
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onDelete('http://localhost:8000/api/v1/position/1/favorite/').reply(204,
       null,
@@ -60,8 +52,6 @@ describe('async actions', () => {
   it('can add a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    const mockAdapter = new MockAdapter(axios);
-
     mockAdapter.onPut('http://localhost:8000/api/v1/position/1/favorite/').reply(204,
       null,
     );
@@ -78,8 +68,6 @@ describe('async actions', () => {
   it('can handle favoriting errors when favoriting fails', (done) => {
     const store = mockStore({ profile: {} });
 
-    const mockAdapter = new MockAdapter(axios);
-
     mockAdapter.onPut('http://localhost:8000/api/v1/position/1/favorite/').reply(404,
       null,
     );
@@ -95,8 +83,6 @@ describe('async actions', () => {
 
   it('can handle errors', (done) => {
     const store = mockStore({ profile: {} });
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onGet('http://localhost:8000/api/v1/profile').reply(404,
       {},
