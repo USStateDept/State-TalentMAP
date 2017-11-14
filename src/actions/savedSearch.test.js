@@ -5,6 +5,11 @@ import searchObjectParent from '../__mocks__/searchObjectParent';
 const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('saved search async actions', () => {
+  // reset the mockAdapter since we repeat specific requests
+  beforeEach(() => {
+    mockAdapter.reset();
+  });
+
   it('can submit request to save a search', (done) => {
     const store = mockStore({ share: false });
 

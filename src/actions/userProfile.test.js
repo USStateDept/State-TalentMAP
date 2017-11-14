@@ -17,6 +17,11 @@ describe('async actions', () => {
     received_shares: [],
   };
 
+  // reset the mockAdapter since we repeat specific requests
+  beforeEach(() => {
+    mockAdapter.reset();
+  });
+
   it('can fetch a position', (done) => {
     const store = mockStore({ profile: {} });
 
