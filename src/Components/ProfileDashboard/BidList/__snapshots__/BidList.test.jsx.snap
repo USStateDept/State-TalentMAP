@@ -15,7 +15,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         className=""
         icon="clipboard"
         small={false}
-        title="Bid List (0/10)"
+        title="Bid List (3/10)"
       />
     </div>
   </div>
@@ -23,8 +23,139 @@ exports[`BidListComponent matches snapshot 1`] = `
     className="bid-list-container"
   >
     <BorderedList
-      contentArray={Array []}
+      contentArray={
+        Array [
+          <BidListResultsCard
+            bid={
+                Object {
+                    "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                    "id": 3,
+                    "position": Object {
+                      "create_date": "2015-08-05",
+                      "grade": "03",
+                      "id": 226,
+                      "position_number": "10035561",
+                      "post": Object {
+                        "id": 199,
+                        "location": "Curacao",
+                      },
+                      "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                      "title": "POLITICAL/ECONOMIC OFFICER",
+                      "update_date": "2017-06-08",
+                    },
+                    "status": "approved",
+                    "submission_date": "2017-10-31",
+                    "update_date": "2017-10-31",
+                    "user": "rehmant",
+                  }
+            }
+            condensedView={true}
+            parentClassName="parent-container-bid-status-approved"
+            submitBid={[Function]}
+            toggleBidPosition={[Function]}
+        />,
+          <BidListResultsCard
+            bid={
+                Object {
+                    "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                    "id": 1,
+                    "position": Object {
+                      "create_date": "2006-09-20",
+                      "grade": "05",
+                      "id": 1,
+                      "position_number": "00003026",
+                      "post": Object {
+                        "id": 235,
+                        "location": "Freetown, Sierra Leone",
+                      },
+                      "skill": "OFFICE MANAGEMENT (9017)",
+                      "title": "OMS (COM)",
+                      "update_date": "2017-06-08",
+                    },
+                    "status": "closed",
+                    "submission_date": "2017-10-31",
+                    "update_date": "2017-11-01",
+                    "user": "rehmant",
+                  }
+            }
+            condensedView={true}
+            parentClassName="parent-container-bid-status-closed"
+            submitBid={[Function]}
+            toggleBidPosition={[Function]}
+        />,
+          <BidListResultsCard
+            bid={
+                Object {
+                    "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                    "id": 2,
+                    "position": Object {
+                      "create_date": "2006-09-20",
+                      "grade": "04",
+                      "id": 84,
+                      "position_number": "56001600",
+                      "post": Object {
+                        "id": 195,
+                        "location": "The Hague, Netherlands",
+                      },
+                      "skill": "SECURITY (2501)",
+                      "title": "SPECIAL AGENT",
+                      "update_date": "2017-06-08",
+                    },
+                    "status": "closed",
+                    "submission_date": null,
+                    "update_date": "2017-11-01",
+                    "user": "rehmant",
+                  }
+            }
+            condensedView={true}
+            parentClassName="parent-container-bid-status-closed"
+            submitBid={[Function]}
+            toggleBidPosition={[Function]}
+        />,
+        ]
+      }
     />
+  </div>
+  <div
+    className="section-padded-inner-container small-link-container view-more-link-centered"
+  >
+    <Link
+      replace={false}
+      to="/profile/bidlist/"
+    >
+      See Bid List
+    </Link>
+  </div>
+</div>
+`;
+
+exports[`BidListComponent matches snapshot when there are no bids 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <BidListHeader />
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-whole"
+    >
+      <PositionInformation
+        className=""
+        icon="clipboard"
+        small={false}
+        title="Bid List (0/10)"
+      />
+    </div>
+  </div>
+  <div
+    className="bid-list-container"
+  >
+    <div
+      className="usa-grid-full section-padded-inner-container"
+    >
+      You have not added any bids to your bid list.
+    </div>
   </div>
   <div
     className="section-padded-inner-container small-link-container view-more-link-centered"
