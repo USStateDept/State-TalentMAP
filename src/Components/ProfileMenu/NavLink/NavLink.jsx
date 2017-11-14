@@ -87,7 +87,8 @@ class NavLink extends Component {
   }
 
   render() {
-    const { title, iconName, children, isHighlighted } = this.props;
+    const { title, iconName, children, link } = this.props;
+    const isHighlighted = isCurrentPath(this.props.location.pathname, link);
     const { showNestedLinks } = this.state;
     return (
       <li className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
@@ -131,17 +132,12 @@ NavLink.propTypes = {
   link: PropTypes.string, // ex: "/profile/", "/profile/favorites/", etc.
   children: PropTypes.node, // a group of child links. Should be rendered using this component
   location: ROUTER_LOCATION_OBJECT.isRequired,
-
-  // whether or not the item should be highlighted. Typically when pathname matches the link
-  isHighlighted: PropTypes.bool,
 };
 
 NavLink.defaultProps = {
   iconName: '',
   link: '',
   children: null,
-  currentPath: '',
-  isHighlighted: false,
 };
 
 export default withRouter(NavLink);
