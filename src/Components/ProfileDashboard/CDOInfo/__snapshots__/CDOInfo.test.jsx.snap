@@ -1,9 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CDOInfoComponent matches snapshot when editor is shown 1`] = `
+exports[`CDOInfoComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full cdo-container"
 >
-  CDO information
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-sixth"
+    >
+      <ProfilePicture
+        alt="avatar"
+        className=""
+        source="/assets/img/avatar.png"
+      />
+    </div>
+    <div
+      className="usa-width-five-sixths"
+    >
+      <div
+        className="cdo-header"
+      >
+        Career Development Officer
+      </div>
+      <div
+        className="cdo-name"
+      >
+        John Doe
+         
+        <StatusCircle />
+      </div>
+    </div>
+  </div>
 </div>
 `;

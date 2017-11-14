@@ -9,7 +9,7 @@ describe('StatusComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<Status />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

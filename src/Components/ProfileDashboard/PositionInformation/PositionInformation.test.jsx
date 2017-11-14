@@ -10,7 +10,7 @@ describe('PositionInformationComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<PositionInformation assignment={assignmentObject} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

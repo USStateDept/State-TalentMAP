@@ -1,12 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import Notification from './Notification';
+import NotificationItem from './NotificationItem';
 
-describe('NotificationComponent', () => {
+describe('NotificationItemComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <Notification
+      <NotificationItem
         content="content"
         notificationTime="10-10-2017"
       />,
@@ -14,9 +14,9 @@ describe('NotificationComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(
-      <Notification
+      <NotificationItem
         content="content"
         notificationTime="10-10-2017"
       />,

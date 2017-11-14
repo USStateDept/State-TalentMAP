@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InformationDataPoint from '../../InformationDataPoint';
 
-const Notification = ({ content, notificationTime }) => (
-  <div className="usa-grid-full">
+const NotificationItem = ({ content, notificationTime }) => (
+  <div className="usa-grid-full notification-card">
     <InformationDataPoint content={content} title={notificationTime} titleOnBottom />
   </div>
 );
 
-Notification.propTypes = {
+NotificationItem.propTypes = {
   content: PropTypes.node.isRequired,
   notificationTime: PropTypes.string.isRequired,
 };
 
-export default Notification;
+export default NotificationItem;

@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import { NOTIFICATION_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
-import Notification from './Notification';
+import NotificationItem from './NotificationItem';
 
 const Notifications = ({ notifications }) => {
   const notificationArray = [];
   notifications.slice().forEach(notification => (
     notificationArray.push(
-      <Notification
+      <NotificationItem
         content={notification.message}
         notificationTime={notification.date_updated}
       />,
@@ -25,8 +25,14 @@ const Notifications = ({ notifications }) => {
           <Link to="/profile/dashboard/">Settings</Link>
         </div>
       </div>
-      <BorderedList contentArray={notificationArray} />
-      <div className="section-padded-inner-container small-link-container" style={{ textAlign: 'center', borderTop: '1px solid gray' }}>
+      {
+        notificationArray.length === 0 ?
+          <div className="usa-grid-full section-padded-inner-container" >
+            You have no notifications at this time
+          </div> :
+          <BorderedList contentArray={notificationArray} />
+      }
+      <div className="section-padded-inner-container small-link-container view-more-link-centered">
         <Link to="/profile/dashboard/">See all</Link>
       </div>
     </div>

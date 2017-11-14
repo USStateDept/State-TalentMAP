@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT } from '../../Constants/PropTypes';
+import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS } from '../../Constants/PropTypes';
 import CurrentUser from './CurrentUser';
 import CDOInfo from './CDOInfo';
 import BidList from './BidList';
 import PositionInformation from './PositionInformation';
 import Notifications from './Notifications';
-import Inbox from './Inbox';
 import Spinner from '../Spinner';
 
 const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoading, notifications,
-  notificationsIsLoading }) => (
+  notificationsIsLoading, bidList, bidListIsLoading }) => (
     <div className="usa-grid-full user-dashboard">
       {
-        (isLoading || assignmentIsLoading || notificationsIsLoading) ?
+        (isLoading || assignmentIsLoading || notificationsIsLoading || bidListIsLoading) ?
           <Spinner type="homepage-position-results" size="big" />
           :
           <div>
@@ -25,7 +24,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
                 <CurrentUser userProfile={userProfile} />
               </div>
               <div className="usa-width-one-whole user-dashboard-section cdo-section">
-                <CDOInfo />
+                <CDOInfo name="Leah Shadtrach" />
               </div>
             </div>
             <div
@@ -44,10 +43,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
                 user-dashboard-column-3`}
             >
               <div className="usa-width-one-whole user-dashboard-section bidlist-section">
-                <BidList />
-              </div>
-              <div className="usa-width-one-whole user-dashboard-section inbox-section">
-                <Inbox />
+                <BidList bids={bidList} />
               </div>
             </div>
           </div>
@@ -62,6 +58,8 @@ ProfileDashboard.propTypes = {
   assignmentIsLoading: PropTypes.bool.isRequired,
   notifications: NOTIFICATION_RESULTS.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
+  bidList: BID_RESULTS.isRequired,
+  bidListIsLoading: PropTypes.bool.isRequired,
 };
 
 
