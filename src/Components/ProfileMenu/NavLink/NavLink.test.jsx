@@ -60,7 +60,6 @@ describe('NavLinkComponent', () => {
         title="test"
         location={locationMock}
         link="/profile/favorites/"
-        isHighlighted
       />,
     );
     // should exist
@@ -74,8 +73,7 @@ describe('NavLinkComponent', () => {
       <NavLinkUnwrapped
         title="test"
         location={locationMock}
-        link="/profile/favorites/"
-        isHighlighted={false}
+        link="/profile/bidlist/"
       />,
     );
     // should not exist
@@ -126,7 +124,6 @@ describe('NavLinkComponent', () => {
         title="test"
         location={locationMock}
         link="/profile/favorites/"
-        isHighlighted
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
