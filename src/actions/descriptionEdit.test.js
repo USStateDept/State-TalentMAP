@@ -1,17 +1,11 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import setupAsyncMocks from './setupAsyncMocks';
 import * as actions from './descriptionEdit';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   it('can call the editDescriptionContent function', (done) => {
     const store = mockStore({});
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
       'success',
@@ -29,8 +23,6 @@ describe('async actions', () => {
   it('can call the editPocContent function', (done) => {
     const store = mockStore({});
 
-    const mockAdapter = new MockAdapter(axios);
-
     mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
       'success',
     );
@@ -46,8 +38,6 @@ describe('async actions', () => {
 
   it('can call the editWebsiteContent function', (done) => {
     const store = mockStore({});
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
       'success',
@@ -76,8 +66,6 @@ describe('async actions', () => {
 
   it('can handle a failed edit', (done) => {
     const store = mockStore({});
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(404,
       { message: 'unauthorized' },
