@@ -10,6 +10,8 @@ services:
       - data
     depends_on:
       - app
+    links:
+      - app
   data:
     image: alpine:3.4
     volumes:
@@ -39,10 +41,3 @@ services:
     environment:
       - POSTGRES_DB=talentmap
       - POSTGRES_USER=talentmap-user
-  pa11y:
-    image: talentmap/pa11y
-    command: node ./scripts/pa11y.js --c ../config/pa11y/pa11y.json --host web:3000
-    links:
-      - web
-    depends_on:
-      - web
