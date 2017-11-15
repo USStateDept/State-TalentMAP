@@ -5,6 +5,9 @@ import { toggleStaticContent } from '../../actions/showStaticContent';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 export const StaticDevContent = ({ toggle, showStaticContent }) => (
+  // At the time of writing, CodeClimate's version of eslint-a11y-plugin
+  // did not take role="button" into account with the following error:
+  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
   <span style={{ position: 'absolute', right: '0px', cursor: 'pointer', fontSize: '10px' }} onClick={() => toggle(!showStaticContent)} role="button" tabIndex="0">
     Toggle static content
   </span>
