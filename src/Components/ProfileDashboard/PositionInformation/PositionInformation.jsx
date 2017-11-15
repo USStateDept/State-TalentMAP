@@ -4,6 +4,7 @@ import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE } from '../../../Constants/S
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import StartEnd from './StartEnd';
+import StaticDevContent from '../../StaticDevContent/StaticDevContent';
 
 const PositionInformation = ({ assignment }) => (
   <div className="usa-grid-full">
@@ -24,7 +25,9 @@ const PositionInformation = ({ assignment }) => (
         title="Position Title"
         content={assignment.position || NO_ASSIGNMENT_POSITION}
       />
-      <InformationDataPoint title="Skill Code" content="Medical Technology (6145)" />
+      <StaticDevContent>
+        <InformationDataPoint title="Skill Code" content="Medical Technology (6145)" />
+      </StaticDevContent>
     </div>
   </div>
 );

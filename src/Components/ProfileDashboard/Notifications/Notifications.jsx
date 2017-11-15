@@ -4,6 +4,7 @@ import { NOTIFICATION_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import NotificationItem from './NotificationItem';
+import StaticDevContent from '../../StaticDevContent/StaticDevContent';
 
 const Notifications = ({ notifications }) => {
   const notificationArray = [];
@@ -22,7 +23,9 @@ const Notifications = ({ notifications }) => {
           <SectionTitle title="Notifications" icon="globe" />
         </div>
         <div className="usa-width-one-fourth small-link-container small-link-container-settings">
-          <Link to="/profile/dashboard/">Settings</Link>
+          <StaticDevContent>
+            <Link to="/profile/dashboard/">Settings</Link>
+          </StaticDevContent>
         </div>
       </div>
       {

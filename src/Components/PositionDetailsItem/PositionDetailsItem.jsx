@@ -4,6 +4,7 @@ import { NO_ORG, NO_POST, NO_BUREAU, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from 
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import PositionDetailsDataPoint from '../../Components/PositionDetailsDataPoint/PositionDetailsDataPoint';
+import StaticDevContent from '../StaticDevContent/StaticDevContent';
 
 const PositionDetailsItem = ({ details }) => (
   <div className="usa-grid-full">
@@ -43,7 +44,7 @@ const PositionDetailsItem = ({ details }) => (
             />
             <PositionDetailsDataPoint
               title="Region"
-              description="Region"
+              description={<StaticDevContent><span>Region</span></StaticDevContent>}
             />
           </div>
         </div>
@@ -70,11 +71,11 @@ const PositionDetailsItem = ({ details }) => (
             />
             <PositionDetailsDataPoint
               title="Tour End Date"
-              description="09-01-2019"
+              description={<StaticDevContent><span>09-19-2019</span></StaticDevContent>}
             />
             <PositionDetailsDataPoint
               title="Incumbent"
-              description="Incumbent"
+              description={<StaticDevContent><span>Incumbent</span></StaticDevContent>}
             />
           </div>
         </div>
