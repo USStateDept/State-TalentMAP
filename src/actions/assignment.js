@@ -21,9 +21,9 @@ export function assignmentFetchDataSuccess(assignment) {
   };
 }
 
-export function assignmentFetchData() {
+export function assignmentFetchData(status = 'active') {
   return (dispatch) => {
-    axios.get(`${api}/profile/assignments/`, { headers: { Authorization: fetchUserToken() } })
+    axios.get(`${api}/profile/assignments/?status=${status}`, { headers: { Authorization: fetchUserToken() } })
             .then(({ data }) => data.results[0] || {})
             .then((assignment) => {
               dispatch(assignmentFetchDataSuccess(assignment));
