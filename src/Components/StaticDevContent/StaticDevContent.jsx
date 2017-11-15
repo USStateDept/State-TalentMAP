@@ -17,7 +17,7 @@ StaticDevContent.propTypes = {
 };
 
 StaticDevContent.defaultProps = {
-  showStaticContent: PropTypes.bool,
+  showStaticContent: false,
 };
 
 const mapStateToProps = state => ({

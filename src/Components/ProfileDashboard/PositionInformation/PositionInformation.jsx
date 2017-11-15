@@ -4,7 +4,7 @@ import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE } from '../../../Constants/S
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import StartEnd from './StartEnd';
-import StaticDevContent from '../../StaticDevContent/StaticDevContent';
+import StaticDevContent from '../../StaticDevContent';
 
 const PositionInformation = ({ assignment }) => (
   <div className="usa-grid-full">

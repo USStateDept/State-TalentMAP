@@ -4,7 +4,7 @@ import { NO_ORG, NO_POST, NO_BUREAU, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from 
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import PositionDetailsDataPoint from '../../Components/PositionDetailsDataPoint/PositionDetailsDataPoint';
-import StaticDevContent from '../StaticDevContent/StaticDevContent';
+import StaticDevContent from '../StaticDevContent';
 
 const PositionDetailsItem = ({ details }) => (
   <div className="usa-grid-full">

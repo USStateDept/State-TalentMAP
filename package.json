@@ -98,7 +98,8 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/registerServiceWorker.js",
-      "!src/Components/**/index.js"
+      "!src/Components/**/index.js",
+      "!src/Components/StaticDevContent/*"
     ],
     "coverageReporters": [
       "lcov"

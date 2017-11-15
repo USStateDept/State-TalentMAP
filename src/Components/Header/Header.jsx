@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import close from 'uswds/dist/img/close.svg'; // close X icon
-import { toggleStaticContent } from '../../actions/showStaticContent';
+import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { logoutRequest } from '../../login/actions';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
@@ -52,9 +52,7 @@ export class Header extends Component {
 
     return (
       <header className="usa-header usa-header-extended tm-header" role="banner">
-        <span style={{ position: 'absolute', right: '0px', cursor: 'pointer', fontSize: '10px', color: 'gray' }} onClick={() => this.props.toggleStaticContent(!this.props.shouldShowStaticContent)} role="button" tabIndex="0">
-          Toggle static content
-        </span>
+        <ToggleContent />
         <GovBanner />
         <div className="usa-navbar">
           <button className="usa-menu-btn">Menu</button>
@@ -125,8 +123,6 @@ Header.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
   logout: PropTypes.func,
-  toggleStaticContent: PropTypes.func.isRequired,
-  shouldShowStaticContent: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {
@@ -139,13 +135,11 @@ const mapStateToProps = state => ({
   login: state.login,
   client: state.client,
   userProfile: state.userProfile,
-  shouldShowStaticContent: state.shouldShowStaticContent,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
   logout: () => dispatch(logoutRequest()),
-  toggleStaticContent: value => dispatch(toggleStaticContent(value)),
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Header);

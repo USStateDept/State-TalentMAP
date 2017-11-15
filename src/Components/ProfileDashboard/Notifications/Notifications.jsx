@@ -4,7 +4,7 @@ import { NOTIFICATION_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import NotificationItem from './NotificationItem';
-import StaticDevContent from '../../StaticDevContent/StaticDevContent';
+import StaticDevContent from '../../StaticDevContent';
 
 const Notifications = ({ notifications }) => {
   const notificationArray = [];

@@ -6,7 +6,7 @@ import InformationDataPoint from '../InformationDataPoint';
 import Status from './Status';
 import EditProfile from './EditProfile';
 import ProfilePicture from '../../ProfilePicture';
-import StaticDevContent from '../../StaticDevContent/StaticDevContent';
+import StaticDevContent from '../../StaticDevContent';
 
 const CurrentUser = ({ userProfile }) => (
   <div className="usa-grid-full current-user">

@@ -6,7 +6,7 @@ import BorderedList from '../../BorderedList';
 import BidListResultsCard from '../../BidListResultsCard/';
 import BidListHeader from './BidListHeader';
 import { getStatusClass } from '../../../Constants/BidStatuses';
-import StaticDevContent from '../../StaticDevContent/StaticDevContent';
+import StaticDevContent from '../../StaticDevContent';
 
 const BidList = ({ bids }) => {
   const bidArray = [];
