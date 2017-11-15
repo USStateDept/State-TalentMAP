@@ -1,12 +1,8 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import setupAsyncMocks from '../setupAsyncMocks';
 import * as actions from './filters';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const { mockStore, mockAdapter } = setupAsyncMocks();
 
 const items = {
   filters: [
@@ -104,8 +100,6 @@ describe('async actions', () => {
   };
 
   beforeEach(() => {
-    const mockAdapter = new MockAdapter(axios);
-
     const skills = { count: 2,
       results: [{ id: 2, code: '0010', description: 'EXECUTIVE (PAS)' },
     { id: 3, code: '0020', description: 'EXECUTIVE (CAREER)' }] };

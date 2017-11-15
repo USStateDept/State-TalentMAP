@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StartEndComponent matches snapshot when editor is shown 1`] = `
+exports[`StartEndComponent matches snapshot 1`] = `
 <div
   className="start-end"
 >

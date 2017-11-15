@@ -9,7 +9,7 @@ describe('StartEndComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<StartEnd start="10-10-2017" end="10-10-2019" />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

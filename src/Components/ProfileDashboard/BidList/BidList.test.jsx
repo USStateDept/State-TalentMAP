@@ -14,4 +14,9 @@ describe('BidListComponent', () => {
     const wrapper = shallow(<BidList bids={bidListObject.results} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when there are no bids', () => {
+    const wrapper = shallow(<BidList bids={[]} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

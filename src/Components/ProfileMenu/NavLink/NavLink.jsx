@@ -48,7 +48,10 @@ class NavLink extends Component {
     }
   }
 
-  // This function
+  // This function wraps an element based on whether it contains a link or has children.
+  // This allows us to wrap elements with a link prop within a navigation <Link>, while
+  // elements with children and no link become a clickable, epxandable list with its children.
+  // If neither criteria is met, we simply return the unwrapped element.
   wrapInLink(element) {
     const { link, children, iconName } = this.props;
     // If there's no link prop, then we don't want to wrap the element in a <Link>
@@ -84,7 +87,8 @@ class NavLink extends Component {
   }
 
   render() {
-    const { title, iconName, children, isHighlighted } = this.props;
+    const { title, iconName, children, link } = this.props;
+    const isHighlighted = isCurrentPath(this.props.location.pathname, link);
     const { showNestedLinks } = this.state;
     return (
       <li className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
@@ -128,17 +132,12 @@ NavLink.propTypes = {
   link: PropTypes.string, // ex: "/profile/", "/profile/favorites/", etc.
   children: PropTypes.node, // a group of child links. Should be rendered using this component
   location: ROUTER_LOCATION_OBJECT.isRequired,
-
-  // whether or not the item should be highlighted. Typically when pathname matches the link
-  isHighlighted: PropTypes.bool,
 };
 
 NavLink.defaultProps = {
   iconName: '',
   link: '',
   children: null,
-  currentPath: '',
-  isHighlighted: false,
 };
 
 export default withRouter(NavLink);

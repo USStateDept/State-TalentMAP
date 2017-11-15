@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NotificationsComponent matches snapshot when editor is shown 1`] = `
+exports[`NotificationsComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
@@ -50,6 +50,52 @@ exports[`NotificationsComponent matches snapshot when editor is shown 1`] = `
       ]
     }
   />
+  <div
+    className="section-padded-inner-container small-link-container view-more-link-centered"
+  >
+    <Link
+      replace={false}
+      to="/profile/dashboard/"
+    >
+      See all
+    </Link>
+  </div>
+</div>
+`;
+
+exports[`NotificationsComponent matches snapshot when there are zero notifications 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full section-padded-inner-container padded-container-no-bottom"
+  >
+    <div
+      className="usa-width-three-fourths"
+    >
+      <PositionInformation
+        className=""
+        icon="globe"
+        small={false}
+        title="Notifications"
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth small-link-container small-link-container-settings"
+    >
+      <Link
+        replace={false}
+        to="/profile/dashboard/"
+      >
+        Settings
+      </Link>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    You have no notifications at this time
+  </div>
   <div
     className="section-padded-inner-container small-link-container view-more-link-centered"
   >

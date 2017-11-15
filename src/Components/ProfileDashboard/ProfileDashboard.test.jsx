@@ -38,7 +38,7 @@ describe('ProfileDashboardComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('matches snapshot when editor is shown', () => {
+  it('matches snapshot when loaded', () => {
     const wrapper = shallow(
       <ProfileDashboard
         userProfile={userObject}

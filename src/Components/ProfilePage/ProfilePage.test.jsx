@@ -5,13 +5,10 @@ import ProfilePage from './ProfilePage';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import resultsObject from '../../__mocks__/resultsObject';
 import searchObjectParent from '../../__mocks__/searchObject';
+import userObject from '../../__mocks__/userObject';
 
 describe('ProfilePageComponent', () => {
-  const user = {
-    user: {
-      username: 'john',
-    },
-  };
+  const user = userObject;
   const props = {
     user: DEFAULT_USER_PROFILE,
     favoritePositions: resultsObject,
@@ -54,13 +51,13 @@ describe('ProfilePageComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('it can handle a username', () => {
+  it('it can handle showing the full name of the user', () => {
     const wrapper = shallow(
       <ProfilePage
         {...Object.assign({}, props, { user })}
       />,
     );
-    expect(wrapper.find(user.user.username)).toBeDefined();
+    expect(wrapper.find(`${user.user.first_name} ${user.user_last_name}`)).toBeDefined();
   });
 
   it('matches snapshot', () => {
