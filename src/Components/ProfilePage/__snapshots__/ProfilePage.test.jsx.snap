@@ -4,7 +4,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
 <div
   className="profile-page"
 >
-  <withRouter(ProfileMenu) />
+  <ProfileMenu />
   <div
     className="usa-grid-full profile-content-container"
   >
