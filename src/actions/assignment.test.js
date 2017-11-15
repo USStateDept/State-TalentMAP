@@ -6,7 +6,7 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile/assignments/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/profile/assignments/?status=active').reply(200,
       { results: [assignmentObject] },
     );
   });
