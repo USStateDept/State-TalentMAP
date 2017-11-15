@@ -4,6 +4,11 @@ import * as actions from './descriptionEdit';
 const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
+  // reset the mockAdapter since we repeat specific requests
+  beforeEach(() => {
+    mockAdapter.reset();
+  });
+
   it('can call the editDescriptionContent function', (done) => {
     const store = mockStore({});
 

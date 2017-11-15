@@ -2,10 +2,13 @@ import setupAsyncMocks from './setupAsyncMocks';
 import * as actions from './share';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
-
 const testEmail = 'test@email.com';
 
 describe('async actions', () => {
+  // reset the mockAdapter since we repeat specific requests
+  beforeEach(() => {
+    mockAdapter.reset();
+  });
   it('can submit request to send email', (done) => {
     const store = mockStore({ share: false });
 
