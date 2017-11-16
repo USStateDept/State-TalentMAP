@@ -1,5 +1,5 @@
 /*
-This component provided clickable text that toggles
+This component provides clickable text that toggles
 the "shouldShowStaticContent" state between true and false,
 so that the StaticDevContent component can conditionally wrap
 its child component in a border when true, or simply return the unmodified
