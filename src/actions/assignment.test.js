@@ -9,6 +9,10 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/profile/assignments/?status=active').reply(200,
       { results: [assignmentObject] },
     );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/profile/assignments/?status=closed').reply(200,
+      { results: [assignmentObject] },
+    );
   });
 
   it('can fetch assignments', (done) => {
@@ -17,6 +21,19 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.assignmentFetchData());
+        store.dispatch(actions.assignmentIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can fetch assignments where status = closed', (done) => {
+    const store = mockStore({ assignment: {} });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.assignmentFetchData('closed'));
         store.dispatch(actions.assignmentIsLoading());
         done();
       }, 0);
