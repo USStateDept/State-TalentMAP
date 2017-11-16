@@ -1,3 +1,11 @@
+/*
+This component provided clickable text that toggles
+the "shouldShowStaticContent" state between true and false,
+so that the StaticDevContent component can conditionally wrap
+its child component in a border when true, or simply return the unmodified
+child component when false.
+*/
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

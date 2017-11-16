@@ -1,3 +1,9 @@
+/*
+Use this component to wrap bits of static development
+content (like a hardcoded phone number) so that they
+can be easily detected during demos or user testing.
+*/
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
