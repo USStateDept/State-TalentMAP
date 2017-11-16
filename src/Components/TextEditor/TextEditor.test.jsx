@@ -83,7 +83,7 @@ describe('TextEditorComponent', () => {
     expect(originalEditorState).toBe(instanceEditorStateCopy);
   });
 
-  it('can properly maintain the value of the editorState and editorStateCopy after canceling', () => {
+  it('properly maintains the value of the editorState and editorStateCopy after canceling', () => {
     const wrapper = shallow(
       <TextEditor
         id={id}
@@ -107,7 +107,7 @@ describe('TextEditorComponent', () => {
     expect(wrapper.find('PluginEditor').prop('editorState')).toBe(originalEditorState);
   });
 
-  it('can properly maintain the value of the editorState and editorStateCopy after submitting', () => {
+  it('properly maintains the value of the editorState and editorStateCopy after submitting', () => {
     const wrapper = shallow(
       <TextEditor
         id={id}

@@ -20,7 +20,7 @@ describe('BidListButtonComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can handle text change when savedState is true', () => {
+  it('handles text change when savedState is true', () => {
     const wrapper = shallow(
       <BidListButton
         id={1}
@@ -32,7 +32,7 @@ describe('BidListButtonComponent', () => {
     expect(wrapper.find('Add')).toBeDefined();
   });
 
-  it('can handle text change when savedState is false', () => {
+  it('handles text change when savedState is false', () => {
     const wrapper = shallow(
       <BidListButton
         id={1}

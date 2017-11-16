@@ -9,17 +9,17 @@ describe('InformationDataPointComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('it is defined when titleOnBottom is true', () => {
+  it('is defined when titleOnBottom is true', () => {
     const wrapper = shallow(<InformationDataPoint content="content" titleOnBottom />);
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive the className prop', () => {
+  it('receives the className prop', () => {
     const wrapper = shallow(<InformationDataPoint content="content" className="test-class" />);
     expect(wrapper.find('.test-class').exists()).toBe(true);
   });
 
-  it('can render the data-point-title div when title is present', () => {
+  it('renders the data-point-title div when title is present', () => {
     const wrapper = shallow(<InformationDataPoint content="c" title="t" className="test-class" />);
     expect(wrapper.find('.data-point-title').exists()).toBe(true);
   });
