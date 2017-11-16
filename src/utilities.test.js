@@ -13,6 +13,7 @@ import { validStateEmail,
          propSort,
          existsInNestedObject,
          removeDuplicates,
+         getTimeDistanceInWords,
        } from './utilities';
 
 describe('local storage', () => {
@@ -211,5 +212,15 @@ describe('removeDuplicates', () => {
     expect(newArr[1].id).toBe(2);
     expect(newArr[2].id).toBe(1);
     expect(newArr[2].prop).toBe('c');
+  });
+});
+
+describe('distanceInWords', () => {
+  it('returns a defined value containg "ago" in the string', () => {
+    const timeDistanceInWords = getTimeDistanceInWords(new Date());
+    // we won't explicitly test for values since we can expect date-fns to work
+    expect(timeDistanceInWords).toBeDefined();
+    // but we will test that it contains ' ago' since that is custom text we added in
+    expect(timeDistanceInWords).toContain(' ago');
   });
 });
