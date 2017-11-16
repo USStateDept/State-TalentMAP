@@ -13,20 +13,18 @@ const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
   // Form positions into component and add them to array.
   // We want to explicitly call each index of our array
   // since we only want to show 5 results
-  positions.forEach((p, i) => {
-    if (i < arrayMaxLength) {
-      positionList[i] = (
-        <div className="usa-width-one-whole condensed-card">
-          <ResultsCondensedCard
-            favorites={favorites}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-            position={p}
-          />
-        </div>
+  positions.slice(0, 4).forEach((p, i) => {
+    positionList[i] = (
+      <div className="usa-width-one-whole condensed-card">
+        <ResultsCondensedCard
+          favorites={favorites}
+          toggleFavorite={toggleFavorite}
+          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+          position={p}
+        />
+      </div>
     );
-    }
   });
 
   return (
