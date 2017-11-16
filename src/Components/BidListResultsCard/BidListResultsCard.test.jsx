@@ -1,8 +1,10 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
+import { MemoryRouter } from 'react-router-dom';
 import { SUBMITTED, DRAFT } from '../../Constants/BidStatuses';
+import { NO_POST } from '../../Constants/SystemMessages';
 import BidListResultsCard from './BidListResultsCard';
 
 describe('BidListResultsCardComponent', () => {
@@ -27,6 +29,23 @@ describe('BidListResultsCardComponent', () => {
       />,
     );
     expect(wrapper.instance().props.bid.id).toBe(bid.id);
+  });
+
+  it('displays "NO_POST" text', () => {
+    // copy bid object and null the post value
+    const bidNoPost = Object.assign({}, bid);
+    bidNoPost.post = null;
+
+    const wrapper = mount(
+      <MemoryRouter>
+        <BidListResultsCard
+          bid={bidNoPost}
+          toggleBidPosition={() => {}}
+          submitBid={() => {}}
+        />
+      </MemoryRouter>,
+    );
+    expect(wrapper.find('.bid-list-card-title-post').parent().text()).toBe(`Post ${NO_POST}`);
   });
 
   it('can call functions', () => {
