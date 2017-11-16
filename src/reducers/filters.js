@@ -129,6 +129,21 @@ const items =
       },
       {
         item: {
+          title: 'Available',
+          sort: 950,
+          bool: true,
+          description: 'available',
+          selectionRef: ENDPOINT_PARAMS.available,
+          text: 'Include only available positions',
+          choices: [
+          ],
+        },
+        data: [
+          { code: 'true', short_description: 'Yes' },
+        ],
+      },
+      {
+        item: {
           title: 'Mission',
           sort: 1000,
           bool: false,

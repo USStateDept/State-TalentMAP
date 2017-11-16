@@ -12,6 +12,7 @@ export const ENDPOINT_PARAMS = {
   domestic: 'is_domestic',
   mission: 'post__location__country__in',
   post: 'post__in',
+  available: 'is_available',
 };
 
 export const VALID_PARAMS = [
@@ -26,6 +27,7 @@ export const VALID_PARAMS = [
   ENDPOINT_PARAMS.domestic,
   ENDPOINT_PARAMS.mission,
   ENDPOINT_PARAMS.post,
+  ENDPOINT_PARAMS.available,
   'q',
 ];
 

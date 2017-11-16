@@ -5,6 +5,7 @@ const userObject = {
     last_name: 'Doe',
     email: 'doej@state.gov',
   },
+  is_cdo: false,
 };
 
 export default userObject;
