@@ -17,6 +17,16 @@ describe('TextEditorComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when the readOnly prop is true', () => {
+    const wrapper = shallow(
+      <TextEditor
+        onSubmitText={() => {}}
+        readOnly
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('can submit text', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
@@ -73,7 +83,7 @@ describe('TextEditorComponent', () => {
     expect(originalEditorState).toBe(instanceEditorStateCopy);
   });
 
-  it('can properly maintain the value of the editorState and editorStateCopy after canceling', () => {
+  it('properly maintains the value of the editorState and editorStateCopy after canceling', () => {
     const wrapper = shallow(
       <TextEditor
         id={id}
@@ -97,7 +107,7 @@ describe('TextEditorComponent', () => {
     expect(wrapper.find('PluginEditor').prop('editorState')).toBe(originalEditorState);
   });
 
-  it('can properly maintain the value of the editorState and editorStateCopy after submitting', () => {
+  it('properly maintains the value of the editorState and editorStateCopy after submitting', () => {
     const wrapper = shallow(
       <TextEditor
         id={id}

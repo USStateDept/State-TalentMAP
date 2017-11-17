@@ -26,21 +26,19 @@ class BidListContainer extends Component {
       bidListToggleIsLoading, bidListToggleSuccess, submitBidPosition,
       submitBidHasErrored, submitBidIsLoading, submitBidSuccess } = this.props;
     return (
-      <div>
-        <BidList
-          toggleBidPosition={toggleBid}
-          bidList={bidList}
-          bidListHasErrored={bidListHasErrored}
-          bidListIsLoading={bidListIsLoading}
-          bidListToggleHasErrored={bidListToggleHasErrored}
-          bidListToggleIsLoading={bidListToggleIsLoading}
-          bidListToggleSuccess={bidListToggleSuccess}
-          submitBid={submitBidPosition}
-          submitBidHasErrored={submitBidHasErrored}
-          submitBidIsLoading={submitBidIsLoading}
-          submitBidSuccess={submitBidSuccess}
-        />
-      </div>
+      <BidList
+        toggleBidPosition={toggleBid}
+        bidList={bidList}
+        bidListHasErrored={bidListHasErrored}
+        bidListIsLoading={bidListIsLoading}
+        bidListToggleHasErrored={bidListToggleHasErrored}
+        bidListToggleIsLoading={bidListToggleIsLoading}
+        bidListToggleSuccess={bidListToggleSuccess}
+        submitBid={submitBidPosition}
+        submitBidHasErrored={submitBidHasErrored}
+        submitBidIsLoading={submitBidIsLoading}
+        submitBidSuccess={submitBidSuccess}
+      />
     );
   }
 }

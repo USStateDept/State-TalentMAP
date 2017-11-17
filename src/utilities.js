@@ -1,5 +1,6 @@
 import Scroll from 'react-scroll';
 import queryString from 'query-string';
+import distanceInWords from 'date-fns/distance_in_words';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -187,3 +188,8 @@ export const formQueryString = queryObject => queryString.stringify(queryObject)
 export const removeDuplicates = (myArr, prop) => (
     myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
 );
+
+// Format date for notifications.
+// We want to use minutes for recent notifications, but days for older ones.
+export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options = {}) =>
+  `${distanceInWords(dateToCompare, date, options)} ago`;

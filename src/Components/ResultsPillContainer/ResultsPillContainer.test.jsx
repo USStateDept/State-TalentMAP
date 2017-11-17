@@ -30,7 +30,7 @@ describe('ResultsPillContainerComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('can handle click events', () => {
+  it('handles click events', () => {
     const onPillClick = sinon.spy();
     const wrapper = mount(<ResultsPillContainer
       items={items}

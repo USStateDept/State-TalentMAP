@@ -9,7 +9,7 @@ describe('ProfilePicture', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can accept an alt tag', () => {
+  it('accepts an alt tag', () => {
     const alt = 'alt text';
     const wrapper = shallow(<ProfilePicture alt={alt} />);
     expect(wrapper.find('img').prop('alt')).toBe(alt);

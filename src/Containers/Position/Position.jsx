@@ -57,32 +57,30 @@ class Position extends Component {
         descriptionEditIsLoading, descriptionEditSuccess,
         resetDescriptionEditMessages } = this.props;
     return (
-      <div>
-        <PositionDetails
-          details={positionDetails[0]}
-          isLoading={isLoading}
-          hasErrored={hasErrored}
-          goBackLink={getLastRouteLink(routerLocations)}
-          userProfile={userProfile}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          toggleBidPosition={toggleBid}
-          bidList={bidList}
-          bidListHasErrored={bidListHasErrored}
-          bidListIsLoading={bidListIsLoading}
-          bidListToggleHasErrored={bidListToggleHasErrored}
-          bidListToggleIsLoading={bidListToggleIsLoading}
-          bidListToggleSuccess={bidListToggleSuccess}
-          editDescriptionContent={this.editDescriptionContent}
-          editPocContent={this.editPocContent}
-          editWebsiteContent={this.editWebsiteContent}
-          descriptionEditHasErrored={descriptionEditHasErrored}
-          descriptionEditIsLoading={descriptionEditIsLoading}
-          descriptionEditSuccess={descriptionEditSuccess}
-          resetDescriptionEditMessages={resetDescriptionEditMessages}
-        />
-      </div>
+      <PositionDetails
+        details={positionDetails[0]}
+        isLoading={isLoading}
+        hasErrored={hasErrored}
+        goBackLink={getLastRouteLink(routerLocations)}
+        userProfile={userProfile}
+        toggleFavorite={toggleFavorite}
+        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+        toggleBidPosition={toggleBid}
+        bidList={bidList}
+        bidListHasErrored={bidListHasErrored}
+        bidListIsLoading={bidListIsLoading}
+        bidListToggleHasErrored={bidListToggleHasErrored}
+        bidListToggleIsLoading={bidListToggleIsLoading}
+        bidListToggleSuccess={bidListToggleSuccess}
+        editDescriptionContent={this.editDescriptionContent}
+        editPocContent={this.editPocContent}
+        editWebsiteContent={this.editWebsiteContent}
+        descriptionEditHasErrored={descriptionEditHasErrored}
+        descriptionEditIsLoading={descriptionEditIsLoading}
+        descriptionEditSuccess={descriptionEditSuccess}
+        resetDescriptionEditMessages={resetDescriptionEditMessages}
+      />
     );
   }
 }
