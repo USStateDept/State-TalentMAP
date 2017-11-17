@@ -31,16 +31,14 @@ class FavoritePositionsContainer extends Component {
       userProfileFavoritePositionHasErrored, favoritePositionsIsLoading,
       favoritePositionsHasErrored } = this.props;
     return (
-      <div>
-        <FavoritePositions
-          favorites={favoritePositions}
-          favoritePositionsIsLoading={favoritePositionsIsLoading}
-          favoritePositionsHasErrored={favoritePositionsHasErrored}
-          toggleFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          toggleFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          toggleFavorite={this.onToggleFavorite}
-        />
-      </div>
+      <FavoritePositions
+        favorites={favoritePositions}
+        favoritePositionsIsLoading={favoritePositionsIsLoading}
+        favoritePositionsHasErrored={favoritePositionsHasErrored}
+        toggleFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+        toggleFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+        toggleFavorite={this.onToggleFavorite}
+      />
     );
   }
 }

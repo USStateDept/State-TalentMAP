@@ -14,7 +14,7 @@ describe('FormComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can accept a className', () => {
+  it('accepts a className', () => {
     const className = 'test-class';
     const wrapper = shallow(
       <Form onFormSubmit={() => {}} className={className}>

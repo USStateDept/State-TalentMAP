@@ -82,4 +82,10 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
+  it('handles a profile/dashboard route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/dashboard']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
 });
