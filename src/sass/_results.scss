@@ -78,6 +78,14 @@
   margin-bottom: 1em;
   padding: 1em 1.2em;
 
+  .bid-count-container {
+    float: right;
+  }
+
+  .tippy-tooltip {
+    font-size: 2rem;
+  }
+
   .results-card-title {
     float: left;
     text-transform: uppercase;
