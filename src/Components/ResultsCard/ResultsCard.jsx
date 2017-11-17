@@ -5,6 +5,7 @@ import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/Prop
 import Favorite from '../Favorite/Favorite';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import ResultsCardDataSection from '../ResultsCardDataSection/ResultsCardDataSection';
+import BidCount from '../BidCount';
 
 const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
     userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => (
@@ -29,7 +30,7 @@ const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
         <div className="usa-grid-full">
           <ResultsCardDataSection result={result} />
         </div>
-        <div className="usa-grid-full bottom-section" >
+        <div className="usa-width-one-whole bottom-section" >
           <div className="button-link details-button-container">
             <Link
               className="usa-button usa-button-primary details-button"
@@ -37,11 +38,22 @@ const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
               role="button"
               to={`/details/${result.position_number}`}
             >
-        View details
-        </Link>
+              View details
+            </Link>
           </div>
           <div className="compare-check">
             <CompareCheck refKey={result.position_number} onToggle={onToggle} />
+          </div>
+          <div className="bid-count-container">
+            {
+              !!result.bid_statistics && !!result.bid_statistics[0] &&
+              <BidCount
+                totalBids={result.bid_statistics[0].total_bids}
+                inGradeBids={result.bid_statistics[0].in_grade}
+                atSkillBids={result.bid_statistics[0].at_skill}
+                inGradeAtSkillBids={result.bid_statistics[0].in_grade_at_skill}
+              />
+            }
           </div>
         </div>
       </div>
