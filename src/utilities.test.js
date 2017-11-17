@@ -13,6 +13,7 @@ import { validStateEmail,
          propSort,
          existsInNestedObject,
          removeDuplicates,
+         getTimeDistanceInWords,
        } from './utilities';
 
 describe('local storage', () => {
@@ -194,7 +195,7 @@ describe('removeDuplicates', () => {
     { id: 2, prop: 'b' },
     { id: 1, prop: 'c' },
   ];
-  it('can remove duplicate objects from an array by property', () => {
+  it('removes duplicate objects from an array by property', () => {
     // it should remove the last object since id is a duplicate
     const newArr = removeDuplicates(arr, 'id');
     expect(newArr.length).toBe(2);
@@ -202,7 +203,7 @@ describe('removeDuplicates', () => {
     expect(newArr[0].prop).toBe('a');
     expect(newArr[1].id).toBe(2);
   });
-  it('can retains duplicates by properties other than the one specified', () => {
+  it('retains duplicates by properties other than the one specified', () => {
     // no objects should be removed since all prop properties are unique
     const newArr = removeDuplicates(arr, 'prop');
     expect(newArr.length).toBe(3);
@@ -211,5 +212,15 @@ describe('removeDuplicates', () => {
     expect(newArr[1].id).toBe(2);
     expect(newArr[2].id).toBe(1);
     expect(newArr[2].prop).toBe('c');
+  });
+});
+
+describe('distanceInWords', () => {
+  it('returns a defined value containg "ago" in the string', () => {
+    const timeDistanceInWords = getTimeDistanceInWords(new Date());
+    // we won't explicitly test for values since we can expect date-fns to work
+    expect(timeDistanceInWords).toBeDefined();
+    // but we will test that it contains ' ago' since that is custom text we added in
+    expect(timeDistanceInWords).toContain(' ago');
   });
 });

@@ -78,4 +78,11 @@ describe('Routes', () => {
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
+  it('handles a profile/dashboard route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/profile/dashboard']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
 });

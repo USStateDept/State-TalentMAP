@@ -44,7 +44,7 @@ describe('BidListComponent', () => {
       .toBe(bidList);
   });
 
-  it('can show error message deleting a bid', () => {
+  it('shows error message deleting a bid', () => {
     const wrapper = shallow(
       <BidList
         bidList={bidList}
@@ -63,7 +63,7 @@ describe('BidListComponent', () => {
     expect(wrapper.find('Removed')).toBeDefined();
   });
 
-  it('can show success message deleting a bid', () => {
+  it('shows success message deleting a bid', () => {
     const wrapper = shallow(
       <BidList
         bidList={bidList}
@@ -82,7 +82,7 @@ describe('BidListComponent', () => {
     expect(wrapper.find('Added')).toBeDefined();
   });
 
-  it('can show error message submitting a bid', () => {
+  it('shows error message submitting a bid', () => {
     const wrapper = shallow(
       <BidList
         bidList={bidList}
@@ -101,7 +101,7 @@ describe('BidListComponent', () => {
     expect(wrapper.find('Error')).toBeDefined();
   });
 
-  it('can show success message submitting a bid', () => {
+  it('shows success message submitting a bid', () => {
     const wrapper = shallow(
       <BidList
         bidList={bidList}
@@ -120,7 +120,7 @@ describe('BidListComponent', () => {
     expect(wrapper.find('Submitted')).toBeDefined();
   });
 
-  it('can render elements when bid list is loading', () => {
+  it('renders elements when bid list is loading', () => {
     const wrapper = shallow(
       <BidList
         bidList={bidList}

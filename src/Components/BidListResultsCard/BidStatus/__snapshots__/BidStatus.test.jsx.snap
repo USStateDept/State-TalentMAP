@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidStatusComponent matches snapshot for APPROVED 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="check"
+  />
+   
+  Approved
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for CLOSED 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="times-circle-o"
+  />
+   
+  Closed
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for DECLINED 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="times"
+  />
+   
+  Bid Unapproved
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for DRAFT 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="bookmark"
+  />
+   
+  Draft Bid
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for HAND_SHAKE_ACCEPTED 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="handshake-o"
+  />
+   
+  Handshake Accepted
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for HAND_SHAKE_OFFERED 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="star"
+  />
+   
+  Handshake Offered
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for IN_PANEL 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="clock-o"
+  />
+   
+  In Panel
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for SUBMITTED 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="thumbs-o-up"
+  />
+   
+  Bid Submitted
+</div>
+`;
+
+exports[`BidStatusComponent matches snapshot for other statuses 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="question"
+  />
+   
+  Status unknown
+</div>
+`;

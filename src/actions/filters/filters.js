@@ -1,7 +1,9 @@
 import axios from 'axios';
-import api from '../api';
-import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../Constants/EndpointParams';
-import { removeDuplicates } from '../utilities';
+import api from '../../api';
+import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
+import { removeDuplicates } from '../../utilities';
+import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
+  doesCodeOrIdMatch, isBooleanFilter } from './helpers';
 
 export function filtersHasErrored(bool) {
   return {
@@ -66,13 +68,14 @@ export function filtersFetchData(items, queryParams, savedResponses) {
           return cacheFound;
         // Else, we'll want to retrieve it.
         // We'll do this for posts and missions.
-        } else if (item.selectionRef === ENDPOINT_PARAMS.post) {
+        }
+        if (item.selectionRef === ENDPOINT_PARAMS.post) {
           return axios.get(`${api}/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
-            // finally return the object
+            // and return the object
             return obj;
           })
           .catch((error) => {
@@ -85,7 +88,7 @@ export function filtersFetchData(items, queryParams, savedResponses) {
             const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
-            // finally return the object
+            // and return the object
             return obj;
           })
           .catch((error) => {
@@ -111,19 +114,18 @@ export function filtersFetchData(items, queryParams, savedResponses) {
               // Do some formatting for post and mission data
               // for when they get put inside Pills/
               if (item.codeRef === data.codeRef) {
-                if (data.type === 'post') {
-                  asyncFilters[i].description = `${data.location} (Post)`;
-                } else if (data.type === 'mission') {
-                  asyncFilters[i].description = `${data.short_name} (Mission)`;
+                const description = getPostOrMissionDescription(data);
+                if (description) {
+                  asyncFilters[i].description = description;
                 }
               }
             });
           });
-          // Finally add our async params to the original mappedParams
-          // and remove and any duplicates by the 'description' prop
+          // Add our async params to the original mappedParams
+          // and remove and any duplicates by the 'description' prop.
           responses.mappedParams.push(...responses.asyncParams);
           responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
-          // finally, dispatch a success
+          // Finally, dispatch a success
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
           dispatch(filtersFetchDataSuccess(responses));
@@ -150,17 +152,9 @@ export function filtersFetchData(items, queryParams, savedResponses) {
       // TODO externalize these to some kind of template helper?
       responses.filters.forEach((filterItem, i) => {
         filterItem.data.forEach((filterItemObject, j) => {
-          if (filterItem.item.description === 'region') {
-            responses.filters[i].data[j].custom_description =
-              `${filterItemObject.long_description}
-              (${filterItemObject.short_description})`;
-          } else if (filterItem.item.description === 'skill') {
-            responses.filters[i].data[j].custom_description =
-              `${filterItemObject.description}
-              (${filterItemObject.code})`;
-          } else if (filterItem.item.description === 'post') {
-            responses.filters[i].data[j].custom_description =
-              filterItemObject.location;
+          const customDescription = getFilterCustomDescription(filterItem, filterItemObject);
+          if (customDescription) {
+            responses.filters[i].data[j].custom_description = customDescription;
           }
         });
       });
@@ -175,37 +169,19 @@ export function filtersFetchData(items, queryParams, savedResponses) {
               const paramArray = queryParamObject[key].split(',');
               paramArray.forEach((paramArrayItem) => {
                 // create a base config object
-                const mappedObject = {
-                  selectionRef: filterRef,
-                  codeRef: paramArrayItem,
-                };
+                const mappedObject = { selectionRef: filterRef, codeRef: paramArrayItem };
                 responses.filters.forEach((filterItem, i) => {
                   filterItem.data.forEach((filterItemObject, j) => {
-                    if (
-                      // Check if code or ID matches, since we use both.
-                      // TODO - consider standardizing to ID?
-                      (filterItemObject.code &&
-                          filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
-                          filterItem.item.selectionRef === mappedObject.selectionRef) ||
-                      (filterItemObject.id &&
-                          filterItemObject.id.toString() === mappedObject.codeRef.toString() &&
-                          filterItem.item.selectionRef === mappedObject.selectionRef)
-                        ) {
+                    // Check if code or ID matches, since we use both.
+                    // TODO - consider standardizing to ID?
+                    if (doesCodeOrIdMatch(filterItem, filterItemObject, mappedObject)) {
                       responses.filters[i].data[j].isSelected = true;
-                      if ( // boolean filters are special since they don't rely on AJAX
-                          response.item.description === 'COLA' ||
-                          response.item.description === 'postDiff' ||
-                          response.item.description === 'dangerPay' ||
-                          response.item.description === 'domestic'
-                        ) {
+                      // boolean filters are special since they don't rely on AJAX
+                      if (isBooleanFilter(response.item.description)) {
                         mappedObject.description = response.item.title;
                       } else {
                         // try to get the shortest description since pills should be small
-                        mappedObject.description =
-                            filterItemObject.short_description ||
-                            filterItemObject.description ||
-                            filterItemObject.long_description ||
-                            filterItemObject.code;
+                        mappedObject.description = getPillDescription(filterItemObject);
                       }
                     }
                   });

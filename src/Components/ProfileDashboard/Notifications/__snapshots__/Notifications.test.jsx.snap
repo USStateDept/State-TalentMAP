@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationsComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full section-padded-inner-container padded-container-no-bottom"
+  >
+    <div
+      className="usa-width-three-fourths"
+    >
+      <PositionInformation
+        className=""
+        icon="globe"
+        small={false}
+        title="Notifications"
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth small-link-container small-link-container-settings"
+    >
+      <Link
+        replace={false}
+        to="/profile/dashboard/"
+      >
+        Settings
+      </Link>
+    </div>
+  </div>
+  <BorderedList
+    contentArray={
+      Array [
+        <NotificationItem
+          content="Saved search New BidCycle has 13 new results available"
+          notificationTime="2017-10-31T18:14:07.262965Z"
+      />,
+        <NotificationItem
+          content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been offered a handshake."
+          notificationTime="2017-11-01T14:56:55.508920Z"
+      />,
+        <NotificationItem
+          content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) is under panel review."
+          notificationTime="2017-11-01T14:57:10.189803Z"
+      />,
+        <NotificationItem
+          content="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
+          notificationTime="2017-11-01T14:57:17.257866Z"
+      />,
+      ]
+    }
+  />
+  <div
+    className="section-padded-inner-container small-link-container view-more-link-centered"
+  >
+    <Link
+      replace={false}
+      to="/profile/dashboard/"
+    >
+      See all
+    </Link>
+  </div>
+</div>
+`;
+
+exports[`NotificationsComponent matches snapshot when there are zero notifications 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full section-padded-inner-container padded-container-no-bottom"
+  >
+    <div
+      className="usa-width-three-fourths"
+    >
+      <PositionInformation
+        className=""
+        icon="globe"
+        small={false}
+        title="Notifications"
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth small-link-container small-link-container-settings"
+    >
+      <Link
+        replace={false}
+        to="/profile/dashboard/"
+      >
+        Settings
+      </Link>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    You have no notifications at this time
+  </div>
+  <div
+    className="section-padded-inner-container small-link-container view-more-link-centered"
+  >
+    <Link
+      replace={false}
+      to="/profile/dashboard/"
+    >
+      See all
+    </Link>
+  </div>
+</div>
+`;

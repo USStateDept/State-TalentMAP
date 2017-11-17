@@ -1,22 +1,440 @@
-.favorite-positions-container {
+// scss-lint:disable SelectorDepth
+// scss-lint:disable NestingDepth
+// Nesting depth was needed, otherwise styles broke if placed outside of parent class (.expandable-link)
+
+.profile-page {
+  border: solid 1px $color-gray-light;
   position: relative;
+
+  .hello-greeting {
+    font-family: Merriweather;
+    margin-bottom: 10px;
+  }
+
+  .usa-grid-full {
+    max-width: unset;
+  }
+
+  .favorite-positions-container {
+    position: relative;
+  }
+
+  .profile-subroute-container {
+    border: 1px solid $color-gray;
+    min-height: 300px;
+  }
+
+  .saved-search-card {
+    min-height: 50px;
+    padding: 5px 10px;
+  }
+
+  .saved-searches-container {
+    position: relative;
+  }
+
+  .bid-list-delete-button-container {
+    margin-top: .5em;
+  }
+
+  .profile-content-container {
+    background-color: $tm-white-smoke-light;
+    margin-left: 200px;
+    min-height: 700px;
+    padding: 20px 35px;
+    right: 0;
+    width: auto;
+  }
 }
 
-.profile-subroute-container {
-  border: 1px solid $color-gray;
-  min-height: 300px;
+.user-dashboard {
+  font-size: 15px;
+  position: relative;
+
+  .user-dashboard-section-container {
+    float: left;
+  }
+
+  .user-dashboard-section {
+    background-color: $color-white;
+    border: solid 1px $color-gray-light;
+    margin-bottom: 25px;
+  }
+
+  .user-dashboard-column-1 {
+    min-height: 500px;
+  }
+
+  .user-dashboard-column-2 {
+    min-height: 500px;
+  }
+
+  .user-dashboard-column-3 {
+    min-height: 700px;
+  }
+
+  .current-user-section {
+    min-height: 450px;
+  }
+
+  .current-user-top {
+    border-bottom: 1px solid $color-gray-light;
+    text-align: center;
+  }
+
+  .cdo-section {
+    min-height: 50px;
+  }
+
+  .position-info-section {
+    min-height: 250px;
+  }
+
+  .notifications-section {
+    min-height: 250px;
+  }
+
+  .bidlist-section {
+    min-height: 300px;
+  }
+
+  .inbox-section {
+    min-height: 300px;
+  }
+
+  .dashboard-section-title {
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 10px;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  .dashboard-section-title-small {
+    font-size: 15px;
+  }
+
+  .data-point-container {
+    margin-bottom: 10px;
+  }
+
+  .data-point-title {
+    color: $color-gray;
+    font-size: 12px;
+  }
+
+  .data-point-content {
+    font-size: 15px;
+  }
+
+  .section-padded-inner-container {
+    padding: 15px;
+  }
+
+  .section-padded-inner-container-narrow {
+    padding: 10px 15px;
+  }
+
+  .padded-container-no-bottom {
+    padding-bottom: 0;
+  }
+
+  .status {
+    font-size: 13px;
+    margin-bottom: 10px;
+    margin-left: -5px; // centers more cleanly
+
+    .fa {
+      color: $color-green;
+      margin-right: 5px;
+    }
+  }
+
+  .edit-profile-link {
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+
+    a {
+      color: $blue-primary;
+      text-decoration: none;
+    }
+  }
+
+  .dashboard-user-profile-picture {
+    border-radius: 75px;
+    height: 100px;
+    margin-bottom: 10px;
+    vertical-align: middle;
+    width: 100px;
+  }
+
+  .start-end {
+    .fa {
+      color: $color-green;
+      margin: 0 5px;
+    }
+  }
+
+  .current-user-name {
+    margin-bottom: 5px;
+  }
+}
+
+$total-padding: 28px;
+$border: 5px;
+$padding-no-border: $total-padding - $border;
+
+.profile-menu {
+
+  border-right: solid 1px $color-gray-light;
+  font-size: 15px;
+  height: 100%;
+  position: absolute;
+  width: 200px;
+
+  .fa-container {
+    float: left;
+    min-width: $total-padding;
+  }
+
+  .title-container {
+    float: left;
+  }
+
+  .angle-container {
+    float: right;
+  }
+
+  .icon-padding {
+    padding: 3px 0;
+  }
+
+  .link-unhighlighted {
+    border-left: $border solid transparent;
+  }
+
+  .link-highlighted {
+    background-color: $color-blue-light;
+    border-left: $border solid $blue-primary;
+
+    .title-container {
+      font-weight: bold;
+    }
+  }
+
+  .list-item-wrapper {
+    padding-left: $padding-no-border;
+    padding-top: 5px;
+  }
+
+  .expandable-link {
+    border-left: unset;
+    margin-bottom: 7px;
+
+    .list-item-wrapper {
+      padding-left: $total-padding;
+    }
+
+    ul {
+      .link-unhighlighted {
+        border-left: unset;
+        padding-left: $border;
+      }
+    }
+  }
+
+  .children-ul {
+    margin-top: .5em;
+
+    .list-item-wrapper {
+      padding-left: 50px;
+    }
+  }
+
+  .menu-title {
+    font-weight: bold;
+    padding: 10px 0 0 30px;
+  }
+
+  a {
+    color: unset;
+    display: inline-block;
+    width: 100%;
+  }
+
+  li {
+    cursor: pointer;
+    line-height: 1.5;
+    margin-bottom: unset;
+    width: 100%;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
+}
+
+.bordered-list {
+  ul {
+    list-style-type: none;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  li {
+    margin-bottom: 1em;
+  }
+
+  .bordered-list-content {
+    border-left: 5px solid $blue-primary;
+  }
+}
+
+.cdo-container {
+  .dashboard-user-profile-picture {
+    border-radius: 100%;
+    height: 100%;
+    margin-bottom: unset;
+    max-height: 35px;
+    max-width: 35px;
+    width: 100%;
+  }
+
+  .fa {
+    margin-left: 5px;
+    margin-right: unset;
+  }
+}
+
+.cdo-header {
+  font-weight: bold;
+}
+
+.small-link-container {
+  font-size: 12px;
+
+  a {
+    color: $blue-primary;
+    text-decoration: none;
+  }
+}
+
+.small-link-container-settings {
+  a {
+    display: inline-block;
+    padding-top: 5px;
+  }
+}
+
+.view-more-link-centered {
+  border-top: 1px solid $color-gray-light;
+  text-align: center;
 }
 
 .saved-search-card {
-  border-top: 1px solid $color-black;
-  min-height: 50px;
-  padding: 10px;
+  .bid-list-card-title-position {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .bid-list-card-title-post {
+    font-weight: bold;
+  }
+
+  .bid-list-card-title-status {
+    text-transform: capitalize;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  .bid-status-declined {
+    color: $alert-red;
+  }
 }
 
-.saved-searches-container {
-  position: relative;
+.bid-list-header {
+  background-color: $blue-primary;
+  color: $color-white;
+
+  .bid-list-header-button-container {
+
+    text-align: right;
+
+    .bid-list-header-button {
+      border: 1px solid $color-white;
+      font-size: 12px;
+      padding: 5px 25px;
+    }
+  }
+
+  .fa {
+    margin-right: 5px;
+  }
 }
 
-.bid-list-delete-button-container {
-  margin-top: .5em;
+.bid-list-container {
+  max-height: 450px;
+  overflow-y: scroll;
+}
+
+.parent-container-bid-status-declined {
+  background-color: $color-gray-lightest;
+
+  .fa {
+    color: $alert-red;
+  }
+
+  .bordered-list-content {
+    border-left: 5px solid $alert-red;
+  }
+}
+
+.parent-container-bid-status-hand-shake-offered {
+  background-color: $color-green-light;
+
+  .fa {
+    color: $color-green;
+  }
+
+  .bordered-list-content {
+    border-left: 5px solid $color-green;
+  }
+}
+
+.parent-container-bid-status-closed {
+  background-color: $color-gray-lightest;
+
+  .bordered-list-content {
+    border-left: 5px solid $color-black;
+  }
+}
+
+.parent-container-bid-status-hand-shake-accepted {
+  background-color: $color-green-light;
+
+  .bordered-list-content {
+    border-left: 5px solid $color-green;
+  }
+}
+
+.parent-container-bid-status-approved {
+  background-color: $blue-primary-light;
+
+  .fa {
+    color: $blue-primary;
+  }
+}
+
+.notification-card {
+  padding: 0 10px;
 }

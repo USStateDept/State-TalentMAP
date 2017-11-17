@@ -35,6 +35,9 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
         Object {
           "bureau": "150000",
           "create_date": "2006-09-20",
+          "description": Object {
+            "content": "The quick brown fox jumped over the lazy dog.",
+          },
           "grade": "05",
           "id": 6,
           "is_overseas": true,

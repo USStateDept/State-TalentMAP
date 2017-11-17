@@ -1,11 +1,7 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import setupAsyncMocks from './setupAsyncMocks';
 import * as actions from './bidList';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   const bidList = {
@@ -32,10 +28,13 @@ describe('async actions', () => {
     ],
   };
 
+  // reset the mockAdapter since we repeat specific requests
+  beforeEach(() => {
+    mockAdapter.reset();
+  });
+
   it('can fetch a bid list', (done) => {
     const store = mockStore({ });
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/').reply(200,
       bidList,
@@ -53,8 +52,6 @@ describe('async actions', () => {
   it('can handle errors when fetching a bid list', (done) => {
     const store = mockStore({ });
 
-    const mockAdapter = new MockAdapter(axios);
-
     mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/').reply(404,
       null,
     );
@@ -70,8 +67,6 @@ describe('async actions', () => {
 
   it('can remove a position from the bid list', (done) => {
     const store = mockStore({ profile: {} });
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onDelete('http://localhost:8000/api/v1/bidlist/position/1/').reply(204,
       null,
@@ -89,8 +84,6 @@ describe('async actions', () => {
   it('can add a position to the bid list', (done) => {
     const store = mockStore({ profile: {} });
 
-    const mockAdapter = new MockAdapter(axios);
-
     mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/position/1/').reply(204,
       null,
     );
@@ -106,8 +99,6 @@ describe('async actions', () => {
 
   it('can submit a bid', (done) => {
     const store = mockStore({ profile: {} });
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/bid/1/submit/').reply(204,
       null,
@@ -125,8 +116,6 @@ describe('async actions', () => {
   it('can handle errors when submitting a bid', (done) => {
     const store = mockStore({ profile: {} });
 
-    const mockAdapter = new MockAdapter(axios);
-
     mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/bid/1/submit/').reply(404,
       null,
     );
@@ -142,8 +131,6 @@ describe('async actions', () => {
 
   it('can handle errors when adding a position to the bid list', (done) => {
     const store = mockStore({ profile: {} });
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/position/1/').reply(404,
       null,

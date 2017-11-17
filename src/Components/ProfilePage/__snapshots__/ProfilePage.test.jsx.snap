@@ -2,24 +2,26 @@
 
 exports[`ProfilePageComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="profile-page"
 >
-  <h1>
-    Hello, john!
-  </h1>
+  <ProfileMenu />
   <div
-    className="usa-width-one-fourth"
+    className="usa-grid-full profile-content-container"
   >
-    <ProfileNavigation />
-  </div>
-  <div
-    className="usa-grid-full usa-width-three-fourths profile-subroute-container"
-  >
+    <div
+      className="hello-greeting"
+    >
+      Hello, John Doe
+    </div>
     <Switch>
       <Route
         component={[Function]}
         exact={true}
         path="/profile"
+      />
+      <Route
+        component={[Function]}
+        path="/profile/dashboard"
       />
       <Route
         component={[Function]}

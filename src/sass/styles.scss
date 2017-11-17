@@ -15,13 +15,12 @@
 
 // Draft.js
 @import '../../node_modules/draft-js/dist/Draft.css';
-// Draft.js plugin
-@import '../../node_modules/draft-js-inline-toolbar-plugin/lib/plugin.css';
 
 // Global
 @import 'variables';
 
 // Components
+@import 'containers';
 @import 'autosuggest';
 @import 'condensedCard';
 @import 'whiteButton';

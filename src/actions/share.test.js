@@ -1,19 +1,16 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
+import setupAsyncMocks from './setupAsyncMocks';
 import * as actions from './share';
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-
+const { mockStore, mockAdapter } = setupAsyncMocks();
 const testEmail = 'test@email.com';
 
 describe('async actions', () => {
+  // reset the mockAdapter since we repeat specific requests
+  beforeEach(() => {
+    mockAdapter.reset();
+  });
   it('can submit request to send email', (done) => {
     const store = mockStore({ share: false });
-
-    const mockAdapter = new MockAdapter(axios);
 
     const response = { email: { to: testEmail, subject: '[TalentMAP] Shared position', body: 'Shared' } };
 
@@ -40,8 +37,6 @@ describe('async actions', () => {
 
   it('can handle a failed submission', (done) => {
     const store = mockStore({ share: false });
-
-    const mockAdapter = new MockAdapter(axios);
 
     mockAdapter.onPost('http://localhost:8000/api/v1/share/').reply(404,
       {},
