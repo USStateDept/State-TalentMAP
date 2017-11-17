@@ -129,7 +129,7 @@ const items =
       },
       {
         item: {
-          title: 'Available',
+          title: 'Available (No handshakes)',
           sort: 950,
           bool: true,
           description: 'available',

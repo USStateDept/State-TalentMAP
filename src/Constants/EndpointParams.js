@@ -12,7 +12,7 @@ export const ENDPOINT_PARAMS = {
   domestic: 'is_domestic',
   mission: 'post__location__country__in',
   post: 'post__in',
-  available: 'is_available',
+  available: 'is_available_in_current_bidcycle',
 };
 
 export const VALID_PARAMS = [
