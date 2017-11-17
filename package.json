@@ -6,6 +6,7 @@
     "@cmsgov/design-system-core": "^1.1.0",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
+    "date-fns": "^1.29.0",
     "draft-js": "^0.10.3",
     "draft-js-plugins-editor": "^2.0.0-rc8",
     "font-awesome": "^4.7.0",
