@@ -39,7 +39,7 @@ exports[`BidCountNumberComponent matches snapshot where type = atSkillBids 1`] =
     theme="dark"
     title="Number of bidders who are at Skill Code."
     touchHold={false}
-    trigger="click mouseenter focus"
+    trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
   >
     <span
@@ -90,7 +90,7 @@ exports[`BidCountNumberComponent matches snapshot where type = inGradeAtSkillBid
     theme="dark"
     title="Number of bidders who are at Grade and Skill Code."
     touchHold={false}
-    trigger="click mouseenter focus"
+    trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
   >
     <span
@@ -141,7 +141,7 @@ exports[`BidCountNumberComponent matches snapshot where type = inGradeBids 1`] =
     theme="dark"
     title="Number of bidders who are at Grade."
     touchHold={false}
-    trigger="click mouseenter focus"
+    trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
   >
     <span
@@ -192,7 +192,7 @@ exports[`BidCountNumberComponent matches snapshot where type = totalBids 1`] = `
     theme="dark"
     title="Number of bids on this position."
     touchHold={false}
-    trigger="click mouseenter focus"
+    trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
   >
     <span
