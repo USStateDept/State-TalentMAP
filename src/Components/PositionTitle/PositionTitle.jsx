@@ -108,6 +108,8 @@ class PositionTitle extends Component {
 
     const isAllowedToEdit = !!(details.description && details.description.is_editable_by_user);
 
+    const shouldShowBidStats = !!details.bid_statistics && !!details.bid_statistics[0];
+
     return (
       <div className="position-details-header-container">
         <div className="position-details-header">
@@ -189,13 +191,13 @@ class PositionTitle extends Component {
         <div className="offset-bid-button-container">
           <div className="offset-bid-button-container-count">
             {
-              !!details.bid_statistics && !!details.bid_statistics[0] &&
-              <BidCount
-                totalBids={details.bid_statistics[0].total_bids}
-                inGradeBids={details.bid_statistics[0].in_grade}
-                atSkillBids={details.bid_statistics[0].at_skill}
-                inGradeAtSkillBids={details.bid_statistics[0].in_grade_at_skill}
-              />
+              shouldShowBidStats &&
+                <BidCount
+                  totalBids={details.bid_statistics[0].total_bids}
+                  inGradeBids={details.bid_statistics[0].in_grade}
+                  atSkillBids={details.bid_statistics[0].at_skill}
+                  inGradeAtSkillBids={details.bid_statistics[0].in_grade_at_skill}
+                />
             }
           </div>
           <div className="offset-bid-button-container-button">
