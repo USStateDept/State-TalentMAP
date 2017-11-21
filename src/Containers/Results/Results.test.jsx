@@ -7,6 +7,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import Results from './Results';
+import resultsObject from '../../__mocks__/resultsObject';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -15,6 +16,7 @@ describe('Results', () => {
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Results
+        results={resultsObject}
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
@@ -37,6 +39,7 @@ describe('Results', () => {
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Results
+        results={resultsObject}
         isAuthorized={() => false}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
@@ -60,6 +63,7 @@ describe('Results', () => {
     const query = { ordering: 'bureau', q: 'German' };
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -90,6 +94,7 @@ describe('Results', () => {
     const query = { q: 'German' };
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -125,6 +130,7 @@ describe('Results', () => {
     const query = { ordering: '' };
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -160,6 +166,7 @@ describe('Results', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -185,6 +192,7 @@ describe('Results', () => {
   it('can call the resetFilters function', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -215,6 +223,7 @@ describe('Results', () => {
     const savedSearch = { q: null, id: null };
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -240,6 +249,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function when removing a param', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -274,6 +284,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function when adding a param value and that param already exists', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -308,6 +319,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function when adding a param value and that param does not exist', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -342,6 +354,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function and handle removing non-existent params', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -373,6 +386,7 @@ describe('Results', () => {
     const routerLocations = [{ pathname: 'test' }, { pathname: 'test2' }];
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}

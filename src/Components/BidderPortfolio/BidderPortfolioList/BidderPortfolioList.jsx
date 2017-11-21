@@ -1,0 +1,27 @@
+import React from 'react';
+import { BIDDER_RESULTS } from '../../../Constants/PropTypes';
+import BidderPortfolioCard from '../BidderPortfolioCard';
+
+const BidderPortfolioList = ({ results }) => (
+  <div className="usa-grid-full user-dashboard">
+    {
+      results.map(result => (
+        <div className="usa-width-one-fourth user-dashboard-section">
+          <BidderPortfolioCard
+            key={result.id}
+            userProfile={result}
+            showEditLink={false}
+            showBirthday
+            showBids
+          />
+        </div>
+      ))
+    }
+  </div>
+);
+
+BidderPortfolioList.propTypes = {
+  results: BIDDER_RESULTS.isRequired,
+};
+
+export default BidderPortfolioList;

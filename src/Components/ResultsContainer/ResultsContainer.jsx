@@ -24,7 +24,7 @@ class ResultsContainer extends Component {
   }
 
   render() {
-    const { results, isLoading, hasErrored, sortBy, pageCount, hasLoaded,
+    const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
             defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
             toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
@@ -87,13 +87,12 @@ class ResultsContainer extends Component {
         }
         {
          // if there's no results, don't show pagination
-         !!results.results && !!results.results.length
-         // also let page count initiate before trying to render
-         && pageCount > 0 &&
+         !!results.results && !!results.results.length &&
          // finally, render the pagination
          <div className="usa-grid-full react-paginate">
            <PaginationWrapper
-             pageCount={pageCount}
+             totalResults={totalResults}
+             pageSize={pageSize}
              onPageChange={this.onPageChange}
              forcePage={defaultPageNumber}
            />
@@ -115,7 +114,7 @@ ResultsContainer.propTypes = {
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
   defaultPageSize: PropTypes.node,
   defaultPageNumber: PropTypes.number,
-  pageCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
   hasLoaded: PropTypes.bool.isRequired,
   onToggle: PropTypes.func.isRequired,
   refreshKey: PropTypes.number, // refresh components that rely on local storage
@@ -131,6 +130,7 @@ ResultsContainer.propTypes = {
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
   resetSavedSearchAlerts: PropTypes.func.isRequired,
+  totalResults: PropTypes.number,
 };
 
 ResultsContainer.defaultProps = {
@@ -146,6 +146,7 @@ ResultsContainer.defaultProps = {
   scrollToTop: EMPTY_FUNCTION,
   userProfile: {},
   currentSavedSearch: {},
+  totalResults: 0,
 };
 
 export default ResultsContainer;

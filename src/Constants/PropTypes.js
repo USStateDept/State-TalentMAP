@@ -312,6 +312,15 @@ export const NOTIFICATION_LIST = PropTypes.shape({
   results: NOTIFICATION_RESULTS,
 });
 
+export const BIDDER_OBJECT = USER_PROFILE;
+
+export const BIDDER_RESULTS = PropTypes.arrayOf(BIDDER_OBJECT);
+
+export const BIDDER_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: BIDDER_RESULTS,
+});
+
 export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};

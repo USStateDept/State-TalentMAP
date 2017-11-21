@@ -13,8 +13,13 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
         className="usa-width-one-whole user-dashboard-section current-user-section"
       >
         <CurrentUser
+          showContactInformation={true}
+          showEditLink={true}
+          showGeneralInformation={true}
+          useGroup={false}
           userProfile={
             Object {
+              "is_cdo": true,
               "skill_code": "INFORMATION MANAGEMENT (2880)",
               "user": Object {
                 "email": "doej@state.gov",

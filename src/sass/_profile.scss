@@ -19,6 +19,10 @@
     position: relative;
   }
 
+  .bidder-portfolio-container {
+    position: relative;
+  }
+
   .profile-subroute-container {
     border: 1px solid $color-gray;
     min-height: 300px;
@@ -77,9 +81,62 @@
     min-height: 450px;
   }
 
+  .current-user-section-container:last-child {
+    border-bottom: 0;
+    border-top: 0;
+  }
+
   .current-user-top {
     border-bottom: 1px solid $color-gray-light;
     text-align: center;
+  }
+
+  .current-user-bid-information {
+    border-bottom: 1px solid $color-gray-light;
+    text-align: left;
+  }
+
+  .current-user-personal-information {
+    border-bottom: 1px solid $color-gray-light;
+    min-height: 130px;
+    text-align: left;
+
+    .skill-code-data-point-container:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .bid-count-container {
+    float: left;
+
+    .data-point-content {
+      text-decoration: underline;
+    }
+  }
+
+  .bid-count-container-left {
+    width: 40%;
+  }
+
+  .bid-count-container-right {
+    width: 60%;
+  }
+
+  .bid-count-right {
+    border-left: 1px solid $color-gray-light;
+    padding-left: 25%;
+  }
+
+  .data-point-side-by-side {
+    .data-point-title {
+      float: left;
+      font-size: 15px;
+      padding-right: 5px;
+    }
+
+    .data-point-content {
+      float: left;
+    }
   }
 
   .cdo-section {
@@ -337,6 +394,11 @@ $padding-no-border: $total-padding - $border;
 .view-more-link-centered {
   border-top: 1px solid $color-gray-light;
   text-align: center;
+
+  a {
+    color: $blue-primary;
+    text-decoration: none;
+  }
 }
 
 .saved-search-card {

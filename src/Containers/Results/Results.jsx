@@ -30,7 +30,7 @@ class Results extends Component {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: '' },
-      defaultPageSize: { value: '' },
+      defaultPageSize: { value: 0 },
       defaultPageNumber: { value: 1 },
       defaultKeyword: { value: '' },
       defaultLocation: { value: '' },

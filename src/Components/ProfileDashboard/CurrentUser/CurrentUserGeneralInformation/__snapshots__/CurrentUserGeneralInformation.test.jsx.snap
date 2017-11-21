@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentUserGeneralInformationComponent matches snapshot 1`] = `
+<div
+  className="current-user-top current-user-section-container"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <Status />
+    <ProfilePicture
+      alt="avatar"
+      className=""
+      source="/assets/img/avatar.png"
+    />
+    <EditProfile />
+    <PositionInformation
+      className="current-user-name"
+      icon=""
+      small={true}
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container"
+      content="INFORMATION MANAGEMENT (2880)"
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`CurrentUserGeneralInformationComponent matches snapshot when showEditLink is true 1`] = `
+<div
+  className="current-user-top current-user-section-container"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <Status />
+    <ProfilePicture
+      alt="avatar"
+      className=""
+      source="/assets/img/avatar.png"
+    />
+    <EditProfile />
+    <PositionInformation
+      className="current-user-name"
+      icon=""
+      small={true}
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container"
+      content="INFORMATION MANAGEMENT (2880)"
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`CurrentUserGeneralInformationComponent matches snapshot when useGroup is true 1`] = `
+<div
+  className="current-user-top current-user-section-container"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <Status />
+    <ProfilePicture
+      alt="avatar"
+      className=""
+      source="/assets/img/avatar.png"
+    />
+    <EditProfile />
+    <PositionInformation
+      className="current-user-name"
+      icon=""
+      small={true}
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container"
+      content="Generalist • F2"
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
+    />
+  </div>
+</div>
+`;

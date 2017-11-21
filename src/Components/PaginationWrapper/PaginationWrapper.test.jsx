@@ -10,7 +10,8 @@ describe('PaginationWrapper', () => {
 
   it('is defined', () => {
     wrapper = shallow(<PaginationWrapper
-      pageCount={5}
+      totalResults={21}
+      pageSize={5}
       onPageChange={() => {}}
       forcePage={1}
     />);
@@ -21,7 +22,8 @@ describe('PaginationWrapper', () => {
     const value = 1;
     const page = { value: null };
     wrapper = shallow(<PaginationWrapper
-      pageCount={5}
+      totalResults={21}
+      pageSize={5}
       onPageChange={(e) => { page.value = e; }}
       forcePage={1}
     />);
@@ -31,10 +33,11 @@ describe('PaginationWrapper', () => {
 
   it('can take different props', () => {
     wrapper = shallow(<PaginationWrapper
-      pageCount={5}
+      totalResults={21}
+      pageSize={5}
       onPageChange={() => {}}
       forcePage={1}
     />);
-    expect(wrapper.instance().props.pageCount).toBe(5);
+    expect(wrapper.instance().props.pageSize).toBe(5);
   });
 });
