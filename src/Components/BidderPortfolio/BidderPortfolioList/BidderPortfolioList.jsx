@@ -6,9 +6,8 @@ const BidderPortfolioList = ({ results }) => (
   <div className="usa-grid-full user-dashboard">
     {
       results.map(result => (
-        <div className="usa-width-one-fourth user-dashboard-section">
+        <div className="usa-width-one-fourth user-dashboard-section" key={result.id}>
           <BidderPortfolioCard
-            key={result.id}
             userProfile={result}
             showEditLink={false}
             showBirthday
