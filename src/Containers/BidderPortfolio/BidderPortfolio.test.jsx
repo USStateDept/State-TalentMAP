@@ -25,7 +25,5 @@ describe('BidderPortfolio', () => {
     wrapper.instance().onQueryParamUpdate({ q: 'test' });
     wrapper.instance().onQueryParamUpdate({ page: 2 });
     expect(wrapper.instance().state.query.value).toBe('page=2&q=test');
-    wrapper.instance().onQueryParamUpdate({ q: '' });
-    expect(wrapper.instance().state.query.value).toBe('');
   });
 });

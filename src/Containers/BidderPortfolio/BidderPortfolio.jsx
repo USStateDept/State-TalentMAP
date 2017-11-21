@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bidderPortfolioFetchData } from '../../actions/bidderPortfolio';
 import { BIDDER_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import queryParamUpdate from '../queryParams';
 import BidderPortfolioPage from '../../Components/BidderPortfolio/BidderPortfolioPage';
 
 class BidderPortfolio extends Component {
@@ -27,28 +28,13 @@ class BidderPortfolio extends Component {
 
   // for when we need to UPDATE the ENTIRE value of a filter
   onQueryParamUpdate(q) {
-    const parsedQuery = queryString.parse(this.state.query.value);
-    // unless we're changing the page number, go back to page 1
-    if (Object.keys(q).indexOf('page') <= -1) {
-      if (parsedQuery.page) {
-        // deleting the key does the same thing as going back to page 1
-        // and also makes our query params cleaner
-        delete parsedQuery.page;
-      }
-    }
-    // combine our old and new query objects, overwriting any diffs with new
-    const newQuery = Object.assign({}, parsedQuery, q);
-    // remove any params with no value
-    Object.keys(newQuery).forEach((key) => {
-      if (!(newQuery[key].toString().length)) {
-        delete newQuery[key];
-      }
-    });
-    // convert the object to a string
-    const newQueryString = queryString.stringify(newQuery);
+    // returns the new query string
+    const newQuery = queryParamUpdate(q, this.state.query.value);
+    // returns the new query object
+    const newQueryObject = queryParamUpdate(q, this.state.query.value, true);
     // and update the query state
-    this.state.query.value = newQueryString;
-    this.state.defaultPageNumber.value = newQuery.page || this.state.defaultPageNumber.value;
+    this.state.query.value = newQuery;
+    this.state.defaultPageNumber.value = newQueryObject.page || this.state.defaultPageNumber.value;
     this.getBidderPortfolio();
   }
 
