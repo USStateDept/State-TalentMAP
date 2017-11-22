@@ -50,7 +50,13 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             title="Overseas"
           />
           <PositionDetailsDataPoint
-            description="Region"
+            description={
+              <Connect(StaticDevContent)>
+                <span>
+                  Region
+                </span>
+              </Connect(StaticDevContent)>
+            }
             title="Region"
           />
         </div>
@@ -101,11 +107,23 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             title="Danger Pay"
           />
           <PositionDetailsDataPoint
-            description="09-01-2019"
+            description={
+              <Connect(StaticDevContent)>
+                <span>
+                  09-19-2019
+                </span>
+              </Connect(StaticDevContent)>
+            }
             title="Tour End Date"
           />
           <PositionDetailsDataPoint
-            description="Incumbent"
+            description={
+              <Connect(StaticDevContent)>
+                <span>
+                  Incumbent
+                </span>
+              </Connect(StaticDevContent)>
+            }
             title="Incumbent"
           />
         </div>

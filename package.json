@@ -27,6 +27,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "react-scroll": "^1.5.4",
     "react-simple-dropdown": "^3.0.0",
+    "react-tippy": "^1.2.2",
     "redux": "^3.7.1",
     "redux-form": "^7.0.1",
     "redux-saga": "^0.15.4",
@@ -99,7 +100,10 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/registerServiceWorker.js",
-      "!src/Components/**/index.js"
+      "!src/Components/**/index.js",
+      "!src/Components/StaticDevContent/*",
+      "!src/actions/showStaticContent.js",
+      "!src/reducers/showStaticContent.js"
     ],
     "coverageReporters": [
       "lcov"

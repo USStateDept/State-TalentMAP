@@ -70,6 +70,7 @@ class Results extends Component {
             postSearchResults={postSearchResults}
             postSearchIsLoading={postSearchIsLoading}
             postSearchHasErrored={postSearchHasErrored}
+            userProfile={userProfile}
           />
           <ResultsContainer
             results={results}
