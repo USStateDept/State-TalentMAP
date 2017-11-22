@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidCountComponent matches snapshot 1`] = `
+<ul
+  className="bid-count-list"
+>
+  <BidCountNumber
+    number={5}
+    type="totalBids"
+  />
+  <BidCountNumber
+    number={5}
+    type="inGradeBids"
+  />
+  <BidCountNumber
+    number={5}
+    type="atSkillBids"
+  />
+  <BidCountNumber
+    number={5}
+    type="inGradeAtSkillBids"
+  />
+</ul>
+`;
