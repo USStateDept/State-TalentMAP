@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import close from 'uswds/dist/img/close.svg'; // close X icon
+import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { logoutRequest } from '../../login/actions';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
@@ -51,6 +52,7 @@ export class Header extends Component {
 
     return (
       <header className="usa-header usa-header-extended tm-header" role="banner">
+        <ToggleContent />
         <GovBanner />
         <div className="usa-navbar">
           <button className="usa-menu-btn">Menu</button>

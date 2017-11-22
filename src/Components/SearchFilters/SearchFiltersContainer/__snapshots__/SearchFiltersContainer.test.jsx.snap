@@ -63,22 +63,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     className="boolean-filter-container"
   >
     <BooleanFilterContainer
-      filters={
-        Array [
-          Object {
-            "data": Array [
-              Object {
-                "isSelected": false,
-              },
-            ],
-            "item": Object {
-              "bool": true,
-              "selectionRef": "ref2",
-              "title": "COLA",
-            },
-          },
-        ]
-      }
+      filters={Array []}
       onBooleanFilterClick={[Function]}
     />
   </div>

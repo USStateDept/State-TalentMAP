@@ -10,13 +10,17 @@ exports[`CurrentUserComponent matches snapshot 1`] = `
     <div
       className="section-padded-inner-container"
     >
-      <Status />
+      <Connect(StaticDevContent)>
+        <Status />
+      </Connect(StaticDevContent)>
       <ProfilePicture
         alt="avatar"
         className=""
         source="/assets/img/avatar.png"
       />
-      <EditProfile />
+      <Connect(StaticDevContent)>
+        <EditProfile />
+      </Connect(StaticDevContent)>
       <PositionInformation
         className="current-user-name"
         icon=""
@@ -49,24 +53,30 @@ exports[`CurrentUserComponent matches snapshot 1`] = `
         title="Email Address"
         titleOnBottom={false}
       />
-      <InformationDataPoint
-        className=""
-        content="+301-779-0379 ext. 3"
-        title="Office Number"
-        titleOnBottom={false}
-      />
-      <InformationDataPoint
-        className=""
-        content="+240-331-7189"
-        title="Personal Contact Number"
-        titleOnBottom={false}
-      />
-      <InformationDataPoint
-        className=""
-        content="1234 Washington St. NW, Washington, DC 20009"
-        title="Post/Office Address"
-        titleOnBottom={false}
-      />
+      <Connect(StaticDevContent)>
+        <InformationDataPoint
+          className=""
+          content="+301-779-0379 ext. 3"
+          title="Office Number"
+          titleOnBottom={false}
+        />
+      </Connect(StaticDevContent)>
+      <Connect(StaticDevContent)>
+        <InformationDataPoint
+          className=""
+          content="+240-331-7189"
+          title="Personal Contact Number"
+          titleOnBottom={false}
+        />
+      </Connect(StaticDevContent)>
+      <Connect(StaticDevContent)>
+        <InformationDataPoint
+          className=""
+          content="1234 Washington St. NW, Washington, DC 20009"
+          title="Post/Office Address"
+          titleOnBottom={false}
+        />
+      </Connect(StaticDevContent)>
     </div>
   </div>
 </div>
