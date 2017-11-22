@@ -6,6 +6,7 @@ import BorderedList from '../../BorderedList';
 import BidListResultsCard from '../../BidListResultsCard/';
 import BidListHeader from './BidListHeader';
 import { getStatusClass } from '../../../Constants/BidStatuses';
+import StaticDevContent from '../../StaticDevContent';
 
 const BidList = ({ bids }) => {
   const bidArray = [];
@@ -21,7 +22,9 @@ const BidList = ({ bids }) => {
   ));
   return (
     <div className="usa-grid-full">
-      <BidListHeader />
+      <StaticDevContent>
+        <BidListHeader />
+      </StaticDevContent>
       <div className="usa-grid-full section-padded-inner-container">
         <div className="usa-width-one-whole">
           <SectionTitle title={`Bid List (${bids.length}/10)`} icon="clipboard" />
