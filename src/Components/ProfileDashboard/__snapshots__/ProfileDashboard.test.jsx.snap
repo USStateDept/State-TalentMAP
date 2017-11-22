@@ -15,6 +15,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
         <CurrentUser
           userProfile={
             Object {
+              "is_cdo": false,
               "skill_code": "INFORMATION MANAGEMENT (2880)",
               "user": Object {
                 "email": "doej@state.gov",
