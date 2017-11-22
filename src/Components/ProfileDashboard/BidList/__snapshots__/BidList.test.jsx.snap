@@ -4,7 +4,9 @@ exports[`BidListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  <BidListHeader />
+  <Connect(StaticDevContent)>
+    <BidListHeader />
+  </Connect(StaticDevContent)>
   <div
     className="usa-grid-full section-padded-inner-container"
   >
@@ -133,7 +135,9 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
 <div
   className="usa-grid-full"
 >
-  <BidListHeader />
+  <Connect(StaticDevContent)>
+    <BidListHeader />
+  </Connect(StaticDevContent)>
   <div
     className="usa-grid-full section-padded-inner-container"
   >
