@@ -28,6 +28,7 @@ import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignm
 import { notificationsHasErrored, notificationsIsLoading, notifications } from './notifications';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
+import shouldShowStaticContent from './showStaticContent';
 
 
 export default combineReducers({
@@ -102,5 +103,6 @@ export default combineReducers({
   notificationsHasErrored,
   notificationsIsLoading,
   notifications,
+  shouldShowStaticContent,
   router: routerReducer,
 });
