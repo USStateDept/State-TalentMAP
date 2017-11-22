@@ -14,6 +14,16 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
         favorites={Array []}
         position={
           Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
             "bureau": "150000",
             "create_date": "2006-09-20",
             "description": Object {
@@ -73,6 +83,16 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
         favorites={Array []}
         position={
           Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
             "bureau": "150000",
             "create_date": "2006-09-20",
             "grade": "03",

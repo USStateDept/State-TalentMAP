@@ -52,7 +52,8 @@ export function isBooleanFilter(description) {
     description === 'COLA' ||
     description === 'postDiff' ||
     description === 'dangerPay' ||
-    description === 'domestic'
+    description === 'domestic' ||
+    description === 'available'
   ) {
     return true;
   }
