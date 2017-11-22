@@ -63,7 +63,7 @@ describe('TextInputComponent', () => {
     expect(wrapper.find('.usa-sr-only')).toBeDefined();
   });
 
-  it('can change based on type', () => {
+  it('changes based on type', () => {
     let wrapper = shallow(
       <TextInput
         id={id}

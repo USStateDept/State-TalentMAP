@@ -43,16 +43,20 @@ class SearchFiltersContainer extends Component {
   }
   render() {
     const { fetchMissionAutocomplete, missionSearchResults, fetchPostAutocomplete,
-    postSearchResults } = this.props;
+    postSearchResults, isCDO } = this.props;
 
-    // get our boolean filter names
-    const sortedBooleanNames = ['Post Differential', 'Danger Pay', 'COLA', 'Domestic'];
+    // Get our boolean filter names.
+    // We use the "description" property because these are less likely
+    // to change (they're not UI elements).
+    const sortedBooleanNames = ['postDiff', 'dangerPay', 'COLA', 'domestic'];
+    // if and only if it's a CDO, we'll show the 'Available' filter
+    if (isCDO) { sortedBooleanNames.push('available'); }
 
     // store filters in Map
     const booleanFiltersMap = new Map();
     this.props.filters.forEach((searchFilter) => {
       if (searchFilter.item.bool) {
-        booleanFiltersMap.set(searchFilter.item.title, searchFilter);
+        booleanFiltersMap.set(searchFilter.item.description, searchFilter);
       }
     });
 
@@ -209,6 +213,7 @@ SearchFiltersContainer.propTypes = {
   missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
+  isCDO: PropTypes.bool.isRequired,
 };
 
 export default SearchFiltersContainer;

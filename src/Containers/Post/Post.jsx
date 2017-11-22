@@ -25,9 +25,7 @@ class Post extends Component {
   render() {
     const { post } = this.props;
     return (
-      <div>
-        <PostDetails post={post} />
-      </div>
+      <PostDetails post={post} />
     );
   }
 }

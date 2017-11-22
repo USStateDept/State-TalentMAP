@@ -5,7 +5,7 @@ import { push } from 'react-router-redux';
 import queryString from 'query-string';
 import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
-import { filtersFetchData } from '../../actions/filters';
+import { filtersFetchData } from '../../actions/filters/filters';
 import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
@@ -224,46 +224,44 @@ class Results extends Component {
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored } = this.props;
     return (
-      <div>
-        <ResultsPage
-          results={results}
-          hasErrored={hasErrored}
-          isLoading={isLoading}
-          sortBy={POSITION_SEARCH_SORTS}
-          defaultSort={this.state.defaultSort.value}
-          pageSizes={POSITION_PAGE_SIZES}
-          defaultPageSize={this.state.defaultPageSize.value}
-          defaultPageNumber={this.state.defaultPageNumber.value}
-          onQueryParamUpdate={this.onQueryParamUpdate}
-          defaultKeyword={this.state.defaultKeyword.value}
-          defaultLocation={this.state.defaultLocation.value}
-          resetFilters={this.resetFilters}
-          pillFilters={filters.mappedParams}
-          filters={filters.filters}
-          onQueryParamToggle={this.onQueryParamToggle}
-          selectedAccordion={selectedAccordion}
-          setAccordion={setAccordion}
-          scrollToTop={scrollToTop}
-          userProfile={userProfile}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          newSavedSearchSuccess={newSavedSearchSuccess}
-          newSavedSearchIsSaving={newSavedSearchIsSaving}
-          newSavedSearchHasErrored={newSavedSearchHasErrored}
-          saveSearch={this.saveSearch}
-          currentSavedSearch={currentSavedSearch}
-          resetSavedSearchAlerts={resetSavedSearchAlerts}
-          fetchMissionAutocomplete={fetchMissionAutocomplete}
-          missionSearchResults={missionSearchResults}
-          missionSearchIsLoading={missionSearchIsLoading}
-          missionSearchHasErrored={missionSearchHasErrored}
-          fetchPostAutocomplete={fetchPostAutocomplete}
-          postSearchResults={postSearchResults}
-          postSearchIsLoading={postSearchIsLoading}
-          postSearchHasErrored={postSearchHasErrored}
-        />
-      </div>
+      <ResultsPage
+        results={results}
+        hasErrored={hasErrored}
+        isLoading={isLoading}
+        sortBy={POSITION_SEARCH_SORTS}
+        defaultSort={this.state.defaultSort.value}
+        pageSizes={POSITION_PAGE_SIZES}
+        defaultPageSize={this.state.defaultPageSize.value}
+        defaultPageNumber={this.state.defaultPageNumber.value}
+        onQueryParamUpdate={this.onQueryParamUpdate}
+        defaultKeyword={this.state.defaultKeyword.value}
+        defaultLocation={this.state.defaultLocation.value}
+        resetFilters={this.resetFilters}
+        pillFilters={filters.mappedParams}
+        filters={filters.filters}
+        onQueryParamToggle={this.onQueryParamToggle}
+        selectedAccordion={selectedAccordion}
+        setAccordion={setAccordion}
+        scrollToTop={scrollToTop}
+        userProfile={userProfile}
+        toggleFavorite={toggleFavorite}
+        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+        newSavedSearchSuccess={newSavedSearchSuccess}
+        newSavedSearchIsSaving={newSavedSearchIsSaving}
+        newSavedSearchHasErrored={newSavedSearchHasErrored}
+        saveSearch={this.saveSearch}
+        currentSavedSearch={currentSavedSearch}
+        resetSavedSearchAlerts={resetSavedSearchAlerts}
+        fetchMissionAutocomplete={fetchMissionAutocomplete}
+        missionSearchResults={missionSearchResults}
+        missionSearchIsLoading={missionSearchIsLoading}
+        missionSearchHasErrored={missionSearchHasErrored}
+        fetchPostAutocomplete={fetchPostAutocomplete}
+        postSearchResults={postSearchResults}
+        postSearchIsLoading={postSearchIsLoading}
+        postSearchHasErrored={postSearchHasErrored}
+      />
     );
   }
 }

@@ -19,7 +19,7 @@ describe('SaveNewSearchContainerComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can accept different props', () => {
+  it('accepts different props', () => {
     const success = 'success';
     wrapper = shallow(
       <SaveNewSearchContainer

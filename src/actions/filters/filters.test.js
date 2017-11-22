@@ -1,6 +1,6 @@
-import setupAsyncMocks from './setupAsyncMocks';
+import setupAsyncMocks from '../setupAsyncMocks';
 import * as actions from './filters';
-import { ENDPOINT_PARAMS } from '../Constants/EndpointParams';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
 
