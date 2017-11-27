@@ -5,10 +5,10 @@ import Actions from './Actions';
 
 const TopNav = ({ bidderPortfolioCounts }) => (
   <div className="usa-grid-full portfolio-top-nav-container">
-    <div className="usa-width-two-thirds">
+    <div className="usa-width-five-sixths">
       <Navigation counts={bidderPortfolioCounts} />
     </div>
-    <div className="usa-width-one-third">
+    <div className="usa-width-one-sixth">
       <Actions />
     </div>
   </div>
