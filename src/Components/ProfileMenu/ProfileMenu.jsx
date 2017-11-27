@@ -16,7 +16,7 @@ const ProfileMenu = ({ isCDO }) => (
           title="Bidder Portfolio"
           link="/profile/bidderportfolio/"
           search="?type=all"
-          hide={!isCDO}
+          hidden={!isCDO}
         />
         <NavLink title="Bid List" link="/profile/bidlist/" />
         <NavLink title="Favorites" link="/profile/favorites/" />

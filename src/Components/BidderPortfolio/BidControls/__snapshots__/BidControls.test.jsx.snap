@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
+<div
+  className="usa-grid-full portfolio-controls"
+>
+  <div
+    className="usa-width-one-half total-results-container"
+  >
+    <TotalResults
+      denominator={10}
+      numerator={5}
+    />
+  </div>
+  <div
+    className="usa-width-one-half portfolio-sort-container results-dropdown"
+  >
+    <SelectForm
+      defaultSort=""
+      id="porfolio-sort"
+      label="Sort by:"
+      languages={Array []}
+      onSelectOption={[Function]}
+      options={
+        Array [
+          Object {
+            "text": "Default sorting",
+            "value": "",
+          },
+          Object {
+            "text": "Age",
+            "value": "age_param",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
+<div
+  className="usa-grid-full portfolio-controls"
+>
+  <div
+    className="usa-width-one-half total-results-container"
+  >
+    <TotalResults
+      denominator={10}
+      numerator={5}
+    />
+  </div>
+  <div
+    className="usa-width-one-half portfolio-sort-container results-dropdown"
+  >
+    <SelectForm
+      defaultSort=""
+      id="porfolio-sort"
+      label="Sort by:"
+      languages={Array []}
+      onSelectOption={[Function]}
+      options={
+        Array [
+          Object {
+            "text": "Default sorting",
+            "value": "",
+          },
+          Object {
+            "text": "Age",
+            "value": "age_param",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;

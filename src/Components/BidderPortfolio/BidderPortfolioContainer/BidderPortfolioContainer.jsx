@@ -4,6 +4,7 @@ import { BIDDER_LIST } from '../../../Constants/PropTypes';
 import { scrollToTop } from '../../../utilities';
 import BidderPortfolioList from '../BidderPortfolioList';
 import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
+import Alert from '../../Alert/Alert';
 
 class BidderPortfolioContainer extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class BidderPortfolioContainer extends Component {
   }
   render() {
     const { bidderPortfolio, pageSize, pageNumber } = this.props;
+    const noResults = bidderPortfolio.results.length === 0;
     return (
       <div className="usa-grid-full user-dashboard">
         <BidderPortfolioList results={bidderPortfolio.results} />
@@ -31,7 +33,13 @@ class BidderPortfolioContainer extends Component {
                forcePage={pageNumber}
              />
            </div>
-          }
+        }
+        {
+          noResults &&
+          <div className="usa-width-two-thirds">
+            <Alert title="You have no clients within this search criteria." messages={[{ body: 'Try broadening your search.' }]} />
+          </div>
+        }
       </div>
     );
   }

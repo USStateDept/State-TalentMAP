@@ -87,41 +87,46 @@ class NavLink extends Component {
   }
 
   render() {
-    const { title, iconName, children, link } = this.props;
+    const { title, iconName, children, link, hidden } = this.props;
     const isHighlighted = isCurrentPath(this.props.location.pathname, link);
     const { showNestedLinks } = this.state;
     return (
-      <li className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
-        <div className="list-item-wrapper">
-          {
-            this.wrapInLink( // wrap our element
-              <span>
-                {
-                  <span className="fa-container">
-                    {iconName ? <FontAwesome name={iconName} /> : null}
-                  </span>
-                }
-                <span className="title-container">
-                  {title}
-                </span>
-                {
-                  !!children && // if there are children, pass an angle-down/angle-right icon
-                  <span className="fa-container angle-container">
-                    <FontAwesome name={showNestedLinks.value ? 'angle-down' : 'angle-right'} />
-                  </span>
-                }
-              </span>,
-            )
-          }
-        </div>
+      <div>
         {
-          // if the group was clicked and children exist, show the children
-          showNestedLinks.value &&
-          <ul className="children-ul">
-            {children}
-          </ul>
+          !hidden &&
+          <li className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
+            <div className="list-item-wrapper">
+              {
+                this.wrapInLink( // wrap our element
+                  <span>
+                    {
+                      <span className="fa-container">
+                        {iconName ? <FontAwesome name={iconName} /> : null}
+                      </span>
+                    }
+                    <span className="title-container">
+                      {title}
+                    </span>
+                    {
+                      !!children && // if there are children, pass an angle-down/angle-right icon
+                      <span className="fa-container angle-container">
+                        <FontAwesome name={showNestedLinks.value ? 'angle-down' : 'angle-right'} />
+                      </span>
+                    }
+                  </span>,
+                )
+              }
+            </div>
+            {
+              // if the group was clicked and children exist, show the children
+              showNestedLinks.value &&
+              <ul className="children-ul">
+                {children}
+              </ul>
+            }
+          </li>
         }
-      </li>
+      </div>
     );
   }
 }
@@ -133,6 +138,10 @@ NavLink.propTypes = {
   children: PropTypes.node, // a group of child links. Should be rendered using this component
   location: ROUTER_LOCATION_OBJECT.isRequired,
   search: PropTypes.string, // optional search params to pass to <Link>
+
+  // We still render hidden NavLinks so that we don't break NavLinksContainer.
+  // They're simply returned as empty divs.
+  hidden: PropTypes.bool,
 };
 
 NavLink.defaultProps = {
@@ -140,6 +149,7 @@ NavLink.defaultProps = {
   link: '',
   children: null,
   search: '',
+  hidden: false,
 };
 
 export default withRouter(NavLink);

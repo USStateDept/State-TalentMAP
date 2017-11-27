@@ -344,6 +344,13 @@ export const BIDDER_LIST = PropTypes.shape({
   results: BIDDER_RESULTS,
 });
 
+export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
+  all: PropTypes.number,
+  bidding: PropTypes.number,
+  inpanel: PropTypes.number,
+  inpost: PropTypes.number,
+});
+
 export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};

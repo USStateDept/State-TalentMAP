@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BIDDER_LIST } from '../../../Constants/PropTypes';
+import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
 import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
@@ -12,7 +12,10 @@ bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
 bidderPortfolioCounts }) => {
   // here we just want to check that the all prop exists, because we want the nav section to appear
   // even when we reload the counts
-  const navDataIsLoading = !bidderPortfolioCounts.all;
+  let navDataIsLoading = !bidderPortfolioCounts.all;
+  // If we can determine that the all prop is zero, then we'll change navDataIsLoading to false,
+  // since zero normally evaluates as false.
+  if (bidderPortfolioCounts.all === 0) { navDataIsLoading = false; }
   // for bidder results, however, we'll wait until everything is loaded
   const isLoading = (bidderPortfolioIsLoading && !bidderPortfolioHasErrored) ||
     navDataIsLoading;
@@ -59,7 +62,7 @@ BidderPortfolioPage.propTypes = {
   pageSize: PropTypes.number.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
-  bidderPortfolioCounts: PropTypes.shape({}).isRequired,
+  bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
 };
 
 export default BidderPortfolioPage;

@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { BIDDER_PORTFOLIO_COUNTS } from '../../../../../Constants/PropTypes';
 import NavigationItem from '../NavigationItem';
 
 const NavigationList = ({ counts }) => (
@@ -32,7 +32,7 @@ const NavigationList = ({ counts }) => (
 );
 
 NavigationList.propTypes = {
-  counts: PropTypes.shape({}).isRequired,
+  counts: BIDDER_PORTFOLIO_COUNTS.isRequired,
 };
 
 export default NavigationList;

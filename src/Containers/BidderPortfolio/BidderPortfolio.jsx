@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData } from '../../actions/bidderPortfolio';
-import { BIDDER_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS } from '../../Constants/PropTypes';
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from '../../Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
 import BidderPortfolioPage from '../../Components/BidderPortfolio/BidderPortfolioPage';
@@ -22,12 +22,15 @@ class BidderPortfolio extends Component {
     };
   }
 
+  // Fetch bidder list and bidder statistics.
   componentWillMount() {
     this.getBidderPortfolio();
     this.props.fetchBidderPortfolioCounts();
   }
 
-  // for when we need to UPDATE the ENTIRE value of a filter
+  // For when we need to UPDATE the ENTIRE value of a filter.
+  // Much of the logic is abstracted to a helper, but we need to set state within
+  // the instance.
   onQueryParamUpdate(q) {
     // returns the new query string
     const newQuery = queryParamUpdate(q, this.state.query.value);
@@ -39,11 +42,15 @@ class BidderPortfolio extends Component {
     this.getBidderPortfolio();
   }
 
+  // Form our query and then retrieve bidders.
   getBidderPortfolio() {
     const query = this.createSearchQuery();
     this.props.fetchBidderPortfolio(query);
   }
 
+  // We use a human-readable "type" query param for navigation that isn't actually
+  // passed to the API query. So we map it against a real query param here.
+  // We pass any other params in the query, but aren't passing those to the URL currently.
   mapTypeToQuery() {
     const { query } = this.state;
     let parsedQuery = queryString.parse(query.value);
@@ -56,6 +63,7 @@ class BidderPortfolio extends Component {
     this.state.query.value = queryString.stringify(parsedQuery);
   }
 
+  // When we trigger a new search, we reset the page number and limit.
   createSearchQuery() {
     this.mapTypeToQuery();
     const query = {
@@ -93,7 +101,7 @@ BidderPortfolio.propTypes = {
   bidderPortfolioIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioHasErrored: PropTypes.bool.isRequired,
   fetchBidderPortfolio: PropTypes.func.isRequired,
-  bidderPortfolioCounts: PropTypes.shape({}).isRequired,
+  bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
   bidderPortfolioCountsIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioCountsHasErrored: PropTypes.bool.isRequired,
   fetchBidderPortfolioCounts: PropTypes.func.isRequired,

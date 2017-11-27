@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { BIDDER_PORTFOLIO_COUNTS } from '../../../Constants/PropTypes';
 import Navigation from './Navigation';
 import Actions from './Actions';
 
@@ -15,7 +15,7 @@ const TopNav = ({ bidderPortfolioCounts }) => (
 );
 
 TopNav.propTypes = {
-  bidderPortfolioCounts: PropTypes.shape({}).isRequired,
+  bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
 };
 
 export default TopNav;

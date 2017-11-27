@@ -1,6 +1,8 @@
 import axios from 'axios';
+import queryString from 'query-string';
 import api from '../api';
 import { fetchUserToken } from '../utilities';
+import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from '../Constants/EndpointParams';
 
 export function bidderPortfolioHasErrored(bool) {
   return {
@@ -46,13 +48,15 @@ export function bidderPortfolioCountsFetchData() {
     dispatch(bidderPortfolioCountsIsLoading(true));
 
     const queryTypes = [
-      { name: 'all', query: '' },
-      { name: 'bidding', query: '' },
-      { name: 'inpanel', query: '' },
-      { name: 'inpost', query: '' },
+      { name: 'all', query: queryString.stringify(BIDDER_PORTFOLIO_PARAM_OBJECTS.all) },
+      { name: 'bidding', query: queryString.stringify(BIDDER_PORTFOLIO_PARAM_OBJECTS.bidding) },
+      { name: 'inpanel', query: queryString.stringify(BIDDER_PORTFOLIO_PARAM_OBJECTS.inpanel) },
+      { name: 'inpost', query: queryString.stringify(BIDDER_PORTFOLIO_PARAM_OBJECTS.inpost) },
     ];
 
-    const queryProms = queryTypes.map(type => axios.get(`${api}/client/?${type.query}`, { headers: { Authorization: fetchUserToken() } }));
+    // We're just using this query to get the count,
+    // so we set a hard limit=1 to reduce response time.
+    const queryProms = queryTypes.map(type => axios.get(`${api}/client/?limit=1&${type.query}`, { headers: { Authorization: fetchUserToken() } }));
 
     Promise.all(queryProms)
       // Promise.all returns a single array which matches the order of the originating array...

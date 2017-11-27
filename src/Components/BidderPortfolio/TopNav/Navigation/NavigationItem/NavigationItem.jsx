@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ROUTER_LOCATION_OBJECT } from '../../../../../Constants/PropTypes';
 import { isCurrentParam } from '../../../../ProfileMenu/navigation';
 
-const NavigationItem = ({ title, numerator, denominator, link, location }) => {
+export const NavigationItem = ({ title, numerator, denominator, link, location }) => {
   const isUnderlined = isCurrentParam(link, location.search, 'type');
   return (
     <div className={`usa-grid-full bidder-portfolio-navigation-item ${isUnderlined ? 'is-underlined' : 'is-not-underlined'}`}>
