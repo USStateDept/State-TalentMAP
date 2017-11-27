@@ -156,6 +156,7 @@ export const USER_PROFILE = PropTypes.shape({
     first_name: PropTypes.string,
     last_name: PropTypes.string,
   }),
+  is_cdo: PropTypes.bool,
   language_qualifications: PropTypes.arrayOf(
     PropTypes.number,
   ),

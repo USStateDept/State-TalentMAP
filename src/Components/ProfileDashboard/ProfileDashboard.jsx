@@ -7,6 +7,7 @@ import BidList from './BidList';
 import PositionInformation from './PositionInformation';
 import Notifications from './Notifications';
 import Spinner from '../Spinner';
+import StaticDevContent from '../StaticDevContent';
 
 const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoading, notifications,
   notificationsIsLoading, bidList, bidListIsLoading }) => (
@@ -29,7 +30,9 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
                 <CurrentUser userProfile={userProfile} />
               </div>
               <div className="usa-width-one-whole user-dashboard-section cdo-section">
-                <CDOInfo name="Leah Shadtrach" />
+                <StaticDevContent>
+                  <CDOInfo name="Leah Shadtrach" />
+                </StaticDevContent>
               </div>
             </div>
             <div

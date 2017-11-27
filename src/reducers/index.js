@@ -30,6 +30,7 @@ import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
 bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored } from './bidderPortfolio';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
+import shouldShowStaticContent from './showStaticContent';
 
 
 export default combineReducers({
@@ -110,5 +111,6 @@ export default combineReducers({
   bidderPortfolioCounts,
   bidderPortfolioCountsIsLoading,
   bidderPortfolioCountsHasErrored,
+  shouldShowStaticContent,
   router: routerReducer,
 });

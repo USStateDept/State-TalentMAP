@@ -22,6 +22,42 @@ describe('SearchFiltersContainerComponent', () => {
 
   const accordion = ACCORDION_SELECTION;
 
+  it('is defined', () => {
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        queryParamUpdate={() => {}}
+        queryParamToggle={() => {}}
+        selectedAccordion={accordion}
+        setAccordion={() => {}}
+        filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        isCDO={false}
+      />,
+    );
+    expect(wrapper.instance()).toBeDefined();
+  });
+
+  it('is defined when isCDO is true', () => {
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        queryParamUpdate={() => {}}
+        queryParamToggle={() => {}}
+        selectedAccordion={accordion}
+        setAccordion={() => {}}
+        filters={items}
+        fetchMissionAutocomplete={() => {}}
+        missionSearchResults={[]}
+        fetchPostAutocomplete={() => {}}
+        postSearchResults={[]}
+        isCDO
+      />,
+    );
+    expect(wrapper.instance()).toBeDefined();
+  });
+
   it('can receive props', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
@@ -34,6 +70,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
@@ -51,6 +88,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -69,6 +107,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
 
@@ -94,6 +133,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
 
@@ -115,6 +155,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
 
@@ -136,6 +177,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
     wrapper.instance().onMissionSuggestionSelected(1);
@@ -160,6 +202,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('language');
@@ -193,6 +236,7 @@ describe('SearchFiltersContainerComponent', () => {
         missionSearchResults={[]}
         fetchPostAutocomplete={() => {}}
         postSearchResults={[]}
+        isCDO={false}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('skill');

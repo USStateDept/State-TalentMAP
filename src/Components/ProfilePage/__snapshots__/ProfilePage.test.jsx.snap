@@ -5,7 +5,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
   className="profile-page"
 >
   <ProfileMenu
-    isCDO={true}
+    isCDO={false}
   />
   <div
     className="usa-grid-full profile-content-container"
