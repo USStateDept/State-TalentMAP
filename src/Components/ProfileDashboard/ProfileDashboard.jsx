@@ -10,12 +10,17 @@ import Spinner from '../Spinner';
 
 const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoading, notifications,
   notificationsIsLoading, bidList, bidListIsLoading }) => (
-    <div className="usa-grid-full user-dashboard">
+    <div className="usa-grid-full user-dashboard profile-content-inner-container">
       {
         (isLoading || assignmentIsLoading || notificationsIsLoading || bidListIsLoading) ?
           <Spinner type="homepage-position-results" size="big" />
           :
           <div>
+            <div className="hello-greeting">
+              {
+                `Hello, ${userProfile.user.first_name} ${userProfile.user.last_name}`
+              }
+            </div>
             <div
               className={`usa-width-one-fourth user-dashboard-section-container
                 user-dashboard-column-1`}

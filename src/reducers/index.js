@@ -26,7 +26,8 @@ import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess }
 import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
 import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
 import { notificationsHasErrored, notificationsIsLoading, notifications } from './notifications';
-import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored } from './bidderPortfolio';
+import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
+bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored } from './bidderPortfolio';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 
@@ -106,5 +107,8 @@ export default combineReducers({
   bidderPortfolio,
   bidderPortfolioIsLoading,
   bidderPortfolioHasErrored,
+  bidderPortfolioCounts,
+  bidderPortfolioCountsIsLoading,
+  bidderPortfolioCountsHasErrored,
   router: routerReducer,
 });

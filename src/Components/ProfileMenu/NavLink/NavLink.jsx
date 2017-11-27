@@ -53,11 +53,11 @@ class NavLink extends Component {
   // elements with children and no link become a clickable, epxandable list with its children.
   // If neither criteria is met, we simply return the unwrapped element.
   wrapInLink(element) {
-    const { link, children, iconName } = this.props;
+    const { link, search, children, iconName } = this.props;
     // If there's no link prop, then we don't want to wrap the element in a <Link>
     if (link.length) {
       return (
-        <Link to={link} className={iconName ? 'icon-padding' : ''}>{element}</Link>
+        <Link to={{ pathname: link, search }} className={iconName ? 'icon-padding' : ''}>{element}</Link>
       );
     } else if (children) {
       // Else, this must be a grouping of children, so we'll wrap it accordingly.
@@ -132,12 +132,14 @@ NavLink.propTypes = {
   link: PropTypes.string, // ex: "/profile/", "/profile/favorites/", etc.
   children: PropTypes.node, // a group of child links. Should be rendered using this component
   location: ROUTER_LOCATION_OBJECT.isRequired,
+  search: PropTypes.string, // optional search params to pass to <Link>
 };
 
 NavLink.defaultProps = {
   iconName: '',
   link: '',
   children: null,
+  search: '',
 };
 
 export default withRouter(NavLink);

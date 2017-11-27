@@ -1,26 +1,7 @@
 .results {
 
-  // dropdown labels should appear to the left of the input
   label {
-    float: left;
     font-size: .8em;
-    margin-right: 10px;
-    margin-top: 6px;
-  }
-
-  .results-dropdown {
-    select {
-      background-color: $color-gray-lightest;
-      border: 0;
-      border-radius: 7px;
-      font-size: .8em;
-      height: 28px;
-      overflow: hidden;
-      padding: 0 .7em;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 130px;
-    }
   }
 
   .results-dropdown-page-size {
@@ -374,4 +355,27 @@
 
 .render-suggestion {
   color: $color-black;
+}
+
+.results-dropdown {
+  // dropdown labels should appear to the left of the input
+  label {
+    float: left;
+    font-size: .8em;
+    margin-right: 10px;
+    margin-top: 6px;
+  }
+
+  select {
+    background-color: $color-gray-lightest;
+    border: 0;
+    border-radius: 7px;
+    font-size: .8em;
+    height: 28px;
+    overflow: hidden;
+    padding: 0 .7em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 130px;
+  }
 }

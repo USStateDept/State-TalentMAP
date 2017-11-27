@@ -14,6 +14,13 @@ export const ENDPOINT_PARAMS = {
   post: 'post__in',
 };
 
+export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
+  all: {},
+  bidding: { bidding: true },
+  inpanel: { inpanel: true },
+  inpost: { inpost: true },
+};
+
 export const VALID_PARAMS = [
   ENDPOINT_PARAMS.skill,
   ENDPOINT_PARAMS.language,

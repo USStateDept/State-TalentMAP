@@ -12,7 +12,12 @@ const ProfileMenu = ({ isCDO }) => (
       <NavLink title="Home" iconName="home" link="/profile/" />
       <NavLink title="Profile" iconName="user" >
         <NavLink title="Dashboard" link="/profile/dashboard/" />
-        <NavLink title="Bidder Portfolio" link="/profile/bidderportfolio/" hide={!isCDO} />
+        <NavLink
+          title="Bidder Portfolio"
+          link="/profile/bidderportfolio/"
+          search="?type=all"
+          hide={!isCDO}
+        />
         <NavLink title="Bid List" link="/profile/bidlist/" />
         <NavLink title="Favorites" link="/profile/favorites/" />
         <NavLink title="Saved Searches" link="/profile/searches/" />
