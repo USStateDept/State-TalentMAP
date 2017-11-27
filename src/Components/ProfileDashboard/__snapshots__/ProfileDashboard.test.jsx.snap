@@ -19,7 +19,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
           useGroup={false}
           userProfile={
             Object {
-              "is_cdo": true,
+              "is_cdo": false,
               "skill_code": "INFORMATION MANAGEMENT (2880)",
               "user": Object {
                 "email": "doej@state.gov",

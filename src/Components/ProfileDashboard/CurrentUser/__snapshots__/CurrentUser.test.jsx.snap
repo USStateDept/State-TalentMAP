@@ -9,7 +9,7 @@ exports[`CurrentUserComponent matches snapshot 1`] = `
     useGroup={false}
     userProfile={
       Object {
-        "is_cdo": true,
+        "is_cdo": false,
         "skill_code": "INFORMATION MANAGEMENT (2880)",
         "user": Object {
           "email": "doej@state.gov",
@@ -23,7 +23,7 @@ exports[`CurrentUserComponent matches snapshot 1`] = `
     showEditLink={true}
     userProfile={
       Object {
-        "is_cdo": true,
+        "is_cdo": false,
         "skill_code": "INFORMATION MANAGEMENT (2880)",
         "user": Object {
           "email": "doej@state.gov",
