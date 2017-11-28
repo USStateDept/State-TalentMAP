@@ -139,6 +139,10 @@
   padding: 15px 10px;
   width: 20%;
 
+  label {
+    margin-top: 1rem;
+  }
+
   .reset-filters {
     border-bottom: solid 1px;
     cursor: pointer;
