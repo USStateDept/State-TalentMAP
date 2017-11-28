@@ -12,7 +12,6 @@ class BidderPortfolioPage extends Component {
     super(props);
     this.changeViewType = this.changeViewType.bind(this);
     this.state = {
-      key: 0,
       viewType: { value: 'card' },
     };
   }
@@ -47,7 +46,7 @@ class BidderPortfolioPage extends Component {
               <TopNav bidderPortfolioCounts={bidderPortfolioCounts} />
               <BidControls
                 queryParamUpdate={queryParamUpdate}
-                biddersNumerator={bidderPortfolio.count}
+                biddersNumerator={bidderPortfolio.count || 0 /* pass zero if waiting on value */}
                 biddersDenominator={bidderPortfolioCounts.all}
                 isLoading={isLoading}
                 viewType={this.state.viewType.value}

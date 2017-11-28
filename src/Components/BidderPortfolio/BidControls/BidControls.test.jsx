@@ -12,6 +12,8 @@ describe('BidControlsComponent', () => {
         biddersNumerator={5}
         biddersDenominator={10}
         isLoading={false}
+        viewType="card"
+        changeViewType={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -25,6 +27,8 @@ describe('BidControlsComponent', () => {
         biddersNumerator={5}
         biddersDenominator={10}
         isLoading={false}
+        viewType="card"
+        changeViewType={() => {}}
       />,
     );
     wrapper.instance().onSortChange({ target: { value: 'test' } });
@@ -38,6 +42,8 @@ describe('BidControlsComponent', () => {
         biddersNumerator={5}
         biddersDenominator={10}
         isLoading={false}
+        viewType="card"
+        changeViewType={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -50,6 +56,8 @@ describe('BidControlsComponent', () => {
         biddersNumerator={5}
         biddersDenominator={10}
         isLoading={false}
+        viewType="card"
+        changeViewType={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

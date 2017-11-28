@@ -217,6 +217,10 @@
   .boolean-filter-container {
     margin-left: 10px;
     padding-top: 10px;
+
+    label {
+      margin-top: 10px;
+    }
   }
 
   .tm-checkbox {

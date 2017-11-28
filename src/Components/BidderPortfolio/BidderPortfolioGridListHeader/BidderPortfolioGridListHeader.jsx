@@ -8,7 +8,7 @@ const BidderPortfolioGridListHeader = () => (
       <div className="usa-width-one-fourth grid-list-header-col-one">
         <div className="usa-grid-full">
           <div className="usa-width-one-sixth">
-            <CheckBox />
+            <CheckBox id="grid-header-select-all" label="Select all" value={false} labelSrOnly />
           </div>
           <div className="usa-width-five-sixths">
             <BidderPortfolioGridListHeaderItem content="Name / Cone / Level" />
