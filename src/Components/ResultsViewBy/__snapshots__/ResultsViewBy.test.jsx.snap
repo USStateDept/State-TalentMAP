@@ -10,18 +10,38 @@ exports[`ResultsViewByComponent matches snapshot 1`] = `
     View:
   </div>
   <div
-    className="view-icon"
+    className="unstyled-button-container view-icon is-selected"
   >
-    <FontAwesome
-      name="th"
-    />
+    <button
+      className="usa-button"
+      onClick={[Function]}
+    >
+      <span
+        className="usa-sr-only"
+      >
+        Card view
+      </span>
+      <FontAwesome
+        name="th"
+      />
+    </button>
   </div>
   <div
-    className="view-icon view-icon-border"
+    className="unstyled-button-container view-icon view-icon-border is-not-selected"
   >
-    <FontAwesome
-      name="th-list"
-    />
+    <button
+      className="usa-button"
+      onClick={[Function]}
+    >
+      <span
+        className="usa-sr-only"
+      >
+        Grid view
+      </span>
+      <FontAwesome
+        name="th-list"
+      />
+    </button>
   </div>
 </div>
 `;

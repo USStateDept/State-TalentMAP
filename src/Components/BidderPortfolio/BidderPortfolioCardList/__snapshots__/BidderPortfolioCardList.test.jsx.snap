@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidderPortfolioListComponent matches snapshot 1`] = `
+exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full user-dashboard"
 >
