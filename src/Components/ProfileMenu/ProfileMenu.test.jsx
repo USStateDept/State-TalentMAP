@@ -6,14 +6,21 @@ import ProfileMenu from './ProfileMenu';
 describe('ProfileMenuComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <ProfileMenu />,
+      <ProfileMenu isCDO />,
     );
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot when isCDO is false', () => {
     const wrapper = shallow(
-      <ProfileMenu />,
+      <ProfileMenu isCDO={false} />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when isCDO is true', () => {
+    const wrapper = shallow(
+      <ProfileMenu isCDO />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

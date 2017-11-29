@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentUserPersonalInformationComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full current-user-section-container current-user-personal-information"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <InformationDataPoint
+      className="skill-code-data-point-container"
+      content="INFORMATION MANAGEMENT (2880)"
+      sideBySide={false}
+      title="Skill Code"
+      titleOnBottom={false}
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container"
+      content="None listed"
+      sideBySide={false}
+      title="Birthdate"
+      titleOnBottom={false}
+    />
+  </div>
+</div>
+`;

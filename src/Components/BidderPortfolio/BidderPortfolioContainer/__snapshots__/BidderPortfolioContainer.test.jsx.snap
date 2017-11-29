@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioContainerComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <BidderPortfolioList
+    results={
+      Array [
+        Object {
+          "id": 1,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "last_name": "Doe",
+          },
+        },
+        Object {
+          "id": 2,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "doejane@state.gov",
+            "first_name": "Jane",
+            "last_name": "Doe",
+          },
+        },
+        Object {
+          "id": 3,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "smithj@state.gov",
+            "first_name": "John",
+            "last_name": "Smith",
+          },
+        },
+      ]
+    }
+  />
+  <div
+    className="usa-grid-full react-paginate"
+  >
+    <PaginationWrapper
+      activeClassName="active"
+      containerClassName="pagination"
+      forcePage={1}
+      marginPagesDisplayed={2}
+      nextLabel="Next"
+      onPageChange={[Function]}
+      pageRangeDisplayed={1}
+      pageSize={8}
+      paginationStyle="pagination"
+      previousLabel="Previous"
+      subContainerClassName="pages pagination"
+      totalResults={3}
+    />
+  </div>
+</div>
+`;

@@ -88,4 +88,10 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
+  it('handles a profile/bidderportfolio route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/bidderportfolio']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
 });

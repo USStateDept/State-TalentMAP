@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <div
+    className="usa-width-one-fourth user-dashboard-section"
+  >
+    <BidderPortfolioCard
+      showBids={true}
+      showBirthday={true}
+      showEditLink={false}
+      userProfile={
+        Object {
+          "id": 1,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "last_name": "Doe",
+          },
+        }
+      }
+    />
+  </div>
+  <div
+    className="usa-width-one-fourth user-dashboard-section"
+  >
+    <BidderPortfolioCard
+      showBids={true}
+      showBirthday={true}
+      showEditLink={false}
+      userProfile={
+        Object {
+          "id": 2,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "doejane@state.gov",
+            "first_name": "Jane",
+            "last_name": "Doe",
+          },
+        }
+      }
+    />
+  </div>
+  <div
+    className="usa-width-one-fourth user-dashboard-section"
+  >
+    <BidderPortfolioCard
+      showBids={true}
+      showBirthday={true}
+      showEditLink={false}
+      userProfile={
+        Object {
+          "id": 3,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "smithj@state.gov",
+            "first_name": "John",
+            "last_name": "Smith",
+          },
+        }
+      }
+    />
+  </div>
+</div>
+`;

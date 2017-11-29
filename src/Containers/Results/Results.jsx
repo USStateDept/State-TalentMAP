@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
+import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
@@ -30,7 +31,7 @@ class Results extends Component {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: '' },
-      defaultPageSize: { value: '' },
+      defaultPageSize: { value: 0 },
       defaultPageNumber: { value: 1 },
       defaultKeyword: { value: '' },
       defaultLocation: { value: '' },
@@ -106,25 +107,7 @@ class Results extends Component {
 
   // for when we need to UPDATE the ENTIRE value of a filter
   onQueryParamUpdate(q) {
-    const parsedQuery = queryString.parse(this.state.query.value);
-    // unless we're changing the page number, go back to page 1
-    if (Object.keys(q).indexOf('page') <= -1) {
-      if (parsedQuery.page) {
-        // deleting the key does the same thing as going back to page 1
-        // and also makes our query params cleaner
-        delete parsedQuery.page;
-      }
-    }
-    // combine our old and new query objects, overwriting any diffs with new
-    const newQuery = Object.assign({}, parsedQuery, q);
-    // remove any params with no value
-    Object.keys(newQuery).forEach((key) => {
-      if (!(newQuery[key].toString().length)) {
-        delete newQuery[key];
-      }
-    });
-    // convert the object to a string
-    const newQueryString = queryString.stringify(newQuery);
+    const newQueryString = queryParamUpdate(q, this.state.query.value);
     // and push to history
     this.updateHistory(newQueryString);
   }

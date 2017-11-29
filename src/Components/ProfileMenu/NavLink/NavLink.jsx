@@ -29,7 +29,7 @@ class NavLink extends Component {
     // When there's only one child, we can't use forEach...
     if (children && children.length > 1) {
       children.forEach((c) => {
-        if (c.props && c.props.link && c.props.link &&
+        if (c && c.props && c.props.link &&
           isCurrentPath(this.props.location.pathname, c.props.link)) {
           found = true;
         }

@@ -15,13 +15,14 @@ describe('ResultsContainerComponent', () => {
     onQueryParamUpdate: () => {},
     sortBy: { options: [{ value: 'sort', text: 'sort' }] },
     pageSizes: { options: [{ value: 10, text: '10' }] },
-    pageCount: 10,
+    pageSize: 10,
     hasLoaded: true,
     onToggle: () => {},
+    totalResults: 101,
   };
 
-  const { isLoading, onQueryParamUpdate,
-    sortBy, pageSizes, pageCount, hasLoaded, onToggle } = config;
+  const { isLoading, onQueryParamUpdate, totalResults,
+    sortBy, pageSizes, pageSize, hasLoaded, onToggle } = config;
 
   it('is defined', () => {
     wrapper = TestUtils.renderIntoDocument(<MemoryRouter>
@@ -31,7 +32,8 @@ describe('ResultsContainerComponent', () => {
         queryParamUpdate={onQueryParamUpdate}
         sortBy={sortBy}
         pageSizes={pageSizes}
-        pageCount={pageCount}
+        pageSize={pageSize}
+        totalResuls={totalResults}
         hasLoaded={hasLoaded}
         onToggle={onToggle}
         onQueryParamToggle={() => {}}
@@ -55,7 +57,8 @@ describe('ResultsContainerComponent', () => {
       queryParamUpdate={onQueryParamUpdate}
       sortBy={sortBy}
       pageSizes={pageSizes}
-      pageCount={pageCount}
+      pageSize={pageSize}
+      totalResuls={totalResults}
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
@@ -78,7 +81,8 @@ describe('ResultsContainerComponent', () => {
       queryParamUpdate={onQueryParamUpdate}
       sortBy={sortBy}
       pageSizes={pageSizes}
-      pageCount={20}
+      pageSize={20}
+      totalResuls={totalResults}
       hasLoaded={false}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
@@ -91,7 +95,7 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
     />);
-    expect(wrapper.instance().props.pageCount).toBe(20);
+    expect(wrapper.instance().props.pageSize).toBe(20);
   });
 
   it('can call the onPageChange function', () => {
@@ -103,7 +107,8 @@ describe('ResultsContainerComponent', () => {
       queryParamUpdate={spy}
       sortBy={sortBy}
       pageSizes={pageSizes}
-      pageCount={20}
+      pageSize={20}
+      totalResuls={totalResults}
       hasLoaded={false}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
@@ -129,7 +134,8 @@ describe('ResultsContainerComponent', () => {
       queryParamUpdate={onQueryParamUpdate}
       sortBy={sortBy}
       pageSizes={pageSizes}
-      pageCount={pageCount}
+      pageSize={pageSize}
+      totalResuls={totalResults}
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}

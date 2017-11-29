@@ -21,18 +21,21 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
           start="10-10-2016"
         />
       }
+      sideBySide={false}
       title="Start & End of Position"
       titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
       content="Bureau of Western Hemispheric Affairs"
+      sideBySide={false}
       title="Bureau"
       titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
       content="Specialist"
+      sideBySide={false}
       title="Position Title"
       titleOnBottom={false}
     />
@@ -40,6 +43,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       <InformationDataPoint
         className=""
         content="Medical Technology (6145)"
+        sideBySide={false}
         title="Skill Code"
         titleOnBottom={false}
       />

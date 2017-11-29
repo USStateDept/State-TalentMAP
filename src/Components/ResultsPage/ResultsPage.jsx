@@ -38,7 +38,6 @@ class Results extends Component {
             postSearchResults, postSearchIsLoading, postSearchHasErrored }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
-    const pageCount = Math.ceil(results.count / defaultPageSize);
     return (
       <div className="results content-container">
         <ResultsSearchHeader
@@ -78,7 +77,8 @@ class Results extends Component {
             isLoading={isLoading}
             hasErrored={hasErrored}
             sortBy={sortBy}
-            pageCount={pageCount}
+            pageSize={defaultPageSize}
+            totalResults={results.count}
             hasLoaded={hasLoaded || false}
             defaultSort={defaultSort}
             pageSizes={pageSizes}
@@ -116,7 +116,7 @@ Results.propTypes = {
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
-  defaultPageSize: PropTypes.node,
+  defaultPageSize: PropTypes.number,
   defaultPageNumber: PropTypes.number,
   defaultKeyword: PropTypes.string,
   defaultLocation: PropTypes.string,
