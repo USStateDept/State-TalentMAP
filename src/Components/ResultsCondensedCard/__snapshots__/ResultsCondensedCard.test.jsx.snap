@@ -69,6 +69,74 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     className="condensed-card-bottom-container"
   >
     <ResultsCondensedCardBottom
+      bidList={
+        Array [
+          Object {
+            "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+            "id": 3,
+            "position": Object {
+              "create_date": "2015-08-05",
+              "grade": "03",
+              "id": 226,
+              "position_number": "10035561",
+              "post": Object {
+                "id": 199,
+                "location": "Curacao",
+              },
+              "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+              "title": "POLITICAL/ECONOMIC OFFICER",
+              "update_date": "2017-06-08",
+            },
+            "status": "approved",
+            "submission_date": "2017-10-31",
+            "update_date": "2017-10-31",
+            "user": "rehmant",
+          },
+          Object {
+            "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+            "id": 1,
+            "position": Object {
+              "create_date": "2006-09-20",
+              "grade": "05",
+              "id": 1,
+              "position_number": "00003026",
+              "post": Object {
+                "id": 235,
+                "location": "Freetown, Sierra Leone",
+              },
+              "skill": "OFFICE MANAGEMENT (9017)",
+              "title": "OMS (COM)",
+              "update_date": "2017-06-08",
+            },
+            "status": "closed",
+            "submission_date": "2017-10-31",
+            "update_date": "2017-11-01",
+            "user": "rehmant",
+          },
+          Object {
+            "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+            "id": 2,
+            "position": Object {
+              "create_date": "2006-09-20",
+              "grade": "04",
+              "id": 84,
+              "position_number": "56001600",
+              "post": Object {
+                "id": 195,
+                "location": "The Hague, Netherlands",
+              },
+              "skill": "SECURITY (2501)",
+              "title": "SPECIAL AGENT",
+              "update_date": "2017-06-08",
+            },
+            "status": "closed",
+            "submission_date": null,
+            "update_date": "2017-11-01",
+            "user": "rehmant",
+          },
+        ]
+      }
+      favorites={Array []}
       position={
         Object {
           "bid_statistics": Array [
@@ -123,6 +191,8 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
           "update_date": "2017-06-08",
         }
       }
+      toggleBid={[Function]}
+      toggleFavorite={[Function]}
       type="new"
     />
   </div>

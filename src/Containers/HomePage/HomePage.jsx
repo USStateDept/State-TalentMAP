@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FILTER_ITEMS_ARRAY, HOME_PAGE_POSITIONS, USER_PROFILE } from '../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
@@ -30,7 +30,7 @@ class HomePage extends Component {
   render() {
     const { filters, homePagePositions,
       homePagePositionsIsLoading, homePagePositionsHasErrored,
-      userProfile, toggleFavorite,
+      userProfile, toggleFavorite, toggleBid, bidList,
       userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored } = this.props;
     return (
@@ -57,6 +57,8 @@ class HomePage extends Component {
               userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
               positions={homePagePositions.isHighlighted}
               isLoading={homePagePositionsIsLoading}
+              toggleBid={toggleBid}
+              bidList={bidList}
             />
             <NewPositionsSection
               favorites={userProfile.favorite_positions}
@@ -65,6 +67,8 @@ class HomePage extends Component {
               userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
               positions={homePagePositions.isNew}
               isLoading={homePagePositionsIsLoading}
+              toggleBid={toggleBid}
+              bidList={bidList}
             />
           </div>
         </div>
@@ -83,6 +87,8 @@ HomePage.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 HomePage.defaultProps = {

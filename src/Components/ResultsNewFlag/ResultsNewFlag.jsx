@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ResultsNewFlag = () => (
+const ResultsNewFlag = ({ text }) => (
   <div className="new-flag">
-    New
+    {text}
   </div>
 );
+
+ResultsNewFlag.propTypes = {
+  text: PropTypes.string.isRequired,
+};
 
 export default ResultsNewFlag;

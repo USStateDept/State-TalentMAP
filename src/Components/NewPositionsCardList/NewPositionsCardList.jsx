@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
-import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 
-const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
-  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
+const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading, toggleBid,
+  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored, bidList }) => {
   // we only want to show 6
   const arrayMaxLength = 6;
   // create an initial array with x values
@@ -23,6 +23,8 @@ const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             position={p}
+            toggleBid={toggleBid}
+            bidList={bidList}
           />
         </div>
     );
@@ -52,6 +54,8 @@ NewPositionsCardList.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 NewPositionsCardList.defaultProps = {

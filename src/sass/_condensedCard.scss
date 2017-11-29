@@ -10,15 +10,22 @@
     border-radius: 100px;
     color: $color-black;
     font-size: 13px;
-    padding: .1em;
+    padding: .2em 1em;
     text-align: center;
-    width: 50px;
+    width: auto;
   }
 
   .white-button {
+    border: 2px solid $blue-primary;
     bottom: 17px;
+    color: $blue-primary;
     margin-top: 15px;
     position: absolute;
+
+    .fa {
+      color: $blue-primary;
+      margin-right: 5px;
+    }
   }
 
   .link-button-wrapper {
@@ -57,7 +64,6 @@
   }
 
   .condensed-card-top-header {
-    float: left;
     margin: 3px 0 0 1%;
     width: 48%;
   }
@@ -66,8 +72,15 @@
     margin-bottom: 5px;
   }
 
-  .condensed-card-top-header-right {
+  .condensed-card-top-header-left {
+    float: left;
     margin: 3px 1% 0 0;
+    width: auto;
+  }
+
+  .condensed-card-top-header-right {
+    float: right;
+    margin: 3px 3% 0 0;
     text-align: right;
   }
 
@@ -90,6 +103,11 @@
 
   .condensed-card-data {
     margin-bottom: 10px;
+
+    a {
+      color: $blue-primary;
+      text-decoration: none;
+    }
   }
 
   .last-updated-date {
