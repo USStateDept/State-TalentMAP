@@ -1,6 +1,39 @@
 // footer container
 .tm-footer {
   padding: 0;
+
+  @media screen and (min-width: 600px){
+    .usa-grid {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .usa-footer-secondary_section a {
+    color: $blue-primary;
+    text-decoration: none;
+  }
+
+  .usa-footer-logo {
+    min-height: 100px;
+  }
+
+  .usa-footer-logo-img {
+    float: left;
+  }
+
+  .usa-footer-logo-img-tm {
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+
+  .usa-footer-logo-img-tm-container {
+    border-left: 1px solid;
+    float: left;
+    margin-left: 20px;
+    margin-top: 15px;
+    min-height: 60px;
+  }
 }
 
 // footer nav

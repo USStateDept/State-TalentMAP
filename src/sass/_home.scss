@@ -1,5 +1,7 @@
 .home {
 
+  background-color: $color-gray-lightest-alt;
+
   .hidden {
     display: none;
   }
@@ -8,8 +10,13 @@
     color: $alert-red;
   }
 
+  .homepage-positions-section-container-inner {
+    padding-top: 25px;
+    position: relative;
+  }
+
   .explore-section {
-    background-color: $tm-white-smoke;
+    background-color: $color-white;
 
     border-bottom: 1px solid $color-gray-light;
 

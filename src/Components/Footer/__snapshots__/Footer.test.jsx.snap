@@ -56,7 +56,7 @@ exports[`Footer Component matches snapshot 1`] = `
     className="usa-footer-secondary_section tm-footer-body"
   >
     <div
-      className="usa-grid"
+      className="usa-grid-full tm-footer-body-inner-container"
     >
       <div
         className="usa-footer-logo usa-width-one-half"
@@ -65,7 +65,18 @@ exports[`Footer Component matches snapshot 1`] = `
           alt="DOS Seal"
           className="usa-footer-logo-img"
           src="/assets/img/rsz_dos-seal.png"
+          width="90"
         />
+        <div
+          className="usa-footer-logo-img-tm-container"
+        >
+          <img
+            alt="TalentMAP logo"
+            className="usa-footer-logo-img-tm"
+            src="horizontal_color.png"
+            width="250"
+          />
+        </div>
       </div>
       <div
         className="usa-footer-contact-links usa-width-one-half tm-footer-body-contact"
@@ -73,21 +84,17 @@ exports[`Footer Component matches snapshot 1`] = `
         <div
           className="tm-footer-body-contact-item"
         >
+          To share your feedback with us, open an issue or pull request on our 
           <a
-            href="mailto:TalentMAPOutreach@Dos.gov"
+            href="https://github.com/18F/State-TalentMAP"
           >
-            TalentMAPOutreach@Dos.gov
+            Github Repository
           </a>
         </div>
         <div
           className="tm-footer-body-contact-item"
         >
-          Join the TalentMAP Community
-        </div>
-        <div
-          className="tm-footer-body-contact-item"
-        >
-          Need help? Contact TalentMAP Team
+          This project is maintained by 18F and Booz Allen Hamilton
         </div>
       </div>
     </div>

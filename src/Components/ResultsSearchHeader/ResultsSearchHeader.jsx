@@ -35,7 +35,7 @@ class ResultsSearchHeader extends Component {
               <div className="usa-width-one-whole search-results-inputs search-keyword">
                 <SearchBar
                   id="search-keyword-field"
-                  label={<div><FontAwesome name="search" className="label-icon" />Keywords</div>}
+                  label="Keywords"
                   type="medium"
                   submitText="Search"
                   labelSrOnly={false}

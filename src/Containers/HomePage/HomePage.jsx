@@ -44,27 +44,29 @@ class HomePage extends Component {
           filters={filters}
           onRegionSubmit={this.submitRegion}
         />
-        <div className="usa-grid-full positions-section">
-          {
-            homePagePositionsIsLoading && !homePagePositionsHasErrored &&
-              <Spinner type="homepage-position-results" size="big" />
-          }
-          <NewPositionsSection
-            favorites={userProfile.favorite_positions}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-            positions={homePagePositions.isNew}
-            isLoading={homePagePositionsIsLoading}
-          />
-          <HighlightedPositionsSection
-            favorites={userProfile.favorite_positions}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-            positions={homePagePositions.isHighlighted}
-            isLoading={homePagePositionsIsLoading}
-          />
+        <div className="homepage-positions-section-container">
+          <div className="usa-grid-full homepage-positions-section-container-inner">
+            {
+              homePagePositionsIsLoading && !homePagePositionsHasErrored &&
+                <Spinner type="homepage-position-results" size="big" />
+            }
+            <NewPositionsSection
+              favorites={userProfile.favorite_positions}
+              toggleFavorite={toggleFavorite}
+              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              positions={homePagePositions.isNew}
+              isLoading={homePagePositionsIsLoading}
+            />
+            <HighlightedPositionsSection
+              favorites={userProfile.favorite_positions}
+              toggleFavorite={toggleFavorite}
+              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              positions={homePagePositions.isHighlighted}
+              isLoading={homePagePositionsIsLoading}
+            />
+          </div>
         </div>
       </div>
     );
