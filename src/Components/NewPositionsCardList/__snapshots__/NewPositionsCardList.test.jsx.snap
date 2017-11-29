@@ -5,10 +5,10 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
   className="usa-grid-full "
 >
   <div
-    className="usa-width-one-third condensed-card-first-big"
+    className="usa-grid-full"
   >
     <div
-      className="usa-width-one-whole condensed-card"
+      className="usa-width-one-third condensed-card"
     >
       <ResultsCondensedCard
         favorites={Array []}
@@ -72,12 +72,8 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
         userProfileFavoritePositionIsLoading={false}
       />
     </div>
-  </div>
-  <div
-    className="usa-width-one-third condensed-card-second"
-  >
     <div
-      className="usa-width-one-whole condensed-card"
+      className="usa-width-one-third condensed-card"
     >
       <ResultsCondensedCard
         favorites={Array []}
@@ -114,7 +110,7 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="usa-width-one-third condensed-card-third"
+    className="usa-grid-full"
   />
 </div>
 `;

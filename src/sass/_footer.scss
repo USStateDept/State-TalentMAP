@@ -36,14 +36,30 @@
   }
 }
 
+.usa-footer-primary-section {
+  font-weight: 200;
+}
+
 // footer nav
 .tm-footer-nav {
 
   background-color: $tm-dark-blue;
-  font-size: 19px;
+  font-size: 16px;
+
+  .questions-container {
+    color: $color-white;
+    float: right;
+
+    .help-text {
+      font-weight: normal;
+    }
+  }
 
   .usa-footer-primary-link {
     color: $color-white;
+    font-weight: 200;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
   }
 
   li {
@@ -53,7 +69,7 @@
 
 // footer main body
 .tm-footer-body {
-  background-color: $color-gray-lightest;
+  background-color: $color-white;
 
   .tm-footer-body-contact {
 
