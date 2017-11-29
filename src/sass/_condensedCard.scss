@@ -16,7 +16,8 @@
   }
 
   .white-button {
-    border: 2px solid $blue-primary;
+    // TODO figure out why 2px makes button flash when cursor is on edge of button
+    border: 1px solid $blue-primary;
     bottom: 17px;
     color: $blue-primary;
     margin-top: 15px;
