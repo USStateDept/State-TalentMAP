@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidderPortfolioContainerComponent matches snapshot 1`] = `
+exports[`BidderPortfolioContainerComponent matches snapshot when the all property is greater than zero 1`] = `
 <div
   className="usa-grid-full user-dashboard"
 >
@@ -56,6 +56,31 @@ exports[`BidderPortfolioContainerComponent matches snapshot 1`] = `
       previousLabel="Previous"
       subContainerClassName="pages pagination"
       totalResults={3}
+    />
+  </div>
+</div>
+`;
+
+exports[`BidderPortfolioContainerComponent matches snapshot when the all property is zero 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <BidderPortfolioList
+    results={Array []}
+  />
+  <div
+    className="usa-width-two-thirds"
+  >
+    <Alert
+      messages={
+        Array [
+          Object {
+            "body": "Try broadening your search.",
+          },
+        ]
+      }
+      title="You have no clients within this search criteria."
+      type="info"
     />
   </div>
 </div>

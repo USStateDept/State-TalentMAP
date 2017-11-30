@@ -20,10 +20,23 @@ describe('BidderPortfolio', () => {
 
   it('can call the onQueryParamUpdate function', () => {
     const wrapper = shallow(
-      <BidderPortfolio.WrappedComponent />,
+      <BidderPortfolio.WrappedComponent
+        fetchBidderPortfolioCounts={() => {}}
+      />,
     );
     wrapper.instance().onQueryParamUpdate({ q: 'test' });
     wrapper.instance().onQueryParamUpdate({ page: 2 });
     expect(wrapper.instance().state.query.value).toBe('page=2&q=test');
+  });
+
+  it('can call the mapToType function', () => {
+    const wrapper = shallow(
+      <BidderPortfolio.WrappedComponent
+        fetchBidderPortfolioCounts={() => {}}
+      />,
+    );
+    wrapper.instance().state.query.value = 'type=all';
+    wrapper.instance().mapTypeToQuery();
+    expect(wrapper.instance().state.query.value).toBeDefined();
   });
 });

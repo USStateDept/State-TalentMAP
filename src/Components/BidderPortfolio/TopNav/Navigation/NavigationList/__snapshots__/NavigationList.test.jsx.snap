@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <withRouter()
+    denominator={100}
+    link="?type=all"
+    numerator={100}
+    title="All Clients"
+  />
+  <withRouter()
+    denominator={100}
+    link="?type=bidding"
+    numerator={50}
+    title="Clients Bidding"
+  />
+  <withRouter()
+    denominator={100}
+    link="?type=inpanel"
+    numerator={20}
+    title="Clients in Panel"
+  />
+  <withRouter()
+    denominator={100}
+    link="?type=inpost"
+    numerator={30}
+    title="Clients in Post"
+  />
+</div>
+`;

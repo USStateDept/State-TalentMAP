@@ -10,11 +10,6 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full profile-content-container"
   >
-    <div
-      className="hello-greeting"
-    >
-      Hello, John Doe
-    </div>
     <Switch>
       <Route
         component={[Function]}

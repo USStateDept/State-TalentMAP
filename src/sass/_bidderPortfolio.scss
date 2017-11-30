@@ -4,3 +4,32 @@
     width: 75px;
   }
 }
+
+.bidder-portfolio-page {
+  .bidder-portfolio-search-container {
+    background-color: $color-gray-lighter;
+    padding-bottom: 3px;
+  }
+
+  .results-search-bar {
+    background-color: unset;
+  }
+
+  .results-search-bar-container {
+    max-width: unset;
+    padding: 0 5px 0 15px;
+  }
+
+  .search-submit-button {
+    margin-top: 14px;
+  }
+
+  .total-results-container {
+    // we need at least 1px of height for the width of this div to render when its contents are null
+    min-height: 1px;
+  }
+
+  .white-button {
+    margin-right: 0;
+  }
+}
