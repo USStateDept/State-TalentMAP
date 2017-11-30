@@ -2,52 +2,78 @@
 
 exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full bidder-portfolio-container null"
+  className="bidder-portfolio-page"
 >
-  <ProfileSectionTitle
-    title="Bidder Portfolio"
+  <BidderPortfolioSearch
+    onUpdate={[Function]}
   />
-  <BidderPortfolioContainer
-    bidderPortfolio={
-      Object {
-        "count": 3,
-        "results": Array [
+  <div
+    className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+  >
+    <div>
+      <TopNav
+        bidderPortfolioCounts={
           Object {
-            "id": 1,
-            "is_cdo": false,
-            "skill_code": "INFORMATION MANAGEMENT (2880)",
-            "user": Object {
-              "email": "doej@state.gov",
-              "first_name": "John",
-              "last_name": "Doe",
-            },
-          },
+            "all": 100,
+            "bidding": 50,
+            "inpanel": 20,
+            "inpost": 30,
+          }
+        }
+      />
+      <BidControls
+        biddersDenominator={100}
+        biddersNumerator={3}
+        isLoading={false}
+        queryParamUpdate={[Function]}
+      />
+    </div>
+    <div
+      className="usa-grid-full bidder-portfolio-listing null"
+    >
+      <BidderPortfolioContainer
+        bidderPortfolio={
           Object {
-            "id": 2,
-            "is_cdo": false,
-            "skill_code": "INFORMATION MANAGEMENT (2880)",
-            "user": Object {
-              "email": "doejane@state.gov",
-              "first_name": "Jane",
-              "last_name": "Doe",
-            },
-          },
-          Object {
-            "id": 3,
-            "is_cdo": false,
-            "skill_code": "INFORMATION MANAGEMENT (2880)",
-            "user": Object {
-              "email": "smithj@state.gov",
-              "first_name": "John",
-              "last_name": "Smith",
-            },
-          },
-        ],
-      }
-    }
-    pageNumber={1}
-    pageSize={8}
-    queryParamUpdate={[Function]}
-  />
+            "count": 3,
+            "results": Array [
+              Object {
+                "id": 1,
+                "is_cdo": false,
+                "skill_code": "INFORMATION MANAGEMENT (2880)",
+                "user": Object {
+                  "email": "doej@state.gov",
+                  "first_name": "John",
+                  "last_name": "Doe",
+                },
+              },
+              Object {
+                "id": 2,
+                "is_cdo": false,
+                "skill_code": "INFORMATION MANAGEMENT (2880)",
+                "user": Object {
+                  "email": "doejane@state.gov",
+                  "first_name": "Jane",
+                  "last_name": "Doe",
+                },
+              },
+              Object {
+                "id": 3,
+                "is_cdo": false,
+                "skill_code": "INFORMATION MANAGEMENT (2880)",
+                "user": Object {
+                  "email": "smithj@state.gov",
+                  "first_name": "John",
+                  "last_name": "Smith",
+                },
+              },
+            ],
+          }
+        }
+        pageNumber={1}
+        pageSize={8}
+        queryParamUpdate={[Function]}
+      />
+    </div>
+  </div>
 </div>
 `;

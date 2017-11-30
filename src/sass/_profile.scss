@@ -23,6 +23,33 @@
     position: relative;
   }
 
+  .bidder-portfolio-listing {
+    margin-right: 15%;
+    position: relative;
+  }
+
+  @media screen and (max-width: 951px) {
+    .bidder-portfolio-listing {
+      margin-right: unset;
+    }
+  }
+
+  .actions-container {
+    float: right;
+    margin-bottom: 5px;
+
+    button {
+      font-size: 15px;
+      margin-bottom: 10px;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+
+  .portfolio-controls {
+    margin-bottom: 25px;
+  }
+
   .profile-subroute-container {
     border: 1px solid $color-gray;
     min-height: 300px;
@@ -45,7 +72,6 @@
     background-color: $tm-white-smoke-light;
     margin-left: 200px;
     min-height: 700px;
-    padding: 20px 35px;
     right: 0;
     width: auto;
   }
@@ -339,6 +365,54 @@ $padding-no-border: $total-padding - $border;
   }
 }
 
+.bidder-portfolio-navigation-item {
+  float: left;
+  font-size: 15px;
+  margin-right: 30px;
+  padding: 15px 0;
+
+  a {
+    color: $color-black;
+    text-decoration: none;
+  }
+}
+
+.portfolio-top-nav-container {
+  border-bottom: 1px solid $color-black;
+  margin-bottom: 30px;
+
+  .is-underlined {
+    border-bottom: 5px solid $color-black;
+    border-spacing: 5px;
+  }
+
+  .is-not-underlined {
+    border-bottom: 5px solid transparent;
+    border-spacing: 5px;
+  }
+}
+
+.portfolio-total-results {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.portfolio-sort-container {
+  select {
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    border-radius: unset;
+  }
+
+  .usa-form {
+    float: right;
+  }
+}
+
+.navigation-item-fraction {
+  font-weight: bold;
+}
+
 .bordered-list {
   ul {
     list-style-type: none;
@@ -499,4 +573,8 @@ $padding-no-border: $total-padding - $border;
 
 .notification-card {
   padding: 0 10px;
+}
+
+.profile-content-inner-container {
+  padding: 20px 35px;
 }

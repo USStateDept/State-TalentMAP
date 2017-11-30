@@ -144,7 +144,9 @@ export const FAVORITE_POSITION = PropTypes.shape({
   representation: PropTypes.string,
 });
 
-export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
+// favorite positions are some times returned as objects, and other times simply as the IDs
+export const FAVORITE_POSITIONS_ARRAY =
+  PropTypes.oneOfType([PropTypes.arrayOf(FAVORITE_POSITION), PropTypes.arrayOf(PropTypes.number)]);
 
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
@@ -313,13 +315,41 @@ export const NOTIFICATION_LIST = PropTypes.shape({
   results: NOTIFICATION_RESULTS,
 });
 
-export const BIDDER_OBJECT = USER_PROFILE;
+export const BIDDER_OBJECT = PropTypes.shape(
+  {
+    id: PropTypes.number,
+    skill_code: PropTypes.string,
+    grade: PropTypes.string,
+    cdo: PropTypes.number,
+    is_cdo: PropTypes.bool,
+    primary_nationality: PropTypes.string,
+    secondary_nationality: PropTypes.string,
+    date_of_birth: PropTypes.string,
+    phone_number: PropTypes.string,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      email: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+    }),
+    language_qualifications: PropTypes.arrayOf(PropTypes.number),
+    favorite_positions: PropTypes.arrayOf(PropTypes.number),
+    received_shares: PropTypes.arrayOf(PropTypes.number),
+  },
+);
 
 export const BIDDER_RESULTS = PropTypes.arrayOf(BIDDER_OBJECT);
 
 export const BIDDER_LIST = PropTypes.shape({
   ...PAGINATION_PROPS,
   results: BIDDER_RESULTS,
+});
+
+export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
+  all: PropTypes.number,
+  bidding: PropTypes.number,
+  inpanel: PropTypes.number,
+  inpost: PropTypes.number,
 });
 
 export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;

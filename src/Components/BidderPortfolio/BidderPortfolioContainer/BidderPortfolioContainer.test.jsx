@@ -28,9 +28,19 @@ describe('BidderPortfolioContainerComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('matches snapshot', () => {
+  it('matches snapshot when the all property is greater than zero', () => {
     const wrapper = shallow(<BidderPortfolioContainer
       bidderPortfolio={bidderListObject}
+      pageSize={8}
+      pageNumber={1}
+      queryParamUpdate={() => {}}
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when the all property is zero', () => {
+    const wrapper = shallow(<BidderPortfolioContainer
+      bidderPortfolio={Object.assign({}, bidderListObject, { count: 0, results: [] })}
       pageSize={8}
       pageNumber={1}
       queryParamUpdate={() => {}}
