@@ -133,6 +133,12 @@ exports[`Header matches snapshot when logged in 1`] = `
                   }
                 }
               />
+              <span>
+                <Inbox
+                  number={0}
+                />
+                <Connect(withRouter(Notifications)) />
+              </span>
             </li>
           </span>
         </ul>
