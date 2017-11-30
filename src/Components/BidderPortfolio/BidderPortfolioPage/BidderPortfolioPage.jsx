@@ -29,7 +29,7 @@ bidderPortfolioCounts }) => {
             <TopNav bidderPortfolioCounts={bidderPortfolioCounts} />
             <BidControls
               queryParamUpdate={queryParamUpdate}
-              biddersNumerator={bidderPortfolio.count || 0 /* pass zero if waiting on value */}
+              biddersNumerator={bidderPortfolio.count || 0} /* pass zero if waiting on value */
               biddersDenominator={bidderPortfolioCounts.all}
               isLoading={isLoading}
             />
