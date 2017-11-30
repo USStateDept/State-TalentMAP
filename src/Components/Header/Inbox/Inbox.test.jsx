@@ -5,16 +5,16 @@ import Inbox from './Inbox';
 
 describe('InboxComponent', () => {
   it('is defined', () => {
-    const header = shallow(
+    const wrapper = shallow(
       <Inbox number={4} />,
     );
-    expect(header).toBeDefined();
+    expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const header = shallow(
+    const wrapper = shallow(
       <Inbox number={4} />,
     );
-    expect(toJSON(header)).toMatchSnapshot();
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
