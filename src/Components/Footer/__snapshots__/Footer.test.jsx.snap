@@ -112,7 +112,7 @@ exports[`Footer Component matches snapshot 1`] = `
         <div
           className="tm-footer-body-contact-item"
         >
-          This project is maintained by 18F and Booz Allen Hamilton
+          This project is a beta for Department of State
         </div>
       </div>
     </div>
