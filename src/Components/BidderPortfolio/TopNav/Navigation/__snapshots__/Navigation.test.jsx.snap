@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <NavigationList
+    counts={
+      Object {
+        "all": 100,
+        "bidding": 50,
+        "inpanel": 20,
+        "inpost": 30,
+      }
+    }
+  />
+</div>
+`;

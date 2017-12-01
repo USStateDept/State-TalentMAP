@@ -2,9 +2,14 @@
 
 exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
 <div
-  className="usa-grid-full user-dashboard"
+  className="usa-grid-full user-dashboard profile-content-inner-container"
 >
   <div>
+    <div
+      className="hello-greeting"
+    >
+      Hello, John Doe
+    </div>
     <div
       className="usa-width-one-fourth user-dashboard-section-container
                     user-dashboard-column-1"
@@ -184,7 +189,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
 
 exports[`ProfileDashboardComponent matches snapshot when loading 1`] = `
 <div
-  className="usa-grid-full user-dashboard"
+  className="usa-grid-full user-dashboard profile-content-inner-container"
 >
   <Spinner
     filled={false}

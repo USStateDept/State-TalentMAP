@@ -24,8 +24,9 @@ exports[`ProfileMenuComponent matches snapshot when isCDO is false 1`] = `
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hide={true}
+        hidden={true}
         link="/profile/bidderportfolio/"
+        search="?type=all"
         title="Bidder Portfolio"
       />
       <withRouter(NavLink)
@@ -89,8 +90,9 @@ exports[`ProfileMenuComponent matches snapshot when isCDO is true 1`] = `
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hide={false}
+        hidden={false}
         link="/profile/bidderportfolio/"
+        search="?type=all"
         title="Bidder Portfolio"
       />
       <withRouter(NavLink)

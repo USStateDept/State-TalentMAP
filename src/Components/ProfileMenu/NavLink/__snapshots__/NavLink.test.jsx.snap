@@ -1,28 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavLinkComponent matches snapshot without children 1`] = `
-<li
-  className="usa-grid-full  link-highlighted"
->
-  <div
-    className="list-item-wrapper"
+<div>
+  <li
+    className="usa-grid-full  link-highlighted"
   >
-    <Link
-      className=""
-      replace={false}
-      to="/profile/favorites/"
+    <div
+      className="list-item-wrapper"
     >
-      <span>
-        <span
-          className="fa-container"
-        />
-        <span
-          className="title-container"
-        >
-          test
+      <Link
+        className=""
+        replace={false}
+        to={
+          Object {
+            "pathname": "/profile/favorites/",
+            "search": "",
+          }
+        }
+      >
+        <span>
+          <span
+            className="fa-container"
+          />
+          <span
+            className="title-container"
+          >
+            test
+          </span>
         </span>
-      </span>
-    </Link>
-  </div>
-</li>
+      </Link>
+    </div>
+  </li>
+</div>
 `;

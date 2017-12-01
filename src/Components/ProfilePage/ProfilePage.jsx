@@ -13,11 +13,6 @@ const ProfilePage = ({ user }) => (
   <div className="profile-page">
     <ProfileMenu isCDO={user.is_cdo} />
     <div className="usa-grid-full profile-content-container">
-      <div className="hello-greeting">
-        {
-          `Hello, ${user.user.first_name} ${user.user.last_name}`
-        }
-      </div>
       <Switch>
         <Route path="/profile" exact component={ProfileLanding} />
         <Route path="/profile/dashboard" component={Dashboard} />
