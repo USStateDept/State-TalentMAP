@@ -51,7 +51,7 @@ const Footer = () => (
             To share your feedback with us, open an issue or pull request on our <a href="https://github.com/18F/State-TalentMAP">Github Repository</a>
           </div>
           <div className="tm-footer-body-contact-item">
-            This project is maintained by 18F and Booz Allen Hamilton
+            This project is a beta for Department of State
           </div>
         </div>
       </div>
