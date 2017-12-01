@@ -5,7 +5,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
   className="usa-grid-full portfolio-controls"
 >
   <div
-    className="usa-width-one-half total-results-container"
+    className="usa-width-one-fourth total-results-container"
   >
     <TotalResults
       denominator={10}
@@ -13,27 +13,35 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     />
   </div>
   <div
-    className="usa-width-one-half portfolio-sort-container results-dropdown"
+    className="usa-width-three-fourths portfolio-sort-container results-dropdown"
   >
-    <SelectForm
-      defaultSort=""
-      id="porfolio-sort"
-      label="Sort by:"
-      languages={Array []}
-      onSelectOption={[Function]}
-      options={
-        Array [
-          Object {
-            "text": "Default sorting",
-            "value": "",
-          },
-          Object {
-            "text": "Age",
-            "value": "age_param",
-          },
-        ]
-      }
-    />
+    <div
+      className="portfolio-sort-container-contents"
+    >
+      <SelectForm
+        defaultSort=""
+        id="porfolio-sort"
+        label="Sort by:"
+        languages={Array []}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "Default sorting",
+              "value": "",
+            },
+            Object {
+              "text": "Age",
+              "value": "date_of_birth",
+            },
+          ]
+        }
+      />
+      <ResultsViewBy
+        initial="card"
+        onClick={[Function]}
+      />
+    </div>
   </div>
 </div>
 `;
@@ -43,7 +51,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
   className="usa-grid-full portfolio-controls"
 >
   <div
-    className="usa-width-one-half total-results-container"
+    className="usa-width-one-fourth total-results-container"
   >
     <TotalResults
       denominator={10}
@@ -51,27 +59,35 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     />
   </div>
   <div
-    className="usa-width-one-half portfolio-sort-container results-dropdown"
+    className="usa-width-three-fourths portfolio-sort-container results-dropdown"
   >
-    <SelectForm
-      defaultSort=""
-      id="porfolio-sort"
-      label="Sort by:"
-      languages={Array []}
-      onSelectOption={[Function]}
-      options={
-        Array [
-          Object {
-            "text": "Default sorting",
-            "value": "",
-          },
-          Object {
-            "text": "Age",
-            "value": "age_param",
-          },
-        ]
-      }
-    />
+    <div
+      className="portfolio-sort-container-contents"
+    >
+      <SelectForm
+        defaultSort=""
+        id="porfolio-sort"
+        label="Sort by:"
+        languages={Array []}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "Default sorting",
+              "value": "",
+            },
+            Object {
+              "text": "Age",
+              "value": "date_of_birth",
+            },
+          ]
+        }
+      />
+      <ResultsViewBy
+        initial="card"
+        onClick={[Function]}
+      />
+    </div>
   </div>
 </div>
 `;

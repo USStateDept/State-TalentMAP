@@ -7,7 +7,9 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot 1`] = `
   <div
     className="section-padded-inner-container"
   >
-    <Status />
+    <Status
+      hideText={false}
+    />
     <ProfilePicture
       alt="avatar"
       className=""
@@ -21,7 +23,7 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot 1`] = `
       title="Doe, John"
     />
     <InformationDataPoint
-      className="skill-code-data-point-container"
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
       content="INFORMATION MANAGEMENT (2880)"
       sideBySide={false}
       title=""
@@ -38,7 +40,9 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot when showEditLi
   <div
     className="section-padded-inner-container"
   >
-    <Status />
+    <Status
+      hideText={false}
+    />
     <ProfilePicture
       alt="avatar"
       className=""
@@ -52,7 +56,7 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot when showEditLi
       title="Doe, John"
     />
     <InformationDataPoint
-      className="skill-code-data-point-container"
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
       content="INFORMATION MANAGEMENT (2880)"
       sideBySide={false}
       title=""
@@ -69,7 +73,9 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot when useGroup i
   <div
     className="section-padded-inner-container"
   >
-    <Status />
+    <Status
+      hideText={false}
+    />
     <ProfilePicture
       alt="avatar"
       className=""
@@ -83,7 +89,7 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot when useGroup i
       title="Doe, John"
     />
     <InformationDataPoint
-      className="skill-code-data-point-container"
+      className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
       content="Generalist • F2"
       sideBySide={false}
       title=""

@@ -27,14 +27,14 @@ class ResultsControls extends Component {
       <div className="usa-grid-full results-controls">
         <div className="usa-width-one-third total-results">
           {
-          // if results have loaded, display the total number of results
-          hasLoaded &&
-            <TotalResults
-              total={results.count}
-              pageNumber={defaultPageNumber}
-              pageSize={defaultPageSize}
-            />
-        }
+            // if results have loaded, display the total number of results
+            hasLoaded &&
+              <TotalResults
+                total={results.count}
+                pageNumber={defaultPageNumber}
+                pageSize={defaultPageSize}
+              />
+          }
         </div>
         <div className="usa-width-two-thirds drop-downs">
           <div className="results-dropdown results-dropdown-sort">
@@ -55,7 +55,7 @@ class ResultsControls extends Component {
               defaultSort={defaultPageSize}
             />
           </div>
-          <ResultsViewBy />
+          <ResultsViewBy onCardClick={() => {}} onGridClick={() => {}} />
         </div>
       </div>
     );

@@ -19,7 +19,7 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { id, label, title, name } = this.props;
+    const { id, label, title, name, labelSrOnly } = this.props;
     const { checked } = this.state;
     return (
       <div className="usa-grid-full tm-checkbox">
@@ -32,7 +32,7 @@ class CheckBox extends Component {
           onChange={() => this.onCheck()}
           checked={checked.value}
         />
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={id}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
       </div>
     );
   }
@@ -41,14 +41,18 @@ class CheckBox extends Component {
 CheckBox.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.node.isRequired,
-  title: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   onCheckBoxClick: PropTypes.func,
+  labelSrOnly: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {
+  title: '',
+  name: '',
   onCheckBoxClick: EMPTY_FUNCTION,
+  labelSrOnly: false,
 };
 
 export default CheckBox;

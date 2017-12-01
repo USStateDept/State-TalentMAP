@@ -14,7 +14,7 @@ const BidderPortfolioCard = ({ userProfile }) => (
     />
     <CurrentUserPersonalInformation userProfile={userProfile} />
     <CurrentUserBidInformation />
-    <BidderPortfolioViewMore />
+    <BidderPortfolioViewMore useLink />
   </div>
 );
 
