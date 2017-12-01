@@ -28,7 +28,7 @@ describe('BidderPortfolioContainerComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('matches snapshot when the all property is greater than zero', () => {
+  it('matches snapshot when there are results', () => {
     const wrapper = shallow(<BidderPortfolioContainer
       bidderPortfolio={bidderListObject}
       pageSize={8}
@@ -38,7 +38,7 @@ describe('BidderPortfolioContainerComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('matches snapshot when the all property is zero', () => {
+  it('matches snapshot when there are no results', () => {
     const wrapper = shallow(<BidderPortfolioContainer
       bidderPortfolio={Object.assign({}, bidderListObject, { count: 0, results: [] })}
       pageSize={8}
