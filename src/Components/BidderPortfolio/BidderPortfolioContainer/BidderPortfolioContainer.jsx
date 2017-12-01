@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BIDDER_LIST } from '../../../Constants/PropTypes';
 import { scrollToTop } from '../../../utilities';
-import BidderPortfolioList from '../BidderPortfolioList';
+import BidderPortfolioCardList from '../BidderPortfolioCardList';
+import BidderPortfolioGridList from '../BidderPortfolioGridList';
 import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
 import Alert from '../../Alert/Alert';
+import BidderPortfolioGridListHeader from '../BidderPortfolioGridListHeader';
 
 class BidderPortfolioContainer extends Component {
   constructor(props) {
@@ -16,11 +18,19 @@ class BidderPortfolioContainer extends Component {
     this.props.queryParamUpdate(q);
   }
   render() {
-    const { bidderPortfolio, pageSize, pageNumber } = this.props;
+    const { bidderPortfolio, pageSize, pageNumber, showListView } = this.props;
     const noResults = bidderPortfolio.results.length === 0;
     return (
       <div className="usa-grid-full user-dashboard">
-        <BidderPortfolioList results={bidderPortfolio.results} />
+        {
+          showListView ?
+            <div>
+              <BidderPortfolioGridListHeader />
+              <BidderPortfolioGridList results={bidderPortfolio.results} />
+            </div>
+            :
+            <BidderPortfolioCardList results={bidderPortfolio.results} />
+        }
         {
            // if there's no results, don't show pagination
            !!bidderPortfolio.results && !!bidderPortfolio.results.length &&
@@ -50,6 +60,11 @@ BidderPortfolioContainer.propTypes = {
   pageSize: PropTypes.number.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
+  showListView: PropTypes.bool,
+};
+
+BidderPortfolioContainer.defaultProps = {
+  showListView: false,
 };
 
 export default BidderPortfolioContainer;

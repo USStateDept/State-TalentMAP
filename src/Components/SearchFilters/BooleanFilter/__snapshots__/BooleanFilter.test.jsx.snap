@@ -9,6 +9,7 @@ exports[`BooleanFilterComponent matches snapshot 1`] = `
   <CheckBox
     id="checkbox-title"
     label="Yes"
+    labelSrOnly={false}
     name="title"
     onCheckBoxClick={[Function]}
     selectionRef="ref"

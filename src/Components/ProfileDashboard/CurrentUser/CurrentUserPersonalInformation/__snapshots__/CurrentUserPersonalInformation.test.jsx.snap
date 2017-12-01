@@ -8,14 +8,14 @@ exports[`CurrentUserPersonalInformationComponent matches snapshot 1`] = `
     className="section-padded-inner-container"
   >
     <InformationDataPoint
-      className="skill-code-data-point-container"
+      className="skill-code-data-point-container skill-code-data-point-container-one"
       content="INFORMATION MANAGEMENT (2880)"
       sideBySide={false}
       title="Skill Code"
       titleOnBottom={false}
     />
     <InformationDataPoint
-      className="skill-code-data-point-container"
+      className="skill-code-data-point-container skill-code-data-point-container-two"
       content="None listed"
       sideBySide={false}
       title="Birthdate"
