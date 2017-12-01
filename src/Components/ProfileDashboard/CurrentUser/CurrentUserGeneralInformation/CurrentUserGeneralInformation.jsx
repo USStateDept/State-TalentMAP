@@ -19,12 +19,12 @@ const CurrentUserGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
         useGroup ?
           <InformationDataPoint
             content="Generalist • F2"
-            className="skill-code-data-point-container"
+            className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
           />
           :
           <InformationDataPoint
             content={userProfile.skill_code || NO_USER_SKILL_CODE}
-            className="skill-code-data-point-container"
+            className="skill-code-data-point-container skill-code-data-point-container-skill"
           />
       }
     </div>

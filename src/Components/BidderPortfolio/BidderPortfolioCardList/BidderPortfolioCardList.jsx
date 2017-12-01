@@ -2,7 +2,7 @@ import React from 'react';
 import { BIDDER_RESULTS } from '../../../Constants/PropTypes';
 import BidderPortfolioCard from '../BidderPortfolioCard';
 
-const BidderPortfolioList = ({ results }) => (
+const BidderPortfolioCardList = ({ results }) => (
   <div className="usa-grid-full user-dashboard">
     {
       results.map(result => (
@@ -19,8 +19,8 @@ const BidderPortfolioList = ({ results }) => (
   </div>
 );
 
-BidderPortfolioList.propTypes = {
+BidderPortfolioCardList.propTypes = {
   results: BIDDER_RESULTS.isRequired,
 };
 
-export default BidderPortfolioList;
+export default BidderPortfolioCardList;

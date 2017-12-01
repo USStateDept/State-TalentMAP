@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidderPortfolioListComponent matches snapshot 1`] = `
-<div
-  className="usa-grid-full user-dashboard"
+exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
+<ul
+  className="usa-grid-full user-dashboard portfolio-grid-list"
 >
-  <div
-    className="usa-width-one-fourth user-dashboard-section"
+  <li
+    className="user-dashboard-section portfolio-grid-list-item"
   >
-    <BidderPortfolioCard
+    <BidderPortfolioGridItem
       showBids={true}
       showBirthday={true}
       showEditLink={false}
@@ -24,11 +24,11 @@ exports[`BidderPortfolioListComponent matches snapshot 1`] = `
         }
       }
     />
-  </div>
-  <div
-    className="usa-width-one-fourth user-dashboard-section"
+  </li>
+  <li
+    className="user-dashboard-section portfolio-grid-list-item"
   >
-    <BidderPortfolioCard
+    <BidderPortfolioGridItem
       showBids={true}
       showBirthday={true}
       showEditLink={false}
@@ -45,11 +45,11 @@ exports[`BidderPortfolioListComponent matches snapshot 1`] = `
         }
       }
     />
-  </div>
-  <div
-    className="usa-width-one-fourth user-dashboard-section"
+  </li>
+  <li
+    className="user-dashboard-section portfolio-grid-list-item"
   >
-    <BidderPortfolioCard
+    <BidderPortfolioGridItem
       showBids={true}
       showBirthday={true}
       showEditLink={false}
@@ -66,6 +66,6 @@ exports[`BidderPortfolioListComponent matches snapshot 1`] = `
         }
       }
     />
-  </div>
-</div>
+  </li>
+</ul>
 `;

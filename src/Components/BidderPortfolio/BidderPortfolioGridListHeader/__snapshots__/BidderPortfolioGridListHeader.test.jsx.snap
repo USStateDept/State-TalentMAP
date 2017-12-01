@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioGridListHeaderComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full portfolio-grid-list-header"
+>
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-fourth grid-list-header-col-one"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <div
+          className="usa-width-one-sixth"
+        >
+          <CheckBox
+            id="grid-header-select-all"
+            label="Select all"
+            labelSrOnly={true}
+            name=""
+            onCheckBoxClick={[Function]}
+            title=""
+            value={false}
+          />
+        </div>
+        <div
+          className="usa-width-five-sixths"
+        >
+          <BidderPortfolioGridListHeaderItem
+            className=""
+            content="Name / Cone / Level"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="usa-width-one-fourth grid-list-header-col-two"
+    >
+      <BidderPortfolioGridListHeaderItem
+        className=""
+        content="Skill Code / Birthdate"
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth grid-list-header-col-three"
+    >
+      <BidderPortfolioGridListHeaderItem
+        className=""
+        content="Draft bids / Submitted bids"
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth grid-list-header-col-four"
+    >
+       
+    </div>
+  </div>
+</div>
+`;

@@ -9,6 +9,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
   <CheckBox
     id="checkboxdescription"
     label="description"
+    labelSrOnly={false}
     name="description"
     onCheckBoxClick={[Function]}
     selectionRef="ref"

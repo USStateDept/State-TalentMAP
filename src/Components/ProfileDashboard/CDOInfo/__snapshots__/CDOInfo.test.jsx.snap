@@ -27,9 +27,14 @@ exports[`CDOInfoComponent matches snapshot 1`] = `
       <div
         className="cdo-name"
       >
-        John Doe
-         
-        <StatusCircle />
+        <span
+          className="cdo-name-text"
+        >
+          John Doe
+        </span>
+        <Status
+          hideText={true}
+        />
       </div>
     </div>
   </div>

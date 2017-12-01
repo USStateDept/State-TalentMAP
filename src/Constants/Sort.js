@@ -25,7 +25,7 @@ POSITION_PAGE_SIZES.defaultSort = POSITION_PAGE_SIZES.options[0].value;
 export const BID_PORTFOLIO_SORTS = {
   options: [
     { value: '', text: 'Default sorting' },
-    { value: 'age_param', text: 'Age' },
+    { value: 'date_of_birth', text: 'Age' },
   ],
 };
 
