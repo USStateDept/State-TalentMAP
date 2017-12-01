@@ -27,10 +27,10 @@ class BidderPortfolioPage extends Component {
     // Here we just want to check that the 'all' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.
-    let navDataIsLoading = !bidderPortfolioCounts.all;
+    let navDataIsLoading = !bidderPortfolioCounts.all_clients;
     // If we can determine that the all prop is zero, then we'll change navDataIsLoading to false,
     // since zero normally evaluates as false.
-    if (bidderPortfolioCounts.all === 0) { navDataIsLoading = false; }
+    if (bidderPortfolioCounts.all_clients === 0) { navDataIsLoading = false; }
     // for bidder results, however, we'll wait until everything is loaded
     const isLoading = (bidderPortfolioIsLoading && !bidderPortfolioHasErrored) ||
       navDataIsLoading;
@@ -47,7 +47,7 @@ class BidderPortfolioPage extends Component {
               <BidControls
                 queryParamUpdate={queryParamUpdate}
                 biddersNumerator={bidderPortfolio.count || 0 /* pass zero if waiting on value */}
-                biddersDenominator={bidderPortfolioCounts.all}
+                biddersDenominator={bidderPortfolioCounts.all_clients}
                 isLoading={isLoading}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}

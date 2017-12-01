@@ -17,9 +17,9 @@ export const ENDPOINT_PARAMS = {
 
 export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
   all: {},
-  bidding: { bidding: true },
-  inpanel: { inpanel: true },
-  inpost: { inpost: true },
+  bidding: { is_bidding: true },
+  inpanel: { is_in_panel: true },
+  onpost: { is_on_post: true },
 };
 
 export const VALID_PARAMS = [
