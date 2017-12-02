@@ -2,7 +2,7 @@
 
 exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
 <div
-  className="bidder-portfolio-page"
+  className="bidder-portfolio-page card-view"
 >
   <BidderPortfolioSearch
     onUpdate={[Function]}
@@ -14,22 +14,24 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
       <TopNav
         bidderPortfolioCounts={
           Object {
-            "all": 100,
-            "bidding": 50,
-            "inpanel": 20,
-            "inpost": 30,
+            "all_clients": 100,
+            "bidding_clients": 50,
+            "in_panel_clients": 20,
+            "on_post_clients": 30,
           }
         }
       />
       <BidControls
         biddersDenominator={100}
         biddersNumerator={3}
+        changeViewType={[Function]}
         isLoading={false}
         queryParamUpdate={[Function]}
+        viewType="card"
       />
     </div>
     <div
-      className="usa-grid-full bidder-portfolio-listing null"
+      className="usa-grid-full bidder-portfolio-listing "
     >
       <BidderPortfolioContainer
         bidderPortfolio={
@@ -72,6 +74,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         pageNumber={1}
         pageSize={8}
         queryParamUpdate={[Function]}
+        showListView={false}
       />
     </div>
   </div>

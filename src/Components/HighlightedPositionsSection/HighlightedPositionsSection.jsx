@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import HighlightedPositionsCardList from '../HighlightedPositionsCardList';
-import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 
-const HighlightedPositionsSection = ({ positions, toggleFavorite, favorites, isLoading,
-  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => (
+const HighlightedPositionsSection = ({ positions, toggleFavorite, favorites, isLoading, bidList,
+  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored, toggleBid }) => (
     <div className="usa-grid-full positions-section positions-section-highlighted">
       <PositionsSectionTitle
         title={
@@ -24,6 +24,8 @@ const HighlightedPositionsSection = ({ positions, toggleFavorite, favorites, isL
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         positions={positions}
         isLoading={isLoading}
+        toggleBid={toggleBid}
+        bidList={bidList}
       />
     </div>
 );
@@ -35,6 +37,8 @@ HighlightedPositionsSection.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 HighlightedPositionsSection.defaultProps = {

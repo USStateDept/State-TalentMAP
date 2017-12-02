@@ -33,6 +33,9 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
     }
   />
   <CurrentUserBidInformation />
-  <BidderPortfolioViewMore />
+  <BidderPortfolioViewMore
+    className="unstyled-button"
+    useLink={true}
+  />
 </div>
 `;
