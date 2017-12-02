@@ -3,6 +3,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import ResultsCondensedCard from './ResultsCondensedCard';
 import resultsObject from '../../__mocks__/resultsObject';
+import bidListObject from '../../__mocks__/bidListObject';
 
 describe('ResultsCondensedCardComponent', () => {
   const type = 'new';
@@ -14,6 +15,8 @@ describe('ResultsCondensedCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -27,6 +30,8 @@ describe('ResultsCondensedCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
       />,
     );
     expect(wrapper.instance().props.type).toBe(type);
@@ -40,6 +45,8 @@ describe('ResultsCondensedCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
