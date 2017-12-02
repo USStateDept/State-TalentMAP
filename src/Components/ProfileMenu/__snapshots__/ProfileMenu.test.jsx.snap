@@ -11,11 +11,6 @@ exports[`ProfileMenuComponent matches snapshot when isCDO is false 1`] = `
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
-      iconName="home"
-      link="/profile/"
-      title="Home"
-    />
-    <withRouter(NavLink)
       iconName="user"
       title="Profile"
     >
@@ -76,11 +71,6 @@ exports[`ProfileMenuComponent matches snapshot when isCDO is true 1`] = `
     Menu
   </div>
   <NavLinksContainer>
-    <withRouter(NavLink)
-      iconName="home"
-      link="/profile/"
-      title="Home"
-    />
     <withRouter(NavLink)
       iconName="user"
       title="Profile"
