@@ -107,23 +107,11 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             title="Danger Pay"
           />
           <PositionDetailsDataPoint
-            description={
-              <Connect(StaticDevContent)>
-                <span>
-                  09-19-2019
-                </span>
-              </Connect(StaticDevContent)>
-            }
+            description="None listed"
             title="Tour End Date"
           />
           <PositionDetailsDataPoint
-            description={
-              <Connect(StaticDevContent)>
-                <span>
-                  Incumbent
-                </span>
-              </Connect(StaticDevContent)>
-            }
+            description="None listed"
             title="Incumbent"
           />
         </div>
