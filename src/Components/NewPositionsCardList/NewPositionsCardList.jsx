@@ -1,28 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
-import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 
-const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
-  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
-  // we only want to show 5
-  const arrayMaxLength = 5;
-  // create an initial array with 5 values
+const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading, toggleBid,
+  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored, bidList }) => {
+  // we only want to show 6
+  const arrayMaxLength = 6;
+  // create an initial array with x values
   const positionList = Array(arrayMaxLength).fill(null);
 
   // Form positions into component and add them to array.
   // We want to explicitly call each index of our array
-  // since we only want to show 5 results
+  // since we only want to show x results
   positions.forEach((p, i) => {
     if (i < arrayMaxLength) {
       positionList[i] = (
-        <div className="usa-width-one-whole condensed-card">
+        <div className="usa-width-one-third condensed-card">
           <ResultsCondensedCard
             favorites={favorites}
             toggleFavorite={toggleFavorite}
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             position={p}
+            toggleBid={toggleBid}
+            bidList={bidList}
           />
         </div>
     );
@@ -31,16 +33,15 @@ const NewPositionsCardList = ({ positions, toggleFavorite, favorites, isLoading,
 
   return (
     <div className={`usa-grid-full ${isLoading ? 'results-loading' : ''}`}>
-      <div className="usa-width-one-third condensed-card-first-big">
+      <div className="usa-grid-full">
         {positionList[0]}
-      </div>
-      <div className="usa-width-one-third condensed-card-second">
         {positionList[1]}
         {positionList[2]}
       </div>
-      <div className="usa-width-one-third condensed-card-third">
+      <div className="usa-grid-full">
         {positionList[3]}
         {positionList[4]}
+        {positionList[5]}
       </div>
     </div>
   );
@@ -53,6 +54,8 @@ NewPositionsCardList.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 NewPositionsCardList.defaultProps = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { NO_ORG, NO_POST, NO_BUREAU, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from '../../Constants/SystemMessages';
+import { NO_ORG, NO_POST, NO_BUREAU, NO_POST_DIFFERENTIAL,
+  NO_DANGER_PAY, NO_END_DATE, NO_USER_LISTED } from '../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import PositionDetailsDataPoint from '../../Components/PositionDetailsDataPoint/PositionDetailsDataPoint';
@@ -71,11 +72,19 @@ const PositionDetailsItem = ({ details }) => (
             />
             <PositionDetailsDataPoint
               title="Tour End Date"
-              description={<StaticDevContent><span>09-19-2019</span></StaticDevContent>}
+              description={details.current_assignment &&
+                details.current_assignment.estimated_end_date ?
+                  details.current_assignment.estimated_end_date :
+                  NO_END_DATE
+              }
             />
             <PositionDetailsDataPoint
               title="Incumbent"
-              description={<StaticDevContent><span>Incumbent</span></StaticDevContent>}
+              description={details.current_assignment &&
+                details.current_assignment.user ?
+                  details.current_assignment.user :
+                  NO_USER_LISTED
+              }
             />
           </div>
         </div>

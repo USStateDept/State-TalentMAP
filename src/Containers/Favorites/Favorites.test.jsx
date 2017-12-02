@@ -7,6 +7,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import FavoritesContainer from './Favorites';
+import bidListObject from '../../__mocks__/bidListObject';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -25,6 +26,9 @@ describe('FavoritesContainer', () => {
       <FavoritesContainer.WrappedComponent
         fetchData={() => {}}
         toggleFavorite={spy}
+        bidList={bidListObject}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     wrapper.instance().onToggleFavorite();

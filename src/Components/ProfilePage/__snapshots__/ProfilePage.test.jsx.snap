@@ -13,11 +13,6 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
     <Switch>
       <Route
         component={[Function]}
-        exact={true}
-        path="/profile"
-      />
-      <Route
-        component={[Function]}
         path="/profile/dashboard"
       />
       <Route

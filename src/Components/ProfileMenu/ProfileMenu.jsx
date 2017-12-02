@@ -9,7 +9,6 @@ const ProfileMenu = ({ isCDO }) => (
       Menu
     </div>
     <NavLinksContainer>
-      <NavLink title="Home" iconName="home" link="/profile/" />
       <NavLink title="Profile" iconName="user" >
         <NavLink title="Dashboard" link="/profile/dashboard/" />
         <NavLink

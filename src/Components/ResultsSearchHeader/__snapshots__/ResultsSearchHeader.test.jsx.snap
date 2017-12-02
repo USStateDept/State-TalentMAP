@@ -26,15 +26,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
             alertText="Disabled"
             defaultValue="keyword"
             id="search-keyword-field"
-            label={
-              <div>
-                <FontAwesome
-                  className="label-icon"
-                  name="search"
-                />
-                Keywords
-              </div>
-            }
+            label="Keywords"
             labelSrOnly={false}
             noButton={true}
             noForm={true}

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
+import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
-import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, BID_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import FavoritePositions from '../../Components/FavoritePositions';
 
@@ -16,6 +17,7 @@ class FavoritePositionsContainer extends Component {
 
   componentWillMount() {
     this.getFavorites();
+    this.props.bidListFetchData();
   }
 
   onToggleFavorite(id, remove) {
@@ -29,7 +31,7 @@ class FavoritePositionsContainer extends Component {
   render() {
     const { favoritePositions, userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored, favoritePositionsIsLoading,
-      favoritePositionsHasErrored } = this.props;
+      favoritePositionsHasErrored, toggleBid, bidList } = this.props;
     return (
       <FavoritePositions
         favorites={favoritePositions}
@@ -38,6 +40,8 @@ class FavoritePositionsContainer extends Component {
         toggleFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         toggleFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         toggleFavorite={this.onToggleFavorite}
+        toggleBid={toggleBid}
+        bidList={bidList.results}
       />
     );
   }
@@ -51,6 +55,9 @@ FavoritePositionsContainer.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_LIST.isRequired,
+  bidListFetchData: PropTypes.func.isRequired,
 };
 
 FavoritePositionsContainer.defaultProps = {
@@ -59,6 +66,8 @@ FavoritePositionsContainer.defaultProps = {
   favoritePositionsHasErrored: false,
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
+  bidList: { results: [] },
+  bidListFecthData: EMPTY_FUNCTION,
 };
 
 FavoritePositionsContainer.contextTypes = {
@@ -71,6 +80,7 @@ const mapStateToProps = state => ({
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
   userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
+  bidList: state.bidListFetchDataSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -78,6 +88,8 @@ const mapDispatchToProps = dispatch => ({
   toggleFavorite: (id, remove) =>
     // Since this page references the full Favorites route, pass true to explicitly refresh them
     dispatch(userProfileToggleFavoritePosition(id, remove, true)),
+  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
+  bidListFetchData: () => dispatch(bidListFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FavoritePositionsContainer));
