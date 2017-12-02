@@ -1,6 +1,7 @@
 import setupAsyncMocks from './setupAsyncMocks';
 import * as actions from './bidderPortfolio';
 import bidderListObject from '../__mocks__/bidderListObject';
+import bidderPortfolioCountsObject from '../__mocks__/bidderPortfolioCountsObject';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
 
@@ -10,20 +11,8 @@ describe('bidderPortfolio async actions', () => {
       bidderListObject,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?limit=1&bidding=true').reply(200,
-      bidderListObject,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?limit=1&inpanel=true').reply(200,
-      bidderListObject,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?limit=1&inpost=true').reply(200,
-      bidderListObject,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?limit=1&').reply(200,
-      bidderListObject,
+    mockAdapter.onGet('http://localhost:8000/api/v1/client/statistics/').reply(200,
+      bidderPortfolioCountsObject,
     );
 
     mockAdapter.onGet('http://localhost:8000/api/v1/client/?q=failure').reply(404,
@@ -57,8 +46,8 @@ describe('bidderPortfolio async actions', () => {
     f();
   });
 
-  it('can fetch the counts of different portfolio queries', (done) => {
-    const store = mockStore({ results: [] });
+  it('can fetch client statistics', (done) => {
+    const store = mockStore({});
 
     const f = () => {
       setTimeout(() => {
@@ -70,8 +59,8 @@ describe('bidderPortfolio async actions', () => {
     f();
   });
 
-  it('can handle failures when fetching the counts of different portfolio queries', (done) => {
-    const store = mockStore({ results: [] });
+  it('can handle failures when fetching client statistics', (done) => {
+    const store = mockStore({});
 
     // reset() so that http requests fail.
     mockAdapter.reset();

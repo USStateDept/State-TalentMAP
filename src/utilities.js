@@ -88,7 +88,7 @@ export const formExploreRegionDropdown = (filters) => {
     // also add a placeholder to the top
     regions.unshift(
       {
-        text: 'Select a region',
+        text: 'Select Your Regional Bureau',
         value: '',
         disabled: true,
       },

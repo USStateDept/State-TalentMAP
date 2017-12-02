@@ -4,7 +4,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
 <div
   className="usa-grid-full user-dashboard"
 >
-  <BidderPortfolioList
+  <BidderPortfolioCardList
     results={
       Array [
         Object {
@@ -65,7 +65,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
 <div
   className="usa-grid-full user-dashboard"
 >
-  <BidderPortfolioList
+  <BidderPortfolioCardList
     results={Array []}
   />
   <div

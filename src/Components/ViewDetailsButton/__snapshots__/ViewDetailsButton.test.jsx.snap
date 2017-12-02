@@ -4,6 +4,7 @@ exports[`ViewDetailsButtonComponent matches snapshot 1`] = `
 <LinkButton
   className="white-button"
   toLink="/details/1"
+  useDefaultClass={true}
 >
   <span
     className="white-button-icon"

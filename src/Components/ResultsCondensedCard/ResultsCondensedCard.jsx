@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 
-const ResultsCondensedCard = ({ type, position, toggleFavorite, favorites,
-  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => (
+const ResultsCondensedCard = ({ type, position, toggleFavorite, favorites, bidList,
+  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored,
+  toggleBid }) => (
 
     <div className="usa-grid-full condensed-card-inner">
       <ResultsCondensedCardTop
@@ -17,7 +18,13 @@ const ResultsCondensedCard = ({ type, position, toggleFavorite, favorites,
         type={type}
       />
       <div className="condensed-card-bottom-container">
-        <ResultsCondensedCardBottom position={position} />
+        <ResultsCondensedCardBottom
+          toggleFavorite={toggleFavorite}
+          position={position}
+          favorites={favorites}
+          toggleBid={toggleBid}
+          bidList={bidList}
+        />
       </div>
     </div>
 );
@@ -29,6 +36,8 @@ ResultsCondensedCard.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 ResultsCondensedCard.defaultProps = {

@@ -9,12 +9,12 @@ const CurrentUserPersonalInformation = ({ userProfile }) => (
       <InformationDataPoint
         title="Skill Code"
         content={userProfile.skill_code || NO_USER_SKILL_CODE}
-        className="skill-code-data-point-container"
+        className="skill-code-data-point-container skill-code-data-point-container-one"
       />
       <InformationDataPoint
         title="Birthdate"
         content={userProfile.date_of_birth || NO_BIRTHDAY}
-        className="skill-code-data-point-container"
+        className="skill-code-data-point-container skill-code-data-point-container-two"
       />
     </div>
   </div>

@@ -3,6 +3,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import HighlightedPositionsSection from './HighlightedPositionsSection';
 import resultsObject from '../../__mocks__/resultsObject';
+import bidListObject from '../../__mocks__/bidListObject';
 
 describe('HighlightedPositionsSectionComponent', () => {
   it('is defined', () => {
@@ -12,6 +13,8 @@ describe('HighlightedPositionsSectionComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -24,6 +27,8 @@ describe('HighlightedPositionsSectionComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
       />,
     );
     expect(wrapper.instance().props.positions[0].id).toBe(resultsObject.results[0].id);
@@ -36,6 +41,8 @@ describe('HighlightedPositionsSectionComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

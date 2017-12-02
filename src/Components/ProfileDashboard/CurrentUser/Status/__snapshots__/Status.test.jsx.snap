@@ -2,9 +2,10 @@
 
 exports[`StatusComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full status"
+  className="status-container"
 >
   <StatusCircle />
-   Status: On-Post
+   
+  Status: On-Post
 </div>
 `;

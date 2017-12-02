@@ -6,27 +6,27 @@ const NavigationList = ({ counts }) => (
   <div className="usa-grid-full">
     <NavigationItem
       title="All Clients"
-      numerator={counts.all}
-      denominator={counts.all}
+      numerator={counts.all_clients}
+      denominator={counts.all_clients}
       link="?type=all"
     />
     <NavigationItem
       title="Clients Bidding"
-      numerator={counts.bidding}
-      denominator={counts.all}
+      numerator={counts.bidding_clients}
+      denominator={counts.all_clients}
       link="?type=bidding"
     />
     <NavigationItem
       title="Clients in Panel"
-      numerator={counts.inpanel}
-      denominator={counts.all}
+      numerator={counts.in_panel_clients}
+      denominator={counts.all_clients}
       link="?type=inpanel"
     />
     <NavigationItem
       title="Clients in Post"
-      numerator={counts.inpost}
-      denominator={counts.all}
-      link="?type=inpost"
+      numerator={counts.on_post_clients}
+      denominator={counts.all_clients}
+      link="?type=onpost"
     />
   </div>
 );

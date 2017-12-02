@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import ProfileLanding from '../ProfileLanding';
 import BidListContainer from '../../Containers/BidList/BidList';
 import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
 import SavedSearchesContainer from '../../Containers/SavedSearches/SavedSearches';
@@ -14,7 +13,6 @@ const ProfilePage = ({ user }) => (
     <ProfileMenu isCDO={user.is_cdo} />
     <div className="usa-grid-full profile-content-container">
       <Switch>
-        <Route path="/profile" exact component={ProfileLanding} />
         <Route path="/profile/dashboard" component={Dashboard} />
         <Route path="/profile/bidderportfolio" component={BidderPortfolio} />
         <Route

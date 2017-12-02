@@ -24,7 +24,7 @@ exports[`NavigationListComponent matches snapshot 1`] = `
   />
   <withRouter()
     denominator={100}
-    link="?type=inpost"
+    link="?type=onpost"
     numerator={30}
     title="Clients in Post"
   />

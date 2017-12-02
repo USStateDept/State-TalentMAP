@@ -150,7 +150,7 @@
 
   .bid-count-right {
     border-left: 1px solid $color-gray-light;
-    padding-left: 25%;
+    padding-left: 20%;
   }
 
   .data-point-side-by-side {
@@ -224,7 +224,7 @@
     padding-bottom: 0;
   }
 
-  .status {
+  .status-container {
     font-size: 13px;
     margin-bottom: 10px;
     margin-left: -5px; // centers more cleanly
@@ -437,6 +437,17 @@ $padding-no-border: $total-padding - $border;
     max-height: 35px;
     max-width: 35px;
     width: 100%;
+  }
+
+  .cdo-name-text {
+    float: left;
+  }
+
+  .status-container {
+    float: left;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-top: 1px;
   }
 
   .fa {
