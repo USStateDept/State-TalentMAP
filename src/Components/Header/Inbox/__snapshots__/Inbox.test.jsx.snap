@@ -3,6 +3,7 @@
 exports[`InboxComponent matches snapshot 1`] = `
 <IconAlert
   alt="Inbox"
+  disabled={true}
   limit={5}
   link="/profile/dashboard/"
   number={4}

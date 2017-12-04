@@ -8,6 +8,7 @@ const Inbox = ({ number }) => (
     type="comments-o"
     number={number}
     link="/profile/dashboard/"
+    disabled
   />
 );
 
