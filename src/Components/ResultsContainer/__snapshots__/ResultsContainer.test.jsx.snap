@@ -236,11 +236,12 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       marginPagesDisplayed={2}
       nextLabel="Next"
       onPageChange={[Function]}
-      pageCount={10}
       pageRangeDisplayed={1}
+      pageSize={10}
       paginationStyle="pagination"
       previousLabel="Previous"
       subContainerClassName="pages pagination"
+      totalResults={0}
     />
   </div>
 </div>

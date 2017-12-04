@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
+<div
+  className="bidder-portfolio-page card-view"
+>
+  <BidderPortfolioSearch
+    onUpdate={[Function]}
+  />
+  <div
+    className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+  >
+    <div>
+      <TopNav
+        bidderPortfolioCounts={
+          Object {
+            "all_clients": 100,
+            "bidding_clients": 50,
+            "in_panel_clients": 20,
+            "on_post_clients": 30,
+          }
+        }
+      />
+      <BidControls
+        biddersDenominator={100}
+        biddersNumerator={3}
+        changeViewType={[Function]}
+        isLoading={false}
+        queryParamUpdate={[Function]}
+        viewType="card"
+      />
+    </div>
+    <div
+      className="usa-grid-full bidder-portfolio-listing "
+    >
+      <BidderPortfolioContainer
+        bidderPortfolio={
+          Object {
+            "count": 3,
+            "results": Array [
+              Object {
+                "id": 1,
+                "is_cdo": false,
+                "skill_code": "INFORMATION MANAGEMENT (2880)",
+                "user": Object {
+                  "email": "doej@state.gov",
+                  "first_name": "John",
+                  "last_name": "Doe",
+                },
+              },
+              Object {
+                "id": 2,
+                "is_cdo": false,
+                "skill_code": "INFORMATION MANAGEMENT (2880)",
+                "user": Object {
+                  "email": "doejane@state.gov",
+                  "first_name": "Jane",
+                  "last_name": "Doe",
+                },
+              },
+              Object {
+                "id": 3,
+                "is_cdo": false,
+                "skill_code": "INFORMATION MANAGEMENT (2880)",
+                "user": Object {
+                  "email": "smithj@state.gov",
+                  "first_name": "John",
+                  "last_name": "Smith",
+                },
+              },
+            ],
+          }
+        }
+        pageNumber={1}
+        pageSize={8}
+        queryParamUpdate={[Function]}
+        showListView={false}
+      />
+    </div>
+  </div>
+</div>
+`;

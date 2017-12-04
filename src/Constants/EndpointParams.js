@@ -15,6 +15,13 @@ export const ENDPOINT_PARAMS = {
   available: 'is_available_in_current_bidcycle',
 };
 
+export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
+  all: {},
+  bidding: { is_bidding: true },
+  inpanel: { is_in_panel: true },
+  onpost: { is_on_post: true },
+};
+
 export const VALID_PARAMS = [
   ENDPOINT_PARAMS.skill,
   ENDPOINT_PARAMS.language,

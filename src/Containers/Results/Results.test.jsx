@@ -7,6 +7,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import Results from './Results';
+import resultsObject from '../../__mocks__/resultsObject';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -15,6 +16,7 @@ describe('Results', () => {
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Results
+        results={resultsObject}
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
@@ -37,6 +39,7 @@ describe('Results', () => {
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Results
+        results={resultsObject}
         isAuthorized={() => false}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
@@ -60,6 +63,7 @@ describe('Results', () => {
     const query = { ordering: 'bureau', q: 'German' };
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -86,80 +90,11 @@ describe('Results', () => {
     sinon.assert.calledOnce(handleUpdateSpy);
   });
 
-  it('can call the onQueryParamUpdate function when page is set', () => {
-    const query = { q: 'German' };
-    const wrapper = shallow(
-      <Results.WrappedComponent
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
-        toggleFavorite={() => {}}
-        saveSearch={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-      />,
-    );
-    // define the instance
-    const instance = wrapper.instance();
-    // set a previously defined search query
-    instance.state.query.value = 'ordering=bureau&page=2';
-    // spy the onQueryParamUpdate function
-    const value = { value: null };
-    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamUpdate');
-    wrapper.instance().context.router = { history: { push: (e) => { value.value = e; } } };
-    wrapper.instance().onQueryParamUpdate(query);
-    // page should be gone and our new param should be present
-    expect(value.value.search).toBe('ordering=bureau&q=German');
-    sinon.assert.calledOnce(handleUpdateSpy);
-  });
-
-  it('can call the onQueryParamUpdate function and remove any empty params', () => {
-    const query = { ordering: '' };
-    const wrapper = shallow(
-      <Results.WrappedComponent
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
-        toggleFavorite={() => {}}
-        saveSearch={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-      />,
-    );
-    // define the instance
-    const instance = wrapper.instance();
-    // set a previously defined search query
-    instance.state.query.value = 'ordering=bureau';
-    // spy the onQueryParamUpdate function
-    const value = { value: null };
-    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamUpdate');
-    wrapper.instance().context.router = { history: { push: (e) => { value.value = e; } } };
-    wrapper.instance().onQueryParamUpdate(query);
-    // ordering was deleted since we passed an empty value
-    expect(value.value.search).toBe('');
-    sinon.assert.calledOnce(handleUpdateSpy);
-  });
-
   it('can handle filters being already fetched', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -185,6 +120,7 @@ describe('Results', () => {
   it('can call the resetFilters function', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -215,6 +151,7 @@ describe('Results', () => {
     const savedSearch = { q: null, id: null };
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -240,6 +177,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function when removing a param', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -274,6 +212,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function when adding a param value and that param already exists', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -308,6 +247,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function when adding a param value and that param does not exist', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -342,6 +282,7 @@ describe('Results', () => {
   it('can call the onQueryParamToggle function and handle removing non-existent params', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}
@@ -373,6 +314,7 @@ describe('Results', () => {
     const routerLocations = [{ pathname: 'test' }, { pathname: 'test2' }];
     const wrapper = shallow(
       <Results.WrappedComponent
+        results={resultsObject}
         isAuthorized={() => true}
         fetchData={() => {}}
         onNavigateTo={() => {}}

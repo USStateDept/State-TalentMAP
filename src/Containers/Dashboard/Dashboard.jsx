@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { assignmentFetchData } from '../../actions/assignment';
 import { notificationsFetchData } from '../../actions/notifications';
 import { bidListFetchData } from '../../actions/bidList';
-import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_LIST } from '../../Constants/PropTypes';
+import { USER_PROFILE, NOTIFICATION_LIST, ASSIGNMENT_OBJECT, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
@@ -25,7 +25,7 @@ class DashboardContainer extends Component {
         isLoading={userProfileIsLoading}
         assignmentIsLoading={assignmentIsLoading}
         assignment={assignment}
-        notifications={notifications}
+        notifications={notifications.results}
         notificationsIsLoading={notificationsIsLoading}
         bidList={bidList.results}
         bidListIsLoading={bidListIsLoading}
@@ -41,7 +41,7 @@ DashboardContainer.propTypes = {
   assignment: ASSIGNMENT_OBJECT.isRequired,
   assignmentIsLoading: PropTypes.bool.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
-  notifications: NOTIFICATION_RESULTS.isRequired,
+  notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
   fetchBidList: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
@@ -54,7 +54,7 @@ DashboardContainer.defaultProps = {
   assignmentIsLoading: false,
   assignment: {},
   notificationsIsLoading: false,
-  notifications: [],
+  notifications: { results: [] },
   bidList: { results: [] },
   bidListIsLoading: false,
 };

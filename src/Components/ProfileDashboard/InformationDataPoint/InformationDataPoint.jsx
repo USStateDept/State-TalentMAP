@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InformationDataPoint = ({ title, content, className, titleOnBottom }) => {
+const InformationDataPoint = ({ title, content, className, titleOnBottom, sideBySide }) => {
   const titleBody = (
   !!title.length &&
     <div className="data-point-title">
@@ -16,7 +16,7 @@ const InformationDataPoint = ({ title, content, className, titleOnBottom }) => {
   const topContent = titleOnBottom ? contentBody : titleBody;
   const bottomContent = titleOnBottom ? titleBody : contentBody;
   return (
-    <div className={`usa-grid-full data-point-container ${className}`}>
+    <div className={`usa-grid-full data-point-container ${sideBySide ? 'data-point-side-by-side' : ''} ${className}`}>
       {topContent}
       {bottomContent}
     </div>
@@ -28,12 +28,14 @@ InformationDataPoint.propTypes = {
   content: PropTypes.node.isRequired,
   className: PropTypes.string,
   titleOnBottom: PropTypes.bool,
+  sideBySide: PropTypes.bool,
 };
 
 InformationDataPoint.defaultProps = {
   title: '',
   className: '',
   titleOnBottom: false,
+  sideBySide: false,
 };
 
 export default InformationDataPoint;

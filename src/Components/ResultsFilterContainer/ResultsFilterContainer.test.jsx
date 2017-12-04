@@ -4,7 +4,7 @@ import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
 import ResultsFilterContainer from './ResultsFilterContainer';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import userObject from '../../__mocks__/userObject';
+import { bidderUserObject } from '../../__mocks__/userObject';
 
 describe('ResultsFilterContainerComponent', () => {
   const items = [{
@@ -31,7 +31,7 @@ describe('ResultsFilterContainerComponent', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        userProfile={userObject}
+        userProfile={bidderUserObject}
       />);
     expect(wrapper).toBeDefined();
   });
@@ -53,7 +53,7 @@ describe('ResultsFilterContainerComponent', () => {
       postSearchResults={[]}
       postSearchIsLoading={false}
       postSearchHasErrored={false}
-      userProfile={userObject}
+      userProfile={bidderUserObject}
     />);
     expect(wrapper.instance().props.filters).toBe(items);
   });
@@ -78,7 +78,7 @@ describe('ResultsFilterContainerComponent', () => {
       postSearchResults={[]}
       postSearchIsLoading={false}
       postSearchHasErrored={false}
-      userProfile={userObject}
+      userProfile={bidderUserObject}
     />);
     wrapper.instance().onQueryParamUpdate(value);
     sinon.assert.calledOnce(queryUpdateSpy);
@@ -105,7 +105,7 @@ describe('ResultsFilterContainerComponent', () => {
       postSearchResults={[]}
       postSearchIsLoading={false}
       postSearchHasErrored={false}
-      userProfile={userObject}
+      userProfile={bidderUserObject}
     />);
     wrapper.instance().onQueryParamToggle(value, value, value);
     sinon.assert.calledOnce(queryToggleSpy);
@@ -129,7 +129,7 @@ describe('ResultsFilterContainerComponent', () => {
       postSearchResults={[]}
       postSearchIsLoading={false}
       postSearchHasErrored={false}
-      userProfile={userObject}
+      userProfile={bidderUserObject}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

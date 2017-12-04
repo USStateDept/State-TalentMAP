@@ -16,7 +16,11 @@ exports[`CheckBoxComponent matches snapshot 1`] = `
   <label
     htmlFor="id"
   >
-    label
+    <span
+      className=""
+    >
+      label
+    </span>
   </label>
 </div>
 `;

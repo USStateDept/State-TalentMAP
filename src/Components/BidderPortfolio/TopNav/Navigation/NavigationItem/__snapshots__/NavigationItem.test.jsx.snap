@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationItemComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bidder-portfolio-navigation-item is-underlined"
+>
+  <Link
+    replace={false}
+    to="?type=all"
+  >
+    test
+     
+    <span
+      className="navigation-item-fraction"
+    >
+      (
+      5
+      /
+      10
+      )
+    </span>
+  </Link>
+</div>
+`;

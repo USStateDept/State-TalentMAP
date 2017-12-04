@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioContainerComponent matches snapshot when the all property is greater than zero 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <BidderPortfolioCardList
+    results={
+      Array [
+        Object {
+          "id": 1,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "last_name": "Doe",
+          },
+        },
+        Object {
+          "id": 2,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "doejane@state.gov",
+            "first_name": "Jane",
+            "last_name": "Doe",
+          },
+        },
+        Object {
+          "id": 3,
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "smithj@state.gov",
+            "first_name": "John",
+            "last_name": "Smith",
+          },
+        },
+      ]
+    }
+  />
+  <div
+    className="usa-grid-full react-paginate"
+  >
+    <PaginationWrapper
+      activeClassName="active"
+      containerClassName="pagination"
+      forcePage={1}
+      marginPagesDisplayed={2}
+      nextLabel="Next"
+      onPageChange={[Function]}
+      pageRangeDisplayed={1}
+      pageSize={8}
+      paginationStyle="pagination"
+      previousLabel="Previous"
+      subContainerClassName="pages pagination"
+      totalResults={3}
+    />
+  </div>
+</div>
+`;
+
+exports[`BidderPortfolioContainerComponent matches snapshot when the all property is zero 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <BidderPortfolioCardList
+    results={Array []}
+  />
+  <div
+    className="usa-width-two-thirds"
+  >
+    <Alert
+      messages={
+        Array [
+          Object {
+            "body": "Try broadening your search.",
+          },
+        ]
+      }
+      title="You have no clients within this search criteria."
+      type="info"
+    />
+  </div>
+</div>
+`;

@@ -11,6 +11,10 @@
 
   padding: 0 30px 15px;
 
+  label {
+    font-size: .8em;
+  }
+
   .label-input-wrapper {
     width: 100%;
   }
@@ -24,6 +28,7 @@
     padding: 15px 0;
 
     input {
+      border-radius: 5px;
       border-right: solid 1px;
       display: inline-block;
       max-width: unset;

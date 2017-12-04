@@ -1,26 +1,7 @@
 .results {
 
-  // dropdown labels should appear to the left of the input
   label {
-    float: left;
     font-size: .8em;
-    margin-right: 10px;
-    margin-top: 6px;
-  }
-
-  .results-dropdown {
-    select {
-      background-color: $color-gray-lightest;
-      border: 0;
-      border-radius: 7px;
-      font-size: .8em;
-      height: 28px;
-      overflow: hidden;
-      padding: 0 .7em;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 130px;
-    }
   }
 
   .results-dropdown-page-size {
@@ -35,29 +16,6 @@
   .results-dropdown-sort {
     float: left;
     margin-left: 10px;
-  }
-
-  .results-viewby-container {
-    float: right;
-
-    @media screen and (max-width: 951px) {
-      float: left;
-    }
-
-    .view-icon {
-      float: left;
-      padding: 5px 10px 0;
-    }
-
-    .view-icon-border {
-      border-left: solid 1px $color-gray-light;
-    }
-
-    .view-label {
-      float: left;
-      font-size: .8em;
-      padding: 7px;
-    }
   }
 
   .no-results {
@@ -181,6 +139,10 @@
   padding: 15px 10px;
   width: 20%;
 
+  label {
+    margin-top: 1rem;
+  }
+
   .reset-filters {
     border-bottom: solid 1px;
     cursor: pointer;
@@ -259,6 +221,10 @@
   .boolean-filter-container {
     margin-left: 10px;
     padding-top: 10px;
+
+    label {
+      margin-top: 10px;
+    }
   }
 
   .tm-checkbox {
@@ -378,4 +344,62 @@
 
 .render-suggestion {
   color: $color-black;
+}
+
+.results-dropdown {
+  // dropdown labels should appear to the left of the input
+  label {
+    float: left;
+    font-size: .8em;
+    margin-right: 10px;
+    margin-top: 6px;
+  }
+
+  select {
+    background-color: $color-gray-lightest;
+    border: 0;
+    border-radius: 7px;
+    font-size: .8em;
+    height: 28px;
+    overflow: hidden;
+    padding: 0 .7em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 130px;
+  }
+}
+
+.results-viewby-container {
+  float: right;
+
+  .is-not-selected {
+    .fa {
+      color: $color-gray-light;
+    }
+  }
+
+  .is-selected {
+    .fa {
+      color: $color-black;
+    }
+  }
+
+  @media screen and (max-width: 951px) {
+    float: left;
+  }
+
+  .view-icon {
+    float: left;
+    padding: 5px 10px 0;
+  }
+
+  .view-icon-border {
+    border-left: solid 1px $color-gray-light;
+  }
+
+  .view-label {
+    float: left;
+    font-size: .8em;
+    padding: 7px;
+  }
 }

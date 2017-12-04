@@ -11,52 +11,70 @@ exports[`Footer Component matches snapshot 1`] = `
     <div
       className="usa-grid-full"
     >
-      <nav
-        className="usa-footer-nav"
+      <div
+        className="usa-width-one-half"
       >
-        <ul
-          className="usa-unstyled-list"
+        <nav
+          className="usa-footer-nav"
         >
-          <li
-            className="usa-width-one-sixth usa-footer-primary-content"
+          <ul
+            className="usa-unstyled-list"
           >
-            <Link
-              className="usa-footer-primary-link"
-              replace={false}
-              to="/"
+            <li
+              className="usa-width-one-sixth usa-footer-primary-content"
             >
-              Home
-            </Link>
-          </li>
-          <li
-            className="usa-width-one-sixth usa-footer-primary-content"
+              <Link
+                className="usa-footer-primary-link"
+                replace={false}
+                to="/"
+              >
+                Home
+              </Link>
+            </li>
+            <li
+              className="usa-width-one-sixth usa-footer-primary-content"
+            >
+              <a
+                className="usa-footer-primary-link"
+                href="https://github.com/18F/State-TalentMAP"
+              >
+                About
+              </a>
+            </li>
+            <li
+              className="usa-width-one-sixth usa-footer-primary-content"
+            >
+              <a
+                className="usa-footer-primary-link"
+                href="https://github.com/18F/State-TalentMAP/issues"
+              >
+                Feedback
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div
+        className="usa-width-one-half"
+      >
+        <div
+          className="questions-container"
+        >
+          <span
+            className="help-text"
           >
-            <a
-              className="usa-footer-primary-link"
-              href="https://github.com/18F/State-TalentMAP"
-            >
-              About
-            </a>
-          </li>
-          <li
-            className="usa-width-one-sixth usa-footer-primary-content"
-          >
-            <a
-              className="usa-footer-primary-link"
-              href="https://github.com/18F/State-TalentMAP/issues"
-            >
-              Feedback
-            </a>
-          </li>
-        </ul>
-      </nav>
+            Need Help? Contact
+          </span>
+           | TeamTalentMapOutreach@Dos.gov
+        </div>
+      </div>
     </div>
   </div>
   <div
     className="usa-footer-secondary_section tm-footer-body"
   >
     <div
-      className="usa-grid"
+      className="usa-grid-full tm-footer-body-inner-container"
     >
       <div
         className="usa-footer-logo usa-width-one-half"
@@ -65,7 +83,18 @@ exports[`Footer Component matches snapshot 1`] = `
           alt="DOS Seal"
           className="usa-footer-logo-img"
           src="/assets/img/rsz_dos-seal.png"
+          width="90"
         />
+        <div
+          className="usa-footer-logo-img-tm-container"
+        >
+          <img
+            alt="TalentMAP logo"
+            className="usa-footer-logo-img-tm"
+            src="horizontal_color.png"
+            width="250"
+          />
+        </div>
       </div>
       <div
         className="usa-footer-contact-links usa-width-one-half tm-footer-body-contact"
@@ -73,21 +102,17 @@ exports[`Footer Component matches snapshot 1`] = `
         <div
           className="tm-footer-body-contact-item"
         >
+          To share your feedback with us, open an issue or pull request on our 
           <a
-            href="mailto:TalentMAPOutreach@Dos.gov"
+            href="https://github.com/18F/State-TalentMAP"
           >
-            TalentMAPOutreach@Dos.gov
+            Github Repository
           </a>
         </div>
         <div
           className="tm-footer-body-contact-item"
         >
-          Join the TalentMAP Community
-        </div>
-        <div
-          className="tm-footer-body-contact-item"
-        >
-          Need help? Contact TalentMAP Team
+          This project is a beta for Department of State
         </div>
       </div>
     </div>

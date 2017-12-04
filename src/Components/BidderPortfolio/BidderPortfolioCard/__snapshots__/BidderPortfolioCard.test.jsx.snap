@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full current-user bidder-portfolio-card"
+>
+  <CurrentUserGeneralInformation
+    showEditLink={false}
+    useGroup={true}
+    userProfile={
+      Object {
+        "is_cdo": false,
+        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "user": Object {
+          "email": "doej@state.gov",
+          "first_name": "John",
+          "last_name": "Doe",
+        },
+      }
+    }
+  />
+  <CurrentUserPersonalInformation
+    userProfile={
+      Object {
+        "is_cdo": false,
+        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "user": Object {
+          "email": "doej@state.gov",
+          "first_name": "John",
+          "last_name": "Doe",
+        },
+      }
+    }
+  />
+  <CurrentUserBidInformation />
+  <BidderPortfolioViewMore
+    className="unstyled-button"
+    useLink={true}
+  />
+</div>
+`;
