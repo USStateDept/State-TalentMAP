@@ -11,6 +11,8 @@ import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
 import logo from '../../assets/logos/png/horizontal_color.png';
+import Inbox from './Inbox';
+import Notifications from './Notifications';
 
 export class Header extends Component {
   constructor(props) {
@@ -49,6 +51,9 @@ export class Header extends Component {
         signedInAs = `Signed in as ${userProfile.user.username}`;
       }
     }
+
+    // we should only show the Inbox and Notifications icons if the user is logged in
+    const showAlerts = !!this.props.client.token;
 
     return (
       <header className="usa-header usa-header-extended tm-header" role="banner">
@@ -99,6 +104,13 @@ export class Header extends Component {
                 <span className="desktop-nav-only">
                   <li>
                     {showLogin}
+                    {
+                      showAlerts &&
+                        <span>
+                          <Inbox />
+                          <Notifications />
+                        </span>
+                    }
                   </li>
                 </span>
               </ul>

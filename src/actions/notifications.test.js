@@ -16,6 +16,9 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=2&ordering=date_updated').reply(200,
       notificationsObject,
     );
+    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&is_read=false').reply(200,
+      notificationsObject,
+    );
   });
 
   it('can fetch notifications', (done) => {
@@ -51,6 +54,31 @@ describe('async actions', () => {
       setTimeout(() => {
         store.dispatch(actions.notificationsFetchData(null, 'date_updated'));
         store.dispatch(actions.notificationsIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can fetch notifications in order to determine the count', (done) => {
+    const store = mockStore({ notificationsCount: 0 });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.notificationsCountFetchData());
+        store.dispatch(actions.notificationsCountIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can call the unsetNotificationsCount function', (done) => {
+    const store = mockStore({ notificationsCount: 0 });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.unsetNotificationsCount());
         done();
       }, 0);
     };

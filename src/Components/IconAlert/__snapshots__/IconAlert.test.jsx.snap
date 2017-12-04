@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconAlertComponent matches snapshot 1`] = `
+<div
+  className="icon-alert-container"
+>
+  <Link
+    replace={false}
+    role="button"
+    to="/profile/"
+  >
+    <div
+      className="alert-icon"
+    />
+    <span
+      className="usa-sr-only"
+    >
+      text
+    </span>
+    <FontAwesome
+      name="message-o"
+    />
+    <span
+      className="alert-icon-badge"
+    >
+      4
+    </span>
+  </Link>
+</div>
+`;
+
+exports[`IconAlertComponent matches snapshot when number = 0 1`] = `
+<div
+  className="icon-alert-container"
+>
+  <Link
+    replace={false}
+    role="button"
+    to="/profile/"
+  >
+    <div
+      className="alert-icon"
+    />
+    <span
+      className="usa-sr-only"
+    >
+      text
+    </span>
+    <FontAwesome
+      name="message-o"
+    />
+  </Link>
+</div>
+`;
+
+exports[`IconAlertComponent matches snapshot with a number greater than the limit 1`] = `
+<div
+  className="icon-alert-container"
+>
+  <Link
+    replace={false}
+    role="button"
+    to="/profile/"
+  >
+    <div
+      className="alert-icon"
+    />
+    <span
+      className="usa-sr-only"
+    >
+      text
+    </span>
+    <FontAwesome
+      name="message-o"
+    />
+    <span
+      className="alert-icon-badge"
+    >
+      5+
+    </span>
+  </Link>
+</div>
+`;
