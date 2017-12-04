@@ -37,6 +37,22 @@ describe('CheckBoxComponent', () => {
     expect(onCheckBoxClick.calledOnce).toBe(true);
   });
 
+  it('can apply the small class', () => {
+    const wrapper = shallow(
+      <CheckBox
+        id="id"
+        label="label"
+        title="title"
+        name="name"
+        value="value"
+        onCheckBoxClick={() => {}}
+        small
+      />,
+    );
+
+    expect(wrapper.find('.tm-checkbox-small').exists()).toBe(true);
+  });
+
   it('can handle the onChange event', () => {
     const wrapper = shallow(
       <CheckBox

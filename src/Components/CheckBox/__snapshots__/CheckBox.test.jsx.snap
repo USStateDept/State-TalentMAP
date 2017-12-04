@@ -2,7 +2,7 @@
 
 exports[`CheckBoxComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full tm-checkbox"
+  className="usa-grid-full tm-checkbox "
 >
   <input
     checked="value"

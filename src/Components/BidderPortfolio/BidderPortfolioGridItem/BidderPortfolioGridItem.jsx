@@ -10,7 +10,7 @@ const BidderPortfolioGridItem = ({ userProfile }) => (
   <div className="usa-grid-full current-user bidder-portfolio-grid-item">
     <div className="usa-width-one-fourth grid-item-section">
       <div className="checkbox-container">
-        <CheckBox id={`checkbox-${userProfile.id}`} label="Select this user" value={false} labelSrOnly />
+        <CheckBox id={`checkbox-${userProfile.id}`} label="Select this user" value={false} labelSrOnly small />
       </div>
       <div className="general-information-container" >
         <CurrentUserGeneralInformation

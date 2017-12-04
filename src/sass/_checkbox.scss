@@ -1,0 +1,10 @@
+.tm-checkbox-small {
+  [type=checkbox] + label::before,
+  [type=radio] + label::before {
+    $size: 13px;
+    background-size: 100%;
+    height: $size;
+    line-height: $size;
+    width: $size;
+  }
+}
