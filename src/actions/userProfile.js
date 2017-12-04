@@ -36,6 +36,12 @@ export function userProfileFavoritePositionHasErrored(bool) {
   };
 }
 
+export function unsetUserProfile() {
+  return (dispatch) => {
+    dispatch(userProfileFetchDataSuccess({}));
+  };
+}
+
 // include an optional bypass for when we want to silently update the profile
 export function userProfileFetchData(bypass) {
   return (dispatch) => {
