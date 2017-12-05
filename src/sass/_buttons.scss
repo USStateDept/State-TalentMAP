@@ -21,3 +21,8 @@
   text-decoration: unset;
   width: unset;
 }
+
+.unstyled-button:hover,
+.unstyled-button:active {
+  background-color: unset;
+}
