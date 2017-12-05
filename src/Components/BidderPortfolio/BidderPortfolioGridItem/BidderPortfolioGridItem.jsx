@@ -27,7 +27,11 @@ const BidderPortfolioGridItem = ({ userProfile }) => (
       <CurrentUserPersonalInformation userProfile={userProfile} />
     </div>
     <div className="usa-width-one-fourth grid-item-section">
-      <CurrentUserBidInformation />
+      <CurrentUserBidInformation
+        /* Object [0] should be the most recent. If undefined, use 0. */
+        draft={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].draft : 0}
+        submitted={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].submitted : 0}
+      />
     </div>
     <div className="usa-width-one-fourth grid-item-section">
       <BidderPortfolioViewMore className="white-button" />

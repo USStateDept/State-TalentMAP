@@ -12,7 +12,7 @@ exports[`CurrentUserBidInformationComponent matches snapshot 1`] = `
     >
       <InformationDataPoint
         className="skill-code-data-point-container bid-count-left"
-        content="4/10"
+        content="1/10"
         sideBySide={false}
         title="Draft Bids"
         titleOnBottom={false}
@@ -23,7 +23,7 @@ exports[`CurrentUserBidInformationComponent matches snapshot 1`] = `
     >
       <InformationDataPoint
         className="skill-code-data-point-container bid-count-right"
-        content="2/10"
+        content="1/10"
         sideBySide={false}
         title="Submitted Bids"
         titleOnBottom={false}

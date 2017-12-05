@@ -13,7 +13,11 @@ const BidderPortfolioCard = ({ userProfile }) => (
       useGroup
     />
     <CurrentUserPersonalInformation userProfile={userProfile} />
-    <CurrentUserBidInformation />
+    <CurrentUserBidInformation
+      /* Object [0] should be the most recent. If undefined, use 0. */
+      draft={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].draft : 0}
+      submitted={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].submitted : 0}
+    />
     <BidderPortfolioViewMore useLink />
   </div>
 );
