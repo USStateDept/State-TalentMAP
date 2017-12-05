@@ -37,6 +37,21 @@ describe('CheckBoxComponent', () => {
     expect(onCheckBoxClick.calledOnce).toBe(true);
   });
 
+  it('can apply the base class', () => {
+    const wrapper = shallow(
+      <CheckBox
+        id="id"
+        label="label"
+        title="title"
+        name="name"
+        value="value"
+        onCheckBoxClick={() => {}}
+      />,
+    );
+
+    expect(wrapper.find('.tm-checkbox').exists()).toBe(true);
+  });
+
   it('can apply the small class', () => {
     const wrapper = shallow(
       <CheckBox
@@ -79,6 +94,21 @@ describe('CheckBoxComponent', () => {
         name="name"
         value="value"
         onCheckBoxClick={() => {}}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when small = true', () => {
+    const wrapper = shallow(
+      <CheckBox
+        id="id"
+        label="label"
+        title="title"
+        name="name"
+        value="value"
+        onCheckBoxClick={() => {}}
+        small
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

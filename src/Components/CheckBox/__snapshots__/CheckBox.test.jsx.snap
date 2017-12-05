@@ -24,3 +24,28 @@ exports[`CheckBoxComponent matches snapshot 1`] = `
   </label>
 </div>
 `;
+
+exports[`CheckBoxComponent matches snapshot when small = true 1`] = `
+<div
+  className="usa-grid-full tm-checkbox tm-checkbox-small"
+>
+  <input
+    checked="value"
+    id="id"
+    name="name"
+    onChange={[Function]}
+    title="title"
+    type="checkbox"
+    value="value"
+  />
+  <label
+    htmlFor="id"
+  >
+    <span
+      className=""
+    >
+      label
+    </span>
+  </label>
+</div>
+`;
