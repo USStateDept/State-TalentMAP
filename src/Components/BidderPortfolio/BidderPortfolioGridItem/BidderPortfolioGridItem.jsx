@@ -30,7 +30,7 @@ const BidderPortfolioGridItem = ({ userProfile }) => (
       <CurrentUserBidInformation />
     </div>
     <div className="usa-width-one-fourth grid-item-section">
-      <BidderPortfolioViewMore className="white-button" />
+      <BidderPortfolioViewMore className="tm-button-alt" />
     </div>
   </div>
 );

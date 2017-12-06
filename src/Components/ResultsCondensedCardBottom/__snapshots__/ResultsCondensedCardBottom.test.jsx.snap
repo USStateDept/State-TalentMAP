@@ -61,7 +61,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
     }
   />
   <BidListButton
-    className="white-button"
+    className="tm-button-alt"
     compareArray={
       Array [
         Object {

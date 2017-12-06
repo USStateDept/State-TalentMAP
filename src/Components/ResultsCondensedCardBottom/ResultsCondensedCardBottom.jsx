@@ -8,7 +8,7 @@ const ResultsCondensedCardBottom = ({ position, toggleBid, bidList }) => (
   <div className="usa-grid-full condensed-card-bottom">
     <CondensedCardData position={position} />
     <BidListButton
-      className="white-button"
+      className="tm-button-alt"
       id={position.id}
       compareArray={bidList}
       toggleBidPosition={toggleBid}
