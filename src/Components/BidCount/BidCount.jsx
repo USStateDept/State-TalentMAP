@@ -18,11 +18,4 @@ BidCount.propTypes = {
   inGradeAtSkillBids: PropTypes.number.isRequired,
 };
 
-BidCount.defaultProps = {
-  totalBids: 0,
-  inGradeBids: 0,
-  atSkillBids: 0,
-  inGradeAtSkillBids: 0,
-};
-
 export default BidCount;
