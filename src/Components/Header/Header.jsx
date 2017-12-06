@@ -64,7 +64,7 @@ export class Header extends Component {
           <div className="usa-logo" id="logo">
             <div className="usa-logo-text">
               <Link to="/">
-                <img className="header-logo-tm" src={logo} alt="TalentMAP logo" />
+                <img className="logo-img-tm" src={logo} alt="TalentMAP logo" />
               </Link>
             </div>
           </div>
