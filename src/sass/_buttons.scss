@@ -32,13 +32,13 @@
   font-size: 16px;
   font-weight: 400;
 
+  &:hover {
+    border-bottom: 1px solid $blue-primary;
+    color: $color-white;
+  }
+
   .tm-button-alt-icon {
     color: $blue-primary;
     margin-right: 5px;
   }
-}
-
-.tm-button-alt:hover {
-  border-bottom: 1px solid $blue-primary;
-  color: $color-white;
 }
