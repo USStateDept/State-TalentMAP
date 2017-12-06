@@ -318,14 +318,14 @@ export const BIDDER_OBJECT = PropTypes.shape(
     id: PropTypes.number,
     skill_code: PropTypes.string,
     grade: PropTypes.string,
-    cdo: {
+    cdo: PropTypes.shape({
       username: PropTypes.string,
       first_name: PropTypes.string,
       last_name: PropTypes.string,
       email: PropTypes.string,
       phone_number: PropTypes.string,
       is_cdo: PropTypes.bool,
-    },
+    }),
     is_cdo: PropTypes.bool,
     primary_nationality: PropTypes.string,
     secondary_nationality: PropTypes.string,

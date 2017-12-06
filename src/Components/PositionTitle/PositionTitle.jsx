@@ -108,7 +108,7 @@ class PositionTitle extends Component {
 
     const isAllowedToEdit = !!(details.description && details.description.is_editable_by_user);
 
-    const bidStatistics = details.bid_statistics[0];
+    const bidStatistics = Array.isArray(details.bid_statistics) ? details.bid_statistics[0] : null;
 
     const shouldShowBidStats = !!details.bid_statistics && !!bidStatistics;
 
