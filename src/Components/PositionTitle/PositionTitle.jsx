@@ -108,7 +108,9 @@ class PositionTitle extends Component {
 
     const isAllowedToEdit = !!(details.description && details.description.is_editable_by_user);
 
-    const shouldShowBidStats = !!details.bid_statistics && !!details.bid_statistics[0];
+    const bidStatistics = details.bid_statistics[0];
+
+    const shouldShowBidStats = !!details.bid_statistics && !!bidStatistics;
 
     return (
       <div className="position-details-header-container">
@@ -193,10 +195,10 @@ class PositionTitle extends Component {
             {
               shouldShowBidStats &&
                 <BidCount
-                  totalBids={details.bid_statistics[0].total_bids}
-                  inGradeBids={details.bid_statistics[0].in_grade}
-                  atSkillBids={details.bid_statistics[0].at_skill}
-                  inGradeAtSkillBids={details.bid_statistics[0].in_grade_at_skill}
+                  totalBids={bidStatistics.total_bids}
+                  inGradeBids={bidStatistics.in_grade}
+                  atSkillBids={bidStatistics.at_skill}
+                  inGradeAtSkillBids={bidStatistics.in_grade_at_skill}
                 />
             }
           </div>
