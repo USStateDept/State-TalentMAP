@@ -43,7 +43,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // we only care about the count, so we only request a limit of 1
   fetchNotificationsCount: () => dispatch(notificationsCountFetchData()),
 });
 
