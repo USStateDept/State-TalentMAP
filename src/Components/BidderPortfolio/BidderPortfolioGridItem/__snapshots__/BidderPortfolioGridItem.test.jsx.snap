@@ -67,7 +67,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
     className="usa-width-one-fourth grid-item-section"
   >
     <BidderPortfolioViewMore
-      className="white-button"
+      className="tm-button-alt"
       useLink={false}
     />
   </div>
