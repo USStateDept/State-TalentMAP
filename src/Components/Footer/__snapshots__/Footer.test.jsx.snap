@@ -63,9 +63,14 @@ exports[`Footer Component matches snapshot 1`] = `
           <span
             className="help-text"
           >
-            Need Help? Contact
+            Need Help? Contact 
           </span>
-           | TeamTalentMapOutreach@Dos.gov
+          | 
+          <a
+            href="mailto:TeamTalentMapOutreach@Dos.gov"
+          >
+            TeamTalentMapOutreach@Dos.gov
+          </a>
         </div>
       </div>
     </div>

@@ -22,6 +22,7 @@ class Notifications extends Component {
         number={notificationsCount}
         link="/profile/dashboard/"
         alt="Notifications"
+        title="View your notifications"
       />
     );
   }
