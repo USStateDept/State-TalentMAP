@@ -61,6 +61,12 @@
     color: $color-white;
     float: right;
 
+    a {
+      color: $color-white;
+      font-weight: 200;
+      text-decoration: none;
+    }
+
     .help-text {
       font-weight: normal;
     }
