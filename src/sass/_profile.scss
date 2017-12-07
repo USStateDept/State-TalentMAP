@@ -343,7 +343,7 @@ $padding-no-border: $total-padding - $border;
   }
 
   a {
-    color: unset;
+    color: $color-black;
     display: inline-block;
     width: 100%;
   }
