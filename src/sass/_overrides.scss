@@ -29,4 +29,13 @@
       margin-bottom: 5px;
     }
   }
+
+  @media screen and (max-width: 951px) {
+    // IE 11 pushes the fieldset too far to the left when width is not 100% between this width and the next step down
+    .results-search-bar-container {
+      fieldset {
+        width: 100%;
+      }
+    }
+  }
 }
