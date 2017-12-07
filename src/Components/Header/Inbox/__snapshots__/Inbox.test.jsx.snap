@@ -6,6 +6,7 @@ exports[`InboxComponent matches snapshot 1`] = `
   limit={5}
   link="/profile/dashboard/"
   number={4}
+  title="View your inbox"
   type="comments-o"
   useLimit={true}
 />

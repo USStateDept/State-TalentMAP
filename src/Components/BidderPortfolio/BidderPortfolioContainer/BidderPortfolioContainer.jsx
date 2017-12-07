@@ -47,7 +47,7 @@ class BidderPortfolioContainer extends Component {
         {
           noResults &&
           <div className="usa-width-two-thirds">
-            <Alert title="You have no clients within this search criteria." messages={[{ body: 'Try broadening your search.' }]} />
+            <Alert title="You have no clients within this search criteria." messages={[{ body: 'Try removing filters or using another bid status tab.' }]} />
           </div>
         }
       </div>
