@@ -75,7 +75,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
       messages={
         Array [
           Object {
-            "body": "Try broadening your search.",
+            "body": "Try removing filters or using another bid status tab.",
           },
         ]
       }
