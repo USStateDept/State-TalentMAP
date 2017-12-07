@@ -25,5 +25,3 @@ exclude_patterns:
 - scripts/ # build & utility scripts
 - src/__mocks__/ # test objects
 - src/Constants/PropTypes.js # shape definitions
-- "src/**/*.test.js" # unit tests
-- "src/**/*.test.jsx" # unit tests
