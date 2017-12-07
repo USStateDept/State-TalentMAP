@@ -15,7 +15,7 @@
     width: auto;
   }
 
-  .white-button {
+  .tm-button-alt {
     // TODO figure out why 2px makes button flash when cursor is on edge of button
     border: 1px solid $blue-primary;
     bottom: 17px;
@@ -119,7 +119,7 @@
 .condensed-card-first-big {
   float: left;
 
-  .white-button {
+  .tm-button-alt {
     bottom: unset;
     position: unset;
   }

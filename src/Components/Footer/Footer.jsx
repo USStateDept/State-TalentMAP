@@ -23,7 +23,10 @@ const Footer = () => (
         </div>
         <div className="usa-width-one-half">
           <div className="questions-container">
-            <span className="help-text">Need Help? Contact</span> | TeamTalentMapOutreach@Dos.gov
+            <span className="help-text">Need Help? Contact </span>
+            | <a href="mailto:TeamTalentMapOutreach@Dos.gov">
+              TeamTalentMapOutreach@Dos.gov
+            </a>
           </div>
         </div>
       </div>
@@ -32,16 +35,14 @@ const Footer = () => (
       <div className="usa-grid-full tm-footer-body-inner-container">
         <div className="usa-footer-logo usa-width-one-half">
           <img
-            className="usa-footer-logo-img"
-            width="90"
+            className="usa-footer-logo-img logo-img-seal"
             src="/assets/img/rsz_dos-seal.png"
             alt="DOS Seal"
           />
           <div className="usa-footer-logo-img-tm-container">
             <img
-              className="usa-footer-logo-img-tm"
+              className="usa-footer-logo-img-tm logo-img-tm"
               src={logo}
-              width="250"
               alt="TalentMAP logo"
             />
           </div>

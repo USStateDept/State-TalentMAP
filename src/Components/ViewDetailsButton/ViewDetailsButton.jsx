@@ -4,8 +4,8 @@ import FontAwesome from 'react-fontawesome';
 import LinkButton from '../LinkButton';
 
 const ViewDetailsButton = ({ id }) => (
-  <LinkButton toLink={`/details/${id}`} className="white-button">
-    <span className="white-button-icon">
+  <LinkButton toLink={`/details/${id}`} className="tm-button-alt">
+    <span className="tm-button-alt-icon">
       <FontAwesome name="plus-circle" />
     </span>
     View details

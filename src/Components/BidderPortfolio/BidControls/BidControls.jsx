@@ -21,7 +21,7 @@ class BidControls extends Component {
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-fourth total-results-container">
           {
-            // We only want to total results to rerender when loading,
+            // We only want total results to rerender when loading,
             // so that SelectForm's state is maintained between loads.
             !isLoading &&
             <TotalResults numerator={biddersNumerator} denominator={biddersDenominator} />
