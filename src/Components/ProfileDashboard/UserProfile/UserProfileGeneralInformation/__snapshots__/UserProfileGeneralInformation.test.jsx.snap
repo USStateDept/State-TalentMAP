@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CurrentUserGeneralInformationComponent matches snapshot 1`] = `
+exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
 <div
   className="current-user-top current-user-section-container"
 >
@@ -33,7 +33,7 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot 1`] = `
 </div>
 `;
 
-exports[`CurrentUserGeneralInformationComponent matches snapshot when showEditLink is true 1`] = `
+exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLink is true 1`] = `
 <div
   className="current-user-top current-user-section-container"
 >
@@ -66,7 +66,7 @@ exports[`CurrentUserGeneralInformationComponent matches snapshot when showEditLi
 </div>
 `;
 
-exports[`CurrentUserGeneralInformationComponent matches snapshot when useGroup is true 1`] = `
+exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup is true 1`] = `
 <div
   className="current-user-top current-user-section-container"
 >

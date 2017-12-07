@@ -17,7 +17,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       <div
         className="usa-width-one-whole user-dashboard-section current-user-section"
       >
-        <CurrentUser
+        <UserProfile
           showContactInformation={true}
           showEditLink={true}
           showGeneralInformation={true}

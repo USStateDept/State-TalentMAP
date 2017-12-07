@@ -1,8 +1,8 @@
 import React from 'react';
 import { BIDDER_OBJECT } from '../../../Constants/PropTypes';
-import CurrentUserGeneralInformation from '../../ProfileDashboard/CurrentUser/CurrentUserGeneralInformation';
-import CurrentUserPersonalInformation from '../../ProfileDashboard/CurrentUser/CurrentUserPersonalInformation';
-import CurrentUserBidInformation from '../../ProfileDashboard/CurrentUser/CurrentUserBidInformation';
+import UserProfileGeneralInformation from '../../ProfileDashboard/UserProfile/UserProfileGeneralInformation';
+import UserProfilePersonalInformation from '../../ProfileDashboard/UserProfile/UserProfilePersonalInformation';
+import UserProfileBidInformation from '../../ProfileDashboard/UserProfile/UserProfileBidInformation';
 import BidderPortfolioViewMore from '../BidderPortfolioViewMore';
 import CheckBox from '../../CheckBox';
 
@@ -13,7 +13,7 @@ const BidderPortfolioGridItem = ({ userProfile }) => (
         <CheckBox id={`checkbox-${userProfile.id}`} label="Select this user" value={false} labelSrOnly />
       </div>
       <div className="general-information-container" >
-        <CurrentUserGeneralInformation
+        <UserProfileGeneralInformation
           userProfile={userProfile}
           showEditLink={false}
           useGroup
@@ -24,10 +24,10 @@ const BidderPortfolioGridItem = ({ userProfile }) => (
       className={`usa-width-one-fourth grid-item-section
         current-user-personal-information-grid-container`}
     >
-      <CurrentUserPersonalInformation userProfile={userProfile} />
+      <UserProfilePersonalInformation userProfile={userProfile} />
     </div>
     <div className="usa-width-one-fourth grid-item-section">
-      <CurrentUserBidInformation />
+      <UserProfileBidInformation />
     </div>
     <div className="usa-width-one-fourth grid-item-section">
       <BidderPortfolioViewMore className="white-button" />
