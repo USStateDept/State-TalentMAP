@@ -23,3 +23,22 @@
     width: unset;
   }
 }
+
+.tm-button-alt {
+  background-color: $color-white;
+  border: 1px solid $blue-primary;
+  color: $color-black;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+
+  &:hover {
+    border-bottom: 1px solid $blue-primary;
+    color: $color-white;
+  }
+
+  .tm-button-alt-icon {
+    color: $blue-primary;
+    margin-right: 5px;
+  }
+}

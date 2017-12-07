@@ -63,9 +63,14 @@ exports[`Footer Component matches snapshot 1`] = `
           <span
             className="help-text"
           >
-            Need Help? Contact
+            Need Help? Contact 
           </span>
-           | TeamTalentMapOutreach@Dos.gov
+          | 
+          <a
+            href="mailto:TeamTalentMapOutreach@Dos.gov"
+          >
+            TeamTalentMapOutreach@Dos.gov
+          </a>
         </div>
       </div>
     </div>
@@ -81,18 +86,16 @@ exports[`Footer Component matches snapshot 1`] = `
       >
         <img
           alt="DOS Seal"
-          className="usa-footer-logo-img"
+          className="usa-footer-logo-img logo-img-seal"
           src="/assets/img/rsz_dos-seal.png"
-          width="90"
         />
         <div
           className="usa-footer-logo-img-tm-container"
         >
           <img
             alt="TalentMAP logo"
-            className="usa-footer-logo-img-tm"
+            className="usa-footer-logo-img-tm logo-img-tm"
             src="horizontal_color.png"
-            width="250"
           />
         </div>
       </div>

@@ -28,8 +28,8 @@ exports[`Header matches snapshot when logged in 1`] = `
         >
           <img
             alt="TalentMAP logo"
+            className="logo-img-tm"
             src="horizontal_color.png"
-            width="200"
           />
         </Link>
       </div>
@@ -179,8 +179,8 @@ exports[`Header matches snapshot when logged out 1`] = `
         >
           <img
             alt="TalentMAP logo"
+            className="logo-img-tm"
             src="horizontal_color.png"
-            width="200"
           />
         </Link>
       </div>
