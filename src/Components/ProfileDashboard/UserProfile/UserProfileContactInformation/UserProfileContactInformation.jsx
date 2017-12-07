@@ -4,7 +4,7 @@ import { NO_EMAIL } from '../../../../Constants/SystemMessages';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 
-const CurrentUserContactInformation = ({ userProfile }) => (
+const UserProfileContactInformation = ({ userProfile }) => (
   <div className="current-user-bottom current-user-section-container">
     <div className="section-padded-inner-container">
       <SectionTitle small title="Contact Information" />
@@ -19,12 +19,12 @@ const CurrentUserContactInformation = ({ userProfile }) => (
   </div>
 );
 
-CurrentUserContactInformation.propTypes = {
+UserProfileContactInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
 };
 
-CurrentUserContactInformation.defaultProps = {
+UserProfileContactInformation.defaultProps = {
   showEditLink: true,
 };
 
-export default CurrentUserContactInformation;
+export default UserProfileContactInformation;
