@@ -10,6 +10,16 @@ const resultsObject = {
       is_overseas: true,
       create_date: '2006-09-20',
       update_date: '2017-06-08',
+      bid_statistics: [
+        {
+          id: 1,
+          total_bids: 3,
+          in_grade: 0,
+          at_skill: 0,
+          in_grade_at_skill: 0,
+          bidcycle: 1,
+        },
+      ],
       description: {
         content: 'The quick brown fox jumped over the lazy dog.',
       },
@@ -28,6 +38,16 @@ const resultsObject = {
       is_overseas: true,
       create_date: '2006-09-20',
       update_date: '2017-06-08',
+      bid_statistics: [
+        {
+          id: 1,
+          total_bids: 3,
+          in_grade: 0,
+          at_skill: 0,
+          in_grade_at_skill: 0,
+          bidcycle: 1,
+        },
+      ],
       post: null,
       languages: [],
     },

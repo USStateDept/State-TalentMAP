@@ -54,6 +54,7 @@ describe('filter helpers', () => {
     expect(isBooleanFilter('postDiff')).toBe(true);
     expect(isBooleanFilter('dangerPay')).toBe(true);
     expect(isBooleanFilter('domestic')).toBe(true);
+    expect(isBooleanFilter('available')).toBe(true);
     expect(isBooleanFilter('invalud')).toBe(false);
   });
 });

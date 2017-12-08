@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import HomePage from './HomePage';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
+import bidListObject from '../../__mocks__/bidListObject';
 
 describe('HomePageComponent', () => {
   const items = [{
@@ -24,6 +25,8 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      toggleBid={() => {}}
+      bidList={bidListObject.results}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -36,6 +39,8 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      toggleBid={() => {}}
+      bidList={bidListObject.results}
     />);
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
   });
@@ -49,6 +54,8 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      toggleBid={() => {}}
+      bidList={bidListObject.results}
     />);
     wrapper.instance().props.onNavigateTo();
     sinon.assert.calledOnce(spy);
@@ -64,6 +71,8 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      toggleBid={() => {}}
+      bidList={bidListObject.results}
     />);
     wrapper.instance().submitSearch({ q: text });
     expect(nav.value).toEqual(`/results?q=${text}`);
@@ -79,6 +88,8 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
+      toggleBid={() => {}}
+      bidList={bidListObject.results}
     />);
     wrapper.instance().submitRegion(text);
     expect(nav.value).toEqual(`/results?${ENDPOINT_PARAMS.org}=${text}`);

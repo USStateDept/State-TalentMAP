@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, BID_RESULTS } from '../../Constants/PropTypes';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import FavoritePositionsList from '../FavoritePositionsList';
 import Spinner from '../Spinner';
 
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
-toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored }) => (
+toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
+toggleBid, bidList }) => (
   <div className={`usa-grid-full favorite-positions-container ${favoritePositionsIsLoading ? 'results-loading' : null}`}>
     <ProfileSectionTitle title="Your Favorite Positions:" />
     {
@@ -18,6 +19,8 @@ toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrore
       toggleFavorite={toggleFavorite}
       toggleFavoritePositionIsLoading={toggleFavoritePositionIsLoading}
       toggleFavoritePositionHasErrored={toggleFavoritePositionHasErrored}
+      toggleBid={toggleBid}
+      bidList={bidList}
     />
   </div>
 );
@@ -29,6 +32,8 @@ FavoritePositions.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   toggleFavoritePositionIsLoading: PropTypes.bool,
   toggleFavoritePositionHasErrored: PropTypes.bool,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 FavoritePositions.defaultProps = {

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopNavComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full portfolio-top-nav-container"
+>
+  <div
+    className="usa-width-five-sixths"
+  >
+    <Navigation
+      counts={
+        Object {
+          "all_clients": 100,
+          "bidding_clients": 50,
+          "in_panel_clients": 20,
+          "on_post_clients": 30,
+        }
+      }
+    />
+  </div>
+  <div
+    className="usa-width-one-sixth"
+  >
+    <Actions />
+  </div>
+</div>
+`;

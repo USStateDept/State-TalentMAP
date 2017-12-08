@@ -16,14 +16,17 @@
 // Draft.js
 @import '../../node_modules/draft-js/dist/Draft.css';
 
+// react-tippy tooltip
+@import '../../node_modules/react-tippy/dist/tippy.css';
+
 // Global
 @import 'variables';
 
 // Components
 @import 'containers';
 @import 'autosuggest';
+@import 'bidCount';
 @import 'condensedCard';
-@import 'whiteButton';
 @import 'bidListButton';
 @import 'details';
 @import 'home';
@@ -41,3 +44,7 @@
 @import 'spinner';
 @import 'editor';
 @import 'dismiss';
+@import 'bidderPortfolio';
+@import 'tooltip';
+@import 'iconAlert';
+@import 'buttons';

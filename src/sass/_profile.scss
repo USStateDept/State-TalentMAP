@@ -19,6 +19,37 @@
     position: relative;
   }
 
+  .bidder-portfolio-container {
+    position: relative;
+  }
+
+  .bidder-portfolio-listing {
+    margin-right: 15%;
+    position: relative;
+  }
+
+  @media screen and (max-width: 951px) {
+    .bidder-portfolio-listing {
+      margin-right: unset;
+    }
+  }
+
+  .actions-container {
+    float: right;
+    margin-bottom: 5px;
+
+    button {
+      font-size: 15px;
+      margin-bottom: 10px;
+      padding-left: 40px;
+      padding-right: 40px;
+    }
+  }
+
+  .portfolio-controls {
+    margin-bottom: 25px;
+  }
+
   .profile-subroute-container {
     border: 1px solid $color-gray;
     min-height: 300px;
@@ -41,7 +72,6 @@
     background-color: $tm-white-smoke-light;
     margin-left: 200px;
     min-height: 700px;
-    padding: 20px 35px;
     right: 0;
     width: auto;
   }
@@ -77,9 +107,62 @@
     min-height: 450px;
   }
 
+  .current-user-section-container:last-child {
+    border-bottom: 0;
+    border-top: 0;
+  }
+
   .current-user-top {
     border-bottom: 1px solid $color-gray-light;
     text-align: center;
+  }
+
+  .current-user-bid-information {
+    border-bottom: 1px solid $color-gray-light;
+    text-align: left;
+  }
+
+  .current-user-personal-information {
+    border-bottom: 1px solid $color-gray-light;
+    min-height: 130px;
+    text-align: left;
+
+    .skill-code-data-point-container:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .bid-count-container {
+    float: left;
+
+    .data-point-content {
+      text-decoration: underline;
+    }
+  }
+
+  .bid-count-container-left {
+    width: 40%;
+  }
+
+  .bid-count-container-right {
+    width: 60%;
+  }
+
+  .bid-count-right {
+    border-left: 1px solid $color-gray-light;
+    padding-left: 20%;
+  }
+
+  .data-point-side-by-side {
+    .data-point-title {
+      float: left;
+      font-size: 15px;
+      padding-right: 5px;
+    }
+
+    .data-point-content {
+      float: left;
+    }
   }
 
   .cdo-section {
@@ -141,7 +224,7 @@
     padding-bottom: 0;
   }
 
-  .status {
+  .status-container {
     font-size: 13px;
     margin-bottom: 10px;
     margin-left: -5px; // centers more cleanly
@@ -282,6 +365,54 @@ $padding-no-border: $total-padding - $border;
   }
 }
 
+.bidder-portfolio-navigation-item {
+  float: left;
+  font-size: 15px;
+  margin-right: 30px;
+  padding: 15px 0;
+
+  a {
+    color: $color-black;
+    text-decoration: none;
+  }
+}
+
+.portfolio-top-nav-container {
+  border-bottom: 1px solid $color-black;
+  margin-bottom: 30px;
+
+  .is-underlined {
+    border-bottom: 5px solid $color-black;
+    border-spacing: 5px;
+  }
+
+  .is-not-underlined {
+    border-bottom: 5px solid transparent;
+    border-spacing: 5px;
+  }
+}
+
+.portfolio-total-results {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.portfolio-sort-container {
+  select {
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    border-radius: unset;
+  }
+
+  .usa-form {
+    float: right;
+  }
+}
+
+.navigation-item-fraction {
+  font-weight: bold;
+}
+
 .bordered-list {
   ul {
     list-style-type: none;
@@ -306,6 +437,17 @@ $padding-no-border: $total-padding - $border;
     max-height: 35px;
     max-width: 35px;
     width: 100%;
+  }
+
+  .cdo-name-text {
+    float: left;
+  }
+
+  .status-container {
+    float: left;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-top: 1px;
   }
 
   .fa {
@@ -337,6 +479,11 @@ $padding-no-border: $total-padding - $border;
 .view-more-link-centered {
   border-top: 1px solid $color-gray-light;
   text-align: center;
+
+  a {
+    color: $blue-primary;
+    text-decoration: none;
+  }
 }
 
 .saved-search-card {
@@ -437,4 +584,8 @@ $padding-no-border: $total-padding - $border;
 
 .notification-card {
   padding: 0 10px;
+}
+
+.profile-content-inner-container {
+  padding: 20px 35px;
 }

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioGridListHeaderItemComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full portfolio-grid-list-header-item "
+>
+  test
+   
+  <FontAwesome
+    name="sort"
+  />
+</div>
+`;

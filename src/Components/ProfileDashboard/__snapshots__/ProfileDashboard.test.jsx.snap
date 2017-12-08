@@ -2,9 +2,14 @@
 
 exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
 <div
-  className="usa-grid-full user-dashboard"
+  className="usa-grid-full user-dashboard profile-content-inner-container"
 >
   <div>
+    <div
+      className="hello-greeting"
+    >
+      Hello, John Doe
+    </div>
     <div
       className="usa-width-one-fourth user-dashboard-section-container
                     user-dashboard-column-1"
@@ -12,9 +17,14 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       <div
         className="usa-width-one-whole user-dashboard-section current-user-section"
       >
-        <CurrentUser
+        <UserProfile
+          showContactInformation={true}
+          showEditLink={true}
+          showGeneralInformation={true}
+          useGroup={false}
           userProfile={
             Object {
+              "is_cdo": false,
               "skill_code": "INFORMATION MANAGEMENT (2880)",
               "user": Object {
                 "email": "doej@state.gov",
@@ -28,9 +38,11 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       <div
         className="usa-width-one-whole user-dashboard-section cdo-section"
       >
-        <CDOInfo
-          name="Leah Shadtrach"
-        />
+        <Connect(StaticDevContent)>
+          <CDOInfo
+            name="Leah Shadtrach"
+          />
+        </Connect(StaticDevContent)>
       </div>
     </div>
     <div
@@ -177,7 +189,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
 
 exports[`ProfileDashboardComponent matches snapshot when loading 1`] = `
 <div
-  className="usa-grid-full user-dashboard"
+  className="usa-grid-full user-dashboard profile-content-inner-container"
 >
   <Spinner
     filled={false}

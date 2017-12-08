@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InboxComponent matches snapshot 1`] = `
+<IconAlert
+  alt="Inbox"
+  limit={5}
+  link="/profile/dashboard/"
+  number={4}
+  title="View your inbox"
+  type="comments-o"
+  useLimit={true}
+/>
+`;

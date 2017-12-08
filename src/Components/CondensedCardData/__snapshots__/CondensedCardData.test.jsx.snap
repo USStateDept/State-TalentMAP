@@ -6,7 +6,12 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
 >
   <div>
     <strong>
-      None listed
+      <Link
+        replace={false}
+        to="/details/00025003"
+      >
+        None listed
+      </Link>
     </strong>
   </div>
   <div>

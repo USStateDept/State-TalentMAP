@@ -1,30 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS } from '../../Constants/PropTypes';
-import CurrentUser from './CurrentUser';
+import UserProfile from './UserProfile';
 import CDOInfo from './CDOInfo';
 import BidList from './BidList';
 import PositionInformation from './PositionInformation';
 import Notifications from './Notifications';
 import Spinner from '../Spinner';
+import StaticDevContent from '../StaticDevContent';
 
 const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoading, notifications,
   notificationsIsLoading, bidList, bidListIsLoading }) => (
-    <div className="usa-grid-full user-dashboard">
+    <div className="usa-grid-full user-dashboard profile-content-inner-container">
       {
         (isLoading || assignmentIsLoading || notificationsIsLoading || bidListIsLoading) ?
           <Spinner type="homepage-position-results" size="big" />
           :
           <div>
+            <div className="hello-greeting">
+              {
+                `Hello, ${userProfile.user.first_name} ${userProfile.user.last_name}`
+              }
+            </div>
             <div
               className={`usa-width-one-fourth user-dashboard-section-container
                 user-dashboard-column-1`}
             >
               <div className="usa-width-one-whole user-dashboard-section current-user-section">
-                <CurrentUser userProfile={userProfile} />
+                <UserProfile userProfile={userProfile} />
               </div>
               <div className="usa-width-one-whole user-dashboard-section cdo-section">
-                <CDOInfo name="Leah Shadtrach" />
+                <StaticDevContent>
+                  <CDOInfo name="Leah Shadtrach" />
+                </StaticDevContent>
               </div>
             </div>
             <div

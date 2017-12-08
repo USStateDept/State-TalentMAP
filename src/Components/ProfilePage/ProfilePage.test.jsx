@@ -5,10 +5,10 @@ import ProfilePage from './ProfilePage';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import resultsObject from '../../__mocks__/resultsObject';
 import searchObjectParent from '../../__mocks__/searchObject';
-import userObject from '../../__mocks__/userObject';
+import { bidderUserObject } from '../../__mocks__/userObject';
 
 describe('ProfilePageComponent', () => {
-  const user = userObject;
+  const user = bidderUserObject;
   const props = {
     user: DEFAULT_USER_PROFILE,
     favoritePositions: resultsObject,

@@ -154,6 +154,7 @@ export const USER_PROFILE = PropTypes.shape({
     first_name: PropTypes.string,
     last_name: PropTypes.string,
   }),
+  is_cdo: PropTypes.bool,
   language_qualifications: PropTypes.arrayOf(
     PropTypes.number,
   ),
@@ -310,6 +311,50 @@ export const NOTIFICATION_RESULTS = PropTypes.arrayOf(
 export const NOTIFICATION_LIST = PropTypes.shape({
   ...PAGINATION_PROPS,
   results: NOTIFICATION_RESULTS,
+});
+
+export const BIDDER_OBJECT = PropTypes.shape(
+  {
+    id: PropTypes.number,
+    skill_code: PropTypes.string,
+    grade: PropTypes.string,
+    cdo: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      phone_number: PropTypes.string,
+      is_cdo: PropTypes.bool,
+    }),
+    is_cdo: PropTypes.bool,
+    primary_nationality: PropTypes.string,
+    secondary_nationality: PropTypes.string,
+    date_of_birth: PropTypes.string,
+    phone_number: PropTypes.string,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      email: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+    }),
+    language_qualifications: PropTypes.arrayOf(PropTypes.number),
+    favorite_positions: PropTypes.arrayOf(PropTypes.number),
+    received_shares: PropTypes.arrayOf(PropTypes.number),
+  },
+);
+
+export const BIDDER_RESULTS = PropTypes.arrayOf(BIDDER_OBJECT);
+
+export const BIDDER_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: BIDDER_RESULTS,
+});
+
+export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
+  all: PropTypes.number,
+  bidding: PropTypes.number,
+  inpanel: PropTypes.number,
+  onpost: PropTypes.number,
 });
 
 export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;

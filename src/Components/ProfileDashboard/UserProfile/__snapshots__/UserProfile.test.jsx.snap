@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfileComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full current-user"
+>
+  <UserProfileGeneralInformation
+    showEditLink={true}
+    useGroup={false}
+    userProfile={
+      Object {
+        "is_cdo": false,
+        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "user": Object {
+          "email": "doej@state.gov",
+          "first_name": "John",
+          "last_name": "Doe",
+        },
+      }
+    }
+  />
+  <UserProfileContactInformation
+    showEditLink={true}
+    userProfile={
+      Object {
+        "is_cdo": false,
+        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "user": Object {
+          "email": "doej@state.gov",
+          "first_name": "John",
+          "last_name": "Doe",
+        },
+      }
+    }
+  />
+</div>
+`;

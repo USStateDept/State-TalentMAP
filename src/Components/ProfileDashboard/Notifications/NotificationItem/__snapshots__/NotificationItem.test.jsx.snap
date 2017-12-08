@@ -7,7 +7,8 @@ exports[`NotificationItemComponent matches snapshot 1`] = `
   <InformationDataPoint
     className=""
     content="content"
-    title="about 1 month ago"
+    sideBySide={false}
+    title="about 2 months ago"
     titleOnBottom={true}
   />
 </div>

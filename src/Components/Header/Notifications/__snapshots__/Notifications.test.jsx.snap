@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationsComponent matches snapshot 1`] = `
+<IconAlert
+  alt="Notifications"
+  limit={5}
+  link="/profile/dashboard/"
+  number={4}
+  title="View your notifications"
+  type="globe"
+  useLimit={true}
+/>
+`;
