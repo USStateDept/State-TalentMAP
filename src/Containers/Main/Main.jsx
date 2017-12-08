@@ -24,7 +24,7 @@ import IndexSagas from '../../index-sagas';
 // Setup the middleware to watch between the Reducers and the Actions
 const sagaMiddleware = createSagaMiddleware();
 
-const history = createHistory();
+const history = createHistory({basename: process.env.PUBLIC_URL});
 
 const middleware = routerMiddleware(history);
 
