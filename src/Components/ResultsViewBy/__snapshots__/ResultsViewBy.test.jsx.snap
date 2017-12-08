@@ -10,10 +10,10 @@ exports[`ResultsViewByComponent matches snapshot 1`] = `
     View:
   </div>
   <div
-    className="unstyled-button-container view-icon is-selected"
+    className="view-icon is-selected"
   >
     <button
-      className="usa-button"
+      className="unstyled-button"
       id="select-card"
       onClick={[Function]}
     >
@@ -28,10 +28,10 @@ exports[`ResultsViewByComponent matches snapshot 1`] = `
     </button>
   </div>
   <div
-    className="unstyled-button-container view-icon view-icon-border is-not-selected"
+    className="view-icon view-icon-border is-not-selected"
   >
     <button
-      className="usa-button"
+      className="unstyled-button"
       id="select-grid"
       onClick={[Function]}
     >

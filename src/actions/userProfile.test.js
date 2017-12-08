@@ -12,7 +12,7 @@ describe('async actions', () => {
       first_name: 'Jenny',
       last_name: 'Townpost',
     },
-    language_qualifications: [],
+    languages: [],
     favorite_positions: [{ id: 1 }],
     received_shares: [],
   };

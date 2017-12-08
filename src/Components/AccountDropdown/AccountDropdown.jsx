@@ -39,7 +39,8 @@ export class AccountDropdown extends Component {
         </DropdownTrigger>
         <DropdownContent>
           <div className="account-dropdown--identity account-dropdown--segment">
-            Signed in as <strong>{userName}</strong>
+            <div>Signed in as</div>
+            <strong>{userName}</strong>
           </div>
           <div className="account-dropdown--identity account-dropdown--segment">
             <Link to="/profile/dashboard" onClick={this.hideDropdown}>Profile</Link>
