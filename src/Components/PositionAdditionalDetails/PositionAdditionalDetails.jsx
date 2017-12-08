@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getAssetPath } from '../../utilities';
+
+const map = getAssetPath('/assets/img/map.png');
 
 const PositionAdditionalDetails = ({ content }) => (
   <div className="usa-grid position-details-additional">
@@ -12,7 +15,7 @@ const PositionAdditionalDetails = ({ content }) => (
     </div>
     <div className="usa-width-one-third">
       <div className="map-container">
-        <img src="/assets/img/map.png" alt="Map of nearby area" />
+        <img src={map} alt="Map of nearby area" />
         <span className="map-title">Map location here</span>
       </div>
     </div>

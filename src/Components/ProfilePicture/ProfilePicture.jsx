@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getAssetPath } from '../../utilities';
+
+const picture = getAssetPath('/assets/img/avatar.png');
 
 const ProfilePicture = ({ alt, source, className }) => (
   <img
@@ -18,7 +21,7 @@ ProfilePicture.propTypes = {
 ProfilePicture.defaultProps = {
   alt: 'avatar',
   className: '',
-  source: '/assets/img/avatar.png',
+  source: picture,
 };
 
 export default ProfilePicture;

@@ -2,6 +2,7 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import { VALID_PARAMS } from './Constants/EndpointParams';
+// import paths from '../config/paths';
 
 const scroll = Scroll.animateScroll;
 
@@ -193,3 +194,7 @@ export const removeDuplicates = (myArr, prop) => (
 // We want to use minutes for recent notifications, but days for older ones.
 export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options = {}) =>
   `${distanceInWords(dateToCompare, date, options)} ago`;
+
+// Prefix asset paths with the PUBLIC_URL
+export const getAssetPath = strAssetPath =>
+  `${process.env.PUBLIC_URL}${strAssetPath}`;
