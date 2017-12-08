@@ -23,3 +23,11 @@
     vertical-align: middle;
   }
 }
+
+.icon-alert-disabled {
+  pointer-events: none;
+
+  .fa {
+    color: $color-gray-lighter;
+  }
+}

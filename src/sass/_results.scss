@@ -135,7 +135,6 @@
   font-size: .8em;
   height: auto;
   margin-right: 0;
-  overflow-y: scroll;
   padding: 15px 10px;
   width: 20%;
 
@@ -152,6 +151,7 @@
   @media screen and (max-width: 951px) {
     height: 100px;
     margin-bottom: 10px;
+    overflow-y: scroll;
     width: 100%;
   }
 
