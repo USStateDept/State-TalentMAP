@@ -2,7 +2,7 @@
 
 exports[`ActionsButtonComponent matches snapshot 1`] = `
 <button
-  className="white-button"
+  className="tm-button-alt"
 >
   Actions...
 </button>

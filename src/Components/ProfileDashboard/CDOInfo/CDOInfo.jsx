@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProfilePicture from '../../ProfilePicture';
-import Status from '../CurrentUser/Status';
+import Status from '../UserProfile/Status';
 
 const CDOInfo = ({ name }) => (
   <div className="usa-grid-full cdo-container">
