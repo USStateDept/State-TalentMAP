@@ -13,14 +13,14 @@ describe('IconAlertComponent', () => {
 
   it('is defined when no number is provided', () => {
     const wrapper = shallow(
-      <IconAlert type="message-o" link="/profile/" alt="text" />,
+      <IconAlert type="message-o" link="/profile/" alt="text" title="title" />,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('can render the disabled class', () => {
     const wrapper = shallow(
-      <IconAlert type="message-o" number={4} link="/profile/" alt="text" disabled />,
+      <IconAlert type="message-o" number={4} link="/profile/" alt="text" title="title" disabled />,
     );
     expect(wrapper.find('.icon-alert-disabled').exists()).toBe(true);
   });
