@@ -144,9 +144,7 @@ export const FAVORITE_POSITION = PropTypes.shape({
   representation: PropTypes.string,
 });
 
-// favorite positions are some times returned as objects, and other times simply as the IDs
-export const FAVORITE_POSITIONS_ARRAY =
-  PropTypes.oneOfType([PropTypes.arrayOf(FAVORITE_POSITION), PropTypes.arrayOf(PropTypes.number)]);
+export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
 
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
@@ -320,7 +318,14 @@ export const BIDDER_OBJECT = PropTypes.shape(
     id: PropTypes.number,
     skill_code: PropTypes.string,
     grade: PropTypes.string,
-    cdo: PropTypes.number,
+    cdo: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      phone_number: PropTypes.string,
+      is_cdo: PropTypes.bool,
+    }),
     is_cdo: PropTypes.bool,
     primary_nationality: PropTypes.string,
     secondary_nationality: PropTypes.string,

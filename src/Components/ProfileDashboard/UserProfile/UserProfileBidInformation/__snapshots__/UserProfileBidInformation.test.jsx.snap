@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CurrentUserBidInformationComponent matches snapshot 1`] = `
+exports[`UserProfileBidInformationComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full current-user-section-container current-user-bid-information"
 >

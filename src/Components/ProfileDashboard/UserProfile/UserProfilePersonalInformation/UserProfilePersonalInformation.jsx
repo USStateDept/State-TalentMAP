@@ -3,7 +3,7 @@ import { USER_PROFILE } from '../../../../Constants/PropTypes';
 import { NO_USER_SKILL_CODE, NO_BIRTHDAY } from '../../../../Constants/SystemMessages';
 import InformationDataPoint from '../../InformationDataPoint';
 
-const CurrentUserPersonalInformation = ({ userProfile }) => (
+const UserProfilePersonalInformation = ({ userProfile }) => (
   <div className="usa-grid-full current-user-section-container current-user-personal-information">
     <div className="section-padded-inner-container">
       <InformationDataPoint
@@ -20,8 +20,8 @@ const CurrentUserPersonalInformation = ({ userProfile }) => (
   </div>
 );
 
-CurrentUserPersonalInformation.propTypes = {
+UserProfilePersonalInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
 };
 
-export default CurrentUserPersonalInformation;
+export default UserProfilePersonalInformation;
