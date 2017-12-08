@@ -9,3 +9,31 @@
   background-color: unset;
   color: unset;
 }
+
+// IE10+ specific styles
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  select::-ms-expand {
+    display: none;
+  }
+
+  select {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAQAAAADQ4RFAAAA70lEQVR4AcXPN07AUBAE0LV3DgAtNZlLEFsqjkPs8K3gBGQ6KKlJnePIX/rSoiGnGWfvc7A/TmnO9RNTBZtSvkNezE/Zgk0GpsiELXEyxbf8Bj2ObZEnLolzXcQRer/FhvF8Ew8kLC4Tk2QJl5zoyO6wYrjiScs2igXSELXcnxqe0xNYMlzwuzmoCNc0+WzYHU/avM0skHyf3eFVVPlCx23+yEC6TCpjAgsfGT8sEJfs0mZtDleSuGYd12uWR5oIJreHkWjWvfGWN9i7RLP3iGDvEsHE77/DDtCyB5qolOM6w6YjHcXy0SdSmLOF/XMG8ozGHh3W/IEAAAAASUVORK5CYII=);
+  }
+
+  // Fixes the "here's how you know" text in the header being off set and on a new line.
+  // Use important so that the rule isn't overruled by others.
+  .usa-banner-button {
+    height: auto !important; // scss-lint:disable ImportantRule
+    width: auto;
+  }
+
+  @media screen and (min-width: 951px) {
+    .usa-nav-secondary-links {
+      margin-top: 7px;
+    }
+
+    .usa-navbar {
+      margin-bottom: 5px;
+    }
+  }
+}
