@@ -8,7 +8,7 @@ import Status from '../Status';
 import EditProfile from '../EditProfile';
 import ProfilePicture from '../../../ProfilePicture';
 
-const CurrentUserGeneralInformation = ({ userProfile, showEditLink, useGroup }) => (
+const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) => (
   <div className="current-user-top current-user-section-container">
     <div className="section-padded-inner-container">
       <Status />
@@ -31,15 +31,15 @@ const CurrentUserGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
   </div>
 );
 
-CurrentUserGeneralInformation.propTypes = {
+UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   showEditLink: PropTypes.bool,
   useGroup: PropTypes.bool,
 };
 
-CurrentUserGeneralInformation.defaultProps = {
+UserProfileGeneralInformation.defaultProps = {
   showEditLink: true,
   useGroup: false,
 };
 
-export default CurrentUserGeneralInformation;
+export default UserProfileGeneralInformation;

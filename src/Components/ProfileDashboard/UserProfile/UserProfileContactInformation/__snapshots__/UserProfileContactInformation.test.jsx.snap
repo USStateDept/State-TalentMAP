@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CurrentUserContactInformationComponent matches snapshot 1`] = `
+exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
 <div
   className="current-user-bottom current-user-section-container"
 >

@@ -1,19 +1,19 @@
 import React from 'react';
 import { BIDDER_OBJECT } from '../../../Constants/PropTypes';
-import CurrentUserGeneralInformation from '../../ProfileDashboard/CurrentUser/CurrentUserGeneralInformation';
-import CurrentUserPersonalInformation from '../../ProfileDashboard/CurrentUser/CurrentUserPersonalInformation';
-import CurrentUserBidInformation from '../../ProfileDashboard/CurrentUser/CurrentUserBidInformation';
+import UserProfileGeneralInformation from '../../ProfileDashboard/UserProfile/UserProfileGeneralInformation';
+import UserProfilePersonalInformation from '../../ProfileDashboard/UserProfile/UserProfilePersonalInformation';
+import UserProfileBidInformation from '../../ProfileDashboard/UserProfile/UserProfileBidInformation';
 import BidderPortfolioViewMore from '../BidderPortfolioViewMore';
 
 const BidderPortfolioCard = ({ userProfile }) => (
   <div className="usa-grid-full current-user bidder-portfolio-card">
-    <CurrentUserGeneralInformation
+    <UserProfileGeneralInformation
       userProfile={userProfile}
       showEditLink={false}
       useGroup
     />
-    <CurrentUserPersonalInformation userProfile={userProfile} />
-    <CurrentUserBidInformation />
+    <UserProfilePersonalInformation userProfile={userProfile} />
+    <UserProfileBidInformation />
     <BidderPortfolioViewMore useLink />
   </div>
 );
