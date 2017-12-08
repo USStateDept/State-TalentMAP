@@ -26,6 +26,7 @@ export const BID_PORTFOLIO_SORTS = {
   options: [
     { value: '', text: 'Default sorting' },
     { value: 'date_of_birth', text: 'Age' },
+    { value: 'bid_statistics__handshake_offered', text: 'Priority Need' },
   ],
 };
 

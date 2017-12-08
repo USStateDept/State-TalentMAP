@@ -3,7 +3,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import CondensedCardData from './CondensedCardData';
 import resultsObject from '../../__mocks__/resultsObject';
-import { NO_POSITION_TITLE, NO_POST, NO_SKILL, NO_GRADE } from '../../Constants/SystemMessages';
+import { NO_POSITION_TITLE, NO_SKILL, NO_GRADE } from '../../Constants/SystemMessages';
 
 describe('CondensedCardDataComponent', () => {
   it('is defined', () => {
