@@ -12,6 +12,11 @@ export const LANGUAGES = PropTypes.arrayOf(
   }),
 );
 
+export const LANGUAGE_QUALIFICATIONS = PropTypes.shape({
+  id: PropTypes.number,
+  representation: PropTypes.string,
+});
+
 export const POST_MISSION_DATA = PropTypes.shape({
   id: PropTypes.number,
   tour_of_duty: PropTypes.string,
@@ -155,9 +160,7 @@ export const USER_PROFILE = PropTypes.shape({
     last_name: PropTypes.string,
   }),
   is_cdo: PropTypes.bool,
-  language_qualifications: PropTypes.arrayOf(
-    PropTypes.number,
-  ),
+  languages: LANGUAGE_QUALIFICATIONS,
   favorite_positions: FAVORITE_POSITIONS_ARRAY,
   received_shares: PropTypes.arrayOf(
     PropTypes.number,
@@ -337,8 +340,8 @@ export const BIDDER_OBJECT = PropTypes.shape(
       first_name: PropTypes.string,
       last_name: PropTypes.string,
     }),
-    language_qualifications: PropTypes.arrayOf(PropTypes.number),
-    favorite_positions: PropTypes.arrayOf(PropTypes.number),
+    languages: LANGUAGE_QUALIFICATIONS,
+    favorite_positions: FAVORITE_POSITIONS_ARRAY,
     received_shares: PropTypes.arrayOf(PropTypes.number),
   },
 );
