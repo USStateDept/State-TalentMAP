@@ -4,9 +4,9 @@ export const APPROVED = { property: 'approved', class_name: 'approved', text: 'A
 export const CLOSED = { property: 'closed', class_name: 'closed', text: 'Closed' };
 export const DRAFT = { property: 'draft', class_name: 'draft', text: 'Draft Bid' };
 export const DECLINED = { property: 'declined', class_name: 'declined', text: 'Bid Unapproved' };
-export const HAND_SHAKE_ACCEPTED = { property: 'handshake accepted', class_name: 'hand-shake-accepted', text: 'Handshake Accepted' };
-export const HAND_SHAKE_OFFERED = { property: 'handshake offered', class_name: 'hand-shake-offered', text: 'Handshake Offered' };
-export const IN_PANEL = { property: 'in panel', class_name: 'in-panel', text: 'In Panel' };
+export const HAND_SHAKE_ACCEPTED = { property: 'handshake_accepted', class_name: 'hand-shake-accepted', text: 'Handshake Accepted' };
+export const HAND_SHAKE_OFFERED = { property: 'handshake_offered', class_name: 'hand-shake-offered', text: 'Handshake Offered' };
+export const IN_PANEL = { property: 'in_panel', class_name: 'in-panel', text: 'In Panel' };
 export const SUBMITTED = { property: 'submitted', class_name: 'submitted', text: 'Bid Submitted' };
 
 const statusArray = [
