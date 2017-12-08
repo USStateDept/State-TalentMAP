@@ -18,6 +18,13 @@ describe('IconAlertComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('can render the disabled class', () => {
+    const wrapper = shallow(
+      <IconAlert type="message-o" number={4} link="/profile/" alt="text" disabled />,
+    );
+    expect(wrapper.find('.icon-alert-disabled').exists()).toBe(true);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <IconAlert type="message-o" number={4} link="/profile/" alt="text" title="title" />,
