@@ -35,7 +35,7 @@ class PositionDetails extends Component {
         resetDescriptionEditMessages } = this.props;
     const isReady = details && !isLoading && !hasErrored;
     return (
-      <div>
+      <div className="content-container">
         { isReady &&
         <div>
           <PositionTitle

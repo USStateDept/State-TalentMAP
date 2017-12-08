@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { filtersFetchData } from '../../actions/filters';
+import { filtersFetchData } from '../../actions/filters/filters';
+import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import HomePage from '../../Containers/HomePage/HomePage';
-import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE } from '../../Constants/PropTypes';
+import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
@@ -26,6 +27,7 @@ class Home extends Component {
     } else {
       this.getFilters();
       this.props.homePagePositionsFetchData();
+      this.props.bidListFetchData();
     }
   }
 
@@ -41,23 +43,23 @@ class Home extends Component {
   render() {
     const { onNavigateTo, items, homePagePositions,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
-      userProfile, toggleFavorite,
-      userProfileFavoritePositionIsLoading,
+      userProfile, toggleFavorite, toggleBid,
+      userProfileFavoritePositionIsLoading, bidList,
       userProfileFavoritePositionHasErrored } = this.props;
     return (
-      <div>
-        <HomePage
-          onNavigateTo={onNavigateTo}
-          filters={items.filters}
-          homePagePositions={homePagePositions}
-          homePagePositionsHasErrored={homePagePositionsHasErrored}
-          homePagePositionsIsLoading={homePagePositionsIsLoading}
-          userProfile={userProfile}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        />
-      </div>
+      <HomePage
+        onNavigateTo={onNavigateTo}
+        filters={items.filters}
+        homePagePositions={homePagePositions}
+        homePagePositionsHasErrored={homePagePositionsHasErrored}
+        homePagePositionsIsLoading={homePagePositionsIsLoading}
+        userProfile={userProfile}
+        toggleFavorite={toggleFavorite}
+        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+        toggleBid={toggleBid}
+        bidList={bidList.results}
+      />
     );
   }
 }
@@ -75,6 +77,9 @@ Home.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_LIST.isRequired,
+  bidListFetchData: PropTypes.func.isRequired,
 };
 
 Home.defaultProps = {
@@ -89,6 +94,8 @@ Home.defaultProps = {
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
+  toggleBid: EMPTY_FUNCTION,
+  bidList: { results: [] },
 };
 
 const mapStateToProps = state => ({
@@ -101,6 +108,7 @@ const mapStateToProps = state => ({
   userProfile: state.userProfile,
   userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
+  bidList: state.bidListFetchDataSuccess,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -108,6 +116,8 @@ const mapDispatchToProps = dispatch => ({
   homePagePositionsFetchData: () => dispatch(homePagePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
+  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
+  bidListFetchData: () => dispatch(bidListFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

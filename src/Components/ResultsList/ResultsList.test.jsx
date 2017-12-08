@@ -45,7 +45,7 @@ describe('ResultsListComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('can handle an empty result set', () => {
+  it('handles an empty result set', () => {
     wrapper = shallow(<ResultsList
       results={{}}
       toggleFavorite={() => {}}

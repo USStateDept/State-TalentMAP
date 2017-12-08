@@ -6,17 +6,12 @@
     "@cmsgov/design-system-core": "^1.1.0",
     "axios": "^0.16.2",
     "babel-polyfill": "^6.26.0",
+    "date-fns": "^1.29.0",
     "draft-js": "^0.10.3",
-    "draft-js-buttons": "^2.0.0-rc8",
-    "draft-js-export-html": "^1.2.0",
-    "draft-js-export-markdown": "^1.2.0",
-    "draft-js-import-markdown": "^1.2.1",
-    "draft-js-inline-toolbar-plugin": "^2.0.0-rc8",
     "draft-js-plugins-editor": "^2.0.0-rc8",
-    "draft-js-side-toolbar-plugin": "^2.0.0-beta6",
-    "draft-js-static-toolbar-plugin": "^2.0.0-rc8",
     "font-awesome": "^4.7.0",
     "history": "^4.6.3",
+    "immutable": "^3.8.2",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.10",
     "query-string": "^4.3.4",
@@ -32,6 +27,7 @@
     "react-router-redux": "^5.0.0-alpha.6",
     "react-scroll": "^1.5.4",
     "react-simple-dropdown": "^3.0.0",
+    "react-tippy": "^1.2.2",
     "redux": "^3.7.1",
     "redux-form": "^7.0.1",
     "redux-saga": "^0.15.4",
@@ -104,7 +100,10 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!src/registerServiceWorker.js",
-      "!src/Components/**/index.js"
+      "!src/Components/**/index.js",
+      "!src/Components/StaticDevContent/*",
+      "!src/actions/showStaticContent.js",
+      "!src/reducers/showStaticContent.js"
     ],
     "coverageReporters": [
       "lcov"

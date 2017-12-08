@@ -26,6 +26,7 @@ class ResultsSearchHeader extends Component {
     this.setState({ [type]: { value: e.target.value } });
   }
   render() {
+    const { defaultKeyword, labelSrOnly, placeholder } = this.props;
     return (
       <div className="results-search-bar">
         <div className="usa-grid-full results-search-bar-container">
@@ -35,15 +36,15 @@ class ResultsSearchHeader extends Component {
               <div className="usa-width-one-whole search-results-inputs search-keyword">
                 <SearchBar
                   id="search-keyword-field"
-                  label={<div><FontAwesome name="search" className="label-icon" />Keywords</div>}
+                  label="Keywords"
                   type="medium"
                   submitText="Search"
-                  labelSrOnly={false}
+                  labelSrOnly={labelSrOnly}
                   noForm
                   noButton
-                  placeholder="Location, Skill Code, Grade, Language, Position Number"
+                  placeholder={placeholder}
                   onChangeText={this.onChangeQueryText}
-                  defaultValue={this.props.defaultKeyword}
+                  defaultValue={defaultKeyword}
                 />
               </div>
             </fieldset>
@@ -63,11 +64,15 @@ class ResultsSearchHeader extends Component {
 ResultsSearchHeader.propTypes = {
   onUpdate: PropTypes.func.isRequired,
   defaultKeyword: PropTypes.string,
+  labelSrOnly: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 
 ResultsSearchHeader.defaultProps = {
   defaultKeyword: '',
   defaultLocation: '',
+  labelSrOnly: false,
+  placeholder: 'Location, Skill Code, Grade, Language, Position Number',
 };
 
 export default ResultsSearchHeader;

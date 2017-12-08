@@ -24,8 +24,15 @@ import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
 import { descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess } from './descriptionEdit';
 import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess } from './autocomplete/missionAutocomplete';
 import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
+import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
+import { notificationsHasErrored, notificationsIsLoading, notifications,
+  notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount } from './notifications';
+import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
+  bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored } from './bidderPortfolio';
+
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
+import shouldShowStaticContent from './showStaticContent';
 
 
 export default combineReducers({
@@ -94,5 +101,21 @@ export default combineReducers({
   postSearchHasErrored,
   postSearchIsLoading,
   postSearchSuccess,
+  assignment,
+  assignmentHasErrored,
+  assignmentIsLoading,
+  notificationsHasErrored,
+  notificationsIsLoading,
+  notifications,
+  notificationsCountHasErrored,
+  notificationsCountIsLoading,
+  notificationsCount,
+  bidderPortfolio,
+  bidderPortfolioIsLoading,
+  bidderPortfolioHasErrored,
+  bidderPortfolioCounts,
+  bidderPortfolioCountsIsLoading,
+  bidderPortfolioCountsHasErrored,
+  shouldShowStaticContent,
   router: routerReducer,
 });

@@ -21,9 +21,16 @@ import {
 } from '../client/actions';
 
 // So that we can pull the user's profile
+// and unset the profile object on logout
 import {
   userProfileFetchData,
+  unsetUserProfile,
 } from '../actions/userProfile';
+
+// We'll also clear any notifications on logout
+import {
+  unsetNotificationsCount,
+} from '../actions/notifications';
 
 const loginUrl = `${api}/accounts/token/`;
 
@@ -45,6 +52,12 @@ export function loginApi(username, password) {
 function* logout() {
   // dispatches the CLIENT_UNSET action
   yield put(unsetClient());
+
+  // unset the user profile
+  yield put(unsetUserProfile());
+
+  // unset notifications count
+  yield put(unsetNotificationsCount());
 
   // remove our token
   localStorage.removeItem('token');

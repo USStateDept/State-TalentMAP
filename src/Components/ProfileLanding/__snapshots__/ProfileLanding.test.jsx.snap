@@ -2,7 +2,7 @@
 
 exports[`ProfileLandingComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full profile-content-inner-container"
 >
   <h2>
     This is your profile. Please select an area to navigate to.

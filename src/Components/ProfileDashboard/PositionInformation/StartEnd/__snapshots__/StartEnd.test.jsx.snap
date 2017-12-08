@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StartEndComponent matches snapshot 1`] = `
+<div
+  className="start-end"
+>
+  10-10-2017
+   
+  <FontAwesome
+    name="arrow-right"
+  />
+   
+  10-10-2019
+</div>
+`;

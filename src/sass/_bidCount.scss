@@ -1,0 +1,49 @@
+.bid-count-container {
+  margin-top: 0;
+}
+
+.bid-count-list {
+  display: inline-block;
+
+  // override default uswds ul margins
+  margin-bottom: 0;
+  margin-top: 0;
+
+  $border-width: 2px;
+
+  // Set our borders
+  li {
+    border-bottom: solid;
+    border-left: solid;
+    border-right: 0;
+    border-top: solid;
+    border-width: $border-width;
+    color: $color-gray;
+    cursor: help;
+    display: inline-block;
+    text-align: center;
+  }
+
+  // The last element gets a border-right, unlike our general <li>s.
+  li:nth-last-child(1) {
+    border-right: solid;
+    border-right-width: $border-width;
+  }
+
+  .bid-count-number {
+    padding: .2em .5em;
+  }
+
+  @media screen and (max-width: 950px) {
+    // Set our borders
+    li {
+      width: 50%;
+    }
+
+    // The last element gets a border-right, unlike our general <li>s.
+    li:nth-last-child(3) {
+      border-right: solid;
+      border-right-width: $border-width;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidContentComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bid-content-container"
+>
+  <BidStatus
+    status="approved"
+  />
+  <div>
+    <span
+      className="bid-list-card-title-position"
+    >
+      Position Number 
+    </span>
+    <Link
+      replace={false}
+      to="/details/055A45"
+    >
+      055A45
+    </Link>
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Post 
+    </span>
+    Paris
+  </div>
+</div>
+`;

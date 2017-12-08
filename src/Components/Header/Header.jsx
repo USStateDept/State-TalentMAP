@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import close from 'uswds/dist/img/close.svg'; // close X icon
+import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { logoutRequest } from '../../login/actions';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
 import logo from '../../assets/logos/png/horizontal_color.png';
+import Inbox from './Inbox';
+import Notifications from './Notifications';
 
 export class Header extends Component {
   constructor(props) {
@@ -49,15 +52,19 @@ export class Header extends Component {
       }
     }
 
+    // we should only show the Inbox and Notifications icons if the user is logged in
+    const showAlerts = !!this.props.client.token;
+
     return (
       <header className="usa-header usa-header-extended tm-header" role="banner">
+        <ToggleContent />
         <GovBanner />
         <div className="usa-navbar">
           <button className="usa-menu-btn">Menu</button>
           <div className="usa-logo" id="logo">
             <div className="usa-logo-text">
               <Link to="/">
-                <img src={logo} width="200" alt="TalentMAP logo" />
+                <img className="logo-img-tm" src={logo} alt="TalentMAP logo" />
               </Link>
             </div>
           </div>
@@ -97,6 +104,13 @@ export class Header extends Component {
                 <span className="desktop-nav-only">
                   <li>
                     {showLogin}
+                    {
+                      showAlerts &&
+                        <span>
+                          <Inbox />
+                          <Notifications />
+                        </span>
+                    }
                   </li>
                 </span>
               </ul>

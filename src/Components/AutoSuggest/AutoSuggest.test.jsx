@@ -7,9 +7,11 @@ describe('AutoSuggestComponent', () => {
   const suggestions = [
     {
       short_name: 'suggestion 1',
+      custom_prop: 'suggestion one',
     },
     {
       short_name: 'suggestion 2',
+      custom_prop: 'suggestion two',
     },
   ];
   it('is defined', () => {
@@ -20,6 +22,20 @@ describe('AutoSuggestComponent', () => {
         onSuggestionSelected={() => {}}
         inputId="input"
         label="label"
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined when labelSrOnly is false', () => {
+    const wrapper = shallow(
+      <AutoSuggest
+        suggestions={suggestions}
+        getSuggestions={() => {}}
+        onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
+        labelSrOnly={false}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -63,7 +79,23 @@ describe('AutoSuggestComponent', () => {
         label="label"
       />,
     );
-    wrapper.instance().onSuggestionSelected(null, { suggestion: { short_name: 'test' } });
+    wrapper.instance().onSuggestionSelected(null, { suggestion: suggestions[0] });
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('can call the onSuggestionSelected function using a queryProperty prop', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <AutoSuggest
+        suggestions={suggestions}
+        getSuggestions={() => {}}
+        onSuggestionSelected={spy}
+        inputId="input"
+        label="label"
+        queryProperty="custom_prop"
+      />,
+    );
+    wrapper.instance().onSuggestionSelected(null, { suggestion: suggestions[0] });
     sinon.assert.calledOnce(spy);
   });
 
@@ -107,7 +139,7 @@ describe('AutoSuggestComponent', () => {
         suggestions={suggestions}
         getSuggestions={spy}
         onSuggestionSelected={() => {}}
-        debounce={debounce}
+        debounceMillis={debounce}
         inputId="input"
         label="label"
       />,

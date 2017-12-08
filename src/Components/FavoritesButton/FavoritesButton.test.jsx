@@ -18,7 +18,7 @@ describe('FavoriteButton', () => {
     expect(favoritesButton).toBeDefined();
   });
 
-  it('can handle being in the enabled state', () => {
+  it('handles being in the enabled state', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <FavoritesButton onToggle={spy} compareArray={[{ id: refKey }]} refKey={refKey} />);

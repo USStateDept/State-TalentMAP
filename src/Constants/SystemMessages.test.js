@@ -26,6 +26,9 @@ describe('SystemMessages', () => {
       'ADD_BID_ITEM_ERROR',
       'SUBMIT_BID_SUCCESS',
       'SUBMIT_BID_ERROR',
+      'NO_BIRTHDAY',
+      'NO_END_DATE',
+      'NO_USER_LISTED',
     ];
     expectedMessages.forEach((msg) => {
       expect(SystemMessages[msg]).toBeDefined();

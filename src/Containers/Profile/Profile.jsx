@@ -19,11 +19,9 @@ class Profile extends Component {
   render() {
     const { userProfile } = this.props;
     return (
-      <div>
-        <ProfilePage
-          user={userProfile}
-        />
-      </div>
+      <ProfilePage
+        user={userProfile}
+      />
     );
   }
 }

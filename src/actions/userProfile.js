@@ -36,6 +36,12 @@ export function userProfileFavoritePositionHasErrored(bool) {
   };
 }
 
+export function unsetUserProfile() {
+  return (dispatch) => {
+    dispatch(userProfileFetchDataSuccess({}));
+  };
+}
+
 // include an optional bypass for when we want to silently update the profile
 export function userProfileFetchData(bypass) {
   return (dispatch) => {
@@ -52,7 +58,10 @@ export function userProfileFetchData(bypass) {
               return response.data;
             })
             .then(userProfile => dispatch(userProfileFetchDataSuccess(userProfile)))
-            .catch(() => dispatch(userProfileHasErrored(true)));
+            .catch(() => {
+              dispatch(userProfileHasErrored(true));
+              dispatch(userProfileFavoritePositionIsLoading(false));
+            });
   };
 }
 

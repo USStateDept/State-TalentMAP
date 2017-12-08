@@ -38,8 +38,21 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
         "count": 2,
         "results": Array [
           Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
             "bureau": "150000",
             "create_date": "2006-09-20",
+            "description": Object {
+              "content": "The quick brown fox jumped over the lazy dog.",
+            },
             "grade": "05",
             "id": 6,
             "is_overseas": true,
@@ -77,6 +90,16 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
             "update_date": "2017-06-08",
           },
           Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
             "bureau": "150000",
             "create_date": "2006-09-20",
             "grade": "03",
@@ -121,8 +144,21 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
           "count": 2,
           "results": Array [
             Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "bidcycle": 1,
+                  "id": 1,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 3,
+                },
+              ],
               "bureau": "150000",
               "create_date": "2006-09-20",
+              "description": Object {
+                "content": "The quick brown fox jumped over the lazy dog.",
+              },
               "grade": "05",
               "id": 6,
               "is_overseas": true,
@@ -160,6 +196,16 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
               "update_date": "2017-06-08",
             },
             Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "bidcycle": 1,
+                  "id": 1,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 3,
+                },
+              ],
               "bureau": "150000",
               "create_date": "2006-09-20",
               "grade": "03",
@@ -190,11 +236,12 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       marginPagesDisplayed={2}
       nextLabel="Next"
       onPageChange={[Function]}
-      pageCount={10}
       pageRangeDisplayed={1}
+      pageSize={10}
       paginationStyle="pagination"
       previousLabel="Previous"
       subContainerClassName="pages pagination"
+      totalResults={0}
     />
   </div>
 </div>

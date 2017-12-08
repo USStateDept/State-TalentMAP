@@ -5,6 +5,7 @@ exports[`Header matches snapshot when logged in 1`] = `
   className="usa-header usa-header-extended tm-header"
   role="banner"
 >
+  <Connect(Component) />
   <GovBanner />
   <div
     className="usa-navbar"
@@ -27,8 +28,8 @@ exports[`Header matches snapshot when logged in 1`] = `
         >
           <img
             alt="TalentMAP logo"
+            className="logo-img-tm"
             src="horizontal_color.png"
-            width="200"
           />
         </Link>
       </div>
@@ -132,6 +133,12 @@ exports[`Header matches snapshot when logged in 1`] = `
                   }
                 }
               />
+              <span>
+                <Inbox
+                  number={0}
+                />
+                <Connect(withRouter(Notifications)) />
+              </span>
             </li>
           </span>
         </ul>
@@ -149,6 +156,7 @@ exports[`Header matches snapshot when logged out 1`] = `
   className="usa-header usa-header-extended tm-header"
   role="banner"
 >
+  <Connect(Component) />
   <GovBanner />
   <div
     className="usa-navbar"
@@ -171,8 +179,8 @@ exports[`Header matches snapshot when logged out 1`] = `
         >
           <img
             alt="TalentMAP logo"
+            className="logo-img-tm"
             src="horizontal_color.png"
-            width="200"
           />
         </Link>
       </div>

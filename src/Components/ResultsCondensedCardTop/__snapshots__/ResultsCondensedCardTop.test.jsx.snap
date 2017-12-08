@@ -10,7 +10,9 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
     <div
       className="condensed-card-top-header condensed-card-top-header-left"
     >
-      <ResultsNewFlag />
+      <ResultsNewFlag
+        text="New"
+      />
     </div>
     <div
       className="condensed-card-top-header condensed-card-top-header-right"

@@ -5,6 +5,7 @@ import BidListButton from '../BidListButton';
 import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import EditContentButton from '../EditContentButton';
+import BidCount from '../BidCount';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import { shortenString } from '../../utilities';
@@ -107,6 +108,10 @@ class PositionTitle extends Component {
 
     const isAllowedToEdit = !!(details.description && details.description.is_editable_by_user);
 
+    const bidStatistics = Array.isArray(details.bid_statistics) ? details.bid_statistics[0] : null;
+
+    const shouldShowBidStats = !!details.bid_statistics && !!bidStatistics;
+
     return (
       <div className="position-details-header-container">
         <div className="position-details-header">
@@ -114,20 +119,20 @@ class PositionTitle extends Component {
             <div className="usa-width-one-half">
               <div className="position-details-header-back">
                 {
-                goBackLink.text && // if goBackLink.text is defined, render...
-                <div>
-                  <FontAwesome name="arrow-left" />
-                      &nbsp;
-                  <a
-                    className="back-link"
-                    tabIndex="0"
-                    role="link"
-                    onClick={() => window.history.back()}
-                  >
-                    {goBackLink.text}
-                  </a>
-                </div>
-              }
+                  goBackLink.text && // if goBackLink.text is defined, render...
+                  <div>
+                    <FontAwesome name="arrow-left" />
+                        &nbsp;
+                    <a
+                      className="back-link"
+                      tabIndex="0"
+                      role="link"
+                      onClick={() => window.history.back()}
+                    >
+                      {goBackLink.text}
+                    </a>
+                  </div>
+                }
               </div>
               <div className="position-details-header-title">
                 <strong>Position Number: {details.position_number}</strong>
@@ -186,12 +191,25 @@ class PositionTitle extends Component {
           />
         </div>
         <div className="offset-bid-button-container">
-          <BidListButton
-            toggleBidPosition={toggleBidPosition}
-            compareArray={bidList.results}
-            id={details.id}
-            isLoading={bidListToggleIsLoading}
-          />
+          <div className="offset-bid-button-container-count">
+            {
+              shouldShowBidStats &&
+                <BidCount
+                  totalBids={bidStatistics.total_bids}
+                  inGradeBids={bidStatistics.in_grade}
+                  atSkillBids={bidStatistics.at_skill}
+                  inGradeAtSkillBids={bidStatistics.in_grade_at_skill}
+                />
+            }
+          </div>
+          <div className="offset-bid-button-container-button">
+            <BidListButton
+              toggleBidPosition={toggleBidPosition}
+              compareArray={bidList.results}
+              id={details.id}
+              isLoading={bidListToggleIsLoading}
+            />
+          </div>
         </div>
       </div>
     );

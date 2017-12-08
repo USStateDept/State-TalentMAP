@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioViewMoreComponent matches snapshot 1`] = `
+<div>
+  <div
+    className="usa-grid-full current-user-section-container
+            view-more-link-centered section-padded-inner-container-narrow"
+  >
+    <LinkButton
+      className="unstyled-button"
+      toLink="/profile/dashboard/"
+      useDefaultClass={true}
+    >
+      View More
+    </LinkButton>
+  </div>
+</div>
+`;

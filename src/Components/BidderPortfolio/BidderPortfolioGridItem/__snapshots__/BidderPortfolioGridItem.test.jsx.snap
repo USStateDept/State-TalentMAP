@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full current-user bidder-portfolio-grid-item"
+>
+  <div
+    className="usa-width-one-fourth grid-item-section"
+  >
+    <div
+      className="checkbox-container"
+    >
+      <CheckBox
+        id="checkbox-undefined"
+        label="Select this user"
+        labelSrOnly={true}
+        name=""
+        onCheckBoxClick={[Function]}
+        title=""
+        value={false}
+      />
+    </div>
+    <div
+      className="general-information-container"
+    >
+      <UserProfileGeneralInformation
+        showEditLink={false}
+        useGroup={true}
+        userProfile={
+          Object {
+            "is_cdo": false,
+            "skill_code": "INFORMATION MANAGEMENT (2880)",
+            "user": Object {
+              "email": "doej@state.gov",
+              "first_name": "John",
+              "last_name": "Doe",
+            },
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="usa-width-one-fourth grid-item-section
+          current-user-personal-information-grid-container"
+  >
+    <UserProfilePersonalInformation
+      userProfile={
+        Object {
+          "is_cdo": false,
+          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "last_name": "Doe",
+          },
+        }
+      }
+    />
+  </div>
+  <div
+    className="usa-width-one-fourth grid-item-section"
+  >
+    <UserProfileBidInformation />
+  </div>
+  <div
+    className="usa-width-one-fourth grid-item-section"
+  >
+    <BidderPortfolioViewMore
+      className="tm-button-alt"
+      useLink={false}
+    />
+  </div>
+</div>
+`;

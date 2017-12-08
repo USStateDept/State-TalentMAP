@@ -2,11 +2,12 @@
 
 exports[`ViewDetailsButtonComponent matches snapshot 1`] = `
 <LinkButton
-  className="white-button"
+  className="tm-button-alt"
   toLink="/details/1"
+  useDefaultClass={true}
 >
   <span
-    className="white-button-icon"
+    className="tm-button-alt-icon"
   >
     <FontAwesome
       name="plus-circle"

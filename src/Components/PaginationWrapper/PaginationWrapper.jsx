@@ -20,30 +20,39 @@ class PaginationWrapper extends Component {
     const {
         previousLabel,
         nextLabel,
-        pageCount,
+        pageSize,
         marginPagesDisplayed,
         pageRangeDisplayed,
         paginationStyle,
         containerClassName,
         subContainerClassName,
+        totalResults,
         forcePage,
         activeClassName,
       } = this.props;
+    // calculate how many pages there are
+    const count = Math.ceil(totalResults / pageSize);
     return (
-      <nav className={paginationStyle} aria-label="Pagination">
-        <ReactPaginate
-          previousLabel={previousLabel}
-          nextLabel={nextLabel}
-          pageCount={pageCount}
-          marginPagesDisplayed={marginPagesDisplayed}
-          pageRangeDisplayed={pageRangeDisplayed}
-          onPageChange={this.onPageChange}
-          containerClassName={containerClassName}
-          subContainerClassName={subContainerClassName}
-          forcePage={forcePage - 1/* reconciles zero-based pagination */}
-          activeClassName={activeClassName}
-        />
-      </nav>
+      <div>
+        {
+          count > 0 ?
+            <nav className={paginationStyle} aria-label="Pagination">
+              <ReactPaginate
+                previousLabel={previousLabel}
+                nextLabel={nextLabel}
+                pageCount={count}
+                marginPagesDisplayed={marginPagesDisplayed}
+                pageRangeDisplayed={pageRangeDisplayed}
+                onPageChange={this.onPageChange}
+                containerClassName={containerClassName}
+                subContainerClassName={subContainerClassName}
+                forcePage={forcePage - 1/* reconciles zero-based pagination */}
+                activeClassName={activeClassName}
+              />
+            </nav>
+            : null
+        }
+      </div>
     );
   }
 }
@@ -51,7 +60,7 @@ class PaginationWrapper extends Component {
 PaginationWrapper.propTypes = {
   previousLabel: PropTypes.node,
   nextLabel: PropTypes.node,
-  pageCount: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
   marginPagesDisplayed: PropTypes.number,
   pageRangeDisplayed: PropTypes.number,
   onPageChange: PropTypes.func.isRequired,
@@ -60,6 +69,7 @@ PaginationWrapper.propTypes = {
   forcePage: PropTypes.number.isRequired,
   activeClassName: PropTypes.string,
   paginationStyle: PropTypes.string,
+  totalResults: PropTypes.number.isRequired,
 };
 
 PaginationWrapper.defaultProps = {

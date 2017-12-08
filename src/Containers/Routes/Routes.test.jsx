@@ -50,13 +50,6 @@ describe('Routes', () => {
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
-  it('handles a profile route', () => {
-    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
-      <MemoryRouter initialEntries={['/profile']}>
-        <Routes isAuthorized={() => true} />
-      </MemoryRouter></Provider>);
-    expect(routes).toBeDefined();
-  });
   it('handles a profile/favorites route', () => {
     const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
       <MemoryRouter initialEntries={['/profile/favorites']}>
@@ -74,6 +67,20 @@ describe('Routes', () => {
   it('handles a profile/bidlist route', () => {
     const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
       <MemoryRouter initialEntries={['/profile/bidlist']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
+  it('handles a profile/dashboard route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/profile/dashboard']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
+  it('handles a profile/bidderportfolio route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/profile/bidderportfolio']}>
         <Routes isAuthorized={() => true} />
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();

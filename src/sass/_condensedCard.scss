@@ -10,15 +10,23 @@
     border-radius: 100px;
     color: $color-black;
     font-size: 13px;
-    padding: .1em;
+    padding: .2em 1em;
     text-align: center;
-    width: 50px;
+    width: auto;
   }
 
-  .white-button {
+  .tm-button-alt {
+    // TODO figure out why 2px makes button flash when cursor is on edge of button
+    border: 1px solid $blue-primary;
     bottom: 17px;
+    color: $blue-primary;
     margin-top: 15px;
     position: absolute;
+
+    .fa {
+      color: $blue-primary;
+      margin-right: 5px;
+    }
   }
 
   .link-button-wrapper {
@@ -57,7 +65,6 @@
   }
 
   .condensed-card-top-header {
-    float: left;
     margin: 3px 0 0 1%;
     width: 48%;
   }
@@ -66,8 +73,15 @@
     margin-bottom: 5px;
   }
 
-  .condensed-card-top-header-right {
+  .condensed-card-top-header-left {
+    float: left;
     margin: 3px 1% 0 0;
+    width: auto;
+  }
+
+  .condensed-card-top-header-right {
+    float: right;
+    margin: 3px 3% 0 0;
     text-align: right;
   }
 
@@ -77,6 +91,7 @@
   }
 
   .condensed-card-bottom-container {
+    background-color: $color-white;
     min-height: 210px;
     padding: 18px;
     position: relative;
@@ -89,6 +104,11 @@
 
   .condensed-card-data {
     margin-bottom: 10px;
+
+    a {
+      color: $blue-primary;
+      text-decoration: none;
+    }
   }
 
   .last-updated-date {
@@ -99,7 +119,7 @@
 .condensed-card-first-big {
   float: left;
 
-  .white-button {
+  .tm-button-alt {
     bottom: unset;
     position: unset;
   }

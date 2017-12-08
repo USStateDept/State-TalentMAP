@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InformationDataPointComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full data-point-container  "
+>
+  <div
+    className="data-point-title"
+  >
+    title
+  </div>
+  <div
+    className="data-point-content"
+  >
+    content
+  </div>
+</div>
+`;
+
+exports[`InformationDataPointComponent matches snapshot when sideBySide is true 1`] = `
+<div
+  className="usa-grid-full data-point-container data-point-side-by-side "
+>
+  <div
+    className="data-point-title"
+  >
+    title
+  </div>
+  <div
+    className="data-point-content"
+  >
+    content
+  </div>
+</div>
+`;
+
+exports[`InformationDataPointComponent matches snapshot when titleOnBottom is true 1`] = `
+<div
+  className="usa-grid-full data-point-container  "
+>
+  <div
+    className="data-point-content"
+  >
+    content
+  </div>
+  <div
+    className="data-point-title"
+  >
+    title
+  </div>
+</div>
+`;

@@ -154,6 +154,7 @@ export const USER_PROFILE = PropTypes.shape({
     first_name: PropTypes.string,
     last_name: PropTypes.string,
   }),
+  is_cdo: PropTypes.bool,
   language_qualifications: PropTypes.arrayOf(
     PropTypes.number,
   ),
@@ -163,12 +164,14 @@ export const USER_PROFILE = PropTypes.shape({
   ),
 });
 
-export const ROUTER_LOCATIONS = PropTypes.arrayOf(PropTypes.shape({
+export const ROUTER_LOCATION_OBJECT = PropTypes.shape({
   pathname: PropTypes.string,
   search: PropTypes.string,
   hash: PropTypes.string,
   key: PropTypes.string,
-}));
+});
+
+export const ROUTER_LOCATIONS = PropTypes.arrayOf(ROUTER_LOCATION_OBJECT);
 
 export const GO_BACK_TO_LINK = PropTypes.shape({
   text: PropTypes.string,
@@ -263,11 +266,98 @@ export const MISSION_DETAILS = PropTypes.shape({
   short_name: PropTypes.string,
 });
 
+export const ASSIGNMENT_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  user: PropTypes.string,
+  position: PropTypes.string,
+  tour_of_duty: PropTypes.string,
+  status: PropTypes.string,
+  curtailment_reason: PropTypes.string,
+  create_date: PropTypes.string,
+  start_date: PropTypes.string,
+  estimated_end_date: PropTypes.string,
+  end_date: PropTypes.string,
+  update_date: PropTypes.string,
+});
+
+export const ASSIGNMENT_RESULTS = PropTypes.arrayOf(
+  ASSIGNMENT_OBJECT,
+);
+
+export const ASSIGNMENT_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: ASSIGNMENT_RESULTS,
+});
+
 export const MISSION_DETAILS_ARRAY = PropTypes.arrayOf(MISSION_DETAILS);
 
 export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
 
 export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
+
+export const NOTIFICATION_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  owner: PropTypes.string,
+  message: PropTypes.string,
+  is_read: PropTypes.bool,
+  date_created: PropTypes.string,
+  date_updated: PropTypes.string,
+});
+
+export const NOTIFICATION_RESULTS = PropTypes.arrayOf(
+  NOTIFICATION_OBJECT,
+);
+
+export const NOTIFICATION_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: NOTIFICATION_RESULTS,
+});
+
+export const BIDDER_OBJECT = PropTypes.shape(
+  {
+    id: PropTypes.number,
+    skill_code: PropTypes.string,
+    grade: PropTypes.string,
+    cdo: PropTypes.shape({
+      username: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      email: PropTypes.string,
+      phone_number: PropTypes.string,
+      is_cdo: PropTypes.bool,
+    }),
+    is_cdo: PropTypes.bool,
+    primary_nationality: PropTypes.string,
+    secondary_nationality: PropTypes.string,
+    date_of_birth: PropTypes.string,
+    phone_number: PropTypes.string,
+    user: PropTypes.shape({
+      username: PropTypes.string,
+      email: PropTypes.string,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+    }),
+    language_qualifications: PropTypes.arrayOf(PropTypes.number),
+    favorite_positions: PropTypes.arrayOf(PropTypes.number),
+    received_shares: PropTypes.arrayOf(PropTypes.number),
+  },
+);
+
+export const BIDDER_RESULTS = PropTypes.arrayOf(BIDDER_OBJECT);
+
+export const BIDDER_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: BIDDER_RESULTS,
+});
+
+export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
+  all: PropTypes.number,
+  bidding: PropTypes.number,
+  inpanel: PropTypes.number,
+  onpost: PropTypes.number,
+});
+
+export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};
 

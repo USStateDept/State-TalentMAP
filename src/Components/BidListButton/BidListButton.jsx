@@ -25,15 +25,16 @@ class BidListButton extends Component {
 
   render() {
     // is the bid currently saved?
-    // save value and avoid interogating the array more than once
+    // save value and avoid interrogating the array more than once
     const bidIsSaved = this.getIsSaved();
     const text = bidIsSaved ? 'Remove from Bid List' : 'Add to Bid List';
     const iconClass = bidIsSaved ? 'minus-circle' : 'plus-circle';
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
+    const { className } = this.props;
     return (
-      <button className="bid-list-button" style={style} onClick={this.toggleSaved}>
+      <button className={className} style={style} onClick={this.toggleSaved}>
         <span className="button-icon">
           <FontAwesome name={iconClass} />
         </span>
@@ -48,11 +49,13 @@ BidListButton.propTypes = {
   toggleBidPosition: PropTypes.func.isRequired,
   compareArray: BID_RESULTS,
   isLoading: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 BidListButton.defaultProps = {
   compareArray: [],
   isLoading: false,
+  className: 'bid-list-button',
 };
 
 export default BidListButton;

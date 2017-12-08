@@ -11,7 +11,8 @@ import { editDescriptionContent, editPocContent, editWebsiteContent,
 resetMessages } from '../../actions/descriptionEdit';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 import { POSITION_DETAILS, ROUTER_LOCATIONS, USER_PROFILE, BID_LIST,
-BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, EMPTY_FUNCTION,
+DESCRIPTION_EDIT_HAS_ERRORED } from '../../Constants/PropTypes';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 
 class Position extends Component {
@@ -56,32 +57,30 @@ class Position extends Component {
         descriptionEditIsLoading, descriptionEditSuccess,
         resetDescriptionEditMessages } = this.props;
     return (
-      <div>
-        <PositionDetails
-          details={positionDetails[0]}
-          isLoading={isLoading}
-          hasErrored={hasErrored}
-          goBackLink={getLastRouteLink(routerLocations)}
-          userProfile={userProfile}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          toggleBidPosition={toggleBid}
-          bidList={bidList}
-          bidListHasErrored={bidListHasErrored}
-          bidListIsLoading={bidListIsLoading}
-          bidListToggleHasErrored={bidListToggleHasErrored}
-          bidListToggleIsLoading={bidListToggleIsLoading}
-          bidListToggleSuccess={bidListToggleSuccess}
-          editDescriptionContent={this.editDescriptionContent}
-          editPocContent={this.editPocContent}
-          editWebsiteContent={this.editWebsiteContent}
-          descriptionEditHasErrored={descriptionEditHasErrored}
-          descriptionEditIsLoading={descriptionEditIsLoading}
-          descriptionEditSuccess={descriptionEditSuccess}
-          resetDescriptionEditMessages={resetDescriptionEditMessages}
-        />
-      </div>
+      <PositionDetails
+        details={positionDetails[0]}
+        isLoading={isLoading}
+        hasErrored={hasErrored}
+        goBackLink={getLastRouteLink(routerLocations)}
+        userProfile={userProfile}
+        toggleFavorite={toggleFavorite}
+        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+        toggleBidPosition={toggleBid}
+        bidList={bidList}
+        bidListHasErrored={bidListHasErrored}
+        bidListIsLoading={bidListIsLoading}
+        bidListToggleHasErrored={bidListToggleHasErrored}
+        bidListToggleIsLoading={bidListToggleIsLoading}
+        bidListToggleSuccess={bidListToggleSuccess}
+        editDescriptionContent={this.editDescriptionContent}
+        editPocContent={this.editPocContent}
+        editWebsiteContent={this.editWebsiteContent}
+        descriptionEditHasErrored={descriptionEditHasErrored}
+        descriptionEditIsLoading={descriptionEditIsLoading}
+        descriptionEditSuccess={descriptionEditSuccess}
+        resetDescriptionEditMessages={resetDescriptionEditMessages}
+      />
     );
   }
 }
@@ -118,7 +117,7 @@ Position.propTypes = {
   editDescriptionContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
   editWebsiteContent: PropTypes.func.isRequired,
-  descriptionEditHasErrored: PropTypes.bool,
+  descriptionEditHasErrored: DESCRIPTION_EDIT_HAS_ERRORED,
   descriptionEditIsLoading: PropTypes.bool,
   descriptionEditSuccess: PropTypes.bool,
   resetDescriptionEditMessages: PropTypes.func.isRequired,
