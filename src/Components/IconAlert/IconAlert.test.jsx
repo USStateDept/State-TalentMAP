@@ -13,7 +13,7 @@ describe('IconAlertComponent', () => {
 
   it('is defined when no number is provided', () => {
     const wrapper = shallow(
-      <IconAlert type="message-o" link="/profile/" alt="text" />,
+      <IconAlert type="message-o" link="/profile/" alt="text" title="title" />,
     );
     expect(wrapper).toBeDefined();
   });
