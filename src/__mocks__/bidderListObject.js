@@ -10,6 +10,12 @@ const bidderListObject = {
         email: 'doej@state.gov',
       },
       is_cdo: false,
+      bid_statistics: [
+        {
+          draft: 1,
+          submitted: 1,
+        },
+      ],
     },
     {
       id: 2,
@@ -20,6 +26,12 @@ const bidderListObject = {
         email: 'doejane@state.gov',
       },
       is_cdo: false,
+      bid_statistics: [
+        {
+          draft: 1,
+          submitted: 1,
+        },
+      ],
     },
     {
       id: 3,
@@ -30,6 +42,12 @@ const bidderListObject = {
         email: 'smithj@state.gov',
       },
       is_cdo: false,
+      bid_statistics: [
+        {
+          draft: 1,
+          submitted: 1,
+        },
+      ],
     },
   ],
 };
