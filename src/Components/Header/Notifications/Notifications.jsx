@@ -22,6 +22,7 @@ class Notifications extends Component {
         number={notificationsCount}
         link="/profile/dashboard/"
         alt="Notifications"
+        title="View your notifications"
       />
     );
   }
@@ -42,7 +43,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  // we only care about the count, so we only request a limit of 1
   fetchNotificationsCount: () => dispatch(notificationsCountFetchData()),
 });
 

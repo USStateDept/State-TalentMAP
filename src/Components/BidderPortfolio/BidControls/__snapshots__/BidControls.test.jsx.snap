@@ -34,6 +34,10 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
               "text": "Age",
               "value": "date_of_birth",
             },
+            Object {
+              "text": "Priority Need",
+              "value": "bid_statistics__handshake_offered",
+            },
           ]
         }
       />
@@ -79,6 +83,10 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
             Object {
               "text": "Age",
               "value": "date_of_birth",
+            },
+            Object {
+              "text": "Priority Need",
+              "value": "bid_statistics__handshake_offered",
             },
           ]
         }

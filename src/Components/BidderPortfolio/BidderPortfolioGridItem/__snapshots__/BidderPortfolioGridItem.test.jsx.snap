@@ -16,6 +16,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
         labelSrOnly={true}
         name=""
         onCheckBoxClick={[Function]}
+        small={true}
         title=""
         value={false}
       />
@@ -23,7 +24,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
     <div
       className="general-information-container"
     >
-      <CurrentUserGeneralInformation
+      <UserProfileGeneralInformation
         showEditLink={false}
         useGroup={true}
         userProfile={
@@ -44,7 +45,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
     className="usa-width-one-fourth grid-item-section
           current-user-personal-information-grid-container"
   >
-    <CurrentUserPersonalInformation
+    <UserProfilePersonalInformation
       userProfile={
         Object {
           "is_cdo": false,
@@ -61,13 +62,13 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
   <div
     className="usa-width-one-fourth grid-item-section"
   >
-    <CurrentUserBidInformation />
+    <UserProfileBidInformation />
   </div>
   <div
     className="usa-width-one-fourth grid-item-section"
   >
     <BidderPortfolioViewMore
-      className="white-button"
+      className="tm-button-alt"
       useLink={false}
     />
   </div>

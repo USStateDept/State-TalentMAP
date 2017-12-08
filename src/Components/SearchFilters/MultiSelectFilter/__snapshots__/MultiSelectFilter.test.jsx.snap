@@ -13,6 +13,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
     name="description"
     onCheckBoxClick={[Function]}
     selectionRef="ref"
+    small={false}
     title="description"
     value={true}
   />
