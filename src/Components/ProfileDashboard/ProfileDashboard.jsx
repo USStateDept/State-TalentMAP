@@ -16,42 +16,44 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
         (isLoading || assignmentIsLoading || notificationsIsLoading || bidListIsLoading) ?
           <Spinner type="homepage-position-results" size="big" />
           :
-          <div>
+          <div className="usa-grid-full">
             <div className="hello-greeting">
               {
                 `Hello, ${userProfile.user.first_name} ${userProfile.user.last_name}`
               }
             </div>
-            <div
-              className={`usa-width-one-fourth user-dashboard-section-container
-                user-dashboard-column-1`}
-            >
-              <div className="usa-width-one-whole user-dashboard-section current-user-section">
-                <UserProfile userProfile={userProfile} />
+            <div className="usa-grid-full">
+              <div
+                className={`usa-width-one-fourth user-dashboard-section-container
+                  user-dashboard-column-1`}
+              >
+                <div className="usa-width-one-whole user-dashboard-section current-user-section">
+                  <UserProfile userProfile={userProfile} />
+                </div>
+                <div className="usa-width-one-whole user-dashboard-section cdo-section">
+                  <StaticDevContent>
+                    <CDOInfo name="Leah Shadtrach" />
+                  </StaticDevContent>
+                </div>
               </div>
-              <div className="usa-width-one-whole user-dashboard-section cdo-section">
-                <StaticDevContent>
-                  <CDOInfo name="Leah Shadtrach" />
-                </StaticDevContent>
+              <div
+                className={`usa-width-one-fourth user-dashboard-section-container
+                  user-dashboard-column-2`}
+              >
+                <div className="usa-width-one-whole user-dashboard-section position-info-section">
+                  <PositionInformation assignment={assignment} />
+                </div>
+                <div className="usa-width-one-whole user-dashboard-section notifications-section">
+                  <Notifications notifications={notifications} />
+                </div>
               </div>
-            </div>
-            <div
-              className={`usa-width-one-fourth user-dashboard-section-container
-                user-dashboard-column-2`}
-            >
-              <div className="usa-width-one-whole user-dashboard-section position-info-section">
-                <PositionInformation assignment={assignment} />
-              </div>
-              <div className="usa-width-one-whole user-dashboard-section notifications-section">
-                <Notifications notifications={notifications} />
-              </div>
-            </div>
-            <div
-              className={`usa-width-one-half user-dashboard-section-container
-                user-dashboard-column-3`}
-            >
-              <div className="usa-width-one-whole user-dashboard-section bidlist-section">
-                <BidList bids={bidList} />
+              <div
+                className={`usa-width-one-half user-dashboard-section-container
+                  user-dashboard-column-3`}
+              >
+                <div className="usa-width-one-whole user-dashboard-section bidlist-section">
+                  <BidList bids={bidList} />
+                </div>
               </div>
             </div>
           </div>
