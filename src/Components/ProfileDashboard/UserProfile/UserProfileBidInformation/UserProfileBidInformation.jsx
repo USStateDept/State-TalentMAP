@@ -1,7 +1,7 @@
 import React from 'react';
 import InformationDataPoint from '../../InformationDataPoint';
 
-const CurrentUserBidInformation = () => (
+const UserProfileBidInformation = () => (
   <div className="usa-grid-full current-user-section-container current-user-bid-information">
     <div className="usa-grid-full section-padded-inner-container">
       <div className="bid-count-container bid-count-container-left">
@@ -22,4 +22,4 @@ const CurrentUserBidInformation = () => (
   </div>
 );
 
-export default CurrentUserBidInformation;
+export default UserProfileBidInformation;

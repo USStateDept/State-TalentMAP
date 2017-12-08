@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ActionsButton = () => (
-  <button className="white-button">Actions...</button>
+  <button className="tm-button-alt">Actions...</button>
 );
 
 export default ActionsButton;
