@@ -33,10 +33,7 @@
 
     .usa-logo-text {
       line-height: unset;
-    }
-
-    .logo-img-tm {
-      width: 200px;
+      width: auto;
     }
   }
 
@@ -46,6 +43,10 @@
       img {
         padding-top: 5px;
       }
+    }
+
+    .usa-logo-text {
+      width: 200px;
     }
 
     .usa-nav-secondary {
