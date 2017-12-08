@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CurrentUserComponent matches snapshot 1`] = `
+exports[`UserProfileComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full current-user"
 >
-  <CurrentUserGeneralInformation
+  <UserProfileGeneralInformation
     showEditLink={true}
     useGroup={false}
     userProfile={
@@ -19,7 +19,7 @@ exports[`CurrentUserComponent matches snapshot 1`] = `
       }
     }
   />
-  <CurrentUserContactInformation
+  <UserProfileContactInformation
     showEditLink={true}
     userProfile={
       Object {

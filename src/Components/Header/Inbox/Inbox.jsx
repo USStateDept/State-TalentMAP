@@ -9,6 +9,7 @@ const Inbox = ({ number }) => (
     number={number}
     link="/profile/dashboard/"
     disabled
+    title="View your inbox"
   />
 );
 

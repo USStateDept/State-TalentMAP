@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
-import CurrentUserGeneralInformation from './CurrentUserGeneralInformation';
-import CurrentUserContactInformation from './CurrentUserContactInformation';
+import UserProfileGeneralInformation from './UserProfileGeneralInformation';
+import UserProfileContactInformation from './UserProfileContactInformation';
 
-const CurrentUser = ({ userProfile, showEditLink, showGeneralInformation,
+const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
 showContactInformation, useGroup }) => (
   <div className="usa-grid-full current-user">
     {
       showGeneralInformation &&
-      <CurrentUserGeneralInformation
+      <UserProfileGeneralInformation
         userProfile={userProfile}
         showEditLink={showEditLink}
         useGroup={useGroup}
@@ -17,12 +17,12 @@ showContactInformation, useGroup }) => (
     }
     {
       showContactInformation &&
-      <CurrentUserContactInformation userProfile={userProfile} />
+      <UserProfileContactInformation userProfile={userProfile} />
     }
   </div>
 );
 
-CurrentUser.propTypes = {
+UserProfile.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   showEditLink: PropTypes.bool,
   showGeneralInformation: PropTypes.bool,
@@ -30,11 +30,11 @@ CurrentUser.propTypes = {
   useGroup: PropTypes.bool,
 };
 
-CurrentUser.defaultProps = {
+UserProfile.defaultProps = {
   showEditLink: true,
   showGeneralInformation: true,
   showContactInformation: true,
   useGroup: false,
 };
 
-export default CurrentUser;
+export default UserProfile;
