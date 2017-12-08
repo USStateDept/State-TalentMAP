@@ -1,10 +1,7 @@
 .unstyled-button-container {
   .usa-button {
-    margin-top: unset;
-    margin-right: unset;
-    margin-bottom: unset;
-    -webkit-appearance: unset;
     -moz-appearance: unset;
+    -webkit-appearance: unset;
     appearance: unset;
     background-color: unset;
     border: unset;
@@ -16,10 +13,32 @@
     font-size: unset;
     font-weight: unset;
     line-height: unset;
+    margin-bottom: unset;
+    margin-right: unset;
+    margin-top: unset;
     outline: unset;
     padding: unset;
     text-align: unset;
     text-decoration: unset;
     width: unset;
+  }
+}
+
+.tm-button-alt {
+  background-color: $color-white;
+  border: 1px solid $blue-primary;
+  color: $color-black;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+
+  &:hover {
+    border-bottom: 1px solid $blue-primary;
+    color: $color-white;
+  }
+
+  .tm-button-alt-icon {
+    color: $blue-primary;
+    margin-right: 5px;
   }
 }
