@@ -7,6 +7,7 @@ import InformationDataPoint from '../../InformationDataPoint';
 import Status from '../Status';
 import EditProfile from '../EditProfile';
 import ProfilePicture from '../../../ProfilePicture';
+import StaticDevContent from '../../../StaticDevContent';
 
 const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) => (
   <div className="current-user-top current-user-section-container">
@@ -17,10 +18,12 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
       <SectionTitle small title={`${userProfile.user.last_name}, ${userProfile.user.first_name}`} className="current-user-name" />
       {
         useGroup ?
-          <InformationDataPoint
-            content="Generalist • F2"
-            className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-          />
+          <StaticDevContent>
+            <InformationDataPoint
+              content="Generalist • F2"
+              className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+            />
+          </StaticDevContent>
           :
           <InformationDataPoint
             content={userProfile.skill_code || NO_USER_SKILL_CODE}
