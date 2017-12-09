@@ -88,13 +88,15 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
       small={true}
       title="Doe, John"
     />
-    <InformationDataPoint
-      className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-      content="Generalist • F2"
-      sideBySide={false}
-      title=""
-      titleOnBottom={false}
-    />
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Generalist • F2"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
   </div>
 </div>
 `;

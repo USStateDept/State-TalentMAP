@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StatusCircle from '../../../StatusCircle';
+import StaticDevContent from '../../../StaticDevContent';
 
 const Status = ({ hideText }) => (
   <div className="status-container">
-    <StatusCircle /> {!hideText ? 'Status: On-Post' : ''}
+    <StaticDevContent>
+      <StatusCircle /> {!hideText ? 'Status: On-Post' : ''}
+    </StaticDevContent>
   </div>
 );
 
