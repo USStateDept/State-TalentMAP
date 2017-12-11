@@ -14,7 +14,7 @@ const StaticDevContent = ({ children, showStaticContent }) => (
       { children }
     </div>
     :
-    children
+    <span>{ children }</span>
 );
 
 StaticDevContent.propTypes = {

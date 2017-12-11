@@ -1,7 +1,10 @@
 import React from 'react';
+import StaticDevContent from '../../../../StaticDevContent';
 
 const ActionsButton = () => (
-  <button className="tm-button-alt">Actions...</button>
+  <StaticDevContent>
+    <button className="tm-button-alt">Actions...</button>
+  </StaticDevContent>
 );
 
 export default ActionsButton;
