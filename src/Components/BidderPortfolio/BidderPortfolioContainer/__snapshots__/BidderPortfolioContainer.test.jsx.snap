@@ -8,6 +8,12 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
     results={
       Array [
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "id": 1,
           "is_cdo": false,
           "skill_code": "INFORMATION MANAGEMENT (2880)",
@@ -18,6 +24,12 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
           },
         },
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "id": 2,
           "is_cdo": false,
           "skill_code": "INFORMATION MANAGEMENT (2880)",
@@ -28,6 +40,12 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
           },
         },
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "id": 3,
           "is_cdo": false,
           "skill_code": "INFORMATION MANAGEMENT (2880)",

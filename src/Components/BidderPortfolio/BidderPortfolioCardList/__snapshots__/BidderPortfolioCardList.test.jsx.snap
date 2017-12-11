@@ -13,6 +13,12 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
       showEditLink={false}
       userProfile={
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "id": 1,
           "is_cdo": false,
           "skill_code": "INFORMATION MANAGEMENT (2880)",
@@ -34,6 +40,12 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
       showEditLink={false}
       userProfile={
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "id": 2,
           "is_cdo": false,
           "skill_code": "INFORMATION MANAGEMENT (2880)",
@@ -55,6 +67,12 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
       showEditLink={false}
       userProfile={
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "id": 3,
           "is_cdo": false,
           "skill_code": "INFORMATION MANAGEMENT (2880)",

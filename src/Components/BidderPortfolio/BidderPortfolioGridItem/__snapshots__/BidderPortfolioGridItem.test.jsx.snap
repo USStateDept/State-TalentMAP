@@ -29,6 +29,12 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
         useGroup={true}
         userProfile={
           Object {
+            "bid_statistics": Array [
+              Object {
+                "draft": 1,
+                "submitted": 1,
+              },
+            ],
             "is_cdo": false,
             "skill_code": "INFORMATION MANAGEMENT (2880)",
             "user": Object {
@@ -48,6 +54,12 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
     <UserProfilePersonalInformation
       userProfile={
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "is_cdo": false,
           "skill_code": "INFORMATION MANAGEMENT (2880)",
           "user": Object {
@@ -62,7 +74,11 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
   <div
     className="usa-width-one-fourth grid-item-section"
   >
-    <UserProfileBidInformation />
+    <UserProfileBidInformation
+      denominator={10}
+      draft={1}
+      submitted={1}
+    />
   </div>
   <div
     className="usa-width-one-fourth grid-item-section"
