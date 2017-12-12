@@ -7,7 +7,7 @@ import Notifications from '../Notifications';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
 
-const DesktopNav = ({ showAccountDropdown, isLoggedIn, shouldShowSearchBar,
+const DesktopNav = ({ isLoggedIn, shouldShowSearchBar,
 userProfile, logout, toggleSearchVisibility }) => (
   <div className="navigation-container">
     <div className="nav-link-container header-nav-desktop desktop-nav-only">
@@ -49,7 +49,7 @@ userProfile, logout, toggleSearchVisibility }) => (
       <div className="header-nav-link-container account-container">
         <div className="header-nav-link">
           {
-            showAccountDropdown &&
+            isLoggedIn &&
             <AccountDropdown
               userProfile={userProfile}
               logoutRequest={logout}
@@ -75,7 +75,6 @@ userProfile, logout, toggleSearchVisibility }) => (
 );
 
 DesktopNav.propTypes = {
-  showAccountDropdown: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
   userProfile: USER_PROFILE,

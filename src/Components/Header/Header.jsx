@@ -68,26 +68,22 @@ export class Header extends Component {
       login: {
         requesting,
       },
+      client: {
+        token,
+      },
+      shouldShowSearchBar, logout, userProfile,
     } = this.props;
 
-    let showLogin = true; // (<Link to="login" id="login-desktop">Login</Link>);
-    let showAccountDropdown = false;
+    let isLoggedIn = false;
     let signedInAs = null;
-    const { logout, userProfile } = this.props;
-    if (this.props.client.token && !requesting) {
-      showAccountDropdown = true;
-      showLogin = false;
+    if (token && !requesting) {
+      isLoggedIn = true;
       if (userProfile.user && userProfile.user.username) {
         signedInAs = userProfile.user.username;
       }
     }
 
-    // we should only show the Inbox and Notifications icons if the user is logged in
-    const isLoggedIn = !!this.props.client.token;
-
     const isOnSearchPage = this.isOnSearchPage();
-
-    const { shouldShowSearchBar } = this.props;
 
     return (
       <div className={shouldShowSearchBar ? 'search-bar-visible' : 'search-bar-hidden'}>
@@ -105,14 +101,13 @@ export class Header extends Component {
             </div>
             <DesktopNav
               isLoggedIn={isLoggedIn}
-              showAccountDropdown={showAccountDropdown}
               shouldShowSearchBar={shouldShowSearchBar}
               logout={logout}
               userProfile={userProfile}
               toggleSearchVisibility={this.toggleSearchVisibility}
             />
           </div>
-          <MobileNav user={signedInAs} logout={logout} showLogin={showLogin} />
+          <MobileNav user={signedInAs} logout={logout} showLogin={!isLoggedIn} />
           <div className="usa-overlay" />
         </header>
         {

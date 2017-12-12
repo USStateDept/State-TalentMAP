@@ -40,7 +40,6 @@ exports[`Header matches snapshot when logged in 1`] = `
         isLoggedIn={true}
         logout={[Function]}
         shouldShowSearchBar={true}
-        showAccountDropdown={true}
         toggleSearchVisibility={[Function]}
         userProfile={
           Object {
@@ -103,7 +102,6 @@ exports[`Header matches snapshot when logged out 1`] = `
         isLoggedIn={false}
         logout={[Function]}
         shouldShowSearchBar={true}
-        showAccountDropdown={false}
         toggleSearchVisibility={[Function]}
         userProfile={Object {}}
       />

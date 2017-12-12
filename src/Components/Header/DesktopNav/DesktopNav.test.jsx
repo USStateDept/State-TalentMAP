@@ -8,7 +8,6 @@ describe('DesktopNav', () => {
   it('is defined', () => {
     const wrapper = shallow(
       <DesktopNav
-        showAccountDropdown
         isLoggedIn
         shouldShowSearchBar
         userProfile={bidderUserObject}
@@ -22,7 +21,6 @@ describe('DesktopNav', () => {
   it('matches snapshot when logged in', () => {
     const wrapper = shallow(
       <DesktopNav
-        showAccountDropdown
         isLoggedIn
         shouldShowSearchBar
         userProfile={bidderUserObject}
@@ -36,7 +34,6 @@ describe('DesktopNav', () => {
   it('matches snapshot when logged out', () => {
     const wrapper = shallow(
       <DesktopNav
-        showAccountDropdown
         isLoggedIn={false}
         shouldShowSearchBar
         userProfile={bidderUserObject}
