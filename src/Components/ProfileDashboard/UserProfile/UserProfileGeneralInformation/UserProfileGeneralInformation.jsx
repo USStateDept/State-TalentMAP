@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { USER_PROFILE } from '../../../../Constants/PropTypes';
-import { NO_USER_SKILL_CODE } from '../../../../Constants/SystemMessages';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import Status from '../Status';
 import EditProfile from '../EditProfile';
 import ProfilePicture from '../../../ProfilePicture';
 import StaticDevContent from '../../../StaticDevContent';
+import SkillCodeList from '../../../SkillCodeList';
 
 const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) => (
   <div className="current-user-top current-user-section-container">
@@ -26,7 +26,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
           </StaticDevContent>
           :
           <InformationDataPoint
-            content={userProfile.skill_code || NO_USER_SKILL_CODE}
+            content={<SkillCodeList skillCodes={userProfile.skill_code} />}
             className="skill-code-data-point-container skill-code-data-point-container-skill"
           />
       }

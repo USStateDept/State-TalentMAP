@@ -1,14 +1,15 @@
 import React from 'react';
 import { USER_PROFILE } from '../../../../Constants/PropTypes';
-import { NO_USER_SKILL_CODE, NO_BIRTHDAY } from '../../../../Constants/SystemMessages';
+import { NO_BIRTHDAY } from '../../../../Constants/SystemMessages';
 import InformationDataPoint from '../../InformationDataPoint';
+import SkillCodeList from '../../../SkillCodeList';
 
 const UserProfilePersonalInformation = ({ userProfile }) => (
   <div className="usa-grid-full current-user-section-container current-user-personal-information">
     <div className="section-padded-inner-container">
       <InformationDataPoint
         title="Skill Code"
-        content={userProfile.skill_code || NO_USER_SKILL_CODE}
+        content={<SkillCodeList skillCodes={userProfile.skill_code} />}
         className="skill-code-data-point-container skill-code-data-point-container-one"
       />
       <InformationDataPoint
