@@ -18,7 +18,7 @@ userProfile, logout, toggleSearchVisibility }) => (
             <div className="header-nav-link-text search-text">
               {/* At the time of writing, CodeClimate's version of eslint-a11y-plugin
                   did not take role="button" into account with the following error: */ }
-              <span // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              <span // eslint-disable-line jsx-a11y/no-static-element-interactions
                 tabIndex="0"
                 role="button"
                 onClick={toggleSearchVisibility}
