@@ -151,8 +151,11 @@ export const FAVORITE_POSITION = PropTypes.shape({
 
 export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
 
+export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(PropTypes.string);
+
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
+  skill_code: USER_SKILL_CODE_ARRAY,
   user: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,
@@ -319,7 +322,7 @@ export const NOTIFICATION_LIST = PropTypes.shape({
 export const BIDDER_OBJECT = PropTypes.shape(
   {
     id: PropTypes.number,
-    skill_code: PropTypes.string,
+    skill_code: USER_SKILL_CODE_ARRAY,
     grade: PropTypes.string,
     cdo: PropTypes.shape({
       username: PropTypes.string,

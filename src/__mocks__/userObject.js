@@ -1,5 +1,5 @@
 export const bidderUserObject = {
-  skill_code: 'INFORMATION MANAGEMENT (2880)',
+  skill_code: ['INFORMATION MANAGEMENT (2880)', 'ADMINISTRATIVE SUPPORT (2080)'],
   user: {
     first_name: 'John',
     last_name: 'Doe',
