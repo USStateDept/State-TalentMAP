@@ -9,7 +9,16 @@ exports[`UserProfilePersonalInformationComponent matches snapshot 1`] = `
   >
     <InformationDataPoint
       className="skill-code-data-point-container skill-code-data-point-container-one"
-      content="INFORMATION MANAGEMENT (2880)"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              "INFORMATION MANAGEMENT (2880)",
+              "ADMINISTRATIVE SUPPORT (2080)",
+            ]
+          }
+        />
+      }
       sideBySide={false}
       title="Skill Code"
       titleOnBottom={false}
