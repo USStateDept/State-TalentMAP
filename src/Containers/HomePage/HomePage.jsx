@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FILTER_ITEMS_ARRAY, HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
+import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
-import Explore from '../../Components/Explore/Explore';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import Spinner from '../../Components/Spinner';
@@ -28,7 +27,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { filters, homePagePositions,
+    const { homePagePositions,
       homePagePositionsIsLoading, homePagePositionsHasErrored,
       userProfile, toggleFavorite, toggleBid, bidList,
       userProfileFavoritePositionIsLoading,
@@ -40,10 +39,6 @@ class HomePage extends Component {
             onUpdate={this.submitSearch}
           />
         </div>
-        <Explore
-          filters={filters}
-          onRegionSubmit={this.submitRegion}
-        />
         <div className="homepage-positions-section-container">
           {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&
@@ -79,7 +74,6 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
-  filters: FILTER_ITEMS_ARRAY.isRequired,
   homePagePositions: HOME_PAGE_POSITIONS.isRequired,
   homePagePositionsIsLoading: PropTypes.bool,
   homePagePositionsHasErrored: PropTypes.bool,
