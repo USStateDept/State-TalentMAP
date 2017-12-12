@@ -16,7 +16,6 @@ import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-// import { getLastRouteName } from '../../actions/routerLocations';
 
 export class Header extends Component {
   constructor(props) {

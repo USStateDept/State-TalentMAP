@@ -1,290 +1,121 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header matches snapshot when logged in 1`] = `
-<header
-  className="usa-header usa-header-extended tm-header"
-  role="banner"
+<div
+  className="search-bar-visible"
 >
-  <Connect(Component) />
-  <GovBanner />
-  <div
-    className="usa-navbar"
+  <header
+    className="usa-header usa-header-extended tm-header"
+    role="banner"
   >
-    <button
-      className="usa-menu-btn"
-    >
-      Menu
-    </button>
+    <Connect(Component) />
+    <GovBanner />
     <div
-      className="usa-logo"
-      id="logo"
-    >
-      <div
-        className="usa-logo-text"
-      >
-        <Link
-          replace={false}
-          to="/"
-        >
-          <img
-            alt="TalentMAP logo"
-            src="horizontal_color.png"
-          />
-        </Link>
-      </div>
-    </div>
-  </div>
-  <nav
-    className="usa-nav"
-  >
-    <div
-      className="usa-nav-inner"
+      className="usa-navbar"
     >
       <button
-        className="usa-nav-close"
+        className="usa-menu-btn"
       >
-        <img
-          alt="close"
-          src="close.svg"
-        />
+        Menu
       </button>
       <div
-        className="usa-nav-secondary"
+        className="usa-logo"
+        id="logo"
       >
-        <ul
-          className="usa-unstyled-list usa-nav-secondary-links mobile-nav"
+        <div
+          className="usa-logo-text"
         >
-          <li
-            className="mobile-nav-only"
+          <Link
+            replace={false}
+            to="/"
           >
-            Signed in as test
-          </li>
-          <hr
-            className="mobile-nav-only"
-          />
-          <li>
-            <Link
-              replace={false}
-              to="/results"
-            >
-              <FontAwesome
-                name="search"
-              />
-               Search
-            </Link>
-          </li>
-          <li>
-            <Link
-              replace={false}
-              to="/"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <a
-              href="https://github.com/18F/State-TalentMAP"
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/18F/State-TalentMAP/issues"
-            >
-              Feedback
-            </a>
-          </li>
-          <span
-            className="usa-unstyled-list mobile-nav-only"
-          >
-            <hr />
-            <li>
-              <Link
-                replace={false}
-                to="/profile"
-              >
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link
-                id="login-mobile"
-                onClick={[Function]}
-                replace={false}
-                to="login"
-              >
-                Logout
-              </Link>
-            </li>
-          </span>
-          <span
-            className="desktop-nav-only"
-          >
-            <li>
-              <AccountDropdown
-                logoutRequest={[Function]}
-                userProfile={
-                  Object {
-                    "user": Object {
-                      "username": "test",
-                    },
-                  }
-                }
-              />
-              <span>
-                <Inbox
-                  number={0}
-                />
-                <Connect(withRouter(Notifications)) />
-              </span>
-            </li>
-          </span>
-        </ul>
+            <img
+              alt="TalentMAP logo"
+              src="horizontal_color_thin.png"
+            />
+          </Link>
+        </div>
       </div>
+      <DesktopNav
+        isLoggedIn={true}
+        logout={[Function]}
+        shouldShowSearchBar={true}
+        showAccountDropdown={true}
+        toggleSearchVisibility={[Function]}
+        userProfile={
+          Object {
+            "user": Object {
+              "username": "test",
+            },
+          }
+        }
+      />
     </div>
-  </nav>
-  <div
-    className="usa-overlay"
-  />
-</header>
+    <MobileNav
+      logout={[Function]}
+      showLogin={false}
+      user="test"
+    />
+    <div
+      className="usa-overlay"
+    />
+  </header>
+</div>
 `;
 
 exports[`Header matches snapshot when logged out 1`] = `
-<header
-  className="usa-header usa-header-extended tm-header"
-  role="banner"
+<div
+  className="search-bar-visible"
 >
-  <Connect(Component) />
-  <GovBanner />
-  <div
-    className="usa-navbar"
+  <header
+    className="usa-header usa-header-extended tm-header"
+    role="banner"
   >
-    <button
-      className="usa-menu-btn"
-    >
-      Menu
-    </button>
+    <Connect(Component) />
+    <GovBanner />
     <div
-      className="usa-logo"
-      id="logo"
-    >
-      <div
-        className="usa-logo-text"
-      >
-        <Link
-          replace={false}
-          to="/"
-        >
-          <img
-            alt="TalentMAP logo"
-            src="horizontal_color.png"
-          />
-        </Link>
-      </div>
-    </div>
-  </div>
-  <nav
-    className="usa-nav"
-  >
-    <div
-      className="usa-nav-inner"
+      className="usa-navbar"
     >
       <button
-        className="usa-nav-close"
+        className="usa-menu-btn"
       >
-        <img
-          alt="close"
-          src="close.svg"
-        />
+        Menu
       </button>
       <div
-        className="usa-nav-secondary"
+        className="usa-logo"
+        id="logo"
       >
-        <ul
-          className="usa-unstyled-list usa-nav-secondary-links mobile-nav"
+        <div
+          className="usa-logo-text"
         >
-          <li
-            className="mobile-nav-only"
-          />
-          <hr
-            className="mobile-nav-only"
-          />
-          <li>
-            <Link
-              replace={false}
-              to="/results"
-            >
-              <FontAwesome
-                name="search"
-              />
-               Search
-            </Link>
-          </li>
-          <li>
-            <Link
-              replace={false}
-              to="/"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <a
-              href="https://github.com/18F/State-TalentMAP"
-            >
-              About
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://github.com/18F/State-TalentMAP/issues"
-            >
-              Feedback
-            </a>
-          </li>
-          <span
-            className="usa-unstyled-list mobile-nav-only"
+          <Link
+            replace={false}
+            to="/"
           >
-            <hr />
-            <li>
-              <Link
-                replace={false}
-                to="/profile"
-              >
-                Profile
-              </Link>
-            </li>
-            <li>
-              <Link
-                id="login-mobile"
-                onClick={[Function]}
-                replace={false}
-                to="login"
-              >
-                Logout
-              </Link>
-            </li>
-          </span>
-          <span
-            className="desktop-nav-only"
-          >
-            <li>
-              <Link
-                id="login-desktop"
-                replace={false}
-                to="login"
-              >
-                Login
-              </Link>
-            </li>
-          </span>
-        </ul>
+            <img
+              alt="TalentMAP logo"
+              src="horizontal_color_thin.png"
+            />
+          </Link>
+        </div>
       </div>
+      <DesktopNav
+        isLoggedIn={false}
+        logout={[Function]}
+        shouldShowSearchBar={true}
+        showAccountDropdown={false}
+        toggleSearchVisibility={[Function]}
+        userProfile={Object {}}
+      />
     </div>
-  </nav>
-  <div
-    className="usa-overlay"
-  />
-</header>
+    <MobileNav
+      logout={[Function]}
+      showLogin={true}
+      user={null}
+    />
+    <div
+      className="usa-overlay"
+    />
+  </header>
+</div>
 `;

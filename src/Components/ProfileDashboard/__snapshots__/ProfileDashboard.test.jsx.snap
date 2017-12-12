@@ -35,6 +35,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                   "email": "doej@state.gov",
                   "first_name": "John",
                   "last_name": "Doe",
+                  "username": "jdoe",
                 },
               }
             }

@@ -35,6 +35,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
               "email": "doej@state.gov",
               "first_name": "John",
               "last_name": "Doe",
+              "username": "jdoe",
             },
           }
         }
@@ -54,6 +55,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
             "email": "doej@state.gov",
             "first_name": "John",
             "last_name": "Doe",
+            "username": "jdoe",
           },
         }
       }

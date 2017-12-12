@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { ROUTER_LOCATION_OBJECT } from '../../../Constants/PropTypes';
 import { isCurrentPath } from '../../ProfileMenu/navigation';
 
-export const NavigationItem = ({ title, link, location, forceClass, navLinkClass }) => {
+export const NavLink = ({ title, link, location, forceClass, navLinkClass }) => {
   const isBold = isCurrentPath(location.pathname, link);
   return (
     <div className={`header-nav-link-container ${forceClass.length ? forceClass : ''} ${isBold && !forceClass.length ? 'is-bolded' : 'is-not-bolded'}`}>
@@ -20,7 +20,7 @@ export const NavigationItem = ({ title, link, location, forceClass, navLinkClass
   );
 };
 
-NavigationItem.propTypes = {
+NavLink.propTypes = {
   title: PropTypes.string.isRequired,
   link: PropTypes.string.isRequired,
   location: ROUTER_LOCATION_OBJECT.isRequired,
@@ -28,9 +28,9 @@ NavigationItem.propTypes = {
   navLinkClass: PropTypes.string,
 };
 
-NavigationItem.defaultProps = {
+NavLink.defaultProps = {
   forceClass: '',
   navLinkClass: '',
 };
 
-export default withRouter(NavigationItem);
+export default withRouter(NavLink);

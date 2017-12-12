@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
 import Inbox from '../Inbox';
 import Notifications from '../Notifications';
-import NavLink from '../NavLink/NavLink';
+import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
 
 const DesktopNav = ({ showAccountDropdown, isLoggedIn, shouldShowSearchBar,
@@ -76,9 +76,13 @@ DesktopNav.propTypes = {
   showAccountDropdown: PropTypes.bool.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
-  userProfile: USER_PROFILE.isRequired,
+  userProfile: USER_PROFILE,
   logout: PropTypes.func.isRequired,
   toggleSearchVisibility: PropTypes.func.isRequired,
+};
+
+DesktopNav.defaultProps = {
+  userProfile: {},
 };
 
 export default DesktopNav;
