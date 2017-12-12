@@ -7,6 +7,12 @@ export const bidderUserObject = {
     username: 'jdoe',
   },
   is_cdo: false,
+  bid_statistics: [
+    {
+      draft: 1,
+      submitted: 1,
+    },
+  ],
 };
 
 export const cdoUserObject = Object.assign({}, bidderUserObject, { is_cdo: true });
