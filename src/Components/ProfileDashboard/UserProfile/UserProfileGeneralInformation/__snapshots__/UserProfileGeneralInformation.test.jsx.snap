@@ -24,7 +24,16 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
     />
     <InformationDataPoint
       className="skill-code-data-point-container skill-code-data-point-container-skill"
-      content="INFORMATION MANAGEMENT (2880)"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              "INFORMATION MANAGEMENT (2880)",
+              "ADMINISTRATIVE SUPPORT (2080)",
+            ]
+          }
+        />
+      }
       sideBySide={false}
       title=""
       titleOnBottom={false}
@@ -57,7 +66,16 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
     />
     <InformationDataPoint
       className="skill-code-data-point-container skill-code-data-point-container-skill"
-      content="INFORMATION MANAGEMENT (2880)"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              "INFORMATION MANAGEMENT (2880)",
+              "ADMINISTRATIVE SUPPORT (2080)",
+            ]
+          }
+        />
+      }
       sideBySide={false}
       title=""
       titleOnBottom={false}

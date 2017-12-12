@@ -3,7 +3,7 @@ const bidderListObject = {
   results: [
     {
       id: 1,
-      skill_code: 'INFORMATION MANAGEMENT (2880)',
+      skill_code: ['INFORMATION MANAGEMENT (2880)', 'MULTIFUNCTIONAL (0060)'],
       user: {
         first_name: 'John',
         last_name: 'Doe',
@@ -19,7 +19,7 @@ const bidderListObject = {
     },
     {
       id: 2,
-      skill_code: 'INFORMATION MANAGEMENT (2880)',
+      skill_code: ['INFORMATION MANAGEMENT (2880)', 'MULTIFUNCTIONAL (0060)'],
       user: {
         first_name: 'Jane',
         last_name: 'Doe',
@@ -35,7 +35,7 @@ const bidderListObject = {
     },
     {
       id: 3,
-      skill_code: 'INFORMATION MANAGEMENT (2880)',
+      skill_code: ['INFORMATION MANAGEMENT (2880)', 'MULTIFUNCTIONAL (0060)'],
       user: {
         first_name: 'John',
         last_name: 'Smith',

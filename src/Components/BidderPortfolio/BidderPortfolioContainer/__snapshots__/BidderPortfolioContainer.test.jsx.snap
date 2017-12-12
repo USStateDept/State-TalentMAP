@@ -16,7 +16,10 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
           ],
           "id": 1,
           "is_cdo": false,
-          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "skill_code": Array [
+            "INFORMATION MANAGEMENT (2880)",
+            "MULTIFUNCTIONAL (0060)",
+          ],
           "user": Object {
             "email": "doej@state.gov",
             "first_name": "John",
@@ -32,7 +35,10 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
           ],
           "id": 2,
           "is_cdo": false,
-          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "skill_code": Array [
+            "INFORMATION MANAGEMENT (2880)",
+            "MULTIFUNCTIONAL (0060)",
+          ],
           "user": Object {
             "email": "doejane@state.gov",
             "first_name": "Jane",
@@ -48,7 +54,10 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
           ],
           "id": 3,
           "is_cdo": false,
-          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "skill_code": Array [
+            "INFORMATION MANAGEMENT (2880)",
+            "MULTIFUNCTIONAL (0060)",
+          ],
           "user": Object {
             "email": "smithj@state.gov",
             "first_name": "John",
