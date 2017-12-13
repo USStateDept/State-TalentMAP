@@ -1,0 +1,119 @@
+.bid-tracker {
+
+  .step-submitted {
+    left: -3%;
+
+    .rc-steps-item-tail {
+      width: 143%;
+    }
+  }
+
+  .step-in-panel {
+    right: -3%;
+  }
+
+  .step-handshake-offered {
+    right: -2%;
+
+    .rc-steps-item-tail {
+      width: 91%;
+    }
+  }
+
+  .step-handshake-accepted {
+    left: -2%;
+
+    .rc-steps-item-tail {
+      width: 138%;
+    }
+  }
+
+  .icon-complete {
+    .fa {
+      background: $color-green-dark-opacity50;
+      border: 1px solid $color-green-dark-opacity50;
+      border-radius: 21px;
+      color: $color-white;
+      padding: 5px;
+    }
+  }
+
+  .number-icon {
+    background: $blue-primary;
+    border: 1px solid $blue-primary;
+    border-radius: 35px;
+    color: $color-white;
+    font-size: 16px;
+    padding: 7px 13px;
+  }
+
+  .number-icon-incomplete {
+    background: gray;
+    border-color: gray;
+  }
+
+  .number-icon-needs-action {
+    background: $color-green-dark;
+    border-color: $color-green-dark;
+  }
+
+  .number-icon-is-current-no-action {
+    background: $blue-primary;
+    border-color: $blue-primary;
+  }
+
+  .rc-steps-item-tail {
+    left: -8px;
+    width: 106%;
+  }
+
+  .rc-steps-item-tail::after {
+    background: transparent;
+    border: 1.5px dashed $color-green-dark-opacity50;
+    color: $color-green-dark-opacity50;
+    height: 0;
+  }
+
+  .step-complete {
+    .rc-steps-icon {
+      left: -3px;
+      top: -3px;
+    }
+  }
+
+  .step-incomplete {
+    .rc-steps-icon {
+      left: -3px;
+      top: 2px;
+    }
+
+    .rc-steps-item-content {
+      margin-top: 14px;
+    }
+
+    .rc-steps-item-tail::after {
+      background: transparent;
+      border: 1.5px solid gray;
+      color: gray;
+      height: 0;
+    }
+  }
+
+  .pending-line {
+    .rc-steps-item-tail::after {
+      border: 1.5px dashed $blue-primary;
+      color: $blue-primary;
+    }
+  }
+
+  .step-current {
+    .rc-steps-item-content {
+      margin-left: 8px;
+    }
+    .number-icon {
+      font-size: 22px;
+      font-weight: bold;
+      padding: 9px 18px;
+    }
+  }
+}
