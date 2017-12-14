@@ -26,7 +26,11 @@ export class AccountDropdown extends Component {
     const userName = this.props.userProfile.user ? this.props.userProfile.user.username : '...';
     const avatar = getAssetPath('/assets/img/avatar.png');
     return (
-      <Dropdown className="account-dropdown" ref={(dropdown) => { this.dropdown = dropdown; }} >
+      <Dropdown
+        className="account-dropdown"
+        ref={(dropdown) => { this.dropdown = dropdown; }}
+        removeElement
+      >
         <DropdownTrigger href="/#">
           <img
             alt="avatar"

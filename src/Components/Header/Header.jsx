@@ -2,33 +2,65 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FontAwesome from 'react-fontawesome';
-import close from 'uswds/dist/img/close.svg'; // close X icon
+import { withRouter } from 'react-router';
+import { push } from 'react-router-redux';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { logoutRequest } from '../../login/actions';
-import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { toggleSearchBar } from '../../actions/showSearchBar';
+import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
-import AccountDropdown from '../AccountDropdown/AccountDropdown';
+import ResultsSearchHeader from '../ResultsSearchHeader';
+import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
+import { searchBarRoutes, searchBarRoutesForce } from './searchRoutes';
+import MobileNav from './MobileNav';
+import DesktopNav from './DesktopNav';
 import { getAssetPath } from '../../utilities';
-// import logo from '../../assets/logos/png/horizontal_color.png';
-import Inbox from './Inbox';
-import Notifications from './Notifications';
 
 export class Header extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      loopActive: false,
-      shuffleActive: false,
-    };
+    this.toggleSearchVisibility = this.toggleSearchVisibility.bind(this);
+    this.submitSearch = this.submitSearch.bind(this);
+    this.isOnSearchPage = this.isOnSearchPage.bind(this);
   }
 
   componentWillMount() {
     if (this.props.isAuthorized()) {
       this.props.fetchData();
+      this.matchCurrentPath(this.props.location);
+      this.checkPath();
     }
+  }
+
+  matchCurrentPath(historyObject) {
+    this.props.toggleSearchBarVisibility(false);
+    if (isCurrentPathIn(historyObject.pathname, searchBarRoutes)) {
+      this.props.toggleSearchBarVisibility(true);
+    }
+  }
+
+  checkPath() {
+    const { history } = this.props;
+    history.listen((historyObject) => {
+      this.matchCurrentPath(historyObject);
+    });
+  }
+
+  toggleSearchVisibility() {
+    const { shouldShowSearchBar, location } = this.props;
+    if (searchBarRoutesForce.indexOf(location.pathname) <= -1) {
+      this.props.toggleSearchBarVisibility(!shouldShowSearchBar);
+    }
+  }
+
+  submitSearch(q) {
+    this.props.onNavigateTo(`/results?q=${q.q}`);
+  }
+
+  isOnSearchPage() {
+    const { location } = this.props;
+    return isCurrentPath(location.pathname, '/results');
   }
 
   render() {
@@ -36,92 +68,59 @@ export class Header extends Component {
       login: {
         requesting,
       },
+      client: {
+        token,
+      },
+      shouldShowSearchBar, logout, userProfile,
     } = this.props;
 
     const logo = getAssetPath('/assets/logos/png/horizontal_color.png');
 
-    let showLogin = (<Link to="login" id="login-desktop">Login</Link>);
+    let isLoggedIn = false;
     let signedInAs = null;
-    const { logout } = this.props;
-    if (this.props.client.token && !requesting) {
-      const { userProfile } = this.props;
-      showLogin = (
-        <AccountDropdown
-          userProfile={this.props.userProfile}
-          logoutRequest={logout}
-        />);
+    if (token && !requesting) {
+      isLoggedIn = true;
       if (userProfile.user && userProfile.user.username) {
-        signedInAs = `Signed in as ${userProfile.user.username}`;
+        signedInAs = userProfile.user.username;
       }
     }
 
-    // we should only show the Inbox and Notifications icons if the user is logged in
-    const showAlerts = !!this.props.client.token;
+    const isOnSearchPage = this.isOnSearchPage();
 
     return (
-      <header className="usa-header usa-header-extended tm-header" role="banner">
-        <ToggleContent />
-        <GovBanner />
-        <div className="usa-navbar">
-          <button className="usa-menu-btn">Menu</button>
-          <div className="usa-logo" id="logo">
-            <div className="usa-logo-text">
-              <Link to="/">
-                <img src={logo} alt="TalentMAP logo" />
-              </Link>
+      <div className={shouldShowSearchBar ? 'search-bar-visible' : 'search-bar-hidden'}>
+        <header className="usa-header usa-header-extended tm-header" role="banner">
+          <ToggleContent />
+          <GovBanner />
+          <div className="usa-navbar">
+            <button className="usa-menu-btn">Menu</button>
+            <div className="usa-logo" id="logo">
+              <div className="usa-logo-text">
+                <Link to="/">
+                  <img src={logo} alt="TalentMAP logo" />
+                </Link>
+              </div>
             </div>
+            <DesktopNav
+              isLoggedIn={isLoggedIn}
+              shouldShowSearchBar={shouldShowSearchBar}
+              logout={logout}
+              userProfile={userProfile}
+              toggleSearchVisibility={this.toggleSearchVisibility}
+            />
           </div>
-        </div>
-        <nav className="usa-nav">
-          <div className="usa-nav-inner">
-            <button className="usa-nav-close">
-              <img src={close} alt="close" />
-            </button>
-            <div className="usa-nav-secondary">
-              <ul className="usa-unstyled-list usa-nav-secondary-links mobile-nav">
-                <li className="mobile-nav-only">
-                  {signedInAs}
-                </li>
-                <hr className="mobile-nav-only" />
-                <li>
-                  <Link to="/results"><FontAwesome name="search" /> Search</Link>
-                </li>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <a href="https://github.com/18F/State-TalentMAP">About</a>
-                </li>
-                <li>
-                  <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
-                </li>
-                <span className="usa-unstyled-list mobile-nav-only">
-                  <hr />
-                  <li>
-                    <Link to="/profile">Profile</Link>
-                  </li>
-                  <li>
-                    <Link to="login" id="login-mobile" onClick={logout}>Logout</Link>
-                  </li>
-                </span>
-                <span className="desktop-nav-only">
-                  <li>
-                    {showLogin}
-                    {
-                      showAlerts &&
-                        <span>
-                          <Inbox />
-                          <Notifications />
-                        </span>
-                    }
-                  </li>
-                </span>
-              </ul>
-            </div>
+          <MobileNav user={signedInAs} logout={logout} showLogin={!isLoggedIn} />
+          <div className="usa-overlay" />
+        </header>
+        {
+          shouldShowSearchBar && !isOnSearchPage &&
+          <div className="results results-search-bar-homepage">
+            <ResultsSearchHeader
+              onUpdate={this.submitSearch}
+            />
           </div>
-        </nav>
-        <div className="usa-overlay" />
-      </header>
+        }
+      </div>
     );
   }
 }
@@ -138,6 +137,11 @@ Header.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
   logout: PropTypes.func,
+  onNavigateTo: PropTypes.func.isRequired,
+  location: ROUTER_LOCATION_OBJECT.isRequired,
+  toggleSearchBarVisibility: PropTypes.func.isRequired,
+  shouldShowSearchBar: PropTypes.bool.isRequired,
+  history: PropTypes.shape({}).isRequired,
 };
 
 Header.defaultProps = {
@@ -150,13 +154,16 @@ const mapStateToProps = state => ({
   login: state.login,
   client: state.client,
   userProfile: state.userProfile,
+  shouldShowSearchBar: state.shouldShowSearchBar,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
   logout: () => dispatch(logoutRequest()),
+  onNavigateTo: dest => dispatch(push(dest)),
+  toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
 });
 
-const connected = connect(mapStateToProps, mapDispatchToProps)(Header);
+const connected = connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
 
 export default connected;

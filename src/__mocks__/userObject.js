@@ -4,6 +4,7 @@ export const bidderUserObject = {
     first_name: 'John',
     last_name: 'Doe',
     email: 'doej@state.gov',
+    username: 'jdoe',
   },
   is_cdo: false,
   bid_statistics: [
