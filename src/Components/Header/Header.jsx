@@ -10,12 +10,12 @@ import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
-import logo from '../../assets/logos/png/horizontal_color_thin.png';
 import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
+import { getAssetPath } from '../../utilities';
 
 export class Header extends Component {
   constructor(props) {
@@ -73,6 +73,8 @@ export class Header extends Component {
       },
       shouldShowSearchBar, logout, userProfile,
     } = this.props;
+
+    const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
 
     let isLoggedIn = false;
     let signedInAs = null;
