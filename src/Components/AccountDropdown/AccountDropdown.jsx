@@ -24,7 +24,11 @@ export class AccountDropdown extends Component {
   render() {
     const userName = this.props.userProfile.user ? this.props.userProfile.user.username : '...';
     return (
-      <Dropdown className="account-dropdown" ref={(dropdown) => { this.dropdown = dropdown; }} >
+      <Dropdown
+        className="account-dropdown"
+        ref={(dropdown) => { this.dropdown = dropdown; }}
+        removeElement
+      >
         <DropdownTrigger href="/#">
           <img
             alt="avatar"
