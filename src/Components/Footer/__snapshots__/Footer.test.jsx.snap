@@ -95,7 +95,7 @@ exports[`Footer Component matches snapshot 1`] = `
           <img
             alt="TalentMAP logo"
             className="usa-footer-logo-img-tm logo-img-tm"
-            src="/assets/logos/png/horizontal_color.png"
+            src="/assets/logos/png/horizontal_color_thin.png"
           />
         </div>
       </div>
