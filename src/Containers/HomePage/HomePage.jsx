@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
-import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import Spinner from '../../Components/Spinner';
@@ -34,11 +33,6 @@ class HomePage extends Component {
       userProfileFavoritePositionHasErrored } = this.props;
     return (
       <div className="home content-container">
-        <div className="results results-search-bar-homepage">
-          <ResultsSearchHeader
-            onUpdate={this.submitSearch}
-          />
-        </div>
         <div className="homepage-positions-section-container">
           {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&
