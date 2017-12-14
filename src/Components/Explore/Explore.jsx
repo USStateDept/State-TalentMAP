@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import ExploreRegionDropdown from '../../Components/ExploreRegionDropdown/ExploreRegionDropdown';
+import { getAssetPath } from '../../utilities';
 
 class Explore extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class Explore extends Component {
   render() {
     const { filters, onRegionSubmit } = this.props;
     const { selectedRegion } = this.state;
+    const map = getAssetPath(`/assets/img/gray-world-map-${selectedRegion.value}.png`);
     return (
       <div className="explore-section">
         <div className="explore-section-inner usa-grid-full">
@@ -30,7 +32,7 @@ class Explore extends Component {
           <div className="explore-map-container">
             <img
               alt="world map"
-              src={`/assets/img/gray-world-map-${selectedRegion.value}.png`}
+              src={map}
               className="explore-map"
             />
           </div>

@@ -10,7 +10,8 @@ import { logoutRequest } from '../../login/actions';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import AccountDropdown from '../AccountDropdown/AccountDropdown';
-import logo from '../../assets/logos/png/horizontal_color.png';
+import { getAssetPath } from '../../utilities';
+// import logo from '../../assets/logos/png/horizontal_color.png';
 import Inbox from './Inbox';
 import Notifications from './Notifications';
 
@@ -36,6 +37,8 @@ export class Header extends Component {
         requesting,
       },
     } = this.props;
+
+    const logo = getAssetPath('/assets/logos/png/horizontal_color.png');
 
     let showLogin = (<Link to="login" id="login-desktop">Login</Link>);
     let signedInAs = null;

@@ -1,6 +1,11 @@
+/* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getAssetPath } from '../../utilities';
 import logo from '../../assets/logos/png/horizontal_color.png';
+
+const dosFooterLogo = getAssetPath('/assets/img/rsz_dos-seal.png');
+const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_color.png');
 
 const Footer = () => (
   <footer className="usa-footer usa-footer-medium tm-footer" role="contentinfo">
@@ -36,13 +41,13 @@ const Footer = () => (
         <div className="usa-footer-logo usa-width-one-half">
           <img
             className="usa-footer-logo-img logo-img-seal"
-            src="/assets/img/rsz_dos-seal.png"
+            src={dosFooterLogo}
             alt="DOS Seal"
           />
           <div className="usa-footer-logo-img-tm-container">
             <img
               className="usa-footer-logo-img-tm logo-img-tm"
-              src={logo}
+              src={tmFooterLogo}
               alt="TalentMAP logo"
             />
           </div>
