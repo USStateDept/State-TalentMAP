@@ -2,7 +2,6 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import { VALID_PARAMS } from './Constants/EndpointParams';
-// import paths from '../config/paths';
 
 const scroll = Scroll.animateScroll;
 
