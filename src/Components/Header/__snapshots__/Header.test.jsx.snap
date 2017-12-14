@@ -31,7 +31,7 @@ exports[`Header matches snapshot when logged in 1`] = `
           >
             <img
               alt="TalentMAP logo"
-              src="/assets/logos/png/horizontal_color.png"
+              src="/assets/logos/png/horizontal_color_thin.png"
             />
           </Link>
         </div>
@@ -93,7 +93,7 @@ exports[`Header matches snapshot when logged out 1`] = `
           >
             <img
               alt="TalentMAP logo"
-              src="/assets/logos/png/horizontal_color.png"
+              src="/assets/logos/png/horizontal_color_thin.png"
             />
           </Link>
         </div>

@@ -74,7 +74,7 @@ export class Header extends Component {
       shouldShowSearchBar, logout, userProfile,
     } = this.props;
 
-    const logo = getAssetPath('/assets/logos/png/horizontal_color.png');
+    const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
 
     let isLoggedIn = false;
     let signedInAs = null;
