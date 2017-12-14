@@ -5,7 +5,7 @@ import { getAssetPath } from '../../utilities';
 import logo from '../../assets/logos/png/horizontal_color.png';
 
 const dosFooterLogo = getAssetPath('/assets/img/rsz_dos-seal.png');
-const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_color.png');
+const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
 
 const Footer = () => (
   <footer className="usa-footer usa-footer-medium tm-footer" role="contentinfo">
