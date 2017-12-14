@@ -8,7 +8,7 @@ exports[`NotificationItemComponent matches snapshot 1`] = `
     className=""
     content="content"
     sideBySide={false}
-    title="about 2 months ago"
+    title="2 months ago"
     titleOnBottom={true}
   />
 </div>

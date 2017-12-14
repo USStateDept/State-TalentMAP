@@ -16,6 +16,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
         labelSrOnly={true}
         name=""
         onCheckBoxClick={[Function]}
+        small={true}
         title=""
         value={false}
       />
@@ -23,17 +24,27 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
     <div
       className="general-information-container"
     >
-      <CurrentUserGeneralInformation
+      <UserProfileGeneralInformation
         showEditLink={false}
         useGroup={true}
         userProfile={
           Object {
+            "bid_statistics": Array [
+              Object {
+                "draft": 1,
+                "submitted": 1,
+              },
+            ],
             "is_cdo": false,
-            "skill_code": "INFORMATION MANAGEMENT (2880)",
+            "skill_code": Array [
+              "INFORMATION MANAGEMENT (2880)",
+              "ADMINISTRATIVE SUPPORT (2080)",
+            ],
             "user": Object {
               "email": "doej@state.gov",
               "first_name": "John",
               "last_name": "Doe",
+              "username": "jdoe",
             },
           }
         }
@@ -44,15 +55,25 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
     className="usa-width-one-fourth grid-item-section
           current-user-personal-information-grid-container"
   >
-    <CurrentUserPersonalInformation
+    <UserProfilePersonalInformation
       userProfile={
         Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
           "is_cdo": false,
-          "skill_code": "INFORMATION MANAGEMENT (2880)",
+          "skill_code": Array [
+            "INFORMATION MANAGEMENT (2880)",
+            "ADMINISTRATIVE SUPPORT (2080)",
+          ],
           "user": Object {
             "email": "doej@state.gov",
             "first_name": "John",
             "last_name": "Doe",
+            "username": "jdoe",
           },
         }
       }
@@ -61,13 +82,17 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
   <div
     className="usa-width-one-fourth grid-item-section"
   >
-    <CurrentUserBidInformation />
+    <UserProfileBidInformation
+      denominator={10}
+      draft={1}
+      submitted={1}
+    />
   </div>
   <div
     className="usa-width-one-fourth grid-item-section"
   >
     <BidderPortfolioViewMore
-      className="white-button"
+      className="tm-button-alt"
       useLink={false}
     />
   </div>

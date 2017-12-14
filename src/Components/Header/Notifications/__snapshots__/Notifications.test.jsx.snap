@@ -3,9 +3,11 @@
 exports[`NotificationsComponent matches snapshot 1`] = `
 <IconAlert
   alt="Notifications"
+  disabled={false}
   limit={5}
   link="/profile/dashboard/"
   number={4}
+  title="View your notifications"
   type="globe"
   useLimit={true}
 />

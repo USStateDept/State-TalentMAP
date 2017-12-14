@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
+<div
+  className="current-user-top current-user-section-container"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <Status
+      hideText={false}
+    />
+    <ProfilePicture
+      alt="avatar"
+      className=""
+      source="/assets/img/avatar.png"
+    />
+    <EditProfile />
+    <PositionInformation
+      className="current-user-name"
+      icon=""
+      small={true}
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              "INFORMATION MANAGEMENT (2880)",
+              "ADMINISTRATIVE SUPPORT (2080)",
+            ]
+          }
+        />
+      }
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLink is true 1`] = `
+<div
+  className="current-user-top current-user-section-container"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <Status
+      hideText={false}
+    />
+    <ProfilePicture
+      alt="avatar"
+      className=""
+      source="/assets/img/avatar.png"
+    />
+    <EditProfile />
+    <PositionInformation
+      className="current-user-name"
+      icon=""
+      small={true}
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              "INFORMATION MANAGEMENT (2880)",
+              "ADMINISTRATIVE SUPPORT (2080)",
+            ]
+          }
+        />
+      }
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
+    />
+  </div>
+</div>
+`;
+
+exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup is true 1`] = `
+<div
+  className="current-user-top current-user-section-container"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <Status
+      hideText={false}
+    />
+    <ProfilePicture
+      alt="avatar"
+      className=""
+      source="/assets/img/avatar.png"
+    />
+    <EditProfile />
+    <PositionInformation
+      className="current-user-name"
+      icon=""
+      small={true}
+      title="Doe, John"
+    />
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Generalist • F2"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
+  </div>
+</div>
+`;

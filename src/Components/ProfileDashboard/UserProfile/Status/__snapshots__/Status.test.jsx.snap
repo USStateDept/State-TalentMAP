@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatusComponent matches snapshot 1`] = `
+<div
+  className="status-container"
+>
+  <Connect(StaticDevContent)>
+    <StatusCircle />
+     
+    Status: On-Post
+  </Connect(StaticDevContent)>
+</div>
+`;

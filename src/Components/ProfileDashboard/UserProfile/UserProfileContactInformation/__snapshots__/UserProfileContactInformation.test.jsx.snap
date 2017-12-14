@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
+<div
+  className="current-user-bottom current-user-section-container"
+>
+  <div
+    className="section-padded-inner-container"
+  >
+    <PositionInformation
+      className=""
+      icon=""
+      small={true}
+      title="Contact Information"
+    />
+    <InformationDataPoint
+      className=""
+      content="doej@state.gov"
+      sideBySide={false}
+      title="Email Address"
+      titleOnBottom={false}
+    />
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className=""
+        content="+301-779-0379 ext. 3"
+        sideBySide={false}
+        title="Office Number"
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className=""
+        content="+240-331-7189"
+        sideBySide={false}
+        title="Personal Contact Number"
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className=""
+        content="1234 Washington St. NW, Washington, DC 20009"
+        sideBySide={false}
+        title="Post/Office Address"
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
+  </div>
+</div>
+`;

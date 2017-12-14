@@ -2,11 +2,12 @@
 
 exports[`IconAlertComponent matches snapshot 1`] = `
 <div
-  className="icon-alert-container"
+  className="icon-alert-container "
 >
   <Link
     replace={false}
     role="button"
+    title="title"
     to="/profile/"
   >
     <div
@@ -31,11 +32,12 @@ exports[`IconAlertComponent matches snapshot 1`] = `
 
 exports[`IconAlertComponent matches snapshot when number = 0 1`] = `
 <div
-  className="icon-alert-container"
+  className="icon-alert-container "
 >
   <Link
     replace={false}
     role="button"
+    title="title"
     to="/profile/"
   >
     <div
@@ -55,11 +57,12 @@ exports[`IconAlertComponent matches snapshot when number = 0 1`] = `
 
 exports[`IconAlertComponent matches snapshot with a number greater than the limit 1`] = `
 <div
-  className="icon-alert-container"
+  className="icon-alert-container "
 >
   <Link
     replace={false}
     role="button"
+    title="title"
     to="/profile/"
   >
     <div

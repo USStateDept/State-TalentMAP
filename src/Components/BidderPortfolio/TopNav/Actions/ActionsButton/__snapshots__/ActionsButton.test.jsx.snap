@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActionsButtonComponent matches snapshot 1`] = `
-<button
-  className="white-button"
->
-  Actions...
-</button>
+<Connect(StaticDevContent)>
+  <button
+    className="tm-button-alt"
+  >
+    Actions...
+  </button>
+</Connect(StaticDevContent)>
 `;

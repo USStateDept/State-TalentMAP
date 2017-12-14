@@ -24,7 +24,11 @@ export class AccountDropdown extends Component {
   render() {
     const userName = this.props.userProfile.user ? this.props.userProfile.user.username : '...';
     return (
-      <Dropdown className="account-dropdown" ref={(dropdown) => { this.dropdown = dropdown; }} >
+      <Dropdown
+        className="account-dropdown"
+        ref={(dropdown) => { this.dropdown = dropdown; }}
+        removeElement
+      >
         <DropdownTrigger href="/#">
           <img
             alt="avatar"
@@ -35,7 +39,8 @@ export class AccountDropdown extends Component {
         </DropdownTrigger>
         <DropdownContent>
           <div className="account-dropdown--identity account-dropdown--segment">
-            Signed in as <strong>{userName}</strong>
+            <div>Signed in as</div>
+            <strong>{userName}</strong>
           </div>
           <div className="account-dropdown--identity account-dropdown--segment">
             <Link to="/profile/dashboard" onClick={this.hideDropdown}>Profile</Link>

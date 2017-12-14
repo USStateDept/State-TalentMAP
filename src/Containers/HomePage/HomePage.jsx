@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY, HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
-import ResultsSearchHeader from '../../Components/ResultsSearchHeader/ResultsSearchHeader';
 import Explore from '../../Components/Explore/Explore';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
@@ -35,11 +34,6 @@ class HomePage extends Component {
       userProfileFavoritePositionHasErrored } = this.props;
     return (
       <div className="home content-container">
-        <div className="results results-search-bar-homepage">
-          <ResultsSearchHeader
-            onUpdate={this.submitSearch}
-          />
-        </div>
         <Explore
           filters={filters}
           onRegionSubmit={this.submitRegion}

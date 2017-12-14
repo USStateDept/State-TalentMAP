@@ -4,35 +4,59 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full current-user bidder-portfolio-card"
 >
-  <CurrentUserGeneralInformation
+  <UserProfileGeneralInformation
     showEditLink={false}
     useGroup={true}
     userProfile={
       Object {
+        "bid_statistics": Array [
+          Object {
+            "draft": 1,
+            "submitted": 1,
+          },
+        ],
         "is_cdo": false,
-        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "skill_code": Array [
+          "INFORMATION MANAGEMENT (2880)",
+          "ADMINISTRATIVE SUPPORT (2080)",
+        ],
         "user": Object {
           "email": "doej@state.gov",
           "first_name": "John",
           "last_name": "Doe",
+          "username": "jdoe",
         },
       }
     }
   />
-  <CurrentUserPersonalInformation
+  <UserProfilePersonalInformation
     userProfile={
       Object {
+        "bid_statistics": Array [
+          Object {
+            "draft": 1,
+            "submitted": 1,
+          },
+        ],
         "is_cdo": false,
-        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "skill_code": Array [
+          "INFORMATION MANAGEMENT (2880)",
+          "ADMINISTRATIVE SUPPORT (2080)",
+        ],
         "user": Object {
           "email": "doej@state.gov",
           "first_name": "John",
           "last_name": "Doe",
+          "username": "jdoe",
         },
       }
     }
   />
-  <CurrentUserBidInformation />
+  <UserProfileBidInformation
+    denominator={10}
+    draft={1}
+    submitted={1}
+  />
   <BidderPortfolioViewMore
     className="unstyled-button"
     useLink={true}

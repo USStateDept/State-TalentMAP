@@ -32,14 +32,14 @@ class ResultsViewBy extends Component {
     return (
       <div className="results-viewby-container">
         <div className="view-label">View:</div>
-        <div className={`unstyled-button-container view-icon ${this.isSelected('card')}`}>
-          <button id="select-card" className="usa-button" onClick={this.selectCard}>
+        <div className={`view-icon ${this.isSelected('card')}`}>
+          <button className="unstyled-button" id="select-card" onClick={this.selectCard}>
             <span className="usa-sr-only">Card view</span>
             <FontAwesome name="th" />
           </button>
         </div>
-        <div className={`unstyled-button-container view-icon view-icon-border ${this.isSelected('grid')}`}>
-          <button id="select-grid" className="usa-button" onClick={this.selectGrid}>
+        <div className={`view-icon view-icon-border ${this.isSelected('grid')}`}>
+          <button className="unstyled-button" id="select-grid" onClick={this.selectGrid}>
             <span className="usa-sr-only">Grid view</span>
             <FontAwesome name="th-list" />
           </button>

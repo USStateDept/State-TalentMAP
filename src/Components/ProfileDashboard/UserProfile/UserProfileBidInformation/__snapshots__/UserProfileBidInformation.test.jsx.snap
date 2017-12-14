@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfileBidInformationComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full current-user-section-container current-user-bid-information"
+>
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    <div
+      className="bid-count-container bid-count-container-left"
+    >
+      <InformationDataPoint
+        className="skill-code-data-point-container bid-count-left"
+        content="1/10"
+        sideBySide={false}
+        title="Draft Bids"
+        titleOnBottom={false}
+      />
+    </div>
+    <div
+      className="bid-count-container bid-count-container-right"
+    >
+      <InformationDataPoint
+        className="skill-code-data-point-container bid-count-right"
+        content="1/10"
+        sideBySide={false}
+        title="Submitted Bids"
+        titleOnBottom={false}
+      />
+    </div>
+  </div>
+</div>
+`;

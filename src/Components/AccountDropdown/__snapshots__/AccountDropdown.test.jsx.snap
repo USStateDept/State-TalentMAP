@@ -3,6 +3,7 @@
 exports[`AccountDropdown matches snapshot 1`] = `
 <Dropdown
   className="account-dropdown"
+  removeElement={true}
 >
   <DropdownTrigger
     className=""
@@ -26,7 +27,9 @@ exports[`AccountDropdown matches snapshot 1`] = `
     <div
       className="account-dropdown--identity account-dropdown--segment"
     >
-      Signed in as 
+      <div>
+        Signed in as
+      </div>
       <strong>
         ...
       </strong>
