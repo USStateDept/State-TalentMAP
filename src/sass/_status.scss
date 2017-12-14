@@ -1,0 +1,10 @@
+.status-container {
+  font-size: 13px;
+  margin-bottom: 10px;
+  margin-left: -5px; // centers more cleanly
+
+  .fa {
+    color: $color-green;
+    margin-right: 5px;
+  }
+}

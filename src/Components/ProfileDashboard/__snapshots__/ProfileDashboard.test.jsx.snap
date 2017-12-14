@@ -53,7 +53,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
           className="usa-width-one-whole user-dashboard-section cdo-section"
         >
           <Connect(StaticDevContent)>
-            <CDOInfo
+            <ExternalUserStatus
               name="Leah Shadtrach"
             />
           </Connect(StaticDevContent)>

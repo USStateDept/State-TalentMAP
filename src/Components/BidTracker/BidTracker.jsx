@@ -1,31 +1,24 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import BidSteps from './BidStep';
+import PropTypes from 'prop-types';
+import BidTrackerCardList from './BidTrackerCardList';
+import Spinner from '../Spinner';
 
-const BidList = () => (
-  <div className="bid-stepper bid-tracker" style={{ padding: '50px' }}>
-    <div className="usa-grid-full">
-      <div className="usa-width-one-half">
-          Bid 1 <a>Edit</a> | Submitted <button>View Position</button>
-      </div>
-      <div className="usa-width-one-half">
-        <div style={{ float: 'right' }}>
-          <button>Actions</button>
-        </div>
-      </div>
+const BidTracker = ({ bidList, bidListIsLoading }) => (
+  <div className="bid-tracker-page" style={{ position: 'relative', padding: '20px' }}>
+    <div className="hello-greeting">
+      Bid Tracker
     </div>
-    <div className="usa-grid-full">
-      <div className="usa-width-one-half">
-          7/29/17
-        </div>
-    </div>
-    <div className="usa-grid-full" style={{ marginTop: '20px' }}>
-      <BidSteps bid={{ status: 'submitted' }} />
-    </div>
+    {
+      bidListIsLoading ?
+        <Spinner type="homepage-position-results" size="big" /> :
+        <BidTrackerCardList bids={bidList.results} />
+    }
   </div>
   );
 
-BidList.propTypes = {
+BidTracker.propTypes = {
+  bidList: PropTypes.arrayOf().isRequired,
+  bidListIsLoading: PropTypes.bool.isRequired,
 };
 
-export default BidList;
+export default BidTracker;

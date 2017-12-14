@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CDOInfoComponent matches snapshot 1`] = `
+exports[`ExternalUserStatusComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full cdo-container"
 >

@@ -1,0 +1,16 @@
+.organization-stamp {
+  .abbreviation-stamp {
+    background: $color-gray-light;
+    border-radius: 35px;
+    font-size: 19px;
+    font-weight: bold;
+    padding: 8px 5px;
+    text-align: center;
+    width: 40px;
+  }
+
+  .organization-name-container {
+    font-size: 16px;
+    padding: 8px 0 0 5px;
+  }
+}
