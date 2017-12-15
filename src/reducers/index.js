@@ -29,6 +29,7 @@ import { notificationsHasErrored, notificationsIsLoading, notifications,
   notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount } from './notifications';
 import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
   bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored } from './bidderPortfolio';
+import shouldShowSearchBar from './showSearchBar';
 
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
@@ -117,5 +118,6 @@ export default combineReducers({
   bidderPortfolioCountsIsLoading,
   bidderPortfolioCountsHasErrored,
   shouldShowStaticContent,
+  shouldShowSearchBar,
   router: routerReducer,
 });

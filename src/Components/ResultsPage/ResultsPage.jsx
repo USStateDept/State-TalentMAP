@@ -35,16 +35,19 @@ class Results extends Component {
             newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
-            postSearchResults, postSearchIsLoading, postSearchHasErrored }
+            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
       <div className="results content-container">
-        <ResultsSearchHeader
-          onUpdate={onQueryParamUpdate}
-          defaultKeyword={defaultKeyword}
-          defaultLocation={defaultLocation}
-        />
+        {
+          shouldShowSearchBar &&
+          <ResultsSearchHeader
+            onUpdate={onQueryParamUpdate}
+            defaultKeyword={defaultKeyword}
+            defaultLocation={defaultLocation}
+          />
+        }
         <div className="usa-grid-full top-nav">
           <div className="usa-width-one-third reset-compare-link">
             <ResetComparisons onToggle={this.onChildToggle} />
@@ -144,6 +147,7 @@ Results.propTypes = {
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
+  shouldShowSearchBar: PropTypes.bool.isRequired,
 };
 
 Results.defaultProps = {
