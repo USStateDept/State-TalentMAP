@@ -12,7 +12,12 @@ const BidSteps = ({ bid }) => {
       {
       BID_STEPS.map(status => (
         <Step
-          className={`${status.className} ${bidData[status.prop].isCurrent ? 'step-current' : ''} ${bidData[status.prop].isPendingLine ? 'pending-line' : ''} ${bidData[status.prop].isComplete ? 'step-complete' : 'step-incomplete'}`}
+          className={`
+            ${status.className}
+            ${bidData[status.prop].isCurrent ? 'step-current' : ''}
+            ${bidData[status.prop].isPendingLine ? 'pending-line' : ''}
+            ${bidData[status.prop].isComplete ? 'step-complete' : 'step-incomplete'}
+          `}
           title={bidData[status.prop].title}
           icon={
             <BidStepIcon

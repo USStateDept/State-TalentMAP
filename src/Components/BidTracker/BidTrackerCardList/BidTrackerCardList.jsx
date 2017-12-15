@@ -6,7 +6,7 @@ const BidTrackerCardList = ({ bids }) => (
   <div>
     {
       bids.map(bid => (
-        <BidTrackerCard bid={bid} />
+        <BidTrackerCard key={bid.id} bid={bid} />
       ))
     }
   </div>
