@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Steps, { Step } from 'rc-steps';
+import shortId from 'shortid';
 import bidClassesFromCurrentStatus from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
+import { BID_OBJECT } from '../../../Constants/PropTypes';
 
 const BidSteps = ({ bid }) => {
   const bidData = bidClassesFromCurrentStatus(bid).stages;
@@ -12,6 +13,7 @@ const BidSteps = ({ bid }) => {
       {
       BID_STEPS.map(status => (
         <Step
+          key={shortId.generate()}
           className={`
             ${status.className}
             ${bidData[status.prop].isCurrent ? 'step-current' : ''}
@@ -34,7 +36,7 @@ const BidSteps = ({ bid }) => {
 };
 
 BidSteps.propTypes = {
-  bid: PropTypes.shape({}).isRequired,
+  bid: BID_OBJECT.isRequired,
 };
 
 export default BidSteps;

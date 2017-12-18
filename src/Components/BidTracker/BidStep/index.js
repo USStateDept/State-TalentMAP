@@ -1,1 +1,1 @@
-export { default } from './BidStep';
+export { default } from './BidSteps';

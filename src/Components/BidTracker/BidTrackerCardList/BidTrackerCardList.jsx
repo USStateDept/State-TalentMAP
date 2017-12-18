@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { BID_RESULTS } from '../../../Constants/PropTypes';
 import BidTrackerCard from '../BidTrackerCard';
 
 const BidTrackerCardList = ({ bids }) => (
@@ -13,7 +13,7 @@ const BidTrackerCardList = ({ bids }) => (
 );
 
 BidTrackerCardList.propTypes = {
-  bids: PropTypes.arrayOf().isRequired,
+  bids: BID_RESULTS.isRequired,
 };
 
 export default BidTrackerCardList;

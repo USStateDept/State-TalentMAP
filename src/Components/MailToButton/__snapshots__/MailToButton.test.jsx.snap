@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MailToButtonComponent matches snapshot 1`] = `
+<div
+  className="mail-to-button"
+>
+  <FontAwesome
+    name="envelope-o"
+  />
+</div>
+`;

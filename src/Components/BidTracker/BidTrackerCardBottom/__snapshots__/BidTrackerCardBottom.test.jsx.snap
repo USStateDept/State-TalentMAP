@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bid-tracker-card-bottom"
+>
+  <div
+    className="bid-tracker-ao-container"
+  >
+    <ExternalUserStatus
+      name="Leah Shadtrach"
+      showMail={true}
+      type="ao"
+    />
+  </div>
+  <div
+    className="bid-tracker-organization-container"
+  >
+    <OrganizationStamp
+      abbreviation="AF"
+      name="(AF) BUREAU OF AFRICAN AFFAIRS"
+      showMail={true}
+    />
+  </div>
+</div>
+`;

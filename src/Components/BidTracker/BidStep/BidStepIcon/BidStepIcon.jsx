@@ -8,7 +8,7 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number }) => (
         ?
           <span className={`
             number-icon
-            ${!needsAction && !isComplete ? 'number-icon-incomplete' : ''}
+            ${!needsAction ? 'number-icon-incomplete' : ''}
             ${!needsAction && isCurrent ? 'number-icon-is-current-no-action' : ''}
             ${needsAction && isCurrent ? 'number-icon-needs-action' : ''}
           `}

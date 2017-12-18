@@ -8,19 +8,46 @@
 }
 
 .bid-tracker-overlay-alert {
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: .9;
-    background: black;
+  background: $color-black;
+  color: $color-white;
+  height: 100%;
+  left: 0;
+  opacity: .9;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .bid-tracker {
 
+  background: $color-white;
+  border: 1px solid $color-gray-light;
   font-size: 16px;
+  margin-bottom: 30px;
+  min-width: 775px;
+
+  .bid-tracker-ao-container {
+    float: left;
+    width: 290px;
+  }
+
+  .bid-tracker-organization-container {
+    float: left;
+    margin-left: 50px;
+    width: 400px;
+  }
+
+  .bid-tracker-title-container {
+    margin-bottom: 50px;
+  }
+
+  .bid-tracker-card-action-container {
+    float: right;
+  }
+
+  .bid-tracker-bid-steps-container {
+    padding-right: 10%;
+  }
 
   .bid-tracker-card-title-text {
     float: left;

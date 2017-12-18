@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionsLinkComponent matches snapshot 1`] = `
+<div
+  className="actions-link-container"
+>
+  <div
+    className="actions-link-text"
+  >
+    Actions
+  </div>
+  <div
+    className="actions-link-icon"
+  >
+    <FontAwesome
+      name="ellipsis-v"
+    />
+  </div>
+</div>
+`;

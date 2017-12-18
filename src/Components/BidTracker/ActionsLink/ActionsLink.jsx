@@ -1,6 +1,7 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
+// This is static for now, until we decide how to display the actions link
 const ActionsLink = () => (
   <div className="actions-link-container">
     <div className="actions-link-text">
