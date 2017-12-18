@@ -6,12 +6,12 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number }) => (
   <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
     { !isComplete
         ?
-          <span className={`
-            number-icon
-            ${!needsAction ? 'number-icon-incomplete' : ''}
-            ${!needsAction && isCurrent ? 'number-icon-is-current-no-action' : ''}
-            ${needsAction && isCurrent ? 'number-icon-needs-action' : ''}
-          `}
+          <span
+            className={`number-icon
+              ${!needsAction ? 'number-icon-incomplete' : ''}
+              ${!needsAction && isCurrent ? 'number-icon-is-current-no-action' : ''}
+              ${needsAction && isCurrent ? 'number-icon-needs-action' : ''}
+            `}
           >
             {number}
           </span> :
