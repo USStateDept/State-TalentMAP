@@ -5,12 +5,7 @@ exports[`BidStepIconComponent matches snapshot when isComplete is false 1`] = `
   className="icon-incomplete"
 >
   <span
-    className="
-              number-icon
-              
-              
-              number-icon-needs-action
-            "
+    className="number-icon number-icon-needs-action"
   >
     3
   </span>
