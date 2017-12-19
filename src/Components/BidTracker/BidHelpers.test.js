@@ -9,7 +9,7 @@ import {
   IN_PANEL_PROP,
   SUBMITTED_PROP,
 } from '../../Constants/BidData';
-import bidClassesFromCurrentStatus from './BidHelpers';
+import { bidClassesFromCurrentStatus } from './BidHelpers';
 import bidListObject from '../../__mocks__/bidListObject';
 
 // Test that the result of each status prop is defined

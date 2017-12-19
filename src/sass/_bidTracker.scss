@@ -1,3 +1,6 @@
+// set a min-width for the bid tracker card, since it is not optimized for mobile
+$card-width: 775px;
+
 .bid-tracker-page {
   padding: 20px;
   position: relative;
@@ -8,14 +11,43 @@
 }
 
 .bid-tracker-overlay-alert {
-  background: $color-black;
+  background: $color-gray;
   color: $color-white;
   height: 100%;
   left: 0;
-  opacity: .9;
+  min-width: $card-width;
+  opacity: .97;
   position: absolute;
   top: 0;
   width: 100%;
+
+  .bid-tracker-overlay-alert-content-container {
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    width: 70%;
+  }
+
+  .bid-tracker-overlay-alert-content {
+    margin: 0 auto;
+    text-align: center;
+
+    .fa {
+      font-size: 24px;
+    }
+  }
+}
+
+.bid-tracker-overlay-alert--success {
+  background: $color-green-dark;
+}
+
+.bid-tracker-overlay-alert--pending {
+  background: $tm-navy;
+}
+
+.bid-tracker-overlay-alert--closed {
+  background: $color-gray;
 }
 
 .bid-tracker {
@@ -24,7 +56,11 @@
   border: 1px solid $color-gray-light;
   font-size: 16px;
   margin-bottom: 30px;
-  min-width: 775px;
+  min-width: $card-width;
+
+  .padded-container-inner {
+    padding: 15px;
+  }
 
   .bid-tracker-ao-container {
     float: left;
@@ -38,7 +74,7 @@
   }
 
   .bid-tracker-title-container {
-    margin-bottom: 50px;
+    margin-bottom: 5px;
   }
 
   .bid-tracker-card-action-container {
@@ -46,7 +82,10 @@
   }
 
   .bid-tracker-bid-steps-container {
+    padding-bottom: 35px;
     padding-right: 10%;
+    padding-top: 25px;
+    position: relative;
   }
 
   .bid-tracker-card-title-text {
@@ -63,10 +102,6 @@
       padding-left: 5px;
       text-decoration: none;
     }
-  }
-
-  .padded-container-inner {
-    padding: 15px;
   }
 
   .bid-tracker-card-bottom-container {
@@ -220,5 +255,46 @@
     font-size: 16px;
     font-weight: normal;
     line-height: 19px;
+  }
+}
+
+.bid-tracker-alert-container {
+  position: relative;
+  top: 55px;
+
+  .fa {
+    margin-bottom: 10px;
+  }
+
+  .sub-text {
+    font-size: 13px;
+  }
+
+  .top-text {
+    margin-bottom: 5px;
+  }
+
+  button {
+    margin-right: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+.bid-tracker-alert-container--approved {
+  top: 25px;
+}
+
+.bid-tracker-alert-container--in-panel {
+  top: 30px;
+}
+
+.bid-tracker-alert-container--handshake-offered {
+  top: 20px;
+
+  button {
+    margin-right: 30px;
   }
 }

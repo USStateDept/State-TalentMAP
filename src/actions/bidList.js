@@ -66,6 +66,27 @@ export function submitBidSuccess(response) {
   };
 }
 
+export function acceptBidHasErrored(bool) {
+  return {
+    type: 'ACCEPT_BID_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function acceptBidIsLoading(bool) {
+  return {
+    type: 'ACCEPT_BID_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function acceptBidSuccess(response) {
+  return {
+    type: 'ACCEPT_BID_SUCCESS',
+    response,
+  };
+}
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
@@ -115,6 +136,29 @@ export function submitBid(id) {
             .catch(() => {
               dispatch(submitBidHasErrored(SystemMessages.SUBMIT_BID_ERROR));
               dispatch(submitBidIsLoading(false));
+            });
+  };
+}
+
+export function acceptBid(id) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    dispatch(routeChangeResetState());
+    dispatch(acceptBidIsLoading(true));
+    dispatch(acceptBidHasErrored(false));
+    // Since this is a PUT, we need an empty body as the second argument
+    axios.get(`${api}/bid/${idString}/accept_handshake/`, { headers: { Authorization: fetchUserToken() } })
+            .then(response => response.data)
+            .then(() => {
+              dispatch(acceptBidHasErrored(false));
+              dispatch(acceptBidIsLoading(false));
+              dispatch(acceptBidSuccess(/* SystemMessages.ACCEPT_BID_SUCCESS */ ''));
+              dispatch(bidListFetchData());
+            })
+            .catch(() => {
+              dispatch(acceptBidHasErrored(/* SystemMessages.ACCEPT_BID_ERROR */ ''));
+              dispatch(acceptBidIsLoading(false));
             });
   };
 }

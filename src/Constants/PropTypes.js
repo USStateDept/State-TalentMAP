@@ -1,4 +1,12 @@
 import PropTypes from 'prop-types';
+import {
+  APPROVED_PROP,
+  CLOSED_PROP,
+  HAND_SHAKE_OFFERED_PROP,
+  HAND_SHAKE_DECLINED_PROP,
+  IN_PANEL_PROP,
+  DECLINED_PROP,
+} from './BidData';
 
 export const STRING_OR_BOOL = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
 
@@ -362,6 +370,11 @@ export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
   inpanel: PropTypes.number,
   onpost: PropTypes.number,
 });
+
+export const BID_TRACKER_ALERT_TYPES = PropTypes.oneOf([
+  APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
+  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP,
+]);
 
 export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 

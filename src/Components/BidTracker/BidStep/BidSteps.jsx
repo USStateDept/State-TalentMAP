@@ -1,13 +1,13 @@
 import React from 'react';
 import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
-import bidClassesFromCurrentStatus from '../BidHelpers';
+import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 
 const BidSteps = ({ bid }) => {
-  const bidData = bidClassesFromCurrentStatus(bid).stages;
+  const bidData = bidClassesFromCurrentStatus(bid).stages || {};
   return (
     <Steps labelPlacement="vertical">
       {

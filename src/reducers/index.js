@@ -20,7 +20,8 @@ import { userProfile, userProfileHasErrored, userProfileIsLoading,
 import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading } from './favoritePositions';
 import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
   bidListToggleHasErrored, bidListToggleIsLoading, bidListToggleSuccess,
-  submitBidHasErrored, submitBidIsLoading, submitBidSuccess } from './bidList';
+  submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
+  acceptBidHasErrored, acceptBidIsLoading, acceptBidSuccess } from './bidList';
 import { descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess } from './descriptionEdit';
 import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess } from './autocomplete/missionAutocomplete';
 import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
@@ -119,5 +120,8 @@ export default combineReducers({
   bidderPortfolioCountsHasErrored,
   shouldShowStaticContent,
   shouldShowSearchBar,
+  acceptBidHasErrored,
+  acceptBidIsLoading,
+  acceptBidSuccess,
   router: routerReducer,
 });

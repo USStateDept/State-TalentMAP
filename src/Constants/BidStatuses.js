@@ -20,7 +20,7 @@ export const DECLINED = { property: DECLINED_PROP, class_name: 'declined', text:
 export const HAND_SHAKE_ACCEPTED = { property: HAND_SHAKE_ACCEPTED_PROP, class_name: 'hand-shake-accepted', text: 'Handshake Accepted' };
 export const HAND_SHAKE_OFFERED = { property: HAND_SHAKE_OFFERED_PROP, class_name: 'hand-shake-offered', text: 'Handshake Offered' };
 // TODO ensure HAND_SHAKE_DECLINED has accurate data
-export const HAND_SHAKE_DECLINED = { property: HAND_SHAKE_DECLINED_PROP, class_name: 'hand-shake-declined', text: 'Handshake Declined' };
+export const HAND_SHAKE_DECLINED = { property: HAND_SHAKE_DECLINED_PROP, class_name: 'declined', text: 'Handshake Declined' };
 // TODO ensure PRE-PANEL exists
 export const PRE_PANEL = { property: PRE_PANEL_PROP, class_name: 'pre-panel', text: 'Pre Panel' };
 export const IN_PANEL = { property: IN_PANEL_PROP, class_name: 'in-panel', text: 'In Panel' };

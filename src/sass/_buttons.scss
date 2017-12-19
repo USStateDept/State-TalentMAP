@@ -35,7 +35,8 @@
   font-size: 16px;
   font-weight: 400;
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-bottom: 1px solid $blue-primary;
     color: $color-white;
   }
@@ -43,6 +44,21 @@
   .tm-button-alt-icon {
     color: $blue-primary;
     margin-right: 5px;
+  }
+}
+
+.tm-button-transparent {
+  background-color: transparent;
+  box-shadow: 0 0 0 2px $color-white inset;
+  color: $color-white;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+
+  &:hover,
+  &:focus {
+    background-color: $color-white;
+    color: $color-black;
   }
 }
 

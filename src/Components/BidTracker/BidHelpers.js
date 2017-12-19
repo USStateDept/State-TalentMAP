@@ -8,6 +8,7 @@ import {
   PRE_PANEL_PROP,
   IN_PANEL_PROP,
   SUBMITTED_PROP,
+  DECLINED_PROP,
   GET_DRAFT_TITLE,
   GET_SUBMIT_BID_ACTION_TITLE,
   GET_SUBMIT_BID_COMPLETE_TITLE,
@@ -25,6 +26,17 @@ import {
   APPROVED_NUMBER,
 } from '../../Constants/BidData';
 
+// determine whether to show an alert on the bid tracker based on the status
+export function shouldShowAlert(status) {
+  const alertStatusArray = [HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP, APPROVED_PROP, CLOSED_PROP,
+    HAND_SHAKE_DECLINED_PROP, DECLINED_PROP];
+
+  if (alertStatusArray.indexOf(status) > -1) {
+    return true;
+  }
+  return false;
+}
+
 // Get an object with stages that map to six sections of the bid tracker.
 // There's a prop for each stage (status), which contains data used to apply different styles.
 // Instead of trying to apply some logic based on the current step, we explicitly
@@ -32,7 +44,7 @@ import {
 // This way, we can ensure a known, consistent output.
 // The function accepts the entire bid object so that we can most importantly get the status,
 // but also information such as dates so that we can render step titles within this function.
-function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
+export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   // Configure defaults for a step that is incomplete (future stages).
   const DEFAULT_INCOMPLETE_OBJECT = {
     needsAction: false,
@@ -162,6 +174,7 @@ function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
     // the tracker the same as the in-panel phase.
     case IN_PANEL_PROP:
     case APPROVED_PROP:
+    case DECLINED_PROP:
     case 'Cherries':
       bidClassObject.stages[DRAFT_PROP] = Object.assign(
         DEFAULT_COMPLETE_OBJECT,
@@ -194,5 +207,3 @@ function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       return false;
   }
 }
-
-export default bidClassesFromCurrentStatus;
