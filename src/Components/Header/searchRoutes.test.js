@@ -8,8 +8,4 @@ describe('searchRoutes', () => {
   it('Should return searchBarRoutesForce', () => {
     expect(searchRoutes.searchBarRoutesForce).toBeDefined();
   });
-
-  it('Should return searchBarRoutesHidden', () => {
-    expect(searchRoutes.searchBarRoutesHidden).toBeDefined();
-  });
 });

@@ -15,7 +15,7 @@ describe('NavLink', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('is bold when the link matches location pathname', () => {
+  it('is active when the link matches location pathname', () => {
     const wrapper = shallow(
       <NavLink
         title="test"
@@ -23,8 +23,8 @@ describe('NavLink', () => {
         location={{ pathname: '/' }}
       />,
     );
-    expect(wrapper.find('.is-bolded').exists()).toBe(true);
-    expect(wrapper.find('.is-not-bolded').exists()).toBe(false);
+    expect(wrapper.find('.is-active').exists()).toBe(true);
+    expect(wrapper.find('.is-not-active').exists()).toBe(false);
   });
 
   it('matches snapshot when the link matches location pathname', () => {
@@ -38,7 +38,7 @@ describe('NavLink', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('is not bold when the link matches location pathname', () => {
+  it('is not active when the link matches location pathname', () => {
     const wrapper = shallow(
       <NavLink
         title="test"
@@ -46,11 +46,11 @@ describe('NavLink', () => {
         location={{ pathname: '/profile' }}
       />,
     );
-    expect(wrapper.find('.is-bolded').exists()).toBe(false);
-    expect(wrapper.find('.is-not-bolded').exists()).toBe(true);
+    expect(wrapper.find('.is-active').exists()).toBe(false);
+    expect(wrapper.find('.is-not-active').exists()).toBe(true);
   });
 
-  it('matches snapshot when the link does not matche location pathname', () => {
+  it('matches snapshot when the link does not match location pathname', () => {
     const wrapper = shallow(
       <NavLink
         title="test"
