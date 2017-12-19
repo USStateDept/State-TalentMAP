@@ -100,7 +100,7 @@ describe('async actions', () => {
   it('can submit a bid', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/bid/1/submit/').reply(204,
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/submit/').reply(204,
       null,
     );
 
@@ -116,7 +116,7 @@ describe('async actions', () => {
   it('can handle errors when submitting a bid', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/bid/1/submit/').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/submit/').reply(404,
       null,
     );
 
