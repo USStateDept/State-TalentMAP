@@ -35,10 +35,23 @@
   font-size: 16px;
   font-weight: 400;
 
-  &:hover,
-  &:focus {
+  &:hover {
+    background: $blue-primary;
     border-bottom: 1px solid $blue-primary;
     color: $color-white;
+
+    .fa {
+      color: $color-white;
+    }
+  }
+
+  &:active {
+    background: $tm-navy;
+    color: $color-white;
+
+    .fa {
+      color: $color-white;
+    }
   }
 
   .tm-button-alt-icon {

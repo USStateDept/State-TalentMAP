@@ -87,6 +87,27 @@ export function acceptBidSuccess(response) {
   };
 }
 
+export function declineBidHasErrored(bool) {
+  return {
+    type: 'DECLINE_BID_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function declineBidIsLoading(bool) {
+  return {
+    type: 'DECLINE_BID_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function declineBidSuccess(response) {
+  return {
+    type: 'DECLINE_BID_SUCCESS',
+    response,
+  };
+}
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
@@ -96,6 +117,12 @@ export function routeChangeResetState() {
     dispatch(submitBidSuccess(false));
     dispatch(submitBidHasErrored(false));
     dispatch(submitBidSuccess(false));
+    dispatch(acceptBidSuccess(false));
+    dispatch(acceptBidHasErrored(false));
+    dispatch(acceptBidSuccess(false));
+    dispatch(declineBidSuccess(false));
+    dispatch(declineBidHasErrored(false));
+    dispatch(declineBidSuccess(false));
   };
 }
 
@@ -147,18 +174,39 @@ export function acceptBid(id) {
     dispatch(routeChangeResetState());
     dispatch(acceptBidIsLoading(true));
     dispatch(acceptBidHasErrored(false));
-    // Since this is a PUT, we need an empty body as the second argument
     axios.get(`${api}/bid/${idString}/accept_handshake/`, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then(() => {
               dispatch(acceptBidHasErrored(false));
               dispatch(acceptBidIsLoading(false));
-              dispatch(acceptBidSuccess(/* SystemMessages.ACCEPT_BID_SUCCESS */ ''));
+              dispatch(acceptBidSuccess(SystemMessages.ACCEPT_BID_SUCCESS));
               dispatch(bidListFetchData());
             })
             .catch(() => {
-              dispatch(acceptBidHasErrored(/* SystemMessages.ACCEPT_BID_ERROR */ ''));
+              dispatch(acceptBidHasErrored(SystemMessages.ACCEPT_BID_ERROR));
               dispatch(acceptBidIsLoading(false));
+            });
+  };
+}
+
+export function declineBid(id) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    dispatch(routeChangeResetState());
+    dispatch(declineBidIsLoading(true));
+    dispatch(declineBidHasErrored(false));
+    axios.get(`${api}/bid/${idString}/decline_handshake/`, { headers: { Authorization: fetchUserToken() } })
+            .then(response => response.data)
+            .then(() => {
+              dispatch(declineBidHasErrored(false));
+              dispatch(declineBidIsLoading(false));
+              dispatch(declineBidSuccess(SystemMessages.DECLINE_BID_SUCCESS));
+              dispatch(bidListFetchData());
+            })
+            .catch(() => {
+              dispatch(declineBidHasErrored(SystemMessages.DECLINE_BID_ERROR));
+              dispatch(declineBidIsLoading(false));
             });
   };
 }

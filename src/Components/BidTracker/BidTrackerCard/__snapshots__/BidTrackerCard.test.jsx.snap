@@ -7,11 +7,9 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
   <div
     className="bid-tracker"
   >
-    <div
-      className="padded-container-inner"
-    >
+    <div>
       <div
-        className="usa-grid-full bid-tracker-title-container"
+        className="usa-grid-full padded-container-inner bid-tracker-title-container"
       >
         <div
           className="usa-width-one-half"
@@ -32,7 +30,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         </div>
       </div>
       <div
-        className="usa-grid-full bid-tracker-bid-steps-container"
+        className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container"
       >
         <BidSteps
           bid={
@@ -58,6 +56,12 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
               "user": "rehmant",
             }
           }
+        />
+        <OverlayAlert
+          bureau="(AF) Bureau of African Affairs"
+          id={3}
+          type="approved"
+          userName="rehmant"
         />
       </div>
     </div>

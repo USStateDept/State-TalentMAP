@@ -9,7 +9,7 @@ import {
   IN_PANEL_PROP,
   SUBMITTED_PROP,
 } from '../../Constants/BidData';
-import { bidClassesFromCurrentStatus } from './BidHelpers';
+import { bidClassesFromCurrentStatus, shouldShowAlert } from './BidHelpers';
 import bidListObject from '../../__mocks__/bidListObject';
 
 // Test that the result of each status prop is defined
@@ -39,6 +39,18 @@ describe('bidClassesFromCurrentStatus function', () => {
 
   it('is false when an invalid status is provided', () => {
     const result = bidClassesFromCurrentStatus({ ...bidListObject.results[0], status: 'fake status' });
+    expect(result).toBe(false);
+  });
+});
+
+describe('shouldShowAlert function', () => {
+  it('returns true for a valid status', () => {
+    const result = shouldShowAlert(HAND_SHAKE_OFFERED_PROP);
+    expect(result).toBe(true);
+  });
+
+  it('returns false for an invalid status', () => {
+    const result = shouldShowAlert(SUBMITTED_PROP);
     expect(result).toBe(false);
   });
 });

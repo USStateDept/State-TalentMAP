@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClosedAlertComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--closed"
+>
+  <div
+    className="top-text"
+  >
+    This bid has been closed
+  </div>
+</div>
+`;

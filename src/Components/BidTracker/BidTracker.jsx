@@ -4,7 +4,7 @@ import { BID_LIST } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
 import Spinner from '../Spinner';
 
-const BidTracker = ({ bidList, bidListIsLoading }) => (
+const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid }) => (
   <div className="bid-tracker-page">
     <div className="hello-greeting">
       Bid Tracker
@@ -12,7 +12,11 @@ const BidTracker = ({ bidList, bidListIsLoading }) => (
     {
       bidListIsLoading ?
         <Spinner type="homepage-position-results" size="big" /> :
-        <BidTrackerCardList bids={bidList.results} />
+        <BidTrackerCardList
+          bids={bidList.results}
+          acceptBid={acceptBid}
+          declineBid={declineBid}
+        />
     }
   </div>
 );
@@ -20,6 +24,8 @@ const BidTracker = ({ bidList, bidListIsLoading }) => (
 BidTracker.propTypes = {
   bidList: BID_LIST.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
+  acceptBid: PropTypes.func.isRequired,
+  declineBid: PropTypes.func.isRequired,
 };
 
 export default BidTracker;
