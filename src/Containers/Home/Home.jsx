@@ -119,7 +119,7 @@ const mapDispatchToProps = dispatch => ({
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListFetchData: () => dispatch(bidListFetchData()),
-  toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
+  toggleSearchBarVisibility: showHide => dispatch(toggleSearchBar(showHide)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

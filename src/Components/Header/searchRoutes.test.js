@@ -10,6 +10,6 @@ describe('searchRoutes', () => {
   });
 
   it('Should return searchBarRoutesHidden', () => {
-    expect(searchRoutes.searchBarRoutesHidden).toBeDefined();
+    expect(searchRoutes.searchBarRoutesForceHidden).toBeDefined();
   });
 });
