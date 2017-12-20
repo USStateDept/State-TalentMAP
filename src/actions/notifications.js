@@ -97,7 +97,7 @@ export function notificationsFetchData(limit = 3, ordering = '-date_updated', ta
 
 export function bidTrackerNotificationsFetchData() {
   return (dispatch) => {
-    dispatch(notificationsFetchData(1, '-date_created', 'bidding', false));
+    dispatch(notificationsFetchData(1, '-date_created', 'bidding'));
   };
 }
 

@@ -19,7 +19,7 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&is_read=false').reply(200,
       notificationsObject,
     );
-    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&ordering=-date_created&tags=bidding&is_read=false').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&ordering=-date_created&tags=bidding').reply(200,
       notificationsObject,
     );
     mockAdapter.onPatch('http://localhost:8000/api/v1/notification/1/').reply(200,
