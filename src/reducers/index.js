@@ -28,7 +28,8 @@ import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess }
 import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
 import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
 import { notificationsHasErrored, notificationsIsLoading, notifications,
-  notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount } from './notifications';
+  notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount,
+  markNotificationHasErrored, markNotificationIsLoading, markNotificationSuccess } from './notifications';
 import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
   bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored } from './bidderPortfolio';
 import shouldShowSearchBar from './showSearchBar';
@@ -127,5 +128,8 @@ export default combineReducers({
   declineBidHasErrored,
   declineBidIsLoading,
   declineBidSuccess,
+  markNotificationHasErrored,
+  markNotificationIsLoading,
+  markNotificationSuccess,
   router: routerReducer,
 });

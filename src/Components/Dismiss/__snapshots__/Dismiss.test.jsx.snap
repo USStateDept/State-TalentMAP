@@ -2,7 +2,7 @@
 
 exports[`DismissComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full dismiss-container"
+  className="usa-grid-full dismiss-container "
 >
   <div>
     <span>

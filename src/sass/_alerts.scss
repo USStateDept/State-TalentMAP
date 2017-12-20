@@ -1,0 +1,33 @@
+.tm-alert {
+  color: $color-white;
+}
+
+.tm-alert-warning {
+  background-color: $blue-primary;
+}
+
+.tm-alert-error {
+  background-color: $alert-red;
+}
+
+.tm-alert-body {
+  padding: 15px 20px 25px;
+}
+
+.tm-alert-icon {
+  float: left;
+  padding: 5px 20px 0 0;
+}
+
+.tm-alert-text {
+  float: left;
+}
+
+.tm-alert-heading {
+  font-size: 19px;
+}
+
+.tm-alert-message {
+  font-size: 16px;
+  margin-top: 0;
+}

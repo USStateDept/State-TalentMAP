@@ -317,6 +317,8 @@ export const DECLINE_BID_HAS_ERRORED = STRING_OR_BOOL;
 
 export const DECLINE_BID_SUCCESS = STRING_OR_BOOL;
 
+export const MARK_NOTIFICATION_SUCCESS = STRING_OR_BOOL;
+
 export const NOTIFICATION_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   owner: PropTypes.string,

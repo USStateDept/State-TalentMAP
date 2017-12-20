@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactCDOButtonComponent matches snapshot 1`] = `
+<LinkButton
+  className="bid-tracker-cdo-button"
+  toLink="mailto:test@email.com"
+  useATag={true}
+  useDefaultClass={true}
+>
+  <FontAwesome
+    name="envelope-o"
+  />
+  Contact CDO
+</LinkButton>
+`;

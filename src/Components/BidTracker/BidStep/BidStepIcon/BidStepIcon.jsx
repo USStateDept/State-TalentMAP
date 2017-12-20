@@ -27,7 +27,7 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number }) => (
           <span
             className={assignClasses(isComplete, needsAction, isCurrent)}
           >
-            {number}
+            {number > 0 ? number : null}
           </span> :
           <FontAwesome name="check" /> }
   </span>
@@ -37,7 +37,11 @@ BidStepIcon.propTypes = {
   isComplete: PropTypes.bool.isRequired,
   needsAction: PropTypes.bool.isRequired,
   isCurrent: PropTypes.bool.isRequired,
-  number: PropTypes.number.isRequired,
+  number: PropTypes.number,
+};
+
+BidStepIcon.defaultProps = {
+  number: 0,
 };
 
 export default BidStepIcon;

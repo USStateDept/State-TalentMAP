@@ -58,7 +58,9 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
           }
         />
         <OverlayAlert
+          acceptBid={[Function]}
           bureau="(AF) Bureau of African Affairs"
+          declineBid={[Function]}
           id={3}
           type="approved"
           userName="rehmant"

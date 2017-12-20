@@ -35,6 +35,9 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                     "submitted": 1,
                   },
                 ],
+                "cdo": Object {
+                  "email": "shadtrachl@state.gov",
+                },
                 "is_cdo": false,
                 "skill_code": Array [
                   "INFORMATION MANAGEMENT (2880)",
@@ -92,22 +95,31 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                   "is_read": false,
                   "message": "Saved search New BidCycle has 13 new results available",
                   "owner": "townpostj",
+                  "tags": Array [
+                    "waiver",
+                  ],
                 },
                 Object {
                   "date_created": "2017-11-01T14:56:55.508891Z",
                   "date_updated": "2017-11-01T14:56:55.508920Z",
                   "id": 6,
-                  "is_read": true,
+                  "is_read": false,
                   "message": "Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been offered a handshake.",
                   "owner": "townpostj",
+                  "tags": Array [
+                    "bidding",
+                  ],
                 },
                 Object {
                   "date_created": "2017-11-01T14:57:10.189772Z",
                   "date_updated": "2017-11-01T14:57:10.189803Z",
                   "id": 8,
-                  "is_read": false,
+                  "is_read": true,
                   "message": "Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) is under panel review.",
                   "owner": "townpostj",
+                  "tags": Array [
+                    "waiver",
+                  ],
                 },
                 Object {
                   "date_created": "2017-11-01T14:57:17.257837Z",
@@ -116,6 +128,9 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                   "is_read": false,
                   "message": "Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel.",
                   "owner": "townpostj",
+                  "tags": Array [
+                    "bidding",
+                  ],
                 },
               ]
             }

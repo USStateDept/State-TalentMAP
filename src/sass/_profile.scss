@@ -589,3 +589,15 @@ $padding-no-border: $total-padding - $border;
 .profile-content-inner-container {
   padding: 20px 35px;
 }
+
+.dismiss-alt {
+  .dismiss-button {
+    background-color: transparent;
+  }
+
+  .dismiss-button:active {
+    .fa {
+      color: $color-black;
+    }
+  }
+}

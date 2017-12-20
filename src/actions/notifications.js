@@ -40,6 +40,25 @@ export function notificationsCountFetchDataSuccess(count) {
   };
 }
 
+export function markNotificationHasErrored(bool) {
+  return {
+    type: 'MARK_NOTIFICATION_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function markNotificationIsLoading(bool) {
+  return {
+    type: 'MARK_NOTIFICATION_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function markNotificationSuccess(response) {
+  return {
+    type: 'MARK_NOTIFICATION_SUCCESS',
+    response,
+  };
+}
+
 export function unsetNotificationsCount() {
   return (dispatch) => {
     dispatch(notificationsCountFetchDataSuccess(0));
@@ -61,9 +80,9 @@ export function notificationsCountFetchData() {
   };
 }
 
-export function notificationsFetchData(limit = 3, ordering = '-date_updated') {
+export function notificationsFetchData(limit = 3, ordering = '-date_updated', tags = undefined, isRead = undefined) {
   return (dispatch) => {
-    axios.get(`${api}/notification/?limit=${limit}&ordering=${ordering}`, { headers: { Authorization: fetchUserToken() } })
+    axios.get(`${api}/notification/?limit=${limit}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`, { headers: { Authorization: fetchUserToken() } })
             .then(({ data }) => {
               dispatch(notificationsFetchDataSuccess(data));
               dispatch(notificationsIsLoading(false));
@@ -72,6 +91,28 @@ export function notificationsFetchData(limit = 3, ordering = '-date_updated') {
             .catch(() => {
               dispatch(notificationsHasErrored(true));
               dispatch(notificationsIsLoading(false));
+            });
+  };
+}
+
+export function bidTrackerNotificationsFetchData() {
+  return (dispatch) => {
+    dispatch(notificationsFetchData(1, '-date_created', 'bidding', false));
+  };
+}
+
+export function markNotification(id, isRead = true) {
+  return (dispatch) => {
+    axios.patch(`${api}/notification/${id}/`, { is_read: isRead }, { headers: { Authorization: fetchUserToken() } })
+            .then(({ data }) => {
+              dispatch(markNotificationSuccess(data));
+              dispatch(markNotificationIsLoading(false));
+              dispatch(markNotificationHasErrored(false));
+              dispatch(bidTrackerNotificationsFetchData());
+            })
+            .catch(() => {
+              dispatch(markNotificationHasErrored(true));
+              dispatch(markNotificationIsLoading(false));
             });
   };
 }
