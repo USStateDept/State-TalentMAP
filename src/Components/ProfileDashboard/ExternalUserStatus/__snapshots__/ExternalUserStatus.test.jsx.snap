@@ -15,6 +15,13 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
         className=""
         source="/assets/img/avatar.png"
       />
+      <div
+        className="picture-status-container"
+      >
+        <Status
+          hideText={true}
+        />
+      </div>
     </div>
     <div
       className="usa-width-two-thirds cdo-text-container"
@@ -35,9 +42,6 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
           >
             John Doe
           </span>
-          <Status
-            hideText={true}
-          />
         </div>
       </div>
     </div>

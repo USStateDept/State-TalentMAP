@@ -241,6 +241,15 @@ export const REGION_SELECTION = PropTypes.shape({
   value: PropTypes.string,
 });
 
+export const BID_REVIEWER_OBJECT = PropTypes.shape({
+  username: PropTypes.string,
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  email: PropTypes.string,
+  phone_number: PropTypes.string,
+  is_cdo: PropTypes.bool,
+});
+
 export const BID_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   bidcycle: PropTypes.string,
@@ -258,6 +267,7 @@ export const BID_OBJECT = PropTypes.shape({
       location: PropTypes.string,
     }),
   }),
+  reviewer: BID_REVIEWER_OBJECT,
   status: PropTypes.string,
   submission_date: PropTypes.string,
 });

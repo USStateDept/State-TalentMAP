@@ -15,6 +15,7 @@ const bidListObject = {
         title: 'POLITICAL/ECONOMIC OFFICER',
         create_date: '2015-08-05',
         update_date: '2017-06-08',
+        bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
         post: {
           id: 199,
           location: 'Curacao',
@@ -23,6 +24,14 @@ const bidListObject = {
       status: 'approved',
       submission_date: '2017-10-31',
       update_date: '2017-10-31',
+      reviewer: {
+        username: 'woodwardw',
+        first_name: 'Wendy',
+        last_name: 'Woodward',
+        email: 'woodwardw@state.gov',
+        phone_number: '555-555-5555',
+        is_cdo: false,
+      },
     },
     {
       id: 1,
@@ -36,6 +45,7 @@ const bidListObject = {
         title: 'OMS (COM)',
         create_date: '2006-09-20',
         update_date: '2017-06-08',
+        bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
         post: {
           id: 235,
           location: 'Freetown, Sierra Leone',
@@ -44,6 +54,14 @@ const bidListObject = {
       status: 'closed',
       submission_date: '2017-10-31',
       update_date: '2017-11-01',
+      reviewer: {
+        username: 'woodwardw',
+        first_name: 'Wendy',
+        last_name: 'Woodward',
+        email: 'woodwardw@state.gov',
+        phone_number: '555-555-5555',
+        is_cdo: false,
+      },
     },
     {
       id: 2,
@@ -57,6 +75,7 @@ const bidListObject = {
         title: 'SPECIAL AGENT',
         create_date: '2006-09-20',
         update_date: '2017-06-08',
+        bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
         post: {
           id: 195,
           location: 'The Hague, Netherlands',
@@ -65,6 +84,14 @@ const bidListObject = {
       status: 'closed',
       submission_date: null,
       update_date: '2017-11-01',
+      reviewer: {
+        username: 'woodwardw',
+        first_name: 'Wendy',
+        last_name: 'Woodward',
+        email: 'woodwardw@state.gov',
+        phone_number: '555-555-5555',
+        is_cdo: false,
+      },
     },
   ],
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import PendingIcon from './PendingIcon';
 
 const assignClasses = (isComplete, needsAction, isCurrent) => {
   const classes = ['number-icon'];
@@ -20,15 +21,18 @@ const assignClasses = (isComplete, needsAction, isCurrent) => {
   return classes.join(' ');
 };
 
-const BidStepIcon = ({ isComplete, needsAction, isCurrent, number }) => (
+const BidStepIcon = ({ isComplete, needsAction, isCurrent, number, hasPendingTooltip }) => (
   <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
     { !isComplete
         ?
-          <span
-            className={assignClasses(isComplete, needsAction, isCurrent)}
-          >
-            {number > 0 ? number : null}
-          </span> :
+          <div className="icon-container">
+            <span
+              className={assignClasses(isComplete, needsAction, isCurrent)}
+            >
+              {number > 0 ? number : null}
+            </span>
+            { hasPendingTooltip && <PendingIcon />}
+          </div> :
           <FontAwesome name="check" /> }
   </span>
 );
@@ -38,10 +42,12 @@ BidStepIcon.propTypes = {
   needsAction: PropTypes.bool.isRequired,
   isCurrent: PropTypes.bool.isRequired,
   number: PropTypes.number,
+  hasPendingTooltip: PropTypes.bool,
 };
 
 BidStepIcon.defaultProps = {
   number: 0,
+  hasPendingTooltip: false,
 };
 
 export default BidStepIcon;

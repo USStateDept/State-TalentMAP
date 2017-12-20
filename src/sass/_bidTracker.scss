@@ -88,23 +88,28 @@ $card-width: 775px;
   margin-bottom: 30px;
   min-width: $card-width;
 
+  .step-title-sub-text {
+    color: $color-gray;
+    font-size: 13px;
+  }
+
   .padded-container-inner {
     padding: 15px;
   }
 
   .bid-tracker-ao-container {
     float: left;
+    margin-right: 50px;
     width: 290px;
   }
 
   .bid-tracker-organization-container {
     float: left;
-    margin-left: 50px;
     width: 400px;
   }
 
   .bid-tracker-title-container {
-    margin-bottom: 5px;
+    margin-bottom: 0;
   }
 
   .bid-tracker-card-action-container {
@@ -112,14 +117,15 @@ $card-width: 775px;
   }
 
   .bid-tracker-bid-steps-container {
-    padding-bottom: 35px;
+    padding-bottom: 25px;
     padding-right: 10%;
-    padding-top: 25px;
+    padding-top: 40px;
     position: relative;
   }
 
   .bid-tracker-card-title-text {
     float: left;
+    font-weight: bold;
     padding-right: 10px;
   }
 
@@ -194,6 +200,10 @@ $card-width: 775px;
     }
   }
 
+  .icon-container {
+    position: relative;
+  }
+
   .number-icon {
     background: $blue-primary;
     border: 1px solid $blue-primary;
@@ -216,6 +226,24 @@ $card-width: 775px;
   .number-icon-is-current-no-action {
     background: $blue-primary;
     border-color: $blue-primary;
+  }
+
+  .pending-tooltip {
+    color: $color-black;
+    font-size: 13px;
+    left: -13px;
+    position: absolute;
+    top: -35px;
+    width: 100px;
+  }
+
+  .bid-tracker-pending-text-container {
+    float: left;
+  }
+
+  .bid-tracker-pending-icon-container {
+    float: left;
+    margin-right: 5px;
   }
 
   .rc-steps-item-tail {
@@ -290,7 +318,7 @@ $card-width: 775px;
 
 .bid-tracker-alert-container {
   position: relative;
-  top: 55px;
+  top: 65px;
 
   .fa {
     margin-bottom: 10px;
@@ -314,15 +342,15 @@ $card-width: 775px;
 }
 
 .bid-tracker-alert-container--approved {
-  top: 25px;
+  top: 35px;
 }
 
 .bid-tracker-alert-container--in-panel {
-  top: 30px;
+  top: 40px;
 }
 
 .bid-tracker-alert-container--handshake-offered {
-  top: 20px;
+  top: 30px;
 
   button {
     margin-right: 30px;

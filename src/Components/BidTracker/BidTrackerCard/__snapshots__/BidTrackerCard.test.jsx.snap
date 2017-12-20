@@ -38,6 +38,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
               "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
               "id": 3,
               "position": Object {
+                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2015-08-05",
                 "grade": "03",
                 "id": 226,
@@ -49,6 +50,14 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
                 "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
                 "title": "POLITICAL/ECONOMIC OFFICER",
                 "update_date": "2017-06-08",
+              },
+              "reviewer": Object {
+                "email": "woodwardw@state.gov",
+                "first_name": "Wendy",
+                "is_cdo": false,
+                "last_name": "Woodward",
+                "phone_number": "555-555-5555",
+                "username": "woodwardw",
               },
               "status": "approved",
               "submission_date": "2017-10-31",
@@ -73,7 +82,19 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
       <div
         className="padded-container-inner"
       >
-        <BidTrackerCardBottom />
+        <BidTrackerCardBottom
+          bureau="(AF) BUREAU OF AFRICAN AFFAIRS"
+          reviewer={
+            Object {
+              "email": "woodwardw@state.gov",
+              "first_name": "Wendy",
+              "is_cdo": false,
+              "last_name": "Woodward",
+              "phone_number": "555-555-5555",
+              "username": "woodwardw",
+            }
+          }
+        />
       </div>
     </div>
   </div>

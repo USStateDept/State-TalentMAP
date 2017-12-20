@@ -11,6 +11,7 @@ describe('BidTrackerCardComponent', () => {
     bid,
     acceptBid: () => {},
     declineBid: () => {},
+    bureau: 'bureau',
   };
 
   it('is defined', () => {

@@ -17,15 +17,13 @@ export const HAND_SHAKE_ACCEPTED_NUMBER = 4;
 export const IN_PANEL_NUMBER = 5;
 export const APPROVED_NUMBER = 6;
 
-// We make all of them functions so that we don't have to guess whethe to call a function or not
+// We make all of them functions so that we don't have to guess whether to call a function or not
 export const GET_DRAFT_TITLE = () => ['Draft'];
 export const GET_SUBMIT_BID_ACTION_TITLE = () => ['Submit Bid'];
-export const GET_SUBMIT_BID_COMPLETE_TITLE = (bid = {}) => ['Bid Submitted', bid.submission_date];
+export const GET_SUBMIT_BID_COMPLETE_TITLE = () => ['Bid Submitted'];
 export const GET_HAND_SHAKE_EVALUATE_TITLE = () => ['Evaluate Bid'];
 export const GET_HAND_SHAKE_EVALUATING_TITLE = () => ['Bid being evaluated'];
-export const GET_HAND_SHAKE_OFFERED_TITLE = (bid = {}) => ['Handshake Offered', bid.hand_shake_offered_date];
-export const GET_HAND_SHAKE_ACCEPTED_TITLE = (bid = {}) => ['Handshake Accepted', bid.hand_shake_accepted_date];
-export const GET_PANEL_TITLE = (bid = {}) => ['Panel',
-  `${bid.scheduled_panel_date ? `Scheduled: ${bid.scheduled_panel_date}` : ''}`,
-  `${bid.panel_date ? `Panel date: ${bid.panel_date}` : ''}`];
+export const GET_HAND_SHAKE_OFFERED_TITLE = () => ['Handshake Offered'];
+export const GET_HAND_SHAKE_ACCEPTED_TITLE = () => ['Handshake Accepted'];
+export const GET_PANEL_TITLE = () => ['Panel'];
 export const GET_APPROVAL_TITLE = () => ['Approval'];

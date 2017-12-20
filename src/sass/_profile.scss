@@ -432,7 +432,13 @@ $padding-no-border: $total-padding - $border;
   }
 
   .profile-picture-container {
-    // width: auto;
+    position: relative;
+  }
+
+  .picture-status-container {
+    left: 25px;
+    position: absolute;
+    top: -2px;
   }
 
   .cdo-name-text {

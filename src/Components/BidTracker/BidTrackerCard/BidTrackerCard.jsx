@@ -41,7 +41,7 @@ const BidTrackerCard = ({ bid, acceptBid, declineBid }) => {
         </div>
         <div className="usa-grid-full bid-tracker-card-bottom-container">
           <div className="padded-container-inner">
-            <BidTrackerCardBottom />
+            <BidTrackerCardBottom reviewer={bid.reviewer} bureau={bid.position.bureau} />
           </div>
         </div>
       </div>
