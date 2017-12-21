@@ -25,7 +25,13 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
           <div
             className="bid-tracker-card-action-container"
           >
-            <ActionsLink />
+            <Connect(ActionsDropdown)
+              disableDelete={false}
+              disableWithdraw={true}
+              positionId={226}
+              showDelete={false}
+              showWithdraw={true}
+            />
           </div>
         </div>
       </div>

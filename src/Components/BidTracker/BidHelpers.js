@@ -37,13 +37,38 @@ export function shouldShowAlert(status) {
   return false;
 }
 
+// Determine what actions to allow as far as "deleting" and "withdrawing" based on the status.
+// Also return a value to determine whether to show that action, but keep it disabled.
+export function getActionPermissions(status) {
+  const defaultPermissions = {
+    showDelete: true,
+    disableDelete: false,
+    showWithdraw: false,
+    disableWithdraw: false,
+  };
+  switch (status) {
+    case DRAFT_PROP:
+    case SUBMITTED_PROP:
+      return defaultPermissions;
+    case HAND_SHAKE_OFFERED_PROP:
+    case HAND_SHAKE_ACCEPTED_PROP:
+    case PRE_PANEL_PROP:
+      return { ...defaultPermissions, showDelete: false, showWithdraw: true };
+    default:
+      return {
+        ...defaultPermissions, showDelete: false, showWithdraw: true, disableWithdraw: true,
+      };
+  }
+}
+
 // Get an object with stages that map to six sections of the bid tracker.
 // There's a prop for each stage (status), which contains data used to apply different styles.
 // Instead of trying to apply some logic based on the current step, we explicitly
 // declare what properties each step should have based on the status of the bid.
 // This way, we can ensure a known, consistent output.
 // The function accepts the entire bid object so that we can most importantly get the status,
-// but also information such as dates so that we can render step titles within this function.
+// but also information such as dates so that if we want,
+// we could dynamically render step titles within the function.
 export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   // Configure defaults for a step that is incomplete (future stages).
   const DEFAULT_INCOMPLETE_OBJECT = {

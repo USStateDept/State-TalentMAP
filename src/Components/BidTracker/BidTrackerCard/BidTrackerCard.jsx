@@ -4,12 +4,13 @@ import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidSteps from '../BidStep';
 import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
-import ActionsLink from '../ActionsLink';
+import ActionsDropdown from '../ActionsDropdown';
 import OverlayAlert from '../OverlayAlert';
-import { shouldShowAlert } from '../BidHelpers';
+import { shouldShowAlert, getActionPermissions } from '../BidHelpers';
 
 const BidTrackerCard = ({ bid, acceptBid, declineBid }) => {
   const showAlert = shouldShowAlert(bid.status);
+  const actionPermissions = getActionPermissions(bid.status) || {};
   return (
     <div className="bid-tracker-container">
       <div className="bid-tracker">
@@ -20,7 +21,13 @@ const BidTrackerCard = ({ bid, acceptBid, declineBid }) => {
             </div>
             <div className="usa-width-one-half">
               <div className="bid-tracker-card-action-container">
-                <ActionsLink />
+                <ActionsDropdown
+                  showDelete={actionPermissions.showDelete}
+                  disableDelete={actionPermissions.disableDelete}
+                  showWithdraw={actionPermissions.showWithdraw}
+                  disableWithdraw={actionPermissions.disableWithdraw}
+                  positionId={bid.position.id}
+                />
               </div>
             </div>
           </div>
