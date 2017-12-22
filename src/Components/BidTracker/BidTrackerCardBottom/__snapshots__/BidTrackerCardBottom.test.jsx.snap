@@ -3,9 +3,33 @@
 exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full bid-tracker-card-bottom"
+  style={
+    Object {
+      "display": "flex",
+    }
+  }
 >
   <div
-    className="bid-tracker-ao-container"
+    className="bid-tracker-card-bottom-section"
+  >
+    <ExternalUserStatus
+      email="shadtrachl@state.gov"
+      name="Leah Shadtrach"
+      showMail={true}
+      type="cdo"
+    />
+  </div>
+  <div
+    className="bid-tracker-card-bottom-section"
+  >
+    <OrganizationStamp
+      abbreviation="AF"
+      name="bureau"
+      showMail={true}
+    />
+  </div>
+  <div
+    className="bid-tracker-card-bottom-section"
   >
     <ExternalUserStatus
       email="woodwardw@state.gov"
@@ -15,12 +39,13 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="bid-tracker-organization-container"
+    className="bid-tracker-card-bottom-section"
   >
-    <OrganizationStamp
-      abbreviation="AF"
-      name="bureau"
+    <ExternalUserStatus
+      email="woodwardw@state.gov"
+      name="Wendy Woodward"
       showMail={true}
+      type="hr"
     />
   </div>
 </div>

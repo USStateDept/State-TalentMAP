@@ -8,7 +8,7 @@ const IsOnStandby = ({ bid }) => (
       On standby
     </div>
     <div className="bid-tracker-standby-content-container">
-      <BidTrackerCardTop bid={bid} />
+      <BidTrackerCardTop showQuestion={false} bid={bid} />
     </div>
   </div>
 );

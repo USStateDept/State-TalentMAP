@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BID_OBJECT } from '../../../Constants/PropTypes';
+import { BID_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidTrackerCard from '../BidTrackerCard';
 import IsPriority from '../PriorityCards/IsPriority';
 import IsOnStandby from '../PriorityCards/IsOnStandby';
@@ -11,8 +11,16 @@ import IsOnStandby from '../PriorityCards/IsOnStandby';
 // If it is, we'll wrap the card in the IsPrority component, and if not, we'll pass the bid
 // object to the IsOnStandby component.
 // TODO - What in the API response will allow us to determine how to render the correct wrapper?
-const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, isPriority }) => {
-  const card = <BidTrackerCard bid={bid} acceptBid={acceptBid} declineBid={declineBid} />;
+const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists,
+isPriority, userProfile }) => {
+  const card = (
+    <BidTrackerCard
+      bid={bid}
+      acceptBid={acceptBid}
+      declineBid={declineBid}
+      userProfile={userProfile}
+    />
+  );
 
   // assign values to constants for equality checks later
   const DEFAULT = 'default';
@@ -53,6 +61,7 @@ BidTrackerCardContainer.propTypes = {
   declineBid: PropTypes.func.isRequired,
   priorityExists: PropTypes.bool,
   isPriority: PropTypes.bool,
+  userProfile: USER_PROFILE.isRequired,
 };
 
 BidTrackerCardContainer.defaultProps = {

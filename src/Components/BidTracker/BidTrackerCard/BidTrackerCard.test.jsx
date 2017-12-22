@@ -3,6 +3,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import BidTrackerCard from './BidTrackerCard';
 import bidListObject from '../../../__mocks__/bidListObject';
+import { bidderUserObject } from '../../../__mocks__/userObject';
 
 describe('BidTrackerCardComponent', () => {
   const bid = bidListObject.results[0];
@@ -11,6 +12,7 @@ describe('BidTrackerCardComponent', () => {
     bid,
     acceptBid: () => {},
     declineBid: () => {},
+    userProfile: bidderUserObject,
   };
 
   it('is defined', () => {

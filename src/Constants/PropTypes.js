@@ -347,19 +347,21 @@ export const NOTIFICATION_LIST = PropTypes.shape({
   results: NOTIFICATION_RESULTS,
 });
 
+export const CDO_OBJECT = PropTypes.shape({
+  username: PropTypes.string,
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  email: PropTypes.string,
+  phone_number: PropTypes.string,
+  is_cdo: PropTypes.bool,
+});
+
 export const BIDDER_OBJECT = PropTypes.shape(
   {
     id: PropTypes.number,
     skill_code: USER_SKILL_CODE_ARRAY,
     grade: PropTypes.string,
-    cdo: PropTypes.shape({
-      username: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string,
-      email: PropTypes.string,
-      phone_number: PropTypes.string,
-      is_cdo: PropTypes.bool,
-    }),
+    cdo: CDO_OBJECT,
     is_cdo: PropTypes.bool,
     primary_nationality: PropTypes.string,
     secondary_nationality: PropTypes.string,

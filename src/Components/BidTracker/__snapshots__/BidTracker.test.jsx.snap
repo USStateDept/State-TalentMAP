@@ -183,6 +183,32 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         ]
       }
       declineBid={[Function]}
+      userProfile={
+        Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
+          "cdo": Object {
+            "email": "shadtrachl@state.gov",
+            "first_name": "Leah",
+            "last_name": "Shadtrach",
+          },
+          "is_cdo": false,
+          "skill_code": Array [
+            "INFORMATION MANAGEMENT (2880)",
+            "ADMINISTRATIVE SUPPORT (2080)",
+          ],
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "last_name": "Doe",
+            "username": "jdoe",
+          },
+        }
+      }
     />
   </div>
 </div>

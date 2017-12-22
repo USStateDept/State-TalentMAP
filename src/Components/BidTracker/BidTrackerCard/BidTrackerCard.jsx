@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BID_OBJECT } from '../../../Constants/PropTypes';
+import { BID_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidSteps from '../BidStep';
 import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTop from '../BidTrackerCardTop';
 import OverlayAlert from '../OverlayAlert';
 import { shouldShowAlert } from '../BidHelpers';
 
-const BidTrackerCard = ({ bid, acceptBid, declineBid }) => {
+const BidTrackerCard = ({ bid, acceptBid, declineBid, userProfile }) => {
   const showAlert = shouldShowAlert(bid.status);
   return (
     <div className="bid-tracker">
@@ -30,7 +30,11 @@ const BidTrackerCard = ({ bid, acceptBid, declineBid }) => {
       </div>
       <div className="usa-grid-full bid-tracker-card-bottom-container">
         <div className="padded-container-inner">
-          <BidTrackerCardBottom reviewer={bid.reviewer} bureau={bid.position.bureau} />
+          <BidTrackerCardBottom
+            reviewer={bid.reviewer}
+            bureau={bid.position.bureau}
+            userProfile={userProfile}
+          />
         </div>
       </div>
     </div>
@@ -41,6 +45,7 @@ BidTrackerCard.propTypes = {
   bid: BID_OBJECT.isRequired,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
+  userProfile: USER_PROFILE.isRequired,
 };
 
 export default BidTrackerCard;

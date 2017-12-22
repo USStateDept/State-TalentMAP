@@ -8,6 +8,8 @@ export const bidderUserObject = {
   },
   is_cdo: false,
   cdo: {
+    first_name: 'Leah',
+    last_name: 'Shadtrach',
     email: 'shadtrachl@state.gov',
   },
   bid_statistics: [
@@ -18,4 +20,4 @@ export const bidderUserObject = {
   ],
 };
 
-export const cdoUserObject = Object.assign({}, bidderUserObject, { is_cdo: true });
+export const cdoUserObject = Object.assign({}, bidderUserObject, { cdo: null, is_cdo: true });

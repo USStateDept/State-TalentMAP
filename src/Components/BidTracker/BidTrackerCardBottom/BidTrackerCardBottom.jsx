@@ -2,30 +2,54 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExternalUserStatus from '../../ProfileDashboard/ExternalUserStatus';
 import OrganizationStamp from '../../OrganizationStamp';
-import { BID_REVIEWER_OBJECT } from '../../../Constants/PropTypes';
+import { BID_REVIEWER_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 
-const BidTrackerCardBottom = ({ bureau, reviewer }) => {
+const BidTrackerCardBottom = ({ bureau, reviewer, userProfile }) => {
   const reviewerName = reviewer && reviewer.first_name && reviewer.last_name ? `${reviewer.first_name} ${reviewer.last_name}` : null;
+  const cdo = userProfile.cdo;
+  const cdoName = cdo && cdo.first_name && cdo.last_name ? `${cdo.first_name} ${cdo.last_name}` : null;
   return (
-    <div className="usa-grid-full bid-tracker-card-bottom">
+    <div className="usa-grid-full bid-tracker-card-bottom" style={{ display: 'flex' }}>
       {
-        reviewerName &&
-        <div className="bid-tracker-ao-container">
+        cdoName &&
+        <div className="bid-tracker-card-bottom-section">
           <ExternalUserStatus
             showMail
-            type="ao"
-            name={`${reviewer.first_name} ${reviewer.last_name}`}
-            email={reviewer.email}
+            type="cdo"
+            name={cdoName}
+            email={cdo.email}
           />
         </div>
       }
-      <div className="bid-tracker-organization-container">
+      <div className="bid-tracker-card-bottom-section">
         <OrganizationStamp
           showMail
           abbreviation="AF"
           name={bureau}
         />
       </div>
+      {
+        reviewerName &&
+        <div className="bid-tracker-card-bottom-section">
+          <ExternalUserStatus
+            showMail
+            type="ao"
+            name={reviewerName}
+            email={reviewer.email}
+          />
+        </div>
+      }
+      {
+        reviewerName &&
+        <div className="bid-tracker-card-bottom-section">
+          <ExternalUserStatus
+            showMail
+            type="hr"
+            name={reviewerName}
+            email={reviewer.email}
+          />
+        </div>
+      }
     </div>
   );
 };
@@ -34,6 +58,7 @@ const BidTrackerCardBottom = ({ bureau, reviewer }) => {
 BidTrackerCardBottom.propTypes = {
   reviewer: BID_REVIEWER_OBJECT,
   bureau: PropTypes.string.isRequired,
+  userProfile: USER_PROFILE.isRequired,
 };
 
 BidTrackerCardBottom.defaultProps = {

@@ -6,11 +6,11 @@ const IsPriority = ({ children }) => (
   <div className="usa-grid-full bid-tracker-priority-wrapper-container">
     <div className="usa-grid-full bid-tracker-priority-wrapper">
       <div className="usa-grid-full padded-container-inner priority-banner">
-        <div className="usa-width-one-half priority-banner-container-left" style={{ float: 'left', fontWeight: 'bold' }}>
+        <div className="usa-width-one-half priority-banner-container-left">
           Priority Assignment
         </div>
-        <div className="usa-width-one-half priority-banner-container-right" style={{ float: 'left', fontSize: '13px' }}>
-          <div className="priority-banner-question-text" style={{ float: 'right', marginTop: '3px' }} >
+        <div className="usa-width-one-half priority-banner-container-right">
+          <div className="priority-banner-question-text">
             <FontAwesome name="question-circle" /> What is a priority Assignment?
           </div>
         </div>

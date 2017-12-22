@@ -38,6 +38,7 @@ userProfileIsLoading }) => (
             bids={bidList.results}
             acceptBid={acceptBid}
             declineBid={declineBid}
+            userProfile={userProfile}
           />
         </div>
     }
