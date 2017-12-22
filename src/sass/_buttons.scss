@@ -45,3 +45,23 @@
     margin-right: 5px;
   }
 }
+
+.actions-link-container {
+  .actions-link-text {
+    float: left;
+  }
+
+  .actions-link-icon {
+    float: left;
+    margin-top: 1px;
+    padding-left: 10px;
+  }
+}
+
+.mail-to-button {
+  color: $blue-primary;
+
+  .fa {
+    margin-top: 10px;
+  }
+}

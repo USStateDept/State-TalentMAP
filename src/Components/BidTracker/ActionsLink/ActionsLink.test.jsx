@@ -1,16 +1,20 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import toJSON from 'enzyme-to-json';
-import CDOInfo from './CDOInfo';
+import ActionsLink from './ActionsLink';
 
-describe('CDOInfoComponent', () => {
+describe('ActionsLinkComponent', () => {
   it('is defined', () => {
-    const wrapper = shallow(<CDOInfo name="John Doe" />);
+    const wrapper = shallow(
+      <ActionsLink />,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<CDOInfo name="John Doe" />);
+    const wrapper = shallow(
+      <ActionsLink />,
+    );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
