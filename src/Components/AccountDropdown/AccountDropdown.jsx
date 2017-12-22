@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
+import { getAssetPath } from '../../utilities';
 
 export class AccountDropdown extends Component {
 
@@ -23,19 +24,25 @@ export class AccountDropdown extends Component {
 
   render() {
     const userName = this.props.userProfile.user ? this.props.userProfile.user.username : '...';
+    const avatar = getAssetPath('/assets/img/avatar.png');
     return (
-      <Dropdown className="account-dropdown" ref={(dropdown) => { this.dropdown = dropdown; }} >
+      <Dropdown
+        className="account-dropdown"
+        ref={(dropdown) => { this.dropdown = dropdown; }}
+        removeElement
+      >
         <DropdownTrigger href="/#">
           <img
             alt="avatar"
             className="account-dropdown--avatar"
-            src="/assets/img/avatar.png"
+            src={avatar}
           />
           <span className="account-dropdown--name" id="account-username">{userName}</span>
         </DropdownTrigger>
         <DropdownContent>
           <div className="account-dropdown--identity account-dropdown--segment">
-            Signed in as <strong>{userName}</strong>
+            <div>Signed in as</div>
+            <strong>{userName}</strong>
           </div>
           <div className="account-dropdown--identity account-dropdown--segment">
             <Link to="/profile/dashboard" onClick={this.hideDropdown}>Profile</Link>

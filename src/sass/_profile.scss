@@ -124,7 +124,7 @@
 
   .current-user-personal-information {
     border-bottom: 1px solid $color-gray-light;
-    min-height: 130px;
+    min-height: 150px;
     text-align: left;
 
     .skill-code-data-point-container:last-child {
@@ -343,7 +343,7 @@ $padding-no-border: $total-padding - $border;
   }
 
   a {
-    color: unset;
+    color: $color-black;
     display: inline-block;
     width: 100%;
   }

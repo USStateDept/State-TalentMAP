@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkillCodeList matches snapshot with an array of three items 1`] = `
+<span>
+  skill 1, skill 2, skill 3
+</span>
+`;
+
+exports[`SkillCodeList matches snapshot with an empty array 1`] = `
+<span>
+  No Skill Codes listed
+</span>
+`;
+
+exports[`SkillCodeList renders content correctly with an array of one item 1`] = `
+<span>
+  skill 1
+</span>
+`;
+
+exports[`SkillCodeList takes props 1`] = `
+<span>
+  skill 1, skill 2
+</span>
+`;

@@ -1,5 +1,6 @@
 .results-search-bar {
-  background-color: $color-gray-lightest;
+  background-color: $tm-dark-blue;
+  color: $color-white;
   height: auto;
 }
 
@@ -15,6 +16,12 @@
     font-size: .8em;
   }
 
+  @media screen and (max-width: 599px) {
+    fieldset {
+      width: 100%;
+    }
+  }
+
   .label-input-wrapper {
     width: 100%;
   }
@@ -26,12 +33,13 @@
   .search-results-inputs {
     float: left;
     padding: 15px 0;
+    width: 100%;
 
     input {
       border-radius: 5px;
       border-right: solid 1px;
       display: inline-block;
-      max-width: unset;
+      max-width: 100%;
     }
 
     label {

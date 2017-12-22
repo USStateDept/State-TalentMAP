@@ -12,6 +12,11 @@ export const LANGUAGES = PropTypes.arrayOf(
   }),
 );
 
+export const LANGUAGE_QUALIFICATIONS = PropTypes.shape({
+  id: PropTypes.number,
+  representation: PropTypes.string,
+});
+
 export const POST_MISSION_DATA = PropTypes.shape({
   id: PropTypes.number,
   tour_of_duty: PropTypes.string,
@@ -146,8 +151,11 @@ export const FAVORITE_POSITION = PropTypes.shape({
 
 export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
 
+export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(PropTypes.string);
+
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
+  skill_code: USER_SKILL_CODE_ARRAY,
   user: PropTypes.shape({
     username: PropTypes.string,
     email: PropTypes.string,
@@ -155,9 +163,7 @@ export const USER_PROFILE = PropTypes.shape({
     last_name: PropTypes.string,
   }),
   is_cdo: PropTypes.bool,
-  language_qualifications: PropTypes.arrayOf(
-    PropTypes.number,
-  ),
+  languages: LANGUAGE_QUALIFICATIONS,
   favorite_positions: FAVORITE_POSITIONS_ARRAY,
   received_shares: PropTypes.arrayOf(
     PropTypes.number,
@@ -316,7 +322,7 @@ export const NOTIFICATION_LIST = PropTypes.shape({
 export const BIDDER_OBJECT = PropTypes.shape(
   {
     id: PropTypes.number,
-    skill_code: PropTypes.string,
+    skill_code: USER_SKILL_CODE_ARRAY,
     grade: PropTypes.string,
     cdo: PropTypes.shape({
       username: PropTypes.string,
@@ -337,8 +343,8 @@ export const BIDDER_OBJECT = PropTypes.shape(
       first_name: PropTypes.string,
       last_name: PropTypes.string,
     }),
-    language_qualifications: PropTypes.arrayOf(PropTypes.number),
-    favorite_positions: PropTypes.arrayOf(PropTypes.number),
+    languages: LANGUAGE_QUALIFICATIONS,
+    favorite_positions: FAVORITE_POSITIONS_ARRAY,
     received_shares: PropTypes.arrayOf(PropTypes.number),
   },
 );

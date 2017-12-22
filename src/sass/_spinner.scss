@@ -6,12 +6,6 @@ $tm-spinner-filled-ratio: 1.15;
 .tm-spinner {
   color: $tm-navy;
   z-index: $spinner-z; // make sure spinner is on top
-}
-
-.tm-spinner-homepage-position-results {
-  left: 40%;
-  position: absolute;
-  top: 7px;
 
   .ds-c-spinner--big.ds-c-spinner--filled {
     height: $tm-spinner-default-size * $tm-spinner-filled-ratio;
@@ -29,29 +23,24 @@ $tm-spinner-filled-ratio: 1.15;
     height: $tm-spinner-default-size;
     width: $tm-spinner-default-size;
   }
+}
+
+.tm-spinner-homepage-position-results {
+  left: 45%;
+  position: absolute;
+  top: 7px;
 }
 
 .tm-spinner-position-results {
   left: 40%;
   position: absolute;
   top: 20px;
+}
 
-  .ds-c-spinner--big.ds-c-spinner--filled {
-    height: $tm-spinner-default-size * $tm-spinner-filled-ratio;
-    width: $tm-spinner-default-size * $tm-spinner-filled-ratio;
-  }
-
-  .ds-c-spinner--big::before {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
-  }
-
-  .ds-c-spinner--big::after {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
-  }
+.tm-spinner-position-details {
+  left: 45%;
+  position: absolute;
+  top: 20px;
 }
 
 .tm-spinner-favorites {

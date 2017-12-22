@@ -1,4 +1,9 @@
 version: "2"
+checks:
+  file-lines:
+    enabled: false # default is 250, which is low when we have logic and ui in some files
+  method-lines:
+    enabled: false # default is 25 which is low for render() methods
 plugins:
   duplication:
     enabled: false

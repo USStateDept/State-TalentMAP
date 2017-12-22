@@ -9,12 +9,22 @@ exports[`UserProfileComponent matches snapshot 1`] = `
     useGroup={false}
     userProfile={
       Object {
+        "bid_statistics": Array [
+          Object {
+            "draft": 1,
+            "submitted": 1,
+          },
+        ],
         "is_cdo": false,
-        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "skill_code": Array [
+          "INFORMATION MANAGEMENT (2880)",
+          "ADMINISTRATIVE SUPPORT (2080)",
+        ],
         "user": Object {
           "email": "doej@state.gov",
           "first_name": "John",
           "last_name": "Doe",
+          "username": "jdoe",
         },
       }
     }
@@ -23,12 +33,22 @@ exports[`UserProfileComponent matches snapshot 1`] = `
     showEditLink={true}
     userProfile={
       Object {
+        "bid_statistics": Array [
+          Object {
+            "draft": 1,
+            "submitted": 1,
+          },
+        ],
         "is_cdo": false,
-        "skill_code": "INFORMATION MANAGEMENT (2880)",
+        "skill_code": Array [
+          "INFORMATION MANAGEMENT (2880)",
+          "ADMINISTRATIVE SUPPORT (2080)",
+        ],
         "user": Object {
           "email": "doej@state.gov",
           "first_name": "John",
           "last_name": "Doe",
+          "username": "jdoe",
         },
       }
     }

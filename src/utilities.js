@@ -193,3 +193,7 @@ export const removeDuplicates = (myArr, prop) => (
 // We want to use minutes for recent notifications, but days for older ones.
 export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options = {}) =>
   `${distanceInWords(dateToCompare, date, options)} ago`;
+
+// Prefix asset paths with the PUBLIC_URL
+export const getAssetPath = strAssetPath =>
+  `${process.env.PUBLIC_URL}${strAssetPath}`;
