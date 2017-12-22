@@ -38,7 +38,7 @@ describe('ActionsDropdown', () => {
     const wrapper = shallow(<ActionsDropdown {...props} toggleBid={spy} />);
 
     // find the Delete text
-    const deleteText = wrapper.find('div[children="Delete"]');
+    const deleteText = wrapper.find('InteractiveElement[children="Delete"]');
     // click to delete
     deleteText.simulate('click');
     // toggleBid function should have been called once
@@ -50,7 +50,7 @@ describe('ActionsDropdown', () => {
     const wrapper = shallow(<ActionsDropdown {...props} toggleBid={spy} />);
 
     // find the Delete text
-    const deleteText = wrapper.find('div[children="Delete"]');
+    const deleteText = wrapper.find('InteractiveElement[children="Delete"]');
     // click to delete
     deleteText.simulate('keyUp', { keyCode: 13 });
     // toggleBid function should have been called once

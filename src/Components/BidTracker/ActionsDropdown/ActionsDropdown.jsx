@@ -5,6 +5,7 @@ import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdow
 import { toggleBidPosition } from '../../../actions/bidList';
 import ActionsLink from '../ActionsLink';
 import { ifEnter } from '../../../utilities';
+import InteractiveElement from '../../InteractiveElement';
 
 // export unconnected class for testing
 export class ActionsDropdown extends Component {
@@ -60,7 +61,8 @@ export class ActionsDropdown extends Component {
           </div>
           {
             showDelete &&
-            <div
+            <InteractiveElement
+              type="div"
               role="link"
               className={`account-dropdown--identity account-dropdown--segment ${disableDelete ? 'disabled' : ''}`}
               tabIndex="0"
@@ -69,18 +71,19 @@ export class ActionsDropdown extends Component {
               title={disableDelete ? 'You cannot delete this bid' : ''}
             >
               Delete
-            </div>
+            </InteractiveElement>
           }
           {
             showWithdraw &&
-            <div
+            <InteractiveElement
+              type="div"
               role="link"
               tabIndex="0"
               className={`account-dropdown--identity account-dropdown--segment ${disableWithdraw ? 'disabled' : ''}`}
               title={disableWithdraw ? 'You cannot widthdraw this bid' : ''}
             >
               Withdraw
-            </div>
+            </InteractiveElement>
           }
         </DropdownContent>
       </Dropdown>
