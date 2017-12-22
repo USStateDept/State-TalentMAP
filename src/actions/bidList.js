@@ -151,8 +151,7 @@ export function submitBid(id) {
     dispatch(routeChangeResetState());
     dispatch(submitBidIsLoading(true));
     dispatch(submitBidHasErrored(false));
-    // Since this is a PUT, we need an empty body as the second argument
-    axios.put(`${api}/bidlist/bid/${idString}/submit/`, null, { headers: { Authorization: fetchUserToken() } })
+    axios.get(`${api}/bid/${idString}/submit/`, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then(() => {
               dispatch(submitBidHasErrored(false));
