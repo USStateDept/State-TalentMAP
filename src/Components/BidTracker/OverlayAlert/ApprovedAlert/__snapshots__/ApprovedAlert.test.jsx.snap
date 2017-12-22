@@ -14,11 +14,13 @@ exports[`ApprovedAlertComponent matches snapshot 1`] = `
      for this position!
   </div>
   <div>
-    <button
-      className="tm-button-transparent"
-    >
-      Prepare for Next Steps
-    </button>
+    <Connect(StaticDevContent)>
+      <button
+        className="tm-button-transparent"
+      >
+        Prepare for Next Steps
+      </button>
+    </Connect(StaticDevContent)>
   </div>
   <div
     className="sub-text"

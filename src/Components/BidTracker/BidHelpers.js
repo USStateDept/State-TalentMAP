@@ -230,7 +230,6 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
     case IN_PANEL_PROP:
     case APPROVED_PROP:
     case DECLINED_PROP:
-    case 'Cherries':
       bidClassObject.stages[DRAFT_PROP] = Object.assign(
         DEFAULT_COMPLETE_OBJECT,
         { number: DRAFT_NUMBER, date: DRAFT_DATE, title: DRAFT_TITLE },
