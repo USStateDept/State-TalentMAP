@@ -45,6 +45,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
           "user": "rehmant",
         }
       }
+      showQuestion={false}
     />
   </div>
 </div>

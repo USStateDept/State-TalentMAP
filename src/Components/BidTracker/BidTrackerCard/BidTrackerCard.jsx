@@ -18,10 +18,7 @@ const BidTrackerCard = ({ bid, acceptBid, declineBid, userProfile }) => {
           {
             showAlert &&
               <OverlayAlert
-                id={bid.id}
-                type={bid.status}
-                userName={bid.user}
-                bureau="(AF) Bureau of African Affairs"
+                bid={bid}
                 acceptBid={acceptBid}
                 declineBid={declineBid}
               />

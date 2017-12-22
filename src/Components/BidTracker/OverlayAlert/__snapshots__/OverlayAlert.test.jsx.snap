@@ -11,7 +11,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "approved" 1`] = `
       className="bid-tracker-overlay-alert-content"
     >
       <ApprovedAlert
-        userName="user"
+        userName="rehmant"
       />
     </div>
   </div>
@@ -20,7 +20,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "approved" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "closed" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed"
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -28,7 +28,9 @@ exports[`OverlayAlertComponent matches snapshot when type is "closed" 1`] = `
     <div
       className="bid-tracker-overlay-alert-content"
     >
-      <ClosedAlert />
+      <ApprovedAlert
+        userName="rehmant"
+      />
     </div>
   </div>
 </div>
@@ -36,7 +38,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "closed" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "declined" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed"
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -44,8 +46,8 @@ exports[`OverlayAlertComponent matches snapshot when type is "declined" 1`] = `
     <div
       className="bid-tracker-overlay-alert-content"
     >
-      <DeclinedAlert
-        bureau="bureau"
+      <ApprovedAlert
+        userName="rehmant"
       />
     </div>
   </div>
@@ -54,7 +56,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "declined" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "handshake_declined" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed"
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -62,9 +64,8 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_declined
     <div
       className="bid-tracker-overlay-alert-content"
     >
-      <HandshakeDeclinedAlert
-        bureau="bureau"
-        userName="user"
+      <ApprovedAlert
+        userName="rehmant"
       />
     </div>
   </div>
@@ -73,7 +74,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_declined
 
 exports[`OverlayAlertComponent matches snapshot when type is "handshake_offered" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending"
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -81,11 +82,8 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_offered"
     <div
       className="bid-tracker-overlay-alert-content"
     >
-      <HandshakeOfferedAlert
-        acceptBid={[Function]}
-        declineBid={[Function]}
-        id={1}
-        userName="user"
+      <ApprovedAlert
+        userName="rehmant"
       />
     </div>
   </div>
@@ -94,7 +92,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_offered"
 
 exports[`OverlayAlertComponent matches snapshot when type is "in_panel" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending"
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -102,9 +100,8 @@ exports[`OverlayAlertComponent matches snapshot when type is "in_panel" 1`] = `
     <div
       className="bid-tracker-overlay-alert-content"
     >
-      <InPanelAlert
-        bureau="bureau"
-        userName="user"
+      <ApprovedAlert
+        userName="rehmant"
       />
     </div>
   </div>

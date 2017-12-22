@@ -14,15 +14,27 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
   </div>
   <div>
     <div
-      className="bid-tracker-card-action-container"
+      className="bid-tracker-card-title-container-right"
     >
-      <Connect(ActionsDropdown)
-        disableDelete={false}
-        disableWithdraw={true}
-        positionId={226}
-        showDelete={false}
-        showWithdraw={true}
-      />
+      <div
+        className="bid-tracker-question-text-container"
+      >
+        <FontAwesome
+          name="question-circle"
+        />
+         Why is it taking so long?
+      </div>
+      <div
+        className="bid-tracker-actions-container"
+      >
+        <Connect(ActionsDropdown)
+          disableDelete={false}
+          disableWithdraw={true}
+          positionId={226}
+          showDelete={false}
+          showWithdraw={true}
+        />
+      </div>
     </div>
   </div>
 </div>

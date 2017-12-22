@@ -4,13 +4,11 @@ import toJSON from 'enzyme-to-json';
 import OverlayAlert from './OverlayAlert';
 import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
   HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP } from '../../../Constants/BidData';
+import bidListObject from '../../../__mocks__/bidListObject';
 
 describe('OverlayAlertComponent', () => {
   const props = {
-    id: 1,
-    type: APPROVED_PROP,
-    userName: 'user',
-    bureau: 'bureau',
+    bid: bidListObject.results[0],
     acceptBid: () => {},
     declineBid: () => {},
   };

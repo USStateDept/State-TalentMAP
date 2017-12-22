@@ -22,8 +22,11 @@ exports[`OrganizationStampComponent matches snapshot when showMail is false 1`] 
       <div
         className="organization-stamp-name"
       >
-        African Affairs
-         
+        <span
+          className="organization-stamp-name-text"
+        >
+          African Affairs
+        </span>
       </div>
     </div>
   </div>
@@ -52,8 +55,11 @@ exports[`OrganizationStampComponent matches snapshot when showMail is true 1`] =
       <div
         className="organization-stamp-name"
       >
-        African Affairs
-         
+        <span
+          className="organization-stamp-name-text"
+        >
+          African Affairs
+        </span>
         <MailToButton
           email=""
         />

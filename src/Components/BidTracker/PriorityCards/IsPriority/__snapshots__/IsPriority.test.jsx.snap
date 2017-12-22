@@ -12,32 +12,14 @@ exports[`IsPriorityComponent matches snapshot 1`] = `
     >
       <div
         className="usa-width-one-half priority-banner-container-left"
-        style={
-          Object {
-            "float": "left",
-            "fontWeight": "bold",
-          }
-        }
       >
         Priority Assignment
       </div>
       <div
         className="usa-width-one-half priority-banner-container-right"
-        style={
-          Object {
-            "float": "left",
-            "fontSize": "13px",
-          }
-        }
       >
         <div
           className="priority-banner-question-text"
-          style={
-            Object {
-              "float": "right",
-              "marginTop": "3px",
-            }
-          }
         >
           <FontAwesome
             name="question-circle"
