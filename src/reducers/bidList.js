@@ -70,3 +70,51 @@ export function submitBidSuccess(state = false, action) {
       return state;
   }
 }
+export function acceptBidHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'ACCEPT_BID_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function acceptBidIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'ACCEPT_BID_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function acceptBidSuccess(state = false, action) {
+  switch (action.type) {
+    case 'ACCEPT_BID_SUCCESS':
+      return action.response;
+    default:
+      return state;
+  }
+}
+export function declineBidHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'DECLINE_BID_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function declineBidIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'DECLINE_BID_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function declineBidSuccess(state = false, action) {
+  switch (action.type) {
+    case 'DECLINE_BID_SUCCESS':
+      return action.response;
+    default:
+      return state;
+  }
+}

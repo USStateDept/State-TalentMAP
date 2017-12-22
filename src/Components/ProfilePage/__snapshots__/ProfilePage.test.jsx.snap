@@ -21,6 +21,10 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
       />
       <Route
         component={[Function]}
+        path="/profile/bidtracker"
+      />
+      <Route
+        component={[Function]}
         path="/profile/favorites"
       />
       <Route

@@ -1,16 +1,20 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import toJSON from 'enzyme-to-json';
-import CDOInfo from './CDOInfo';
+import ClosedAlert from './ClosedAlert';
 
-describe('CDOInfoComponent', () => {
+describe('ClosedAlertComponent', () => {
   it('is defined', () => {
-    const wrapper = shallow(<CDOInfo name="John Doe" />);
+    const wrapper = shallow(
+      <ClosedAlert />,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<CDOInfo name="John Doe" />);
+    const wrapper = shallow(
+      <ClosedAlert />,
+    );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

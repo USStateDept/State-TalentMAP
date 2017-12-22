@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidStepsComponent matches snapshot 1`] = `
+<Steps
+  current={0}
+  direction="horizontal"
+  iconPrefix="rc"
+  labelPlacement="vertical"
+  prefixCls="rc-steps"
+  progressDot={false}
+  size=""
+  status="process"
+>
+  <Step
+    className="
+              step-draft
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={1}
+      />
+    }
+    title={
+      Array [
+        "Draft",
+      ]
+    }
+  />
+  <Step
+    className="
+              step-submitted
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={2}
+      />
+    }
+    title={
+      Array [
+        "Bid Submitted",
+        undefined,
+      ]
+    }
+  />
+  <Step
+    className="
+              step-handshake-offered
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={2}
+      />
+    }
+    title={
+      Array [
+        "Handshake Offered",
+        undefined,
+      ]
+    }
+  />
+  <Step
+    className="
+              step-handshake-accepted
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={4}
+      />
+    }
+    title={
+      Array [
+        "Handshake Accepted",
+        undefined,
+      ]
+    }
+  />
+  <Step
+    className="
+              step-in-panel
+              step-current
+              
+              step-incomplete
+            "
+    icon={
+      <BidStepIcon
+        isComplete={false}
+        isCurrent={true}
+        needsAction={false}
+        number={5}
+      />
+    }
+    title={
+      Array [
+        "Panel",
+        "",
+        "",
+      ]
+    }
+  />
+  <Step
+    className="
+              step-approval
+              
+              
+              step-incomplete
+            "
+    icon={
+      <BidStepIcon
+        isComplete={false}
+        isCurrent={false}
+        needsAction={false}
+        number={6}
+      />
+    }
+    title={
+      Array [
+        "Approval",
+      ]
+    }
+  />
+</Steps>
+`;

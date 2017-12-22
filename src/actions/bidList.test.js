@@ -144,4 +144,68 @@ describe('async actions', () => {
     };
     f();
   });
+
+  it('can accept a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/accept_handshake/').reply(204,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.acceptBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when accepting a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/accept_handshake/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.acceptBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can decline a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/decline_handshake/').reply(204,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.declineBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when declining a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/decline_handshake/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.declineBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
 });

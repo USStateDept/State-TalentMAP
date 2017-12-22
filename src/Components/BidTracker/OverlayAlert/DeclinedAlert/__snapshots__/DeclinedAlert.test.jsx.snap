@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeclinedAlertComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--declined"
+>
+  <div
+    className="top-text"
+  >
+    test
+     has 
+    <strong>
+      declined
+    </strong>
+     the bid
+  </div>
+</div>
+`;

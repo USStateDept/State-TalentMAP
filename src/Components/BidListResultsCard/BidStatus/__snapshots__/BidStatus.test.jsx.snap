@@ -60,6 +60,18 @@ exports[`BidStatusComponent matches snapshot for HAND_SHAKE_ACCEPTED 1`] = `
 </div>
 `;
 
+exports[`BidStatusComponent matches snapshot for HAND_SHAKE_DECLINED 1`] = `
+<div
+  className="bid-list-card-title-status"
+>
+  <FontAwesome
+    name="times"
+  />
+   
+  Handshake Declined
+</div>
+`;
+
 exports[`BidStatusComponent matches snapshot for HAND_SHAKE_OFFERED 1`] = `
 <div
   className="bid-list-card-title-status"

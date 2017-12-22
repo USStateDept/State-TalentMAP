@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidTrackerCardComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-container"
+>
+  <div
+    className="bid-tracker"
+  >
+    <div>
+      <div
+        className="usa-grid-full padded-container-inner bid-tracker-title-container"
+      >
+        <div
+          className="usa-width-one-half"
+        >
+          <BidTrackerCardTitle
+            id="10035561"
+            title="[10035561] POLITICAL/ECONOMIC OFFICER"
+          />
+        </div>
+        <div
+          className="usa-width-one-half"
+        >
+          <div
+            className="bid-tracker-card-action-container"
+          >
+            <ActionsLink />
+          </div>
+        </div>
+      </div>
+      <div
+        className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container"
+      >
+        <BidSteps
+          bid={
+            Object {
+              "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+              "id": 3,
+              "position": Object {
+                "create_date": "2015-08-05",
+                "grade": "03",
+                "id": 226,
+                "position_number": "10035561",
+                "post": Object {
+                  "id": 199,
+                  "location": "Curacao",
+                },
+                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                "title": "POLITICAL/ECONOMIC OFFICER",
+                "update_date": "2017-06-08",
+              },
+              "status": "approved",
+              "submission_date": "2017-10-31",
+              "update_date": "2017-10-31",
+              "user": "rehmant",
+            }
+          }
+        />
+        <OverlayAlert
+          bureau="(AF) Bureau of African Affairs"
+          id={3}
+          type="approved"
+          userName="rehmant"
+        />
+      </div>
+    </div>
+    <div
+      className="usa-grid-full bid-tracker-card-bottom-container"
+    >
+      <div
+        className="padded-container-inner"
+      >
+        <BidTrackerCardBottom />
+      </div>
+    </div>
+  </div>
+</div>
+`;

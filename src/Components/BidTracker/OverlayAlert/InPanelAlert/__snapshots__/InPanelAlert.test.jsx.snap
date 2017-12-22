@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InPanelAlertComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--in-panel"
+>
+  <div
+    className="top-text"
+  >
+    <div>
+      <FontAwesome
+        name="users"
+      />
+    </div>
+    <div>
+      test, you are in panel for your bid for test
+    </div>
+  </div>
+</div>
+`;
