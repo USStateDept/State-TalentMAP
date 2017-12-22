@@ -34,9 +34,14 @@ $card-width: 775px;
       margin-right: 10px;
     }
   }
+
+  .padded-container-inner {
+    padding: 15px;
+  }
 }
 
 .bid-tracker-container {
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -85,16 +90,11 @@ $card-width: 775px;
   background: $color-white;
   border: 1px solid $color-gray-light;
   font-size: 16px;
-  margin-bottom: 30px;
   min-width: $card-width;
 
   .step-title-sub-text {
     color: $color-gray;
     font-size: 13px;
-  }
-
-  .padded-container-inner {
-    padding: 15px;
   }
 
   .bid-tracker-ao-container {
@@ -109,7 +109,12 @@ $card-width: 775px;
   }
 
   .bid-tracker-title-container {
+    display: flex;
     margin-bottom: 0;
+  }
+
+  .bid-tracker-title-content-container {
+    flex-grow: 1;
   }
 
   .bid-tracker-card-action-container {
@@ -354,5 +359,39 @@ $card-width: 775px;
 
   button {
     margin-right: 30px;
+  }
+}
+
+.bid-tracker-priority-wrapper-container {
+  border: 3px solid $color-gold;
+  border-top: 0;
+  min-width: $card-width;
+
+  .priority-banner {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .bid-tracker {
+    border: 0;
+  }
+
+  .bid-tracker-priority-wrapper {
+    background-color: $color-gold;
+  }
+}
+
+.bid-tracker-standby-container {
+  display: flex;
+
+  .bid-tracker-standby-title {
+    background-color: $color-gray;
+    color: $color-white;
+    float: left;
+  }
+
+  .bid-tracker-standby-content-container {
+    flex-grow: 1;
+    float: left;
   }
 }

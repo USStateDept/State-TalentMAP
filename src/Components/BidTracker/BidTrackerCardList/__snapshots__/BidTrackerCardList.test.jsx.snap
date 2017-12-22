@@ -4,7 +4,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  <BidTrackerCard
+  <BidTrackerCardContainer
     acceptBid={[Function]}
     bid={
       Object {
@@ -39,8 +39,10 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
       }
     }
     declineBid={[Function]}
+    isPriority={false}
+    priorityExists={false}
   />
-  <BidTrackerCard
+  <BidTrackerCardContainer
     acceptBid={[Function]}
     bid={
       Object {
@@ -75,8 +77,10 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
       }
     }
     declineBid={[Function]}
+    isPriority={false}
+    priorityExists={false}
   />
-  <BidTrackerCard
+  <BidTrackerCardContainer
     acceptBid={[Function]}
     bid={
       Object {
@@ -111,6 +115,8 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
       }
     }
     declineBid={[Function]}
+    isPriority={false}
+    priorityExists={false}
   />
 </div>
 `;

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IsOnStandbyComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bid-tracker bid-tracker-standby-container"
+>
+  <div
+    className="padded-container-inner bid-tracker-standby-title"
+  >
+    On standby
+  </div>
+  <div
+    className="bid-tracker-standby-content-container"
+  >
+    <BidTrackerCardTop
+      bid={
+        Object {
+          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+          "id": 3,
+          "position": Object {
+            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+            "create_date": "2015-08-05",
+            "grade": "03",
+            "id": 226,
+            "position_number": "10035561",
+            "post": Object {
+              "id": 199,
+              "location": "Curacao",
+            },
+            "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+            "title": "POLITICAL/ECONOMIC OFFICER",
+            "update_date": "2017-06-08",
+          },
+          "reviewer": Object {
+            "email": "woodwardw@state.gov",
+            "first_name": "Wendy",
+            "is_cdo": false,
+            "last_name": "Woodward",
+            "phone_number": "555-555-5555",
+            "username": "woodwardw",
+          },
+          "status": "approved",
+          "submission_date": "2017-10-31",
+          "update_date": "2017-10-31",
+          "user": "rehmant",
+        }
+      }
+    />
+  </div>
+</div>
+`;
