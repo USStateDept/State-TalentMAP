@@ -44,7 +44,7 @@ class NotificationsSection extends Component {
               onDismiss={() => this.markNotification(notification.id)}
               className="dismiss-alt"
             >
-              <AlertAlt type="warning" title="Notification" message={notification.message} />
+              <AlertAlt type="success" title="Notification" message={notification.message} />
             </Dismiss>
           </div>
         }

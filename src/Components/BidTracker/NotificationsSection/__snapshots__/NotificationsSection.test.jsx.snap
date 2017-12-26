@@ -14,7 +14,7 @@ exports[`NotificationsSectionComponent matches snapshot 1`] = `
       <AlertAlt
         message="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
         title="Notification"
-        type="warning"
+        type="success"
       />
     </Dismiss>
   </div>

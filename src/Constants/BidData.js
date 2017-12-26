@@ -9,7 +9,9 @@ export const HAND_SHAKE_DECLINED_PROP = 'handshake_declined';
 export const PRE_PANEL_PROP = 'pre_panel';
 export const IN_PANEL_PROP = 'in_panel';
 export const SUBMITTED_PROP = 'submitted';
+export const PANEL_RESCHEDULED_PROP = 'panel_rescheduled';
 
+// Numbers on the Bid Tracker for given statuses
 export const DRAFT_NUMBER = 1;
 export const SUBMITTED_NUMBER = 2;
 export const HAND_SHAKE_OFFERED_NUMBER = 3;

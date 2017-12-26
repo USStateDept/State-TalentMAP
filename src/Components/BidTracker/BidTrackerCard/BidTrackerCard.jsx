@@ -8,6 +8,7 @@ import OverlayAlert from '../OverlayAlert';
 import { shouldShowAlert } from '../BidHelpers';
 
 const BidTrackerCard = ({ bid, acceptBid, declineBid, userProfile }) => {
+  // determine whether we render an alert on top of the card
   const showAlert = shouldShowAlert(bid.status);
   return (
     <div className="bid-tracker">

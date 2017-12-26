@@ -12,7 +12,7 @@ exports[`AlertAltComponent matches snapshot when type equals error 1`] = `
       className="usa-grid-full tm-alert-icon"
     >
       <FontAwesome
-        name="exclamation-circle"
+        name="exclamation-triangle"
         size="lg"
       />
     </div>

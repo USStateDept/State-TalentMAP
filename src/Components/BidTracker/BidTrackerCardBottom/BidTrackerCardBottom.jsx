@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import ExternalUserStatus from '../../ProfileDashboard/ExternalUserStatus';
 import OrganizationStamp from '../../OrganizationStamp';
 import { BID_REVIEWER_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
+import StaticDevContent from '../../StaticDevContent';
 
 const BidTrackerCardBottom = ({ bureau, reviewer, userProfile }) => {
   const reviewerName = reviewer && reviewer.first_name && reviewer.last_name ? `${reviewer.first_name} ${reviewer.last_name}` : null;
   const cdo = userProfile.cdo;
   const cdoName = cdo && cdo.first_name && cdo.last_name ? `${cdo.first_name} ${cdo.last_name}` : null;
+
+  // TODO - determine whether we want to conditionally display some of
+  // these contacts depending on the status.
   return (
-    <div className="usa-grid-full bid-tracker-card-bottom" style={{ display: 'flex' }}>
+    <div className="usa-grid-full bid-tracker-card-bottom">
       {
         cdoName &&
         <div className="bid-tracker-card-bottom-section">
@@ -22,11 +26,13 @@ const BidTrackerCardBottom = ({ bureau, reviewer, userProfile }) => {
         </div>
       }
       <div className="bid-tracker-card-bottom-section">
-        <OrganizationStamp
-          showMail
-          abbreviation="AF"
-          name={bureau}
-        />
+        <StaticDevContent>
+          <OrganizationStamp
+            showMail
+            abbreviation="AF"
+            name={bureau}
+          />
+        </StaticDevContent>
       </div>
       {
         reviewerName &&
@@ -42,12 +48,14 @@ const BidTrackerCardBottom = ({ bureau, reviewer, userProfile }) => {
       {
         reviewerName &&
         <div className="bid-tracker-card-bottom-section">
-          <ExternalUserStatus
-            showMail
-            type="hr"
-            name={reviewerName}
-            email={reviewer.email}
-          />
+          <StaticDevContent>
+            <ExternalUserStatus
+              showMail
+              type="hr"
+              name={reviewerName}
+              email={reviewer.email}
+            />
+          </StaticDevContent>
         </div>
       }
     </div>

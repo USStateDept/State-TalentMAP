@@ -9,7 +9,7 @@ const AlertAlt = ({ type, title, message }) => {
       icon = 'exclamation-triangle';
       break;
     case 'error':
-      icon = 'exclamation-circle';
+      icon = 'exclamation-triangle';
       break;
     case 'success':
       icon = 'check-circle';

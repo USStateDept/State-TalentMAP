@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InPanelAlertComponent matches snapshot 1`] = `
+exports[`PanelRescheduledAlertComponent matches snapshot 1`] = `
 <div
   className="bid-tracker-alert-container bid-tracker-alert-container--in-panel"
 >
@@ -13,7 +13,7 @@ exports[`InPanelAlertComponent matches snapshot 1`] = `
       />
     </div>
     <div>
-      You are in panel for test
+      You've been rescheduled for the next panel on 6.11.17
     </div>
     <div
       className="date-text"

@@ -3,7 +3,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import OverlayAlert from './OverlayAlert';
 import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
-  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP } from '../../../Constants/BidData';
+  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP } from '../../../Constants/BidData';
 import bidListObject from '../../../__mocks__/bidListObject';
 
 describe('OverlayAlertComponent', () => {
@@ -13,8 +13,9 @@ describe('OverlayAlertComponent', () => {
     declineBid: () => {},
   };
 
+  // All possible props, plus  fake prop to test the default case of the switch
   const types = [APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
-    HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP];
+    HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP, 'fake prop'];
 
   it('is defined', () => {
     const wrapper = shallow(
@@ -28,7 +29,7 @@ describe('OverlayAlertComponent', () => {
   types.forEach((type) => {
     it(`matches snapshot when type is "${type}"`, () => {
       const wrapper = shallow(
-        <OverlayAlert {...props} type={type} />,
+        <OverlayAlert {...props} bid={{ ...props.bid, status: type }} type={type} />,
       );
       expect(toJSON(wrapper)).toMatchSnapshot();
     });

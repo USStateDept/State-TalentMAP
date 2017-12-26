@@ -3,11 +3,6 @@
 exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full bid-tracker-card-bottom"
-  style={
-    Object {
-      "display": "flex",
-    }
-  }
 >
   <div
     className="bid-tracker-card-bottom-section"
@@ -22,11 +17,13 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-card-bottom-section"
   >
-    <OrganizationStamp
-      abbreviation="AF"
-      name="bureau"
-      showMail={true}
-    />
+    <Connect(StaticDevContent)>
+      <OrganizationStamp
+        abbreviation="AF"
+        name="bureau"
+        showMail={true}
+      />
+    </Connect(StaticDevContent)>
   </div>
   <div
     className="bid-tracker-card-bottom-section"
@@ -41,12 +38,14 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-card-bottom-section"
   >
-    <ExternalUserStatus
-      email="woodwardw@state.gov"
-      name="Wendy Woodward"
-      showMail={true}
-      type="hr"
-    />
+    <Connect(StaticDevContent)>
+      <ExternalUserStatus
+        email="woodwardw@state.gov"
+        name="Wendy Woodward"
+        showMail={true}
+        type="hr"
+      />
+    </Connect(StaticDevContent)>
   </div>
 </div>
 `;

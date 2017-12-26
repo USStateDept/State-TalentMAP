@@ -7,7 +7,7 @@ import ActionsLink from '../ActionsLink';
 import { ifEnter } from '../../../utilities';
 import InteractiveElement from '../../InteractiveElement';
 
-// export unconnected class for testing
+// Export unconnected class for testing.
 export class ActionsDropdown extends Component {
 
   constructor(props) {
@@ -26,6 +26,7 @@ export class ActionsDropdown extends Component {
   }
 
   render() {
+    // Use different props to display certain actions and disable them as well.
     const { showDelete, disableDelete, showWithdraw, disableWithdraw } = this.props;
 
     return (

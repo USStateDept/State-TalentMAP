@@ -38,7 +38,7 @@ const BidTrackerCardTop = ({ bid, showQuestion }) => {
 
 BidTrackerCardTop.propTypes = {
   bid: BID_OBJECT.isRequired,
-  showQuestion: PropTypes.bool,
+  showQuestion: PropTypes.bool, // Determine whether or not to show the question text
 };
 
 BidTrackerCardTop.defaultProps = {
