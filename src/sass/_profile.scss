@@ -4,6 +4,7 @@
 
 .profile-page {
   border: solid 0 1px 1px 1px $color-gray-light;
+  display: flex;
   position: relative;
 
   .hello-greeting {
@@ -70,7 +71,8 @@
 
   .profile-content-container {
     background-color: $tm-white-smoke-light;
-    margin-left: 200px;
+    border-left: solid 1px $color-gray-light;
+    flex-grow: 1;
     min-height: 700px;
     right: 0;
     width: auto;
@@ -261,11 +263,9 @@ $padding-no-border: $total-padding - $border;
 
 .profile-menu {
 
-  border-right: solid 1px $color-gray-light;
   font-size: 15px;
   height: 100%;
-  position: absolute;
-  width: 200px;
+  min-width: 200px;
 
   .fa-container {
     float: left;
@@ -328,7 +328,16 @@ $padding-no-border: $total-padding - $border;
 
   .menu-title {
     font-weight: bold;
-    padding: 10px 0 0 30px;
+    padding: 10px 15px 20px 30px;
+
+    .unstyled-button {
+      color: inherit;
+      float: right;
+    }
+
+    .menu-title-text {
+      float: left;
+    }
   }
 
   a {
@@ -350,6 +359,19 @@ $padding-no-border: $total-padding - $border;
 
     .fa {
       margin-right: 10px;
+    }
+  }
+}
+
+.profile-menu-collapsed {
+  min-width: 65px;
+
+  .menu-title {
+    padding-bottom: 2px;
+    padding-right: 0;
+
+    .unstyled-button {
+      float: none;
     }
   }
 }
