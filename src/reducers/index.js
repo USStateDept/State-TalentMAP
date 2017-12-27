@@ -3,130 +3,55 @@ import { routerReducer } from 'react-router-redux';
 import { reducer as form } from 'redux-form';
 import client from '../client/reducer';
 import login from '../login/reducer';
-import { results, resultsHasErrored, resultsIsLoading } from './results';
-import { filters, filtersHasErrored, filtersIsLoading } from './filters';
-import { post, postHasErrored, postIsLoading } from './post';
-import { share, shareHasErrored, shareIsSending } from './share';
-import { newSavedSearchIsSaving, newSavedSearchHasErrored,
-  newSavedSearchSuccess, currentSavedSearch, savedSearchesSuccess,
-  savedSearchesIsLoading, savedSearchesHasErrored,
-  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
-  cloneSavedSearchIsLoading, cloneSavedSearchHasErrored, cloneSavedSearchSuccess } from './savedSearch';
-import { positionDetails, positionDetailsHasErrored, positionDetailsIsLoading } from './positionDetails';
-import { comparisons, comparisonsHasErrored, comparisonsIsLoading } from './comparisons';
-import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
-import { userProfile, userProfileHasErrored, userProfileIsLoading,
-        userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
-import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading } from './favoritePositions';
-import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
-  bidListToggleHasErrored, bidListToggleIsLoading, bidListToggleSuccess,
-  submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
-  acceptBidHasErrored, acceptBidIsLoading, acceptBidSuccess,
-  declineBidHasErrored, declineBidIsLoading, declineBidSuccess } from './bidList';
-import { descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess } from './descriptionEdit';
-import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess } from './autocomplete/missionAutocomplete';
-import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
+import results from './results';
+import filters from './filters';
+import post from './post';
+import share from './share';
+import savedSearch from './savedSearch';
+import positionDetails from './positionDetails';
+import comparisons from './comparisons';
+import homePagePositions from './homePagePositions';
+import userProfile from './userProfile';
+import favoritePositions from './favoritePositions';
+import bidList from './bidList';
+import descriptionEdit from './descriptionEdit';
+import missionAutocomplete from './autocomplete/missionAutocomplete';
+import postAutocomplete from './autocomplete/postAutocomplete';
 import assignment from './assignment';
-import { notificationsHasErrored, notificationsIsLoading, notifications,
-  notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount } from './notifications';
-import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
-  bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored } from './bidderPortfolio';
+import notifications from './notifications';
+import bidderPortfolio from './bidderPortfolio';
 import shouldShowSearchBar from './showSearchBar';
-
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 import shouldShowStaticContent from './showStaticContent';
-import { profileMenuExpanded, profileMenuSectionExpanded } from './profileMenu';
+import profileMenu from './profileMenu';
 
 
 export default combineReducers({
-  results,
-  resultsHasErrored,
-  resultsIsLoading,
-  filters,
-  filtersHasErrored,
-  filtersIsLoading,
-  post,
-  postHasErrored,
-  postIsLoading,
-  positionDetails,
-  positionDetailsHasErrored,
-  positionDetailsIsLoading,
-  comparisons,
-  comparisonsHasErrored,
-  comparisonsIsLoading,
-  homePagePositions,
-  homePagePositionsHasErrored,
-  homePagePositionsIsLoading,
-  share,
-  shareHasErrored,
-  shareIsSending,
-  newSavedSearchIsSaving,
-  newSavedSearchHasErrored,
-  newSavedSearchSuccess,
-  currentSavedSearch,
-  savedSearchesSuccess,
-  savedSearchesIsLoading,
-  savedSearchesHasErrored,
-  deleteSavedSearchIsLoading,
-  deleteSavedSearchHasErrored,
-  deleteSavedSearchSuccess,
-  cloneSavedSearchIsLoading,
-  cloneSavedSearchHasErrored,
-  cloneSavedSearchSuccess,
-  userProfile,
-  userProfileHasErrored,
-  userProfileIsLoading,
-  userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored,
+  ...results,
+  ...filters,
+  ...post,
+  ...positionDetails,
+  ...comparisons,
+  ...homePagePositions,
+  ...share,
+  ...savedSearch,
+  ...userProfile,
+  ...selectedAccordion,
+  ...routerLocations,
+  ...favoritePositions,
+  ...bidList,
+  ...descriptionEdit,
+  ...missionAutocomplete,
+  ...postAutocomplete,
+  ...assignment,
+  ...notifications,
+  ...bidderPortfolio,
+  ...shouldShowStaticContent,
+  ...shouldShowSearchBar,
+  ...profileMenu,
+  router: routerReducer,
   form,
   client,
   login,
-  selectedAccordion,
-  routerLocations,
-  favoritePositions,
-  favoritePositionsHasErrored,
-  favoritePositionsIsLoading,
-  bidListHasErrored,
-  bidListIsLoading,
-  bidListFetchDataSuccess,
-  bidListToggleHasErrored,
-  bidListToggleIsLoading,
-  bidListToggleSuccess,
-  submitBidHasErrored,
-  submitBidIsLoading,
-  submitBidSuccess,
-  descriptionEditHasErrored,
-  descriptionEditIsLoading,
-  descriptionEditSuccess,
-  missionSearchHasErrored,
-  missionSearchIsLoading,
-  missionSearchSuccess,
-  postSearchHasErrored,
-  postSearchIsLoading,
-  postSearchSuccess,
-  ...assignment,
-  notificationsHasErrored,
-  notificationsIsLoading,
-  notifications,
-  notificationsCountHasErrored,
-  notificationsCountIsLoading,
-  notificationsCount,
-  bidderPortfolio,
-  bidderPortfolioIsLoading,
-  bidderPortfolioHasErrored,
-  bidderPortfolioCounts,
-  bidderPortfolioCountsIsLoading,
-  bidderPortfolioCountsHasErrored,
-  shouldShowStaticContent,
-  shouldShowSearchBar,
-  acceptBidHasErrored,
-  acceptBidIsLoading,
-  acceptBidSuccess,
-  declineBidHasErrored,
-  declineBidIsLoading,
-  declineBidSuccess,
-  profileMenuExpanded,
-  profileMenuSectionExpanded,
-  router: routerReducer,
 });

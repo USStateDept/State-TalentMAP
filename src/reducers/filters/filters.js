@@ -1,4 +1,4 @@
-import { ENDPOINT_PARAMS } from '../Constants/EndpointParams';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const items =
   {
