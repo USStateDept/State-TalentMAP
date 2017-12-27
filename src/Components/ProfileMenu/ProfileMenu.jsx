@@ -1,41 +1,68 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import NavLinksContainer from './NavLinksContainer';
-import NavLink from './NavLink';
+import { connect } from 'react-redux';
+import { setProfileMenuExpanded, setProfileMenuSectionExpanded } from '../../actions/profileMenu';
+import { EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED } from '../../Constants/PropTypes';
+import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../Constants/DefaultProps';
+import ProfileMenuExpanded from './ProfileMenuExpanded';
+import ProfileMenuCollapsed from './ProfileMenuCollapsed';
 
-const ProfileMenu = ({ isCDO }) => (
-  <div className="usa-grid-full profile-menu">
-    <div className="menu-title">
-      Menu
-    </div>
-    <NavLinksContainer>
-      <NavLink title="Profile" iconName="user" >
-        <NavLink title="Dashboard" link="/profile/dashboard/" />
-        <NavLink
-          title="Bidder Portfolio"
-          link="/profile/bidderportfolio/"
-          search="?type=all"
-          hidden={!isCDO}
-        />
-        <NavLink title="Bid Tracker" link="/profile/bidtracker/" />
-        <NavLink title="Bid List" link="/profile/bidlist/" />
-        <NavLink title="Favorites" link="/profile/favorites/" />
-        <NavLink title="Saved Searches" link="/profile/searches/" />
-      </NavLink>
-      <NavLink title="Inbox" iconName="comments-o" link="/profile/inbox/" />
-      <NavLink title="Notifications" iconName="globe" link="/profile/notifications/" />
-      <NavLink title="Contacts" iconName="users" link="/profile/contacts/" />
-      <NavLink title="Documents" iconName="file-text" link="/profile/documents/" />
-    </NavLinksContainer>
-  </div>
-);
+class ProfileMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.collapseMenu = this.collapseMenu.bind(this);
+    this.expandMenu = this.expandMenu.bind(this);
+  }
+
+  collapseMenu() {
+    this.props.onSetProfileMenuExpanded(false);
+  }
+
+  expandMenu() {
+    this.props.onSetProfileMenuExpanded(true);
+  }
+
+  render() {
+    const { profileMenuExpanded, profileMenuSectionExpanded,
+      onSetProfileMenuExpanded, onSetProfileMenuSectionExpanded } = this.props;
+    return (
+        profileMenuExpanded ?
+          <ProfileMenuExpanded
+            expandedSection={profileMenuSectionExpanded}
+            collapse={this.collapseMenu}
+            toggleMenuSection={onSetProfileMenuSectionExpanded}
+          />
+          :
+          <ProfileMenuCollapsed
+            toggleMenu={onSetProfileMenuExpanded}
+            expand={this.expandMenu}
+          />
+    );
+  }
+}
 
 ProfileMenu.propTypes = {
-  isCDO: PropTypes.bool,
+  profileMenuExpanded: PropTypes.bool,
+  profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED.isRequired,
+  onSetProfileMenuExpanded: PropTypes.func.isRequired,
+  onSetProfileMenuSectionExpanded: PropTypes.func.isRequired,
 };
 
 ProfileMenu.defaultProps = {
-  isCDO: false,
+  profileMenuExpanded: true,
+  profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED_OBJECT,
+  onSetProfileMenuExpanded: EMPTY_FUNCTION,
+  onSetProfileMenuSectionExpanded: EMPTY_FUNCTION,
 };
 
-export default ProfileMenu;
+const mapStateToProps = state => ({
+  profileMenuExpanded: state.profileMenuExpanded,
+  profileMenuSectionExpanded: state.profileMenuSectionExpanded,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSetProfileMenuExpanded: shouldExpand => dispatch(setProfileMenuExpanded(shouldExpand)),
+  onSetProfileMenuSectionExpanded: section => dispatch(setProfileMenuSectionExpanded(section)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileMenu);

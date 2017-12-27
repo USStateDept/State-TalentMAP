@@ -1,18 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProfileMenuComponent matches snapshot when isCDO is false 1`] = `
+exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] = `
 <div
   className="usa-grid-full profile-menu"
 >
   <div
     className="menu-title"
   >
-    Menu
+    <div
+      className="menu-title-text"
+    >
+      Menu
+    </div>
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+    >
+      <FontAwesome
+        name="exchange"
+      />
+    </button>
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
       iconName="user"
       title="Profile"
+      toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
         link="/profile/dashboard/"
@@ -65,19 +84,38 @@ exports[`ProfileMenuComponent matches snapshot when isCDO is false 1`] = `
 </div>
 `;
 
-exports[`ProfileMenuComponent matches snapshot when isCDO is true 1`] = `
+exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = `
 <div
   className="usa-grid-full profile-menu"
 >
   <div
     className="menu-title"
   >
-    Menu
+    <div
+      className="menu-title-text"
+    >
+      Menu
+    </div>
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+    >
+      <FontAwesome
+        name="exchange"
+      />
+    </button>
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
       iconName="user"
       title="Profile"
+      toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
         link="/profile/dashboard/"

@@ -18,4 +18,9 @@ export const POSITION_RESULTS_OBJECT = {
   results: [],
 };
 
+export const PROFILE_MENU_SECTION_EXPANDED_OBJECT = {
+  title: '',
+  display: false,
+};
+
 export default ACCORDION_SELECTION;
