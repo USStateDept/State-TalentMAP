@@ -23,7 +23,7 @@ class NavLink extends Component {
   // Checks if any of the children links match the current path.
   // If so, we'll toggle the visibility to true
   shouldExpandIfChildActive() {
-    const { children, isExpanded, title } = this.props;
+    const { children, expandedSection, title } = this.props;
     let found = false;
     // Iterate through the children.
     // When there's only one child, we can't use forEach...
@@ -41,9 +41,9 @@ class NavLink extends Component {
         found = true;
       }
     }
-    // If the title matches the isExpanded title, check the display boolean on whether or not to
-    // expand this section.
-    if (isExpanded && isExpanded.title === title) { found = isExpanded.display; }
+    // If the title matches the expandedSection title, check the display boolean
+    // on whether or not to expand this section.
+    if (expandedSection && expandedSection.title === title) { found = expandedSection.display; }
     if (found) {
       const { showNestedLinks } = this.state;
       showNestedLinks.value = true;
@@ -147,7 +147,7 @@ NavLink.propTypes = {
   // We still render hidden NavLinks so that we don't break NavLinksContainer.
   // They're simply returned as empty divs.
   hidden: PropTypes.bool,
-  isExpanded: PROFILE_MENU_SECTION_EXPANDED,
+  expandedSection: PROFILE_MENU_SECTION_EXPANDED,
   toggleMenuSection: PropTypes.func,
 };
 
@@ -158,7 +158,7 @@ NavLink.defaultProps = {
   children: null,
   search: '',
   hidden: false,
-  isExpanded: undefined,
+  expandedSection: undefined,
   toggleMenuSection: EMPTY_FUNCTION,
 };
 

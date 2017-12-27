@@ -23,13 +23,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
-      iconName="user"
-      isExpanded={
+      expandedSection={
         Object {
           "display": false,
           "title": "",
         }
       }
+      iconName="user"
       title="Profile"
       toggleMenuSection={[Function]}
     >
@@ -107,13 +107,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
-      iconName="user"
-      isExpanded={
+      expandedSection={
         Object {
           "display": false,
           "title": "",
         }
       }
+      iconName="user"
       title="Profile"
       toggleMenuSection={[Function]}
     >

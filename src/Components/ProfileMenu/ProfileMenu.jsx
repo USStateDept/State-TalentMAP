@@ -28,7 +28,7 @@ class ProfileMenu extends Component {
     return (
         profileMenuExpanded ?
           <ProfileMenuExpanded
-            expanded={profileMenuSectionExpanded}
+            expandedSection={profileMenuSectionExpanded}
             collapse={this.collapseMenu}
             toggleMenuSection={onSetProfileMenuSectionExpanded}
           />
