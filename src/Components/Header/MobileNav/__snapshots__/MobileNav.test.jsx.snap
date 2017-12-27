@@ -1,182 +1,192 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MobileNav matches snapshot when showLogin is false 1`] = `
-<nav
-  className="usa-nav"
+<MediaQueryWrapper
+  breakpoint="screenSmMax"
+  widthType="max"
 >
-  <div
-    className="usa-nav-inner"
+  <nav
+    className="usa-nav"
   >
-    <button
-      className="usa-nav-close"
-    >
-      <img
-        alt="close"
-        src="close.svg"
-      />
-    </button>
     <div
-      className="usa-nav-secondary mobile-nav"
+      className="usa-nav-inner"
     >
-      <ul
-        className="usa-unstyled-list usa-nav-secondary-links mobile-nav-only"
+      <button
+        className="usa-nav-close"
       >
-        <li
-          className="mobile-nav-only"
-        >
-          Signed in as jdoe
-        </li>
-        <hr
-          className="mobile-nav-only"
+        <img
+          alt="close"
+          src="close.svg"
         />
-        <li>
-          <Link
-            replace={false}
-            to="/results"
-          >
-            <FontAwesome
-              name="search"
-            />
-             Search
-          </Link>
-        </li>
-        <li>
-          <Link
-            replace={false}
-            to="/"
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <a
-            href="https://github.com/18F/State-TalentMAP"
-          >
-            About
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
-          </a>
-        </li>
-        <span
-          className="usa-unstyled-list mobile-nav-only"
+      </button>
+      <div
+        className="usa-nav-secondary mobile-nav"
+      >
+        <ul
+          className="usa-unstyled-list usa-nav-secondary-links mobile-nav-only"
         >
-          <hr />
+          <li
+            className="mobile-nav-only"
+          >
+            Signed in as jdoe
+          </li>
+          <hr
+            className="mobile-nav-only"
+          />
           <li>
             <Link
               replace={false}
-              to="/profile"
+              to="/results"
             >
-              Profile
+              <FontAwesome
+                name="search"
+              />
+               Search
             </Link>
           </li>
           <li>
             <Link
-              id="logout-mobile"
-              onClick={[Function]}
               replace={false}
-              to="login"
+              to="/"
             >
-              Logout
+              Home
             </Link>
           </li>
-        </span>
-      </ul>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP/issues"
+            >
+              Feedback
+            </a>
+          </li>
+          <span
+            className="usa-unstyled-list mobile-nav-only"
+          >
+            <hr />
+            <li>
+              <Link
+                replace={false}
+                to="/profile"
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                id="logout-mobile"
+                onClick={[Function]}
+                replace={false}
+                to="login"
+              >
+                Logout
+              </Link>
+            </li>
+          </span>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</MediaQueryWrapper>
 `;
 
 exports[`MobileNav matches snapshot when showLogin is true 1`] = `
-<nav
-  className="usa-nav"
+<MediaQueryWrapper
+  breakpoint="screenSmMax"
+  widthType="max"
 >
-  <div
-    className="usa-nav-inner"
+  <nav
+    className="usa-nav"
   >
-    <button
-      className="usa-nav-close"
-    >
-      <img
-        alt="close"
-        src="close.svg"
-      />
-    </button>
     <div
-      className="usa-nav-secondary mobile-nav"
+      className="usa-nav-inner"
     >
-      <ul
-        className="usa-unstyled-list usa-nav-secondary-links mobile-nav-only"
+      <button
+        className="usa-nav-close"
       >
-        <li
-          className="mobile-nav-only"
-        >
-          Signed in as jdoe
-        </li>
-        <hr
-          className="mobile-nav-only"
+        <img
+          alt="close"
+          src="close.svg"
         />
-        <li>
-          <Link
-            replace={false}
-            to="/results"
-          >
-            <FontAwesome
-              name="search"
-            />
-             Search
-          </Link>
-        </li>
-        <li>
-          <Link
-            replace={false}
-            to="/"
-          >
-            Home
-          </Link>
-        </li>
-        <li>
-          <a
-            href="https://github.com/18F/State-TalentMAP"
-          >
-            About
-          </a>
-        </li>
-        <li>
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
-          </a>
-        </li>
-        <span
-          className="usa-unstyled-list mobile-nav-only"
+      </button>
+      <div
+        className="usa-nav-secondary mobile-nav"
+      >
+        <ul
+          className="usa-unstyled-list usa-nav-secondary-links mobile-nav-only"
         >
-          <hr />
+          <li
+            className="mobile-nav-only"
+          >
+            Signed in as jdoe
+          </li>
+          <hr
+            className="mobile-nav-only"
+          />
           <li>
             <Link
               replace={false}
-              to="/profile"
+              to="/results"
             >
-              Profile
+              <FontAwesome
+                name="search"
+              />
+               Search
             </Link>
           </li>
           <li>
             <Link
-              id="login-mobile"
               replace={false}
-              to="login"
+              to="/"
             >
-              Login
+              Home
             </Link>
           </li>
-        </span>
-      </ul>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP"
+            >
+              About
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/18F/State-TalentMAP/issues"
+            >
+              Feedback
+            </a>
+          </li>
+          <span
+            className="usa-unstyled-list mobile-nav-only"
+          >
+            <hr />
+            <li>
+              <Link
+                replace={false}
+                to="/profile"
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                id="login-mobile"
+                replace={false}
+                to="login"
+              >
+                Login
+              </Link>
+            </li>
+          </span>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</MediaQueryWrapper>
 `;

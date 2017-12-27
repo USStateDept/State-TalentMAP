@@ -1,199 +1,209 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DesktopNav matches snapshot when logged in 1`] = `
-<div
-  className="navigation-container"
+<MediaQueryWrapper
+  breakpoint="screenMdMin"
+  widthType="min"
 >
   <div
-    className="nav-link-container header-nav-desktop desktop-nav-only"
+    className="navigation-container"
   >
     <div
-      className="header-nav-link-container is-highlighted"
+      className="nav-link-container header-nav-desktop desktop-nav-only"
     >
       <div
-        className="header-nav-link"
+        className="header-nav-link-container is-highlighted"
       >
         <div
-          className="header-nav-link-text search-text"
+          className="header-nav-link"
         >
-          <span
-            onClick={[Function]}
-            role="button"
-            tabIndex="0"
+          <div
+            className="header-nav-link-text search-text"
           >
-            <FontAwesome
-              name="search"
+            <span
+              onClick={[Function]}
+              role="button"
+              tabIndex="0"
+            >
+              <FontAwesome
+                name="search"
+              />
+               Search
+            </span>
+          </div>
+        </div>
+      </div>
+      <withRouter()
+        link="/"
+        navLinkClass="home-text"
+        title="Home"
+      />
+      <div
+        className="header-nav-link-container"
+      >
+        <div
+          className="header-nav-link"
+        >
+          <div
+            className="header-nav-link-text about-text"
+          >
+            <a
+              href="https://github.com/18F/State-TalentMAP"
+            >
+              About
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="header-nav-link-container"
+      >
+        <div
+          className="header-nav-link"
+        >
+          <div
+            className="header-nav-link-text feedback-text"
+          >
+            <a
+              href="https://github.com/18F/State-TalentMAP/issues"
+            >
+              Feedback
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="header-nav-desktop desktop-nav-only account-notification-container"
+    >
+      <div
+        className="header-nav-link-container account-container"
+      >
+        <div
+          className="header-nav-link"
+        >
+          <AccountDropdown
+            logoutRequest={[Function]}
+            userProfile={
+              Object {
+                "bid_statistics": Array [
+                  Object {
+                    "draft": 1,
+                    "submitted": 1,
+                  },
+                ],
+                "is_cdo": false,
+                "skill_code": Array [
+                  "INFORMATION MANAGEMENT (2880)",
+                  "ADMINISTRATIVE SUPPORT (2080)",
+                ],
+                "user": Object {
+                  "email": "doej@state.gov",
+                  "first_name": "John",
+                  "last_name": "Doe",
+                  "username": "jdoe",
+                },
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="header-nav-desktop desktop-nav-only account-notification-container"
+    >
+      <div
+        className="header-nav-link-container notifications-container"
+      >
+        <div
+          className="header-nav-link"
+        >
+          <span>
+            <Inbox
+              number={0}
             />
-             Search
+            <Connect(withRouter(Notifications)) />
           </span>
         </div>
       </div>
     </div>
-    <withRouter()
-      link="/"
-      navLinkClass="home-text"
-      title="Home"
-    />
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text about-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP"
-          >
-            About
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text feedback-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
+</MediaQueryWrapper>
+`;
+
+exports[`DesktopNav matches snapshot when logged out 1`] = `
+<MediaQueryWrapper
+  breakpoint="screenMdMin"
+  widthType="min"
+>
   <div
-    className="header-nav-desktop desktop-nav-only account-notification-container"
+    className="navigation-container"
   >
     <div
-      className="header-nav-link-container account-container"
+      className="nav-link-container header-nav-desktop desktop-nav-only"
+    >
+      <withRouter()
+        link="/"
+        navLinkClass="home-text"
+        title="Home"
+      />
+      <div
+        className="header-nav-link-container"
+      >
+        <div
+          className="header-nav-link"
+        >
+          <div
+            className="header-nav-link-text about-text"
+          >
+            <a
+              href="https://github.com/18F/State-TalentMAP"
+            >
+              About
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        className="header-nav-link-container"
+      >
+        <div
+          className="header-nav-link"
+        >
+          <div
+            className="header-nav-link-text feedback-text"
+          >
+            <a
+              href="https://github.com/18F/State-TalentMAP/issues"
+            >
+              Feedback
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="header-nav-desktop desktop-nav-only account-notification-container"
     >
       <div
-        className="header-nav-link"
+        className="header-nav-link-container account-container"
       >
-        <AccountDropdown
-          logoutRequest={[Function]}
-          userProfile={
-            Object {
-              "bid_statistics": Array [
-                Object {
-                  "draft": 1,
-                  "submitted": 1,
-                },
-              ],
-              "is_cdo": false,
-              "skill_code": Array [
-                "INFORMATION MANAGEMENT (2880)",
-                "ADMINISTRATIVE SUPPORT (2080)",
-              ],
-              "user": Object {
-                "email": "doej@state.gov",
-                "first_name": "John",
-                "last_name": "Doe",
-                "username": "jdoe",
-              },
-            }
-          }
+        <div
+          className="header-nav-link"
+        />
+      </div>
+    </div>
+    <div
+      className="header-nav-desktop desktop-nav-only account-notification-container"
+    >
+      <div
+        className="header-nav-link-container notifications-container"
+      >
+        <div
+          className="header-nav-link"
         />
       </div>
     </div>
   </div>
-  <div
-    className="header-nav-desktop desktop-nav-only account-notification-container"
-  >
-    <div
-      className="header-nav-link-container notifications-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <span>
-          <Inbox
-            number={0}
-          />
-          <Connect(withRouter(Notifications)) />
-        </span>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`DesktopNav matches snapshot when logged out 1`] = `
-<div
-  className="navigation-container"
->
-  <div
-    className="nav-link-container header-nav-desktop desktop-nav-only"
-  >
-    <withRouter()
-      link="/"
-      navLinkClass="home-text"
-      title="Home"
-    />
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text about-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP"
-          >
-            About
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text feedback-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="header-nav-desktop desktop-nav-only account-notification-container"
-  >
-    <div
-      className="header-nav-link-container account-container"
-    >
-      <div
-        className="header-nav-link"
-      />
-    </div>
-  </div>
-  <div
-    className="header-nav-desktop desktop-nav-only account-notification-container"
-  >
-    <div
-      className="header-nav-link-container notifications-container"
-    >
-      <div
-        className="header-nav-link"
-      />
-    </div>
-  </div>
-</div>
+</MediaQueryWrapper>
 `;
