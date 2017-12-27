@@ -4,7 +4,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
 <div
   className="profile-page"
 >
-  <ProfileMenu
+  <Connect(ProfileMenu)
     isCDO={false}
   />
   <div
