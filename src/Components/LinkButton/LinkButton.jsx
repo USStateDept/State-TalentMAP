@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const LinkButton = ({ children, className, toLink, useDefaultClass, useATag }) => (
+const LinkButton = ({ children, className, toLink, useDefaultClass, isExternal }) => (
   <span className="link-button-wrapper">
     {
-    useATag ?
+    isExternal ?
       <a
         className={`${useDefaultClass ? 'link-button' : ''} ${className}`}
         type="submit"
@@ -32,13 +32,13 @@ LinkButton.propTypes = {
   className: PropTypes.string,
   toLink: PropTypes.string.isRequired,
   useDefaultClass: PropTypes.bool,
-  useATag: PropTypes.bool,
+  isExternal: PropTypes.bool,
 };
 
 LinkButton.defaultProps = {
   className: '',
   useDefaultClass: true,
-  useATag: false,
+  isExternal: false,
 };
 
 export default LinkButton;

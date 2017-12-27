@@ -7,7 +7,7 @@ const ContactCDOButton = ({ email }) => (
   <LinkButton
     className="bid-tracker-cdo-button"
     toLink={`mailto:${email}`}
-    useATag
+    isExternal
   >
     <FontAwesome name="envelope-o" />
     Contact CDO

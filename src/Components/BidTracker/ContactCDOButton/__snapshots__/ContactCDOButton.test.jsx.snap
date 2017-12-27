@@ -4,7 +4,7 @@ exports[`ContactCDOButtonComponent matches snapshot 1`] = `
 <LinkButton
   className="bid-tracker-cdo-button"
   toLink="mailto:test@email.com"
-  useATag={true}
+  isExternal={true}
   useDefaultClass={true}
 >
   <FontAwesome
