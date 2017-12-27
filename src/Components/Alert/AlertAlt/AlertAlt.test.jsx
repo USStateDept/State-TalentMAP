@@ -19,6 +19,14 @@ describe('AlertAltComponent', () => {
     expect(wrapper.find('.tm-alert-heading').text()).toBe(title);
   });
 
+  it('applies "role=alert" when type is "error"', () => {
+    const title = 'title';
+    const wrapper = shallow(
+      <AlertAlt type="error" title={title} message="message" />,
+    );
+    expect(wrapper.find('.tm-alert').prop('role')).toBe('alert');
+  });
+
   it('renders the message', () => {
     const message = 'message';
     const wrapper = shallow(

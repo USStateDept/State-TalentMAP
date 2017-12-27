@@ -29,6 +29,8 @@ export class ActionsDropdown extends Component {
     // Use different props to display certain actions and disable them as well.
     const { showDelete, disableDelete, showWithdraw, disableWithdraw } = this.props;
 
+    const dropdownSegmentClass = 'account-dropdown--identity account-dropdown--segment';
+
     return (
       <Dropdown
         className="actions-dropdown"
@@ -42,21 +44,21 @@ export class ActionsDropdown extends Component {
           <div
             tabIndex="0"
             role="link"
-            className="account-dropdown--identity account-dropdown--segment"
+            className={dropdownSegmentClass}
           >
             Rename
           </div>
           <div
             tabIndex="0"
             role="link"
-            className="account-dropdown--identity account-dropdown--segment"
+            className={dropdownSegmentClass}
           >
             Send to e-mail
           </div>
           <div
             tabIndex="0"
             role="link"
-            className="account-dropdown--identity account-dropdown--segment"
+            className={dropdownSegmentClass}
           >
             Print
           </div>
@@ -65,7 +67,7 @@ export class ActionsDropdown extends Component {
             <InteractiveElement
               type="div"
               role="link"
-              className={`account-dropdown--identity account-dropdown--segment ${disableDelete ? 'disabled' : ''}`}
+              className={`${dropdownSegmentClass} ${disableDelete ? 'disabled' : ''}`}
               tabIndex="0"
               onClick={this.deleteBid}
               onKeyUp={(e) => { if (ifEnter(e)) { this.deleteBid(); } }}
@@ -80,7 +82,7 @@ export class ActionsDropdown extends Component {
               type="div"
               role="link"
               tabIndex="0"
-              className={`account-dropdown--identity account-dropdown--segment ${disableWithdraw ? 'disabled' : ''}`}
+              className={`${dropdownSegmentClass} ${disableWithdraw ? 'disabled' : ''}`}
               title={disableWithdraw ? 'You cannot widthdraw this bid' : ''}
             >
               Withdraw

@@ -64,7 +64,11 @@ describe('getActionPermissions function', () => {
     expect(getActionPermissions(PRE_PANEL_PROP)).toBeDefined();
   });
 
-  it('returns defined for invalid status', () => {
-    expect(getActionPermissions('fake_status')).toBeDefined();
+  it('returns the correct permissions for an invalid status', () => {
+    const permissions = getActionPermissions('fake_status');
+    expect(permissions.showDelete).toBe(false);
+    expect(permissions.disableDelete).toBe(false);
+    expect(permissions.showWithdraw).toBe(true);
+    expect(permissions.disableWithdraw).toBe(true);
   });
 });

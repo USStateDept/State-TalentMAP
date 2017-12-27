@@ -25,7 +25,7 @@ describe('ActionsDropdown', () => {
     // define the instance
     const instance = wrapper.instance();
     instance.dropdown = { hide: () => {} };
-    // spy the logout function
+    // spy the hideDropdown function
     const spy = sinon.spy(instance, 'hideDropdown');
     // click to logout
     instance.hideDropdown();
