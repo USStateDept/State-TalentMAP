@@ -391,3 +391,8 @@ export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 export const EMPTY_FUNCTION = () => {};
 
 export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };
+
+export const PROFILE_MENU_SECTION_EXPANDED = PropTypes.shape({
+  title: PropTypes.string,
+  display: PropTypes.bool,
+});

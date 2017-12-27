@@ -37,6 +37,7 @@ import shouldShowSearchBar from './showSearchBar';
 import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 import shouldShowStaticContent from './showStaticContent';
+import { profileMenuExpanded, profileMenuSectionExpanded } from './profileMenu';
 
 
 export default combineReducers({
@@ -131,5 +132,7 @@ export default combineReducers({
   markNotificationHasErrored,
   markNotificationIsLoading,
   markNotificationSuccess,
+  profileMenuExpanded,
+  profileMenuSectionExpanded,
   router: routerReducer,
 });
