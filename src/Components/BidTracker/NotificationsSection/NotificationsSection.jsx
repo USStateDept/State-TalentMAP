@@ -29,12 +29,18 @@ class NotificationsSection extends Component {
     // We keep this logic here instead of at the container level in case we want to implement
     // something like "View more notifications" or
     // "3 other bidding notifications", etc in the future.
-    const filteredNotifications = notifications.results.slice().filter(n => n.is_read === false && n.tags.indexOf('bidding') > -1);
+    const filteredNotifications = notifications.results.slice().filter(n => n.is_read === false && n.tags.includes('bidding'));
     let notification;
     // we're also only going to show the first
     if (filteredNotifications.length) { notification = filteredNotifications[0]; }
     // if loading is complete and there is a notification, we can display it
     const shouldShowNotification = !notificationsIsLoading && notification && !markedAsRead.value;
+    // Determine what type of notification to display.
+    // Default to "success" unless "declined" is one of the tags.
+    let notificationType = 'success';
+    if (notification && notification.tags.includes('declined')) {
+      notificationType = 'warning';
+    }
     return (
       <div>
         {
@@ -44,7 +50,11 @@ class NotificationsSection extends Component {
               onDismiss={() => this.markNotification(notification.id)}
               className="dismiss-alt"
             >
-              <AlertAlt type="success" title="Notification" message={notification.message} />
+              <AlertAlt
+                type={notificationType}
+                title="Notification"
+                message={notification.message}
+              />
             </Dismiss>
           </div>
         }

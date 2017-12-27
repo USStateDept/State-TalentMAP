@@ -2,12 +2,12 @@
   color: $color-white;
 }
 
-.tm-alert-warning {
+.tm-alert-success {
   background-color: $blue-primary;
 }
 
-.tm-alert-success {
-  background-color: $blue-primary;
+.tm-alert-warning {
+  background-color: $color-red;
 }
 
 .tm-alert-error {
