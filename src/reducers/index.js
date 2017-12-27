@@ -26,7 +26,7 @@ import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
 import { descriptionEditHasErrored, descriptionEditIsLoading, descriptionEditSuccess } from './descriptionEdit';
 import { missionSearchHasErrored, missionSearchIsLoading, missionSearchSuccess } from './autocomplete/missionAutocomplete';
 import { postSearchHasErrored, postSearchIsLoading, postSearchSuccess } from './autocomplete/postAutocomplete';
-import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
+import assignment from './assignment';
 import { notificationsHasErrored, notificationsIsLoading, notifications,
   notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount } from './notifications';
 import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
@@ -105,9 +105,7 @@ export default combineReducers({
   postSearchHasErrored,
   postSearchIsLoading,
   postSearchSuccess,
-  assignment,
-  assignmentHasErrored,
-  assignmentIsLoading,
+  ...assignment,
   notificationsHasErrored,
   notificationsIsLoading,
   notifications,
