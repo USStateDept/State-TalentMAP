@@ -63,7 +63,7 @@
       margin-left: 60px;
       margin-right: 80px;
 
-      @media screen and (max-width: 951px) {
+      @media screen and (max-width: $screen-md-min) {
         margin-left: 0;
       }
     }
@@ -73,7 +73,7 @@
     border-right: solid 1px;
     margin-top: 1em;
 
-    @media screen and (max-width: 599px) {
+    @media screen and (max-width: $screen-xs-max) {
       border-right: 0;
     }
 
@@ -148,7 +148,7 @@
     font-weight: bold;
   }
 
-  @media screen and (max-width: 951px) {
+  @media screen and (max-width: $screen-md-min) {
     height: 100px;
     margin-bottom: 10px;
     overflow-y: scroll;
@@ -185,13 +185,13 @@
   padding-left: 30px;
   width: 80%;
 
-  @media screen and (max-width: 951px) {
+  @media screen and (max-width: $screen-md-min) {
     padding-left: 0;
     width: 100%;
   }
 
   .results-controls {
-    @media screen and (max-width: 951px) {
+    @media screen and (max-width: $screen-md-min) {
       padding: 0 15px;
     }
   }
@@ -384,7 +384,7 @@
     }
   }
 
-  @media screen and (max-width: 951px) {
+  @media screen and (max-width: $screen-md-min) {
     float: left;
   }
 

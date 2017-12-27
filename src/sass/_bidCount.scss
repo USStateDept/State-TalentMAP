@@ -34,7 +34,7 @@
     padding: .2em .5em;
   }
 
-  @media screen and (max-width: 950px) {
+  @media screen and (max-width: $screen-sm-max) {
     // Set our borders
     li {
       width: 50%;
