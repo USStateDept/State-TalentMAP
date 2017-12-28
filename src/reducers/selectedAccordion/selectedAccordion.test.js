@@ -1,5 +1,5 @@
 import selectedAccordion from './selectedAccordion';
-import { ACCORDION_SELECTION } from '../Constants/DefaultProps';
+import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 
 describe('reducers', () => {
   const accordion = ACCORDION_SELECTION;
