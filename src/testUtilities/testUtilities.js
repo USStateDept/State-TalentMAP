@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import sinon from 'sinon';
 
-// Tests all function within a mapDispatchToProps function.
+// Tests all functions within a mapDispatchToProps function.
 // We take two arguments, one is the entire mapDispatchToProps function, which
 // can be exported from the Container/Component. The second is a config
 // object with any parameters we want to pass to the function with the same name.
@@ -21,7 +21,7 @@ const testDispatchFunctions = (mapDispatchToProps, config = {}) => {
     // iterate on each key
     Object.keys(spiedProps).forEach((prop) => {
       // set the prop to test
-      const propToTest = mapDispatchToProps(dispatchSpy)[prop];
+      const propToTest = spiedProps[prop];
       // set an params passed in the config object
       let params = [];
       // if there any arguments for that param, set them
