@@ -45,7 +45,7 @@ const mapStateToProps = (state, ownProps) => ({
   id: ownProps,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   sendData: (url, data) => dispatch(shareSendData(url, data)),
 });
 

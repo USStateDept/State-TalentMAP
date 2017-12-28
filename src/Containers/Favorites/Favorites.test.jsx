@@ -6,7 +6,8 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
-import FavoritesContainer from './Favorites';
+import FavoritesContainer, { mapDispatchToProps } from './Favorites';
+import testDispatchFunctions from '../../testUtilities/testUtilities';
 import bidListObject from '../../__mocks__/bidListObject';
 
 const middlewares = [thunk];
@@ -34,4 +35,12 @@ describe('FavoritesContainer', () => {
     wrapper.instance().onToggleFavorite();
     sinon.assert.calledOnce(spy);
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    toggleFavorite: [1, true],
+    toggleBid: [1, true],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

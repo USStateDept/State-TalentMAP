@@ -109,7 +109,7 @@ const mapStateToProps = (state, ownProps) => ({
   cloneSavedSearchSuccess: state.cloneSavedSearchSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onNavigateTo: dest => dispatch(push(dest)),
   savedSearchesFetchData: () => dispatch(savedSearchesFetchData()),
   setCurrentSavedSearch: e => dispatch(setCurrentSavedSearch(e)),
