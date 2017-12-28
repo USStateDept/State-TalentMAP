@@ -6,10 +6,19 @@ import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTop from '../BidTrackerCardTop';
 import OverlayAlert from '../OverlayAlert';
 import { shouldShowAlert } from '../BidHelpers';
+import {
+  APPROVED_PROP,
+  HAND_SHAKE_ACCEPTED_PROP,
+  PRE_PANEL_PROP,
+  IN_PANEL_PROP,
+} from '../../../Constants/BidData';
 
 const BidTrackerCard = ({ bid, acceptBid, declineBid, userProfile }) => {
   // determine whether we render an alert on top of the card
   const showAlert = shouldShowAlert(bid.status);
+  // determine whether we should show the contacts section based on the status
+  const showContacts = [APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, PRE_PANEL_PROP, IN_PANEL_PROP]
+                        .includes(bid.status);
   return (
     <div className="bid-tracker">
       <div>
@@ -26,15 +35,18 @@ const BidTrackerCard = ({ bid, acceptBid, declineBid, userProfile }) => {
           }
         </div>
       </div>
-      <div className="usa-grid-full bid-tracker-card-bottom-container">
-        <div className="padded-container-inner">
-          <BidTrackerCardBottom
-            reviewer={bid.reviewer}
-            bureau={bid.position.bureau}
-            userProfile={userProfile}
-          />
-        </div>
-      </div>
+      {
+        showContacts &&
+          <div className="usa-grid-full bid-tracker-card-bottom-container">
+            <div className="padded-container-inner">
+              <BidTrackerCardBottom
+                reviewer={bid.reviewer}
+                bureau={bid.position.bureau}
+                userProfile={userProfile}
+              />
+            </div>
+          </div>
+      }
     </div>
   );
 };

@@ -15,8 +15,17 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
     <BidTrackerCardTop
       bid={
         Object {
+          "approved_date": "2017-12-20",
           "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+          "closed_date": "2017-12-20",
+          "create_date": "2017-12-20",
+          "declined_date": "2017-12-20",
+          "draft_date": "2017-12-20",
+          "handshake_accepted_date": "2017-12-20",
+          "handshake_declined_date": "2017-12-20",
+          "handshake_offered_date": "2017-12-20",
           "id": 3,
+          "in_panel_date": "2017-12-20",
           "position": Object {
             "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
             "create_date": "2015-08-05",
@@ -39,9 +48,10 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
             "phone_number": "555-555-5555",
             "username": "woodwardw",
           },
+          "scheduled_panel_date": "2017-12-20",
           "status": "approved",
-          "submission_date": "2017-10-31",
-          "update_date": "2017-10-31",
+          "submitted_date": "2017-12-20",
+          "update_date": "2017-12-20",
           "user": "rehmant",
         }
       }

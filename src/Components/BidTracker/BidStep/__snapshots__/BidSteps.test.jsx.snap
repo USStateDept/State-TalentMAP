@@ -36,7 +36,9 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        />
+        >
+          2017-12-20
+        </div>
       </div>
     }
   />
@@ -65,7 +67,9 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        />
+        >
+          2017-12-20
+        </div>
       </div>
     }
   />
@@ -94,7 +98,9 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        />
+        >
+          2017-12-20
+        </div>
       </div>
     }
   />
@@ -123,7 +129,9 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        />
+        >
+          2017-12-20
+        </div>
       </div>
     }
   />
@@ -152,7 +160,9 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        />
+        >
+          2017-12-20
+        </div>
       </div>
     }
   />
@@ -181,7 +191,9 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        />
+        >
+          2017-12-20
+        </div>
       </div>
     }
   />

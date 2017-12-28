@@ -29,6 +29,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "closed" 1`] = `
       className="bid-tracker-overlay-alert-content"
     >
       <ClosedAlert
+        date="2017-12-20"
         title="POLITICAL/ECONOMIC OFFICER (10035561)"
       />
     </div>
@@ -119,6 +120,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "in_panel" 1`] = `
       className="bid-tracker-overlay-alert-content"
     >
       <InPanelAlert
+        date="2017-12-20"
         title="POLITICAL/ECONOMIC OFFICER (10035561)"
       />
     </div>
@@ -136,7 +138,9 @@ exports[`OverlayAlertComponent matches snapshot when type is "panel_rescheduled"
     <div
       className="bid-tracker-overlay-alert-content"
     >
-      <PanelRescheduledAlert />
+      <PanelRescheduledAlert
+        date="2017-12-20"
+      />
     </div>
   </div>
 </div>
