@@ -3,8 +3,8 @@
 exports[`ViewDetailsButtonComponent matches snapshot 1`] = `
 <LinkButton
   className="tm-button-alt"
+  isExternal={false}
   toLink="/details/1"
-  useATag={false}
   useDefaultClass={true}
 >
   <span
