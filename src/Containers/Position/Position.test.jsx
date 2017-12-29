@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
-import testDispatchFunctions from '../../testUtilities/testUtilities';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import Position, { mapDispatchToProps } from './Position';
 import routerLocations from '../../__mocks__/routerLocations';
 

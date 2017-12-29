@@ -2,7 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../Constants/DefaultProps';
-import testDispatchFunctions from '../../testUtilities/testUtilities';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import ProfileMenu, { mapDispatchToProps } from './ProfileMenu';
 
 describe('ProfileMenu', () => {
