@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import testDispatchFunctions from '../../../testUtilities/testUtilities';
+import { testDispatchFunctions } from '../../../testUtilities/testUtilities';
 import Notifications, { mapDispatchToProps } from './Notifications';
 
 const middlewares = [thunk];

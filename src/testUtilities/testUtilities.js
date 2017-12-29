@@ -1,5 +1,8 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import sinon from 'sinon';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 // Tests all functions within a mapDispatchToProps function.
 // We take two arguments, one is the entire mapDispatchToProps function, which
@@ -12,7 +15,7 @@ import sinon from 'sinon';
 // object. Calling each property should trigger the call count on the spy,
 // which we test. We reset call count between tests since we're using the
 // calledOnce method.
-const testDispatchFunctions = (mapDispatchToProps, config = {}) => {
+export function testDispatchFunctions(mapDispatchToProps, config = {}) {
   it('should call all mapDispatchToProps actions', () => {
     // create spy
     const dispatchSpy = sinon.spy();
@@ -34,6 +37,12 @@ const testDispatchFunctions = (mapDispatchToProps, config = {}) => {
       dispatchSpy.reset();
     });
   });
-};
+}
 
-export default testDispatchFunctions;
+export function setupAsyncMocks() {
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+  const mockAdapter = new MockAdapter(axios);
+
+  return { mockStore, mockAdapter };
+}

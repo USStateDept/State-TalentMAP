@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import testDispatchFunctions from '../../testUtilities/testUtilities';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import Home, { mapDispatchToProps } from './Home';
 
 const middlewares = [thunk];
