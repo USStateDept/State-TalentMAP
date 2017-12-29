@@ -2,7 +2,8 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import { ActionsDropdown } from './ActionsDropdown';
+import { testDispatchFunctions } from '../../../testUtilities/testUtilities';
+import { ActionsDropdown, mapDispatchToProps } from './ActionsDropdown';
 
 describe('ActionsDropdown', () => {
   const props = {
@@ -76,4 +77,11 @@ describe('ActionsDropdown', () => {
     const wrapper = shallow(<ActionsDropdown {...props} showWithdraw disableWithdraw />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    toggleBid: [1, true],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

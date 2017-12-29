@@ -109,7 +109,7 @@ const mapStateToProps = state => ({
   bidListToggleSuccess: state.bidListToggleSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
 });
 
