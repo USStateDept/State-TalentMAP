@@ -8,7 +8,8 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import Notifications from './Notifications';
+import testDispatchFunctions from '../../../testUtilities/testUtilities';
+import Notifications, { mapDispatchToProps } from './Notifications';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -45,4 +46,8 @@ describe('NotificationsComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  testDispatchFunctions(mapDispatchToProps);
 });

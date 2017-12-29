@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BidTracker from './BidTracker';
+import testDispatchFunctions from '../../testUtilities/testUtilities';
+import BidTracker, { mapDispatchToProps } from './BidTracker';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -32,4 +33,14 @@ describe('BidTracker', () => {
     // should be called once on component mount
     sinon.assert.calledTwice(spy);
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    toggleBid: [1, true],
+    submitBidPosition: [1],
+    acceptBidPosition: [1],
+    declineBidPosition: [1],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

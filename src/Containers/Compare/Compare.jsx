@@ -68,7 +68,7 @@ const mapStateToProps = state => ({
   isLoading: state.comparisonsIsLoading,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(comparisonsFetchData(url)),
   onNavigateTo: dest => dispatch(push(dest)),
 });

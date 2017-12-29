@@ -6,7 +6,8 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
-import Position from './Position';
+import testDispatchFunctions from '../../testUtilities/testUtilities';
+import Position, { mapDispatchToProps } from './Position';
 import routerLocations from '../../__mocks__/routerLocations';
 
 const middlewares = [thunk];
@@ -66,4 +67,17 @@ describe('Position', () => {
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    fetchData: [1],
+    onNavigateTo: ['/profile'],
+    toggleFavorite: [1, true],
+    toggleBid: [1, true],
+    editDescriptionContent: [1, 'content'],
+    editPocContent: [1, 'content'],
+    editWebsiteContent: [1, 'content'],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

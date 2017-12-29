@@ -126,7 +126,7 @@ const mapStateToProps = state => ({
   bidderPortfolioCountsHasErrored: state.bidderPortfolioCountsHasErrored,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: query => dispatch(bidderPortfolioFetchData(query)),
   fetchBidderPortfolioCounts: () => dispatch(bidderPortfolioCountsFetchData()),
 });
