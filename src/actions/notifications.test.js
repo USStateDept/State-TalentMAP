@@ -1,4 +1,4 @@
-import setupAsyncMocks from './setupAsyncMocks';
+import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import * as actions from './notifications';
 import notificationsObject from '../__mocks__/notificationsObject';
 

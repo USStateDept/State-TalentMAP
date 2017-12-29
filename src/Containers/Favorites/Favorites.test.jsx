@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import FavoritesContainer, { mapDispatchToProps } from './Favorites';
-import testDispatchFunctions from '../../testUtilities/testUtilities';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import bidListObject from '../../__mocks__/bidListObject';
 
 const middlewares = [thunk];
