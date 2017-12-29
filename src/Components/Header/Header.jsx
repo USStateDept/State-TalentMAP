@@ -169,7 +169,7 @@ const mapStateToProps = state => ({
   shouldShowSearchBar: state.shouldShowSearchBar,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
   logout: () => dispatch(logoutRequest()),
   onNavigateTo: dest => dispatch(push(dest)),

@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BidderPortfolio from './BidderPortfolio';
+import testDispatchFunctions from '../../testUtilities/testUtilities';
+import BidderPortfolio, { mapDispatchToProps } from './BidderPortfolio';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -39,4 +40,8 @@ describe('BidderPortfolio', () => {
     wrapper.instance().mapTypeToQuery();
     expect(wrapper.instance().state.query.value).toBeDefined();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  testDispatchFunctions(mapDispatchToProps);
 });

@@ -168,7 +168,7 @@ const mapStateToProps = (state, ownProps) => ({
   descriptionEditSuccess: state.descriptionEditSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(positionDetailsFetchData(url)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
