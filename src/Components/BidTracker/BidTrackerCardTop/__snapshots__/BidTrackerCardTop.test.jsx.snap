@@ -9,7 +9,7 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
   >
     <BidTrackerCardTitle
       id="10035561"
-      title="[10035561] POLITICAL/ECONOMIC OFFICER"
+      title="POLITICAL/ECONOMIC OFFICER"
     />
   </div>
   <div>

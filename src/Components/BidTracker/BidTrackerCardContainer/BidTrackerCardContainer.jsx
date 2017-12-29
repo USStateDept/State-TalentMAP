@@ -11,8 +11,7 @@ import IsOnStandby from '../PriorityCards/IsOnStandby';
 // If it is, we'll wrap the card in the IsPrority component, and if not, we'll pass the bid
 // object to the IsOnStandby component.
 // TODO - What in the API response will allow us to determine how to render the correct wrapper?
-const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists,
-isPriority, userProfile }) => {
+const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, userProfile }) => {
   const card = (
     <BidTrackerCard
       bid={bid}
@@ -30,8 +29,8 @@ isPriority, userProfile }) => {
   // Set a displayType and change it based on priority.
   // This way we can ensure that we only have one output in our return
   let displayType = DEFAULT;
-  if (priorityExists && isPriority) { displayType = PRIORITY; }
-  if (priorityExists && !isPriority) { displayType = STANDBY; }
+  if (priorityExists && bid.is_priority) { displayType = PRIORITY; }
+  if (priorityExists && !bid.is_priority) { displayType = STANDBY; }
 
   // assign variables to the check the displayType and use in the template
   const useDefaultDisplay = displayType === DEFAULT;
@@ -60,7 +59,6 @@ BidTrackerCardContainer.propTypes = {
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
   priorityExists: PropTypes.bool,
-  isPriority: PropTypes.bool,
   userProfile: USER_PROFILE.isRequired,
 };
 

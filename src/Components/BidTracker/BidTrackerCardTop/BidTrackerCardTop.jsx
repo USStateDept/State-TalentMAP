@@ -11,7 +11,7 @@ const BidTrackerCardTop = ({ bid, showQuestion }) => {
   return (
     <div className="usa-grid-full padded-container-inner bid-tracker-title-container">
       <div className="bid-tracker-title-content-container">
-        <BidTrackerCardTitle title={`[${bid.position.position_number}] ${bid.position.title}`} id={bid.position.position_number} />
+        <BidTrackerCardTitle title={bid.position.title} id={bid.position.position_number} />
       </div>
       <div>
         <div className="bid-tracker-card-title-container-right">

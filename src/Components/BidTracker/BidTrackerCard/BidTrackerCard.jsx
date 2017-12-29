@@ -15,7 +15,7 @@ import {
 
 const BidTrackerCard = ({ bid, acceptBid, declineBid, userProfile }) => {
   // determine whether we render an alert on top of the card
-  const showAlert = shouldShowAlert(bid.status);
+  const showAlert = shouldShowAlert(bid);
   // determine whether we should show the contacts section based on the status
   const showContacts = [APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, PRE_PANEL_PROP, IN_PANEL_PROP]
                         .includes(bid.status);

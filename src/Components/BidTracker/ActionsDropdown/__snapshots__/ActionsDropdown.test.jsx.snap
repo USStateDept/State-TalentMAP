@@ -19,13 +19,6 @@ exports[`ActionsDropdown matches snapshot 1`] = `
       role="link"
       tabIndex="0"
     >
-      Rename
-    </div>
-    <div
-      className="account-dropdown--identity account-dropdown--segment"
-      role="link"
-      tabIndex="0"
-    >
       Send to e-mail
     </div>
     <div
@@ -69,13 +62,6 @@ exports[`ActionsDropdown matches snapshot when disableDelete is true 1`] = `
       role="link"
       tabIndex="0"
     >
-      Rename
-    </div>
-    <div
-      className="account-dropdown--identity account-dropdown--segment"
-      role="link"
-      tabIndex="0"
-    >
       Send to e-mail
     </div>
     <div
@@ -114,13 +100,6 @@ exports[`ActionsDropdown matches snapshot when showWithdraw and disableWithdraw 
   <DropdownContent
     className=""
   >
-    <div
-      className="account-dropdown--identity account-dropdown--segment"
-      role="link"
-      tabIndex="0"
-    >
-      Rename
-    </div>
     <div
       className="account-dropdown--identity account-dropdown--segment"
       role="link"
@@ -173,13 +152,6 @@ exports[`ActionsDropdown matches snapshot when showWithdraw is true 1`] = `
   <DropdownContent
     className=""
   >
-    <div
-      className="account-dropdown--identity account-dropdown--segment"
-      role="link"
-      tabIndex="0"
-    >
-      Rename
-    </div>
     <div
       className="account-dropdown--identity account-dropdown--segment"
       role="link"

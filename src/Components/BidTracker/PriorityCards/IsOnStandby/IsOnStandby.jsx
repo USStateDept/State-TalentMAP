@@ -5,7 +5,8 @@ import BidTrackerCardTop from '../../BidTrackerCardTop';
 const IsOnStandby = ({ bid }) => (
   <div className="usa-grid-full bid-tracker bid-tracker-standby-container">
     <div className="padded-container-inner bid-tracker-standby-title">
-      On standby
+      <div className="bid-tracker-standby-title-top">Draft</div>
+      <div className="bid-tracker-standby-title-bottom">(on-hold)</div>
     </div>
     <div className="bid-tracker-standby-content-container">
       <BidTrackerCardTop showQuestion={false} bid={bid} />

@@ -46,13 +46,6 @@ export class ActionsDropdown extends Component {
             role="link"
             className={dropdownSegmentClass}
           >
-            Rename
-          </div>
-          <div
-            tabIndex="0"
-            role="link"
-            className={dropdownSegmentClass}
-          >
             Send to e-mail
           </div>
           <div

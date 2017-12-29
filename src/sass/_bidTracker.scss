@@ -122,6 +122,7 @@ $card-width: 775px;
   .bid-tracker-title-container {
     display: flex;
     margin-bottom: 0;
+    padding-top: 18px;
   }
 
   .bid-tracker-title-content-container {
@@ -155,6 +156,7 @@ $card-width: 775px;
 
   .bid-tracker-card-title-text {
     float: left;
+    font-size: 19px;
     font-weight: bold;
     padding-right: 10px;
   }
@@ -162,6 +164,7 @@ $card-width: 775px;
   .bid-tracker-card-title-link {
     border-left: 1px solid $color-black;
     float: left;
+    margin-top: 2px;
     padding-left: 5px;
 
     a {
@@ -276,6 +279,39 @@ $card-width: 775px;
   .bid-tracker-pending-icon-container {
     float: left;
     margin-right: 5px;
+  }
+
+  .rescheduled-tooltip {
+    background: $blue-primary;
+    color: $color-white;
+    font-size: 13px;
+    left: -38px;
+    padding: 10px 13px;
+    position: absolute;
+    top: -58px;
+    width: 120px;
+  }
+
+  .rescheduled-tooltip::after {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid $blue-primary;
+    clear: both;
+    content: '';
+    height: 0;
+    left: 48px;
+    position: absolute;
+    top: 33px;
+    width: 0;
+  }
+
+  .bid-tracker-rescheduled-text-container {
+    float: left;
+  }
+
+  .bid-tracker-rescheduled-icon-container {
+    float: left;
+    margin-right: 10px;
   }
 
   .rc-steps-item-tail {
@@ -431,9 +467,19 @@ $card-width: 775px;
   display: flex;
 
   .bid-tracker-standby-title {
-    background-color: $color-gray;
+    background-color: $tm-navy-dark;
     color: $color-white;
     float: left;
+    padding: 13px 59px;
+    text-align: center;
+  }
+
+  .bid-tracker-standby-title-top {
+    font-size: 16px;
+  }
+
+  .bid-tracker-standby-title-bottom {
+    font-size: 13px;
   }
 
   .bid-tracker-standby-content-container {

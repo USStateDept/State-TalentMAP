@@ -27,11 +27,12 @@ import {
 } from '../../Constants/BidData';
 
 // determine whether to show an alert on the bid tracker based on the status
-export function shouldShowAlert(status) {
-  const alertStatusArray = [HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP, APPROVED_PROP, CLOSED_PROP,
+export function shouldShowAlert(bid) {
+  const alertStatusArray = [HAND_SHAKE_OFFERED_PROP, APPROVED_PROP, CLOSED_PROP,
     HAND_SHAKE_DECLINED_PROP, DECLINED_PROP];
 
-  if (alertStatusArray.indexOf(status) > -1) {
+  // status is in the array OR paneling is today
+  if (alertStatusArray.includes(bid.status) || bid.is_paneling_today) {
     return true;
   }
   return false;
@@ -100,14 +101,8 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   const SUBMITTED_DATE = bid.submitted_date;
   const HAND_SHAKE_OFFERED_DATE = bid.handshake_offered_date;
   const HAND_SHAKE_ACCEPTED_DATE = bid.handshake_accepted_date;
-  // const HAND_SHAKE_DECLINED_DATE = bid.handshake_declined_date;
-  const IN_PANEL_DATE = bid.in_panel_date;
-  // const SCHEDULED_PANEL_DATE = bid.scheduled_panel_date;
+  const IN_PANEL_DATE = bid.scheduled_panel_date;
   const APPROVED_DATE = bid.approved_date;
-  // const DECLINED_DATE = bid.declined_date;
-  // const CLOSED_DATE = bid.closed_date;
-  // const CREATE_DATE = bid.create_date;
-  // const UPDATE_DATE = bid.update_date;
 
   // Perform a switch to check the status.
   switch (bid.status) {
@@ -217,6 +212,7 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         ...DEFAULT_INCOMPLETE_OBJECT,
         date: IN_PANEL_DATE,
         title: PANEL_TITLE,
+        hasRescheduledTooltip: !!bid.panel_reschedule_count,
         number: IN_PANEL_NUMBER };
       bidClassObject.stages[APPROVED_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
@@ -255,6 +251,10 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         title: PANEL_TITLE,
         needsAction: false,
         isCurrent: true,
+        // Only show the rescheduled tooltip if it has a
+        // panel_reschedule_count > 0 and is not paneling today and status is IN_PANEL_PROP.
+        hasRescheduledTooltip:
+          !!bid.panel_reschedule_count && !bid.is_paneling_today && bid.status === IN_PANEL_PROP,
         number: IN_PANEL_NUMBER };
       bidClassObject.stages[APPROVED_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,

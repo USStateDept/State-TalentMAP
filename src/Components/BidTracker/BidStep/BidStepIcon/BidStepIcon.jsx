@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import PendingIcon from './PendingIcon';
+import RescheduledIcon from './RescheduledIcon';
 
 const assignClasses = (isComplete, needsAction, isCurrent) => {
   const classes = ['number-icon'];
@@ -21,7 +22,8 @@ const assignClasses = (isComplete, needsAction, isCurrent) => {
   return classes.join(' ');
 };
 
-const BidStepIcon = ({ isComplete, needsAction, isCurrent, number, hasPendingTooltip }) => (
+const BidStepIcon = ({ isComplete, needsAction, isCurrent, number, hasPendingTooltip,
+hasRescheduledTooltip }) => (
   <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
     { !isComplete
         ?
@@ -32,6 +34,7 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number, hasPendingToo
               {number > 0 ? number : null}
             </span>
             { hasPendingTooltip && <PendingIcon />}
+            { hasRescheduledTooltip && <RescheduledIcon />}
           </div> :
           <FontAwesome name="check" /> }
   </span>
@@ -43,11 +46,13 @@ BidStepIcon.propTypes = {
   isCurrent: PropTypes.bool.isRequired,
   number: PropTypes.number,
   hasPendingTooltip: PropTypes.bool,
+  hasRescheduledTooltip: PropTypes.bool,
 };
 
 BidStepIcon.defaultProps = {
   number: 0,
   hasPendingTooltip: false,
+  hasRescheduledTooltip: false,
 };
 
 export default BidStepIcon;

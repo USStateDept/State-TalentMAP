@@ -45,12 +45,17 @@ describe('bidClassesFromCurrentStatus function', () => {
 
 describe('shouldShowAlert function', () => {
   it('returns true for a valid status', () => {
-    const result = shouldShowAlert(HAND_SHAKE_OFFERED_PROP);
+    const result = shouldShowAlert({ status: HAND_SHAKE_OFFERED_PROP });
+    expect(result).toBe(true);
+  });
+
+  it('returns true for an invalid status but when is_paneling_today === true', () => {
+    const result = shouldShowAlert({ status: HAND_SHAKE_OFFERED_PROP, is_paneling_today: true });
     expect(result).toBe(true);
   });
 
   it('returns false for an invalid status', () => {
-    const result = shouldShowAlert(SUBMITTED_PROP);
+    const result = shouldShowAlert({ status: SUBMITTED_PROP });
     expect(result).toBe(false);
   });
 });
