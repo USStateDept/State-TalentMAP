@@ -60,7 +60,7 @@ const mapStateToProps = state => ({
   profileMenuSectionExpanded: state.profileMenuSectionExpanded,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onSetProfileMenuExpanded: shouldExpand => dispatch(setProfileMenuExpanded(shouldExpand)),
   onSetProfileMenuSectionExpanded: section => dispatch(setProfileMenuSectionExpanded(section)),
 });

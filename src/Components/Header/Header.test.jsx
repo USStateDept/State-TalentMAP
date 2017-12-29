@@ -3,7 +3,8 @@ import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import createHistory from 'history/createBrowserHistory';
-import { Header } from './Header';
+import testDispatchFunctions from '../../testUtilities/testUtilities';
+import { Header, mapDispatchToProps } from './Header';
 
 describe('Header', () => {
   const loginObject = {
@@ -126,4 +127,13 @@ describe('Header', () => {
       );
     expect(toJSON(header)).toMatchSnapshot();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    fetchData: ['?q'],
+    onNavigateTo: ['/profile'],
+    toggleSearchBarVisibility: [true],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

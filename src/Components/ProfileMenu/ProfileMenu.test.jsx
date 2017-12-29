@@ -2,7 +2,8 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../Constants/DefaultProps';
-import ProfileMenu from './ProfileMenu';
+import testDispatchFunctions from '../../testUtilities/testUtilities';
+import ProfileMenu, { mapDispatchToProps } from './ProfileMenu';
 
 describe('ProfileMenu', () => {
   it('is defined', () => {
@@ -44,4 +45,12 @@ describe('ProfileMenu', () => {
     wrapper.instance().expandMenu();
     sinon.assert.calledOnce(spy);
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    onSetProfileMenuExpanded: [true],
+    onSetProfileMenuSectionExpanded: [{}],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });
