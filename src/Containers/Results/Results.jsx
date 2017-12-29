@@ -341,7 +341,7 @@ const mapStateToProps = state => ({
   shouldShowSearchBar: state.shouldShowSearchBar,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),

@@ -1,4 +1,4 @@
-import { DEFAULT_USER_PROFILE } from '../Constants/DefaultProps';
+import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 
 export function userProfileHasErrored(state = false, action) {
   switch (action.type) {
