@@ -5,7 +5,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Home from './Home';
+import testDispatchFunctions from '../../testUtilities/testUtilities';
+import Home, { mapDispatchToProps } from './Home';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -44,4 +45,15 @@ describe('Home', () => {
     />);
     wrapper.instance().onChildSubmit();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    fetchData: [{}],
+    onNavigateTo: ['/results'],
+    toggleFavorite: [1, true],
+    toggleBid: [1, true],
+    toggleSearchBarVisibility: [true],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

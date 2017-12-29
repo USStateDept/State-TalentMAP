@@ -70,7 +70,7 @@ const mapStateToProps = state => ({
   bidListIsLoading: state.bidListIsLoading,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchAssignment: () => dispatch(assignmentFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchBidList: () => dispatch(bidListFetchData()),

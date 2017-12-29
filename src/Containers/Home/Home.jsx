@@ -112,7 +112,7 @@ const mapStateToProps = state => ({
   bidList: state.bidListFetchDataSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: items => dispatch(filtersFetchData(items)),
   homePagePositionsFetchData: () => dispatch(homePagePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
