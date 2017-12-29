@@ -1,4 +1,4 @@
-import setupAsyncMocks from './setupAsyncMocks';
+import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import * as actions from './savedSearch';
 import searchObjectParent from '../__mocks__/searchObjectParent';
 

@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import createHistory from 'history/createBrowserHistory';
-import testDispatchFunctions from '../../testUtilities/testUtilities';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import { Header, mapDispatchToProps } from './Header';
 
 describe('Header', () => {
