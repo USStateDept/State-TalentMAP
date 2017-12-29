@@ -8,7 +8,8 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
     className="bid-tracker-ao-container"
   >
     <ExternalUserStatus
-      name="Leah Shadtrach"
+      email="woodwardw@state.gov"
+      name="Wendy Woodward"
       showMail={true}
       type="ao"
     />
@@ -18,7 +19,7 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
   >
     <OrganizationStamp
       abbreviation="AF"
-      name="(AF) BUREAU OF AFRICAN AFFAIRS"
+      name="bureau"
       showMail={true}
     />
   </div>

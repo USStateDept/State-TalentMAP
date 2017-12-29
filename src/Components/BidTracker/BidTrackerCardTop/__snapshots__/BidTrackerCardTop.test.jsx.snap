@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full padded-container-inner bid-tracker-title-container"
+>
+  <div
+    className="bid-tracker-title-content-container"
+  >
+    <BidTrackerCardTitle
+      id="10035561"
+      title="[10035561] POLITICAL/ECONOMIC OFFICER"
+    />
+  </div>
+  <div>
+    <div
+      className="bid-tracker-card-action-container"
+    >
+      <Connect(ActionsDropdown)
+        disableDelete={false}
+        disableWithdraw={true}
+        positionId={226}
+        showDelete={false}
+        showWithdraw={true}
+      />
+    </div>
+  </div>
+</div>
+`;

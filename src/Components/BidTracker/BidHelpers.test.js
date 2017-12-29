@@ -9,7 +9,7 @@ import {
   IN_PANEL_PROP,
   SUBMITTED_PROP,
 } from '../../Constants/BidData';
-import { bidClassesFromCurrentStatus, shouldShowAlert } from './BidHelpers';
+import { bidClassesFromCurrentStatus, shouldShowAlert, getActionPermissions } from './BidHelpers';
 import bidListObject from '../../__mocks__/bidListObject';
 
 // Test that the result of each status prop is defined
@@ -52,5 +52,19 @@ describe('shouldShowAlert function', () => {
   it('returns false for an invalid status', () => {
     const result = shouldShowAlert(SUBMITTED_PROP);
     expect(result).toBe(false);
+  });
+});
+
+describe('getActionPermissions function', () => {
+  it('returns defined for different statuses', () => {
+    expect(getActionPermissions(DRAFT_PROP)).toBeDefined();
+    expect(getActionPermissions(SUBMITTED_PROP)).toBeDefined();
+    expect(getActionPermissions(HAND_SHAKE_OFFERED_PROP)).toBeDefined();
+    expect(getActionPermissions(HAND_SHAKE_ACCEPTED_PROP)).toBeDefined();
+    expect(getActionPermissions(PRE_PANEL_PROP)).toBeDefined();
+  });
+
+  it('returns defined for invalid status', () => {
+    expect(getActionPermissions('fake_status')).toBeDefined();
   });
 });

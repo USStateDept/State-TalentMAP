@@ -20,13 +20,19 @@ const BidSteps = ({ bid }) => {
             ${bidData[status.prop].isPendingLine ? 'pending-line' : ''}
             ${bidData[status.prop].isComplete ? 'step-complete' : 'step-incomplete'}
           `}
-          title={bidData[status.prop].title}
+          title={
+            <div>
+              <div className="step-title-main-text">{bidData[status.prop].title}</div>
+              <div className="step-title-sub-text">{bidData[status.prop].date}</div>
+            </div>
+          }
           icon={
             <BidStepIcon
               isComplete={bidData[status.prop].isComplete}
               needsAction={bidData[status.prop].needsAction}
               isCurrent={bidData[status.prop].isCurrent}
               number={bidData[status.prop].number}
+              hasPendingTooltip={bidData[status.prop].hasPendingTooltip}
             />}
         />
       ))

@@ -2,77 +2,109 @@
 
 exports[`BidTrackerCardComponent matches snapshot 1`] = `
 <div
-  className="bid-tracker-container"
+  className="bid-tracker"
 >
-  <div
-    className="bid-tracker"
-  >
-    <div>
-      <div
-        className="usa-grid-full padded-container-inner bid-tracker-title-container"
-      >
-        <div
-          className="usa-width-one-half"
-        >
-          <BidTrackerCardTitle
-            id="10035561"
-            title="[10035561] POLITICAL/ECONOMIC OFFICER"
-          />
-        </div>
-        <div
-          className="usa-width-one-half"
-        >
-          <div
-            className="bid-tracker-card-action-container"
-          >
-            <ActionsLink />
-          </div>
-        </div>
-      </div>
-      <div
-        className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container"
-      >
-        <BidSteps
-          bid={
-            Object {
-              "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              "id": 3,
-              "position": Object {
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 226,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": "Curacao",
-                },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
-              },
-              "status": "approved",
-              "submission_date": "2017-10-31",
-              "update_date": "2017-10-31",
-              "user": "rehmant",
-            }
-          }
-        />
-        <OverlayAlert
-          bureau="(AF) Bureau of African Affairs"
-          id={3}
-          type="approved"
-          userName="rehmant"
-        />
-      </div>
-    </div>
+  <div>
+    <BidTrackerCardTop
+      bid={
+        Object {
+          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+          "id": 3,
+          "position": Object {
+            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+            "create_date": "2015-08-05",
+            "grade": "03",
+            "id": 226,
+            "position_number": "10035561",
+            "post": Object {
+              "id": 199,
+              "location": "Curacao",
+            },
+            "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+            "title": "POLITICAL/ECONOMIC OFFICER",
+            "update_date": "2017-06-08",
+          },
+          "reviewer": Object {
+            "email": "woodwardw@state.gov",
+            "first_name": "Wendy",
+            "is_cdo": false,
+            "last_name": "Woodward",
+            "phone_number": "555-555-5555",
+            "username": "woodwardw",
+          },
+          "status": "approved",
+          "submission_date": "2017-10-31",
+          "update_date": "2017-10-31",
+          "user": "rehmant",
+        }
+      }
+    />
     <div
-      className="usa-grid-full bid-tracker-card-bottom-container"
+      className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container"
     >
-      <div
-        className="padded-container-inner"
-      >
-        <BidTrackerCardBottom />
-      </div>
+      <BidSteps
+        bid={
+          Object {
+            "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+            "id": 3,
+            "position": Object {
+              "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+              "create_date": "2015-08-05",
+              "grade": "03",
+              "id": 226,
+              "position_number": "10035561",
+              "post": Object {
+                "id": 199,
+                "location": "Curacao",
+              },
+              "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+              "title": "POLITICAL/ECONOMIC OFFICER",
+              "update_date": "2017-06-08",
+            },
+            "reviewer": Object {
+              "email": "woodwardw@state.gov",
+              "first_name": "Wendy",
+              "is_cdo": false,
+              "last_name": "Woodward",
+              "phone_number": "555-555-5555",
+              "username": "woodwardw",
+            },
+            "status": "approved",
+            "submission_date": "2017-10-31",
+            "update_date": "2017-10-31",
+            "user": "rehmant",
+          }
+        }
+      />
+      <OverlayAlert
+        acceptBid={[Function]}
+        bureau="(AF) Bureau of African Affairs"
+        declineBid={[Function]}
+        id={3}
+        type="approved"
+        userName="rehmant"
+      />
+    </div>
+  </div>
+  <div
+    className="usa-grid-full bid-tracker-card-bottom-container"
+  >
+    <div
+      className="padded-container-inner"
+    >
+      <BidTrackerCardBottom
+        bureau="(AF) BUREAU OF AFRICAN AFFAIRS"
+        reviewer={
+          Object {
+            "email": "woodwardw@state.gov",
+            "first_name": "Wendy",
+            "is_cdo": false,
+            "last_name": "Woodward",
+            "phone_number": "555-555-5555",
+            "username": "woodwardw",
+          }
+        }
+      />
     </div>
   </div>
 </div>

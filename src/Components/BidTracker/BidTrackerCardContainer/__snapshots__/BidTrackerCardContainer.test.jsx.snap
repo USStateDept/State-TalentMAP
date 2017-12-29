@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists is false 1`] = `
+<div
+  className="bid-tracker-container"
+>
+  <BidTrackerCard
+    acceptBid={[Function]}
+    bid={
+      Object {
+        "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+        "id": 3,
+        "position": Object {
+          "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+          "create_date": "2015-08-05",
+          "grade": "03",
+          "id": 226,
+          "position_number": "10035561",
+          "post": Object {
+            "id": 199,
+            "location": "Curacao",
+          },
+          "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+          "title": "POLITICAL/ECONOMIC OFFICER",
+          "update_date": "2017-06-08",
+        },
+        "reviewer": Object {
+          "email": "woodwardw@state.gov",
+          "first_name": "Wendy",
+          "is_cdo": false,
+          "last_name": "Woodward",
+          "phone_number": "555-555-5555",
+          "username": "woodwardw",
+        },
+        "status": "approved",
+        "submission_date": "2017-10-31",
+        "update_date": "2017-10-31",
+        "user": "rehmant",
+      }
+    }
+    declineBid={[Function]}
+  />
+</div>
+`;
+
+exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists is true and isPriority is false 1`] = `
+<div
+  className="bid-tracker-container"
+>
+  <IsOnStandby
+    bid={
+      Object {
+        "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+        "id": 3,
+        "position": Object {
+          "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+          "create_date": "2015-08-05",
+          "grade": "03",
+          "id": 226,
+          "position_number": "10035561",
+          "post": Object {
+            "id": 199,
+            "location": "Curacao",
+          },
+          "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+          "title": "POLITICAL/ECONOMIC OFFICER",
+          "update_date": "2017-06-08",
+        },
+        "reviewer": Object {
+          "email": "woodwardw@state.gov",
+          "first_name": "Wendy",
+          "is_cdo": false,
+          "last_name": "Woodward",
+          "phone_number": "555-555-5555",
+          "username": "woodwardw",
+        },
+        "status": "approved",
+        "submission_date": "2017-10-31",
+        "update_date": "2017-10-31",
+        "user": "rehmant",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists is true and isPriority is true 1`] = `
+<div
+  className="bid-tracker-container"
+>
+  <IsPriority>
+    <BidTrackerCard
+      acceptBid={[Function]}
+      bid={
+        Object {
+          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+          "id": 3,
+          "position": Object {
+            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+            "create_date": "2015-08-05",
+            "grade": "03",
+            "id": 226,
+            "position_number": "10035561",
+            "post": Object {
+              "id": 199,
+              "location": "Curacao",
+            },
+            "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+            "title": "POLITICAL/ECONOMIC OFFICER",
+            "update_date": "2017-06-08",
+          },
+          "reviewer": Object {
+            "email": "woodwardw@state.gov",
+            "first_name": "Wendy",
+            "is_cdo": false,
+            "last_name": "Woodward",
+            "phone_number": "555-555-5555",
+            "username": "woodwardw",
+          },
+          "status": "approved",
+          "submission_date": "2017-10-31",
+          "update_date": "2017-10-31",
+          "user": "rehmant",
+        }
+      }
+      declineBid={[Function]}
+    />
+  </IsPriority>
+</div>
+`;

@@ -4,9 +4,44 @@ $card-width: 775px;
 .bid-tracker-page {
   padding: 20px;
   position: relative;
+
+  .bid-tracker-greeting {
+    margin-bottom: 40px;
+  }
+
+  .bid-tracker-notifications {
+    margin-bottom: 25px;
+  }
+
+  .bid-tracker-greeting-container {
+    float: left;
+    padding-right: 10px;
+  }
+
+  .bid-tracker-cdo-email-container {
+    float: left;
+  }
+
+  .bid-tracker-cdo-email {
+    float: right;
+  }
+
+  .bid-tracker-cdo-button {
+    font-weight: normal;
+    margin-top: 0;
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
+
+  .padded-container-inner {
+    padding: 15px;
+  }
 }
 
 .bid-tracker-container {
+  margin-bottom: 30px;
   position: relative;
 }
 
@@ -16,7 +51,7 @@ $card-width: 775px;
   height: 100%;
   left: 0;
   min-width: $card-width;
-  opacity: .97;
+  opacity: .95;
   position: absolute;
   top: 0;
   width: 100%;
@@ -55,26 +90,32 @@ $card-width: 775px;
   background: $color-white;
   border: 1px solid $color-gray-light;
   font-size: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   min-width: $card-width;
 
-  .padded-container-inner {
-    padding: 15px;
+  .step-title-sub-text {
+    color: $color-gray;
+    font-size: 13px;
   }
 
   .bid-tracker-ao-container {
     float: left;
+    margin-right: 50px;
     width: 290px;
   }
 
   .bid-tracker-organization-container {
     float: left;
-    margin-left: 50px;
     width: 400px;
   }
 
   .bid-tracker-title-container {
-    margin-bottom: 5px;
+    display: flex;
+    margin-bottom: 0;
+  }
+
+  .bid-tracker-title-content-container {
+    flex-grow: 1;
   }
 
   .bid-tracker-card-action-container {
@@ -82,14 +123,15 @@ $card-width: 775px;
   }
 
   .bid-tracker-bid-steps-container {
-    padding-bottom: 35px;
+    padding-bottom: 25px;
     padding-right: 10%;
-    padding-top: 25px;
+    padding-top: 40px;
     position: relative;
   }
 
   .bid-tracker-card-title-text {
     float: left;
+    font-weight: bold;
     padding-right: 10px;
   }
 
@@ -164,6 +206,10 @@ $card-width: 775px;
     }
   }
 
+  .icon-container {
+    position: relative;
+  }
+
   .number-icon {
     background: $blue-primary;
     border: 1px solid $blue-primary;
@@ -186,6 +232,24 @@ $card-width: 775px;
   .number-icon-is-current-no-action {
     background: $blue-primary;
     border-color: $blue-primary;
+  }
+
+  .pending-tooltip {
+    color: $color-black;
+    font-size: 13px;
+    left: -13px;
+    position: absolute;
+    top: -35px;
+    width: 100px;
+  }
+
+  .bid-tracker-pending-text-container {
+    float: left;
+  }
+
+  .bid-tracker-pending-icon-container {
+    float: left;
+    margin-right: 5px;
   }
 
   .rc-steps-item-tail {
@@ -260,7 +324,7 @@ $card-width: 775px;
 
 .bid-tracker-alert-container {
   position: relative;
-  top: 55px;
+  top: 65px;
 
   .fa {
     margin-bottom: 10px;
@@ -284,17 +348,51 @@ $card-width: 775px;
 }
 
 .bid-tracker-alert-container--approved {
-  top: 25px;
+  top: 35px;
 }
 
 .bid-tracker-alert-container--in-panel {
-  top: 30px;
+  top: 40px;
 }
 
 .bid-tracker-alert-container--handshake-offered {
-  top: 20px;
+  top: 30px;
 
   button {
     margin-right: 30px;
+  }
+}
+
+.bid-tracker-priority-wrapper-container {
+  border: 3px solid $color-gold;
+  border-top: 0;
+  min-width: $card-width;
+
+  .priority-banner {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .bid-tracker {
+    border: 0;
+  }
+
+  .bid-tracker-priority-wrapper {
+    background-color: $color-gold;
+  }
+}
+
+.bid-tracker-standby-container {
+  display: flex;
+
+  .bid-tracker-standby-title {
+    background-color: $color-gray;
+    color: $color-white;
+    float: left;
+  }
+
+  .bid-tracker-standby-content-container {
+    flex-grow: 1;
+    float: left;
   }
 }

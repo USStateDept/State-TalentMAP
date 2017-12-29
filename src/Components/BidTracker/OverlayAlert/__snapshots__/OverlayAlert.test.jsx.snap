@@ -1,19 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OverlayAlertComponent matches snapshot when type is "" 1`] = `
-<div
-  className="bid-tracker-overlay-alert "
->
-  <div
-    className="bid-tracker-overlay-alert-content-container"
-  >
-    <div
-      className="bid-tracker-overlay-alert-content"
-    />
-  </div>
-</div>
-`;
-
 exports[`OverlayAlertComponent matches snapshot when type is "approved" 1`] = `
 <div
   className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success"

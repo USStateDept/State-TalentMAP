@@ -16,7 +16,7 @@ describe('OverlayAlertComponent', () => {
   };
 
   const types = [APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
-    HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, ''];
+    HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP];
 
   it('is defined', () => {
     const wrapper = shallow(

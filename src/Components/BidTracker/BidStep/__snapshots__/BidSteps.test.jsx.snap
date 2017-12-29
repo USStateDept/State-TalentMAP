@@ -20,6 +20,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             "
     icon={
       <BidStepIcon
+        hasPendingTooltip={false}
         isComplete={true}
         isCurrent={false}
         needsAction={false}
@@ -27,9 +28,16 @@ exports[`BidStepsComponent matches snapshot 1`] = `
       />
     }
     title={
-      Array [
-        "Draft",
-      ]
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Draft
+        </div>
+        <div
+          className="step-title-sub-text"
+        />
+      </div>
     }
   />
   <Step
@@ -41,6 +49,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             "
     icon={
       <BidStepIcon
+        hasPendingTooltip={false}
         isComplete={true}
         isCurrent={false}
         needsAction={false}
@@ -48,10 +57,16 @@ exports[`BidStepsComponent matches snapshot 1`] = `
       />
     }
     title={
-      Array [
-        "Bid Submitted",
-        undefined,
-      ]
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Bid Submitted
+        </div>
+        <div
+          className="step-title-sub-text"
+        />
+      </div>
     }
   />
   <Step
@@ -63,6 +78,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             "
     icon={
       <BidStepIcon
+        hasPendingTooltip={false}
         isComplete={true}
         isCurrent={false}
         needsAction={false}
@@ -70,10 +86,16 @@ exports[`BidStepsComponent matches snapshot 1`] = `
       />
     }
     title={
-      Array [
-        "Handshake Offered",
-        undefined,
-      ]
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Handshake Offered
+        </div>
+        <div
+          className="step-title-sub-text"
+        />
+      </div>
     }
   />
   <Step
@@ -85,6 +107,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             "
     icon={
       <BidStepIcon
+        hasPendingTooltip={false}
         isComplete={true}
         isCurrent={false}
         needsAction={false}
@@ -92,10 +115,16 @@ exports[`BidStepsComponent matches snapshot 1`] = `
       />
     }
     title={
-      Array [
-        "Handshake Accepted",
-        undefined,
-      ]
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Handshake Accepted
+        </div>
+        <div
+          className="step-title-sub-text"
+        />
+      </div>
     }
   />
   <Step
@@ -107,6 +136,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             "
     icon={
       <BidStepIcon
+        hasPendingTooltip={false}
         isComplete={false}
         isCurrent={true}
         needsAction={false}
@@ -114,11 +144,16 @@ exports[`BidStepsComponent matches snapshot 1`] = `
       />
     }
     title={
-      Array [
-        "Panel",
-        "",
-        "",
-      ]
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Panel
+        </div>
+        <div
+          className="step-title-sub-text"
+        />
+      </div>
     }
   />
   <Step
@@ -130,6 +165,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             "
     icon={
       <BidStepIcon
+        hasPendingTooltip={false}
         isComplete={false}
         isCurrent={false}
         needsAction={false}
@@ -137,9 +173,16 @@ exports[`BidStepsComponent matches snapshot 1`] = `
       />
     }
     title={
-      Array [
-        "Approval",
-      ]
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Approval
+        </div>
+        <div
+          className="step-title-sub-text"
+        />
+      </div>
     }
   />
 </Steps>

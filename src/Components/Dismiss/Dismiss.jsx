@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
 const Dismiss = ({ children, onDismiss, className, buttonClassName, buttonTitle }) => (
-  <div className={`usa-grid-full ${className}`}>
+  <div className={`usa-grid-full dismiss-container ${className}`}>
     {children}
     <button className={buttonClassName} title={buttonTitle} onClick={onDismiss}>
       <FontAwesome name="close" />
       <span className="usa-sr-only">{buttonTitle}</span>
     </button>
   </div>
-  );
+);
 
 Dismiss.propTypes = {
   children: PropTypes.node.isRequired,
@@ -21,7 +21,7 @@ Dismiss.propTypes = {
 };
 
 Dismiss.defaultProps = {
-  className: 'dismiss-container',
+  className: '',
   buttonClassName: 'dismiss-button',
   buttonTitle: 'Dismiss this alert',
 };

@@ -60,7 +60,9 @@ exports[`OrganizationStampComponent matches snapshot when showMail is true 1`] =
       <div
         className="cdo-mail-container"
       >
-        <MailToButton />
+        <MailToButton
+          email=""
+        />
       </div>
     </div>
   </div>

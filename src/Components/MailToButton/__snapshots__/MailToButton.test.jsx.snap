@@ -4,8 +4,12 @@ exports[`MailToButtonComponent matches snapshot 1`] = `
 <div
   className="mail-to-button"
 >
-  <FontAwesome
-    name="envelope-o"
-  />
+  <a
+    href="mailto:"
+  >
+    <FontAwesome
+      name="envelope-o"
+    />
+  </a>
 </div>
 `;

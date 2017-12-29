@@ -7,16 +7,22 @@ import bidListObject from '../../../__mocks__/bidListObject';
 describe('BidTrackerCardListComponent', () => {
   const bids = bidListObject.results;
 
+  const props = {
+    bids,
+    acceptBid: () => {},
+    declineBid: () => {},
+  };
+
   it('is defined', () => {
     const wrapper = shallow(
-      <BidTrackerCardList bids={bids} />,
+      <BidTrackerCardList {...props} />,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <BidTrackerCardList bids={bids} />,
+      <BidTrackerCardList {...props} />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
