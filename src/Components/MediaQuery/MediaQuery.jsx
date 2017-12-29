@@ -4,12 +4,12 @@ import MediaQuery from 'react-responsive';
 import breakpoints from './breakpoints';
 
 const MediaQueryWrapper = ({ breakpoint, widthType, children }) => {
-  const props = {};
+  const mediaProps = {};
   // set the right prop based on the widthType
-  if (widthType === 'max') { props.maxWidth = breakpoints[breakpoint]; }
-  if (widthType === 'min') { props.minWidth = breakpoints[breakpoint]; }
+  if (widthType === 'max') { mediaProps.maxWidth = breakpoints[breakpoint]; }
+  if (widthType === 'min') { mediaProps.minWidth = breakpoints[breakpoint]; }
   return (
-    <MediaQuery {...props}>
+    <MediaQuery {...mediaProps}>
       {children}
     </MediaQuery>
   );
