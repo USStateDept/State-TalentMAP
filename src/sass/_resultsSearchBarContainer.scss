@@ -16,7 +16,7 @@
     font-size: .8em;
   }
 
-  @media screen and (max-width: 599px) {
+  @media screen and (max-width: $screen-xs-max) {
     fieldset {
       width: 100%;
     }
