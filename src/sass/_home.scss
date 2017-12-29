@@ -32,7 +32,7 @@
       float: left;
       margin: 54px 0 0;
 
-      @media screen and (max-width: 599px) {
+      @media screen and (max-width: $screen-xs-max) {
         margin: 0;
       }
     }
@@ -61,7 +61,7 @@
       }
     }
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: $screen-sm-min) {
       .usa-form {
         max-width: none;
       }

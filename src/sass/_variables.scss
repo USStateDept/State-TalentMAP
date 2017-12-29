@@ -37,6 +37,14 @@ $editor-headline-background: #fbfbfb;
 $editor-headline-background-focus: #f3f3f3;
 $editor-headline-color: #888;
 
+// responsive breakpoints
+$screen-sm-min: 600px;
+$screen-xs-max: ($screen-sm-min - 1);
+$screen-md-min: 951px;
+$screen-sm-max: ($screen-md-min - 1);
+$screen-lg-min: 1200px;
+$screen-md-max: ($screen-lg-min - 1);
+
 // z-index values
 // we'll use this section to keep track of and order them
 $autosuggest-suggestions-container-open-z: 2;
