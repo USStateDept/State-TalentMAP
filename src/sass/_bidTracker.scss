@@ -4,6 +4,36 @@ $card-width: 775px;
 .bid-tracker-page {
   padding: 20px;
   position: relative;
+
+  .bid-tracker-greeting {
+    margin-bottom: 40px;
+  }
+
+  .bid-tracker-notifications {
+    margin-bottom: 25px;
+  }
+
+  .bid-tracker-greeting-container {
+    float: left;
+    padding-right: 10px;
+  }
+
+  .bid-tracker-cdo-email-container {
+    float: left;
+  }
+
+  .bid-tracker-cdo-email {
+    float: right;
+  }
+
+  .bid-tracker-cdo-button {
+    font-weight: normal;
+    margin-top: 0;
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
 }
 
 .bid-tracker-container {
@@ -16,7 +46,7 @@ $card-width: 775px;
   height: 100%;
   left: 0;
   min-width: $card-width;
-  opacity: .97;
+  opacity: .95;
   position: absolute;
   top: 0;
   width: 100%;

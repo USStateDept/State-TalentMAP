@@ -8,6 +8,7 @@ exports[`BidderPortfolioViewMoreComponent matches snapshot 1`] = `
   >
     <LinkButton
       className="unstyled-button"
+      isExternal={false}
       toLink="/profile/dashboard/"
       useDefaultClass={true}
     >

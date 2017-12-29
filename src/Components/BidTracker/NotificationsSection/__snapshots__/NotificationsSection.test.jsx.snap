@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationsSectionComponent matches snapshot 1`] = `
+<div>
+  <div
+    className="usa-grid-full bid-tracker-notifications"
+  >
+    <Dismiss
+      buttonClassName="dismiss-button"
+      buttonTitle="Dismiss this alert"
+      className="dismiss-alt"
+      onDismiss={[Function]}
+    >
+      <AlertAlt
+        message="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
+        title="Notification"
+        type="warning"
+      />
+    </Dismiss>
+  </div>
+</div>
+`;

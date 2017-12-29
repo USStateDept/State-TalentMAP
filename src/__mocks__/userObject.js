@@ -7,6 +7,9 @@ export const bidderUserObject = {
     username: 'jdoe',
   },
   is_cdo: false,
+  cdo: {
+    email: 'shadtrachl@state.gov',
+  },
   bid_statistics: [
     {
       draft: 1,

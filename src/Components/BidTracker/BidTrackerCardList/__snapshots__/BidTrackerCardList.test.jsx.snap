@@ -1,8 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidTrackerCardListComponent matches snapshot 1`] = `
-<div>
+<div
+  className="usa-grid-full"
+>
   <BidTrackerCard
+    acceptBid={[Function]}
     bid={
       Object {
         "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
@@ -26,8 +29,10 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
         "user": "rehmant",
       }
     }
+    declineBid={[Function]}
   />
   <BidTrackerCard
+    acceptBid={[Function]}
     bid={
       Object {
         "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
@@ -51,8 +56,10 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
         "user": "rehmant",
       }
     }
+    declineBid={[Function]}
   />
   <BidTrackerCard
+    acceptBid={[Function]}
     bid={
       Object {
         "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
@@ -76,6 +83,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
         "user": "rehmant",
       }
     }
+    declineBid={[Function]}
   />
 </div>
 `;
