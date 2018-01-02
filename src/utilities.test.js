@@ -245,12 +245,7 @@ describe('formatDate', () => {
     expect(formattedDate).toBe('1-1-2017');
   });
 
-  it('returns a properly formatted date when addOneDay is false', () => {
-    // how we expect the date from the API
-    const unformattedDate = '2017-01-02';
-    // converted date
-    const formattedDate = formatDate(unformattedDate, undefined, false);
-    // should be formatted using the default format, and one day behind
-    expect(formattedDate).toBe('1.1.2017');
+  it('returns null if no date is provided', () => {
+    expect(formatDate(null)).toBe(null);
   });
 });
