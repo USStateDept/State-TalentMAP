@@ -13,7 +13,12 @@ exports[`InPanelAlertComponent matches snapshot 1`] = `
       />
     </div>
     <div>
-      test, you are in panel for your bid for test
+      You are in panel for test
+    </div>
+    <div
+      className="date-text"
+    >
+      6.11.17
     </div>
   </div>
 </div>

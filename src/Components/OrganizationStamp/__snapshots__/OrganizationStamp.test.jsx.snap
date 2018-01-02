@@ -5,7 +5,7 @@ exports[`OrganizationStampComponent matches snapshot when showMail is false 1`] 
   className="usa-grid-full organization-stamp"
 >
   <div
-    className="usa-grid-full section-padded-inner-container"
+    className="usa-grid-full organization-stamp-container section-padded-inner-container"
   >
     <div
       className="usa-width-one-sixth abbreviation-stamp-container"
@@ -17,12 +17,16 @@ exports[`OrganizationStampComponent matches snapshot when showMail is false 1`] 
       </div>
     </div>
     <div
-      className="usa-width-two-thirds organization-name-container"
+      className="usa-width-five-sixths organization-name-container"
     >
       <div
         className="organization-stamp-name"
       >
-        African Affairs
+        <span
+          className="organization-stamp-name-text"
+        >
+          African Affairs
+        </span>
       </div>
     </div>
   </div>
@@ -34,7 +38,7 @@ exports[`OrganizationStampComponent matches snapshot when showMail is true 1`] =
   className="usa-grid-full organization-stamp"
 >
   <div
-    className="usa-grid-full section-padded-inner-container"
+    className="usa-grid-full organization-stamp-container section-padded-inner-container"
   >
     <div
       className="usa-width-one-sixth abbreviation-stamp-container"
@@ -46,21 +50,19 @@ exports[`OrganizationStampComponent matches snapshot when showMail is true 1`] =
       </div>
     </div>
     <div
-      className="usa-width-one-half organization-name-container"
+      className="usa-width-five-sixths organization-name-container"
     >
       <div
         className="organization-stamp-name"
       >
-        African Affairs
-      </div>
-    </div>
-    <div
-      className="usa-width-one-third"
-    >
-      <div
-        className="cdo-mail-container"
-      >
-        <MailToButton />
+        <span
+          className="organization-stamp-name-text"
+        >
+          African Affairs
+        </span>
+        <MailToButton
+          email=""
+        />
       </div>
     </div>
   </div>

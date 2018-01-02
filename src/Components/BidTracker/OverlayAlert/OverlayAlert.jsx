@@ -1,49 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BID_TRACKER_ALERT_TYPES } from '../../../Constants/PropTypes';
+import { BID_OBJECT } from '../../../Constants/PropTypes';
 import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
-  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP } from '../../../Constants/BidData';
+  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP } from '../../../Constants/BidData';
 import ApprovedAlert from './ApprovedAlert';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
 import HandshakeDeclinedAlert from './HandshakeDeclinedAlert';
 import DeclinedAlert from './DeclinedAlert';
 import ClosedAlert from './ClosedAlert';
+import PanelRescheduledAlert from './PanelRescheduledAlert';
 
-const OverlayAlert = ({ id, type, userName, bureau, acceptBid, declineBid }) => {
+// Alert rendering based on status in handled here.
+const OverlayAlert = ({ bid, acceptBid, declineBid }) => {
+  const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
+  const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
+  const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
+
+  const BID_TITLE = `${bid.position.title} (${bid.position.position_number})`;
+
   let overlayClass = '';
   let overlayContent = '';
-  switch (type) {
+  switch (bid.status) {
     case APPROVED_PROP:
-      overlayClass = 'bid-tracker-overlay-alert--success';
-      overlayContent = <ApprovedAlert userName={userName} />;
+      overlayClass = CLASS_SUCCESS;
+      overlayContent = <ApprovedAlert userName={bid.user} />;
       break;
     case HAND_SHAKE_OFFERED_PROP:
-      overlayClass = 'bid-tracker-overlay-alert--pending';
+      overlayClass = CLASS_PENDING;
       overlayContent = (
         <HandshakeOfferedAlert
-          id={id}
-          userName={userName}
+          id={bid.id}
+          userName={bid.user}
           acceptBid={acceptBid}
           declineBid={declineBid}
         />
       );
       break;
     case IN_PANEL_PROP:
-      overlayClass = 'bid-tracker-overlay-alert--pending';
-      overlayContent = <InPanelAlert userName={userName} bureau={bureau} />;
+      overlayClass = CLASS_PENDING;
+      overlayContent =
+        <InPanelAlert title={BID_TITLE} date={bid.in_panel_date} />;
       break;
     case HAND_SHAKE_DECLINED_PROP:
-      overlayClass = 'bid-tracker-overlay-alert--closed';
-      overlayContent = <HandshakeDeclinedAlert userName={userName} bureau={bureau} />;
+      overlayClass = CLASS_CLOSED;
+      overlayContent = <HandshakeDeclinedAlert userName={bid.user} bureau={bid.position.bureau} />;
       break;
     case DECLINED_PROP:
-      overlayClass = 'bid-tracker-overlay-alert--closed';
-      overlayContent = <DeclinedAlert bureau={bureau} />;
+      overlayClass = CLASS_CLOSED;
+      overlayContent = <DeclinedAlert bureau={bid.position.bureau} />;
       break;
     case CLOSED_PROP:
-      overlayClass = 'bid-tracker-overlay-alert--closed';
-      overlayContent = <ClosedAlert />;
+      overlayClass = CLASS_CLOSED;
+      overlayContent = <ClosedAlert title={BID_TITLE} date={bid.closed_date} />;
+      break;
+    // TODO - are we using the right information from the API for the status and date?
+    case PANEL_RESCHEDULED_PROP:
+      overlayClass = CLASS_PENDING;
+      overlayContent = <PanelRescheduledAlert date={bid.scheduled_panel_date} />;
       break;
     default:
       break;
@@ -60,10 +74,7 @@ const OverlayAlert = ({ id, type, userName, bureau, acceptBid, declineBid }) => 
 };
 
 OverlayAlert.propTypes = {
-  id: PropTypes.number.isRequired,
-  type: BID_TRACKER_ALERT_TYPES.isRequired,
-  userName: PropTypes.string,
-  bureau: PropTypes.string,
+  bid: BID_OBJECT.isRequired,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
 };

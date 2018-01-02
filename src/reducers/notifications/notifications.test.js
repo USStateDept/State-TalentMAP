@@ -24,4 +24,16 @@ describe('notifications reducers', () => {
   it('can set reducer NOTIFICATIONS_COUNT_FETCH_DATA_SUCCESS', () => {
     expect(reducers.notificationsCount(1, { type: 'NOTIFICATIONS_COUNT_FETCH_DATA_SUCCESS', count: 1 })).toBe(1);
   });
+
+  it('can set reducer MARK_NOTIFICATION_HAS_ERRORED', () => {
+    expect(reducers.markNotificationHasErrored(false, { type: 'MARK_NOTIFICATION_HAS_ERRORED', hasErrored: true })).toBe(true);
+  });
+
+  it('can set reducer MARK_NOTIFICATION_IS_LOADING', () => {
+    expect(reducers.markNotificationIsLoading(false, { type: 'MARK_NOTIFICATION_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
+  it('can set reducer MARK_NOTIFICATION_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.markNotificationSuccess(false, { type: 'MARK_NOTIFICATION_SUCCESS', response: true })).toBe(true);
+  });
 });

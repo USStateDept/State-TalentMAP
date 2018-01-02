@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bidListFetchData, toggleBidPosition, routeChangeResetState,
 submitBid, acceptBid, declineBid } from '../../actions/bidList';
+import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
-SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED,
-DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED } from '../../Constants/PropTypes';
+SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
+DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS } from '../../Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import BidTracker from '../../Components/BidTracker';
 
 class BidTrackerContainer extends Component {
@@ -15,6 +17,7 @@ class BidTrackerContainer extends Component {
     this.getBidList();
     // reset the alert messages
     this.props.bidListRouteChangeResetState();
+    this.props.fetchNotifications();
   }
 
   getBidList() {
@@ -28,7 +31,9 @@ class BidTrackerContainer extends Component {
       submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
       acceptBidPosition, acceptBidHasErrored, acceptBidIsLoading, acceptBidSuccess,
       declineBidPosition, declineBidHasErrored, declineBidIsLoading,
-      declineBidSuccess } = this.props;
+      declineBidSuccess, notifications, notificationsIsLoading,
+      markNotificationHasErrored, markNotificationIsLoading, markNotificationSuccess,
+      markBidTrackerNotification, userProfile, userProfileIsLoading } = this.props;
     return (
       <BidTracker
         toggleBidPosition={toggleBid}
@@ -50,6 +55,14 @@ class BidTrackerContainer extends Component {
         declineBidHasErrored={declineBidHasErrored}
         declineBidIsLoading={declineBidIsLoading}
         declineBidSuccess={declineBidSuccess}
+        notifications={notifications}
+        notificationsIsLoading={notificationsIsLoading}
+        markNotificationHasErrored={markNotificationHasErrored}
+        markNotificationIsLoading={markNotificationIsLoading}
+        markNotificationSuccess={markNotificationSuccess}
+        markBidTrackerNotification={markBidTrackerNotification}
+        userProfile={userProfile}
+        userProfileIsLoading={userProfileIsLoading}
       />
     );
   }
@@ -77,6 +90,15 @@ BidTrackerContainer.propTypes = {
   declineBidHasErrored: DECLINE_BID_HAS_ERRORED.isRequired,
   declineBidIsLoading: PropTypes.bool.isRequired,
   declineBidSuccess: DECLINE_BID_SUCCESS.isRequired,
+  notifications: NOTIFICATION_LIST.isRequired,
+  notificationsIsLoading: PropTypes.bool.isRequired,
+  fetchNotifications: PropTypes.func.isRequired,
+  markNotificationHasErrored: PropTypes.bool.isRequired,
+  markNotificationIsLoading: PropTypes.bool.isRequired,
+  markNotificationSuccess: MARK_NOTIFICATION_SUCCESS,
+  markBidTrackerNotification: PropTypes.func.isRequired,
+  userProfile: USER_PROFILE.isRequired,
+  userProfileIsLoading: PropTypes.bool.isRequired,
 };
 
 BidTrackerContainer.defaultProps = {
@@ -100,6 +122,15 @@ BidTrackerContainer.defaultProps = {
   declineBidHasErrored: false,
   declineBidIsLoading: false,
   declineBidSuccess: false,
+  notificationsIsLoading: false,
+  notifications: { results: [] },
+  fetchNotifications: EMPTY_FUNCTION,
+  markNotificationHasErrored: false,
+  markNotificationIsLoading: false,
+  markNotificationSuccess: false,
+  markBidTrackerNotification: EMPTY_FUNCTION,
+  userProfile: DEFAULT_USER_PROFILE,
+  userProfileIsLoading: false,
 };
 
 BidTrackerContainer.contextTypes = {
@@ -122,6 +153,13 @@ const mapStateToProps = state => ({
   declineBidHasErrored: state.declineBidHasErrored,
   declineBidIsLoading: state.declineBidIsLoading,
   declineBidSuccess: state.declineBidSuccess,
+  notifications: state.notifications,
+  notificationsIsLoading: state.notificationsIsLoading,
+  markNotificationHasErrored: state.markNotificationHasErrored,
+  markNotificationIsLoading: state.markNotificationIsLoading,
+  markNotificationSuccess: state.markNotificationSuccess,
+  userProfile: state.userProfile,
+  userProfileIsLoading: state.userProfileIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -131,6 +169,11 @@ export const mapDispatchToProps = dispatch => ({
   submitBidPosition: id => dispatch(submitBid(id)),
   acceptBidPosition: id => dispatch(acceptBid(id)),
   declineBidPosition: id => dispatch(declineBid(id)),
+  // Here, we only want the newest bidding-related notification.
+  // We'll perform a client-side check to see if it's unread, as that's would be the only
+  // case that we'd display this notification.
+  fetchNotifications: () => dispatch(bidTrackerNotificationsFetchData()),
+  markBidTrackerNotification: id => dispatch(markNotification(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidTrackerContainer));

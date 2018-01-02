@@ -5,22 +5,47 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
   className="usa-grid-full bid-tracker-card-bottom"
 >
   <div
-    className="bid-tracker-ao-container"
+    className="bid-tracker-card-bottom-section"
   >
     <ExternalUserStatus
+      email="shadtrachl@state.gov"
       name="Leah Shadtrach"
+      showMail={true}
+      type="cdo"
+    />
+  </div>
+  <div
+    className="bid-tracker-card-bottom-section"
+  >
+    <Connect(StaticDevContent)>
+      <OrganizationStamp
+        abbreviation="AF"
+        name="bureau"
+        showMail={true}
+      />
+    </Connect(StaticDevContent)>
+  </div>
+  <div
+    className="bid-tracker-card-bottom-section"
+  >
+    <ExternalUserStatus
+      email="woodwardw@state.gov"
+      name="Wendy Woodward"
       showMail={true}
       type="ao"
     />
   </div>
   <div
-    className="bid-tracker-organization-container"
+    className="bid-tracker-card-bottom-section"
   >
-    <OrganizationStamp
-      abbreviation="AF"
-      name="(AF) BUREAU OF AFRICAN AFFAIRS"
-      showMail={true}
-    />
+    <Connect(StaticDevContent)>
+      <ExternalUserStatus
+        email="woodwardw@state.gov"
+        name="Wendy Woodward"
+        showMail={true}
+        type="hr"
+      />
+    </Connect(StaticDevContent)>
   </div>
 </div>
 `;
