@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MediaQuery from 'react-responsive';
-import breakpoints from './breakpoints';
+import breakpoints from '../../Constants/breakpoints';
 
 const MediaQueryWrapper = ({ breakpoint, widthType, children }) => {
   const mediaProps = {};
