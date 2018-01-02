@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MediaQueryComponent matches snapshot 1`] = `
+<MediaQuery
+  maxWidth={600}
+  values={Object {}}
+>
+  <div />
+</MediaQuery>
+`;
