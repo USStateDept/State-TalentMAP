@@ -41,6 +41,7 @@ $editor-headline-background-focus: #f3f3f3;
 $editor-headline-color: #888;
 
 // responsive breakpoints
+// should match responsive breakpoints in Constants/breakpoints.js
 $screen-sm-min: 600px;
 $screen-xs-max: ($screen-sm-min - 1);
 $screen-md-min: 951px;

@@ -1,5 +1,6 @@
 // header container
 .tm-header {
+  border-bottom: 0;
 
   // We have to set x-text classes so that sibling divs aren't pushed when hovered over
   .home-text {
@@ -156,8 +157,10 @@
   }
 }
 
-.search-bar-hidden {
-  @media screen and (min-width: $screen-md-min) {
+@media screen and (min-width: $screen-md-min) {
+  .search-bar-hidden {
+    border-bottom: 1px solid $color-gray-light;
+
     .usa-nav {
       border-top: 1px solid $color-gray-light;
     }
