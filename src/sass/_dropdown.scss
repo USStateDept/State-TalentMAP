@@ -64,3 +64,35 @@
 .account-dropdown--link {
   margin: 5px 0;
 }
+
+.actions-dropdown {
+  position: relative;
+
+  .dropdown__content {
+    background-color: $color-white;
+    box-shadow: 0 0 1px 1px $color-gray-lighter;
+    display: block;
+    font-size: 13px;
+    padding-bottom: 30px;
+    right: -2px;
+    top: 25px;
+    width: 120px;
+  }
+
+  .account-dropdown--segment {
+    border: 0;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: right;
+  }
+
+  .disabled {
+    color: $color-gray-light;
+    cursor: not-allowed;
+  }
+
+  .account-dropdown--segment:hover:not(.disabled),
+  .account-dropdown--segment:focus:not(.disabled) {
+    font-weight: bold;
+  }
+}

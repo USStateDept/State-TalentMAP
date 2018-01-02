@@ -36,7 +36,7 @@ describe('async actions', () => {
   it('can fetch a bid list', (done) => {
     const store = mockStore({ });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/?ordering=draft_date').reply(200,
       bidList,
     );
 
@@ -52,7 +52,7 @@ describe('async actions', () => {
   it('can handle errors when fetching a bid list', (done) => {
     const store = mockStore({ });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/?ordering=draft_date').reply(404,
       null,
     );
 

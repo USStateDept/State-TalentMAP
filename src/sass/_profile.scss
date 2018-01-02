@@ -444,6 +444,10 @@ $padding-no-border: $total-padding - $border;
 
   font-size: 16px;
 
+  .cdo-container-inner {
+    display: flex;
+  }
+
   .dashboard-user-profile-picture {
     border-radius: 100%;
     height: 100%;
@@ -454,11 +458,19 @@ $padding-no-border: $total-padding - $border;
   }
 
   .profile-picture-container {
-    // width: auto;
+    min-width: 50px;
+    position: relative;
+  }
+
+  .picture-status-container {
+    left: 30px;
+    position: absolute;
+    top: -2px;
   }
 
   .cdo-name-text {
     float: left;
+    margin-right: 5px;
   }
 
   .status-container {
@@ -467,14 +479,10 @@ $padding-no-border: $total-padding - $border;
     margin-left: 0;
     margin-top: 1px;
   }
-
-  .fa {
-    margin-left: 5px;
-    margin-right: unset;
-  }
 }
 
 .cdo-text-container {
+  flex-grow: 1;
   padding-left: 5px;
 }
 
@@ -610,4 +618,16 @@ $padding-no-border: $total-padding - $border;
 
 .profile-content-inner-container {
   padding: 20px 35px;
+}
+
+.dismiss-alt {
+  .dismiss-button {
+    background-color: transparent;
+  }
+
+  .dismiss-button:active {
+    .fa {
+      color: $color-black;
+    }
+  }
 }

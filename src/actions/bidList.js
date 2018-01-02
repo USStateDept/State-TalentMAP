@@ -126,11 +126,11 @@ export function routeChangeResetState() {
   };
 }
 
-export function bidListFetchData() {
+export function bidListFetchData(ordering = 'draft_date') {
   return (dispatch) => {
     dispatch(bidListIsLoading(true));
     dispatch(bidListHasErrored(false));
-    axios.get(`${api}/bidlist/`, { headers: { Authorization: fetchUserToken() } })
+    axios.get(`${api}/bidlist/?ordering=${ordering}`, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then((results) => {
               dispatch(bidListHasErrored(false));
