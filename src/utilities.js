@@ -1,6 +1,8 @@
 import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
+import format from 'date-fns/format';
+import addDays from 'date-fns/add_days';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -193,6 +195,24 @@ export const removeDuplicates = (myArr, prop) => (
 // We want to use minutes for recent notifications, but days for older ones.
 export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options = {}) =>
   `${distanceInWords(dateToCompare, date, options)} ago`;
+
+// Format the date into out preferred format.
+// We can take any valid date and convert it into M.D.YYYY format, or any
+// format provided with the dateFormat param. We set an addOneDay param,
+// because our API's format of "YYYY.MM.DD", when formatted, gets thrown
+// off by a day.
+export const formatDate = (date, dateFormat = 'M.D.YYYY', addOneDay = true) => {
+  if (date) {
+    let newDate = new Date(date);
+    // check that addOneDay is true. If so, add 1 day.
+    if (addOneDay) { newDate = addDays(newDate, 1); }
+    // then format the date with dateFormat
+    const formattedDate = format(newDate, dateFormat);
+    // and finally return the formatte date
+    return formattedDate;
+  }
+  return null;
+};
 
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
