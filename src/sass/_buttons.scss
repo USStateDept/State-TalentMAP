@@ -25,6 +25,7 @@
 .unstyled-button:hover,
 .unstyled-button:active {
   background-color: unset;
+  color: unset;
 }
 
 .tm-button-alt {
@@ -76,6 +77,8 @@
 }
 
 .actions-link-container {
+  color: $color-black;
+
   .actions-link-text {
     float: left;
   }
@@ -89,8 +92,4 @@
 
 .mail-to-button {
   color: $blue-primary;
-
-  .fa {
-    margin-top: 10px;
-  }
 }

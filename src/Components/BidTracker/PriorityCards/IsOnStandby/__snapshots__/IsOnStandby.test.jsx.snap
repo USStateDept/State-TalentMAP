@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IsOnStandbyComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bid-tracker bid-tracker-standby-container"
+>
+  <div
+    className="padded-container-inner bid-tracker-standby-title"
+  >
+    <div
+      className="bid-tracker-standby-title-top"
+    >
+      Draft
+    </div>
+    <div
+      className="bid-tracker-standby-title-bottom"
+    >
+      (on-hold)
+    </div>
+  </div>
+  <div
+    className="bid-tracker-standby-content-container"
+  >
+    <BidTrackerCardTop
+      bid={
+        Object {
+          "approved_date": "2017-12-20",
+          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+          "closed_date": "2017-12-20",
+          "create_date": "2017-12-20",
+          "declined_date": "2017-12-20",
+          "draft_date": "2017-12-20",
+          "handshake_accepted_date": "2017-12-20",
+          "handshake_declined_date": "2017-12-20",
+          "handshake_offered_date": "2017-12-20",
+          "id": 3,
+          "in_panel_date": "2017-12-20",
+          "position": Object {
+            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+            "create_date": "2015-08-05",
+            "grade": "03",
+            "id": 226,
+            "position_number": "10035561",
+            "post": Object {
+              "id": 199,
+              "location": "Curacao",
+            },
+            "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+            "title": "POLITICAL/ECONOMIC OFFICER",
+            "update_date": "2017-06-08",
+          },
+          "reviewer": Object {
+            "email": "woodwardw@state.gov",
+            "first_name": "Wendy",
+            "is_cdo": false,
+            "last_name": "Woodward",
+            "phone_number": "555-555-5555",
+            "username": "woodwardw",
+          },
+          "scheduled_panel_date": "2017-12-20",
+          "status": "approved",
+          "submitted_date": "2017-12-20",
+          "update_date": "2017-12-20",
+          "user": "rehmant",
+        }
+      }
+      showQuestion={false}
+    />
+  </div>
+</div>
+`;

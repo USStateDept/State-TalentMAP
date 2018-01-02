@@ -19,6 +19,15 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&is_read=false').reply(200,
       notificationsObject,
     );
+    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&ordering=-date_created&tags=bidding').reply(200,
+      notificationsObject,
+    );
+    mockAdapter.onPatch('http://localhost:8000/api/v1/notification/1/').reply(200,
+      notificationsObject,
+    );
+    mockAdapter.onPatch('http://localhost:8000/api/v1/notification/2/').reply(404,
+      null,
+    );
   });
 
   it('can fetch notifications', (done) => {
@@ -79,6 +88,57 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.unsetNotificationsCount());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can call the bidTrackerNotificationsFetchData function', (done) => {
+    const store = mockStore({});
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.bidTrackerNotificationsFetchData());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can call the markNotification function', (done) => {
+    const store = mockStore({});
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.markNotification(1));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when calling the markNotification function', (done) => {
+    const store = mockStore({});
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.markNotification(2));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when calling the notificationsCountFetchData function', (done) => {
+    const store = mockStore({ notifications: {} });
+
+    // check that it can handle errors
+    mockAdapter.reset();
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.notificationsCountFetchData());
         done();
       }, 0);
     };

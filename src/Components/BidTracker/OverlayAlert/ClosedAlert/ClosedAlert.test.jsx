@@ -6,14 +6,14 @@ import ClosedAlert from './ClosedAlert';
 describe('ClosedAlertComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <ClosedAlert />,
+      <ClosedAlert title="title" date="6.11.17" />,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <ClosedAlert />,
+      <ClosedAlert title="title" date="6.11.17" />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

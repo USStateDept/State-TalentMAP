@@ -5,19 +5,26 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
   className="usa-grid-full cdo-container"
 >
   <div
-    className="usa-grid-full section-padded-inner-container"
+    className="usa-grid-full cdo-container-inner section-padded-inner-container"
   >
     <div
-      className="usa-width-one-sixth profile-picture-container"
+      className="profile-picture-container"
     >
       <ProfilePicture
         alt="avatar"
         className=""
         source="/assets/img/avatar.png"
       />
+      <div
+        className="picture-status-container"
+      >
+        <Status
+          hideText={true}
+        />
+      </div>
     </div>
     <div
-      className="usa-width-two-thirds cdo-text-container"
+      className="cdo-text-container"
     >
       <div
         className="usa-grid-full"
@@ -35,9 +42,6 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
           >
             John Doe
           </span>
-          <Status
-            hideText={true}
-          />
         </div>
       </div>
     </div>
