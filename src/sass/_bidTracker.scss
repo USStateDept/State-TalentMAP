@@ -305,8 +305,15 @@ $card-width: 775px;
     width: 0;
   }
 
+  .preparing-tooltip-container {
+    left: 50%;
+    position: absolute;
+  }
+
   .preparing-tooltip {
-    left: 15%;
+    height: 57px;
+    left: -55%;
+    position: relative;
     top: -71px;
     width: 170px;
   }

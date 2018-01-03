@@ -3,22 +3,9 @@
 exports[`BidPreparingIconComponent matches snapshot 1`] = `
 <div
   className="preparing-tooltip-container"
-  style={
-    Object {
-      "left": "50%",
-      "position": "absolute",
-    }
-  }
 >
   <div
     className="step-tooltip preparing-tooltip"
-    style={
-      Object {
-        "height": "57px",
-        "left": "-55%",
-        "position": "relative",
-      }
-    }
   >
     <div
       className="bid-tracker-preparing-icon-container"

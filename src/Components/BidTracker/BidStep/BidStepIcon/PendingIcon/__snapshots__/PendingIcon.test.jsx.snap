@@ -2,7 +2,7 @@
 
 exports[`PendingIconComponent matches snapshot 1`] = `
 <div
-  className="step-tooltip"
+  className="pending-tooltip"
 >
   <div
     className="bid-tracker-pending-icon-container"

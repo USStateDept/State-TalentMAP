@@ -2,7 +2,7 @@
 
 exports[`RescheduledIconComponent matches snapshot 1`] = `
 <div
-  className="rescheduled-tooltip"
+  className="step-tooltip"
 >
   <div
     className="bid-tracker-rescheduled-icon-container"
