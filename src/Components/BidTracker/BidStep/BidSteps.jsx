@@ -4,6 +4,7 @@ import shortId from 'shortid';
 import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
+import BidPreparingIcon from './BidStepIcon/BidPreparingIcon';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 
 // Use the rc-steps module to render the bid tracker.
@@ -34,6 +35,7 @@ const BidSteps = ({ bid }) => {
               <div className="step-title-sub-text">{bidData[status.prop].date}</div>
             </div>
           }
+          tailContent={bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null}
           icon={
             <BidStepIcon
               isComplete={bidData[status.prop].isComplete}

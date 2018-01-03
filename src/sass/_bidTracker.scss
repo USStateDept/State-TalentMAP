@@ -281,7 +281,7 @@ $card-width: 775px;
     margin-right: 5px;
   }
 
-  .rescheduled-tooltip {
+  .step-tooltip {
     background: $blue-primary;
     color: $color-white;
     font-size: 13px;
@@ -292,7 +292,7 @@ $card-width: 775px;
     width: 120px;
   }
 
-  .rescheduled-tooltip::after {
+  .step-tooltip::after {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 10px solid $blue-primary;
@@ -305,6 +305,17 @@ $card-width: 775px;
     width: 0;
   }
 
+  .preparing-tooltip {
+    left: 15%;
+    top: -71px;
+    width: 170px;
+  }
+
+  .preparing-tooltip::after {
+    left: 42%;
+    top: 100%;
+  }
+
   .bid-tracker-rescheduled-text-container {
     float: left;
   }
@@ -312,6 +323,17 @@ $card-width: 775px;
   .bid-tracker-rescheduled-icon-container {
     float: left;
     margin-right: 10px;
+  }
+
+  .bid-tracker-preparing-text-container {
+    float: left;
+    width: 80%;
+  }
+
+  .bid-tracker-preparing-icon-container {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
   }
 
   .rc-steps-item-tail {
@@ -344,7 +366,7 @@ $card-width: 775px;
     }
 
     .rc-steps-item-content {
-      margin-top: 14px;
+      margin-top: 18px;
     }
 
     .rc-steps-item-tail::after {

@@ -28,6 +28,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={1}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -60,6 +61,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -92,6 +94,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -124,6 +127,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={4}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -156,6 +160,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={5}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -188,6 +193,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={6}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
