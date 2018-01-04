@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryListingComponent matches snapshot 1`] = `
+<Accordion>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Assignment Officer (AO)"
+    setAccordion={[Function]}
+    title="Assignment Officer (AO)"
+    useIdClass={false}
+  >
+    The employee responsible for filling the position.
+  </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Bidder"
+    setAccordion={[Function]}
+    title="Bidder"
+    useIdClass={false}
+  >
+    An employee who is applying for a position.
+  </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Cable"
+    setAccordion={[Function]}
+    title="Cable"
+    useIdClass={false}
+  >
+    A secure text-based message sent from one State department location to another.
+  </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Bureau"
+    setAccordion={[Function]}
+    title="Bureau"
+    useIdClass={false}
+  >
+    The organization sponsoring a position. Most bureaus oversee regional areas, such as Western Europe. Others, such as the Bureau of Consular Affairs, oversee functional groups. If referring to a regional bureau, include the acronym -- State Department employees often use acronyms to refer to regional bureaus. In UI copy, put the acronym before the full name, eg: (WHA) Bureau of Western Hemispheric Affairs.
+  </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Career development officer (CDO)"
+    setAccordion={[Function]}
+    title="Career development officer (CDO)"
+    useIdClass={false}
+  >
+    An employee responsible for helping others find and successfully bid for appropriate positions for their career goals.
+  </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Career Track"
+    setAccordion={[Function]}
+    title="Career Track"
+    useIdClass={false}
+  >
+    A chosen professional competency.
+  </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Cone"
+    setAccordion={[Function]}
+    title="Cone"
+    useIdClass={false}
+  >
+    A cone is a colloquial synonym for a generalist or specialist functional field. Bids can be "in cone" (for a position whose skill code belongs to the bidders' specialization) or "out of cone." Each cone contains multiple skill codes.
+  </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="Cost of living allowance (COLA)"
+    setAccordion={[Function]}
+    title="Cost of living allowance (COLA)"
+    useIdClass={false}
+  >
+    A salary increase to reimburse employees for prices at a foreign post that are higher than same costs in Washington, DC. The specific value of the allowance changes based on local prices. COLA is a colloquial shorthand for what is officially known as post allowance.
+  </AccordionItem>
+</Accordion>
+`;

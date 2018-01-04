@@ -8,6 +8,7 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
     id="language-language-section"
     setAccordion={[Function]}
     title="language"
+    useIdClass={true}
   >
     <SelectForm
       defaultSort=""

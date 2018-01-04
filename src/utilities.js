@@ -197,3 +197,27 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
   `${process.env.PUBLIC_URL}${strAssetPath}`;
+
+// Filter by objects that contain a specified prop(s) that match a string.
+// Check if any of "array"'s objects' "props" contain "keyword"
+export const filterByProps = (keyword, props = [], array = []) => {
+  // keyword should have length
+  if (keyword.length) {
+    // filter the array and return its value
+    return array.filter((data) => {
+      let doesMatch;
+      // iterate through props and see if keyword is found in their values
+      props.forEach((prop) => {
+        // if so, doesMatch = true
+        if (data[prop].toLowerCase().indexOf(keyword.toLowerCase()) !== -1) {
+          doesMatch = true;
+        }
+      });
+      // if keyWord was found in atleast one of the props, doesMatch should be true
+      return doesMatch;
+    },
+    );
+  }
+  // if keyword length === 0, return the unfiltered array
+  return array;
+};
