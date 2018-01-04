@@ -14,6 +14,7 @@ import { validStateEmail,
          existsInNestedObject,
          removeDuplicates,
          getTimeDistanceInWords,
+         formatDate,
        } from './utilities';
 
 describe('local storage', () => {
@@ -222,5 +223,29 @@ describe('distanceInWords', () => {
     expect(timeDistanceInWords).toBeDefined();
     // but we will test that it contains ' ago' since that is custom text we added in
     expect(timeDistanceInWords).toContain(' ago');
+  });
+});
+
+describe('formatDate', () => {
+  it('returns a properly formatted date', () => {
+    // how we expect the date from the API
+    const unformattedDate = '2017-01-15';
+    // converted date
+    const formattedDate = formatDate(unformattedDate);
+    // should be formatted using the default format
+    expect(formattedDate).toBe('1.15.2017');
+  });
+
+  it('returns a properly formatted date with a custom format', () => {
+    // how we expect the date from the API
+    const unformattedDate = '2017-01-01';
+    // converted date
+    const formattedDate = formatDate(unformattedDate, 'M-D-YYYY');
+    // should be formatted using the custom format
+    expect(formattedDate).toBe('1-1-2017');
+  });
+
+  it('returns null if no date is provided', () => {
+    expect(formatDate(null)).toBe(null);
   });
 });
