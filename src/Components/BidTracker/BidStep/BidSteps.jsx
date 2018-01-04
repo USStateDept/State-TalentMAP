@@ -5,6 +5,7 @@ import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
+import { formatDate } from '../../../utilities';
 
 // Use the rc-steps module to render the bid tracker.
 // It uses <Steps> as a parent with <Step> children.
@@ -31,7 +32,7 @@ const BidSteps = ({ bid }) => {
           title={
             <div>
               <div className="step-title-main-text">{bidData[status.prop].title}</div>
-              <div className="step-title-sub-text">{bidData[status.prop].date}</div>
+              <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
             </div>
           }
           icon={
