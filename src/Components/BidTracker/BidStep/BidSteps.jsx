@@ -4,6 +4,7 @@ import shortId from 'shortid';
 import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
+import BidPreparingIcon from './BidStepIcon/BidPreparingIcon';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import { formatDate } from '../../../utilities';
 
@@ -35,6 +36,7 @@ const BidSteps = ({ bid }) => {
               <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
             </div>
           }
+          tailContent={bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null}
           icon={
             <BidStepIcon
               isComplete={bidData[status.prop].isComplete}
