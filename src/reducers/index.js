@@ -25,6 +25,8 @@ import routerLocations from './routerLocations';
 import selectedAccordion from './selectedAccordion';
 import shouldShowStaticContent from './showStaticContent';
 import profileMenu from './profileMenu';
+import showGlossary from './showGlossary';
+import glossary from './glossary';
 
 
 export default combineReducers({
@@ -50,6 +52,8 @@ export default combineReducers({
   ...shouldShowStaticContent,
   ...shouldShowSearchBar,
   ...profileMenu,
+  ...showGlossary,
+  ...glossary,
   router: routerReducer,
   form,
   client,

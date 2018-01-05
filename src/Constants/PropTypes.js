@@ -408,3 +408,12 @@ export const PROFILE_MENU_SECTION_EXPANDED = PropTypes.shape({
   title: PropTypes.string,
   display: PropTypes.bool,
 });
+
+export const GLOSSARY_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  title: PropTypes.string,
+  definition: PropTypes.string,
+  link: PropTypes.string,
+});
+
+export const GLOSSARY_ARRAY = PropTypes.arrayOf(GLOSSARY_OBJECT);

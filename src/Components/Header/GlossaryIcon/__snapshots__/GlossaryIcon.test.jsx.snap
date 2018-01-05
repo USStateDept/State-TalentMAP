@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryIconComponent matches snapshot 1`] = `
+<Icon
+  onClick={[Function]}
+/>
+`;

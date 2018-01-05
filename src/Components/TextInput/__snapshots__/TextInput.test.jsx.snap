@@ -13,6 +13,7 @@ exports[`TextInputComponent matches snapshot 1`] = `
     id="1"
     name="input-type-text"
     onChange={[Function]}
+    placeholder=""
     type="text"
     value=""
   />

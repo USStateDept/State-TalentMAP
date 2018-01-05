@@ -1,0 +1,87 @@
+// scss-lint:disable QualifyingElement
+// scss-lint:disable ImportantRule
+
+.tm-glossary {
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: sans-serif;
+  }
+
+  $foreground-color: $color-black;
+
+  .glossary {
+    background: $tm-white-smoke;
+    border-left: 1px solid $tm-navy-dark;
+    bottom: 0;
+    overflow-y: scroll;
+    padding: 5rem 3rem;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: right .2s;
+    width: 30rem;
+
+    .glossary-hidden {
+      display: none !important;
+    }
+  }
+
+  .glossary-hidden {
+    right: -30rem;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  button {
+    appearance: none;
+    padding: .5rem;
+    text-align: left;
+  }
+
+  .glossary-content {
+    padding: 4rem 0;
+  }
+
+  .glossary-close {
+    background-color: transparent;
+    border: 0;
+    color: $foreground-color;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .usa-accordion {
+    color: $foreground-color;
+
+    li {
+      background-color: transparent;
+    }
+
+    .usa-accordion-button {
+      background-color: transparent;
+      border: 0;
+      border-bottom: 1px solid $foreground-color;
+      color: $foreground-color;
+    }
+
+    .accordion-item-title {
+      padding-right: 25%;
+    }
+
+    .usa-accordion-content {
+      background-color: transparent;
+      font-size: .8em;
+      padding: 1rem;
+    }
+  }
+}
