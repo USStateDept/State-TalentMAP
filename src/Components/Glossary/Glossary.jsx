@@ -43,7 +43,7 @@ class GlossaryComponent extends Component {
         >
           <button
             title="Close glossary"
-            className="js-glossary-close"
+            className="glossary-close"
             onClick={toggleVisibility}
           >
             <FontAwesome name="times" />

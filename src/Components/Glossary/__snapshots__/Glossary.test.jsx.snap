@@ -11,7 +11,7 @@ exports[`GlossaryComponent matches snapshot 1`] = `
     id="glossary"
   >
     <button
-      className="js-glossary-close"
+      className="glossary-close"
       onClick={[Function]}
       title="Close glossary"
     >
@@ -108,7 +108,7 @@ exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
     id="glossary"
   >
     <button
-      className="js-glossary-close"
+      className="glossary-close"
       onClick={[Function]}
       title="Close glossary"
     >
