@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleGlossary } from '../../actions/showGlossary';
 import { glossaryFetchData } from '../../actions/glossary';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_ARRAY } from '../../Constants/PropTypes';
 import Glossary from '../../Components/Glossary';
 
 class GlossaryContainer extends Component {
@@ -39,7 +39,7 @@ GlossaryContainer.propTypes = {
   shouldShowGlossary: PropTypes.bool.isRequired,
   toggleGlossaryVisibility: PropTypes.func.isRequired,
   fetchGlossary: PropTypes.func.isRequired,
-  glossaryItems: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  glossaryItems: GLOSSARY_ARRAY.isRequired,
   glossaryIsLoading: PropTypes.bool.isRequired,
 };
 
