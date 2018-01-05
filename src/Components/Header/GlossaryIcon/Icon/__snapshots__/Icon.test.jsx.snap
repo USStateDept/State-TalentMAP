@@ -3,6 +3,7 @@
 exports[`IconComponent matches snapshot 1`] = `
 <InteractiveElement
   className="icon-alert-container glossary-icon"
+  id="glossary-open-icon"
   onClick={[Function]}
   title="View the glossary"
   type="div"

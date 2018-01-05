@@ -235,3 +235,8 @@ export const filterByProps = (keyword, props = [], array = []) => {
   // if keyword length === 0, return the unfiltered array
   return array;
 };
+
+export const focusById = (id) => {
+  const element = document.getElementById(id);
+  if (element) { element.focus(); }
+};

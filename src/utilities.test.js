@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import { validStateEmail,
          localStorageFetchValue,
          localStorageToggleValue,
@@ -15,6 +16,7 @@ import { validStateEmail,
          removeDuplicates,
          getTimeDistanceInWords,
          formatDate,
+         focusById,
        } from './utilities';
 
 describe('local storage', () => {
@@ -247,5 +249,19 @@ describe('formatDate', () => {
 
   it('returns null if no date is provided', () => {
     expect(formatDate(null)).toBe(null);
+  });
+});
+
+describe('focusById', () => {
+  const focusSpy = sinon.spy();
+  it('can focus by ID', () => {
+    const elements = {
+      test: {
+        focus: focusSpy,
+      },
+    };
+    global.document.getElementById = id => elements[id];
+    focusById('test');
+    sinon.assert.calledOnce(focusSpy);
   });
 });

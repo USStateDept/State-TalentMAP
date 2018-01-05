@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FieldSet from '../../FieldSet/FieldSet';
 import TextInput from '../../TextInput';
+import { GLOSSARY_SEARCH_ID } from '../../../Constants/HtmlAttributes';
 
 const GlossarySearch = ({ changeText, searchTextValue }) => (
   <FieldSet
@@ -10,7 +11,7 @@ const GlossarySearch = ({ changeText, searchTextValue }) => (
     legendSrOnly
   >
     <TextInput
-      id="glossary-search"
+      id={GLOSSARY_SEARCH_ID}
       label="Enter a keyword to search"
       changeText={changeText}
       value={searchTextValue}
