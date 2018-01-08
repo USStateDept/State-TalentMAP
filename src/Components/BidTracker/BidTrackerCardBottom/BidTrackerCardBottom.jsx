@@ -62,7 +62,6 @@ const BidTrackerCardBottom = ({ bureau, reviewer, userProfile }) => {
   );
 };
 
-// reviewer is not required because some local dev data sets don't include a reviewer
 BidTrackerCardBottom.propTypes = {
   reviewer: BID_REVIEWER_OBJECT.isRequired,
   bureau: PropTypes.string.isRequired,
