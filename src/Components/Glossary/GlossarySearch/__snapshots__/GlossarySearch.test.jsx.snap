@@ -9,11 +9,16 @@ exports[`GlossaryComponent matches snapshot 1`] = `
   <TextInput
     changeText={[Function]}
     id="glossary-search"
-    label="Enter a keyword to search"
+    label="Search terms"
     labelMessage=""
-    labelSrOnly={true}
+    labelSrOnly={false}
     placeholder="Search for terms"
     value="test"
   />
+  <div
+    className="glossary-search-sub"
+  >
+    Examples: post, tour of duty
+  </div>
 </FieldSet>
 `;
