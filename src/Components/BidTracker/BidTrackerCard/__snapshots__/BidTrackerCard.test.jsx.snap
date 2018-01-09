@@ -144,9 +144,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "user": "rehmant",
           }
         }
-        bureau=""
         declineBid={[Function]}
-        userName=""
       />
     </div>
   </div>

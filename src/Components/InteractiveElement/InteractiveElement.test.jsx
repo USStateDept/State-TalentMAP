@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import InteractiveElement from './InteractiveElement';
 
-describe('LanguageList', () => {
+describe('InteractiveElementComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(<InteractiveElement type="div">text</InteractiveElement>);
     expect(wrapper).toBeDefined();
