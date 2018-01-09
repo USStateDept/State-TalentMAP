@@ -25,11 +25,7 @@ exports[`GlossaryComponent matches snapshot 1`] = `
       </span>
     </button>
     <div
-      style={
-        Object {
-          "position": "relative",
-        }
-      }
+      className="glossary-content-container"
     >
       <h3
         id="glossary-title"
@@ -122,11 +118,7 @@ exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
       </span>
     </button>
     <div
-      style={
-        Object {
-          "position": "relative",
-        }
-      }
+      className="glossary-content-container"
     >
       <h3
         id="glossary-title"

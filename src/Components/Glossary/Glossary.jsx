@@ -49,11 +49,11 @@ class GlossaryComponent extends Component {
             <FontAwesome name="times" />
             <span className="usa-sr-only">Close Glossary</span>
           </button>
-          <div style={{ position: 'relative' }}>
+          <div className="glossary-content-container">
             <h3 id="glossary-title">Glossary</h3>
             {
               glossaryIsLoading &&
-                <Spinner type="glossary" size="big" />
+                <Spinner type="glossary tm-spinner-color-inverted" size="big" />
             }
             {
               !glossaryIsLoading &&

@@ -25,6 +25,10 @@ $tm-spinner-filled-ratio: 1.15;
   }
 }
 
+.tm-spinner-color-inverted {
+  color: $color-white;
+}
+
 .tm-spinner-homepage-position-results {
   left: 45%;
   position: absolute;
