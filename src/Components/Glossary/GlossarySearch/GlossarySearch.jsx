@@ -12,12 +12,13 @@ const GlossarySearch = ({ changeText, searchTextValue }) => (
   >
     <TextInput
       id={GLOSSARY_SEARCH_ID}
-      label="Enter a keyword to search"
+      label="Search terms"
       changeText={changeText}
       value={searchTextValue}
-      labelSrOnly
+      labelSrOnly={false}
       placeholder="Search for terms"
     />
+    <div className="glossary-search-sub">Examples: post, tour of duty</div>
   </FieldSet>
 );
 
