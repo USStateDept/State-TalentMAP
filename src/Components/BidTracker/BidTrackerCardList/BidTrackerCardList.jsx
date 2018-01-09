@@ -11,7 +11,7 @@ const BidTrackerCardList = ({ bids, acceptBid, declineBid, userProfile }) => {
   // eslint rules seem to step over themselves here between using "return" and a ternary
   // eslint-disable-next-line no-confusing-arrow
   const sortedBids = bids.slice().sort(x => x.is_priority ? -1 : 1);
-  // Then we check if the first object of the arrray is priority. We need this to define
+  // Then we check if the first object of the array is priority. We need this to define
   // whether or not to pass priorityExists.
   const doesPriorityExist = sortedBids.length && sortedBids[0] && sortedBids[0].is_priority;
   return (
