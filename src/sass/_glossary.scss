@@ -2,6 +2,8 @@
 // scss-lint:disable ImportantRule
 
 .tm-glossary {
+  $foreground-color: $color-white;
+
   * {
     box-sizing: border-box;
   }
@@ -10,10 +12,12 @@
     font-family: sans-serif;
   }
 
-  $foreground-color: $color-black;
+  h3 {
+    color: $foreground-color;
+  }
 
   .glossary {
-    background: $tm-white-smoke;
+    background: $color-gray-darkest;
     border-left: 1px solid $tm-navy-dark;
     bottom: 0;
     overflow-y: scroll;
@@ -43,7 +47,7 @@
 
   button {
     appearance: none;
-    padding: .5rem;
+    padding: 1.5rem .5rem;
     text-align: left;
   }
 
@@ -75,6 +79,7 @@
     }
 
     .accordion-item-title {
+      font-weight: normal;
       padding-right: 25%;
     }
 

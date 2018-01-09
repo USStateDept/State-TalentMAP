@@ -13,13 +13,31 @@ describe('AccordionItemComponent', () => {
     </li>
   );
 
-  it('can receive props', () => {
+  it('can receive children element', () => {
     const wrapper = shallow(
       <Accordion>
         {child}
       </Accordion>,
     );
     expect(wrapper.instance().props.children).toBe(child);
+  });
+
+  it('can receive className prop', () => {
+    const wrapper = shallow(
+      <Accordion className="my-class">
+        {child}
+      </Accordion>,
+    );
+    expect(wrapper.find('.my-class').exists()).toBe(true);
+  });
+
+  it('can receive isMultiselectable prop', () => {
+    const wrapper = shallow(
+      <Accordion isMultiselectable>
+        {child}
+      </Accordion>,
+    );
+    expect(wrapper.find('ul').prop('aria-multiselectable')).toBe(true);
   });
 
   it('matches snapshot', () => {

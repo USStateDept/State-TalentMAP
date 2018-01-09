@@ -50,7 +50,7 @@ class GlossaryComponent extends Component {
             <span className="usa-sr-only">Close Glossary</span>
           </button>
           <div style={{ position: 'relative' }}>
-            <h2 id="glossary-title">Glossary</h2>
+            <h3 id="glossary-title">Glossary</h3>
             {
               glossaryIsLoading &&
                 <Spinner type="glossary" size="big" />

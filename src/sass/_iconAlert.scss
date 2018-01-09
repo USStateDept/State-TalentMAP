@@ -7,19 +7,19 @@
     background-color: $blue-primary;
     border-radius: 20px;
     color: $color-white;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 200;
     padding-left: 1px;
     position: absolute; // parent should have position: relative
     right: -5px;
     text-align: center;
-    top: 20px;
-    width: 16px;
+    top: 18px;
+    width: 13px;
   }
 
   .fa {
     color: $tm-dark-blue;
-    font-size: 24px;
+    font-size: 19px;
     vertical-align: middle;
   }
 }
@@ -34,4 +34,8 @@
 
 .glossary-icon {
   cursor: pointer;
+
+  .fa {
+    margin-right: 5px;
+  }
 }

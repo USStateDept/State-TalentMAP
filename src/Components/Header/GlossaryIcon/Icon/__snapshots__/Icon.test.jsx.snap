@@ -11,5 +11,8 @@ exports[`IconComponent matches snapshot 1`] = `
   <FontAwesome
     name="book"
   />
+  <span>
+    Glossary
+  </span>
 </InteractiveElement>
 `;

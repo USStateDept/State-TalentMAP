@@ -2,7 +2,9 @@
 
 exports[`AccordionItemComponent matches snapshot 1`] = `
 <ul
-  className="usa-accordion"
+  aria-multiselectable={false}
+  className="usa-accordion "
+  role="tablist"
 >
   <li>
     <button />
