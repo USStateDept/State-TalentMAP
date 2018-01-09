@@ -2,7 +2,8 @@
 
 exports[`IsOnStandbyComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full bid-tracker bid-tracker-standby-container"
+  className="usa-grid-full bid-tracker
+        bid-tracker-standby-container false"
 >
   <div
     className="padded-container-inner bid-tracker-standby-title"
@@ -10,7 +11,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
     <div
       className="bid-tracker-standby-title-top"
     >
-      Draft
+      Approved
     </div>
     <div
       className="bid-tracker-standby-title-bottom"
