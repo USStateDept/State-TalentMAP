@@ -50,8 +50,8 @@ export function fetchUserToken() {
 }
 
 export const pillSort = (a, b) => {
-  const A = (a.description || a.code).toLowerCase();
-  const B = (b.description || b.code).toLowerCase();
+  const A = (a.description || a.code).toString().toLowerCase();
+  const B = (b.description || b.code).toString().toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -60,8 +60,8 @@ export const pillSort = (a, b) => {
 };
 
 export const propSort = propName => (a, b) => {
-  const A = a[propName].toLowerCase();
-  const B = b[propName].toLowerCase();
+  const A = a[propName].toString().toLowerCase();
+  const B = b[propName].toString().toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -223,7 +223,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
       // iterate through props and see if keyword is found in their values
       props.forEach((prop) => {
         // if so, doesMatch = true
-        if (data[prop].toLowerCase().indexOf(keyword.toLowerCase()) !== -1) {
+        if (data[prop].toString().toLowerCase().indexOf(keyword.toString().toLowerCase()) !== -1) {
           doesMatch = true;
         }
       });

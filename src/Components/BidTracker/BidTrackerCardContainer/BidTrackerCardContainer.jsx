@@ -32,24 +32,21 @@ const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, u
   if (priorityExists && bid.is_priority) { displayType = PRIORITY; }
   if (priorityExists && !bid.is_priority) { displayType = STANDBY; }
 
-  // assign variables to the check the displayType and use in the template
-  const useDefaultDisplay = displayType === DEFAULT;
-  const usePriorityDisplay = displayType === PRIORITY;
-  const useStandbyDisplay = displayType === STANDBY;
+  let cardComponent;
+  switch (displayType) {
+    case PRIORITY:
+      cardComponent = (<IsPriority>{card}</IsPriority>);
+      break;
+    case STANDBY:
+      cardComponent = (<IsOnStandby bid={bid} />);
+      break;
+    default:
+      cardComponent = card;
+  }
 
   return (
     <div className="bid-tracker-container">
-      { useDefaultDisplay && card }
-      {
-        usePriorityDisplay &&
-        <IsPriority>
-          {card}
-        </IsPriority>
-      }
-      {
-        useStandbyDisplay &&
-        <IsOnStandby bid={bid} />
-      }
+      { cardComponent }
     </div>
   );
 };

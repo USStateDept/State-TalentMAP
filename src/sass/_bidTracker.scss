@@ -9,6 +9,10 @@ $card-width: 775px;
     margin-bottom: 40px;
   }
 
+  .bid-tracker-content-container {
+    position: relative;
+  }
+
   .bid-tracker-notifications {
     margin-bottom: 25px;
   }
@@ -501,6 +505,7 @@ $card-width: 775px;
     float: left;
     padding: 13px 59px;
     text-align: center;
+    width: 270px;
   }
 
   .bid-tracker-standby-title-top {

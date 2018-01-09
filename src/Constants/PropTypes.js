@@ -94,16 +94,18 @@ export const HOME_PAGE_POSITIONS = PropTypes.shape({
   isHighlighted: POSITION_DETAILS_ARRAY,
 });
 
+export const FILTER = PropTypes.shape({
+  id: PropTypes.number,
+  code: PropTypes.string,
+  description: PropTypes.string,
+  long_description: PropTypes.string,
+  short_description: PropTypes.string,
+  effective_date: PropTypes.string,
+  isSelected: PropTypes.bool,
+});
+
 export const FILTERS = PropTypes.arrayOf(
-  PropTypes.shape({
-    id: PropTypes.number,
-    code: PropTypes.string,
-    description: PropTypes.string,
-    long_description: PropTypes.string,
-    short_description: PropTypes.string,
-    effective_date: PropTypes.string,
-    isSelected: PropTypes.bool,
-  }),
+  FILTER,
 );
 
 export const FILTER_META_DATA = PropTypes.shape({
