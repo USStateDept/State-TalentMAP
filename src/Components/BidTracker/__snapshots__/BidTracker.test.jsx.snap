@@ -102,6 +102,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
             "handshake_offered_date": "2017-12-20",
             "id": 3,
             "in_panel_date": "2017-12-20",
+            "is_priority": false,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2015-08-05",
@@ -142,6 +143,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
             "handshake_offered_date": "2017-12-20",
             "id": 1,
             "in_panel_date": "2017-12-20",
+            "is_priority": true,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2006-09-20",
@@ -182,6 +184,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
             "handshake_offered_date": "2017-12-20",
             "id": 2,
             "in_panel_date": "2017-12-20",
+            "is_priority": false,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2006-09-20",

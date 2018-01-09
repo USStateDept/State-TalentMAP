@@ -34,6 +34,7 @@ const bidListObject = {
       closed_date: '2017-12-20',
       create_date: '2017-12-20',
       update_date: '2017-12-20',
+      is_priority: false,
       reviewer: {
         username: 'woodwardw',
         first_name: 'Wendy',
@@ -74,6 +75,7 @@ const bidListObject = {
       closed_date: '2017-12-20',
       create_date: '2017-12-20',
       update_date: '2017-12-20',
+      is_priority: true,
       reviewer: {
         username: 'woodwardw',
         first_name: 'Wendy',
@@ -114,6 +116,7 @@ const bidListObject = {
       closed_date: '2017-12-20',
       create_date: '2017-12-20',
       update_date: '2017-12-20',
+      is_priority: false,
       reviewer: {
         username: 'woodwardw',
         first_name: 'Wendy',
