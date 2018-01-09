@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InteractiveElementComponent matches snapshot 1`] = `
+<span>
+  text
+</span>
+`;
+
+exports[`InteractiveElementComponent matches snapshot when type is "div" 1`] = `
+<div>
+  text
+</div>
+`;

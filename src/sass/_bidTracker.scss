@@ -1,0 +1,489 @@
+// set a min-width for the bid tracker card, since it is not optimized for mobile
+$card-width: 775px;
+
+.bid-tracker-page {
+  padding: 20px;
+  position: relative;
+
+  .bid-tracker-greeting {
+    margin-bottom: 40px;
+  }
+
+  .bid-tracker-notifications {
+    margin-bottom: 25px;
+  }
+
+  .bid-tracker-greeting-container {
+    float: left;
+    padding-right: 10px;
+  }
+
+  .bid-tracker-cdo-email-container {
+    float: left;
+  }
+
+  .bid-tracker-cdo-email {
+    float: right;
+  }
+
+  .bid-tracker-cdo-button {
+    font-weight: normal;
+    margin-top: 0;
+
+    .fa {
+      margin-right: 10px;
+    }
+  }
+
+  .padded-container-inner {
+    padding: 15px;
+  }
+}
+
+.bid-tracker-container {
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.bid-tracker-overlay-alert {
+  background: $color-gray;
+  color: $color-white;
+  height: 100%;
+  left: 0;
+  min-width: $card-width;
+  opacity: .95;
+  position: absolute;
+  top: 0;
+  width: 100%;
+
+  .bid-tracker-overlay-alert-content-container {
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    width: 70%;
+  }
+
+  .bid-tracker-overlay-alert-content {
+    margin: 0 auto;
+    text-align: center;
+
+    .fa {
+      font-size: 24px;
+    }
+  }
+}
+
+.bid-tracker-overlay-alert--success {
+  background: $color-green-dark;
+}
+
+.bid-tracker-overlay-alert--pending {
+  background: $tm-navy;
+}
+
+.bid-tracker-overlay-alert--closed {
+  background: $color-gray;
+}
+
+.bid-tracker {
+
+  background: $color-white;
+  border: 1px solid $color-gray-light;
+  font-size: 16px;
+  margin-bottom: 20px;
+  min-width: $card-width;
+
+  .step-title-sub-text {
+    color: $color-gray;
+    font-size: 13px;
+  }
+
+  .bid-tracker-card-bottom-section {
+    border-right: 1px solid $color-gray-lighter;
+    float: left;
+    margin-right: 20px;
+    max-width: 25%;
+    padding-right: 20px;
+    width: 25%;
+  }
+
+  .bid-tracker-card-bottom-section:last-child {
+    border-right: 0;
+    flex-grow: 1;
+    margin-right: 0;
+    padding-right: 0;
+  }
+
+  .bid-tracker-organization-container {
+    float: left;
+    width: 400px;
+  }
+
+  .bid-tracker-title-container {
+    display: flex;
+    margin-bottom: 0;
+    padding-top: 18px;
+  }
+
+  .bid-tracker-title-content-container {
+    flex-grow: 1;
+  }
+
+  .bid-tracker-card-title-container-right {
+    float: right;
+  }
+
+  .bid-tracker-question-text-container {
+    float: left;
+    font-size: 13px;
+    margin: 3px 20px 0 0;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  .bid-tracker-actions-container {
+    float: left;
+  }
+
+  .bid-tracker-bid-steps-container {
+    padding-bottom: 25px;
+    padding-right: 10%;
+    padding-top: 40px;
+    position: relative;
+  }
+
+  .bid-tracker-card-title-text {
+    float: left;
+    font-size: 19px;
+    font-weight: bold;
+    padding-right: 10px;
+  }
+
+  .bid-tracker-card-title-link {
+    border-left: 1px solid $color-black;
+    float: left;
+    margin-top: 2px;
+    padding-left: 5px;
+
+    a {
+      padding-left: 5px;
+      text-decoration: none;
+    }
+  }
+
+  .bid-tracker-card-bottom-container {
+    border-top: 1px solid $color-gray-light;
+  }
+
+  .bid-tracker-card-bottom {
+    display: flex;
+
+    @media screen and (min-width: 0px) {
+      .usa-width-one-sixth {
+        display: block;
+        float: left;
+        margin-right: 2.35765%;
+        width: auto;
+      }
+
+      .usa-width-one-half {
+        display: block;
+        float: left;
+        margin-right: 2.35765%;
+        width: 48.82117%;
+      }
+    }
+  }
+
+  .step-submitted {
+    left: -3%;
+
+    .rc-steps-item-tail {
+      width: 147%;
+    }
+  }
+
+  .step-in-panel {
+    right: -3%;
+  }
+
+  .step-handshake-offered {
+    right: -2%;
+
+    .rc-steps-item-tail {
+      width: 96%;
+    }
+  }
+
+  .step-handshake-accepted {
+    left: -2%;
+
+    .rc-steps-item-tail {
+      width: 147%;
+    }
+  }
+
+  .icon-complete {
+    .fa {
+      background: $color-green-dark-opacity50;
+      border: 1px solid $color-green-dark-opacity50;
+      border-radius: 21px;
+      color: $color-white;
+      padding: 5px;
+    }
+  }
+
+  .icon-container {
+    position: relative;
+  }
+
+  .number-icon {
+    background: $blue-primary;
+    border: 1px solid $blue-primary;
+    border-radius: 35px;
+    color: $color-white;
+    font-size: 16px;
+    padding: 7px 13px;
+  }
+
+  .number-icon-incomplete {
+    background: $color-gray-light;
+    border-color: $color-gray-light;
+  }
+
+  .number-icon-needs-action {
+    background: $color-green-dark;
+    border-color: $color-green-dark;
+  }
+
+  .number-icon-is-current-no-action {
+    background: $blue-primary;
+    border-color: $blue-primary;
+  }
+
+  .pending-tooltip {
+    color: $color-black;
+    font-size: 13px;
+    left: -13px;
+    position: absolute;
+    top: -35px;
+    width: 100px;
+  }
+
+  .bid-tracker-pending-text-container {
+    float: left;
+  }
+
+  .bid-tracker-pending-icon-container {
+    float: left;
+    margin-right: 5px;
+  }
+
+  .rescheduled-tooltip {
+    background: $blue-primary;
+    color: $color-white;
+    font-size: 13px;
+    left: -38px;
+    padding: 10px 13px;
+    position: absolute;
+    top: -58px;
+    width: 120px;
+  }
+
+  .rescheduled-tooltip::after {
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid $blue-primary;
+    clear: both;
+    content: '';
+    height: 0;
+    left: 48px;
+    position: absolute;
+    top: 33px;
+    width: 0;
+  }
+
+  .bid-tracker-rescheduled-text-container {
+    float: left;
+  }
+
+  .bid-tracker-rescheduled-icon-container {
+    float: left;
+    margin-right: 10px;
+  }
+
+  .rc-steps-item-tail {
+    left: -8px;
+    width: 106%;
+  }
+
+  .rc-steps-item-tail::after {
+    background: transparent;
+    border: 1.5px dashed $color-green-dark-opacity50;
+    color: $color-green-dark-opacity50;
+    height: 0;
+  }
+
+  .step-complete {
+    .rc-steps-icon {
+      left: -3px;
+      top: -3px;
+    }
+
+    .rc-steps-item-title {
+      color: $color-black;
+    }
+  }
+
+  .step-incomplete {
+    .rc-steps-icon {
+      left: -3px;
+      top: 2px;
+    }
+
+    .rc-steps-item-content {
+      margin-top: 14px;
+    }
+
+    .rc-steps-item-tail::after {
+      background: transparent;
+      border: 1.5px solid $color-gray-light;
+      color: $color-gray-light;
+      height: 0;
+    }
+  }
+
+  .pending-line {
+    .rc-steps-item-tail::after {
+      border: 1.5px dashed $blue-primary;
+      color: $blue-primary;
+    }
+  }
+
+  .step-current {
+    .rc-steps-item-title {
+      color: $color-black;
+    }
+
+    .rc-steps-item-content {
+      margin-left: 6px;
+    }
+
+    .number-icon {
+      font-size: 19px;
+      padding: 8px 15px;
+    }
+  }
+
+  .rc-steps-item-title {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 19px;
+  }
+}
+
+.bid-tracker-alert-container {
+  position: relative;
+  top: 65px;
+
+  .fa {
+    margin-bottom: 10px;
+  }
+
+  .sub-text {
+    font-size: 13px;
+  }
+
+  .top-text {
+    margin-bottom: 5px;
+  }
+
+  button {
+    margin-right: 0;
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+.bid-tracker-alert-container--approved {
+  top: 35px;
+}
+
+.bid-tracker-alert-container--in-panel {
+  top: 40px;
+}
+
+.bid-tracker-alert-container--handshake-offered {
+  top: 30px;
+
+  button {
+    margin-right: 30px;
+  }
+}
+
+.bid-tracker-priority-wrapper-container {
+  border: 3px solid $color-gold;
+  border-top: 0;
+  min-width: $card-width;
+
+  .priority-banner {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+
+  .priority-banner-container-left {
+    float: left;
+    font-weight: bold;
+  }
+
+  .priority-banner-container-right {
+    float: left;
+    font-size: 13px;
+  }
+
+  .priority-banner-question-text {
+    float: right;
+    margin-top: 3px;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
+  .bid-tracker {
+    border: 0;
+  }
+
+  .bid-tracker-priority-wrapper {
+    background-color: $color-gold;
+  }
+}
+
+.bid-tracker-standby-container {
+  display: flex;
+
+  .bid-tracker-standby-title {
+    background-color: $tm-navy-dark;
+    color: $color-white;
+    float: left;
+    padding: 13px 59px;
+    text-align: center;
+  }
+
+  .bid-tracker-standby-title-top {
+    font-size: 16px;
+  }
+
+  .bid-tracker-standby-title-bottom {
+    font-size: 13px;
+  }
+
+  .bid-tracker-standby-content-container {
+    flex-grow: 1;
+    float: left;
+  }
+}

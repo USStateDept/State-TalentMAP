@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AlertAltComponent matches snapshot when type equals error 1`] = `
+<div
+  className="tm-alert tm-alert-error"
+  role="alert"
+>
+  <div
+    className="usa-grid-full tm-alert-body"
+  >
+    <div
+      className="usa-grid-full tm-alert-icon"
+    >
+      <FontAwesome
+        name="exclamation-triangle"
+        size="lg"
+      />
+    </div>
+    <div
+      className="usa-grid-full tm-alert-text"
+    >
+      <div
+        className="tm-alert-heading"
+      >
+        title
+      </div>
+      <div
+        className="tm-alert-message"
+      >
+        message
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AlertAltComponent matches snapshot when type equals info 1`] = `
+<div
+  className="tm-alert tm-alert-info"
+  role={null}
+>
+  <div
+    className="usa-grid-full tm-alert-body"
+  >
+    <div
+      className="usa-grid-full tm-alert-icon"
+    >
+      <FontAwesome
+        name="info-circle"
+        size="lg"
+      />
+    </div>
+    <div
+      className="usa-grid-full tm-alert-text"
+    >
+      <div
+        className="tm-alert-heading"
+      >
+        title
+      </div>
+      <div
+        className="tm-alert-message"
+      >
+        message
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AlertAltComponent matches snapshot when type equals success 1`] = `
+<div
+  className="tm-alert tm-alert-success"
+  role={null}
+>
+  <div
+    className="usa-grid-full tm-alert-body"
+  >
+    <div
+      className="usa-grid-full tm-alert-icon"
+    >
+      <FontAwesome
+        name="check-circle"
+        size="lg"
+      />
+    </div>
+    <div
+      className="usa-grid-full tm-alert-text"
+    >
+      <div
+        className="tm-alert-heading"
+      >
+        title
+      </div>
+      <div
+        className="tm-alert-message"
+      >
+        message
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AlertAltComponent matches snapshot when type equals warning 1`] = `
+<div
+  className="tm-alert tm-alert-warning"
+  role={null}
+>
+  <div
+    className="usa-grid-full tm-alert-body"
+  >
+    <div
+      className="usa-grid-full tm-alert-icon"
+    >
+      <FontAwesome
+        name="exclamation-triangle"
+        size="lg"
+      />
+    </div>
+    <div
+      className="usa-grid-full tm-alert-text"
+    >
+      <div
+        className="tm-alert-heading"
+      >
+        title
+      </div>
+      <div
+        className="tm-alert-message"
+      >
+        message
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AlertAltComponent matches snapshot with default props 1`] = `
+<div
+  className="tm-alert tm-alert-info"
+  role={null}
+>
+  <div
+    className="usa-grid-full tm-alert-body"
+  >
+    <div
+      className="usa-grid-full tm-alert-icon"
+    >
+      <FontAwesome
+        name="info-circle"
+        size="lg"
+      />
+    </div>
+    <div
+      className="usa-grid-full tm-alert-text"
+    >
+      <div
+        className="tm-alert-heading"
+      >
+        title
+      </div>
+      <div
+        className="tm-alert-message"
+      />
+    </div>
+  </div>
+</div>
+`;

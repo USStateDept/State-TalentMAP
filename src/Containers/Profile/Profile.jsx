@@ -46,7 +46,7 @@ const mapStateToProps = (state, ownProps) => ({
   id: ownProps,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onNavigateTo: dest => dispatch(push(dest)),
 });
 

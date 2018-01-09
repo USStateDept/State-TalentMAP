@@ -88,6 +88,11 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
                   "submitted": 1,
                 },
               ],
+              "cdo": Object {
+                "email": "shadtrachl@state.gov",
+                "first_name": "Leah",
+                "last_name": "Shadtrach",
+              },
               "is_cdo": false,
               "skill_code": Array [
                 "INFORMATION MANAGEMENT (2880)",

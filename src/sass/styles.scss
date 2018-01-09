@@ -19,6 +19,9 @@
 // react-tippy tooltip
 @import '../../node_modules/react-tippy/dist/tippy.css';
 
+// rc-steps
+@import '../../node_modules/rc-steps/assets/index.css';
+
 // Global
 @import 'variables';
 
@@ -37,15 +40,19 @@
 @import 'login';
 @import 'footer';
 @import 'header';
-@import 'accountdropdown';
+@import 'dropdown';
 @import 'pagination';
 @import 'responsive';
 @import 'spinner';
 @import 'editor';
 @import 'dismiss';
 @import 'bidderPortfolio';
+@import 'bidTracker';
 @import 'tooltip';
 @import 'iconAlert';
 @import 'buttons';
 @import 'checkbox';
+@import 'status';
+@import 'organizationStamp';
+@import 'alerts';
 @import 'overrides';

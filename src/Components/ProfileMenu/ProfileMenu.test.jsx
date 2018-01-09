@@ -1,27 +1,56 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import toJSON from 'enzyme-to-json';
-import ProfileMenu from './ProfileMenu';
+import sinon from 'sinon';
+import { shallow } from 'enzyme';
+import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../Constants/DefaultProps';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+import ProfileMenu, { mapDispatchToProps } from './ProfileMenu';
 
-describe('ProfileMenuComponent', () => {
+describe('ProfileMenu', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <ProfileMenu isCDO />,
+      <ProfileMenu.WrappedComponent
+        profileMenuExpanded
+        profileMenuSectionExpanded={PROFILE_MENU_SECTION_EXPANDED_OBJECT}
+        onSetProfileMenuExpanded={() => {}}
+        onSetProfileMenuSectionExpanded={() => {}}
+      />,
     );
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when isCDO is false', () => {
+  it('can call the collapseMenu function', () => {
+    const spy = sinon.spy();
     const wrapper = shallow(
-      <ProfileMenu isCDO={false} />,
+      <ProfileMenu.WrappedComponent
+        profileMenuExpanded
+        profileMenuSectionExpanded={PROFILE_MENU_SECTION_EXPANDED_OBJECT}
+        onSetProfileMenuExpanded={spy}
+        onSetProfileMenuSectionExpanded={() => {}}
+      />,
     );
-    expect(toJSON(wrapper)).toMatchSnapshot();
+    wrapper.instance().collapseMenu();
+    sinon.assert.calledOnce(spy);
   });
 
-  it('matches snapshot when isCDO is true', () => {
+  it('can call the expandMenu function', () => {
+    const spy = sinon.spy();
     const wrapper = shallow(
-      <ProfileMenu isCDO />,
+      <ProfileMenu.WrappedComponent
+        profileMenuExpanded
+        profileMenuSectionExpanded={PROFILE_MENU_SECTION_EXPANDED_OBJECT}
+        onSetProfileMenuExpanded={spy}
+        onSetProfileMenuSectionExpanded={() => {}}
+      />,
     );
-    expect(toJSON(wrapper)).toMatchSnapshot();
+    wrapper.instance().expandMenu();
+    sinon.assert.calledOnce(spy);
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    onSetProfileMenuExpanded: [true],
+    onSetProfileMenuSectionExpanded: [{}],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

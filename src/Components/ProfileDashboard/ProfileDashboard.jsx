@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS } from '../../Constants/PropTypes';
 import UserProfile from './UserProfile';
-import CDOInfo from './CDOInfo';
+import ExternalUserStatus from './ExternalUserStatus';
 import BidList from './BidList';
 import PositionInformation from './PositionInformation';
 import Notifications from './Notifications';
@@ -32,7 +32,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
                 </div>
                 <div className="usa-width-one-whole user-dashboard-section cdo-section">
                   <StaticDevContent>
-                    <CDOInfo name="Leah Shadtrach" />
+                    <ExternalUserStatus type="cdo" name="Leah Shadtrach" />
                   </StaticDevContent>
                 </div>
               </div>

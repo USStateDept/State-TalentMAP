@@ -1,4 +1,4 @@
-import setupAsyncMocks from './setupAsyncMocks';
+import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import * as actions from './bidList';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
@@ -36,7 +36,7 @@ describe('async actions', () => {
   it('can fetch a bid list', (done) => {
     const store = mockStore({ });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/?ordering=draft_date').reply(200,
       bidList,
     );
 
@@ -52,7 +52,7 @@ describe('async actions', () => {
   it('can handle errors when fetching a bid list', (done) => {
     const store = mockStore({ });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/?ordering=draft_date').reply(404,
       null,
     );
 
@@ -139,6 +139,70 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.toggleBidPosition('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can accept a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/accept_handshake/').reply(204,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.acceptBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when accepting a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/accept_handshake/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.acceptBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can decline a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/decline_handshake/').reply(204,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.declineBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when declining a bid', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/decline_handshake/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.declineBid('1'));
         done();
       }, 0);
     };

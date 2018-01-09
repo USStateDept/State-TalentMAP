@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full padded-container-inner bid-tracker-title-container"
+>
+  <div
+    className="bid-tracker-title-content-container"
+  >
+    <BidTrackerCardTitle
+      id="10035561"
+      title="POLITICAL/ECONOMIC OFFICER"
+    />
+  </div>
+  <div>
+    <div
+      className="bid-tracker-card-title-container-right"
+    >
+      <div
+        className="bid-tracker-question-text-container"
+      >
+        <FontAwesome
+          name="question-circle"
+        />
+         Why is it taking so long?
+      </div>
+      <div
+        className="bid-tracker-actions-container"
+      >
+        <Connect(ActionsDropdown)
+          disableDelete={false}
+          disableWithdraw={true}
+          positionId={226}
+          showDelete={false}
+          showWithdraw={true}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

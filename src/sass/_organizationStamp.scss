@@ -1,0 +1,26 @@
+.organization-stamp {
+  font-weight: bold;
+
+  .abbreviation-stamp {
+    background: $color-gray-light;
+    border-radius: 35px;
+    font-size: 19px;
+    padding: 8px 5px;
+    text-align: center;
+    width: 40px;
+  }
+
+  .organization-name-container {
+    flex-grow: 1;
+    font-size: 16px;
+    padding: 0 0 0 5px;
+  }
+
+  .organization-stamp-name-text {
+    margin-right: 5px;
+  }
+
+  .organization-stamp-container {
+    display: flex;
+  }
+}

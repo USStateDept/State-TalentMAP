@@ -1,4 +1,12 @@
 import PropTypes from 'prop-types';
+import {
+  APPROVED_PROP,
+  CLOSED_PROP,
+  HAND_SHAKE_OFFERED_PROP,
+  HAND_SHAKE_DECLINED_PROP,
+  IN_PANEL_PROP,
+  DECLINED_PROP,
+} from './BidData';
 
 export const STRING_OR_BOOL = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
 
@@ -233,6 +241,15 @@ export const REGION_SELECTION = PropTypes.shape({
   value: PropTypes.string,
 });
 
+export const BID_REVIEWER_OBJECT = PropTypes.shape({
+  username: PropTypes.string,
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  email: PropTypes.string,
+  phone_number: PropTypes.string,
+  is_cdo: PropTypes.bool,
+});
+
 export const BID_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   bidcycle: PropTypes.string,
@@ -250,6 +267,7 @@ export const BID_OBJECT = PropTypes.shape({
       location: PropTypes.string,
     }),
   }),
+  reviewer: BID_REVIEWER_OBJECT,
   status: PropTypes.string,
   submission_date: PropTypes.string,
 });
@@ -301,6 +319,16 @@ export const SUBMIT_BID_HAS_ERRORED = STRING_OR_BOOL;
 
 export const SUBMIT_BID_SUCCESS = STRING_OR_BOOL;
 
+export const ACCEPT_BID_HAS_ERRORED = STRING_OR_BOOL;
+
+export const ACCEPT_BID_SUCCESS = STRING_OR_BOOL;
+
+export const DECLINE_BID_HAS_ERRORED = STRING_OR_BOOL;
+
+export const DECLINE_BID_SUCCESS = STRING_OR_BOOL;
+
+export const MARK_NOTIFICATION_SUCCESS = STRING_OR_BOOL;
+
 export const NOTIFICATION_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   owner: PropTypes.string,
@@ -319,19 +347,21 @@ export const NOTIFICATION_LIST = PropTypes.shape({
   results: NOTIFICATION_RESULTS,
 });
 
+export const CDO_OBJECT = PropTypes.shape({
+  username: PropTypes.string,
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  email: PropTypes.string,
+  phone_number: PropTypes.string,
+  is_cdo: PropTypes.bool,
+});
+
 export const BIDDER_OBJECT = PropTypes.shape(
   {
     id: PropTypes.number,
     skill_code: USER_SKILL_CODE_ARRAY,
     grade: PropTypes.string,
-    cdo: PropTypes.shape({
-      username: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string,
-      email: PropTypes.string,
-      phone_number: PropTypes.string,
-      is_cdo: PropTypes.bool,
-    }),
+    cdo: CDO_OBJECT,
     is_cdo: PropTypes.bool,
     primary_nationality: PropTypes.string,
     secondary_nationality: PropTypes.string,
@@ -363,8 +393,18 @@ export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
   onpost: PropTypes.number,
 });
 
+export const BID_TRACKER_ALERT_TYPES = PropTypes.oneOf([
+  APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
+  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP,
+]);
+
 export const DESCRIPTION_EDIT_HAS_ERRORED = STRING_OR_BOOL;
 
 export const EMPTY_FUNCTION = () => {};
 
 export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };
+
+export const PROFILE_MENU_SECTION_EXPANDED = PropTypes.shape({
+  title: PropTypes.string,
+  display: PropTypes.bool,
+});

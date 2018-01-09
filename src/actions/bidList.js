@@ -66,6 +66,48 @@ export function submitBidSuccess(response) {
   };
 }
 
+export function acceptBidHasErrored(bool) {
+  return {
+    type: 'ACCEPT_BID_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function acceptBidIsLoading(bool) {
+  return {
+    type: 'ACCEPT_BID_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function acceptBidSuccess(response) {
+  return {
+    type: 'ACCEPT_BID_SUCCESS',
+    response,
+  };
+}
+
+export function declineBidHasErrored(bool) {
+  return {
+    type: 'DECLINE_BID_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function declineBidIsLoading(bool) {
+  return {
+    type: 'DECLINE_BID_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function declineBidSuccess(response) {
+  return {
+    type: 'DECLINE_BID_SUCCESS',
+    response,
+  };
+}
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
@@ -75,14 +117,20 @@ export function routeChangeResetState() {
     dispatch(submitBidSuccess(false));
     dispatch(submitBidHasErrored(false));
     dispatch(submitBidSuccess(false));
+    dispatch(acceptBidSuccess(false));
+    dispatch(acceptBidHasErrored(false));
+    dispatch(acceptBidSuccess(false));
+    dispatch(declineBidSuccess(false));
+    dispatch(declineBidHasErrored(false));
+    dispatch(declineBidSuccess(false));
   };
 }
 
-export function bidListFetchData() {
+export function bidListFetchData(ordering = 'draft_date') {
   return (dispatch) => {
     dispatch(bidListIsLoading(true));
     dispatch(bidListHasErrored(false));
-    axios.get(`${api}/bidlist/`, { headers: { Authorization: fetchUserToken() } })
+    axios.get(`${api}/bidlist/?ordering=${ordering}`, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then((results) => {
               dispatch(bidListHasErrored(false));
@@ -114,6 +162,50 @@ export function submitBid(id) {
             .catch(() => {
               dispatch(submitBidHasErrored(SystemMessages.SUBMIT_BID_ERROR));
               dispatch(submitBidIsLoading(false));
+            });
+  };
+}
+
+export function acceptBid(id) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    dispatch(routeChangeResetState());
+    dispatch(acceptBidIsLoading(true));
+    dispatch(acceptBidHasErrored(false));
+    axios.get(`${api}/bid/${idString}/accept_handshake/`, { headers: { Authorization: fetchUserToken() } })
+            .then(response => response.data)
+            .then(() => {
+              dispatch(acceptBidHasErrored(false));
+              dispatch(acceptBidIsLoading(false));
+              dispatch(acceptBidSuccess(SystemMessages.ACCEPT_BID_SUCCESS));
+              dispatch(bidListFetchData());
+            })
+            .catch(() => {
+              dispatch(acceptBidHasErrored(SystemMessages.ACCEPT_BID_ERROR));
+              dispatch(acceptBidIsLoading(false));
+            });
+  };
+}
+
+export function declineBid(id) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    dispatch(routeChangeResetState());
+    dispatch(declineBidIsLoading(true));
+    dispatch(declineBidHasErrored(false));
+    axios.get(`${api}/bid/${idString}/decline_handshake/`, { headers: { Authorization: fetchUserToken() } })
+            .then(response => response.data)
+            .then(() => {
+              dispatch(declineBidHasErrored(false));
+              dispatch(declineBidIsLoading(false));
+              dispatch(declineBidSuccess(SystemMessages.DECLINE_BID_SUCCESS));
+              dispatch(bidListFetchData());
+            })
+            .catch(() => {
+              dispatch(declineBidHasErrored(SystemMessages.DECLINE_BID_ERROR));
+              dispatch(declineBidIsLoading(false));
             });
   };
 }

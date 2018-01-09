@@ -6,7 +6,8 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
-import SavedSearchesContainer from './SavedSearches';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+import SavedSearchesContainer, { mapDispatchToProps } from './SavedSearches';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -38,4 +39,14 @@ describe('SavedSearchesContainer', () => {
     wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
     sinon.assert.calledOnce(spy);
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    onNavigateTo: ['/details'],
+    setCurrentSavedSearch: [{}],
+    deleteSearch: ['1'],
+    cloneSearch: ['1'],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

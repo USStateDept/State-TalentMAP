@@ -16,6 +16,7 @@ import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } fro
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
 import { getAssetPath } from '../../utilities';
+import MediaQuery from '../MediaQuery';
 
 export class Header extends Component {
   constructor(props) {
@@ -113,15 +114,19 @@ export class Header extends Component {
                 </Link>
               </div>
             </div>
-            <DesktopNav
-              isLoggedIn={isLoggedIn}
-              shouldShowSearchBar={shouldShowSearchBar}
-              logout={logout}
-              userProfile={userProfile}
-              toggleSearchVisibility={this.toggleSearchVisibility}
-            />
+            <MediaQuery widthType="min" breakpoint="screenMdMin">
+              <DesktopNav
+                isLoggedIn={isLoggedIn}
+                shouldShowSearchBar={shouldShowSearchBar}
+                logout={logout}
+                userProfile={userProfile}
+                toggleSearchVisibility={this.toggleSearchVisibility}
+              />
+            </MediaQuery>
           </div>
-          <MobileNav user={signedInAs} logout={logout} showLogin={!isLoggedIn} />
+          <MediaQuery widthType="max" breakpoint="screenSmMax">
+            <MobileNav user={signedInAs} logout={logout} showLogin={!isLoggedIn} />
+          </MediaQuery>
           <div className="usa-overlay" />
         </header>
         {
@@ -169,7 +174,7 @@ const mapStateToProps = state => ({
   shouldShowSearchBar: state.shouldShowSearchBar,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
   logout: () => dispatch(logoutRequest()),
   onNavigateTo: dest => dispatch(push(dest)),

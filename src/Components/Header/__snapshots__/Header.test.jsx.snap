@@ -36,25 +36,35 @@ exports[`Header matches snapshot when logged in 1`] = `
           </Link>
         </div>
       </div>
-      <DesktopNav
-        isLoggedIn={true}
-        logout={[Function]}
-        shouldShowSearchBar={true}
-        toggleSearchVisibility={[Function]}
-        userProfile={
-          Object {
-            "user": Object {
-              "username": "test",
-            },
+      <MediaQueryWrapper
+        breakpoint="screenMdMin"
+        widthType="min"
+      >
+        <DesktopNav
+          isLoggedIn={true}
+          logout={[Function]}
+          shouldShowSearchBar={true}
+          toggleSearchVisibility={[Function]}
+          userProfile={
+            Object {
+              "user": Object {
+                "username": "test",
+              },
+            }
           }
-        }
-      />
+        />
+      </MediaQueryWrapper>
     </div>
-    <MobileNav
-      logout={[Function]}
-      showLogin={false}
-      user="test"
-    />
+    <MediaQueryWrapper
+      breakpoint="screenSmMax"
+      widthType="max"
+    >
+      <MobileNav
+        logout={[Function]}
+        showLogin={false}
+        user="test"
+      />
+    </MediaQueryWrapper>
     <div
       className="usa-overlay"
     />
@@ -98,19 +108,29 @@ exports[`Header matches snapshot when logged out 1`] = `
           </Link>
         </div>
       </div>
-      <DesktopNav
-        isLoggedIn={false}
-        logout={[Function]}
-        shouldShowSearchBar={true}
-        toggleSearchVisibility={[Function]}
-        userProfile={Object {}}
-      />
+      <MediaQueryWrapper
+        breakpoint="screenMdMin"
+        widthType="min"
+      >
+        <DesktopNav
+          isLoggedIn={false}
+          logout={[Function]}
+          shouldShowSearchBar={true}
+          toggleSearchVisibility={[Function]}
+          userProfile={Object {}}
+        />
+      </MediaQueryWrapper>
     </div>
-    <MobileNav
-      logout={[Function]}
-      showLogin={true}
-      user={null}
-    />
+    <MediaQueryWrapper
+      breakpoint="screenSmMax"
+      widthType="max"
+    >
+      <MobileNav
+        logout={[Function]}
+        showLogin={true}
+        user={null}
+      />
+    </MediaQueryWrapper>
     <div
       className="usa-overlay"
     />
