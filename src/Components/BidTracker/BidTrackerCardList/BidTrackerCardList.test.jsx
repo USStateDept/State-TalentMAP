@@ -30,8 +30,8 @@ describe('BidTrackerCardListComponent', () => {
     const wrapper = shallow(
       <BidTrackerCardList {...props} bids={bidList} />,
     );
-    expect(wrapper.find('BidTrackerCardContainer').at(0).prop('priorityExists')).toBe(true);
-    expect(wrapper.find('BidTrackerCardContainer').at(1).prop('priorityExists')).toBe(true);
+    expect(wrapper.find('BidTrackerCardContainer').at(0).props('bid').bid.is_priority).toBe(true);
+    expect(wrapper.find('BidTrackerCardContainer').at(1).props('bid').bid.is_priority).toBe(false);
   });
 
   it('matches snapshot', () => {
