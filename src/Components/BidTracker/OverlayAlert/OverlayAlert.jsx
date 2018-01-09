@@ -11,7 +11,7 @@ import DeclinedAlert from './DeclinedAlert';
 import ClosedAlert from './ClosedAlert';
 import PanelRescheduledAlert from './PanelRescheduledAlert';
 
-// Alert rendering based on status in handled here.
+// Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, acceptBid, declineBid }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
@@ -77,11 +77,6 @@ OverlayAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
-};
-
-OverlayAlert.defaultProps = {
-  userName: '',
-  bureau: '',
 };
 
 export default OverlayAlert;

@@ -8,9 +8,8 @@ import IsOnStandby from '../PriorityCards/IsOnStandby';
 // Here we'll figure out which wrapper to use around the BidTrackerCard, if any.
 // We check two things - one, is there even a priority bid in the list (priorityExists).
 // If a priority bid exists, then we check whether this individual bid is the priority bid.
-// If it is, we'll wrap the card in the IsPrority component, and if not, we'll pass the bid
+// If it is, we'll wrap the card in the IsPriority component, and if not, we'll pass the bid
 // object to the IsOnStandby component.
-// TODO - What in the API response will allow us to determine how to render the correct wrapper?
 const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, userProfile }) => {
   const card = (
     <BidTrackerCard
