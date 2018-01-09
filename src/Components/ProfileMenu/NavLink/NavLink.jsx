@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { ROUTER_LOCATION_OBJECT } from '../../../Constants/PropTypes';
+import { ROUTER_LOCATION_OBJECT, EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import { ifEnter } from '../../../utilities';
 import isCurrentPath from '../navigation';
 
@@ -23,7 +23,7 @@ class NavLink extends Component {
   // Checks if any of the children links match the current path.
   // If so, we'll toggle the visibility to true
   shouldExpandIfChildActive() {
-    const { children } = this.props;
+    const { children, expandedSection, title } = this.props;
     let found = false;
     // Iterate through the children.
     // When there's only one child, we can't use forEach...
@@ -41,6 +41,9 @@ class NavLink extends Component {
         found = true;
       }
     }
+    // If the title matches the expandedSection title, check the display boolean
+    // on whether or not to expand this section.
+    if (expandedSection && expandedSection.title === title) { found = expandedSection.display; }
     if (found) {
       const { showNestedLinks } = this.state;
       showNestedLinks.value = true;
@@ -79,10 +82,12 @@ class NavLink extends Component {
 
   // toggles visibility of grouped children links
   toggleNestedLinksVisibility() {
-    if (this.props.children) {
+    const { children, toggleMenuSection, title } = this.props;
+    if (children) {
       const { showNestedLinks } = this.state;
       showNestedLinks.value = !showNestedLinks.value;
       this.setState({ showNestedLinks });
+      toggleMenuSection({ title, display: showNestedLinks.value });
     }
   }
 
@@ -132,7 +137,7 @@ class NavLink extends Component {
 }
 
 NavLink.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   iconName: PropTypes.string,
   link: PropTypes.string, // ex: "/profile/", "/profile/favorites/", etc.
   children: PropTypes.node, // a group of child links. Should be rendered using this component
@@ -142,14 +147,19 @@ NavLink.propTypes = {
   // We still render hidden NavLinks so that we don't break NavLinksContainer.
   // They're simply returned as empty divs.
   hidden: PropTypes.bool,
+  expandedSection: PROFILE_MENU_SECTION_EXPANDED,
+  toggleMenuSection: PropTypes.func,
 };
 
 NavLink.defaultProps = {
+  title: '',
   iconName: '',
   link: '',
   children: null,
   search: '',
   hidden: false,
+  expandedSection: undefined,
+  toggleMenuSection: EMPTY_FUNCTION,
 };
 
 export default withRouter(NavLink);

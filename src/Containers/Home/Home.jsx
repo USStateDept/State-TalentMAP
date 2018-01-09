@@ -6,6 +6,7 @@ import { filtersFetchData } from '../../actions/filters/filters';
 import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
+import { toggleSearchBar } from '../../actions/showSearchBar';
 import HomePage from '../../Containers/HomePage/HomePage';
 import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
@@ -111,13 +112,14 @@ const mapStateToProps = state => ({
   bidList: state.bidListFetchDataSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: items => dispatch(filtersFetchData(items)),
   homePagePositionsFetchData: () => dispatch(homePagePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListFetchData: () => dispatch(bidListFetchData()),
+  toggleSearchBarVisibility: showHide => dispatch(toggleSearchBar(showHide)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

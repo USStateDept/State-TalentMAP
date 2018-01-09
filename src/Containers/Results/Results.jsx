@@ -12,6 +12,7 @@ import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
 import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
+import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS,
 USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
@@ -205,7 +206,7 @@ class Results extends Component {
             userProfileFavoritePositionHasErrored, currentSavedSearch,
             newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
-            postSearchHasErrored } = this.props;
+            postSearchHasErrored, shouldShowSearchBar } = this.props;
     return (
       <ResultsPage
         results={results}
@@ -244,6 +245,7 @@ class Results extends Component {
         postSearchResults={postSearchResults}
         postSearchIsLoading={postSearchIsLoading}
         postSearchHasErrored={postSearchHasErrored}
+        shouldShowSearchBar={shouldShowSearchBar}
       />
     );
   }
@@ -279,6 +281,7 @@ Results.propTypes = {
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
+  shouldShowSearchBar: PropTypes.bool.isRequired,
 };
 
 Results.defaultProps = {
@@ -306,6 +309,7 @@ Results.defaultProps = {
   postSearchResults: [],
   postSearchIsLoading: false,
   postSearchHasErrored: false,
+  shouldShowSearchBar: true,
 };
 
 Results.contextTypes = {
@@ -334,9 +338,10 @@ const mapStateToProps = state => ({
   postSearchResults: state.postSearchSuccess,
   postSearchIsLoading: state.postSearchIsLoading,
   postSearchHasErrored: state.postSearchHasErrored,
+  shouldShowSearchBar: state.shouldShowSearchBar,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
@@ -351,6 +356,7 @@ const mapDispatchToProps = dispatch => ({
   resetSavedSearchAlerts: () => dispatch(routeChangeResetState()),
   fetchMissionAutocomplete: query => dispatch(missionSearchFetchData(query)),
   fetchPostAutocomplete: query => dispatch(postSearchFetchData(query)),
+  toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

@@ -4,7 +4,7 @@ import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
 import { NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import Share from '../Share/Share';
-import Loading from '../Loading/Loading';
+import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
@@ -70,7 +70,7 @@ class PositionDetails extends Component {
             <Share identifier={details.id} />
           </div>
         </div>}
-        {isLoading && <Loading isLoading={isLoading} hasErrored={hasErrored} />}
+        {isLoading && <Spinner type="position-details" size="big" />}
       </div>
     );
   }

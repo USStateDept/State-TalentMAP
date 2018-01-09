@@ -2,7 +2,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import BidStatus from './BidStatus';
-import { APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED, HAND_SHAKE_OFFERED, IN_PANEL, SUBMITTED } from '../../../Constants/BidStatuses';
+import { APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED, HAND_SHAKE_OFFERED,
+HAND_SHAKE_DECLINED, IN_PANEL, SUBMITTED } from '../../../Constants/BidStatuses';
 
 describe('BidStatusComponent', () => {
   it('is defined', () => {
@@ -63,6 +64,15 @@ describe('BidStatusComponent', () => {
     const wrapper = shallow(
       <BidStatus
         status={HAND_SHAKE_OFFERED.property}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot for HAND_SHAKE_DECLINED', () => {
+    const wrapper = shallow(
+      <BidStatus
+        status={HAND_SHAKE_DECLINED.property}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

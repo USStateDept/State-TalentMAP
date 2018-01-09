@@ -3,7 +3,8 @@
 // Nesting depth was needed, otherwise styles broke if placed outside of parent class (.expandable-link)
 
 .profile-page {
-  border: solid 1px $color-gray-light;
+  border: solid 0 1px 1px 1px $color-gray-light;
+  display: flex;
   position: relative;
 
   .hello-greeting {
@@ -28,7 +29,7 @@
     position: relative;
   }
 
-  @media screen and (max-width: 951px) {
+  @media screen and (max-width: $screen-md-min) {
     .bidder-portfolio-listing {
       margin-right: unset;
     }
@@ -70,7 +71,8 @@
 
   .profile-content-container {
     background-color: $tm-white-smoke-light;
-    margin-left: 200px;
+    border-left: solid 1px $color-gray-light;
+    flex-grow: 1;
     min-height: 700px;
     right: 0;
     width: auto;
@@ -124,7 +126,7 @@
 
   .current-user-personal-information {
     border-bottom: 1px solid $color-gray-light;
-    min-height: 130px;
+    min-height: 150px;
     text-align: left;
 
     .skill-code-data-point-container:last-child {
@@ -224,17 +226,6 @@
     padding-bottom: 0;
   }
 
-  .status-container {
-    font-size: 13px;
-    margin-bottom: 10px;
-    margin-left: -5px; // centers more cleanly
-
-    .fa {
-      color: $color-green;
-      margin-right: 5px;
-    }
-  }
-
   .edit-profile-link {
     font-size: 13px;
     margin-bottom: 10px;
@@ -272,11 +263,9 @@ $padding-no-border: $total-padding - $border;
 
 .profile-menu {
 
-  border-right: solid 1px $color-gray-light;
   font-size: 15px;
   height: 100%;
-  position: absolute;
-  width: 200px;
+  min-width: 200px;
 
   .fa-container {
     float: left;
@@ -339,11 +328,20 @@ $padding-no-border: $total-padding - $border;
 
   .menu-title {
     font-weight: bold;
-    padding: 10px 0 0 30px;
+    padding: 10px 15px 20px 30px;
+
+    .unstyled-button {
+      color: inherit;
+      float: right;
+    }
+
+    .menu-title-text {
+      float: left;
+    }
   }
 
   a {
-    color: unset;
+    color: $color-black;
     display: inline-block;
     width: 100%;
   }
@@ -365,6 +363,19 @@ $padding-no-border: $total-padding - $border;
   }
 }
 
+.profile-menu-collapsed {
+  min-width: 65px;
+
+  .menu-title {
+    padding-bottom: 2px;
+    padding-right: 0;
+
+    .unstyled-button {
+      float: none;
+    }
+  }
+}
+
 .bidder-portfolio-navigation-item {
   float: left;
   font-size: 15px;
@@ -382,7 +393,7 @@ $padding-no-border: $total-padding - $border;
   margin-bottom: 30px;
 
   .is-underlined {
-    border-bottom: 5px solid $color-black;
+    border-bottom: 6px solid $color-black;
     border-spacing: 5px;
   }
 
@@ -430,17 +441,36 @@ $padding-no-border: $total-padding - $border;
 }
 
 .cdo-container {
+
+  font-size: 16px;
+
+  .cdo-container-inner {
+    display: flex;
+  }
+
   .dashboard-user-profile-picture {
     border-radius: 100%;
     height: 100%;
     margin-bottom: unset;
-    max-height: 35px;
-    max-width: 35px;
+    max-height: 40px;
+    max-width: 40px;
     width: 100%;
+  }
+
+  .profile-picture-container {
+    min-width: 50px;
+    position: relative;
+  }
+
+  .picture-status-container {
+    left: 30px;
+    position: absolute;
+    top: -2px;
   }
 
   .cdo-name-text {
     float: left;
+    margin-right: 5px;
   }
 
   .status-container {
@@ -449,11 +479,11 @@ $padding-no-border: $total-padding - $border;
     margin-left: 0;
     margin-top: 1px;
   }
+}
 
-  .fa {
-    margin-left: 5px;
-    margin-right: unset;
-  }
+.cdo-text-container {
+  flex-grow: 1;
+  padding-left: 5px;
 }
 
 .cdo-header {
@@ -588,4 +618,16 @@ $padding-no-border: $total-padding - $border;
 
 .profile-content-inner-container {
   padding: 20px 35px;
+}
+
+.dismiss-alt {
+  .dismiss-button {
+    background-color: transparent;
+  }
+
+  .dismiss-button:active {
+    .fa {
+      color: $color-black;
+    }
+  }
 }

@@ -42,7 +42,7 @@ const mapStateToProps = state => ({
   notificationsCount: state.notificationsCount,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchNotificationsCount: () => dispatch(notificationsCountFetchData()),
 });
 

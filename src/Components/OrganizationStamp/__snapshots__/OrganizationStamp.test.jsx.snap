@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrganizationStampComponent matches snapshot when showMail is false 1`] = `
+<div
+  className="usa-grid-full organization-stamp"
+>
+  <div
+    className="usa-grid-full organization-stamp-container section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-sixth abbreviation-stamp-container"
+    >
+      <div
+        className="abbreviation-stamp"
+      >
+        AF
+      </div>
+    </div>
+    <div
+      className="usa-width-five-sixths organization-name-container"
+    >
+      <div
+        className="organization-stamp-name"
+      >
+        <span
+          className="organization-stamp-name-text"
+        >
+          African Affairs
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`OrganizationStampComponent matches snapshot when showMail is true 1`] = `
+<div
+  className="usa-grid-full organization-stamp"
+>
+  <div
+    className="usa-grid-full organization-stamp-container section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-sixth abbreviation-stamp-container"
+    >
+      <div
+        className="abbreviation-stamp"
+      >
+        AF
+      </div>
+    </div>
+    <div
+      className="usa-width-five-sixths organization-name-container"
+    >
+      <div
+        className="organization-stamp-name"
+      >
+        <span
+          className="organization-stamp-name-text"
+        >
+          African Affairs
+        </span>
+        <MailToButton
+          email=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

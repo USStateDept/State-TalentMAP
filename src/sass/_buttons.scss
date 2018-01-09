@@ -1,27 +1,31 @@
-.unstyled-button-container {
-  .usa-button {
-    -moz-appearance: unset;
-    -webkit-appearance: unset;
-    appearance: unset;
-    background-color: unset;
-    border: unset;
-    border-radius: unset;
-    color: unset;
-    cursor: pointer;
-    display: unset;
-    font-family: unset;
-    font-size: unset;
-    font-weight: unset;
-    line-height: unset;
-    margin-bottom: unset;
-    margin-right: unset;
-    margin-top: unset;
-    outline: unset;
-    padding: unset;
-    text-align: unset;
-    text-decoration: unset;
-    width: unset;
-  }
+.unstyled-button {
+  -moz-appearance: unset;
+  -webkit-appearance: unset;
+  appearance: unset;
+  background-color: unset;
+  border: unset;
+  border-radius: unset;
+  color: unset;
+  cursor: pointer;
+  display: unset;
+  font-family: unset;
+  font-size: unset;
+  font-weight: unset;
+  line-height: unset;
+  margin-bottom: unset;
+  margin-right: unset;
+  margin-top: unset;
+  outline: unset;
+  padding: unset;
+  text-align: unset;
+  text-decoration: unset;
+  width: unset;
+}
+
+.unstyled-button:hover,
+.unstyled-button:active {
+  background-color: unset;
+  color: unset;
 }
 
 .tm-button-alt {
@@ -33,12 +37,59 @@
   font-weight: 400;
 
   &:hover {
+    background: $blue-primary;
     border-bottom: 1px solid $blue-primary;
     color: $color-white;
+
+    .fa {
+      color: $color-white;
+    }
+  }
+
+  &:active {
+    background: $tm-navy;
+    color: $color-white;
+
+    .fa {
+      color: $color-white;
+    }
   }
 
   .tm-button-alt-icon {
     color: $blue-primary;
     margin-right: 5px;
   }
+}
+
+.tm-button-transparent {
+  background-color: transparent;
+  box-shadow: 0 0 0 2px $color-white inset;
+  color: $color-white;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+
+  &:hover,
+  &:focus {
+    background-color: $color-white;
+    color: $color-black;
+  }
+}
+
+.actions-link-container {
+  color: $color-black;
+
+  .actions-link-text {
+    float: left;
+  }
+
+  .actions-link-icon {
+    float: left;
+    margin-top: 1px;
+    padding-left: 10px;
+  }
+}
+
+.mail-to-button {
+  color: $blue-primary;
 }

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--handshake-offered"
+>
+  <div
+    className="top-text"
+  >
+    test, you've been offered a handshake
+  </div>
+  <div>
+    <button
+      className="tm-button-transparent"
+      onClick={[Function]}
+    >
+      <FontAwesome
+        name="check-o"
+      />
+       Accept Handshake
+    </button>
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+    >
+      Decline Handshake
+    </button>
+  </div>
+  <div
+    className="sub-text"
+  >
+    24 hours to accept the handshake
+  </div>
+</div>
+`;

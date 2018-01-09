@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionsDropdown matches snapshot 1`] = `
+<Dropdown
+  className="actions-dropdown"
+  removeElement={true}
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <ActionsLink />
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Send to e-mail
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Print
+    </div>
+    <InteractiveElement
+      className="account-dropdown--identity account-dropdown--segment "
+      onClick={[Function]}
+      onKeyUp={[Function]}
+      role="link"
+      tabIndex="0"
+      title=""
+      type="div"
+    >
+      Delete
+    </InteractiveElement>
+  </DropdownContent>
+</Dropdown>
+`;
+
+exports[`ActionsDropdown matches snapshot when disableDelete is true 1`] = `
+<Dropdown
+  className="actions-dropdown"
+  removeElement={true}
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <ActionsLink />
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Send to e-mail
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Print
+    </div>
+    <InteractiveElement
+      className="account-dropdown--identity account-dropdown--segment disabled"
+      onClick={[Function]}
+      onKeyUp={[Function]}
+      role="link"
+      tabIndex="0"
+      title="You cannot delete this bid"
+      type="div"
+    >
+      Delete
+    </InteractiveElement>
+  </DropdownContent>
+</Dropdown>
+`;
+
+exports[`ActionsDropdown matches snapshot when showWithdraw and disableWithdraw are true 1`] = `
+<Dropdown
+  className="actions-dropdown"
+  removeElement={true}
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <ActionsLink />
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Send to e-mail
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Print
+    </div>
+    <InteractiveElement
+      className="account-dropdown--identity account-dropdown--segment "
+      onClick={[Function]}
+      onKeyUp={[Function]}
+      role="link"
+      tabIndex="0"
+      title=""
+      type="div"
+    >
+      Delete
+    </InteractiveElement>
+    <InteractiveElement
+      className="account-dropdown--identity account-dropdown--segment disabled"
+      role="link"
+      tabIndex="0"
+      title="You cannot widthdraw this bid"
+      type="div"
+    >
+      Withdraw
+    </InteractiveElement>
+  </DropdownContent>
+</Dropdown>
+`;
+
+exports[`ActionsDropdown matches snapshot when showWithdraw is true 1`] = `
+<Dropdown
+  className="actions-dropdown"
+  removeElement={true}
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <ActionsLink />
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Send to e-mail
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+      role="link"
+      tabIndex="0"
+    >
+      Print
+    </div>
+    <InteractiveElement
+      className="account-dropdown--identity account-dropdown--segment "
+      onClick={[Function]}
+      onKeyUp={[Function]}
+      role="link"
+      tabIndex="0"
+      title=""
+      type="div"
+    >
+      Delete
+    </InteractiveElement>
+    <InteractiveElement
+      className="account-dropdown--identity account-dropdown--segment "
+      role="link"
+      tabIndex="0"
+      title=""
+      type="div"
+    >
+      Withdraw
+    </InteractiveElement>
+  </DropdownContent>
+</Dropdown>
+`;

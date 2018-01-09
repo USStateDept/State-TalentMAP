@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Post from './Post';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+import Post, { mapDispatchToProps } from './Post';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -23,4 +24,12 @@ describe('Post', () => {
     </MemoryRouter></Provider>);
     expect(post).toBeDefined();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    fetchData: ['1'],
+    onNavigateTo: ['/results'],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

@@ -1,5 +1,40 @@
 // header container
 .tm-header {
+  border-bottom: 0;
+
+  // We have to set x-text classes so that sibling divs aren't pushed when hovered over
+  .home-text {
+    min-width: 63px;
+  }
+
+  .about-text {
+    min-width: 64px;
+  }
+
+  .feedback-text {
+    min-width: 89px;
+  }
+
+  .search-text {
+    cursor: pointer;
+    min-width: 88px;
+  }
+
+  .navigation-container {
+    float: right;
+    font-size: 16px;
+    height: 100%;
+  }
+
+  .nav-link-container {
+    float: left;
+    height: 100%;
+  }
+
+  .account-notification-container {
+    float: left;
+    height: 100%;
+  }
 
   .usa-logo {
     a {
@@ -7,11 +42,70 @@
     }
   }
 
-  @media screen and (min-width: 951px) {
+  .header-nav-desktop {
+    a {
+      color: $color-black;
+      text-decoration: none;
+    }
+  }
+
+  .header-nav-link-container {
+    display: inline-block;
+    height: 100%;
+    position: relative;
+  }
+
+  $header-link-padding: 20px;
+
+  .header-nav-link {
+    height: 100%;
+    padding-left: $header-link-padding;
+    position: relative;
+    top: 35%;
+  }
+
+  .account-container {
+    .header-nav-link {
+      top: 26%;
+    }
+  }
+
+  .notifications-container {
+    .header-nav-link {
+      padding-left: 0;
+    }
+  }
+
+  .header-nav-link-text {
+    border-right: 1px solid $color-black;
+    padding-right: $header-link-padding;
+  }
+
+  .is-highlighted {
+    background-color: $tm-dark-blue;
+    color: $color-white;
+  }
+
+  .is-active {
+    a {
+      color: $color-blue-active;
+      font-weight: bold;
+    }
+  }
+
+  .header-nav-link-text:hover {
+    font-weight: bold;
+
+    a {
+      color: $color-blue-hover;
+    }
+  }
+
+  @media screen and (min-width: $screen-md-min) {
     .usa-logo {
-      line-height: 7.5rem;
+      line-height: 5.5rem;
       margin-bottom: 0;
-      margin-top: 2rem;
+      margin-top: 1.5rem;
 
       a {
         font-size: 3.6rem;
@@ -23,8 +117,14 @@
       }
     }
 
+    .usa-nav {
+      border-top: 1px solid $tm-dark-blue;
+    }
+
     .usa-navbar {
+      height: 75px;
       padding-left: 0;
+      padding-right: 5px; // handle notification count position
     }
 
     .usa-nav-secondary {
@@ -33,17 +133,16 @@
 
     .usa-logo-text {
       line-height: unset;
-    }
-
-    .logo-img-tm {
-      width: 200px;
+      width: auto;
     }
   }
 
-  @media screen and (max-width: 950px) {
+  @media screen and (max-width: $screen-sm-max) {
 
     .usa-logo {
       img {
+        max-height: 50px;
+        max-width: 200px;
         padding-top: 5px;
       }
     }
@@ -54,6 +153,16 @@
 
     .usa-logo {
       line-height: unset;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .search-bar-hidden {
+    border-bottom: 1px solid $color-gray-light;
+
+    .usa-nav {
+      border-top: 1px solid $color-gray-light;
     }
   }
 }

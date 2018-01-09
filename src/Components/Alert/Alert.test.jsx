@@ -30,6 +30,12 @@ describe('Alert', () => {
     expect(alert.find('.usa-alert-text').text()).toBe(alertBody[0].body);
   });
 
+  it('applies "role=alert" when type is "error"', () => {
+    const title = 'title';
+    alert = shallow(<Alert type="error" title={title} messages={alertBody} />);
+    expect(alert.find('.usa-alert').prop('role')).toBe('alert');
+  });
+
   it('displays warning alert', () => {
     const title = 'Warning title';
     alert = shallow(<Alert type="info" title={title} messages={alertBody} />);

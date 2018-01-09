@@ -14,6 +14,8 @@ export function mapRoutesToNames(route) {
       return `${preText} to your profile`;
     case '/compare':
       return `${preText} to the comparison`;
+    case '/profile/bidtracker/':
+      return `${preText} to your bid tracker`;
     default: // else, just return generic "Go back" text
       return preText;
   }

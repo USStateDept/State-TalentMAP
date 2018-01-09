@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidStepIconComponent matches snapshot when isComplete is false 1`] = `
+<span
+  className="icon-incomplete"
+>
+  <div
+    className="icon-container"
+  >
+    <span
+      className="number-icon number-icon-needs-action"
+    >
+      3
+    </span>
+  </div>
+</span>
+`;
+
+exports[`BidStepIconComponent matches snapshot when isComplete is true 1`] = `
+<span
+  className="icon-complete"
+>
+  <FontAwesome
+    name="check"
+  />
+</span>
+`;

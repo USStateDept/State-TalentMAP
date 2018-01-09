@@ -10,7 +10,7 @@ const BidderPortfolioGridItem = ({ userProfile }) => (
   <div className="usa-grid-full current-user bidder-portfolio-grid-item">
     <div className="usa-width-one-fourth grid-item-section">
       <div className="checkbox-container">
-        <CheckBox id={`checkbox-${userProfile.id}`} label="Select this user" value={false} labelSrOnly />
+        <CheckBox id={`checkbox-${userProfile.id}`} label="Select this user" value={false} labelSrOnly small />
       </div>
       <div className="general-information-container" >
         <UserProfileGeneralInformation
@@ -27,7 +27,11 @@ const BidderPortfolioGridItem = ({ userProfile }) => (
       <UserProfilePersonalInformation userProfile={userProfile} />
     </div>
     <div className="usa-width-one-fourth grid-item-section">
-      <UserProfileBidInformation />
+      <UserProfileBidInformation
+        /* Object [0] should be the most recent. If undefined, use 0. */
+        draft={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].draft : 0}
+        submitted={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].submitted : 0}
+      />
     </div>
     <div className="usa-width-one-fourth grid-item-section">
       <BidderPortfolioViewMore className="tm-button-alt" />

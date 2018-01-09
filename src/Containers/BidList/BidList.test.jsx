@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BidListContainer from './BidList';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+import BidListContainer, { mapDispatchToProps } from './BidList';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -22,4 +23,12 @@ describe('BidListContainer', () => {
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    toggleBid: [1, true],
+    submitBidPosition: [1],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

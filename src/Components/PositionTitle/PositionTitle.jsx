@@ -8,7 +8,9 @@ import EditContentButton from '../EditContentButton';
 import BidCount from '../BidCount';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
-import { shortenString } from '../../utilities';
+import { getAssetPath, shortenString } from '../../utilities';
+
+const seal = getAssetPath('/assets/img/rsz_dos-seal-bw.png');
 
 class PositionTitle extends Component {
   constructor(props) {
@@ -187,7 +189,7 @@ class PositionTitle extends Component {
           <img
             className="position-details-header-image"
             alt="department of state seal"
-            src="/assets/img/rsz_dos-seal-bw.png"
+            src={seal}
           />
         </div>
         <div className="offset-bid-button-container">

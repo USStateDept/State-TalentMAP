@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavLink matches snapshot when the link does not match location pathname 1`] = `
+<div
+  className="header-nav-link-container is-not-active"
+>
+  <div
+    className="header-nav-link"
+  >
+    <div
+      className="header-nav-link-text "
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        test
+      </Link>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NavLink matches snapshot when the link matches location pathname 1`] = `
+<div
+  className="header-nav-link-container is-active"
+>
+  <div
+    className="header-nav-link"
+  >
+    <div
+      className="header-nav-link-text "
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        test
+      </Link>
+    </div>
+  </div>
+</div>
+`;
