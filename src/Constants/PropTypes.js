@@ -419,3 +419,8 @@ export const GLOSSARY_OBJECT = PropTypes.shape({
 });
 
 export const GLOSSARY_ARRAY = PropTypes.arrayOf(GLOSSARY_OBJECT);
+
+export const GLOSSARY_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: GLOSSARY_ARRAY,
+});
