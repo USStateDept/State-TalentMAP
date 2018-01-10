@@ -14,7 +14,7 @@ export function glossaryIsLoading(state = false, action) {
       return state;
   }
 }
-export function glossary(state = [], action) {
+export function glossary(state = { results: [] }, action) {
   switch (action.type) {
     case 'GLOSSARY_FETCH_DATA_SUCCESS':
       return action.glossary;
