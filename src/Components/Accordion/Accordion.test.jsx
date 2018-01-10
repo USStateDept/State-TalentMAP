@@ -13,7 +13,7 @@ describe('AccordionItemComponent', () => {
     </li>
   );
 
-  it('can receive children element', () => {
+  it('receives elements', () => {
     const wrapper = shallow(
       <Accordion>
         {child}
@@ -22,7 +22,7 @@ describe('AccordionItemComponent', () => {
     expect(wrapper.instance().props.children).toBe(child);
   });
 
-  it('can receive className prop', () => {
+  it('receives className prop', () => {
     const wrapper = shallow(
       <Accordion className="my-class">
         {child}
@@ -31,7 +31,7 @@ describe('AccordionItemComponent', () => {
     expect(wrapper.find('.my-class').exists()).toBe(true);
   });
 
-  it('can receive isMultiselectable prop', () => {
+  it('receives isMultiselectable prop', () => {
     const wrapper = shallow(
       <Accordion isMultiselectable>
         {child}
