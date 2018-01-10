@@ -161,7 +161,14 @@ export const FAVORITE_POSITION = PropTypes.shape({
 
 export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
 
-export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(PropTypes.string);
+export const USER_SKILL_CODE = PropTypes.shape({
+  id: PropTypes.numnber,
+  cone: PropTypes.string,
+  code: PropTypes.string,
+  description: PropTypes.string,
+});
+
+export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(USER_SKILL_CODE);
 
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,

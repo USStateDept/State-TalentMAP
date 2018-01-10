@@ -9,7 +9,7 @@ const UserProfilePersonalInformation = ({ userProfile }) => (
     <div className="section-padded-inner-container">
       <InformationDataPoint
         title="Skill Code"
-        content={<SkillCodeList skillCodes={userProfile.skill_code} />}
+        content={<SkillCodeList skillCodes={userProfile.skills} />}
         className="skill-code-data-point-container skill-code-data-point-container-one"
       />
       <InformationDataPoint
