@@ -19,6 +19,7 @@ import { validStateEmail,
          focusById,
          wrapForMultiSelect,
          returnObjectsWherePropMatches,
+         numbersToPercentString,
        } from './utilities';
 
 describe('local storage', () => {
@@ -299,5 +300,29 @@ describe('returnObjectsWherePropMatches', () => {
     expect(newArray[0].description).toBe(sourceArray[1].description);
     // no props from the second array should be used
     expect(newArray[0].label).toBeUndefined();
+  });
+});
+
+describe('numbersToPercentString', () => {
+  let numerator = 2;
+  let denominator = 10;
+  let precision = 2;
+
+  it('can return a percent', () => {
+    const percent = numbersToPercentString(numerator, denominator, precision);
+    expect(percent).toBe('20%');
+  });
+
+  it('can return a percent inverse', () => {
+    const percent = numbersToPercentString(numerator, denominator, precision, true);
+    expect(percent).toBe('80%');
+  });
+
+  it('can return a percent with proper precision', () => {
+    numerator = 3;
+    denominator = 7;
+    precision = 4;
+    const percent = numbersToPercentString(numerator, denominator, precision, false);
+    expect(percent).toBe('42.86%');
   });
 });

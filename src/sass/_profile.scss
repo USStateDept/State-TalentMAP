@@ -8,6 +8,10 @@
   position: relative;
   width: 100%;
 
+  .section-padded-inner-container {
+    padding: 15px;
+  }
+
   .hello-greeting {
     font-family: Merriweather;
     margin-bottom: 10px;

@@ -27,6 +27,7 @@ import shouldShowStaticContent from './showStaticContent';
 import profileMenu from './profileMenu';
 import showGlossary from './showGlossary';
 import glossary from './glossary';
+import bidStatistics from './bidStatistics';
 
 
 export default combineReducers({
@@ -54,6 +55,7 @@ export default combineReducers({
   ...profileMenu,
   ...showGlossary,
   ...glossary,
+  ...bidStatistics,
   router: routerReducer,
   form,
   client,
