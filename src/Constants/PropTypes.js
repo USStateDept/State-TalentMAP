@@ -424,3 +424,20 @@ export const GLOSSARY_LIST = PropTypes.shape({
   ...PAGINATION_PROPS,
   results: GLOSSARY_ARRAY,
 });
+
+export const BID_STATISTICS_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  name: PropTypes.string,
+  cycle_start_date: PropTypes.string,
+  cycle_deadline_date: PropTypes.string,
+  cycle_end_date: PropTypes.string,
+  total_positions: PropTypes.number,
+  available_positions: PropTypes.number,
+  available_domestic_positions: PropTypes.number,
+  available_international_positions: PropTypes.number,
+  total_bids: PropTypes.number,
+  total_bidders: PropTypes.number,
+  in_panel_bidders: PropTypes.number,
+  approved_bidders: PropTypes.number,
+  bidding_days_remaining: PropTypes.number,
+});

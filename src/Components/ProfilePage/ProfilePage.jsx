@@ -6,6 +6,7 @@ import SavedSearchesContainer from '../../Containers/SavedSearches/SavedSearches
 import Dashboard from '../../Containers/Dashboard/Dashboard';
 import BidderPortfolio from '../../Containers/BidderPortfolio';
 import BidTracker from '../../Containers/BidTracker';
+import BidStatistics from '../../Containers/BidStatistics';
 import ProfileMenu from '../ProfileMenu';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 
@@ -29,6 +30,7 @@ const ProfilePage = ({ user }) => (
           path="/profile/bidlist"
           component={BidListContainer}
         />
+        <Route path="/profile/statistics" component={BidStatistics} />
       </Switch>
     </div>
   </div>
