@@ -34,7 +34,11 @@ class HomePage extends Component {
       userProfileFavoritePositionHasErrored, filters } = this.props;
     return (
       <div className="home content-container">
-        <HomePageFiltersSection filters={filters} isLoading={filtersIsLoading} />
+        <HomePageFiltersSection
+          filters={filters}
+          isLoading={filtersIsLoading}
+          userSkills={userProfile.skills}
+        />
         <div className="homepage-positions-section-container">
           {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&

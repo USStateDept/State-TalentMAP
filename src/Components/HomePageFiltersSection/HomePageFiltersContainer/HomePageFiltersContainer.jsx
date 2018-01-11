@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import HomePageFilters from './HomePageFilters';
-import { FILTER_ITEMS_ARRAY } from '../../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, USER_SKILL_CODE_ARRAY } from '../../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
 class HomePageFiltersContainer extends Component {
@@ -52,13 +52,14 @@ class HomePageFiltersContainer extends Component {
   }
 
   render() {
-    const { filters, isLoading } = this.props;
+    const { filters, isLoading, userSkills } = this.props;
     return (
       <HomePageFilters
         filters={filters}
         onFilterSelect={this.onSkillSelect}
         submitSearch={this.submitSearch}
         isLoading={isLoading}
+        userSkills={userSkills}
       />
     );
   }
@@ -68,10 +69,12 @@ HomePageFiltersContainer.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  userSkills: USER_SKILL_CODE_ARRAY,
 };
 
 HomePageFiltersContainer.defaultProps = {
   isLoading: false,
+  userSkills: [],
 };
 
 export const mapDispatchToProps = dispatch => ({

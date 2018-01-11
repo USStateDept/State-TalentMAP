@@ -94,9 +94,19 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
                 "last_name": "Shadtrach",
               },
               "is_cdo": false,
-              "skill_code": Array [
-                "INFORMATION MANAGEMENT (2880)",
-                "ADMINISTRATIVE SUPPORT (2080)",
+              "skills": Array [
+                Object {
+                  "code": "6218",
+                  "cone": null,
+                  "description": "CONSTRUCTION ENGINEERING",
+                  "id": 63,
+                },
+                Object {
+                  "code": "6211",
+                  "cone": null,
+                  "description": "COMPUTER SCIENCE",
+                  "id": 40,
+                },
               ],
               "user": Object {
                 "email": "doej@state.gov",

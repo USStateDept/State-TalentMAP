@@ -1,39 +1,55 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { FILTERS } from '../../../Constants/PropTypes';
-import { propSort } from '../../../utilities';
+import { FILTERS, USER_SKILL_CODE_ARRAY } from '../../../Constants/PropTypes';
+import { propSort, wrapForMultiSelect, returnObjectsWherePropMatches } from '../../../utilities';
+
+const SKILL_CODE = 'code';
+const SKILL_DESCRIPTION = 'custom_description';
+export const wrapFilters = filters => wrapForMultiSelect(filters, SKILL_CODE, SKILL_DESCRIPTION);
 
 class SkillCodeFilter extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      selectedOption: { value: '' },
+      selectedOptions: { value: [], hasBeenUpdated: false },
     };
   }
-  handleChange(selectedOption) {
-    // set state with new values
-    this.setState({ selectedOption: { value: selectedOption } });
-    // pass to onFilterSelect prop function
-    this.props.onFilterSelect(selectedOption);
+
+  // We want to set the user's default skills in state.selectedOptions, but don't want to repeat
+  // the process on every update. So if userSkills exist and we didn't already set them as defaults,
+  // this will compare them against all skill codes and add the ones that are present in userSkills,
+  // based on a matching 'code' prop found in both arrays.
+  componentWillReceiveProps(props) {
+    const { selectedOptions } = this.state;
+    const { filters, userSkills } = props;
+    if (props.userSkills.length && !selectedOptions.hasBeenUpdated) {
+      const options = wrapFilters(filters);
+      const defaultSkills = returnObjectsWherePropMatches(options, userSkills, 'code');
+      selectedOptions.value = defaultSkills;
+      this.handleChange(selectedOptions.value);
+    }
   }
+
+  // set local state with new selected options, and also return them via the prop function.
+  // we also update the hasBeenUpdated property to true ao that we don't try to re-set userSkills
+  handleChange(selectedOptions) {
+    // set state with new values
+    this.setState({ selectedOptions: { value: selectedOptions, hasBeenUpdated: true } });
+    // pass to onFilterSelect prop function
+    this.props.onFilterSelect(selectedOptions);
+  }
+
   render() {
     const { filters, isLoading } = this.props;
-    const options = filters.slice().map((f) => {
-      const newObj = { ...f };
-      // add value and label props for Select to use
-      newObj.value = f.code;
-      newObj.label = f.custom_description;
-      return newObj;
-    });
+    const { selectedOptions } = this.state;
+    const options = wrapFilters(filters);
     const sortedOptions = options.sort(propSort('custom_description'));
-    const { selectedOption } = this.state;
-    const value = selectedOption.value;
     return (
       <Select
         multi
-        value={value}
+        value={selectedOptions.value}
         searchable={false}
         options={sortedOptions}
         onChange={this.handleChange}
@@ -49,10 +65,12 @@ SkillCodeFilter.propTypes = {
   filters: FILTERS.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  userSkills: USER_SKILL_CODE_ARRAY,
 };
 
 SkillCodeFilter.defaultProps = {
   isLoading: false,
+  userSkills: [],
 };
 
 export default SkillCodeFilter;
