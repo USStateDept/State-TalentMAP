@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GlossaryListingComponent matches snapshot 1`] = `
-<Accordion>
+<Accordion
+  className="accordion-inverse"
+  isMultiselectable={true}
+>
   <AccordionItem
     className=""
     expanded={false}

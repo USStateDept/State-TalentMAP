@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
-<Accordion>
+<Accordion
+  className=""
+  isMultiselectable={false}
+>
   <AccordionItem
     className=""
     expanded={true}

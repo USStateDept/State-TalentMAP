@@ -14,6 +14,7 @@ const Icon = ({ onClick }) => (
     onClick={onClick}
   >
     <FontAwesome name="book" />
+    <span>Glossary</span>
   </InteractiveElement>
 );
 

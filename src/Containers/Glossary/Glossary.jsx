@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleGlossary } from '../../actions/showGlossary';
 import { glossaryFetchData } from '../../actions/glossary';
-import { EMPTY_FUNCTION, GLOSSARY_ARRAY } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_LIST } from '../../Constants/PropTypes';
 import Glossary from '../../Components/Glossary';
 
 class GlossaryContainer extends Component {
@@ -26,7 +26,7 @@ class GlossaryContainer extends Component {
     const { shouldShowGlossary, glossaryItems, glossaryIsLoading } = this.props;
     return (
       <Glossary
-        glossaryItems={glossaryItems}
+        glossaryItems={glossaryItems.results}
         glossaryIsLoading={glossaryIsLoading}
         visible={shouldShowGlossary}
         toggleVisibility={this.toggleVisibility}
@@ -39,7 +39,7 @@ GlossaryContainer.propTypes = {
   shouldShowGlossary: PropTypes.bool.isRequired,
   toggleGlossaryVisibility: PropTypes.func.isRequired,
   fetchGlossary: PropTypes.func.isRequired,
-  glossaryItems: GLOSSARY_ARRAY.isRequired,
+  glossaryItems: GLOSSARY_LIST.isRequired,
   glossaryIsLoading: PropTypes.bool.isRequired,
 };
 
@@ -47,7 +47,7 @@ GlossaryContainer.defaultProps = {
   shouldShowGlossary: false,
   toggleGlossaryVisibility: EMPTY_FUNCTION,
   fetchGlossary: EMPTY_FUNCTION,
-  glossaryItems: [],
+  glossaryItems: { results: [] },
   glossaryIsLoading: false,
 };
 

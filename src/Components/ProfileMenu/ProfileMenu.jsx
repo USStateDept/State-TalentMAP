@@ -23,7 +23,7 @@ class ProfileMenu extends Component {
   }
 
   render() {
-    const { profileMenuExpanded, profileMenuSectionExpanded,
+    const { profileMenuExpanded, profileMenuSectionExpanded, isCDO,
       onSetProfileMenuExpanded, onSetProfileMenuSectionExpanded } = this.props;
     return (
         profileMenuExpanded ?
@@ -31,6 +31,7 @@ class ProfileMenu extends Component {
             expandedSection={profileMenuSectionExpanded}
             collapse={this.collapseMenu}
             toggleMenuSection={onSetProfileMenuSectionExpanded}
+            isCDO={isCDO}
           />
           :
           <ProfileMenuCollapsed
@@ -46,6 +47,7 @@ ProfileMenu.propTypes = {
   profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED.isRequired,
   onSetProfileMenuExpanded: PropTypes.func.isRequired,
   onSetProfileMenuSectionExpanded: PropTypes.func.isRequired,
+  isCDO: PropTypes.bool,
 };
 
 ProfileMenu.defaultProps = {
@@ -53,6 +55,7 @@ ProfileMenu.defaultProps = {
   profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED_OBJECT,
   onSetProfileMenuExpanded: EMPTY_FUNCTION,
   onSetProfileMenuSectionExpanded: EMPTY_FUNCTION,
+  isCDO: false,
 };
 
 const mapStateToProps = state => ({
