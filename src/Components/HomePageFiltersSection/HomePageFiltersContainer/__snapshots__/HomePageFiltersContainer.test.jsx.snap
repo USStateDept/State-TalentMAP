@@ -31,5 +31,6 @@ exports[`HomePageFiltersContainerComponent matches snapshot 1`] = `
   isLoading={false}
   onFilterSelect={[Function]}
   submitSearch={[Function]}
+  userSkills={Array []}
 />
 `;

@@ -24,6 +24,7 @@ exports[`HomePageFiltersComponent matches snapshot 1`] = `
         }
         isLoading={false}
         onFilterSelect={[Function]}
+        userSkills={Array []}
       />
     </FieldSet>
     <button
