@@ -236,7 +236,23 @@ export const filterByProps = (keyword, props = [], array = []) => {
   return array;
 };
 
+// focus an element on the page based on its ID
 export const focusById = (id) => {
   const element = document.getElementById(id);
   if (element) { element.focus(); }
 };
+
+// Give objects in an array the necessary value and label props needed when
+// they're used in a multi-select list.
+export const wrapForMultiSelect = (options, valueProp, labelProp) => options.slice().map((f) => {
+  const newObj = { ...f };
+  newObj.value = f[valueProp];
+  newObj.label = f[labelProp];
+  return newObj;
+});
+
+// Provide two arrays, a sourceArray and a compareArray, and a property to check (propToCheck),
+// and this function will return objects from the sourceArray where a given propToCheck value exists
+// in at least one object in both arrays.
+export const returnObjectsWherePropMatches = (sourceArray = [], compareArray = [], propToCheck) =>
+  sourceArray.filter(o1 => compareArray.some(o2 => o1[propToCheck] === o2[propToCheck]));

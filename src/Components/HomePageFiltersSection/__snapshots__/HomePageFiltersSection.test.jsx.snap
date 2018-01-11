@@ -35,6 +35,7 @@ exports[`HomePageFiltersSectionComponent matches snapshot 1`] = `
         ]
       }
       isLoading={false}
+      userSkills={Array []}
     />
   </div>
 </div>

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import SkillCodeFilter from '../../SkillCodeFilter';
 import Form from '../../../Form';
 import FieldSet from '../../../FieldSet/FieldSet';
-import { FILTER_ITEMS_ARRAY } from '../../../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, USER_SKILL_CODE_ARRAY } from '../../../../Constants/PropTypes';
 
-const HomePageFiltersSection = ({ filters, submitSearch, onFilterSelect, isLoading }) => {
+const HomePageFiltersSection = ({ filters, submitSearch, onFilterSelect, isLoading,
+  userSkills }) => {
   const skillCodes = filters.find(f => f.item && f.item.description === 'skill');
   const skillCodesData = skillCodes ? skillCodes.data : [];
   return (
@@ -18,6 +19,7 @@ const HomePageFiltersSection = ({ filters, submitSearch, onFilterSelect, isLoadi
             filters={skillCodesData}
             onFilterSelect={onFilterSelect}
             isLoading={isLoading}
+            userSkills={userSkills}
           />
         </FieldSet>
         <button
@@ -36,10 +38,12 @@ HomePageFiltersSection.propTypes = {
   submitSearch: PropTypes.func.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
+  userSkills: USER_SKILL_CODE_ARRAY,
 };
 
 HomePageFiltersSection.defaultProps = {
   isLoading: false,
+  userSkills: [],
 };
 
 export default HomePageFiltersSection;
