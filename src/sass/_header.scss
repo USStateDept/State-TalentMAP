@@ -1,5 +1,6 @@
 // header container
 .tm-header {
+  border-bottom: 0;
 
   // We have to set x-text classes so that sibling divs aren't pushed when hovered over
   .home-text {
@@ -85,7 +86,7 @@
     color: $color-white;
   }
 
-  .is-bolded {
+  .is-active {
     a {
       color: $color-blue-active;
       font-weight: bold;
@@ -100,11 +101,11 @@
     }
   }
 
-  @media screen and (min-width: 951px) {
+  @media screen and (min-width: $screen-md-min) {
     .usa-logo {
       line-height: 5.5rem;
       margin-bottom: 0;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
 
       a {
         font-size: 3.6rem;
@@ -112,7 +113,7 @@
 
       img {
         height: auto;
-        width: 250px;
+        width: 200px;
       }
     }
 
@@ -136,7 +137,7 @@
     }
   }
 
-  @media screen and (max-width: 950px) {
+  @media screen and (max-width: $screen-sm-max) {
 
     .usa-logo {
       img {
@@ -156,8 +157,10 @@
   }
 }
 
-.search-bar-hidden {
-  @media screen and (min-width: 951px) {
+@media screen and (min-width: $screen-md-min) {
+  .search-bar-hidden {
+    border-bottom: 1px solid $color-gray-light;
+
     .usa-nav {
       border-top: 1px solid $color-gray-light;
     }

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidTrackerCardTitleComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-card-title-container"
+>
+  <div
+    className="bid-tracker-card-title-text"
+  >
+    Title
+  </div>
+  <div
+    className="bid-tracker-card-title-link"
+  >
+    <Link
+      replace={false}
+      to="/details/a123"
+    >
+      View Position
+    </Link>
+  </div>
+</div>
+`;

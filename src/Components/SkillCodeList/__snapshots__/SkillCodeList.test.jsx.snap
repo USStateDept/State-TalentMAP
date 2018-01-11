@@ -1,16 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SkillCodeList matches snapshot with an array of one item 1`] = `
-<span>
-   skill 1
-</span>
-`;
-
 exports[`SkillCodeList matches snapshot with an array of three items 1`] = `
 <span>
-   skill 1
-  ,  skill 2
-  ,  skill 3
+  CONSTRUCTION ENGINEERING (6218), COMPUTER SCIENCE (6211), Test Description (5111)
 </span>
 `;
 
@@ -20,9 +12,14 @@ exports[`SkillCodeList matches snapshot with an empty array 1`] = `
 </span>
 `;
 
+exports[`SkillCodeList renders content correctly with an array of one item 1`] = `
+<span>
+  CONSTRUCTION ENGINEERING (6218)
+</span>
+`;
+
 exports[`SkillCodeList takes props 1`] = `
 <span>
-   skill 1
-  ,  skill 2
+  CONSTRUCTION ENGINEERING (6218), COMPUTER SCIENCE (6211)
 </span>
 `;

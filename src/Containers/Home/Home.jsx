@@ -46,11 +46,12 @@ class Home extends Component {
       homePagePositionsHasErrored, homePagePositionsIsLoading,
       userProfile, toggleFavorite, toggleBid,
       userProfileFavoritePositionIsLoading, bidList,
-      userProfileFavoritePositionHasErrored } = this.props;
+      userProfileFavoritePositionHasErrored, filtersIsLoading } = this.props;
     return (
       <HomePage
         onNavigateTo={onNavigateTo}
         filters={items.filters}
+        filtersIsLoading={filtersIsLoading}
         homePagePositions={homePagePositions}
         homePagePositionsHasErrored={homePagePositionsHasErrored}
         homePagePositionsIsLoading={homePagePositionsIsLoading}
@@ -81,6 +82,7 @@ Home.propTypes = {
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
+  filtersIsLoading: PropTypes.bool,
 };
 
 Home.defaultProps = {
@@ -97,12 +99,13 @@ Home.defaultProps = {
   userProfileFavoritePositionHasErrored: false,
   toggleBid: EMPTY_FUNCTION,
   bidList: { results: [] },
+  filtersIsLoading: false,
 };
 
 const mapStateToProps = state => ({
   items: state.filters,
   hasErrored: state.filtersHasErrored,
-  isLoading: state.filtersIsLoading,
+  filtersIsLoading: state.filtersIsLoading,
   homePagePositions: state.homePagePositions,
   homePagePositionsHasErrored: state.homePagePositionsHasErrored,
   homePagePositionsIsLoading: state.homePagePositionsIsLoading,
@@ -112,14 +115,14 @@ const mapStateToProps = state => ({
   bidList: state.bidListFetchDataSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: items => dispatch(filtersFetchData(items)),
   homePagePositionsFetchData: () => dispatch(homePagePositionsFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListFetchData: () => dispatch(bidListFetchData()),
-  toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
+  toggleSearchBarVisibility: showHide => dispatch(toggleSearchBar(showHide)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] = `
+<div
+  className="usa-grid-full profile-menu"
+>
+  <div
+    className="menu-title"
+  >
+    <div
+      className="menu-title-text"
+    >
+      Menu
+    </div>
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+    >
+      <FontAwesome
+        name="exchange"
+      />
+    </button>
+  </div>
+  <NavLinksContainer>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      iconName="user"
+      title="Profile"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        link="/profile/dashboard/"
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        link="/profile/bidderportfolio/"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
+      <withRouter(NavLink)
+        link="/profile/bidtracker/"
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
+        link="/profile/bidlist/"
+        title="Bid List"
+      />
+      <withRouter(NavLink)
+        link="/profile/favorites/"
+        title="Favorites"
+      />
+      <withRouter(NavLink)
+        link="/profile/searches/"
+        title="Saved Searches"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      iconName="comments-o"
+      link="/profile/inbox/"
+      title="Inbox"
+    />
+    <withRouter(NavLink)
+      iconName="globe"
+      link="/profile/notifications/"
+      title="Notifications"
+    />
+    <withRouter(NavLink)
+      iconName="users"
+      link="/profile/contacts/"
+      title="Contacts"
+    />
+    <withRouter(NavLink)
+      iconName="file-text"
+      link="/profile/documents/"
+      title="Documents"
+    />
+  </NavLinksContainer>
+</div>
+`;
+
+exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = `
+<div
+  className="usa-grid-full profile-menu"
+>
+  <div
+    className="menu-title"
+  >
+    <div
+      className="menu-title-text"
+    >
+      Menu
+    </div>
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+    >
+      <FontAwesome
+        name="exchange"
+      />
+    </button>
+  </div>
+  <NavLinksContainer>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      iconName="user"
+      title="Profile"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        link="/profile/dashboard/"
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio/"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
+      <withRouter(NavLink)
+        link="/profile/bidtracker/"
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
+        link="/profile/bidlist/"
+        title="Bid List"
+      />
+      <withRouter(NavLink)
+        link="/profile/favorites/"
+        title="Favorites"
+      />
+      <withRouter(NavLink)
+        link="/profile/searches/"
+        title="Saved Searches"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      iconName="comments-o"
+      link="/profile/inbox/"
+      title="Inbox"
+    />
+    <withRouter(NavLink)
+      iconName="globe"
+      link="/profile/notifications/"
+      title="Notifications"
+    />
+    <withRouter(NavLink)
+      iconName="users"
+      link="/profile/contacts/"
+      title="Contacts"
+    />
+    <withRouter(NavLink)
+      iconName="file-text"
+      link="/profile/documents/"
+      title="Documents"
+    />
+  </NavLinksContainer>
+</div>
+`;

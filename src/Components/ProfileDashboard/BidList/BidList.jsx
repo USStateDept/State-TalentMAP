@@ -5,7 +5,7 @@ import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import BidListResultsCard from '../../BidListResultsCard/';
 import BidListHeader from './BidListHeader';
-import { getStatusClass } from '../../../Constants/BidStatuses';
+import { getStatusProperty } from '../../../Constants/BidStatuses';
 import StaticDevContent from '../../StaticDevContent';
 
 const BidList = ({ bids }) => {
@@ -16,7 +16,7 @@ const BidList = ({ bids }) => {
         bid={bid}
         condensedView
         /* pass a parentClassName that we can use from the BorderedList component */
-        parentClassName={`parent-container-bid-status-${getStatusClass(bid.status)}`}
+        parentClassName={`parent-container-bid-status-${getStatusProperty(bid.status)}`}
       />,
     )
   ));

@@ -33,3 +33,7 @@ export const NO_USER_SKILL_CODE = 'No Skill Codes listed';
 export const NO_BIRTHDAY = DEFAULT_TEXT;
 export const NO_END_DATE = DEFAULT_TEXT;
 export const NO_USER_LISTED = DEFAULT_TEXT;
+export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
+export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';
+export const DECLINE_BID_SUCCESS = 'Bid successfully declined.';
+export const DECLINE_BID_ERROR = 'Error trying to decline this bid.';

@@ -217,7 +217,7 @@
   .grid-list-header-col-three {
     border-left: 1px solid $color-gray-light;
 
-    @media screen and (max-width: 1200px) {
+    @media screen and (max-width: $screen-lg-min) {
       border-left: unset;
     }
 

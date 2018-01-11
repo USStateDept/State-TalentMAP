@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HandshakeDeclinedAlertComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--handshake-declined"
+>
+  <div
+    className="top-text"
+  >
+    test user, you've declined test bureau's handshake
+  </div>
+</div>
+`;

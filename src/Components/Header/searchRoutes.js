@@ -1,8 +1,8 @@
 // routes to display the search bar by default
 export const searchBarRoutes = ['/', '/results'];
 
-// routes to always display the search bar
+// routes that contain their own search bar
 export const searchBarRoutesForce = ['/results'];
 
-// routes to always hide the search bar by default
-export const searchBarRoutesHidden = ['/details', '/post', '/compare', '/profile'];
+// routes to always force hide the search bar
+export const searchBarRoutesForceHidden = ['/login'];

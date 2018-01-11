@@ -6,7 +6,8 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
-import Results from './Results';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+import Results, { mapDispatchToProps } from './Results';
 import resultsObject from '../../__mocks__/resultsObject';
 
 const middlewares = [thunk];
@@ -336,4 +337,19 @@ describe('Results', () => {
     wrapper.instance().componentDidMount();
     expect(global.scrollTo).toBeCalled();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    fetchData: ['1'],
+    fetchFilters: [{}, '?q', '?q'],
+    setAccordion: [{}],
+    onNavigateTo: ['/details'],
+    toggleFavorite: [1, true],
+    saveSearch: [{}, 1],
+    fetchMissionAutocomplete: ['?q'],
+    fetchPostAutocomplete: ['?q'],
+    toggleSearchBarVisibility: ['?q'],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

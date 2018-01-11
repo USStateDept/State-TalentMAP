@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Share from './Share';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+import Share, { mapDispatchToProps } from './Share';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -16,4 +17,11 @@ describe('Main', () => {
     </MemoryRouter></Provider>);
     expect(share).toBeDefined();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    sendData: ['', {}],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

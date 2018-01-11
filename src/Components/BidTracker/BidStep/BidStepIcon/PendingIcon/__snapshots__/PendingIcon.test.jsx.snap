@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PendingIconComponent matches snapshot 1`] = `
+<div
+  className="pending-tooltip"
+>
+  <div
+    className="bid-tracker-pending-icon-container"
+  >
+    <FontAwesome
+      name="clock-o"
+    />
+  </div>
+  <div
+    className="bid-tracker-pending-text-container"
+  >
+    Pending
+  </div>
+</div>
+`;

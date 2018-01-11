@@ -30,9 +30,20 @@ exports[`BidListComponent matches snapshot 1`] = `
           <BidListResultsCard
             bid={
                 Object {
+                    "approved_date": "2017-12-20",
                     "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                    "closed_date": "2017-12-20",
+                    "create_date": "2017-12-20",
+                    "declined_date": "2017-12-20",
+                    "draft_date": "2017-12-20",
+                    "handshake_accepted_date": "2017-12-20",
+                    "handshake_declined_date": "2017-12-20",
+                    "handshake_offered_date": "2017-12-20",
                     "id": 3,
+                    "in_panel_date": "2017-12-20",
+                    "is_priority": false,
                     "position": Object {
+                      "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                       "create_date": "2015-08-05",
                       "grade": "03",
                       "id": 226,
@@ -45,9 +56,18 @@ exports[`BidListComponent matches snapshot 1`] = `
                       "title": "POLITICAL/ECONOMIC OFFICER",
                       "update_date": "2017-06-08",
                     },
+                    "reviewer": Object {
+                      "email": "woodwardw@state.gov",
+                      "first_name": "Wendy",
+                      "is_cdo": false,
+                      "last_name": "Woodward",
+                      "phone_number": "555-555-5555",
+                      "username": "woodwardw",
+                    },
+                    "scheduled_panel_date": "2017-12-20",
                     "status": "approved",
-                    "submission_date": "2017-10-31",
-                    "update_date": "2017-10-31",
+                    "submitted_date": "2017-12-20",
+                    "update_date": "2017-12-20",
                     "user": "rehmant",
                   }
             }
@@ -59,9 +79,20 @@ exports[`BidListComponent matches snapshot 1`] = `
           <BidListResultsCard
             bid={
                 Object {
+                    "approved_date": "2017-12-20",
                     "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                    "closed_date": "2017-12-20",
+                    "create_date": "2017-12-20",
+                    "declined_date": "2017-12-20",
+                    "draft_date": "2017-12-20",
+                    "handshake_accepted_date": "2017-12-20",
+                    "handshake_declined_date": "2017-12-20",
+                    "handshake_offered_date": "2017-12-20",
                     "id": 1,
+                    "in_panel_date": "2017-12-20",
+                    "is_priority": true,
                     "position": Object {
+                      "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                       "create_date": "2006-09-20",
                       "grade": "05",
                       "id": 1,
@@ -74,9 +105,18 @@ exports[`BidListComponent matches snapshot 1`] = `
                       "title": "OMS (COM)",
                       "update_date": "2017-06-08",
                     },
+                    "reviewer": Object {
+                      "email": "woodwardw@state.gov",
+                      "first_name": "Wendy",
+                      "is_cdo": false,
+                      "last_name": "Woodward",
+                      "phone_number": "555-555-5555",
+                      "username": "woodwardw",
+                    },
+                    "scheduled_panel_date": "2017-12-20",
                     "status": "closed",
-                    "submission_date": "2017-10-31",
-                    "update_date": "2017-11-01",
+                    "submitted_date": "2017-12-20",
+                    "update_date": "2017-12-20",
                     "user": "rehmant",
                   }
             }
@@ -88,9 +128,20 @@ exports[`BidListComponent matches snapshot 1`] = `
           <BidListResultsCard
             bid={
                 Object {
+                    "approved_date": "2017-12-20",
                     "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                    "closed_date": "2017-12-20",
+                    "create_date": "2017-12-20",
+                    "declined_date": "2017-12-20",
+                    "draft_date": "2017-12-20",
+                    "handshake_accepted_date": "2017-12-20",
+                    "handshake_declined_date": "2017-12-20",
+                    "handshake_offered_date": "2017-12-20",
                     "id": 2,
+                    "in_panel_date": "2017-12-20",
+                    "is_priority": false,
                     "position": Object {
+                      "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                       "create_date": "2006-09-20",
                       "grade": "04",
                       "id": 84,
@@ -103,9 +154,18 @@ exports[`BidListComponent matches snapshot 1`] = `
                       "title": "SPECIAL AGENT",
                       "update_date": "2017-06-08",
                     },
+                    "reviewer": Object {
+                      "email": "woodwardw@state.gov",
+                      "first_name": "Wendy",
+                      "is_cdo": false,
+                      "last_name": "Woodward",
+                      "phone_number": "555-555-5555",
+                      "username": "woodwardw",
+                    },
+                    "scheduled_panel_date": "2017-12-20",
                     "status": "closed",
-                    "submission_date": null,
-                    "update_date": "2017-11-01",
+                    "submitted_date": "2017-12-20",
+                    "update_date": "2017-12-20",
                     "user": "rehmant",
                   }
             }

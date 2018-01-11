@@ -1,0 +1,14 @@
+// provide a custom expanded/retracted icon to the accordion
+.accordion-inverse {
+  .usa-accordion-button {
+    background-image: none;
+  }
+
+  .usa-accordion-button[aria-expanded=false] {
+    background-image: url('/assets/img/plus-white.svg');
+  }
+
+  .usa-accordion-button[aria-expanded=true] {
+    background-image: url('/assets/img/minus-white.svg');
+  }
+}

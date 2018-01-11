@@ -11,26 +11,28 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
 import ResultsSearchHeader from '../ResultsSearchHeader';
-import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
-import { searchBarRoutes, searchBarRoutesForce } from './searchRoutes';
+import { isCurrentPathIn } from '../ProfileMenu/navigation';
+import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
 import { getAssetPath } from '../../utilities';
+import MediaQuery from '../MediaQuery';
 
 export class Header extends Component {
   constructor(props) {
     super(props);
     this.toggleSearchVisibility = this.toggleSearchVisibility.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
-    this.isOnSearchPage = this.isOnSearchPage.bind(this);
+    this.isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute.bind(this);
+    this.isOnForceHideSearchRoute = this.isOnForceHideSearchRoute.bind(this);
   }
 
   componentWillMount() {
     if (this.props.isAuthorized()) {
       this.props.fetchData();
-      this.matchCurrentPath(this.props.location);
-      this.checkPath();
     }
+    this.matchCurrentPath(this.props.location);
+    this.checkPath();
   }
 
   matchCurrentPath(historyObject) {
@@ -49,6 +51,8 @@ export class Header extends Component {
 
   toggleSearchVisibility() {
     const { shouldShowSearchBar, location } = this.props;
+    // if we're not on one of the pages where the search bar is forced,
+    // then toggle the search bar visibility
     if (searchBarRoutesForce.indexOf(location.pathname) <= -1) {
       this.props.toggleSearchBarVisibility(!shouldShowSearchBar);
     }
@@ -58,9 +62,17 @@ export class Header extends Component {
     this.props.onNavigateTo(`/results?q=${q.q}`);
   }
 
-  isOnSearchPage() {
+  // The results page uses its own search bar, so we don't
+  // display the header's search bar if we're on the results page
+  isOnHasOwnSearchRoute() {
     const { location } = this.props;
-    return isCurrentPath(location.pathname, '/results');
+    return isCurrentPathIn(location.pathname, searchBarRoutesForce);
+  }
+
+  // We want to ensure pages like the login page never display the search bar
+  isOnForceHideSearchRoute() {
+    const { location } = this.props;
+    return isCurrentPathIn(location.pathname, searchBarRoutesForceHidden);
   }
 
   render() {
@@ -85,7 +97,8 @@ export class Header extends Component {
       }
     }
 
-    const isOnSearchPage = this.isOnSearchPage();
+    const isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute();
+    const isOnForceHideSearchRoute = this.isOnForceHideSearchRoute();
 
     return (
       <div className={shouldShowSearchBar ? 'search-bar-visible' : 'search-bar-hidden'}>
@@ -101,19 +114,23 @@ export class Header extends Component {
                 </Link>
               </div>
             </div>
-            <DesktopNav
-              isLoggedIn={isLoggedIn}
-              shouldShowSearchBar={shouldShowSearchBar}
-              logout={logout}
-              userProfile={userProfile}
-              toggleSearchVisibility={this.toggleSearchVisibility}
-            />
+            <MediaQuery widthType="min" breakpoint="screenMdMin">
+              <DesktopNav
+                isLoggedIn={isLoggedIn}
+                shouldShowSearchBar={shouldShowSearchBar}
+                logout={logout}
+                userProfile={userProfile}
+                toggleSearchVisibility={this.toggleSearchVisibility}
+              />
+            </MediaQuery>
           </div>
-          <MobileNav user={signedInAs} logout={logout} showLogin={!isLoggedIn} />
+          <MediaQuery widthType="max" breakpoint="screenSmMax">
+            <MobileNav user={signedInAs} logout={logout} showLogin={!isLoggedIn} />
+          </MediaQuery>
           <div className="usa-overlay" />
         </header>
         {
-          shouldShowSearchBar && !isOnSearchPage &&
+          shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute &&
           <div className="results results-search-bar-homepage">
             <ResultsSearchHeader
               onUpdate={this.submitSearch}
@@ -157,7 +174,7 @@ const mapStateToProps = state => ({
   shouldShowSearchBar: state.shouldShowSearchBar,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
   logout: () => dispatch(logoutRequest()),
   onNavigateTo: dest => dispatch(push(dest)),

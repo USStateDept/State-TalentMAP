@@ -90,7 +90,7 @@ const mapStateToProps = state => ({
   submitBidSuccess: state.submitBidSuccess,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   fetchBidList: () => dispatch(bidListFetchData()),
   toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListRouteChangeResetState: () => dispatch(routeChangeResetState()),

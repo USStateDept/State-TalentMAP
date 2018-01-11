@@ -32,7 +32,7 @@
       float: left;
       margin: 54px 0 0;
 
-      @media screen and (max-width: 599px) {
+      @media screen and (max-width: $screen-xs-max) {
         margin: 0;
       }
     }
@@ -42,6 +42,10 @@
       font-size: 22px;
       margin-bottom: 1rem;
       margin-top: 2rem;
+    }
+
+    legend {
+      font-size: 1em;
     }
 
     select {
@@ -61,7 +65,7 @@
       }
     }
 
-    @media screen and (min-width: 600px) {
+    @media screen and (min-width: $screen-sm-min) {
       .usa-form {
         max-width: none;
       }
@@ -69,7 +73,7 @@
   }
 
   .explore-section-inner {
-    padding-top: 5px;
+    padding: 20px 0;
   }
 
   .explore-map-container {

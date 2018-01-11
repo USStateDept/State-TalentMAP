@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidStepsComponent matches snapshot 1`] = `
+<Steps
+  current={0}
+  direction="horizontal"
+  iconPrefix="rc"
+  labelPlacement="vertical"
+  prefixCls="rc-steps"
+  progressDot={false}
+  size=""
+  status="process"
+>
+  <Step
+    className="
+              step-draft
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        hasPendingTooltip={false}
+        hasRescheduledTooltip={false}
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={1}
+      />
+    }
+    tailContent={null}
+    title={
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Draft
+        </div>
+        <div
+          className="step-title-sub-text"
+        >
+          12.20.2017
+        </div>
+      </div>
+    }
+  />
+  <Step
+    className="
+              step-submitted
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        hasPendingTooltip={false}
+        hasRescheduledTooltip={false}
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={2}
+      />
+    }
+    tailContent={null}
+    title={
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Bid Submitted
+        </div>
+        <div
+          className="step-title-sub-text"
+        >
+          12.20.2017
+        </div>
+      </div>
+    }
+  />
+  <Step
+    className="
+              step-handshake-offered
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        hasPendingTooltip={false}
+        hasRescheduledTooltip={false}
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={2}
+      />
+    }
+    tailContent={null}
+    title={
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Handshake Offered
+        </div>
+        <div
+          className="step-title-sub-text"
+        >
+          12.20.2017
+        </div>
+      </div>
+    }
+  />
+  <Step
+    className="
+              step-handshake-accepted
+              
+              
+              step-complete
+            "
+    icon={
+      <BidStepIcon
+        hasPendingTooltip={false}
+        hasRescheduledTooltip={false}
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={4}
+      />
+    }
+    tailContent={null}
+    title={
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Handshake Accepted
+        </div>
+        <div
+          className="step-title-sub-text"
+        >
+          12.20.2017
+        </div>
+      </div>
+    }
+  />
+  <Step
+    className="
+              step-in-panel
+              step-current
+              
+              step-incomplete
+            "
+    icon={
+      <BidStepIcon
+        hasPendingTooltip={false}
+        hasRescheduledTooltip={false}
+        isComplete={false}
+        isCurrent={true}
+        needsAction={false}
+        number={5}
+      />
+    }
+    tailContent={null}
+    title={
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Panel
+        </div>
+        <div
+          className="step-title-sub-text"
+        >
+          12.20.2017
+        </div>
+      </div>
+    }
+  />
+  <Step
+    className="
+              step-approval
+              
+              
+              step-incomplete
+            "
+    icon={
+      <BidStepIcon
+        hasPendingTooltip={false}
+        hasRescheduledTooltip={false}
+        isComplete={false}
+        isCurrent={false}
+        needsAction={false}
+        number={6}
+      />
+    }
+    tailContent={null}
+    title={
+      <div>
+        <div
+          className="step-title-main-text"
+        >
+          Approval
+        </div>
+        <div
+          className="step-title-sub-text"
+        >
+          12.20.2017
+        </div>
+      </div>
+    }
+  />
+</Steps>
+`;

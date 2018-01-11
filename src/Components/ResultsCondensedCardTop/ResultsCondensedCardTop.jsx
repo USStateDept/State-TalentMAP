@@ -5,12 +5,14 @@ import ResultsNewFlag from '../ResultsNewFlag';
 import Favorite from '../Favorite/Favorite';
 import { NO_LAST_UPDATED_DATE } from '../../Constants/SystemMessages';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { formatDate } from '../../utilities';
 
 const ResultsCondensedCardTop = ({ type, position, toggleFavorite, favorites,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
   let flagText;
   if (type === 'highlighted') { flagText = 'Highlighted'; }
   if (type === 'new') { flagText = 'New'; }
+  const lastUpdatedDate = formatDate(position.update_date) || NO_LAST_UPDATED_DATE;
   return (
     <div className="usa-grid-full condensed-card-top">
       <div className="usa-grid-full condensed-card-top-header-container">
@@ -34,7 +36,7 @@ const ResultsCondensedCardTop = ({ type, position, toggleFavorite, favorites,
       <div className="usa-width-one-whole condensed-card-last-updated">
         <span className="last-updated-title">Last Updated: </span>
         <span className="last-updated-date">
-          {position.update_date || NO_LAST_UPDATED_DATE}
+          {lastUpdatedDate}
         </span>
       </div>
     </div>

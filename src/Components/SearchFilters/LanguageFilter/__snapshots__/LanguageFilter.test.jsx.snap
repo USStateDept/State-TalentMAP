@@ -1,13 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LanguageFilterComponent matches snapshot 1`] = `
-<Accordion>
+<Accordion
+  className=""
+  isMultiselectable={false}
+>
   <AccordionItem
     className="language-accordion-item"
     expanded={false}
     id="language-language-section"
     setAccordion={[Function]}
     title="language"
+    useIdClass={true}
   >
     <SelectForm
       defaultSort=""

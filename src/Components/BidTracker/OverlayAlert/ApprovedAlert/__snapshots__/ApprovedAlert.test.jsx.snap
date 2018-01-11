@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ApprovedAlertComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--approved"
+>
+  <div
+    className="top-text"
+  >
+    test, you've been 
+    <strong>
+      approved
+    </strong>
+     for this position!
+  </div>
+  <div>
+    <Connect(StaticDevContent)>
+      <button
+        className="tm-button-transparent"
+      >
+        Prepare for Next Steps
+      </button>
+    </Connect(StaticDevContent)>
+  </div>
+  <div
+    className="sub-text"
+  >
+    This link will take you to PCS Travel
+  </div>
+</div>
+`;
