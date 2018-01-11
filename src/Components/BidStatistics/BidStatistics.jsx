@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { BID_STATISTICS_OBJECT } from '../../Constants/PropTypes';
 import BidStatList from './BidStatList';
 import Spinner from '../Spinner';
 
@@ -15,7 +16,7 @@ const BidStatistics = ({ bidStats, isLoading }) => (
 );
 
 BidStatistics.propTypes = {
-  bidStats: PropTypes.shape({}).isRequired,
+  bidStats: BID_STATISTICS_OBJECT.isRequired,
   isLoading: PropTypes.bool,
 };
 

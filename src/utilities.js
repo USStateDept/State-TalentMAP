@@ -240,3 +240,12 @@ export const focusById = (id) => {
   const element = document.getElementById(id);
   if (element) { element.focus(); }
 };
+
+// Convert a numerator and a denominator to a percentage. Pass "inverse === true" if you want
+// the inverse, i.e. the remainder.
+export const numbersToPercentString = (numerator, denominator, precision = 3, inverse = false) => {
+  const formatFraction = fraction => parseFloat(fraction).toPrecision(precision) * 100;
+  let percentage = formatFraction(numerator / denominator);
+  if (inverse) { percentage = formatFraction((denominator - numerator) / denominator); }
+  return `${percentage}%`;
+};

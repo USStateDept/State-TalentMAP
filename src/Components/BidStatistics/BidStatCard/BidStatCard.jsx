@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BidTracker = ({ title, number }) => (
+const BidStatCard = ({ title, number }) => (
   <div className="bid-stat-card">
     <div className="bid-stat-card-number">
       {number}
@@ -12,9 +12,9 @@ const BidTracker = ({ title, number }) => (
   </div>
 );
 
-BidTracker.propTypes = {
+BidStatCard.propTypes = {
   title: PropTypes.string.isRequired,
   number: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
-export default BidTracker;
+export default BidStatCard;

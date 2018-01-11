@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bidStatisticsFetchData } from '../../actions/bidStatistics';
-import { } from '../../Constants/PropTypes';
+import { BID_STATISTICS_OBJECT } from '../../Constants/PropTypes';
 import BidStatistics from '../../Components/BidStatistics';
 
 class BidStatisticsContainer extends Component {
@@ -28,14 +28,14 @@ class BidStatisticsContainer extends Component {
 }
 
 BidStatisticsContainer.propTypes = {
-  bidStatistics: PropTypes.shape({}).isRequired,
+  bidStatistics: BID_STATISTICS_OBJECT.isRequired,
   bidStatisticsIsLoading: PropTypes.bool,
   bidStatisticsHasErrored: PropTypes.bool,
   fetchBidStatistics: PropTypes.func.isRequired,
 };
 
 BidStatisticsContainer.defaultProps = {
-  bidStatistics: { results: [] },
+  bidStatistics: {},
   bidStatisticsIsLoading: false,
   bidStatisticsHasErrored: false,
 };
