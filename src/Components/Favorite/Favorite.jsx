@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import { existsInArray } from '../../utilities';
+import InteractiveElement from '../InteractiveElement';
 
 class Favorite extends Component {
 
@@ -31,19 +32,15 @@ class Favorite extends Component {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
     return (
-      // At the time of writing, CodeClimate's version of eslint-a11y-plugin
-      // did not take role="button" into account with the following error:
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div
-        tabIndex="0"
+      <InteractiveElement
+        type="div"
         title={title}
-        role="button"
         style={style}
         className="favorite-container"
         onClick={this.toggleSaved}
       >
         <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}
-      </div>
+      </InteractiveElement>
     );
   }
 }
