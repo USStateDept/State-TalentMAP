@@ -24,7 +24,9 @@ const PositionInformation = ({ assignment }) => {
           : NO_ASSIGNMENT_DATE
         }
         />
-        <InformationDataPoint title="Bureau" content="Bureau of Western Hemispheric Affairs" />
+        <StaticDevContent>
+          <InformationDataPoint title="Bureau" content="Bureau of Western Hemispheric Affairs" />
+        </StaticDevContent>
         <InformationDataPoint
           title="Position Title"
           content={assignment.position || NO_ASSIGNMENT_POSITION}
