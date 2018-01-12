@@ -20,7 +20,7 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
           />
         }
         sideBySide={false}
-        title="Updated on undefined"
+        title={null}
         titleOnBottom={true}
       />
     </div>

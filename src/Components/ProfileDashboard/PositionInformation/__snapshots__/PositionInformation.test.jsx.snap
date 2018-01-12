@@ -17,21 +17,23 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       className=""
       content={
         <StartEnd
-          end="10-10-2018"
-          start="10-10-2016"
+          end="10.10.2018"
+          start="10.10.2016"
         />
       }
       sideBySide={false}
       title="Start & End of Position"
       titleOnBottom={false}
     />
-    <InformationDataPoint
-      className=""
-      content="Bureau of Western Hemispheric Affairs"
-      sideBySide={false}
-      title="Bureau"
-      titleOnBottom={false}
-    />
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className=""
+        content="Bureau of Western Hemispheric Affairs"
+        sideBySide={false}
+        title="Bureau"
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
     <InformationDataPoint
       className=""
       content="Specialist"

@@ -26,7 +26,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
           </StaticDevContent>
           :
           <InformationDataPoint
-            content={<SkillCodeList skillCodes={userProfile.skill_code} />}
+            content={<SkillCodeList skillCodes={userProfile.skills} />}
             className="skill-code-data-point-container skill-code-data-point-container-skill"
           />
       }

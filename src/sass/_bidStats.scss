@@ -1,0 +1,30 @@
+.bid-stats-page {
+  position: relative;
+}
+
+.bid-stat-card {
+  border: 2px solid $color-black;
+  min-height: 125px;
+  padding: 1em;
+  text-align: center;
+  width: 200px;
+
+  .bid-stat-card-number {
+    color: $blue-primary;
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  .bid-stat-card-title {
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+}
+
+.bid-stat-card-list {
+  .bid-stat-card {
+    background-color: $color-white;
+    float: left;
+    margin: 0 5px 5px 0;
+  }
+}
