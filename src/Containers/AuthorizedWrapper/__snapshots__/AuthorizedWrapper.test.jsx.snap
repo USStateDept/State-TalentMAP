@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorizedWrapper matches snapshot when isAuthorized returns false 1`] = `
+<div
+  className="authorized-wrapper"
+/>
+`;
+
+exports[`AuthorizedWrapper matches snapshot when isAuthorized returns true 1`] = `
+<div
+  className="authorized-wrapper"
+>
+  <span>
+    test
+  </span>
+</div>
+`;
