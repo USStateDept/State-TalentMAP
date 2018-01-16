@@ -16,16 +16,15 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         <div
           className="header-nav-link-text search-text"
         >
-          <span
+          <InteractiveElement
             onClick={[Function]}
-            role="button"
-            tabIndex="0"
+            type="span"
           >
             <FontAwesome
               name="search"
             />
              Search
-          </span>
+          </InteractiveElement>
         </div>
       </div>
     </div>

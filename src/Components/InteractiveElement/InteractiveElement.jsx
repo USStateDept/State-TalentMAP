@@ -43,7 +43,11 @@ const InteractiveElement = ({ children, type, ...rest }) => {
 
 InteractiveElement.propTypes = {
   children: PropTypes.node.isRequired,
-  type: PropTypes.oneOf(['div', 'span']).isRequired,
+  type: PropTypes.oneOf(['div', 'span']),
+};
+
+InteractiveElement.defaultProps = {
+  type: 'div',
 };
 
 export default InteractiveElement;

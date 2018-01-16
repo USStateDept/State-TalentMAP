@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { localStorageFetchValue, localStorageToggleValue } from '../../utilities';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import InteractiveElement from '../InteractiveElement';
 
 class CompareCheck extends Component {
   constructor(props) {
@@ -58,17 +59,13 @@ class CompareCheck extends Component {
     if (this.isDisabled()) { text = 'Limit reached'; }
     const iconClass = this.getSavedState() ? 'check-square-o' : 'square-o';
     return (
-      // At the time of writing, CodeClimate's version of eslint-a11y-plugin
-      // did not take role="button" into account with the following error:
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div
-        tabIndex="0"
-        role="button"
+      <InteractiveElement
+        type="div"
         className="compare-check-box-container"
         onClick={this.toggleSaved}
       >
         <FontAwesome name={iconClass} /> {text}
-      </div>
+      </InteractiveElement>
     );
   }
 }

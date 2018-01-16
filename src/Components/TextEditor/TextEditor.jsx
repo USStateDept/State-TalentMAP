@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import TextEditorSubmit from '../TextEditorSubmit';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import InteractiveElement from '../InteractiveElement';
 
 export default class TextEditor extends Component {
   constructor(props) {
@@ -41,11 +42,9 @@ export default class TextEditor extends Component {
     const { readOnly } = this.props;
     return (
       <div>
-        { /* outer div here exists to override styling & behavior of the interior component */ }
-        { /* this eslint rule seems to fire even though the role is defined */}
-        <div // eslint-disable-line jsx-a11y/no-static-element-interactions
+        <InteractiveElement
+          type="div"
           role="textbox"
-          tabIndex="0"
           className={readOnly ? '' : 'editor'}
           onClick={this.focus}
         >
@@ -55,7 +54,7 @@ export default class TextEditor extends Component {
             ref={(element) => { this.editor = element; }}
             readOnly={readOnly}
           />
-        </div>
+        </InteractiveElement>
         {
           readOnly ?
           null :
