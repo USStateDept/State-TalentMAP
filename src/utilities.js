@@ -45,8 +45,10 @@ export function validStateEmail(email) {
 
 export function fetchUserToken() {
   const key = JSON.parse(localStorage.getItem('token'));
-  const token = `Token ${key}`;
-  return token;
+  if (key) {
+    return `Token ${key}`;
+  }
+  return null;
 }
 
 export const pillSort = (a, b) => {
