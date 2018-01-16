@@ -1,0 +1,7 @@
+// scss-lint:disable SelectorFormat
+
+.Select-placeholder,
+.Select--single > .Select-control .Select-value {
+  // override for accessibility
+  color: $color-gray;
+}
