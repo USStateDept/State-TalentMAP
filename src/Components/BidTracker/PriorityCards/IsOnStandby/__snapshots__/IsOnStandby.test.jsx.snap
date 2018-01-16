@@ -2,7 +2,8 @@
 
 exports[`IsOnStandbyComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full bid-tracker bid-tracker-standby-container"
+  className="usa-grid-full bid-tracker
+        bid-tracker-standby-container false"
 >
   <div
     className="padded-container-inner bid-tracker-standby-title"
@@ -10,7 +11,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
     <div
       className="bid-tracker-standby-title-top"
     >
-      Draft
+      Approved
     </div>
     <div
       className="bid-tracker-standby-title-bottom"
@@ -35,6 +36,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
           "handshake_offered_date": "2017-12-20",
           "id": 3,
           "in_panel_date": "2017-12-20",
+          "is_priority": false,
           "position": Object {
             "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
             "create_date": "2015-08-05",

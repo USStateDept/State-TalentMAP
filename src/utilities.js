@@ -1,6 +1,7 @@
 import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
+import format from 'date-fns/format';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -49,8 +50,8 @@ export function fetchUserToken() {
 }
 
 export const pillSort = (a, b) => {
-  const A = (a.description || a.code).toLowerCase();
-  const B = (b.description || b.code).toLowerCase();
+  const A = (a.description || a.code).toString().toLowerCase();
+  const B = (b.description || b.code).toString().toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -59,8 +60,8 @@ export const pillSort = (a, b) => {
 };
 
 export const propSort = propName => (a, b) => {
-  const A = a[propName].toLowerCase();
-  const B = b[propName].toLowerCase();
+  const A = a[propName].toString().toLowerCase();
+  const B = b[propName].toString().toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -194,6 +195,73 @@ export const removeDuplicates = (myArr, prop) => (
 export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options = {}) =>
   `${distanceInWords(dateToCompare, date, options)} ago`;
 
+// Format the date into out preferred format.
+// We can take any valid date and convert it into M.D.YYYY format, or any
+// format provided with the dateFormat param.
+export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
+  if (date) {
+    // then format the date with dateFormat
+    const formattedDate = format(date, dateFormat);
+    // and finally return the formatte date
+    return formattedDate;
+  }
+  return null;
+};
+
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
   `${process.env.PUBLIC_URL}${strAssetPath}`;
+
+// Filter by objects that contain a specified prop(s) that match a string.
+// Check if any of "array"'s objects' "props" contain "keyword"
+export const filterByProps = (keyword, props = [], array = []) => {
+  // keyword should have length
+  if (keyword.length) {
+    // filter the array and return its value
+    return array.filter((data) => {
+      let doesMatch;
+      // iterate through props and see if keyword is found in their values
+      props.forEach((prop) => {
+        // if so, doesMatch = true
+        if (data[prop].toString().toLowerCase().indexOf(keyword.toString().toLowerCase()) !== -1) {
+          doesMatch = true;
+        }
+      });
+      // if keyWord was found in atleast one of the props, doesMatch should be true
+      return doesMatch;
+    },
+    );
+  }
+  // if keyword length === 0, return the unfiltered array
+  return array;
+};
+
+// focus an element on the page based on its ID
+export const focusById = (id) => {
+  const element = document.getElementById(id);
+  if (element) { element.focus(); }
+};
+
+// Give objects in an array the necessary value and label props needed when
+// they're used in a multi-select list.
+export const wrapForMultiSelect = (options, valueProp, labelProp) => options.slice().map((f) => {
+  const newObj = { ...f };
+  newObj.value = f[valueProp];
+  newObj.label = f[labelProp];
+  return newObj;
+});
+
+// Provide two arrays, a sourceArray and a compareArray, and a property to check (propToCheck),
+// and this function will return objects from the sourceArray where a given propToCheck value exists
+// in at least one object in both arrays.
+export const returnObjectsWherePropMatches = (sourceArray = [], compareArray = [], propToCheck) =>
+  sourceArray.filter(o1 => compareArray.some(o2 => o1[propToCheck] === o2[propToCheck]));
+
+// Convert a numerator and a denominator to a percentage. Pass "inverse === true" if you want
+// the inverse, i.e. the remainder.
+export const numbersToPercentString = (numerator, denominator, precision = 3, inverse = false) => {
+  const formatFraction = fraction => parseFloat(fraction).toPrecision(precision) * 100;
+  let percentage = formatFraction(numerator / denominator);
+  if (inverse) { percentage = formatFraction((denominator - numerator) / denominator); }
+  return `${percentage}%`;
+};

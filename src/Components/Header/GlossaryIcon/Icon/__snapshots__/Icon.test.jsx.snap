@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconComponent matches snapshot 1`] = `
+<InteractiveElement
+  className="icon-alert-container glossary-icon"
+  id="glossary-open-icon"
+  onClick={[Function]}
+  title="View the glossary"
+  type="div"
+>
+  <FontAwesome
+    name="book"
+  />
+  <span>
+    Glossary
+  </span>
+</InteractiveElement>
+`;

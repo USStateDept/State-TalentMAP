@@ -111,7 +111,7 @@ describe('NavLinkComponent', () => {
     // children should disappear
     expect(wrapper.find('.children-ul')).toHaveLength(0);
     // click/enter again
-    wrapper.find('[role="link"]').simulate('keyUp', { keyCode: 13 });
+    wrapper.find('[role="link"]').simulate('click', { keyCode: 13 });
     // should change showNestedLinks.value to true
     expect(wrapper.instance().state.showNestedLinks.value).toBe(true);
     // children should re-appear

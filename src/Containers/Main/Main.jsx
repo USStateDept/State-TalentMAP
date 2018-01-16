@@ -16,6 +16,8 @@ import rootReducer from '../../reducers';
 import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
+import Glossary from '../../Containers/Glossary';
+import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
 
 import checkIndexAuthorization from '../../lib/check-auth';
 
@@ -52,6 +54,9 @@ const Main = props => (
           <Routes {...props} isAuthorized={isAuthorized} />
         </main>
         <Footer />
+        <AuthorizedWrapper {...props} isAuthorized={isAuthorized}>
+          <Glossary />
+        </AuthorizedWrapper>
       </div>
     </ConnectedRouter>
   </Provider>

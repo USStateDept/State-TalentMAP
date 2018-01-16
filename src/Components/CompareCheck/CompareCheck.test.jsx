@@ -27,22 +27,22 @@ describe('CompareCheck', () => {
 
   it('can add a compareCheck', () => {
     const wrapper = shallow(<CompareCheck refKey="0036" />);
-    wrapper.find('div').simulate('click');
+    wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(true);
   });
 
   it('can add and remove a compareCheck', () => {
     const wrapper = shallow(<CompareCheck refKey="0037" />);
-    wrapper.find('div').simulate('click');
+    wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(true);
-    wrapper.find('div').simulate('click');
+    wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false);
   });
 
   it('handles disabling when count is reached', () => {
     const wrapper = shallow(<CompareCheck refKey="0038" />);
     wrapper.instance().state.count = 100000; // greater than default limit.
-    wrapper.find('div').simulate('click');
+    wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false); // should not be able to add another compare
   });
 
@@ -50,7 +50,7 @@ describe('CompareCheck', () => {
     const wrapper = shallow(<CompareCheck refKey="0038" />);
     wrapper.instance().state.count = 100000; // greater than default limit
     wrapper.instance().state.saved = true;
-    wrapper.find('div').simulate('click');
+    wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false);
   });
 });

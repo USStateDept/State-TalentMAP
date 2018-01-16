@@ -13,11 +13,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
 >
   <Step
     className="
-              step-draft
-              
-              
-              step-complete
-            "
+            step-draft
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -28,6 +28,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={1}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -38,18 +39,18 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-sub-text"
         >
-          2017-12-20
+          12.20.2017
         </div>
       </div>
     }
   />
   <Step
     className="
-              step-submitted
-              
-              
-              step-complete
-            "
+            step-submitted
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -60,6 +61,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -70,18 +72,18 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-sub-text"
         >
-          2017-12-20
+          12.20.2017
         </div>
       </div>
     }
   />
   <Step
     className="
-              step-handshake-offered
-              
-              
-              step-complete
-            "
+            step-handshake-offered
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -92,6 +94,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -102,18 +105,18 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-sub-text"
         >
-          2017-12-20
+          12.20.2017
         </div>
       </div>
     }
   />
   <Step
     className="
-              step-handshake-accepted
-              
-              
-              step-complete
-            "
+            step-handshake-accepted
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -124,6 +127,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={4}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -134,18 +138,18 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-sub-text"
         >
-          2017-12-20
+          12.20.2017
         </div>
       </div>
     }
   />
   <Step
     className="
-              step-in-panel
-              step-current
-              
-              step-incomplete
-            "
+            step-in-panel
+            step-current
+            
+            step-incomplete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -156,6 +160,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={5}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -166,18 +171,18 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-sub-text"
         >
-          2017-12-20
+          12.20.2017
         </div>
       </div>
     }
   />
   <Step
     className="
-              step-approval
-              
-              
-              step-incomplete
-            "
+            step-approval
+            
+            
+            step-incomplete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -188,6 +193,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={6}
       />
     }
+    tailContent={null}
     title={
       <div>
         <div
@@ -198,7 +204,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-sub-text"
         >
-          2017-12-20
+          12.20.2017
         </div>
       </div>
     }

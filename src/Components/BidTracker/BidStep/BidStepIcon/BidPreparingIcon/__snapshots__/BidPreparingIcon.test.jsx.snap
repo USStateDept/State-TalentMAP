@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidPreparingIconComponent matches snapshot 1`] = `
+<div
+  className="preparing-tooltip-container"
+>
+  <div
+    className="step-tooltip preparing-tooltip"
+  >
+    <div
+      className="bid-tracker-preparing-icon-container"
+    >
+      <FontAwesome
+        name="clipboard"
+      />
+    </div>
+    <div
+      className="bid-tracker-preparing-text-container"
+    >
+      Your bid is preparing for panel
+    </div>
+  </div>
+</div>
+`;

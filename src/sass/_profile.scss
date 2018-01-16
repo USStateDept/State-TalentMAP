@@ -6,6 +6,11 @@
   border: solid 0 1px 1px 1px $color-gray-light;
   display: flex;
   position: relative;
+  width: 100%;
+
+  .section-padded-inner-container {
+    padding: 15px;
+  }
 
   .hello-greeting {
     font-family: Merriweather;

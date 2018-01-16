@@ -44,6 +44,10 @@
       margin-top: 2rem;
     }
 
+    legend {
+      font-size: 1em;
+    }
+
     select {
       $explore-select-width: 300px;
 
@@ -69,7 +73,7 @@
   }
 
   .explore-section-inner {
-    padding-top: 5px;
+    padding: 20px 0;
   }
 
   .explore-map-container {
