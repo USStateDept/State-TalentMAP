@@ -19,6 +19,12 @@
   dependencies:
     uswds "^1.3.0"
 
+"@epegzz/sass-vars-loader@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@epegzz/sass-vars-loader/-/sass-vars-loader-3.2.0.tgz#2974d5e4225f330c48a75d062bb29c3cbb6aae83"
+  dependencies:
+    loader-utils "~1.1.0"
+
 "@types/node@^8.0.14":
   version "8.0.24"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.24.tgz#06c580084d9add1fb40c1510ef0b448961246fb1"
@@ -4503,7 +4509,7 @@ loader-utils@^0.2.16:
     json5 "^0.5.0"
     object-assign "^4.0.1"
 
-loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.x:
+loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.x, loader-utils@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/loader-utils/-/loader-utils-1.1.0.tgz#c98aef488bcceda2ffb5e2de646d6a754429f5cd"
   dependencies:
