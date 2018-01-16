@@ -4,7 +4,7 @@ exports[`BidderPortfolioViewMoreComponent matches snapshot 1`] = `
 <div>
   <div
     className="usa-grid-full current-user-section-container
-            view-more-link-centered section-padded-inner-container-narrow"
+          view-more-link-centered section-padded-inner-container-narrow"
   >
     <LinkButton
       className="unstyled-button"
