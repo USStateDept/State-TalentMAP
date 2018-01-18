@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CompareListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="comparison-container"
+  >
+    <div
+      className="usa-width-one-third  compare-card"
+      id={6}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <Link
+          replace={false}
+          to="/details/00025003"
+        >
+          <h3>
+             Position Number: 
+            00025003
+             
+          </h3>
+        </Link>
+        <p>
+          Grade: 
+          05
+          <br />
+          Skill Code: 
+          OFFICE MANAGEMENT (9017)
+          <br />
+          Post: 
+          <Link
+            replace={false}
+            to="/post/162"
+          >
+            MASERU, LESOTHO
+          </Link>
+          <br />
+          Bureau: 
+          150000
+          <br />
+          Tour of Duty: 
+          2YRR
+          <br />
+          Language: 
+          <LanguageList
+            languages={
+              Array [
+                Object {
+                  "id": 1,
+                  "language": "French (FR)",
+                  "reading_proficiency": "2",
+                  "representation": "French (FR) 2/2",
+                  "spoken_proficiency": "2",
+                },
+                Object {
+                  "id": 1,
+                  "language": "German (GM)",
+                  "reading_proficiency": "2",
+                  "representation": "German (GM) 2/2",
+                  "spoken_proficiency": "2",
+                },
+              ]
+            }
+          />
+          <br />
+          Post Differential: 
+          15
+          <br />
+          Danger Pay: 
+          0
+          <br />
+          COLA: 
+          0
+        </p>
+      </div>
+    </div>
+    <div
+      className="usa-width-one-third  compare-card"
+      id={60}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <Link
+          replace={false}
+          to="/details/00025003"
+        >
+          <h3>
+             Position Number: 
+            00025003
+             
+          </h3>
+        </Link>
+        <p>
+          Grade: 
+          03
+          <br />
+          Skill Code: 
+          OFFICE MANAGEMENT (9017)
+          <br />
+          Post: 
+          None listed
+          <br />
+          Bureau: 
+          150000
+          <br />
+          Tour of Duty: 
+          None listed
+          <br />
+          Language: 
+          <LanguageList
+            languages={Array []}
+          />
+          <br />
+          Post Differential: 
+          None listed
+          <br />
+          Danger Pay: 
+          None listed
+          <br />
+          COLA: 
+          None listed
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="comparison-container"
+  >
+    <Spinner
+      filled={false}
+      inverse={false}
+      size="big"
+      type="homepage-position-results"
+    />
+  </div>
+</div>
+`;
