@@ -28,5 +28,10 @@ exports[`NavigationListComponent matches snapshot 1`] = `
     numerator={30}
     title="Clients in Post"
   />
+  <withRouter()
+    denominator={100}
+    link="?type=handshakeneeded"
+    title="Handshake Needed"
+  />
 </div>
 `;

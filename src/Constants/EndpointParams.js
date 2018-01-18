@@ -21,7 +21,7 @@ export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
   bidding: { is_bidding: true },
   inpanel: { is_in_panel: true },
   onpost: { is_on_post: true },
-  priorityneed: { bid_statistics__handshake_offered: 0 },
+  handshakeneeded: { bidding_no_handshake: true },
 };
 
 export const VALID_PARAMS = [

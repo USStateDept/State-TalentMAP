@@ -89,7 +89,15 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
             assignment={
               Object {
                 "estimated_end_date": "10-10-2018",
-                "position": "Specialist",
+                "position": Object {
+                  "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
+                  "position_number": "58348065",
+                  "post": Object {
+                    "location": "Tunis, Tunisia",
+                  },
+                  "skill": "CONSTRUCTION ENGINEERING (6218)",
+                  "title": "PROJECT DIRECTOR",
+                },
                 "start_date": "10-10-2016",
               }
             }

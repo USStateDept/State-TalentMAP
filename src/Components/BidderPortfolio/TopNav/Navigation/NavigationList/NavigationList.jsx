@@ -28,12 +28,11 @@ const NavigationList = ({ counts }) => (
       denominator={counts.all_clients}
       link="?type=onpost"
     />
-    { /* TODO - GET REAL ZERO HANDSHAKE CLIENT COUNT FROM API */ }
     <NavigationItem
       title="Handshake Needed"
-      numerator={counts.zero_handshake_clients || 0}
+      numerator={counts.bidding_no_handshake}
       denominator={counts.all_clients}
-      link="?type=priorityneed"
+      link="?type=handshakeneeded"
     />
   </div>
 );

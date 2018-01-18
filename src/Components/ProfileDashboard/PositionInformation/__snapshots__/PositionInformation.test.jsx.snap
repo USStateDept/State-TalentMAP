@@ -27,14 +27,14 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
     />
     <InformationDataPoint
       className=""
-      content="Bureau of Western Hemispheric Affairs"
+      content="(NEA) BUREAU NEAR EASTERN AFFAIRS"
       sideBySide={false}
       title="Bureau"
       titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
-      content="Specialist"
+      content="PROJECT DIRECTOR"
       sideBySide={false}
       title="Position Title"
       titleOnBottom={false}
@@ -42,7 +42,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
     <Connect(StaticDevContent)>
       <InformationDataPoint
         className=""
-        content="Medical Technology (6145)"
+        content="CONSTRUCTION ENGINEERING (6218)"
         sideBySide={false}
         title="Skill Code"
         titleOnBottom={false}
