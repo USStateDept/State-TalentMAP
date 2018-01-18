@@ -400,6 +400,7 @@ export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
   bidding: PropTypes.number,
   inpanel: PropTypes.number,
   onpost: PropTypes.number,
+  priorityneed: PropTypes.number,
 });
 
 export const BID_TRACKER_ALERT_TYPES = PropTypes.oneOf([
