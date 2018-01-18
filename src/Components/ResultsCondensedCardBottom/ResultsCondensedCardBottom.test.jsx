@@ -13,6 +13,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         toggleBid={() => {}}
         bidList={bidListObject.results}
+        toggleFavorite={() => {}}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -24,6 +25,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         toggleBid={() => {}}
         bidList={bidListObject.results}
+        toggleFavorite={() => {}}
       />,
     );
     expect(wrapper.instance().props.type).toBe(type);
@@ -35,6 +37,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         toggleBid={() => {}}
         bidList={bidListObject.results}
+        toggleFavorite={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

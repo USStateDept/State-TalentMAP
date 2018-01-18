@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
+<div
+  className="condensed-card-footer"
+>
+  <div
+    className="usa-grid-full condensed-card-footer-container"
+  >
+    <div
+      className="condensed-card-footer-left"
+    >
+      <strong>
+        Position Number: 
+      </strong>
+      00025003
+    </div>
+    <div
+      className="condensed-card-footer-right"
+    >
+      <strong>
+        Posted: 
+      </strong>
+      None listed
+    </div>
+  </div>
+</div>
+`;

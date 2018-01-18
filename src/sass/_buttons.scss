@@ -28,6 +28,43 @@
   color: unset;
 }
 
+.tm-button {
+  background-color: $blue-primary;
+  border: 1px solid $blue-primary;
+  color: $color-white;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+
+  .fa {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background: $tm-navy;
+    border-bottom: 1px solid $blue-primary;
+    color: $color-white;
+
+    .fa {
+      color: $color-white;
+    }
+  }
+
+  &:active {
+    background: $tm-navy-dark;
+    color: $color-white;
+
+    .fa {
+      color: $color-white;
+    }
+  }
+
+  .tm-button-alt-icon {
+    color: $color-white;
+    margin-right: 5px;
+  }
+}
+
 .tm-button-alt {
   background-color: $color-white;
   border: 1px solid $blue-primary;
@@ -35,6 +72,10 @@
   font-family: inherit;
   font-size: 16px;
   font-weight: 400;
+
+  .fa {
+    margin-right: 5px;
+  }
 
   &:hover {
     background: $blue-primary;
@@ -92,4 +133,16 @@
 
 .mail-to-button {
   color: $blue-primary;
+}
+
+.favorite-container {
+  .fa {
+    color: $blue-primary;
+  }
+}
+
+.favorites-button-border {
+  border: 1px solid $blue-primary;
+  border-radius: 3px;
+  padding: 9px 12px;
 }

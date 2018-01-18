@@ -19,6 +19,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
     >
       <Favorite
         compareArray={Array []}
+        hasBorder={false}
         hasErrored={false}
         hideText={false}
         isLoading={false}

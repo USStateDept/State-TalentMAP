@@ -1,9 +1,13 @@
+$condensed-card-margin-bottom: 15px;
+$condensed-card-padding: 14px 20px 9px;
+
 .condensed-card {
 
   border: 1px solid $color-gray-light;
   font-family: Roboto;
-  margin-bottom: 15px;
-  min-height: 275px;
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: $condensed-card-margin-bottom;
 
   .new-flag {
     background-color: $color-white;
@@ -15,18 +19,15 @@
     width: auto;
   }
 
-  .tm-button-alt {
-    // TODO figure out why 2px makes button flash when cursor is on edge of button
-    border: 1px solid $blue-primary;
-    bottom: 17px;
-    color: $blue-primary;
-    margin-top: 15px;
-    position: absolute;
+  .tm-button {
+    float: left;
+    margin-top: 0;
+  }
 
-    .fa {
-      color: $blue-primary;
-      margin-right: 5px;
-    }
+  .favorite-container {
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 15px;
   }
 
   .link-button-wrapper {
@@ -51,7 +52,7 @@
     border-bottom: 1px solid $color-gray-lightest;
     color: $color-white;
     overflow: hidden;
-    padding: 3px 0 0 10px;
+    padding: $condensed-card-padding;
     position: relative;
   }
 
@@ -64,24 +65,16 @@
     top: -36%;
   }
 
-  .condensed-card-top-header {
-    margin: 3px 0 0 1%;
-    width: 48%;
-  }
-
   .condensed-card-top-header-container {
     margin-bottom: 5px;
   }
 
   .condensed-card-top-header-left {
     float: left;
-    margin: 3px 1% 0 0;
-    width: auto;
   }
 
   .condensed-card-top-header-right {
     float: right;
-    margin: 3px 3% 0 0;
     text-align: right;
   }
 
@@ -92,18 +85,17 @@
 
   .condensed-card-bottom-container {
     background-color: $color-white;
-    min-height: 210px;
-    padding: 18px;
+    padding: $condensed-card-padding;
+    padding-bottom: 20px;
     position: relative;
   }
 
   .condensed-card-bottom {
     font-size: 16px;
-    max-height: 135px;
   }
 
   .condensed-card-data {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 
     a {
       color: $blue-primary;
@@ -113,6 +105,20 @@
 
   .last-updated-date {
     font-weight: 300;
+  }
+
+  .condensed-card-data-title {
+    float: left;
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  .condensed-card-data-content {
+    float: left;
+  }
+
+  .title-fixed-width {
+    min-width: 80px;
   }
 }
 
@@ -153,5 +159,38 @@
 .condensed-card-highlighted {
   .condensed-card-top {
     background-color: $tm-navy;
+  }
+}
+
+.condensed-card:last-child {
+  margin-bottom: $condensed-card-margin-bottom;
+}
+
+.condensed-card-footer {
+  background-color: $color-white;
+  border-top: 1px solid $color-gray-lighter;
+  font-size: 13px;
+
+  .condensed-card-footer-container {
+    padding: $condensed-card-padding;
+    padding-bottom: 14px;
+  }
+
+  .condensed-card-footer-left {
+    float: left;
+  }
+
+  .condensed-card-footer-right {
+    float: right;
+  }
+}
+
+.condensed-card-data-point {
+  @media screen and (min-width: $screen-md-min) {
+    display: flex;
+
+    .condensed-card-data-content {
+      word-wrap: break-word;
+    }
   }
 }

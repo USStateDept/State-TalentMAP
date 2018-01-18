@@ -4,33 +4,48 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full condensed-card-data"
 >
-  <div>
-    <strong>
-      <Link
-        replace={false}
-        to="/details/00025003"
-      >
-        None listed
-      </Link>
-    </strong>
-  </div>
-  <div>
-    <strong>
-      Location: 
-    </strong>
-    MASERU, LESOTHO
-  </div>
-  <div>
-    <strong>
-      Skill Code: 
-    </strong>
-    OFFICE MANAGEMENT (9017)
-  </div>
-  <div>
-    <strong>
-      Grade: 
-    </strong>
-    05
-  </div>
+  <CondensedCardDataPoint
+    content="MASERU, LESOTHO"
+    hasFixedTitleWidth={true}
+    title="Post"
+  />
+  <CondensedCardDataPoint
+    content="OFFICE MANAGEMENT (9017)"
+    hasFixedTitleWidth={true}
+    title="Skill Code"
+  />
+  <CondensedCardDataPoint
+    content={
+      <LanguageList
+        languages={
+          Array [
+            Object {
+              "id": 1,
+              "language": "French (FR)",
+              "reading_proficiency": "2",
+              "representation": "French (FR) 2/2",
+              "spoken_proficiency": "2",
+            },
+            Object {
+              "id": 1,
+              "language": "German (GM)",
+              "reading_proficiency": "2",
+              "representation": "German (GM) 2/2",
+              "spoken_proficiency": "2",
+            },
+          ]
+        }
+      />
+    }
+    hasFixedTitleWidth={true}
+    title="Language"
+  />
+  <Connect(StaticDevContent)>
+    <CondensedCardDataPoint
+      content="6.1.18"
+      hasFixedTitleWidth={true}
+      title="Time of estimated departure"
+    />
+  </Connect(StaticDevContent)>
 </div>
 `;
