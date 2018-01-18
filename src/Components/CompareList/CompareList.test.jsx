@@ -23,10 +23,4 @@ describe('CompareListComponent', () => {
     wrapper = shallow(<CompareList compare={resultsObject.results} />);
     expect(wrapper.instance().props.compare[0].id).toBe(6);
   });
-
-  it('can call the onChildToggle function', () => {
-    wrapper = shallow(<CompareList compare={resultsObject.results} />);
-    wrapper.instance().onChildToggle();
-    expect(wrapper).toBeDefined();
-  });
 });
