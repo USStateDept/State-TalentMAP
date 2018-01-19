@@ -302,7 +302,6 @@ export const MISSION_DETAILS = PropTypes.shape({
 export const ASSIGNMENT_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   user: PropTypes.string,
-  position: PropTypes.string,
   tour_of_duty: PropTypes.string,
   status: PropTypes.string,
   curtailment_reason: PropTypes.string,
@@ -310,7 +309,22 @@ export const ASSIGNMENT_OBJECT = PropTypes.shape({
   start_date: PropTypes.string,
   estimated_end_date: PropTypes.string,
   end_date: PropTypes.string,
+  bid_approval_date: PropTypes.string,
+  arrival_date: PropTypes.string,
+  service_duration: PropTypes.string,
   update_date: PropTypes.string,
+  is_domestic: PropTypes.bool,
+  combined_differential: PropTypes.number,
+  standard_tod_months: PropTypes.number,
+  position: PropTypes.shape({
+    skill: PropTypes.string,
+    bureau: PropTypes.string,
+    position_number: PropTypes.string,
+    title: PropTypes.string,
+    post: PropTypes.shape({
+      location: PropTypes.string,
+    }),
+  }),
 });
 
 export const ASSIGNMENT_RESULTS = PropTypes.arrayOf(
@@ -400,6 +414,7 @@ export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
   bidding: PropTypes.number,
   inpanel: PropTypes.number,
   onpost: PropTypes.number,
+  handshakeneeded: PropTypes.number,
 });
 
 export const BID_TRACKER_ALERT_TYPES = PropTypes.oneOf([
