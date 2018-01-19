@@ -4,8 +4,8 @@ import BidStatCard from '../BidStatCard';
 import { numbersToPercentString } from '../../../utilities';
 
 const BidStatList = ({ bidStats }) => {
-  const positionsFilledPercent =
-    numbersToPercentString(bidStats.available_positions, bidStats.total_positions, 3, true);
+  const positionsFilledPercent = numbersToPercentString(
+    bidStats.total_positions - bidStats.available_positions, bidStats.total_positions, 3);
   return (
     <div className="usa-grid-full bid-stat-card-list">
       <BidStatCard title="Positions Available" number={bidStats.available_positions} />
