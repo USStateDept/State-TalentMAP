@@ -1,0 +1,79 @@
+.tm-table {
+
+  $border-radius: 9px;
+  color: $color-gray;
+
+  .column-title-sub,
+  .column-title-link {
+    font-size: .8em;
+    font-weight: normal;
+  }
+
+  th,
+  td {
+    border: 0;
+  }
+
+  thead {
+    th:nth-of-type(odd) {
+      background: $color-gray;
+      color: $color-white;
+    }
+
+    th:nth-of-type(even) {
+      background: $color-gray-light;
+      color: $color-white;
+    }
+
+    th:nth-of-type(2) {
+      border-radius: $border-radius 0 0;
+    }
+
+    th:last-child {
+      border-radius: 0 $border-radius 0 0;
+    }
+
+    // first header should have no border or background
+    th:first-of-type {
+      background: none;
+      border: 0;
+      color: inherit;
+      padding: 1em 1em 0;
+    }
+  }
+
+  tbody {
+    th {
+      background-color: $color-gray;
+      color: $color-white;
+      font-size: .8em;
+      padding-bottom: 0;
+      padding-right: 1em;
+      width: 18%;
+    }
+
+    tr:first-child {
+      th {
+        border-radius: $border-radius 0 0;
+      }
+    }
+
+    tr:last-child {
+      th {
+        border-radius: 0 0 0 $border-radius;
+      }
+
+      td:last-child {
+        border-radius: 0 0 $border-radius;
+      }
+    }
+
+    td:nth-of-type(even) {
+      background: $color-gray-lighter;
+    }
+
+    td:nth-of-type(odd) {
+      background: $color-gray-lightest;
+    }
+  }
+}
