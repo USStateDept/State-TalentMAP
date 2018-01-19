@@ -399,12 +399,12 @@ $padding-no-border: $total-padding - $border;
 
   .is-underlined {
     border-bottom: 6px solid $color-black;
-    border-spacing: 5px;
+    border-spacing: 6px;
   }
 
   .is-not-underlined {
-    border-bottom: 5px solid transparent;
-    border-spacing: 5px;
+    border-bottom: 6px solid transparent;
+    border-spacing: 6px;
   }
 }
 
