@@ -195,7 +195,7 @@ export const removeDuplicates = (myArr, prop) => (
 export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options = {}) =>
   `${distanceInWords(dateToCompare, date, options)} ago`;
 
-// Format the date into out preferred format.
+// Format the date into our preferred format.
 // We can take any valid date and convert it into M.D.YYYY format, or any
 // format provided with the dateFormat param.
 export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
@@ -227,7 +227,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
           doesMatch = true;
         }
       });
-      // if keyWord was found in atleast one of the props, doesMatch should be true
+      // if keyword was found in at least one of the props, doesMatch should be true
       return doesMatch;
     },
     );
