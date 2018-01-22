@@ -44,7 +44,9 @@ class HomePage extends Component {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&
               <Spinner type="homepage-position-results" size="big" />
           }
-          <div className="usa-grid-full homepage-positions-section-container-inner">
+          <div
+            className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
+          >
             <HighlightedPositionsSection
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}

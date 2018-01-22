@@ -2,7 +2,7 @@
 
 exports[`Favorite matches snapshot - Add state 1`] = `
 <InteractiveElement
-  className="favorite-container"
+  className="favorite-container "
   onClick={[Function]}
   style={
     Object {
@@ -22,7 +22,7 @@ exports[`Favorite matches snapshot - Add state 1`] = `
 
 exports[`Favorite matches snapshot - Remove state 1`] = `
 <InteractiveElement
-  className="favorite-container"
+  className="favorite-container "
   onClick={[Function]}
   style={
     Object {

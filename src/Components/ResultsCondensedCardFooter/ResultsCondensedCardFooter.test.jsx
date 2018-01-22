@@ -1,31 +1,22 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import CondensedCardData from './CondensedCardData';
+import ResultsCondensedCardFooter from './ResultsCondensedCardFooter';
 import resultsObject from '../../__mocks__/resultsObject';
 
-describe('CondensedCardDataComponent', () => {
+describe('ResultsCondensedCardBottomComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <CondensedCardData
+      <ResultsCondensedCardFooter
         position={resultsObject.results[0]}
       />,
     );
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <CondensedCardData
-        position={resultsObject.results[0]}
-      />,
-    );
-    expect(wrapper.instance().props.position.id).toBe(resultsObject.results[0].id);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <CondensedCardData
+      <ResultsCondensedCardFooter
         position={resultsObject.results[0]}
       />,
     );
