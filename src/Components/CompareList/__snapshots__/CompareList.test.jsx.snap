@@ -6,11 +6,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
 >
   <div
     className="comparison-container"
-    style={
-      Object {
-        "position": "relative",
-      }
-    }
   >
     <div
       className="comparison-table-container"
@@ -300,11 +295,6 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 >
   <div
     className="comparison-container"
-    style={
-      Object {
-        "position": "relative",
-      }
-    }
   >
     <Spinner
       filled={false}
