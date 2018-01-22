@@ -6,126 +6,289 @@ exports[`CompareListComponent matches snapshot 1`] = `
 >
   <div
     className="comparison-container"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
     <div
-      className="usa-width-one-third  compare-card"
-      id={6}
+      className="comparison-table-container"
     >
-      <div
-        className="usa-grid-full"
+      <table
+        className="tm-table"
       >
-        <Link
-          replace={false}
-          to="/details/00025003"
+        <caption
+          className="usa-sr-only"
         >
-          <h3>
-             Position Number: 
-            00025003
-             
-          </h3>
-        </Link>
-        <p>
-          Grade: 
-          05
-          <br />
-          Skill Code: 
-          OFFICE MANAGEMENT (9017)
-          <br />
-          Post: 
-          <Link
-            replace={false}
-            to="/post/162"
-          >
-            MASERU, LESOTHO
-          </Link>
-          <br />
-          Bureau: 
-          150000
-          <br />
-          Tour of Duty: 
-          2YRR
-          <br />
-          Language: 
-          <LanguageList
-            languages={
-              Array [
-                Object {
-                  "id": 1,
-                  "language": "French (FR)",
-                  "reading_proficiency": "2",
-                  "representation": "French (FR) 2/2",
-                  "spoken_proficiency": "2",
-                },
-                Object {
-                  "id": 1,
-                  "language": "German (GM)",
-                  "reading_proficiency": "2",
-                  "representation": "German (GM) 2/2",
-                  "spoken_proficiency": "2",
-                },
-              ]
-            }
-          />
-          <br />
-          Post Differential: 
-          15
-          <br />
-          Danger Pay: 
-          0
-          <br />
-          COLA: 
-          0
-        </p>
-      </div>
-    </div>
-    <div
-      className="usa-width-one-third  compare-card"
-      id={60}
-    >
-      <div
-        className="usa-grid-full"
+          Position details comparison:
+        </caption>
+        <thead>
+          <tr>
+            <th
+              scope="row"
+            >
+              Position
+            </th>
+            <th>
+              <div
+                className="column-title-main"
+              />
+              <div
+                className="column-title-sub"
+              >
+                MASERU, LESOTHO
+              </div>
+              <div
+                className="column-title-link"
+              >
+                <Link
+                  replace={false}
+                  to="/details/00025003"
+                >
+                  Learn more
+                </Link>
+              </div>
+            </th>
+            <th>
+              <div
+                className="column-title-main"
+              />
+              <div
+                className="column-title-sub"
+              >
+                None listed
+              </div>
+              <div
+                className="column-title-link"
+              >
+                <Link
+                  replace={false}
+                  to="/details/00025003"
+                >
+                  Learn more
+                </Link>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th
+              scope="row"
+            >
+              Grade
+            </th>
+            <td>
+              05
+            </td>
+            <td>
+              03
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Language
+            </th>
+            <td>
+              <LanguageList
+                languages={
+                  Array [
+                    Object {
+                      "id": 1,
+                      "language": "French (FR)",
+                      "reading_proficiency": "2",
+                      "representation": "French (FR) 2/2",
+                      "spoken_proficiency": "2",
+                    },
+                    Object {
+                      "id": 1,
+                      "language": "German (GM)",
+                      "reading_proficiency": "2",
+                      "representation": "German (GM) 2/2",
+                      "spoken_proficiency": "2",
+                    },
+                  ]
+                }
+                propToUse="representation"
+              />
+            </td>
+            <td>
+              <LanguageList
+                languages={Array []}
+                propToUse="representation"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Skill Code
+            </th>
+            <td>
+              OFFICE MANAGEMENT (9017)
+            </td>
+            <td>
+              OFFICE MANAGEMENT (9017)
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Overseas
+            </th>
+            <td>
+              Yes
+            </td>
+            <td>
+              Yes
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table
+        className="tm-table"
       >
-        <Link
-          replace={false}
-          to="/details/00025003"
+        <caption
+          className="usa-sr-only"
         >
-          <h3>
-             Position Number: 
-            00025003
-             
-          </h3>
-        </Link>
-        <p>
-          Grade: 
-          03
-          <br />
-          Skill Code: 
-          OFFICE MANAGEMENT (9017)
-          <br />
-          Post: 
-          None listed
-          <br />
-          Bureau: 
-          150000
-          <br />
-          Tour of Duty: 
-          None listed
-          <br />
-          Language: 
-          <LanguageList
-            languages={Array []}
-          />
-          <br />
-          Post Differential: 
-          None listed
-          <br />
-          Danger Pay: 
-          None listed
-          <br />
-          COLA: 
-          None listed
-        </p>
-      </div>
+          Post details comparison:
+        </caption>
+        <thead
+          className="tm-header-no-columns"
+        >
+          <tr>
+            <th
+              scope="row"
+            >
+              Post
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th
+              scope="row"
+            >
+              Organization
+            </th>
+            <td>
+              YAOUNDE CAMEROON (YAOUNDE)
+            </td>
+            <td>
+              YAOUNDE CAMEROON (YAOUNDE)
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Bureau
+            </th>
+            <td>
+              150000
+            </td>
+            <td>
+              150000
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Post Differential
+            </th>
+            <td>
+              15
+            </td>
+            <td>
+              None listed
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Danger Pay
+            </th>
+            <td>
+              None listed
+            </td>
+            <td>
+              None listed
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Consumable Allowance
+            </th>
+            <td>
+              No
+            </td>
+            <td>
+              No
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Tour of Duty
+            </th>
+            <td>
+              2YRR
+            </td>
+            <td>
+              None listed
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Cost of Living Adjustment
+            </th>
+            <td>
+              None listed
+            </td>
+            <td>
+              None listed
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Service Needs Differential
+            </th>
+            <td>
+              No
+            </td>
+            <td>
+              No
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Rest & Relaxation Point
+            </th>
+            <td>
+              London
+            </td>
+            <td>
+              None listed
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
@@ -137,6 +300,11 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 >
   <div
     className="comparison-container"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
   >
     <Spinner
       filled={false}

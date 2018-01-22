@@ -27,15 +27,13 @@ describe('CompareListComponent', () => {
 
   it('displays the comparison list when isLoading is false', () => {
     wrapper = shallow(<CompareList compare={resultsObject.results} isLoading={false} />);
-    // h3 is an element in the comparison
-    expect(wrapper.find('h3').exists()).toBe(true);
+    expect(wrapper.find('.comparison-table-container').exists()).toBe(true);
     expect(wrapper.find('Spinner').exists()).toBe(false);
   });
 
   it('displays the Spinner when isLoading is true', () => {
     wrapper = shallow(<CompareList compare={resultsObject.results} isLoading />);
-    // h3 is an element in the comparison
-    expect(wrapper.find('h3').exists()).toBe(false);
+    expect(wrapper.find('.comparison-table-container').exists()).toBe(false);
     expect(wrapper.find('Spinner').exists()).toBe(true);
   });
 
