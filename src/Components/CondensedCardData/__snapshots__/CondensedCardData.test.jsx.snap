@@ -35,6 +35,7 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
             },
           ]
         }
+        propToUse="language"
       />
     }
     hasFixedTitleWidth={true}
