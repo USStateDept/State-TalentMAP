@@ -108,7 +108,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
       className="compare-check"
     >
       <CompareCheck
-        limit={2}
+        limit={5}
         onToggle={[Function]}
         refKey="00025003"
         type="compare"

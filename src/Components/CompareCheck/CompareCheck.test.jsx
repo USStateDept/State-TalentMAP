@@ -2,6 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import CompareCheck from './CompareCheck';
+import COMPARE_LIMIT from '../../Constants/Compare';
 
 describe('CompareCheck', () => {
   let compareCheck = null;
@@ -41,14 +42,14 @@ describe('CompareCheck', () => {
 
   it('handles disabling when count is reached', () => {
     const wrapper = shallow(<CompareCheck refKey="0038" />);
-    wrapper.instance().state.count = 100000; // greater than default limit.
+    wrapper.instance().state.count = COMPARE_LIMIT + 1; // greater than default limit.
     wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false); // should not be able to add another compare
   });
 
   it('handles disabling when count is reached and saved state is true', () => {
     const wrapper = shallow(<CompareCheck refKey="0038" />);
-    wrapper.instance().state.count = 100000; // greater than default limit
+    wrapper.instance().state.count = COMPARE_LIMIT + 1; // greater than default limit
     wrapper.instance().state.saved = true;
     wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false);

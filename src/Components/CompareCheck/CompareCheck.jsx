@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { localStorageFetchValue, localStorageToggleValue } from '../../utilities';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import COMPARE_LIMIT from '../../Constants/Compare';
 import InteractiveElement from '../InteractiveElement';
 
 class CompareCheck extends Component {
@@ -79,7 +80,7 @@ CompareCheck.propTypes = {
 
 CompareCheck.defaultProps = {
   type: 'compare',
-  limit: 2,
+  limit: COMPARE_LIMIT,
   onToggle: EMPTY_FUNCTION,
 };
 
