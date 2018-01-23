@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdditionalViewComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bidder-portfolio-additional-container"
+>
+  <div
+    className="usa-grid-full bidder-portfolio-additional"
+  >
+    <div
+      className="usa-width-one-third bidder-portfolio-additional-section"
+    >
+      <PositionInformation
+        assignment={Object {}}
+      />
+    </div>
+    <div
+      className="usa-width-two-thirds"
+    >
+      <div
+        className="usa-width-one-whole bidder-portfolio-additional-section"
+      >
+        <BidderPortfolioGridItemAdditional
+          items={
+            Array [
+              "Waiver 1",
+              "Waiver 2",
+              "Waiver 3",
+            ]
+          }
+          title="Waiver History"
+        />
+      </div>
+      <div
+        className="usa-width-one-half bidder-portfolio-additional-section"
+      >
+        <BidderPortfolioGridItemAdditional
+          items={
+            Array [
+              "Draft Bid 1",
+              "Draft Bid 2",
+              "Draft Bid 3",
+            ]
+          }
+          title="Draft Bids"
+        />
+      </div>
+      <div
+        className="usa-width-one-half bidder-portfolio-additional-section"
+      >
+        <BidderPortfolioGridItemAdditional
+          items={
+            Array [
+              "Submitted Bid 1",
+              "Submitted Bid 2",
+              "Submitted Bid 3",
+            ]
+          }
+          title="Submitted Bids"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AdditionalViewComponent matches snapshot when isLoading is true 1`] = `
+<div
+  className="usa-grid-full bidder-portfolio-additional-container"
+>
+  <Spinner
+    filled={false}
+    inverse={true}
+    size="big"
+    type="portfolio-additional"
+  />
+</div>
+`;

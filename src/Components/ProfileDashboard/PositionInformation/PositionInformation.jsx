@@ -8,8 +8,8 @@ import StartEnd from './StartEnd';
 import StaticDevContent from '../../StaticDevContent';
 
 const PositionInformation = ({ assignment }) => {
-  const assignmentStartDate = formatDate(assignment.start_date);
-  const assignmentEndDate = formatDate(assignment.estimated_end_date);
+  const assignmentStartDate = assignment.start_date ? formatDate(assignment.start_date) : false;
+  const assignmentEndDate = assignment.end_date ? formatDate(assignment.estimated_end_date) : false;
   return (
     <div className="usa-grid-full">
       <div className="section-padded-inner-container">

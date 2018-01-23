@@ -2,31 +2,78 @@
 
 exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full current-user bidder-portfolio-grid-item"
+  className="bidder-portfolio-grid-item-container"
 >
   <div
-    className="usa-width-one-fourth grid-item-section"
+    className="usa-grid-full current-user bidder-portfolio-grid-item"
   >
     <div
-      className="checkbox-container"
+      className="usa-width-one-fourth grid-item-section"
     >
-      <CheckBox
-        id="checkbox-undefined"
-        label="Select this user"
-        labelSrOnly={true}
-        name=""
-        onCheckBoxClick={[Function]}
-        small={true}
-        title=""
-        value={false}
-      />
+      <div
+        className="checkbox-container"
+      >
+        <CheckBox
+          id="checkbox-undefined"
+          label="Select this user"
+          labelSrOnly={true}
+          name=""
+          onCheckBoxClick={[Function]}
+          small={true}
+          title=""
+          value={false}
+        />
+      </div>
+      <div
+        className="general-information-container"
+      >
+        <UserProfileGeneralInformation
+          showEditLink={false}
+          useGroup={true}
+          userProfile={
+            Object {
+              "bid_statistics": Array [
+                Object {
+                  "draft": 1,
+                  "submitted": 1,
+                },
+              ],
+              "cdo": Object {
+                "email": "shadtrachl@state.gov",
+                "first_name": "Leah",
+                "last_name": "Shadtrach",
+              },
+              "is_cdo": false,
+              "skills": Array [
+                Object {
+                  "code": "6218",
+                  "cone": null,
+                  "description": "CONSTRUCTION ENGINEERING",
+                  "id": 63,
+                },
+                Object {
+                  "code": "6211",
+                  "cone": null,
+                  "description": "COMPUTER SCIENCE",
+                  "id": 40,
+                },
+              ],
+              "user": Object {
+                "email": "doej@state.gov",
+                "first_name": "John",
+                "last_name": "Doe",
+                "username": "jdoe",
+              },
+            }
+          }
+        />
+      </div>
     </div>
     <div
-      className="general-information-container"
+      className="usa-width-one-fourth grid-item-section
+              current-user-personal-information-grid-container"
     >
-      <UserProfileGeneralInformation
-        showEditLink={false}
-        useGroup={true}
+      <UserProfilePersonalInformation
         userProfile={
           Object {
             "bid_statistics": Array [
@@ -65,66 +112,25 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
         }
       />
     </div>
-  </div>
-  <div
-    className="usa-width-one-fourth grid-item-section
-        current-user-personal-information-grid-container"
-  >
-    <UserProfilePersonalInformation
-      userProfile={
-        Object {
-          "bid_statistics": Array [
-            Object {
-              "draft": 1,
-              "submitted": 1,
-            },
-          ],
-          "cdo": Object {
-            "email": "shadtrachl@state.gov",
-            "first_name": "Leah",
-            "last_name": "Shadtrach",
-          },
-          "is_cdo": false,
-          "skills": Array [
-            Object {
-              "code": "6218",
-              "cone": null,
-              "description": "CONSTRUCTION ENGINEERING",
-              "id": 63,
-            },
-            Object {
-              "code": "6211",
-              "cone": null,
-              "description": "COMPUTER SCIENCE",
-              "id": 40,
-            },
-          ],
-          "user": Object {
-            "email": "doej@state.gov",
-            "first_name": "John",
-            "last_name": "Doe",
-            "username": "jdoe",
-          },
-        }
-      }
-    />
-  </div>
-  <div
-    className="usa-width-one-fourth grid-item-section"
-  >
-    <UserProfileBidInformation
-      denominator={10}
-      draft={1}
-      submitted={1}
-    />
-  </div>
-  <div
-    className="usa-width-one-fourth grid-item-section"
-  >
-    <BidderPortfolioViewMore
-      className="tm-button-alt"
-      useLink={false}
-    />
+    <div
+      className="usa-width-one-fourth grid-item-section"
+    >
+      <UserProfileBidInformation
+        denominator={10}
+        draft={1}
+        submitted={1}
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth grid-item-section"
+    >
+      <BidderPortfolioViewMore
+        className="tm-button-alt"
+        isExpanded={false}
+        onClick={[Function]}
+        useLink={false}
+      />
+    </div>
   </div>
 </div>
 `;
