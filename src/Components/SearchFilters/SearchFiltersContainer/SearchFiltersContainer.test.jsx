@@ -6,35 +6,56 @@ import SearchFiltersContainer from './SearchFiltersContainer';
 import { ACCORDION_SELECTION } from '../../../Constants/DefaultProps';
 
 describe('SearchFiltersContainerComponent', () => {
-  const items = [{
-    item: { title: 'title', selectionRef: 'ref' },
-    data: [{ isSelected: true }],
-  },
-  {
-    item: { title: 'COLA', selectionRef: 'ref2', bool: true },
-    data: [{ isSelected: false }],
-  },
-  {
-    item: { title: 'region', description: 'region', selectionRef: 'ref3' },
-    data: [{ isSelected: false, long_description: 'test', short_description: 'test' }],
-  },
+  const items = [
+    {
+      item: { title: 'grade', description: 'grade', selectionRef: 'ref' },
+      data: [{ isSelected: true }],
+    },
+    {
+      item: { title: 'post', description: 'post', selectionRef: 'ref2' },
+      data: [{ isSelected: true }],
+    },
+    {
+      item: { title: 'skill', description: 'skill', selectionRef: 'ref3' },
+      data: [{ isSelected: true }],
+    },
+    {
+      item: { title: 'tod', description: 'tod', selectionRef: 'ref3' },
+      data: [{ isSelected: true }],
+    },
+    {
+      item: { title: 'mission', description: 'mission', selectionRef: 'ref3' },
+      data: [{ isSelected: true }],
+    },
+    {
+      item: { title: 'COLA', description: 'cola', selectionRef: 'ref4', bool: true },
+      data: [{ isSelected: false }],
+    },
+    {
+      item: { title: 'region', description: 'region', selectionRef: 'ref5' },
+      data: [{ isSelected: false, long_description: 'test', short_description: 'test' }],
+    },
   ];
 
   const accordion = ACCORDION_SELECTION;
 
+  const props = {
+    queryParamUpdate: () => {},
+    queryParamToggle: () => {},
+    selectedAccordion: accordion,
+    setAccordion: () => {},
+    filters: items,
+    fetchMissionAutocomplete: () => {},
+    missionSearchResults: [],
+    fetchPostAutocomplete: () => {},
+    postSearchResults: [],
+    isCDO: false,
+  };
+
   it('is defined', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
+        {...props}
       />,
     );
     expect(wrapper.instance()).toBeDefined();
@@ -43,15 +64,7 @@ describe('SearchFiltersContainerComponent', () => {
   it('is defined when isCDO is true', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
+        {...props}
         isCDO
       />,
     );
@@ -61,34 +74,16 @@ describe('SearchFiltersContainerComponent', () => {
   it('can receive props', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
+        {...props}
       />,
     );
-    expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
+    expect(wrapper.instance().props.filters[0].item.title).toBe(props.filters[0].item.title);
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
+        {...props}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -98,16 +93,8 @@ describe('SearchFiltersContainerComponent', () => {
     const toggleValue = { value: null };
     const wrapper = shallow(
       <SearchFiltersContainer
+        {...props}
         queryParamUpdate={(e) => { toggleValue.value = e; }}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
       />,
     );
 
@@ -124,16 +111,8 @@ describe('SearchFiltersContainerComponent', () => {
     const toggleValue = { a: null, b: null };
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
+        {...props}
         setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
       />,
     );
 
@@ -146,16 +125,8 @@ describe('SearchFiltersContainerComponent', () => {
     const toggleValue = { a: null, b: null };
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
+        {...props}
         setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
       />,
     );
 
@@ -168,16 +139,8 @@ describe('SearchFiltersContainerComponent', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
+        {...props}
         queryParamToggle={spy}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
-        filters={items}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
       />,
     );
     wrapper.instance().onMissionSuggestionSelected(1);
@@ -193,16 +156,8 @@ describe('SearchFiltersContainerComponent', () => {
 
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
+        {...props}
         filters={filters}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('language');
@@ -227,18 +182,26 @@ describe('SearchFiltersContainerComponent', () => {
 
     const wrapper = shallow(
       <SearchFiltersContainer
-        queryParamUpdate={() => {}}
-        queryParamToggle={() => {}}
-        selectedAccordion={accordion}
-        setAccordion={() => {}}
+        {...props}
         filters={filters}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        isCDO={false}
       />,
     );
     expect(wrapper.instance().props.filters[0].item.description).toBe('skill');
+  });
+
+  it('orders the filters in the correct order', () => {
+    // filter order defined in the component
+    const filterOrder = ['skill', 'grade', 'post', 'region', 'tod', 'mission'];
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        {...props}
+      />,
+    );
+    // find the filters we pass to the multiSelectFilterContainer component
+    const orderedFilters = wrapper.find('MultiSelectFilterContainer').prop('multiSelectFilterList');
+    // the objects should be ordered such that the title matches up with the order of filterOrder
+    filterOrder.forEach((title, i) => {
+      expect(orderedFilters[i].title).toBe(title);
+    });
   });
 });

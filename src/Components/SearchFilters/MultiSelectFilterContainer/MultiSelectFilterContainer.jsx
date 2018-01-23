@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Accordion from '../../Accordion/Accordion';
-import AccordionItem from '../../Accordion/AccordionItem/AccordionItem';
+import Accordion, { AccordionItem } from '../../Accordion';
 import { FILTER_ITEMS_ARRAY, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 const shortid = require('shortid'); // only use shortid if we don't have a key to use

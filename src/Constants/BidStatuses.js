@@ -32,7 +32,7 @@ const statusArray = [
 ];
 
 // find the correct object based on status, then return the class_name
-export const getStatusClass = (statusName) => {
+export const getStatusProperty = (statusName, property = 'class_name') => {
   const matchingStatus = statusArray.find(s => s.property === statusName);
-  return matchingStatus ? matchingStatus.class_name : '';
+  return matchingStatus ? matchingStatus[property] : '';
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import FontAwesome from 'react-fontawesome';
 
 const PendingIcon = () => (
-  <div className="rescheduled-tooltip">
+  <div className="step-tooltip">
     <div className="bid-tracker-rescheduled-icon-container">
       <FontAwesome name="calendar" />
     </div>

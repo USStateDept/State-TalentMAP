@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePageFiltersComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <Form
+    className="usa-grid-full"
+    onFormSubmit={[Function]}
+  >
+    <FieldSet
+      className=""
+      legend="Search by Skill Code"
+      legendSrOnly={false}
+    >
+      <SkillCodeFilter
+        filters={
+          Array [
+            Object {
+              "code": "1",
+              "custom_description": "1",
+            },
+          ]
+        }
+        isLoading={false}
+        onFilterSelect={[Function]}
+        userSkills={Array []}
+      />
+    </FieldSet>
+    <button
+      className="saved-search-form-secondary-button"
+      onClick={[Function]}
+    >
+      Search
+    </button>
+  </Form>
+</div>
+`;

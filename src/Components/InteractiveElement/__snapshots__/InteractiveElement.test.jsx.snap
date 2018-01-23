@@ -1,13 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InteractiveElementComponent matches snapshot 1`] = `
-<span>
+<span
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex="0"
+  type="span"
+>
   text
 </span>
 `;
 
 exports[`InteractiveElementComponent matches snapshot when type is "div" 1`] = `
-<div>
+<div
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex="0"
+  type="div"
+>
   text
 </div>
 `;
