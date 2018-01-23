@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidStatCardComponent matches snapshot 1`] = `
+<div
+  className="bid-stat-card"
+>
+  <div
+    className="bid-stat-card-number"
+  >
+    2
+  </div>
+  <div
+    className="bid-stat-card-title"
+  >
+    Example statistic
+  </div>
+</div>
+`;

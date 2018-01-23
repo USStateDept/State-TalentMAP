@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePageFiltersSectionComponent matches snapshot 1`] = `
+<div
+  className="explore-section"
+>
+  <div
+    className="explore-section-inner usa-grid-full"
+  >
+    <Connect(HomePageFiltersContainer)
+      filters={
+        Array [
+          Object {
+            "data": Array [
+              Object {
+                "code": "a",
+                "custom_description": "letter A",
+              },
+            ],
+            "item": Object {
+              "description": "language",
+            },
+          },
+          Object {
+            "data": Array [
+              Object {
+                "code": "1",
+                "custom_description": "1",
+              },
+            ],
+            "item": Object {
+              "description": "skill",
+            },
+          },
+        ]
+      }
+      isLoading={false}
+      userSkills={Array []}
+    />
+  </div>
+</div>
+`;

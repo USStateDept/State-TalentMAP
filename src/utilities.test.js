@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import { validStateEmail,
          localStorageFetchValue,
          localStorageToggleValue,
@@ -14,6 +15,11 @@ import { validStateEmail,
          existsInNestedObject,
          removeDuplicates,
          getTimeDistanceInWords,
+         formatDate,
+         focusById,
+         wrapForMultiSelect,
+         returnObjectsWherePropMatches,
+         numbersToPercentString,
        } from './utilities';
 
 describe('local storage', () => {
@@ -222,5 +228,96 @@ describe('distanceInWords', () => {
     expect(timeDistanceInWords).toBeDefined();
     // but we will test that it contains ' ago' since that is custom text we added in
     expect(timeDistanceInWords).toContain(' ago');
+  });
+});
+
+describe('formatDate', () => {
+  it('returns a properly formatted date', () => {
+    // how we expect the date from the API
+    const unformattedDate = '2017-01-15';
+    // converted date
+    const formattedDate = formatDate(unformattedDate);
+    // should be formatted using the default format
+    expect(formattedDate).toBe('1.15.2017');
+  });
+
+  it('returns a properly formatted date with a custom format', () => {
+    // how we expect the date from the API
+    const unformattedDate = '2017-01-01';
+    // converted date
+    const formattedDate = formatDate(unformattedDate, 'M-D-YYYY');
+    // should be formatted using the custom format
+    expect(formattedDate).toBe('1-1-2017');
+  });
+
+  it('returns null if no date is provided', () => {
+    expect(formatDate(null)).toBe(null);
+  });
+});
+
+describe('focusById', () => {
+  const focusSpy = sinon.spy();
+  it('can focus by ID', () => {
+    const elements = {
+      test: {
+        focus: focusSpy,
+      },
+    };
+    global.document.getElementById = id => elements[id];
+    focusById('test');
+    sinon.assert.calledOnce(focusSpy);
+  });
+});
+
+describe('wrapForMultiSelect', () => {
+  it('can convert properties', () => {
+    const options = [{ code: '100', description: 'one hundred' }, { code: '200', description: 'two hundred' }];
+    const wrappedOptions = wrapForMultiSelect(options, 'code', 'description');
+    expect(wrappedOptions).toBeDefined();
+    expect(wrappedOptions[0].value).toBe(options[0].code);
+    expect(wrappedOptions[0].label).toBe(options[0].description);
+    expect(wrappedOptions[1].value).toBe(options[1].code);
+    expect(wrappedOptions[1].label).toBe(options[1].description);
+  });
+});
+
+describe('returnObjectsWherePropMatches', () => {
+  it('can return objects in two arrays where a property matches in both arrays', () => {
+    const sourceArray = [
+      { code: '1', description: 'one' },
+      { code: '2', description: 'two' },
+    ];
+    const compareArray = [
+      { code: '2', description: 't-w-o', label: 'two' },
+      { code: '4', description: 'four' },
+      { code: '5', description: 'five' },
+    ];
+    const propToCheck = 'code';
+    const newArray = returnObjectsWherePropMatches(sourceArray, compareArray, propToCheck);
+    // only one code matches between the two arrays, the one where code === '2'
+    expect(newArray.length).toBe(1);
+    // the description should be the one from the first array
+    expect(newArray[0].description).toBe(sourceArray[1].description);
+    // no props from the second array should be used
+    expect(newArray[0].label).toBeUndefined();
+  });
+});
+
+describe('numbersToPercentString', () => {
+  let numerator = 2;
+  let denominator = 10;
+  let precision = 2;
+
+  it('can return a percent', () => {
+    const percent = numbersToPercentString(numerator, denominator, precision);
+    expect(percent).toBe('20%');
+  });
+
+  it('can return a percent with proper precision', () => {
+    numerator = 3;
+    denominator = 7;
+    precision = 4;
+    const percent = numbersToPercentString(numerator, denominator, precision);
+    expect(percent).toBe('42.86%');
   });
 });

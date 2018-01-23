@@ -94,16 +94,18 @@ export const HOME_PAGE_POSITIONS = PropTypes.shape({
   isHighlighted: POSITION_DETAILS_ARRAY,
 });
 
+export const FILTER = PropTypes.shape({
+  id: PropTypes.number,
+  code: PropTypes.string,
+  description: PropTypes.string,
+  long_description: PropTypes.string,
+  short_description: PropTypes.string,
+  effective_date: PropTypes.string,
+  isSelected: PropTypes.bool,
+});
+
 export const FILTERS = PropTypes.arrayOf(
-  PropTypes.shape({
-    id: PropTypes.number,
-    code: PropTypes.string,
-    description: PropTypes.string,
-    long_description: PropTypes.string,
-    short_description: PropTypes.string,
-    effective_date: PropTypes.string,
-    isSelected: PropTypes.bool,
-  }),
+  FILTER,
 );
 
 export const FILTER_META_DATA = PropTypes.shape({
@@ -159,7 +161,14 @@ export const FAVORITE_POSITION = PropTypes.shape({
 
 export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
 
-export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(PropTypes.string);
+export const USER_SKILL_CODE = PropTypes.shape({
+  id: PropTypes.number,
+  cone: PropTypes.string,
+  code: PropTypes.string,
+  description: PropTypes.string,
+});
+
+export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(USER_SKILL_CODE);
 
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
@@ -407,4 +416,35 @@ export const PREVENT_DEFAULT = (e) => { e.preventDefault(); };
 export const PROFILE_MENU_SECTION_EXPANDED = PropTypes.shape({
   title: PropTypes.string,
   display: PropTypes.bool,
+});
+
+export const GLOSSARY_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  title: PropTypes.string,
+  definition: PropTypes.string,
+  link: PropTypes.string,
+});
+
+export const GLOSSARY_ARRAY = PropTypes.arrayOf(GLOSSARY_OBJECT);
+
+export const GLOSSARY_LIST = PropTypes.shape({
+  ...PAGINATION_PROPS,
+  results: GLOSSARY_ARRAY,
+});
+
+export const BID_STATISTICS_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  name: PropTypes.string,
+  cycle_start_date: PropTypes.string,
+  cycle_deadline_date: PropTypes.string,
+  cycle_end_date: PropTypes.string,
+  total_positions: PropTypes.number,
+  available_positions: PropTypes.number,
+  available_domestic_positions: PropTypes.number,
+  available_international_positions: PropTypes.number,
+  total_bids: PropTypes.number,
+  total_bidders: PropTypes.number,
+  in_panel_bidders: PropTypes.number,
+  approved_bidders: PropTypes.number,
+  bidding_days_remaining: PropTypes.number,
 });

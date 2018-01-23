@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidStatListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bid-stat-card-list"
+>
+  <BidStatCard
+    number={240}
+    title="Positions Available"
+  />
+  <BidStatCard
+    number="4.38%"
+    title="Positions Filled"
+  />
+  <BidStatCard
+    number={159}
+    title="International Positions"
+  />
+  <BidStatCard
+    number={30}
+    title="Bidding days remaining"
+  />
+</div>
+`;

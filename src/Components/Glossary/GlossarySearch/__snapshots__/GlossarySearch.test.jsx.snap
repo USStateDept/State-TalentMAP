@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryComponent matches snapshot 1`] = `
+<FieldSet
+  className="glossary-fieldset"
+  legend="Enter a keyword to search"
+  legendSrOnly={true}
+>
+  <TextInput
+    changeText={[Function]}
+    id="glossary-search"
+    label="Search terms"
+    labelMessage=""
+    labelSrOnly={false}
+    placeholder="Search for terms"
+    value="test"
+  />
+  <div
+    className="glossary-search-sub"
+  >
+    Examples: post, tour of duty
+  </div>
+</FieldSet>
+`;

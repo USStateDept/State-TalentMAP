@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Accordion from '../../Accordion/Accordion';
-import AccordionItem from '../../Accordion/AccordionItem/AccordionItem';
+import Accordion, { AccordionItem } from '../../Accordion';
 import SelectForm from '../../SelectForm/SelectForm';
 import { FILTER_ITEM, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import Proficiencies from '../../../Constants/Language';

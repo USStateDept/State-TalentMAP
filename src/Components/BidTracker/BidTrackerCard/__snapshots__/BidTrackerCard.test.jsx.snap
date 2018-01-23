@@ -19,6 +19,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
           "handshake_offered_date": "2017-12-20",
           "id": 3,
           "in_panel_date": "2017-12-20",
+          "is_priority": false,
           "position": Object {
             "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
             "create_date": "2015-08-05",
@@ -67,6 +68,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "handshake_offered_date": "2017-12-20",
             "id": 3,
             "in_panel_date": "2017-12-20",
+            "is_priority": false,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2015-08-05",
@@ -112,6 +114,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "handshake_offered_date": "2017-12-20",
             "id": 3,
             "in_panel_date": "2017-12-20",
+            "is_priority": false,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2015-08-05",
@@ -177,9 +180,19 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
               "last_name": "Shadtrach",
             },
             "is_cdo": false,
-            "skill_code": Array [
-              "INFORMATION MANAGEMENT (2880)",
-              "ADMINISTRATIVE SUPPORT (2080)",
+            "skills": Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+              Object {
+                "code": "6211",
+                "cone": null,
+                "description": "COMPUTER SCIENCE",
+                "id": 40,
+              },
             ],
             "user": Object {
               "email": "doej@state.gov",
