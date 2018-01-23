@@ -8,8 +8,9 @@ exports[`BidderPortfolioViewMoreComponent matches snapshot 1`] = `
   >
     <button
       className="unstyled-button"
+      onClick={[Function]}
     >
-      View More
+      View profile
     </button>
   </div>
 </div>

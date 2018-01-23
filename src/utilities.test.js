@@ -20,6 +20,8 @@ import { validStateEmail,
          wrapForMultiSelect,
          returnObjectsWherePropMatches,
          numbersToPercentString,
+         formatBidTitle,
+         formatWaiverTitle,
        } from './utilities';
 
 describe('local storage', () => {
@@ -324,5 +326,27 @@ describe('numbersToPercentString', () => {
     precision = 4;
     const percent = numbersToPercentString(numerator, denominator, precision, false);
     expect(percent).toBe('42.86%');
+  });
+});
+
+describe('formatBidTitle', () => {
+  it('can format a bid title', () => {
+    const bid = {
+      position: {
+        position_number: '0AA',
+        title: 'Title',
+      },
+    };
+    expect(formatBidTitle(bid)).toBeDefined();
+  });
+});
+
+describe('formatWaiverTitle', () => {
+  it('can format a bid title', () => {
+    const waiver = {
+      position: 'Position',
+      category: 'category',
+    };
+    expect(formatWaiverTitle(waiver)).toBeDefined();
   });
 });

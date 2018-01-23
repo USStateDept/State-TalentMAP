@@ -265,3 +265,7 @@ export const numbersToPercentString = (numerator, denominator, precision = 3, in
   if (inverse) { percentage = formatFraction((denominator - numerator) / denominator); }
   return `${percentage}%`;
 };
+
+export const formatBidTitle = bid => `${bid.position.title} (${bid.position.position_number})`;
+
+export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.category.toUpperCase()}`;

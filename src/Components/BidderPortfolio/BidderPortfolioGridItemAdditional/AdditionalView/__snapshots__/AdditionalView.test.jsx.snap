@@ -11,7 +11,35 @@ exports[`AdditionalViewComponent matches snapshot 1`] = `
       className="usa-width-one-third bidder-portfolio-additional-section"
     >
       <PositionInformation
-        assignment={Object {}}
+        assignment={
+          Object {
+            "arrival_date": null,
+            "bid_approval_date": "1975-01-01T00:00:00Z",
+            "combined_differential": 0,
+            "create_date": "2018-01-12T15:11:37.521934Z",
+            "curtailment_reason": null,
+            "end_date": null,
+            "estimated_end_date": "2019-01-12T00:00:00Z",
+            "id": 5,
+            "is_domestic": false,
+            "position": Object {
+              "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
+              "position_number": "58312265",
+              "post": Object {
+                "location": "Guatemala, Guatemala",
+              },
+              "skill": "CONSTRUCTION ENGINEERING (6218)",
+              "title": "PROJECT DIRECTOR",
+            },
+            "service_duration": null,
+            "standard_tod_months": 0,
+            "start_date": "2018-01-12T00:00:00Z",
+            "status": "active",
+            "tour_of_duty": "1 YR (3 R & R)",
+            "update_date": "2018-01-12T15:12:01.013500Z",
+            "user": "Kara Batisak",
+          }
+        }
       />
     </div>
     <div
@@ -23,9 +51,12 @@ exports[`AdditionalViewComponent matches snapshot 1`] = `
         <BidderPortfolioGridItemAdditional
           items={
             Array [
-              "Waiver 1",
-              "Waiver 2",
-              "Waiver 3",
+              "[57159000] SPECIAL AGENT (Dar Es Salaam, Tanzania) - FAIRSHARE",
+              "[00180000] OMS (DCM) (Addis Ababa, Ethiopia) - SIX_EIGHT",
+              "[55239000] INFORMATION MANAGEMENT OFFICER (Monrovia, Liberia) - LANGUAGE",
+              "[55004008] INFORMATION MANAGEMENT SPEC (Brazzaville, Congo (Brazzaville)) - FAIRSHARE",
+              "[55152007] INFORMATION SYSTEMS OFFICER (Maputo, Mozambique) - LANGUAGE",
+              "[55102864] INFORMATION MANAGEMENT SPEC (Addis Ababa, Ethiopia) - FAIRSHARE",
             ]
           }
           title="Waiver History"
@@ -37,9 +68,7 @@ exports[`AdditionalViewComponent matches snapshot 1`] = `
         <BidderPortfolioGridItemAdditional
           items={
             Array [
-              "Draft Bid 1",
-              "Draft Bid 2",
-              "Draft Bid 3",
+              "ASST REGIONAL SECURITY OFCR (56036920)",
             ]
           }
           title="Draft Bids"
@@ -51,9 +80,7 @@ exports[`AdditionalViewComponent matches snapshot 1`] = `
         <BidderPortfolioGridItemAdditional
           items={
             Array [
-              "Submitted Bid 1",
-              "Submitted Bid 2",
-              "Submitted Bid 3",
+              "INFORMATION MANAGEMENT SPEC (55004008)",
             ]
           }
           title="Submitted Bids"

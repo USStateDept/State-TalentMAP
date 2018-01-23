@@ -463,3 +463,21 @@ export const BID_STATISTICS_OBJECT = PropTypes.shape({
   approved_bidders: PropTypes.number,
   bidding_days_remaining: PropTypes.number,
 });
+
+export const CLIENT_BY_ID = PropTypes.shape({
+  id: PropTypes.number,
+  current_assignment: ASSIGNMENT_OBJECT,
+  skills: USER_SKILL_CODE_ARRAY,
+  grade: PropTypes.string,
+  is_cdo: PropTypes.bool,
+  primary_nationality: PropTypes.string,
+  secondary_nationality: PropTypes.string,
+  bid_statistics: PropTypes.arrayOf(BID_STATISTICS_OBJECT),
+  user: PropTypes.shape({
+    username: PropTypes.string,
+    email: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+  }),
+  language_qualifications: LANGUAGES,
+});

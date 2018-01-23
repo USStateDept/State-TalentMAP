@@ -9,7 +9,14 @@ import StaticDevContent from '../../StaticDevContent';
 
 const PositionInformation = ({ assignment }) => {
   const assignmentStartDate = assignment.start_date ? formatDate(assignment.start_date) : false;
-  const assignmentEndDate = assignment.end_date ? formatDate(assignment.estimated_end_date) : false;
+  const isActive = assignment.status === 'active';
+  let assignmentEndDate;
+  if (isActive) {
+    assignmentEndDate = assignment.estimated_end_date ?
+      formatDate(assignment.estimated_end_date) : '';
+  } else {
+    assignmentEndDate = assignment.end_date ? formatDate(assignment.end_date) : '';
+  }
   return (
     <div className="usa-grid-full">
       <div className="section-padded-inner-container">

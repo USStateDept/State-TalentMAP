@@ -65,6 +65,17 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
           "first_name": "Leah",
           "last_name": "Shadtrach",
         },
+        "favorite_positions": Array [
+          Object {
+            "id": 1,
+            "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+          },
+          Object {
+            "id": 4,
+            "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+          },
+        ],
+        "id": 1,
         "is_cdo": false,
         "skills": Array [
           Object {
@@ -150,6 +161,17 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
           "first_name": "Leah",
           "last_name": "Shadtrach",
         },
+        "favorite_positions": Array [
+          Object {
+            "id": 1,
+            "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+          },
+          Object {
+            "id": 4,
+            "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+          },
+        ],
+        "id": 1,
         "is_cdo": false,
         "skills": Array [
           Object {
@@ -235,6 +257,17 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
           "first_name": "Leah",
           "last_name": "Shadtrach",
         },
+        "favorite_positions": Array [
+          Object {
+            "id": 1,
+            "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+          },
+          Object {
+            "id": 4,
+            "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+          },
+        ],
+        "id": 1,
         "is_cdo": false,
         "skills": Array [
           Object {

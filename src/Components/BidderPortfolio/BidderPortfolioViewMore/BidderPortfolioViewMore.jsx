@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 const BidderPortfolioViewMore = ({ className, useLink, onClick, isExpanded }) => {
-  const text = isExpanded ? 'Hide' : 'View More';
+  const text = isExpanded ? 'Close' : 'View profile';
   const link = '/profile/dashboard/';
   return (
     <div>
@@ -31,13 +32,15 @@ const BidderPortfolioViewMore = ({ className, useLink, onClick, isExpanded }) =>
 BidderPortfolioViewMore.propTypes = {
   className: PropTypes.string,
   useLink: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
-  isExpanded: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
+  isExpanded: PropTypes.bool,
 };
 
 BidderPortfolioViewMore.defaultProps = {
   className: 'unstyled-button',
   useLink: false,
+  onClick: EMPTY_FUNCTION,
+  isExpanded: false,
 };
 
 export default BidderPortfolioViewMore;

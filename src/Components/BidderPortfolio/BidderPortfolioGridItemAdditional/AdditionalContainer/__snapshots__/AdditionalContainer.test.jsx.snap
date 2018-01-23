@@ -3,6 +3,7 @@
 exports[`AdditionalContainerComponent matches snapshot 1`] = `
 <AdditionalView
   client={Object {}}
+  hasErrored={false}
   isLoading={true}
 />
 `;

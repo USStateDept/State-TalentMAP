@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AdditionalView from '../AdditionalView';
-import fetchClient from '../../../../actions/client';
+import { fetchAllClientData } from '../../../../actions/client';
 
 class BidderPortfolioGridItemAdditional extends Component {
   constructor(props) {
@@ -25,19 +25,25 @@ class BidderPortfolioGridItemAdditional extends Component {
     this.setState({ hasErrored: { value: false } });
     Promise.resolve(clientPromise)
       .then((client) => {
-        this.setState({ client: { value: client } });
-        this.setState({ isLoading: { value: false } });
-        this.setState({ hasErrored: { value: false } });
-      })
-      .catch(() => {
-        this.setState({ isLoading: { value: false } });
-        this.setState({ hasErrored: { value: true } });
+        if (client instanceof Error) {
+          this.setState({ isLoading: { value: false }, hasErrored: { value: true } });
+        } else {
+          this.setState({
+            client: { value: client },
+            isLoading: { value: false },
+            hasErrored: { value: false },
+          });
+        }
       });
   }
   render() {
-    const { client, isLoading } = this.state;
+    const { client, isLoading, hasErrored } = this.state;
     return (
-      <AdditionalView client={client.value} isLoading={isLoading.value} />
+      <AdditionalView
+        client={client.value}
+        isLoading={isLoading.value}
+        hasErrored={hasErrored.value}
+      />
     );
   }
 }
@@ -48,7 +54,7 @@ BidderPortfolioGridItemAdditional.propTypes = {
 };
 
 BidderPortfolioGridItemAdditional.defaultProps = {
-  getClient: fetchClient,
+  getClient: fetchAllClientData,
 };
 
 export default BidderPortfolioGridItemAdditional;

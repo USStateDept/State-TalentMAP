@@ -2,10 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import AdditionalView from './AdditionalView';
+import { clientObject, clientWaivers, clientBids } from '../../../../__mocks__/client';
 
 describe('AdditionalViewComponent', () => {
   const props = {
-    client: {},
+    client: { ...clientObject, waivers: clientWaivers.results, bids: clientBids.results },
     isLoading: false,
   };
   it('is defined', () => {
