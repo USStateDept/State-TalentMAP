@@ -2,14 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { NO_LAST_UPDATED_DATE, NO_BID_CYCLE } from '../../Constants/SystemMessages';
 import Favorite from '../Favorite/Favorite';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import ResultsCardDataSection from '../ResultsCardDataSection/ResultsCardDataSection';
 import BidCount from '../BidCount';
+import { formatDate } from '../../utilities';
 
 const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
   const shouldShowBidStats = !!result.bid_statistics && !!result.bid_statistics[0];
+  const postedDate = result.description && result.description.date_created ?
+    formatDate(result.description.date_created) : NO_LAST_UPDATED_DATE;
+  const bidCycle = result.bid_statistics && result.bid_statistics.length ?
+    result.bid_statistics[0].bidcycle : NO_BID_CYCLE;
   return (
     <div id={result.id} className="usa-grid-full results-card">
       <div className="usa-grid-full">
@@ -33,29 +39,39 @@ const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
         <ResultsCardDataSection result={result} />
       </div>
       <div className="usa-width-one-whole bottom-section" >
-        <div className="button-link details-button-container">
-          <Link
-            className="usa-button usa-button-primary details-button"
-            type="submit"
-            role="button"
-            to={`/details/${result.position_number}`}
-          >
-            View details
-          </Link>
+        <div className="usa-grid-full">
+          <div className="button-link details-button-container">
+            <Link
+              className="usa-button usa-button-primary details-button"
+              type="submit"
+              role="button"
+              to={`/details/${result.position_number}`}
+            >
+              View details
+            </Link>
+          </div>
+          <div className="compare-check">
+            <CompareCheck refKey={result.position_number} onToggle={onToggle} />
+          </div>
+          <div className="bid-count-container">
+            {
+              shouldShowBidStats &&
+                <BidCount
+                  totalBids={result.bid_statistics[0].total_bids}
+                  inGradeBids={result.bid_statistics[0].in_grade}
+                  atSkillBids={result.bid_statistics[0].at_skill}
+                  inGradeAtSkillBids={result.bid_statistics[0].in_grade_at_skill}
+                />
+            }
+          </div>
         </div>
-        <div className="compare-check">
-          <CompareCheck refKey={result.position_number} onToggle={onToggle} />
-        </div>
-        <div className="bid-count-container">
-          {
-            shouldShowBidStats &&
-              <BidCount
-                totalBids={result.bid_statistics[0].total_bids}
-                inGradeBids={result.bid_statistics[0].in_grade}
-                atSkillBids={result.bid_statistics[0].at_skill}
-                inGradeAtSkillBids={result.bid_statistics[0].in_grade_at_skill}
-              />
-          }
+        <div className="usa-grid-full bid-cycle-container">
+          <div className="bid-cycle-container-section">
+            Date Posted: {postedDate}
+          </div>
+          <div className="bid-cycle-container-section">
+            Bid Cycle: {bidCycle}
+          </div>
         </div>
       </div>
     </div>
