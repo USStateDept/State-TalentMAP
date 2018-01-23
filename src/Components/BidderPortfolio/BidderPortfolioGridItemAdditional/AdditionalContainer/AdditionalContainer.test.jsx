@@ -6,6 +6,7 @@ import AdditionalContainer from './AdditionalContainer';
 describe('AdditionalContainerComponent', () => {
   const props = {
     clientId: 1,
+    getClient: () => ({ id: 3 }),
   };
   it('is defined', () => {
     const wrapper = shallow(
@@ -13,6 +14,20 @@ describe('AdditionalContainerComponent', () => {
         {...props}
       />);
     expect(wrapper).toBeDefined();
+  });
+
+  it('correctly sets state when getClient is successful', (done) => {
+    const wrapper = shallow(
+      <AdditionalContainer
+        {...props}
+      />);
+    const f = () => {
+      setTimeout(() => {
+        expect(wrapper.instance().state.client.value.id).toBe(3);
+        done();
+      }, 0);
+    };
+    f();
   });
 
   it('matches snapshot', () => {

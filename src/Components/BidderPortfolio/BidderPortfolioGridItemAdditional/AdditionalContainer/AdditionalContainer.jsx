@@ -19,8 +19,8 @@ class BidderPortfolioGridItemAdditional extends Component {
   // we don't use redux to maintain state and simply store it in the component's
   // state.
   fetchClient() {
-    const { clientId } = this.props;
-    const clientPromise = fetchClient(clientId);
+    const { clientId, getClient } = this.props;
+    const clientPromise = getClient(clientId);
     this.setState({ isLoading: { value: true } });
     this.setState({ hasErrored: { value: false } });
     Promise.resolve(clientPromise)
@@ -44,6 +44,11 @@ class BidderPortfolioGridItemAdditional extends Component {
 
 BidderPortfolioGridItemAdditional.propTypes = {
   clientId: PropTypes.number.isRequired,
+  getClient: PropTypes.func.isRequired, // set this as a prop to make testing easier
+};
+
+BidderPortfolioGridItemAdditional.defaultProps = {
+  getClient: fetchClient,
 };
 
 export default BidderPortfolioGridItemAdditional;
