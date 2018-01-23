@@ -15,6 +15,9 @@ class BidderPortfolioGridItemAdditional extends Component {
   componentWillMount() {
     this.fetchClient();
   }
+  // Since displaying each set of additional details is a one-off request,
+  // we don't use redux to maintain state and simply store it in the component's
+  // state.
   fetchClient() {
     const { clientId } = this.props;
     const clientPromise = fetchClient(clientId);
