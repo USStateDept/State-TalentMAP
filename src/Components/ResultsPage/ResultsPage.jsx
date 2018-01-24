@@ -48,7 +48,7 @@ class Results extends Component {
             defaultLocation={defaultLocation}
           />
         }
-        <div className="usa-grid-full top-nav">
+        <div className="usa-grid-full top-nav padded-main-content">
           <div className="usa-width-one-third reset-compare-link">
             <ResetComparisons onToggle={this.onChildToggle} />
           </div>
@@ -56,7 +56,7 @@ class Results extends Component {
             <ViewComparisonLink onToggle={this.onChildToggle} />
           </div>
         </div>
-        <div className="usa-grid-full results-section-container">
+        <div className="usa-grid-full results-section-container padded-main-content">
           <ResultsFilterContainer
             filters={filters}
             onQueryParamUpdate={onQueryParamUpdate}
