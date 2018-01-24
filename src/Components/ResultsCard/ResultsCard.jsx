@@ -67,10 +67,10 @@ const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
         </div>
         <div className="usa-grid-full bid-cycle-container">
           <div className="bid-cycle-container-section">
-            Date Posted: {postedDate}
+            <strong>Date Posted:</strong> {postedDate}
           </div>
           <div className="bid-cycle-container-section">
-            Bid Cycle: {bidCycle}
+            <strong>Bid Cycle:</strong> {bidCycle}
           </div>
         </div>
       </div>

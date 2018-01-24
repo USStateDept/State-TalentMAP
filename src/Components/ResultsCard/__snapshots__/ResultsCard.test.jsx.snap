@@ -135,13 +135,19 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
       <div
         className="bid-cycle-container-section"
       >
-        Date Posted: 
+        <strong>
+          Date Posted:
+        </strong>
+         
         1.12.2018
       </div>
       <div
         className="bid-cycle-container-section"
       >
-        Bid Cycle: 
+        <strong>
+          Bid Cycle:
+        </strong>
+         
         Demo BidCycle 2018-01-12 15:11:38.004793
       </div>
     </div>
