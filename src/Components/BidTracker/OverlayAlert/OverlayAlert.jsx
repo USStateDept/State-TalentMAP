@@ -54,7 +54,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid }) => {
       overlayClass = CLASS_CLOSED;
       overlayContent = <ClosedAlert title={BID_TITLE} date={bid.closed_date} />;
       break;
-    // TODO - are we using the right information from the API for the status and date?
     case PANEL_RESCHEDULED_PROP:
       overlayClass = CLASS_PENDING;
       overlayContent = <PanelRescheduledAlert date={bid.scheduled_panel_date} />;
