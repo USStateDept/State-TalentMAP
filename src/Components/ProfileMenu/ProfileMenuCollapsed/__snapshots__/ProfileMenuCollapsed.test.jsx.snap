@@ -10,6 +10,7 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
     <button
       className="unstyled-button"
       onClick={[Function]}
+      title="Expand menu"
     >
       <FontAwesome
         name="exchange"
