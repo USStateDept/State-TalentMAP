@@ -23,6 +23,8 @@ class BidderPortfolioGridItem extends Component {
   render() {
     const { userProfile } = this.props;
     const { expanded } = this.state;
+    /* Object [0] should be the most recent. If undefined, use 0 for draft and submitted. */
+    const latestBidStatistics = userProfile.bid_statistics[0] || { draft: 0, submitted: 0 };
     return (
       <div className="bidder-portfolio-grid-item-container">
         <div className="usa-grid-full current-user bidder-portfolio-grid-item">
@@ -46,10 +48,8 @@ class BidderPortfolioGridItem extends Component {
           </div>
           <div className="usa-width-one-fourth grid-item-section">
             <UserProfileBidInformation
-              /* Object [0] should be the most recent. If undefined, use 0. */
-              draft={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].draft : 0}
-              submitted={userProfile.bid_statistics[0]
-                ? userProfile.bid_statistics[0].submitted : 0}
+              draft={latestBidStatistics.draft}
+              submitted={latestBidStatistics.submitted}
             />
           </div>
           <div className="usa-width-one-fourth grid-item-section">

@@ -8,7 +8,6 @@ import { CLIENT_BY_ID } from '../../../../Constants/PropTypes';
 import { formatBidTitle, formatWaiverTitle } from '../../../../utilities';
 import { DRAFT_PROP, SUBMITTED_PROP } from '../../../../Constants/BidData';
 
-// eslint-disable-next-line
 const AdditionalView = ({ client, isLoading, hasErrored }) => {
   const showAlert = !isLoading && hasErrored;
   const showLoading = isLoading && !hasErrored;
@@ -76,10 +75,12 @@ const AdditionalView = ({ client, isLoading, hasErrored }) => {
 AdditionalView.propTypes = {
   client: CLIENT_BY_ID.isRequired,
   isLoading: PropTypes.bool,
+  hasErrored: PropTypes.bool,
 };
 
 AdditionalView.defaultProps = {
   isLoading: false,
+  hasErrored: false,
 };
 
 export default AdditionalView;

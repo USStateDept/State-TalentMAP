@@ -170,15 +170,17 @@ export const USER_SKILL_CODE = PropTypes.shape({
 
 export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(USER_SKILL_CODE);
 
+export const USER_NESTED_OBJECT = PropTypes.shape({
+  username: PropTypes.string,
+  email: PropTypes.string,
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+});
+
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    email: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-  }),
+  user: USER_NESTED_OBJECT,
   is_cdo: PropTypes.bool,
   languages: LANGUAGE_QUALIFICATIONS,
   favorite_positions: FAVORITE_POSITIONS_ARRAY,
@@ -390,12 +392,7 @@ export const BIDDER_OBJECT = PropTypes.shape(
     secondary_nationality: PropTypes.string,
     date_of_birth: PropTypes.string,
     phone_number: PropTypes.string,
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string,
-    }),
+    user: USER_NESTED_OBJECT,
     languages: LANGUAGE_QUALIFICATIONS,
     favorite_positions: FAVORITE_POSITIONS_ARRAY,
     received_shares: PropTypes.arrayOf(PropTypes.number),
@@ -473,11 +470,6 @@ export const CLIENT_BY_ID = PropTypes.shape({
   primary_nationality: PropTypes.string,
   secondary_nationality: PropTypes.string,
   bid_statistics: PropTypes.arrayOf(BID_STATISTICS_OBJECT),
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    email: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-  }),
+  user: USER_NESTED_OBJECT,
   language_qualifications: LANGUAGES,
 });

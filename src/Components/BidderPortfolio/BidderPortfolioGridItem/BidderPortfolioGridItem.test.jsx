@@ -10,10 +10,16 @@ describe('BidderPortfolioGridItemComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can set expanded state to true with the expandSection function', () => {
+  it('can set expanded state to true and then false with the expandSection function', () => {
     const wrapper = shallow(<BidderPortfolioGridItem userProfile={bidderUserObject} />);
+    // should start out as false
+    expect(wrapper.instance().state.expanded.value).toBe(false);
     wrapper.instance().expandSection();
+    // should change to true
     expect(wrapper.instance().state.expanded.value).toBe(true);
+    wrapper.instance().expandSection();
+    // should change back to false
+    expect(wrapper.instance().state.expanded.value).toBe(false);
   });
 
   it('matches snapshot', () => {
