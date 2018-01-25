@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Loadable from 'react-loadable';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
-import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
          SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
@@ -11,6 +11,11 @@ import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 import SaveNewSearchContainer from '../SaveNewSearchContainer';
 import SaveNewSearchAlert from '../SaveNewSearchAlert';
 import Dismiss from '../Dismiss';
+
+const ResultsList = Loadable({
+  loader: () => System.import('../ResultsList/ResultsList'),
+  loading: () => null,
+});
 
 class ResultsContainer extends Component {
   constructor(props) {

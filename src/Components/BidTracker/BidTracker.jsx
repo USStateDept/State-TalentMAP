@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Loadable from 'react-loadable';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
-import BidTrackerCardList from './BidTrackerCardList';
 import Spinner from '../Spinner';
 import NotificationsSection from './NotificationsSection';
 import ContactCDOButton from './ContactCDOButton';
+
+const BidTrackerCardList = Loadable({
+  loader: () => System.import('./BidTrackerCardList'),
+  loading: () => null,
+});
 
 const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid,
 notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
@@ -36,14 +41,12 @@ userProfileIsLoading }) => {
         {
           isLoading ?
             <Spinner type="homepage-position-results" size="big" /> :
-            <div className="usa-grid-full">
-              <BidTrackerCardList
-                bids={bidList.results}
-                acceptBid={acceptBid}
-                declineBid={declineBid}
-                userProfile={userProfile}
-              />
-            </div>
+            <BidTrackerCardList
+              bids={bidList.results}
+              acceptBid={acceptBid}
+              declineBid={declineBid}
+              userProfile={userProfile}
+            />
         }
       </div>
     </div>

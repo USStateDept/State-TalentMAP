@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Loadable from 'react-loadable';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
-import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
 import BidControls from '../BidControls';
 import BidderPortfolioSearch from '../BidderPortfolioSearch';
+
+const BidderPortfolioContainer = Loadable({
+  loader: () => System.import('../BidderPortfolioContainer'),
+  loading: () => null,
+});
 
 class BidderPortfolioPage extends Component {
   constructor(props) {
