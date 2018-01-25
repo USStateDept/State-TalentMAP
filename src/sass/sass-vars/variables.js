@@ -1,5 +1,5 @@
-// Our responsive breakpoint variables
 module.exports = {
+  // Our responsive breakpoint variables
   screenSmMinNum: 600,
   get 'screen-sm-min'() { return `${this.screenSmMinNum}px`; },
 
@@ -17,4 +17,8 @@ module.exports = {
 
   get screenMdMaxNum() { return this.screenLgMinNum - 1; },
   get 'screen-md-max'() { return `${this.screenMdMaxNum}px`; },
+
+  // Set our asset path. This is similar to getAssetPath in utilities, but
+  // we wrap the environment variable in quotes so it can be used in .scss files.
+  'asset-path': process.env.PUBLIC_URL ? `"${process.env.PUBLIC_URL}"` : '""',
 };
