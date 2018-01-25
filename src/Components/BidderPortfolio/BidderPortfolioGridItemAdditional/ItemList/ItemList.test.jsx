@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import ItemList from './ItemList';
 
-describe('ItemListingComponent', () => {
+describe('ItemListComponent', () => {
   const props = {
     title: 'Bid List',
     items: ['Bid 1', 'Bid 2', 'Bid 3'],

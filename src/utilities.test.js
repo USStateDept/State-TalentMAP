@@ -337,7 +337,8 @@ describe('formatBidTitle', () => {
         title: 'Title',
       },
     };
-    expect(formatBidTitle(bid)).toBeDefined();
+    const expected = 'Title (0AA)';
+    expect(formatBidTitle(bid)).toBe(expected);
   });
 });
 
@@ -347,6 +348,7 @@ describe('formatWaiverTitle', () => {
       position: 'Position',
       category: 'category',
     };
-    expect(formatWaiverTitle(waiver)).toBeDefined();
+    const expected = 'Position - CATEGORY';
+    expect(formatWaiverTitle(waiver)).toBe(expected);
   });
 });
