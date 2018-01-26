@@ -12,12 +12,12 @@ class BidderPortfolioGridItem extends Component {
     super(props);
     this.expandSection = this.expandSection.bind(this);
     this.state = {
-      expanded: { value: false },
+      expanded: false,
     };
   }
   expandSection() {
     this.setState({
-      expanded: { value: !this.state.expanded.value },
+      expanded: !this.state.expanded,
     });
   }
   render() {
@@ -56,12 +56,12 @@ class BidderPortfolioGridItem extends Component {
             <BidderPortfolioViewMore
               className="tm-button-alt"
               onClick={this.expandSection}
-              isExpanded={expanded.value}
+              isExpanded={expanded}
             />
           </div>
         </div>
         {
-          expanded.value &&
+          expanded &&
             <BidderPortfolioGridItemAdditional clientId={userProfile.id} />
         }
       </div>

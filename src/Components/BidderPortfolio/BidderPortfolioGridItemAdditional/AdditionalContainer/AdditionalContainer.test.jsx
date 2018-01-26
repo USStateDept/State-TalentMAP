@@ -23,7 +23,7 @@ describe('AdditionalContainerComponent', () => {
       />);
     const f = () => {
       setTimeout(() => {
-        expect(wrapper.instance().state.client.value.id).toBe(3);
+        expect(wrapper.instance().state.client.id).toBe(3);
         done();
       }, 0);
     };

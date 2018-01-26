@@ -7,9 +7,9 @@ class BidderPortfolioGridItemAdditional extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      client: { value: {} },
-      isLoading: { value: false },
-      hasErrored: { value: false },
+      client: {},
+      isLoading: false,
+      hasErrored: false,
     };
   }
   componentWillMount() {
@@ -21,17 +21,16 @@ class BidderPortfolioGridItemAdditional extends Component {
   fetchClient() {
     const { clientId, getClient } = this.props;
     const clientPromise = getClient(clientId);
-    this.setState({ isLoading: { value: true } });
-    this.setState({ hasErrored: { value: false } });
+    this.setState({ isLoading: true, hasErrored: false });
     Promise.resolve(clientPromise)
       .then((client) => {
         if (client instanceof Error) {
-          this.setState({ isLoading: { value: false }, hasErrored: { value: true } });
+          this.setState({ isLoading: false, hasErrored: true });
         } else {
           this.setState({
-            client: { value: client },
-            isLoading: { value: false },
-            hasErrored: { value: false },
+            client,
+            isLoading: false,
+            hasErrored: false,
           });
         }
       });
@@ -40,9 +39,9 @@ class BidderPortfolioGridItemAdditional extends Component {
     const { client, isLoading, hasErrored } = this.state;
     return (
       <AdditionalView
-        client={client.value}
-        isLoading={isLoading.value}
-        hasErrored={hasErrored.value}
+        client={client}
+        isLoading={isLoading}
+        hasErrored={hasErrored}
       />
     );
   }
