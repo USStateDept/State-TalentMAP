@@ -79,6 +79,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
       >
         <AccountDropdown
           logoutRequest={[Function]}
+          shouldDisplayName={false}
           userProfile={
             Object {
               "bid_statistics": Array [
