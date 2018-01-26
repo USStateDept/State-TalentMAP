@@ -23,7 +23,8 @@ export class AccountDropdown extends Component {
   }
 
   render() {
-    const firstName = this.props.userProfile.user ? this.props.userProfile.user.first_name : '...';
+    const { shouldDisplayName, userProfile } = this.props;
+    const firstName = userProfile.user ? userProfile.user.first_name : '...';
     const avatar = getAssetPath('/assets/img/avatar.png');
     return (
       <Dropdown
@@ -37,17 +38,24 @@ export class AccountDropdown extends Component {
             className="account-dropdown--avatar"
             src={avatar}
           />
-          <span className="account-dropdown--name" id="account-username">{firstName}</span>
+          {
+            shouldDisplayName &&
+              <span className="account-dropdown--name" id="account-username">{firstName}</span>
+          }
         </DropdownTrigger>
         <DropdownContent>
           <div className="account-dropdown--identity account-dropdown--segment">
             <div>Signed in as</div>
             <strong>{firstName}</strong>
           </div>
-          <div className="account-dropdown--identity account-dropdown--segment">
+          <div
+            className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+          >
             <Link to="/profile/dashboard" onClick={this.hideDropdown}>Profile</Link>
           </div>
-          <div className="account-dropdown--identity account-dropdown--segment">
+          <div
+            className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+          >
             <Link to="/login" onClick={this.logout}>Logout</Link>
           </div>
         </DropdownContent>
@@ -59,11 +67,13 @@ export class AccountDropdown extends Component {
 AccountDropdown.propTypes = {
   logoutRequest: PropTypes.func,
   userProfile: USER_PROFILE,
+  shouldDisplayName: PropTypes.bool,
 };
 
 AccountDropdown.defaultProps = {
   logoutRequest: EMPTY_FUNCTION,
   userProfile: {},
+  shouldDisplayName: false,
 };
 
 export default AccountDropdown;

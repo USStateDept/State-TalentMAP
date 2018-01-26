@@ -9,7 +9,8 @@
 
 .dropdown__content {
   display: none;
-  min-width: 100px;
+  left: -80px;
+  min-width: 160px;
   position: absolute;
   z-index: $dropdown-content-z;
 }
@@ -25,6 +26,19 @@
   width: 20px;
 }
 
+.account-dropdown-link:hover {
+  background: $blue-primary;
+  color: $color-white;
+  padding: 0;
+
+  a {
+    color: $color-white;
+    display: block;
+    padding: 10px 15px;
+    width: 100%;
+  }
+}
+
 .account-dropdown .dropdown__trigger {
   line-height: 20px;
   padding: 10px 0;
@@ -32,7 +46,7 @@
 
 .account-dropdown .dropdown__trigger::after {
   content: '\25BE';
-  margin: 0 0 0 10px;
+  margin: 0 0 0 5px;
 }
 
 .account-dropdown--avatar,
