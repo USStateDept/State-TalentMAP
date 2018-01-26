@@ -5,7 +5,6 @@ import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE, NO_SKILL, NO_BUREAU } from 
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import StartEnd from './StartEnd';
-import StaticDevContent from '../../StaticDevContent';
 
 const PositionInformation = ({ assignment }) => {
   const assignmentStartDate = assignment.start_date ? formatDate(assignment.start_date) : false;
@@ -45,15 +44,13 @@ const PositionInformation = ({ assignment }) => {
               ? assignment.position.title : NO_ASSIGNMENT_POSITION
           }
         />
-        <StaticDevContent>
-          <InformationDataPoint
-            title="Skill Code"
-            content={
-              assignment.position && assignment.position.skill
-                ? assignment.position.skill : NO_SKILL
-            }
-          />
-        </StaticDevContent>
+        <InformationDataPoint
+          title="Skill Code"
+          content={
+            assignment.position && assignment.position.skill
+              ? assignment.position.skill : NO_SKILL
+          }
+        />
       </div>
     </div>
   );
