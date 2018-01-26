@@ -6,7 +6,7 @@ import Spinner from '../Spinner';
 import NotificationsSection from './NotificationsSection';
 import ContactCDOButton from './ContactCDOButton';
 
-const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid,
+const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
 notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
 userProfileIsLoading }) => {
   const isLoading = bidListIsLoading || userProfileIsLoading;
@@ -41,6 +41,8 @@ userProfileIsLoading }) => {
                 bids={bidList.results}
                 acceptBid={acceptBid}
                 declineBid={declineBid}
+                submitBid={submitBid}
+                deleteBid={deleteBid}
                 userProfile={userProfile}
               />
             </div>
@@ -55,6 +57,8 @@ BidTracker.propTypes = {
   bidListIsLoading: PropTypes.bool.isRequired,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
+  submitBid: PropTypes.func.isRequired,
+  deleteBid: PropTypes.func.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
   markBidTrackerNotification: PropTypes.func.isRequired,
