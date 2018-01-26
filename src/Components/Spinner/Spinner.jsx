@@ -10,7 +10,7 @@ const Spinner = ({ type, size, color, filled, inverse }) => (
         `ds-c-spinner
         ${size ? `ds-c-spinner--${size}` : ''}
         ${filled ? 'ds-c-spinner--filled' : ''}
-        ${inverse ? 'ds-u-fill--background-inverse ds-u-color--base-inverse' : ''}
+        ${inverse ? 'tm-spinner-color-inverted' : ''}
         ${color ? `ds-u-color--${color}` : ''}`
       }
     />

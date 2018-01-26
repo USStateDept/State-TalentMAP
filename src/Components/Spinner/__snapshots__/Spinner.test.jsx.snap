@@ -36,7 +36,7 @@ exports[`Spinner can accept the inverse prop 1`] = `
     className="ds-c-spinner
         
         
-        ds-u-fill--background-inverse ds-u-color--base-inverse
+        tm-spinner-color-inverted
         "
   />
 </div>

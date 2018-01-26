@@ -67,7 +67,18 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       className="usa-grid-full"
     >
       <Favorite
-        compareArray={Array []}
+        compareArray={
+          Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+            },
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+            },
+          ]
+        }
         hasBorder={true}
         hideText={true}
         isLoading={false}
