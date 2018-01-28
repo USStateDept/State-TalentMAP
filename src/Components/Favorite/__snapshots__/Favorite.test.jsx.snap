@@ -14,7 +14,7 @@ exports[`Favorite matches snapshot - Add state 1`] = `
   title="Add to Favorites"
 >
   <FontAwesome
-    name="heart-o"
+    name="star-o"
   />
    
   Favorite
@@ -35,7 +35,7 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
   title="Remove from Favorites"
 >
   <FontAwesome
-    name="heart"
+    name="star"
   />
    
   Remove

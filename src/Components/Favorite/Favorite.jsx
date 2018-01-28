@@ -26,7 +26,7 @@ class Favorite extends Component {
   render() {
     const text = this.getSavedState() ? 'Remove' : 'Favorite';
     const title = this.getSavedState() ? 'Remove from Favorites' : 'Add to Favorites';
-    const iconClass = this.getSavedState() ? 'heart' : 'heart-o';
+    const iconClass = this.getSavedState() ? 'star' : 'star-o';
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
