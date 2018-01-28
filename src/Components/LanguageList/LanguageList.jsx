@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NO_LANGUAGES } from '../../Constants/SystemMessages';
 import { LANGUAGES } from '../../Constants/PropTypes';
 
-const LanguageList = ({ languages }) => {
+const LanguageList = ({ languages, propToUse }) => {
   const languageList = (languages && languages.length)
     ? languages.map(choice => (
-      `${choice.language} `
+      `${choice[propToUse]} `
     )) : NO_LANGUAGES;
   return (
     <span>
@@ -16,10 +17,12 @@ const LanguageList = ({ languages }) => {
 
 LanguageList.propTypes = {
   languages: LANGUAGES,
+  propToUse: PropTypes.oneOf(['language', 'representation']),
 };
 
 LanguageList.defaultProps = {
   languages: [],
+  propToUse: 'language',
 };
 
 export default LanguageList;

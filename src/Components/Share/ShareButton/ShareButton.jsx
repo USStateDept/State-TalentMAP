@@ -59,8 +59,8 @@ class ShareButton extends Component {
             placeholder="Recipient's email address"
           />
           <button className={(recipient.length && !isSending) ? null : 'usa-button-disabled'} disabled={recipient.length ? null : true} id="share-button">
-          Share
-        </button>
+            Share
+          </button>
           {warning && recipient.length ? 'This is not a state.gov email. Send with caution.' : null}
           <br />
           {sendingText} {err} {sent}

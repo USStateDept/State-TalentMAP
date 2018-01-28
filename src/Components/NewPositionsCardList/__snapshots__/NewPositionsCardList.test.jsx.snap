@@ -144,7 +144,7 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,
-                "bidcycle": 1,
+                "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
                 "id": 1,
                 "in_grade": 0,
                 "in_grade_at_skill": 0,
@@ -155,6 +155,7 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
             "create_date": "2006-09-20",
             "description": Object {
               "content": "The quick brown fox jumped over the lazy dog.",
+              "date_created": "2018-01-12T15:09:22.952226Z",
             },
             "grade": "05",
             "id": 6,
@@ -337,7 +338,7 @@ exports[`NewPositionsCardListComponent matches snapshot 1`] = `
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,
-                "bidcycle": 1,
+                "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
                 "id": 1,
                 "in_grade": 0,
                 "in_grade_at_skill": 0,

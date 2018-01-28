@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import InteractiveElement from '../InteractiveElement';
 
 class ResetFilters extends Component {
   constructor(props) {
     super(props);
+    this.resetFilters = this.resetFilters.bind(this);
     this.state = {
       confirm: false,
     };
@@ -22,16 +24,14 @@ class ResetFilters extends Component {
     const text = confirm ? 'Are you sure?' : 'Reset Filters';
     return (
       <div className="reset-filters-container">
-        { /* At the time of writing, CodeClimate's version of eslint-a11y-plugin
-          did not take role="button" into account with the following error */ }
-        <span // eslint-disable-line jsx-a11y/no-static-element-interactions
+        <InteractiveElement
+          type="span"
           className="reset-filters"
-          tabIndex="0"
           role="link"
-          onClick={() => this.resetFilters()}
+          onClick={this.resetFilters}
         >
           {text}
-        </span>
+        </InteractiveElement>
       </div>
     );
   }

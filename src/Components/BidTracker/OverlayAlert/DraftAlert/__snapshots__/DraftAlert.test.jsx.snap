@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DraftAlertComponent matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--draft"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-one-half draft-submission-container"
+    >
+      <div
+        className="sub-submission-text"
+      >
+        Would you like to submit your bid?
+      </div>
+      <div
+        className="usa-grid-full draft-submission-buttons-container"
+      >
+        <button
+          className="tm-button-transparent tm-button-submit-bid"
+          onClick={[Function]}
+        >
+          <FontAwesome
+            name="paper-plane-o"
+          />
+           Submit Bid
+        </button>
+        <InteractiveElement
+          className="remove-bid-link"
+          onClick={[Function]}
+          role="link"
+          type="div"
+        >
+          Remove Bid
+        </InteractiveElement>
+      </div>
+    </div>
+    <div
+      className="usa-width-one-half draft-position-details"
+    >
+      <div>
+        POLITICAL/ECONOMIC OFFICER
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Post: 
+        </span>
+        Curacao
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Skill Code: 
+        </span>
+        Curacao
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Grade: 
+        </span>
+        03
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -190,6 +190,7 @@ class SearchFiltersContainer extends Component {
         />
         <div className="boolean-filter-container">
           <BooleanFilterContainer
+            legendTitle="Select filters"
             filters={booleanFilters}
             onBooleanFilterClick={(e, code, ref, iterator, value) => {
               booleanFilters[iterator].data[0].isSelected = !value;

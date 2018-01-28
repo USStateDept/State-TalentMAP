@@ -28,6 +28,12 @@ const NavigationList = ({ counts }) => (
       denominator={counts.all_clients}
       link="?type=onpost"
     />
+    <NavigationItem
+      title="Handshake Needed"
+      numerator={counts.bidding_no_handshake}
+      denominator={counts.all_clients}
+      link="?type=handshakeneeded"
+    />
   </div>
 );
 

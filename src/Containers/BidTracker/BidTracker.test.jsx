@@ -41,6 +41,7 @@ describe('mapDispatchToProps', () => {
     submitBidPosition: [1],
     acceptBidPosition: [1],
     declineBidPosition: [1],
+    deleteBid: [1],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });

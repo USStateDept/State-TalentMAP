@@ -213,7 +213,20 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader'],
+          use: [
+            'css-loader',
+            'sass-loader',
+            // Reads Sass vars from files or inlined in the options property
+            {
+              loader: '@epegzz/sass-vars-loader',
+              options: {
+                files: [
+                  // Option 3) Load vars from JS file
+                  path.resolve(__dirname, '../src/sass/sass-vars/variables.js')
+                ]
+              }
+            }
+          ],
         }),
       },
       // ** STOP ** Are you adding a new loader?

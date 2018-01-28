@@ -104,6 +104,20 @@
       font-size: .9em;
     }
 
+    .bid-cycle-container {
+      font-size: .8em;
+    }
+
+    .bid-cycle-container-section {
+      float: left;
+    }
+
+    .bid-cycle-container-section:first-child {
+      border-right: 1px solid $color-black;
+      margin-right: 5px;
+      padding-right: 5px;
+    }
+
     .compare-check {
       float: left;
       font-size: .9em;
@@ -223,6 +237,7 @@
     padding-top: 10px;
 
     label {
+      font-size: 1em;
       margin-top: 10px;
     }
   }
@@ -299,6 +314,7 @@
 
   .saved-search-form-buttons {
     float: left;
+    margin-top: 5px;
   }
 
   .saved-search-form-primary-button {

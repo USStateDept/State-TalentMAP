@@ -15,11 +15,13 @@ export const ENDPOINT_PARAMS = {
   available: 'is_available_in_current_bidcycle',
 };
 
+// Take our custom query param from the Bidder Portfolio navigation and convert them to queries
 export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
   all: {},
   bidding: { is_bidding: true },
   inpanel: { is_in_panel: true },
   onpost: { is_on_post: true },
+  handshakeneeded: { is_bidding_no_handshake: true },
 };
 
 export const VALID_PARAMS = [

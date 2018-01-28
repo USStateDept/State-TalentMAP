@@ -10,7 +10,7 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
   <div className="usa-grid-full profile-menu">
     <div className="menu-title">
       <div className="menu-title-text">Menu</div>
-      <button className="unstyled-button" onClick={collapse}>
+      <button className="unstyled-button" title="Collapse menu" onClick={collapse}>
         <FontAwesome name="exchange" />
       </button>
     </div>

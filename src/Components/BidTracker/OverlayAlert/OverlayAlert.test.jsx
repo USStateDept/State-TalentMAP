@@ -11,6 +11,8 @@ describe('OverlayAlertComponent', () => {
     bid: bidListObject.results[0],
     acceptBid: () => {},
     declineBid: () => {},
+    submitBid: () => {},
+    deleteBid: () => {},
   };
 
   // All possible props, plus  fake prop to test the default case of the switch
