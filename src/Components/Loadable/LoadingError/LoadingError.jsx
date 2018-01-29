@@ -6,11 +6,11 @@ const LoadingError = ({ children }) => (
 );
 
 LoadingError.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.string,
 };
 
 LoadingError.defaultProps = {
-  children: 'Error loading.',
+  children: 'Error loading. Try refreshing the page',
 };
 
 export default LoadingError;

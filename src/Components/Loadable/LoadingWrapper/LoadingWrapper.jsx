@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import LoadingError from '../LoadingError';
 import Spinner from '../../Spinner';
 
-const errorPlaceholder = 'Error loading. Try refreshing the page.';
-
-const LoadingWrapper = (props, errorText = errorPlaceholder) => {
+const LoadingWrapper = (props) => {
   if (props.error) {
-    return <LoadingError>{errorText}</LoadingError>;
+    return (
+      <LoadingError />
+    );
   }
   return <Spinner />;
 };
 
 LoadingWrapper.propTypes = {
-  error: PropTypes.string,
+  error: PropTypes.shape({}),
 };
 
 LoadingWrapper.defaultProps = {
