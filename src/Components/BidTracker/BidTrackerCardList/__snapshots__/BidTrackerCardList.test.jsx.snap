@@ -50,8 +50,10 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
       }
     }
     declineBid={[Function]}
+    deleteBid={[Function]}
     isPriority={false}
     priorityExists={true}
+    submitBid={[Function]}
     userProfile={
       Object {
         "bid_statistics": Array [
@@ -146,8 +148,10 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
       }
     }
     declineBid={[Function]}
+    deleteBid={[Function]}
     isPriority={false}
     priorityExists={true}
+    submitBid={[Function]}
     userProfile={
       Object {
         "bid_statistics": Array [
@@ -242,8 +246,10 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
       }
     }
     declineBid={[Function]}
+    deleteBid={[Function]}
     isPriority={false}
     priorityExists={true}
+    submitBid={[Function]}
     userProfile={
       Object {
         "bid_statistics": Array [

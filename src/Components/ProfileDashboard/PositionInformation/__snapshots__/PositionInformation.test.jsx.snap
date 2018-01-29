@@ -39,15 +39,13 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       title="Position Title"
       titleOnBottom={false}
     />
-    <Connect(StaticDevContent)>
-      <InformationDataPoint
-        className=""
-        content="CONSTRUCTION ENGINEERING (6218)"
-        sideBySide={false}
-        title="Skill Code"
-        titleOnBottom={false}
-      />
-    </Connect(StaticDevContent)>
+    <InformationDataPoint
+      className=""
+      content="CONSTRUCTION ENGINEERING (6218)"
+      sideBySide={false}
+      title="Skill Code"
+      titleOnBottom={false}
+    />
   </div>
 </div>
 `;

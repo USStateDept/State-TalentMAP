@@ -12,6 +12,8 @@ describe('BidTrackerComponent', () => {
     bidListIsLoading: false,
     acceptBid: () => {},
     declineBid: () => {},
+    submitBid: () => {},
+    deleteBid: () => {},
     notifications: notificationsObject,
     notificationsIsLoading: false,
     markBidTrackerNotification: () => {},
