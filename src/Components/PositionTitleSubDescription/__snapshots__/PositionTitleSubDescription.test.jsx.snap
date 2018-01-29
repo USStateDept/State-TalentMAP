@@ -29,11 +29,10 @@ exports[`PositionTitleSubDescriptionComponent matches snapshot when editor is sh
     title
     : 
   </strong>
-  <TextEditor
+  <TextEditorLoadable
     cancel={[Function]}
     initialText="content"
     onSubmitText={[Function]}
-    readOnly={false}
   />
 </div>
 `;

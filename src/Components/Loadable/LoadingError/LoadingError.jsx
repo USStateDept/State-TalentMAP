@@ -6,7 +6,11 @@ const LoadingError = ({ children }) => (
 );
 
 LoadingError.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
+};
+
+LoadingError.defaultProps = {
+  children: 'Error loading.',
 };
 
 export default LoadingError;
