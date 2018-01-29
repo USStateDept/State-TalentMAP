@@ -17,7 +17,7 @@ class SaveNewSearchContainer extends Component {
   }
 
   toggleInput(e) {
-    // preventDefault() to avoid query parmas getting added in MS Edge
+    // preventDefault() to avoid query params getting added in MS Edge
     e.preventDefault();
     const { showInput, newSearchName } = this.state;
     // reset the input field, since the component will re-render and be out of sync with state
