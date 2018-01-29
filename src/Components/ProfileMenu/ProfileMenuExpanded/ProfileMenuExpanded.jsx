@@ -33,6 +33,12 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
         <NavLink title="Favorites" link="/profile/favorites/" />
         <NavLink title="Saved Searches" link="/profile/searches/" />
       </NavLink>
+      <NavLink
+        title="Statistics"
+        iconName="pie-chart"
+        link="/profile/statistics/"
+        hidden={!isCDO}
+      />
       <NavLink title="Inbox" iconName="comments-o" link="/profile/inbox/" />
       <NavLink title="Notifications" iconName="globe" link="/profile/notifications/" />
       <NavLink title="Contacts" iconName="users" link="/profile/contacts/" />
