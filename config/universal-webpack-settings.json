@@ -1,0 +1,7 @@
+{
+	"server":
+	{
+		"input": "./source/server.js",
+		"output": "./build/server/server.js"
+	}
+}
