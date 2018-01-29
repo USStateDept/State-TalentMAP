@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import { existsInArray } from '../../utilities';
+import InteractiveElement from '../InteractiveElement';
 
 class Favorite extends Component {
 
@@ -24,26 +25,32 @@ class Favorite extends Component {
   }
 
   render() {
-    const text = this.getSavedState() ? 'Remove' : 'Favorite';
-    const title = this.getSavedState() ? 'Remove from Favorites' : 'Add to Favorites';
-    const iconClass = this.getSavedState() ? 'heart' : 'heart-o';
+    // set defaults
+    let text = 'Favorite';
+    let title = 'Add to Favorites';
+    let iconClass = 'star-o';
+
+    // update for saved state
+    if (this.getSavedState()) {
+      text = 'Remove';
+      title = 'Remove from Favorites';
+      iconClass = 'star';
+    }
+
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
+    const borderClass = this.props.hasBorder ? 'favorites-button-border' : '';
     return (
-      // At the time of writing, CodeClimate's version of eslint-a11y-plugin
-      // did not take role="button" into account with the following error:
-      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-      <div
-        tabIndex="0"
+      <InteractiveElement
+        type="div"
         title={title}
-        role="button"
         style={style}
-        className="favorite-container"
+        className={`favorite-container ${borderClass}`}
         onClick={this.toggleSaved}
       >
         <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}
-      </div>
+      </InteractiveElement>
     );
   }
 }
@@ -54,12 +61,14 @@ Favorite.propTypes = {
   hideText: PropTypes.bool,
   compareArray: FAVORITE_POSITIONS_ARRAY.isRequired,
   isLoading: PropTypes.bool,
+  hasBorder: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
   hideText: false,
   isLoading: false,
   compareArray: [],
+  hasBorder: false,
 };
 
 export default Favorite;

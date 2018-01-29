@@ -17,11 +17,12 @@ const resultsObject = {
           in_grade: 0,
           at_skill: 0,
           in_grade_at_skill: 0,
-          bidcycle: 1,
+          bidcycle: 'Demo BidCycle 2018-01-12 15:11:38.004793',
         },
       ],
       description: {
         content: 'The quick brown fox jumped over the lazy dog.',
+        date_created: '2018-01-12T15:09:22.952226Z',
       },
       post: { id: 162, tour_of_duty: '2YRR', code: 'LT6000000', location: 'MASERU, LESOTHO', cost_of_living_adjustment: 0, differential_rate: 15, danger_pay: 0, rest_relaxation_point: 'London', has_consumable_allowance: false, has_service_needs_differential: false },
       languages: [
@@ -45,7 +46,7 @@ const resultsObject = {
           in_grade: 0,
           at_skill: 0,
           in_grade_at_skill: 0,
-          bidcycle: 1,
+          bidcycle: 'Demo BidCycle 2018-01-12 15:11:38.004793',
         },
       ],
       post: null,

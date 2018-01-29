@@ -56,7 +56,7 @@ describe('SaveNewSearchContainerComponent', () => {
       />,
     );
     expect(wrapper.instance().state.showInput.value).toBe(false);
-    wrapper.instance().toggleInput();
+    wrapper.instance().toggleInput({ preventDefault: () => {} });
     expect(wrapper.instance().state.showInput.value).toBe(true);
   });
 

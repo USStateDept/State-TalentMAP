@@ -7,7 +7,7 @@ import NavLink from '../NavLink';
 const ProfileMenuCollapsed = ({ expand }) => (
   <div className="usa-grid-full profile-menu profile-menu-collapsed">
     <div className="menu-title">
-      <button className="unstyled-button" onClick={expand}>
+      <button className="unstyled-button" title="Expand menu" onClick={expand}>
         <FontAwesome name="exchange" />
       </button>
     </div>

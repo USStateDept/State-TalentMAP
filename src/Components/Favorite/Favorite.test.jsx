@@ -28,7 +28,7 @@ describe('Favorite', () => {
   it('can call the onToggle function', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<Favorite onToggle={spy} compareArray={[]} refKey={refKey} />);
-    wrapper.find('div').simulate('click');
+    wrapper.find('InteractiveElement').simulate('click');
     sinon.assert.calledOnce(spy);
   });
 

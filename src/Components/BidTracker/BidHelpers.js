@@ -28,7 +28,7 @@ import {
 
 // determine whether to show an alert on the bid tracker based on the status
 export function shouldShowAlert(bid) {
-  const alertStatusArray = [HAND_SHAKE_OFFERED_PROP, APPROVED_PROP, CLOSED_PROP,
+  const alertStatusArray = [DRAFT_PROP, HAND_SHAKE_OFFERED_PROP, APPROVED_PROP, CLOSED_PROP,
     HAND_SHAKE_DECLINED_PROP, DECLINED_PROP];
 
   // status is in the array OR paneling is today

@@ -1,15 +1,21 @@
 import React from 'react';
 import { formatDate } from '../../../utilities';
 import { ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
-import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE } from '../../../Constants/SystemMessages';
+import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE, NO_SKILL, NO_BUREAU } from '../../../Constants/SystemMessages';
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import StartEnd from './StartEnd';
-import StaticDevContent from '../../StaticDevContent';
 
 const PositionInformation = ({ assignment }) => {
-  const assignmentStartDate = formatDate(assignment.start_date);
-  const assignmentEndDate = formatDate(assignment.estimated_end_date);
+  const assignmentStartDate = assignment.start_date ? formatDate(assignment.start_date) : false;
+  const isActive = assignment.status === 'active';
+  let assignmentEndDate;
+  if (isActive) {
+    assignmentEndDate = assignment.estimated_end_date ?
+      formatDate(assignment.estimated_end_date) : '';
+  } else {
+    assignmentEndDate = assignment.end_date ? formatDate(assignment.end_date) : '';
+  }
   return (
     <div className="usa-grid-full">
       <div className="section-padded-inner-container">
@@ -24,16 +30,27 @@ const PositionInformation = ({ assignment }) => {
           : NO_ASSIGNMENT_DATE
         }
         />
-        <StaticDevContent>
-          <InformationDataPoint title="Bureau" content="Bureau of Western Hemispheric Affairs" />
-        </StaticDevContent>
+        <InformationDataPoint
+          title="Bureau"
+          content={
+            assignment.position && assignment.position.bureau
+              ? assignment.position.bureau : NO_BUREAU
+          }
+        />
         <InformationDataPoint
           title="Position Title"
-          content={assignment.position || NO_ASSIGNMENT_POSITION}
+          content={
+            assignment.position && assignment.position.title
+              ? assignment.position.title : NO_ASSIGNMENT_POSITION
+          }
         />
-        <StaticDevContent>
-          <InformationDataPoint title="Skill Code" content="Medical Technology (6145)" />
-        </StaticDevContent>
+        <InformationDataPoint
+          title="Skill Code"
+          content={
+            assignment.position && assignment.position.skill
+              ? assignment.position.skill : NO_SKILL
+          }
+        />
       </div>
     </div>
   );

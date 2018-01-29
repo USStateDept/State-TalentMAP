@@ -20,6 +20,8 @@ import { validStateEmail,
          wrapForMultiSelect,
          returnObjectsWherePropMatches,
          numbersToPercentString,
+         formatBidTitle,
+         formatWaiverTitle,
        } from './utilities';
 
 describe('local storage', () => {
@@ -78,6 +80,7 @@ describe('validStateEmail', () => {
 
 describe('fetchUserToken', () => {
   it('should be able to fetch the auth token', () => {
+    localStorage.clear();
     localStorage.setItem('token', '1234');
     const output = fetchUserToken();
     expect(output).toBe('Token 1234');
@@ -319,5 +322,29 @@ describe('numbersToPercentString', () => {
     precision = 4;
     const percent = numbersToPercentString(numerator, denominator, precision);
     expect(percent).toBe('42.86%');
+  });
+});
+
+describe('formatBidTitle', () => {
+  it('can format a bid title', () => {
+    const bid = {
+      position: {
+        position_number: '0AA',
+        title: 'Title',
+      },
+    };
+    const expected = 'Title (0AA)';
+    expect(formatBidTitle(bid)).toBe(expected);
+  });
+});
+
+describe('formatWaiverTitle', () => {
+  it('can format a bid title', () => {
+    const waiver = {
+      position: 'Position',
+      category: 'category',
+    };
+    const expected = 'Position - CATEGORY';
+    expect(formatWaiverTitle(waiver)).toBe(expected);
   });
 });

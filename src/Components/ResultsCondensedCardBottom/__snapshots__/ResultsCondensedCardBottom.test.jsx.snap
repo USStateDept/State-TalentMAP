@@ -2,196 +2,224 @@
 
 exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full condensed-card-bottom"
+  className="condensed-card-bottom-container"
 >
-  <CondensedCardData
-    position={
-      Object {
-        "bid_statistics": Array [
-          Object {
-            "at_skill": 0,
-            "bidcycle": 1,
-            "id": 1,
-            "in_grade": 0,
-            "in_grade_at_skill": 0,
-            "total_bids": 3,
+  <div
+    className="usa-grid-full condensed-card-bottom"
+  >
+    <CondensedCardData
+      position={
+        Object {
+          "bid_statistics": Array [
+            Object {
+              "at_skill": 0,
+              "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
+              "id": 1,
+              "in_grade": 0,
+              "in_grade_at_skill": 0,
+              "total_bids": 3,
+            },
+          ],
+          "bureau": "150000",
+          "create_date": "2006-09-20",
+          "description": Object {
+            "content": "The quick brown fox jumped over the lazy dog.",
+            "date_created": "2018-01-12T15:09:22.952226Z",
           },
-        ],
-        "bureau": "150000",
-        "create_date": "2006-09-20",
-        "description": Object {
-          "content": "The quick brown fox jumped over the lazy dog.",
-        },
-        "grade": "05",
-        "id": 6,
-        "is_overseas": true,
-        "languages": Array [
-          Object {
-            "id": 1,
-            "language": "French (FR)",
-            "reading_proficiency": "2",
-            "representation": "French (FR) 2/2",
-            "spoken_proficiency": "2",
+          "grade": "05",
+          "id": 6,
+          "is_overseas": true,
+          "languages": Array [
+            Object {
+              "id": 1,
+              "language": "French (FR)",
+              "reading_proficiency": "2",
+              "representation": "French (FR) 2/2",
+              "spoken_proficiency": "2",
+            },
+            Object {
+              "id": 1,
+              "language": "German (GM)",
+              "reading_proficiency": "2",
+              "representation": "German (GM) 2/2",
+              "spoken_proficiency": "2",
+            },
+          ],
+          "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+          "position_number": "00025003",
+          "post": Object {
+            "code": "LT6000000",
+            "cost_of_living_adjustment": 0,
+            "danger_pay": 0,
+            "differential_rate": 15,
+            "has_consumable_allowance": false,
+            "has_service_needs_differential": false,
+            "id": 162,
+            "location": "MASERU, LESOTHO",
+            "rest_relaxation_point": "London",
+            "tour_of_duty": "2YRR",
           },
-          Object {
-            "id": 1,
-            "language": "German (GM)",
-            "reading_proficiency": "2",
-            "representation": "German (GM) 2/2",
-            "spoken_proficiency": "2",
-          },
-        ],
-        "organization": "YAOUNDE CAMEROON (YAOUNDE)",
-        "position_number": "00025003",
-        "post": Object {
-          "code": "LT6000000",
-          "cost_of_living_adjustment": 0,
-          "danger_pay": 0,
-          "differential_rate": 15,
-          "has_consumable_allowance": false,
-          "has_service_needs_differential": false,
-          "id": 162,
-          "location": "MASERU, LESOTHO",
-          "rest_relaxation_point": "London",
-          "tour_of_duty": "2YRR",
-        },
-        "skill": "OFFICE MANAGEMENT (9017)",
-        "update_date": "2017-06-08",
+          "skill": "OFFICE MANAGEMENT (9017)",
+          "update_date": "2017-06-08",
+        }
       }
-    }
-  />
-  <BidListButton
-    className="tm-button-alt"
-    compareArray={
-      Array [
-        Object {
-          "approved_date": "2017-12-20",
-          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
-          "closed_date": "2017-12-20",
-          "create_date": "2017-12-20",
-          "declined_date": "2017-12-20",
-          "draft_date": "2017-12-20",
-          "handshake_accepted_date": "2017-12-20",
-          "handshake_declined_date": "2017-12-20",
-          "handshake_offered_date": "2017-12-20",
-          "id": 3,
-          "in_panel_date": "2017-12-20",
-          "is_priority": false,
-          "position": Object {
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "create_date": "2015-08-05",
-            "grade": "03",
-            "id": 226,
-            "position_number": "10035561",
-            "post": Object {
-              "id": 199,
-              "location": "Curacao",
+    />
+    <div
+      className="usa-grid-full"
+    >
+      <Favorite
+        compareArray={
+          Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
             },
-            "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-            "title": "POLITICAL/ECONOMIC OFFICER",
-            "update_date": "2017-06-08",
-          },
-          "reviewer": Object {
-            "email": "woodwardw@state.gov",
-            "first_name": "Wendy",
-            "is_cdo": false,
-            "last_name": "Woodward",
-            "phone_number": "555-555-5555",
-            "username": "woodwardw",
-          },
-          "scheduled_panel_date": "2017-12-20",
-          "status": "approved",
-          "submitted_date": "2017-12-20",
-          "update_date": "2017-12-20",
-          "user": "rehmant",
-        },
-        Object {
-          "approved_date": "2017-12-20",
-          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
-          "closed_date": "2017-12-20",
-          "create_date": "2017-12-20",
-          "declined_date": "2017-12-20",
-          "draft_date": "2017-12-20",
-          "handshake_accepted_date": "2017-12-20",
-          "handshake_declined_date": "2017-12-20",
-          "handshake_offered_date": "2017-12-20",
-          "id": 1,
-          "in_panel_date": "2017-12-20",
-          "is_priority": true,
-          "position": Object {
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "create_date": "2006-09-20",
-            "grade": "05",
-            "id": 1,
-            "position_number": "00003026",
-            "post": Object {
-              "id": 235,
-              "location": "Freetown, Sierra Leone",
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
             },
-            "skill": "OFFICE MANAGEMENT (9017)",
-            "title": "OMS (COM)",
-            "update_date": "2017-06-08",
-          },
-          "reviewer": Object {
-            "email": "woodwardw@state.gov",
-            "first_name": "Wendy",
-            "is_cdo": false,
-            "last_name": "Woodward",
-            "phone_number": "555-555-5555",
-            "username": "woodwardw",
-          },
-          "scheduled_panel_date": "2017-12-20",
-          "status": "closed",
-          "submitted_date": "2017-12-20",
-          "update_date": "2017-12-20",
-          "user": "rehmant",
-        },
-        Object {
-          "approved_date": "2017-12-20",
-          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
-          "closed_date": "2017-12-20",
-          "create_date": "2017-12-20",
-          "declined_date": "2017-12-20",
-          "draft_date": "2017-12-20",
-          "handshake_accepted_date": "2017-12-20",
-          "handshake_declined_date": "2017-12-20",
-          "handshake_offered_date": "2017-12-20",
-          "id": 2,
-          "in_panel_date": "2017-12-20",
-          "is_priority": false,
-          "position": Object {
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "create_date": "2006-09-20",
-            "grade": "04",
-            "id": 84,
-            "position_number": "56001600",
-            "post": Object {
-              "id": 195,
-              "location": "The Hague, Netherlands",
+          ]
+        }
+        hasBorder={true}
+        hideText={true}
+        isLoading={false}
+        onToggle={[Function]}
+        refKey={6}
+      />
+      <BidListButton
+        className="tm-button"
+        compareArray={
+          Array [
+            Object {
+              "approved_date": "2017-12-20",
+              "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+              "closed_date": "2017-12-20",
+              "create_date": "2017-12-20",
+              "declined_date": "2017-12-20",
+              "draft_date": "2017-12-20",
+              "handshake_accepted_date": "2017-12-20",
+              "handshake_declined_date": "2017-12-20",
+              "handshake_offered_date": "2017-12-20",
+              "id": 3,
+              "in_panel_date": "2017-12-20",
+              "is_priority": false,
+              "position": Object {
+                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                "create_date": "2015-08-05",
+                "grade": "03",
+                "id": 226,
+                "position_number": "10035561",
+                "post": Object {
+                  "id": 199,
+                  "location": "Curacao",
+                },
+                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                "title": "POLITICAL/ECONOMIC OFFICER",
+                "update_date": "2017-06-08",
+              },
+              "reviewer": Object {
+                "email": "woodwardw@state.gov",
+                "first_name": "Wendy",
+                "is_cdo": false,
+                "last_name": "Woodward",
+                "phone_number": "555-555-5555",
+                "username": "woodwardw",
+              },
+              "scheduled_panel_date": "2017-12-20",
+              "status": "approved",
+              "submitted_date": "2017-12-20",
+              "update_date": "2017-12-20",
+              "user": "rehmant",
             },
-            "skill": "SECURITY (2501)",
-            "title": "SPECIAL AGENT",
-            "update_date": "2017-06-08",
-          },
-          "reviewer": Object {
-            "email": "woodwardw@state.gov",
-            "first_name": "Wendy",
-            "is_cdo": false,
-            "last_name": "Woodward",
-            "phone_number": "555-555-5555",
-            "username": "woodwardw",
-          },
-          "scheduled_panel_date": "2017-12-20",
-          "status": "closed",
-          "submitted_date": "2017-12-20",
-          "update_date": "2017-12-20",
-          "user": "rehmant",
-        },
-      ]
-    }
-    id={6}
-    isLoading={false}
-    toggleBidPosition={[Function]}
-  />
+            Object {
+              "approved_date": "2017-12-20",
+              "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+              "closed_date": "2017-12-20",
+              "create_date": "2017-12-20",
+              "declined_date": "2017-12-20",
+              "draft_date": "2017-12-20",
+              "handshake_accepted_date": "2017-12-20",
+              "handshake_declined_date": "2017-12-20",
+              "handshake_offered_date": "2017-12-20",
+              "id": 1,
+              "in_panel_date": "2017-12-20",
+              "is_priority": true,
+              "position": Object {
+                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                "create_date": "2006-09-20",
+                "grade": "05",
+                "id": 1,
+                "position_number": "00003026",
+                "post": Object {
+                  "id": 235,
+                  "location": "Freetown, Sierra Leone",
+                },
+                "skill": "OFFICE MANAGEMENT (9017)",
+                "title": "OMS (COM)",
+                "update_date": "2017-06-08",
+              },
+              "reviewer": Object {
+                "email": "woodwardw@state.gov",
+                "first_name": "Wendy",
+                "is_cdo": false,
+                "last_name": "Woodward",
+                "phone_number": "555-555-5555",
+                "username": "woodwardw",
+              },
+              "scheduled_panel_date": "2017-12-20",
+              "status": "closed",
+              "submitted_date": "2017-12-20",
+              "update_date": "2017-12-20",
+              "user": "rehmant",
+            },
+            Object {
+              "approved_date": "2017-12-20",
+              "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+              "closed_date": "2017-12-20",
+              "create_date": "2017-12-20",
+              "declined_date": "2017-12-20",
+              "draft_date": "2017-12-20",
+              "handshake_accepted_date": "2017-12-20",
+              "handshake_declined_date": "2017-12-20",
+              "handshake_offered_date": "2017-12-20",
+              "id": 2,
+              "in_panel_date": "2017-12-20",
+              "is_priority": false,
+              "position": Object {
+                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                "create_date": "2006-09-20",
+                "grade": "04",
+                "id": 84,
+                "position_number": "56001600",
+                "post": Object {
+                  "id": 195,
+                  "location": "The Hague, Netherlands",
+                },
+                "skill": "SECURITY (2501)",
+                "title": "SPECIAL AGENT",
+                "update_date": "2017-06-08",
+              },
+              "reviewer": Object {
+                "email": "woodwardw@state.gov",
+                "first_name": "Wendy",
+                "is_cdo": false,
+                "last_name": "Woodward",
+                "phone_number": "555-555-5555",
+                "username": "woodwardw",
+              },
+              "scheduled_panel_date": "2017-12-20",
+              "status": "closed",
+              "submitted_date": "2017-12-20",
+              "update_date": "2017-12-20",
+              "user": "rehmant",
+            },
+          ]
+        }
+        id={6}
+        isLoading={false}
+        toggleBidPosition={[Function]}
+      />
+    </div>
+  </div>
 </div>
 `;

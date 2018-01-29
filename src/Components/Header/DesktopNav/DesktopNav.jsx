@@ -7,6 +7,7 @@ import Notifications from '../Notifications';
 import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
+import InteractiveElement from '../../InteractiveElement';
 
 const DesktopNav = ({ isLoggedIn, shouldShowSearchBar,
 userProfile, logout, toggleSearchVisibility }) => (
@@ -17,15 +18,12 @@ userProfile, logout, toggleSearchVisibility }) => (
         <div className={`header-nav-link-container ${shouldShowSearchBar ? 'is-highlighted' : 'is-not-highlighted'}`}>
           <div className="header-nav-link">
             <div className="header-nav-link-text search-text">
-              {/* At the time of writing, CodeClimate's version of eslint-a11y-plugin
-                  did not take role="button" into account with the following error: */ }
-              <span // eslint-disable-line jsx-a11y/no-static-element-interactions
-                tabIndex="0"
-                role="button"
+              <InteractiveElement
+                type="span"
                 onClick={toggleSearchVisibility}
               >
                 <FontAwesome name="search" /> Search
-              </span>
+              </InteractiveElement>
             </div>
           </div>
         </div>

@@ -75,7 +75,7 @@ const PositionDetailsItem = ({ details }) => {
                 description={details.post ? details.post.danger_pay : NO_DANGER_PAY}
               />
               <PositionDetailsDataPoint
-                title="Tour End Date"
+                title="Estimated End Date"
                 description={tourEndDate}
               />
               <PositionDetailsDataPoint

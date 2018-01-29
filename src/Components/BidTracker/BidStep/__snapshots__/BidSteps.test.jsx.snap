@@ -13,11 +13,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
 >
   <Step
     className="
-              step-draft
-              
-              
-              step-complete
-            "
+            step-draft
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -46,11 +46,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-submitted
-              
-              
-              step-complete
-            "
+            step-submitted
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -79,11 +79,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-handshake-offered
-              
-              
-              step-complete
-            "
+            step-handshake-offered
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -112,11 +112,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-handshake-accepted
-              
-              
-              step-complete
-            "
+            step-handshake-accepted
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -145,11 +145,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-in-panel
-              step-current
-              
-              step-incomplete
-            "
+            step-in-panel
+            step-current
+            
+            step-incomplete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}
@@ -178,11 +178,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-approval
-              
-              
-              step-incomplete
-            "
+            step-approval
+            
+            
+            step-incomplete
+          "
     icon={
       <BidStepIcon
         hasPendingTooltip={false}

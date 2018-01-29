@@ -2,10 +2,10 @@
 
 exports[`HomePageFiltersSectionComponent matches snapshot 1`] = `
 <div
-  className="explore-section"
+  className="explore-section padded-main-content"
 >
   <div
-    className="explore-section-inner usa-grid-full"
+    className="usa-grid-full explore-section-inner"
   >
     <Connect(HomePageFiltersContainer)
       filters={

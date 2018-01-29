@@ -17,7 +17,7 @@ describe('ResetFilters', () => {
 
   it('can click on the button', () => {
     const wrapper = shallow(<ResetFilters resetFilters={() => {}} />);
-    wrapper.find('span').simulate('click');
+    wrapper.find('InteractiveElement').simulate('click');
   });
 
   it('can call resetFilters function', () => {
@@ -27,9 +27,12 @@ describe('ResetFilters', () => {
     const instance = wrapper.instance();
     // spy the onQueryParamUpdate function
     const handleUpdateSpy = sinon.spy(instance, 'resetFilters');
-    wrapper.find('span').simulate('click');
+    instance.resetFilters();
+    // the instance resetFilters should be called once
     sinon.assert.calledOnce(handleUpdateSpy);
-    wrapper.find('span').simulate('click');
+    instance.resetFilters();
+    // The prop resetFilters should be called once, since it doesn't get called until the
+    // instance's resetFilters function is called twice.
     sinon.assert.calledOnce(propSpy);
   });
 });

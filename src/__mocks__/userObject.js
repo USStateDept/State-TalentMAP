@@ -1,4 +1,5 @@
 export const bidderUserObject = {
+  id: 1,
   skills: [
     {
       id: 63,
@@ -29,6 +30,16 @@ export const bidderUserObject = {
     {
       draft: 1,
       submitted: 1,
+    },
+  ],
+  favorite_positions: [
+    {
+      id: 1,
+      representation: '[00003026] OMS (COM) (Freetown, Sierra Leone)',
+    },
+    {
+      id: 4,
+      representation: '[00180000] OMS (DCM) (Addis Ababa, Ethiopia)',
     },
   ],
 };
