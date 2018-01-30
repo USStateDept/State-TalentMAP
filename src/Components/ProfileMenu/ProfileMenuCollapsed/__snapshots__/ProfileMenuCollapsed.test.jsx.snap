@@ -23,6 +23,10 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
       link="/profile/dashboard/"
     />
     <withRouter(NavLink)
+      iconName="pie-chart"
+      link="/profile/statistics/"
+    />
+    <withRouter(NavLink)
       iconName="comments-o"
       link="/profile/inbox/"
     />

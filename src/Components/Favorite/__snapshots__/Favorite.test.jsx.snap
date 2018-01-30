@@ -13,7 +13,7 @@ exports[`Favorite matches snapshot - Add state 1`] = `
   type="div"
 >
   <FontAwesome
-    name="heart-o"
+    name="star-o"
   />
    
   Favorite
@@ -33,7 +33,7 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
   type="div"
 >
   <FontAwesome
-    name="heart"
+    name="star"
   />
    
   Remove
