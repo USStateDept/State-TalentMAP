@@ -90,18 +90,20 @@ export class Header extends Component {
 
     let isLoggedIn = false;
     let signedInAs = null;
+    const userFirstName = userProfile && userProfile.user ? userProfile.user.first_name : null;
     if (token && !requesting) {
       isLoggedIn = true;
-      if (userProfile.user && userProfile.user.username) {
-        signedInAs = userProfile.user.username;
-      }
+      signedInAs = userFirstName;
     }
 
     const isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute();
     const isOnForceHideSearchRoute = this.isOnForceHideSearchRoute();
+    const showResultsSearchHeader =
+      shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
+    const searchBarVisibilityClass = shouldShowSearchBar ? 'search-bar-visible' : 'search-bar-hidden';
 
     return (
-      <div className={shouldShowSearchBar ? 'search-bar-visible' : 'search-bar-hidden'}>
+      <div className={searchBarVisibilityClass}>
         <header className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <GovBanner />
@@ -130,7 +132,7 @@ export class Header extends Component {
           <div className="usa-overlay" />
         </header>
         {
-          shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute &&
+          showResultsSearchHeader &&
           <div className="results results-search-bar-homepage">
             <ResultsSearchHeader
               onUpdate={this.submitSearch}
