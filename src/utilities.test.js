@@ -321,7 +321,7 @@ describe('numbersToPercentString', () => {
     denominator = 7;
     precision = 4;
     const percent = numbersToPercentString(numerator, denominator, precision);
-    expect(percent).toBe('42.86%');
+    expect(percent).toBe('42.85%');
   });
 });
 
