@@ -7,7 +7,7 @@ services:
       - 3000:3000
     command: yarn start
     volumes:
-      - .:/app
+      - .:/app:delegated
       - node-modules:/app/node_modules/
     depends_on:
       - api
@@ -22,7 +22,7 @@ services:
       - db
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ../State-TalentMAP-API/:/app
+      - ../State-TalentMAP-API/:/app:delegated
     environment:
       - DJANGO_SECRET_KEY=development_secret_key
       - DATABASE_URL=postgres://talentmap-user@db/talentmap
