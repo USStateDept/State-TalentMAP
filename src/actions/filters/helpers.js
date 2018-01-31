@@ -30,18 +30,19 @@ export function getPostOrMissionDescription(data) {
 }
 
 export function doesCodeOrIdMatch(filterItem, filterItemObject, mappedObject) {
-  if (
-    (
-      filterItemObject.code &&
-      filterItemObject.code.toString() === mappedObject.codeRef.toString() &&
-      filterItem.item.selectionRef === mappedObject.selectionRef
-    )
-    ||
-    (
-      filterItemObject.id &&
-      filterItemObject.id.toString() === mappedObject.codeRef.toString() &&
-      filterItem.item.selectionRef === mappedObject.selectionRef)
-    ) {
+  const filterCode = filterItemObject.code;
+  const filterRef = filterItem.item.selectionRef;
+  const filterId = filterItemObject.id;
+
+  const codeAndRefMatch = filterCode &&
+    filterCode.toString() === mappedObject.codeRef.toString() &&
+    filterRef === mappedObject.selectionRef;
+
+  const idAndRefMatch = filterId &&
+  filterItemObject.id.toString() === mappedObject.codeRef.toString() &&
+  filterRef === mappedObject.selectionRef;
+
+  if (codeAndRefMatch || idAndRefMatch) {
     return true;
   }
   return false;
