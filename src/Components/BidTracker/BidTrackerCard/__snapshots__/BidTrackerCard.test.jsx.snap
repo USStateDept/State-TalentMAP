@@ -52,7 +52,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
       showQuestion={true}
     />
     <div
-      className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container"
+      className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container "
     >
       <BidSteps
         bid={
