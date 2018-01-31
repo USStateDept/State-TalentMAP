@@ -98,7 +98,7 @@ describe('Header', () => {
       <Header
         client={client}
         login={loginObject}
-        userProfile={{ user: { username: 'test' } }}
+        userProfile={{ user: { first_name: 'test' } }}
         fetchData={() => {}}
         isAuthorized={() => true}
         onNavigateTo={() => {}}

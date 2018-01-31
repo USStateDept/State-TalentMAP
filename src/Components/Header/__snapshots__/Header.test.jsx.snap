@@ -48,7 +48,7 @@ exports[`Header matches snapshot when logged in 1`] = `
           userProfile={
             Object {
               "user": Object {
-                "username": "test",
+                "first_name": "test",
               },
             }
           }
