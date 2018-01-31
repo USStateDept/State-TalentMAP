@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getAssetPath } from '../../utilities';
 import logo from '../../assets/logos/png/horizontal_color.png';
-import version from '../../version';
+import pkg from '../../../package.json';
 
 const dosFooterLogo = getAssetPath('/assets/img/rsz_dos-seal.png');
 const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
@@ -58,7 +58,7 @@ const Footer = () => (
             To share your feedback with us, open an issue or pull request on our <a href="https://github.com/18F/State-TalentMAP">Github Repository</a>
           </div>
           <div className="tm-footer-body-contact-item">
-            This project is a beta for Department of State | v{version.number}
+            This project is a beta for Department of State | v{pkg.version}
           </div>
         </div>
       </div>
