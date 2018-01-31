@@ -1,25 +1,33 @@
-import breakpoints from './variables';
+import variables from './variables';
 
 describe('breakpoints', () => {
-  it('returns values for valid breakpoints', () => {
-    expect(breakpoints.screenSmMinNum).toBeDefined();
-    expect(breakpoints['screen-sm-min']).toBe(`${breakpoints.screenSmMinNum}px`);
+  it('returns values for valid variables', () => {
+    expect(variables.screenSmMinNum).toBeDefined();
+    expect(variables['screen-sm-min']).toBe(`${variables.screenSmMinNum}px`);
 
-    expect(breakpoints.screenXsMaxNum).toBeDefined();
-    expect(breakpoints['screen-xs-max']).toBe(`${breakpoints.screenXsMaxNum}px`);
+    expect(variables.screenXsMaxNum).toBeDefined();
+    expect(variables['screen-xs-max']).toBe(`${variables.screenXsMaxNum}px`);
 
-    expect(breakpoints.screenMdMinNum).toBeDefined();
-    expect(breakpoints['screen-md-min']).toBe(`${breakpoints.screenMdMinNum}px`);
+    expect(variables.screenMdMinNum).toBeDefined();
+    expect(variables['screen-md-min']).toBe(`${variables.screenMdMinNum}px`);
 
-    expect(breakpoints.screenSmMaxNum).toBeDefined();
-    expect(breakpoints['screen-sm-max']).toBe(`${breakpoints.screenSmMaxNum}px`);
+    expect(variables.screenSmMaxNum).toBeDefined();
+    expect(variables['screen-sm-max']).toBe(`${variables.screenSmMaxNum}px`);
 
-    expect(breakpoints.screenLgMinNum).toBeDefined();
-    expect(breakpoints['screen-lg-min']).toBe(`${breakpoints.screenLgMinNum}px`);
+    expect(variables.screenLgMinNum).toBeDefined();
+    expect(variables['screen-lg-min']).toBe(`${variables.screenLgMinNum}px`);
 
-    expect(breakpoints.screenMdMaxNum).toBeDefined();
-    expect(breakpoints['screen-md-max']).toBe(`${breakpoints.screenMdMaxNum}px`);
+    expect(variables.screenMdMaxNum).toBeDefined();
+    expect(variables['screen-md-max']).toBe(`${variables.screenMdMaxNum}px`);
 
-    expect(breakpoints.fakeBreakpoint).toBeUndefined();
+    expect(variables.fakeBreakpoint).toBeUndefined();
+  });
+});
+
+describe('asset-path', () => {
+  // We'll just check that it's defined so that different testing environments
+  // don't yield different results, since this variable relies on process.env.PUBLIC_URL.
+  it('is defined', () => {
+    expect(variables['asset-path']).toBeDefined();
   });
 });
