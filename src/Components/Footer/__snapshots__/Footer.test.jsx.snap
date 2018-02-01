@@ -115,8 +115,7 @@ exports[`Footer Component matches snapshot 1`] = `
         <div
           className="tm-footer-body-contact-item"
         >
-          This project is a beta for Department of State | v
-          0.1.0
+          This project is a beta for Department of State
         </div>
       </div>
     </div>
