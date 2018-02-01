@@ -40,6 +40,14 @@
     a {
       display: inline-block;
     }
+
+    @media screen and (max-width: $screen-md-max) {
+      padding-left: 20px;
+    }
+
+    @media screen and (max-width: $screen-sm-min) {
+      padding-left: 0;
+    }
   }
 
   .header-nav-desktop {

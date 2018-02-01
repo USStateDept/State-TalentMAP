@@ -10,6 +10,7 @@ import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
+import ResultsMultiSearchHeaderContainer from '../ResultsMultiSearchHeader/ResultsMultiSearchContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
@@ -133,10 +134,17 @@ export class Header extends Component {
         </header>
         {
           showResultsSearchHeader &&
-          <div className="results results-search-bar-homepage">
-            <ResultsSearchHeader
-              onUpdate={this.submitSearch}
-            />
+          <div className="results results-search-bar-header">
+            <MediaQuery widthType="min" breakpoint="screenMdMin">
+              <ResultsMultiSearchHeaderContainer
+                onUpdate={this.submitSearch}
+              />
+            </MediaQuery>
+            <MediaQuery widthType="max" breakpoint="screenSmMax">
+              <ResultsSearchHeader
+                onUpdate={this.submitSearch}
+              />
+            </MediaQuery>
           </div>
         }
       </div>

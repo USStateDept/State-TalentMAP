@@ -28,7 +28,7 @@ class ResultsSearchHeader extends Component {
   render() {
     const { defaultKeyword, labelSrOnly, placeholder } = this.props;
     return (
-      <div className="results-search-bar padded-main-content">
+      <div className="results-search-bar padded-main-content results-single-search">
         <div className="usa-grid-full results-search-bar-container">
           <form className="usa-grid-full" onSubmit={this.submitSearch} >
             <fieldset className="usa-width-five-sixths">
