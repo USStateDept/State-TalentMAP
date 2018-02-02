@@ -44,7 +44,6 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
       >
         <button
           className="usa-button"
-          type="submit"
         >
           <FontAwesome
             className="label-icon"

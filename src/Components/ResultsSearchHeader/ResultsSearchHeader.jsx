@@ -48,7 +48,7 @@ class ResultsSearchHeader extends Component {
               </div>
             </fieldset>
             <div className="usa-width-one-sixth search-submit-button">
-              <button className="usa-button" type="submit">
+              <button className="usa-button">
                 <FontAwesome name="search" className="label-icon" />
                 Search
               </button>

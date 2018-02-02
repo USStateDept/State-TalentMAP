@@ -29,7 +29,6 @@ exports[`HomePageFiltersComponent matches snapshot 1`] = `
     </FieldSet>
     <button
       className="saved-search-form-secondary-button"
-      onClick={[Function]}
     >
       Search
     </button>

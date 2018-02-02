@@ -25,7 +25,6 @@ exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
   >
     <button
       className="saved-search-form-primary-button"
-      type="submit"
     >
       Save
     </button>

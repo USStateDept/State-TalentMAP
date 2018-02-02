@@ -24,7 +24,6 @@ const HomePageFiltersSection = ({ filters, submitSearch, onFilterSelect, isLoadi
         </FieldSet>
         <button
           className="saved-search-form-secondary-button"
-          onClick={submitSearch}
         >
           Search
         </button>

@@ -47,7 +47,7 @@ class SaveNewSearchDialog extends Component {
           />
         </FieldSet>
         <div className="saved-search-form-buttons">
-          <button className="saved-search-form-primary-button" type="submit">{ currentSearchExists ? 'Save As' : 'Save' }</button>
+          <button type="submit" className="saved-search-form-primary-button">{ currentSearchExists ? 'Save As' : 'Save' }</button>
           {
             currentSavedSearch.id ?
               <button

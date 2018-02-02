@@ -51,7 +51,6 @@ class ExploreRegionDropdown extends Component {
             <button
               disabled={!selection.value.length}
               className="usa-button"
-              type="submit"
             >
               {selection.value.length ? 'View results' : 'Select region'}
             </button>

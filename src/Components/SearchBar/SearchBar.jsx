@@ -44,7 +44,6 @@ class SearchBar extends Component {
             id={`enabled-search-button-${id}`}
             className={submitDisabled ? 'usa-button-disabled' : null}
             disabled={submitDisabled}
-            type="submit"
             title="submit search"
           >
             <span className="usa-search-submit-text">{showSubmitText ? submitText : null}</span>
@@ -58,7 +57,6 @@ class SearchBar extends Component {
             <button
               className="usa-button-disabled"
               disabled="true"
-              type="submit"
               id={`disabled-search-button-${id}`}
               title="search button disabled"
             >
