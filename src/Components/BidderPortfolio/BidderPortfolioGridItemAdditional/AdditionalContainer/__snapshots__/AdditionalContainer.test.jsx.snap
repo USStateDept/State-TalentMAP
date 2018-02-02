@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdditionalContainerComponent matches snapshot 1`] = `
+<AdditionalView
+  client={Object {}}
+  hasErrored={false}
+  isLoading={true}
+/>
+`;

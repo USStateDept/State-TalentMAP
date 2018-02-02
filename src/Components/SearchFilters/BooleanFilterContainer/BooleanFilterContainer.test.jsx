@@ -15,6 +15,7 @@ describe('BooleanFilterContainerComponent', () => {
       <BooleanFilterContainer
         onBooleanFilterClick={() => {}}
         filters={items}
+        legendTitle="Legend"
       />,
     );
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
@@ -25,6 +26,7 @@ describe('BooleanFilterContainerComponent', () => {
       <BooleanFilterContainer
         onBooleanFilterClick={() => {}}
         filters={items}
+        legendTitle="Legend"
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -36,6 +38,7 @@ describe('BooleanFilterContainerComponent', () => {
       <BooleanFilterContainer
         onBooleanFilterClick={onClick}
         filters={items}
+        legendTitle="Legend"
       />,
     );
     wrapper.find('input').simulate('change', { target: { checked: true } });

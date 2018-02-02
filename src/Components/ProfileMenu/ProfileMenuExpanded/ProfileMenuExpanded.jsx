@@ -10,7 +10,7 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
   <div className="usa-grid-full profile-menu">
     <div className="menu-title">
       <div className="menu-title-text">Menu</div>
-      <button className="unstyled-button" onClick={collapse}>
+      <button className="unstyled-button" title="Collapse menu" onClick={collapse}>
         <FontAwesome name="exchange" />
       </button>
     </div>
@@ -33,6 +33,12 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
         <NavLink title="Favorites" link="/profile/favorites/" />
         <NavLink title="Saved Searches" link="/profile/searches/" />
       </NavLink>
+      <NavLink
+        title="Statistics"
+        iconName="pie-chart"
+        link="/profile/statistics/"
+        hidden={!isCDO}
+      />
       <NavLink title="Inbox" iconName="comments-o" link="/profile/inbox/" />
       <NavLink title="Notifications" iconName="globe" link="/profile/notifications/" />
       <NavLink title="Contacts" iconName="users" link="/profile/contacts/" />

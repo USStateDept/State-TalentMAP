@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import LinkButton from '../../LinkButton';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-const BidderPortfolioViewMore = ({ className, useLink }) => {
-  const text = 'View More';
+const BidderPortfolioViewMore = ({ className, useLink, onClick, isExpanded }) => {
+  const text = isExpanded ? 'Close' : 'View profile';
   const link = '/profile/dashboard/';
   return (
     <div>
@@ -20,9 +20,9 @@ const BidderPortfolioViewMore = ({ className, useLink }) => {
           className={`usa-grid-full current-user-section-container
           view-more-link-centered section-padded-inner-container-narrow`}
         >
-          <LinkButton toLink={link} className={className}>
+          <button onClick={onClick} className={className}>
             {text}
-          </LinkButton>
+          </button>
         </div>
     }
     </div>
@@ -32,11 +32,15 @@ const BidderPortfolioViewMore = ({ className, useLink }) => {
 BidderPortfolioViewMore.propTypes = {
   className: PropTypes.string,
   useLink: PropTypes.bool,
+  onClick: PropTypes.func,
+  isExpanded: PropTypes.bool,
 };
 
 BidderPortfolioViewMore.defaultProps = {
   className: 'unstyled-button',
   useLink: false,
+  onClick: EMPTY_FUNCTION,
+  isExpanded: false,
 };
 
 export default BidderPortfolioViewMore;

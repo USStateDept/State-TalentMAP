@@ -9,7 +9,9 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
   >
     test, you've been offered a handshake
   </div>
-  <div>
+  <div
+    className="usa-grid-full"
+  >
     <button
       className="tm-button-transparent"
       onClick={[Function]}
@@ -20,7 +22,7 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
        Accept Handshake
     </button>
     <button
-      className="unstyled-button"
+      className="tm-button-transparent tm-button-no-box"
       onClick={[Function]}
     >
       Decline Handshake
