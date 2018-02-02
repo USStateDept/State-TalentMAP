@@ -5,10 +5,10 @@
   }
 
   .usa-accordion-button[aria-expanded=false] {
-    background-image: url('/assets/img/plus-white.svg');
+    background-image: url('#{$asset-path}/assets/img/plus-white.svg');
   }
 
   .usa-accordion-button[aria-expanded=true] {
-    background-image: url('/assets/img/minus-white.svg');
+    background-image: url('#{$asset-path}/assets/img/minus-white.svg');
   }
 }

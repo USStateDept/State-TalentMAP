@@ -25,7 +25,7 @@ class BidTrackerContainer extends Component {
   }
 
   render() {
-    const { bidList, toggleBid,
+    const { bidList, toggleBid, deleteBid,
       bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
       bidListToggleIsLoading, bidListToggleSuccess, submitBidPosition,
       submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
@@ -43,6 +43,7 @@ class BidTrackerContainer extends Component {
         bidListToggleHasErrored={bidListToggleHasErrored}
         bidListToggleIsLoading={bidListToggleIsLoading}
         bidListToggleSuccess={bidListToggleSuccess}
+        deleteBid={deleteBid}
         submitBid={submitBidPosition}
         submitBidHasErrored={submitBidHasErrored}
         submitBidIsLoading={submitBidIsLoading}
@@ -72,6 +73,7 @@ BidTrackerContainer.propTypes = {
   bidListRouteChangeResetState: PropTypes.func.isRequired,
   fetchBidList: PropTypes.func,
   toggleBid: PropTypes.func,
+  deleteBid: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
   bidList: BID_LIST,
@@ -104,6 +106,7 @@ BidTrackerContainer.propTypes = {
 BidTrackerContainer.defaultProps = {
   fetchBidList: EMPTY_FUNCTION,
   toggleBid: EMPTY_FUNCTION,
+  deleteBid: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
@@ -169,6 +172,7 @@ export const mapDispatchToProps = dispatch => ({
   submitBidPosition: id => dispatch(submitBid(id)),
   acceptBidPosition: id => dispatch(acceptBid(id)),
   declineBidPosition: id => dispatch(declineBid(id)),
+  deleteBid: id => dispatch(toggleBidPosition(id, true)),
   // Here, we only want the newest bidding-related notification.
   // We'll perform a client-side check to see if it's unread, as that's would be the only
   // case that we'd display this notification.

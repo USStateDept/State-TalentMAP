@@ -45,8 +45,10 @@ export function validStateEmail(email) {
 
 export function fetchUserToken() {
   const key = JSON.parse(localStorage.getItem('token'));
-  const token = `Token ${key}`;
-  return token;
+  if (key) {
+    return `Token ${key}`;
+  }
+  return null;
 }
 
 export const pillSort = (a, b) => {
@@ -264,3 +266,7 @@ export const numbersToPercentString = (numerator, denominator, precision = 3) =>
   const percentage = formatFraction(numerator / denominator);
   return `${percentage}%`;
 };
+
+export const formatBidTitle = bid => `${bid.position.title} (${bid.position.position_number})`;
+
+export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.category.toUpperCase()}`;

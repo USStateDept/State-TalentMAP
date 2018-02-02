@@ -11,14 +11,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleStaticContent } from '../../actions/showStaticContent';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import InteractiveElement from '../InteractiveElement';
 
 export const StaticDevContent = ({ toggle, showStaticContent }) => (
-  // At the time of writing, CodeClimate's version of eslint-a11y-plugin
-  // did not take role="button" into account with the following error:
-  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-  <span style={{ position: 'absolute', right: '0px', cursor: 'pointer', fontSize: '10px' }} onClick={() => toggle(!showStaticContent)} role="button" tabIndex="0">
+  <InteractiveElement
+    type="span"
+    style={{ position: 'absolute', right: '0px', cursor: 'pointer', fontSize: '10px' }}
+    onClick={() => toggle(!showStaticContent)}
+  >
     Toggle static content
-  </span>
+  </InteractiveElement>
 );
 
 StaticDevContent.propTypes = {

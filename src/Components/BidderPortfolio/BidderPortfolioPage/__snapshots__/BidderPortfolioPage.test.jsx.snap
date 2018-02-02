@@ -16,6 +16,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
           Object {
             "all_clients": 100,
             "bidding_clients": 50,
+            "bidding_no_handshake": 10,
             "in_panel_clients": 20,
             "on_post_clients": 30,
           }

@@ -4,8 +4,8 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { ROUTER_LOCATION_OBJECT, EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
-import { ifEnter } from '../../../utilities';
 import isCurrentPath from '../navigation';
+import InteractiveElement from '../../InteractiveElement';
 
 class NavLink extends Component {
   constructor(props) {
@@ -53,7 +53,7 @@ class NavLink extends Component {
 
   // This function wraps an element based on whether it contains a link or has children.
   // This allows us to wrap elements with a link prop within a navigation <Link>, while
-  // elements with children and no link become a clickable, epxandable list with its children.
+  // elements with children and no link become a clickable, expandable list with its children.
   // If neither criteria is met, we simply return the unwrapped element.
   wrapInLink(element) {
     const { link, search, children, iconName } = this.props;
@@ -65,15 +65,14 @@ class NavLink extends Component {
     } else if (children) {
       // Else, this must be a grouping of children, so we'll wrap it accordingly.
       return (
-        <div // eslint-disable-line jsx-a11y/no-static-element-interactions
+        <InteractiveElement
+          type="div"
           className={`usa-grid-full ${iconName ? 'icon-padding' : ''}`}
           onClick={this.toggleNestedLinksVisibility}
-          onKeyUp={(e) => { if (ifEnter(e)) { this.toggleNestedLinksVisibility(); } }}
           role="link"
-          tabIndex="0"
         >
           {element}
-        </div>
+        </InteractiveElement>
       );
     }
     // but if neither criteria is met, we'll simply return the element

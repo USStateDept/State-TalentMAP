@@ -12,6 +12,8 @@ describe('BidTrackerCardComponent', () => {
     bid,
     acceptBid: () => {},
     declineBid: () => {},
+    submitBid: () => {},
+    deleteBid: () => {},
     userProfile: bidderUserObject,
   };
 

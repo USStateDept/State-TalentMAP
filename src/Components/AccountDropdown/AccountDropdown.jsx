@@ -23,7 +23,7 @@ export class AccountDropdown extends Component {
   }
 
   render() {
-    const userName = this.props.userProfile.user ? this.props.userProfile.user.username : '...';
+    const firstName = this.props.userProfile.user ? this.props.userProfile.user.first_name : '...';
     const avatar = getAssetPath('/assets/img/avatar.png');
     return (
       <Dropdown
@@ -37,12 +37,12 @@ export class AccountDropdown extends Component {
             className="account-dropdown--avatar"
             src={avatar}
           />
-          <span className="account-dropdown--name" id="account-username">{userName}</span>
+          <span className="account-dropdown--name" id="account-username">{firstName}</span>
         </DropdownTrigger>
         <DropdownContent>
           <div className="account-dropdown--identity account-dropdown--segment">
             <div>Signed in as</div>
-            <strong>{userName}</strong>
+            <strong>{firstName}</strong>
           </div>
           <div className="account-dropdown--identity account-dropdown--segment">
             <Link to="/profile/dashboard" onClick={this.hideDropdown}>Profile</Link>

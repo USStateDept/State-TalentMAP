@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BooleanFilterContainerComponent matches snapshot 1`] = `
-<div>
+<FieldSet
+  className=""
+  legend="Legend"
+  legendSrOnly={true}
+>
   <BooleanFilter
     item={
       Object {
@@ -18,5 +22,5 @@ exports[`BooleanFilterContainerComponent matches snapshot 1`] = `
     }
     onBooleanFilterClick={[Function]}
   />
-</div>
+</FieldSet>
 `;
