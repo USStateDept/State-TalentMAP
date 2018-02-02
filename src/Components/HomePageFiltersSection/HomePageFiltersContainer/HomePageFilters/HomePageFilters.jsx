@@ -11,7 +11,7 @@ const HomePageFiltersSection = ({ filters, submitSearch, onFilterSelect, isLoadi
   const skillCodesData = skillCodes ? skillCodes.data : [];
   return (
     <div className="usa-grid-full">
-      <Form className="usa-grid-full" onFormSubmit={submitSearch}>
+      <Form className="usa-grid-full" onSubmit={submitSearch}>
         <FieldSet
           legend="Search by Skill Code"
         >

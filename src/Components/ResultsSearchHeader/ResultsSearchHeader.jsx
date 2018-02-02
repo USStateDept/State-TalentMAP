@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import SearchBar from '../SearchBar/SearchBar';
+import Form from '../Form';
 
 class ResultsSearchHeader extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class ResultsSearchHeader extends Component {
     return (
       <div className="results-search-bar padded-main-content">
         <div className="usa-grid-full results-search-bar-container">
-          <form className="usa-grid-full" onSubmit={this.submitSearch} >
+          <Form className="usa-grid-full" onSubmit={this.submitSearch} >
             <fieldset className="usa-width-five-sixths">
               <legend className="usa-grid-full usa-sr-only">Search keyword and location</legend>
               <div className="usa-width-one-whole search-results-inputs search-keyword">
@@ -54,7 +55,7 @@ class ResultsSearchHeader extends Component {
                 Search
               </button>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     );

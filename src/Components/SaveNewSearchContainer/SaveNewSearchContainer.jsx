@@ -47,7 +47,7 @@ class SaveNewSearchContainer extends Component {
           showInput.value ?
           (
             <SaveNewSearchDialog
-              onFormSubmit={this.submitSavedSearch}
+              onSubmit={this.submitSavedSearch}
               onTextChange={this.changeNewSearchName}
               onCancel={this.toggleInput}
               newSavedSearchHasErrored={newSavedSearchHasErrored}

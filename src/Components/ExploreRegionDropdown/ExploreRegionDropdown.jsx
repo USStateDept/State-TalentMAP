@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import FieldSet from '../../Components/FieldSet/FieldSet';
 import SelectForm from '../../Components/SelectForm/SelectForm';
+import Form from '../../Components/Form';
 import { formExploreRegionDropdown } from '../../utilities';
 
 class ExploreRegionDropdown extends Component {
@@ -36,7 +37,7 @@ class ExploreRegionDropdown extends Component {
     const { selection } = this.state;
     return (
       <div className="usa-form">
-        <form onSubmit={this.searchRegion}>
+        <Form onSubmit={this.searchRegion}>
           <div className="usa-width-one-half explore-region-fieldset">
             <FieldSet legend="region" legendSrOnly>
               <SelectForm
@@ -56,7 +57,7 @@ class ExploreRegionDropdown extends Component {
               {selection.value.length ? 'View results' : 'Select region'}
             </button>
           </div>
-        </form>
+        </Form>
       </div>
     );
   }

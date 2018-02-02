@@ -69,7 +69,7 @@ import SearchBar from './SearchBar';
         />,
       );
       wrapper.find('input').simulate('change', { target: { value: 'test' } });
-      wrapper.find('form').simulate('submit');
+      wrapper.find('Form').simulate('submit');
       expect(spy.calledOnce).toBe(true);
     });
 

@@ -6,7 +6,7 @@ exports[`HomePageFiltersComponent matches snapshot 1`] = `
 >
   <Form
     className="usa-grid-full"
-    onFormSubmit={[Function]}
+    onSubmit={[Function]}
   >
     <FieldSet
       className=""

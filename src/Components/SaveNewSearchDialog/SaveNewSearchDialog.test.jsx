@@ -12,7 +12,7 @@ describe('SaveNewSearchDialogComponent', () => {
       <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
-        onFormSubmit={() => {}}
+        onSubmit={() => {}}
         newSavedSearchHasErrored="error"
       />,
     );
@@ -25,7 +25,7 @@ describe('SaveNewSearchDialogComponent', () => {
       <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
-        onFormSubmit={(e) => { form.value = e; }}
+        onSubmit={(e) => { form.value = e; }}
         newSavedSearchHasErrored="error"
       />,
     );
@@ -41,7 +41,7 @@ describe('SaveNewSearchDialogComponent', () => {
       <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
-        onFormSubmit={(e, id) => { form.value = e; form.valueSec = id; }}
+        onSubmit={(e, id) => { form.value = e; form.valueSec = id; }}
         newSavedSearchHasErrored="error"
         currentSavedSearch={savedSearch}
       />,
@@ -60,12 +60,12 @@ describe('SaveNewSearchDialogComponent', () => {
       <SaveNewSearchDialog
         onCancel={cancelSpy}
         onTextChange={textSpy}
-        onFormSubmit={formSubmitSpy}
+        onSubmit={formSubmitSpy}
       />,
     );
     wrapper.instance().props.onCancel();
     wrapper.instance().props.onTextChange();
-    wrapper.instance().props.onFormSubmit();
+    wrapper.instance().props.onSubmit();
     sinon.assert.calledOnce(cancelSpy);
     sinon.assert.calledOnce(textSpy);
     sinon.assert.calledOnce(formSubmitSpy);
@@ -76,7 +76,7 @@ describe('SaveNewSearchDialogComponent', () => {
       <SaveNewSearchDialog
         onCancel={() => {}}
         onTextChange={() => {}}
-        onFormSubmit={() => {}}
+        onSubmit={() => {}}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

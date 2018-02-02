@@ -7,7 +7,7 @@ import Form from './Form';
 describe('FormComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <Form onFormSubmit={() => {}}>
+      <Form onSubmit={() => {}}>
         <span>child</span>
       </Form>,
     );
@@ -17,27 +17,40 @@ describe('FormComponent', () => {
   it('accepts a className', () => {
     const className = 'test-class';
     const wrapper = shallow(
-      <Form onFormSubmit={() => {}} className={className}>
+      <Form onSubmit={() => {}} className={className}>
         <span>child</span>
       </Form>,
     );
     expect(wrapper.find(`.${className}`)).toBeDefined();
   });
 
-  it('can call the onFormSubmit function', () => {
+  it('can submit the form', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <Form onFormSubmit={spy}>
+      <Form onSubmit={spy}>
         <span>child</span>
       </Form>,
     );
-    wrapper.instance().props.onFormSubmit();
+    wrapper.find('form').simulate('submit');
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('can submit a form when the passed value contains preventDefault', () => {
+    const spy = sinon.spy();
+    const preventDefaultSpy = sinon.spy();
+    const wrapper = shallow(
+      <Form onSubmit={spy}>
+        <span>child</span>
+      </Form>,
+    );
+    wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy });
+    sinon.assert.calledOnce(preventDefaultSpy);
     sinon.assert.calledOnce(spy);
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <Form onFormSubmit={() => {}}>
+      <Form onSubmit={() => {}}>
         <span>child</span>
       </Form>,
     );

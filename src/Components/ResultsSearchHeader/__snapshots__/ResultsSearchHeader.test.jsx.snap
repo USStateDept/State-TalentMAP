@@ -7,7 +7,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full results-search-bar-container"
   >
-    <form
+    <Form
       className="usa-grid-full"
       onSubmit={[Function]}
     >
@@ -53,7 +53,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
           Search
         </button>
       </div>
-    </form>
+    </Form>
   </div>
 </div>
 `;

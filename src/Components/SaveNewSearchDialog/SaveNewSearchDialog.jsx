@@ -13,11 +13,11 @@ class SaveNewSearchDialog extends Component {
   }
 
   submitNewSavedSearch(e) {
-    this.props.onFormSubmit(e);
+    this.props.onSubmit(e);
   }
 
   submitUpdatedSavedSearch(e) {
-    this.props.onFormSubmit(e, this.props.currentSavedSearch.id);
+    this.props.onSubmit(e, this.props.currentSavedSearch.id);
   }
 
   render() {
@@ -31,7 +31,7 @@ class SaveNewSearchDialog extends Component {
       inputType = 'error';
     }
     return (
-      <Form className="usa-grid-full saved-search-form" onFormSubmit={this.submitNewSavedSearch}>
+      <Form className="usa-grid-full saved-search-form" onSubmit={this.submitNewSavedSearch}>
         <FieldSet
           className="saved-search-fieldset usa-width-one-half"
           legend="Add a new saved search"
@@ -68,7 +68,7 @@ class SaveNewSearchDialog extends Component {
 SaveNewSearchDialog.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onTextChange: PropTypes.func.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
   currentSavedSearch: SAVED_SEARCH_OBJECT,

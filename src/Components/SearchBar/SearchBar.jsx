@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, PREVENT_DEFAULT } from '../../Constants/PropTypes';
+import Form from '../Form';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -74,9 +75,9 @@ class SearchBar extends Component {
       <div className={`usa-search usa-search-${type}`}>
         <div role="search" className="usa-grid-full">
           { !noForm &&
-            <form onSubmit={e => onSubmitSearch(e)}>
+            <Form onSubmit={e => onSubmitSearch(e)}>
               {child}
-            </form>
+            </Form>
           }
           {
             noForm &&

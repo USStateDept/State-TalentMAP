@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import { EMPTY_FUNCTION } from '../Constants/PropTypes';
 import Alert from '../Components/Alert/Alert';
+import Form from '../Components/Form';
 
 import { loginRequest } from './actions';
 
@@ -39,7 +40,7 @@ export class Login extends Component {
     return (
       <div className="usa-grid login-container content-container">
         <div className="usa-grid login">
-          <form className="usa-form" onSubmit={handleSubmit(this.submit)}>
+          <Form className="usa-form" onSubmit={handleSubmit(this.submit)}>
             <fieldset>
               <legend className="usa-drop_text">Sign in</legend>
               <label htmlFor="username">Username</label>
@@ -64,7 +65,7 @@ export class Login extends Component {
               />
               <input type="submit" value="Sign in" />
             </fieldset>
-          </form>
+          </Form>
           <div className="auth-messages">
             {
               !requesting && !!errors.length &&

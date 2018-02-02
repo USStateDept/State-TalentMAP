@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { validStateEmail } from '../../../utilities';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import Form from '../../Form';
 
 class ShareButton extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class ShareButton extends Component {
     const buttonClassEnabled = recipient.length && !isSending;
     return (
       <div>
-        <form onSubmit={e => this.share(e)}>
+        <Form onSubmit={e => this.share(e)}>
           <label htmlFor="share-input">Share this position:</label>
           <br />
           <input
@@ -65,7 +66,7 @@ class ShareButton extends Component {
           {showWarning && 'This is not a state.gov email. Send with caution.'}
           <br />
           {isSending && 'Sending...'} {hasErrored} {wasSent && 'Sent!'}
-        </form>
+        </Form>
       </div>
     );
   }

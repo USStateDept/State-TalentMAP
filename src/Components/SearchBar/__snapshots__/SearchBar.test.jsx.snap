@@ -8,7 +8,8 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
     className="usa-grid-full"
     role="search"
   >
-    <form
+    <Form
+      className=""
       onSubmit={[Function]}
     >
       <div
@@ -78,7 +79,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
           </span>
         </div>
       </div>
-    </form>
+    </Form>
   </div>
 </div>
 `;
@@ -91,7 +92,8 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
     className="usa-grid-full"
     role="search"
   >
-    <form
+    <Form
+      className=""
       onSubmit={[Function]}
     >
       <div
@@ -161,7 +163,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
           </span>
         </div>
       </div>
-    </form>
+    </Form>
   </div>
 </div>
 `;
@@ -174,7 +176,8 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
     className="usa-grid-full"
     role="search"
   >
-    <form
+    <Form
+      className=""
       onSubmit={[Function]}
     >
       <div
@@ -240,7 +243,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
           </span>
         </div>
       </div>
-    </form>
+    </Form>
   </div>
 </div>
 `;
