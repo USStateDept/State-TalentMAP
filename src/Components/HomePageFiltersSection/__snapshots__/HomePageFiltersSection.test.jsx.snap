@@ -32,6 +32,28 @@ exports[`HomePageFiltersSectionComponent matches snapshot 1`] = `
               "description": "skill",
             },
           },
+          Object {
+            "data": Array [
+              Object {
+                "code": "2",
+                "custom_description": "2",
+              },
+            ],
+            "item": Object {
+              "description": "grade",
+            },
+          },
+          Object {
+            "data": Array [
+              Object {
+                "code": "bur",
+                "custom_description": "bureau",
+              },
+            ],
+            "item": Object {
+              "description": "region",
+            },
+          },
         ]
       }
       isLoading={false}

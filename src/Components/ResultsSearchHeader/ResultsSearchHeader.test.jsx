@@ -8,20 +8,31 @@ describe('ResultsSearchHeaderComponent', () => {
   let wrapper = null;
 
   const defaultKeyword = 'keyword';
-  const defaultLocation = 'a location';
+
+  const props = {
+    onUpdate: () => {},
+    defaultKeyword,
+    onFilterChange: () => {},
+  };
 
   it('is defined', () => {
     wrapper = shallow(<ResultsSearchHeader
-      onUpdate={() => {}}
+      {...props}
+    />);
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined without a defaultKeyword', () => {
+    wrapper = shallow(<ResultsSearchHeader
+      {...props}
+      defaultKeyword={null}
     />);
     expect(wrapper).toBeDefined();
   });
 
   it('can receive props', () => {
     wrapper = shallow(<ResultsSearchHeader
-      onUpdate={() => {}}
-      defaultKeyword={defaultKeyword}
-      defaultLocation={defaultLocation}
+      {...props}
     />);
     expect(wrapper.instance().props.defaultKeyword).toBe(defaultKeyword);
   });
@@ -29,9 +40,8 @@ describe('ResultsSearchHeaderComponent', () => {
   it('can call the onUpdate function', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader
+      {...props}
       onUpdate={spy}
-      defaultKeyword={defaultKeyword}
-      defaultLocation={defaultLocation}
     />);
     wrapper.instance().props.onUpdate();
     expect(spy.calledOnce).toBe(true);
@@ -39,9 +49,8 @@ describe('ResultsSearchHeaderComponent', () => {
 
   it('can call the changeText function', () => {
     wrapper = shallow(<ResultsSearchHeader
+      {...props}
       onUpdate={() => {}}
-      defaultKeyword={defaultKeyword}
-      defaultLocation={defaultLocation}
     />);
     wrapper.instance().changeText('q', { target: { value: defaultKeyword } });
     expect(wrapper.instance().state.q.value).toBe(defaultKeyword);
@@ -49,9 +58,8 @@ describe('ResultsSearchHeaderComponent', () => {
 
   it('can call the onChangeQueryText function', () => {
     wrapper = shallow(<ResultsSearchHeader
+      {...props}
       onUpdate={() => {}}
-      defaultKeyword={defaultKeyword}
-      defaultLocation={defaultLocation}
     />);
     wrapper.instance().onChangeQueryText({ target: { value: defaultKeyword } });
     expect(wrapper.instance().state.q.value).toBe(defaultKeyword);
@@ -60,9 +68,8 @@ describe('ResultsSearchHeaderComponent', () => {
   it('can submit a search', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader
+      {...props}
       onUpdate={spy}
-      defaultKeyword={defaultKeyword}
-      defaultLocation={defaultLocation}
     />);
     wrapper.find('form').simulate('submit', { preventDefault: () => {} });
     expect(spy.calledOnce).toBe(true);
@@ -71,9 +78,8 @@ describe('ResultsSearchHeaderComponent', () => {
   it('can call the submitSearch function', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader
+      {...props}
       onUpdate={spy}
-      defaultKeyword={defaultKeyword}
-      defaultLocation={defaultLocation}
     />);
     wrapper.instance().submitSearch({ preventDefault: () => {} });
     expect(spy.calledOnce).toBe(true);
@@ -81,9 +87,7 @@ describe('ResultsSearchHeaderComponent', () => {
 
   it('matches snapshot', () => {
     wrapper = shallow(<ResultsSearchHeader
-      onUpdate={() => {}}
-      defaultKeyword={defaultKeyword}
-      defaultLocation={defaultLocation}
+      {...props}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

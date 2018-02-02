@@ -13,7 +13,7 @@ import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Cons
 import GovBanner from './GovBanner/GovBanner';
 import ResultsMultiSearchHeaderContainer from '../ResultsMultiSearchHeader/ResultsMultiSearchContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader';
-import { isCurrentPathIn } from '../ProfileMenu/navigation';
+import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
@@ -41,6 +41,10 @@ export class Header extends Component {
   onFilterChange(q) {
     const { searchbarFilters, setSearchFilters } = this.props;
     setSearchFilters({ ...searchbarFilters, ...q });
+  }
+
+  isOnResultsPage() {
+    return isCurrentPath('/results', this.props.location.pathname);
   }
 
   matchCurrentPath(historyObject) {
@@ -104,14 +108,18 @@ export class Header extends Component {
       signedInAs = userFirstName;
     }
 
+    // Apply a custom class if we're on the results page.
+    const isOnResultsPage = this.isOnResultsPage();
+    const resultsPageClass = isOnResultsPage ? 'is-on-results-page' : '';
+
     const isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute();
     const isOnForceHideSearchRoute = this.isOnForceHideSearchRoute();
     const showResultsSearchHeader =
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
-    const searchBarVisibilityClass = shouldShowSearchBar ? 'search-bar-visible' : 'search-bar-hidden';
+    const searchBarVisibilityClass = showResultsSearchHeader ? 'search-bar-visible' : 'search-bar-hidden';
 
     return (
-      <div className={searchBarVisibilityClass}>
+      <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
         <header className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <GovBanner />

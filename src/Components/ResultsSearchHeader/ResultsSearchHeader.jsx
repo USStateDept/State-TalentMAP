@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import SearchBar from '../SearchBar/SearchBar';
 
 class ResultsSearchHeader extends Component {
@@ -72,8 +73,9 @@ ResultsSearchHeader.propTypes = {
 };
 
 ResultsSearchHeader.defaultProps = {
+  onUpdate: EMPTY_FUNCTION,
+  onFilterChange: EMPTY_FUNCTION,
   defaultKeyword: '',
-  defaultLocation: '',
   labelSrOnly: false,
   placeholder: 'Location, Skill Code, Grade, Language, Position Number',
 };

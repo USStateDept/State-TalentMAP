@@ -2,9 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { FILTER_ITEMS_ARRAY, USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import SearchBar from '../SearchBar/SearchBar';
 import SkillCodeFilter from '../HomePageFiltersSection/SkillCodeFilter';
 import SelectForm from '../SelectForm';
+
+// Set our params as state names so we can easily
+// use them as properties to query on.
+const SKILL_PARAM = ENDPOINT_PARAMS.skill;
+const BUREAU_PARAM = ENDPOINT_PARAMS.org;
+const GRADE_PARAM = ENDPOINT_PARAMS.grade;
 
 class ResultsMultiSearchHeader extends Component {
   constructor(props) {
@@ -17,17 +24,16 @@ class ResultsMultiSearchHeader extends Component {
     this.filterChange = this.filterChange.bind(this);
     this.state = {
       q: this.props.defaultFilters.q || '',
-      skill__code__in: [],
-      bureau__code__in: null,
-      grade__code__in: null,
       defaultGrade: null,
       defaultBureau: null,
-      defaultQuery: '',
       skillsWasUpdated: false,
       gradeWasUpdated: false,
       qWasUpdated: false,
       bureauWasUpdated: false,
     };
+    this.state[SKILL_PARAM] = [];
+    this.state[BUREAU_PARAM] = null;
+    this.state[GRADE_PARAM] = null;
   }
 
   componentWillReceiveProps(props) {
@@ -35,15 +41,15 @@ class ResultsMultiSearchHeader extends Component {
   }
 
   onChangeSkills(e) {
-    this.setState({ skill__code__in: e, skillsWasUpdated: true }, this.filterChange);
+    this.setState({ [SKILL_PARAM]: e, skillsWasUpdated: true }, this.filterChange);
   }
 
   onChangeBureau(e) {
-    this.setState({ bureau__code__in: e.target.value }, this.filterChange);
+    this.setState({ [BUREAU_PARAM]: e.target.value, bureauWasUpdated: true }, this.filterChange);
   }
 
   onChangeGrade(e) {
-    this.setState({ grade__code__in: e.target.value }, this.filterChange);
+    this.setState({ [GRADE_PARAM]: e.target.value, gradeWasUpdated: true }, this.filterChange);
   }
 
   onChangeText(e) {
@@ -60,47 +66,40 @@ class ResultsMultiSearchHeader extends Component {
     const { userProfile, defaultFilters } = props;
 
     // set default values for our filters
-    const defaultGrade = defaultFilters.grade__code__in || userProfile.grade;
-    const defaultBureau = defaultFilters.bureau__code__in || userProfile.bureau;
+    const defaultGrade = defaultFilters[GRADE_PARAM] || userProfile.grade;
+    const defaultBureau = defaultFilters[BUREAU_PARAM] || userProfile.bureau;
     const defaultQuery = defaultFilters.q;
-    const defaultSkills = defaultFilters.skill__code__in || userProfile.skills;
+    const defaultSkills = defaultFilters[SKILL_PARAM] || userProfile.skills;
 
     // set keyword to correct state
     if (!qWasUpdated && defaultQuery) {
-      this.setState({
-        q: defaultQuery, qWasUpdated: true,
-      });
+      this.setState({ q: defaultQuery, qWasUpdated: true });
     }
 
     // set grade to correct state
-    if (!gradeWasUpdated && userProfile.grade) {
-      this.setState({
-        defaultGrade, gradeWasUpdated: true,
-      });
+    if (!gradeWasUpdated && defaultGrade) {
+      this.setState({ defaultGrade, gradeWasUpdated: true });
     }
 
     // set grade to correct state
     if (!bureauWasUpdated && defaultBureau) {
-      this.setState({
-        defaultBureau, bureauWasUpdated: true,
-      });
+      this.setState({ defaultBureau, bureauWasUpdated: true });
     }
 
     // set skills to correct state
-    if (!skillsWasUpdated && (userProfile.skills || defaultFilters.skill__code__in)) {
+    if (!skillsWasUpdated && (userProfile.skills || defaultFilters[SKILL_PARAM])) {
       const mappedDefaultSkills = defaultSkills.length ?
         // map the skills as either a string or an object property 'code'
         defaultSkills.slice().map(s => ({ code: s.code || s })) : [];
-      this.setState({
-        skill__code__in: mappedDefaultSkills,
-      });
+      this.setState({ [SKILL_PARAM]: mappedDefaultSkills });
     }
   }
 
   formatQuery() {
-    const { q, skill__code__in, bureau__code__in, grade__code__in } = this.state;
-    const skills = skill__code__in.slice().map(s => s.code);
-    const query = { q, skill__code__in: skills, bureau__code__in, grade__code__in };
+    const { q, [SKILL_PARAM]: skillCodes, [BUREAU_PARAM]: bureaus,
+      [GRADE_PARAM]: grades } = this.state;
+    const skills = skillCodes.slice().map(s => s.code);
+    const query = { q, [SKILL_PARAM]: skills, bureaus, grades };
     return query;
   }
 
@@ -120,25 +119,25 @@ class ResultsMultiSearchHeader extends Component {
 
   render() {
     const { placeholder, filters, userProfile, filtersIsLoading } = this.props;
-    const { q, defaultGrade, defaultBureau, skill__code__in } = this.state;
+    const { q, defaultGrade, defaultBureau, [SKILL_PARAM]: skills } = this.state;
 
     // format skill codes
-    const skillCodes = (filters || []).find(f => f.item && f.item.description === 'skill');
+    const skillCodes = filters.find(f => f.item && f.item.description === 'skill');
     const skillCodesData = skillCodes ? skillCodes.data : [];
 
     // format grades
-    const grades = (filters || []).find(f => f.item && f.item.description === 'grade');
+    const grades = filters.find(f => f.item && f.item.description === 'grade');
     const mappedGrades = grades && grades.data ?
       grades.data.slice().map(g => ({ ...g, value: g.code, text: g.code })) : [];
 
     // format bureaus
-    const bureaus = (filters || []).find(f => f.item && f.item.description === 'region');
+    const bureaus = filters.find(f => f.item && f.item.description === 'region');
     const mappedBureaus = bureaus && bureaus.data ?
       bureaus.data.slice().map(g => ({ ...g, value: g.code, text: g.short_description })) : [];
 
     // set the default skills
     // eslint-disable-next-line camelcase
-    const defaultSkills = skill__code__in || userProfile.skills || [];
+    const defaultSkills = skills || userProfile.skills || [];
     return (
       <div className="results-search-bar padded-main-content results-multi-search">
         <div className="usa-grid-full results-search-bar-container">
@@ -149,7 +148,7 @@ class ResultsMultiSearchHeader extends Component {
                   <div className="usa-width-five-twelfths search-results-inputs search-keyword">
                     <legend className="usa-grid-full">Find your next position</legend>
                     <SearchBar
-                      id="search-keyword-field"
+                      id="multi-search-keyword-field"
                       label="Keywords"
                       type="medium"
                       submitText="Search"
@@ -221,6 +220,7 @@ ResultsMultiSearchHeader.propTypes = {
 };
 
 ResultsMultiSearchHeader.defaultProps = {
+  filters: [],
   defaultFilters: {},
   filtersIsLoading: false,
   placeholder: 'Location, Skill Code, Grade, Language, Position Number',

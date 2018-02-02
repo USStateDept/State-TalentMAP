@@ -11,6 +11,10 @@ class SelectForm extends Component {
   }
 
   componentWillReceiveProps(props) {
+    this.setDefaultValue(props);
+  }
+
+  setDefaultValue(props) {
     const { selection } = this.state;
     const { includeFirstEmptyOption, defaultSort } = props;
     if (includeFirstEmptyOption && !selection.length && defaultSort) {

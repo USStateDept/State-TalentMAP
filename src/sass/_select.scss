@@ -10,6 +10,7 @@
 .Select--multi {
   .Select-value {
     background-color: $blue-primary;
+    border-radius: 9px;
     color: $color-white;
     font-size: .8em;
     margin-top: 8px;
@@ -28,6 +29,7 @@
   }
 
   .Select-value-icon {
+    border-right: 0;
     float: right;
   }
 
