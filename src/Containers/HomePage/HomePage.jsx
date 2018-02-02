@@ -5,7 +5,6 @@ import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import Spinner from '../../Components/Spinner';
-import HomePageFiltersSection from '../../Components/HomePageFiltersSection';
 
 class HomePage extends Component {
   constructor(props) {
@@ -27,6 +26,7 @@ class HomePage extends Component {
   }
 
   render() {
+    /* eslint-disable */
     const { homePagePositions,
       homePagePositionsIsLoading, homePagePositionsHasErrored,
       userProfile, toggleFavorite, toggleBid, bidList,
@@ -34,11 +34,6 @@ class HomePage extends Component {
       userProfileFavoritePositionHasErrored, filters } = this.props;
     return (
       <div className="home content-container">
-        <HomePageFiltersSection
-          filters={filters}
-          isLoading={filtersIsLoading}
-          userSkills={userProfile.skills}
-        />
         <div className="homepage-positions-section-container">
           {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&

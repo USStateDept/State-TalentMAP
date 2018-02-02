@@ -23,12 +23,14 @@ class ResultsSearchHeader extends Component {
     this.props.onUpdate({ q: q.value });
   }
   changeText(type, e) {
+    const { q } = this.state;
     this.setState({ [type]: { value: e.target.value } });
+    this.props.onFilterChange({ q: q.value });
   }
   render() {
     const { defaultKeyword, labelSrOnly, placeholder } = this.props;
     return (
-      <div className="results-search-bar padded-main-content">
+      <div className="results-search-bar padded-main-content results-single-search">
         <div className="usa-grid-full results-search-bar-container">
           <form className="usa-grid-full" onSubmit={this.submitSearch} >
             <fieldset className="usa-width-five-sixths">
@@ -66,6 +68,7 @@ ResultsSearchHeader.propTypes = {
   defaultKeyword: PropTypes.string,
   labelSrOnly: PropTypes.bool,
   placeholder: PropTypes.string,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 ResultsSearchHeader.defaultProps = {
