@@ -262,7 +262,8 @@ export const returnObjectsWherePropMatches = (sourceArray = [], compareArray = [
 // Convert a numerator and a denominator to a percentage. Pass "inverse === true" if you want
 // the inverse, i.e. the remainder.
 export const numbersToPercentString = (numerator, denominator, precision = 3) => {
-  const formatFraction = fraction => parseFloat(fraction).toPrecision(precision) * 100;
+  const formatFraction = fraction =>
+    (parseFloat(fraction) * 100).toString().slice(0, precision + 1);
   const percentage = formatFraction(numerator / denominator);
   return `${percentage}%`;
 };

@@ -57,6 +57,7 @@ class NavLink extends Component {
   // If neither criteria is met, we simply return the unwrapped element.
   wrapInLink(element) {
     const { link, search, children, iconName } = this.props;
+    const iconClass = iconName ? 'icon-padding' : '';
     // If there's no link prop, then we don't want to wrap the element in a <Link>
     if (link.length) {
       return (
@@ -67,7 +68,7 @@ class NavLink extends Component {
       return (
         <InteractiveElement
           type="div"
-          className={`usa-grid-full ${iconName ? 'icon-padding' : ''}`}
+          className={`usa-grid-full ${iconClass}`}
           onClick={this.toggleNestedLinksVisibility}
           role="link"
         >

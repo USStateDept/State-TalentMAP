@@ -14,6 +14,60 @@ exports[`AccountDropdown matches snapshot 1`] = `
       className="account-dropdown--avatar"
       src="/assets/img/avatar.png"
     />
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+    >
+      <div>
+        Signed in as
+      </div>
+      <strong>
+        ...
+      </strong>
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+    >
+      <Link
+        onClick={[Function]}
+        replace={false}
+        to="/profile/dashboard"
+      >
+        Profile
+      </Link>
+    </div>
+    <div
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+    >
+      <Link
+        onClick={[Function]}
+        replace={false}
+        to="/login"
+      >
+        Logout
+      </Link>
+    </div>
+  </DropdownContent>
+</Dropdown>
+`;
+
+exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
+<Dropdown
+  className="account-dropdown"
+  removeElement={true}
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <img
+      alt="avatar"
+      className="account-dropdown--avatar"
+      src="/assets/img/avatar.png"
+    />
     <span
       className="account-dropdown--name"
       id="account-username"
@@ -35,7 +89,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
       </strong>
     </div>
     <div
-      className="account-dropdown--identity account-dropdown--segment"
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
     >
       <Link
         onClick={[Function]}
@@ -46,7 +100,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
       </Link>
     </div>
     <div
-      className="account-dropdown--identity account-dropdown--segment"
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
     >
       <Link
         onClick={[Function]}
