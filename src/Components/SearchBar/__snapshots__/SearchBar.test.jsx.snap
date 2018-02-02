@@ -10,7 +10,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
   >
     <Form
       className=""
-      onSubmit={[Function]}
+      onFormSubmit={[Function]}
     >
       <div
         className="usa-grid-full label-input-wrapper"
@@ -94,7 +94,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
   >
     <Form
       className=""
-      onSubmit={[Function]}
+      onFormSubmit={[Function]}
     >
       <div
         className="usa-grid-full label-input-wrapper"
@@ -178,7 +178,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
   >
     <Form
       className=""
-      onSubmit={[Function]}
+      onFormSubmit={[Function]}
     >
       <div
         className="usa-grid-full label-input-wrapper"

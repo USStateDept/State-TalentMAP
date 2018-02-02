@@ -16,9 +16,7 @@ class SaveNewSearchContainer extends Component {
     };
   }
 
-  toggleInput(e) {
-    // preventDefault() to avoid query params getting added in MS Edge
-    e.preventDefault();
+  toggleInput() {
     const { showInput, newSearchName } = this.state;
     // reset the input field, since the component will re-render and be out of sync with state
     showInput.value = !showInput.value;
@@ -32,9 +30,6 @@ class SaveNewSearchContainer extends Component {
   }
 
   submitSavedSearch(e, id) {
-    if (e && e.preventDefault) {
-      e.preventDefault();
-    }
     this.props.saveSearch(this.state.newSearchName.value, id);
   }
 
@@ -47,7 +42,7 @@ class SaveNewSearchContainer extends Component {
           showInput.value ?
           (
             <SaveNewSearchDialog
-              onSubmit={this.submitSavedSearch}
+              onFormSubmit={this.submitSavedSearch}
               onTextChange={this.changeNewSearchName}
               onCancel={this.toggleInput}
               newSavedSearchHasErrored={newSavedSearchHasErrored}

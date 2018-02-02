@@ -24,8 +24,7 @@ class ExploreRegionDropdown extends Component {
     selectRegion(e.target.value);
   }
 
-  searchRegion(e) {
-    e.preventDefault();
+  searchRegion() {
     this.props.onRegionSubmit(this.state.selection.value);
   }
 
@@ -37,7 +36,7 @@ class ExploreRegionDropdown extends Component {
     const { selection } = this.state;
     return (
       <div className="usa-form">
-        <Form onSubmit={this.searchRegion}>
+        <Form onFormSubmit={this.searchRegion}>
           <div className="usa-width-one-half explore-region-fieldset">
             <FieldSet legend="region" legendSrOnly>
               <SelectForm

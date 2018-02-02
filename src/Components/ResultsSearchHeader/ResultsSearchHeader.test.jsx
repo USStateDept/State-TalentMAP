@@ -64,7 +64,8 @@ describe('ResultsSearchHeaderComponent', () => {
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
-    wrapper.find('Form').simulate('submit', { preventDefault: () => {} });
+    const submit = wrapper.find('Form').prop('onFormSubmit');
+    submit();
     expect(spy.calledOnce).toBe(true);
   });
 
@@ -75,7 +76,7 @@ describe('ResultsSearchHeaderComponent', () => {
       defaultKeyword={defaultKeyword}
       defaultLocation={defaultLocation}
     />);
-    wrapper.instance().submitSearch({ preventDefault: () => {} });
+    wrapper.instance().submitSearch();
     expect(spy.calledOnce).toBe(true);
   });
 

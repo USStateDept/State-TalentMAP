@@ -16,9 +16,7 @@ class ResultsSearchHeader extends Component {
   onChangeQueryText(e) {
     this.changeText('q', e);
   }
-  submitSearch(e) {
-    // resolves “Form submission canceled because the form is not connected” warning
-    e.preventDefault();
+  submitSearch() {
     const { q } = this.state;
     // send any updates to q and location back to the Results container, and reset our page number
     this.props.onUpdate({ q: q.value });
@@ -31,7 +29,7 @@ class ResultsSearchHeader extends Component {
     return (
       <div className="results-search-bar padded-main-content">
         <div className="usa-grid-full results-search-bar-container">
-          <Form className="usa-grid-full" onSubmit={this.submitSearch} >
+          <Form className="usa-grid-full" onFormSubmit={this.submitSearch} >
             <fieldset className="usa-width-five-sixths">
               <legend className="usa-grid-full usa-sr-only">Search keyword and location</legend>
               <div className="usa-width-one-whole search-results-inputs search-keyword">

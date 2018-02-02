@@ -64,7 +64,8 @@ describe('ShareButton', () => {
     expect(wrapper.instance().state.timeout).toBe(false);
     const email = 'test@state.gov';
     wrapper.find('#share-input').simulate('change', { target: { value: email } });
-    wrapper.find('Form').simulate('submit', { preventDefault: () => {} });
+    const submit = wrapper.find('Form').prop('onFormSubmit');
+    submit();
     expect(wrapper.instance().state.timeout).toBe(true);
   });
 
@@ -72,7 +73,8 @@ describe('ShareButton', () => {
     expect(wrapper.instance().state.timeout).toBe(false);
     const email = 'test@state.gov';
     wrapper.find('#share-input').simulate('change', { target: { value: email } });
-    wrapper.find('Form').simulate('submit', { preventDefault: () => {} });
+    const submit = wrapper.find('Form').prop('onFormSubmit');
+    submit();
     expect(wrapper.instance().state.timeout).toBe(true);
   });
 });

@@ -56,7 +56,7 @@ describe('ExploreRegionDropdownComponent', () => {
       selectRegion={() => {}}
     />);
     wrapper.instance().state.selection.value = value;
-    wrapper.instance().searchRegion({ preventDefault: () => {} });
+    wrapper.instance().searchRegion();
     expect(submittedValue.value).toBe(value);
   });
 });

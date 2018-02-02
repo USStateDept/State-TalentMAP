@@ -56,7 +56,7 @@ describe('HomePageFiltersContainerComponent', () => {
       <HomePageFiltersContainer.WrappedComponent {...props} onNavigateTo={onNavigateTo} />,
     );
     wrapper.instance().onSkillSelect([{ code: '1' }]);
-    wrapper.instance().submitSearch({ preventDefault: () => {} });
+    wrapper.instance().submitSearch();
     expect(qString).toBe('/results?skill__code__in=1');
   });
 

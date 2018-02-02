@@ -29,8 +29,7 @@ class ShareButton extends Component {
     }, ms);
   }
 
-  share(e) {
-    e.preventDefault();
+  share() {
     const { recipient } = this.state;
     const message = {
       type: 'position',
@@ -49,7 +48,7 @@ class ShareButton extends Component {
     const buttonClassEnabled = recipient.length && !isSending;
     return (
       <div>
-        <Form onSubmit={e => this.share(e)}>
+        <Form onFormSubmit={e => this.share(e)}>
           <label htmlFor="share-input">Share this position:</label>
           <br />
           <input

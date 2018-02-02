@@ -7,7 +7,7 @@ import Form from './Form';
 describe('FormComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <Form onSubmit={() => {}}>
+      <Form onFormSubmit={() => {}}>
         <span>child</span>
       </Form>,
     );
@@ -17,7 +17,7 @@ describe('FormComponent', () => {
   it('accepts a className', () => {
     const className = 'test-class';
     const wrapper = shallow(
-      <Form onSubmit={() => {}} className={className}>
+      <Form onFormSubmit={() => {}} className={className}>
         <span>child</span>
       </Form>,
     );
@@ -27,7 +27,7 @@ describe('FormComponent', () => {
   it('can submit the form', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <Form onSubmit={spy}>
+      <Form onFormSubmit={spy}>
         <span>child</span>
       </Form>,
     );
@@ -39,18 +39,18 @@ describe('FormComponent', () => {
     const spy = sinon.spy();
     const preventDefaultSpy = sinon.spy();
     const wrapper = shallow(
-      <Form onSubmit={spy}>
+      <Form onFormSubmit={spy}>
         <span>child</span>
       </Form>,
     );
-    wrapper.instance().onSubmit({ preventDefault: preventDefaultSpy });
+    wrapper.instance().onFormSubmit({ preventDefault: preventDefaultSpy });
     sinon.assert.calledOnce(preventDefaultSpy);
     sinon.assert.calledOnce(spy);
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <Form onSubmit={() => {}}>
+      <Form onFormSubmit={() => {}}>
         <span>child</span>
       </Form>,
     );

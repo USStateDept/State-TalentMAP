@@ -5,20 +5,20 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
-  onSubmit(e) {
-    const { onSubmit } = this.props;
+  onFormSubmit(e) {
+    const { onFormSubmit } = this.props;
     // preventDefault to avoid USWDS adding query params to url
     if (e && e.preventDefault) { e.preventDefault(); }
-    onSubmit(e);
+    onFormSubmit(e);
   }
 
   render() {
     const { children, className } = this.props;
     return (
-      <form className={className} onSubmit={this.onSubmit}>
+      <form className={className} onSubmit={this.onFormSubmit}>
         {children}
       </form>
     );
@@ -28,12 +28,12 @@ class Form extends Component {
 Form.propTypes = {
   children: PropTypes.node.isRequired, // should be valid form children
   className: PropTypes.string,
-  onSubmit: PropTypes.func,
+  onFormSubmit: PropTypes.func,
 };
 
 Form.defaultProps = {
   className: '',
-  onSubmit: EMPTY_FUNCTION,
+  onFormSubmit: EMPTY_FUNCTION,
 };
 
 export default Form;

@@ -17,7 +17,7 @@ import SearchBar from './SearchBar';
           submitText="Submit"
           alertText="Search disabled"
           onChangeText={() => {}}
-          onSubmitSearch={() => {}}
+          onFormSubmitSearch={() => {}}
         />,
       );
       expect(wrapper.instance().props.id).toBe('search');
@@ -33,7 +33,7 @@ import SearchBar from './SearchBar';
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
-          onSubmitSearch={() => {}}
+          onFormSubmitSearch={() => {}}
         />,
       );
       expect(wrapper.instance().props.id).toBe('search-2');
@@ -48,7 +48,7 @@ import SearchBar from './SearchBar';
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
-          onSubmitSearch={() => {}}
+          onFormSubmitSearch={() => {}}
         />,
       );
       wrapper.find('input').simulate('change', { target: { value: 'test' } });
@@ -65,11 +65,12 @@ import SearchBar from './SearchBar';
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
-          onSubmitSearch={spy}
+          onFormSubmitSearch={spy}
         />,
       );
       wrapper.find('input').simulate('change', { target: { value: 'test' } });
-      wrapper.find('Form').simulate('submit');
+      const submit = wrapper.find('Form').prop('onFormSubmit');
+      submit();
       expect(spy.calledOnce).toBe(true);
     });
 
@@ -83,7 +84,7 @@ import SearchBar from './SearchBar';
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
-          onSubmitSearch={() => {}}
+          onFormSubmitSearch={() => {}}
         />,
       );
       expect(toJSON(wrapper)).toMatchSnapshot();

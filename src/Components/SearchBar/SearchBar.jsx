@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION, PREVENT_DEFAULT } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Form from '../Form';
 
 class SearchBar extends Component {
@@ -20,7 +20,7 @@ class SearchBar extends Component {
       display: 'none',
     };
     const { id, type, submitDisabled, submitText, placeholder,
-      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton }
+      alertText, onFormSubmitSearch, label, labelSrOnly, noForm, noButton }
       = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
@@ -75,7 +75,7 @@ class SearchBar extends Component {
       <div className={`usa-search usa-search-${type}`}>
         <div role="search" className="usa-grid-full">
           { !noForm &&
-            <Form onSubmit={e => onSubmitSearch(e)}>
+            <Form onFormSubmit={onFormSubmitSearch}>
               {child}
             </Form>
           }
@@ -97,7 +97,7 @@ SearchBar.propTypes = {
   submitText: PropTypes.string.isRequired,
   alertText: PropTypes.string,
   onChangeText: PropTypes.func,
-  onSubmitSearch: PropTypes.func,
+  onFormSubmitSearch: PropTypes.func,
   labelSrOnly: PropTypes.bool,
   noForm: PropTypes.bool,
   noButton: PropTypes.bool,
@@ -115,7 +115,7 @@ SearchBar.defaultProps = {
   noButton: false,
   placeholder: null,
   defaultValue: null,
-  onSubmitSearch: PREVENT_DEFAULT,
+  onFormSubmitSearch: EMPTY_FUNCTION,
   onChangeText: EMPTY_FUNCTION,
 };
 

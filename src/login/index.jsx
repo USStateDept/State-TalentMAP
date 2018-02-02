@@ -40,7 +40,7 @@ export class Login extends Component {
     return (
       <div className="usa-grid login-container content-container">
         <div className="usa-grid login">
-          <Form className="usa-form" onSubmit={handleSubmit(this.submit)}>
+          <Form className="usa-form" onFormSubmit={handleSubmit(this.submit)}>
             <fieldset>
               <legend className="usa-drop_text">Sign in</legend>
               <label htmlFor="username">Username</label>

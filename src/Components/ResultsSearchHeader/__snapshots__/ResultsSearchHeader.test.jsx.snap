@@ -9,7 +9,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
   >
     <Form
       className="usa-grid-full"
-      onSubmit={[Function]}
+      onFormSubmit={[Function]}
     >
       <fieldset
         className="usa-width-five-sixths"
@@ -31,7 +31,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
             noButton={true}
             noForm={true}
             onChangeText={[Function]}
-            onSubmitSearch={[Function]}
+            onFormSubmitSearch={[Function]}
             placeholder="Location, Skill Code, Grade, Language, Position Number"
             submitDisabled={false}
             submitText="Search"
