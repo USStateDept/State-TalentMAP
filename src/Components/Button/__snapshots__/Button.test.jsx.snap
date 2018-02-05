@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonComponent matches snapshot 1`] = `
+<button
+  onClick={[Function]}
+>
+  <span>
+    child
+  </span>
+</button>
+`;

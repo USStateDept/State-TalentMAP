@@ -4,6 +4,7 @@ import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropT
 import Form from '../Form';
 import FieldSet from '../FieldSet/FieldSet';
 import TextInput from '../TextInput';
+import Button from '../Button';
 
 class SaveNewSearchDialog extends Component {
   constructor(props) {
@@ -47,18 +48,18 @@ class SaveNewSearchDialog extends Component {
           />
         </FieldSet>
         <div className="saved-search-form-buttons">
-          <button type="submit" className="saved-search-form-primary-button">{ currentSearchExists ? 'Save As' : 'Save' }</button>
+          <Button type="submit" className="saved-search-form-primary-button">{ currentSearchExists ? 'Save As' : 'Save' }</Button>
           {
             currentSavedSearch.id ?
-              <button
+              <Button
                 className="saved-search-form-secondary-button"
                 onClick={this.submitUpdatedSavedSearch}
               >
                 Save
-              </button>
+              </Button>
               : null
           }
-          <button className="saved-search-form-secondary-button" onClick={onCancel}>Cancel</button>
+          <Button className="saved-search-form-secondary-button" onClick={onCancel}>Cancel</Button>
         </div>
       </Form>
     );

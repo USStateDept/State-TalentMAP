@@ -3,7 +3,6 @@ import React from 'react';
 import ShareButton from './ShareButton';
 
 describe('ShareButton', () => {
-  const shareButton = null;
   let wrapper = null;
   let alertText = null;
 
@@ -13,7 +12,7 @@ describe('ShareButton', () => {
   });
 
   it('is defined', () => {
-    expect(shareButton).toBeDefined();
+    expect(wrapper).toBeDefined();
   });
 
   it('can enter a state.gov email', () => {
@@ -39,8 +38,6 @@ describe('ShareButton', () => {
 
   it('can take different props', () => {
     wrapper = shallow(<ShareButton identifier={5} isSending />);
-    expect(wrapper).toBeDefined();
-    wrapper = shallow(<ShareButton identifier={5} hasErrored />);
     expect(wrapper).toBeDefined();
     wrapper = shallow(<ShareButton response isSending identifier={5} />);
     wrapper.instance().state.timeout = true;
