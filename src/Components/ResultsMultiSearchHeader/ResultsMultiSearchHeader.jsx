@@ -81,7 +81,7 @@ class ResultsMultiSearchHeader extends Component {
       this.setState({ defaultGrade, gradeWasUpdated: true });
     }
 
-    // set grade to correct state
+    // set bureau to correct state
     if (!bureauWasUpdated && defaultBureau) {
       this.setState({ defaultBureau, bureauWasUpdated: true });
     }
