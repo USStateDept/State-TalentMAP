@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS, FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
+import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import Spinner from '../../Components/Spinner';
-import HomePageFiltersSection from '../../Components/HomePageFiltersSection';
 
 class HomePage extends Component {
   constructor(props) {
@@ -30,15 +29,10 @@ class HomePage extends Component {
     const { homePagePositions,
       homePagePositionsIsLoading, homePagePositionsHasErrored,
       userProfile, toggleFavorite, toggleBid, bidList,
-      userProfileFavoritePositionIsLoading, filtersIsLoading,
-      userProfileFavoritePositionHasErrored, filters } = this.props;
+      userProfileFavoritePositionIsLoading,
+      userProfileFavoritePositionHasErrored } = this.props;
     return (
       <div className="home content-container">
-        <HomePageFiltersSection
-          filters={filters}
-          isLoading={filtersIsLoading}
-          userSkills={userProfile.skills}
-        />
         <div className="homepage-positions-section-container">
           {
             homePagePositionsIsLoading && !homePagePositionsHasErrored &&
@@ -85,8 +79,6 @@ HomePage.propTypes = {
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
-  filters: FILTER_ITEMS_ARRAY.isRequired,
-  filtersIsLoading: PropTypes.bool,
 };
 
 HomePage.defaultProps = {

@@ -6,12 +6,14 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
+import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
 import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import GovBanner from './GovBanner/GovBanner';
+import ResultsMultiSearchHeaderContainer from '../ResultsMultiSearchHeader/ResultsMultiSearchContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader';
-import { isCurrentPathIn } from '../ProfileMenu/navigation';
+import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
@@ -25,6 +27,7 @@ export class Header extends Component {
     this.submitSearch = this.submitSearch.bind(this);
     this.isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute.bind(this);
     this.isOnForceHideSearchRoute = this.isOnForceHideSearchRoute.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
   }
 
   componentWillMount() {
@@ -33,6 +36,15 @@ export class Header extends Component {
     }
     this.matchCurrentPath(this.props.location);
     this.checkPath();
+  }
+
+  onFilterChange(q) {
+    const { searchbarFilters, setSearchFilters } = this.props;
+    setSearchFilters({ ...searchbarFilters, ...q });
+  }
+
+  isOnResultsPage() {
+    return isCurrentPath('/results', this.props.location.pathname);
   }
 
   matchCurrentPath(historyObject) {
@@ -83,7 +95,7 @@ export class Header extends Component {
       client: {
         token,
       },
-      shouldShowSearchBar, logout, userProfile,
+      shouldShowSearchBar, logout, userProfile, searchbarFilters,
     } = this.props;
 
     const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
@@ -96,14 +108,18 @@ export class Header extends Component {
       signedInAs = userFirstName;
     }
 
+    // Apply a custom class if we're on the results page.
+    const isOnResultsPage = this.isOnResultsPage();
+    const resultsPageClass = isOnResultsPage ? 'is-on-results-page' : '';
+
     const isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute();
     const isOnForceHideSearchRoute = this.isOnForceHideSearchRoute();
     const showResultsSearchHeader =
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
-    const searchBarVisibilityClass = shouldShowSearchBar ? 'search-bar-visible' : 'search-bar-hidden';
+    const searchBarVisibilityClass = showResultsSearchHeader ? 'search-bar-visible' : 'search-bar-hidden';
 
     return (
-      <div className={searchBarVisibilityClass}>
+      <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
         <header className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <GovBanner />
@@ -133,10 +149,19 @@ export class Header extends Component {
         </header>
         {
           showResultsSearchHeader &&
-          <div className="results results-search-bar-homepage">
-            <ResultsSearchHeader
-              onUpdate={this.submitSearch}
-            />
+          <div className="results results-search-bar-header">
+            <MediaQuery widthType="min" breakpoint="screenMdMin">
+              <ResultsMultiSearchHeaderContainer
+                onUpdate={this.submitSearch}
+              />
+            </MediaQuery>
+            <MediaQuery widthType="max" breakpoint="screenSmMax">
+              <ResultsSearchHeader
+                onUpdate={this.submitSearch}
+                onFilterChange={this.onFilterChange}
+                defaultKeyword={searchbarFilters.q}
+              />
+            </MediaQuery>
           </div>
         }
       </div>
@@ -161,12 +186,16 @@ Header.propTypes = {
   toggleSearchBarVisibility: PropTypes.func.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
   history: PropTypes.shape({}).isRequired,
+  searchbarFilters: PropTypes.shape({}),
+  setSearchFilters: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
   client: null,
   userProfile: {},
   logout: EMPTY_FUNCTION,
+  searchbarFilters: {},
+  setSearchFilters: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -174,6 +203,7 @@ const mapStateToProps = state => ({
   client: state.client,
   userProfile: state.userProfile,
   shouldShowSearchBar: state.shouldShowSearchBar,
+  searchbarFilters: state.selectedSearchbarFilters,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -181,6 +211,7 @@ export const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logoutRequest()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
+  setSearchFilters: query => dispatch(setSelectedSearchbarFilters(query)),
 });
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

@@ -74,6 +74,26 @@ describe('Header', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('can call the onFilterChange function', () => {
+    const spy = sinon.spy();
+    const header = shallow(
+      <Header
+        client={client}
+        login={loginObject}
+        fetchData={() => {}}
+        isAuthorized={() => true}
+        onNavigateTo={() => {}}
+        location={location}
+        toggleSearchBarVisibility={() => {}}
+        shouldShowSearchBar
+        history={history}
+        setSearchFilters={spy}
+      />,
+    );
+    header.instance().onFilterChange({ q: 'search' });
+    sinon.assert.calledOnce(spy);
+  });
+
   it('refreshes data on history change', () => {
     const wrapper = shallow(
       <Header
@@ -134,6 +154,7 @@ describe('mapDispatchToProps', () => {
     fetchData: ['?q'],
     onNavigateTo: ['/profile'],
     toggleSearchBarVisibility: [true],
+    setSearchFilters: [{}],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });
