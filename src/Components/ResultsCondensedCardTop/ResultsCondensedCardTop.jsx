@@ -6,13 +6,13 @@ const ResultsCondensedCardTop = ({ position }) => (
     <div className="usa-grid-full condensed-card-top-header-container">
       <div
         className={
-          'usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left'
+          'usa-width-one-whole condensed-card-top-header condensed-card-top-header-left'
         }
       >
         {position.title}
       </div>
       <div
-        className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
+        className="usa-width-one-whole condensed-card-top-header"
       >
         Grade: {position.grade}
       </div>
