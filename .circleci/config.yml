@@ -154,9 +154,9 @@ workflows:
       - yarn:
           requires:
             - build
-      - pa11y:
-          requires:
-            - docker-build
+      # Disabled see 1368 - pa11y:
+      #    requires:
+      #      - docker-build
       - zap:
           requires:
             - docker-build
@@ -168,4 +168,4 @@ workflows:
       - push-stable:
           requires:
             - yarn
-            - pa11y
+            # Disabled see 1368 - pa11y
