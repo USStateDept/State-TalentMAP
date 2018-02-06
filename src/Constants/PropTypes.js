@@ -444,6 +444,18 @@ export const GLOSSARY_LIST = PropTypes.shape({
   results: GLOSSARY_ARRAY,
 });
 
+// Object property of each available character
+export const groupedGlossaryMap = () => {
+  const letterList = ('#ABCDEFGHIJKLMNOPQRSTUVWXYZ').split();
+  const obj = {};
+  letterList.forEach((letter) => { obj[letter] = GLOSSARY_ARRAY; });
+  return obj;
+};
+
+export const GROUPED_GLOSSARY_ARRAYS_OBJECT = PropTypes.shape({
+  ...groupedGlossaryMap(),
+});
+
 export const BID_STATISTICS_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,

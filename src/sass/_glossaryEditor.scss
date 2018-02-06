@@ -1,0 +1,100 @@
+.glossary-editor-page {
+
+}
+
+.glossary-editor-card-container {
+  background-color: $color-white;
+  border: solid 1px $color-gray-light;
+  margin-bottom: 25px;
+}
+
+.glossary-editor-card {
+  .editor-visible--definition {
+    background: initial;
+    height: initial;
+    padding-right: 0;
+
+    .public-DraftEditor-content {
+      height: 6em;
+      overflow: scroll;
+    }
+  }
+
+  .editor-visible {
+    .editor {
+      margin-bottom: 0;
+      padding: .3em;
+    }
+
+    .public-DraftEditor-content {
+      min-height: 0;
+    }
+  }
+}
+
+.glossary-editor-card-top {
+  margin-bottom: 10px;
+  min-height: 40px;
+
+  .title-container {
+    float: left;
+    margin-right: 20%;
+    width: 50%;
+  }
+
+  .actions-container {
+    float: left;
+    width: 30%;
+  }
+
+  .actions-inner-container {
+    float: right;
+
+    div {
+      float: left;
+    }
+
+    div:nth-child(n+2) {
+      margin-left: 10px;
+    }
+  }
+}
+
+.glossary-editor-card-definition {
+  background: $color-gray-lightest;
+  font-size: 1.1em;
+  height: 120px;
+  margin-bottom: 30px;
+  overflow: scroll;
+  padding-right: 10%;
+}
+
+.glossary-editor-card-bottom {
+  font-size: .9em;
+}
+
+.grouped-glossary-listing {
+  .term-group {
+    margin-bottom: 30px;
+  }
+
+  .term-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+    padding-left: 5px;
+  }
+}
+
+.letter-list-container {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.letters-list {
+  .letter-link {
+    color: $blue-primary;
+    font-size: 1.1em;
+    margin-right: .8em;
+    text-decoration: underline;
+  }
+}

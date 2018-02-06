@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full section-padded-inner-container glossary-editor-card"
+>
+  <div
+    className="usa-grid-full glossary-editor-card-top"
+  >
+    <div
+      className="title-container editor-hidden editor-hidden--title"
+    >
+      Assignment Officer (AO)
+    </div>
+    <div
+      className="actions-container"
+    >
+      <div
+        className="actions-inner-container"
+      >
+        <div>
+          History
+        </div>
+        <InteractiveElement
+          className=""
+          onClick={[Function]}
+          role="link"
+          type="div"
+        >
+          Edit
+        </InteractiveElement>
+      </div>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
+  >
+    The employee responsible for filling the position.
+  </div>
+  <div
+    className="usa-grid-full glossary-editor-card-bottom"
+  >
+    Updated on 7.11.17 | Editor: John Doe
+  </div>
+</div>
+`;
+
+exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAlert is true 1`] = `
+<div
+  className="usa-grid-full section-padded-inner-container glossary-editor-card"
+>
+  <div
+    className="usa-grid-full glossary-editor-card-top"
+  >
+    <div
+      className="title-container editor-hidden editor-hidden--title"
+    >
+      Assignment Officer (AO)
+    </div>
+    <div
+      className="actions-container"
+    >
+      <div
+        className="actions-inner-container"
+      >
+        <div>
+          History
+        </div>
+        <InteractiveElement
+          className=""
+          onClick={[Function]}
+          role="link"
+          type="div"
+        >
+          Edit
+        </InteractiveElement>
+      </div>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
+  >
+    The employee responsible for filling the position.
+    <div>
+      <span
+        className="usa-input-error-message"
+        role="alert"
+      >
+        Title or definition cannot be blank
+      </span>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full glossary-editor-card-bottom"
+  >
+    Updated on 7.11.17 | Editor: John Doe
+  </div>
+</div>
+`;

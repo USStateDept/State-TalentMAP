@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupedCardListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full grouped-glossary-listing"
+>
+  <div
+    className="usa-grid-full term-group"
+  >
+    <div
+      className="term-title"
+    >
+      A
+    </div>
+    <div
+      className="usa-width-one-half glossary-editor-card-container "
+    >
+      <GlossaryEditorCard
+        submitGlossaryTerm={[Function]}
+        term={
+          Object {
+            "definition": "The employee responsible for filling the position.",
+            "id": 2,
+            "title": "Assignment Officer (AO)",
+          }
+        }
+      />
+    </div>
+  </div>
+  <div
+    className="usa-grid-full term-group"
+  >
+    <div
+      className="term-title"
+    >
+      B
+    </div>
+    <div
+      className="usa-width-one-half glossary-editor-card-container "
+    >
+      <GlossaryEditorCard
+        submitGlossaryTerm={[Function]}
+        term={
+          Object {
+            "definition": "An employee who is applying for a position.",
+            "id": 3,
+            "title": "Bidder",
+          }
+        }
+      />
+    </div>
+    <div
+      className="usa-width-one-half glossary-editor-card-container usa-end-row"
+    >
+      <GlossaryEditorCard
+        submitGlossaryTerm={[Function]}
+        term={
+          Object {
+            "definition": "The organization sponsoring a position. Most bureaus oversee regional areas, such as Western Europe. Others, such as the Bureau of Consular Affairs, oversee functional groups. If referring to a regional bureau, include the acronym -- State Department employees often use acronyms to refer to regional bureaus. In UI copy, put the acronym before the full name, eg: (WHA) Bureau of Western Hemispheric Affairs.",
+            "id": 5,
+            "title": "Bureau",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

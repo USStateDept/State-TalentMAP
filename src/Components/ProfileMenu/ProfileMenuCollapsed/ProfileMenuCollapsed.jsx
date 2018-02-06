@@ -14,6 +14,7 @@ const ProfileMenuCollapsed = ({ expand }) => (
     <NavLinksContainer>
       <NavLink iconName="user" link="/profile/dashboard/" />
       <NavLink iconName="pie-chart" link="/profile/statistics/" />
+      <NavLink iconName="book" link="/profile/glossaryeditor/" search="?type=all" />
       <NavLink iconName="comments-o" link="/profile/inbox/" />
       <NavLink iconName="globe" link="/profile/notifications/" />
       <NavLink iconName="users" link="/profile/contacts/" />

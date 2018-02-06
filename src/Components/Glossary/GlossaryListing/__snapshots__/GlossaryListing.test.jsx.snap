@@ -85,5 +85,15 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
   >
     A salary increase to reimburse employees for prices at a foreign post that are higher than same costs in Washington, DC. The specific value of the allowance changes based on local prices. COLA is a colloquial shorthand for what is officially known as post allowance.
   </AccordionItem>
+  <AccordionItem
+    className=""
+    expanded={false}
+    id="6/8"
+    setAccordion={[Function]}
+    title="6/8"
+    useIdClass={false}
+  >
+    6/8
+  </AccordionItem>
 </Accordion>
 `;

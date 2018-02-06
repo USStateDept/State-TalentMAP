@@ -83,6 +83,11 @@ exports[`GlossaryComponent matches snapshot 1`] = `
                   "id": 9,
                   "title": "Cost of living allowance (COLA)",
                 },
+                Object {
+                  "definition": "6/8",
+                  "id": 10,
+                  "title": "6/8",
+                },
               ]
             }
           />
@@ -175,6 +180,11 @@ exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
                   "definition": "A salary increase to reimburse employees for prices at a foreign post that are higher than same costs in Washington, DC. The specific value of the allowance changes based on local prices. COLA is a colloquial shorthand for what is officially known as post allowance.",
                   "id": 9,
                   "title": "Cost of living allowance (COLA)",
+                },
+                Object {
+                  "definition": "6/8",
+                  "id": 10,
+                  "title": "6/8",
                 },
               ]
             }

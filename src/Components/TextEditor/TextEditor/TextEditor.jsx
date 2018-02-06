@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import TextEditorSubmit from '../../TextEditorSubmit';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
-import InteractiveElement from '../../InteractiveElement';
+// import InteractiveElement from '../../InteractiveElement';
 
 export default class TextEditor extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ export default class TextEditor extends Component {
       this.setState({
         editorState,
       });
+      this.props.onChangeText(this.state.editorState.getCurrentContent().getPlainText());
     };
 
     this.focus = () => {
@@ -39,26 +40,25 @@ export default class TextEditor extends Component {
   }
 
   render() {
-    const { readOnly } = this.props;
+    const { readOnly, hideButtons, spellCheck } = this.props;
+    const shouldDisplayButtons = !readOnly && !hideButtons;
     return (
       <div>
-        <InteractiveElement
-          type="div"
-          role="textbox"
+        <div
           className={readOnly ? '' : 'editor'}
-          onClick={this.focus}
         >
           <Editor
             editorState={this.state.editorState}
             onChange={this.onChange}
             ref={(element) => { this.editor = element; }}
             readOnly={readOnly}
+            spellCheck={spellCheck}
           />
-        </InteractiveElement>
+        </div>
         {
-          readOnly ?
-          null :
-          <TextEditorSubmit submit={this.submit} cancel={this.cancel} />
+          shouldDisplayButtons ?
+            <TextEditorSubmit submit={this.submit} cancel={this.cancel} /> :
+            null
         }
       </div>
     );
@@ -70,10 +70,16 @@ TextEditor.propTypes = {
   initialText: PropTypes.string,
   onSubmitText: PropTypes.func.isRequired,
   cancel: PropTypes.func,
+  hideButtons: PropTypes.bool,
+  onChangeText: PropTypes.func,
+  spellCheck: PropTypes.bool,
 };
 
 TextEditor.defaultProps = {
   readOnly: false,
   initialText: '',
   cancel: EMPTY_FUNCTION,
+  hideButtons: false,
+  onChangeText: EMPTY_FUNCTION,
+  spellCheck: true,
 };

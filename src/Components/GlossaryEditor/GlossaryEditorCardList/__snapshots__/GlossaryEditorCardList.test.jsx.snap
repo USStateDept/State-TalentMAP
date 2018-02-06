@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorCardListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full letter-list-container"
+  >
+    <LetterList
+      letters={
+        Array [
+          "A",
+          "B",
+        ]
+      }
+      onClick={[Function]}
+    />
+  </div>
+  <GroupedCardList
+    groups={
+      Array [
+        "A",
+        "B",
+      ]
+    }
+    submitGlossaryTerm={[Function]}
+    terms={
+      Object {
+        "#": Array [
+          Object {
+            "definition": "6/8",
+            "id": 20,
+            "title": "6/8",
+          },
+        ],
+        "A": Array [
+          Object {
+            "definition": "The employee responsible for filling the position.",
+            "id": 2,
+            "title": "Assignment Officer (AO)",
+          },
+        ],
+        "B": Array [
+          Object {
+            "definition": "An employee who is applying for a position.",
+            "id": 3,
+            "title": "Bidder",
+          },
+          Object {
+            "definition": "The organization sponsoring a position. Most bureaus oversee regional areas, such as Western Europe. Others, such as the Bureau of Consular Affairs, oversee functional groups. If referring to a regional bureau, include the acronym -- State Department employees often use acronyms to refer to regional bureaus. In UI copy, put the acronym before the full name, eg: (WHA) Bureau of Western Hemispheric Affairs.",
+            "id": 5,
+            "title": "Bureau",
+          },
+        ],
+      }
+    }
+  />
+</div>
+`;
