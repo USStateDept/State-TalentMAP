@@ -50,44 +50,44 @@ jobs:
       - store_artifacts:
           path: coverage/lcov.info
           destination: coverage/lcov.info
-  pa11y:
-    <<: *default-docker-node
-    steps:
-      - setup_remote_docker
-      - checkout
-      - run:
-          name: Replace placeholders in Compose file
-          command: |
-            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
-            sed -i "s#@@LABEL@@#${TAG}#g" $COMPOSE_FILE_NAME
-            sed -i "s#@@REPO_NAME@@#${CIRCLE_PROJECT_REPONAME,,}#g" $COMPOSE_FILE_NAME
-            sed -i "s#@@API_REPO_NAME@@#${API_REPO_NAME}#g" $COMPOSE_FILE_NAME
-            sed -i "s#@@API_REPO_BRANCH@@#${API_REPO_BRANCH}#g" $COMPOSE_FILE_NAME
-      - run:
-          name: Initialize Dummy Data Container
-          command: |
-            docker-compose -f $COMPOSE_FILE_NAME create data
-            docker cp . data:/app
-      - run:
-          name: Migrate DB
-          command: |
-            docker-compose -f $COMPOSE_FILE_NAME \
-              run app bash -c \
-              "./wait-for-postgres.sh db && python manage.py migrate"
-      - run:
-          name: Run Yarn
-          command: |
-            docker-compose -f $COMPOSE_FILE_NAME \
-              run web yarn
-      - run:
-          name: Start Server
-          command: docker-compose -f $COMPOSE_FILE_NAME up -d
-      - run:
-          name: Run Pa11y
-          command: |
-            docker run --name pa11y --network container:web \
-              --volumes-from data -t talentmap/pa11y-ci \
-              pa11y-ci -c /app/.pa11yci
+ # Disabled see 1368 pa11y:
+ #   <<: *default-docker-node
+ #   steps:
+ #     - setup_remote_docker
+ #     - checkout
+ #     - run:
+ #         name: Replace placeholders in Compose file
+ #         command: |
+ #           TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+ #           sed -i "s#@@LABEL@@#${TAG}#g" $COMPOSE_FILE_NAME
+ #           sed -i "s#@@REPO_NAME@@#${CIRCLE_PROJECT_REPONAME,,}#g" $COMPOSE_FILE_NAME
+ #           sed -i "s#@@API_REPO_NAME@@#${API_REPO_NAME}#g" $COMPOSE_FILE_NAME
+ #           sed -i "s#@@API_REPO_BRANCH@@#${API_REPO_BRANCH}#g" $COMPOSE_FILE_NAME
+ #     - run:
+ #         name: Initialize Dummy Data Container
+ #         command: |
+ #           docker-compose -f $COMPOSE_FILE_NAME create data
+ #           docker cp . data:/app
+ #     - run:
+ #         name: Migrate DB
+ #         command: |
+ #           docker-compose -f $COMPOSE_FILE_NAME \
+ #             run app bash -c \
+ #             "./wait-for-postgres.sh db && python manage.py migrate"
+ #     - run:
+ #         name: Run Yarn
+ #         command: |
+ #           docker-compose -f $COMPOSE_FILE_NAME \
+ #             run web yarn
+ #     - run:
+ #         name: Start Server
+ #         command: docker-compose -f $COMPOSE_FILE_NAME up -d
+ #     - run:
+ #         name: Run Pa11y
+ #         command: |
+ #           docker run --name pa11y --network container:web \
+ #             --volumes-from data -t talentmap/pa11y-ci \
+ #             pa11y-ci -c /app/.pa11yci
   zap:
     <<: *default-docker-node
     steps:
@@ -154,9 +154,9 @@ workflows:
       - yarn:
           requires:
             - build
-      - pa11y:
-          requires:
-            - docker-build
+      # Disabled see 1368 - pa11y:
+      #    requires:
+      #      - docker-build
       - zap:
           requires:
             - docker-build
@@ -168,4 +168,4 @@ workflows:
       - push-stable:
           requires:
             - yarn
-            - pa11y
+            # Disabled see 1368 - pa11y
