@@ -1,7 +1,7 @@
 {
     "defaults": {
         "wait": 5000,
-        "timeout": 3000,
+        "timeout": 10000,
         "standard": "WCAG2AA"
     },
     "urls": [
