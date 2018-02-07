@@ -456,6 +456,16 @@ export const GROUPED_GLOSSARY_ARRAYS_OBJECT = PropTypes.shape({
   ...groupedGlossaryMap(),
 });
 
+export const GLOSSARY_ERROR_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  hasErrored: PropTypes.bool,
+});
+
+export const GLOSSARY_SUCCESS_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  success: PropTypes.bool,
+});
+
 export const BID_STATISTICS_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,

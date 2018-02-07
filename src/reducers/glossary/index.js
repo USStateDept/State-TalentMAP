@@ -1,3 +1,15 @@
-import { glossary, glossaryHasErrored, glossaryIsLoading } from './glossary';
+import { glossary, glossaryHasErrored, glossaryIsLoading, glossaryPatchSuccess,
+  glossaryPatchIsLoading, glossaryPatchHasErrored, glossaryPostSuccess,
+    glossaryPostIsLoading, glossaryPostHasErrored } from './glossary';
 
-export default { glossary, glossaryHasErrored, glossaryIsLoading };
+export default {
+  glossary,
+  glossaryHasErrored,
+  glossaryIsLoading,
+  glossaryPatchSuccess,
+  glossaryPatchIsLoading,
+  glossaryPatchHasErrored,
+  glossaryPostSuccess,
+  glossaryPostIsLoading,
+  glossaryPostHasErrored,
+};

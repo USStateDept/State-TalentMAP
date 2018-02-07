@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorPageHeaderComponent matches snapshot 1`] = `
+<div
+  className="profile-content-inner-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-five-sixths hello-greeting"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      Glossary Editor
+    </div>
+    <div
+      className="usa-width-one-sixth"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      <button
+        onClick={[Function]}
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+      >
+        Create term
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPatchHasErrored is true 1`] = `
+<div
+  className="profile-content-inner-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-five-sixths hello-greeting"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      Glossary Editor
+    </div>
+    <div
+      className="usa-width-one-sixth"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      <button
+        onClick={[Function]}
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+      >
+        Create term
+      </button>
+    </div>
+  </div>
+  <Alert
+    messages={
+      Array [
+        Object {
+          "body": "Try again",
+        },
+      ]
+    }
+    title="Error submitting term"
+    type="error"
+  />
+</div>
+`;
+
+exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuccess is true 1`] = `
+<div
+  className="profile-content-inner-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-five-sixths hello-greeting"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      Glossary Editor
+    </div>
+    <div
+      className="usa-width-one-sixth"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      <button
+        onClick={[Function]}
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+      >
+        Create term
+      </button>
+    </div>
+  </div>
+  <Alert
+    messages={
+      Array [
+        Object {
+          "body": "Successfully added term!",
+        },
+      ]
+    }
+    title="Success"
+    type="success"
+  />
+</div>
+`;
+
+exports[`GlossaryEditorPageHeaderComponent matches snapshot when showNewTerm is true 1`] = `
+<div
+  className="profile-content-inner-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-five-sixths hello-greeting"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      Glossary Editor
+    </div>
+    <div
+      className="usa-width-one-sixth"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      <button
+        onClick={[Function]}
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+      >
+        Create term
+      </button>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full"
+    style={
+      Object {
+        "marginTop": "10px",
+      }
+    }
+  >
+    <div
+      className="usa-width-one-whole glossary-editor-card-container"
+    >
+      <GlossaryEditorCard
+        hasErrored={false}
+        isNewTerm={true}
+        onCancel={[Function]}
+        submitGlossaryTerm={[Function]}
+        success={Object {}}
+        term={Object {}}
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -2,7 +2,7 @@
 
 exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full section-padded-inner-container glossary-editor-card"
+  className="usa-grid-full section-padded-inner-container glossary-editor-card editor-container-hidden"
 >
   <div
     className="usa-grid-full glossary-editor-card-top"
@@ -10,7 +10,7 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
     <div
       className="title-container editor-hidden editor-hidden--title"
     >
-      Assignment Officer (AO)
+      6/8
     </div>
     <div
       className="actions-container"
@@ -35,19 +35,23 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
   >
-    The employee responsible for filling the position.
+    Definition.
   </div>
-  <div
-    className="usa-grid-full glossary-editor-card-bottom"
-  >
-    Updated on 7.11.17 | Editor: John Doe
-  </div>
+  <GlossaryEditorCardBottom
+    dateUpdated="2018-02-07T15:33:52.986137Z"
+    hasErrored={Object {}}
+    id={3}
+    isArchived={false}
+    isNewTerm={false}
+    showEmptyWarning={false}
+    updatedBy="Leah Shadtrach"
+  />
 </div>
 `;
 
 exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAlert is true 1`] = `
 <div
-  className="usa-grid-full section-padded-inner-container glossary-editor-card"
+  className="usa-grid-full section-padded-inner-container glossary-editor-card editor-container-hidden"
 >
   <div
     className="usa-grid-full glossary-editor-card-top"
@@ -55,7 +59,7 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
     <div
       className="title-container editor-hidden editor-hidden--title"
     >
-      Assignment Officer (AO)
+      6/8
     </div>
     <div
       className="actions-container"
@@ -80,20 +84,16 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
   <div
     className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
   >
-    The employee responsible for filling the position.
-    <div>
-      <span
-        className="usa-input-error-message"
-        role="alert"
-      >
-        Title or definition cannot be blank
-      </span>
-    </div>
+    Definition.
   </div>
-  <div
-    className="usa-grid-full glossary-editor-card-bottom"
-  >
-    Updated on 7.11.17 | Editor: John Doe
-  </div>
+  <GlossaryEditorCardBottom
+    dateUpdated="2018-02-07T15:33:52.986137Z"
+    hasErrored={Object {}}
+    id={3}
+    isArchived={false}
+    isNewTerm={false}
+    showEmptyWarning={true}
+    updatedBy="Leah Shadtrach"
+  />
 </div>
 `;

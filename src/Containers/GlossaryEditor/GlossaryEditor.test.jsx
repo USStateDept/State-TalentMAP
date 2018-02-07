@@ -27,11 +27,27 @@ describe('GlossaryEditor', () => {
         submitGlossaryTerm={spy}
       />,
     );
-    wrapper.instance().submitGlossaryTerm();
+    wrapper.instance().submitGlossaryTerm({});
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('can call the submitNewGlossaryTerm function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <GlossaryEditor.WrappedComponent
+        submitNewGlossaryTerm={spy}
+      />,
+    );
+    wrapper.instance().submitNewGlossaryTerm({});
     sinon.assert.calledOnce(spy);
   });
 });
 
 describe('mapDispatchToProps', () => {
-  testDispatchFunctions(mapDispatchToProps);
+  const mockGlossaryObject = { id: 1, title: 'title', definition: 'definition' };
+  const config = {
+    submitGlossaryTerm: [mockGlossaryObject],
+    submitNewGlossaryTerm: [mockGlossaryObject],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

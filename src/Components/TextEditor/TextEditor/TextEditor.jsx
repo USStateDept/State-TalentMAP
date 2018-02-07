@@ -40,7 +40,7 @@ export default class TextEditor extends Component {
   }
 
   render() {
-    const { readOnly, hideButtons, spellCheck } = this.props;
+    const { readOnly, hideButtons, spellCheck, draftJsProps } = this.props;
     const shouldDisplayButtons = !readOnly && !hideButtons;
     return (
       <div>
@@ -53,6 +53,7 @@ export default class TextEditor extends Component {
             ref={(element) => { this.editor = element; }}
             readOnly={readOnly}
             spellCheck={spellCheck}
+            {...draftJsProps}
           />
         </div>
         {
@@ -73,6 +74,7 @@ TextEditor.propTypes = {
   hideButtons: PropTypes.bool,
   onChangeText: PropTypes.func,
   spellCheck: PropTypes.bool,
+  draftJsProps: PropTypes.shape({}),
 };
 
 TextEditor.defaultProps = {
@@ -82,4 +84,5 @@ TextEditor.defaultProps = {
   hideButtons: false,
   onChangeText: EMPTY_FUNCTION,
   spellCheck: true,
+  draftJsProps: {},
 };

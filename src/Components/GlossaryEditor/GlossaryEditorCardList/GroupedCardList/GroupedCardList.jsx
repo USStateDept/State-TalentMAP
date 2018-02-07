@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GROUPED_GLOSSARY_ARRAYS_OBJECT } from '../../../../Constants/PropTypes';
+import { GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../../Constants/PropTypes';
 import GlossaryEditorCard from '../../GlossaryEditorCard';
 
-const GroupedCardList = ({ terms, submitGlossaryTerm, groups }) => (
+const GroupedCardList = ({ terms, submitGlossaryTerm, groups, glossaryPatchHasErrored,
+glossaryPatchSuccess }) => (
   <div className="usa-grid-full grouped-glossary-listing">
     {
       groups.map(termGroup => (
@@ -18,6 +19,8 @@ const GroupedCardList = ({ terms, submitGlossaryTerm, groups }) => (
                 <GlossaryEditorCard
                   term={term}
                   submitGlossaryTerm={submitGlossaryTerm}
+                  hasErrored={glossaryPatchHasErrored}
+                  success={glossaryPatchSuccess}
                 />
               </div>
             ))
@@ -32,6 +35,13 @@ GroupedCardList.propTypes = {
   terms: GROUPED_GLOSSARY_ARRAYS_OBJECT.isRequired,
   submitGlossaryTerm: PropTypes.func.isRequired,
   groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  glossaryPatchHasErrored: GLOSSARY_ERROR_OBJECT,
+  glossaryPatchSuccess: GLOSSARY_SUCCESS_OBJECT,
+};
+
+GroupedCardList.defaultProps = {
+  glossaryPatchHasErrored: {},
+  glossaryPatchSuccess: {},
 };
 
 export default GroupedCardList;

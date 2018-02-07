@@ -10,6 +10,7 @@ describe('GlossaryEditorPageComponent', () => {
     glossaryIsLoading: false,
     glossaryHasErrored: false,
     submitGlossaryTerm: () => {},
+    submitNewGlossaryTerm: () => {},
   };
 
   it('is defined', () => {
@@ -44,7 +45,7 @@ describe('GlossaryEditorPageComponent', () => {
       expect(wrapper.instance().state.searchText).toBe('text');
       expect(wrapper.instance().state.localSearchIsLoading).toBe(false);
       done();
-    }, wrapper.instance().debounceTimeMs);
+    }, wrapper.instance().debounceTimeMs + 100);
   });
 
   it('can call the debouncedChangeLetter function', (done) => {
@@ -55,7 +56,7 @@ describe('GlossaryEditorPageComponent', () => {
       expect(wrapper.instance().state.firstLetter).toBe('A');
       expect(wrapper.instance().state.localSearchIsLoading).toBe(false);
       done();
-    }, wrapper.instance().debounceTimeMs);
+    }, wrapper.instance().debounceTimeMs + 100);
   });
 
   it('groups glossary terms by their first characters', () => {

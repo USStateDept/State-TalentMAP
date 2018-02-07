@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { GLOSSARY_OBJECT } from '../../../Constants/PropTypes';
+import { GLOSSARY_OBJECT, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT } from '../../../Constants/PropTypes';
 import TextEditor from '../../TextEditor';
 import InteractiveElement from '../../InteractiveElement';
+import GlossaryEditorCardBottom from '../GlossaryEditorCardBottom';
 
 class GlossaryEditorCard extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class GlossaryEditorCard extends Component {
       newDefinition: null,
       newDefinitionWasEdited: false,
       displayZeroLengthAlert: false,
+      newIsArchived: this.props.term.is_archived || false,
     };
   }
 
@@ -35,6 +37,7 @@ class GlossaryEditorCard extends Component {
   }
 
   cancel() {
+    this.props.onCancel();
     this.setState({
       editorHidden: true,
       newTitle: null,
@@ -47,7 +50,8 @@ class GlossaryEditorCard extends Component {
 
   submitDefinition() {
     const { term } = this.props;
-    const { newTitle, newDefinition, newDefinitionWasEdited, newTitleWasEdited } = this.state;
+    const { newTitle, newDefinition, newDefinitionWasEdited, newTitleWasEdited,
+      newIsArchived } = this.state;
 
     const newTitleIsEmpty = newTitleWasEdited && !newTitle;
     const newDefinitionIsEmpty = newDefinitionWasEdited && !newDefinition;
@@ -62,9 +66,10 @@ class GlossaryEditorCard extends Component {
         id: term.id,
         title,
         definition,
+        is_archived: newIsArchived,
       });
       // reset state values after submitting
-      this.setState({ editorHidden: true });
+      this.cancel();
     } else {
       this.setState(
         { displayZeroLengthAlert: { title: newTitleIsEmpty, definition: newDefinitionIsEmpty } },
@@ -73,25 +78,27 @@ class GlossaryEditorCard extends Component {
   }
 
   render() {
-    const { term } = this.props;
+    const { term, isNewTerm, hasErrored } = this.props;
     const { editorHidden, newTitle, newDefinition, displayZeroLengthAlert } = this.state;
 
     const renderedTitle = newTitle || term.title;
     const renderedDefinition = newDefinition || term.definition;
 
-    const editorHiddenClass = editorHidden ? 'editor-hidden' : 'editor-visible';
-    const definitionContainerClass = editorHidden ? 'editor-hidden--definition' : 'editor-visible--definition';
-    const titleContainerClass = editorHidden ? 'editor-hidden--title' : 'editor-visible--title';
+    const shouldHideEditor = editorHidden && !isNewTerm;
+    const editorHiddenClass = shouldHideEditor ? 'editor-hidden' : 'editor-visible';
+    const editorContainerHiddenClass = shouldHideEditor ? 'editor-container-hidden' : 'editor-container-visible';
+    const definitionContainerClass = shouldHideEditor ? 'editor-hidden--definition' : 'editor-visible--definition';
+    const titleContainerClass = shouldHideEditor ? 'editor-hidden--title' : 'editor-visible--title';
 
     const emptyTitleWarning = displayZeroLengthAlert.title;
     const emptyDefinitionWarning = displayZeroLengthAlert.definition;
     const showEmptyWarning = emptyTitleWarning || emptyDefinitionWarning;
     return (
-      <div className="usa-grid-full section-padded-inner-container glossary-editor-card">
+      <div className={`usa-grid-full section-padded-inner-container glossary-editor-card ${editorContainerHiddenClass}`}>
         <div className="usa-grid-full glossary-editor-card-top">
           <div className={`title-container ${editorHiddenClass} ${titleContainerClass}`}>
             {
-              editorHidden ?
+              shouldHideEditor ?
               renderedTitle :
               <TextEditor
                 initialText={renderedTitle}
@@ -99,19 +106,23 @@ class GlossaryEditorCard extends Component {
                 cancel={this.cancel}
                 hideButtons
                 onChangeText={this.updateTitle}
+                draftJsProps={{ placeholder: 'Title' }}
               />
             }
           </div>
-          <div className="actions-container">
-            <div className="actions-inner-container">
-              <div>History</div>
-              <InteractiveElement role="link" onClick={this.toggleEditorState}>{editorHidden ? 'Edit' : 'Cancel'}</InteractiveElement>
-            </div>
-          </div>
+          {
+            !isNewTerm &&
+              <div className="actions-container">
+                <div className="actions-inner-container">
+                  <div>History</div>
+                  <InteractiveElement role="link" onClick={this.toggleEditorState}>{shouldHideEditor ? 'Edit' : 'Cancel'}</InteractiveElement>
+                </div>
+              </div>
+          }
         </div>
         <div className={`usa-grid-full glossary-editor-card-definition ${editorHiddenClass} ${definitionContainerClass}`}>
           {
-            editorHidden ?
+            shouldHideEditor ?
             renderedDefinition :
             <TextEditor
               id="input-error"
@@ -119,19 +130,19 @@ class GlossaryEditorCard extends Component {
               onSubmitText={this.submitDefinition}
               cancel={this.cancel}
               onChangeText={this.updateDefinition}
-              draftJsProps={{ ariaDescribedBy: 'input-error-message' }}
+              draftJsProps={{ placeholder: 'Definition' }}
             />
           }
-          {
-            showEmptyWarning &&
-            <div>
-              <span className="usa-input-error-message" role="alert">Title or definition cannot be blank</span>
-            </div>
-          }
         </div>
-        <div className="usa-grid-full glossary-editor-card-bottom">
-          Updated on 7.11.17 | Editor: John Doe
-        </div>
+        <GlossaryEditorCardBottom
+          isNewTerm={isNewTerm}
+          hasErrored={hasErrored}
+          showEmptyWarning={showEmptyWarning}
+          dateUpdated={term.date_updated}
+          updatedBy={term.last_editing_user}
+          isArchived={term.is_archived}
+          id={term.id}
+        />
       </div>
     );
   }
@@ -140,6 +151,15 @@ class GlossaryEditorCard extends Component {
 GlossaryEditorCard.propTypes = {
   term: GLOSSARY_OBJECT.isRequired,
   submitGlossaryTerm: PropTypes.func.isRequired,
+  isNewTerm: PropTypes.bool,
+  onCancel: PropTypes.func,
+  hasErrored: PropTypes.oneOfType([GLOSSARY_ERROR_OBJECT, PropTypes.bool]),
+};
+
+GlossaryEditorCard.defaultProps = {
+  isNewTerm: false,
+  onCancel: EMPTY_FUNCTION,
+  hasErrored: {},
 };
 
 export default GlossaryEditorCard;
