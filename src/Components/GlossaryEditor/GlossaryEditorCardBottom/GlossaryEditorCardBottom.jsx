@@ -39,7 +39,7 @@ GlossaryEditorCardBottom.propTypes = {
   hasErrored: PropTypes.oneOfType([GLOSSARY_ERROR_OBJECT, PropTypes.bool]),
   showEmptyWarning: PropTypes.bool,
   dateUpdated: PropTypes.string.isRequired,
-  updatedBy: PropTypes.string.isRequired,
+  updatedBy: PropTypes.string,
   isArchived: PropTypes.bool,
   id: PropTypes.number.isRequired,
 };
@@ -49,6 +49,7 @@ GlossaryEditorCardBottom.defaultProps = {
   hasErrored: {},
   showEmptyWarning: false,
   isArchived: false,
+  updatedBy: undefined,
 };
 
 export default GlossaryEditorCardBottom;
