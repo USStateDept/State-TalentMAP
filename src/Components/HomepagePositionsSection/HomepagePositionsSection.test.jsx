@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import HomepagePositionsSection from './HomepagePositionsSection';
+import HomePagePositionsSection from './HomePagePositionsSection';
 
-describe('HomepagePositionsSection', () => {
+describe('HomePagePositionsSection', () => {
   it('renders', () => {
-    const wrapper = ReactTestUtils.renderIntoDocument(<HomepagePositionsSection />);
+    const wrapper = ReactTestUtils.renderIntoDocument(<HomePagePositionsSection />);
     expect(wrapper).toBeDefined();
   });
 });

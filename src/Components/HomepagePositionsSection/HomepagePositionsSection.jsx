@@ -14,7 +14,7 @@ const defaultProps = {
   viewMoreLink: '/results',
 };
 
-class HomepagePositionsSection extends Component {
+class HomePagePositionsSection extends Component {
   render() {
     return (
       <div className="usa-grid-full positions-section">
@@ -32,8 +32,8 @@ class HomepagePositionsSection extends Component {
   }
 }
 
-HomepagePositionsSection.propTypes = propTypes;
+HomePagePositionsSection.propTypes = propTypes;
 
-HomepagePositionsSection.defaultProps = defaultProps;
+HomePagePositionsSection.defaultProps = defaultProps;
 
-export default HomepagePositionsSection;
+export default HomePagePositionsSection;
