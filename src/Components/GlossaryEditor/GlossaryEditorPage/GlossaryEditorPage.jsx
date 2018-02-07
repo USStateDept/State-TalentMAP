@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import groupBy from 'lodash/groupBy';
-import { GLOSSARY_ARRAY, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { GLOSSARY_ARRAY, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
 import GlossaryEditorContainer from '../GlossaryEditorContainer';
 import TopNav from '../TopNav';
 import GlossaryEditorSearch from '../GlossaryEditorSearch';
 import { filterByProps } from '../../../utilities';
+import GlossaryEditorPageHeader from '../GlossaryEditorPageHeader';
 
 class GlossaryEditorPage extends Component {
   constructor(props) {
@@ -88,7 +89,9 @@ class GlossaryEditorPage extends Component {
   }
 
   render() {
-    const { glossaryIsLoading, glossaryHasErrored, submitGlossaryTerm } = this.props;
+    const { glossaryIsLoading, glossaryHasErrored, submitGlossaryTerm,
+      submitNewGlossaryTerm, glossaryPatchHasErrored, glossaryPatchSuccess,
+      glossaryPostHasErrored, glossaryPostSuccess } = this.props;
     const { localSearchIsLoading } = this.state;
 
     const glossaryIsLoadingAsyncOrSync = glossaryIsLoading || localSearchIsLoading;
@@ -98,14 +101,16 @@ class GlossaryEditorPage extends Component {
     const availableLetters = Object.keys(filteredGlossary);
     return (
       <div className="bidder-portfolio-page glossary-editor-page">
+        <GlossaryEditorPageHeader
+          submitNewGlossaryTerm={submitNewGlossaryTerm}
+          glossaryPostHasErrored={glossaryPostHasErrored}
+          glossaryPostSuccess={glossaryPostSuccess}
+        />
         <GlossaryEditorSearch
           onUpdate={this.debouncedChangeText}
           submitGlossaryTerm={submitGlossaryTerm}
         />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
-          <div className="hello-greeting">
-            Glossary Editor
-          </div>
           <TopNav />
           <div className={`usa-grid-full bidder-portfolio-listing ${isLoading ? 'results-loading' : ''}`}>
             {
@@ -119,6 +124,8 @@ class GlossaryEditorPage extends Component {
                   submitGlossaryFirstLetter={this.debouncedChangeLetter}
                   glossaryItems={filteredGlossary}
                   availableLetters={availableLetters}
+                  glossaryPatchHasErrored={glossaryPatchHasErrored}
+                  glossaryPatchSuccess={glossaryPatchSuccess}
                 />
             }
           </div>
@@ -133,6 +140,18 @@ GlossaryEditorPage.propTypes = {
   glossaryHasErrored: PropTypes.bool.isRequired,
   glossaryItems: GLOSSARY_ARRAY.isRequired,
   submitGlossaryTerm: PropTypes.func.isRequired,
+  submitNewGlossaryTerm: PropTypes.func.isRequired,
+  glossaryPatchHasErrored: GLOSSARY_ERROR_OBJECT,
+  glossaryPatchSuccess: GLOSSARY_SUCCESS_OBJECT,
+  glossaryPostHasErrored: PropTypes.bool,
+  glossaryPostSuccess: GLOSSARY_SUCCESS_OBJECT,
+};
+
+GlossaryEditorPage.defaultProps = {
+  glossaryPatchHasErrored: {},
+  glossaryPatchSuccess: {},
+  glossaryPostHasErrored: false,
+  glossaryPostSuccess: {},
 };
 
 export default GlossaryEditorPage;

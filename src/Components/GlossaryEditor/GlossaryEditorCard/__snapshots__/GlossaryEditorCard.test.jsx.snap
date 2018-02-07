@@ -38,9 +38,14 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
     The employee responsible for filling the position.
   </div>
   <div
+    className="usa-grid-full"
+  />
+  <div
     className="usa-grid-full glossary-editor-card-bottom"
   >
-    Updated on 7.11.17 | Editor: John Doe
+    Date updated unknown
+     | Editor: 
+    None listed
   </div>
 </div>
 `;
@@ -81,19 +86,23 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
     className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
   >
     The employee responsible for filling the position.
-    <div>
-      <span
-        className="usa-input-error-message"
-        role="alert"
-      >
-        Title or definition cannot be blank
-      </span>
-    </div>
+  </div>
+  <div
+    className="usa-grid-full"
+  >
+    <span
+      className="usa-input-error-message"
+      role="alert"
+    >
+      Title and definition cannot be blank.
+    </span>
   </div>
   <div
     className="usa-grid-full glossary-editor-card-bottom"
   >
-    Updated on 7.11.17 | Editor: John Doe
+    Date updated unknown
+     | Editor: 
+    None listed
   </div>
 </div>
 `;

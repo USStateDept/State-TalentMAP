@@ -10,6 +10,7 @@ describe('GlossaryEditorPageComponent', () => {
     glossaryIsLoading: false,
     glossaryHasErrored: false,
     submitGlossaryTerm: () => {},
+    submitNewGlossaryTerm: () => {},
   };
 
   it('is defined', () => {

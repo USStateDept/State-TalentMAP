@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorPageHeaderComponent matches snapshot 1`] = `
+<div
+  className="profile-content-inner-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-five-sixths hello-greeting"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      Glossary Editor
+    </div>
+    <div
+      className="usa-width-one-sixth"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      <button
+        onClick={[Function]}
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+      >
+        Create term
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`GlossaryEditorPageHeaderComponent matches snapshot wen glossaryPatchHasErrored is true 1`] = `
+<div
+  className="profile-content-inner-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-five-sixths hello-greeting"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      Glossary Editor
+    </div>
+    <div
+      className="usa-width-one-sixth"
+      style={
+        Object {
+          "float": "left",
+        }
+      }
+    >
+      <button
+        onClick={[Function]}
+        style={
+          Object {
+            "float": "right",
+          }
+        }
+      >
+        Create term
+      </button>
+    </div>
+  </div>
+  <Alert
+    messages={
+      Array [
+        Object {
+          "body": "Try again",
+        },
+      ]
+    }
+    title="Error submitting term"
+    type="error"
+  />
+</div>
+`;

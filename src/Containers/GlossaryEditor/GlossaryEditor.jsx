@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { glossaryFetchData } from '../../actions/glossary';
-import { EMPTY_FUNCTION, GLOSSARY_LIST } from '../../Constants/PropTypes';
+import { glossaryFetchData, glossaryPatch, glossaryPost } from '../../actions/glossary';
+import { EMPTY_FUNCTION, GLOSSARY_LIST, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../Constants/PropTypes';
 import GlossaryEditor from '../../Components/GlossaryEditor';
 
 class GlossaryEditorContainer extends Component {
@@ -10,6 +10,7 @@ class GlossaryEditorContainer extends Component {
   constructor(props) {
     super(props);
     this.submitGlossaryTerm = this.submitGlossaryTerm.bind(this);
+    this.submitNewGlossaryTerm = this.submitNewGlossaryTerm.bind(this);
   }
 
   componentWillMount() {
@@ -23,14 +24,26 @@ class GlossaryEditorContainer extends Component {
     submitGlossaryTerm(term);
   }
 
+  submitNewGlossaryTerm(term) {
+    const { submitNewGlossaryTerm } = this.props;
+    submitNewGlossaryTerm(term);
+  }
+
   render() {
-    const { glossaryItems, glossaryIsLoading, glossaryHasErrored } = this.props;
+    const { glossaryItems, glossaryIsLoading, glossaryHasErrored,
+      glossaryPatchHasErrored, glossaryPatchSuccess, glossaryPostHasErrored,
+      glossaryPostSuccess } = this.props;
     return (
       <GlossaryEditor
         glossaryItems={glossaryItems.results}
         glossaryIsLoading={glossaryIsLoading}
         glossaryHasErrored={glossaryHasErrored}
         submitGlossaryTerm={this.submitGlossaryTerm}
+        submitNewGlossaryTerm={this.submitNewGlossaryTerm}
+        glossaryPatchHasErrored={glossaryPatchHasErrored}
+        glossaryPatchSuccess={glossaryPatchSuccess}
+        glossaryPostHasErrored={glossaryPostHasErrored}
+        glossaryPostSuccess={glossaryPostSuccess}
       />
     );
   }
@@ -42,6 +55,11 @@ GlossaryEditorContainer.propTypes = {
   glossaryIsLoading: PropTypes.bool,
   glossaryHasErrored: PropTypes.bool,
   submitGlossaryTerm: PropTypes.func.isRequired,
+  submitNewGlossaryTerm: PropTypes.func.isRequired,
+  glossaryPatchHasErrored: GLOSSARY_ERROR_OBJECT,
+  glossaryPatchSuccess: GLOSSARY_SUCCESS_OBJECT,
+  glossaryPostHasErrored: PropTypes.bool,
+  glossaryPostSuccess: GLOSSARY_SUCCESS_OBJECT,
 };
 
 GlossaryEditorContainer.defaultProps = {
@@ -50,6 +68,11 @@ GlossaryEditorContainer.defaultProps = {
   glossaryIsLoading: false,
   glossaryHasErrored: false,
   submitGlossaryTerm: EMPTY_FUNCTION,
+  submitNewGlossaryTerm: EMPTY_FUNCTION,
+  glossaryPatchHasErrored: {},
+  glossaryPatchSuccess: {},
+  glossaryPostHasErrored: false,
+  glossaryPostSuccess: {},
 };
 
 const mapStateToProps = state => ({
@@ -57,10 +80,16 @@ const mapStateToProps = state => ({
   glossaryItems: state.glossary,
   glossaryHasErrored: state.glossaryHasErrored,
   glossaryIsLoading: state.glossaryIsLoading,
+  glossaryPatchHasErrored: state.glossaryPatchHasErrored,
+  glossaryPatchSuccess: state.glossaryPatchSuccess,
+  glossaryPostHasErrored: state.glossaryPostHasErrored,
+  glossaryPostSuccess: state.glossaryPostSuccess,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchGlossary: () => dispatch(glossaryFetchData()),
+  submitGlossaryTerm: termObj => dispatch(glossaryPatch(termObj)),
+  submitNewGlossaryTerm: termObj => dispatch(glossaryPost(termObj)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GlossaryEditorContainer);

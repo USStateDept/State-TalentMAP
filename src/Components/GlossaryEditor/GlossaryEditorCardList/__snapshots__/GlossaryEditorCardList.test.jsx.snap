@@ -18,6 +18,8 @@ exports[`GlossaryEditorCardListComponent matches snapshot 1`] = `
     />
   </div>
   <GroupedCardList
+    glossaryPatchHasErrored={Object {}}
+    glossaryPatchSuccess={Object {}}
     groups={
       Array [
         "A",

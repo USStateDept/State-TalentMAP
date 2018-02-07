@@ -4,6 +4,10 @@ exports[`GlossaryEditorPageComponent matches snapshot 1`] = `
 <div
   className="bidder-portfolio-page glossary-editor-page"
 >
+  <GlossaryEditorPage
+    glossaryPostHasErrored={false}
+    glossaryPostSuccess={Object {}}
+  />
   <GlossaryEditorSearch
     onUpdate={[Function]}
     submitGlossaryTerm={[Function]}
@@ -11,11 +15,6 @@ exports[`GlossaryEditorPageComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
   >
-    <div
-      className="hello-greeting"
-    >
-      Glossary Editor
-    </div>
     <TopNav />
     <div
       className="usa-grid-full bidder-portfolio-listing "
@@ -86,6 +85,8 @@ exports[`GlossaryEditorPageComponent matches snapshot 1`] = `
             ],
           }
         }
+        glossaryPatchHasErrored={Object {}}
+        glossaryPatchSuccess={Object {}}
         submitGlossaryFirstLetter={[Function]}
         submitGlossaryTerm={[Function]}
       />
@@ -98,6 +99,10 @@ exports[`GlossaryEditorPageComponent matches snapshot when glossaryIsLoading is 
 <div
   className="bidder-portfolio-page glossary-editor-page"
 >
+  <GlossaryEditorPage
+    glossaryPostHasErrored={false}
+    glossaryPostSuccess={Object {}}
+  />
   <GlossaryEditorSearch
     onUpdate={[Function]}
     submitGlossaryTerm={[Function]}
@@ -105,11 +110,6 @@ exports[`GlossaryEditorPageComponent matches snapshot when glossaryIsLoading is 
   <div
     className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
   >
-    <div
-      className="hello-greeting"
-    >
-      Glossary Editor
-    </div>
     <TopNav />
     <div
       className="usa-grid-full bidder-portfolio-listing results-loading"
