@@ -7,6 +7,8 @@ const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
 const port = process.env.PORT || 3000;
 const app = express();
 
+app.use(express.static(path.join(__dirname, '../build')));
+
 app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
