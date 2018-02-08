@@ -136,7 +136,6 @@ class ResultsMultiSearchHeader extends Component {
       bureaus.data.slice().map(g => ({ ...g, value: g.code, text: g.short_description })) : [];
 
     // set the default skills
-    // eslint-disable-next-line camelcase
     const defaultSkills = skills || userProfile.skills || [];
     return (
       <div className="results-search-bar padded-main-content results-multi-search">
