@@ -21,6 +21,25 @@ export function glossaryFetchDataSuccess(glossary) {
   };
 }
 
+export function glossaryEditorHasErrored(bool) {
+  return {
+    type: 'GLOSSARY_EDITOR_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function glossaryEditorIsLoading(bool) {
+  return {
+    type: 'GLOSSARY_EDITOR_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function glossaryEditorFetchDataSuccess(glossary) {
+  return {
+    type: 'GLOSSARY_EDITOR_FETCH_DATA_SUCCESS',
+    glossary,
+  };
+}
+
 export function glossaryPatchHasErrored(bool = false, id = null) {
   return {
     type: 'GLOSSARY_PATCH_HAS_ERRORED',
@@ -65,7 +84,7 @@ export function glossaryFetchData(bypassLoading = false) {
       dispatch(glossaryIsLoading(true));
     }
     dispatch(glossaryHasErrored(false));
-    axios.get(`${api}/glossary/`, { headers: { Authorization: fetchUserToken() } })
+    axios.get(`${api}/glossary/?is_archived=false`, { headers: { Authorization: fetchUserToken() } })
         .then(({ data }) => {
           dispatch(glossaryFetchDataSuccess(data));
           dispatch(glossaryIsLoading(false));
@@ -78,6 +97,25 @@ export function glossaryFetchData(bypassLoading = false) {
   };
 }
 
+export function glossaryEditorFetchData(bypassLoading = false) {
+  return (dispatch) => {
+    if (!bypassLoading) {
+      dispatch(glossaryEditorIsLoading(true));
+    }
+    dispatch(glossaryEditorHasErrored(false));
+    axios.get(`${api}/glossary/`, { headers: { Authorization: fetchUserToken() } })
+        .then(({ data }) => {
+          dispatch(glossaryEditorFetchDataSuccess(data));
+          dispatch(glossaryEditorIsLoading(false));
+          dispatch(glossaryEditorHasErrored(false));
+        })
+        .catch(() => {
+          dispatch(glossaryEditorIsLoading(false));
+          dispatch(glossaryEditorHasErrored(true));
+        });
+  };
+}
+
 export function glossaryPatch(term = {}) {
   return (dispatch) => {
     dispatch(glossaryPatchSuccess(false));
@@ -85,7 +123,8 @@ export function glossaryPatch(term = {}) {
     dispatch(glossaryPatchHasErrored(false));
     axios.patch(`${api}/glossary/${term.id}/`, term, { headers: { Authorization: fetchUserToken() } })
         .then(({ data }) => {
-          dispatch(glossaryFetchData(true));
+          dispatch(glossaryFetchData());
+          dispatch(glossaryEditorFetchData(true));
           dispatch(glossaryPatchSuccess(true, data.id));
           dispatch(glossaryPatchIsLoading(false));
           dispatch(glossaryPatchHasErrored(false, data.id));
@@ -106,6 +145,7 @@ export function glossaryPost(term = {}) {
     axios.post(`${api}/glossary/`, term, { headers: { Authorization: fetchUserToken() } })
         .then(({ data }) => {
           dispatch(glossaryFetchData());
+          dispatch(glossaryEditorFetchData());
           dispatch(glossaryPostSuccess(true, data.id));
           dispatch(glossaryPostIsLoading(false));
           dispatch(glossaryPostHasErrored(false));

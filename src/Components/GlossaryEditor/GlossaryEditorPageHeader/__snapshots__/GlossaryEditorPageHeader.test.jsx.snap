@@ -2,36 +2,21 @@
 
 exports[`GlossaryEditorPageHeaderComponent matches snapshot 1`] = `
 <div
-  className="profile-content-inner-container"
+  className="profile-content-inner-container glossary-editor-page-header"
 >
   <div
     className="usa-grid-full"
   >
     <div
       className="usa-width-five-sixths hello-greeting"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
     >
       Glossary Editor
     </div>
     <div
-      className="usa-width-one-sixth"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
+      className="usa-width-one-sixth create-term-container"
     >
       <button
         onClick={[Function]}
-        style={
-          Object {
-            "float": "right",
-          }
-        }
       >
         Create term
       </button>
@@ -42,36 +27,21 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot 1`] = `
 
 exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPatchHasErrored is true 1`] = `
 <div
-  className="profile-content-inner-container"
+  className="profile-content-inner-container glossary-editor-page-header"
 >
   <div
     className="usa-grid-full"
   >
     <div
       className="usa-width-five-sixths hello-greeting"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
     >
       Glossary Editor
     </div>
     <div
-      className="usa-width-one-sixth"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
+      className="usa-width-one-sixth create-term-container"
     >
       <button
         onClick={[Function]}
-        style={
-          Object {
-            "float": "right",
-          }
-        }
       >
         Create term
       </button>
@@ -93,36 +63,21 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPatchHa
 
 exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuccess is true 1`] = `
 <div
-  className="profile-content-inner-container"
+  className="profile-content-inner-container glossary-editor-page-header"
 >
   <div
     className="usa-grid-full"
   >
     <div
       className="usa-width-five-sixths hello-greeting"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
     >
       Glossary Editor
     </div>
     <div
-      className="usa-width-one-sixth"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
+      className="usa-width-one-sixth create-term-container"
     >
       <button
         onClick={[Function]}
-        style={
-          Object {
-            "float": "right",
-          }
-        }
       >
         Create term
       </button>
@@ -144,48 +99,28 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
 
 exports[`GlossaryEditorPageHeaderComponent matches snapshot when showNewTerm is true 1`] = `
 <div
-  className="profile-content-inner-container"
+  className="profile-content-inner-container glossary-editor-page-header"
 >
   <div
     className="usa-grid-full"
   >
     <div
       className="usa-width-five-sixths hello-greeting"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
     >
       Glossary Editor
     </div>
     <div
-      className="usa-width-one-sixth"
-      style={
-        Object {
-          "float": "left",
-        }
-      }
+      className="usa-width-one-sixth create-term-container"
     >
       <button
         onClick={[Function]}
-        style={
-          Object {
-            "float": "right",
-          }
-        }
       >
         Create term
       </button>
     </div>
   </div>
   <div
-    className="usa-grid-full"
-    style={
-      Object {
-        "marginTop": "10px",
-      }
-    }
+    className="usa-grid-full editor-container"
   >
     <div
       className="usa-width-one-whole glossary-editor-card-container"

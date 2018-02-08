@@ -10,6 +10,10 @@ describe('async actions', () => {
       { results: glossaryItems },
     );
 
+    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?is_archived=false').reply(200,
+      { results: glossaryItems },
+    );
+
     mockAdapter.onPost('http://localhost:8000/api/v1/glossary/').reply(200,
       glossaryItems[0],
     );
@@ -37,7 +41,7 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?is_archived=false').reply(404,
       null,
     );
 
@@ -45,6 +49,38 @@ describe('async actions', () => {
       setTimeout(() => {
         store.dispatch(actions.glossaryFetchData());
         store.dispatch(actions.glossaryIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can fetch the editor glossary', (done) => {
+    const store = mockStore({ glossary: {} });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.glossaryEditorFetchData());
+        store.dispatch(actions.glossaryEditorIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching the editor glossary', (done) => {
+    const store = mockStore({ glossary: {} });
+
+    mockAdapter.reset();
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.glossaryEditorFetchData());
+        store.dispatch(actions.glossaryEditorIsLoading());
         done();
       }, 0);
     };

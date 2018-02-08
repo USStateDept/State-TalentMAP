@@ -4,6 +4,7 @@ import { GLOSSARY_OBJECT, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT } from '../../..
 import TextEditor from '../../TextEditor';
 import InteractiveElement from '../../InteractiveElement';
 import GlossaryEditorCardBottom from '../GlossaryEditorCardBottom';
+import StaticDevContent from '../../StaticDevContent';
 
 class GlossaryEditorCard extends Component {
   constructor(props) {
@@ -78,7 +79,7 @@ class GlossaryEditorCard extends Component {
   }
 
   render() {
-    const { term, isNewTerm, hasErrored } = this.props;
+    const { term, isNewTerm, hasErrored, submitGlossaryTerm } = this.props;
     const { editorHidden, newTitle, newDefinition, displayZeroLengthAlert } = this.state;
 
     const renderedTitle = newTitle || term.title;
@@ -114,7 +115,9 @@ class GlossaryEditorCard extends Component {
             !isNewTerm &&
               <div className="actions-container">
                 <div className="actions-inner-container">
-                  <div>History</div>
+                  <StaticDevContent>
+                    <div>History</div>
+                  </StaticDevContent>
                   <InteractiveElement role="link" onClick={this.toggleEditorState}>{shouldHideEditor ? 'Edit' : 'Cancel'}</InteractiveElement>
                 </div>
               </div>
@@ -142,6 +145,7 @@ class GlossaryEditorCard extends Component {
           updatedBy={term.last_editing_user}
           isArchived={term.is_archived}
           id={term.id}
+          submitGlossaryTerm={submitGlossaryTerm}
         />
       </div>
     );

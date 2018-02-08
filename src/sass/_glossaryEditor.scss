@@ -1,6 +1,24 @@
 // scss-lint:disable SelectorFormat
 // We modify Drafjs classes which use uppercase letters, so we disable SelectorFormat.
 
+.glossary-editor-page {
+  .hello-greeting {
+    float: left;
+  }
+
+  .editor-container {
+    margin-top: 10px;
+  }
+
+  .create-term-container {
+    float: right;
+
+    button {
+      float: right;
+    }
+  }
+}
+
 .glossary-editor-card-container {
   background-color: $color-white;
   border: solid 1px $color-gray-light;
@@ -74,6 +92,21 @@
 
 .glossary-editor-card-bottom {
   font-size: .9em;
+
+  div {
+    float: left;
+    margin-right: 5px;
+  }
+
+  div:not(:last-child) {
+    border-right: 1px solid $color-black;
+    padding-right: 5px;
+  }
+
+  .archive-link {
+    color: $blue-primary;
+    text-decoration: underline;
+  }
 }
 
 .grouped-glossary-listing {
@@ -117,5 +150,11 @@
 .editor-container-visible {
   .glossary-warning-container {
     min-height: 30px;
+  }
+}
+
+.archive-link {
+  .fa {
+    margin-right: 5px;
   }
 }

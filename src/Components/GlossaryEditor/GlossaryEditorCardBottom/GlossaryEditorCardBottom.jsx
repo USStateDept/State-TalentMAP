@@ -2,15 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { GLOSSARY_ERROR_OBJECT } from '../../../Constants/PropTypes';
 import { formatDate } from '../../../utilities';
+import ArchiveIcon from '../ArchiveIcon';
 
 const GlossaryEditorCardBottom = ({ isNewTerm, hasErrored, showEmptyWarning,
-dateUpdated, updatedBy, isArchived, id }) => {
+dateUpdated, updatedBy, isArchived, id, submitGlossaryTerm }) => {
   const date = dateUpdated ? formatDate(dateUpdated) : false;
   const dateString = date ? `Updated on ${date}` : 'Date updated unknown';
 
   const showResponseError = hasErrored.hasErrored && hasErrored.id === id;
-
-  const archivedText = isArchived ? 'Archived' : 'Visible';
   const showWarningOrError = showEmptyWarning || showResponseError;
 
   return (
@@ -27,7 +26,9 @@ dateUpdated, updatedBy, isArchived, id }) => {
       {
         !isNewTerm &&
           <div className="usa-grid-full glossary-editor-card-bottom">
-            {dateString} | Editor: {updatedBy || 'None listed'} | {archivedText}
+            <div>{dateString}</div>
+            <div>Editor: {updatedBy || 'None listed'}</div>
+            <ArchiveIcon onSubmitOption={submitGlossaryTerm} isArchived={isArchived} id={id} />
           </div>
       }
     </div>
@@ -42,6 +43,7 @@ GlossaryEditorCardBottom.propTypes = {
   updatedBy: PropTypes.string,
   isArchived: PropTypes.bool,
   id: PropTypes.number.isRequired,
+  submitGlossaryTerm: PropTypes.func.isRequired,
 };
 
 GlossaryEditorCardBottom.defaultProps = {

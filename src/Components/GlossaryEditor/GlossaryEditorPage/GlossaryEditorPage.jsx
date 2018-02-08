@@ -9,6 +9,7 @@ import TopNav from '../TopNav';
 import GlossaryEditorSearch from '../GlossaryEditorSearch';
 import { filterByProps } from '../../../utilities';
 import GlossaryEditorPageHeader from '../GlossaryEditorPageHeader';
+import StaticDevContent from '../../StaticDevContent';
 
 class GlossaryEditorPage extends Component {
   constructor(props) {
@@ -111,7 +112,9 @@ class GlossaryEditorPage extends Component {
           submitGlossaryTerm={submitGlossaryTerm}
         />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
-          <TopNav />
+          <StaticDevContent>
+            <TopNav />
+          </StaticDevContent>
           <div className={`usa-grid-full bidder-portfolio-listing ${isLoading ? 'results-loading' : ''}`}>
             {
               isLoading &&

@@ -27,13 +27,13 @@ class GlossaryEditorPage extends Component {
     const showPostError = postHasErrored && !showNewTerm;
     const showPostSuccess = postHasSucceeded && !showNewTerm;
     return (
-      <div className="profile-content-inner-container">
+      <div className="profile-content-inner-container glossary-editor-page-header">
         <div className="usa-grid-full">
-          <div className="usa-width-five-sixths hello-greeting" style={{ float: 'left' }}>
+          <div className="usa-width-five-sixths hello-greeting">
             Glossary Editor
           </div>
-          <div className="usa-width-one-sixth" style={{ float: 'left' }}>
-            <button style={{ float: 'right' }} onClick={this.toggleNewTermEditor}>Create term</button>
+          <div className="usa-width-one-sixth create-term-container">
+            <button onClick={this.toggleNewTermEditor}>Create term</button>
           </div>
         </div>
         {
@@ -44,7 +44,7 @@ class GlossaryEditorPage extends Component {
         }
         {
           showNewTerm &&
-            <div className="usa-grid-full" style={{ marginTop: '10px' }}>
+            <div className="usa-grid-full editor-container">
               <div className="usa-width-one-whole glossary-editor-card-container">
                 <GlossaryEditorCard
                   term={{}}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { glossaryFetchData, glossaryPatch, glossaryPost } from '../../actions/glossary';
+import { glossaryEditorFetchData, glossaryPatch, glossaryPost } from '../../actions/glossary';
 import { EMPTY_FUNCTION, GLOSSARY_LIST, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../Constants/PropTypes';
 import GlossaryEditor from '../../Components/GlossaryEditor';
 
@@ -77,9 +77,9 @@ GlossaryEditorContainer.defaultProps = {
 
 const mapStateToProps = state => ({
   shouldShowGlossary: state.shouldShowGlossary,
-  glossaryItems: state.glossary,
-  glossaryHasErrored: state.glossaryHasErrored,
-  glossaryIsLoading: state.glossaryIsLoading,
+  glossaryItems: state.glossaryEditor,
+  glossaryHasErrored: state.glossaryEditorHasErrored,
+  glossaryIsLoading: state.glossaryEditorIsLoading,
   glossaryPatchHasErrored: state.glossaryPatchHasErrored,
   glossaryPatchSuccess: state.glossaryPatchSuccess,
   glossaryPostHasErrored: state.glossaryPostHasErrored,
@@ -87,7 +87,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchGlossary: () => dispatch(glossaryFetchData()),
+  fetchGlossary: () => dispatch(glossaryEditorFetchData()),
   submitGlossaryTerm: termObj => dispatch(glossaryPatch(termObj)),
   submitNewGlossaryTerm: termObj => dispatch(glossaryPost(termObj)),
 });

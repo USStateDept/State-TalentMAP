@@ -12,6 +12,18 @@ describe('GET reducers', () => {
   it('can set reducer GLOSSARY_FETCH_DATA_SUCCESS', () => {
     expect(reducers.glossary([], { type: 'GLOSSARY_FETCH_DATA_SUCCESS', glossary: [1] }).length).toBe(1);
   });
+
+  it('can set reducer GLOSSARY_EDITOR_HAS_ERRORED', () => {
+    expect(reducers.glossaryEditorHasErrored(false, { type: 'GLOSSARY_EDITOR_HAS_ERRORED', hasErrored: true })).toBe(true);
+  });
+
+  it('can set reducer GLOSSARY_EDITOR_IS_LOADING', () => {
+    expect(reducers.glossaryEditorIsLoading(false, { type: 'GLOSSARY_EDITOR_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
+  it('can set reducer GLOSSARY_EDITOR_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.glossaryEditor([], { type: 'GLOSSARY_EDITOR_FETCH_DATA_SUCCESS', glossary: [1] }).length).toBe(1);
+  });
 });
 
 describe('PATCH reducers', () => {
