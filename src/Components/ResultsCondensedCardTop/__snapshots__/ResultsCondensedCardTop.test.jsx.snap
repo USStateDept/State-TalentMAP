@@ -24,7 +24,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
       replace={false}
       to="/details/00025003"
     >
-      View more
+      View More
     </Link>
   </div>
 </div>
