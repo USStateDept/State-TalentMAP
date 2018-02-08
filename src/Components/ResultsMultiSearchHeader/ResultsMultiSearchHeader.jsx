@@ -99,7 +99,7 @@ class ResultsMultiSearchHeader extends Component {
     const { q, [SKILL_PARAM]: skillCodes, [BUREAU_PARAM]: bureaus,
       [GRADE_PARAM]: grades } = this.state;
     const skills = skillCodes.slice().map(s => s.code);
-    const query = { q, [SKILL_PARAM]: skills, bureaus, grades };
+    const query = { q, [SKILL_PARAM]: skills, [BUREAU_PARAM]: bureaus, [GRADE_PARAM]: grades };
     return query;
   }
 
@@ -136,7 +136,6 @@ class ResultsMultiSearchHeader extends Component {
       bureaus.data.slice().map(g => ({ ...g, value: g.code, text: g.short_description })) : [];
 
     // set the default skills
-    // eslint-disable-next-line camelcase
     const defaultSkills = skills || userProfile.skills || [];
     return (
       <div className="results-search-bar padded-main-content results-multi-search">
