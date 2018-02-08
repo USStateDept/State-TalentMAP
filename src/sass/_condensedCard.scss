@@ -54,6 +54,10 @@ $condensed-card-padding: 14px 20px 9px;
     overflow: hidden;
     padding: $condensed-card-padding;
     position: relative;
+
+    a {
+      color: $color-white;
+    }
   }
 
   .condensed-top-background-image {
