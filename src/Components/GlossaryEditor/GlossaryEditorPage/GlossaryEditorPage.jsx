@@ -64,10 +64,10 @@ class GlossaryEditorPage extends Component {
       const first = term.title.substr(0, 1).toUpperCase();
       // check if it's a letter
       const firstIsAlpha = first.match(/^[a-zA-Z]*$/);
-      // if so, assign it to the '#' prop
+      // if so, assign it to its first letter
       if (firstIsAlpha) {
         return first;
-      // else, assign it to its first letter
+      // else, assign it to the '#' prop
       } return '#';
     });
     return filteredTerms;
