@@ -8,7 +8,7 @@ import EditContentButton from '../EditContentButton';
 import BidCount from '../BidCount';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
-import { getAssetPath, shortenString } from '../../utilities';
+import { getAssetPath, shortenString, propOrDefault } from '../../utilities';
 
 const seal = getAssetPath('/assets/img/rsz_dos-seal-bw.png');
 
@@ -90,25 +90,25 @@ class PositionTitle extends Component {
     // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
     // 3. A formatted version for public viewing
 
-    const descriptionExists = details.description && details.description.content;
-    const plainTextDescription = descriptionExists ? newDescriptionContent.value || details.description.content : '';
-    const description = descriptionExists ?
+    const description = propOrDefault(details, 'description.content');
+    const plainTextDescription = description ? newDescriptionContent.value || description : '';
+    const formattedDescription = description ?
       shortenString(plainTextDescription) :
-      NO_POSITION_WEB_SITE;
+      NO_POSITION_DESCRIPTION;
 
-    const postWebsiteExists = details.description && details.description.website;
-    const plainTextPostWebsite = postWebsiteExists ? newWebsiteContent.value || details.description.website : '';
-    const postWebsite = postWebsiteExists ?
+    const postWebsite = propOrDefault(details, 'description.website');
+    const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : '';
+    const formattedPostWebsite = postWebsite ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
     NO_POSITION_WEB_SITE;
 
-    const pointOfContactExists = details.description && details.description.point_of_contact;
-    const plainTextPointOfContact = pointOfContactExists ? newPocContent.value || details.description.point_of_contact : '';
-    const pointOfContact = pointOfContactExists ?
+    const pointOfContact = propOrDefault(details, 'description.point_of_contact');
+    const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : '';
+    const formattedPointOfContact = pointOfContact ?
       <a href={`tel:${plainTextPointOfContact}`}>{plainTextPointOfContact}</a> :
     NO_POSITION_POC;
 
-    const isAllowedToEdit = !!(details.description && details.description.is_editable_by_user);
+    const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
     const bidStatistics = Array.isArray(details.bid_statistics) ? details.bid_statistics[0] : null;
 
@@ -144,11 +144,7 @@ class PositionTitle extends Component {
                 {
                   !shouldShowDescriptionEditor.value &&
                     <span className="usa-grid-full">
-                      {
-                        details.description && details.description.content ?
-                          description :
-                          NO_POSITION_DESCRIPTION
-                      }
+                      {formattedDescription}
                       {
                         isAllowedToEdit &&
                           <EditContentButton
@@ -168,7 +164,7 @@ class PositionTitle extends Component {
               </div>
               <PositionTitleSubDescription
                 title="Post website"
-                formattedContent={postWebsite}
+                formattedContent={formattedPostWebsite}
                 plainContent={plainTextPostWebsite}
                 shouldShowEditor={shouldShowWebsiteEditor.value}
                 onSubmitText={this.submitWebsiteEdit}
@@ -177,7 +173,7 @@ class PositionTitle extends Component {
               />
               <PositionTitleSubDescription
                 title="Point of Contact"
-                formattedContent={pointOfContact}
+                formattedContent={formattedPointOfContact}
                 plainContent={plainTextPointOfContact}
                 shouldShowEditor={shouldShowPocEditor.value}
                 onSubmitText={this.submitPocEdit}
