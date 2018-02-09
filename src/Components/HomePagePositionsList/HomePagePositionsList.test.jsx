@@ -7,20 +7,24 @@ import bidListObject from '../../__mocks__/bidListObject';
 
 describe('HomePagePositionsList', () => {
   const props = {
-    toggleFavorite: () => {},
+    toggleFavorite: () => { },
     userProfileFavoritePositionIsLoading: false,
     userProfileFavoritePositionHasErrored: false,
-    toggleBid: () => {},
+    toggleBid: () => { },
     bidList: bidListObject.results,
   };
 
   it('is defined', () => {
-    const wrapper = shallow(<HomePagePositionsList maxLength={3} positions={resultsObject.results} {...props} />);
+    const wrapper = shallow(<HomePagePositionsList
+      maxLength={3}
+      positions={resultsObject.results}
+      {...props}
+    />);
     expect(wrapper).toBeDefined();
   });
 
   it('displays two rows', () => {
-    // test with 7 positions and a max of 6
+        // test with 7 positions and a max of 6
     const maxLength = 6;
     const positions = Array(7).fill(resultsObject.results[0]);
 
