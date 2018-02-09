@@ -4,6 +4,7 @@ import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
+import HomePagePositionsSection from '../../Components/HomepagePositionsSection';
 import Spinner from '../../Components/Spinner';
 
 class HomePage extends Component {
@@ -41,6 +42,19 @@ class HomePage extends Component {
           <div
             className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
           >
+            <HomePagePositionsSection
+              title="Highlighted Positions"
+              maxLength="6"
+              viewMoreLink="/results?is_highlighted=1"
+              favorites={userProfile.favorite_positions}
+              toggleFavorite={toggleFavorite}
+              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              positions={homePagePositions.isHighlighted}
+              isLoading={homePagePositionsIsLoading}
+              toggleBid={toggleBid}
+              bidList={bidList}
+            />
             <HighlightedPositionsSection
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}
