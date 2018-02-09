@@ -18,22 +18,23 @@ const AdditionalView = ({ client, isLoading, hasErrored }) => {
   let draftList = [];
   let submittedList = [];
 
-  // If we're ready to render our data, convert objects into formatted strings to display in lists
-  if (showDetails) {
-    waiverList = client.waivers && client.waivers.length ?
-      client.waivers.map(waiver => formatWaiverTitle(waiver)) : [];
+  // If we're ready to render our waivers, convert objects into formatted
+  // strings to display in lists
+  const shouldMapWaivers = showDetails && client.waivers && client.waivers.length;
+  if (shouldMapWaivers) {
+    waiverList = client.waivers.map(waiver => formatWaiverTitle(waiver));
+  }
 
-    draftList = client.bids && client.bids.length ?
-      client.bids
-        .filter(bid => bid.status === DRAFT_PROP)
-        .map(bid => formatBidTitle(bid))
-      : [];
+  // And do the same for bids
+  const shouldMapBids = showDetails && client.bids && client.bids.length;
+  if (shouldMapBids) {
+    draftList = client.bids
+      .filter(bid => bid.status === DRAFT_PROP)
+      .map(bid => formatBidTitle(bid));
 
-    submittedList = client && client.bids && client.bids.length ?
-      client.bids
-        .filter(bid => bid.status === SUBMITTED_PROP)
-        .map(bid => formatBidTitle(bid))
-      : [];
+    submittedList = client.bids
+      .filter(bid => bid.status === SUBMITTED_PROP)
+      .map(bid => formatBidTitle(bid));
   }
   return (
     <div className="usa-grid-full bidder-portfolio-additional-container">
