@@ -4,7 +4,7 @@ import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import NewPositionsSection from '../../Components/NewPositionsSection';
 import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
-import HomePagePositionsSection from '../../Components/HomepagePositionsSection';
+import HomePagePositionsSection from '../../Components/HomePagePositionsSection';
 import Spinner from '../../Components/Spinner';
 
 class HomePage extends Component {
