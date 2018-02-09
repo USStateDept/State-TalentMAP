@@ -17,7 +17,7 @@ import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-import { getAssetPath } from '../../utilities';
+import { getAssetPath, propOrDefault } from '../../utilities';
 import MediaQuery from '../MediaQuery';
 
 export class Header extends Component {
@@ -102,7 +102,7 @@ export class Header extends Component {
 
     let isLoggedIn = false;
     let signedInAs = null;
-    const userFirstName = userProfile && userProfile.user ? userProfile.user.first_name : null;
+    const userFirstName = propOrDefault(userProfile, 'user.first_name');
     if (token && !requesting) {
       isLoggedIn = true;
       signedInAs = userFirstName;
