@@ -12,6 +12,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
     updatedBy: 'John Doe',
     isArchived: false,
     id: 1,
+    submitGlossaryTerm: () => {},
   };
 
   it('is defined', () => {
