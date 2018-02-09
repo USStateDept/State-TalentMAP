@@ -114,9 +114,11 @@ export class Header extends Component {
 
     const isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute();
     const isOnForceHideSearchRoute = this.isOnForceHideSearchRoute();
-    const showResultsSearchHeader =
+    const showResultsSearchHeaderClass =
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
-    const searchBarVisibilityClass = showResultsSearchHeader ? 'search-bar-visible' : 'search-bar-hidden';
+    const searchBarVisibilityClass = showResultsSearchHeaderClass ? 'search-bar-visible' : 'search-bar-hidden';
+
+    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute();
 
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
@@ -148,7 +150,7 @@ export class Header extends Component {
           <div className="usa-overlay" />
         </header>
         {
-          showResultsSearchHeader &&
+          shouldRenderSearchBar &&
           <div className="results results-search-bar-header">
             <MediaQuery widthType="min" breakpoint="screenMdMin">
               <ResultsMultiSearchHeaderContainer
