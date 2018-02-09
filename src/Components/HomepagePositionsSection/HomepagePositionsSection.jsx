@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import PositionsSectionTitle from '../PositionsSectionTitle';
@@ -14,23 +14,19 @@ const defaultProps = {
   viewMoreLink: '/results',
 };
 
-class HomePagePositionsSection extends Component {
-  render() {
-    return (
-      <div className="usa-grid-full positions-section">
-        <PositionsSectionTitle
-          title={
-            <span className="positions-section-title">
-              <FontAwesome name={this.props.icon} />
-              {this.props.title}
-            </span>
-        }
-          viewMoreLink={this.props.viewMoreLink}
-        />
-      </div>
-    );
-  }
-}
+const HomePagePositionsSection = ({ title, icon, viewMoreLink }) => (
+  <div className="usa-grid-full positions-section">
+    <PositionsSectionTitle
+      title={
+        <span className="positions-section-title">
+          <FontAwesome name={icon} />
+          {title}
+        </span>
+      }
+      viewMoreLink={viewMoreLink}
+    />
+  </div>
+);
 
 HomePagePositionsSection.propTypes = propTypes;
 
