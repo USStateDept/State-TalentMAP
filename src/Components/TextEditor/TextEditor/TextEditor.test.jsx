@@ -3,15 +3,21 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import React from 'react';
+import { createEditorStateWithText } from 'draft-js-plugins-editor'; // for mocking draftjs editor state
 import TextEditor from './TextEditor';
 
 describe('TextEditorComponent', () => {
   const id = '1';
 
+  const props = {
+    onSubmitText: () => {},
+    onChangeText: () => {},
+  };
+
   it('is defined', () => {
     const wrapper = shallow(
       <TextEditor
-        onSubmitText={() => {}}
+        {...props}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -20,11 +26,33 @@ describe('TextEditorComponent', () => {
   it('is defined when the readOnly prop is true', () => {
     const wrapper = shallow(
       <TextEditor
-        onSubmitText={() => {}}
+        {...props}
         readOnly
       />,
     );
     expect(wrapper).toBeDefined();
+  });
+
+  it('hides buttons when hideButtons is true', () => {
+    const wrapper = shallow(
+      <TextEditor
+        {...props}
+        hideButtons
+        readOnly={false}
+      />,
+    );
+    expect(wrapper.find('TextEditorSubmit').exists()).toBe(false);
+  });
+
+  it('displays buttons when hideButtons is false', () => {
+    const wrapper = shallow(
+      <TextEditor
+        {...props}
+        hideButtons={false}
+        readOnly={false}
+      />,
+    );
+    expect(wrapper.find('TextEditorSubmit').exists()).toBe(true);
   });
 
   it('can submit text', () => {
@@ -43,8 +71,8 @@ describe('TextEditorComponent', () => {
     const cancelSpy = sinon.spy();
     const wrapper = shallow(
       <TextEditor
+        {...props}
         id={id}
-        onSubmitText={() => {}}
         cancel={cancelSpy}
       />,
     );
@@ -54,22 +82,27 @@ describe('TextEditorComponent', () => {
   });
 
   it('can call the onChange function', () => {
-    const text = { value: 'text' };
     const wrapper = shallow(
       <TextEditor
+        {...props}
         id={id}
-        onSubmitText={() => {}}
       />,
     );
-    wrapper.instance().onChange(text);
+    // create an editorState like we'd use in TextEditor
+    const editorState = createEditorStateWithText('test');
+    // make a change
+    wrapper.instance().onChange(editorState);
+    // it should be defined
     expect(wrapper.instance().state.editorState).toBeDefined();
+    // it should be able to return the original text using its functions
+    expect(wrapper.instance().state.editorState.getCurrentContent().getPlainText()).toBe('test');
   });
 
   it('can properly set editorState and editorStateCopy', () => {
     const wrapper = shallow(
       <TextEditor
+        {...props}
         id={id}
-        onSubmitText={() => {}}
         initialText="test"
       />,
     );
@@ -86,8 +119,8 @@ describe('TextEditorComponent', () => {
   it('properly maintains the value of the editorState and editorStateCopy after canceling', () => {
     const wrapper = shallow(
       <TextEditor
+        {...props}
         id={id}
-        onSubmitText={() => {}}
         initialText="test"
       />,
     );
@@ -110,8 +143,8 @@ describe('TextEditorComponent', () => {
   it('properly maintains the value of the editorState and editorStateCopy after submitting', () => {
     const wrapper = shallow(
       <TextEditor
+        {...props}
         id={id}
-        onSubmitText={() => {}}
         initialText="test"
       />,
     );

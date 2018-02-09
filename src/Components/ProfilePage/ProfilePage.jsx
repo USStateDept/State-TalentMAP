@@ -7,6 +7,7 @@ import Dashboard from '../../Containers/Dashboard/Dashboard';
 import BidderPortfolio from '../../Containers/BidderPortfolio';
 import BidTracker from '../../Containers/BidTracker';
 import BidStatistics from '../../Containers/BidStatistics';
+import GlossaryEditor from '../../Containers/GlossaryEditor';
 import ProfileMenu from '../ProfileMenu';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 
@@ -31,6 +32,7 @@ const ProfilePage = ({ user }) => (
           component={BidListContainer}
         />
         <Route path="/profile/statistics" component={BidStatistics} />
+        <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
       </Switch>
     </div>
   </div>

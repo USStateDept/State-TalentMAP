@@ -17,6 +17,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
           className="header-nav-link-text search-text"
         >
           <InteractiveElement
+            className=""
             onClick={[Function]}
             type="span"
           >

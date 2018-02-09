@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopNavComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full portfolio-top-nav-container"
+>
+  <div
+    className="usa-width-five-sixths"
+  >
+    <NavigationList />
+  </div>
+</div>
+`;

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full section-padded-inner-container glossary-editor-card editor-container-hidden"
+>
+  <div
+    className="usa-grid-full glossary-editor-card-top"
+  >
+    <div
+      className="title-container editor-hidden editor-hidden--title"
+    >
+      6/8
+    </div>
+    <div
+      className="actions-container"
+    >
+      <div
+        className="actions-inner-container"
+      >
+        <Connect(StaticDevContent)>
+          <div>
+            History
+          </div>
+        </Connect(StaticDevContent)>
+        <InteractiveElement
+          className=""
+          onClick={[Function]}
+          role="link"
+          type="div"
+        >
+          Edit
+        </InteractiveElement>
+      </div>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
+  >
+    Definition.
+  </div>
+  <GlossaryEditorCardBottom
+    dateUpdated="2018-02-07T15:33:52.986137Z"
+    hasErrored={Object {}}
+    id={3}
+    isArchived={false}
+    isNewTerm={false}
+    showEmptyWarning={false}
+    submitGlossaryTerm={[Function]}
+    updatedBy="Leah Shadtrach"
+  />
+</div>
+`;
+
+exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAlert is true 1`] = `
+<div
+  className="usa-grid-full section-padded-inner-container glossary-editor-card editor-container-hidden"
+>
+  <div
+    className="usa-grid-full glossary-editor-card-top"
+  >
+    <div
+      className="title-container editor-hidden editor-hidden--title"
+    >
+      6/8
+    </div>
+    <div
+      className="actions-container"
+    >
+      <div
+        className="actions-inner-container"
+      >
+        <Connect(StaticDevContent)>
+          <div>
+            History
+          </div>
+        </Connect(StaticDevContent)>
+        <InteractiveElement
+          className=""
+          onClick={[Function]}
+          role="link"
+          type="div"
+        >
+          Edit
+        </InteractiveElement>
+      </div>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
+  >
+    Definition.
+  </div>
+  <GlossaryEditorCardBottom
+    dateUpdated="2018-02-07T15:33:52.986137Z"
+    hasErrored={Object {}}
+    id={3}
+    isArchived={false}
+    isNewTerm={false}
+    showEmptyWarning={true}
+    submitGlossaryTerm={[Function]}
+    updatedBy="Leah Shadtrach"
+  />
+</div>
+`;

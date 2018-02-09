@@ -1,0 +1,160 @@
+// scss-lint:disable SelectorFormat
+// We modify Drafjs classes which use uppercase letters, so we disable SelectorFormat.
+
+.glossary-editor-page {
+  .hello-greeting {
+    float: left;
+  }
+
+  .editor-container {
+    margin-top: 10px;
+  }
+
+  .create-term-container {
+    float: right;
+
+    button {
+      float: right;
+    }
+  }
+}
+
+.glossary-editor-card-container {
+  background-color: $color-white;
+  border: solid 1px $color-gray-light;
+  margin-bottom: 25px;
+}
+
+.glossary-editor-card-container:nth-child(even) {
+  margin-bottom: 0;
+}
+
+.glossary-editor-card {
+  .editor-visible--definition {
+    background: initial;
+    height: initial;
+    padding-right: 0;
+
+    .public-DraftEditor-content {
+      height: 5em;
+      overflow: scroll;
+    }
+  }
+
+  .editor-visible {
+    .editor {
+      margin-bottom: 0;
+      padding: .3em;
+    }
+
+    .public-DraftEditor-content {
+      min-height: 0;
+    }
+  }
+}
+
+.glossary-editor-card-top {
+  margin-bottom: 10px;
+  min-height: 40px;
+
+  .title-container {
+    float: left;
+    margin-right: 20%;
+    width: 50%;
+  }
+
+  .actions-container {
+    float: left;
+    width: 30%;
+  }
+
+  .actions-inner-container {
+    float: right;
+
+    div {
+      float: left;
+    }
+
+    div:nth-child(n+2) {
+      margin-left: 10px;
+    }
+  }
+}
+
+.glossary-editor-card-definition {
+  background: $color-gray-lightest;
+  font-size: 1.1em;
+  height: 120px;
+  margin-bottom: 30px;
+  overflow: scroll;
+  padding-right: 10%;
+}
+
+.glossary-editor-card-bottom {
+  font-size: .9em;
+
+  div {
+    float: left;
+    margin-right: 5px;
+  }
+
+  div:not(:last-child) {
+    border-right: 1px solid $color-black;
+    padding-right: 5px;
+  }
+
+  .archive-link {
+    color: $blue-primary;
+    text-decoration: underline;
+  }
+}
+
+.grouped-glossary-listing {
+  .term-group {
+    margin-bottom: 30px;
+  }
+
+  .term-title {
+    font-size: 2em;
+    margin-bottom: 15px;
+    padding-left: 5px;
+  }
+}
+
+.editor-hidden--definition {
+  min-height: 165px;
+}
+
+.editor-visible--definition {
+  margin-bottom: 30px;
+}
+
+.letter-list-container {
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+.letters-list {
+  .letter-link {
+    color: $blue-primary;
+    font-size: 1.1em;
+    margin-right: .8em;
+    text-decoration: underline;
+  }
+}
+
+.glossary-warning-container {
+  min-height: 10px;
+}
+
+.editor-container-visible {
+  .glossary-warning-container {
+    min-height: 30px;
+  }
+}
+
+.archive-link {
+  .fa {
+    margin-right: 5px;
+  }
+}

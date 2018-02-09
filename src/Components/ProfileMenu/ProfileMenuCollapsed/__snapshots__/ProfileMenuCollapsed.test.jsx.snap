@@ -27,6 +27,11 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
       link="/profile/statistics/"
     />
     <withRouter(NavLink)
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
+    />
+    <withRouter(NavLink)
       iconName="comments-o"
       link="/profile/inbox/"
     />
