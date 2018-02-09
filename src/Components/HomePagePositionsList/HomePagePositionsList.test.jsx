@@ -28,7 +28,11 @@ describe('HomePagePositionsList', () => {
     const maxLength = 6;
     const positions = Array(7).fill(resultsObject.results[0]);
 
-    const wrapper = shallow(<HomePagePositionsList maxLength={maxLength} positions={positions} {...props} />);
+    const wrapper = shallow(<HomePagePositionsList
+      maxLength={maxLength}
+      positions={positions}
+      {...props}
+    />);
     expect(wrapper.find('.condensed-card').length).toEqual(maxLength);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
