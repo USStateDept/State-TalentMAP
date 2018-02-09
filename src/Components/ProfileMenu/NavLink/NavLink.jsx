@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { ROUTER_LOCATION_OBJECT, EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
-import isCurrentPath from '../navigation';
+import isCurrentPath, { checkIfChildrenMatchPath } from '../navigation';
 import InteractiveElement from '../../InteractiveElement';
 import { propOrDefault } from '../../../utilities';
 
@@ -25,30 +25,23 @@ class NavLink extends Component {
   // If so, we'll toggle the visibility to true
   shouldExpandIfChildActive() {
     const { children, expandedSection, title } = this.props;
-    let found = false;
-    // Iterate through the children.
-    // When there's only one child, we can't use forEach...
-    if (children && children.length > 1) {
-      children.forEach((c) => {
-        if (propOrDefault(c, 'props.link') &&
-          isCurrentPath(this.props.location.pathname, c.props.link)) {
-          found = true;
-        }
-      });
-    // So we'll check here and act directly on the only child, if it exists
-    } else if (children) {
-      if (propOrDefault(children, 'props.link') &&
-          isCurrentPath(this.props.location.pathname, children.props.link)) {
-        found = true;
-      }
-    }
+    const pathname = this.props.location.pathname;
+    // If there's multiple children, do any of them match the current pathname?
+    const childrenMatchPath = checkIfChildrenMatchPath(children, pathname);
+    // If there's only one child, does it match the current path?
+    const childIsCurrentPath = propOrDefault(children, 'props.link') && isCurrentPath(pathname, children.props.link);
     // If the title matches the expandedSection title, check the display boolean
     // on whether or not to expand this section.
-    if (expandedSection && expandedSection.title === title) { found = expandedSection.display; }
+    const expandedExistsAndTitleMatches = expandedSection && expandedSection.title === title;
+
+    let found = childrenMatchPath;
+    if (childIsCurrentPath) {
+      found = true;
+    }
+    if (expandedExistsAndTitleMatches) { found = expandedSection.display; }
+    // if the child or one of the children match, set showNestedLinks to true
     if (found) {
-      const { showNestedLinks } = this.state;
-      showNestedLinks.value = true;
-      this.setState({ showNestedLinks });
+      this.setState({ showNestedLinks: { value: true } });
     }
   }
 
