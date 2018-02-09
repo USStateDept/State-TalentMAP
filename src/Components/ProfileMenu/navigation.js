@@ -33,10 +33,14 @@ export function isCurrentParam(currentParams, comparisonParams, paramToCheck) {
   return (currentParamObject[paramToCheck] === comparisonParamObject[paramToCheck]);
 }
 
-// check if any of the children match the current path
+// Check if any of the children match the current path.
+// Children should be an array of array of objects:
+// [ { props: { link: '/somelink' } }, ... ]
+// Pathname should be a string that comes from react-router's location
+// object, such as '/profile/dashboard'.
 export function checkIfChildrenMatchPath(children, pathname) {
   let found = false;
-  // Children should be an array. Otherwise return the default value of found.
+  // Returns true if any children match the path, otherwise false
   if (children && Array.isArray(children)) {
     children.forEach((c) => {
       if (propOrDefault(c, 'props.link') &&
