@@ -36,8 +36,14 @@ class BidderPortfolioPage extends Component {
       navDataIsLoading;
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';
+
+    const viewTypeClass = isListView ? 'list-view' : 'card-view';
+    const loadingClass = isLoading ? 'results-loading' : '';
+
+    // pass zero if waiting on value
+    const biddersNumerator = bidderPortfolio.count || 0;
     return (
-      <div className={`bidder-portfolio-page ${isListView ? 'list-view' : 'card-view'}`}>
+      <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
           {
@@ -46,7 +52,7 @@ class BidderPortfolioPage extends Component {
               <TopNav bidderPortfolioCounts={bidderPortfolioCounts} />
               <BidControls
                 queryParamUpdate={queryParamUpdate}
-                biddersNumerator={bidderPortfolio.count || 0} /* pass zero if waiting on value */
+                biddersNumerator={biddersNumerator}
                 biddersDenominator={bidderPortfolioCounts.all_clients}
                 isLoading={isLoading}
                 viewType={this.state.viewType.value}
@@ -54,7 +60,7 @@ class BidderPortfolioPage extends Component {
               />
             </div>
           }
-          <div className={`usa-grid-full bidder-portfolio-listing ${isLoading ? 'results-loading' : ''}`}>
+          <div className={`usa-grid-full bidder-portfolio-listing ${loadingClass}`}>
             {
               isLoading &&
                 <Spinner type="homepage-position-results" size="big" />

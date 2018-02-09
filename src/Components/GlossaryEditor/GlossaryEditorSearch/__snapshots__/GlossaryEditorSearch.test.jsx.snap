@@ -9,8 +9,8 @@ exports[`GlossaryEditorSearchComponent matches snapshot 1`] = `
   >
     <ResultsSearchHeader
       defaultKeyword=""
-      defaultLocation=""
       labelSrOnly={true}
+      onFilterChange={[Function]}
       onUpdate={[Function]}
       placeholder="Search for Glossary terms"
     />

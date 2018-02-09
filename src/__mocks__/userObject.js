@@ -1,5 +1,6 @@
 export const bidderUserObject = {
   id: 1,
+  grade: '03',
   skills: [
     {
       id: 63,

@@ -2,7 +2,7 @@
 
 exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
 <div
-  className="results-search-bar padded-main-content"
+  className="results-search-bar padded-main-content results-single-search"
 >
   <div
     className="usa-grid-full results-search-bar-container"

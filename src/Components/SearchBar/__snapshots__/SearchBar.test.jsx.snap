@@ -32,7 +32,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
           id="enabled-search-search-2"
         >
           <button
-            className={null}
+            className=""
             disabled={false}
             id="enabled-search-button-search-2"
             title="submit search"
@@ -115,7 +115,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
           id="enabled-search-search-2"
         >
           <button
-            className={null}
+            className=""
             disabled={false}
             id="enabled-search-button-search-2"
             title="submit search"
@@ -198,7 +198,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
           id="enabled-search-search-2"
         >
           <button
-            className={null}
+            className=""
             disabled={false}
             id="enabled-search-button-search-2"
             title="submit search"

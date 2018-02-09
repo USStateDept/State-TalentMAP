@@ -6,6 +6,7 @@ import FontAwesome from 'react-fontawesome';
 import { ROUTER_LOCATION_OBJECT, EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import isCurrentPath from '../navigation';
 import InteractiveElement from '../../InteractiveElement';
+import { propOrDefault } from '../../../utilities';
 
 class NavLink extends Component {
   constructor(props) {
@@ -29,14 +30,14 @@ class NavLink extends Component {
     // When there's only one child, we can't use forEach...
     if (children && children.length > 1) {
       children.forEach((c) => {
-        if (c && c.props && c.props.link &&
+        if (propOrDefault(c, 'props.link') &&
           isCurrentPath(this.props.location.pathname, c.props.link)) {
           found = true;
         }
       });
     // So we'll check here and act directly on the only child, if it exists
     } else if (children) {
-      if (children.props && children.props.link && children.props.link &&
+      if (propOrDefault(children, 'props.link') &&
           isCurrentPath(this.props.location.pathname, children.props.link)) {
         found = true;
       }
