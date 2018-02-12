@@ -31,3 +31,41 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceNeed 1`] = `
+<div
+  className="usa-grid-full condensed-card-top card-top-alternate"
+>
+  <div
+    className="usa-grid-full condensed-card-top-header-container"
+  >
+    <div
+      className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
+    >
+       
+      <span>
+         | 
+        <FontAwesome
+          name="bolt"
+        />
+      </span>
+    </div>
+    <div
+      className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
+    >
+      Grade: 
+      05
+    </div>
+  </div>
+  <div
+    className="usa-grid-full"
+  >
+    <Link
+      replace={false}
+      to="/details/00025003"
+    >
+      View More
+    </Link>
+  </div>
+</div>
+`;

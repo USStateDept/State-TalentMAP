@@ -56,6 +56,22 @@ describe('ResultsCondensedCardTopComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when type is serviceNeed', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardTop
+        position={resultsObject.results[0]}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        favorites={favorites}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
+        type="serviceNeed"
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('can receive alternate props', () => {
     const position = resultsObject.results[0];
     position.update_date = null;

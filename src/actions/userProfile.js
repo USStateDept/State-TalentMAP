@@ -59,6 +59,7 @@ export function userProfileFetchData(bypass) {
             })
             .catch(() => {
               dispatch(userProfileHasErrored(true));
+              dispatch(userProfileIsLoading(false));
               dispatch(userProfileFavoritePositionIsLoading(false));
             });
   };
