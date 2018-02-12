@@ -43,7 +43,7 @@ class HomePage extends Component {
           >
             <HomePagePositionsSection
               title="Highlighted Positions"
-              maxLength="6"
+              maxLength="3"
               viewMoreLink="/results?is_highlighted=1"
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}
