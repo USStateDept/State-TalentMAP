@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDate } from '../../../utilities';
+import { formatDate, propOrDefault } from '../../../utilities';
 import { ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
 import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE, NO_SKILL, NO_BUREAU } from '../../../Constants/SystemMessages';
 import SectionTitle from '../SectionTitle';
@@ -16,40 +16,37 @@ const PositionInformation = ({ assignment }) => {
   } else {
     assignmentEndDate = assignment.end_date ? formatDate(assignment.end_date) : '';
   }
+
+  // format our values
+  const formattedAssignmentDates = assignment.start_date && assignment.estimated_end_date ?
+    (<StartEnd
+      start={assignmentStartDate}
+      end={assignmentEndDate}
+    />)
+    : NO_ASSIGNMENT_DATE;
+  const formattedBureau = propOrDefault(assignment, 'position.bureau', NO_BUREAU);
+  const formattedPosition = propOrDefault(assignment, 'position.title', NO_ASSIGNMENT_POSITION);
+  const formattedSkill = propOrDefault(assignment, 'position.skill', NO_SKILL);
+
   return (
     <div className="usa-grid-full">
       <div className="section-padded-inner-container">
         <SectionTitle title="Position Information" icon="flag" />
         <InformationDataPoint
           title="Start & End of Position"
-          content={(assignment.start_date && assignment.estimated_end_date) ?
-            <StartEnd
-              start={assignmentStartDate}
-              end={assignmentEndDate}
-            />
-          : NO_ASSIGNMENT_DATE
-        }
+          content={formattedAssignmentDates}
         />
         <InformationDataPoint
           title="Bureau"
-          content={
-            assignment.position && assignment.position.bureau
-              ? assignment.position.bureau : NO_BUREAU
-          }
+          content={formattedBureau}
         />
         <InformationDataPoint
           title="Position Title"
-          content={
-            assignment.position && assignment.position.title
-              ? assignment.position.title : NO_ASSIGNMENT_POSITION
-          }
+          content={formattedPosition}
         />
         <InformationDataPoint
           title="Skill Code"
-          content={
-            assignment.position && assignment.position.skill
-              ? assignment.position.skill : NO_SKILL
-          }
+          content={formattedSkill}
         />
       </div>
     </div>

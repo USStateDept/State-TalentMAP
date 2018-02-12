@@ -20,6 +20,13 @@ describe('InteractiveElementComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('adds both pre-defined and prop-defined classNames', () => {
+    const wrapper = shallow(
+      <InteractiveElement className="my-class" onClick={() => {}} type="div">text</InteractiveElement>);
+    expect(wrapper.find('.interactive-element').exists()).toBe(true);
+    expect(wrapper.find('.my-class').exists()).toBe(true);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(<InteractiveElement type="span">text</InteractiveElement>);
     expect(toJSON(wrapper)).toMatchSnapshot();

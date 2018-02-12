@@ -75,6 +75,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
             "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
           },
         ],
+        "grade": "03",
         "id": 1,
         "is_cdo": false,
         "skills": Array [

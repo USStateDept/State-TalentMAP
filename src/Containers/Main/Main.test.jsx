@@ -88,4 +88,10 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
+  it('handles a profile/glossaryeditor route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/glossaryeditor']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
 });

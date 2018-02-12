@@ -31,9 +31,7 @@ exports[`ActionsDropdown matches snapshot 1`] = `
     <InteractiveElement
       className="account-dropdown--identity account-dropdown--segment "
       onClick={[Function]}
-      onKeyUp={[Function]}
       role="link"
-      tabIndex="0"
       title=""
       type="div"
     >
@@ -74,9 +72,7 @@ exports[`ActionsDropdown matches snapshot when disableDelete is true 1`] = `
     <InteractiveElement
       className="account-dropdown--identity account-dropdown--segment disabled"
       onClick={[Function]}
-      onKeyUp={[Function]}
       role="link"
-      tabIndex="0"
       title="You cannot delete this bid"
       type="div"
     >
@@ -117,9 +113,7 @@ exports[`ActionsDropdown matches snapshot when showWithdraw and disableWithdraw 
     <InteractiveElement
       className="account-dropdown--identity account-dropdown--segment "
       onClick={[Function]}
-      onKeyUp={[Function]}
       role="link"
-      tabIndex="0"
       title=""
       type="div"
     >
@@ -128,7 +122,6 @@ exports[`ActionsDropdown matches snapshot when showWithdraw and disableWithdraw 
     <InteractiveElement
       className="account-dropdown--identity account-dropdown--segment disabled"
       role="link"
-      tabIndex="0"
       title="You cannot widthdraw this bid"
       type="div"
     >
@@ -169,9 +162,7 @@ exports[`ActionsDropdown matches snapshot when showWithdraw is true 1`] = `
     <InteractiveElement
       className="account-dropdown--identity account-dropdown--segment "
       onClick={[Function]}
-      onKeyUp={[Function]}
       role="link"
-      tabIndex="0"
       title=""
       type="div"
     >
@@ -180,7 +171,6 @@ exports[`ActionsDropdown matches snapshot when showWithdraw is true 1`] = `
     <InteractiveElement
       className="account-dropdown--identity account-dropdown--segment "
       role="link"
-      tabIndex="0"
       title=""
       type="div"
     >
