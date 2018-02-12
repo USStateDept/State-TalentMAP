@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import NewPositionsSection from '../../Components/NewPositionsSection';
-import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import HomePagePositionsSection from '../../Components/HomePagePositionsSection';
 import Spinner from '../../Components/Spinner';
 
@@ -46,16 +45,6 @@ class HomePage extends Component {
               title="Highlighted Positions"
               maxLength="6"
               viewMoreLink="/results?is_highlighted=1"
-              favorites={userProfile.favorite_positions}
-              toggleFavorite={toggleFavorite}
-              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-              positions={homePagePositions.isHighlighted}
-              isLoading={homePagePositionsIsLoading}
-              toggleBid={toggleBid}
-              bidList={bidList}
-            />
-            <HighlightedPositionsSection
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
