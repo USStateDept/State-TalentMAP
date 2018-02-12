@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import NewPositionsSection from '../../Components/NewPositionsSection';
-import HighlightedPositionsSection from '../../Components/HighlightedPositionsSection';
 import HomePagePositionsSection from '../../Components/HomePagePositionsSection';
 import Spinner from '../../Components/Spinner';
 
@@ -32,6 +31,19 @@ class HomePage extends Component {
       userProfile, toggleFavorite, toggleBid, bidList,
       userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored } = this.props;
+
+    // set view more link for skill
+    let viewMoreSkill = '/results';
+    if (userProfile && userProfile.skills) {
+      const ids = userProfile.skills.map(s => s.id);
+      viewMoreSkill = `/results?skill__in=${ids.join(',')}`;
+    }
+
+    // set view more link for grade
+    let viewMoreGrade = '/results';
+    if (userProfile && userProfile.grade) {
+      viewMoreGrade = `/results?grade=${userProfile.grade}`;
+    }
     return (
       <div className="home content-container">
         <div className="homepage-positions-section-container">
@@ -43,19 +55,37 @@ class HomePage extends Component {
             className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
           >
             <HomePagePositionsSection
-              title="Highlighted Positions"
-              maxLength="6"
-              viewMoreLink="/results?is_highlighted=1"
+              title="Positions in Skill"
+              maxLength="3"
+              viewMoreLink={viewMoreSkill}
+              icon="wrench"
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
               userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-              positions={homePagePositions.isHighlighted}
+              positions={homePagePositions.isSkillCode}
               isLoading={homePagePositionsIsLoading}
               toggleBid={toggleBid}
               bidList={bidList}
             />
-            <HighlightedPositionsSection
+            <HomePagePositionsSection
+              title="Positions in Grade"
+              maxLength="3"
+              viewMoreLink={viewMoreGrade}
+              icon="cog"
+              favorites={userProfile.favorite_positions}
+              toggleFavorite={toggleFavorite}
+              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              positions={homePagePositions.isGrade}
+              isLoading={homePagePositionsIsLoading}
+              toggleBid={toggleBid}
+              bidList={bidList}
+            />
+            <HomePagePositionsSection
+              title="Highlighted Positions"
+              maxLength="3"
+              viewMoreLink="/results?is_highlighted=1"
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}

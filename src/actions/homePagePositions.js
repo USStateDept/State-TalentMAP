@@ -21,14 +21,24 @@ export function homePagePositionsFetchDataSuccess(results) {
 }
 
 // general positions search results
-export function homePagePositionsFetchData() {
+export function homePagePositionsFetchData(skills = [], grade = null) {
   return (dispatch) => {
     dispatch(homePagePositionsIsLoading(true));
     dispatch(homePagePositionsHasErrored(false));
 
-    const resultsTypes = { isHighlighted: [], isNew: [] };
+    const resultsTypes = { isHighlighted: [], isNew: [], isSkillCode: [], isGrade: [] };
 
     const queryTypes = [{ name: 'isHighlighted', query: 'highlighted/?limit=3' }, { name: 'isNew', query: '?ordering=create_date&limit=6' }];
+
+    if (skills.length) {
+      const ids = skills.map(s => s.id);
+      const querySkillCodes = ids.join(',');
+      queryTypes.push({ name: 'isSkillCode', query: `?skill__in=${querySkillCodes}&limit=3` });
+    }
+
+    if (grade != null) {
+      queryTypes.push({ name: 'isGrade', query: `?grade=${grade}&limit=3` });
+    }
 
     const queryProms = queryTypes.map(type => axios.get(`${api}/position/${type.query}`));
 
@@ -38,6 +48,8 @@ export function homePagePositionsFetchData() {
         // ...and because of that, we can be sure results[x] aligns with queryTypes[x]
         // and set the relevant resultsType property accordingly
         results.forEach((result, i) => {
+          resultsTypes[queryTypes[i].name] = result.data.results;
+          resultsTypes[queryTypes[i].name] = result.data.results;
           resultsTypes[queryTypes[i].name] = result.data.results;
           resultsTypes[queryTypes[i].name] = result.data.results;
         });

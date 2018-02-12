@@ -27,7 +27,8 @@ class Home extends Component {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
       this.getFilters();
-      this.props.homePagePositionsFetchData();
+      this.props.homePagePositionsFetchData(this.props.userProfile.skills,
+        this.props.userProfile.grade);
       this.props.bidListFetchData();
     }
   }
@@ -117,7 +118,8 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: items => dispatch(filtersFetchData(items)),
-  homePagePositionsFetchData: () => dispatch(homePagePositionsFetchData()),
+  homePagePositionsFetchData: (skills, grade) =>
+    dispatch(homePagePositionsFetchData(skills, grade)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
