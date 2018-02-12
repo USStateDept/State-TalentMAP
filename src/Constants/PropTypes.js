@@ -497,3 +497,5 @@ export const CLIENT_BY_ID = PropTypes.shape({
   user: USER_NESTED_OBJECT,
   language_qualifications: LANGUAGES,
 });
+
+export const HOME_PAGE_CARD_TYPE = PropTypes.oneOf(['default', 'serviceNeed']);

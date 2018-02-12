@@ -6,7 +6,7 @@ import resultsObject from '../../__mocks__/resultsObject';
 import bidListObject from '../../__mocks__/bidListObject';
 
 describe('ResultsCondensedCardTopComponent', () => {
-  const type = 'new';
+  const type = 'default';
   const favorites = [];
   it('is defined', () => {
     const wrapper = shallow(
@@ -62,7 +62,7 @@ describe('ResultsCondensedCardTopComponent', () => {
     const wrapper = shallow(
       <ResultsCondensedCardTop
         position={position}
-        type={'highlighted'}
+        type={'default'}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
@@ -71,6 +71,6 @@ describe('ResultsCondensedCardTopComponent', () => {
         bidList={bidListObject.results}
       />,
     );
-    expect(wrapper.instance().props.type).toBe('highlighted');
+    expect(wrapper.instance().props.type).toBe('default');
   });
 });

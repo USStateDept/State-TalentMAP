@@ -27,8 +27,6 @@ class Home extends Component {
       this.props.onNavigateTo(PUBLIC_ROOT);
     } else {
       this.getFilters();
-      this.props.homePagePositionsFetchData(this.props.userProfile.skills,
-        this.props.userProfile.grade);
       this.props.bidListFetchData();
     }
   }
@@ -45,7 +43,7 @@ class Home extends Component {
   render() {
     const { onNavigateTo, items, homePagePositions,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
-      userProfile, toggleFavorite, toggleBid,
+      userProfile, userProfileIsLoading, toggleFavorite, toggleBid,
       userProfileFavoritePositionIsLoading, bidList,
       userProfileFavoritePositionHasErrored, filtersIsLoading } = this.props;
     return (
@@ -57,6 +55,7 @@ class Home extends Component {
         homePagePositionsHasErrored={homePagePositionsHasErrored}
         homePagePositionsIsLoading={homePagePositionsIsLoading}
         userProfile={userProfile}
+        userProfileIsLoading={userProfileIsLoading}
         toggleFavorite={toggleFavorite}
         userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
@@ -72,11 +71,11 @@ Home.propTypes = {
   fetchData: PropTypes.func,
   items: FILTERS_PARENT,
   isAuthorized: PropTypes.func.isRequired,
-  homePagePositionsFetchData: PropTypes.func,
   homePagePositions: HOME_PAGE_POSITIONS,
   homePagePositionsHasErrored: PropTypes.bool,
   homePagePositionsIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
+  userProfileIsLoading: PropTypes.bool,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
@@ -96,6 +95,7 @@ Home.defaultProps = {
   homePagePositionsHasErrored: false,
   homePagePositionsIsLoading: true,
   userProfile: {},
+  userProfileIsLoading: false,
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
   toggleBid: EMPTY_FUNCTION,
@@ -111,6 +111,7 @@ const mapStateToProps = state => ({
   homePagePositionsHasErrored: state.homePagePositionsHasErrored,
   homePagePositionsIsLoading: state.homePagePositionsIsLoading,
   userProfile: state.userProfile,
+  userProfileIsLoading: state.userProfileIsLoading,
   userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
   bidList: state.bidListFetchDataSuccess,
