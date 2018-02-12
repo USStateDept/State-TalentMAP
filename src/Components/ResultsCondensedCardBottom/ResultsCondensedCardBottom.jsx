@@ -38,7 +38,7 @@ ResultsCondensedCardBottom.propTypes = {
 };
 
 ResultsCondensedCardBottom.defaultProps = {
-  type: 'new',
+  type: 'default',
 };
 
 export default ResultsCondensedCardBottom;

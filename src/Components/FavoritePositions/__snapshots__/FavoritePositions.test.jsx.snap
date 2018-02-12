@@ -219,6 +219,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
     toggleFavorite={[Function]}
     toggleFavoritePositionHasErrored={false}
     toggleFavoritePositionIsLoading={false}
+    type="default"
   />
 </div>
 `;

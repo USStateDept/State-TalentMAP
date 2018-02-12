@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCard from '../ResultsCondensedCard';
-import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
+import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
 const FavoritePositionsList = ({ favorites, toggleFavorite, toggleBid,
-    bidList, toggleFavoritePositionIsLoading,
+    bidList, toggleFavoritePositionIsLoading, type,
     toggleFavoritePositionHasErrored }) => {
   const positionList = favorites.slice().map((p, i) => (
     // use the .usa-end-row class for the last item in each row
@@ -17,6 +17,7 @@ const FavoritePositionsList = ({ favorites, toggleFavorite, toggleBid,
         position={p}
         toggleBid={toggleBid}
         bidList={bidList}
+        type={type}
       />
     </div>
   ));
@@ -34,6 +35,11 @@ FavoritePositionsList.propTypes = {
   toggleFavoritePositionHasErrored: PropTypes.bool.isRequired,
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
+  type: HOME_PAGE_CARD_TYPE,
+};
+
+FavoritePositionsList.defaultProps = {
+  type: 'default',
 };
 
 export default FavoritePositionsList;
