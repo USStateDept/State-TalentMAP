@@ -58,6 +58,7 @@ class HomePage extends Component {
               title="Positions in Skill"
               maxLength="3"
               viewMoreLink={viewMoreSkill}
+              icon="wrench"
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
@@ -71,6 +72,7 @@ class HomePage extends Component {
               title="Positions in Grade"
               maxLength="3"
               viewMoreLink={viewMoreGrade}
+              icon="cog"
               favorites={userProfile.favorite_positions}
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
