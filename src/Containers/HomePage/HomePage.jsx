@@ -31,6 +31,19 @@ class HomePage extends Component {
       userProfile, toggleFavorite, toggleBid, bidList,
       userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored } = this.props;
+
+    // set view more link for skill
+    let viewMoreSkill = '/results';
+    if (userProfile && userProfile.skills) {
+      const ids = userProfile.skills.map(s => s.id);
+      viewMoreSkill = `/results?skill__in=${ids.join(',')}`;
+    }
+
+    // set view more link for grade
+    let viewMoreGrade = '/results';
+    if (userProfile && userProfile.grade) {
+      viewMoreGrade = `/results?grade=${userProfile.grade}`;
+    }
     return (
       <div className="home content-container">
         <div className="homepage-positions-section-container">
@@ -41,6 +54,32 @@ class HomePage extends Component {
           <div
             className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
           >
+            <HomePagePositionsSection
+              title="Positions in Skill"
+              maxLength="3"
+              viewMoreLink={viewMoreSkill}
+              favorites={userProfile.favorite_positions}
+              toggleFavorite={toggleFavorite}
+              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              positions={homePagePositions.isSkillCode}
+              isLoading={homePagePositionsIsLoading}
+              toggleBid={toggleBid}
+              bidList={bidList}
+            />
+            <HomePagePositionsSection
+              title="Positions in Grade"
+              maxLength="3"
+              viewMoreLink={viewMoreGrade}
+              favorites={userProfile.favorite_positions}
+              toggleFavorite={toggleFavorite}
+              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              positions={homePagePositions.isGrade}
+              isLoading={homePagePositionsIsLoading}
+              toggleBid={toggleBid}
+              bidList={bidList}
+            />
             <HomePagePositionsSection
               title="Highlighted Positions"
               maxLength="3"
