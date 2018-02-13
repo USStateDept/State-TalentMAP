@@ -16,7 +16,7 @@ const app = express();
 app.use(PUBLIC_URL, express.static(path.join(__dirname, '../build')));
 
 // saml2 metadata
-app.get(`${PUBLIC_URL}metadata`, (request, response) => {
+app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
   response.redirect(`${API_ROOT}/saml2/metadata`);
 });
 
