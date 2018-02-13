@@ -38,7 +38,9 @@ class BidderPortfolio extends Component {
     const newQueryObject = queryParamUpdate(q, this.state.query.value, true);
     // and update the query state
     this.state.query.value = newQuery;
-    this.state.defaultPageNumber.value = newQueryObject.page || this.state.defaultPageNumber.value;
+    // convert to a number, if it exists
+    const newQueryObjectPage = parseInt(newQueryObject.page, 10);
+    this.state.defaultPageNumber.value = newQueryObjectPage || this.state.defaultPageNumber.value;
     this.getBidderPortfolio();
   }
 
