@@ -4,9 +4,6 @@ const path = require('path');
 // define the API root url
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 
-// define the url consuming the API, provide local dev value as default
-const API_URL = process.env.API_URL || `${API_ROOT}/api/v1`;
-
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
 
