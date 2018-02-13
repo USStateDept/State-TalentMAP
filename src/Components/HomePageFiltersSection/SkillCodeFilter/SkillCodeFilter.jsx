@@ -42,21 +42,26 @@ class SkillCodeFilter extends Component {
   }
 
   render() {
-    const { filters, isLoading } = this.props;
+    const { filters, isLoading, label, labelSrOnly } = this.props;
     const { selectedOptions } = this.state;
     const options = wrapFilters(filters);
     const sortedOptions = options.sort(propSort('custom_description'));
+    const labelClass = labelSrOnly ? 'usa-sr-only' : '';
     return (
-      <Select
-        multi
-        value={selectedOptions.value}
-        searchable={false}
-        options={sortedOptions}
-        onChange={this.handleChange}
-        closeOnSelect={false}
-        placeholder="Select one or multiple Skill Codes"
-        isLoading={isLoading}
-      />
+      <div>
+        <label htmlFor="skill-multi-select" className={labelClass}>{label}</label>
+        <Select
+          id="skill-multi-select"
+          multi
+          value={selectedOptions.value}
+          searchable={false}
+          options={sortedOptions}
+          onChange={this.handleChange}
+          closeOnSelect={false}
+          placeholder="Select Skill Codes"
+          isLoading={isLoading}
+        />
+      </div>
     );
   }
 }
@@ -66,11 +71,15 @@ SkillCodeFilter.propTypes = {
   onFilterSelect: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   userSkills: USER_SKILL_CODE_ARRAY,
+  label: PropTypes.string,
+  labelSrOnly: PropTypes.bool,
 };
 
 SkillCodeFilter.defaultProps = {
   isLoading: false,
   userSkills: [],
+  label: 'Terms',
+  labelSrOnly: false,
 };
 
 export default SkillCodeFilter;

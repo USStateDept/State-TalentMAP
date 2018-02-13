@@ -6,11 +6,26 @@ import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import PositionDetailsDataPoint from '../../Components/PositionDetailsDataPoint/PositionDetailsDataPoint';
 import StaticDevContent from '../StaticDevContent';
-import { formatDate } from '../../utilities';
+import { formatDate, propOrDefault } from '../../utilities';
 
 const PositionDetailsItem = ({ details }) => {
-  const tourEndDate = details.current_assignment ?
-    formatDate(details.current_assignment.estimated_end_date) : NO_END_DATE;
+  const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
+  const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
+
+  const formattedPost = propOrDefault(details, 'post.id') ?
+    <Link to={`/post/${details.post.id}`}>{details.post.location}</Link> : NO_POST;
+
+  const formattedBureau = details.bureau || NO_BUREAU;
+
+  const formattedDifferential = propOrDefault(details, 'post.differential_rate', NO_POST_DIFFERENTIAL);
+
+  const formattedOverseas = details.is_overseas ? 'Yes' : 'No';
+
+  const formattedDangerPay = propOrDefault(details, 'post.danger_pay', NO_DANGER_PAY);
+
+  const formattedIncumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
+
+  const formattedOrganization = details.organization || NO_ORG;
   return (
     <div className="usa-grid-full">
       <div className="usa-width-one-whole">
@@ -21,31 +36,23 @@ const PositionDetailsItem = ({ details }) => {
             <div className="usa-width-one-whole">
               <PositionDetailsDataPoint
                 title="Organization"
-                description={details.organization || NO_ORG}
+                description={formattedOrganization}
               />
               <PositionDetailsDataPoint
                 title="Post"
-                description={
-                  details.post && details.post.id ?
-                    <Link to={`/post/${details.post.id}`}>{details.post.location}</Link>
-                    : NO_POST
-                }
+                description={formattedPost}
               />
               <PositionDetailsDataPoint
                 title="Bureau"
-                description={details.bureau || NO_BUREAU}
+                description={formattedBureau}
               />
               <PositionDetailsDataPoint
                 title="Post Differential"
-                description={
-                  details.post && details.post.differential_rate ?
-                    details.post.differential_rate
-                    : NO_POST_DIFFERENTIAL
-                }
+                description={formattedDifferential}
               />
               <PositionDetailsDataPoint
                 title="Overseas"
-                description={details.is_overseas ? 'Yes' : 'No'}
+                description={formattedOverseas}
               />
               <PositionDetailsDataPoint
                 title="Region"
@@ -72,19 +79,15 @@ const PositionDetailsItem = ({ details }) => {
               />
               <PositionDetailsDataPoint
                 title="Danger Pay"
-                description={details.post ? details.post.danger_pay : NO_DANGER_PAY}
+                description={formattedDangerPay}
               />
               <PositionDetailsDataPoint
                 title="Estimated End Date"
-                description={tourEndDate}
+                description={formattedTourEndDate}
               />
               <PositionDetailsDataPoint
                 title="Incumbent"
-                description={details.current_assignment &&
-                  details.current_assignment.user ?
-                    details.current_assignment.user :
-                    NO_USER_LISTED
-                }
+                description={formattedIncumbent}
               />
             </div>
           </div>

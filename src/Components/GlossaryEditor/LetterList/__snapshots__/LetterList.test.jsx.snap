@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LetterListComponent matches snapshot 1`] = `
+<div
+  className="letters-list"
+>
+  <InteractiveElement
+    className="letter-link"
+    onClick={[Function]}
+    role="link"
+    title="View terms that begin with #"
+    type="span"
+  >
+    #
+  </InteractiveElement>
+  <InteractiveElement
+    className="letter-link"
+    onClick={[Function]}
+    role="link"
+    title="View terms that begin with A"
+    type="span"
+  >
+    A
+  </InteractiveElement>
+  <InteractiveElement
+    className="letter-link"
+    onClick={[Function]}
+    role="link"
+    title="View terms that begin with B"
+    type="span"
+  >
+    B
+  </InteractiveElement>
+  <InteractiveElement
+    className="letter-link letter-link--all"
+    onClick={[Function]}
+    role="link"
+    title="View all terms"
+    type="span"
+  >
+    All
+  </InteractiveElement>
+</div>
+`;

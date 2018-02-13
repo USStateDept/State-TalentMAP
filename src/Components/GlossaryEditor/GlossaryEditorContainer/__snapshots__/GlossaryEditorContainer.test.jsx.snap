@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorContainerComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full user-dashboard"
+>
+  <GlossaryEditorCardList
+    availableLetters={
+      Array [
+        "A",
+        "B",
+      ]
+    }
+    glossaryPatchHasErrored={Object {}}
+    glossaryPatchSuccess={Object {}}
+    submitGlossaryFirstLetter={[Function]}
+    submitGlossaryTerm={[Function]}
+    terms={
+      Object {
+        "#": Array [
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "6/8",
+            "id": 20,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "6/8",
+          },
+        ],
+        "A": Array [
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "The employee responsible for filling the position.",
+            "id": 2,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "Assignment Officer (AO)",
+          },
+        ],
+        "B": Array [
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "An employee who is applying for a position.",
+            "id": 3,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "Bidder",
+          },
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "The organization sponsoring a position.",
+            "id": 5,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "Bureau",
+          },
+        ],
+      }
+    }
+  />
+</div>
+`;

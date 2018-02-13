@@ -85,4 +85,11 @@ describe('Routes', () => {
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
+  it('handles a profile/glossaryeditor route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/profile/glossaryeditor']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
 });

@@ -21,24 +21,24 @@ const InteractiveElement = ({ children, type, ...rest }) => {
     ...rest,
   };
 
-  const CLASS_NAME = 'interactive-element';
+  const CLASS_NAME = `interactive-element ${props.className}`;
   return (
   // At the time of writing, CodeClimate's version of eslint-a11y-plugin
   // did not take role="button" into account with the following error:
   // eslint-disable-next-line jsx-a11y/no-static-element-interactions
   type === 'div' ?
     <div
-      className={CLASS_NAME}
       {...defaultProps}
       {...props}
+      className={CLASS_NAME}
     >
       {children}
     </div> :
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <span
-      className={CLASS_NAME}
       {...defaultProps}
       {...props}
+      className={CLASS_NAME}
     >
       {children}
     </span>
@@ -47,10 +47,12 @@ const InteractiveElement = ({ children, type, ...rest }) => {
 
 InteractiveElement.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   type: PropTypes.oneOf(['div', 'span']),
 };
 
 InteractiveElement.defaultProps = {
+  className: '',
   type: 'div',
 };
 

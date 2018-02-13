@@ -28,6 +28,7 @@ import profileMenu from './profileMenu';
 import showGlossary from './showGlossary';
 import glossary from './glossary';
 import bidStatistics from './bidStatistics';
+import selectedSearchbarFilters from './selectedSearchbarFilters';
 
 
 export default combineReducers({
@@ -56,6 +57,7 @@ export default combineReducers({
   ...showGlossary,
   ...glossary,
   ...bidStatistics,
+  ...selectedSearchbarFilters,
   router: routerReducer,
   form,
   client,

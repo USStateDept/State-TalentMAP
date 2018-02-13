@@ -17,5 +17,15 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
       05
     </div>
   </div>
+  <div
+    className="usa-grid-full"
+  >
+    <Link
+      replace={false}
+      to="/details/00025003"
+    >
+      View More
+    </Link>
+  </div>
 </div>
 `;
