@@ -24,4 +24,7 @@ app.get('*', (request, response) => {
   response.sendFile(path.resolve(__dirname, '../build', 'index.html'));
 });
 
-app.listen(port);
+const server = app.listen(port);
+
+// export the the app and server separately
+module.exports = { app, server };
