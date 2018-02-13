@@ -60,6 +60,10 @@ $condensed-card-padding: 14px 20px 9px;
     }
   }
 
+  .card-top-alternate {
+    background-color: $tm-navy;
+  }
+
   .condensed-top-background-image {
     filter: alpha(opacity = 10);
     font-size: 150px;
@@ -158,12 +162,6 @@ $condensed-card-padding: 14px 20px 9px;
 
 .condensed-card-third {
   float: left;
-}
-
-.condensed-card-highlighted {
-  .condensed-card-top {
-    background-color: $tm-navy;
-  }
 }
 
 .condensed-card:last-child {

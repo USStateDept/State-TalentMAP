@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import ResultsCondensedCard from '../ResultsCondensedCard';
-import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
 const propTypes = {
   maxLength: PropTypes.number,
@@ -14,6 +14,7 @@ const propTypes = {
   isLoading: PropTypes.bool,
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
+  type: HOME_PAGE_CARD_TYPE.isRequired,
 };
 
 const defaultProps = {
@@ -25,7 +26,7 @@ const defaultProps = {
 
 const HomePagePositionsList = ({ maxLength, positions, toggleFavorite, favorites, isLoading,
     userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored, toggleBid,
-    bidList }) => {
+    bidList, type }) => {
   // create an initial array with x groups of 3
   // because our grid is in thirds
   const numberOfRows = maxLength / 3;
@@ -51,6 +52,7 @@ const HomePagePositionsList = ({ maxLength, positions, toggleFavorite, favorites
             position={p}
             toggleBid={toggleBid}
             bidList={bidList}
+            type={type}
           />
         </div>
       );

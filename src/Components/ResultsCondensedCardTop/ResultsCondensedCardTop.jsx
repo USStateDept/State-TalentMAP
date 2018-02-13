@@ -1,31 +1,47 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import FontAwesome from 'react-fontawesome';
+import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
-const ResultsCondensedCardTop = ({ position }) => (
-  <div className="usa-grid-full condensed-card-top">
-    <div className="usa-grid-full condensed-card-top-header-container">
-      <div
-        className={
-          'usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left'
-        }
-      >
-        {position.title}
+const ResultsCondensedCardTop = ({ position, type }) => {
+  let icon = '';
+  let cardTopClass = '';
+  let useType = false;
+  if (type === 'serviceNeed') {
+    icon = 'bolt';
+    cardTopClass = 'card-top-alternate';
+    useType = true;
+  }
+  return (
+    <div className={`usa-grid-full condensed-card-top ${cardTopClass}`}>
+      <div className="usa-grid-full condensed-card-top-header-container">
+        <div
+          className={
+            'usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left'
+          }
+        >
+          {position.title} {useType && <span> | <FontAwesome name={icon} /></span> }
+        </div>
+        <div
+          className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
+        >
+          Grade: {position.grade}
+        </div>
       </div>
-      <div
-        className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
-      >
-        Grade: {position.grade}
+      <div className="usa-grid-full">
+        <Link to={`/details/${position.position_number}`}>View More</Link>
       </div>
     </div>
-    <div className="usa-grid-full">
-      <Link to={`/details/${position.position_number}`}>View More</Link>
-    </div>
-  </div>
-);
+  );
+};
 
 ResultsCondensedCardTop.propTypes = {
   position: POSITION_DETAILS.isRequired,
+  type: HOME_PAGE_CARD_TYPE.isRequired,
+};
+
+ResultsCondensedCardTop.defaultProps = {
+  type: 'default',
 };
 
 export default ResultsCondensedCardTop;

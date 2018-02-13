@@ -196,7 +196,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         toggleBid={[Function]}
         toggleFavorite={[Function]}
-        type="new"
+        type="default"
         userProfileFavoritePositionHasErrored={false}
         userProfileFavoritePositionIsLoading={false}
       />
@@ -390,7 +390,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         toggleBid={[Function]}
         toggleFavorite={[Function]}
-        type="new"
+        type="default"
         userProfileFavoritePositionHasErrored={false}
         userProfileFavoritePositionIsLoading={false}
       />
@@ -584,7 +584,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         toggleBid={[Function]}
         toggleFavorite={[Function]}
-        type="new"
+        type="default"
         userProfileFavoritePositionHasErrored={false}
         userProfileFavoritePositionIsLoading={false}
       />
@@ -782,7 +782,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         toggleBid={[Function]}
         toggleFavorite={[Function]}
-        type="new"
+        type="default"
         userProfileFavoritePositionHasErrored={false}
         userProfileFavoritePositionIsLoading={false}
       />
@@ -976,7 +976,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         toggleBid={[Function]}
         toggleFavorite={[Function]}
-        type="new"
+        type="default"
         userProfileFavoritePositionHasErrored={false}
         userProfileFavoritePositionIsLoading={false}
       />
@@ -1170,7 +1170,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         toggleBid={[Function]}
         toggleFavorite={[Function]}
-        type="new"
+        type="default"
         userProfileFavoritePositionHasErrored={false}
         userProfileFavoritePositionIsLoading={false}
       />

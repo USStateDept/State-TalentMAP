@@ -12,6 +12,7 @@ describe('HomePagePositionsList', () => {
     userProfileFavoritePositionHasErrored: false,
     toggleBid: () => { },
     bidList: bidListObject.results,
+    type: 'default',
   };
 
   it('is defined', () => {
