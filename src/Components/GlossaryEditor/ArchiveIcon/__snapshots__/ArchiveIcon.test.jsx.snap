@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArchiveIconComponent matches snapshot when isArchived is false 1`] = `
+<InteractiveElement
+  className="archive-link term-not-archived"
+  onClick={[Function]}
+  role="link"
+  type="div"
+>
+  <FontAwesome
+    name="eye-slash"
+  />
+  Archive this term
+</InteractiveElement>
+`;
+
+exports[`ArchiveIconComponent matches snapshot when isArchived is true 1`] = `
+<InteractiveElement
+  className="archive-link term-archived"
+  onClick={[Function]}
+  role="link"
+  type="div"
+>
+  <FontAwesome
+    name="eye"
+  />
+  Un-archive this term
+</InteractiveElement>
+`;

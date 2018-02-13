@@ -20,7 +20,9 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     >
       <SelectForm
         defaultSort=""
+        emptyOptionText="- Select -"
         id="porfolio-sort"
+        includeFirstEmptyOption={false}
         label="Sort by:"
         languages={Array []}
         onSelectOption={[Function]}
@@ -70,7 +72,9 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     >
       <SelectForm
         defaultSort=""
+        emptyOptionText="- Select -"
         id="porfolio-sort"
+        includeFirstEmptyOption={false}
         label="Sort by:"
         languages={Array []}
         onSelectOption={[Function]}

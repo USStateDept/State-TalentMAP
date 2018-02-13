@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import { toggleBidPosition } from '../../../actions/bidList';
 import ActionsLink from '../ActionsLink';
-import { ifEnter } from '../../../utilities';
 import InteractiveElement from '../../InteractiveElement';
 
 // Export unconnected class for testing.
@@ -14,6 +13,11 @@ export class ActionsDropdown extends Component {
     super(props);
     this.hideDropdown = this.hideDropdown.bind(this);
     this.deleteBid = this.deleteBid.bind(this);
+    this.setDropdown = this.setDropdown.bind(this);
+  }
+
+  setDropdown(dropdown) {
+    this.dropdown = dropdown;
   }
 
   hideDropdown() {
@@ -31,10 +35,24 @@ export class ActionsDropdown extends Component {
 
     const dropdownSegmentClass = 'account-dropdown--identity account-dropdown--segment';
 
+    let deleteTitle = '';
+    let deleteClass = '';
+    if (disableDelete) {
+      deleteTitle = 'You cannot delete this bid';
+      deleteClass = 'disabled';
+    }
+
+    let withdrawTitle = '';
+    let withdrawClass = '';
+    if (disableWithdraw) {
+      withdrawTitle = 'You cannot widthdraw this bid';
+      withdrawClass = 'disabled';
+    }
+
     return (
       <Dropdown
         className="actions-dropdown"
-        ref={(dropdown) => { this.dropdown = dropdown; }}
+        ref={this.setDropdown}
         removeElement
       >
         <DropdownTrigger href="/#">
@@ -56,30 +74,29 @@ export class ActionsDropdown extends Component {
             Print
           </div>
           {
-            showDelete &&
-            <InteractiveElement
-              type="div"
-              role="link"
-              className={`${dropdownSegmentClass} ${disableDelete ? 'disabled' : ''}`}
-              tabIndex="0"
-              onClick={this.deleteBid}
-              onKeyUp={(e) => { if (ifEnter(e)) { this.deleteBid(); } }}
-              title={disableDelete ? 'You cannot delete this bid' : ''}
-            >
-              Delete
-            </InteractiveElement>
+            showDelete ?
+              <InteractiveElement
+                type="div"
+                role="link"
+                className={`${dropdownSegmentClass} ${deleteClass}`}
+                onClick={this.deleteBid}
+                title={deleteTitle}
+              >
+                Delete
+              </InteractiveElement>
+              : null
           }
           {
-            showWithdraw &&
-            <InteractiveElement
-              type="div"
-              role="link"
-              tabIndex="0"
-              className={`${dropdownSegmentClass} ${disableWithdraw ? 'disabled' : ''}`}
-              title={disableWithdraw ? 'You cannot widthdraw this bid' : ''}
-            >
-              Withdraw
-            </InteractiveElement>
+            showWithdraw ?
+              <InteractiveElement
+                type="div"
+                role="link"
+                className={`${dropdownSegmentClass} ${withdrawClass}`}
+                title={withdrawTitle}
+              >
+                Withdraw
+              </InteractiveElement>
+              : null
           }
         </DropdownContent>
       </Dropdown>

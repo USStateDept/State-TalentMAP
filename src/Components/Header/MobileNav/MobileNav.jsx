@@ -31,7 +31,7 @@ const MobileNav = ({ user, logout, showLogin }) => (
           <span className="usa-unstyled-list mobile-nav-only">
             <hr />
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/profile/dashboard/">Profile</Link>
             </li>
             <li>
               {

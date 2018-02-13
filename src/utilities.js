@@ -2,6 +2,7 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
+import dotProp from 'dot-prop';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -271,3 +272,7 @@ export const numbersToPercentString = (numerator, denominator, precision = 3) =>
 export const formatBidTitle = bid => `${bid.position.title} (${bid.position.position_number})`;
 
 export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.category.toUpperCase()}`;
+
+// for traversing nested objects
+export const propOrDefault = (obj, path, defaultToReturn = null) =>
+  dotProp.get(obj, path) || defaultToReturn;

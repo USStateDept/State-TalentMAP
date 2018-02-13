@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
 const ResultsCondensedCardTop = ({ position }) => (
@@ -16,6 +17,9 @@ const ResultsCondensedCardTop = ({ position }) => (
       >
         Grade: {position.grade}
       </div>
+    </div>
+    <div className="usa-grid-full">
+      <Link to={`/details/${position.position_number}`}>View More</Link>
     </div>
   </div>
 );

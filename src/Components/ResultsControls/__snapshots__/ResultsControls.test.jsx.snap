@@ -21,7 +21,9 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
     >
       <SelectForm
         defaultSort=""
+        emptyOptionText="- Select -"
         id="sort"
+        includeFirstEmptyOption={false}
         label="Sort by:"
         languages={Array []}
         onSelectOption={[Function]}
@@ -40,7 +42,9 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
     >
       <SelectForm
         defaultSort={10}
+        emptyOptionText="- Select -"
         id="pageSize"
+        includeFirstEmptyOption={false}
         label="Results:"
         languages={Array []}
         onSelectOption={[Function]}

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorCardListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full letter-list-container"
+  >
+    <LetterList
+      letters={
+        Array [
+          "A",
+          "B",
+        ]
+      }
+      onClick={[Function]}
+    />
+  </div>
+  <GroupedCardList
+    glossaryPatchHasErrored={Object {}}
+    glossaryPatchSuccess={Object {}}
+    groups={
+      Array [
+        "A",
+        "B",
+      ]
+    }
+    submitGlossaryTerm={[Function]}
+    terms={
+      Object {
+        "#": Array [
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "6/8",
+            "id": 20,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "6/8",
+          },
+        ],
+        "A": Array [
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "The employee responsible for filling the position.",
+            "id": 2,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "Assignment Officer (AO)",
+          },
+        ],
+        "B": Array [
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "An employee who is applying for a position.",
+            "id": 3,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "Bidder",
+          },
+          Object {
+            "date_created": "2018-02-07T13:59:13.282581Z",
+            "date_updated": "2018-02-07T14:35:41.904583Z",
+            "definition": "The organization sponsoring a position.",
+            "id": 5,
+            "last_editing_user": "Leah Shadtrach",
+            "link": "",
+            "title": "Bureau",
+          },
+        ],
+      }
+    }
+  />
+</div>
+`;

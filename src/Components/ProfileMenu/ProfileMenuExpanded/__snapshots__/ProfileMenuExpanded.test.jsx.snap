@@ -68,6 +68,12 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       title="Statistics"
     />
     <withRouter(NavLink)
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
+      title="Glossary Editor"
+    />
+    <withRouter(NavLink)
       iconName="comments-o"
       link="/profile/inbox/"
       title="Inbox"
@@ -157,6 +163,12 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       iconName="pie-chart"
       link="/profile/statistics/"
       title="Statistics"
+    />
+    <withRouter(NavLink)
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
+      title="Glossary Editor"
     />
     <withRouter(NavLink)
       iconName="comments-o"

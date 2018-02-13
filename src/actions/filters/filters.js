@@ -24,7 +24,7 @@ export function filtersFetchDataSuccess(filters) {
   };
 }
 
-export function filtersFetchData(items, queryParams, savedResponses) {
+export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses) {
   return (dispatch) => {
     dispatch(filtersIsLoading(true));
     dispatch(filtersHasErrored(false));
