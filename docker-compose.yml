@@ -5,7 +5,9 @@ services:
       context: .
     ports:
       - 3000:3000
-    command: yarn start
+    command: yarn run server
+    environment:
+      - PUBLIC_URL=/talentmap/
     volumes:
       - .:/app:delegated
       - node-modules:/app/node_modules/
