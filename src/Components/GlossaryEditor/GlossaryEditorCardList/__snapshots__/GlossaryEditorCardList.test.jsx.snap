@@ -76,3 +76,46 @@ exports[`GlossaryEditorCardListComponent matches snapshot 1`] = `
   />
 </div>
 `;
+
+exports[`GlossaryEditorCardListComponent matches snapshot when there are no terms 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full letter-list-container"
+  >
+    <LetterList
+      letters={
+        Array [
+          "A",
+          "B",
+        ]
+      }
+      onClick={[Function]}
+    />
+  </div>
+  <GroupedCardList
+    glossaryPatchHasErrored={Object {}}
+    glossaryPatchSuccess={Object {}}
+    groups={
+      Array [
+        "A",
+        "B",
+      ]
+    }
+    submitGlossaryTerm={[Function]}
+    terms={Object {}}
+  />
+  <Alert
+    messages={
+      Array [
+        Object {
+          "body": "Try broadening your search or removing filters.",
+        },
+      ]
+    }
+    title="No glossary terms within your search criteria."
+    type="info"
+  />
+</div>
+`;
