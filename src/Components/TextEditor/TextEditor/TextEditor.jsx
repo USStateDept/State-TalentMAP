@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Editor, { createEditorStateWithText } from 'draft-js-plugins-editor';
 import TextEditorSubmit from '../../TextEditorSubmit';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
-// import InteractiveElement from '../../InteractiveElement';
 
 export default class TextEditor extends Component {
   constructor(props) {
