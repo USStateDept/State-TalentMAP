@@ -24,7 +24,7 @@ app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
 });
 
 app.get('*', (request, response) => {
-  response.sendFile(path.resolve(STATIC_PATH, index.html));
+  response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 
 const server = app.listen(port);
