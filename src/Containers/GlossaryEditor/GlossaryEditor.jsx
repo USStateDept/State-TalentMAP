@@ -20,7 +20,6 @@ class GlossaryEditorContainer extends Component {
 
   submitGlossaryTerm(term) {
     const { submitGlossaryTerm } = this.props;
-    // TODO - create action and integrate with API once its implemented
     submitGlossaryTerm(term);
   }
 
