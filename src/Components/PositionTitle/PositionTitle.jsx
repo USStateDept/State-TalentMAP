@@ -6,6 +6,7 @@ import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import EditContentButton from '../EditContentButton';
 import BidCount from '../BidCount';
+import OBCUrl from '../OBCUrl';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import { getAssetPath, shortenString, propOrDefault } from '../../utilities';
@@ -114,6 +115,8 @@ class PositionTitle extends Component {
 
     const shouldShowBidStats = !!details.bid_statistics && !!bidStatistics;
 
+    const obcId = propOrDefault(details, 'post.obc_id');
+
     return (
       <div className="position-details-header-container">
         <div className="position-details-header">
@@ -199,6 +202,7 @@ class PositionTitle extends Component {
                   inGradeAtSkillBids={bidStatistics.in_grade_at_skill}
                 />
             }
+            { obcId && <OBCUrl id={obcId} /> }
           </div>
           <div className="offset-bid-button-container-button">
             <BidListButton

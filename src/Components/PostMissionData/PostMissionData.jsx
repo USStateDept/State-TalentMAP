@@ -2,11 +2,19 @@ import React from 'react';
 import { POST_MISSION_DATA } from '../../Constants/PropTypes';
 import { NO_REST_RELAXATION } from '../../Constants/SystemMessages';
 import LanguageList from '../LanguageList/LanguageList';
+import OBCUrl from '../OBCUrl';
 
 const PostMissionData = ({ post }) => (
   <div className="usa-grid-full">
     <div>
       <p>
+        {
+          post.obc_id &&
+            <span>
+              Details: <OBCUrl id={post.obc_id} />
+              <br />
+            </span>
+        }
         Location: {post.location}
         <br />
         Tour of duty: {post.tour_of_duty}
