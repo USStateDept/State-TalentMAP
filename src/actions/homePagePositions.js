@@ -27,27 +27,27 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
     dispatch(homePagePositionsHasErrored(false));
 
     const resultsTypes = {
-      isServiceNeed: [], isSkillCode: [], isGradeAndRecent: [],
+      serviceNeedPositions: [], userSkillCodePositions: [], userGradeRecentPositions: [],
     };
 
     const queryTypes = [
-      { name: 'isServiceNeed', query: '?post__has_service_needs_differential' },
+      { name: 'serviceNeedPositions', query: '?post__has_service_needs_differential&limit=3' },
     ];
 
     if (skills.length) {
       const ids = skills.map(s => s.id);
       const querySkillCodes = ids.join(',');
-      queryTypes.push({ name: 'isSkillCode', query: `?skill__in=${querySkillCodes}&limit=3` });
+      queryTypes.push({ name: 'userSkillCodePositions', query: `?skill__in=${querySkillCodes}&limit=3` });
     } else {
       // return a generic query
-      queryTypes.push({ name: 'isSkillCode', query: '?skills__in=0060&limit=3' });
+      queryTypes.push({ name: 'userSkillCodePositions', query: '?skills__in=0060&limit=3' });
     }
 
     if (grade != null) {
-      queryTypes.push({ name: 'isGradeAndRecent', query: `?grade__code__in=${grade}&limit=3&ordering=description__date_updated` });
+      queryTypes.push({ name: 'userGradeRecentPositions', query: `?grade__code__in=${grade}&limit=3&ordering=description__date_updated` });
     } else {
       // return a generic query
-      queryTypes.push({ name: 'isGradeAndRecent', query: '?grade__code__in=3&limit=3&ordering=description__date_updated' });
+      queryTypes.push({ name: 'userGradeRecentPositions', query: '?grade__code__in=3&limit=3&ordering=description__date_updated' });
     }
 
     const queryProms = queryTypes.map(type => axios.get(`${api}/position/${type.query}`));

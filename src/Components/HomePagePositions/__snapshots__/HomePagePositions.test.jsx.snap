@@ -139,7 +139,6 @@ exports[`HomePageComponent matches snapshot 1`] = `
       icon="bolt"
       isLoading={false}
       maxLength="3"
-      positions={Array []}
       title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -280,7 +279,6 @@ exports[`HomePageComponent matches snapshot 1`] = `
       icon="briefcase"
       isLoading={false}
       maxLength="3"
-      positions={Array []}
       title="Positions in Skill"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -421,7 +419,6 @@ exports[`HomePageComponent matches snapshot 1`] = `
       icon="flag"
       isLoading={false}
       maxLength="3"
-      positions={Array []}
       title="Recently Posted Positions in Grade"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -573,13 +570,6 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       icon="bolt"
       isLoading={false}
       maxLength="3"
-      positions={
-        Array [
-          Object {
-            "id": 2,
-          },
-        ]
-      }
       title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -720,13 +710,6 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       icon="briefcase"
       isLoading={false}
       maxLength="3"
-      positions={
-        Array [
-          Object {
-            "id": 3,
-          },
-        ]
-      }
       title="Positions in undefined"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -867,13 +850,6 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       icon="flag"
       isLoading={false}
       maxLength="3"
-      positions={
-        Array [
-          Object {
-            "id": 1,
-          },
-        ]
-      }
       title="Recently Posted Positions in Grade undefined"
       toggleBid={[Function]}
       toggleFavorite={[Function]}

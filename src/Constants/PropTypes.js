@@ -90,10 +90,9 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
 });
 
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
-  isNew: POSITION_DETAILS_ARRAY,
-  isHighlighted: POSITION_DETAILS_ARRAY,
-  isSkillCode: POSITION_DETAILS_ARRAY,
-  isGrade: POSITION_DETAILS_ARRAY,
+  userSkillCodePositions: POSITION_DETAILS_ARRAY,
+  userGradeRecentPositions: POSITION_DETAILS_ARRAY,
+  serviceNeedPositions: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({
