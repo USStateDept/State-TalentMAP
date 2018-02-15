@@ -272,7 +272,7 @@ exports[`FavoritePositionsListComponent matches snapshot 1`] = `
       }
       toggleBid={[Function]}
       toggleFavorite={[Function]}
-      type="new"
+      type="default"
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
     />
@@ -515,7 +515,7 @@ exports[`FavoritePositionsListComponent matches snapshot 1`] = `
       }
       toggleBid={[Function]}
       toggleFavorite={[Function]}
-      type="new"
+      type="default"
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
     />

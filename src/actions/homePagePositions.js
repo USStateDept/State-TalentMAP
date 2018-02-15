@@ -21,14 +21,34 @@ export function homePagePositionsFetchDataSuccess(results) {
 }
 
 // general positions search results
-export function homePagePositionsFetchData() {
+export function homePagePositionsFetchData(skills = [], grade = null) {
   return (dispatch) => {
     dispatch(homePagePositionsIsLoading(true));
     dispatch(homePagePositionsHasErrored(false));
 
-    const resultsTypes = { isHighlighted: [], isNew: [] };
+    const resultsTypes = {
+      serviceNeedPositions: [], userSkillCodePositions: [], userGradeRecentPositions: [],
+    };
 
-    const queryTypes = [{ name: 'isHighlighted', query: 'highlighted/?limit=3' }, { name: 'isNew', query: '?ordering=create_date&limit=6' }];
+    const queryTypes = [
+      { name: 'serviceNeedPositions', query: '?post__has_service_needs_differential&limit=3' },
+    ];
+
+    if (skills.length) {
+      const ids = skills.map(s => s.id);
+      const querySkillCodes = ids.join(',');
+      queryTypes.push({ name: 'userSkillCodePositions', query: `?skill__in=${querySkillCodes}&limit=3` });
+    } else {
+      // return a generic query
+      queryTypes.push({ name: 'userSkillCodePositions', query: '?skills__in=0060&limit=3' });
+    }
+
+    if (grade != null) {
+      queryTypes.push({ name: 'userGradeRecentPositions', query: `?grade__code__in=${grade}&limit=3&ordering=description__date_updated` });
+    } else {
+      // return a generic query
+      queryTypes.push({ name: 'userGradeRecentPositions', query: '?grade__code__in=3&limit=3&ordering=description__date_updated' });
+    }
 
     const queryProms = queryTypes.map(type => axios.get(`${api}/position/${type.query}`));
 
@@ -38,6 +58,8 @@ export function homePagePositionsFetchData() {
         // ...and because of that, we can be sure results[x] aligns with queryTypes[x]
         // and set the relevant resultsType property accordingly
         results.forEach((result, i) => {
+          resultsTypes[queryTypes[i].name] = result.data.results;
+          resultsTypes[queryTypes[i].name] = result.data.results;
           resultsTypes[queryTypes[i].name] = result.data.results;
           resultsTypes[queryTypes[i].name] = result.data.results;
         });

@@ -50,16 +50,16 @@ export function userProfileFetchData(bypass) {
       dispatch(userProfileHasErrored(false));
     }
     axios.get(`${api}/profile/`, { headers: { Authorization: fetchUserToken() } })
-            .then((response) => {
+            .then(({ data }) => {
+              dispatch(userProfileFetchDataSuccess(data));
               dispatch(userProfileIsLoading(false));
               dispatch(userProfileHasErrored(false));
               dispatch(userProfileFavoritePositionHasErrored(false));
               dispatch(userProfileFavoritePositionIsLoading(false));
-              return response.data;
             })
-            .then(userProfile => dispatch(userProfileFetchDataSuccess(userProfile)))
             .catch(() => {
               dispatch(userProfileHasErrored(true));
+              dispatch(userProfileIsLoading(false));
               dispatch(userProfileFavoritePositionIsLoading(false));
             });
   };

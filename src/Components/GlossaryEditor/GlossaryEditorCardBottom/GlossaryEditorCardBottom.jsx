@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { GLOSSARY_ERROR_OBJECT } from '../../../Constants/PropTypes';
-import { formatDate } from '../../../utilities';
-import ArchiveIcon from '../ArchiveIcon';
+import ErrorMessage from './ErrorMessage';
+import History from './History';
 
 const GlossaryEditorCardBottom = ({ isNewTerm, hasErrored, showEmptyWarning,
 dateUpdated, updatedBy, isArchived, id, submitGlossaryTerm }) => {
-  const date = dateUpdated ? formatDate(dateUpdated) : false;
-  const dateString = date ? `Updated on ${date}` : 'Date updated unknown';
-
-  const showResponseError = hasErrored.hasErrored && hasErrored.id === id;
+  const doErrorIdsMatch = hasErrored.id === id;
+  const showResponseError = hasErrored.hasErrored && doErrorIdsMatch;
   const showWarningOrError = showEmptyWarning || showResponseError;
 
   return (
@@ -17,19 +15,21 @@ dateUpdated, updatedBy, isArchived, id, submitGlossaryTerm }) => {
       <div className="glossary-warning-container">
         {
           showWarningOrError &&
-            <span className="usa-input-error-message" role="alert">
-              { showEmptyWarning && 'Title and definition cannot be blank.' }
-              { showResponseError && 'Error updating term.' }
-            </span>
+            <ErrorMessage
+              showEmptyWarning={showEmptyWarning}
+              showResponseError={showResponseError}
+            />
         }
       </div>
       {
         !isNewTerm &&
-          <div className="usa-grid-full glossary-editor-card-bottom">
-            <div>{dateString}</div>
-            <div>Editor: {updatedBy || 'None listed'}</div>
-            <ArchiveIcon onSubmitOption={submitGlossaryTerm} isArchived={isArchived} id={id} />
-          </div>
+          <History
+            dateUpdated={dateUpdated}
+            updatedBy={updatedBy}
+            isArchived={isArchived}
+            id={id}
+            submitGlossaryTerm={submitGlossaryTerm}
+          />
       }
     </div>
   );

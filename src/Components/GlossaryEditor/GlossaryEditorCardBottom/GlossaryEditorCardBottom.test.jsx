@@ -22,7 +22,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
 
   it('displays an empty string error', () => {
     const wrapper = shallow(<GlossaryEditorCardBottom {...props} showEmptyWarning />);
-    expect(wrapper.find('.usa-input-error-message').text()).toBe('Title and definition cannot be blank.');
+    expect(wrapper.find('ErrorMessage').props().showEmptyWarning).toBe(true);
   });
 
   it('displays a response error when ids match', () => {
@@ -31,7 +31,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
       hasErrored={{ id: 1, hasErrored: true }}
       id={1}
     />);
-    expect(wrapper.find('.usa-input-error-message').text()).toBe('Error updating term.');
+    expect(wrapper.find('ErrorMessage').props().showResponseError).toBe(true);
   });
 
   it('does not display a response error when ids do not match', () => {
@@ -40,7 +40,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
       hasErrored={{ id: 1, hasErrored: true }}
       id={2}
     />);
-    expect(wrapper.find('.usa-input-error-message').exists()).toBe(false);
+    expect(wrapper.find('ErrorMessage').exists()).toBe(false);
   });
 
   it('does not display the bottom section when isNewTerm is true', () => {
@@ -48,7 +48,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
       {...props}
       isNewTerm
     />);
-    expect(wrapper.find('.glossary-editor-card-bottom').exists()).toBe(false);
+    expect(wrapper.find('History').exists()).toBe(false);
   });
 
   it('displays the bottom section when isNewTerm is false', () => {
@@ -56,7 +56,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
       {...props}
       isNewTerm={false}
     />);
-    expect(wrapper.find('.glossary-editor-card-bottom').exists()).toBe(true);
+    expect(wrapper.find('History').exists()).toBe(true);
   });
 
   it('matches snapshot', () => {

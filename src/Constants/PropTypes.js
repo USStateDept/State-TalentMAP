@@ -90,8 +90,9 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
 });
 
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
-  isNew: POSITION_DETAILS_ARRAY,
-  isHighlighted: POSITION_DETAILS_ARRAY,
+  userSkillCodePositions: POSITION_DETAILS_ARRAY,
+  userGradeRecentPositions: POSITION_DETAILS_ARRAY,
+  serviceNeedPositions: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({
@@ -495,3 +496,5 @@ export const CLIENT_BY_ID = PropTypes.shape({
   user: USER_NESTED_OBJECT,
   language_qualifications: LANGUAGES,
 });
+
+export const HOME_PAGE_CARD_TYPE = PropTypes.oneOf(['default', 'serviceNeed']);

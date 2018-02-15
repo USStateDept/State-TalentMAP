@@ -7,7 +7,7 @@ import bidListObject from '../../__mocks__/bidListObject';
 import { bidderUserObject } from '../../__mocks__/userObject';
 
 describe('ResultsCondensedCardBottomComponent', () => {
-  const type = 'new';
+  const type = 'default';
   const favorites = bidderUserObject.favorite_positions;
   it('is defined', () => {
     const wrapper = shallow(

@@ -260,8 +260,7 @@ export const wrapForMultiSelect = (options, valueProp, labelProp) => options.sli
 export const returnObjectsWherePropMatches = (sourceArray = [], compareArray = [], propToCheck) =>
   sourceArray.filter(o1 => compareArray.some(o2 => o1[propToCheck] === o2[propToCheck]));
 
-// Convert a numerator and a denominator to a percentage. Pass "inverse === true" if you want
-// the inverse, i.e. the remainder.
+// Convert a numerator and a denominator to a percentage.
 export const numbersToPercentString = (numerator, denominator, precision = 3) => {
   const formatFraction = fraction =>
     (parseFloat(fraction) * 100).toString().slice(0, precision + 1);
