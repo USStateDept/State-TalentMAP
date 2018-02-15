@@ -23,6 +23,7 @@ import { validStateEmail,
          formatBidTitle,
          formatWaiverTitle,
          propOrDefault,
+         formatIdSpacing,
        } from './utilities';
 
 describe('local storage', () => {
@@ -371,5 +372,22 @@ describe('propOrDefault', () => {
     expect(propOrDefault(nestedObject, 'a.b.e.e.e')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.g')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.b.c.d.d', 'value')).toBe('value');
+  });
+});
+
+describe('formatIdSpacing', () => {
+  it('can format strings', () => {
+    expect(formatIdSpacing('two words')).toBe('two-words');
+    expect(formatIdSpacing('has Three words')).toBe('has-Three-words');
+  });
+
+  it('can format numbers', () => {
+    expect(formatIdSpacing(3)).toBe('3');
+  });
+
+  it('can format undefined values', () => {
+    expect(formatIdSpacing(undefined)).toBe(null);
+    expect(formatIdSpacing(null)).toBe(null);
+    expect(formatIdSpacing(false)).toBe(null);
   });
 });
