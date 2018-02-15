@@ -10,13 +10,16 @@ import IsOnStandby from '../PriorityCards/IsOnStandby';
 // If a priority bid exists, then we check whether this individual bid is the priority bid.
 // If it is, we'll wrap the card in the IsPriority component, and if not, we'll pass the bid
 // object to the IsOnStandby component.
-const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, userProfile }) => {
+const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, userProfile,
+submitBid, deleteBid }) => {
   const card = (
     <BidTrackerCard
       bid={bid}
       acceptBid={acceptBid}
       declineBid={declineBid}
       userProfile={userProfile}
+      submitBid={submitBid}
+      deleteBid={deleteBid}
     />
   );
 
@@ -54,6 +57,8 @@ BidTrackerCardContainer.propTypes = {
   bid: BID_OBJECT.isRequired,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
+  submitBid: PropTypes.func.isRequired,
+  deleteBid: PropTypes.func.isRequired,
   priorityExists: PropTypes.bool,
   userProfile: USER_PROFILE.isRequired,
 };

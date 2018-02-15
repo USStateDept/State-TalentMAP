@@ -35,61 +35,18 @@ class Results extends Component {
       defaultPageSize: { value: 0 },
       defaultPageNumber: { value: 1 },
       defaultKeyword: { value: '' },
-      defaultLocation: { value: '' },
     };
   }
 
   componentWillMount() {
-    const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword,
-            defaultLocation } = this.state;
+    const { resetSavedSearchAlerts, isAuthorized, onNavigateTo } = this.props;
     // clear out old alert messages
-    this.props.resetSavedSearchAlerts();
+    resetSavedSearchAlerts();
     // check auth
-    if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+    if (!isAuthorized()) {
+      onNavigateTo(PUBLIC_ROOT);
     } else {
-      // set our current query
-      const parsedQuery = queryString.parse(query.value);
-      // set our default ordering
-      defaultSort.value =
-        parsedQuery.ordering || POSITION_SEARCH_SORTS.defaultSort;
-      // set our default page size
-      defaultPageSize.value =
-        parseInt(parsedQuery.limit, 10) || POSITION_PAGE_SIZES.defaultSort;
-      // set our default page number
-      defaultPageNumber.value =
-        parseInt(parsedQuery.page, 10) || defaultPageNumber.value;
-      // set our default keyword (?q=...)
-      defaultKeyword.value =
-        parsedQuery.q || defaultKeyword.value;
-      // set our default location keyword
-      defaultLocation.value =
-        parsedQuery.location || defaultLocation.value;
-      // add our defaultSort and defaultPageSize to the query,
-      // but don't add them to history on initial render if
-      // they weren't included in the initial query params
-      const newQuery = Object.assign(
-        {},
-        { ordering: defaultSort.value,
-          page: defaultPageNumber.value,
-          limit: defaultPageSize.value },
-        parsedQuery, // this order dictates that query params take precedence over default values
-      );
-      const newQueryString = queryString.stringify(newQuery);
-      // get our filters to map against
-      const { filters } = this.props;
-      // have the filters already been fetched?
-      // if so, we'll pass back the saved filters
-      // as a param, which tells our filters action
-      // to not perform AJAX, and simply compare
-      // the query params against the filters
-      if (filters.hasFetched) {
-        this.props.fetchFilters(filters, newQuery, filters);
-      } else { // if not, we'll perform AJAX
-        this.props.fetchFilters(filters, newQuery);
-      }
-      // fetch new results
-      this.callFetchData(newQueryString);
+      this.createQueryParams();
     }
   }
 
@@ -162,6 +119,50 @@ class Results extends Component {
     if (newQueryString !== this.state.query.value) { this.updateHistory(newQueryString); }
   }
 
+  createQueryParams() {
+    const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword } = this.state;
+    const { filters, fetchFilters } = this.props;
+    // set our current query
+    const parsedQuery = queryString.parse(query.value);
+    const { ordering, limit, page, q } = parsedQuery;
+    // set our default ordering
+    defaultSort.value =
+      ordering || POSITION_SEARCH_SORTS.defaultSort;
+    // set our default page size
+    defaultPageSize.value =
+      parseInt(limit, 10) || POSITION_PAGE_SIZES.defaultSort;
+    // set our default page number
+    defaultPageNumber.value =
+      parseInt(page, 10) || defaultPageNumber.value;
+    // set our default keyword (?q=...)
+    defaultKeyword.value =
+      q || defaultKeyword.value;
+    // add our defaultSort and defaultPageSize to the query,
+    // but don't add them to history on initial render if
+    // they weren't included in the initial query params
+    const newQuery =
+      { ordering: defaultSort.value,
+        page: defaultPageNumber.value,
+        limit: defaultPageSize.value,
+        // this order dictates that query params take precedence over default values
+        ...parsedQuery,
+      };
+    const newQueryString = queryString.stringify(newQuery);
+
+    // Have the filters already been fetched?
+    // if so, we'll pass back the saved filters
+    // as a param, which tells our filters action
+    // to not perform AJAX, and simply compare
+    // the query params against the filters
+    if (filters.hasFetched) {
+      fetchFilters(filters, newQuery, filters);
+    } else { // if not, we'll perform AJAX
+      fetchFilters(filters, newQuery);
+    }
+    // fetch new results
+    this.callFetchData(newQueryString);
+  }
+
   // updates the history by passing a string of query params
   updateHistory(q) {
     this.context.router.history.push({
@@ -219,7 +220,6 @@ class Results extends Component {
         defaultPageNumber={this.state.defaultPageNumber.value}
         onQueryParamUpdate={this.onQueryParamUpdate}
         defaultKeyword={this.state.defaultKeyword.value}
-        defaultLocation={this.state.defaultLocation.value}
         resetFilters={this.resetFilters}
         pillFilters={filters.mappedParams}
         filters={filters.filters}

@@ -6,7 +6,7 @@ import resultsObject from '../../__mocks__/resultsObject';
 import bidListObject from '../../__mocks__/bidListObject';
 
 describe('ResultsCondensedCardComponent', () => {
-  const type = 'new';
+  const type = 'default';
   it('is defined', () => {
     const wrapper = shallow(
       <ResultsCondensedCard

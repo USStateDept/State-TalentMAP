@@ -2,6 +2,7 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
+import dotProp from 'dot-prop';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -45,8 +46,10 @@ export function validStateEmail(email) {
 
 export function fetchUserToken() {
   const key = JSON.parse(localStorage.getItem('token'));
-  const token = `Token ${key}`;
-  return token;
+  if (key) {
+    return `Token ${key}`;
+  }
+  return null;
 }
 
 export const pillSort = (a, b) => {
@@ -195,7 +198,7 @@ export const removeDuplicates = (myArr, prop) => (
 export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options = {}) =>
   `${distanceInWords(dateToCompare, date, options)} ago`;
 
-// Format the date into out preferred format.
+// Format the date into our preferred format.
 // We can take any valid date and convert it into M.D.YYYY format, or any
 // format provided with the dateFormat param.
 export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
@@ -227,7 +230,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
           doesMatch = true;
         }
       });
-      // if keyWord was found in atleast one of the props, doesMatch should be true
+      // if keyword was found in at least one of the props, doesMatch should be true
       return doesMatch;
     },
     );
@@ -257,11 +260,18 @@ export const wrapForMultiSelect = (options, valueProp, labelProp) => options.sli
 export const returnObjectsWherePropMatches = (sourceArray = [], compareArray = [], propToCheck) =>
   sourceArray.filter(o1 => compareArray.some(o2 => o1[propToCheck] === o2[propToCheck]));
 
-// Convert a numerator and a denominator to a percentage. Pass "inverse === true" if you want
-// the inverse, i.e. the remainder.
-export const numbersToPercentString = (numerator, denominator, precision = 3, inverse = false) => {
-  const formatFraction = fraction => parseFloat(fraction).toPrecision(precision) * 100;
-  let percentage = formatFraction(numerator / denominator);
-  if (inverse) { percentage = formatFraction((denominator - numerator) / denominator); }
+// Convert a numerator and a denominator to a percentage.
+export const numbersToPercentString = (numerator, denominator, precision = 3) => {
+  const formatFraction = fraction =>
+    (parseFloat(fraction) * 100).toString().slice(0, precision + 1);
+  const percentage = formatFraction(numerator / denominator);
   return `${percentage}%`;
 };
+
+export const formatBidTitle = bid => `${bid.position.title} (${bid.position.position_number})`;
+
+export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.category.toUpperCase()}`;
+
+// for traversing nested objects
+export const propOrDefault = (obj, path, defaultToReturn = null) =>
+  dotProp.get(obj, path) || defaultToReturn;

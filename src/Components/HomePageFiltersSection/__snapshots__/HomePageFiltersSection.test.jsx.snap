@@ -2,10 +2,10 @@
 
 exports[`HomePageFiltersSectionComponent matches snapshot 1`] = `
 <div
-  className="explore-section"
+  className="explore-section padded-main-content"
 >
   <div
-    className="explore-section-inner usa-grid-full"
+    className="usa-grid-full explore-section-inner"
   >
     <Connect(HomePageFiltersContainer)
       filters={
@@ -30,6 +30,28 @@ exports[`HomePageFiltersSectionComponent matches snapshot 1`] = `
             ],
             "item": Object {
               "description": "skill",
+            },
+          },
+          Object {
+            "data": Array [
+              Object {
+                "code": "2",
+                "custom_description": "2",
+              },
+            ],
+            "item": Object {
+              "description": "grade",
+            },
+          },
+          Object {
+            "data": Array [
+              Object {
+                "code": "bur",
+                "custom_description": "bureau",
+              },
+            ],
+            "item": Object {
+              "description": "region",
             },
           },
         ]

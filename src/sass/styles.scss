@@ -31,6 +31,7 @@
 // Components
 @import 'containers';
 @import 'autosuggest';
+@import 'interactiveElement';
 @import 'bidCount';
 @import 'condensedCard';
 @import 'bidListButton';
@@ -61,4 +62,7 @@
 @import 'alerts';
 @import 'glossary';
 @import 'bidStats';
+@import 'select';
+@import 'table';
+@import 'glossaryEditor';
 @import 'overrides';

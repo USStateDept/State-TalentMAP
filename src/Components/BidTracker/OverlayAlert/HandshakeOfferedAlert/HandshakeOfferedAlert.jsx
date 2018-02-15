@@ -21,11 +21,13 @@ class HandshakeOfferedAlert extends Component {
     return (
       <div className="bid-tracker-alert-container bid-tracker-alert-container--handshake-offered">
         <div className="top-text">{`${userName}, you've been offered a handshake`}</div>
-        <div>
+        <div className="usa-grid-full">
           <button className="tm-button-transparent" onClick={this.onAcceptBid}>
             <FontAwesome name="check-o" /> Accept Handshake
           </button>
-          <button className="unstyled-button" onClick={this.onDeclineBid}>Decline Handshake</button>
+          <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid}>
+            Decline Handshake
+          </button>
         </div>
         <div className="sub-text">24 hours to accept the handshake</div>
       </div>

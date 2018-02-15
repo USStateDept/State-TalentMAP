@@ -40,6 +40,14 @@
     a {
       display: inline-block;
     }
+
+    @media screen and (max-width: $screen-md-max) {
+      padding-left: 20px;
+    }
+
+    @media screen and (max-width: $screen-sm-min) {
+      padding-left: 0;
+    }
   }
 
   .header-nav-desktop {
@@ -123,6 +131,7 @@
 
     .usa-navbar {
       height: 75px;
+      max-width: 1200px;
       padding-left: 0;
       padding-right: 5px; // handle notification count position
     }
@@ -157,6 +166,12 @@
   }
 }
 
+.search-bar-hidden {
+  .results-search-bar-header {
+    display: none;
+  }
+}
+
 @media screen and (min-width: $screen-md-min) {
   .search-bar-hidden {
     border-bottom: 1px solid $color-gray-light;
@@ -164,5 +179,11 @@
     .usa-nav {
       border-top: 1px solid $color-gray-light;
     }
+  }
+
+  // This is to set correct border color if the toggle-able search bar is hidden
+  // but the user is on the search results page, which has its own search bar.
+  .is-on-results-page {
+    border-bottom-color: $tm-dark-blue;
   }
 }

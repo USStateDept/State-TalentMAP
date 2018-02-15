@@ -10,6 +10,7 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
     <button
       className="unstyled-button"
       onClick={[Function]}
+      title="Expand menu"
     >
       <FontAwesome
         name="exchange"
@@ -20,6 +21,15 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
     <withRouter(NavLink)
       iconName="user"
       link="/profile/dashboard/"
+    />
+    <withRouter(NavLink)
+      iconName="pie-chart"
+      link="/profile/statistics/"
+    />
+    <withRouter(NavLink)
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
     />
     <withRouter(NavLink)
       iconName="comments-o"

@@ -6,14 +6,12 @@ exports[`BidderPortfolioViewMoreComponent matches snapshot 1`] = `
     className="usa-grid-full current-user-section-container
           view-more-link-centered section-padded-inner-container-narrow"
   >
-    <LinkButton
+    <button
       className="unstyled-button"
-      isExternal={false}
-      toLink="/profile/dashboard/"
-      useDefaultClass={true}
+      onClick={[Function]}
     >
-      View More
-    </LinkButton>
+      View profile
+    </button>
   </div>
 </div>
 `;

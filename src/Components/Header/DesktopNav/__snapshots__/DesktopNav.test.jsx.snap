@@ -17,6 +17,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
           className="header-nav-link-text search-text"
         >
           <InteractiveElement
+            className=""
             onClick={[Function]}
             type="span"
           >
@@ -79,6 +80,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
       >
         <AccountDropdown
           logoutRequest={[Function]}
+          shouldDisplayName={false}
           userProfile={
             Object {
               "bid_statistics": Array [
@@ -92,6 +94,18 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
                 "first_name": "Leah",
                 "last_name": "Shadtrach",
               },
+              "favorite_positions": Array [
+                Object {
+                  "id": 1,
+                  "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+                },
+                Object {
+                  "id": 4,
+                  "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+                },
+              ],
+              "grade": "03",
+              "id": 1,
               "is_cdo": false,
               "skills": Array [
                 Object {

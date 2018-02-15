@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
+import ResultsCondensedCardFooter from '../ResultsCondensedCardFooter';
+import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
-const ResultsCondensedCard = ({ type, position, toggleFavorite, favorites, bidList,
+const ResultsCondensedCard = ({ position, toggleFavorite, favorites, bidList,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored,
-  toggleBid }) => (
+  toggleBid, type }) => (
 
     <div className="usa-grid-full condensed-card-inner">
       <ResultsCondensedCardTop
@@ -17,20 +18,20 @@ const ResultsCondensedCard = ({ type, position, toggleFavorite, favorites, bidLi
         position={position}
         type={type}
       />
-      <div className="condensed-card-bottom-container">
-        <ResultsCondensedCardBottom
-          toggleFavorite={toggleFavorite}
-          position={position}
-          favorites={favorites}
-          toggleBid={toggleBid}
-          bidList={bidList}
-        />
-      </div>
+      <ResultsCondensedCardBottom
+        toggleFavorite={toggleFavorite}
+        position={position}
+        favorites={favorites}
+        toggleBid={toggleBid}
+        bidList={bidList}
+      />
+      <ResultsCondensedCardFooter
+        position={position}
+      />
     </div>
 );
 
 ResultsCondensedCard.propTypes = {
-  type: PropTypes.string,
   position: POSITION_DETAILS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
   toggleFavorite: PropTypes.func.isRequired,
@@ -38,10 +39,10 @@ ResultsCondensedCard.propTypes = {
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
+  type: HOME_PAGE_CARD_TYPE.isRequired,
 };
 
 ResultsCondensedCard.defaultProps = {
-  type: 'new',
   favorites: [],
 };
 

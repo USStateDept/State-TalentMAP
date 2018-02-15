@@ -13,6 +13,14 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/position/highlighted/?limit=3').reply(200,
       resultsObject,
     );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?skill__in=20&limit=3').reply(200,
+      resultsObject,
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?grade=3&limit=3').reply(200,
+      resultsObject,
+    );
   });
 
   it('can fetch a position', (done) => {

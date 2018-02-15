@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CondensedCardDataPointComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full condensed-card-data-point"
+>
+  <div
+    className="condensed-card-data-title "
+  >
+    Title
+    : 
+  </div>
+  <div
+    className="condensed-card-data-content"
+  >
+    Content
+  </div>
+</div>
+`;

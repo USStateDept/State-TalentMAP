@@ -6,7 +6,7 @@ import resultsObject from '../../__mocks__/resultsObject';
 import bidListObject from '../../__mocks__/bidListObject';
 
 describe('ResultsCondensedCardTopComponent', () => {
-  const type = 'new';
+  const type = 'default';
   const favorites = [];
   it('is defined', () => {
     const wrapper = shallow(
@@ -56,13 +56,29 @@ describe('ResultsCondensedCardTopComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when type is serviceNeed', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardTop
+        position={resultsObject.results[0]}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        favorites={favorites}
+        toggleBid={() => {}}
+        bidList={bidListObject.results}
+        type="serviceNeed"
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('can receive alternate props', () => {
     const position = resultsObject.results[0];
     position.update_date = null;
     const wrapper = shallow(
       <ResultsCondensedCardTop
         position={position}
-        type={'highlighted'}
+        type={'default'}
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
@@ -71,6 +87,6 @@ describe('ResultsCondensedCardTopComponent', () => {
         bidList={bidListObject.results}
       />,
     );
-    expect(wrapper.instance().props.type).toBe('highlighted');
+    expect(wrapper.instance().props.type).toBe('default');
   });
 });

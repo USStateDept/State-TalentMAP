@@ -67,16 +67,22 @@ export function unsetNotificationsCount() {
 
 export function notificationsCountFetchData() {
   return (dispatch) => {
-    axios.get(`${api}/notification/?limit=1&is_read=false`, { headers: { Authorization: fetchUserToken() } })
-            .then(({ data }) => {
-              dispatch(notificationsCountFetchDataSuccess(data.count));
-              dispatch(notificationsCountIsLoading(false));
-              dispatch(notificationsCountHasErrored(false));
-            })
-            .catch(() => {
-              dispatch(notificationsCountHasErrored(true));
-              dispatch(notificationsCountIsLoading(false));
-            });
+    const userToken = fetchUserToken();
+    if (userToken) {
+      axios.get(`${api}/notification/?limit=1&is_read=false`, { headers: { Authorization: userToken } })
+              .then(({ data }) => {
+                dispatch(notificationsCountFetchDataSuccess(data.count));
+                dispatch(notificationsCountIsLoading(false));
+                dispatch(notificationsCountHasErrored(false));
+              })
+              .catch(() => {
+                dispatch(notificationsCountHasErrored(true));
+                dispatch(notificationsCountIsLoading(false));
+              });
+    } else {
+      dispatch(notificationsCountHasErrored(true));
+      dispatch(notificationsCountIsLoading(false));
+    }
   };
 }
 

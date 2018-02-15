@@ -231,6 +231,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
   >
     <BooleanFilterContainer
       filters={Array []}
+      legendTitle="Select filters"
       onBooleanFilterClick={[Function]}
     />
   </div>

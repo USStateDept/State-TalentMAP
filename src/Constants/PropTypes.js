@@ -89,9 +89,13 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
   results: POST_DETAILS_ARRAY,
 });
 
+export const USER_SKILL_CODE_POSITIONS = 'userSkillCodePositions';
+export const USER_GRADE_RECENT_POSITIONS = 'userGradeRecentPositions';
+export const SERVICE_NEED_POSITIONS = 'serviceNeedPositions';
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
-  isNew: POSITION_DETAILS_ARRAY,
-  isHighlighted: POSITION_DETAILS_ARRAY,
+  [USER_SKILL_CODE_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [USER_GRADE_RECENT_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [SERVICE_NEED_POSITIONS]: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({
@@ -170,15 +174,17 @@ export const USER_SKILL_CODE = PropTypes.shape({
 
 export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(USER_SKILL_CODE);
 
+export const USER_NESTED_OBJECT = PropTypes.shape({
+  username: PropTypes.string,
+  email: PropTypes.string,
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+});
+
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
-  user: PropTypes.shape({
-    username: PropTypes.string,
-    email: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-  }),
+  user: USER_NESTED_OBJECT,
   is_cdo: PropTypes.bool,
   languages: LANGUAGE_QUALIFICATIONS,
   favorite_positions: FAVORITE_POSITIONS_ARRAY,
@@ -302,7 +308,6 @@ export const MISSION_DETAILS = PropTypes.shape({
 export const ASSIGNMENT_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   user: PropTypes.string,
-  position: PropTypes.string,
   tour_of_duty: PropTypes.string,
   status: PropTypes.string,
   curtailment_reason: PropTypes.string,
@@ -310,7 +315,22 @@ export const ASSIGNMENT_OBJECT = PropTypes.shape({
   start_date: PropTypes.string,
   estimated_end_date: PropTypes.string,
   end_date: PropTypes.string,
+  bid_approval_date: PropTypes.string,
+  arrival_date: PropTypes.string,
+  service_duration: PropTypes.string,
   update_date: PropTypes.string,
+  is_domestic: PropTypes.bool,
+  combined_differential: PropTypes.number,
+  standard_tod_months: PropTypes.number,
+  position: PropTypes.shape({
+    skill: PropTypes.string,
+    bureau: PropTypes.string,
+    position_number: PropTypes.string,
+    title: PropTypes.string,
+    post: PropTypes.shape({
+      location: PropTypes.string,
+    }),
+  }),
 });
 
 export const ASSIGNMENT_RESULTS = PropTypes.arrayOf(
@@ -376,12 +396,7 @@ export const BIDDER_OBJECT = PropTypes.shape(
     secondary_nationality: PropTypes.string,
     date_of_birth: PropTypes.string,
     phone_number: PropTypes.string,
-    user: PropTypes.shape({
-      username: PropTypes.string,
-      email: PropTypes.string,
-      first_name: PropTypes.string,
-      last_name: PropTypes.string,
-    }),
+    user: USER_NESTED_OBJECT,
     languages: LANGUAGE_QUALIFICATIONS,
     favorite_positions: FAVORITE_POSITIONS_ARRAY,
     received_shares: PropTypes.arrayOf(PropTypes.number),
@@ -400,6 +415,7 @@ export const BIDDER_PORTFOLIO_COUNTS = PropTypes.shape({
   bidding: PropTypes.number,
   inpanel: PropTypes.number,
   onpost: PropTypes.number,
+  handshakeneeded: PropTypes.number,
 });
 
 export const BID_TRACKER_ALERT_TYPES = PropTypes.oneOf([
@@ -432,6 +448,28 @@ export const GLOSSARY_LIST = PropTypes.shape({
   results: GLOSSARY_ARRAY,
 });
 
+// Object property of each available character
+export const groupedGlossaryMap = () => {
+  const letterList = ('#ABCDEFGHIJKLMNOPQRSTUVWXYZ').split();
+  const obj = {};
+  letterList.forEach((letter) => { obj[letter] = GLOSSARY_ARRAY; });
+  return obj;
+};
+
+export const GROUPED_GLOSSARY_ARRAYS_OBJECT = PropTypes.shape({
+  ...groupedGlossaryMap(),
+});
+
+export const GLOSSARY_ERROR_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  hasErrored: PropTypes.bool,
+});
+
+export const GLOSSARY_SUCCESS_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  success: PropTypes.bool,
+});
+
 export const BID_STATISTICS_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,
@@ -448,3 +486,18 @@ export const BID_STATISTICS_OBJECT = PropTypes.shape({
   approved_bidders: PropTypes.number,
   bidding_days_remaining: PropTypes.number,
 });
+
+export const CLIENT_BY_ID = PropTypes.shape({
+  id: PropTypes.number,
+  current_assignment: ASSIGNMENT_OBJECT,
+  skills: USER_SKILL_CODE_ARRAY,
+  grade: PropTypes.string,
+  is_cdo: PropTypes.bool,
+  primary_nationality: PropTypes.string,
+  secondary_nationality: PropTypes.string,
+  bid_statistics: PropTypes.arrayOf(BID_STATISTICS_OBJECT),
+  user: USER_NESTED_OBJECT,
+  language_qualifications: LANGUAGES,
+});
+
+export const HOME_PAGE_CARD_TYPE = PropTypes.oneOf(['default', 'serviceNeed']);

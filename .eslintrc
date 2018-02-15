@@ -12,7 +12,11 @@
     "globals": {
         "window": true,
         "document": true,
-        "localStorage": true,
+        "localStorage": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "allowImportExportEverywhere": true
     },
     "settings": {
         "import/resolver": {
@@ -25,7 +29,7 @@
     "rules": {
         // allow names to be the same as the default for Redux container testing
         "import/no-named-as-default": [0],
-        // allow test files to import packages in devDependencies 
+        // allow test files to import packages in devDependencies
         // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
         "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js?(x)", "/src/testUtilities/**/*"]}]
     }

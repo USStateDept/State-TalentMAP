@@ -15,6 +15,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
     <button
       className="unstyled-button"
       onClick={[Function]}
+      title="Collapse menu"
     >
       <FontAwesome
         name="exchange"
@@ -61,6 +62,18 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
+      hidden={true}
+      iconName="pie-chart"
+      link="/profile/statistics/"
+      title="Statistics"
+    />
+    <withRouter(NavLink)
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
+      title="Glossary Editor"
+    />
+    <withRouter(NavLink)
       iconName="comments-o"
       link="/profile/inbox/"
       title="Inbox"
@@ -99,6 +112,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
     <button
       className="unstyled-button"
       onClick={[Function]}
+      title="Collapse menu"
     >
       <FontAwesome
         name="exchange"
@@ -144,6 +158,18 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         title="Saved Searches"
       />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics/"
+      title="Statistics"
+    />
+    <withRouter(NavLink)
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
+      title="Glossary Editor"
+    />
     <withRouter(NavLink)
       iconName="comments-o"
       link="/profile/inbox/"

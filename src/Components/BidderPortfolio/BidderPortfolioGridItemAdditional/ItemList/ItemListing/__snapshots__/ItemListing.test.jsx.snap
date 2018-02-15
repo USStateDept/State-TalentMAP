@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ItemListingComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full item-listing-container"
+>
+  <Item
+    item="Bid 1"
+  />
+  <Item
+    item="Bid 2"
+  />
+  <Item
+    item="Bid 3"
+  />
+</div>
+`;

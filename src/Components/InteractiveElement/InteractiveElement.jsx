@@ -20,6 +20,8 @@ const InteractiveElement = ({ children, type, ...rest }) => {
     onKeyDown: onClick ? (e) => { if (ifEnter(e)) { onClick(); } } : EMPTY_FUNCTION,
     ...rest,
   };
+
+  const CLASS_NAME = `interactive-element ${props.className}`;
   return (
   // At the time of writing, CodeClimate's version of eslint-a11y-plugin
   // did not take role="button" into account with the following error:
@@ -28,6 +30,7 @@ const InteractiveElement = ({ children, type, ...rest }) => {
     <div
       {...defaultProps}
       {...props}
+      className={CLASS_NAME}
     >
       {children}
     </div> :
@@ -35,6 +38,7 @@ const InteractiveElement = ({ children, type, ...rest }) => {
     <span
       {...defaultProps}
       {...props}
+      className={CLASS_NAME}
     >
       {children}
     </span>
@@ -43,10 +47,12 @@ const InteractiveElement = ({ children, type, ...rest }) => {
 
 InteractiveElement.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   type: PropTypes.oneOf(['div', 'span']),
 };
 
 InteractiveElement.defaultProps = {
+  className: '',
   type: 'div',
 };
 

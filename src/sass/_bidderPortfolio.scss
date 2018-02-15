@@ -48,7 +48,7 @@
   }
 
   .search-submit-button {
-    margin-top: 14px;
+    margin-top: 15px;
   }
 
   .total-results-container {
@@ -229,5 +229,31 @@
   .grid-list-header-col-four {
     border-left: 1px solid $color-gray-light;
     min-height: 1px;
+  }
+}
+
+.bidder-portfolio-additional-container {
+  background: $color-gray;
+  height: 350px;
+  overflow-y: scroll;
+  padding: 2em 4em;
+  position: relative;
+
+  .bidder-portfolio-additional-section {
+    background: $color-white;
+    margin-bottom: 1em;
+  }
+
+  .bidder-portfolio-additional {
+    word-wrap: break-word;
+  }
+}
+
+.item-list-container {
+  padding: 1em 2em;
+
+  .item-list-title {
+    font-weight: bold;
+    margin-bottom: .5em;
   }
 }

@@ -2,49 +2,70 @@
 
 exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full condensed-card-top"
+  className="usa-grid-full condensed-card-top "
 >
   <div
     className="usa-grid-full condensed-card-top-header-container"
   >
     <div
-      className="condensed-card-top-header condensed-card-top-header-left"
+      className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
     >
-      <ResultsNewFlag
-        text="New"
-      />
+       
     </div>
     <div
-      className="condensed-card-top-header condensed-card-top-header-right"
+      className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
     >
-      <Favorite
-        compareArray={Array []}
-        hasErrored={false}
-        hideText={true}
-        isLoading={false}
-        onToggle={[Function]}
-        refKey={6}
-      />
+      Grade: 
+      05
     </div>
   </div>
-  <FontAwesome
-    className="condensed-top-background-image"
-    name="flag"
-    size="3x"
-  />
   <div
-    className="usa-width-one-whole condensed-card-last-updated"
+    className="usa-grid-full"
   >
-    <span
-      className="last-updated-title"
+    <Link
+      replace={false}
+      to="/details/00025003"
     >
-      Last Updated: 
-    </span>
-    <span
-      className="last-updated-date"
+      View More
+    </Link>
+  </div>
+</div>
+`;
+
+exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceNeed 1`] = `
+<div
+  className="usa-grid-full condensed-card-top card-top-alternate"
+>
+  <div
+    className="usa-grid-full condensed-card-top-header-container"
+  >
+    <div
+      className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
     >
-      6.8.2017
-    </span>
+       
+      <span>
+         | 
+        <FontAwesome
+          name="bolt"
+        />
+      </span>
+    </div>
+    <div
+      className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
+    >
+      Grade: 
+      05
+    </div>
+  </div>
+  <div
+    className="usa-grid-full"
+  >
+    <Link
+      replace={false}
+      to="/details/00025003"
+    >
+      View More
+    </Link>
   </div>
 </div>
 `;

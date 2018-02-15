@@ -2,7 +2,7 @@
 
 exports[`Header matches snapshot when logged in 1`] = `
 <div
-  className="search-bar-visible"
+  className="search-bar-hidden is-on-results-page"
 >
   <header
     className="usa-header usa-header-extended tm-header"
@@ -48,7 +48,7 @@ exports[`Header matches snapshot when logged in 1`] = `
           userProfile={
             Object {
               "user": Object {
-                "username": "test",
+                "first_name": "test",
               },
             }
           }
@@ -74,7 +74,7 @@ exports[`Header matches snapshot when logged in 1`] = `
 
 exports[`Header matches snapshot when logged out 1`] = `
 <div
-  className="search-bar-visible"
+  className="search-bar-hidden is-on-results-page"
 >
   <header
     className="usa-header usa-header-extended tm-header"

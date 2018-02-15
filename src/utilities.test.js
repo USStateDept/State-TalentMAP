@@ -20,6 +20,9 @@ import { validStateEmail,
          wrapForMultiSelect,
          returnObjectsWherePropMatches,
          numbersToPercentString,
+         formatBidTitle,
+         formatWaiverTitle,
+         propOrDefault,
        } from './utilities';
 
 describe('local storage', () => {
@@ -78,6 +81,7 @@ describe('validStateEmail', () => {
 
 describe('fetchUserToken', () => {
   it('should be able to fetch the auth token', () => {
+    localStorage.clear();
     localStorage.setItem('token', '1234');
     const output = fetchUserToken();
     expect(output).toBe('Token 1234');
@@ -313,16 +317,59 @@ describe('numbersToPercentString', () => {
     expect(percent).toBe('20%');
   });
 
-  it('can return a percent inverse', () => {
-    const percent = numbersToPercentString(numerator, denominator, precision, true);
-    expect(percent).toBe('80%');
-  });
-
   it('can return a percent with proper precision', () => {
     numerator = 3;
     denominator = 7;
     precision = 4;
-    const percent = numbersToPercentString(numerator, denominator, precision, false);
-    expect(percent).toBe('42.86%');
+    const percent = numbersToPercentString(numerator, denominator, precision);
+    expect(percent).toBe('42.85%');
+  });
+});
+
+describe('formatBidTitle', () => {
+  it('can format a bid title', () => {
+    const bid = {
+      position: {
+        position_number: '0AA',
+        title: 'Title',
+      },
+    };
+    const expected = 'Title (0AA)';
+    expect(formatBidTitle(bid)).toBe(expected);
+  });
+});
+
+describe('formatWaiverTitle', () => {
+  it('can format a bid title', () => {
+    const waiver = {
+      position: 'Position',
+      category: 'category',
+    };
+    const expected = 'Position - CATEGORY';
+    expect(formatWaiverTitle(waiver)).toBe(expected);
+  });
+});
+
+describe('propOrDefault', () => {
+  const nestedObject = {
+    a: {
+      b: true,
+      c: {
+        d: {},
+        e: 1,
+      },
+    },
+  };
+
+  it('can traverse nested objects', () => {
+    expect(propOrDefault(nestedObject, 'a.b')).toBe(true);
+    expect(propOrDefault(nestedObject, 'a.c.d')).toBeDefined();
+    expect(propOrDefault(nestedObject, 'a.c.e')).toBe(1);
+  });
+
+  it('can return the default value when the nested property does not exist', () => {
+    expect(propOrDefault(nestedObject, 'a.b.e.e.e')).toBe(null);
+    expect(propOrDefault(nestedObject, 'a.g')).toBe(null);
+    expect(propOrDefault(nestedObject, 'a.b.c.d.d', 'value')).toBe('value');
   });
 });
