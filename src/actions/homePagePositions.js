@@ -31,7 +31,7 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
     };
 
     const queryTypes = [
-      { name: 'serviceNeedPositions', query: '?post__has_service_needs_differential?limit=3' },
+      { name: 'serviceNeedPositions', query: '?post__has_service_needs_differential&limit=3' },
     ];
 
     if (skills.length) {
