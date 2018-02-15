@@ -24,11 +24,18 @@ app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
   response.redirect(`${API_ROOT}/saml2/metadata`);
 });
 
-// OBC redirect
-app.get(`${PUBLIC_URL}obc/:id`, (request, response) => {
+// OBC redirect - posts
+app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
-  response.redirect(`${OBC_URL}/${id}`);
+  response.redirect(`${OBC_URL}/post/${id}`);
+});
+
+// OBC redirect - countries
+app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
+  // set the id passed in the route and pass it to the redirect
+  const id = request.params.id;
+  response.redirect(`${OBC_URL}/country/${id}`);
 });
 
 app.get('*', (request, response) => {
