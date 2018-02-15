@@ -1,9 +1,9 @@
 export const ACCORDION_SELECTION = { main: '', sub: '' };
 
 export const DEFAULT_HOME_PAGE_POSITIONS = {
-  isGradeAndRecent: [],
-  isServiceNeed: [],
-  isSkillCode: [],
+  userSkillCodePositions: [],
+  serviceNeedPositions: [],
+  userGradeRecentPositions: [],
 };
 
 export const DEFAULT_USER_PROFILE = {

@@ -21,13 +21,14 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   }
 
   let positionsInSkillTitle = 'Positions in Skill';
-  if (homePagePositions.isSkillCode && homePagePositions.isSkillCode.length) {
-    positionsInSkillTitle = `Positions in ${homePagePositions.isSkillCode[0].skill}`;
+  if (homePagePositions.userSkillCodePositions && homePagePositions.userSkillCodePositions.length) {
+    positionsInSkillTitle = `Positions in ${homePagePositions.userSkillCodePositions[0].skill}`;
   }
 
   let gradeTitle = 'Recently Posted Positions in Grade';
-  if (homePagePositions.isGradeAndRecent && homePagePositions.isGradeAndRecent.length) {
-    gradeTitle = `${gradeTitle} ${homePagePositions.isGradeAndRecent[0].grade}`;
+  if (homePagePositions.userGradeRecentPositions
+  && homePagePositions.userGradeRecentPositions.length) {
+    gradeTitle = `${gradeTitle} ${homePagePositions.userGradeRecentPositions[0].grade}`;
   }
 
   // set view more link for service needs

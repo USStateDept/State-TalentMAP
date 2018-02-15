@@ -2,12 +2,15 @@ import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import React from 'react';
 import HomePagePositions from './HomePagePositions';
-import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import bidListObject from '../../__mocks__/bidListObject';
 
 describe('HomePageComponent', () => {
   const props = {
-    homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
+    homePagePositions: {
+      userSkillCodePositions: [{ id: 1 }],
+      serviceNeedPositions: [{ id: 2 }],
+      userGradeRecentPositions: [{ id: 3 }],
+    },
     toggleFavorite: () => {},
     userProfileFavoritePositionIsLoading: false,
     userProfileFavoritePositionHasErrored: false,
@@ -28,6 +31,9 @@ describe('HomePageComponent', () => {
       {...props}
     />);
     expect(wrapper.instance().props.bidList).toBe(props.bidList);
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('positions').length).toBeGreaterThan(0);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions').length).toBeGreaterThan(0);
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('positions').length).toBeGreaterThan(0);
   });
 
   it('matches snapshot', () => {
@@ -39,9 +45,9 @@ describe('HomePageComponent', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
       homePagePositions={{
-        isGradeAndRecent: [{ id: 1 }],
-        isServiceNeed: [{ id: 2 }],
-        isSkillCode: [{ id: 3 }],
+        userGradeRecentPositions: [{ id: 1 }],
+        serviceNeedPositions: [{ id: 2 }],
+        userSkillCodePositions: [{ id: 3 }],
       }}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();

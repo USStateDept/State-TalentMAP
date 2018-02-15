@@ -139,6 +139,13 @@ exports[`HomePageComponent matches snapshot 1`] = `
       icon="bolt"
       isLoading={false}
       maxLength="3"
+      positions={
+        Array [
+          Object {
+            "id": 2,
+          },
+        ]
+      }
       title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -279,7 +286,14 @@ exports[`HomePageComponent matches snapshot 1`] = `
       icon="briefcase"
       isLoading={false}
       maxLength="3"
-      title="Positions in Skill"
+      positions={
+        Array [
+          Object {
+            "id": 1,
+          },
+        ]
+      }
+      title="Positions in undefined"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
@@ -419,7 +433,14 @@ exports[`HomePageComponent matches snapshot 1`] = `
       icon="flag"
       isLoading={false}
       maxLength="3"
-      title="Recently Posted Positions in Grade"
+      positions={
+        Array [
+          Object {
+            "id": 3,
+          },
+        ]
+      }
+      title="Recently Posted Positions in Grade undefined"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
@@ -570,6 +591,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       icon="bolt"
       isLoading={false}
       maxLength="3"
+      positions={
+        Array [
+          Object {
+            "id": 2,
+          },
+        ]
+      }
       title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -710,6 +738,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       icon="briefcase"
       isLoading={false}
       maxLength="3"
+      positions={
+        Array [
+          Object {
+            "id": 3,
+          },
+        ]
+      }
       title="Positions in undefined"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
@@ -850,6 +885,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       icon="flag"
       isLoading={false}
       maxLength="3"
+      positions={
+        Array [
+          Object {
+            "id": 1,
+          },
+        ]
+      }
       title="Recently Posted Positions in Grade undefined"
       toggleBid={[Function]}
       toggleFavorite={[Function]}

@@ -21,7 +21,9 @@ describe('Home', () => {
         toggleBid={() => {}}
         onNavigateTo={() => {}}
         bidList={[]}
-        homePagePositions={{ isServiceNeed: [], isSkillCode: [], isGradeAndRecent: [] }}
+        homePagePositions={
+          { serviceNeedPositions: [], userSkillCodePositions: [], userGradeRecentPositions: [] }
+        }
       />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
