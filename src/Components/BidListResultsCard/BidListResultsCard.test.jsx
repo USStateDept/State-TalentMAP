@@ -57,4 +57,19 @@ describe('BidListResultsCardComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('renders NO_POST', () => {
+    // copy our bid object and remove post
+    const bidNoPost = bid;
+    bidNoPost.post = null;
+
+    const wrapper = shallow(
+      <BidListResultsCard
+        bid={bidNoPost}
+        toggleBidPosition={() => {}}
+        submitBid={() => {}}
+      />,
+    );
+    expect(wrapper.instance().props.bid.id).toBe(bid.id);
+  });
 });
