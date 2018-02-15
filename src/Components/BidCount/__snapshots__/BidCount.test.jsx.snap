@@ -6,7 +6,7 @@ exports[`BidCountComponent matches snapshot 1`] = `
     className="bid-count-label"
     id="bid-counts"
   >
-    Bid Counts:
+    Bid Count:
   </div>
   <ul
     aria-labelledby="bid-counts"
