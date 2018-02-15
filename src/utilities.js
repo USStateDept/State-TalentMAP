@@ -275,3 +275,12 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 // for traversing nested objects
 export const propOrDefault = (obj, path, defaultToReturn = null) =>
   dotProp.get(obj, path) || defaultToReturn;
+
+// Return the correct object from the bidStatisticsArray.
+// If it doesn't exist, return an empty object.
+export const getBidStatisticsObject = (bidStatisticsArray) => {
+  if (Array.isArray(bidStatisticsArray) && bidStatisticsArray.length) {
+    return bidStatisticsArray[0];
+  }
+  return {};
+};

@@ -1,24 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidCountComponent matches snapshot 1`] = `
-<ul
-  className="bid-count-list"
->
-  <BidCountNumber
-    number={5}
-    type="totalBids"
-  />
-  <BidCountNumber
-    number={5}
-    type="inGradeBids"
-  />
-  <BidCountNumber
-    number={5}
-    type="atSkillBids"
-  />
-  <BidCountNumber
-    number={5}
-    type="inGradeAtSkillBids"
-  />
-</ul>
+<div>
+  <div
+    className="bid-count-label"
+    id="bid-counts"
+  >
+    Bid Counts:
+  </div>
+  <ul
+    aria-labelledby="bid-counts"
+    className="bid-count-list"
+  >
+    <BidCountNumber
+      number={5}
+      type="totalBids"
+    />
+    <BidCountNumber
+      number={5}
+      type="inGradeBids"
+    />
+    <BidCountNumber
+      number={5}
+      type="atSkillBids"
+    />
+    <BidCountNumber
+      number={5}
+      type="inGradeAtSkillBids"
+    />
+  </ul>
+</div>
 `;

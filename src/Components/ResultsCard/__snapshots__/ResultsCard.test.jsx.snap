@@ -123,6 +123,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
       >
         <BidCount
           atSkillBids={0}
+          bidStatistics={Object {}}
           inGradeAtSkillBids={0}
           inGradeBids={0}
           totalBids={3}
