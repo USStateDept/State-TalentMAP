@@ -116,6 +116,10 @@ $condensed-card-padding: 9px 20px 9px;
       margin-bottom: 0;
     }
 
+    .bid-count-number {
+      padding: .2em 1em;
+    }
+
     .bid-count-list-item:first-child {
       border-radius: 5px 0 0 5px;
     }
@@ -131,6 +135,7 @@ $condensed-card-padding: 9px 20px 9px;
 
     .bid-count-label {
       float: left;
+      font-weight: bold;
       margin-right: .5em;
       padding-top: .2em;
     }
