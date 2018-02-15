@@ -6,6 +6,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import HomePagePositionsContainer, { mapDispatchToProps } from './HomePagePositionsContainer';
+import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -21,9 +22,7 @@ describe('Home', () => {
         toggleBid={() => {}}
         onNavigateTo={() => {}}
         bidList={[]}
-        homePagePositions={
-          { serviceNeedPositions: [], userSkillCodePositions: [], userGradeRecentPositions: [] }
-        }
+        homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
       />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();

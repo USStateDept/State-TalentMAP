@@ -3,13 +3,15 @@ import toJSON from 'enzyme-to-json';
 import React from 'react';
 import HomePagePositions from './HomePagePositions';
 import bidListObject from '../../__mocks__/bidListObject';
+import { USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS } from '../../Constants/PropTypes';
+import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 
 describe('HomePageComponent', () => {
   const props = {
     homePagePositions: {
-      userSkillCodePositions: [{ id: 1 }],
-      serviceNeedPositions: [{ id: 2 }],
-      userGradeRecentPositions: [{ id: 3 }],
+      [USER_SKILL_CODE_POSITIONS]: [{ id: 1, skill: 'skill 1' }],
+      [USER_GRADE_RECENT_POSITIONS]: [{ id: 2, grade: '03' }],
+      [SERVICE_NEED_POSITIONS]: [{ id: 3 }],
     },
     toggleFavorite: () => {},
     userProfileFavoritePositionIsLoading: false,
@@ -36,19 +38,25 @@ describe('HomePageComponent', () => {
     expect(wrapper.find('HomePagePositionsSection').at(2).prop('positions').length).toBeGreaterThan(0);
   });
 
-  it('matches snapshot', () => {
-    const wrapper = shallow(<HomePagePositions {...props} />);
+  it('can set position section titles correctly', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+    />);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Positions in skill 1');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently Posted Positions in Grade 03');
+  });
+
+  it('matches snapshot when the positions arrays are empty', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+    />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot when position arrays are filled', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={{
-        userGradeRecentPositions: [{ id: 1 }],
-        serviceNeedPositions: [{ id: 2 }],
-        userSkillCodePositions: [{ id: 3 }],
-      }}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

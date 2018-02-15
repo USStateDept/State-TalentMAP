@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
+import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS,
+USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS } from '../../Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
@@ -21,15 +22,18 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   }
 
   let positionsInSkillTitle = 'Positions in Skill';
-  if (homePagePositions.userSkillCodePositions && homePagePositions.userSkillCodePositions.length) {
-    positionsInSkillTitle = `Positions in ${homePagePositions.userSkillCodePositions[0].skill}`;
+  const userSkillCodePositions = homePagePositions[USER_SKILL_CODE_POSITIONS];
+  if (userSkillCodePositions && userSkillCodePositions.length) {
+    positionsInSkillTitle = `Positions in ${homePagePositions[USER_SKILL_CODE_POSITIONS][0].skill}`;
   }
 
   let gradeTitle = 'Recently Posted Positions in Grade';
-  if (homePagePositions.userGradeRecentPositions
-  && homePagePositions.userGradeRecentPositions.length) {
+  const userGradeRecentPositions = homePagePositions[USER_GRADE_RECENT_POSITIONS];
+  if (userGradeRecentPositions && userGradeRecentPositions.length) {
     gradeTitle = `${gradeTitle} ${homePagePositions.userGradeRecentPositions[0].grade}`;
   }
+
+  const serviceNeedPositions = homePagePositions[SERVICE_NEED_POSITIONS];
 
   // set view more link for service needs
   const serviceNeedsLink = '/results?post__has_service_needs_differential=true';
@@ -47,7 +51,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          positions={homePagePositions.serviceNeedPositions}
+          positions={serviceNeedPositions}
           isLoading={homePagePositionsIsLoading}
           toggleBid={toggleBid}
           bidList={bidList}
@@ -62,7 +66,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          positions={homePagePositions.userSkillCodePositions}
+          positions={userSkillCodePositions}
           isLoading={homePagePositionsIsLoading}
           toggleBid={toggleBid}
           bidList={bidList}
@@ -77,7 +81,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          positions={homePagePositions.userGradeRecentPositions}
+          positions={userGradeRecentPositions}
           isLoading={homePagePositionsIsLoading}
           toggleBid={toggleBid}
           bidList={bidList}
