@@ -5,7 +5,7 @@ exports[`AccordionItemComponent matches snapshot 1`] = `
   className=""
 >
   <button
-    aria-controls=""
+    aria-controls={null}
     aria-expanded={true}
     className="usa-accordion-button"
     onClick={[Function]}
@@ -17,7 +17,7 @@ exports[`AccordionItemComponent matches snapshot 1`] = `
   <div
     aria-hidden={false}
     className="usa-accordion-content accordion-accordion"
-    id=""
+    id={null}
   >
     <span>
       child

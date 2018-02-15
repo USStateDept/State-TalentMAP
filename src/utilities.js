@@ -275,3 +275,13 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 // for traversing nested objects
 export const propOrDefault = (obj, path, defaultToReturn = null) =>
   dotProp.get(obj, path) || defaultToReturn;
+
+// replace spaces with hyphens so that id attributes are valid
+export const formatIdSpacing = (id) => {
+  if (id) {
+    const idString = id.toString();
+    return idString.split(' ').join('-');
+  }
+  // if id is not defined, return null
+  return null;
+};
