@@ -106,6 +106,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             "total_bids": 3,
           }
         }
+        hideLabel={false}
       />
     </div>
     <div

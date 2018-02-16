@@ -18,7 +18,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
   <AccordionItem
     className=""
     expanded={false}
-    id="Assignments Officer (AO)"
+    id="Assignments-Officer-(AO)"
     setAccordion={[Function]}
     title="Assignments Officer (AO)"
     useIdClass={false}

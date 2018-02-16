@@ -284,3 +284,13 @@ export const getBidStatisticsObject = (bidStatisticsArray) => {
   }
   return {};
 };
+
+// replace spaces with hyphens so that id attributes are valid
+export const formatIdSpacing = (id) => {
+  if (id) {
+    const idString = id.toString();
+    return idString.split(' ').join('-');
+  }
+  // if id is not defined, return null
+  return null;
+};

@@ -31,3 +31,35 @@ exports[`BidCountComponent matches snapshot 1`] = `
   </ul>
 </div>
 `;
+
+exports[`BidCountComponent matches snapshot when hideLabel is true 1`] = `
+<div>
+  <div
+    className="bid-count-label usa-sr-only"
+    id="bid-counts"
+  >
+    Bid Count:
+  </div>
+  <ul
+    aria-labelledby="bid-counts"
+    className="bid-count-list"
+  >
+    <BidCountNumber
+      number={5}
+      type="totalBids"
+    />
+    <BidCountNumber
+      number={5}
+      type="inGradeBids"
+    />
+    <BidCountNumber
+      number={5}
+      type="atSkillBids"
+    />
+    <BidCountNumber
+      number={5}
+      type="inGradeAtSkillBids"
+    />
+  </ul>
+</div>
+`;

@@ -19,6 +19,13 @@ describe('BidCountComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when hideLabel is true', () => {
+    const wrapper = shallow(
+      <BidCount {...props} />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('displays 0 when a prop is not defined', () => {
     const bidStatistics = {
       total_bids: undefined,
@@ -37,6 +44,13 @@ describe('BidCountComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(
       <BidCount {...props} />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when hideLabel is true', () => {
+    const wrapper = shallow(
+      <BidCount {...props} hideLabel />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
