@@ -2,7 +2,7 @@
 
 exports[`OBCUrlComponent matches snapshot 1`] = `
 <a
-  href="/obc/5"
+  href="/obc/post/5"
   rel="noopener noreferrer"
   target="_blank"
 >
@@ -12,7 +12,7 @@ exports[`OBCUrlComponent matches snapshot 1`] = `
 
 exports[`OBCUrlComponent matches snapshot when id is a string 1`] = `
 <a
-  href="/obc/5A"
+  href="/obc/post/5A"
   rel="noopener noreferrer"
   target="_blank"
 >
