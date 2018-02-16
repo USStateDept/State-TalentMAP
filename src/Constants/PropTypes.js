@@ -92,10 +92,13 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
 export const USER_SKILL_CODE_POSITIONS = 'userSkillCodePositions';
 export const USER_GRADE_RECENT_POSITIONS = 'userGradeRecentPositions';
 export const SERVICE_NEED_POSITIONS = 'serviceNeedPositions';
+export const RECENTLY_POSTED_POSITIONS = 'recentlyPostedPositions';
+export const FAVORITED_POSITIONS = 'favoritedPositions';
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
   [USER_SKILL_CODE_POSITIONS]: POSITION_DETAILS_ARRAY,
   [USER_GRADE_RECENT_POSITIONS]: POSITION_DETAILS_ARRAY,
   [SERVICE_NEED_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [RECENTLY_POSTED_POSITIONS]: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({

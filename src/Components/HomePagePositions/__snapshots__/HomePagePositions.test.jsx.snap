@@ -152,7 +152,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       type="serviceNeed"
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?post__has_service_needs_differential=true"
+      viewMoreLink="/results?is_highlighted=true"
     />
     <HomePagePositionsSection
       bidList={
@@ -600,7 +600,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       type="serviceNeed"
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?post__has_service_needs_differential=true"
+      viewMoreLink="/results?is_highlighted=true"
     />
     <HomePagePositionsSection
       bidList={
@@ -741,7 +741,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       type="default"
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?skill__code__in=,"
+      viewMoreLink="/results"
     />
     <HomePagePositionsSection
       bidList={
@@ -876,7 +876,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       isLoading={false}
       maxLength="3"
       positions={Array []}
-      title="Recently Posted Positions in Grade"
+      title="Recently Posted Positions in Grade 03"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"

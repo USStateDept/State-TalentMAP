@@ -6,7 +6,7 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/?ordering=create_date&limit=6').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?ordering=description__date_created&limit=6').reply(200,
       resultsObject,
     );
 
