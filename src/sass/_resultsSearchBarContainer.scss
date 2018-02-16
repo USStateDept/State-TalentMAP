@@ -1,3 +1,8 @@
+// Overrides styles for the react-select module
+// scss-lint:disable SelectorFormat
+
+$input-height: 40px;
+
 .results-search-bar {
   background-color: $tm-dark-blue;
   color: $color-white;
@@ -24,6 +29,10 @@
 
   .label-input-wrapper {
     width: 100%;
+
+    input {
+      height: $input-height;
+    }
   }
 
   .label-icon {
@@ -33,7 +42,6 @@
   .search-results-inputs {
     float: left;
     padding: 15px 0;
-    width: 100%;
 
     input {
       border-radius: 5px;
@@ -43,7 +51,7 @@
     }
 
     label {
-      margin: 0 0 5px 5px;
+      margin: 0 0 5px;
     }
   }
 
@@ -67,7 +75,6 @@
     label {
       display: block;
       text-align: left;
-      text-transform: uppercase;
     }
   }
 
@@ -77,12 +84,98 @@
   }
 }
 
-.results-search-bar-homepage {
+.results-multi-search {
+  $font-size: 16px;
 
   color: $color-white;
+  padding-top: 1px;
+
+  select {
+    font-size: $font-size;
+    height: $input-height;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  label,
+  legend {
+    font-size: $font-size;
+    font-weight: normal;
+    margin: 0 0 5px;
+  }
+
+  legend {
+    text-transform: uppercase;
+  }
+
+  .search-sub-text {
+    font-size: .7em;
+    font-style: italic;
+    margin: 5px 0 0 10px;
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .Select {
+    font-size: $font-size;
+  }
+
+  .Select-control {
+    border-radius: 0;
+    height: $input-height;
+  }
+
+  .Select-multi-value-wrapper {
+    height: $input-height - 5; // offset height to match
+  }
+
+  .Select-placeholder {
+    padding-top: 1px;
+  }
 
   .results-search-bar {
     background-color: $tm-dark-blue;
     height: auto;
+  }
+
+  .search-keyword {
+    position: relative;
+  }
+
+  .search-submit-button {
+    button {
+      margin-top: 5px;
+      min-width: 90px;
+      padding: 12px 10px;
+    }
+  }
+
+  @media screen and (max-width: $screen-md-max) {
+    .usa-width-one-twelfth:nth-child(3n) {
+      margin-right: 4.82916%;
+    }
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    .search-results-inputs {
+      margin-right: 2%;
+    }
+  }
+}
+
+.results-single-search {
+
+  padding-bottom: 2px;
+
+  .results-search-bar-container {
+    padding-top: 3px;
+  }
+
+  .search-results-inputs {
+    width: 100%;
+  }
+
+  .usa-button {
+    margin-top: 3px;
   }
 }

@@ -19,73 +19,67 @@ describe('Header', () => {
     token: '1234',
   };
 
+  const props = {
+    client,
+    location,
+    history,
+    login: loginObject,
+    fetchData: () => {},
+    isAuthorized: () => true,
+    onNavigateTo: () => {},
+    toggleSearchBarVisibility: () => {},
+    shouldShowSearchBar: true,
+  };
+
   it('is defined', () => {
-    const header = shallow(
+    const wrapper = shallow(
       <Header
-        client={client}
-        login={loginObject}
-        fetchData={() => {}}
-        isAuthorized={() => true}
-        onNavigateTo={() => {}}
-        location={location}
-        toggleSearchBarVisibility={() => {}}
-        shouldShowSearchBar
-        history={history}
+        {...props}
       />,
     );
-    expect(header).toBeDefined();
+    expect(wrapper).toBeDefined();
   });
 
   it('can call the toggleSearchVisibility function', () => {
     const spy = sinon.spy();
-    const header = shallow(
+    const wrapper = shallow(
       <Header
-        client={client}
-        login={loginObject}
-        fetchData={() => {}}
-        isAuthorized={() => true}
-        onNavigateTo={() => {}}
-        location={{ pathname: '/results' }}
+        {...props}
         toggleSearchBarVisibility={spy}
-        shouldShowSearchBar
-        history={history}
       />,
     );
-    header.instance().toggleSearchVisibility();
+    wrapper.instance().toggleSearchVisibility();
     sinon.assert.calledTwice(spy);
   });
 
   it('can call the submitSearch function', () => {
     const spy = sinon.spy();
-    const header = shallow(
+    const wrapper = shallow(
       <Header
-        client={client}
-        login={loginObject}
-        fetchData={() => {}}
-        isAuthorized={() => true}
+        {...props}
         onNavigateTo={spy}
-        location={location}
-        toggleSearchBarVisibility={() => {}}
-        shouldShowSearchBar
-        history={history}
       />,
     );
-    header.instance().submitSearch({ q: 'search' });
+    wrapper.instance().submitSearch({ q: 'search' });
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('can call the onFilterChange function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Header
+        {...props}
+        setSearchFilters={spy}
+      />,
+    );
+    wrapper.instance().onFilterChange({ q: 'search' });
     sinon.assert.calledOnce(spy);
   });
 
   it('refreshes data on history change', () => {
     const wrapper = shallow(
       <Header
-        client={client}
-        login={loginObject}
-        fetchData={() => {}}
-        isAuthorized={() => true}
-        onNavigateTo={() => {}}
-        location={location}
-        toggleSearchBarVisibility={() => {}}
-        shouldShowSearchBar
-        history={history}
+        {...props}
       />,
     );
     const spy = sinon.spy(wrapper.instance(), 'matchCurrentPath');
@@ -93,39 +87,86 @@ describe('Header', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('matches snapshot when logged in', () => {
-    const header = shallow(
+  it('does not render the search bar if it is on a hidden route', () => {
+    const wrapper = shallow(
       <Header
-        client={client}
-        login={loginObject}
-        userProfile={{ user: { username: 'test' } }}
-        fetchData={() => {}}
-        isAuthorized={() => true}
-        onNavigateTo={() => {}}
-        location={location}
-        toggleSearchBarVisibility={() => {}}
-        shouldShowSearchBar
-        history={history}
+        {...props}
+        location={{ pathname: '/results' }}
       />,
     );
-    expect(toJSON(header)).toMatchSnapshot();
+    expect(wrapper.find('.results-search-bar-header').exists()).toBe(false);
+  });
+
+  it('renders the search bar if it is not on a hidden route', () => {
+    const wrapper = shallow(
+      <Header
+        {...props}
+        location={{ pathname: '/profile' }}
+      />,
+    );
+    expect(wrapper.find('.results-search-bar-header').exists()).toBe(true);
+  });
+
+  it('applies a visibility class when it is on a route that should not hide the search bar by default', () => {
+    const wrapper = shallow(
+      <Header
+        {...props}
+        location={{ pathname: '/' }}
+      />,
+    );
+    expect(wrapper.find('.search-bar-visible').exists()).toBe(true);
+  });
+
+  it('applies a hidden class when it is on a route that should hide the search bar by default', () => {
+    const wrapper = shallow(
+      <Header
+        {...props}
+        shouldShowSearchBar={false}
+        location={{ pathname: '/profile' }}
+      />,
+    );
+    expect(wrapper.find('.search-bar-hidden').exists()).toBe(true);
+  });
+
+  it('applies a results class when it is on the results page', () => {
+    const wrapper = shallow(
+      <Header
+        {...props}
+        location={{ pathname: '/results' }}
+      />,
+    );
+    expect(wrapper.find('.is-on-results-page').exists()).toBe(true);
+  });
+
+  it('does not apply a results class when it is not on the results page', () => {
+    const wrapper = shallow(
+      <Header
+        {...props}
+        location={{ pathname: '/profile' }}
+      />,
+    );
+    expect(wrapper.find('.is-on-results-page').exists()).toBe(false);
+  });
+
+  it('matches snapshot when logged in', () => {
+    const wrapper = shallow(
+      <Header
+        {...props}
+        userProfile={{ user: { first_name: 'test' } }}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot when logged out', () => {
-    const header = shallow(
+    const wrapper = shallow(
       <Header
+        {...props}
         client={{}}
         login={Object.assign({}, loginObject, { successful: false })}
-        fetchData={() => {}}
-        isAuthorized={() => false}
-        onNavigateTo={() => {}}
-        location={location}
-        toggleSearchBarVisibility={() => {}}
-        shouldShowSearchBar
-        history={history}
       />,
       );
-    expect(toJSON(header)).toMatchSnapshot();
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
 
@@ -134,6 +175,7 @@ describe('mapDispatchToProps', () => {
     fetchData: ['?q'],
     onNavigateTo: ['/profile'],
     toggleSearchBarVisibility: [true],
+    setSearchFilters: [{}],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });

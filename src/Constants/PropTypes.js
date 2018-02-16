@@ -92,6 +92,8 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
   isNew: POSITION_DETAILS_ARRAY,
   isHighlighted: POSITION_DETAILS_ARRAY,
+  isSkillCode: POSITION_DETAILS_ARRAY,
+  isGrade: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({
@@ -444,6 +446,28 @@ export const GLOSSARY_LIST = PropTypes.shape({
   results: GLOSSARY_ARRAY,
 });
 
+// Object property of each available character
+export const groupedGlossaryMap = () => {
+  const letterList = ('#ABCDEFGHIJKLMNOPQRSTUVWXYZ').split();
+  const obj = {};
+  letterList.forEach((letter) => { obj[letter] = GLOSSARY_ARRAY; });
+  return obj;
+};
+
+export const GROUPED_GLOSSARY_ARRAYS_OBJECT = PropTypes.shape({
+  ...groupedGlossaryMap(),
+});
+
+export const GLOSSARY_ERROR_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  hasErrored: PropTypes.bool,
+});
+
+export const GLOSSARY_SUCCESS_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  success: PropTypes.bool,
+});
+
 export const BID_STATISTICS_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   name: PropTypes.string,
@@ -473,3 +497,5 @@ export const CLIENT_BY_ID = PropTypes.shape({
   user: USER_NESTED_OBJECT,
   language_qualifications: LANGUAGES,
 });
+
+export const HOME_PAGE_CARD_TYPE = PropTypes.oneOf(['default', 'serviceNeed']);

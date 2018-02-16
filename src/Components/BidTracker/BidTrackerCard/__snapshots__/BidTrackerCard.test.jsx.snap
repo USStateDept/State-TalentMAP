@@ -52,7 +52,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
       showQuestion={true}
     />
     <div
-      className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container"
+      className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container "
     >
       <BidSteps
         bid={
@@ -191,6 +191,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
                 "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
               },
             ],
+            "grade": "03",
             "id": 1,
             "is_cdo": false,
             "skills": Array [

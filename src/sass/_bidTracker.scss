@@ -47,7 +47,6 @@ $draft-icon-offset: 120px;
 
 .bid-tracker-container {
   margin-bottom: 30px;
-  overflow: hidden;
   position: relative;
 }
 
@@ -77,6 +76,10 @@ $draft-icon-offset: 120px;
       font-size: 24px;
     }
   }
+}
+
+.bid-tracker-bid-steps-container--draft {
+  overflow: hidden;
 }
 
 .bid-tracker-overlay-alert--draft,
@@ -177,7 +180,6 @@ $draft-icon-offset: 120px;
   }
 
   .bid-tracker-bid-steps-container {
-    // overflow-y: hidden;
     padding-bottom: 25px;
     padding-right: 10%;
     padding-top: 40px;

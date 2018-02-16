@@ -39,6 +39,7 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
         link="/profile/statistics/"
         hidden={!isCDO}
       />
+      <NavLink title="Glossary Editor" iconName="book" link="/profile/glossaryeditor/" search="?type=all" />
       <NavLink title="Inbox" iconName="comments-o" link="/profile/inbox/" />
       <NavLink title="Notifications" iconName="globe" link="/profile/notifications/" />
       <NavLink title="Contacts" iconName="users" link="/profile/contacts/" />

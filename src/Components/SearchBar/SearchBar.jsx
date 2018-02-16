@@ -5,6 +5,7 @@ import { EMPTY_FUNCTION, PREVENT_DEFAULT } from '../../Constants/PropTypes';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
+    this.changeText = this.changeText.bind(this);
     this.state = {
       searchText: { value: this.props.defaultValue || '' },
     };
@@ -24,15 +25,30 @@ class SearchBar extends Component {
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
     if (type === 'small') { showSubmitText = false; } // small search class should not have text
+
+    let labelClass = '';
+    if (labelSrOnly) { labelClass = 'usa-sr-only'; }
+
+    let formattedSubmitText = '';
+    let formattedSubmitTextSr = 'Search';
+    if (showSubmitText) {
+      formattedSubmitText = submitText;
+      formattedSubmitTextSr = submitText;
+    }
+
+    let submitDisabledClass = '';
+    if (submitDisabled) {
+      submitDisabledClass = 'usa-button-disabled';
+    }
     const child = (
       <div className="usa-grid-full label-input-wrapper">
-        <label className={labelSrOnly ? 'usa-sr-only' : null} htmlFor={id}>
+        <label className={labelClass} htmlFor={id}>
           {label}
         </label>
         <input
           id={id}
           value={searchText.value}
-          onChange={e => this.changeText(e)}
+          onChange={this.changeText}
           type="search"
           name="search"
           placeholder={placeholder}
@@ -41,13 +57,13 @@ class SearchBar extends Component {
           { !noButton &&
           <button
             id={`enabled-search-button-${id}`}
-            className={submitDisabled ? 'usa-button-disabled' : null}
+            className={submitDisabledClass}
             disabled={submitDisabled}
             type="submit"
             title="submit search"
           >
-            <span className="usa-search-submit-text">{showSubmitText ? submitText : null}</span>
-            <span className="usa-sr-only">{showSubmitText ? submitText : 'Search'}</span>
+            <span className="usa-search-submit-text">{formattedSubmitText}</span>
+            <span className="usa-sr-only">{formattedSubmitTextSr}</span>
           </button>
           }
         </div>
@@ -62,7 +78,7 @@ class SearchBar extends Component {
               title="search button disabled"
             >
               <span className="usa-search-submit-text usa-button-disabled">
-                {showSubmitText ? submitText : null}
+                {formattedSubmitText}
               </span>
             </button>
           }
@@ -74,7 +90,7 @@ class SearchBar extends Component {
       <div className={`usa-search usa-search-${type}`}>
         <div role="search" className="usa-grid-full">
           { !noForm &&
-            <form onSubmit={e => onSubmitSearch(e)}>
+            <form onSubmit={onSubmitSearch}>
               {child}
             </form>
           }

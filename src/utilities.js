@@ -2,6 +2,7 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
+import dotProp from 'dot-prop';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -259,10 +260,10 @@ export const wrapForMultiSelect = (options, valueProp, labelProp) => options.sli
 export const returnObjectsWherePropMatches = (sourceArray = [], compareArray = [], propToCheck) =>
   sourceArray.filter(o1 => compareArray.some(o2 => o1[propToCheck] === o2[propToCheck]));
 
-// Convert a numerator and a denominator to a percentage. Pass "inverse === true" if you want
-// the inverse, i.e. the remainder.
+// Convert a numerator and a denominator to a percentage.
 export const numbersToPercentString = (numerator, denominator, precision = 3) => {
-  const formatFraction = fraction => parseFloat(fraction).toPrecision(precision) * 100;
+  const formatFraction = fraction =>
+    (parseFloat(fraction) * 100).toString().slice(0, precision + 1);
   const percentage = formatFraction(numerator / denominator);
   return `${percentage}%`;
 };
@@ -270,3 +271,7 @@ export const numbersToPercentString = (numerator, denominator, precision = 3) =>
 export const formatBidTitle = bid => `${bid.position.title} (${bid.position.position_number})`;
 
 export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.category.toUpperCase()}`;
+
+// for traversing nested objects
+export const propOrDefault = (obj, path, defaultToReturn = null) =>
+  dotProp.get(obj, path) || defaultToReturn;

@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlossaryEditorPageComponent matches snapshot 1`] = `
+<div
+  className="bidder-portfolio-page glossary-editor-page"
+>
+  <GlossaryEditorPage
+    glossaryPostHasErrored={false}
+    glossaryPostSuccess={Object {}}
+    submitNewGlossaryTerm={[Function]}
+  />
+  <GlossaryEditorSearch
+    onUpdate={[Function]}
+    submitGlossaryTerm={[Function]}
+  />
+  <div
+    className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+  >
+    <Connect(StaticDevContent)>
+      <TopNav />
+    </Connect(StaticDevContent)>
+    <div
+      className="usa-grid-full bidder-portfolio-listing "
+    >
+      <GlossaryEditorContainer
+        availableLetters={
+          Array [
+            "#",
+            "A",
+            "B",
+            "C",
+          ]
+        }
+        glossaryItems={
+          Object {
+            "#": Array [
+              Object {
+                "date_created": "2018-02-07T13:59:13.282581Z",
+                "date_updated": "2018-02-07T15:33:52.986137Z",
+                "definition": "Definition.",
+                "id": 3,
+                "last_editing_user": "Leah Shadtrach",
+                "link": "",
+                "title": "6/8",
+              },
+            ],
+            "A": Array [
+              Object {
+                "date_created": "2018-02-07T13:59:13.282581Z",
+                "date_updated": "2018-02-07T15:18:40.350271Z",
+                "definition": "test",
+                "id": 4,
+                "last_editing_user": "Leah Shadtrach",
+                "link": "",
+                "title": "Assignments Officer (AO)",
+              },
+            ],
+            "B": Array [
+              Object {
+                "date_created": "2018-02-07T13:59:13.282581Z",
+                "date_updated": "2018-02-07T13:59:13.385817Z",
+                "definition": "An employee who is applying for a position.",
+                "id": 5,
+                "last_editing_user": null,
+                "link": "",
+                "title": "Bidder",
+              },
+              Object {
+                "date_created": "2018-02-07T13:59:13.282581Z",
+                "date_updated": "2018-02-07T13:59:13.385817Z",
+                "definition": "The organization sponsoring a position.",
+                "id": 7,
+                "last_editing_user": null,
+                "link": "",
+                "title": "Bureau",
+              },
+            ],
+            "C": Array [
+              Object {
+                "date_created": "2018-02-07T13:59:13.282581Z",
+                "date_updated": "2018-02-07T14:35:41.904583Z",
+                "definition": "Description",
+                "id": 6,
+                "last_editing_user": "Leah Shadtrach",
+                "link": "",
+                "title": "C",
+              },
+            ],
+          }
+        }
+        glossaryPatchHasErrored={Object {}}
+        glossaryPatchSuccess={Object {}}
+        submitGlossaryFirstLetter={[Function]}
+        submitGlossaryTerm={[Function]}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`GlossaryEditorPageComponent matches snapshot when glossaryIsLoading is true 1`] = `
+<div
+  className="bidder-portfolio-page glossary-editor-page"
+>
+  <GlossaryEditorPage
+    glossaryPostHasErrored={false}
+    glossaryPostSuccess={Object {}}
+    submitNewGlossaryTerm={[Function]}
+  />
+  <GlossaryEditorSearch
+    onUpdate={[Function]}
+    submitGlossaryTerm={[Function]}
+  />
+  <div
+    className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+  >
+    <Connect(StaticDevContent)>
+      <TopNav />
+    </Connect(StaticDevContent)>
+    <div
+      className="usa-grid-full bidder-portfolio-listing results-loading"
+    >
+      <Spinner
+        filled={false}
+        inverse={false}
+        size="big"
+        type="homepage-position-results"
+      />
+    </div>
+  </div>
+</div>
+`;

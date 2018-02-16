@@ -54,6 +54,14 @@ $condensed-card-padding: 14px 20px 9px;
     overflow: hidden;
     padding: $condensed-card-padding;
     position: relative;
+
+    a {
+      color: $color-white;
+    }
+  }
+
+  .card-top-alternate {
+    background-color: $tm-navy;
   }
 
   .condensed-top-background-image {
@@ -154,12 +162,6 @@ $condensed-card-padding: 14px 20px 9px;
 
 .condensed-card-third {
   float: left;
-}
-
-.condensed-card-highlighted {
-  .condensed-card-top {
-    background-color: $tm-navy;
-  }
 }
 
 .condensed-card:last-child {

@@ -6,6 +6,7 @@ import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 class ShareButton extends Component {
   constructor(props) {
     super(props);
+    this.changeEmail = this.changeEmail.bind(this);
     this.state = {
       recipient: '',
       warning: false,
@@ -42,9 +43,9 @@ class ShareButton extends Component {
   render() {
     const { warning, recipient, timeout } = this.state;
     const { isSending, hasErrored, response } = this.props;
-    const sendingText = isSending ? 'Sending...' : null;
-    const err = hasErrored || null;
-    const sent = (response && !hasErrored && !isSending && timeout) ? 'Sent!' : null;
+    const showWarning = warning && recipient.length;
+    const wasSent = response && !hasErrored && !isSending && timeout;
+    const buttonClassEnabled = recipient.length && !isSending;
     return (
       <div>
         <form onSubmit={e => this.share(e)}>
@@ -55,15 +56,15 @@ class ShareButton extends Component {
             name="input-type-text"
             type="text"
             value={this.state.recipient}
-            onChange={e => this.changeEmail(e)}
+            onChange={this.changeEmail}
             placeholder="Recipient's email address"
           />
-          <button className={(recipient.length && !isSending) ? null : 'usa-button-disabled'} disabled={recipient.length ? null : true} id="share-button">
+          <button className={buttonClassEnabled ? '' : 'usa-button-disabled'} disabled={!recipient.length} id="share-button">
             Share
           </button>
-          {warning && recipient.length ? 'This is not a state.gov email. Send with caution.' : null}
+          {showWarning && 'This is not a state.gov email. Send with caution.'}
           <br />
-          {sendingText} {err} {sent}
+          {isSending && 'Sending...'} {hasErrored} {wasSent && 'Sent!'}
         </form>
       </div>
     );

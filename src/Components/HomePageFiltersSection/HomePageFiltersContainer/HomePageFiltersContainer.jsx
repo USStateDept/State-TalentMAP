@@ -38,7 +38,9 @@ class HomePageFiltersContainer extends Component {
   // Submit the search by taking all the different filters' arrays and converting them strings,
   // then passing the parent object to queryString to stringify it.
   // Then pass that new string to a /results search.
-  submitSearch() {
+  submitSearch(e) {
+    // preventDefault() to prevent form submission side effects
+    e.preventDefault();
     const { filterValues } = this.state;
     const stringifiedFilterValues = {};
     Object.keys(filterValues).forEach((key) => {
