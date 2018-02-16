@@ -311,7 +311,6 @@ describe('returnObjectsWherePropMatches', () => {
 describe('numbersToPercentString', () => {
   let numerator = 2;
   let denominator = 10;
-  const format = '0.00%';
 
   it('can return a percent', () => {
     const percent = numbersToPercentString(numerator, denominator);
@@ -321,6 +320,7 @@ describe('numbersToPercentString', () => {
   it('can return a percent with proper format', () => {
     numerator = 3;
     denominator = 7;
+    const format = '0.00%';
     const percent = numbersToPercentString(numerator, denominator, format);
     expect(percent).toBe('42.86%');
   });
