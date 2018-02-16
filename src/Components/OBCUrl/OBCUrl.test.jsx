@@ -15,7 +15,7 @@ describe('OBCUrlComponent', () => {
     const wrapper = shallow(<OBCUrl
       id={5}
     />);
-    expect(wrapper.find('a').props().href).toBe('/obc/5');
+    expect(wrapper.find('a').props().href).toBe('/obc/post/5');
   });
 
   it('is defined when id is a string', () => {
