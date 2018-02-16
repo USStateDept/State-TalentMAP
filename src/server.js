@@ -18,9 +18,19 @@ const app = express();
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
 
+// saml2 acs
+app.post(PUBLIC_URL, (request, response) => {
+  response.redirect(307, `${API_ROOT}/saml2/acs/`);
+});
+
+// saml2 login
+app.get(`${PUBLIC_URL}login`, (request, response) => {
+  response.redirect(`${API_ROOT}/saml2/login/`);
+});
+
 // saml2 metadata
 app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
-  response.redirect(`${API_ROOT}/saml2/metadata`);
+  response.redirect(`${API_ROOT}/saml2/metadata/`);
 });
 
 app.get('*', (request, response) => {
