@@ -65,7 +65,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       }
     />
     <div
-      className="usa-grid-full"
+      className="usa-grid-full condensed-card-buttons-section"
     >
       <Favorite
         compareArray={

@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
 import dotProp from 'dot-prop';
+import numeral from 'numeral';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -261,11 +262,10 @@ export const returnObjectsWherePropMatches = (sourceArray = [], compareArray = [
   sourceArray.filter(o1 => compareArray.some(o2 => o1[propToCheck] === o2[propToCheck]));
 
 // Convert a numerator and a denominator to a percentage.
-export const numbersToPercentString = (numerator, denominator, precision = 3) => {
-  const formatFraction = fraction =>
-    (parseFloat(fraction) * 100).toString().slice(0, precision + 1);
-  const percentage = formatFraction(numerator / denominator);
-  return `${percentage}%`;
+export const numbersToPercentString = (numerator, denominator, percentFormat = '0.0%') => {
+  const fraction = numerator / denominator;
+  const percentage = numeral(fraction).format(percentFormat);
+  return percentage;
 };
 
 export const formatBidTitle = bid => `${bid.position.title} (${bid.position.position_number})`;
@@ -275,3 +275,22 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 // for traversing nested objects
 export const propOrDefault = (obj, path, defaultToReturn = null) =>
   dotProp.get(obj, path) || defaultToReturn;
+
+// Return the correct object from the bidStatisticsArray.
+// If it doesn't exist, return an empty object.
+export const getBidStatisticsObject = (bidStatisticsArray) => {
+  if (Array.isArray(bidStatisticsArray) && bidStatisticsArray.length) {
+    return bidStatisticsArray[0];
+  }
+  return {};
+};
+
+// replace spaces with hyphens so that id attributes are valid
+export const formatIdSpacing = (id) => {
+  if (id) {
+    const idString = id.toString();
+    return idString.split(' ').join('-');
+  }
+  // if id is not defined, return null
+  return null;
+};

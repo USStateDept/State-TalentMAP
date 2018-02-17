@@ -89,10 +89,13 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
   results: POST_DETAILS_ARRAY,
 });
 
+export const USER_SKILL_CODE_POSITIONS = 'userSkillCodePositions';
+export const USER_GRADE_RECENT_POSITIONS = 'userGradeRecentPositions';
+export const SERVICE_NEED_POSITIONS = 'serviceNeedPositions';
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
-  userSkillCodePositions: POSITION_DETAILS_ARRAY,
-  userGradeRecentPositions: POSITION_DETAILS_ARRAY,
-  serviceNeedPositions: POSITION_DETAILS_ARRAY,
+  [USER_SKILL_CODE_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [USER_GRADE_RECENT_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [SERVICE_NEED_POSITIONS]: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({
@@ -483,6 +486,8 @@ export const BID_STATISTICS_OBJECT = PropTypes.shape({
   approved_bidders: PropTypes.number,
   bidding_days_remaining: PropTypes.number,
 });
+
+export const BID_STATISTICS_ARRAY = PropTypes.arrayOf(BID_STATISTICS_OBJECT);
 
 export const CLIENT_BY_ID = PropTypes.shape({
   id: PropTypes.number,

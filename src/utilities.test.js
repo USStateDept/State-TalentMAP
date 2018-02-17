@@ -23,6 +23,7 @@ import { validStateEmail,
          formatBidTitle,
          formatWaiverTitle,
          propOrDefault,
+         formatIdSpacing,
        } from './utilities';
 
 describe('local storage', () => {
@@ -310,19 +311,18 @@ describe('returnObjectsWherePropMatches', () => {
 describe('numbersToPercentString', () => {
   let numerator = 2;
   let denominator = 10;
-  let precision = 2;
 
   it('can return a percent', () => {
-    const percent = numbersToPercentString(numerator, denominator, precision);
-    expect(percent).toBe('20%');
+    const percent = numbersToPercentString(numerator, denominator);
+    expect(percent).toBe('20.0%');
   });
 
-  it('can return a percent with proper precision', () => {
+  it('can return a percent with proper format', () => {
     numerator = 3;
     denominator = 7;
-    precision = 4;
-    const percent = numbersToPercentString(numerator, denominator, precision);
-    expect(percent).toBe('42.85%');
+    const format = '0.00%';
+    const percent = numbersToPercentString(numerator, denominator, format);
+    expect(percent).toBe('42.86%');
   });
 });
 
@@ -371,5 +371,22 @@ describe('propOrDefault', () => {
     expect(propOrDefault(nestedObject, 'a.b.e.e.e')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.g')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.b.c.d.d', 'value')).toBe('value');
+  });
+});
+
+describe('formatIdSpacing', () => {
+  it('can format strings', () => {
+    expect(formatIdSpacing('two words')).toBe('two-words');
+    expect(formatIdSpacing('has Three words')).toBe('has-Three-words');
+  });
+
+  it('can format numbers', () => {
+    expect(formatIdSpacing(3)).toBe('3');
+  });
+
+  it('can format undefined values', () => {
+    expect(formatIdSpacing(undefined)).toBe(null);
+    expect(formatIdSpacing(null)).toBe(null);
+    expect(formatIdSpacing(false)).toBe(null);
   });
 });

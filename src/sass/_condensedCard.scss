@@ -1,5 +1,5 @@
 $condensed-card-margin-bottom: 15px;
-$condensed-card-padding: 14px 20px 9px;
+$condensed-card-padding: 9px 20px 9px;
 
 .condensed-card {
 
@@ -102,6 +102,45 @@ $condensed-card-padding: 14px 20px 9px;
     font-size: 16px;
   }
 
+  .condensed-card-buttons-section {
+    margin-bottom: 10px;
+  }
+
+  .condensed-card-statistics {
+    border-bottom: 1px solid $color-gray-lighter;
+    border-top: 0;
+
+    .bid-count-list-item {
+      background: $blue-primary;
+      color: $color-white;
+      margin-bottom: 0;
+    }
+
+    .bid-count-number {
+      padding: .2em 1em;
+    }
+
+    .bid-count-list-item:first-child {
+      border-radius: 5px 0 0 5px;
+    }
+
+    .bid-count-list-item:last-child {
+      border-radius: 0 5px 5px 0;
+    }
+
+    .bid-count-list {
+      float: right;
+      padding-left: 0;
+    }
+
+    .bid-count-label {
+      float: left;
+      font-weight: bold;
+      margin-right: .5em;
+      padding-top: .2em;
+    }
+  }
+
   .condensed-card-data {
     margin-bottom: 20px;
 
@@ -175,7 +214,6 @@ $condensed-card-padding: 14px 20px 9px;
 
   .condensed-card-footer-container {
     padding: $condensed-card-padding;
-    padding-bottom: 14px;
   }
 
   .condensed-card-footer-left {
