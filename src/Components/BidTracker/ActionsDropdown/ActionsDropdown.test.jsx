@@ -46,18 +46,6 @@ describe('ActionsDropdown', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('can delete a bid on enter keyUp', () => {
-    const spy = sinon.spy();
-    const wrapper = shallow(<ActionsDropdown {...props} toggleBid={spy} />);
-
-    // find the Delete text
-    const deleteText = wrapper.find('InteractiveElement[children="Delete"]');
-    // click to delete
-    deleteText.simulate('keyUp', { keyCode: 13 });
-    // toggleBid function should have been called once
-    sinon.assert.calledOnce(spy);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(<ActionsDropdown {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();

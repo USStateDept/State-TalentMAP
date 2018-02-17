@@ -51,15 +51,25 @@ describe('AccountDropdown', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('does not display the name when shouldDisplayName is false', () => {
+    const accountDropdown = shallow(<AccountDropdown shouldDisplayName={false} />);
+    expect(accountDropdown.find('#account-username').exists()).toBe(false);
+  });
+
   it('matches snapshot', () => {
     const accountDropdown = shallow(<AccountDropdown />);
     expect(toJSON(accountDropdown)).toMatchSnapshot();
   });
 
-  it("can render the logged in user's name", () => {
+  it('matches snapshot when shouldDisplayName is true', () => {
+    const accountDropdown = shallow(<AccountDropdown shouldDisplayName />);
+    expect(toJSON(accountDropdown)).toMatchSnapshot();
+  });
+
+  it("can render the logged in user's name when shouldDisplayName is true", () => {
     const firstName = 'test';
     const accountDropdown = mount(<Provider store={mockStore({})}><MemoryRouter>
-      <AccountDropdown userProfile={{ user: { first_name: firstName } }} />
+      <AccountDropdown shouldDisplayName userProfile={{ user: { first_name: firstName } }} />
     </MemoryRouter></Provider>);
     expect(accountDropdown.find('#account-username').text()).toBe(firstName);
   });

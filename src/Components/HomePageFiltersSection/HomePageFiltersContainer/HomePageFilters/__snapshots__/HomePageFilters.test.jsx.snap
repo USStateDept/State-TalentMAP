@@ -23,6 +23,8 @@ exports[`HomePageFiltersComponent matches snapshot 1`] = `
           ]
         }
         isLoading={false}
+        label="Terms"
+        labelSrOnly={false}
         onFilterSelect={[Function]}
         userSkills={Array []}
       />

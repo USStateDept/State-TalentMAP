@@ -23,51 +23,50 @@ submitBidHasErrored, submitBidIsLoading, submitBidSuccess }) => {
   const showSubmitBidSuccess = !submitBidIsLoading && !submitBidHasErrored && submitBidSuccess;
   const isLoading = bidListIsLoading && !bidListHasErrored;
   const isLoadingClass = bidListIsLoading ? 'results-loading' : '';
-  const showAlert = () => {
-    if (showError) {
-      return (
-        <Alert
-          type="error"
-          title="Error"
-          messages={[{ body: bidListToggleHasErrored }]}
-        />
-      );
-    } else if (showSuccess) {
-      return (
-        <Alert
-          type="success"
-          title="Success"
-          messages={[{ body: bidListToggleSuccess }]}
-        />
-      );
-    } else if (showSubmitBidError) {
-      return (
-        <Alert
-          type="error"
-          title="Error"
-          messages={[{ body: submitBidHasErrored }]}
-        />
-      );
-    } else if (showSubmitBidSuccess) {
-      return (
-        <Alert
-          type="success"
-          title="Success"
-          messages={[{ body: submitBidSuccess }]}
-        />
-      );
-    }
-    return null;
-  };
+
+  let alert;
+  if (showError) {
+    alert = (
+      <Alert
+        type="error"
+        title="Error"
+        messages={[{ body: bidListToggleHasErrored }]}
+      />
+    );
+  } else if (showSuccess) {
+    alert = (
+      <Alert
+        type="success"
+        title="Success"
+        messages={[{ body: bidListToggleSuccess }]}
+      />
+    );
+  } else if (showSubmitBidError) {
+    alert = (
+      <Alert
+        type="error"
+        title="Error"
+        messages={[{ body: submitBidHasErrored }]}
+      />
+    );
+  } else if (showSubmitBidSuccess) {
+    alert = (
+      <Alert
+        type="success"
+        title="Success"
+        messages={[{ body: submitBidSuccess }]}
+      />
+    );
+  }
   return (
     <div
       className={`usa-grid-full saved-searches-container ${isLoadingClass}`}
     >
       <ProfileSectionTitle title="Your Bid List:" />
-      {showAlert()}
+      {alert}
       {
         isLoading &&
-        <Spinner type="homepage-position-results" size="big" />
+          <Spinner type="homepage-position-results" size="big" />
       }
       <BidListResultsList
         bidList={bidList}

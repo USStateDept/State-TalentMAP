@@ -62,7 +62,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
       }
     }
     toggleFavorite={[Function]}
-    type="new"
+    type="default"
     userProfileFavoritePositionHasErrored={false}
     userProfileFavoritePositionIsLoading={false}
   />
@@ -252,7 +252,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     }
     toggleBid={[Function]}
     toggleFavorite={[Function]}
-    type="new"
+    type="default"
   />
   <ResultsCondensedCardFooter
     position={

@@ -104,7 +104,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             title="Skill Code"
           />
           <PositionDetailsDataPoint
-            description={0}
+            description="None listed"
             title="Danger Pay"
           />
           <PositionDetailsDataPoint

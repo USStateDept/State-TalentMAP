@@ -22,6 +22,7 @@ import { validStateEmail,
          numbersToPercentString,
          formatBidTitle,
          formatWaiverTitle,
+         propOrDefault,
        } from './utilities';
 
 describe('local storage', () => {
@@ -321,7 +322,7 @@ describe('numbersToPercentString', () => {
     denominator = 7;
     precision = 4;
     const percent = numbersToPercentString(numerator, denominator, precision);
-    expect(percent).toBe('42.86%');
+    expect(percent).toBe('42.85%');
   });
 });
 
@@ -346,5 +347,29 @@ describe('formatWaiverTitle', () => {
     };
     const expected = 'Position - CATEGORY';
     expect(formatWaiverTitle(waiver)).toBe(expected);
+  });
+});
+
+describe('propOrDefault', () => {
+  const nestedObject = {
+    a: {
+      b: true,
+      c: {
+        d: {},
+        e: 1,
+      },
+    },
+  };
+
+  it('can traverse nested objects', () => {
+    expect(propOrDefault(nestedObject, 'a.b')).toBe(true);
+    expect(propOrDefault(nestedObject, 'a.c.d')).toBeDefined();
+    expect(propOrDefault(nestedObject, 'a.c.e')).toBe(1);
+  });
+
+  it('can return the default value when the nested property does not exist', () => {
+    expect(propOrDefault(nestedObject, 'a.b.e.e.e')).toBe(null);
+    expect(propOrDefault(nestedObject, 'a.g')).toBe(null);
+    expect(propOrDefault(nestedObject, 'a.b.c.d.d', 'value')).toBe('value');
   });
 });

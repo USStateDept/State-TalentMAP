@@ -6,3 +6,34 @@
   // override for accessibility
   color: $color-gray;
 }
+
+.Select--multi {
+  .Select-value {
+    background-color: $blue-primary;
+    border-radius: 9px;
+    color: $color-white;
+    font-size: .8em;
+    margin-top: 8px;
+    max-width: 220px;
+  }
+
+  .Select-value-label {
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .Select-multi-value-wrapper {
+    overflow: scroll;
+  }
+
+  .Select-value-icon {
+    border-right: 0;
+    float: right;
+  }
+
+  .Select-value-icon:hover {
+    color: $color-primary-alt-light;
+  }
+}
