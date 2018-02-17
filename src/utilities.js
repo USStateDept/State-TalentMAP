@@ -276,6 +276,15 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 export const propOrDefault = (obj, path, defaultToReturn = null) =>
   dotProp.get(obj, path) || defaultToReturn;
 
+// Return the correct object from the bidStatisticsArray.
+// If it doesn't exist, return an empty object.
+export const getBidStatisticsObject = (bidStatisticsArray) => {
+  if (Array.isArray(bidStatisticsArray) && bidStatisticsArray.length) {
+    return bidStatisticsArray[0];
+  }
+  return {};
+};
+
 // replace spaces with hyphens so that id attributes are valid
 export const formatIdSpacing = (id) => {
   if (id) {

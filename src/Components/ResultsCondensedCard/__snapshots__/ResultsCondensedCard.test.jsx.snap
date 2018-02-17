@@ -66,6 +66,20 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     userProfileFavoritePositionHasErrored={false}
     userProfileFavoritePositionIsLoading={false}
   />
+  <ResultsCondensedCardStats
+    bidStatisticsArray={
+      Array [
+        Object {
+          "at_skill": 0,
+          "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
+          "id": 1,
+          "in_grade": 0,
+          "in_grade_at_skill": 0,
+          "total_bids": 3,
+        },
+      ]
+    }
+  />
   <ResultsCondensedCardBottom
     bidList={
       Array [

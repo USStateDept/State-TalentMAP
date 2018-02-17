@@ -487,6 +487,8 @@ export const BID_STATISTICS_OBJECT = PropTypes.shape({
   bidding_days_remaining: PropTypes.number,
 });
 
+export const BID_STATISTICS_ARRAY = PropTypes.arrayOf(BID_STATISTICS_OBJECT);
+
 export const CLIENT_BY_ID = PropTypes.shape({
   id: PropTypes.number,
   current_assignment: ASSIGNMENT_OBJECT,

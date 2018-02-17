@@ -122,10 +122,17 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
         className="bid-count-container"
       >
         <BidCount
-          atSkillBids={0}
-          inGradeAtSkillBids={0}
-          inGradeBids={0}
-          totalBids={3}
+          bidStatistics={
+            Object {
+              "at_skill": 0,
+              "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
+              "id": 1,
+              "in_grade": 0,
+              "in_grade_at_skill": 0,
+              "total_bids": 3,
+            }
+          }
+          hideLabel={true}
         />
       </div>
     </div>
