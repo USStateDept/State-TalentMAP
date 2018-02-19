@@ -1,5 +1,9 @@
 const express = require('express');
 const path = require('path');
+const routesArray = require('./Containers/Routes/RoutesArray.js');
+
+// Routes from React, with wildcard added to the end if the route is not exact
+const ROUTES = routesArray.map(route => `${route.path}${route.exact ? '' : '*'}`);
 
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
@@ -51,8 +55,12 @@ app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
   response.redirect(`${OBC_URL}/country/${id}`);
 });
 
-app.get('*', (request, response) => {
+app.get(ROUTES, (request, response) => {
   response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
+});
+
+app.get('*', (request, response) => {
+  response.sendFile(STATIC_PATH + request.params[0]);
 });
 
 const server = app.listen(port);
