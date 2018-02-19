@@ -11,7 +11,7 @@ const PostMissionData = ({ post }) => (
         {
           post.obc_id &&
             <span>
-              Details: <OBCUrl id={post.obc_id} />
+              <OBCUrl id={post.obc_id} />
               <br />
             </span>
         }
