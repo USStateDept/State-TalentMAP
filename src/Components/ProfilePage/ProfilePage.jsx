@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import BidListContainer from '../../Containers/BidList/BidList';
 import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
 import SavedSearchesContainer from '../../Containers/SavedSearches/SavedSearches';
 import Dashboard from '../../Containers/Dashboard/Dashboard';
@@ -26,10 +25,6 @@ const ProfilePage = ({ user }) => (
         <Route
           path="/profile/searches"
           component={SavedSearchesContainer}
-        />
-        <Route
-          path="/profile/bidlist"
-          component={BidListContainer}
         />
         <Route path="/profile/statistics" component={BidStatistics} />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
