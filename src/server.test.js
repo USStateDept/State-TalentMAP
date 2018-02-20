@@ -14,7 +14,7 @@ describe('proxy server routes', () => {
     request(server).get('/').expect(200, done);
   });
   it('responds to wildcard routes', (done) => {
-    request(server).get('/static/css/file.css').expect(200, done);
+    request(server).get('/manifest.json').expect(200, done);
   });
   // this route depends on default environment variables
   it('redirects on /talentmap/metadata', (done) => {
