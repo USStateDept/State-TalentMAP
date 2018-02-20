@@ -45,14 +45,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         title="Bidder Portfolio"
       />
       <withRouter(NavLink)
-        link="/profile/bidtracker/"
-        title="Bid Tracker"
-      />
-      <withRouter(NavLink)
-        link="/profile/bidlist/"
-        title="Bid List"
-      />
-      <withRouter(NavLink)
         link="/profile/favorites/"
         title="Favorites"
       />
@@ -140,14 +132,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         link="/profile/bidderportfolio/"
         search="?type=all"
         title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
-        link="/profile/bidtracker/"
-        title="Bid Tracker"
-      />
-      <withRouter(NavLink)
-        link="/profile/bidlist/"
-        title="Bid List"
       />
       <withRouter(NavLink)
         link="/profile/favorites/"
