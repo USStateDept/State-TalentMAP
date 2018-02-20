@@ -15,6 +15,7 @@
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",
+    "numeral": "^2.0.6",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "rc-steps": "^3.1.0",
@@ -120,6 +121,7 @@
       "<rootDir>/config/polyfills.js",
       "jest-localstorage-mock"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setupTests.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.js?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).js?(x)"
