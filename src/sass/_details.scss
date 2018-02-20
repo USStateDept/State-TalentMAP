@@ -132,6 +132,11 @@
 
   .offset-bid-button-container-count {
     min-height: 38px;
+
+    a {
+      margin-left: 5px;
+      white-space: nowrap;
+    }
   }
 
   .bid-count-list {
