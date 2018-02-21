@@ -18,6 +18,19 @@ describe('Favorite', () => {
     expect(favorite).toBeDefined();
   });
 
+  it('is defined with different props', () => {
+    const wrapper = shallow(
+      <Favorite
+        onToggle={() => {}}
+        compareArray={[{ id: refKey }]}
+        refKey={refKey}
+        isLoading
+        hasBorder
+        hideText
+      />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('handles being in the enabled state', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
@@ -37,7 +50,28 @@ describe('Favorite', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when useLongText is true - Add state', () => {
+    const wrapper = shallow(<Favorite
+      onToggle={() => {}}
+      compareArray={[]}
+      refKey={refKey}
+      useLongText
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('matches snapshot - Remove state', () => {
+    const array = [{ id: refKey }];
+    const wrapper = shallow(<Favorite
+      onToggle={() => {}}
+      compareArray={array}
+      refKey={refKey}
+      useLongText
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when useLongText is true - Remove state', () => {
     const array = [{ id: refKey }];
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={array} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
