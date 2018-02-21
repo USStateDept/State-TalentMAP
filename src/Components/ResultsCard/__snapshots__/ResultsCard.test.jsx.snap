@@ -25,6 +25,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
         isLoading={false}
         onToggle={[Function]}
         refKey={6}
+        useLongText={false}
       />
     </div>
   </div>
