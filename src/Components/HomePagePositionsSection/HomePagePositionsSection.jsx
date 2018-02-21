@@ -58,6 +58,7 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggle
             toggleBid={toggleBid}
             bidList={bidList}
             type={type}
+            title={title}
           />
       }
       {

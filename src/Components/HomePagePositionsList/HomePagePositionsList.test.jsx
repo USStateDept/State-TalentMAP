@@ -13,6 +13,7 @@ describe('HomePagePositionsList', () => {
     toggleBid: () => { },
     bidList: bidListObject.results,
     type: 'default',
+    title: 'title',
   };
 
   it('is defined', () => {
