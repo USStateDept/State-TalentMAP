@@ -8,7 +8,7 @@ Install core server dependencies
 
 ```bash
 sudo yum update
-sudo yum install httpd mod_ssl -y
+sudo yum install httpd mod_proxy mod_ssl -y
 sudo yum install openssl -y
 sudo yum install git -y
 ```
@@ -34,7 +34,7 @@ sudo yum install yarn
 
 ## Add Apache virtualhost
 
-Add virtualhost entry in `/etc/httpd/conf/httpd.conf`. The web application uses `mod_proxy` to proxy requests to a Node application.
+Add virtualhost entry in `/etc/httpd/conf/httpd.conf`. The web application uses `mod_proxy` to proxy requests to a Node application.  The Location should match `PUBLIC_URL` environment variable.
 
 ```http
 <VirtualHost *:80>
@@ -81,7 +81,7 @@ yarn rebuild node-sass
 yarn run build
 ```
 
-### Copy files
+## Copy files
 
 Copy files for the build directory to the root Apache directory
 
@@ -89,7 +89,15 @@ Copy files for the build directory to the root Apache directory
 sudo cp -r build/* /var/www/html/ -v
 ```
 
-### Restart apache
+## Start Node server
+
+There is a simple Node + Express application that serves the front end and needs to run as a background process.  NOTE - you may need to run `which nohup` to get the correct path.
+
+```bash
+/usr/bin/nohup node server.js &
+```
+
+## Restart apache
 
 ```bash
 sudo apachectl restart
