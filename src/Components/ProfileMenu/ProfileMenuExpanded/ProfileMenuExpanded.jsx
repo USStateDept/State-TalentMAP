@@ -6,7 +6,7 @@ import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
 
-const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSection }) => (
+const ProfileMenuExpanded = ({ expandedSection, collapse, toggleMenuSection }) => (
   <div className="usa-grid-full profile-menu">
     <div className="menu-title">
       <div className="menu-title-text">Menu</div>
@@ -22,32 +22,15 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
         expandedSection={expandedSection}
       >
         <NavLink title="Dashboard" link="/profile/dashboard/" />
-        <NavLink
-          title="Bidder Portfolio"
-          link="/profile/bidderportfolio/"
-          search="?type=all"
-          hidden={!isCDO}
-        />
         <NavLink title="Favorites" link="/profile/favorites/" />
         <NavLink title="Saved Searches" link="/profile/searches/" />
       </NavLink>
-      <NavLink
-        title="Statistics"
-        iconName="pie-chart"
-        link="/profile/statistics/"
-        hidden={!isCDO}
-      />
       <NavLink title="Glossary Editor" iconName="book" link="/profile/glossaryeditor/" search="?type=all" />
-      <NavLink title="Inbox" iconName="comments-o" link="/profile/inbox/" />
-      <NavLink title="Notifications" iconName="globe" link="/profile/notifications/" />
-      <NavLink title="Contacts" iconName="users" link="/profile/contacts/" />
-      <NavLink title="Documents" iconName="file-text" link="/profile/documents/" />
     </NavLinksContainer>
   </div>
 );
 
 ProfileMenuExpanded.propTypes = {
-  isCDO: PropTypes.bool,
   expandedSection: PROFILE_MENU_SECTION_EXPANDED,
   collapse: PropTypes.func.isRequired,
   toggleMenuSection: PropTypes.func.isRequired,

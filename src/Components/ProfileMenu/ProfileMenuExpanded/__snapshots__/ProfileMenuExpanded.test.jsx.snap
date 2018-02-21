@@ -39,12 +39,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={true}
-        link="/profile/bidderportfolio/"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
         link="/profile/favorites/"
         title="Favorites"
       />
@@ -54,36 +48,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={true}
-      iconName="pie-chart"
-      link="/profile/statistics/"
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
       title="Glossary Editor"
-    />
-    <withRouter(NavLink)
-      iconName="comments-o"
-      link="/profile/inbox/"
-      title="Inbox"
-    />
-    <withRouter(NavLink)
-      iconName="globe"
-      link="/profile/notifications/"
-      title="Notifications"
-    />
-    <withRouter(NavLink)
-      iconName="users"
-      link="/profile/contacts/"
-      title="Contacts"
-    />
-    <withRouter(NavLink)
-      iconName="file-text"
-      link="/profile/documents/"
-      title="Documents"
     />
   </NavLinksContainer>
 </div>
@@ -128,12 +96,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidderportfolio/"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
         link="/profile/favorites/"
         title="Favorites"
       />
@@ -143,36 +105,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      link="/profile/statistics/"
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
       title="Glossary Editor"
-    />
-    <withRouter(NavLink)
-      iconName="comments-o"
-      link="/profile/inbox/"
-      title="Inbox"
-    />
-    <withRouter(NavLink)
-      iconName="globe"
-      link="/profile/notifications/"
-      title="Notifications"
-    />
-    <withRouter(NavLink)
-      iconName="users"
-      link="/profile/contacts/"
-      title="Contacts"
-    />
-    <withRouter(NavLink)
-      iconName="file-text"
-      link="/profile/documents/"
-      title="Documents"
     />
   </NavLinksContainer>
 </div>

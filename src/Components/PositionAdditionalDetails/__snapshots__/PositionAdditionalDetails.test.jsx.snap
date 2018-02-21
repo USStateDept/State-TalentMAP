@@ -5,7 +5,7 @@ exports[`PositionAdditionalDetails matches snapshot 1`] = `
   className="usa-grid position-details-additional"
 >
   <div
-    className="usa-width-two-thirds"
+    className="usa-width-one-whole"
   >
     <p
       className="position-details-additional-body"
@@ -18,23 +18,6 @@ exports[`PositionAdditionalDetails matches snapshot 1`] = `
       <br />
       test
     </p>
-  </div>
-  <div
-    className="usa-width-one-third"
-  >
-    <div
-      className="map-container"
-    >
-      <img
-        alt="Map of nearby area"
-        src="/assets/img/map.png"
-      />
-      <span
-        className="map-title"
-      >
-        Map location here
-      </span>
-    </div>
   </div>
 </div>
 `;

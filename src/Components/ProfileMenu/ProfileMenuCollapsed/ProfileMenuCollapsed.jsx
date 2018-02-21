@@ -13,12 +13,9 @@ const ProfileMenuCollapsed = ({ expand }) => (
     </div>
     <NavLinksContainer>
       <NavLink iconName="user" link="/profile/dashboard/" />
-      <NavLink iconName="pie-chart" link="/profile/statistics/" />
+      <NavLink iconName="star" link="/profile/favorites/" />
+      <NavLink iconName="search" link="/profile/searches/" />
       <NavLink iconName="book" link="/profile/glossaryeditor/" search="?type=all" />
-      <NavLink iconName="comments-o" link="/profile/inbox/" />
-      <NavLink iconName="globe" link="/profile/notifications/" />
-      <NavLink iconName="users" link="/profile/contacts/" />
-      <NavLink iconName="file-text" link="/profile/documents/" />
     </NavLinksContainer>
   </div>
 );

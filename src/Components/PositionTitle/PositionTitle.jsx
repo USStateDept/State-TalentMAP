@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import BidListButton from '../BidListButton';
 import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import EditContentButton from '../EditContentButton';
 import BidCount from '../BidCount';
-import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import { getAssetPath, shortenString, propOrDefault } from '../../utilities';
 
@@ -80,8 +79,7 @@ class PositionTitle extends Component {
   }
 
   render() {
-    const { details, goBackLink, toggleBidPosition, bidList,
-      bidListToggleIsLoading } = this.props;
+    const { details, goBackLink } = this.props;
     const { shouldShowWebsiteEditor, shouldShowPocEditor, shouldShowDescriptionEditor,
       newWebsiteContent, newPocContent, newDescriptionContent } = this.state;
 
@@ -200,14 +198,6 @@ class PositionTitle extends Component {
                 />
             }
           </div>
-          <div className="offset-bid-button-container-button">
-            <BidListButton
-              toggleBidPosition={toggleBidPosition}
-              compareArray={bidList.results}
-              id={details.id}
-              isLoading={bidListToggleIsLoading}
-            />
-          </div>
         </div>
       </div>
     );
@@ -217,9 +207,6 @@ class PositionTitle extends Component {
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
   goBackLink: GO_BACK_TO_LINK.isRequired,
-  toggleBidPosition: PropTypes.func.isRequired,
-  bidList: BID_LIST.isRequired,
-  bidListToggleIsLoading: PropTypes.bool,
   editWebsiteContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
   editDescriptionContent: PropTypes.func.isRequired,
@@ -228,7 +215,6 @@ PositionTitle.propTypes = {
 
 PositionTitle.defaultProps = {
   details: null,
-  bidListToggleIsLoading: false,
 };
 
 export default PositionTitle;

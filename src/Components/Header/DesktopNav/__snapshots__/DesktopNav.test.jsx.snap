@@ -143,10 +143,6 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         className="header-nav-link"
       >
         <span>
-          <Inbox
-            number={0}
-          />
-          <Connect(withRouter(Notifications)) />
           <Connect(GlossaryIcon) />
         </span>
       </div>

@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
-import Inbox from '../Inbox';
-import Notifications from '../Notifications';
 import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
@@ -63,8 +61,6 @@ userProfile, logout, toggleSearchVisibility }) => (
           {
             isLoggedIn &&
               <span>
-                <Inbox />
-                <Notifications />
                 <GlossaryIcon />
               </span>
           }
