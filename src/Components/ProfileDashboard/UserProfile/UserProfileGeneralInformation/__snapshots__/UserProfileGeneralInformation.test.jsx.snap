@@ -15,7 +15,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
       className=""
       source="/assets/img/avatar.png"
     />
-    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
@@ -67,7 +66,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
       className=""
       source="/assets/img/avatar.png"
     />
-    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
@@ -119,7 +117,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
       className=""
       source="/assets/img/avatar.png"
     />
-    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
