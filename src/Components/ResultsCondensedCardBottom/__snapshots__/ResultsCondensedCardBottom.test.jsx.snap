@@ -100,7 +100,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
           ]
         }
         hasBorder={true}
-        hideText={true}
+        hideText={false}
         isLoading={false}
         onToggle={[Function]}
         refKey={6}
