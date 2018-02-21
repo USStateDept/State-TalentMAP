@@ -13,15 +13,13 @@ sudo yum install openssl -y
 sudo yum install git -y
 ```
 
-## Install nvm
+## Install node
 
-Install Node via [nvm](https://github.com/creationix/nvm), exact version is specified in `.nvmrc`.
+Install Node via [NodeSource](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora)
 
 ```bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash
-. ~/.nvm/nvm.sh
-nvm install
-nvm use
+curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
+sudo yum -y install nodejs
 node -e "console.log('Running Node.js ' + process.version)"
 ```
 
@@ -34,12 +32,43 @@ sudo wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
 sudo yum install yarn
 ```
 
+## Add Apache virtualhost
+
+Add virtualhost entry in `/etc/httpd/conf/httpd.conf`. The web application uses `mod_proxy` to proxy requests to a Node application.
+
+```http
+<VirtualHost *:80>
+ ServerName localhost
+ DocumentRoot /var/www/html
+ ProxyRequests Off
+
+ <Proxy *>
+  Order deny,allow
+  Allow from all
+ </Proxy>
+
+ <Location /talentmap/>
+  ProxyPass http://localhost:3000/talentmap/
+  ProxyPassReverse http://localhost:3000/talentmap/
+ </Location>
+</VirtualHost>
+```
+
 ## Clone repo
 
 Use git to clone the web app repo
 
 ```bash
 git clone https://github.com/18F/State-TalentMAP.git
+cd State-TalentMAP/
+```
+
+## Source environment variables
+
+Environment variables are documented [here](EXAMPLE_setup_environment.sh)
+
+```bash
+source setup_environment.sh
 ```
 
 ## Build web app
@@ -47,7 +76,6 @@ git clone https://github.com/18F/State-TalentMAP.git
 Build application
 
 ```bash
-cd State-TalentMAP/
 yarn install
 yarn rebuild node-sass
 yarn run build
