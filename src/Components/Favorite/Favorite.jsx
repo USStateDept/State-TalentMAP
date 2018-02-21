@@ -25,14 +25,29 @@ class Favorite extends Component {
   }
 
   render() {
+    const { useLongText } = this.props;
+
+    const shortTextFavorite = 'Favorite';
+    const longTextFavorite = 'Add to Favorites';
+    const shortTextRemove = 'Remove';
+    const longTextRemove = 'Remove from Favorites';
+
+    let favoriteText = shortTextFavorite;
+    let removeText = shortTextRemove;
+
+    if (useLongText) {
+      favoriteText = longTextFavorite;
+      removeText = longTextRemove;
+    }
+
     // set defaults
-    let text = 'Favorite';
+    let text = favoriteText;
     let title = 'Add to Favorites';
     let iconClass = 'star-o';
 
     // update for saved state
     if (this.getSavedState()) {
-      text = 'Remove';
+      text = removeText;
       title = 'Remove from Favorites';
       iconClass = 'star';
     }
@@ -62,6 +77,7 @@ Favorite.propTypes = {
   compareArray: FAVORITE_POSITIONS_ARRAY.isRequired,
   isLoading: PropTypes.bool,
   hasBorder: PropTypes.bool,
+  useLongText: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -69,6 +85,7 @@ Favorite.defaultProps = {
   isLoading: false,
   compareArray: [],
   hasBorder: false,
+  useLongText: false,
 };
 
 export default Favorite;
