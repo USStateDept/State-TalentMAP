@@ -2,7 +2,7 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
-import dotProp from 'dot-prop';
+// import dotProp from 'dot-prop';
 import numeral from 'numeral';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
@@ -273,8 +273,25 @@ export const formatBidTitle = bid => `${bid.position.title} (${bid.position.posi
 export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.category.toUpperCase()}`;
 
 // for traversing nested objects
-export const propOrDefault = (obj, path, defaultToReturn = null) =>
-  dotProp.get(obj, path) || defaultToReturn;
+export const propOrDefault = (obj, path, defaultToReturn = null) => {
+  const args = path.split('.');
+
+  let valueToReturn = obj;
+
+  // eslint-disable-next-line
+  for (let i = 0; i < args.length; i++) {
+    // eslint-disable-next-line
+    if (valueToReturn && valueToReturn.hasOwnProperty(args[i])) {
+      console.log(args[i]);
+      valueToReturn = valueToReturn[args[i]];
+      // eslint-disable-next-line
+    } else if (!valueToReturn || !valueToReturn.hasOwnProperty(args[i])) {
+      console.log(args, valueToReturn);
+      return defaultToReturn;
+    }
+  }
+  return valueToReturn;
+};
 
 // Return the correct object from the bidStatisticsArray.
 // If it doesn't exist, return an empty object.
