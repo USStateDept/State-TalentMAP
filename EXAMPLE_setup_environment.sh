@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Note that this file is parsed by python (in wsgi.py) so do not use any
-# interpolated bash variables; like $HOME
-
-
 # The public prefix for the web application
 # Default - /talentmap/
 export PUBLIC_URL=/talentmap/
