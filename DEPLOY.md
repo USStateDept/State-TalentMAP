@@ -1,6 +1,6 @@
 # Deploying the web app
 
-The instruction below are for installing the web application on a CentOS or RedHat Linux server
+The instructions below are for installing the web application on a CentOS or RedHat Linux server.
 
 ## Install dependencies
 
@@ -25,16 +25,16 @@ node -e "console.log('Running Node.js ' + process.version)"
 
 ## Install yarn
 
-Yarn is the primary package manager for the web app.  Instructions copied from [here](https://yarnpkg.com/lang/en/docs/install/#linux-tab)
+Yarn is the primary package manager for the web app. Instructions copied from [here](https://yarnpkg.com/lang/en/docs/install/#linux-tab)
 
 ```bash
 sudo wget https://dl.yarnpkg.com/rpm/yarn.repo -O /etc/yum.repos.d/yarn.repo
 sudo yum install yarn
 ```
 
-## Add Apache virtualhost
+## Add Apache VirtualHost entry
 
-Add virtualhost entry in `/etc/httpd/conf/httpd.conf`. The web application uses `mod_proxy` to proxy requests to a Node application.  The Location should match `PUBLIC_URL` environment variable.
+Add a `VirtualHost` entry in `/etc/httpd/conf/httpd.conf`. The web application uses `mod_proxy` to proxy requests to a Node application.  The `Location` should match the `PUBLIC_URL` environment variable.
 
 ```http
 <VirtualHost *:80>
@@ -54,9 +54,9 @@ Add virtualhost entry in `/etc/httpd/conf/httpd.conf`. The web application uses 
 </VirtualHost>
 ```
 
-## Clone repo
+## Clone repository
 
-Use git to clone the web app repo
+Use `git` to clone the web app repository
 
 ```bash
 git clone https://github.com/18F/State-TalentMAP.git
@@ -73,7 +73,7 @@ source setup_environment.sh
 
 ## Build web app
 
-Build application
+Build the application
 
 ```bash
 yarn install
@@ -83,7 +83,7 @@ yarn run build
 
 ## Copy files
 
-Copy files for the build directory to the root Apache directory
+Copy files from the build directory to the root Apache directory
 
 ```bash
 sudo cp -r build/* /var/www/html/ -v
@@ -97,7 +97,7 @@ There is a simple Node + Express application that serves the front end and needs
 /usr/bin/nohup node server.js &
 ```
 
-## Restart apache
+## Restart Apache
 
 ```bash
 sudo apachectl restart
