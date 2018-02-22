@@ -1,42 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS,
-USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS } from '../../Constants/PropTypes';
+USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS,
+RECENTLY_POSTED_POSITIONS, FAVORITED_POSITIONS } from '../../Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   userProfile, toggleFavorite, toggleBid, bidList,
   userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored }) => {
-  // set view more link for skill
-  let viewMoreSkill = '/results';
-  if (userProfile && userProfile.skills) {
-    const ids = userProfile.skills.map(s => s.code);
-    viewMoreSkill = `/results?skill__code__in=${ids.join(',')}`;
-  }
+  // Conditionally set the position types in rows two and three.
+  // Based on which we display, we have to format the title, link, and positions
+  // to provide to the component.
 
-  // set view more link for grade
-  let viewMoreGrade = '/results';
-  if (userProfile && userProfile.grade) {
-    viewMoreGrade = `/results?grade__code__in=${userProfile.grade}`;
-  }
-
-  let positionsInSkillTitle = 'Positions in Skill';
-  const userSkillCodePositions = homePagePositions[USER_SKILL_CODE_POSITIONS];
-  if (userSkillCodePositions && userSkillCodePositions.length) {
-    positionsInSkillTitle = `Positions in ${homePagePositions[USER_SKILL_CODE_POSITIONS][0].skill}`;
-  }
-
-  let gradeTitle = 'Recently Posted Positions in Grade';
-  const userGradeRecentPositions = homePagePositions[USER_GRADE_RECENT_POSITIONS];
-  if (userGradeRecentPositions && userGradeRecentPositions.length) {
-    gradeTitle = `${gradeTitle} ${homePagePositions.userGradeRecentPositions[0].grade}`;
-  }
-
+  // Service need positions.
+  // Unlike our other positions, this won't change since it doesn't rely on user data.
   const serviceNeedPositions = homePagePositions[SERVICE_NEED_POSITIONS];
+  // set View More link for service needs
+  const serviceNeedsLink = '/results?is_highlighted=true';
 
-  // set view more link for service needs
-  const serviceNeedsLink = '/results?post__has_service_needs_differential=true';
+  // Define row two data.
+  // If the user has skills, we'll display in-skill positions.
+  // If the user does not have skills, we'll display favorited positions.
+  const userSkillCodePositions = homePagePositions[USER_SKILL_CODE_POSITIONS];
+  const favoritedPositions = homePagePositions[FAVORITED_POSITIONS];
+  let rowTwoPositions = userSkillCodePositions;
+  let rowTwoTitle = 'Positions in Skill';
+  let rowTwoLink = '/results';
+  if (rowTwoPositions && rowTwoPositions.length) {
+    // form a link to view positions with the user's skills
+    const ids = userProfile.skills.map(s => s.code);
+    rowTwoLink = `/results?skill__code__in=${ids.join(',')}`;
+    // update the title based on the related skills
+    rowTwoTitle = `Positions in ${homePagePositions[USER_SKILL_CODE_POSITIONS][0].skill}`;
+  } else if (favoritedPositions) {
+    // update everything to denote that these are favorited positions
+    rowTwoPositions = favoritedPositions;
+    rowTwoTitle = 'Favorited Positions';
+    rowTwoLink = '/profile/favorites/';
+  }
+
+  // Define row three data.
+  // If the user has a grade, we'll display in-grade, recent positions.
+  // If the user does not have a grade, we'll display recent positions.
+  const userGradeRecentPositions = homePagePositions[USER_GRADE_RECENT_POSITIONS];
+  const recentPositions = homePagePositions[RECENTLY_POSTED_POSITIONS];
+  let rowThreeTitle = 'Recently Posted Positions in Grade';
+  let rowThreePositions = userGradeRecentPositions;
+  let rowThreeLink = '/results';
+  if (userGradeRecentPositions) {
+    // update the link to view positions with the user's grade
+    rowThreeLink = `/results?grade__code__in=${userProfile.grade}`;
+    // update the title based on the user's grade
+    rowThreeTitle = `${rowThreeTitle} ${userProfile.grade}`;
+  } else if (recentPositions) {
+    // update everything to to denote that these are recently posted positions
+    rowThreePositions = recentPositions;
+    rowThreeTitle = 'Recently Posted Positions';
+    rowThreeLink = '/results?ordering=description__date_created';
+  }
   return (
     <div className="homepage-positions-section-container">
       <div
@@ -58,30 +80,30 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           type="serviceNeed"
         />
         <HomePagePositionsSection
-          title={positionsInSkillTitle}
+          title={rowTwoTitle}
           maxLength="3"
-          viewMoreLink={viewMoreSkill}
+          viewMoreLink={rowTwoLink}
           icon="briefcase"
           favorites={userProfile.favorite_positions}
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          positions={userSkillCodePositions}
+          positions={rowTwoPositions}
           isLoading={homePagePositionsIsLoading}
           toggleBid={toggleBid}
           bidList={bidList}
           type="default"
         />
         <HomePagePositionsSection
-          title={gradeTitle}
+          title={rowThreeTitle}
           maxLength="3"
-          viewMoreLink={viewMoreGrade}
+          viewMoreLink={rowThreeLink}
           icon="flag"
           favorites={userProfile.favorite_positions}
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          positions={userGradeRecentPositions}
+          positions={rowThreePositions}
           isLoading={homePagePositionsIsLoading}
           toggleBid={toggleBid}
           bidList={bidList}

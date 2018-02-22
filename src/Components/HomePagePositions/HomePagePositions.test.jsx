@@ -3,7 +3,8 @@ import toJSON from 'enzyme-to-json';
 import React from 'react';
 import HomePagePositions from './HomePagePositions';
 import bidListObject from '../../__mocks__/bidListObject';
-import { USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS } from '../../Constants/PropTypes';
+import { USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS,
+RECENTLY_POSTED_POSITIONS, FAVORITED_POSITIONS } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 
 describe('HomePageComponent', () => {
@@ -21,6 +22,12 @@ describe('HomePageComponent', () => {
     userProfile: { skills: ['1', '2'], grade: '03' },
   };
 
+  const fallBackPositions = {
+    [SERVICE_NEED_POSITIONS]: [{ id: 3 }],
+    [FAVORITED_POSITIONS]: [{ id: 101 }],
+    [RECENTLY_POSTED_POSITIONS]: [{ id: 202 }],
+  };
+
   it('is defined', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
@@ -36,6 +43,33 @@ describe('HomePageComponent', () => {
     expect(wrapper.find('HomePagePositionsSection').at(0).prop('positions').length).toBeGreaterThan(0);
     expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions').length).toBeGreaterThan(0);
     expect(wrapper.find('HomePagePositionsSection').at(2).prop('positions').length).toBeGreaterThan(0);
+  });
+
+  it('sets fallback positions', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePagePositions={fallBackPositions}
+    />);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions')[0].id).toBe(101);
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('positions')[0].id).toBe(202);
+  });
+
+  it('sets titles correctly for fallback positions', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePagePositions={fallBackPositions}
+    />);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorited Positions');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently Posted Positions');
+  });
+
+  it('sets links correctly for fallback positions', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePagePositions={fallBackPositions}
+    />);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('viewMoreLink')).toBe('/profile/favorites/');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('viewMoreLink')).toBe('/results?ordering=description__date_created');
   });
 
   it('can set position section titles correctly', () => {
