@@ -2,7 +2,6 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
-import dotProp from 'dot-prop';
 import numeral from 'numeral';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
@@ -272,9 +271,30 @@ export const formatBidTitle = bid => `${bid.position.title} (${bid.position.posi
 
 export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.category.toUpperCase()}`;
 
-// for traversing nested objects
-export const propOrDefault = (obj, path, defaultToReturn = null) =>
-  dotProp.get(obj, path) || defaultToReturn;
+// for traversing nested objects.
+// obj should be an object, such as { a: { b: 1, c: { d: 2 } } }
+// path should be a string to the desired path - "a.b.c.d"
+// defaultToReturn should be the default value you want to return if the traversal fails
+export const propOrDefault = (obj, path, defaultToReturn = null) => {
+  // split the path into individual strings
+  const args = path.split('.');
+
+  let valueToReturn = obj;
+
+  // function to determine if object contains the next i property
+  const returnSubProp = i => Object.prototype.hasOwnProperty.call(valueToReturn, args[i]);
+
+  // iterate through each arg and change valueToReturn to the next i property if it exists,
+  // otherwise return the defaultToReturn
+  for (let i = 0; i < args.length; i += 1) {
+    if (valueToReturn && returnSubProp(i)) {
+      valueToReturn = valueToReturn[args[i]];
+    } else if (!valueToReturn || !returnSubProp(i)) {
+      return defaultToReturn;
+    }
+  }
+  return valueToReturn;
+};
 
 // Return the correct object from the bidStatisticsArray.
 // If it doesn't exist, return an empty object.

@@ -357,20 +357,25 @@ describe('propOrDefault', () => {
       c: {
         d: {},
         e: 1,
+        f: 0,
       },
     },
   };
 
-  it('can traverse nested objects', () => {
+  it('traverses nested objects', () => {
     expect(propOrDefault(nestedObject, 'a.b')).toBe(true);
     expect(propOrDefault(nestedObject, 'a.c.d')).toBeDefined();
     expect(propOrDefault(nestedObject, 'a.c.e')).toBe(1);
   });
 
-  it('can return the default value when the nested property does not exist', () => {
+  it('returns the default value when the nested property does not exist', () => {
     expect(propOrDefault(nestedObject, 'a.b.e.e.e')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.g')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.b.c.d.d', 'value')).toBe('value');
+  });
+
+  it('returns the property value when the property value exists, but is 0', () => {
+    expect(propOrDefault(nestedObject, 'a.c.f')).toBe(0);
   });
 });
 
