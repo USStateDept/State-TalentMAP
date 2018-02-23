@@ -276,7 +276,7 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 // path should be a string to the desired path - "a.b.c.d"
 // defaultToReturn should be the default value you want to return if the traversal fails
 export const propOrDefault = (obj, path, defaultToReturn = null) => {
-  // split the path into individual
+  // split the path into individual strings
   const args = path.split('.');
 
   let valueToReturn = obj;
