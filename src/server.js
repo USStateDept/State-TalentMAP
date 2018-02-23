@@ -28,14 +28,14 @@ app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
 app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
-  response.redirect(`${OBC_URL}/post/${id}`);
+  response.redirect(`${OBC_URL}/post/detail/${id}`);
 });
 
 // OBC redirect - countries
 app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
-  response.redirect(`${OBC_URL}/country/${id}`);
+  response.redirect(`${OBC_URL}/country/detail/${id}`);
 });
 
 app.get('*', (request, response) => {
