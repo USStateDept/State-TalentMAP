@@ -10,11 +10,11 @@ describe('proxy server routes', () => {
     // close the server after each test so that jest exits
     server.close();
   });
-  it('responds to /country', (done) => {
-    request(server).get('/country/42').expect(200, done);
+  it('responds to /country/detail', (done) => {
+    request(server).get('/country/detail/42').expect(200, done);
   });
-  it('responds to /post', (done) => {
-    request(server).get('/post/42').expect(200, done);
+  it('responds to /post/detail', (done) => {
+    request(server).get('/post/detail/42').expect(200, done);
   });
   it('responds to wildcard routes', (done) => {
     request(server).get('/bureau/42').expect(404, done);
