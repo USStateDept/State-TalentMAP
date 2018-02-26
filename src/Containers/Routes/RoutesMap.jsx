@@ -6,7 +6,7 @@ import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
 import Login from '../../login';
 import Compare from '../../Containers/Compare/Compare';
-import RoutesArray from './RoutesArray';
+import RoutesArray from '../../routes';
 
 const Components = { Home, Profile, Results, Position, Post, Login, Compare };
 
