@@ -59,8 +59,9 @@ app.get(ROUTES, (request, response) => {
   response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 
+// this is our wildcard, 404 route
 app.get('*', (request, response) => {
-  response.sendFile(STATIC_PATH + request.params[0]);
+  response.sendStatus(404);
 });
 
 const server = app.listen(port);
