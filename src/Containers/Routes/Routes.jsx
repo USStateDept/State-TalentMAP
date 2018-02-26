@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import routesArray from '../../routes';
+import mappedRoutesArray from './RoutesMap';
 
 const Routes = props => (
   <Switch {...props}>
     {
-      routesArray.map(route => (
+      mappedRoutesArray.map(route => (
         <Route
           key={route.path}
           exact={route.exact}
