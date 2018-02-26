@@ -29,6 +29,7 @@ dateUpdated, updatedBy, isArchived, id, submitGlossaryTerm }) => {
             isArchived={isArchived}
             id={id}
             submitGlossaryTerm={submitGlossaryTerm}
+            hasErrored={showWarningOrError}
           />
       }
     </div>

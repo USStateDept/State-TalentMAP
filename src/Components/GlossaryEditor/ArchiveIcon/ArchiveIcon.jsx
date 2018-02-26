@@ -12,6 +12,14 @@ class ArchiveIcon extends Component {
     };
   }
 
+  componentWillReceiveProps(props) {
+    // Reset the isArchived state to the object's value if
+    // hasErrored becomes true after the initial mount.
+    if (props.hasErrored) {
+      this.setState({ isArchived: props.isArchived });
+    }
+  }
+
   submitOption() {
     const { id, onSubmitOption } = this.props;
     this.setState({ isArchived: !this.state.isArchived });
@@ -43,10 +51,12 @@ ArchiveIcon.propTypes = {
   onSubmitOption: PropTypes.func.isRequired,
   isArchived: PropTypes.bool,
   id: PropTypes.number.isRequired,
+  hasErrored: PropTypes.bool,
 };
 
 ArchiveIcon.defaultProps = {
   isArchived: false,
+  hasErrored: false,
 };
 
 export default ArchiveIcon;
