@@ -12,7 +12,7 @@ const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
 
 // Routes from React, with wildcard added to the end if the route is not exact
-const ROUTES = routesArray.map(route => `${route.path}${route.exact ? '' : '*'}`);
+const ROUTES = routesArray.map(route => `${PUBLIC_URL}${route.path}${route.exact ? '' : '*'}`.replace('//', '/'));
 
 // define the OBC root url
 // example: https://www.obcurl.gov
