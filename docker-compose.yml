@@ -5,12 +5,24 @@ services:
       context: .
     ports:
       - 3000:3000
-    command: yarn start
+    command: yarn run server
+    environment:
+      - PUBLIC_URL=/talentmap/
+      - STATIC_PATH=/app/build/
+      - API_ROOT=http://api:8000/
+      - OBC_URL=http://obc:4000/
     volumes:
       - .:/app:delegated
       - node-modules:/app/node_modules/
     depends_on:
       - api
+      - obc
+  obc:
+    build:
+      context: .
+      dockerfile: Dockerfile.obc
+    ports:
+      - 4000:4000
   api:
     build:
       context: ../State-TalentMAP-API/

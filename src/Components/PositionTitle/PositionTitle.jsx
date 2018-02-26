@@ -6,9 +6,10 @@ import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import EditContentButton from '../EditContentButton';
 import BidCount from '../BidCount';
+import OBCUrl from '../OBCUrl';
 import { POSITION_DETAILS, GO_BACK_TO_LINK, BID_LIST } from '../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
-import { getAssetPath, shortenString, propOrDefault } from '../../utilities';
+import { getAssetPath, shortenString, propOrDefault, getBidStatisticsObject } from '../../utilities';
 
 const seal = getAssetPath('/assets/img/rsz_dos-seal-bw.png');
 
@@ -110,9 +111,11 @@ class PositionTitle extends Component {
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
-    const bidStatistics = Array.isArray(details.bid_statistics) ? details.bid_statistics[0] : null;
+    const bidStatistics = getBidStatisticsObject(details.bid_statistics);
 
     const shouldShowBidStats = !!details.bid_statistics && !!bidStatistics;
+
+    const obcId = propOrDefault(details, 'post.obc_id');
 
     return (
       <div className="position-details-header-container">
@@ -193,12 +196,10 @@ class PositionTitle extends Component {
             {
               shouldShowBidStats &&
                 <BidCount
-                  totalBids={bidStatistics.total_bids}
-                  inGradeBids={bidStatistics.in_grade}
-                  atSkillBids={bidStatistics.at_skill}
-                  inGradeAtSkillBids={bidStatistics.in_grade_at_skill}
+                  bidStatistics={bidStatistics}
                 />
             }
+            { obcId && <OBCUrl id={obcId} /> }
           </div>
           <div className="offset-bid-button-container-button">
             <BidListButton

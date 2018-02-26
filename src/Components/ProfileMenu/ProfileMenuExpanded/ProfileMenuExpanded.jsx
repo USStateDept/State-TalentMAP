@@ -28,8 +28,10 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
           search="?type=all"
           hidden={!isCDO}
         />
-        <NavLink title="Bid Tracker" link="/profile/bidtracker/" />
-        <NavLink title="Bid List" link="/profile/bidlist/" />
+        <NavLink
+          title="Bidder Tracker"
+          link="/profile/bidtracker/"
+        />
         <NavLink title="Favorites" link="/profile/favorites/" />
         <NavLink title="Saved Searches" link="/profile/searches/" />
       </NavLink>
