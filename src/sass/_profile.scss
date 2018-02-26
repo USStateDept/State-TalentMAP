@@ -8,6 +8,10 @@
   position: relative;
   width: 100%;
 
+  .notifications-top {
+    min-height: 155px;
+  }
+
   .section-padded-inner-container {
     padding: 15px;
   }
@@ -566,6 +570,7 @@ $padding-no-border: $total-padding - $border;
 
 .bid-list-container {
   max-height: 450px;
+  min-height: 160px;
   overflow-y: scroll;
 }
 
