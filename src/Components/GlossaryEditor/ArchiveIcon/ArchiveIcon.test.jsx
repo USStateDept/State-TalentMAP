@@ -35,7 +35,7 @@ describe('ArchiveIconComponent', () => {
     expect(wrapper.find('.term-not-archived').exists()).toBe(true);
   });
 
-  it('resets the isArchived state if an errored is passed after initial mount', () => {
+  it('resets the isArchived state if an error is passed after initial mount', () => {
     const wrapper = shallow(<ArchiveIcon {...props} isArchived={false} />);
     expect(wrapper.instance().state.isArchived).toBe(false);
     wrapper.find('InteractiveElement').simulate('click');
