@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import routesArray from './RoutesMap';
+import routesArray from '../../routes';
 
 const Routes = props => (
   <Switch {...props}>
