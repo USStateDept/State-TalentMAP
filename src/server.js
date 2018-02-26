@@ -1,9 +1,6 @@
 const express = require('express');
 const path = require('path');
-const routesArray = require('./Containers/Routes/RoutesArray.js');
-
-// Routes from React, with wildcard added to the end if the route is not exact
-const ROUTES = routesArray.map(route => `${route.path}${route.exact ? '' : '*'}`);
+const routesArray = require('./routes.js');
 
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
@@ -13,6 +10,9 @@ const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
+
+// Routes from React, with wildcard added to the end if the route is not exact
+const ROUTES = routesArray.map(route => `${route.path}${route.exact ? '' : '*'}`);
 
 // define the OBC root url
 // example: https://www.obcurl.gov
