@@ -41,7 +41,7 @@ function configureStore(initialState) {
 const store = configureStore();
 
 // Begin our Index Saga
-sagaMiddleware.run(IndexSagas);
+// sagaMiddleware.run(IndexSagas);
 
 const isAuthorized = () => checkIndexAuthorization(store);
 
