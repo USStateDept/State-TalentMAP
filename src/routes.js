@@ -1,5 +1,4 @@
 const routesArray = [
-  { path: '/login', componentName: 'Login' },
   { path: '/', exact: true, componentName: 'Home' },
   { path: '/profile', componentName: 'Profile' },
   { path: '/results', componentName: 'Results' },
