@@ -1,4 +1,6 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const path = require('path');
 const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
@@ -54,6 +56,9 @@ const loggingMiddleware = (request, response, next) => {
 
 const app = express();
 
+// raw parser
+const rawParser = bodyParser.raw();
+
 // remove 'X-Powered-By' header
 app.disable('x-powered-by');
 
@@ -72,8 +77,16 @@ app.use(bodyParser.urlencoded({
 app.use(loggingMiddleware);
 
 // saml2 acs
-app.post(PUBLIC_URL, (request, response) => {
-  response.redirect(307, `${API_ROOT}/saml2/acs/`);
+app.post(PUBLIC_URL, rawParser, (request, response) => {
+  if (request.body) {
+    axios.post(`${API_ROOT}/saml2/acs/`, request.body)
+    .then((r) => {
+      console.log(r);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 });
 
 // saml2 login
@@ -109,6 +122,10 @@ app.get(`${PUBLIC_URL}obc/post/data/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
   response.redirect(`${OBC_URL}/post/postdatadetails/${id}`);
+});
+
+app.get(`${PUBLIC_URL}logout`, (request, response) => {
+  response.redirect(`${API_ROOT}/saml2/logout/`);
 });
 
 // OBC redirect - posts
