@@ -52,7 +52,7 @@ app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
 });
 
 app.get(`${PUBLIC_URL}logout`, (request, response) => {
-  response.redirect(`${API_ROOT}/saml2/ls/`);
+  response.redirect(`${API_ROOT}/saml2/logout/`);
 });
 
 // OBC redirect - posts
