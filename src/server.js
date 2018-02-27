@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const path = require('path');
 const routesArray = require('./routes.js');
 
@@ -26,6 +27,9 @@ const app = express();
 
 // raw parser
 const rawParser = bodyParser.raw();
+
+// middleware for HTTP headers
+app.use(helmet());
 
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
