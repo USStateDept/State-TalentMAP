@@ -51,6 +51,10 @@ app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
   response.redirect(`${API_ROOT}/saml2/metadata/`);
 });
 
+app.get(`${PUBLIC_URL}logout`, (request, response) => {
+  response.redirect(`${API_ROOT}/saml2/ls/`);
+});
+
 // OBC redirect - posts
 app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
