@@ -45,7 +45,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
       <Link
         onClick={[Function]}
         replace={false}
-        to="/login"
+        to="/logout"
       >
         Logout
       </Link>
@@ -105,7 +105,7 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
       <Link
         onClick={[Function]}
         replace={false}
-        to="/login"
+        to="/logout"
       >
         Logout
       </Link>
