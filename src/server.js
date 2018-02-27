@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const path = require('path');
+const axios = require('axios');
 const routesArray = require('./routes.js');
 
 // define full path to static build
@@ -37,7 +38,13 @@ app.use(PUBLIC_URL, express.static(STATIC_PATH));
 // saml2 acs
 app.post(PUBLIC_URL, rawParser, (request, response) => {
   if (request.body) {
-    response.redirect(307, `${API_ROOT}/saml2/acs/`);
+    axios.post(`${API_ROOT}/saml2/acs/`, request.body)
+    .then((r) => {
+      console.log(r);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 });
 
