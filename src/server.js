@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const routesArray = require('./routes.js');
 
@@ -23,12 +24,17 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+// raw parser
+const rawParser = bodyParser.raw();
+
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
 
 // saml2 acs
-app.post(PUBLIC_URL, (request, response) => {
-  response.redirect(307, `${API_ROOT}/saml2/acs/`);
+app.post(PUBLIC_URL, rawParser, (request, response) => {
+  if (request.body) {
+    response.redirect(307, `${API_ROOT}/saml2/acs/`);
+  }
 });
 
 // saml2 login
