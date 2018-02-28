@@ -8587,11 +8587,11 @@ typedarray@^0.0.6, typedarray@~0.0.5:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
 
-typeface-merriweather@^0.0.45:
-  version "0.0.45"
-  resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-0.0.45.tgz#4ada08baf5db523a1240d4e87a50f956d3c32f80"
+typeface-merriweather@^0.0.54:
+  version "0.0.54"
+  resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-0.0.54.tgz#a6b694d93c7ac432e26e8d7797a19afe83844186"
 
-typeface-roboto@0.0.50:
+typeface-roboto@^0.0.50:
   version "0.0.50"
   resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.50.tgz#cc8e2ad00a24a4d0efce60731ccf722c29185fa4"
 
