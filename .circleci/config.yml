@@ -7,6 +7,10 @@ default-docker-node: &default-docker-node
         COMPOSE_FILE_NAME: circleci-docker-compose.yml
         API_REPO_NAME: state-talentmap-api
         API_REPO_BRANCH: staging
+        PUBLIC_URL: /talentmap/
+        STATIC_PATH: /home/circleci/project/public
+        API_ROOT: http://app:8000/
+        OBC_URL: http://obc:4000/
 jobs:
   build:
     <<: *default-docker-node

@@ -4,9 +4,9 @@ import { Tooltip } from 'react-tippy';
 import BID_COUNT_DEFINITIONS from '../../../Constants/BidCountDefinitions';
 
 const BidCountNumber = ({ type, number }) => (
-  <li className="bid-count-list-item">
+  <li className="bid-count-list-item" title={BID_COUNT_DEFINITIONS[type].title}>
     <Tooltip
-      title={BID_COUNT_DEFINITIONS[type]}
+      title={BID_COUNT_DEFINITIONS[type].definition}
       arrow
       offset={-50}
       tabIndex="0"

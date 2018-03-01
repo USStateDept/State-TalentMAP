@@ -128,10 +128,15 @@
 .offset-bid-button-container {
   left: 63%;
   position: absolute;
-  top: 70%;
+  top: 55%;
 
   .offset-bid-button-container-count {
     min-height: 38px;
+
+    a {
+      margin-left: 5px;
+      white-space: nowrap;
+    }
   }
 
   .bid-count-list {

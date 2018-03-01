@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
+<div
+  className="condensed-card-footer condensed-card-statistics"
+>
+  <div
+    className="usa-grid-full condensed-card-footer-container"
+  >
+    <BidCount
+      bidStatistics={
+        Object {
+          "at_skill": 5,
+          "in_grade": 5,
+          "in_grade_at_skill": 5,
+          "total_bids": 5,
+        }
+      }
+      hideLabel={false}
+    />
+  </div>
+</div>
+`;

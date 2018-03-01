@@ -25,6 +25,20 @@ describe('PostMissionDataComponent', () => {
     expect(wrapper.instance().props.post.has_service_needs_differential).toBe(true);
   });
 
+  it('displays the OBC link if obc_id exists', () => {
+    const newPostObject = { ...postObject };
+    newPostObject.obc_id = 1;
+    wrapper = shallow(<PostMissionData post={newPostObject} />);
+    expect(wrapper.find('OBCUrl').exists()).toBe(true);
+  });
+
+  it('hides the OBC link if obc_id does not exist', () => {
+    const newPostObject = { ...postObject };
+    newPostObject.obc_id = 1;
+    wrapper = shallow(<PostMissionData post={postObject} />);
+    expect(wrapper.find('OBCUrl').exists()).toBe(false);
+  });
+
   it('can receive props with false values', () => {
     Object.assign(postObject, {
       languages: [],

@@ -3,7 +3,7 @@ export const POSITION_SEARCH_SORTS = {
     { value: '', text: 'Sort option', disabled: true },
     { value: 'grade', text: 'Grade' },
     { value: 'position_number', text: 'Number' },
-    { value: 'create_date', text: 'Posted Date' },
+    { value: 'description__date_created', text: 'Posted Date' },
     { value: 'post__has_service_needs_differential', text: 'Service Need' },
     { value: 'bureau__long_description', text: 'Bureau' },
   ],
