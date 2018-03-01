@@ -8,7 +8,7 @@ describe('FeedbackComponent', () => {
   const props = {
     visible: true,
     toggleVisibility: () => {},
-    feedbackIsLoading: false,
+    feedbackIsSending: false,
     feedbackHasErrored: { hasErrored: false, message: null },
     submitFeedback: () => {},
     onChangeText: () => {},
@@ -31,7 +31,7 @@ describe('FeedbackComponent', () => {
     const wrapper = shallow(
       <Feedback
         {...props}
-        feedbackIsLoading
+        feedbackIsSending
       />,
     );
     expect(wrapper).toBeDefined();

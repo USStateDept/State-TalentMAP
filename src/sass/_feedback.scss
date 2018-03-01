@@ -77,9 +77,15 @@
     bottom: -60rem;
   }
 
+  .submission-status-text {
+    color: $color-white;
+  }
+
   .editor {
     color: $color-black;
+    height: 150px;
     margin-bottom: 0;
+    overflow: scroll;
   }
 
   button {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleFeedback } from '../../actions/showFeedback';
-// import { feedbackSubmitData } from '../../actions/feedback'; Will add once action is created
+import { feedbackSubmitData } from '../../actions/feedback';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Feedback from '../../Components/Feedback';
 
@@ -30,7 +30,8 @@ class FeedbackContainer extends Component {
 
   submitFeedback(e) {
     if (e.preventDefault) { e.preventDefault(); }
-    this.props.submitFeedback();
+    const { feedbackText, additionalFeedbackCheck } = this.state;
+    this.props.submitFeedback(feedbackText, additionalFeedbackCheck);
   }
 
   toggleVisibility() {
@@ -39,13 +40,13 @@ class FeedbackContainer extends Component {
   }
 
   render() {
-    const { shouldShowFeedback, feedbackIsLoading,
+    const { shouldShowFeedback, feedbackIsSending,
       feedbackHasErrored, feedbackSuccess } = this.props;
     const { feedbackText, additionalFeedbackCheck } = this.state;
     return (
       <Feedback
         submitFeedback={this.submitFeedback}
-        feedbackIsLoading={feedbackIsLoading}
+        feedbackIsSending={feedbackIsSending}
         visible={shouldShowFeedback}
         toggleVisibility={this.toggleVisibility}
         feedbackHasErrored={feedbackHasErrored}
@@ -63,7 +64,7 @@ FeedbackContainer.propTypes = {
   shouldShowFeedback: PropTypes.bool.isRequired,
   toggleFeedbackVisibility: PropTypes.func.isRequired,
   submitFeedback: PropTypes.func.isRequired,
-  feedbackIsLoading: PropTypes.bool.isRequired,
+  feedbackIsSending: PropTypes.bool.isRequired,
   feedbackHasErrored: PropTypes.shape({ hasErrored: PropTypes.bool, message: PropTypes.string }),
   feedbackSuccess: PropTypes.bool.isRequired,
 };
@@ -72,7 +73,7 @@ FeedbackContainer.defaultProps = {
   shouldShowFeedback: false,
   toggleFeedbackVisibility: EMPTY_FUNCTION,
   submitFeedback: EMPTY_FUNCTION,
-  feedbackIsLoading: false,
+  feedbackIsSending: false,
   feedbackHasErrored: {},
   feedbackSuccess: false,
 };
@@ -80,13 +81,14 @@ FeedbackContainer.defaultProps = {
 const mapStateToProps = state => ({
   shouldShowFeedback: state.shouldShowFeedback,
   feedbackHasErrored: state.feedbackHasErrored,
-  feedbackIsLoading: state.feedbackIsLoading,
+  feedbackIsSending: state.feedbackIsSending,
   feedbackSuccess: state.feedbackSuccess,
 });
 
 export const mapDispatchToProps = dispatch => ({
   toggleFeedbackVisibility: shouldDisplay => dispatch(toggleFeedback(shouldDisplay)),
-  /* submitFeedback: dispatch(feedbackFetchData()), Will add once action is created */
+  submitFeedback: (comments, isInterestedInHelping) =>
+    dispatch(feedbackSubmitData(comments, isInterestedInHelping)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeedbackContainer);

@@ -63,6 +63,7 @@ describe('Feedback', () => {
 describe('mapDispatchToProps', () => {
   const config = {
     toggleFeedbackVisibility: [true],
+    feedbackSubmitData: ['text', true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });
