@@ -1,28 +1,35 @@
-// custom styles for using Design System Layouts spinner
-$tm-spinner-default-border-width: 13px;
-$tm-spinner-default-size: 100px;
-$tm-spinner-filled-ratio: 1.15;
-
 .tm-spinner {
-  color: $tm-navy;
+
+  margin: auto;
+  width: 100px;
   z-index: $spinner-z; // make sure spinner is on top
-
-  .ds-c-spinner--big.ds-c-spinner--filled {
-    height: $tm-spinner-default-size * $tm-spinner-filled-ratio;
-    width: $tm-spinner-default-size * $tm-spinner-filled-ratio;
+    
+  img {
+    position: absolute;
+    width: 10em;
   }
 
-  .ds-c-spinner--big::before {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
+  .center {
+    -moz-animation: spin 3s linear infinite;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
   }
 
-  .ds-c-spinner--big::after {
-    border-width: $tm-spinner-default-border-width;
-    height: $tm-spinner-default-size;
-    width: $tm-spinner-default-size;
+  .middle {
+    -webkit-animation: spin 4s linear infinite;
+    -moz-animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
   }
+
+  .outer {
+    -webkit-animation: spin 5s linear infinite;
+    -moz-animation: spin 5s linear infinite;
+    animation: spin 5s linear infinite;
+  }
+
+  @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+  @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+  @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform: rotate(360deg); } }
 }
 
 .tm-spinner-color-inverted {

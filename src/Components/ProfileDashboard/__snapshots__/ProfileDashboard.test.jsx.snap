@@ -318,8 +318,6 @@ exports[`ProfileDashboardComponent matches snapshot when loading 1`] = `
   className="usa-grid-full user-dashboard profile-content-inner-container"
 >
   <Spinner
-    filled={false}
-    inverse={false}
     size="big"
     type="homepage-position-results"
   />

@@ -297,8 +297,6 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
     className="comparison-container"
   >
     <Spinner
-      filled={false}
-      inverse={false}
       size="big"
       type="homepage-position-results"
     />
