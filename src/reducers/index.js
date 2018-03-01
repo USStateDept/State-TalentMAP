@@ -29,6 +29,7 @@ import showGlossary from './showGlossary';
 import glossary from './glossary';
 import bidStatistics from './bidStatistics';
 import selectedSearchbarFilters from './selectedSearchbarFilters';
+import showFeedback from './showFeedback';
 
 
 export default combineReducers({
@@ -58,6 +59,7 @@ export default combineReducers({
   ...glossary,
   ...bidStatistics,
   ...selectedSearchbarFilters,
+  ...showFeedback,
   router: routerReducer,
   form,
   client,

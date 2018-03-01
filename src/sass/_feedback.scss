@@ -1,0 +1,107 @@
+// scss-lint:disable QualifyingElement
+// scss-lint:disable ImportantRule
+
+.tm-feedback-button {
+  background-color: $color-gold-dark;
+  border-color: $color-gold-dark;
+  border-radius: 2px 2px 0 0;
+  bottom: 0;
+  color: $tm-navy-dark;
+  margin-bottom: 0;
+  position: fixed;
+  right: 4rem;
+  z-index: $feedback-button-z;
+}
+
+.tm-feedback-button:hover {
+  background-color: $color-gold-darker;
+}
+
+.tm-feedback-button:active {
+  background-color: $color-gold-darkest;
+}
+
+.tm-feedback {
+  $foreground-color: $color-white;
+  position: fixed;
+  z-index: $feedback-z;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: sans-serif;
+  }
+
+  h3 {
+    color: $foreground-color;
+  }
+
+  fieldset {
+    color: $foreground-color;
+  }
+
+  legend {
+    font-size: 1em;
+    font-weight: normal;
+  }
+
+  .feedback {
+    background: $color-gray-darkest;
+    border-left: 1px solid $tm-navy-dark;
+    bottom: 0;
+    max-height: 70%;
+    overflow-y: scroll;
+    padding: 2rem 3rem;
+    position: fixed;
+    right: 45px;
+    transition: bottom .5s;
+    width: 50rem;
+
+    .feedback-hidden {
+      display: none !important;
+    }
+  }
+
+  .feedback-content-container {
+    position: relative;
+  }
+
+  .feedback-submit-button {
+    margin-top: 1em;
+    padding: .75em 2em;
+  }
+
+  .feedback-hidden {
+    bottom: -60rem;
+  }
+
+  .editor {
+    color: $color-black;
+    margin-bottom: 0;
+  }
+
+  button {
+    appearance: none;
+    padding: 1.5rem .5rem;
+    text-align: left;
+  }
+
+  .feedback-content {
+    padding: 4rem 0;
+  }
+
+  .feedback-submission-messages {
+    min-height: 50px;
+  }
+
+  .feedback-close {
+    background-color: transparent;
+    border: 0;
+    color: $foreground-color;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
