@@ -2,10 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { USER_PROFILE, ASSIGNMENT_OBJECT } from '../../Constants/PropTypes';
 import UserProfile from './UserProfile';
-import ExternalUserStatus from './ExternalUserStatus';
 import PositionInformation from './PositionInformation';
 import Spinner from '../Spinner';
-import StaticDevContent from '../StaticDevContent';
 
 const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoading,
   notificationsIsLoading, bidListIsLoading }) => (
@@ -27,11 +25,6 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
               >
                 <div className="usa-width-one-whole user-dashboard-section current-user-section">
                   <UserProfile userProfile={userProfile} />
-                </div>
-                <div className="usa-width-one-whole user-dashboard-section cdo-section">
-                  <StaticDevContent>
-                    <ExternalUserStatus type="cdo" name="Leah Shadtrach" />
-                  </StaticDevContent>
                 </div>
               </div>
               <div

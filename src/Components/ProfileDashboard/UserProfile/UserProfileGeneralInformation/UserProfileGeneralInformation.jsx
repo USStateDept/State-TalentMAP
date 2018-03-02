@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { USER_PROFILE } from '../../../../Constants/PropTypes';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
-import Status from '../Status';
 import ProfilePicture from '../../../ProfilePicture';
 import StaticDevContent from '../../../StaticDevContent';
 import SkillCodeList from '../../../SkillCodeList';
@@ -11,7 +10,6 @@ import SkillCodeList from '../../../SkillCodeList';
 const UserProfileGeneralInformation = ({ userProfile, useGroup }) => (
   <div className="current-user-top current-user-section-container">
     <div className="section-padded-inner-container">
-      <Status />
       <ProfilePicture />
       <SectionTitle small title={`${userProfile.user.last_name}, ${userProfile.user.first_name}`} className="current-user-name" />
       {
