@@ -316,12 +316,5 @@ export const formatIdSpacing = (id) => {
 };
 
 // provide an array of permissions to check if they all exist in an array of user permissions
-export const userHasPermissions = (permissionsToCheck = [], userPermissions = []) => {
-  let hasPermissions = true;
-  permissionsToCheck.forEach((perm) => {
-    if (userPermissions.indexOf(perm) <= -1) {
-      hasPermissions = false;
-    }
-  });
-  return hasPermissions;
-};
+export const userHasPermissions = (permissionsToCheck = [], userPermissions = []) =>
+  permissionsToCheck.every(val => userPermissions.indexOf(val) >= 0);
