@@ -5,7 +5,7 @@ import { toggleFeedback } from '../../actions/showFeedback';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import FeedbackButton from '../../Components/FeedbackButton';
 
-class FeedbackContainer extends Component {
+class FeedbackButtonContainer extends Component {
 
   constructor(props) {
     super(props);
@@ -26,12 +26,12 @@ class FeedbackContainer extends Component {
   }
 }
 
-FeedbackContainer.propTypes = {
+FeedbackButtonContainer.propTypes = {
   shouldShowFeedback: PropTypes.bool.isRequired,
   toggleFeedbackVisibility: PropTypes.func.isRequired,
 };
 
-FeedbackContainer.defaultProps = {
+FeedbackButtonContainer.defaultProps = {
   shouldShowFeedback: false,
   toggleFeedbackVisibility: EMPTY_FUNCTION,
 };
@@ -44,4 +44,4 @@ export const mapDispatchToProps = dispatch => ({
   toggleFeedbackVisibility: shouldDisplay => dispatch(toggleFeedback(shouldDisplay)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(FeedbackContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(FeedbackButtonContainer);
