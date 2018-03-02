@@ -4,6 +4,7 @@ import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
 import { cloneDeep, get, keys, merge as merge$, isNumber } from 'lodash';
 import { VALID_PARAMS } from './Constants/EndpointParams';
+import { PUBLIC_ROOT } from './login/DefaultRoutes';
 
 const scroll = Scroll.animateScroll;
 
@@ -470,4 +471,8 @@ export const getDifferentialPercentage = (differential, defaultValue = '') => {
     return `${differential}%`;
   }
   return defaultValue;
+};
+
+export const redirectToLogin = () => {
+  window.location.href = PUBLIC_ROOT;
 };

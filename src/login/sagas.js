@@ -1,16 +1,20 @@
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
+import Cookies from 'universal-cookie';
 import { push } from 'react-router-redux';
 import api from '../api';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
 
 // Our login constants
 import {
-  LOGIN_REQUESTING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_REQUESTING,
   LOGOUT_SUCCESS,
+  TOKEN_VALIDATION_REQUESTING,
 } from './constants';
+
+// default public route to navigate to
+import { PUBLIC_ROOT } from './DefaultRoutes';
 
 // So that we can modify our Client piece of state
 import {
@@ -30,19 +34,28 @@ import {
   unsetNotificationsCount,
 } from '../actions/notifications';
 
-const loginUrl = '/accounts/token/';
-
 export const errorMessage = { message: null };
 
 export function changeErrorMessage(e) {
   errorMessage.message = e;
 }
 
+export function tokenApi(token) {
+  if (!token) {
+    return changeErrorMessage('Token cannot be blank');
+  }
+  return api.get('/profile/', { headers: { Authorization: `Token ${token}` } })
+    .then(response => response.data)
+    .catch(error => changeErrorMessage(error.message));
+}
+
+/* Development Login */
 export function loginApi(username, password) {
   if (!username || !password) {
     return changeErrorMessage('Fields cannot be blank');
   }
-  return api.post(loginUrl, { username, password })
+
+  return api.post('/accounts/token/', { username, password })
     .then(response => response.data.token)
     .catch((error) => { changeErrorMessage(error.message); });
 }
@@ -57,8 +70,11 @@ function* logout() {
   // unset notifications count
   yield put(unsetNotificationsCount());
 
-  // remove our token
+  // remove our local storage token
   localStorage.removeItem('token');
+
+  // remove our cookie token
+  cookies.remove('tmApiToken');
 
   // .. inform redux that our logout was successful
   yield put({ type: LOGOUT_SUCCESS });
@@ -69,26 +85,27 @@ function* logout() {
   const isOnLoginPage = isCurrentPath(window.location.pathname, '/login');
 
   // redirect to the /login screen
+
   if (!isOnLoginPage) {
     yield put(push('/login'));
   }
 }
 
-function* loginFlow(username, password) {
-  // try to call to our loginApi() function.  Redux Saga
+function* tokenFlow(tokenToCheck) {
+  // try to call to our loginApi() function. Redux Saga
   // will pause here until we either are successful or
   // receive an error
-  const token = yield call(loginApi, username, password);
+  const tokenWasSuccessful = yield call(tokenApi, tokenToCheck);
 
-  if (token) {
+  if (tokenWasSuccessful) {
     // inform Redux to set our client token
-    yield put(setClient(token));
+    yield put(setClient(tokenToCheck));
 
     // also inform redux that our login was successful
     yield put({ type: LOGIN_SUCCESS });
 
     // set a stringified version of our token to localstorage on our domain
-    localStorage.setItem('token', JSON.stringify(token));
+    localStorage.setItem('token', JSON.stringify(tokenToCheck));
 
     // get the user's profile data
     yield put(userProfileFetchData());
@@ -100,28 +117,25 @@ function* loginFlow(username, password) {
     yield put({ type: LOGIN_ERROR, error: errorMessage.message });
   }
   if (yield cancelled()) {
-    push('/login');
+    push(PUBLIC_ROOT);
   }
 
   // return the token for health and wealth
-  return token;
+  return tokenToCheck;
 }
 
 // Our watcher (saga).  It will watch for many things.
 function* loginWatcher() {
   // Check if user entered already logged in or not
   while (true) { // eslint-disable-line no-constant-condition
-    const { loggingIn } = yield race({
-      loggingIn: take(LOGIN_REQUESTING),
+    const { tokenValidating } = yield race({
+      tokenValidating: take(TOKEN_VALIDATION_REQUESTING),
       loggingOut: take(LOGOUT_REQUESTING),
     });
 
-    if (loggingIn) {
-      // grab username and password
-      const { username, password } = loggingIn;
-
-      // attempt log in
-      yield call(loginFlow, username, password);
+    if (tokenValidating) {
+      const { token } = tokenValidating;
+      yield call(tokenFlow, token);
     } else {
       // log out
       yield call(logout);
