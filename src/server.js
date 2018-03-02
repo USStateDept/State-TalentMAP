@@ -56,8 +56,8 @@ const loggingMiddleware = (request, response, next) => {
 
 const app = express();
 
-// raw parser
-const rawParser = bodyParser.raw();
+// body parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // remove 'X-Powered-By' header
 app.disable('x-powered-by');
@@ -77,16 +77,8 @@ app.use(bodyParser.urlencoded({
 app.use(loggingMiddleware);
 
 // saml2 acs
-app.post(PUBLIC_URL, rawParser, (request, response) => {
-  if (request.body) {
-    axios.post(`${API_ROOT}/saml2/acs/`, request.body)
-    .then((r) => {
-      console.log(r);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+app.post(PUBLIC_URL, (request, response) => {
+  response.redirect(307, `${API_ROOT}/saml2/acs/`);
 });
 
 // saml2 login
