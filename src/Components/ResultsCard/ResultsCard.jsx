@@ -7,11 +7,11 @@ import Favorite from '../Favorite/Favorite';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import ResultsCardDataSection from '../ResultsCardDataSection/ResultsCardDataSection';
 import BidCount from '../BidCount';
-import { formatDate } from '../../utilities';
+import { formatDate, getBidStatisticsObject } from '../../utilities';
 
 const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored }) => {
-  const shouldShowBidStats = !!result.bid_statistics && !!result.bid_statistics[0];
+  const bidStatistics = getBidStatisticsObject(result.bid_statistics);
   const postedDate = result.description && result.description.date_created ?
     formatDate(result.description.date_created) : NO_LAST_UPDATED_DATE;
   const bidCycle = result.bid_statistics && result.bid_statistics.length ?
@@ -54,15 +54,10 @@ const ResultsCard = ({ result, onToggle, favorites, toggleFavorite,
             <CompareCheck refKey={result.position_number} onToggle={onToggle} />
           </div>
           <div className="bid-count-container">
-            {
-              shouldShowBidStats &&
-                <BidCount
-                  totalBids={result.bid_statistics[0].total_bids}
-                  inGradeBids={result.bid_statistics[0].in_grade}
-                  atSkillBids={result.bid_statistics[0].at_skill}
-                  inGradeAtSkillBids={result.bid_statistics[0].in_grade_at_skill}
-                />
-            }
+            <BidCount
+              bidStatistics={bidStatistics}
+              hideLabel
+            />
           </div>
         </div>
         <div className="usa-grid-full bid-cycle-container">

@@ -2,7 +2,7 @@
 
 exports[`FavoritePositionsComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full favorite-positions-container null"
+  className="usa-grid-full favorite-positions-container profile-content-inner-container null"
 >
   <ProfileSectionTitle
     title="Your Favorite Positions:"

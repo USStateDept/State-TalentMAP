@@ -65,7 +65,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       }
     />
     <div
-      className="usa-grid-full"
+      className="usa-grid-full condensed-card-buttons-section"
     >
       <Favorite
         compareArray={
@@ -85,6 +85,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         isLoading={false}
         onToggle={[Function]}
         refKey={6}
+        useLongText={false}
       />
       <BidListButton
         className="tm-button"

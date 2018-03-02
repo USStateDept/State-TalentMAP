@@ -15,6 +15,13 @@
   max-width: 1200px;
 }
 
+// scss-lint:disable SelectorFormat
+// Disable overflow scroll bar in Edge
+.glossary-editor-card-definition,
+.Select--multi .Select-multi-value-wrapper {
+  -ms-overflow-style: none;
+}
+
 // IE10+ specific styles
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
   select::-ms-expand {

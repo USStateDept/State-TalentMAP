@@ -36,6 +36,46 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
     name="star"
   />
    
+  Remove from Favorites
+</InteractiveElement>
+`;
+
+exports[`Favorite matches snapshot when useLongText is true - Add state 1`] = `
+<InteractiveElement
+  className="favorite-container "
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+  title="Add to Favorites"
+  type="div"
+>
+  <FontAwesome
+    name="star-o"
+  />
+   
+  Add to Favorites
+</InteractiveElement>
+`;
+
+exports[`Favorite matches snapshot when useLongText is true - Remove state 1`] = `
+<InteractiveElement
+  className="favorite-container "
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+  title="Remove from Favorites"
+  type="div"
+>
+  <FontAwesome
+    name="star"
+  />
+   
   Remove
 </InteractiveElement>
 `;

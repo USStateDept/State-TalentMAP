@@ -13,7 +13,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
   cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
   cloneSavedSearchSuccess }) => (
     <div
-      className={`usa-grid-full saved-searches-container
+      className={`usa-grid-full profile-content-inner-container saved-searches-container
       ${(savedSearchesIsLoading || cloneSavedSearchIsLoading) ? 'results-loading' : ''}`}
     >
       <ProfileSectionTitle title="Your Saved Searches:" />
