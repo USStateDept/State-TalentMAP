@@ -4,8 +4,8 @@ import FontAwesome from 'react-fontawesome';
 import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import EditContentButton from '../EditContentButton';
-import BidCount from '../BidCount';
 import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
+import OBCUrl from '../OBCUrl';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import { getAssetPath, shortenString, propOrDefault } from '../../utilities';
 
@@ -108,9 +108,7 @@ class PositionTitle extends Component {
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
-    const bidStatistics = Array.isArray(details.bid_statistics) ? details.bid_statistics[0] : null;
-
-    const shouldShowBidStats = !!details.bid_statistics && !!bidStatistics;
+    const obcId = propOrDefault(details, 'post.obc_id');
 
     return (
       <div className="position-details-header-container">
@@ -188,15 +186,7 @@ class PositionTitle extends Component {
         </div>
         <div className="offset-bid-button-container">
           <div className="offset-bid-button-container-count">
-            {
-              shouldShowBidStats &&
-                <BidCount
-                  totalBids={bidStatistics.total_bids}
-                  inGradeBids={bidStatistics.in_grade}
-                  atSkillBids={bidStatistics.at_skill}
-                  inGradeAtSkillBids={bidStatistics.in_grade_at_skill}
-                />
-            }
+            { obcId && <OBCUrl id={obcId} /> }
           </div>
         </div>
       </div>

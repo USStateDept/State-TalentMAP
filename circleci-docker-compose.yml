@@ -4,7 +4,12 @@ services:
     image: talentmap/@@REPO_NAME@@:@@LABEL@@
     ports:
       - 3000:3000
-    command: yarn start
+    command: yarn run server
+    environment:
+      - PUBLIC_URL=/talentmap/
+      - STATIC_PATH=/app/build/
+      - API_ROOT=http://app:8000/
+      - OBC_URL=http://obc:4000/
     container_name: web
     volumes_from:
       - data

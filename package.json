@@ -7,7 +7,6 @@
     "axios": "^0.17.1",
     "babel-polyfill": "^6.26.0",
     "date-fns": "^1.29.0",
-    "dot-prop": "^4.2.0",
     "draft-js": "^0.10.4",
     "draft-js-plugins-editor": "^2.0.4",
     "express": "^4.16.2",
@@ -15,6 +14,7 @@
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",
+    "numeral": "^2.0.6",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "rc-steps": "^3.1.0",
@@ -90,6 +90,7 @@
     "sass-loader": "^6.0.6",
     "sinon": "^2.4.1",
     "style-loader": "0.19.1",
+    "supertest": "^3.0.0",
     "sw-precache-webpack-plugin": "0.11.4",
     "url-loader": "0.6.2",
     "webpack": "^2.7.0",
@@ -120,6 +121,7 @@
       "<rootDir>/config/polyfills.js",
       "jest-localstorage-mock"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setupTests.js",
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.js?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).js?(x)"

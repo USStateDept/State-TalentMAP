@@ -12,6 +12,17 @@ class ArchiveIcon extends Component {
     };
   }
 
+  componentWillReceiveProps(props) {
+    // Reset the isArchived state to the object's value if
+    // hasErrored becomes true after the initial mount.
+    //
+    // codeclimate and local dev in Atom catch prop types errors differently:
+    // eslint-disable-next-line react/prop-types
+    if (props.hasErrored) {
+      this.setState({ isArchived: props.isArchived });
+    }
+  }
+
   submitOption() {
     const { id, onSubmitOption } = this.props;
     this.setState({ isArchived: !this.state.isArchived });

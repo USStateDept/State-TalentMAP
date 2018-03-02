@@ -119,16 +119,6 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
           type="compare"
         />
       </div>
-      <div
-        className="bid-count-container"
-      >
-        <BidCount
-          atSkillBids={0}
-          inGradeAtSkillBids={0}
-          inGradeBids={0}
-          totalBids={3}
-        />
-      </div>
     </div>
     <div
       className="usa-grid-full bid-cycle-container"

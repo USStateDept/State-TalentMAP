@@ -9,7 +9,7 @@ favorites }) => (
   <div className="condensed-card-bottom-container">
     <div className="usa-grid-full condensed-card-bottom">
       <CondensedCardData position={position} />
-      <div className="usa-grid-full">
+      <div className="usa-grid-full condensed-card-buttons-section">
         <Favorite
           useLongText
           hasBorder
@@ -20,7 +20,7 @@ favorites }) => (
       </div>
     </div>
   </div>
-);
+  );
 
 ResultsCondensedCardBottom.propTypes = {
   position: POSITION_DETAILS.isRequired,

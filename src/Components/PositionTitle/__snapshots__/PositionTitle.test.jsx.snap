@@ -94,14 +94,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   >
     <div
       className="offset-bid-button-container-count"
-    >
-      <BidCount
-        atSkillBids={0}
-        inGradeAtSkillBids={0}
-        inGradeBids={0}
-        totalBids={3}
-      />
-    </div>
+    />
   </div>
 </div>
 `;
