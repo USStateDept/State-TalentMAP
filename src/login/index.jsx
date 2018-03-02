@@ -1,34 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field } from 'redux-form';
+import queryString from 'query-string';
+import Cookies from 'universal-cookie';
 import { connect } from 'react-redux';
 
 import { EMPTY_FUNCTION } from '../Constants/PropTypes';
 import Alert from '../Components/Alert/Alert';
 
-import { loginRequest } from './actions';
+import { tokenValidationRequest } from './actions';
+
+// initialize cookies
+const cookies = new Cookies();
 
 export class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.submit = this.submit.bind(this);
-
-    this.state = {
-      loopActive: false,
-      shuffleActive: false,
-      emptyFields: false,
-    };
-  }
-
-  // Remember, Redux Form passes the form values to our handler
-  // In this case it will be an object with `username` and `password`
-  submit({ username, password }) {
-    this.props.loginRequest({ username, password });
+  // Check for token on component mount
+  componentWillMount() {
+    const query = window.location.search.replace('?', '') || '';
+    const parsedQuery = queryString.parse(query);
+    // First check to see if there's a token in the query params.
+    let token = parsedQuery.tmApiToken;
+    // If not, check if one exists in the cookies.
+    if (!token) { token = cookies.get('tmApiToken'); }
+    // If neither criteria is met, set the token to a fake token
+    // which will cause a failure.
+    if (!token) { token = 'No token'; }
+    // Finally, pass that token to the tokenValidationRequest function
+    this.props.tokenValidationRequest(token);
   }
 
   render() {
     const {
-      handleSubmit, // remember, Redux Form injects this into our props
       login: {
         requesting,
         messages,
@@ -39,32 +40,6 @@ export class Login extends Component {
     return (
       <div className="usa-grid login-container content-container">
         <div className="usa-grid login">
-          <form className="usa-form" onSubmit={handleSubmit(this.submit)}>
-            <fieldset>
-              <legend className="usa-drop_text">Sign in</legend>
-              <label htmlFor="username">Username</label>
-              {/*
-                Our Redux Form Field components that bind username and password
-                to our Redux state's form -> login piece of state.
-              */}
-              <Field
-                name="username"
-                type="text"
-                id="username"
-                className="username"
-                component="input"
-              />
-              <label htmlFor="password">Password</label>
-              <Field
-                name="password"
-                type="password"
-                id="password"
-                className="password"
-                component="input"
-              />
-              <input type="submit" value="Sign in" />
-            </fieldset>
-          </form>
           <div className="auth-messages">
             {
               !requesting && !!errors.length &&
@@ -91,44 +66,28 @@ export class Login extends Component {
   }
 }
 
-// Pass the correct proptypes in for validation
 Login.propTypes = {
-  handleSubmit: PropTypes.func,
-  loginRequest: PropTypes.func,
   login: PropTypes.shape({
     requesting: PropTypes.bool,
     successful: PropTypes.bool,
     messages: PropTypes.array,
     errors: PropTypes.array,
   }).isRequired,
+  tokenValidationRequest: PropTypes.func,
 };
 
 Login.defaultProps = {
-  handleSubmit: EMPTY_FUNCTION,
-  loginRequest: EMPTY_FUNCTION,
+  tokenValidationRequest: EMPTY_FUNCTION,
 };
 
-// Grab only the piece of state we need
 const mapStateToProps = state => ({
   login: state.login,
 });
 
-// make Redux state piece of `login` and our action `loginRequest`
-// available in this.props within our component
-const connected = connect(mapStateToProps, { loginRequest })(Login);
+export const mapDispatchToProps = dispatch => ({
+  tokenValidationRequest: token => dispatch(tokenValidationRequest(token)),
+});
 
-// in our Redux's state, this form will be available in 'form.login'
-const formed = reduxForm({
-  form: 'login',
-})(connected);
+const connected = connect(mapStateToProps, mapDispatchToProps)(Login);
 
-// Set sample username and password for the general public to use
-// Currently set to admin/admin
-const formedWithDefaultCreds = connect(
-  () => ({
-    initialValues: { username: 'admin', password: 'admin' }, // set initial values
-  }),
-)(formed);
-
-// Export our well formed login component with default credentials set to the field
-export default formedWithDefaultCreds;
+export default connected;

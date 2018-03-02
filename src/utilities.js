@@ -4,6 +4,7 @@ import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
 import numeral from 'numeral';
 import { VALID_PARAMS } from './Constants/EndpointParams';
+import { PUBLIC_ROOT } from './login/DefaultRoutes';
 
 const scroll = Scroll.animateScroll;
 
@@ -313,4 +314,8 @@ export const formatIdSpacing = (id) => {
   }
   // if id is not defined, return null
   return null;
+};
+
+export const redirectToLogin = () => {
+  window.location.href = PUBLIC_ROOT;
 };

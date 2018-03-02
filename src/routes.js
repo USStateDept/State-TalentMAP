@@ -5,6 +5,7 @@ const routesArray = [
   { path: '/details/:id', componentName: 'Position' },
   { path: '/post/:id', componentName: 'Post' },
   { path: '/compare/:ids', componentName: 'Compare' },
+  { path: '/tokenValidation', componentName: 'Login' },
 ];
 
 module.exports = routesArray;

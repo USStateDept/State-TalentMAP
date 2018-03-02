@@ -56,7 +56,7 @@ export class AccountDropdown extends Component {
           <div
             className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
           >
-            <Link to="/logout" onClick={this.logout}>Logout</Link>
+            <a href="/logout" onClick={this.logout}>Logout</a>
           </div>
         </DropdownContent>
       </Dropdown>
