@@ -8,7 +8,7 @@ import Spinner from '../Spinner';
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
 toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
 toggleBid, bidList }) => (
-  <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : null}`}>
+  <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
     <ProfileSectionTitle title="Your Favorite Positions:" />
     {
       favoritePositionsIsLoading && !favoritePositionsHasErrored &&
