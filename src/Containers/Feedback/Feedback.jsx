@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { toggleFeedback } from '../../actions/showFeedback';
 import { feedbackSubmitData } from '../../actions/feedback';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
-import Feedback from '../../Components/Feedback';
+import FeedbackForm from '../../Components/FeedbackForm';
 
 class FeedbackContainer extends Component {
 
@@ -44,7 +44,7 @@ class FeedbackContainer extends Component {
       feedbackHasErrored, feedbackSuccess } = this.props;
     const { feedbackText, additionalFeedbackCheck } = this.state;
     return (
-      <Feedback
+      <FeedbackForm
         submitFeedback={this.submitFeedback}
         feedbackIsSending={feedbackIsSending}
         visible={shouldShowFeedback}

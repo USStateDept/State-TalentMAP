@@ -7,7 +7,7 @@ import TextEditor from '../TextEditor';
 import CheckBox from '../CheckBox';
 import { FEEDBACK_INPUT_ID } from '../../Constants/HtmlAttributes';
 
-const FeedbackComponent = ({ visible, toggleVisibility, feedbackIsSending,
+const FeedbackFormComponent = ({ visible, toggleVisibility, feedbackIsSending,
 feedbackHasErrored, submitFeedback, onChangeText, feedbackText, additionalFeedbackCheck,
 feedbackSuccess, onCheckBoxClick }) => (
   <div className="tm-feedback">
@@ -57,7 +57,7 @@ feedbackSuccess, onCheckBoxClick }) => (
   </div>
 );
 
-FeedbackComponent.propTypes = {
+FeedbackFormComponent.propTypes = {
   visible: PropTypes.bool,
   toggleVisibility: PropTypes.func.isRequired,
   feedbackIsSending: PropTypes.bool,
@@ -70,7 +70,7 @@ FeedbackComponent.propTypes = {
   onCheckBoxClick: PropTypes.func.isRequired,
 };
 
-FeedbackComponent.defaultProps = {
+FeedbackFormComponent.defaultProps = {
   visible: false,
   feedbackIsSending: false,
   feedbackHasErrored: {},
@@ -79,4 +79,4 @@ FeedbackComponent.defaultProps = {
   additionalFeedbackCheck: false,
 };
 
-export default FeedbackComponent;
+export default FeedbackFormComponent;

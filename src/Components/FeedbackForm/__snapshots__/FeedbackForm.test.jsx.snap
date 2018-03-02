@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FeedbackComponent matches snapshot 1`] = `
+exports[`FeedbackFormComponent matches snapshot 1`] = `
 <div
   className="tm-feedback"
 >
@@ -79,7 +79,7 @@ exports[`FeedbackComponent matches snapshot 1`] = `
 </div>
 `;
 
-exports[`FeedbackComponent matches snapshot when visible is false 1`] = `
+exports[`FeedbackFormComponent matches snapshot when visible is false 1`] = `
 <div
   className="tm-feedback"
 >

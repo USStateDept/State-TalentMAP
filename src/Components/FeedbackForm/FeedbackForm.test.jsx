@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
-import Feedback from './Feedback';
+import FeedbackForm from './FeedbackForm';
 
-describe('FeedbackComponent', () => {
+describe('FeedbackFormComponent', () => {
   const props = {
     visible: true,
     toggleVisibility: () => {},
@@ -20,7 +20,7 @@ describe('FeedbackComponent', () => {
 
   it('is defined', () => {
     const wrapper = shallow(
-      <Feedback
+      <FeedbackForm
         {...props}
       />,
     );
@@ -29,7 +29,7 @@ describe('FeedbackComponent', () => {
 
   it('displays "Sending" text when submission is sending', () => {
     const wrapper = shallow(
-      <Feedback
+      <FeedbackForm
         {...props}
         feedbackIsSending
       />,
@@ -40,7 +40,7 @@ describe('FeedbackComponent', () => {
 
   it('displays the error text when submission has errored', () => {
     const wrapper = shallow(
-      <Feedback
+      <FeedbackForm
         {...props}
         feedbackHasErrored={{ hasErrored: true, message: 'Error occured' }}
       />,
@@ -51,7 +51,7 @@ describe('FeedbackComponent', () => {
 
   it('displays the success text when feedbackSuccess is true', () => {
     const wrapper = shallow(
-      <Feedback
+      <FeedbackForm
         {...props}
         feedbackSuccess
       />,
@@ -63,7 +63,7 @@ describe('FeedbackComponent', () => {
   it('can close the feedback', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <Feedback
+      <FeedbackForm
         {...props}
         toggleVisibility={spy}
       />,
@@ -74,7 +74,7 @@ describe('FeedbackComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <Feedback
+      <FeedbackForm
         {...props}
       />,
     );
@@ -83,7 +83,7 @@ describe('FeedbackComponent', () => {
 
   it('matches snapshot when visible is false', () => {
     const wrapper = shallow(
-      <Feedback
+      <FeedbackForm
         {...props}
         visible={false}
       />,
