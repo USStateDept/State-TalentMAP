@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const path = require('path');
-const axios = require('axios');
 const routesArray = require('./routes.js');
 
 // define full path to static build
@@ -26,8 +25,8 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
-// raw parser
-const rawParser = bodyParser.raw();
+// body parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // middleware for HTTP headers
 app.use(helmet());
@@ -36,16 +35,8 @@ app.use(helmet());
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
 
 // saml2 acs
-app.post(PUBLIC_URL, rawParser, (request, response) => {
-  if (request.body) {
-    axios.post(`${API_ROOT}/saml2/acs/`, request.body)
-    .then((r) => {
-      console.log(r);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
+app.post(PUBLIC_URL, (request, response) => {
+  response.redirect(307, `${API_ROOT}/saml2/acs/`);
 });
 
 // saml2 login
