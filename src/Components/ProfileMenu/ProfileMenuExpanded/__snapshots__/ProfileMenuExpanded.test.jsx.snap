@@ -64,6 +64,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       title="Statistics"
     />
     <withRouter(NavLink)
+      hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
@@ -157,6 +158,101 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       title="Statistics"
     />
     <withRouter(NavLink)
+      hidden={false}
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
+      title="Glossary Editor"
+    />
+    <withRouter(NavLink)
+      iconName="comments-o"
+      link="/profile/inbox/"
+      title="Inbox"
+    />
+    <withRouter(NavLink)
+      iconName="globe"
+      link="/profile/notifications/"
+      title="Notifications"
+    />
+    <withRouter(NavLink)
+      iconName="users"
+      link="/profile/contacts/"
+      title="Contacts"
+    />
+    <withRouter(NavLink)
+      iconName="file-text"
+      link="/profile/documents/"
+      title="Documents"
+    />
+  </NavLinksContainer>
+</div>
+`;
+
+exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is false 1`] = `
+<div
+  className="usa-grid-full profile-menu"
+>
+  <div
+    className="menu-title"
+  >
+    <div
+      className="menu-title-text"
+    >
+      Menu
+    </div>
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+      title="Collapse menu"
+    >
+      <FontAwesome
+        name="exchange"
+      />
+    </button>
+  </div>
+  <NavLinksContainer>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      iconName="user"
+      title="Profile"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        link="/profile/dashboard/"
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio/"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
+      <withRouter(NavLink)
+        link="/profile/bidtracker/"
+        title="Bidder Tracker"
+      />
+      <withRouter(NavLink)
+        link="/profile/favorites/"
+        title="Favorites"
+      />
+      <withRouter(NavLink)
+        link="/profile/searches/"
+        title="Saved Searches"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics/"
+      title="Statistics"
+    />
+    <withRouter(NavLink)
+      hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"

@@ -9,10 +9,11 @@ import BidStatistics from '../../Containers/BidStatistics';
 import GlossaryEditor from '../../Containers/GlossaryEditor';
 import ProfileMenu from '../ProfileMenu';
 import { USER_PROFILE } from '../../Constants/PropTypes';
+import { userHasPermissions } from '../../utilities';
 
 const ProfilePage = ({ user }) => (
   <div className="profile-page">
-    <ProfileMenu isCDO={user.is_cdo} />
+    <ProfileMenu isCDO={user.is_cdo} isGlossaryEditor={userHasPermissions(['glossary_editors'], user.permission_groups)} />
     <div className="usa-grid-full profile-content-container">
       <Switch>
         <Route path="/profile/dashboard" component={Dashboard} />
