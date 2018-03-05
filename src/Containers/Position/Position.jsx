@@ -13,7 +13,7 @@ import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 import { POSITION_DETAILS, ROUTER_LOCATIONS, USER_PROFILE, BID_LIST,
 BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, EMPTY_FUNCTION,
 DESCRIPTION_EDIT_HAS_ERRORED } from '../../Constants/PropTypes';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
 
 class Position extends Component {
 
@@ -26,7 +26,7 @@ class Position extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.getDetails(this.props.match.params.id);
       this.props.fetchBidList();

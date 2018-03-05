@@ -75,14 +75,14 @@ exports[`MobileNav matches snapshot when showLogin is false 1`] = `
             </Link>
           </li>
           <li>
-            <Link
+            <InteractiveElement
+              className=""
               id="logout-mobile"
               onClick={[Function]}
-              replace={false}
-              to="login"
+              type="a"
             >
               Logout
-            </Link>
+            </InteractiveElement>
           </li>
         </span>
       </ul>

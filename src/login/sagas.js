@@ -1,10 +1,11 @@
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-
 import { push } from 'react-router-redux';
 
 import api from '../api';
+
+import { redirectToLogout, redirectToLogin } from '../utilities';
 
 // Our login constants
 import {
@@ -14,9 +15,6 @@ import {
   LOGOUT_SUCCESS,
   TOKEN_VALIDATION_REQUESTING,
 } from './constants';
-
-// default public route to navigate to
-import { PUBLIC_ROOT } from './DefaultRoutes';
 
 // So that we can modify our Client piece of state
 import {
@@ -72,8 +70,7 @@ function* logout() {
   // .. inform redux that our logout was successful
   yield put({ type: LOGOUT_SUCCESS });
 
-  // redirect to the /login screen
-  yield put(push(PUBLIC_ROOT));
+  redirectToLogout();
 }
 
 function* tokenFlow(tokenToCheck) {
@@ -102,7 +99,7 @@ function* tokenFlow(tokenToCheck) {
     yield put({ type: LOGIN_ERROR, error: errorMessage.message });
   }
   if (yield cancelled()) {
-    push(PUBLIC_ROOT);
+    redirectToLogin();
   }
 
   // return the token for health and wealth

@@ -6,13 +6,13 @@ import { push } from 'react-router-redux';
 import { postFetchData } from '../../actions/post';
 import PostDetails from '../../Components/PostDetails/PostDetails';
 import { POST_MISSION_DATA } from '../../Constants/PropTypes';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
 
 class Post extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.getPost(this.props.match.params.id);
     }

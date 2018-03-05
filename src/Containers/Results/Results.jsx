@@ -18,7 +18,7 @@ import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, RO
 USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
 class Results extends Component {
@@ -44,7 +44,7 @@ class Results extends Component {
     resetSavedSearchAlerts();
     // check auth
     if (!isAuthorized()) {
-      onNavigateTo(PUBLIC_ROOT);
+      onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.createQueryParams();
     }

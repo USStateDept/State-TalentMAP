@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { push } from 'react-router-redux';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import CompareList from '../../Components/CompareList/CompareList';
 import { COMPARE_LIST } from '../../Constants/PropTypes';
-import { redirectToLogin } from '../../utilities';
+import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
 
 class Results extends Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class Results extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      redirectToLogin();
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.getComparisons(this.props.match.params.ids);
     }
@@ -38,6 +39,7 @@ class Results extends Component {
 }
 
 Results.propTypes = {
+  onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       ids: PropTypes.string,
@@ -68,6 +70,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(comparisonsFetchData(url)),
+  onNavigateTo: dest => dispatch(push(dest)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

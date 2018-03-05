@@ -31,7 +31,9 @@
   color: $color-white;
   padding: 0;
 
-  a {
+  a,
+  div,
+  span {
     color: $color-white;
     display: block;
     padding: 10px 15px;

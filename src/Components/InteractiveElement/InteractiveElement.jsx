@@ -22,33 +22,51 @@ const InteractiveElement = ({ children, type, ...rest }) => {
   };
 
   const CLASS_NAME = `interactive-element ${props.className}`;
-  return (
+
   // At the time of writing, CodeClimate's version of eslint-a11y-plugin
   // did not take role="button" into account with the following error:
   // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-  type === 'div' ?
-    <div
-      {...defaultProps}
-      {...props}
-      className={CLASS_NAME}
-    >
-      {children}
-    </div> :
-    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <span
-      {...defaultProps}
-      {...props}
-      className={CLASS_NAME}
-    >
-      {children}
-    </span>
+  let elementToReturn = (<div
+    {...defaultProps}
+    {...props}
+    className={CLASS_NAME}
+  >
+    {children}
+  </div>);
+
+  switch (type) {
+    case 'span':
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+      elementToReturn = (<span
+        {...defaultProps}
+        {...props}
+        className={CLASS_NAME}
+      >
+        {children}
+      </span>);
+      break;
+    case 'a':
+      elementToReturn = (<a
+        role="link"
+        {...defaultProps}
+        {...props}
+        className={CLASS_NAME}
+      >
+        {children}
+      </a>);
+      break;
+    default:
+      break;
+  }
+  return (
+    elementToReturn
   );
 };
 
 InteractiveElement.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  type: PropTypes.oneOf(['div', 'span']),
+  type: PropTypes.oneOf(['div', 'span', 'a']),
 };
 
 InteractiveElement.defaultProps = {

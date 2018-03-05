@@ -6,9 +6,10 @@ import Position from '../../Containers/Position/Position';
 import Post from '../../Containers/Post/Post';
 import Login from '../../login';
 import Compare from '../../Containers/Compare/Compare';
+import LoginRedirect from '../../Containers/LoginRedirect';
 import RoutesArray from '../../routes';
 
-const Components = { Home, Profile, Results, Position, Post, Login, Compare };
+const Components = { Home, Profile, Results, Position, Post, Login, Compare, LoginRedirect };
 
 const mappedRoutesArray = RoutesArray.map((Route) => {
   const Component = Components[Route.componentName];

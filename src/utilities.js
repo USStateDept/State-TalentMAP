@@ -4,7 +4,7 @@ import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
 import numeral from 'numeral';
 import { VALID_PARAMS } from './Constants/EndpointParams';
-import { PUBLIC_ROOT } from './login/DefaultRoutes';
+import { LOGOUT_ROUTE, LOGIN_ROUTE } from './login/DefaultRoutes';
 
 const scroll = Scroll.animateScroll;
 
@@ -316,6 +316,14 @@ export const formatIdSpacing = (id) => {
   return null;
 };
 
+// redirect to express /login route
 export const redirectToLogin = () => {
-  window.location.href = PUBLIC_ROOT;
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_ROUTE}`);
+};
+
+// redirect to express /logout route
+export const redirectToLogout = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };
