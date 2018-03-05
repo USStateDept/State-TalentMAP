@@ -9,7 +9,7 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import HomePage from '../../Containers/HomePage/HomePage';
 import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
 
 class Home extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class Home extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.props.bidListFetchData();
     }

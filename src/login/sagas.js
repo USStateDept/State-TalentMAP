@@ -4,6 +4,8 @@ import { push } from 'react-router-redux';
 import api from '../api';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
 
+import { redirectToLogout, redirectToLogin } from '../utilities';
+
 // Our login constants
 import {
   LOGIN_SUCCESS,
@@ -12,9 +14,6 @@ import {
   LOGOUT_SUCCESS,
   TOKEN_VALIDATION_REQUESTING,
 } from './constants';
-
-// default public route to navigate to
-import { PUBLIC_ROOT } from './DefaultRoutes';
 
 // So that we can modify our Client piece of state
 import {
@@ -79,16 +78,7 @@ function* logout() {
   // .. inform redux that our logout was successful
   yield put({ type: LOGOUT_SUCCESS });
 
-  // Check if the user is already on the login page. We don't want a race
-  // condition to infinitely loop them back to the login page, should
-  // any requests be made that result in 401
-  const isOnLoginPage = isCurrentPath(window.location.pathname, '/login');
-
-  // redirect to the /login screen
-
-  if (!isOnLoginPage) {
-    yield put(push('/login'));
-  }
+  redirectToLogout();
 }
 
 function* tokenFlow(tokenToCheck) {
@@ -117,7 +107,7 @@ function* tokenFlow(tokenToCheck) {
     yield put({ type: LOGIN_ERROR, error: errorMessage.message });
   }
   if (yield cancelled()) {
-    push(PUBLIC_ROOT);
+    redirectToLogin();
   }
 
   // return the token for health and wealth
