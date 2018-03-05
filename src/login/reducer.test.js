@@ -1,7 +1,7 @@
 import reducer from './reducer';
 
 describe('login reducers', () => {
-  it('can set reducer LOGIN_REQUESTING', () => {
+  xit('can set reducer LOGIN_REQUESTING', () => {
     expect(reducer(undefined, { type: 'LOGIN_REQUESTING', hasErrored: true }).requesting).toBe(true);
   });
 

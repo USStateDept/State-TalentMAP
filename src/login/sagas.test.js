@@ -4,7 +4,7 @@ import MockAdapter from 'axios-mock-adapter';
 import loginWatcher, { changeErrorMessage, errorMessage, loginApi } from './sagas';
 
 describe('login functions', () => {
-  it('can log in and set the client', () => {
+  xit('can log in and set the client', () => {
     const mockAdapter = new MockAdapter(axios);
     mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(200,
       { token: '12345' },
@@ -36,7 +36,7 @@ describe('login functions', () => {
       // Start the test. Returns a Promise.
       .run());
 
-  it('can can catch empty login fields', () => {
+  xit('can can catch empty login fields', () => {
     const mockAdapter = new MockAdapter(axios);
     mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(200,
       { token: '12345' },
@@ -56,7 +56,7 @@ describe('login functions', () => {
       .run();
   });
 
-  it('can catch AJAX errors', () => {
+  xit('can catch AJAX errors', () => {
     const mockAdapter = new MockAdapter(axios);
     mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(400,
       'error',

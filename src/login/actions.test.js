@@ -20,7 +20,7 @@ describe('login actions', () => {
     );
   });
 
-  it('can perform login', (done) => {
+  xit('can perform login', (done) => {
     const store = mockStore({ login: [] });
 
     const f = () => {
