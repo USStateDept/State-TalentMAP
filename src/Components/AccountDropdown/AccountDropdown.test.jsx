@@ -32,7 +32,7 @@ describe('AccountDropdown', () => {
     // forceUpdate required for test to pass
     instance.forceUpdate();
     // click to logout
-    accountDropdown.find('[to="/logout"]').simulate('click');
+    accountDropdown.find('[href="/logout"]').simulate('click');
     // logout function should have been called once
     sinon.assert.calledOnce(handleClickSpy);
   });

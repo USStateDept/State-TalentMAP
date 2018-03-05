@@ -42,13 +42,12 @@ exports[`AccountDropdown matches snapshot 1`] = `
     <div
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
     >
-      <Link
+      <a
+        href="/logout"
         onClick={[Function]}
-        replace={false}
-        to="/logout"
       >
         Logout
-      </Link>
+      </a>
     </div>
   </DropdownContent>
 </Dropdown>
@@ -102,13 +101,12 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
     <div
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
     >
-      <Link
+      <a
+        href="/logout"
         onClick={[Function]}
-        replace={false}
-        to="/logout"
       >
         Logout
-      </Link>
+      </a>
     </div>
   </DropdownContent>
 </Dropdown>
