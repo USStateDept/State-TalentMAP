@@ -21,7 +21,7 @@ USER_PROFILE, SAVED_SEARCH_MESSAGE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
 SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
 const DEFAULT_PAGE_NUMBER = 1;
@@ -52,7 +52,7 @@ class Results extends Component {
     resetSavedSearchAlerts();
     // check auth
     if (!isAuthorized()) {
-      onNavigateTo(PUBLIC_ROOT);
+      onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.createQueryParams();
     }

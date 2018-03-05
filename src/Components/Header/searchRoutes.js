@@ -1,4 +1,4 @@
-import { PUBLIC_ROOT, TOKEN_VALIDATION } from '../../login/DefaultRoutes';
+import { LOGIN_ROUTE, LOGOUT_ROUTE, TOKEN_VALIDATION, LOGIN_REDIRECT } from '../../login/DefaultRoutes';
 
 // routes to display the search bar by default
 export const searchBarRoutes = ['/', '/results'];
@@ -7,4 +7,9 @@ export const searchBarRoutes = ['/', '/results'];
 export const searchBarRoutesForce = ['/results'];
 
 // routes to always force hide the search bar
-export const searchBarRoutesForceHidden = [PUBLIC_ROOT, TOKEN_VALIDATION];
+export const searchBarRoutesForceHidden = [
+  LOGIN_ROUTE,
+  LOGOUT_ROUTE,
+  TOKEN_VALIDATION,
+  LOGIN_REDIRECT,
+];

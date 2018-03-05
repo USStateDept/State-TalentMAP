@@ -4,7 +4,7 @@ import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
 import { get } from 'lodash';
 import { VALID_PARAMS } from './Constants/EndpointParams';
-import { PUBLIC_ROOT } from './login/DefaultRoutes';
+import { LOGOUT_ROUTE, LOGIN_ROUTE } from './login/DefaultRoutes';
 
 const scroll = Scroll.animateScroll;
 
@@ -473,6 +473,14 @@ export const getDifferentialPercentage = (differential, defaultValue = '') => {
   return defaultValue;
 };
 
+// redirect to express /login route
 export const redirectToLogin = () => {
-  window.location.href = PUBLIC_ROOT;
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_ROUTE}`);
+};
+
+// redirect to express /logout route
+export const redirectToLogout = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };
