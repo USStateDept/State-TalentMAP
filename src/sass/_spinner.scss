@@ -3,7 +3,7 @@
   margin: auto;
   width: 100px;
   z-index: $spinner-z; // make sure spinner is on top
-    
+
   img {
     position: absolute;
     width: 10em;
@@ -34,6 +34,13 @@
 
 .tm-spinner-color-inverted {
   color: $color-white;
+}
+
+.tm-spinner-small {
+  img {
+    height: 50px;
+    width: 50px;
+  }
 }
 
 .tm-spinner-homepage-position-results {

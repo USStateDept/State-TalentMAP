@@ -15,4 +15,10 @@ describe('Spinner', () => {
     expect(toJSON(spinner)).toMatchSnapshot();
     expect(spinner.find(`.tm-spinner-${type}`)).toBeDefined();
   });
+
+  it('adds a size class when size is small', () => {
+    const type = 'results';
+    const spinner = shallow(<Spinner type={type} size="small" />);
+    expect(spinner.find('tm-spinner-small')).toBeDefined();
+  });
 });
