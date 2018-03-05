@@ -29,7 +29,7 @@ describe('Login', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can submit a username and password', () => {
+  xit('can submit a username and password', () => {
     const wrapper = shallow(
       <Login
         login={{ ...loginObject, requesting: false }}
