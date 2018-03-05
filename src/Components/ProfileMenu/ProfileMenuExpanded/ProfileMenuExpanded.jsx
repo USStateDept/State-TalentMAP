@@ -6,7 +6,8 @@ import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
 
-const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSection }) => (
+const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSection,
+isGlossaryEditor }) => (
   <div className="usa-grid-full profile-menu">
     <div className="menu-title">
       <div className="menu-title-text">Menu</div>
@@ -41,7 +42,7 @@ const ProfileMenuExpanded = ({ isCDO, expandedSection, collapse, toggleMenuSecti
         link="/profile/statistics/"
         hidden={!isCDO}
       />
-      <NavLink title="Glossary Editor" iconName="book" link="/profile/glossaryeditor/" search="?type=all" />
+      <NavLink title="Glossary Editor" iconName="book" link="/profile/glossaryeditor/" search="?type=all" hidden={!isGlossaryEditor} />
       <NavLink title="Inbox" iconName="comments-o" link="/profile/inbox/" />
       <NavLink title="Notifications" iconName="globe" link="/profile/notifications/" />
       <NavLink title="Contacts" iconName="users" link="/profile/contacts/" />
@@ -55,11 +56,13 @@ ProfileMenuExpanded.propTypes = {
   expandedSection: PROFILE_MENU_SECTION_EXPANDED,
   collapse: PropTypes.func.isRequired,
   toggleMenuSection: PropTypes.func.isRequired,
+  isGlossaryEditor: PropTypes.bool,
 };
 
 ProfileMenuExpanded.defaultProps = {
   isCDO: false,
   expandedSection: PROFILE_MENU_SECTION_EXPANDED_OBJECT,
+  isGlossaryEditor: false,
 };
 
 export default ProfileMenuExpanded;
