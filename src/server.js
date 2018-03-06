@@ -11,8 +11,6 @@ const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
 // If so, the env var USE_MOCK_SAML should be 1.
 const USE_MOCK_SAML = process.env.USE_MOCK_SAML === '1';
 
-console.log(process.env, USE_MOCK_SAML);
-
 // define the API root url
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 
