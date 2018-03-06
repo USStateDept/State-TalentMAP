@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import CompareList from '../../Components/CompareList/CompareList';
 import { COMPARE_LIST } from '../../Constants/PropTypes';
-import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Results extends Component {
   constructor(props) {

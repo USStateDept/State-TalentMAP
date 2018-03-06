@@ -10,7 +10,7 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import HomePage from '../../Containers/HomePage/HomePage';
 import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
-import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Home extends Component {
   constructor(props) {

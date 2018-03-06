@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { postFetchData } from '../../actions/post';
 import PostDetails from '../../Components/PostDetails/PostDetails';
 import { POST_MISSION_DATA } from '../../Constants/PropTypes';
-import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Post extends Component {
 

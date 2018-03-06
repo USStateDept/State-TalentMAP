@@ -6,7 +6,7 @@ import { push } from 'react-router-redux';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
-import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Profile extends Component {
 

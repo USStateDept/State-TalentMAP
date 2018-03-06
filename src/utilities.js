@@ -4,7 +4,7 @@ import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
 import numeral from 'numeral';
 import { VALID_PARAMS } from './Constants/EndpointParams';
-import { LOGOUT_ROUTE, LOGIN_ROUTE } from './login/DefaultRoutes';
+import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
 const scroll = Scroll.animateScroll;
 
@@ -320,6 +320,12 @@ export const formatIdSpacing = (id) => {
 export const redirectToLogin = () => {
   const prefix = process.env.PUBLIC_URL || '';
   window.location.assign(`${prefix}${LOGIN_ROUTE}`);
+};
+
+// redirect to react /loginRedirect route
+export const redirectToLoginRedirect = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_REDIRECT}`);
 };
 
 // redirect to express /logout route
