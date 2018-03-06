@@ -1,4 +1,4 @@
-import { LOGIN_ROUTE, LOGOUT_ROUTE, TOKEN_VALIDATION, LOGIN_REDIRECT } from '../../login/DefaultRoutes';
+import { LOGIN_ROUTE, LOGOUT_ROUTE, TOKEN_VALIDATION, LOGIN_REDIRECT } from '../../login/routes';
 
 // routes to display the search bar by default
 export const searchBarRoutes = ['/', '/results'];

@@ -21,7 +21,7 @@ USER_PROFILE, SAVED_SEARCH_MESSAGE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
 SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
 const DEFAULT_PAGE_NUMBER = 1;

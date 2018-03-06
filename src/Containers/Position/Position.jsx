@@ -13,7 +13,7 @@ import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 import { POSITION_DETAILS, ROUTER_LOCATIONS, USER_PROFILE, BID_LIST,
 BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, EMPTY_FUNCTION,
 DESCRIPTION_EDIT_HAS_ERRORED } from '../../Constants/PropTypes';
-import { LOGIN_REDIRECT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Position extends Component {
 
