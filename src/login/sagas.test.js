@@ -1,10 +1,30 @@
 import { expectSaga } from 'redux-saga-test-plan';
 import MockAdapter from 'axios-mock-adapter';
 import api from '../api';
-import loginWatcher, { changeErrorMessage, errorMessage, loginApi } from './sagas';
+import loginWatcher, { changeErrorMessage, errorMessage, loginApi, tokenApi } from './sagas';
+import { bidderUserObject } from '../__mocks__/userObject';
 
 describe('login functions', () => {
-  xit('can log in and set the client', () => {
+  it('can set the client upon providing a valid token (SAML Auth)', () => {
+    const mockAdapter = new MockAdapter(api);
+    mockAdapter.onGet('/api/v1/profile/').reply(200,
+      bidderUserObject,
+    );
+    return expectSaga(loginWatcher)
+      // Assert that the `put` will eventually happen.
+      .put({ type: 'CLIENT_SET', token: '12345' })
+
+      // Dispatch any actions that the saga will `take`.
+      .dispatch({
+        type: 'TOKEN_VALIDATION_REQUESTING',
+        token: '12345',
+      })
+
+      // Start the test. Returns a Promise. [silent warnings]
+      .silentRun();
+  });
+
+  xit('can log in and set the client (LocalStorage Auth)', () => {
     const mockAdapter = new MockAdapter(api);
     mockAdapter.onPost('/accounts/token/').reply(200,
       { token: '12345' },
@@ -56,7 +76,21 @@ describe('login functions', () => {
       .silentRun();
   });
 
-  xit('can catch AJAX errors', () => {
+  it('returns an error callback when calling the tokenApi function and there is no token', () => {
+    tokenApi();
+    expect(errorMessage.message).toBe('Token cannot be blank');
+  });
+
+  it('can catch AJAX errors (SAML Token Auth)', () => {
+    const mockAdapter = new MockAdapter(api);
+    mockAdapter.onGet('/api/v1/profile/').reply(401,
+      'Invalid token',
+    );
+    tokenApi('123');
+    expect(errorMessage.message).toBeDefined();
+  });
+
+  xit('can catch AJAX errors (LocalStorage Auth)', () => {
     const mockAdapter = new MockAdapter(api);
     mockAdapter.onPost('/accounts/token/').reply(400,
       'error',
