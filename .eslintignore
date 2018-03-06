@@ -4,3 +4,4 @@ src/registerServiceWorker.js
 scripts/*
 config/*
 coverage/*
+public/login/*

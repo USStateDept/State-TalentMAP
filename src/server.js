@@ -7,11 +7,29 @@ const routesArray = require('./routes.js');
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
 
+// Are we using a mock SAML for demo purposes?
+// If so, the env var USE_MOCK_SAML should be 1.
+const USE_MOCK_SAML = process.env.USE_MOCK_SAML === '1';
+
+console.log(process.env, USE_MOCK_SAML);
+
 // define the API root url
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
+
+// Define the SAML login redirect
+let SAML_LOGIN = `${API_ROOT}/saml2/acs/`;
+if (USE_MOCK_SAML) {
+  SAML_LOGIN = `${PUBLIC_URL}login.html`;
+}
+
+// Define the SAML logout redirect
+let SAML_LOGOUT = `${API_ROOT}/saml2/logout/`;
+if (USE_MOCK_SAML) {
+  SAML_LOGOUT = `${PUBLIC_URL}login.html`;
+}
 
 // Routes from React, with wildcard added to the end if the route is not exact
 const ROUTES = routesArray.map(route => `${PUBLIC_URL}${route.path}${route.exact ? '' : '*'}`.replace('//', '/'));
@@ -41,7 +59,7 @@ app.post(PUBLIC_URL, (request, response) => {
 
 // saml2 login
 app.get(`${PUBLIC_URL}login`, (request, response) => {
-  response.redirect(`${API_ROOT}/saml2/login/`);
+  response.redirect(SAML_LOGIN);
 });
 
 // saml2 metadata
@@ -50,7 +68,7 @@ app.get(`${PUBLIC_URL}metadata/`, (request, response) => {
 });
 
 app.get(`${PUBLIC_URL}logout`, (request, response) => {
-  response.redirect(`${API_ROOT}/saml2/logout/`);
+  response.redirect(SAML_LOGOUT);
 });
 
 // OBC redirect - posts
