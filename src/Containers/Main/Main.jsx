@@ -8,6 +8,8 @@ import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import Glossary from '../../Containers/Glossary';
+import Feedback from '../../Containers/Feedback';
+import FeedbackButton from '../../Containers/FeedbackButton';
 import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
 
 import checkIndexAuthorization from '../../lib/check-auth';
@@ -27,6 +29,8 @@ const Main = props => (
         <Footer />
         <AuthorizedWrapper {...props} isAuthorized={isAuthorized}>
           <Glossary />
+          <Feedback />
+          <FeedbackButton />
         </AuthorizedWrapper>
       </div>
     </ConnectedRouter>

@@ -36,13 +36,6 @@ userProfile, logout, toggleSearchVisibility }) => (
           </div>
         </div>
       </div>
-      <div className="header-nav-link-container">
-        <div className="header-nav-link">
-          <div className="header-nav-link-text feedback-text">
-            <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
-          </div>
-        </div>
-      </div>
     </div>
     <div className="header-nav-desktop desktop-nav-only account-notification-container">
       <div className="header-nav-link-container account-container">
