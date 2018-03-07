@@ -6,6 +6,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
 >
   <Connect(ProfileMenu)
     isCDO={false}
+    isGlossaryEditor={false}
   />
   <div
     className="usa-grid-full profile-content-container"

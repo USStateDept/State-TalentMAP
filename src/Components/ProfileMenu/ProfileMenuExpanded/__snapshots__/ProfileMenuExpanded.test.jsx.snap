@@ -48,6 +48,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
+      hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
@@ -105,6 +106,65 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
+      hidden={false}
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
+      title="Glossary Editor"
+    />
+  </NavLinksContainer>
+</div>
+`;
+
+exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is false 1`] = `
+<div
+  className="usa-grid-full profile-menu"
+>
+  <div
+    className="menu-title"
+  >
+    <div
+      className="menu-title-text"
+    >
+      Menu
+    </div>
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+      title="Collapse menu"
+    >
+      <FontAwesome
+        name="exchange"
+      />
+    </button>
+  </div>
+  <NavLinksContainer>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      iconName="user"
+      title="Profile"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        link="/profile/dashboard/"
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        link="/profile/favorites/"
+        title="Favorites"
+      />
+      <withRouter(NavLink)
+        link="/profile/searches/"
+        title="Saved Searches"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"

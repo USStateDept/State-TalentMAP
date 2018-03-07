@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackFormComponent matches snapshot 1`] = `
+<div
+  className="tm-feedback"
+>
+  <div
+    aria-describedby="feedback-title"
+    aria-hidden={false}
+    className="feedback feedback-visible"
+    id="feedback"
+  >
+    <button
+      className="feedback-close"
+      id="feedback-input-1"
+      onClick={[Function]}
+      title="Close feedback"
+    >
+      <FontAwesome
+        name="times"
+      />
+      <span
+        className="usa-sr-only"
+      >
+        Close Feedback
+      </span>
+    </button>
+    <div
+      className="feedback-content-container"
+    >
+      <h3
+        id="feedback-title"
+      >
+        Feedback
+      </h3>
+      <Form
+        className=""
+        onFormSubmit={[Function]}
+      >
+        <FieldSet
+          className=""
+          legend="General feedback"
+          legendSrOnly={false}
+        >
+          <TextEditorLoadable
+            hideButtons={true}
+            initialText="text"
+            onChangeText={[Function]}
+          />
+        </FieldSet>
+        <FieldSet
+          className=""
+          legend="Additional feedback"
+          legendSrOnly={true}
+        >
+          <CheckBox
+            id="additional-feedback-checkbox"
+            label="Can we contact you about providing additional feedback for TalentMAP?"
+            labelSrOnly={false}
+            name=""
+            onCheckBoxClick={[Function]}
+            small={false}
+            title=""
+            value={false}
+          />
+        </FieldSet>
+        <button
+          className="usa-button feedback-submit-button"
+          onClick={[Function]}
+        >
+          Submit
+        </button>
+      </Form>
+      <div
+        className="feedback-submission-messages"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`FeedbackFormComponent matches snapshot when visible is false 1`] = `
+<div
+  className="tm-feedback"
+>
+  <div
+    aria-describedby="feedback-title"
+    aria-hidden={true}
+    className="feedback feedback-hidden"
+    id="feedback"
+  >
+    <button
+      className="feedback-close"
+      id="feedback-input-1"
+      onClick={[Function]}
+      title="Close feedback"
+    >
+      <FontAwesome
+        name="times"
+      />
+      <span
+        className="usa-sr-only"
+      >
+        Close Feedback
+      </span>
+    </button>
+    <div
+      className="feedback-content-container"
+    >
+      <h3
+        id="feedback-title"
+      >
+        Feedback
+      </h3>
+      <Form
+        className=""
+        onFormSubmit={[Function]}
+      >
+        <FieldSet
+          className=""
+          legend="General feedback"
+          legendSrOnly={false}
+        >
+          <TextEditorLoadable
+            hideButtons={true}
+            initialText="text"
+            onChangeText={[Function]}
+          />
+        </FieldSet>
+        <FieldSet
+          className=""
+          legend="Additional feedback"
+          legendSrOnly={true}
+        >
+          <CheckBox
+            id="additional-feedback-checkbox"
+            label="Can we contact you about providing additional feedback for TalentMAP?"
+            labelSrOnly={false}
+            name=""
+            onCheckBoxClick={[Function]}
+            small={false}
+            title=""
+            value={false}
+          />
+        </FieldSet>
+        <button
+          className="usa-button feedback-submit-button"
+          onClick={[Function]}
+        >
+          Submit
+        </button>
+      </Form>
+      <div
+        className="feedback-submission-messages"
+      />
+    </div>
+  </div>
+</div>
+`;
