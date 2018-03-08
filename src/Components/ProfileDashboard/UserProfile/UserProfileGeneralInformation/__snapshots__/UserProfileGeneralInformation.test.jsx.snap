@@ -7,15 +7,11 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
   <div
     className="section-padded-inner-container"
   >
-    <Status
-      hideText={false}
-    />
     <ProfilePicture
       alt="avatar"
       className=""
       source="/assets/img/avatar.png"
     />
-    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
@@ -59,15 +55,11 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
   <div
     className="section-padded-inner-container"
   >
-    <Status
-      hideText={false}
-    />
     <ProfilePicture
       alt="avatar"
       className=""
       source="/assets/img/avatar.png"
     />
-    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
@@ -111,15 +103,11 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
   <div
     className="section-padded-inner-container"
   >
-    <Status
-      hideText={false}
-    />
     <ProfilePicture
       alt="avatar"
       className=""
       source="/assets/img/avatar.png"
     />
-    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""

@@ -9,7 +9,7 @@ exports[`BidStatListComponent matches snapshot 1`] = `
     title="Positions Available"
   />
   <BidStatCard
-    number="4.38%"
+    number="4.4%"
     title="Positions Filled"
   />
   <BidStatCard

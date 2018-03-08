@@ -6,6 +6,7 @@ import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
 import BidControls from '../BidControls';
 import BidderPortfolioSearch from '../BidderPortfolioSearch';
+import { propOrDefault } from '../../../utilities';
 
 class BidderPortfolioPage extends Component {
   constructor(props) {
@@ -24,21 +25,22 @@ class BidderPortfolioPage extends Component {
     const { bidderPortfolio, bidderPortfolioIsLoading,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
     bidderPortfolioCounts } = this.props;
-    // Here we just want to check that the 'all' prop exists,
+    // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.
-    let navDataIsLoading = !bidderPortfolioCounts.all_clients;
-    // If we can determine that the all prop is zero, then we'll change navDataIsLoading to false,
-    // since zero normally evaluates as false.
-    if (bidderPortfolioCounts.all_clients === 0) { navDataIsLoading = false; }
+    const navDataIsLoading = !propOrDefault(bidderPortfolioCounts, 'all_clients', false);
     // for bidder results, however, we'll wait until everything is loaded
-    const isLoading = (bidderPortfolioIsLoading && !bidderPortfolioHasErrored) ||
-      navDataIsLoading;
+    const bidderPortfolioIsLoadingNotErrored = bidderPortfolioIsLoading &&
+      !bidderPortfolioHasErrored;
+    const isLoading = bidderPortfolioIsLoadingNotErrored || navDataIsLoading;
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';
 
-    const viewTypeClass = isListView ? 'list-view' : 'card-view';
-    const loadingClass = isLoading ? 'results-loading' : '';
+    let viewTypeClass = 'card-view';
+    if (isListView) { viewTypeClass = 'list-view'; }
+
+    let loadingClass = '';
+    if (isLoading) { loadingClass = 'results-loading'; }
 
     // pass zero if waiting on value
     const biddersNumerator = bidderPortfolio.count || 0;
