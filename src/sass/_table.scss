@@ -2,6 +2,7 @@
   $border-radius: 9px;
   color: $color-gray;
   font-size: .9em;
+  margin-bottom: 0;
   table-layout: fixed;
   width: 100%;
 
@@ -26,8 +27,23 @@
     background: $blue-primary;
     color: $color-white;
 
+    .border-extension {
+      height: 1px;
+    }
+
+    .border-visible {
+      background: $blue-primary;
+      height: 200%;
+      left: -300px;
+      position: absolute;
+      top: 0;
+      width: 2000px;
+      z-index: -100;
+    }
+
     th {
       background: inherit;
+      position: relative;
     }
 
     th:first-of-type {
@@ -36,8 +52,38 @@
   }
 
   tbody {
+    position: relative;
 
-    border-bottom: 1px solid $blue-primary;
+    .border-extension-layer-2 {
+      height: 1px;
+    }
+
+    .border-visible-layer-2 {
+      background: $color-white;
+      height: 200%;
+      left: -300px;
+      position: absolute;
+      top: 0;
+      width: 2000px;
+      z-index: -50;
+    }
+
+    .border-extension {
+      height: 1px;
+    }
+
+    .border-visible {
+      background: $blue-primary;
+      height: 1px;
+      left: -300px;
+      position: relative;
+      top: 16px;
+      width: 2000px;
+    }
+
+    th:first-of-type {
+      position: relative;
+    }
 
     th {
       background-color: $color-white;

@@ -26,7 +26,10 @@ const CompareList = ({ compare, isLoading }) => {
                 <caption className="usa-sr-only">Position details comparison:</caption>
                 <thead>
                   <tr>
-                    <th scope="row">Position</th>
+                    <th scope="row">
+                      Position
+                      <div className="border-extension border-visible" />
+                    </th>
                     {
                       compareArray.map(c => (
                         <th key={shortId.generate()}>
@@ -34,6 +37,7 @@ const CompareList = ({ compare, isLoading }) => {
                           <div className="column-title-link">
                             <Link to={`/details/${c.position_number}`}>Learn more</Link>
                           </div>
+                          <div className="border-extension" />
                         </th>
                       ))
                     }
@@ -41,7 +45,10 @@ const CompareList = ({ compare, isLoading }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">Post</th>
+                    <th scope="row">
+                      Post
+                      <div className="border-extension-layer-2 border-visible-layer-2" />
+                    </th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -58,6 +65,7 @@ const CompareList = ({ compare, isLoading }) => {
                             :
                             null
                           }
+                          <div className="border-extension-layer-2" />
                         </td>
                       ))
                     }
@@ -137,7 +145,9 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Danger Pay</th>
+                    <th scope="row">
+                      Danger Pay
+                    </th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -148,6 +158,7 @@ const CompareList = ({ compare, isLoading }) => {
                   </tr>
                 </tbody>
               </table>
+              <div className="border-bottom-extension" />
             </div>
         }
       </div>

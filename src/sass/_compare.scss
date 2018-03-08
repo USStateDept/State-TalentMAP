@@ -7,4 +7,13 @@
     margin-bottom: 0;
     padding-left: .8em;
   }
+
+  .border-bottom-extension {
+    background: $blue-primary;
+    height: 1px;
+    left: -300px;
+    position: relative;
+    top: -1px;
+    width: 2000px;
+  }
 }
