@@ -4,7 +4,7 @@ import { FEEDBACK_OPEN_ICON_ID } from '../../Constants/HtmlAttributes';
 
 const FeedbackButton = ({ toggleVisibility }) => (
   <button id={FEEDBACK_OPEN_ICON_ID} className="tm-feedback-button" onClick={toggleVisibility}>
-    Feedback
+    Provide Feedback
   </button>
 );
 
