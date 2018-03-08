@@ -16,6 +16,7 @@ favorites }) => (
           refKey={position.id}
           onToggle={toggleFavorite}
           compareArray={favorites}
+          useButtonClass
         />
       </div>
     </div>

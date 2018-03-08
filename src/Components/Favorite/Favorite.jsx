@@ -55,13 +55,14 @@ class Favorite extends Component {
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
-    const borderClass = this.props.hasBorder ? 'favorites-button-border' : '';
+    const borderClass = this.props.hasBorder && !this.props.useButtonClass ? 'favorites-button-border' : '';
+    const buttonClass = this.props.useButtonClass ? 'usa-button' : '';
     return (
       <InteractiveElement
         type="div"
         title={title}
         style={style}
-        className={`favorite-container ${borderClass}`}
+        className={`favorite-container ${borderClass} ${buttonClass}`}
         onClick={this.toggleSaved}
       >
         <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}
@@ -78,6 +79,7 @@ Favorite.propTypes = {
   isLoading: PropTypes.bool,
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
+  useButtonClass: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -86,6 +88,7 @@ Favorite.defaultProps = {
   compareArray: [],
   hasBorder: false,
   useLongText: false,
+  useButtonClass: false,
 };
 
 export default Favorite;
