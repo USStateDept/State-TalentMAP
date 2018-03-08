@@ -1,16 +1,12 @@
-// scss-lint:disable SelectorDepth
-// scss-lint:disable NestingDepth
-// Disabling these rules because we want to keep our styles within a single .tm-table class
-
 .tm-table {
   $border-radius: 9px;
   color: $color-gray;
+  font-size: .9em;
   table-layout: fixed;
   width: 100%;
 
   .column-title-sub,
   .column-title-link {
-    font-size: .8em;
     font-weight: normal;
   }
 
@@ -26,67 +22,33 @@
     overflow-wrap: break-word;
   }
 
-  th {
-    font-size: 1.2em;
-  }
-
   thead {
-    th:nth-of-type(odd) {
-      background: $color-gray;
-      color: $color-white;
+    background: $blue-primary;
+    color: $color-white;
+
+    th {
+      background: inherit;
     }
 
-    th:nth-of-type(even) {
-      background: $color-gray-light;
-      color: $color-white;
-    }
-
-    th:nth-of-type(2) {
-      border-radius: $border-radius 0 0;
-    }
-
-    th:last-child {
-      border-radius: 0 $border-radius 0 0;
-    }
-
-    // first header should have no border or background
     th:first-of-type {
-      background: none;
-      border: 0;
-      color: inherit;
       padding: 1em 1em 0;
     }
   }
 
   tbody {
+
+    border-bottom: 1px solid $blue-primary;
+
     th {
-      background-color: $color-gray;
-      color: $color-white;
-      font-size: .8em;
+      background-color: $color-white;
       padding-bottom: 1em;
       padding-right: 1em;
       text-transform: uppercase;
       width: 18%;
     }
 
-    tr:first-child {
-      th {
-        border-radius: $border-radius 0 0;
-      }
-    }
-
-    tr:last-child {
-      th {
-        border-radius: 0 0 0 $border-radius;
-      }
-    }
-
-    td:nth-of-type(even) {
-      background: $color-gray-lighter;
-    }
-
-    td:nth-of-type(odd) {
-      background: $color-gray-lightest;
+    td {
+      border-left: 1px solid $blue-primary;
     }
   }
 }

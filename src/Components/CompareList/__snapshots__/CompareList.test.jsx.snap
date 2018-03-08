@@ -2,7 +2,7 @@
 
 exports[`CompareListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full content-container"
 >
   <div
     className="comparison-container"
@@ -30,11 +30,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
                 className="column-title-main"
               />
               <div
-                className="column-title-sub"
-              >
-                MASERU, LESOTHO
-              </div>
-              <div
                 className="column-title-link"
               >
                 <Link
@@ -49,11 +44,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
               <div
                 className="column-title-main"
               />
-              <div
-                className="column-title-sub"
-              >
-                None listed
-              </div>
               <div
                 className="column-title-link"
               >
@@ -72,13 +62,61 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Grade
+              Post
             </th>
             <td>
-              05
+              MASERU, LESOTHO
+              <LinkButton
+                className="post-data-button"
+                isExternal={true}
+                toLink="/obc/post/null"
+                useDefaultClass={true}
+              >
+                <FontAwesome
+                  name="map-marker"
+                />
+                View Post Data
+              </LinkButton>
             </td>
             <td>
-              03
+              None listed
+              <LinkButton
+                className="post-data-button"
+                isExternal={true}
+                toLink="/obc/post/null"
+                useDefaultClass={true}
+              >
+                <FontAwesome
+                  name="map-marker"
+                />
+                View Post Data
+              </LinkButton>
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Skill Code
+            </th>
+            <td>
+              OFFICE MANAGEMENT (9017)
+            </td>
+            <td>
+              OFFICE MANAGEMENT (9017)
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Position Number
+            </th>
+            <td>
+              00025003
+            </td>
+            <td>
+              00025003
             </td>
           </tr>
           <tr>
@@ -121,61 +159,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Skill Code
+              Transfer Eligibility Date
             </th>
             <td>
-              OFFICE MANAGEMENT (9017)
+              None listed
             </td>
             <td>
-              OFFICE MANAGEMENT (9017)
+              None listed
             </td>
           </tr>
           <tr>
             <th
               scope="row"
             >
-              Overseas
+              Incumbent
             </th>
             <td>
-              Yes
+              None listed
             </td>
             <td>
-              Yes
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table
-        className="tm-table"
-      >
-        <caption
-          className="usa-sr-only"
-        >
-          Post details comparison:
-        </caption>
-        <thead
-          className="tm-header-no-columns"
-        >
-          <tr>
-            <th
-              scope="row"
-            >
-              Post
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th
-              scope="row"
-            >
-              Organization
-            </th>
-            <td>
-              YAOUNDE CAMEROON (YAOUNDE)
-            </td>
-            <td>
-              YAOUNDE CAMEROON (YAOUNDE)
+              None listed
             </td>
           </tr>
           <tr>
@@ -195,45 +198,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post Differential
-            </th>
-            <td>
-              15
-            </td>
-            <td>
-              None listed
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Danger Pay
-            </th>
-            <td>
-              None listed
-            </td>
-            <td>
-              None listed
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Consumable Allowance
-            </th>
-            <td>
-              No
-            </td>
-            <td>
-              No
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
               Tour of Duty
             </th>
             <td>
@@ -247,39 +211,58 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Cost of Living Adjustment
+              Post Differential
             </th>
             <td>
-              None listed
+              N/A 
+              <span>
+                 | 
+                <a
+                  href="/obc/post/null"
+                >
+                  Details
+                </a>
+              </span>
             </td>
             <td>
-              None listed
+              N/A 
+              <span>
+                 | 
+                <a
+                  href="/obc/post/null"
+                >
+                  Details
+                </a>
+              </span>
             </td>
           </tr>
           <tr>
             <th
               scope="row"
             >
-              Service Needs Differential
+              Danger Pay
             </th>
             <td>
-              No
+              N/A 
+              <span>
+                 | 
+                <a
+                  href="/obc/post/null"
+                >
+                  Details
+                </a>
+              </span>
             </td>
             <td>
-              No
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Rest & Relaxation Point
-            </th>
-            <td>
-              London
-            </td>
-            <td>
-              None listed
+              N/A 
+              <span>
+                 | 
+                <a
+                  href="/obc/post/null"
+                >
+                  Details
+                </a>
+              </span>
             </td>
           </tr>
         </tbody>
@@ -291,7 +274,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
 
 exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full content-container"
 >
   <div
     className="comparison-container"
