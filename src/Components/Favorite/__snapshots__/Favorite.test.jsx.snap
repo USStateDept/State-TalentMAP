@@ -66,6 +66,26 @@ exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
 </InteractiveElement>
 `;
 
+exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
+<InteractiveElement
+  className="favorite-container  usa-button"
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+  title="Add to Favorites"
+  type="div"
+>
+  <FontAwesome
+    name="star-o"
+  />
+   
+  Favorite
+</InteractiveElement>
+`;
+
 exports[`Favorite matches snapshot when useLongText is true - Add state 1`] = `
 <InteractiveElement
   className="favorite-container"
