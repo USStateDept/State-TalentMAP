@@ -13,7 +13,7 @@ const ResultsCardDataSection = ({ result }) => (
           title="Post Information"
           items={
           [
-            { description: 'Post', text: result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : NO_POST },
+            { description: 'Post', text: result.post ? <Link to={`/obc/post/${result.post.id}`}>{result.post.location}</Link> : NO_POST },
             { description: 'Bureau', text: result.bureau },
             { description: 'Post Differential',
               text: result.post

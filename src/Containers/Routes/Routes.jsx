@@ -5,7 +5,6 @@ import Home from '../../Containers/Home/Home';
 import Profile from '../../Containers/Profile/Profile';
 import Results from '../../Containers/Results/Results';
 import Position from '../../Containers/Position/Position';
-import Post from '../../Containers/Post/Post';
 import Login from '../../login';
 import Compare from '../../Containers/Compare/Compare';
 
@@ -31,10 +30,6 @@ const Routes = props => (
     <Route
       path="/details/:id"
       component={() => (<Position {...props} />)}
-    />
-    <Route
-      path="/post/:id"
-      component={() => (<Post {...props} />)}
     />
     <Route
       path="/compare/:ids"

@@ -13,7 +13,7 @@ const PositionDetailsItem = ({ details }) => {
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
   const formattedPost = propOrDefault(details, 'post.id') ?
-    <Link to={`/post/${details.post.id}`}>{details.post.location}</Link> : NO_POST;
+    <Link to={`/obc/post/${details.post.id}`}>{details.post.location}</Link> : NO_POST;
 
   const formattedBureau = details.bureau || NO_BUREAU;
 

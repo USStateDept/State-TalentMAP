@@ -53,7 +53,7 @@ describe('Main', () => {
     expect(main).toBeDefined();
   });
   it('handles a post details route', () => {
-    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/post/00011111']}>
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/obc/post/00011111']}>
       <Main />
     </MemoryRouter>);
     expect(main).toBeDefined();

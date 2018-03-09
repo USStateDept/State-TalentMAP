@@ -30,7 +30,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             description={
               <Link
                 replace={false}
-                to="/post/162"
+                to="/obc/post/162"
               >
                 MASERU, LESOTHO
               </Link>

@@ -8,8 +8,6 @@ export function mapRoutesToNames(route) {
       return `${preText} to the home page`;
     case '/details':
       return `${preText} to position details`;
-    case '/post':
-      return `${preText} to post details`;
     case '/profile':
       return `${preText} to your profile`;
     case '/compare':

@@ -29,7 +29,7 @@ describe('Main', () => {
 describe('mapDispatchToProps', () => {
   const config = {
     fetchData: ['1,2'],
-    onNavigateTo: ['/post/1/'],
+    onNavigateTo: ['/obc/post/1/'],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });
