@@ -16,27 +16,6 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@cmsgov/design-system-core@^1.1.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@cmsgov/design-system-core/-/design-system-core-1.15.0.tgz#87e679a93806f979338112e885207f9fa3bec549"
-  dependencies:
-    "@cmsgov/design-system-support" "^1.15.0"
-    classnames "^2.2.5"
-    core-js "^2.5.1"
-    downshift "^1.22.5"
-    ev-emitter "^1.1.1"
-    lodash.uniqueid "^4.0.1"
-    prop-types "^15.0.0 || ^16.0.0"
-    react "^15.0.0 || ^16.0.0"
-    react-aria-modal "^2.11.1"
-    react-dom "^15.0.0 || ^16.0.0"
-
-"@cmsgov/design-system-support@^1.15.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@cmsgov/design-system-support/-/design-system-support-1.15.0.tgz#ab2fb2a0a8a0f69ef1986bafd767ece85b432202"
-  dependencies:
-    uswds "1.3.1"
-
 "@epegzz/sass-vars-loader@^3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@epegzz/sass-vars-loader/-/sass-vars-loader-3.2.0.tgz#2974d5e4225f330c48a75d062bb29c3cbb6aae83"
@@ -1940,7 +1919,7 @@ core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
-core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0, core-js@^2.5.1:
+core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0:
   version "2.5.3"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.3.tgz#8acc38345824f16d8365b7c9b4259168e8ed603e"
 
@@ -2476,10 +2455,6 @@ dotenv@4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
-downshift@^1.22.5:
-  version "1.28.2"
-  resolved "https://registry.yarnpkg.com/downshift/-/downshift-1.28.2.tgz#ff5b4e89ff439943a8e58890993015199604e1e6"
-
 draft-js-plugins-editor@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/draft-js-plugins-editor/-/draft-js-plugins-editor-2.0.4.tgz#ab7178de886d6d11f9f43a448c844da6266053e0"
@@ -2929,10 +2904,6 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
 
-ev-emitter@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/ev-emitter/-/ev-emitter-1.1.1.tgz#8f18b0ce5c76a5d18017f71c0a795c65b9138f2a"
-
 event-emitter@~0.3.5:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/event-emitter/-/event-emitter-0.3.5.tgz#df8c69eef1647923c7157b9ce83840610b02cc39"
@@ -3313,18 +3284,6 @@ flat-cache@^1.2.1:
 flatten@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.2.tgz#dae46a9d78fbe25292258cc1e780a41d95c03782"
-
-focus-trap-react@^3.0.4:
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/focus-trap-react/-/focus-trap-react-3.1.2.tgz#4dd021ccd028bbd3321147d132cdf7585d6d1394"
-  dependencies:
-    focus-trap "^2.0.1"
-
-focus-trap@^2.0.1:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-2.4.3.tgz#95edc23e77829b7772cb2486d61fd6371ce112f9"
-  dependencies:
-    tabbable "^1.0.3"
 
 follow-redirects@^1.2.5:
   version "1.4.1"
@@ -5290,10 +5249,6 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash.uniqueid@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/lodash.uniqueid/-/lodash.uniqueid-4.0.1.tgz#3268f26a7c88e4f4b1758d679271814e31fa5b26"
-
 "lodash@>=3.5 <5", lodash@^4.0.0, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.1, lodash@^4.3.0, lodash@~4.17.4:
   version "4.17.5"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
@@ -5657,10 +5612,6 @@ no-case@^2.2.0:
   resolved "https://registry.yarnpkg.com/no-case/-/no-case-2.3.2.tgz#60b813396be39b3f1288a4c1ed5d1e7d28b464ac"
   dependencies:
     lower-case "^1.1.1"
-
-no-scroll@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/no-scroll/-/no-scroll-2.1.0.tgz#f8643b3ddb6a3bf94430e5ff31d26f21d082a695"
 
 node-fetch@^1.0.1, node-fetch@^1.7.0:
   version "1.7.3"
@@ -6674,7 +6625,7 @@ promise@7.3.1, promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.0.0, "prop-types@^15.0.0 || ^16.0.0", prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
+prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
   dependencies:
@@ -6832,14 +6783,6 @@ react-addons-create-fragment@^15.0.0:
     loose-envify "^1.3.1"
     object-assign "^4.1.0"
 
-react-aria-modal@^2.11.1:
-  version "2.12.1"
-  resolved "https://registry.yarnpkg.com/react-aria-modal/-/react-aria-modal-2.12.1.tgz#cecfe6967e61aa61b8c78a4238622cf2e8e6f943"
-  dependencies:
-    focus-trap-react "^3.0.4"
-    no-scroll "^2.0.0"
-    react-displace "^2.3.0"
-
 react-autosuggest@^9.3.2:
   version "9.3.4"
   resolved "https://registry.yarnpkg.com/react-autosuggest/-/react-autosuggest-9.3.4.tgz#e47ff800081b2f7c678165bfb7cc84b07f462336"
@@ -6879,19 +6822,6 @@ react-dev-utils@^3.1.0, react-dev-utils@^3.1.1:
     sockjs-client "1.1.4"
     strip-ansi "3.0.1"
     text-table "0.2.0"
-
-react-displace@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/react-displace/-/react-displace-2.3.0.tgz#6915f8f2f279a29a7b58442405c26edc3d441429"
-
-"react-dom@^15.0.0 || ^16.0.0":
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
 
 react-dom@^15.6.2:
   version "15.6.2"
@@ -7033,15 +6963,6 @@ react-tippy@^1.2.2:
   resolved "https://registry.yarnpkg.com/react-tippy/-/react-tippy-1.2.2.tgz#061467d34d29e7a5a9421822d125c451d6bb5153"
   dependencies:
     popper.js "^1.11.1"
-
-"react@^15.0.0 || ^16.0.0":
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
 
 react@^15.6.2:
   version "15.6.2"
@@ -8298,10 +8219,6 @@ syntax-error@^1.1.1:
   dependencies:
     acorn-node "^1.2.0"
 
-tabbable@^1.0.3:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-1.1.2.tgz#b171680aea6e0a3e9281ff23532e2e5de11c0d94"
-
 table@^3.7.8:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/table/-/table-3.8.3.tgz#2bbc542f0fda9861a755d3947fefd8b3f513855f"
@@ -8703,7 +8620,7 @@ user-home@^2.0.0:
   dependencies:
     os-homedir "^1.0.0"
 
-uswds@1.3.1, uswds@~1.3.0:
+uswds@~1.3.0:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/uswds/-/uswds-1.3.1.tgz#1687b2a8f844e328013465a09c78d32c75d096da"
   dependencies:
