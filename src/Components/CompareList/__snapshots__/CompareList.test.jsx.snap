@@ -4,6 +4,19 @@ exports[`CompareListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full content-container"
 >
+  <div>
+    <button
+      className="button-back-link"
+      onClick={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      <FontAwesome
+        name="arrow-left"
+      />
+      Go back to seaarch results
+    </button>
+  </div>
   <div
     className="comparison-container"
   >
@@ -24,6 +37,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
               scope="row"
             >
               Position
+              <div
+                className="border-extension border-visible"
+              />
             </th>
             <th>
               <div
@@ -39,6 +55,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   Learn more
                 </Link>
               </div>
+              <div
+                className="border-extension"
+              />
             </th>
             <th>
               <div
@@ -54,6 +73,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   Learn more
                 </Link>
               </div>
+              <div
+                className="border-extension"
+              />
             </th>
           </tr>
         </thead>
@@ -63,34 +85,21 @@ exports[`CompareListComponent matches snapshot 1`] = `
               scope="row"
             >
               Post
+              <div
+                className="border-extension-layer-2 border-visible-layer-2"
+              />
             </th>
             <td>
               MASERU, LESOTHO
-              <LinkButton
-                className="post-data-button"
-                isExternal={true}
-                toLink="/obc/post/null"
-                useDefaultClass={true}
-              >
-                <FontAwesome
-                  name="map-marker"
-                />
-                View Post Data
-              </LinkButton>
+              <div
+                className="border-extension-layer-2"
+              />
             </td>
             <td>
               None listed
-              <LinkButton
-                className="post-data-button"
-                isExternal={true}
-                toLink="/obc/post/null"
-                useDefaultClass={true}
-              >
-                <FontAwesome
-                  name="map-marker"
-                />
-                View Post Data
-              </LinkButton>
+              <div
+                className="border-extension-layer-2"
+              />
             </td>
           </tr>
           <tr>
@@ -215,25 +224,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               N/A 
-              <span>
-                 | 
-                <a
-                  href="/obc/post/null"
-                >
-                  Details
-                </a>
-              </span>
             </td>
             <td>
               N/A 
-              <span>
-                 | 
-                <a
-                  href="/obc/post/null"
-                >
-                  Details
-                </a>
-              </span>
             </td>
           </tr>
           <tr>
@@ -244,29 +237,16 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               N/A 
-              <span>
-                 | 
-                <a
-                  href="/obc/post/null"
-                >
-                  Details
-                </a>
-              </span>
             </td>
             <td>
               N/A 
-              <span>
-                 | 
-                <a
-                  href="/obc/post/null"
-                >
-                  Details
-                </a>
-              </span>
             </td>
           </tr>
         </tbody>
       </table>
+      <div
+        className="border-bottom-extension"
+      />
     </div>
   </div>
 </div>
@@ -276,6 +256,19 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 <div
   className="usa-grid-full content-container"
 >
+  <div>
+    <button
+      className="button-back-link"
+      onClick={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      <FontAwesome
+        name="arrow-left"
+      />
+      Go back to seaarch results
+    </button>
+  </div>
   <div
     className="comparison-container"
   >
