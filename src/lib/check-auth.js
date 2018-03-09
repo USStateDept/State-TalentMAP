@@ -1,8 +1,8 @@
 import { setClient } from '../client/actions';
 
 function checkAuthorization(dispatch) {
-  // attempt to grab the token from localstorage
-  const storedToken = localStorage.getItem('token');
+  // attempt to grab the token from sessionStorage
+  const storedToken = sessionStorage.getItem('token');
 
   // if it exists
   if (storedToken) {

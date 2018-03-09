@@ -27,39 +27,39 @@ import { validStateEmail,
 
 describe('local storage', () => {
   it('should be able to fetch the existence of a value when there is one values in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('testKey', JSON.stringify(['1']));
+    const retrieved = localStorageFetchValue('testKey', '1');
     expect(retrieved.exists).toBe(true);
     localStorage.clear();
   });
 
   it('should be able to fetch the existence of a value when there are multiple values in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('testKey', JSON.stringify(['1', '2']));
+    const retrieved = localStorageFetchValue('testKey', '1');
     expect(retrieved.exists).toBe(true);
     localStorage.clear();
   });
 
   it('should be able to fetch the existence of a value when that value is not in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['2', '3']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('testKey', JSON.stringify(['2', '3']));
+    const retrieved = localStorageFetchValue('testKey', '1');
     expect(retrieved.exists).toBe(false);
     localStorage.clear();
   });
 
   it('should be able to fetch the count of an array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('testKey', JSON.stringify(['1', '2']));
+    const retrieved = localStorageFetchValue('testKey', '1');
     expect(retrieved.count).toBe(2);
     localStorage.clear();
   });
 
   it('should be able to toggle a value in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    let retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('testKey', JSON.stringify(['1', '2']));
+    let retrieved = localStorageFetchValue('testKey', '1');
     expect(retrieved.exists).toBe(true);
-    localStorageToggleValue('key', '1');
-    retrieved = localStorageFetchValue('key', '1');
+    localStorageToggleValue('testKey', '1');
+    retrieved = localStorageFetchValue('testKey', '1');
     expect(retrieved.exists).toBe(false);
     localStorage.clear();
   });
