@@ -38,7 +38,7 @@ describe('Routes', () => {
   });
   it('handles a post details route', () => {
     const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
-      <MemoryRouter initialEntries={['/post/00011111']}>
+      <MemoryRouter initialEntries={['/obc/post/00011111']}>
         <Routes isAuthorized={() => true} />
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
