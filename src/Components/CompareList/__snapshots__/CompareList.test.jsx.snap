@@ -2,8 +2,21 @@
 
 exports[`CompareListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full content-container"
 >
+  <div>
+    <button
+      className="button-back-link"
+      onClick={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      <FontAwesome
+        name="arrow-left"
+      />
+      Go back to seaarch results
+    </button>
+  </div>
   <div
     className="comparison-container"
   >
@@ -24,16 +37,14 @@ exports[`CompareListComponent matches snapshot 1`] = `
               scope="row"
             >
               Position
+              <div
+                className="border-extension border-visible"
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
               />
-              <div
-                className="column-title-sub"
-              >
-                MASERU, LESOTHO
-              </div>
               <div
                 className="column-title-link"
               >
@@ -44,16 +55,14 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   Learn more
                 </Link>
               </div>
+              <div
+                className="border-extension"
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
               />
-              <div
-                className="column-title-sub"
-              >
-                None listed
-              </div>
               <div
                 className="column-title-link"
               >
@@ -64,6 +73,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   Learn more
                 </Link>
               </div>
+              <div
+                className="border-extension"
+              />
             </th>
           </tr>
         </thead>
@@ -72,13 +84,48 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Grade
+              Post
+              <div
+                className="border-extension-layer-2 border-visible-layer-2"
+              />
             </th>
             <td>
-              05
+              MASERU, LESOTHO
+              <div
+                className="border-extension-layer-2"
+              />
             </td>
             <td>
-              03
+              None listed
+              <div
+                className="border-extension-layer-2"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Skill Code
+            </th>
+            <td>
+              OFFICE MANAGEMENT (9017)
+            </td>
+            <td>
+              OFFICE MANAGEMENT (9017)
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Position Number
+            </th>
+            <td>
+              00025003
+            </td>
+            <td>
+              00025003
             </td>
           </tr>
           <tr>
@@ -121,61 +168,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Skill Code
+              Transfer Eligibility Date
             </th>
             <td>
-              OFFICE MANAGEMENT (9017)
+              None listed
             </td>
             <td>
-              OFFICE MANAGEMENT (9017)
+              None listed
             </td>
           </tr>
           <tr>
             <th
               scope="row"
             >
-              Overseas
+              Incumbent
             </th>
             <td>
-              Yes
+              None listed
             </td>
             <td>
-              Yes
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table
-        className="tm-table"
-      >
-        <caption
-          className="usa-sr-only"
-        >
-          Post details comparison:
-        </caption>
-        <thead
-          className="tm-header-no-columns"
-        >
-          <tr>
-            <th
-              scope="row"
-            >
-              Post
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th
-              scope="row"
-            >
-              Organization
-            </th>
-            <td>
-              YAOUNDE CAMEROON (YAOUNDE)
-            </td>
-            <td>
-              YAOUNDE CAMEROON (YAOUNDE)
+              None listed
             </td>
           </tr>
           <tr>
@@ -195,45 +207,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post Differential
-            </th>
-            <td>
-              15
-            </td>
-            <td>
-              None listed
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Danger Pay
-            </th>
-            <td>
-              None listed
-            </td>
-            <td>
-              None listed
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Consumable Allowance
-            </th>
-            <td>
-              No
-            </td>
-            <td>
-              No
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
               Tour of Duty
             </th>
             <td>
@@ -247,43 +220,33 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Cost of Living Adjustment
+              Post Differential
             </th>
             <td>
-              None listed
+              N/A 
             </td>
             <td>
-              None listed
+              N/A 
             </td>
           </tr>
           <tr>
             <th
               scope="row"
             >
-              Service Needs Differential
+              Danger Pay
             </th>
             <td>
-              No
+              N/A 
             </td>
             <td>
-              No
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Rest & Relaxation Point
-            </th>
-            <td>
-              London
-            </td>
-            <td>
-              None listed
+              N/A 
             </td>
           </tr>
         </tbody>
       </table>
+      <div
+        className="border-bottom-extension"
+      />
     </div>
   </div>
 </div>
@@ -291,8 +254,21 @@ exports[`CompareListComponent matches snapshot 1`] = `
 
 exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full content-container"
 >
+  <div>
+    <button
+      className="button-back-link"
+      onClick={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      <FontAwesome
+        name="arrow-left"
+      />
+      Go back to seaarch results
+    </button>
+  </div>
   <div
     className="comparison-container"
   >
