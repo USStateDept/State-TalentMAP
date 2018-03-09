@@ -2,7 +2,7 @@
 
 exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
 <div
-  className="usa-grid-full user-dashboard profile-content-inner-container"
+  className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container"
 >
   <div
     className="usa-grid-full"
@@ -16,8 +16,8 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       className="usa-grid-full"
     >
       <div
-        className="usa-width-one-half user-dashboard-section-container
-                  user-dashboard-column-1"
+        className="usa-width-five-twelfths user-dashboard-section-container
+                    user-dashboard-column-1"
       >
         <div
           className="usa-width-one-whole user-dashboard-section current-user-section"
@@ -79,30 +79,21 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
             }
           />
         </div>
+        <div
+          className="usa-width-one-whole user-dashboard-section"
+        >
+          <BidListComingSoon />
+        </div>
       </div>
       <div
-        className="usa-width-one-half user-dashboard-section-container
-                  user-dashboard-column-2"
+        className="usa-width-seven-twelfths user-dashboard-section-container
+                    user-dashboard-column-2"
       >
         <div
-          className="usa-width-one-whole user-dashboard-section position-info-section"
+          className="usa-width-one-whole user-dashboard-section favorites-section"
         >
-          <PositionInformation
-            assignment={
-              Object {
-                "estimated_end_date": "10-10-2018",
-                "position": Object {
-                  "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
-                  "position_number": "58348065",
-                  "post": Object {
-                    "location": "Tunis, Tunisia",
-                  },
-                  "skill": "CONSTRUCTION ENGINEERING (6218)",
-                  "title": "PROJECT DIRECTOR",
-                },
-                "start_date": "10-10-2016",
-              }
-            }
+          <FavoriteList
+            favorites={Array []}
           />
         </div>
       </div>
@@ -113,7 +104,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
 
 exports[`ProfileDashboardComponent matches snapshot when loading 1`] = `
 <div
-  className="usa-grid-full user-dashboard profile-content-inner-container"
+  className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container"
 >
   <Spinner
     size="big"

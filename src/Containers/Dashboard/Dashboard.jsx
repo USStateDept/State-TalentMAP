@@ -4,8 +4,9 @@ import { connect } from 'react-redux';
 import { assignmentFetchData } from '../../actions/assignment';
 import { notificationsFetchData } from '../../actions/notifications';
 import { bidListFetchData } from '../../actions/bidList';
-import { USER_PROFILE, NOTIFICATION_LIST, ASSIGNMENT_OBJECT, BID_LIST } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
+import { favoritePositionsFetchData } from '../../actions/favoritePositions';
+import { USER_PROFILE, NOTIFICATION_LIST, ASSIGNMENT_OBJECT, BID_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
 class DashboardContainer extends Component {
@@ -14,11 +15,13 @@ class DashboardContainer extends Component {
     this.props.fetchAssignment();
     this.props.fetchNotifications();
     this.props.fetchBidList();
+    this.props.fetchFavorites();
   }
 
   render() {
     const { userProfile, userProfileIsLoading, assignment, assignmentIsLoading,
-      notifications, notificationsIsLoading, bidList, bidListIsLoading } = this.props;
+      notifications, notificationsIsLoading, bidList, bidListIsLoading, favoritePositions,
+      favoritePositionsIsLoading, favoritePositionsHasErrored } = this.props;
     return (
       <ProfileDashboard
         userProfile={userProfile}
@@ -29,6 +32,9 @@ class DashboardContainer extends Component {
         notificationsIsLoading={notificationsIsLoading}
         bidList={bidList.results}
         bidListIsLoading={bidListIsLoading}
+        favoritePositions={favoritePositions.results}
+        favoritePositionsIsLoading={favoritePositionsIsLoading}
+        favoritePositionsHasErrored={favoritePositionsHasErrored}
       />
     );
   }
@@ -46,6 +52,10 @@ DashboardContainer.propTypes = {
   fetchBidList: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
+  fetchFavorites: PropTypes.func.isRequired,
+  favoritePositions: POSITION_SEARCH_RESULTS,
+  favoritePositionsIsLoading: PropTypes.bool,
+  favoritePositionsHasErrored: PropTypes.bool,
 };
 
 DashboardContainer.defaultProps = {
@@ -57,6 +67,9 @@ DashboardContainer.defaultProps = {
   notifications: { results: [] },
   bidList: { results: [] },
   bidListIsLoading: false,
+  favoritePositions: POSITION_RESULTS_OBJECT,
+  favoritePositionsIsLoading: false,
+  favoritePositionsHasErrored: false,
 };
 
 const mapStateToProps = state => ({
@@ -68,12 +81,16 @@ const mapStateToProps = state => ({
   notificationsIsLoading: state.notificationsIsLoading,
   bidList: state.bidListFetchDataSuccess,
   bidListIsLoading: state.bidListIsLoading,
+  favoritePositions: state.favoritePositions,
+  favoritePositionsHasErrored: state.favoritePositionsHasErrored,
+  favoritePositionsIsLoading: state.favoritePositionsIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchAssignment: () => dispatch(assignmentFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchBidList: () => dispatch(bidListFetchData()),
+  fetchFavorites: () => dispatch(favoritePositionsFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

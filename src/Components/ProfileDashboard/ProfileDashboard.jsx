@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { USER_PROFILE, ASSIGNMENT_OBJECT } from '../../Constants/PropTypes';
+import { USER_PROFILE, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import UserProfile from './UserProfile';
-import PositionInformation from './PositionInformation';
 import Spinner from '../Spinner';
+import BidListComingSoon from './BidListComingSoon';
+import Favorites from './Favorites';
 
-const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoading,
-  notificationsIsLoading, bidListIsLoading }) => (
-    <div className="usa-grid-full user-dashboard profile-content-inner-container">
+const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
+  notificationsIsLoading, bidListIsLoading, favoritePositions, favoritePositionsIsLoading }) => (
+    <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
       {
         (isLoading || assignmentIsLoading || notificationsIsLoading || bidListIsLoading) ?
           <Spinner type="homepage-position-results" size="big" />
@@ -19,24 +20,33 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
               }
             </div>
             <div className="usa-grid-full">
-              <div
-                className={`usa-width-one-half user-dashboard-section-container
-                  user-dashboard-column-1`}
-              >
-                <div className="usa-width-one-whole user-dashboard-section current-user-section">
-                  <UserProfile userProfile={userProfile} />
-                </div>
+              <div className="hello-greeting">
+                {
+                  `Hello, ${userProfile.user.first_name}`
+                }
               </div>
-              <div
-                className={`usa-width-one-half user-dashboard-section-container
-                  user-dashboard-column-2`}
-              >
-                <div className="usa-width-one-whole user-dashboard-section position-info-section">
-                  <PositionInformation assignment={assignment} />
+              <div className="usa-grid-full">
+                <div
+                  className={`usa-width-five-twelfths user-dashboard-section-container
+                    user-dashboard-column-1`}
+                >
+                  <div className="usa-width-one-whole user-dashboard-section current-user-section">
+                    <UserProfile userProfile={userProfile} />
+                  </div>
+                  <div className="usa-width-one-whole user-dashboard-section">
+                    <BidListComingSoon />
+                  </div>
+                </div>
+                <div
+                  className={`usa-width-seven-twelfths user-dashboard-section-container
+                    user-dashboard-column-2`}
+                >
+                  <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                    <Favorites favorites={favoritePositions} />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
         }
     </div>
 );
@@ -44,10 +54,16 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  assignment: ASSIGNMENT_OBJECT.isRequired,
   assignmentIsLoading: PropTypes.bool.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
+  favoritePositions: FAVORITE_POSITIONS_ARRAY,
+  favoritePositionsIsLoading: PropTypes.bool,
+};
+
+ProfileDashboard.defaultProps = {
+  favoritePositions: [],
+  favoritePositionsIsLoading: false,
 };
 
 export default ProfileDashboard;
