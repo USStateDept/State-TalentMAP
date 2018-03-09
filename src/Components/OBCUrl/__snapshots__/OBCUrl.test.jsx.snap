@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OBCUrlComponent matches snapshot 1`] = `
+<a
+  href="/obc/5"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  Post details
+</a>
+`;
+
+exports[`OBCUrlComponent matches snapshot when id is a string 1`] = `
+<a
+  href="/obc/5A"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  Post details
+</a>
+`;
