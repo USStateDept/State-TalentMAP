@@ -30,6 +30,14 @@ describe('OBCUrlComponent', () => {
     expect(wrapper.find('a').props().href).toBe('/talentmap/obc/country/5');
   });
 
+  it('forms the url when type is "country"', () => {
+    const wrapper = shallow(<OBCUrl
+      id={5}
+      type="country"
+    />);
+    expect(wrapper.find('a').props().href).toBe('/obc/country/5');
+  });
+
   it('is defined when id is a string', () => {
     const wrapper = shallow(<OBCUrl
       id="5A"
