@@ -19,3 +19,13 @@ exports[`OBCUrlComponent matches snapshot when id is a string 1`] = `
   Post details
 </a>
 `;
+
+exports[`OBCUrlComponent matches snapshot when type is "country" 1`] = `
+<a
+  href="/obc/country/5"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  Post details
+</a>
+`;
