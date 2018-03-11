@@ -12,6 +12,14 @@ class Favorite extends Component {
     this.toggleSaved = this.toggleSaved.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    const { compareArray, refKey } = nextProps;
+    const oldState = this.getSavedState();
+    const newState = existsInArray(refKey, compareArray);
+
+    return (oldState !== newState);
+  }
+
   getSavedState() {
     // Is the refKey in the array? If so, return true
     const { compareArray, refKey } = this.props;
