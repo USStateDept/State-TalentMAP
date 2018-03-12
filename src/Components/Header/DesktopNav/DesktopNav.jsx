@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
-import Inbox from '../Inbox';
-import Notifications from '../Notifications';
 import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
@@ -36,13 +34,6 @@ userProfile, logout, toggleSearchVisibility }) => (
           </div>
         </div>
       </div>
-      <div className="header-nav-link-container">
-        <div className="header-nav-link">
-          <div className="header-nav-link-text feedback-text">
-            <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
-          </div>
-        </div>
-      </div>
     </div>
     <div className="header-nav-desktop desktop-nav-only account-notification-container">
       <div className="header-nav-link-container account-container">
@@ -63,8 +54,6 @@ userProfile, logout, toggleSearchVisibility }) => (
           {
             isLoggedIn &&
               <span>
-                <Inbox />
-                <Notifications />
                 <GlossaryIcon />
               </span>
           }

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FeedbackComponent matches snapshot 1`] = `
+<button
+  className="tm-feedback-button"
+  id="feedback-open-icon"
+  onClick={[Function]}
+>
+  Feedback
+</button>
+`;

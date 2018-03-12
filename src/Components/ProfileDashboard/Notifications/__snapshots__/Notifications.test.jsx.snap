@@ -96,7 +96,7 @@ exports[`NotificationsComponent matches snapshot when there are zero notificatio
     </div>
   </div>
   <div
-    className="usa-grid-full section-padded-inner-container"
+    className="usa-grid-full section-padded-inner-container notifications-top"
   >
     You have no notifications at this time
   </div>

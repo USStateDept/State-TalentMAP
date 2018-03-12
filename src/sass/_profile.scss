@@ -8,6 +8,10 @@
   position: relative;
   width: 100%;
 
+  .notifications-top {
+    min-height: 155px;
+  }
+
   .section-padded-inner-container {
     padding: 15px;
   }
@@ -18,7 +22,7 @@
   }
 
   .usa-grid-full {
-    max-width: unset;
+    max-width: none;
   }
 
   .favorite-positions-container {
@@ -111,12 +115,13 @@
   }
 
   .current-user-section {
-    min-height: 450px;
+    // min-height: 350px;
   }
 
   .current-user-section-container:last-child {
     border-bottom: 0;
     border-top: 0;
+    word-wrap: break-word;
   }
 
   .current-user-top {
@@ -245,7 +250,7 @@
   .dashboard-user-profile-picture {
     border-radius: 75px;
     height: 100px;
-    margin-bottom: 10px;
+    margin: 1em 0 2em;
     vertical-align: middle;
     width: 100px;
   }
@@ -565,8 +570,25 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
+  background-color: $tm-navy;
+  color: $color-white;
+  font-size: 1.1em;
   max-height: 450px;
+  min-height: 260px;
   overflow-y: scroll;
+
+  .primary-text {
+    text-transform: uppercase;
+  }
+
+  .bid-list-content {
+    margin-top: 85px;
+    text-align: center;
+  }
+
+  a {
+    font-size: .8em;
+  }
 }
 
 .parent-container-bid-status-declined {
@@ -634,5 +656,48 @@ $padding-no-border: $total-padding - $border;
     .fa {
       color: $color-black;
     }
+  }
+}
+
+.user-dashboard-main {
+  margin-right: 5%;
+}
+
+.favorites-list-container {
+  .parent-list-container {
+    background-color: $color-white;
+
+    .fa {
+      color: $blue-primary;
+    }
+
+    .bordered-list-content {
+      border-left: 5px solid $blue-primary;
+    }
+  }
+
+  .favorites-card-section {
+    float: left;
+  }
+
+  .favorites-card {
+    a {
+      float: right;
+    }
+  }
+
+  .tm-button-transparent {
+    border: 1px solid $color-black;
+    color: $color-black;
+    font-size: .8em;
+    padding: .7em 2em;
+  }
+
+  .saved-search-card {
+    padding: 5px 15px;
+  }
+
+  .data-point-container {
+    margin-bottom: 0;
   }
 }
