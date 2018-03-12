@@ -1,13 +1,18 @@
 import { setClient } from '../client/actions';
+import { fetchUserToken } from '../utilities';
 
 function checkAuthorization(dispatch) {
   // attempt to grab the token from sessionStorage
-  const storedToken = sessionStorage.getItem('token');
+  const storedToken = fetchUserToken();
 
   // if it exists
   if (storedToken) {
+    // we return the token as 'Token 123456789'
+    // remove the prefix
+    const splitToken = storedToken.split('Token ')[1];
+
     // parse it down into an object
-    const token = JSON.parse(storedToken);
+    const token = JSON.parse(splitToken);
 
     // TODO include check for token expiration
 
