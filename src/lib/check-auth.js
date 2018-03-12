@@ -9,10 +9,7 @@ function checkAuthorization(dispatch) {
   if (storedToken) {
     // we return the token as 'Token 123456789'
     // remove the prefix
-    const splitToken = storedToken.split('Token ')[1];
-
-    // parse it down into an object
-    const token = JSON.parse(splitToken);
+    const token = storedToken.split('Token ')[1];
 
     // TODO include check for token expiration
 
