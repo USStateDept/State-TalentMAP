@@ -1,9 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { NO_ORG, NO_POST, NO_BUREAU, NO_POST_DIFFERENTIAL,
-  NO_DANGER_PAY, NO_END_DATE, NO_USER_LISTED } from '../../Constants/SystemMessages';
+import {
+  NO_ORG,
+  NO_POST,
+  NO_BUREAU,
+  NO_POST_DIFFERENTIAL,
+  NO_DANGER_PAY,
+  NO_END_DATE,
+  NO_USER_LISTED,
+} from '../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
+import OBCUrl from '../../Components/OBCUrl/OBCUrl';
 import PositionDetailsDataPoint from '../../Components/PositionDetailsDataPoint/PositionDetailsDataPoint';
 import StaticDevContent from '../StaticDevContent';
 import { formatDate, propOrDefault } from '../../utilities';
@@ -12,8 +19,8 @@ const PositionDetailsItem = ({ details }) => {
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
-  const formattedPost = propOrDefault(details, 'post.id') ?
-    <Link to={`/post/${details.post.id}`}>{details.post.location}</Link> : NO_POST;
+  const formattedPost = propOrDefault(details, 'post.obc_id') ?
+    <OBCUrl id={details.post.obc_id} label="{details.post.location}" /> : NO_POST;
 
   const formattedBureau = details.bureau || NO_BUREAU;
 

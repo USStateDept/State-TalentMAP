@@ -36,13 +36,6 @@ describe('Routes', () => {
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
-  it('handles a post details route', () => {
-    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
-      <MemoryRouter initialEntries={['/post/00011111']}>
-        <Routes isAuthorized={() => true} />
-      </MemoryRouter></Provider>);
-    expect(routes).toBeDefined();
-  });
   it('handles a compare route', () => {
     const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
       <MemoryRouter initialEntries={['/compare/00011111,00011112']}>

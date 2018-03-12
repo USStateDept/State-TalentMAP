@@ -27,14 +27,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             title="Organization"
           />
           <PositionDetailsDataPoint
-            description={
-              <Link
-                replace={false}
-                to="/post/162"
-              >
-                MASERU, LESOTHO
-              </Link>
-            }
+            description="None listed"
             title="Post"
           />
           <PositionDetailsDataPoint
