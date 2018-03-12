@@ -6,18 +6,34 @@ import { existsInArray } from '../../utilities';
 import InteractiveElement from '../InteractiveElement';
 
 class Favorite extends Component {
-
   constructor(props) {
     super(props);
     this.toggleSaved = this.toggleSaved.bind(this);
+
+    this.state = {
+      loading: props.isLoading,
+    };
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
+    let isUpdate = true;
+
     const { compareArray, refKey } = nextProps;
     const oldState = this.getSavedState();
     const newState = existsInArray(refKey, compareArray);
 
-    return (oldState !== newState);
+    if (this.state.loading && !nextProps.isLoading) {
+      // Only update the loading state if current state.loading
+      // and prop change detected is turning it off
+      this.setState({
+        loading: nextProps.isLoading,
+      });
+    }
+
+    isUpdate = (oldState !== newState) ||
+               (this.state.loading !== nextState.isLoading);
+
+    return isUpdate;
   }
 
   getSavedState() {
@@ -28,12 +44,17 @@ class Favorite extends Component {
 
   toggleSaved() {
     const { onToggle, refKey } = this.props;
+
+    this.setState({
+      loading: true,
+    });
+
     // pass the key and the "remove" param
     onToggle(refKey, this.getSavedState());
   }
 
   render() {
-    const { useLongText } = this.props;
+    const { hideText, useLongText } = this.props;
 
     const shortTextFavorite = 'Favorite';
     const longTextFavorite = 'Add to Favorites';
@@ -61,9 +82,14 @@ class Favorite extends Component {
     }
 
     const style = {
-      pointerEvents: this.props.isLoading ? 'none' : 'inherit',
+      pointerEvents: this.state.loading ? 'none' : 'inherit',
     };
     const borderClass = this.props.hasBorder ? 'favorites-button-border' : '';
+
+    if (hideText) {
+      text = null;
+    }
+
     return (
       <InteractiveElement
         type="div"
@@ -72,7 +98,10 @@ class Favorite extends Component {
         className={`favorite-container ${borderClass}`}
         onClick={this.toggleSaved}
       >
-        <FontAwesome name={iconClass} /> {this.props.hideText ? null : text}
+        {this.state.loading ?
+          (<span className="ds-c-spinner" />) :
+          (<FontAwesome name={iconClass} />)}{text}
+
       </InteractiveElement>
     );
   }
