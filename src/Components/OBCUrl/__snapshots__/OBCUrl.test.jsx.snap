@@ -6,8 +6,7 @@ exports[`OBCUrlComponent matches snapshot 1`] = `
   rel="noopener noreferrer"
   target="_blank"
 >
-  Post
-   details
+  Post details
 </a>
 `;
 
@@ -17,8 +16,7 @@ exports[`OBCUrlComponent matches snapshot when id is a string 1`] = `
   rel="noopener noreferrer"
   target="_blank"
 >
-  Post
-   details
+  Post details
 </a>
 `;
 
