@@ -83,11 +83,11 @@ describe('validStateEmail', () => {
 
 describe('fetchUserToken', () => {
   it('should be able to fetch the auth token', () => {
-    localStorage.clear();
-    localStorage.setItem('token', '1234');
+    sessionStorage.clear();
+    sessionStorage.setItem('token', '1234');
     const output = fetchUserToken();
     expect(output).toBe('Token 1234');
-    localStorage.clear();
+    sessionStorage.clear();
   });
 });
 
