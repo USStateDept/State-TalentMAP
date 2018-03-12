@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_POST, NO_POST_DIFFERENTIAL, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
+import OBCUrl from '../../Components/OBCUrl/OBCUrl';
 import ResultsCardDataItem from '../ResultsCardDataItem/ResultsCardDataItem';
 import { shortenString } from '../../utilities';
 
@@ -13,7 +13,11 @@ const ResultsCardDataSection = ({ result }) => (
           title="Post Information"
           items={
           [
-            { description: 'Post', text: result.post ? <Link to={`/post/${result.post.id}`}>{result.post.location}</Link> : NO_POST },
+            {
+              description: 'Post',
+              text: (result.post && result.post.obc_id) ?
+                <OBCUrl id={result.post.obc_id} label="{result.post.location}" /> : NO_POST,
+            },
             { description: 'Bureau', text: result.bureau },
             { description: 'Post Differential',
               text: result.post
