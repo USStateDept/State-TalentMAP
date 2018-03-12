@@ -108,9 +108,9 @@ export function savedSearchesFetchData() {
     axios.get(`${api}/searches/`, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then((results) => {
+              dispatch(savedSearchesSuccess(results));
               dispatch(savedSearchesIsLoading(false));
               dispatch(savedSearchesHasErrored(false));
-              dispatch(savedSearchesSuccess(results));
             })
             .catch(() => {
               dispatch(savedSearchesIsLoading(false));

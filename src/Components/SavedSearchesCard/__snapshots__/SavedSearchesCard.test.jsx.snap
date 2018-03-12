@@ -11,7 +11,7 @@ exports[`SavedSearchesCardComponent matches snapshot 1`] = `
       className="usa-width-one-whole saved-search-card-name"
     >
       Name: 
-      search
+      Test 33
     </div>
   </div>
   <div

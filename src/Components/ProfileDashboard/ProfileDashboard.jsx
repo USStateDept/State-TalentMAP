@@ -5,6 +5,7 @@ import UserProfile from './UserProfile';
 import Spinner from '../Spinner';
 import BidListComingSoon from './BidListComingSoon';
 import Favorites from './Favorites';
+import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 
 const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
   notificationsIsLoading, bidListIsLoading, favoritePositions, favoritePositionsIsLoading }) => (
@@ -37,6 +38,9 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
                     user-dashboard-column-2`}
                 >
                   <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                    <SavedSearches />
+                  </div>
+                  <div className="usa-width-one-whole user-dashboard-section favorites-section">
                     <Favorites favorites={favoritePositions} />
                   </div>
                 </div>
@@ -59,6 +63,7 @@ ProfileDashboard.propTypes = {
 ProfileDashboard.defaultProps = {
   favoritePositions: [],
   favoritePositionsIsLoading: false,
+  filtersIsLoading: false,
 };
 
 export default ProfileDashboard;

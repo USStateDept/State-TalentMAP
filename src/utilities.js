@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
 import numeral from 'numeral';
+import cloneDeep from 'lodash/cloneDeep';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -318,3 +319,57 @@ export const formatIdSpacing = (id) => {
 // provide an array of permissions to check if they all exist in an array of user permissions
 export const userHasPermissions = (permissionsToCheck = [], userPermissions = []) =>
   permissionsToCheck.every(val => userPermissions.indexOf(val) >= 0);
+
+export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
+  const clonedSavedSearches = cloneDeep(savedSearchesObject.results);
+  const mappedSearchTerms = clonedSavedSearches.slice().map(s => s.filters);
+  const mappedSearchTermsFormatted = mappedSearchTerms.map((m) => {
+    const filtered = m;
+    // eslint-disable-next-line
+    Object.keys(m).forEach(k => { if (!Array.isArray(filtered[k])){ filtered[k] = filtered[k].split(',') }});
+    return filtered;
+  });
+
+  const merge = function (/* ...objs */) {
+    // eslint-disable-next-line
+    return [].reduce.call(arguments, (acc, x) => {
+      Object.keys(x).forEach((k) => {
+        acc[k] = (acc[k] || []).concat(x[k]);
+        acc[k] = acc[k].filter((item, index, self) => self.indexOf(item) === index);
+      });
+      return acc;
+    }, {});
+  };
+
+  const mergedFilters = mappedSearchTermsFormatted.length ?
+    merge(...mappedSearchTermsFormatted) : {};
+
+  const mergedFiltersWithoutArrays = { ...mergedFilters };
+
+  // eslint-disable-next-line
+  Object.keys(mergedFilters).forEach(f => { if (Array.isArray(mergedFilters[f])){ mergedFiltersWithoutArrays[f] = mergedFilters[f].join() } });
+
+  const newQuery = mergedFiltersWithoutArrays;
+
+  return newQuery;
+};
+
+export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) => {
+  const clonedSearchObject = cloneDeep(savedSearchObject);
+  const searchKeys = Object.keys(clonedSearchObject);
+  // eslint-disable-next-line
+  searchKeys.forEach(s => clonedSearchObject[s] = clonedSearchObject[s].split(','));
+
+  const arrayToReturn = [];
+
+  searchKeys.forEach((s) => {
+    clonedSearchObject[s].forEach((c) => {
+      const foundParam = mappedParams.find(m => m.selectionRef === s && m.codeRef === c);
+      if (foundParam && foundParam.description) {
+        arrayToReturn.push(foundParam.description);
+      }
+    });
+  });
+
+  return arrayToReturn;
+};

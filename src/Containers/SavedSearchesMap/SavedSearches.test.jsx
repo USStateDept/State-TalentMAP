@@ -7,21 +7,19 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
-import SavedSearchesContainer, { mapDispatchToProps } from './SavedSearches';
+import SavedSearchesMap, { mapDispatchToProps } from './SavedSearchesMap';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('SavedSearchesContainer', () => {
-  const ChildElement = (<div />);
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <SavedSearchesContainer
+      <SavedSearchesMap
         onNavigateTo={() => {}}
         savedSearchesFetchData={() => {}}
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
-        ChildElement={ChildElement}
       />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
@@ -30,13 +28,12 @@ describe('SavedSearchesContainer', () => {
   it('can call the goToSavedSearch function', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <SavedSearchesContainer.WrappedComponent
+      <SavedSearchesMap.WrappedComponent
         onNavigateTo={spy}
         fetchData={() => {}}
         savedSearchesFetchData={() => {}}
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
-        ChildElement={ChildElement}
       />,
     );
     wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
