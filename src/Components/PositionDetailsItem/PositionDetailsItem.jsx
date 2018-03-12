@@ -19,8 +19,8 @@ const PositionDetailsItem = ({ details }) => {
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
-  const formattedPost = propOrDefault(details, 'post.id') ?
-    <OBCUrl id={details.post.id} /> : NO_POST;
+  const formattedPost = propOrDefault(details, 'post.obc_id') ?
+    <OBCUrl id={details.post.obc_id} label="{details.post.location}" /> : NO_POST;
 
   const formattedBureau = details.bureau || NO_BUREAU;
 
