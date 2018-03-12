@@ -2,7 +2,7 @@
 
 exports[`FavoritesListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full profile-section-container"
 >
   <div
     className="usa-grid-full section-padded-inner-container"
@@ -132,7 +132,7 @@ exports[`FavoritesListComponent matches snapshot 1`] = `
 
 exports[`FavoritesListComponent matches snapshot when there are no bids 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full profile-section-container"
 >
   <div
     className="usa-grid-full section-padded-inner-container"

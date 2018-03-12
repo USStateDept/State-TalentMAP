@@ -5,6 +5,10 @@
   position: relative;
   width: 100%;
 
+  .saved-search-parent-container {
+    min-height: 300px;
+  }
+
   .notifications-top {
     min-height: 155px;
   }
@@ -679,6 +683,16 @@ $padding-no-border: $total-padding - $border;
   margin-right: 5%;
 }
 
+.profile-section-container {
+  .tm-button-transparent {
+    border: 1px solid $color-black;
+    color: $color-black;
+    float: right;
+    font-size: .8em;
+    padding: .7em 2em;
+  }
+}
+
 .favorites-list-container {
   .parent-list-container {
     background-color: $color-white;
@@ -696,19 +710,6 @@ $padding-no-border: $total-padding - $border;
     float: left;
   }
 
-  .favorites-card {
-    a {
-      float: right;
-    }
-  }
-
-  .tm-button-transparent {
-    border: 1px solid $color-black;
-    color: $color-black;
-    font-size: .8em;
-    padding: .7em 2em;
-  }
-
   .saved-search-card {
     padding: 5px 15px;
   }
@@ -716,4 +717,43 @@ $padding-no-border: $total-padding - $border;
   .data-point-container {
     margin-bottom: 0;
   }
+}
+
+.saved-search-pill {
+  background-color: $blue-primary;
+  border-radius: .7em;
+  color: $color-white;
+  float: left;
+  font-size: .8em;
+  margin: 0 .7em .5em 0;
+  padding: .2em .7em;
+}
+
+.saved-searches-list-profile-container {
+  min-height: 260px;
+  position: relative;
+
+  .list-transparent {
+    padding-left: .8em;
+
+    .bordered-list-content {
+      border-color: transparent;
+    }
+  }
+
+  li {
+    border-bottom: 1px solid $color-gray-light;
+
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  .tm-button-transparent {
+    padding: .7em 3em;
+  }
+}
+
+.saved-search-list-container {
+  min-height: 260px;
 }

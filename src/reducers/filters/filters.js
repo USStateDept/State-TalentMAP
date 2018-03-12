@@ -184,6 +184,7 @@ export function filtersHasErrored(state = false, action) {
 export function filtersIsLoading(state = false, action) {
   switch (action.type) {
     case 'FILTERS_IS_LOADING':
+      console.log(action.isLoading);
       return action.isLoading;
     default:
       return state;
