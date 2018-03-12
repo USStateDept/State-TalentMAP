@@ -20,9 +20,6 @@ const Footer = () => (
               <li className="usa-width-one-sixth usa-footer-primary-content">
                 <a className="usa-footer-primary-link" href="https://github.com/18F/State-TalentMAP">About</a>
               </li>
-              <li className="usa-width-one-sixth usa-footer-primary-content">
-                <a className="usa-footer-primary-link" href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
-              </li>
             </ul>
           </nav>
         </div>

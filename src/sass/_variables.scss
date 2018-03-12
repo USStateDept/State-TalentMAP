@@ -28,6 +28,10 @@ $color-green-dark: #2e8540;
 $color-green-dark-opacity50: #95be9d;
 $color-green-light: #ecf6ee;
 $color-gold: #f8c54f;
+$color-gold-dark: #fdb81e;
+$color-gold-darker: #976e12;
+$color-gold-darkest: #4b3709;
+$color-dodger-blue: #1e90ff;
 
 //avatar dropdown
 $avatar-background: #fff;
@@ -47,4 +51,6 @@ $editor-headline-color: #888;
 // we'll use this section to keep track of and order them
 $autosuggest-suggestions-container-open-z: 2;
 $spinner-z: 100;
+$feedback-button-z: 10000;
+$feedback-z: 11000;
 $dropdown-content-z: 15000;
