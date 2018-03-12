@@ -52,12 +52,6 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
-  it('handles a post details route', () => {
-    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/obc/post/00011111']}>
-      <Main />
-    </MemoryRouter>);
-    expect(main).toBeDefined();
-  });
   it('handles a profile/favorites route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/favorites']}>
       <Main />
