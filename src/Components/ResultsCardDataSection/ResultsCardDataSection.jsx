@@ -13,7 +13,7 @@ const ResultsCardDataSection = ({ result }) => (
           title="Post Information"
           items={
           [
-            { description: 'Post', text: result.post ? <OBCUrl id={result.post.id} /> : NO_POST },
+            { description: 'Post', text: result.post ? <OBCUrl id={result.post.obc_id} /> : NO_POST },
             { description: 'Bureau', text: result.bureau },
             { description: 'Post Differential',
               text: result.post
