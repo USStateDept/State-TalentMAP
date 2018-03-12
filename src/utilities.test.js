@@ -23,6 +23,8 @@ import { validStateEmail,
          formatBidTitle,
          formatWaiverTitle,
          propOrDefault,
+         formatIdSpacing,
+         userHasPermissions,
        } from './utilities';
 
 describe('local storage', () => {
@@ -310,19 +312,18 @@ describe('returnObjectsWherePropMatches', () => {
 describe('numbersToPercentString', () => {
   let numerator = 2;
   let denominator = 10;
-  let precision = 2;
 
   it('can return a percent', () => {
-    const percent = numbersToPercentString(numerator, denominator, precision);
-    expect(percent).toBe('20%');
+    const percent = numbersToPercentString(numerator, denominator);
+    expect(percent).toBe('20.0%');
   });
 
-  it('can return a percent with proper precision', () => {
+  it('can return a percent with proper format', () => {
     numerator = 3;
     denominator = 7;
-    precision = 4;
-    const percent = numbersToPercentString(numerator, denominator, precision);
-    expect(percent).toBe('42.85%');
+    const format = '0.00%';
+    const percent = numbersToPercentString(numerator, denominator, format);
+    expect(percent).toBe('42.86%');
   });
 });
 
@@ -357,19 +358,80 @@ describe('propOrDefault', () => {
       c: {
         d: {},
         e: 1,
+        f: 0,
       },
     },
   };
 
-  it('can traverse nested objects', () => {
+  it('traverses nested objects', () => {
     expect(propOrDefault(nestedObject, 'a.b')).toBe(true);
     expect(propOrDefault(nestedObject, 'a.c.d')).toBeDefined();
     expect(propOrDefault(nestedObject, 'a.c.e')).toBe(1);
   });
 
-  it('can return the default value when the nested property does not exist', () => {
+  it('returns the default value when the nested property does not exist', () => {
     expect(propOrDefault(nestedObject, 'a.b.e.e.e')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.g')).toBe(null);
     expect(propOrDefault(nestedObject, 'a.b.c.d.d', 'value')).toBe('value');
+  });
+
+  it('returns the property value when the property value exists, but is 0', () => {
+    expect(propOrDefault(nestedObject, 'a.c.f')).toBe(0);
+  });
+});
+
+describe('formatIdSpacing', () => {
+  it('can format strings', () => {
+    expect(formatIdSpacing('two words')).toBe('two-words');
+    expect(formatIdSpacing('has Three words')).toBe('has-Three-words');
+  });
+
+  it('can format numbers', () => {
+    expect(formatIdSpacing(3)).toBe('3');
+  });
+
+  it('can format undefined values', () => {
+    expect(formatIdSpacing(undefined)).toBe(null);
+    expect(formatIdSpacing(null)).toBe(null);
+    expect(formatIdSpacing(false)).toBe(null);
+  });
+});
+
+describe('userHasPermissions', () => {
+  let userPermissions;
+  let permissionsToCheck;
+  beforeEach(() => {
+    userPermissions = ['a', 'b', 'c'];
+    permissionsToCheck = ['a', 'c'];
+  });
+
+  it('returns true if the user has all the needed permissions', () => {
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+
+  it('returns false if the user has some of the needed permissions', () => {
+    userPermissions = ['a'];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(false);
+  });
+
+  it('returns true if the user has more than the needed permissions', () => {
+    userPermissions.push('d', 'e');
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+
+  it('returns false if userPermissions are not provided', () => {
+    userPermissions = [];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(false);
+  });
+
+  it('returns true if permissionsToCheck are not provided', () => {
+    permissionsToCheck = [];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+
+  it('returns true if permissionsToCheck and userPermissions are not provided', () => {
+    permissionsToCheck = [];
+    userPermissions = [];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
   });
 });

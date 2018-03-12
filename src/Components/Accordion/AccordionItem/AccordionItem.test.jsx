@@ -22,7 +22,7 @@ describe('AccordionItemComponent', () => {
     const expanded = { value: null };
     const wrapper = shallow(
       <AccordionItem
-        id=""
+        id="id"
         title="title"
         expanded={false}
         setAccordion={(e) => { expanded.value = e; }}
@@ -37,8 +37,8 @@ describe('AccordionItemComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(
       <AccordionItem
-        id=""
-        title=""
+        id="id"
+        title="title"
         expanded
         setAccordion={() => {}}
       >

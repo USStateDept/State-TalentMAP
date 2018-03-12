@@ -30,7 +30,7 @@ const Notifications = ({ notifications }) => {
       </div>
       {
         notificationArray.length === 0 ?
-          <div className="usa-grid-full section-padded-inner-container" >
+          <div className="usa-grid-full section-padded-inner-container notifications-top" >
             You have no notifications at this time
           </div> :
           <BorderedList contentArray={notificationArray} />

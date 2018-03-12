@@ -2,7 +2,7 @@
 
 exports[`SavedSearchesComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full saved-searches-container
+  className="usa-grid-full profile-content-inner-container saved-searches-container
       "
 >
   <ProfileSectionTitle

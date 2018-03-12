@@ -49,14 +49,35 @@ export function userProfileFetchData(bypass) {
       dispatch(userProfileIsLoading(true));
       dispatch(userProfileHasErrored(false));
     }
-    axios.get(`${api}/profile/`, { headers: { Authorization: fetchUserToken() } })
-            .then(({ data }) => {
-              dispatch(userProfileFetchDataSuccess(data));
+
+    // create functions to fetch user's profile and permissions
+
+    // profile
+    function getUserAccount() {
+      return axios.get(`${api}/profile/`, { headers: { Authorization: fetchUserToken() } });
+    }
+
+    // permissions
+    function getUserPermissions() {
+      return axios.get(`${api}/permission/user/`, { headers: { Authorization: fetchUserToken() } });
+    }
+
+    // use axios' Promise.all to fetch the profile and permissions, and then combine them
+    // into one object
+    axios.all([getUserAccount(), getUserPermissions()])
+            .then(axios.spread((acct, perms) => {
+              // form the userProfile object
+              const account = acct.data;
+              const permissions = perms.data;
+              const newProfileObject = { ...account, permission_groups: permissions.groups };
+
+              // then perform dispatches
+              dispatch(userProfileFetchDataSuccess(newProfileObject));
               dispatch(userProfileIsLoading(false));
               dispatch(userProfileHasErrored(false));
               dispatch(userProfileFavoritePositionHasErrored(false));
               dispatch(userProfileFavoritePositionIsLoading(false));
-            })
+            }))
             .catch(() => {
               dispatch(userProfileHasErrored(true));
               dispatch(userProfileIsLoading(false));

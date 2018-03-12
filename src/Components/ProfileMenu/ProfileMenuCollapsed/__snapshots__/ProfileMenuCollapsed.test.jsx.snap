@@ -23,29 +23,58 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
       link="/profile/dashboard/"
     />
     <withRouter(NavLink)
-      iconName="pie-chart"
-      link="/profile/statistics/"
+      iconName="star"
+      link="/profile/favorites/"
     />
     <withRouter(NavLink)
+      iconName="search"
+      link="/profile/searches/"
+    />
+    <withRouter(NavLink)
+      hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
     />
+  </NavLinksContainer>
+</div>
+`;
+
+exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is false 1`] = `
+<div
+  className="usa-grid-full profile-menu profile-menu-collapsed"
+>
+  <div
+    className="menu-title"
+  >
+    <button
+      className="unstyled-button"
+      onClick={[Function]}
+      title="Expand menu"
+    >
+      <FontAwesome
+        name="exchange"
+      />
+    </button>
+  </div>
+  <NavLinksContainer>
     <withRouter(NavLink)
-      iconName="comments-o"
-      link="/profile/inbox/"
+      iconName="user"
+      link="/profile/dashboard/"
     />
     <withRouter(NavLink)
-      iconName="globe"
-      link="/profile/notifications/"
+      iconName="star"
+      link="/profile/favorites/"
     />
     <withRouter(NavLink)
-      iconName="users"
-      link="/profile/contacts/"
+      iconName="search"
+      link="/profile/searches/"
     />
     <withRouter(NavLink)
-      iconName="file-text"
-      link="/profile/documents/"
+      hidden={true}
+      iconName="book"
+      link="/profile/glossaryeditor/"
+      search="?type=all"
     />
   </NavLinksContainer>
 </div>
