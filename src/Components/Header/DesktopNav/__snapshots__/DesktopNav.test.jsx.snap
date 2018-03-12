@@ -51,23 +51,6 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         </div>
       </div>
     </div>
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text feedback-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
   <div
     className="header-nav-desktop desktop-nav-only account-notification-container"
@@ -143,10 +126,6 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         className="header-nav-link"
       >
         <span>
-          <Inbox
-            number={0}
-          />
-          <Connect(withRouter(Notifications)) />
           <Connect(GlossaryIcon) />
         </span>
       </div>
@@ -180,23 +159,6 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
             href="https://github.com/18F/State-TalentMAP"
           >
             About
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text feedback-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
           </a>
         </div>
       </div>

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
 import { NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
-import Share from '../Share/Share';
 import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
@@ -67,7 +66,6 @@ class PositionDetails extends Component {
                 compareArray={userProfile.favorite_positions}
               />
             }
-            <Share identifier={details.id} />
           </div>
         </div>}
         {isLoading && <Spinner type="position-details" size="big" />}

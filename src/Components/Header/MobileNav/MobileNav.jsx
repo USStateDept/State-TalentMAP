@@ -25,9 +25,6 @@ const MobileNav = ({ user, logout, showLogin }) => (
           <li>
             <a href="https://github.com/18F/State-TalentMAP">About</a>
           </li>
-          <li>
-            <a href="https://github.com/18F/State-TalentMAP/issues">Feedback</a>
-          </li>
           <span className="usa-unstyled-list mobile-nav-only">
             <hr />
             <li>
