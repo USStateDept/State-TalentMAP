@@ -18,6 +18,7 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
           Array [
             "two",
             "ADMINISTRATIVE SUPPORT",
+            "United States",
           ]
         }
       />
