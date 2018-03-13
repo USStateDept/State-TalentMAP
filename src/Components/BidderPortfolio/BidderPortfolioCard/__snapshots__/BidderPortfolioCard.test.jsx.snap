@@ -20,6 +20,7 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
           "first_name": "Leah",
           "last_name": "Shadtrach",
         },
+        "display_name": "John",
         "favorite_positions": Array [
           Object {
             "id": 1,
@@ -32,6 +33,7 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
         ],
         "grade": "03",
         "id": 1,
+        "intials": "JD",
         "is_cdo": false,
         "skills": Array [
           Object {
@@ -70,6 +72,7 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
           "first_name": "Leah",
           "last_name": "Shadtrach",
         },
+        "display_name": "John",
         "favorite_positions": Array [
           Object {
             "id": 1,
@@ -82,6 +85,7 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
         ],
         "grade": "03",
         "id": 1,
+        "intials": "JD",
         "is_cdo": false,
         "skills": Array [
           Object {

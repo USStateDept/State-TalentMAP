@@ -69,7 +69,7 @@ describe('AccountDropdown', () => {
   it("can render the logged in user's name when shouldDisplayName is true", () => {
     const displayName = 'test';
     const accountDropdown = mount(<Provider store={mockStore({})}><MemoryRouter>
-      <AccountDropdown shouldDisplayName userProfile={{ user: { display_name: displayName } }} />
+      <AccountDropdown shouldDisplayName userProfile={{ display_name: displayName }} />
     </MemoryRouter></Provider>);
     expect(accountDropdown.find('#account-username').text()).toBe(displayName);
   });

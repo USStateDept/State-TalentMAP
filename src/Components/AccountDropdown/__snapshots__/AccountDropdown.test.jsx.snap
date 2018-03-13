@@ -24,9 +24,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
       <div>
         Signed in as
       </div>
-      <strong>
-        ...
-      </strong>
+      <strong />
     </div>
     <div
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
@@ -71,9 +69,7 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
     <span
       className="account-dropdown--name"
       id="account-username"
-    >
-      ...
-    </span>
+    />
   </DropdownTrigger>
   <DropdownContent
     className=""
@@ -84,9 +80,7 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
       <div>
         Signed in as
       </div>
-      <strong>
-        ...
-      </strong>
+      <strong />
     </div>
     <div
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
