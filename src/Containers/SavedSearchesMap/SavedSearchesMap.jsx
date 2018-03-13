@@ -93,7 +93,7 @@ SavedSearchesMap.defaultProps = {
   deleteSavedSearchHasErrored: false,
   deleteSavedSearchSuccess: false,
   routeChangeResetState: EMPTY_FUNCTION,
-  cloneSearch: EMPTY_FUNCTION,
+  cloneSavedSearch: EMPTY_FUNCTION,
   cloneSavedSearchIsLoading: false,
   cloneSavedSearchHasErrored: false,
   cloneSavedSearchSuccess: false,
