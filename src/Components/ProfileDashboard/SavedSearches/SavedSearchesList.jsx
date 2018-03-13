@@ -8,9 +8,9 @@ import SavedSearchesListResultsCard from './SavedSearchesListResultsCard';
 import Spinner from '../../Spinner';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filtersIsLoading }) => {
-  const positionArray = [];
-  savedSearches.results.slice(0, 2).forEach(savedSearch => (
-    positionArray.push(
+  const savedSearchArray = [];
+  savedSearches.results.slice(0, 3).forEach(savedSearch => (
+    savedSearchArray.push(
       <SavedSearchesListResultsCard
         savedSearch={savedSearch}
         goToSavedSearch={goToSavedSearch}
@@ -34,12 +34,12 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
           </div>
           <div className="saved-search-list-container">
             {
-              positionArray.length === 0 ?
+              savedSearchArray.length === 0 ?
                 <div className="usa-grid-full section-padded-inner-container">
                   You do not have any saved searches.
                 </div>
               :
-                <BorderedList contentArray={positionArray} />
+                <BorderedList contentArray={savedSearchArray} />
             }
           </div>
           <div className="section-padded-inner-container small-link-container view-more-link-centered">
