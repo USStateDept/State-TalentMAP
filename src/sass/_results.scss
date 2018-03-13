@@ -204,6 +204,12 @@
     width: 100%;
   }
 
+  .favorite-container {
+    min-width: 76px;
+    line-height: 20px;
+    text-align: center;
+  }
+
   .results-controls {
     @media screen and (max-width: $screen-md-min) {
       padding: 0 15px;
