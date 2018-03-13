@@ -6,7 +6,7 @@ const Form = ({ children, className, onFormSubmit }) => (
   <form className={className} onSubmit={onFormSubmit}>
     {children}
   </form>
-  );
+);
 
 Form.propTypes = {
   children: PropTypes.node.isRequired, // should be valid form children

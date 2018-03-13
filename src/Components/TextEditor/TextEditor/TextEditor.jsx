@@ -68,7 +68,7 @@ export default class TextEditor extends Component {
 TextEditor.propTypes = {
   readOnly: PropTypes.bool,
   initialText: PropTypes.string,
-  onSubmitText: PropTypes.func.isRequired,
+  onSubmitText: PropTypes.func,
   cancel: PropTypes.func,
   hideButtons: PropTypes.bool,
   onChangeText: PropTypes.func,
@@ -78,6 +78,7 @@ TextEditor.propTypes = {
 
 TextEditor.defaultProps = {
   readOnly: false,
+  onSubmitText: EMPTY_FUNCTION,
   initialText: '',
   cancel: EMPTY_FUNCTION,
   hideButtons: false,
