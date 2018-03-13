@@ -149,6 +149,9 @@ class Favorite extends Component {
     if (useButtonClass || useSpinnerWhite) {
       spinnerClass = `${spinnerClass} spinner-white`;
     }
+    if (hideText) {
+      text = null;
+    }
 
     return (
       <InteractiveElement {...options}>
