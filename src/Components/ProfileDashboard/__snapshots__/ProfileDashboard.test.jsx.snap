@@ -10,7 +10,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
     <div
       className="hello-greeting"
     >
-      Hello, John Doe
+      Hello, John
     </div>
     <div
       className="usa-grid-full"
