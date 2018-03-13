@@ -16,37 +16,51 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       className="usa-grid-full"
     >
       <div
-        className="hello-greeting"
-      >
-        Hello, John
-      </div>
-      <div
-        className="usa-grid-full"
+        className="usa-width-five-twelfths user-dashboard-section-container
+                      user-dashboard-column-1"
       >
         <div
-          className="usa-width-five-twelfths user-dashboard-section-container
-                    user-dashboard-column-1"
+          className="usa-width-one-whole user-dashboard-section current-user-section"
         >
-          <div
-            className="usa-width-one-whole user-dashboard-section current-user-section"
-          >
-            <UserProfile
-              showContactInformation={true}
-              showEditLink={true}
-              showGeneralInformation={true}
-              useGroup={false}
-              userProfile={
-                Object {
-                  "bid_statistics": Array [
-                    Object {
-                      "draft": 1,
-                      "submitted": 1,
-                    },
-                  ],
-                  "cdo": Object {
-                    "email": "shadtrachl@state.gov",
-                    "first_name": "Leah",
-                    "last_name": "Shadtrach",
+          <UserProfile
+            showContactInformation={true}
+            showEditLink={true}
+            showGeneralInformation={true}
+            useGroup={false}
+            userProfile={
+              Object {
+                "bid_statistics": Array [
+                  Object {
+                    "draft": 1,
+                    "submitted": 1,
+                  },
+                ],
+                "cdo": Object {
+                  "email": "shadtrachl@state.gov",
+                  "first_name": "Leah",
+                  "last_name": "Shadtrach",
+                },
+                "display_name": "John",
+                "favorite_positions": Array [
+                  Object {
+                    "id": 1,
+                    "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+                  },
+                  Object {
+                    "id": 4,
+                    "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+                  },
+                ],
+                "grade": "03",
+                "id": 1,
+                "intials": "JD",
+                "is_cdo": false,
+                "skills": Array [
+                  Object {
+                    "code": "6218",
+                    "cone": null,
+                    "description": "CONSTRUCTION ENGINEERING",
+                    "id": 63,
                   },
                 ],
                 "grade": "03",
@@ -60,19 +74,29 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                     "description": "CONSTRUCTION ENGINEERING",
                     "id": 63,
                   },
-                }
+                ],
+                "user": Object {
+                  "email": "doej@state.gov",
+                  "first_name": "John",
+                  "last_name": "Doe",
+                  "username": "jdoe",
+                },
               }
-            />
-          </div>
-          <div
-            className="usa-width-one-whole user-dashboard-section"
-          >
-            <BidListComingSoon />
-          </div>
+            }
+          />
         </div>
         <div
-          className="usa-width-seven-twelfths user-dashboard-section-container
-                    user-dashboard-column-2"
+          className="usa-width-one-whole user-dashboard-section"
+        >
+          <BidListComingSoon />
+        </div>
+      </div>
+      <div
+        className="usa-width-seven-twelfths user-dashboard-section-container
+                      user-dashboard-column-2"
+      >
+        <div
+          className="usa-width-one-whole user-dashboard-section favorites-section"
         >
           <SavedSearchesWrapper />
         </div>
