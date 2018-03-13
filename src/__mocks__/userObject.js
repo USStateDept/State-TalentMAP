@@ -21,6 +21,8 @@ export const bidderUserObject = {
     email: 'doej@state.gov',
     username: 'jdoe',
   },
+  display_name: 'John',
+  intials: 'JD',
   is_cdo: false,
   cdo: {
     first_name: 'Leah',
