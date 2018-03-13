@@ -1,3 +1,4 @@
+// scss-lint:disable VendorPrefix
 .tm-spinner {
 
   margin: auto;
@@ -16,14 +17,14 @@
   }
 
   .middle {
-    -webkit-animation: spin 4s linear infinite;
     -moz-animation: spin 4s linear infinite;
+    -webkit-animation: spin 4s linear infinite;
     animation: spin 4s linear infinite;
   }
 
   .outer {
-    -webkit-animation: spin 5s linear infinite;
     -moz-animation: spin 5s linear infinite;
+    -webkit-animation: spin 5s linear infinite;
     animation: spin 5s linear infinite;
   }
 
@@ -84,16 +85,16 @@ $favorite-spinner-size: 14px;
 // Favorite's Loading Spinner
 .favorite-container {
   .ds-c-spinner {
+    color: $tm-navy;
+    height: $favorite-spinner-size;
     top: 2px;
     width: $favorite-spinner-size;
-    height: $favorite-spinner-size;
-    color: $tm-navy;
 
-    &:before,
-    &:after {
-      width: $favorite-spinner-size;
-      height: $favorite-spinner-size;
+    &::before,
+    &::after {
       border-width: $favorite-spinner-border-width;
+      height: $favorite-spinner-size;
+      width: $favorite-spinner-size;
     }
   }
 }
