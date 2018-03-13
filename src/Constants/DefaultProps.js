@@ -10,11 +10,12 @@ export const DEFAULT_HOME_PAGE_POSITIONS = {
 
 export const DEFAULT_USER_PROFILE = {
   user: {
-    display_name: '...',
     username: '',
-    first_name: '', // show '...' when loading
+    first_name: '',
     last_name: '',
   },
+  display_name: '...', // show '...' when loading
+  initials: '',
   favorite_positions: [],
 };
 
