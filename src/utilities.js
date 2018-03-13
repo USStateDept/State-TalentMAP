@@ -320,45 +320,54 @@ export const formatIdSpacing = (id) => {
 export const userHasPermissions = (permissionsToCheck = [], userPermissions = []) =>
   permissionsToCheck.every(val => userPermissions.indexOf(val) >= 0);
 
+// Takes multiple saved search objects and combines them into one object,
+// where the value for each property is an array of all individual values
+// found across the different saved search objects.
+// See Constants/PropTypes SAVED_SEARCH_OBJECT
 export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
   const clonedSavedSearches = cloneDeep(savedSearchesObject.results);
   const mappedSearchTerms = clonedSavedSearches.slice().map(s => s.filters);
   const mappedSearchTermsFormatted = mappedSearchTerms.map((m) => {
     const filtered = m;
-    // eslint-disable-next-line
-    Object.keys(m).forEach(k => { if (!Array.isArray(filtered[k])){ filtered[k] = filtered[k].split(',') }});
+    Object.keys(m).forEach((k) => { if (!Array.isArray(filtered[k])) { filtered[k] = filtered[k].split(','); } });
     return filtered;
   });
 
-  const merge = function (/* ...objs */) {
-    // eslint-disable-next-line
-    return [].reduce.call(arguments, (acc, x) => {
+  function merge(...rest) {
+    return [].reduce.call(rest, (acc, x) => {
       Object.keys(x).forEach((k) => {
         acc[k] = (acc[k] || []).concat(x[k]);
         acc[k] = acc[k].filter((item, index, self) => self.indexOf(item) === index);
       });
       return acc;
     }, {});
-  };
+  }
 
   const mergedFilters = mappedSearchTermsFormatted.length ?
     merge(...mappedSearchTermsFormatted) : {};
 
   const mergedFiltersWithoutArrays = { ...mergedFilters };
 
-  // eslint-disable-next-line
-  Object.keys(mergedFilters).forEach(f => { if (Array.isArray(mergedFilters[f])){ mergedFiltersWithoutArrays[f] = mergedFilters[f].join() } });
+  Object.keys(mergedFilters)
+    .forEach((f) => {
+      if (Array.isArray(mergedFilters[f])) {
+        mergedFiltersWithoutArrays[f] = mergedFilters[f].join();
+      }
+    });
 
   const newQuery = mergedFiltersWithoutArrays;
 
   return newQuery;
 };
 
+// Maps a saved search object against the full filter objects its related to, so that
+// we can return an array of descriptions based on the codes in the savedSearchObject.
+// See Constants/PropTypes SAVED_SEARCH_OBJECT and MAPPED_PARAM_ARRAY
 export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) => {
   const clonedSearchObject = cloneDeep(savedSearchObject);
   const searchKeys = Object.keys(clonedSearchObject);
-  // eslint-disable-next-line
-  searchKeys.forEach(s => clonedSearchObject[s] = clonedSearchObject[s].split(','));
+
+  searchKeys.forEach((s) => { clonedSearchObject[s] = clonedSearchObject[s].split(','); });
 
   const arrayToReturn = [];
 
