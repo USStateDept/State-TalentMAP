@@ -77,3 +77,23 @@
   position: absolute;
   top: 100px;
 }
+
+$favorite-spinner-border-width: 3px;
+$favorite-spinner-size: 14px;
+
+// Favorite's Loading Spinner
+.favorite-container {
+  .ds-c-spinner {
+    top: 2px;
+    width: $favorite-spinner-size;
+    height: $favorite-spinner-size;
+    color: $tm-navy;
+
+    &:before,
+    &:after {
+      width: $favorite-spinner-size;
+      height: $favorite-spinner-size;
+      border-width: $favorite-spinner-border-width;
+    }
+  }
+}
