@@ -10,7 +10,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
     <div
       className="hello-greeting"
     >
-      Hello, John Doe
+      Hello, John
     </div>
     <div
       className="usa-grid-full"
@@ -40,6 +40,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                   "first_name": "Leah",
                   "last_name": "Shadtrach",
                 },
+                "display_name": "John",
                 "favorite_positions": Array [
                   Object {
                     "id": 1,
@@ -52,6 +53,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                 ],
                 "grade": "03",
                 "id": 1,
+                "intials": "JD",
                 "is_cdo": false,
                 "skills": Array [
                   Object {
