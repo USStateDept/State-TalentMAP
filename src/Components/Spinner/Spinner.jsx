@@ -1,36 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// uses https://design.cms.gov/components/spinner/
+import center from '../../assets/spinner/center.svg';
+import middle from '../../assets/spinner/middle.svg';
+import outer from '../../assets/spinner/outer.svg';
 
-const Spinner = ({ type, size, color, filled, inverse }) => (
-  <div className={`tm-spinner tm-spinner-${type}`}>
-    <span
-      className={
-        `ds-c-spinner
-        ${size ? `ds-c-spinner--${size}` : ''}
-        ${filled ? 'ds-c-spinner--filled' : ''}
-        ${inverse ? 'tm-spinner-color-inverted' : ''}
-        ${color ? `ds-u-color--${color}` : ''}`
-      }
-    />
-  </div>
-);
+const Spinner = ({ type, size }) => {
+  let sizeClass = '';
+  switch (size) {
+    case ('small'):
+      sizeClass = 'tm-spinner-small';
+      break;
+    default:
+      break;
+  }
+  return (
+    <div className={`tm-spinner tm-spinner-${type} ${sizeClass}`}>
+      <img className="center" alt="center" src={center} />
+      <img className="middle" alt="middle" src={middle} />
+      <img className="outer" alt="outer" src={outer} />
+    </div>
+  );
+};
 
 Spinner.propTypes = {
   type: PropTypes.string, // user defined classes stored elsewhere using "tm-spinner-" as a prefix
-  size: PropTypes.oneOf(['small', 'big', '']),
-  color: PropTypes.oneOf(['primary', 'success', 'muted', '']),
-  filled: PropTypes.bool,
-  inverse: PropTypes.bool,
+  size: PropTypes.oneOf(['big', 'small']),
 };
 
 Spinner.defaultProps = {
   type: '',
-  size: undefined,
-  color: undefined,
-  filled: false,
-  inverse: false,
+  size: 'big',
 };
 
 export default Spinner;

@@ -58,12 +58,6 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
         }
       />
     </div>
-    <ResultsViewBy
-      initial="card"
-      onCardClick={[Function]}
-      onClick={[Function]}
-      onGridClick={[Function]}
-    />
   </div>
 </div>
 `;
