@@ -4,6 +4,7 @@ import { POSITION_SEARCH_RESULTS, BID_RESULTS } from '../../Constants/PropTypes'
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import FavoritePositionsList from '../FavoritePositionsList';
 import Spinner from '../Spinner';
+import Alert from '../Alert';
 
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
 toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
@@ -13,6 +14,11 @@ toggleBid, bidList }) => (
     {
       favoritePositionsIsLoading && !favoritePositionsHasErrored &&
         <Spinner type="homepage-position-results" size="big" />
+    }
+    {
+      !favoritePositionsIsLoading && !favoritePositionsHasErrored &&
+        favorites.results.length === 0 &&
+        <Alert title="You have no favorites" messages={[{ body: 'Click on the ⭐️ next to a position' }]} />
     }
     <FavoritePositionsList
       favorites={favorites.results}

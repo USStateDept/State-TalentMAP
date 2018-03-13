@@ -53,4 +53,20 @@ describe('FavoritePositionsComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('displays an empty list message', () => {
+    const wrapper = shallow(
+      <FavoritePositions
+        favorites={{ results: [] }}
+        toggleFavorite={() => {}}
+        toggleFavoritePositionIsLoading
+        toggleFavoritePositionHasErrored={false}
+        favoritePositionsIsLoading
+        favoritePositionsHasErrored={false}
+        bidList={bidListObject.results}
+        toggleBid={() => {}}
+      />,
+    );
+    expect(wrapper.find('Alert')).toBeDefined();
+  });
 });
