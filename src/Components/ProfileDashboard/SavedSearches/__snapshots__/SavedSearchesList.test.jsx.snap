@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SavedSearchesListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full saved-searches-list-profile-container"
+>
+  <Spinner
+    filled={false}
+    inverse={false}
+    size="big"
+    type="homepage-position-results"
+  />
+</div>
+`;
+
+exports[`SavedSearchesListComponent matches snapshot when there are no saved searches 1`] = `
+<div
+  className="usa-grid-full saved-searches-list-profile-container"
+>
+  <Spinner
+    filled={false}
+    inverse={false}
+    size="big"
+    type="homepage-position-results"
+  />
+</div>
+`;

@@ -8,12 +8,13 @@ import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import SavedSearchesContainer, { mapDispatchToProps } from './SavedSearches';
+import SavedSearchesList from '../../Components/ProfileDashboard/SavedSearches/SavedSearchesList';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('SavedSearchesContainer', () => {
-  const ChildElement = (<div />);
+  const ChildElement = SavedSearchesList;
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <SavedSearchesContainer

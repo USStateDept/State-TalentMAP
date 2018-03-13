@@ -7,7 +7,7 @@ import { searchObjectParent, mappedParams } from '../../../__mocks__/searchObjec
 describe('SavedSearchesListComponent', () => {
   const props = {
     savedSearches: searchObjectParent,
-    goToSavedSavedSearch: () => {},
+    goToSavedSearch: () => {},
     mappedParams,
     filtersIsLoading: true,
   };
@@ -21,8 +21,8 @@ describe('SavedSearchesListComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('matches snapshot when there are no bids', () => {
-    const wrapper = shallow(<SavedSearchesList {...props} />);
+  it('matches snapshot when there are no saved searches', () => {
+    const wrapper = shallow(<SavedSearchesList {...props} savedSearches={{ results: [] }} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

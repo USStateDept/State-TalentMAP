@@ -12,7 +12,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
   savedSearches.results.slice(0, 2).forEach(savedSearch => (
     positionArray.push(
       <SavedSearchesListResultsCard
-        position={savedSearch}
+        savedSearch={savedSearch}
         goToSavedSearch={goToSavedSearch}
         mappedParams={mappedParams}
         condensedView
@@ -36,7 +36,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
             {
               positionArray.length === 0 ?
                 <div className="usa-grid-full section-padded-inner-container">
-                  You do not have any favorited positions.
+                  You do not have any saved searches.
                 </div>
               :
                 <BorderedList contentArray={positionArray} />

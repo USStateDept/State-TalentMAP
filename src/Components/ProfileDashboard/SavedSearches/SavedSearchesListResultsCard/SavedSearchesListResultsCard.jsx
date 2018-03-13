@@ -5,7 +5,7 @@ import { mapSavedSearchToDescriptions } from '../../../../utilities';
 import SavedSearchPillList from './SavedSearchPillList';
 
 const SavedSearchListResultsCard = ({ savedSearch, goToSavedSearch, mappedParams }) => {
-  const pills = mapSavedSearchToDescriptions(savedSearch.filters, mappedParams).slice(0, 4);
+  const pills = mapSavedSearchToDescriptions(savedSearch.filters, mappedParams).slice(0, 2);
   return (
     <div className="usa-grid-full saved-search-card profile-section-container" key={savedSearch.id}>
       <div className="usa-grid-full">
