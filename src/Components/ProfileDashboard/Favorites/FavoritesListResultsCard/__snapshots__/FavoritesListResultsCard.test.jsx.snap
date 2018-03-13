@@ -62,6 +62,7 @@ exports[`FavoritesListResultsCardComponent matches snapshot 1`] = `
                   "has_service_needs_differential": false,
                   "id": 162,
                   "location": "MASERU, LESOTHO",
+                  "obc_id": 162,
                   "rest_relaxation_point": "London",
                   "tour_of_duty": "2YRR",
                 },
