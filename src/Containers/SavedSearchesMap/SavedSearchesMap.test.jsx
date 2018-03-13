@@ -5,9 +5,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import sinon from 'sinon';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
-import SavedSearchesContainer, { mapDispatchToProps } from './SavedSearches';
+import SavedSearchesMap, { mapDispatchToProps } from './SavedSearchesMap';
 import SavedSearchesList from '../../Components/ProfileDashboard/SavedSearches/SavedSearchesList';
 
 const middlewares = [thunk];
@@ -17,7 +16,7 @@ describe('SavedSearchesContainer', () => {
   const ChildElement = SavedSearchesList;
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <SavedSearchesContainer
+      <SavedSearchesMap
         onNavigateTo={() => {}}
         savedSearchesFetchData={() => {}}
         setCurrentSavedSearch={() => {}}
@@ -28,29 +27,31 @@ describe('SavedSearchesContainer', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can call the goToSavedSearch function', () => {
-    const spy = sinon.spy();
+  it('calls fetchFilters if filters.hasFetched is true', () => {
+    let setArgsAgainst = [];
+    function spy(...rest) {
+      setArgsAgainst = [...rest];
+    }
     const wrapper = shallow(
-      <SavedSearchesContainer.WrappedComponent
-        onNavigateTo={spy}
+      <SavedSearchesMap.WrappedComponent
+        onNavigateTo={() => {}}
         fetchData={() => {}}
         savedSearchesFetchData={() => {}}
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
         ChildElement={ChildElement}
+        fetchFilters={spy}
       />,
     );
-    wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
-    sinon.assert.calledOnce(spy);
+    wrapper.setProps({ filters: { ...wrapper.instance().props.filters, hasFetched: true } });
+    wrapper.instance().componentWillMount();
+    expect(setArgsAgainst.length).toBe(3);
   });
 });
 
 describe('mapDispatchToProps', () => {
   const config = {
-    onNavigateTo: ['/details'],
-    setCurrentSavedSearch: [{}],
-    deleteSearch: ['1'],
-    cloneSearch: ['1'],
+    fetchFilters: [{}, {}, {}],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });

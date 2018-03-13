@@ -8,7 +8,7 @@ cloneSavedSearch } from '../../actions/savedSearch';
 import { SAVED_SEARCH_PARENT_OBJECT, DELETE_SAVED_SEARCH_HAS_ERRORED, DELETE_SAVED_SEARCH_SUCCESS,
 CLONE_SAVED_SEARCH_HAS_ERRORED, CLONE_SAVED_SEARCH_SUCCESS, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
-import SavedSearches from '../../Components/SavedSearches';
+import SavedSearchesMap from '../SavedSearchesMap';
 import { formQueryString } from '../../utilities';
 
 class SavedSearchesContainer extends Component {
@@ -34,25 +34,31 @@ class SavedSearchesContainer extends Component {
   }
 
   render() {
-    const { savedSearches, deleteSearch, cloneSearch,
+    const { savedSearches, deleteSearch, cloneSearch, ChildElement,
       savedSearchesHasErrored, savedSearchesIsLoading, deleteSavedSearchHasErrored,
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
       cloneSavedSearchHasErrored, cloneSavedSearchSuccess } = this.props;
     return (
-      <SavedSearches
-        savedSearches={savedSearches}
-        savedSearchesHasErrored={savedSearchesHasErrored}
-        savedSearchesIsLoading={savedSearchesIsLoading}
-        goToSavedSearch={this.goToSavedSearch}
-        deleteSearch={deleteSearch}
-        deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
-        deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
-        deleteSavedSearchSuccess={deleteSavedSearchSuccess}
-        cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
-        cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
-        cloneSavedSearchSuccess={cloneSavedSearchSuccess}
-        cloneSavedSearch={cloneSearch}
-      />
+      !savedSearchesIsLoading ?
+        <div className="saved-search-parent-container">
+          <SavedSearchesMap
+            savedSearches={savedSearches}
+            savedSearchesHasErrored={savedSearchesHasErrored}
+            savedSearchesIsLoading={savedSearchesIsLoading}
+            goToSavedSearch={this.goToSavedSearch}
+            deleteSearch={deleteSearch}
+            deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
+            deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
+            deleteSavedSearchSuccess={deleteSavedSearchSuccess}
+            cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
+            cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
+            cloneSavedSearchSuccess={cloneSavedSearchSuccess}
+            cloneSavedSearch={cloneSearch}
+            ChildElement={ChildElement}
+          />
+        </div>
+        :
+        <div className="saved-search-parent-container" />
     );
   }
 }
@@ -73,13 +79,14 @@ SavedSearchesContainer.propTypes = {
   cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
   cloneSavedSearchHasErrored: CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   cloneSavedSearchSuccess: CLONE_SAVED_SEARCH_SUCCESS.isRequired,
+  ChildElement: PropTypes.func.isRequired,
 };
 
 SavedSearchesContainer.defaultProps = {
   isLoading: true,
   userProfile: DEFAULT_USER_PROFILE,
   savedSearches: POSITION_RESULTS_OBJECT,
-  savedSearchesIsLoading: false,
+  savedSearchesIsLoading: true,
   savedSearchesHasErrored: false,
   deleteSavedSearchIsLoading: false,
   deleteSavedSearchHasErrored: false,
