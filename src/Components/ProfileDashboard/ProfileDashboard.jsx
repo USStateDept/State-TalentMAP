@@ -19,7 +19,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignment, assignmentIsLoad
           <div className="usa-grid-full">
             <div className="hello-greeting">
               {
-                `Hello, ${userProfile.user.first_name} ${userProfile.user.last_name}`
+                `Hello, ${userProfile.display_name}`
               }
             </div>
             <div className="usa-grid-full">

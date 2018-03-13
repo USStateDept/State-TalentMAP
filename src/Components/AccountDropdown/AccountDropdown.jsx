@@ -24,7 +24,7 @@ export class AccountDropdown extends Component {
 
   render() {
     const { shouldDisplayName, userProfile } = this.props;
-    const displayName = userProfile.user ? userProfile.user.display_name : '...';
+    const displayName = userProfile ? userProfile.display_name : '...';
     const avatar = getAssetPath('/assets/img/avatar.png');
     return (
       <Dropdown
