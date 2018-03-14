@@ -8,7 +8,6 @@ exports[`Header matches snapshot when logged in 1`] = `
     className="usa-header usa-header-extended tm-header"
     role="banner"
   >
-    <Connect(Component) />
     <GovBanner />
     <div
       className="usa-navbar"
@@ -80,7 +79,6 @@ exports[`Header matches snapshot when logged out 1`] = `
     className="usa-header usa-header-extended tm-header"
     role="banner"
   >
-    <Connect(Component) />
     <GovBanner />
     <div
       className="usa-navbar"

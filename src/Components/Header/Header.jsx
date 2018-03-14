@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
-import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
 import { logoutRequest } from '../../login/actions';
@@ -123,7 +122,6 @@ export class Header extends Component {
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
         <header className="usa-header usa-header-extended tm-header" role="banner">
-          <ToggleContent />
           <GovBanner />
           <div className="usa-navbar">
             <button className="usa-menu-btn">Menu</button>
