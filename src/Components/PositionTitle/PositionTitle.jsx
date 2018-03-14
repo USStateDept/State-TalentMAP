@@ -5,7 +5,6 @@ import TextEditor from '../TextEditor';
 import PositionTitleSubDescription from '../PositionTitleSubDescription';
 import EditContentButton from '../EditContentButton';
 import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
-import OBCUrl from '../OBCUrl';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import { getAssetPath, shortenString, propOrDefault } from '../../utilities';
 
@@ -108,8 +107,6 @@ class PositionTitle extends Component {
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
-    const obcId = propOrDefault(details, 'post.obc_id');
-
     return (
       <div className="position-details-header-container">
         <div className="position-details-header">
@@ -183,11 +180,6 @@ class PositionTitle extends Component {
             alt="department of state seal"
             src={seal}
           />
-        </div>
-        <div className="offset-bid-button-container">
-          <div className="offset-bid-button-container-count">
-            { obcId && <OBCUrl id={obcId} /> }
-          </div>
         </div>
       </div>
     );

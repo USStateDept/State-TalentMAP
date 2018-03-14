@@ -89,12 +89,5 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
       src="/assets/img/rsz_dos-seal-bw.png"
     />
   </div>
-  <div
-    className="offset-bid-button-container"
-  >
-    <div
-      className="offset-bid-button-container-count"
-    />
-  </div>
 </div>
 `;
