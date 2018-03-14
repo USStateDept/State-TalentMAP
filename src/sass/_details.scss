@@ -57,6 +57,23 @@
   }
 }
 
+.position-details-container {
+  .positions-section {
+    min-height: 100px;
+  }
+
+  .positions-section .positions-section-container,
+  .positions-section .positions-section-title-header {
+    border: 0;
+  }
+
+  .positions-section
+  .positions-section-title {
+    font-family: inherit;
+    font-weight: bold;
+  }
+}
+
 .position-details-description-container {
   margin-bottom: 10px;
   margin-top: 20px;
