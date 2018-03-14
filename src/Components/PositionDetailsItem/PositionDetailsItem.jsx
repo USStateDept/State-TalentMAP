@@ -20,7 +20,7 @@ const PositionDetailsItem = ({ details }) => {
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
   const formattedPost = propOrDefault(details, 'post.obc_id') ?
-    <OBCUrl id={details.post.obc_id} label="{details.post.location}" /> : NO_POST;
+    <OBCUrl id={details.post.obc_id} label={details.post.location} /> : NO_POST;
 
   const formattedBureau = details.bureau || NO_BUREAU;
 

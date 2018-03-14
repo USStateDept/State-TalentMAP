@@ -16,7 +16,7 @@ const ResultsCardDataSection = ({ result }) => (
             {
               description: 'Post',
               text: (result.post && result.post.obc_id) ?
-                <OBCUrl id={result.post.obc_id} label="{result.post.location}" /> : NO_POST,
+                <OBCUrl id={result.post.obc_id} label={result.post.location} /> : NO_POST,
             },
             { description: 'Bureau', text: result.bureau },
             { description: 'Post Differential',
