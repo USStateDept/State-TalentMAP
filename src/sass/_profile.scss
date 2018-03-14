@@ -252,11 +252,11 @@
   }
 
   .dashboard-user-profile-picture {
-    border-radius: 75px;
-    height: 100px;
+    display: inline-block;
+    width: $avatar-size;
+    height: $avatar-size;
     margin: 1em 0 2em;
     vertical-align: middle;
-    width: 100px;
   }
 
   .start-end {

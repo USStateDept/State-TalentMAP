@@ -39,10 +39,11 @@ userProfile, logout, toggleSearchVisibility }) => (
       <div className="header-nav-link-container account-container">
         <div className="header-nav-link">
           {
-            isLoggedIn &&
+            (isLoggedIn && userProfile.user) &&
             <AccountDropdown
               userProfile={userProfile}
               logoutRequest={logout}
+              shouldDisplayName
             />
           }
         </div>

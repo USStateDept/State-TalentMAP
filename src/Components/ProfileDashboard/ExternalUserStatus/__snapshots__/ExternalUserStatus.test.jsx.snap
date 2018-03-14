@@ -10,10 +10,11 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
     <div
       className="profile-picture-container"
     >
-      <ProfilePicture
-        alt="avatar"
+      <Avatar
         className=""
-        source="/assets/img/avatar.png"
+        firstName="John"
+        lastName="Doe"
+        onClick={[Function]}
       />
       <div
         className="picture-status-container"
@@ -40,7 +41,7 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
           <span
             className="cdo-name-text"
           >
-            John Doe
+            nodejs
           </span>
         </div>
       </div>

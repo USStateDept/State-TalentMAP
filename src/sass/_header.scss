@@ -74,7 +74,7 @@
 
   .account-container {
     .header-nav-link {
-      top: 26%;
+      top: ($header-desktop-height - $avatar-dropdown-size) / 2;
     }
   }
 
@@ -130,7 +130,7 @@
     }
 
     .usa-navbar {
-      height: 75px;
+      height: $header-desktop-height;
       max-width: 1200px;
       padding-left: 0;
       padding-right: 5px; // handle notification count position

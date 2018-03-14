@@ -24,6 +24,13 @@
   height: 20px;
   margin: 0 5px 0 0;
   width: 20px;
+
+  .tm-avatar {
+    width: $avatar-dropdown-size;
+    height: $avatar-dropdown-size;
+    line-height: $avatar-dropdown-size;
+    font-size: $avatar-dropdown-size * $avatar-text-ratio;
+  }
 }
 
 .account-dropdown-link:hover {
@@ -40,24 +47,29 @@
 }
 
 .account-dropdown .dropdown__trigger {
-  line-height: 20px;
-  padding: 10px 0;
+  display: inline-block;
+  height: $avatar-dropdown-size;
 }
 
 .account-dropdown .dropdown__trigger::after {
-  content: '\25BE';
   margin: 0 0 0 5px;
+  font-family: "FontAwesome";
+  font-size: 2rem;
+  vertical-align: middle;
+  content: "\f107";
 }
 
 .account-dropdown--avatar,
 .account-dropdown--name {
-  height: 35px;
   vertical-align: middle;
-  width: 35px;
+}
+
+.account-dropdown--name {
+  margin-left: 5px;
 }
 
 .account-dropdown .dropdown__content {
-  background: $avatar-background;
+  background: $avatar-dropdown-background;
   border-top: $avatar-dropdown-border-top-color 1px solid;
   box-shadow: 0 5px 8px $avatar-dropdown-box-shadow-color;
   margin-top: 5px;

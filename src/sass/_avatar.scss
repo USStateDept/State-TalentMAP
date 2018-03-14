@@ -1,0 +1,11 @@
+.tm-avatar {
+  display: inline-block;
+  width: $avatar-size;
+  height: $avatar-size;
+  background-color: $avatar-background;
+  border-radius: 50%;
+  line-height: $avatar-size;
+  font-size: $avatar-size * $avatar-text-ratio;
+  text-align: center;
+  color: $avatar-color;
+}
