@@ -33,40 +33,6 @@ function getProps(options, params = {}) {
   return props;
 }
 
-/*
-<NavLink
-  title="Profile"
-  iconName="user"
-  toggleMenuSection={toggleMenuSection}
-  expandedSection={expandedSection}
->
-  <NavLink title="Dashboard" link="/profile/dashboard/" />
-  <NavLink
-    title="Bidder Portfolio"
-    link="/profile/bidderportfolio/"
-    search="?type=all"
-    hidden={!isCDO}
-  />
-  <NavLink
-    title="Bidder Tracker"
-    link="/profile/bidtracker/"
-  />
-  <NavLink title="Favorites" link="/profile/favorites/" />
-  <NavLink title="Saved Searches" link="/profile/searches/" />
-</NavLink>
-<NavLink
-  title="Statistics"
-  iconName="pie-chart"
-  link="/profile/statistics/"
-  hidden={!isCDO}
-/>
-<NavLink title="Glossary Editor" iconName="book" link="/profile/glossaryeditor/"
-search="?type=all" hidden={!isGlossaryEditor} />
-<NavLink title="Inbox" iconName="comments-o" link="/profile/inbox/" />
-<NavLink title="Notifications" iconName="globe" link="/profile/notifications/" />
-<NavLink title="Contacts" iconName="users" link="/profile/contacts/" />
-<NavLink title="Documents" iconName="file-text" link="/profile/documents/" />
-*/
 const ProfileMenuExpanded = (props) => {
   const props$ = {
     isCDO: props.isCDO,
@@ -85,15 +51,20 @@ const ProfileMenuExpanded = (props) => {
       </div>
       <NavLinksContainer>
         {
-          PROFILE_MENU.map(item => (
-            <NavLink {...getProps(item, props$)}>
-              {
-                (item.children || []).map(childItem => (
-                  <NavLink {...getProps(childItem, props$)} />
-                ))
-              }
-            </NavLink>
-          ))
+          PROFILE_MENU.map((item) => {
+            const subitems = (item.children || []);
+            return subitems.length ? (
+              <NavLink key={item.text} {...getProps(item, props$)}>
+                {
+                  subitems.map(subitem => (
+                    <NavLink key={subitem.text} {...getProps(subitem, props$)} />
+                  ))
+                }
+              </NavLink>
+            ) : (
+              <NavLink key={item.text} {...getProps(item, props$)} />
+            );
+          })
         }
       </NavLinksContainer>
     </div>

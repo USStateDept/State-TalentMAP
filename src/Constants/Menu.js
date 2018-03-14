@@ -1,10 +1,13 @@
+import queryString from 'query-string';
+import { merge } from 'lodash';
+
 /**
  * Interface for Profile Menu Configuration
 
  * @interface MenuItem
  *  interface MenuConfig {
  *    text: string;
- *    icon: string;
+ *    icon?: string;
  *    route?: string;
  *    params?: { [key: string]: string; };
  *    toggleMenuSection?: boolean;
@@ -14,19 +17,9 @@
  *    children?: Array<MenuItem>;
  *  }
  */
-function params(data) {
-  let params$ = [];
-
-  if (typeof data === 'object') {
-    params$ = Object.entries(data).map(item => item.join('='));
-  }
-
-  return `${params$.length ? '?' : ''}${params$.join('&')}`;
-}
-
 function MenuConfig(config) {
   return config.map((item) => {
-    const item$ = Object.assign({
+    const item$ = merge({
       toggleMenuSection: false,
       expandedSection: false,
       isCDO: false,
@@ -34,7 +27,7 @@ function MenuConfig(config) {
     }, item);
 
     if (item$.params) {
-      item$.params = params(item$.params);
+      item$.params = `?${queryString.stringify(item$.params)}`;
     }
 
     if (item$.children) {
@@ -44,6 +37,7 @@ function MenuConfig(config) {
     return item$;
   });
 }
+
 
 export const PROFILE_MENU = MenuConfig([
   {

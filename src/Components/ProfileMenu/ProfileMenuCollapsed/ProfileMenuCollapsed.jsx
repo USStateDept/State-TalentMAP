@@ -25,7 +25,7 @@ const ProfileMenuCollapsed = ({ expand, isCDO, isGlossaryEditor }) => (
           };
 
           return (
-            <NavLink {...props} />
+            <NavLink key={item.text} {...props} />
           );
         })
       }
