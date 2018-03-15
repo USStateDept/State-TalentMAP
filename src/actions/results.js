@@ -47,9 +47,7 @@ export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
     if (cancel) { cancel(); }
     dispatch(resultsSimilarPositionsIsLoading(true));
-    // axios.get(`${api}/position/${id}/similar/?limit=3`, {
-    console.log(id);
-    axios.get(`${api}/position/`, {
+    axios.get(`${api}/position/${id}/similar/?limit=3`, {
       headers: { Authorization: fetchUserToken() },
     },
     )
