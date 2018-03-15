@@ -75,7 +75,7 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggle
         shouldShowAlert && <Alert title="No results match this criteria" />
       }
       {
-        shouldShowErrorAlert && <Alert title="An error occured loading positions" type="error" />
+        shouldShowErrorAlert && <Alert title="An error occurred loading positions" type="error" />
       }
     </div>
   );
