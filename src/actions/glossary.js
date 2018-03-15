@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { first, get, isArray, merge } from 'lodash';
+import { EMPTY_FUNCTION } from '../Constants/PropTypes';
 import { fetchUserToken } from '../utilities';
 import api from '../api';
 
@@ -40,10 +42,10 @@ export function glossaryEditorFetchDataSuccess(glossary) {
   };
 }
 
-export function glossaryPatchHasErrored(bool = false, id = null) {
+export function glossaryPatchHasErrored(bool = false, id = null, message = null) {
   return {
     type: 'GLOSSARY_PATCH_HAS_ERRORED',
-    hasErrored: { id, hasErrored: bool },
+    value: { id, message, hasErrored: bool },
   };
 }
 export function glossaryPatchIsLoading(bool) {
@@ -59,10 +61,10 @@ export function glossaryPatchSuccess(bool = false, id = null) {
   };
 }
 
-export function glossaryPostHasErrored(bool = false) {
+export function glossaryPostHasErrored(bool = false, message = null) {
   return {
     type: 'GLOSSARY_POST_HAS_ERRORED',
-    hasErrored: bool,
+    value: { id: null, message, hasErrored: bool },
   };
 }
 export function glossaryPostIsLoading(bool) {
@@ -80,39 +82,45 @@ export function glossaryPostSuccess(bool = false, id = null) {
 
 export function glossaryFetchData(bypassLoading = false) {
   return (dispatch) => {
+    dispatch(glossaryHasErrored(false));
+
     if (!bypassLoading) {
       dispatch(glossaryIsLoading(true));
     }
-    dispatch(glossaryHasErrored(false));
-    axios.get(`${api}/glossary/?is_archived=false`, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryFetchDataSuccess(data));
-          dispatch(glossaryIsLoading(false));
-          dispatch(glossaryHasErrored(false));
-        })
-        .catch(() => {
-          dispatch(glossaryIsLoading(false));
-          dispatch(glossaryHasErrored(true));
-        });
+
+    axios
+      .get(`${api}/glossary/?is_archived=false`, { headers: { Authorization: fetchUserToken() } })
+      .then(({ data }) => {
+        dispatch(glossaryFetchDataSuccess(data));
+        dispatch(glossaryIsLoading(false));
+        dispatch(glossaryHasErrored(false));
+      })
+      .catch(() => {
+        dispatch(glossaryIsLoading(false));
+        dispatch(glossaryHasErrored(true));
+      });
   };
 }
 
 export function glossaryEditorFetchData(bypassLoading = false) {
   return (dispatch) => {
+    dispatch(glossaryEditorHasErrored(false));
+
     if (!bypassLoading) {
       dispatch(glossaryEditorIsLoading(true));
     }
-    dispatch(glossaryEditorHasErrored(false));
-    axios.get(`${api}/glossary/`, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryEditorFetchDataSuccess(data));
-          dispatch(glossaryEditorIsLoading(false));
-          dispatch(glossaryEditorHasErrored(false));
-        })
-        .catch(() => {
-          dispatch(glossaryEditorIsLoading(false));
-          dispatch(glossaryEditorHasErrored(true));
-        });
+
+    axios
+      .get(`${api}/glossary/`, { headers: { Authorization: fetchUserToken() } })
+      .then(({ data }) => {
+        dispatch(glossaryEditorFetchDataSuccess(data));
+        dispatch(glossaryEditorIsLoading(false));
+        dispatch(glossaryEditorHasErrored(false));
+      })
+      .catch(() => {
+        dispatch(glossaryEditorIsLoading(false));
+        dispatch(glossaryEditorHasErrored(true));
+      });
   };
 }
 
@@ -121,39 +129,64 @@ export function glossaryPatch(term = {}) {
     dispatch(glossaryPatchSuccess(false));
     dispatch(glossaryPatchIsLoading(true));
     dispatch(glossaryPatchHasErrored(false));
-    axios.patch(`${api}/glossary/${term.id}/`, term, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryFetchData());
-          dispatch(glossaryEditorFetchData(true));
-          dispatch(glossaryPatchSuccess(true, data.id));
-          dispatch(glossaryPatchIsLoading(false));
-          dispatch(glossaryPatchHasErrored(false, data.id));
-        })
-        .catch(() => {
-          dispatch(glossaryPatchSuccess(false));
-          dispatch(glossaryPatchIsLoading(false));
-          dispatch(glossaryPatchHasErrored(true, term.id));
-        });
+
+    axios
+      .patch(`${api}/glossary/${term.id}/`, term, { headers: { Authorization: fetchUserToken() } })
+      .then(({ data }) => {
+        dispatch(glossaryFetchData());
+        dispatch(glossaryEditorFetchData(true));
+        dispatch(glossaryPatchSuccess(true, data.id));
+        dispatch(glossaryPatchIsLoading(false));
+        dispatch(glossaryPatchHasErrored(false, data.id));
+      })
+      .catch((error) => {
+        const data = merge({ title: null }, get(error, 'response.data'));
+        const message = (
+          (isArray(data.title) ? first(data.title) : data.title) ||
+          'An error occurred trying to save the new glossary term. Please try again.'
+        );
+
+        dispatch(glossaryPatchSuccess(false));
+        dispatch(glossaryPatchIsLoading(false));
+        dispatch(glossaryPatchHasErrored(true, term.id, message));
+      });
   };
 }
 
-export function glossaryPost(term = {}) {
+export function glossaryPost(term = {}, onSuccess = EMPTY_FUNCTION) {
   return (dispatch) => {
     dispatch(glossaryPostSuccess(false));
     dispatch(glossaryPostIsLoading(true));
     dispatch(glossaryPostHasErrored(false));
-    axios.post(`${api}/glossary/`, term, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryFetchData());
-          dispatch(glossaryEditorFetchData());
-          dispatch(glossaryPostSuccess(true, data.id));
-          dispatch(glossaryPostIsLoading(false));
-          dispatch(glossaryPostHasErrored(false));
-        })
-        .catch(() => {
-          dispatch(glossaryPostSuccess(false));
-          dispatch(glossaryPostIsLoading(false));
-          dispatch(glossaryPostHasErrored(true));
-        });
+
+    axios
+      .post(`${api}/glossary/`, term, { headers: { Authorization: fetchUserToken() } })
+      .then(({ data }) => {
+        dispatch(glossaryFetchData());
+        dispatch(glossaryEditorFetchData());
+        dispatch(glossaryPostSuccess(true, data.id));
+        dispatch(glossaryPostIsLoading(false));
+        dispatch(glossaryPostHasErrored(false));
+
+        onSuccess();
+      })
+      .catch((error) => {
+        const data = merge({ title: null }, get(error, 'response.data'));
+        const message = (
+          (isArray(data.title) ? first(data.title) : data.title) ||
+          'An error occurred trying to save the new glossary term. Please try again.'
+        );
+
+        dispatch(glossaryPostSuccess(false));
+        dispatch(glossaryPostIsLoading(false));
+        dispatch(glossaryPostHasErrored(true, message));
+      });
+  };
+}
+
+export function glossaryEditorCancel(id = null) {
+  return (dispatch) => {
+    dispatch(glossaryPatchHasErrored(false, id));
+    dispatch(glossaryPostHasErrored(false));
   };
 }

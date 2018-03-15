@@ -38,7 +38,7 @@ class GlossaryEditorCard extends Component {
   }
 
   cancel() {
-    this.props.onCancel();
+    this.props.onCancel(this.props.term.id);
     this.setState({
       editorHidden: true,
       newTitle: null,
@@ -68,9 +68,10 @@ class GlossaryEditorCard extends Component {
         title,
         definition,
         is_archived: newIsArchived,
+      }, () => {
+        // reset state values on success
+        this.cancel();
       });
-      // reset state values after submitting
-      this.cancel();
     } else {
       this.setState(
         { displayZeroLengthAlert: { title: newTitleIsEmpty, definition: newDefinitionIsEmpty } },
@@ -80,7 +81,12 @@ class GlossaryEditorCard extends Component {
 
   render() {
     const { term, isNewTerm, hasErrored, submitGlossaryTerm } = this.props;
-    const { editorHidden, newTitle, newDefinition, displayZeroLengthAlert } = this.state;
+    const {
+      editorHidden,
+      newTitle,
+      newDefinition,
+      displayZeroLengthAlert,
+    } = this.state;
 
     const renderedTitle = newTitle || term.title;
     const renderedDefinition = newDefinition || term.definition;
@@ -94,6 +100,7 @@ class GlossaryEditorCard extends Component {
     const emptyTitleWarning = displayZeroLengthAlert.title;
     const emptyDefinitionWarning = displayZeroLengthAlert.definition;
     const showEmptyWarning = emptyTitleWarning || emptyDefinitionWarning;
+
     return (
       <div className={`usa-grid-full section-padded-inner-container glossary-editor-card ${editorContainerHiddenClass}`}>
         <div className="usa-grid-full glossary-editor-card-top">
@@ -144,7 +151,7 @@ class GlossaryEditorCard extends Component {
           dateUpdated={term.date_updated}
           updatedBy={term.last_editing_user}
           isArchived={term.is_archived}
-          id={term.id}
+          id={term.id || null}
           submitGlossaryTerm={submitGlossaryTerm}
         />
       </div>
@@ -163,7 +170,8 @@ GlossaryEditorCard.propTypes = {
 GlossaryEditorCard.defaultProps = {
   isNewTerm: false,
   onCancel: EMPTY_FUNCTION,
-  hasErrored: {},
+  onSuccess: {},
+  hasErrored: false,
 };
 
 export default GlossaryEditorCard;
