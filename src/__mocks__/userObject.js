@@ -22,7 +22,7 @@ export const bidderUserObject = {
     username: 'jdoe',
   },
   display_name: 'John',
-  intials: 'JD',
+  initials: 'JD',
   is_cdo: false,
   cdo: {
     first_name: 'Leah',
