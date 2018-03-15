@@ -52,7 +52,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
     expect(wrapper.find('History').exists()).toBe(false);
   });
 
-  fit('displays the bottom section when isNewTerm is false', () => {
+  it('displays the bottom section when isNewTerm is false', () => {
     const wrapper = shallow(<GlossaryEditorCardBottom
       {...props}
       id={1}
@@ -61,7 +61,7 @@ describe('GlossaryEditorCardBottomComponent', () => {
     expect(wrapper.find('History').exists()).toBe(true);
   });
 
-  fit('matches snapshot', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<GlossaryEditorCardBottom {...props} id={1} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

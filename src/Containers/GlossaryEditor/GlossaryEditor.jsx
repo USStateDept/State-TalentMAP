@@ -18,9 +18,9 @@ class GlossaryEditorContainer extends Component {
     fetchGlossary();
   }
 
-  submitGlossaryTerm(term) {
+  submitGlossaryTerm(term, onSuccess = EMPTY_FUNCTION) {
     const { submitGlossaryTerm } = this.props;
-    submitGlossaryTerm(term);
+    submitGlossaryTerm(term, onSuccess);
   }
 
   submitNewGlossaryTerm(term, onSuccess = EMPTY_FUNCTION) {
@@ -98,8 +98,8 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchGlossary: () => dispatch(glossaryEditorFetchData()),
-  submitGlossaryTerm: termObj => dispatch(glossaryPatch(termObj)),
-  submitNewGlossaryTerm: (termObj, success) => dispatch(glossaryPost(termObj, success)),
+  submitGlossaryTerm: (termObj, onSuccess) => dispatch(glossaryPatch(termObj, onSuccess)),
+  submitNewGlossaryTerm: (termObj, onSuccess) => dispatch(glossaryPost(termObj, onSuccess)),
   onGlossaryEditorCancel: termID => dispatch(glossaryEditorCancel(termID)),
 });
 

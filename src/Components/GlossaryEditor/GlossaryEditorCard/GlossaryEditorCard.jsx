@@ -6,35 +6,65 @@ import InteractiveElement from '../../InteractiveElement';
 import GlossaryEditorCardBottom from '../GlossaryEditorCardBottom';
 import StaticDevContent from '../../StaticDevContent';
 
+const isEmpty = value => (value || '').length === 0;
+
 class GlossaryEditorCard extends Component {
   constructor(props) {
     super(props);
+
     this.toggleEditorState = this.toggleEditorState.bind(this);
+    this.toggleEmptyAlert = this.toggleEmptyAlert.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
     this.updateDefinition = this.updateDefinition.bind(this);
     this.cancel = this.cancel.bind(this);
     this.submitDefinition = this.submitDefinition.bind(this);
+
     this.state = {
       editorHidden: true,
       newTitle: null,
-      newTitleWasEdited: false,
       newDefinition: null,
-      newDefinitionWasEdited: false,
       displayZeroLengthAlert: false,
       newIsArchived: this.props.term.is_archived || false,
     };
+  }
+
+  get hasTitleChanged() {
+    const { term } = this.props;
+    return (this.state.newTitle !== null) && (term.title !== this.state.newTitle);
+  }
+
+  get hasDefinitionChanged() {
+    const { term } = this.props;
+    return (this.state.newDefinition !== null) && (term.definition !== this.state.newDefinition);
+  }
+
+  get hasChanged() {
+    return (this.hasTitleChanged || this.hasDefinitionChanged);
+  }
+
+  get valid() {
+    const { newTitle, newDefinition } = this.state;
+    // Check if there's a title and definition, as well as if either the
+    // title or definition are present but not changed via the text editor.
+    return !isEmpty(newTitle) && !isEmpty(newDefinition);
   }
 
   toggleEditorState() {
     this.setState({ editorHidden: !this.state.editorHidden, displayZeroLengthAlert: false });
   }
 
+  toggleEmptyAlert(displayZeroLengthAlert = true) {
+    this.setState({ displayZeroLengthAlert });
+  }
+
   updateTitle(newTitle) {
-    this.setState({ newTitle, newTitleWasEdited: true, displayZeroLengthAlert: false });
+    this.setState({ newTitle });
+    this.toggleEmptyAlert(false);
   }
 
   updateDefinition(newDefinition) {
-    this.setState({ newDefinition, newDefinitionWasEdited: true, displayZeroLengthAlert: false });
+    this.setState({ newDefinition });
+    this.toggleEmptyAlert(false);
   }
 
   cancel() {
@@ -43,39 +73,34 @@ class GlossaryEditorCard extends Component {
       editorHidden: true,
       newTitle: null,
       newDefinition: null,
-      newDefinitionWasEdited: false,
-      newTitleWasEdited: false,
       displayZeroLengthAlert: false,
     });
   }
 
   submitDefinition() {
     const { term } = this.props;
-    const { newTitle, newDefinition, newDefinitionWasEdited, newTitleWasEdited,
-      newIsArchived } = this.state;
+    const { newTitle, newDefinition, newIsArchived } = this.state;
 
-    const newTitleIsEmpty = newTitleWasEdited && !newTitle;
-    const newDefinitionIsEmpty = newDefinitionWasEdited && !newDefinition;
-
-    const title = newTitle || term.title;
-    const definition = newDefinition || term.definition;
-
-    // Check if there's a title and definition, as well as if either the
-    // title or definition are present but not changed via the text editor.
-    if (title && definition && !newTitleIsEmpty && !newDefinitionIsEmpty) {
-      this.props.submitGlossaryTerm({
-        id: term.id,
-        title,
-        definition,
-        is_archived: newIsArchived,
-      }, () => {
-        // reset state values on success
+    if (this.valid) {
+      if (this.hasChanged) {
+        this.props.submitGlossaryTerm({
+          id: term.id,
+          title: newTitle,
+          definition: newDefinition,
+          is_archived: newIsArchived,
+        }, () => {
+          // Toggle hidden state on success
+          this.setState({ editorHidden: true });
+        });
+      } else {
+        // No changes made so it's fine to use our cancel fn
         this.cancel();
-      });
+      }
     } else {
-      this.setState(
-        { displayZeroLengthAlert: { title: newTitleIsEmpty, definition: newDefinitionIsEmpty } },
-      );
+      this.toggleEmptyAlert({
+        title: isEmpty(newTitle),
+        definition: isEmpty(newDefinition),
+      });
     }
   }
 

@@ -124,7 +124,7 @@ export function glossaryEditorFetchData(bypassLoading = false) {
   };
 }
 
-export function glossaryPatch(term = {}) {
+export function glossaryPatch(term = {}, onSuccess = EMPTY_FUNCTION) {
   return (dispatch) => {
     dispatch(glossaryPatchSuccess(false));
     dispatch(glossaryPatchIsLoading(true));
@@ -138,6 +138,8 @@ export function glossaryPatch(term = {}) {
         dispatch(glossaryPatchSuccess(true, data.id));
         dispatch(glossaryPatchIsLoading(false));
         dispatch(glossaryPatchHasErrored(false, data.id));
+
+        onSuccess(term.id);
       })
       .catch((error) => {
         const data = merge({ title: null }, get(error, 'response.data'));
