@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ViewMoreLink matches snapshot 1`] = `
+<InteractiveElement
+  className="view-more-link"
+  onClick={[Function]}
+  type="div"
+>
+  View less
+  <FontAwesome
+    name="angle-up"
+  />
+</InteractiveElement>
+`;

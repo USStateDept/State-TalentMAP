@@ -38,7 +38,7 @@ describe('async actions', () => {
       results,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/1/similar/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/1/similar/?limit=3').reply(200,
       results,
     );
   });

@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import FavoritesButton from '../FavoritesButton/FavoritesButton';
-import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS /* USER_PROFILE */ } from '../../Constants/PropTypes';
-// import { NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
-// import Share from '../Share/Share';
+import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
-// import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
 import PositionSimilarPositions from '../../Containers/PositionSimilarPositions';
 
 class PositionDetails extends Component {
@@ -30,11 +26,11 @@ class PositionDetails extends Component {
 
   render() {
     const { details, isLoading, hasErrored, goBackLink,
-        /* userProfile, toggleFavorite, userProfileFavoritePositionIsLoading, */
+        userProfile, toggleFavorite, userProfileFavoritePositionIsLoading,
         toggleBidPosition, bidList, bidListToggleIsLoading,
         editPocContent, editWebsiteContent,
         resetDescriptionEditMessages } = this.props;
-    const isReady = details && !isLoading && !hasErrored;
+    const isReady = details && userProfile.id && !isLoading && !hasErrored;
     return (
       <div className="content-container position-details-container">
         { isReady &&
@@ -49,32 +45,24 @@ class PositionDetails extends Component {
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
+            toggleFavorite={toggleFavorite}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfile={userProfile}
           />
-          <PositionDetailsItem details={details} />
-          {/* <PositionAdditionalDetails
-            content={
-              details.description && details.description.content ?
-              this.state.newDescriptionContent.value || details.description.content :
-              NO_POSITION_DESCRIPTION
-            }
+          <PositionDetailsItem
+            details={details}
+            editDescriptionContent={this.editDescriptionContent}
+            editPocContent={editPocContent}
+            editWebsiteContent={editWebsiteContent}
+            resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
-           <div className="usa-grid">
-            {
-              !!userProfile.favorite_positions &&
-              <FavoritesButton
-                onToggle={toggleFavorite}
-                refKey={details.id}
-                isLoading={userProfileFavoritePositionIsLoading}
-                compareArray={userProfile.favorite_positions}
-              />
-            }
-            <Share identifier={details.id} />
-          </div> */}
-          <PositionSimilarPositions
-            id={details.id}
-          />
+          <div className="usa-grid position-details-description-container">
+            <PositionSimilarPositions
+              id={details.id}
+            />
+          </div>
         </div>}
-        {isLoading && <Spinner type="position-details" size="big" />}
+        {!isReady && <Spinner type="position-details" size="big" />}
       </div>
     );
   }
@@ -85,9 +73,9 @@ PositionDetails.propTypes = {
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   goBackLink: GO_BACK_TO_LINK.isRequired,
-  // userProfile: USER_PROFILE,
-  // toggleFavorite: PropTypes.func.isRequired,
-  // userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
+  userProfile: USER_PROFILE,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   toggleBidPosition: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListToggleIsLoading: PropTypes.bool,
@@ -101,7 +89,7 @@ PositionDetails.defaultProps = {
   details: null,
   isLoading: true,
   hasErrored: false,
-  // userProfile: {},
+  userProfile: {},
   bidListToggleIsLoading: false,
   descriptionEditHasErrored: false,
   descriptionEditIsLoading: false,

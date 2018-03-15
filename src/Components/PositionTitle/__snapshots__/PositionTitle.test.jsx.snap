@@ -14,79 +14,42 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
         className="usa-width-one-half"
       >
         <div
-          className="position-details-header-back"
+          className="usa-grid-full"
         >
-          <div>
-            <FontAwesome
-              name="arrow-left"
-            />
-             
-            <a
-              className="back-link"
-              onClick={[Function]}
-              role="link"
-              tabIndex="0"
+          <div
+            className="usa-width-two-thirds header-title-container"
+          >
+            <div
+              className="position-details-header-title"
             >
-              Go back text
-            </a>
+              <strong />
+            </div>
+            <div>
+              Post: 
+              MASERU, LESOTHO
+               
+            </div>
+          </div>
+          <div
+            className="usa-width-one-third title-actions-section"
+          >
+            <Favorite
+              compareArray={Array []}
+              hasBorder={false}
+              hideText={false}
+              isLoading={false}
+              onToggle={[Function]}
+              refKey={6}
+              useLongText={true}
+            />
           </div>
         </div>
-        <div
-          className="position-details-header-title"
-        >
-          <strong>
-            Position Number: 
-            00003027
-          </strong>
-        </div>
-        <div
-          className="position-details-header-body editable-position-field"
-        >
-          <strong>
-            Description: 
-          </strong>
-          <span
-            className="usa-grid-full"
-          >
-            a description
-          </span>
-        </div>
-        <PositionTitleSubDescription
-          formattedContent={
-            <a
-              href="https://www.state.gov/post"
-            >
-              https://www.state.gov/post
-            </a>
-          }
-          isAllowedToEdit={false}
-          onSubmitText={[Function]}
-          plainContent="https://www.state.gov/post"
-          shouldShowEditor={false}
-          title="Post website"
-          toggleEditor={[Function]}
-        />
-        <PositionTitleSubDescription
-          formattedContent={
-            <a
-              href="tel:202-555-5555"
-            >
-              202-555-5555
-            </a>
-          }
-          isAllowedToEdit={false}
-          onSubmitText={[Function]}
-          plainContent="202-555-5555"
-          shouldShowEditor={false}
-          title="Point of Contact"
-          toggleEditor={[Function]}
-        />
       </div>
     </div>
     <img
-      alt="department of state seal"
+      alt="United States flag background"
       className="position-details-header-image"
-      src="/assets/img/rsz_dos-seal-bw.png"
+      src="/assets/img/us-flag.jpg"
     />
   </div>
   <div
