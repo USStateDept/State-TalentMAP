@@ -201,7 +201,7 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // Format the date into our preferred format.
 // We can take any valid date and convert it into M.D.YYYY format, or any
 // format provided with the dateFormat param.
-export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
+export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
     const formattedDate = format(date, dateFormat);
