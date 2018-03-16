@@ -31,6 +31,13 @@ describe('Favorite', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('adds the correct class when useButtonClass is true', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Favorite onToggle={spy} compareArray={[{ id: refKey }]} refKey={refKey} useButtonClass />);
+    expect(wrapper.find('.usa-button')).toBeDefined();
+  });
+
   it('handles being in the enabled state', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
@@ -47,6 +54,12 @@ describe('Favorite', () => {
 
   it('matches snapshot - Add state', () => {
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[]} refKey={refKey} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when useButtonClass is true', () => {
+    const wrapper = shallow(
+      <Favorite onToggle={() => {}} compareArray={[]} refKey={refKey} useButtonClass />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
@@ -74,6 +87,17 @@ describe('Favorite', () => {
   it('matches snapshot when useLongText is true - Remove state', () => {
     const array = [{ id: refKey }];
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={array} refKey={refKey} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when useSpinnerWhite is true', () => {
+    const array = [{ id: refKey }];
+    const wrapper = shallow(<Favorite
+      onToggle={() => {}}
+      compareArray={array}
+      refKey={refKey}
+      useSpinnerWhite
+    />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

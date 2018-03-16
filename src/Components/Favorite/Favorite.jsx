@@ -54,7 +54,8 @@ class Favorite extends Component {
   }
 
   render() {
-    const { hideText, useLongText } = this.props;
+    const { hideText, useLongText, hasBorder, useButtonClass, useSpinnerWhite } = this.props;
+    const { loading } = this.state;
 
     const shortTextFavorite = 'Favorite';
     const longTextFavorite = 'Add to Favorites';
@@ -75,33 +76,45 @@ class Favorite extends Component {
     let iconClass = 'star-o';
 
     // update for saved state
-    if (this.getSavedState()) {
+    const savedState = this.getSavedState();
+    if (savedState) {
       text = removeText;
       title = 'Remove from Favorites';
       iconClass = 'star';
     }
-
-    const style = {
-      pointerEvents: this.state.loading ? 'none' : 'inherit',
-    };
-    const borderClass = this.props.hasBorder ? 'favorites-button-border' : '';
-
     if (hideText) {
       text = null;
     }
+
+    const style = {
+      pointerEvents: 'inherit',
+    };
+
+    if (loading) { style.pointerEvents = 'none'; }
+
+    let borderClass = '';
+    const hasBorderNoButtonClass = hasBorder && !useButtonClass;
+    if (hasBorderNoButtonClass) { borderClass = 'favorites-button-border'; }
+
+    let buttonClass = '';
+    if (useButtonClass) { buttonClass = 'usa-button'; }
+
+    let spinnerClass = 'ds-c-spinner';
+    if (useButtonClass || useSpinnerWhite) { spinnerClass = `${spinnerClass} spinner-white`; }
+
+    const interactiveElementClass = `favorite-container ${borderClass} ${buttonClass}`;
 
     return (
       <InteractiveElement
         type="div"
         title={title}
         style={style}
-        className={`favorite-container ${borderClass}`}
+        className={interactiveElementClass}
         onClick={this.toggleSaved}
       >
-        {this.state.loading ?
-          (<span className="ds-c-spinner" />) :
-          (<FontAwesome name={iconClass} />)}{text}
-
+        {loading && <span className={spinnerClass} />}
+        {!loading && <FontAwesome name={iconClass} />}
+        {text}
       </InteractiveElement>
     );
   }
@@ -115,6 +128,8 @@ Favorite.propTypes = {
   isLoading: PropTypes.bool,
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
+  useButtonClass: PropTypes.bool,
+  useSpinnerWhite: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -123,6 +138,8 @@ Favorite.defaultProps = {
   compareArray: [],
   hasBorder: false,
   useLongText: false,
+  useButtonClass: false,
+  useSpinnerWhite: false,
 };
 
 export default Favorite;

@@ -97,4 +97,9 @@ $favorite-spinner-size: 14px;
       width: $favorite-spinner-size;
     }
   }
+
+  .spinner-white {
+    color: $color-white;
+    margin-right: .5em;
+  }
 }

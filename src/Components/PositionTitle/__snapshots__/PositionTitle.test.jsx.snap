@@ -40,7 +40,9 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
               isLoading={false}
               onToggle={[Function]}
               refKey={6}
+              useButtonClass={false}
               useLongText={true}
+              useSpinnerWhite={true}
             />
           </div>
         </div>
