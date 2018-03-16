@@ -78,7 +78,7 @@ class GlossaryEditorCard extends Component {
   }
 
   submitDefinition() {
-    const { term } = this.props;
+    const { term, isNewTerm } = this.props;
     const { newTitle, newDefinition, newIsArchived } = this.state;
 
     if (this.valid) {
@@ -89,8 +89,12 @@ class GlossaryEditorCard extends Component {
           definition: newDefinition,
           is_archived: newIsArchived,
         }, () => {
-          // Toggle hidden state on success
-          this.setState({ editorHidden: true });
+          // Toggle submitted state on success
+          this.setState({ editorHidden: false });
+
+          if (isNewTerm) {
+            this.props.onCancel();
+          }
         });
       } else {
         // No changes made so it's fine to use our cancel fn
