@@ -4,7 +4,9 @@ import FontAwesome from 'react-fontawesome';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
 
-const ProfileMenuCollapsed = ({ expand, isGlossaryEditor }) => (
+import { PROFILE_MENU } from '../../../Constants/Menu';
+
+const ProfileMenuCollapsed = ({ expand, isCDO, isGlossaryEditor }) => (
   <div className="usa-grid-full profile-menu profile-menu-collapsed">
     <div className="menu-title">
       <button className="unstyled-button" title="Expand menu" onClick={expand}>
@@ -12,23 +14,33 @@ const ProfileMenuCollapsed = ({ expand, isGlossaryEditor }) => (
       </button>
     </div>
     <NavLinksContainer>
-      <NavLink iconName="user" link="/profile/dashboard/" />
-      <NavLink iconName="pie-chart" link="/profile/statistics/" />
-      <NavLink iconName="book" link="/profile/glossaryeditor/" search="?type=all" hidden={!isGlossaryEditor} />
-      <NavLink iconName="comments-o" link="/profile/inbox/" />
-      <NavLink iconName="globe" link="/profile/notifications/" />
-      <NavLink iconName="users" link="/profile/contacts/" />
-      <NavLink iconName="file-text" link="/profile/documents/" />
+      {
+        PROFILE_MENU.map((item) => {
+          const props = {
+            iconName: item.icon,
+            link: item.route,
+            search: (item.params || ''),
+            hidden: (item.isCDO && !isCDO) ||
+                    (item.isGlossaryEditor && !isGlossaryEditor),
+          };
+
+          return (
+            <NavLink key={item.text} {...props} />
+          );
+        })
+      }
     </NavLinksContainer>
   </div>
 );
 
 ProfileMenuCollapsed.propTypes = {
   expand: PropTypes.func.isRequired,
+  isCDO: PropTypes.bool,
   isGlossaryEditor: PropTypes.bool,
 };
 
 ProfileMenuCollapsed.defaultProps = {
+  isCDO: false,
   isGlossaryEditor: false,
 };
 
