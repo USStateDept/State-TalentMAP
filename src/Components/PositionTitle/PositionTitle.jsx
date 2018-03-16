@@ -1,22 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BidListButton from '../BidListButton';
-import BidCount from '../BidCount';
 import OBCUrl from '../OBCUrl';
 import Favorite from '../Favorite/Favorite';
-import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault, getBidStatisticsObject } from '../../utilities';
+import ViewPostDataButton from '../ViewPostDataButton';
+import { POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
+import { getAssetPath, propOrDefault } from '../../utilities';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
-const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, userProfile,
-  userProfileFavoritePositionIsLoading, bidListToggleIsLoading }) => {
-  const bidStatistics = getBidStatisticsObject(details.bid_statistics);
-
-  const shouldShowBidStats = !!details.bid_statistics && !!bidStatistics;
-
+const PositionTitle = ({ details, toggleFavorite, userProfile,
+  userProfileFavoritePositionIsLoading }) => {
   const obcId = propOrDefault(details, 'post.obc_id');
-
   return (
     <div className="position-details-header-container">
       <div className="position-details-header">
@@ -51,21 +45,8 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
         />
       </div>
       <div className="offset-bid-button-container">
-        <div className="offset-bid-button-container-count">
-          {
-            shouldShowBidStats &&
-              <BidCount
-                bidStatistics={bidStatistics}
-              />
-          }
-        </div>
         <div className="offset-bid-button-container-button">
-          <BidListButton
-            toggleBidPosition={toggleBidPosition}
-            compareArray={bidList.results}
-            id={details.id}
-            isLoading={bidListToggleIsLoading}
-          />
+          { !!obcId && <ViewPostDataButton id={obcId} /> }
         </div>
       </div>
     </div>
@@ -74,9 +55,6 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
-  toggleBidPosition: PropTypes.func.isRequired,
-  bidList: BID_LIST.isRequired,
-  bidListToggleIsLoading: PropTypes.bool,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
