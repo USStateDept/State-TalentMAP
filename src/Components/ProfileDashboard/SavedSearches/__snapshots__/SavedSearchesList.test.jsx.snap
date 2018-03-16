@@ -5,8 +5,6 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
   className="usa-grid-full saved-searches-list-profile-container"
 >
   <Spinner
-    filled={false}
-    inverse={false}
     size="big"
     type="homepage-position-results"
   />
@@ -18,8 +16,6 @@ exports[`SavedSearchesListComponent matches snapshot when there are no saved sea
   className="usa-grid-full saved-searches-list-profile-container"
 >
   <Spinner
-    filled={false}
-    inverse={false}
     size="big"
     type="homepage-position-results"
   />

@@ -187,3 +187,12 @@
     border-bottom-color: $tm-dark-blue;
   }
 }
+
+.usa-banner-inner {
+
+  padding-left: 0;
+
+  @media screen and (max-width: $screen-md-max) {
+    padding-left: 20px;
+  }
+}
