@@ -73,6 +73,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
             >
               <SelectForm
                 defaultSort={null}
+                disabled={false}
                 emptyOptionText=""
                 id="grade-searchbar-filter"
                 includeFirstEmptyOption={true}
@@ -96,6 +97,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
             >
               <SelectForm
                 defaultSort={null}
+                disabled={false}
                 emptyOptionText="- Select -"
                 id="bureau-searchbar-filter"
                 includeFirstEmptyOption={true}
