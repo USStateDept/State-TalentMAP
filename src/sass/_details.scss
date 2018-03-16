@@ -14,6 +14,12 @@
     color: $color-white;
   }
 
+  h1 {
+    font-family: inherit;
+    font-size: 1em;
+    margin: 0;
+  }
+
   .back-link {
     color: inherit;
     cursor: pointer;

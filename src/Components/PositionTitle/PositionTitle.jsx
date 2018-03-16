@@ -25,7 +25,7 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
             <div className="usa-grid-full">
               <div className="usa-width-two-thirds header-title-container">
                 <div className="position-details-header-title">
-                  <strong>{details.title}</strong>
+                  <h1>{details.title}</h1>
                 </div>
                 <div>
                   Post: {details.post.location} { obcId && <span>(<OBCUrl id={obcId} />)</span> }

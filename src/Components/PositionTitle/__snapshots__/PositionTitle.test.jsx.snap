@@ -22,7 +22,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             <div
               className="position-details-header-title"
             >
-              <strong />
+              <h1 />
             </div>
             <div>
               Post: 
