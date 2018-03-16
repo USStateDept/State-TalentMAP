@@ -38,6 +38,7 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
                   compareArray={userProfile.favorite_positions}
                   isLoading={userProfileFavoritePositionIsLoading}
                   useLongText
+                  useSpinnerWhite
                 />
               </div>
             </div>
