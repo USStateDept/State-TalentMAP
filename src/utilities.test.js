@@ -24,6 +24,7 @@ import { validStateEmail,
          formatWaiverTitle,
          propOrDefault,
          formatIdSpacing,
+         userHasPermissions,
        } from './utilities';
 
 describe('local storage', () => {
@@ -393,5 +394,44 @@ describe('formatIdSpacing', () => {
     expect(formatIdSpacing(undefined)).toBe(null);
     expect(formatIdSpacing(null)).toBe(null);
     expect(formatIdSpacing(false)).toBe(null);
+  });
+});
+
+describe('userHasPermissions', () => {
+  let userPermissions;
+  let permissionsToCheck;
+  beforeEach(() => {
+    userPermissions = ['a', 'b', 'c'];
+    permissionsToCheck = ['a', 'c'];
+  });
+
+  it('returns true if the user has all the needed permissions', () => {
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+
+  it('returns false if the user has some of the needed permissions', () => {
+    userPermissions = ['a'];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(false);
+  });
+
+  it('returns true if the user has more than the needed permissions', () => {
+    userPermissions.push('d', 'e');
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+
+  it('returns false if userPermissions are not provided', () => {
+    userPermissions = [];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(false);
+  });
+
+  it('returns true if permissionsToCheck are not provided', () => {
+    permissionsToCheck = [];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+
+  it('returns true if permissionsToCheck and userPermissions are not provided', () => {
+    permissionsToCheck = [];
+    userPermissions = [];
+    expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
   });
 });

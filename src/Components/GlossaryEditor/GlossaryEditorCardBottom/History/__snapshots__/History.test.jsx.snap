@@ -20,6 +20,26 @@ exports[`HistoryComponent matches snapshot 1`] = `
 </div>
 `;
 
+exports[`HistoryComponent matches snapshot when dateUpdated is undefined 1`] = `
+<div
+  className="usa-grid-full glossary-editor-card-bottom"
+>
+  <div>
+    Date updated unknown
+  </div>
+  <div>
+    Editor: 
+    John Doe
+  </div>
+  <ArchiveIcon
+    hasErrored={false}
+    id={1}
+    isArchived={false}
+    onSubmitOption={[Function]}
+  />
+</div>
+`;
+
 exports[`HistoryComponent matches snapshot when isArchived is false 1`] = `
 <div
   className="usa-grid-full glossary-editor-card-bottom"
@@ -30,6 +50,26 @@ exports[`HistoryComponent matches snapshot when isArchived is false 1`] = `
   <div>
     Editor: 
     John Doe
+  </div>
+  <ArchiveIcon
+    hasErrored={false}
+    id={1}
+    isArchived={false}
+    onSubmitOption={[Function]}
+  />
+</div>
+`;
+
+exports[`HistoryComponent matches snapshot when updatedBy is undefined 1`] = `
+<div
+  className="usa-grid-full glossary-editor-card-bottom"
+>
+  <div>
+    Updated on 2.12.2018
+  </div>
+  <div>
+    Editor: 
+    None listed
   </div>
   <ArchiveIcon
     hasErrored={false}
