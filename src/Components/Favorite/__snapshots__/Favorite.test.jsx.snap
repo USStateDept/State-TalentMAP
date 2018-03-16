@@ -150,3 +150,22 @@ exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
   />
 </InteractiveElement>
 `;
+
+exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
+<InteractiveElement
+  className="favorite-container  "
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+  title="Remove from Favorites"
+  type="div"
+>
+  <FontAwesome
+    name="star"
+  />
+  Remove
+</InteractiveElement>
+`;
