@@ -90,7 +90,7 @@ class GlossaryEditorCard extends Component {
           is_archived: newIsArchived,
         }, () => {
           // Toggle submitted state on success
-          this.setState({ editorHidden: false });
+          this.setState({ editorHidden: true });
 
           if (isNewTerm) {
             this.props.onCancel();
