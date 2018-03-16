@@ -24,6 +24,46 @@ export function resultsFetchDataSuccess(results) {
   };
 }
 
+export function resultsSimilarPositionsHasErrored(bool) {
+  return {
+    type: 'RESULTS_SIMILAR_POSITIONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function resultsSimilarPositionsIsLoading(bool) {
+  return {
+    type: 'RESULTS_SIMILAR_POSITIONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function resultsSimilarPositionsFetchDataSuccess(results) {
+  return {
+    type: 'RESULTS_SIMILAR_POSITIONS_FETCH_DATA_SUCCESS',
+    results,
+  };
+}
+
+export function resultsFetchSimilarPositions(id) {
+  return (dispatch) => {
+    if (cancel) { cancel(); }
+    dispatch(resultsSimilarPositionsIsLoading(true));
+    axios.get(`${api}/position/${id}/similar/?limit=3`, {
+      headers: { Authorization: fetchUserToken() },
+    },
+    )
+      .then(response => response.data)
+      .then((results) => {
+        dispatch(resultsSimilarPositionsFetchDataSuccess(results));
+        dispatch(resultsSimilarPositionsIsLoading(false));
+        dispatch(resultsSimilarPositionsHasErrored(false));
+      })
+      .catch(() => {
+        dispatch(resultsSimilarPositionsIsLoading(false));
+        dispatch(resultsSimilarPositionsHasErrored(true));
+      });
+  };
+}
+
 export function resultsFetchData(query) {
   return (dispatch) => {
     if (cancel) { cancel(); }

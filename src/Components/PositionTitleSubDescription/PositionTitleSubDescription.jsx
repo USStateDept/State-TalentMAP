@@ -6,9 +6,9 @@ import EditContentButton from '../EditContentButton';
 const PositionTitleSubDescription = ({ title, formattedContent, plainContent, shouldShowEditor,
   onSubmitText, toggleEditor, isAllowedToEdit }) => (
     <div
-      className="usa-width-one-half position-details-header-body editable-position-field"
+      className="usa-width-one-whole position-details-header-body editable-position-field"
     >
-      <strong>{title}: </strong>
+      <div className="editable-position-field-title">{title}: </div>
       {
         !shouldShowEditor &&
           <div className="usa-grid-full">
