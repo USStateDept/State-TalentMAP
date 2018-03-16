@@ -85,6 +85,14 @@ $condensed-card-padding: 9px 20px 9px;
 
   .condensed-card-top-header-left {
     float: left;
+
+    h3 {
+      font-family: unset;
+      font-size: unset;
+      font-weight: unset;
+      line-height: unset;
+      margin-bottom: unset;
+    }
   }
 
   .condensed-card-top-header-right {
