@@ -17,6 +17,13 @@ describe('async actions', () => {
     received_shares: [],
   };
 
+  const permission = {
+    groups: [
+      'post_editors_215',
+      'glossary_editors',
+    ],
+  };
+
   // reset the mockAdapter since we repeat specific requests
   beforeEach(() => {
     mockAdapter.reset();
@@ -27,6 +34,10 @@ describe('async actions', () => {
 
     mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(200,
       profile,
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/permission/user/').reply(200,
+      permission,
     );
 
     const f = () => {
@@ -89,7 +100,13 @@ describe('async actions', () => {
   it('can handle errors', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile').reply(404,
+    mockAdapter.reset();
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(404,
+      {},
+    );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/permission/user/').reply(404,
       {},
     );
 

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BetaHeader matches snapshot 1`] = `
+<div
+  className="usa-banner tm-beta-header"
+>
+  <div
+    className="usa-grid usa-banner-inner"
+  >
+    <FontAwesome
+      name="gears"
+    />
+    Welcome to TalentMAP! This site is new and features will continue to be added.
+  </div>
+</div>
+`;

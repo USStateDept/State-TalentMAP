@@ -51,23 +51,6 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         </div>
       </div>
     </div>
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text feedback-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
   <div
     className="header-nav-desktop desktop-nav-only account-notification-container"
@@ -94,6 +77,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
                 "first_name": "Leah",
                 "last_name": "Shadtrach",
               },
+              "display_name": "John",
               "favorite_positions": Array [
                 Object {
                   "id": 1,
@@ -106,6 +90,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
               ],
               "grade": "03",
               "id": 1,
+              "intials": "JD",
               "is_cdo": false,
               "skills": Array [
                 Object {
@@ -180,23 +165,6 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
             href="https://github.com/18F/State-TalentMAP"
           >
             About
-          </a>
-        </div>
-      </div>
-    </div>
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text feedback-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP/issues"
-          >
-            Feedback
           </a>
         </div>
       </div>

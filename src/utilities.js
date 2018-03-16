@@ -314,3 +314,7 @@ export const formatIdSpacing = (id) => {
   // if id is not defined, return null
   return null;
 };
+
+// provide an array of permissions to check if they all exist in an array of user permissions
+export const userHasPermissions = (permissionsToCheck = [], userPermissions = []) =>
+  permissionsToCheck.every(val => userPermissions.indexOf(val) >= 0);

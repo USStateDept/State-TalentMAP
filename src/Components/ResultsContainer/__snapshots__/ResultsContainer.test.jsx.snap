@@ -131,8 +131,6 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     className="results-list-container"
   >
     <Spinner
-      filled={false}
-      inverse={false}
       size="big"
       type="position-results"
     />
