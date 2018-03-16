@@ -172,12 +172,15 @@
 .offset-bid-button-container {
   left: 65%;
   position: absolute;
-  top: 19%;
+  top: 71%;
 
-  .bid-list-button {
-    box-shadow: 5px 10px 20px -4px rgba(0,0,0,0.75);
-    -moz-box-shadow: 5px 10px 20px -4px rgba(0,0,0,0.75);
-    -webkit-box-shadow: 5px 10px 20px -4px rgba(0,0,0,0.75);
+  .bid-list-button,
+  a {
+    // scss-lint:disable VendorPrefix
+    -moz-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
+    -webkit-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
+    box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
+    padding: 1em 3em;
   }
 
   .offset-bid-button-container-count {
