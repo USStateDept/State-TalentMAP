@@ -14,7 +14,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
       <FontAwesome
         name="arrow-left"
       />
-      Go back to seaarch results
+      Go back to search results
     </button>
   </div>
   <div
@@ -266,7 +266,7 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
       <FontAwesome
         name="arrow-left"
       />
-      Go back to seaarch results
+      Go back to search results
     </button>
   </div>
   <div
