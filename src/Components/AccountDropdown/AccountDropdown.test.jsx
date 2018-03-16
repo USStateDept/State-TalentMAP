@@ -18,7 +18,7 @@ describe('AccountDropdown', () => {
   });
 
   it('can take different props', () => {
-    const accountDropdown = shallow(<AccountDropdown userProfile={{ user: { first_name: 'test' } }} />);
+    const accountDropdown = shallow(<AccountDropdown userProfile={{ user: { display_name: 'test' } }} />);
     expect(accountDropdown).toBeDefined();
   });
 
@@ -67,10 +67,10 @@ describe('AccountDropdown', () => {
   });
 
   it("can render the logged in user's name when shouldDisplayName is true", () => {
-    const firstName = 'test';
+    const displayName = 'test';
     const accountDropdown = mount(<Provider store={mockStore({})}><MemoryRouter>
-      <AccountDropdown shouldDisplayName userProfile={{ user: { first_name: firstName } }} />
+      <AccountDropdown shouldDisplayName userProfile={{ display_name: displayName }} />
     </MemoryRouter></Provider>);
-    expect(accountDropdown.find('#account-username').text()).toBe(firstName);
+    expect(accountDropdown.find('#account-username').text()).toBe(displayName);
   });
 });

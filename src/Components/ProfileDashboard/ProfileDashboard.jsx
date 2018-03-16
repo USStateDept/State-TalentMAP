@@ -5,6 +5,7 @@ import UserProfile from './UserProfile';
 import Spinner from '../Spinner';
 import BidListComingSoon from './BidListComingSoon';
 import Favorites from './Favorites';
+import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 
 const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
   notificationsIsLoading, bidListIsLoading, favoritePositions, favoritePositionsIsLoading }) => (
@@ -13,17 +14,17 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
         (isLoading || assignmentIsLoading || notificationsIsLoading || bidListIsLoading
           || favoritePositionsIsLoading) ?
             <Spinner type="homepage-position-results" size="big" />
-            :
+          :
             <div className="usa-grid-full">
               <div className="hello-greeting">
                 {
-                  `Hello, ${userProfile.user.first_name}`
+                  `Hello, ${userProfile.display_name}`
                 }
               </div>
               <div className="usa-grid-full">
                 <div
                   className={`usa-width-five-twelfths user-dashboard-section-container
-                    user-dashboard-column-1`}
+                      user-dashboard-column-1`}
                 >
                   <div className="usa-width-one-whole user-dashboard-section current-user-section">
                     <UserProfile userProfile={userProfile} />
@@ -34,17 +35,20 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
                 </div>
                 <div
                   className={`usa-width-seven-twelfths user-dashboard-section-container
-                    user-dashboard-column-2`}
+                      user-dashboard-column-2`}
                 >
+                  <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                    <SavedSearches />
+                  </div>
                   <div className="usa-width-one-whole user-dashboard-section favorites-section">
                     <Favorites favorites={favoritePositions} />
                   </div>
                 </div>
               </div>
             </div>
-        }
+      }
     </div>
-);
+  );
 
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
@@ -59,6 +63,7 @@ ProfileDashboard.propTypes = {
 ProfileDashboard.defaultProps = {
   favoritePositions: [],
   favoritePositionsIsLoading: false,
+  filtersIsLoading: false,
 };
 
 export default ProfileDashboard;

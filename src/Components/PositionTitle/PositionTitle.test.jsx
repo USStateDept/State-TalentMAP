@@ -28,46 +28,6 @@ describe('PositionTitleComponent', () => {
     expect(wrapper.instance().props.details.id).toBe(6);
   });
 
-  it('displays the OBC link if obc_id exists', () => {
-    const newDetailsObject = { ...detailsObject };
-    newDetailsObject.post.obc_id = 1;
-    const wrapper = shallow(
-      <PositionTitle
-        details={newDetailsObject}
-        isLoading={false}
-        hasErrored={false}
-        goBackLink={goBackLink}
-        bidList={bidList}
-        toggleBidPosition={() => {}}
-        editWebsiteContent={() => {}}
-        editPocContent={() => {}}
-        editDescriptionContent={() => {}}
-        resetDescriptionEditMessages={() => {}}
-      />,
-    );
-    expect(wrapper.find('OBCUrl').exists()).toBe(true);
-  });
-
-  it('hides the OBC link if obc_id does not exist', () => {
-    const newDetailsObject = { ...detailsObject };
-    newDetailsObject.post.obc_id = null;
-    const wrapper = shallow(
-      <PositionTitle
-        details={newDetailsObject}
-        isLoading={false}
-        hasErrored={false}
-        goBackLink={goBackLink}
-        bidList={bidList}
-        toggleBidPosition={() => {}}
-        editWebsiteContent={() => {}}
-        editPocContent={() => {}}
-        editDescriptionContent={() => {}}
-        resetDescriptionEditMessages={() => {}}
-      />,
-    );
-    expect(wrapper.find('OBCUrl').exists()).toBe(false);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <PositionTitle

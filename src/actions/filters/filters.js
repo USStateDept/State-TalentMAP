@@ -70,6 +70,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         // We'll do this for posts and missions.
         }
         if (item.selectionRef === ENDPOINT_PARAMS.post) {
+          dispatch(filtersIsLoading(true));
           return axios.get(`${api}/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
@@ -83,6 +84,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           });
         }
         if (item.selectionRef === ENDPOINT_PARAMS.mission) {
+          dispatch(filtersIsLoading(true));
           return axios.get(`${api}/country/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
