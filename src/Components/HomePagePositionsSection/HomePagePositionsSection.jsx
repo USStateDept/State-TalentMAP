@@ -49,7 +49,7 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggle
           <span className="positions-section-title">
             { !!icon.length && <FontAwesome name={icon} /> }
             {title}
-          </span>
+          </h2>
         }
         viewMoreLink={viewMoreLink}
       />
