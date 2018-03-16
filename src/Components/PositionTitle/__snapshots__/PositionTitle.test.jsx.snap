@@ -40,7 +40,9 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
               isLoading={false}
               onToggle={[Function]}
               refKey={6}
+              useButtonClass={false}
               useLongText={true}
+              useSpinnerWhite={true}
             />
           </div>
         </div>
@@ -51,6 +53,38 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
       className="position-details-header-image"
       src="/assets/img/us-flag.jpg"
     />
+  </div>
+  <div
+    className="offset-bid-button-container"
+  >
+    <div
+      className="offset-bid-button-container-count"
+    >
+      <BidCount
+        bidStatistics={
+          Object {
+            "at_skill": 0,
+            "bidcycle": 1,
+            "id": 1,
+            "in_grade": 0,
+            "in_grade_at_skill": 0,
+            "total_bids": 3,
+          }
+        }
+        hideLabel={false}
+      />
+    </div>
+    <div
+      className="offset-bid-button-container-button"
+    >
+      <BidListButton
+        className="bid-list-button"
+        compareArray={Array []}
+        id={6}
+        isLoading={false}
+        toggleBidPosition={[Function]}
+      />
+    </div>
   </div>
 </div>
 `;
