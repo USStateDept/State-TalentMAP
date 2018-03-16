@@ -20,7 +20,7 @@ const ResultsCondensedCardTop = ({ position, type }) => {
             'usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left'
           }
         >
-          {position.title} {useType && <span> | <FontAwesome name={icon} /></span> }
+          <h3>{position.title}</h3> {useType && <span> | <FontAwesome name={icon} /></span> }
         </div>
         <div
           className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"

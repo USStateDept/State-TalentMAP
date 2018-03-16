@@ -10,6 +10,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
     <div
       className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
     >
+      <h3 />
        
     </div>
     <div
@@ -42,6 +43,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
     <div
       className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
     >
+      <h3 />
        
       <span>
          | 
