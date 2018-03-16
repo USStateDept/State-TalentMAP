@@ -6,6 +6,6 @@ exports[`FeedbackComponent matches snapshot 1`] = `
   id="feedback-open-icon"
   onClick={[Function]}
 >
-  Feedback
+  Provide Feedback
 </button>
 `;

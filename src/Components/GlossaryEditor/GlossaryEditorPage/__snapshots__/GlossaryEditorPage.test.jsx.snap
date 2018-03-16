@@ -121,8 +121,6 @@ exports[`GlossaryEditorPageComponent matches snapshot when glossaryIsLoading is 
       className="usa-grid-full bidder-portfolio-listing results-loading"
     >
       <Spinner
-        filled={false}
-        inverse={false}
         size="big"
         type="homepage-position-results"
       />

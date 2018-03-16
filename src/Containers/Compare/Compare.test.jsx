@@ -6,6 +6,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import Compare, { mapDispatchToProps } from './Compare';
+import routerLocations from '../../__mocks__/routerLocations';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -13,14 +14,22 @@ const mockStore = configureStore(middlewares);
 describe('Main', () => {
   it('is defined', () => {
     const compare = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Compare isAuthorized={() => true} onNavigateTo={() => {}} />
+      <Compare
+        routerLocations={routerLocations}
+        isAuthorized={() => true}
+        onNavigateTo={() => {}}
+      />
     </MemoryRouter></Provider>);
     expect(compare).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
     const compare = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Compare isAuthorized={() => false} onNavigateTo={() => {}} />
+      <Compare
+        routerLocations={routerLocations}
+        isAuthorized={() => false}
+        onNavigateTo={() => {}}
+      />
     </MemoryRouter></Provider>);
     expect(compare).toBeDefined();
   });
