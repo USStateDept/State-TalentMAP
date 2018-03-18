@@ -9,6 +9,7 @@ const Routes = props => (
         <Route
           key={route.path}
           exact={route.exact}
+          pageTitle={route.pageTitle}
           path={route.path}
           component={() => route.component(props)}
         />
