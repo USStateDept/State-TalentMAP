@@ -465,6 +465,7 @@ export const GROUPED_GLOSSARY_ARRAYS_OBJECT = PropTypes.shape({
 
 export const GLOSSARY_ERROR_OBJECT = PropTypes.shape({
   id: PropTypes.number,
+  message: PropTypes.string,
   hasErrored: PropTypes.bool,
 });
 

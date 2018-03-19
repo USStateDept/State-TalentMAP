@@ -14,7 +14,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
       <FontAwesome
         name="arrow-left"
       />
-      Go back to seaarch results
+      Go back to search results
     </button>
   </div>
   <div
@@ -91,17 +91,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               MASERU, LESOTHO
-              <LinkButton
-                className="post-data-button"
-                isExternal={true}
-                toLink="/obc/post/162"
-                useDefaultClass={true}
-              >
-                <FontAwesome
-                  name="map-marker"
-                />
-                View Post Data
-              </LinkButton>
+              <ViewPostDataButton
+                id={162}
+                type="post"
+              />
               <div
                 className="border-extension-layer-2"
               />
@@ -237,11 +230,12 @@ exports[`CompareListComponent matches snapshot 1`] = `
               N/A 
               <span>
                  | 
-                <a
-                  href="/obc/post/162"
-                >
-                  Details
-                </a>
+                <OBCUrl
+                  id={162}
+                  isButton={false}
+                  label="Details"
+                  type="post"
+                />
               </span>
             </td>
             <td>
@@ -258,11 +252,12 @@ exports[`CompareListComponent matches snapshot 1`] = `
               N/A 
               <span>
                  | 
-                <a
-                  href="/obc/post/162"
-                >
-                  Details
-                </a>
+                <OBCUrl
+                  id={162}
+                  isButton={false}
+                  label="Details"
+                  type="post"
+                />
               </span>
             </td>
             <td>
@@ -293,7 +288,7 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
       <FontAwesome
         name="arrow-left"
       />
-      Go back to seaarch results
+      Go back to search results
     </button>
   </div>
   <div

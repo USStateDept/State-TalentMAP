@@ -15,6 +15,12 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
           || favoritePositionsIsLoading) ?
             <Spinner type="homepage-position-results" size="big" />
           :
+          <div className="usa-grid-full">
+            <div className="hello-greeting">
+              {
+                `Hello, ${userProfile.display_name}`
+              }
+            </div>
             <div className="usa-grid-full">
               <div className="hello-greeting">
                 {
@@ -46,6 +52,7 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
                 </div>
               </div>
             </div>
+          </div>
       }
     </div>
   );

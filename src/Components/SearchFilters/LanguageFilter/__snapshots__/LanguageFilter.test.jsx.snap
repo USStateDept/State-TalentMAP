@@ -15,6 +15,7 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
   >
     <SelectForm
       defaultSort=""
+      disabled={false}
       emptyOptionText="- Select -"
       id="speaking-language-dropdown"
       includeFirstEmptyOption={false}
@@ -72,6 +73,7 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
     />
     <SelectForm
       defaultSort=""
+      disabled={false}
       emptyOptionText="- Select -"
       id="reading-language-dropdown"
       includeFirstEmptyOption={false}

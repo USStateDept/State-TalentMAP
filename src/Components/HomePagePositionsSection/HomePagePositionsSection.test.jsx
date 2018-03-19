@@ -21,6 +21,11 @@ describe('HomePagePositionsSection', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('displays the error message when hasErrored is true and isLoading is false', () => {
+    const wrapper = shallow(<HomePagePositionsSection {...props} hasErrored isLoading={false} />);
+    expect(wrapper.find('Alert').props().type).toBe('error');
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(<HomePagePositionsSection {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();

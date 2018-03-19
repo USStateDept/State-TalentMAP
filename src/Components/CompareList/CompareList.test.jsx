@@ -8,7 +8,7 @@ import resultsObject from '../../__mocks__/resultsObject';
 
 describe('CompareListComponent', () => {
   const props = {
-    goBackLink: { text: 'Go back to seaarch results' },
+    goBackLink: { text: 'Go back to search results' },
   };
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<MemoryRouter>
