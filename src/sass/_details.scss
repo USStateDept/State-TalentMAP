@@ -176,9 +176,6 @@
 
   .bid-list-button,
   a {
-    // scss-lint:disable VendorPrefix
-    -moz-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
-    -webkit-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
     box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
     padding: 1em 3em;
   }
