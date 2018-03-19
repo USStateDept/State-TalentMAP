@@ -1,38 +1,21 @@
-import React from 'react';
 import { shallow } from 'enzyme';
+import React from 'react';
 import toJSON from 'enzyme-to-json';
-import Definition from './Definition';
+import ResultsCardDataPoint from './ResultsCardDataPoint';
 
-const mock = {
-  term: 'Term #1',
-  definition: 'Definition #1',
-};
+describe('ResultsCardDataPointComponent', () => {
+  const description = 'description';
+  const text = 'text';
 
-describe('Definition', () => {
-  const props = {
-    id: 'definition',
-    className: 'definition-test',
-  };
-
-  it('can render `term` prop', () => {
-    const wrapper = shallow(<Definition {...mock} />);
-    expect(wrapper.find('dt').text()).toEqual(`${mock.term}:`);
-  });
-
-  it('can render `definition` prop', () => {
-    const wrapper = shallow(<Definition {...mock} />);
-    expect(wrapper.find('dd').text()).toEqual(mock.definition);
-  });
-
-  it('can recieve other props such as `className` and `id`', () => {
-    const wrapper = shallow(<Definition {...props} />);
-
-    expect(wrapper.find(`#${props.id}`).exists()).toBe(true);
-    expect(wrapper.find(`.${props.className}`).exists()).toBe(true);
+  it('can receive props', () => {
+    const wrapper =
+      shallow(<ResultsCardDataPoint description={description} text={text} />);
+    expect(wrapper.instance().props.description).toBe(description);
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<Definition {...props} {...mock} />);
+    const wrapper =
+      shallow(<ResultsCardDataPoint description={description} text={text} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
