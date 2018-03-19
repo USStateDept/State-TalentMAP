@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
 import GlossaryEditorCard from '../GlossaryEditorCard';
 import Alert from '../../Alert';
 
@@ -14,6 +14,7 @@ class GlossaryEditorPage extends Component {
   }
 
   toggleNewTermEditor() {
+    this.props.onGlossaryEditorCancel(null);
     this.setState({ showNewTerm: !this.state.showNewTerm });
   }
 
@@ -21,11 +22,9 @@ class GlossaryEditorPage extends Component {
     const { submitNewGlossaryTerm, glossaryPostHasErrored, glossaryPostSuccess } = this.props;
     const { showNewTerm } = this.state;
 
-    const postHasErrored = glossaryPostHasErrored && !glossaryPostSuccess.success;
-    const postHasSucceeded = !glossaryPostHasErrored && glossaryPostSuccess.success;
-
-    const showPostError = postHasErrored && !showNewTerm;
+    const postHasSucceeded = !glossaryPostHasErrored.hasErrored && glossaryPostSuccess.success;
     const showPostSuccess = postHasSucceeded && !showNewTerm;
+
     return (
       <div className="profile-content-inner-container glossary-editor-page-header">
         <div className="usa-grid-full">
@@ -36,9 +35,6 @@ class GlossaryEditorPage extends Component {
             <button onClick={this.toggleNewTermEditor}>Create term</button>
           </div>
         </div>
-        {
-          showPostError && <Alert type="error" title="Error submitting term" messages={[{ body: 'Try again' }]} />
-        }
         {
           showPostSuccess && <Alert type="success" title="Success" messages={[{ body: 'Successfully added term!' }]} />
         }
@@ -52,7 +48,6 @@ class GlossaryEditorPage extends Component {
                   submitGlossaryTerm={submitNewGlossaryTerm}
                   onCancel={this.toggleNewTermEditor}
                   hasErrored={glossaryPostHasErrored}
-                  success={glossaryPostSuccess}
                 />
               </div>
             </div>
@@ -64,11 +59,13 @@ class GlossaryEditorPage extends Component {
 
 GlossaryEditorPage.propTypes = {
   submitNewGlossaryTerm: PropTypes.func.isRequired,
-  glossaryPostHasErrored: PropTypes.bool,
+  onGlossaryEditorCancel: PropTypes.func,
+  glossaryPostHasErrored: GLOSSARY_ERROR_OBJECT,
   glossaryPostSuccess: GLOSSARY_SUCCESS_OBJECT,
 };
 
 GlossaryEditorPage.defaultProps = {
+  onGlossaryEditorCancel: EMPTY_FUNCTION,
   glossaryPostHasErrored: {},
   glossaryPostSuccess: {},
 };
