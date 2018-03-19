@@ -96,7 +96,6 @@ exports[`AdditionalViewComponent matches snapshot when isLoading is true 1`] = `
   className="usa-grid-full bidder-portfolio-additional-container"
 >
   <Spinner
-    filled={false}
     inverse={true}
     size="big"
     type="portfolio-additional"

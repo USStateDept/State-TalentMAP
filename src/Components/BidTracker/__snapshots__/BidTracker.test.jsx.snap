@@ -364,8 +364,6 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
     className="bid-tracker-content-container"
   >
     <Spinner
-      filled={false}
-      inverse={false}
       size="big"
       type="homepage-position-results"
     />

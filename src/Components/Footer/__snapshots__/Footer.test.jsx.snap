@@ -57,9 +57,9 @@ exports[`Footer Component matches snapshot 1`] = `
           </span>
           | 
           <a
-            href="mailto:TeamTalentMapOutreach@Dos.gov"
+            href="mailto:TalentMAP@State.gov"
           >
-            TeamTalentMapOutreach@Dos.gov
+            TalentMAP@State.gov
           </a>
         </div>
       </div>

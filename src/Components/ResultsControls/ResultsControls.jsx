@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ResultsViewBy from '../ResultsViewBy/ResultsViewBy';
 import TotalResults from '../TotalResults/TotalResults';
 import SelectForm from '../SelectForm/SelectForm';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
@@ -55,7 +54,6 @@ class ResultsControls extends Component {
               defaultSort={defaultPageSize}
             />
           </div>
-          <ResultsViewBy onCardClick={() => {}} onGridClick={() => {}} />
         </div>
       </div>
     );

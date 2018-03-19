@@ -19,6 +19,7 @@ import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
 import { getAssetPath, propOrDefault } from '../../utilities';
 import MediaQuery from '../MediaQuery';
+import BetaHeader from './BetaHeader';
 
 export class Header extends Component {
   constructor(props) {
@@ -125,6 +126,7 @@ export class Header extends Component {
         <header className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <GovBanner />
+          <BetaHeader />
           <div className="usa-navbar">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">

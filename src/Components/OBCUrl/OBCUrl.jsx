@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { OBC_COUNTRY_URL_PREFIX, OBC_POST_URL_PREFIX } from '../../Constants/OBC';
 
 const OBCUrl = ({ id, type, label }) => {
   let url;
@@ -8,13 +9,13 @@ const OBCUrl = ({ id, type, label }) => {
   // define the URL according to the type
   switch (type) {
     case 'country':
-      url = `/obc/country/${id}`;
+      url = `${OBC_COUNTRY_URL_PREFIX}${id}`;
       text = 'Country';
       break;
 
     default:
     case 'post':
-      url = `/obc/post/${id}`;
+      url = `${OBC_POST_URL_PREFIX}${id}`;
       text = 'Post';
   }
 

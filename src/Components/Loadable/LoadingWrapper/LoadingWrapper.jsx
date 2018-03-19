@@ -9,15 +9,17 @@ const LoadingWrapper = (props) => {
       <LoadingError />
     );
   }
-  return <Spinner />;
+  return <Spinner size={props.size} />;
 };
 
 LoadingWrapper.propTypes = {
   error: PropTypes.shape({}),
+  size: PropTypes.oneOf(['big', 'small']),
 };
 
 LoadingWrapper.defaultProps = {
   error: undefined,
+  size: 'big',
 };
 
 export default LoadingWrapper;

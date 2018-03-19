@@ -26,8 +26,8 @@ const Footer = () => (
         <div className="usa-width-one-half">
           <div className="questions-container">
             <span className="help-text">Need Help? Contact </span>
-            | <a href="mailto:TeamTalentMapOutreach@Dos.gov">
-              TeamTalentMapOutreach@Dos.gov
+            | <a href="mailto:TalentMAP@State.gov">
+              TalentMAP@State.gov
             </a>
           </div>
         </div>
