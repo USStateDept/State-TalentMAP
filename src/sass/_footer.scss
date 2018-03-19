@@ -56,6 +56,8 @@
 
   background-color: $tm-dark-blue;
   font-size: 16px;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 
   .questions-container {
     color: $color-white;
@@ -87,6 +89,8 @@
 // footer main body
 .tm-footer-body {
   background-color: $color-white;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 
   .tm-footer-body-contact {
 

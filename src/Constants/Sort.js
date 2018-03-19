@@ -1,6 +1,7 @@
 export const POSITION_SEARCH_SORTS = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
+    { value: 'title', text: 'Title' },
     { value: 'grade', text: 'Grade' },
     { value: 'position_number', text: 'Number' },
     { value: 'description__date_created', text: 'Posted Date' },

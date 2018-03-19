@@ -9,14 +9,19 @@ const PositionsSectionTitle = ({ title, viewMoreLink }) => (
       <PositionsSectionTitleHeader title={title} />
     </div>
     <div className="usa-width-one-half positions-section-container-right">
-      <PositionsSectionTitleViewMore viewMoreLink={viewMoreLink} />
+      { !!viewMoreLink.length && <PositionsSectionTitleViewMore viewMoreLink={viewMoreLink} /> }
     </div>
   </div>
 );
 
 PositionsSectionTitle.propTypes = {
   title: PropTypes.node.isRequired,
-  viewMoreLink: PropTypes.node.isRequired,
+  viewMoreLink: PropTypes.node,
+};
+
+// Pass an empty string to hide the link
+PositionsSectionTitle.defaultProps = {
+  viewMoreLink: '',
 };
 
 export default PositionsSectionTitle;
