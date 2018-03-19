@@ -15,12 +15,6 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
           || favoritePositionsIsLoading) ?
             <Spinner type="homepage-position-results" size="big" />
           :
-          <div className="usa-grid-full">
-            <div className="hello-greeting">
-              {
-                `Hello, ${userProfile.display_name}`
-              }
-            </div>
             <div className="usa-grid-full">
               <div className="hello-greeting">
                 {
@@ -28,31 +22,37 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
                 }
               </div>
               <div className="usa-grid-full">
-                <div
-                  className={`usa-width-five-twelfths user-dashboard-section-container
-                      user-dashboard-column-1`}
-                >
-                  <div className="usa-width-one-whole user-dashboard-section current-user-section">
-                    <UserProfile userProfile={userProfile} />
-                  </div>
-                  <div className="usa-width-one-whole user-dashboard-section">
-                    <BidListComingSoon />
-                  </div>
+                <div className="hello-greeting">
+                  {
+                    `Hello, ${userProfile.display_name}`
+                  }
                 </div>
-                <div
-                  className={`usa-width-seven-twelfths user-dashboard-section-container
-                      user-dashboard-column-2`}
-                >
-                  <div className="usa-width-one-whole user-dashboard-section favorites-section">
-                    <SavedSearches />
+                <div className="usa-grid-full">
+                  <div
+                    className={`usa-width-five-twelfths user-dashboard-section-container
+                        user-dashboard-column-1`}
+                  >
+                    <div className="usa-width-one-whole user-dashboard-section current-user-section">
+                      <UserProfile userProfile={userProfile} />
+                    </div>
+                    <div className="usa-width-one-whole user-dashboard-section">
+                      <BidListComingSoon />
+                    </div>
                   </div>
-                  <div className="usa-width-one-whole user-dashboard-section favorites-section">
-                    <Favorites favorites={favoritePositions} />
+                  <div
+                    className={`usa-width-seven-twelfths user-dashboard-section-container
+                        user-dashboard-column-2`}
+                  >
+                    <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                      <SavedSearches />
+                    </div>
+                    <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                      <Favorites favorites={favoritePositions} />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
       }
     </div>
   );
