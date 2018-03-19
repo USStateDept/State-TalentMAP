@@ -28,7 +28,8 @@ class SelectForm extends Component {
     this.props.onSelectOption(e);
   }
   render() {
-    const { id, label, options, includeFirstEmptyOption, emptyOptionText } = this.props;
+    const { id, label, options, includeFirstEmptyOption, emptyOptionText,
+    disabled } = this.props;
     const optionList = options.map(option =>
       (
         <option
@@ -48,6 +49,7 @@ class SelectForm extends Component {
           id={id}
           onChange={e => this.selectOption(e)}
           value={this.state.selection}
+          disabled={disabled}
         >
           {
             includeFirstEmptyOption &&
@@ -76,6 +78,7 @@ SelectForm.propTypes = {
   onSelectOption: PropTypes.func.isRequired,
   includeFirstEmptyOption: PropTypes.bool,
   emptyOptionText: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 SelectForm.defaultProps = {
@@ -84,6 +87,7 @@ SelectForm.defaultProps = {
   onSelectOption: EMPTY_FUNCTION,
   includeFirstEmptyOption: false,
   emptyOptionText: '- Select -',
+  disabled: false,
 };
 
 export default SelectForm;

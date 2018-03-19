@@ -4,10 +4,65 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full favorite-positions-container profile-content-inner-container "
 >
-  <ProfileSectionTitle
-    title="Your Favorite Positions:"
-  />
-  <FavoritePositionsList
+  <div
+    className="usa-grid-full favorites-top-section"
+  >
+    <div
+      className="favorites-title-container"
+    >
+      <ProfileSectionTitle
+        title="Your Favorite Positions:"
+      />
+    </div>
+    <div
+      className="results-dropdown results-dropdown-sort"
+    >
+      <SelectForm
+        defaultSort=""
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="sort"
+        includeFirstEmptyOption={false}
+        label="Sort by:"
+        languages={Array []}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "disabled": true,
+              "text": "Sort option",
+              "value": "",
+            },
+            Object {
+              "text": "Title",
+              "value": "title",
+            },
+            Object {
+              "text": "Grade",
+              "value": "grade",
+            },
+            Object {
+              "text": "Number",
+              "value": "position_number",
+            },
+            Object {
+              "text": "Posted Date",
+              "value": "description__date_created",
+            },
+            Object {
+              "text": "Service Need",
+              "value": "post__has_service_needs_differential",
+            },
+            Object {
+              "text": "Bureau",
+              "value": "bureau__long_description",
+            },
+          ]
+        }
+      />
+    </div>
+  </div>
+  <HomePagePositionsList
     bidList={
       Array [
         Object {
@@ -215,11 +270,94 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
         },
       ]
     }
+    isLoading={false}
+    maxLength={300}
+    positions={
+      Array [
+        Object {
+          "bid_statistics": Array [
+            Object {
+              "at_skill": 0,
+              "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
+              "id": 1,
+              "in_grade": 0,
+              "in_grade_at_skill": 0,
+              "total_bids": 3,
+            },
+          ],
+          "bureau": "150000",
+          "create_date": "2006-09-20",
+          "description": Object {
+            "content": "The quick brown fox jumped over the lazy dog.",
+            "date_created": "2018-01-12T15:09:22.952226Z",
+          },
+          "grade": "05",
+          "id": 6,
+          "is_overseas": true,
+          "languages": Array [
+            Object {
+              "id": 1,
+              "language": "French (FR)",
+              "reading_proficiency": "2",
+              "representation": "French (FR) 2/2",
+              "spoken_proficiency": "2",
+            },
+            Object {
+              "id": 1,
+              "language": "German (GM)",
+              "reading_proficiency": "2",
+              "representation": "German (GM) 2/2",
+              "spoken_proficiency": "2",
+            },
+          ],
+          "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+          "position_number": "00025003",
+          "post": Object {
+            "code": "LT6000000",
+            "cost_of_living_adjustment": 0,
+            "danger_pay": 0,
+            "differential_rate": 15,
+            "has_consumable_allowance": false,
+            "has_service_needs_differential": false,
+            "id": 162,
+            "location": "MASERU, LESOTHO",
+            "rest_relaxation_point": "London",
+            "tour_of_duty": "2YRR",
+          },
+          "skill": "OFFICE MANAGEMENT (9017)",
+          "update_date": "2017-06-08",
+        },
+        Object {
+          "bid_statistics": Array [
+            Object {
+              "at_skill": 0,
+              "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
+              "id": 1,
+              "in_grade": 0,
+              "in_grade_at_skill": 0,
+              "total_bids": 3,
+            },
+          ],
+          "bureau": "150000",
+          "create_date": "2006-09-20",
+          "grade": "03",
+          "id": 60,
+          "is_overseas": true,
+          "languages": Array [],
+          "organization": "YAOUNDE CAMEROON (YAOUNDE)",
+          "position_number": "00025003",
+          "post": null,
+          "skill": "OFFICE MANAGEMENT (9017)",
+          "update_date": "2017-06-08",
+        },
+      ]
+    }
+    title="favorites"
     toggleBid={[Function]}
     toggleFavorite={[Function]}
-    toggleFavoritePositionHasErrored={false}
-    toggleFavoritePositionIsLoading={false}
     type="default"
+    userProfileFavoritePositionHasErrored={false}
+    userProfileFavoritePositionIsLoading={false}
   />
 </div>
 `;
