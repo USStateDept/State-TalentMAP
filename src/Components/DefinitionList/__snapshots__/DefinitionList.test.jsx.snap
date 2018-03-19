@@ -1,19 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsCardDataItemComponent matches snapshot 1`] = `
-<div>
-  <div
-    className="section-title"
-  >
-    title
-  </div>
-  <div
-    className="section-data-points"
-  >
-    <ResultsCardDataItem
-      description="test"
-      text="text"
-    />
-  </div>
-</div>
+exports[`DefinitionList matches snapshot 1`] = `
+<dl
+  className="definitions"
+>
+  <Definition
+    definition="Definition #1"
+    term="Term #1"
+  />
+  <Definition
+    definition="Definition #2"
+    term="Term #2"
+  />
+  <Definition
+    definition="Definition #3"
+    term="Term #3"
+  />
+  <Definition
+    definition="Definition #4"
+    term="Term #4"
+  />
+</dl>
 `;

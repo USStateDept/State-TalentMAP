@@ -1,0 +1,35 @@
+dl {
+  &.definitions {
+    display: table;
+    min-width: 300px;
+    margin-top: 0rem;
+    margin-bottom: 0em;
+
+    > div {
+  		display: table;
+  	}
+
+    dt,
+    dd {
+      display: table-cell;
+  		width: auto;
+  		overflow: visible;
+      font-size: 1.6rem;
+
+      &.truncate {
+        overflow: hiddem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+  	}
+
+    dt {
+      font-weight: 600;
+  		white-space: nowrap;
+  	}
+
+  	dd {
+      padding: 0 0 0 0.5rem;
+  	}
+  }
+}
