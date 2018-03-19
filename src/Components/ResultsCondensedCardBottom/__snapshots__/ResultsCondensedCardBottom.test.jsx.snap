@@ -85,7 +85,9 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         isLoading={false}
         onToggle={[Function]}
         refKey={6}
+        useButtonClass={false}
         useLongText={false}
+        useSpinnerWhite={false}
       />
       <BidListButton
         className="tm-button"
