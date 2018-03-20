@@ -46,13 +46,10 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggle
     <div className="usa-grid-full positions-section">
       <PositionsSectionTitle
         title={
-          <div>
+          <h2 className="positions-section-title">
             { !!icon.length && <FontAwesome name={icon} /> }
-            <h2 className="positions-section-title">
-              <FontAwesome name={icon} />
-              {title}
-            </h2>
-          </div>
+            {title}
+          </h2>
         }
         viewMoreLink={viewMoreLink}
       />
