@@ -372,6 +372,11 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 
   const arrayToReturn = [];
 
+  // Push the keyword search, since it won't match up with a real filter
+  if (savedSearchObject.q) {
+    arrayToReturn.push(savedSearchObject.q);
+  }
+
   searchKeys.forEach((s) => {
     clonedSearchObject[s].forEach((c) => {
       const foundParam = mappedParams.find(m => m.selectionRef === s && m.codeRef === c);
