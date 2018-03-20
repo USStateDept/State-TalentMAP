@@ -13,7 +13,7 @@ const ViewPostDataButton = ({ id, type }) => (
 );
 
 ViewPostDataButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   type: PropTypes.oneOf(['post', 'country']),
 };
 
