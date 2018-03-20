@@ -14,7 +14,7 @@ deleteSearch }) => {
     <div className="usa-grid-full saved-search-card profile-section-container" key={savedSearch.id}>
       <div className="usa-grid-full">
         <div className="usa-width-one-fourth">
-          <div><span className="title">Name: </span><span>{savedSearch.name}</span></div>
+          <div><span className="title">Name: </span><h3>{savedSearch.name}</h3></div>
           <div><span className="title">Created: </span><span>{dateCreated}</span></div>
         </div>
         <div className="usa-width-one-half">

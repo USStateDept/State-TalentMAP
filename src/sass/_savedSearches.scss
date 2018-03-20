@@ -11,6 +11,14 @@
     background-color: $color-white;
     border-bottom: 1px solid $color-gray-light;
     padding: 1em 2em;
+
+    h3 {
+      display: inline;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      margin: 0;
+    }
   }
 
   .title {
