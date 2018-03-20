@@ -118,7 +118,8 @@ export class Header extends Component {
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
     const searchBarVisibilityClass = showResultsSearchHeaderClass ? 'search-bar-visible' : 'search-bar-hidden';
 
-    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute();
+    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute()
+      && showResultsSearchHeaderClass;
 
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
