@@ -41,7 +41,7 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
           <span
             className="cdo-name-text"
           >
-            nodejs
+            John Doe
           </span>
         </div>
       </div>
