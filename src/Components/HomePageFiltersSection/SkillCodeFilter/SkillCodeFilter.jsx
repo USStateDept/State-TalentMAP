@@ -40,13 +40,17 @@ class SkillCodeFilter extends Component {
     }
   }
 
-  // set local state with new selected options, and also return them via the prop function.
-  // we also update the hasBeenUpdated property to true ao that we don't try to re-set userSkills
+  // Set local state with new selected options, and also return them via the prop function.
+  // we also update the hasBeenUpdated property to true ao that we don't try to re-set userSkills.
+  // We set bypass to true when inorganic/programatic calls to this function are made.
   handleChange(selectedOptions, bypass = false) {
     // set state with new values
-    this.setState({ selectedOptions: { value: selectedOptions, hasBeenUpdated: true } });
-    // pass to onFilterSelect prop function
+    this.setState({ selectedOptions: { value: selectedOptions } });
+    // Pass to onFilterSelect prop function.
+    // These are only used for "real" changes by the user, opposed to
+    // programatic setup performed.
     if (!bypass) {
+      this.setState({ hasBeenUpdated: true });
       this.props.onFilterSelect(selectedOptions);
     }
   }

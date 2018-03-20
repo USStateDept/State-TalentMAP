@@ -11,6 +11,9 @@ import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/D
 import SavedSearchesMap from '../SavedSearchesMap';
 import { formQueryString } from '../../utilities';
 
+// Wrapper for anything related to saved searches
+// Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
+// that use this container.
 class SavedSearchesContainer extends Component {
   constructor(props) {
     super(props);

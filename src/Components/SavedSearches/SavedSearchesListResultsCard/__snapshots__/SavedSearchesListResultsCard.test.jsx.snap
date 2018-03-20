@@ -16,9 +16,9 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
         >
           Name: 
         </span>
-        <span>
+        <h3>
           Test 33
-        </span>
+        </h3>
       </div>
       <div>
         <span
