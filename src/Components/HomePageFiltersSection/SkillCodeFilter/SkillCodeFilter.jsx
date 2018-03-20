@@ -45,12 +45,15 @@ class SkillCodeFilter extends Component {
   // We set bypass to true when inorganic/programatic calls to this function are made.
   handleChange(selectedOptions, bypass = false) {
     // set state with new values
-    this.setState({ selectedOptions: { value: selectedOptions } });
+    const { selectedOptions: selectedOptionsState } = this.state;
+    this.setState({ selectedOptions: Object.assign(
+      selectedOptionsState, { value: selectedOptions }) });
     // Pass to onFilterSelect prop function.
     // These are only used for "real" changes by the user, opposed to
     // programatic setup performed.
     if (!bypass) {
-      this.setState({ hasBeenUpdated: true });
+      this.setState({ selectedOptions: Object.assign(
+        selectedOptionsState, { hasBeenUpdated: true }) });
       this.props.onFilterSelect(selectedOptions);
     }
   }

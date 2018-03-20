@@ -51,7 +51,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
     // and perform any custom, conditional labeling.
     // TODO we should verify these against VALID_PARAMS.
     function mapAsyncParams() {
-      const asyncFilters = responses.asyncParams;
+      const asyncFilters = responses.asyncParams || [];
 
       // create a promise to retrieve our filters that rely on ajax
       const asyncQueryProms = asyncFilters.map((item) => {
@@ -194,6 +194,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
                 if (ASYNC_PARAMS.indexOf(mappedObject.selectionRef) > -1) {
                   responses.asyncParams.push(mappedObject);
                 } else {
+                  if (!responses.mappedParams) { responses.mappedParams = []; }
                   responses.mappedParams.push(mappedObject);
                 }
               });
