@@ -18,7 +18,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       content={
         <StartEnd
           end=""
-          start="10.10.2016"
+          start="10/10/2016"
         />
       }
       sideBySide={false}

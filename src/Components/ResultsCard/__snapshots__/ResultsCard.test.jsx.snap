@@ -27,6 +27,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
         refKey={6}
         useButtonClass={false}
         useLongText={false}
+        useSpinnerWhite={false}
       />
     </div>
   </div>
@@ -132,7 +133,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
           Date Posted:
         </strong>
          
-        1.12.2018
+        01/12/2018
       </div>
       <div
         className="bid-cycle-container-section"

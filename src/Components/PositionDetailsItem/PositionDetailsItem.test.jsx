@@ -5,38 +5,44 @@ import PositionDetailsItem from './PositionDetailsItem';
 import detailsObject from '../../__mocks__/detailsObject';
 
 describe('PositionDetailsItem', () => {
-  let wrapper = null;
+  const props = {
+    details: detailsObject,
+    editDescriptionContent: () => {},
+    resetDescriptionEditMessages: () => {},
+    editPocContent: () => {},
+    editWebsiteContent: () => {},
+  };
 
   it('can receive props', () => {
-    wrapper = shallow(
-      <PositionDetailsItem details={detailsObject} isLoading={false} hasErrored={false} />,
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
   });
 
-  it('matches snapshot', () => {
-    wrapper = shallow(
-      <PositionDetailsItem details={detailsObject} isLoading={false} hasErrored={false} />,
-    );
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
   it('handles different props and different position objects', () => {
-    Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
+    const details = Object.assign(detailsObject, { languages: [], post: null, is_overseas: false });
 
-    wrapper = shallow(
-      <PositionDetailsItem details={detailsObject} isLoading={false} hasErrored={false} />,
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} details={details} />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
   });
 
   it('handles different types of position objects', () => {
-    Object.assign(detailsObject,
+    const details = Object.assign(detailsObject,
       { languages: [], is_overseas: true, organization: null, bureau: null });
 
-    wrapper = shallow(
-      <PositionDetailsItem details={detailsObject} isLoading hasErrored={false} />,
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} details={details} />,
     );
     expect(wrapper.instance().props.details.languages.length).toBe(0);
+  });
+
+  it('matches snapshot', () => {
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

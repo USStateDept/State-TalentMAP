@@ -1,14 +1,24 @@
 .position-details-header-container {
+  background-image: url('#{$asset-path}/assets/img/us-flag.jpg');
+  color: $color-white;
   position: relative;
 }
 
 .position-details-header {
 
-  background-color: $color-gray-lightest;
   overflow: hidden;
-  padding-bottom: 15px;
-  padding-top: 10px;
+  padding: 2em 0;
   position: relative;
+
+  a {
+    color: $color-white;
+  }
+
+  h1 {
+    font-family: inherit;
+    font-size: 1em;
+    margin: 0;
+  }
 
   .back-link {
     color: inherit;
@@ -19,20 +29,19 @@
   .position-details-header-back {
     font-size: .8em;
     min-height: 17px;
-
-    a {
-      color: $color-black;
-      text-decoration: none;
-    }
   }
 
   .position-details-header-grid {
     overflow: hidden;
   }
 
+  .header-title-container {
+    border-right: 1px solid $color-white;
+  }
+
   .position-details-header-title {
     font-size: 1.5em;
-    margin-bottom: 1em;
+    margin-bottom: .2em;
     margin-top: 1em;
     text-transform: uppercase;
   }
@@ -42,25 +51,59 @@
   }
 
   .position-details-header-image {
-    bottom: -20px;
-    opacity: .25;
     position: absolute;
-    right: -20px;
-    top: -20px;
-    width: 275px;
+    top: 0;
+    width: 100%;
+    z-index: -1;
   }
 
   @media screen and (max-width: $screen-md-min) {
     .position-details-header-image {
-      display: none;
+      height: 100%;
     }
+  }
+}
+
+.position-details-container {
+
+  font-size: .9em;
+
+  h2 {
+    font-family: inherit;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .data-point-section {
+    .condensed-card-data-title {
+      font-weight: bold;
+      min-width: 200px;
+    }
+  }
+
+  .positions-section {
+    min-height: 100px;
+  }
+
+  .positions-section .positions-section-container,
+  .positions-section .positions-section-title-header {
+    border: 0;
+  }
+
+  .positions-section
+  .positions-section-title {
+    font-family: inherit;
+    font-weight: bold;
   }
 }
 
 .position-details-description-container {
   margin-bottom: 10px;
   margin-top: 20px;
-  padding: 15px 30px;
+}
+
+.position-details-description-container:first-of-type {
+  padding-top: 30px;
 }
 
 .position-details-description {
@@ -126,9 +169,13 @@
 }
 
 .offset-bid-button-container {
-  left: 63%;
+  left: 65%;
   position: absolute;
-  top: 55%;
+  top: 19%;
+
+  .bid-list-button {
+    box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
+  }
 
   .offset-bid-button-container-count {
     min-height: 38px;
@@ -141,6 +188,11 @@
 
   .bid-count-list {
     padding: 0;
+  }
+
+  .bid-count-list
+  li {
+    color: $color-white;
   }
 }
 
@@ -155,6 +207,12 @@
 .editable-position-field {
 
   margin-bottom: 15px;
+
+  .editable-position-field-title {
+    float: left;
+    font-weight: bold;
+    margin-right: 5px;
+  }
 
   .tm-spinner {
     height: 50px;
@@ -173,5 +231,56 @@
 
   .editor :global(.public-DraftEditor-content) {
     min-height: 10px;
+  }
+}
+
+.poc-section {
+  .editable-position-field-title {
+    float: none;
+  }
+}
+
+.about-section-left {
+  padding-right: 10%;
+}
+
+.position-details-contact-container {
+  margin-top: 50px;
+
+  .editor {
+    float: left;
+    width: 100%;
+  }
+
+  .contact-container {
+    border: 1px solid $color-gray-lighter;
+    padding: 1em;
+
+    .contact-section {
+      margin-bottom: 1em;
+    }
+
+    .contact-section:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .contact-container:first-of-type {
+    border-bottom: 0;
+  }
+}
+
+.title-actions-section {
+  div {
+    color: $color-white;
+    float: left;
+  }
+
+  .favorite-container .fa {
+    color: $color-white;
+  }
+
+  .favorite-container span {
+    margin-right: 10px;
   }
 }
