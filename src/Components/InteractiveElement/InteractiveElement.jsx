@@ -5,50 +5,51 @@ import { ifEnter } from '../../utilities';
 
 // TODO - apply this component to other elements that rely on "eslint-disable" to avoid
 // CodeClimate errors.
-const InteractiveElement = ({ children, type, ...rest }) => {
+const InteractiveElement = ({ children, type, className, ...rest }) => {
+  let Node = type;
   const onClick = rest.onClick;
   // default props that we pass to div or span
   const defaultProps = {
-    role: 'button',
     tabIndex: '0',
   };
   // Props passed down. If onClick exists, we allow it to be called via "enter" keydown as well.
   // Anything here can override defaultProps.
   const props = {
     children,
-    type,
     onKeyDown: onClick ? (e) => { if (ifEnter(e)) { onClick(); } } : EMPTY_FUNCTION,
+    className: (`interactive-element ${className}`).trim(),
     ...rest,
   };
 
-  const CLASS_NAME = `interactive-element ${props.className}`;
+  switch (type) {
+    case 'submit':
+      Node = 'button';
+      props.type = 'submit';
+      break;
+
+    case 'button':
+      break;
+
+    default:
+      // Set where type != (button|input)
+      props.role = 'button';
+  }
+
   return (
-  // At the time of writing, CodeClimate's version of eslint-a11y-plugin
-  // did not take role="button" into account with the following error:
-  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-  type === 'div' ?
-    <div
-      {...defaultProps}
-      {...props}
-      className={CLASS_NAME}
-    >
-      {children}
-    </div> :
+    // At the time of writing, CodeClimate's version of eslint-a11y-plugin
+    // did not take role="button" into account with the following error:
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <span
-      {...defaultProps}
-      {...props}
-      className={CLASS_NAME}
-    >
+    <Node {...defaultProps}{...props}>
       {children}
-    </span>
+    </Node>
+    // eslint-enable-next-line jsx-a11y/no-static-element-interactions
   );
 };
 
 InteractiveElement.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  type: PropTypes.oneOf(['div', 'span']),
+  type: PropTypes.string,
 };
 
 InteractiveElement.defaultProps = {

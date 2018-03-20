@@ -1,5 +1,4 @@
 .results {
-
   label {
     font-size: .8em;
   }
@@ -31,55 +30,154 @@
 
 .results-card {
   background-color: $color-white;
-  border: 1px solid $color-gray-lighter;
-  border-left-width: 8px;
-  margin-bottom: 1em;
-  padding: 1em 1.2em;
+  border: 1px solid $results-card-border;
+  border-left: 8px solid $results-card-accent;
+  margin-bottom: 2rem;
+  padding: 1.1rem;
+
+  .header {
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+
+    h1,
+    dt,
+    dd {
+      margin-top: 0rem;
+      margin-bottom: 0rem;
+      font-size: 1.8rem;
+    }
+
+    h1 {
+      font-family: "Roboto";
+      text-transform: uppercase;
+    }
+  }
+
+  .footer {
+    margin-top: rem(14px);
+    margin-bottom: rem(14px);
+    padding-top: rem(4px);
+
+    $section-height: 38px;
+
+    section {
+      display: inline-block;
+      position: relative;
+      min-height: $section-height;
+      vertical-align: middle;
+
+      $button-gutter: 8px;
+      $button-offset: $button-gutter / 2;
+
+      &:nth-child(1) {
+        padding-left: $button-offset;
+        padding-right: $button-offset;
+
+        // Divider Accent
+        &:after {
+          display: block;
+          position: absolute;
+          width: 1px;
+          height: 100%;
+          top: 0px;
+          right: -(10px + (10px - $button-gutter));
+          background-color: $bg-gray-dark-1;
+          content: "";
+        }
+
+        .usa-button {
+          position: relative;
+          width: 50%;
+          margin: 0em;
+
+          &:nth-child(1) {
+            left: -$button-offset;
+          }
+
+          &:nth-child(2) {
+            right: -$button-offset;
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        > div {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    .usa-button {
+      line-height: em(15px);
+      font-size: 1.3rem;
+      font-weight: 400;
+
+      .fa,
+      .ds-c-spinner {
+        position: relative;
+        width: em(14px);
+      }
+    }
+
+    .favorite-container {
+      float: none;
+
+      &.usa-button {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        color: $color-white;
+
+        .fa,
+        .ds-c-spinner {
+          position: relative;
+          color: $color-white;
+        }
+      }
+    }
+
+    $button-box-shadow: inset 0 0 0 1px;
+
+    .usa-button-secondary {
+      color: $primary-base;
+      box-shadow: $button-box-shadow $bg-gray-dark-1;
+
+      &:hover {
+        color: $primary-blue-darker;
+        box-shadow:: $button-box-shadow $primary-blue-darker;
+      }
+
+      &:disabled,
+      &:disabled:active,
+      &:disabled:hover,
+      &:disabled:focus, {
+        color: $bg-gray-dark-3;
+        box-shadow: $button-box-shadow $bg-gray-dark-3;
+
+      }
+
+      &.usa-button-active,
+      &.usa-button-active:hover {
+        color: $primary-blue-darkest;
+        box-shadow: $button-box-shadow $primary-blue-darkest;
+      }
+
+      .fa {
+        top: 1px;
+      }
+    }
+
+    dt,
+    dd {
+      font-family: 'Roboto';
+      font-size: rem(12px);
+      line-height: rem(14px);
+    }
+  }
 
   .bid-count-container {
     float: right;
-  }
-
-  .results-card-title {
-    float: left;
-    text-transform: uppercase;
-  }
-
-  .results-card-favorite {
-    float: right;
-    font-size: .9em;
-  }
-
-  .results-card-data-section {
-    border-right: solid;
-    border-width: 1px;
-    margin-top: 1em;
-  }
-
-  .data-section-right-container {
-    margin-top: 1em;
-
-    .data-section-right {
-      margin-left: 60px;
-      margin-right: 80px;
-
-      @media screen and (max-width: $screen-md-min) {
-        margin-left: 0;
-      }
-    }
-  }
-
-  .data-section-left-container {
-    border-right: solid 1px;
-    margin-top: 1em;
-
-    @media screen and (max-width: $screen-xs-max) {
-      border-right: 0;
-    }
-
-    .data-section-left {
-      margin-right: 80px;
-    }
   }
 
   .section-title {
@@ -237,7 +335,6 @@
 }
 
 .search-filters-container {
-
   .boolean-filter-container {
     margin-left: 10px;
     padding-top: 10px;
@@ -281,7 +378,6 @@
 }
 
 .accordion-checkbox-language {
-
   .usa-accordion-content {
     background-color: $color-white;
     color: $color-black;

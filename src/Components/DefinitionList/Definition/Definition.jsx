@@ -5,6 +5,7 @@ import { keys, omit } from 'lodash';
 const defaults = {
   term: '',
   definition: '',
+  truncate: true,
 };
 
 const Definition = (props) => {
@@ -17,7 +18,7 @@ const Definition = (props) => {
   return (
     <div {...options}>
       <dt>{term}</dt>
-      <dd>{definition}</dd>
+      <dd className={props.truncate && 'truncate'}>{definition}</dd>
     </div>
   );
 };
@@ -25,6 +26,7 @@ const Definition = (props) => {
 Definition.propTypes = {
   term: PropTypes.string,
   definition: PropTypes.string,
+  truncate: PropTypes.bool,
 };
 
 Definition.defaultProps = defaults;

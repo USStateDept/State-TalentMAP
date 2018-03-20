@@ -7,6 +7,7 @@ import Definition from './Definition/Definition';
 const defaults = {
   items: [],
   children: [],
+  truncate: true,
 };
 
 const DefinitionList = (props) => {
@@ -59,6 +60,8 @@ DefinitionList.propTypes = {
     PropTypes.arrayOf(node),
     node,
   ]),
+
+  truncate: PropTypes.bool,
 };
 
 DefinitionList.defaultProps = defaults;

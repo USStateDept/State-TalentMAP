@@ -97,4 +97,15 @@ $favorite-spinner-size: 14px;
       width: $favorite-spinner-size;
     }
   }
+
+  &.usa-button {
+    .ds-c-spinner {
+      &,
+      &:before,
+      &:after {
+        width: $favorite-spinner-size - 1;
+        height: $favorite-spinner-size - 1;
+      }
+    }
+  }
 }

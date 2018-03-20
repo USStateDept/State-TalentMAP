@@ -8,7 +8,9 @@ exports[`Definition matches snapshot 1`] = `
   <dt>
     Term #1:
   </dt>
-  <dd>
+  <dd
+    className="truncate"
+  >
     Definition #1
   </dd>
 </div>

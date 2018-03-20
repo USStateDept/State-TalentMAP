@@ -54,13 +54,19 @@ class Favorite extends Component {
   }
 
   render() {
-    const { hideText, useLongText } = this.props;
+    const { as: type, className, hideText, useLongText, hasBorder } = this.props;
+
+    const style = {
+      pointerEvents: this.state.loading ? 'none' : 'inherit',
+    };
 
     const shortTextFavorite = 'Favorite';
     const longTextFavorite = 'Add to Favorites';
     const shortTextRemove = 'Remove';
     const longTextRemove = 'Remove from Favorites';
 
+    let options = {};
+    let classNames = ['favorite-container'];
     let favoriteText = shortTextFavorite;
     let removeText = shortTextRemove;
 
@@ -69,45 +75,54 @@ class Favorite extends Component {
       removeText = longTextRemove;
     }
 
-    // set defaults
+    // Set defaults
     let text = favoriteText;
     let title = 'Add to Favorites';
-    let iconClass = 'star-o';
+    let icon = 'star-o';
 
-    // update for saved state
+    // Update for saved state
     if (this.getSavedState()) {
       text = removeText;
       title = 'Remove from Favorites';
-      iconClass = 'star';
+      icon = 'star';
     }
 
-    const style = {
-      pointerEvents: this.state.loading ? 'none' : 'inherit',
-    };
-    const borderClass = this.props.hasBorder ? 'favorites-button-border' : '';
-
+    // Text configs
     if (hideText) {
       text = null;
     }
 
+    // Class configs
+    if (hasBorder) {
+      classNames.push('favorites-button-border');
+    }
+
+    classNames.push(className);
+    classNames = classNames
+      .join(' ')
+      .trim();
+
+    options = {
+      type,
+      title,
+      style,
+      className: classNames,
+      onClick: this.toggleSaved,
+    };
+
     return (
-      <InteractiveElement
-        type="div"
-        title={title}
-        style={style}
-        className={`favorite-container ${borderClass}`}
-        onClick={this.toggleSaved}
-      >
+      <InteractiveElement {...options}>
         {this.state.loading ?
           (<span className="ds-c-spinner" />) :
-          (<FontAwesome name={iconClass} />)}{text}
-
+          (<FontAwesome name={icon} />)}{text}
       </InteractiveElement>
     );
   }
 }
 
 Favorite.propTypes = {
+  className: PropTypes.string,
+  as: PropTypes.string.isRequired,
   onToggle: PropTypes.func.isRequired,
   refKey: PropTypes.node.isRequired,
   hideText: PropTypes.bool,
@@ -118,6 +133,8 @@ Favorite.propTypes = {
 };
 
 Favorite.defaultProps = {
+  className: '',
+  as: 'div',
   hideText: false,
   isLoading: false,
   compareArray: [],
