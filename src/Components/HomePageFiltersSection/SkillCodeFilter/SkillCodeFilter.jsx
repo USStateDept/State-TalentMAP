@@ -36,17 +36,19 @@ class SkillCodeFilter extends Component {
       const options = wrapFilters(filters);
       const defaultSkills = returnObjectsWherePropMatches(options, userSkills, 'code');
       selectedOptions.value = defaultSkills;
-      this.handleChange(selectedOptions.value);
+      this.handleChange(selectedOptions.value, true);
     }
   }
 
   // set local state with new selected options, and also return them via the prop function.
   // we also update the hasBeenUpdated property to true ao that we don't try to re-set userSkills
-  handleChange(selectedOptions) {
+  handleChange(selectedOptions, bypass = false) {
     // set state with new values
     this.setState({ selectedOptions: { value: selectedOptions, hasBeenUpdated: true } });
     // pass to onFilterSelect prop function
-    this.props.onFilterSelect(selectedOptions);
+    if (!bypass) {
+      this.props.onFilterSelect(selectedOptions);
+    }
   }
 
   render() {
