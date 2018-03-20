@@ -24,7 +24,8 @@ export function filtersFetchDataSuccess(filters) {
   };
 }
 
-export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses) {
+export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses,
+  fromResultsPage = false) {
   return (dispatch) => {
     dispatch(filtersIsLoading(true));
     dispatch(filtersHasErrored(false));
@@ -147,8 +148,12 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         });
       });
       // check for option queryParamObject to map against (used for pill filters)
-      responses.mappedParams = [];
-      responses.asyncParams = [];
+
+      // Only clear the params if we're on the Results page
+      if (fromResultsPage) {
+        responses.mappedParams = [];
+        responses.asyncParams = [];
+      }
 
       // Set any custom descriptions
       // TODO externalize these to some kind of template helper?
