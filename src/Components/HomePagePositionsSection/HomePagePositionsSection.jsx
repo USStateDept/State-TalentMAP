@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import HomePagePositionsList from '../HomePagePositionsList';
 import Alert from '../Alert';
+import Spinner from '../Spinner';
 import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
 const propTypes = {
@@ -19,33 +20,42 @@ const propTypes = {
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE,
+  useSpinner: PropTypes.bool,
+  hasErrored: PropTypes.bool,
 };
 
 const defaultProps = {
-  icon: 'star',
-  viewMoreLink: '/results',
+  icon: '', // empty string to not display icon
+  viewMoreLink: '',
   positions: undefined,
   favorites: [],
   isLoading: false,
   type: 'default',
+  useSpinner: false,
+  hasErrored: false,
 };
 
 const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggleFavorite,
-  favorites, isLoading, bidList, userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored, toggleBid, type }) => {
+  favorites, isLoading, hasErrored, bidList, userProfileFavoritePositionIsLoading,
+  userProfileFavoritePositionHasErrored, toggleBid, type, useSpinner }) => {
   const listIsReady = !!(positions && Object.keys(positions).length);
-  const shouldShowAlert = positions && !positions.length;
+  const shouldShowAlert = !hasErrored && positions && !positions.length;
+  const shouldShowErrorAlert = hasErrored && !isLoading;
+  const shouldDisplaySpinner = useSpinner && isLoading;
   return (
     <div className="usa-grid-full positions-section">
       <PositionsSectionTitle
         title={
           <span className="positions-section-title">
-            <FontAwesome name={icon} />
+            { !!icon.length && <FontAwesome name={icon} /> }
             {title}
           </span>
         }
         viewMoreLink={viewMoreLink}
       />
+      {
+        shouldDisplaySpinner && <Spinner size="small" type="homepage-positions-results" />
+      }
       {
         listIsReady &&
           <HomePagePositionsList
@@ -63,6 +73,9 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggle
       }
       {
         shouldShowAlert && <Alert title="No results match this criteria" />
+      }
+      {
+        shouldShowErrorAlert && <Alert title="An error occurred loading positions" type="error" />
       }
     </div>
   );

@@ -42,14 +42,15 @@
     h1,
     dt,
     dd {
+      font-family: "Roboto";
       margin-top: 0rem;
       margin-bottom: 0rem;
-      font-size: 1.8rem;
+      font-size: 1.7rem;
     }
 
-    h1 {
-      font-family: "Roboto";
-      text-transform: uppercase;
+    h1,
+    dt {
+      font-weight: 500;
     }
   }
 
@@ -117,6 +118,7 @@
       .fa,
       .ds-c-spinner {
         position: relative;
+        margin: 0em;
         width: em(14px);
       }
     }
@@ -128,12 +130,6 @@
         padding-left: 1rem;
         padding-right: 1rem;
         color: $color-white;
-
-        .fa,
-        .ds-c-spinner {
-          position: relative;
-          color: $color-white;
-        }
       }
     }
 

@@ -65,6 +65,7 @@ const ResultsCard = (props) => {
     refKey: result.id,
     onToggle: toggleFavorite,
     useLongText: true,
+    useButtonClass: true,
   };
 
   options.compare = {
@@ -97,7 +98,7 @@ const ResultsCard = (props) => {
           <Column columns="5" as="section">
             {
               !!favorites &&
-                <Favorite className="usa-button" {...options.favorite} />
+                <Favorite {...options.favorite} />
             }
             <CompareCheck className="usa-button usa-button-secondary" {...options.compare} />
           </Column>

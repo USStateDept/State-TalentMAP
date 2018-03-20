@@ -99,7 +99,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
       >
         <Favorite
           as="button"
-          className="usa-button"
+          className=""
           compareArray={Array []}
           hasBorder={false}
           hasErrored={false}
@@ -107,7 +107,9 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
           isLoading={false}
           onToggle={[Function]}
           refKey={6}
+          useButtonClass={true}
           useLongText={true}
+          useSpinnerWhite={false}
         />
         <CompareCheck
           as="button"

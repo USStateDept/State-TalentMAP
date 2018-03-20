@@ -9,13 +9,10 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
       <span
         className="positions-section-title"
       >
-        <FontAwesome
-          name="star"
-        />
         Title
       </span>
     }
-    viewMoreLink="/results"
+    viewMoreLink=""
   />
   <HomePagePositionsList
     bidList={

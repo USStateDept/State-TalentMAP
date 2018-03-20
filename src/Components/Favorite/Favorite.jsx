@@ -54,10 +54,19 @@ class Favorite extends Component {
   }
 
   render() {
-    const { as: type, className, hideText, useLongText, hasBorder } = this.props;
+    const { loading } = this.state;
+    const {
+      as: type,
+      className,
+      hideText,
+      useLongText,
+      hasBorder,
+      useButtonClass,
+      useSpinnerWhite,
+    } = this.props;
 
     const style = {
-      pointerEvents: this.state.loading ? 'none' : 'inherit',
+      pointerEvents: loading ? 'none' : 'inherit',
     };
 
     const shortTextFavorite = 'Favorite';
@@ -81,7 +90,8 @@ class Favorite extends Component {
     let icon = 'star-o';
 
     // Update for saved state
-    if (this.getSavedState()) {
+    const savedState = this.getSavedState();
+    if (savedState) {
       text = removeText;
       title = 'Remove from Favorites';
       icon = 'star';
@@ -93,14 +103,23 @@ class Favorite extends Component {
     }
 
     // Class configs
-    if (hasBorder) {
+    if (hasBorder && !useButtonClass) {
       classNames.push('favorites-button-border');
+    }
+
+    if (useButtonClass) {
+      classNames.push('usa-button');
     }
 
     classNames.push(className);
     classNames = classNames
       .join(' ')
       .trim();
+
+    let spinnerClass = 'ds-c-spinner';
+    if (useButtonClass || useSpinnerWhite) {
+      spinnerClass = `${spinnerClass} spinner-white`;
+    }
 
     options = {
       type,
@@ -112,9 +131,9 @@ class Favorite extends Component {
 
     return (
       <InteractiveElement {...options}>
-        {this.state.loading ?
-          (<span className="ds-c-spinner" />) :
-          (<FontAwesome name={icon} />)}{text}
+        {loading ?
+          (<span className={spinnerClass} />) :
+          (<FontAwesome name={icon} />)} {text}
       </InteractiveElement>
     );
   }
@@ -130,6 +149,8 @@ Favorite.propTypes = {
   isLoading: PropTypes.bool,
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
+  useButtonClass: PropTypes.bool,
+  useSpinnerWhite: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -140,6 +161,8 @@ Favorite.defaultProps = {
   compareArray: [],
   hasBorder: false,
   useLongText: false,
+  useButtonClass: false,
+  useSpinnerWhite: false,
 };
 
 export default Favorite;

@@ -25,11 +25,15 @@ export function positionDetailsFetchData(query) {
   return (dispatch) => {
     dispatch(positionDetailsIsLoading(true));
     axios.get(`${api}/position/?position_number=${query}`, { headers: { Authorization: fetchUserToken() } })
-            .then((response) => {
+            .then(response => response.data.results)
+            .then((positionDetails) => {
+              dispatch(positionDetailsFetchDataSuccess(positionDetails));
               dispatch(positionDetailsIsLoading(false));
-              return response.data.results;
+              dispatch(positionDetailsHasErrored(false));
             })
-            .then(positionDetails => dispatch(positionDetailsFetchDataSuccess(positionDetails)))
-            .catch(() => dispatch(positionDetailsHasErrored(true)));
+            .catch(() => {
+              dispatch(positionDetailsHasErrored(true));
+              dispatch(positionDetailsIsLoading(false));
+            });
   };
 }
