@@ -20,7 +20,7 @@ const ExternalUserStatus = ({ name, type, showMail, email }) => (
             {USER_TYPES[type]}
           </div>
           <div className="usa-width-one-whole cdo-name">
-            <span className="cdo-name-text">{name}</span>
+            <span className="cdo-name-text">{`${firstName} ${lastName}`}</span>
             { showMail ? <MailToButton email={email} /> : null}
           </div>
         </div>
