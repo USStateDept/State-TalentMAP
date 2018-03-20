@@ -325,7 +325,8 @@ export const userHasPermissions = (permissionsToCheck = [], userPermissions = []
 // found across the different saved search objects.
 // See Constants/PropTypes SAVED_SEARCH_OBJECT
 export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
-  const clonedSavedSearches = cloneDeep(savedSearchesObject.results);
+  const clonedSavedSearchesObject = cloneDeep(savedSearchesObject);
+  const clonedSavedSearches = clonedSavedSearchesObject.results;
   const mappedSearchTerms = clonedSavedSearches.slice().map(s => s.filters);
   const mappedSearchTermsFormatted = mappedSearchTerms.map((m) => {
     const filtered = m;

@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SAVED_SEARCH_PARENT_OBJECT, DELETE_SAVED_SEARCH_HAS_ERRORED, DELETE_SAVED_SEARCH_SUCCESS,
-CLONE_SAVED_SEARCH_HAS_ERRORED, CLONE_SAVED_SEARCH_SUCCESS } from '../../Constants/PropTypes';
+CLONE_SAVED_SEARCH_HAS_ERRORED, CLONE_SAVED_SEARCH_SUCCESS, MAPPED_PARAM_ARRAY } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
-import SavedSearchesList from '../SavedSearchesList';
+import SavedSearchesList from './SavedSearchesList';
 import Alert from '../Alert/Alert';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 
 const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
-  savedSearchesHasErrored, goToSavedSearch, deleteSearch,
+  goToSavedSearch, deleteSearch,
   deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
   cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
-  cloneSavedSearchSuccess }) => (
+  cloneSavedSearchSuccess, mappedParams, filtersIsLoading }) => {
+  const isLoading = filtersIsLoading || savedSearchesIsLoading;
+  return (
     <div
-      className={`usa-grid-full profile-content-inner-container saved-searches-container
+      className={`usa-grid-full profile-content-inner-container saved-searches-container saved-searches-page
       ${(savedSearchesIsLoading || cloneSavedSearchIsLoading) ? 'results-loading' : ''}`}
     >
-      <ProfileSectionTitle title="Your Saved Searches:" />
+      <ProfileSectionTitle title="Saved Searches" />
       {
         // Deleting a saved search has errored
         !deleteSavedSearchIsLoading && !deleteSavedSearchSuccess && deleteSavedSearchHasErrored &&
@@ -54,22 +56,26 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
           />
       }
       {
-        savedSearchesIsLoading && !savedSearchesHasErrored &&
+        isLoading &&
           <Spinner type="homepage-position-results" size="big" />
       }
-      <SavedSearchesList
-        savedSearches={savedSearches}
-        goToSavedSearch={goToSavedSearch}
-        deleteSearch={deleteSearch}
-        cloneSavedSearch={cloneSavedSearch}
-      />
+      {
+        !isLoading &&
+        <SavedSearchesList
+          savedSearches={savedSearches}
+          goToSavedSearch={goToSavedSearch}
+          deleteSearch={deleteSearch}
+          cloneSavedSearch={cloneSavedSearch}
+          mappedParams={mappedParams}
+        />
+      }
     </div>
-);
+  );
+};
 
 SavedSearches.propTypes = {
   savedSearches: SAVED_SEARCH_PARENT_OBJECT.isRequired,
   savedSearchesIsLoading: PropTypes.bool.isRequired,
-  savedSearchesHasErrored: PropTypes.bool.isRequired,
   goToSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
@@ -79,6 +85,12 @@ SavedSearches.propTypes = {
   cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
   cloneSavedSearchHasErrored: CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
   cloneSavedSearchSuccess: CLONE_SAVED_SEARCH_SUCCESS.isRequired,
+  mappedParams: MAPPED_PARAM_ARRAY,
+  filtersIsLoading: PropTypes.bool.isRequired,
+};
+
+SavedSearches.defaultProps = {
+  mappedParams: [],
 };
 
 export default SavedSearches;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { FILTERS, USER_SKILL_CODE_ARRAY } from '../../../Constants/PropTypes';
+import { FILTERS } from '../../../Constants/PropTypes';
 import { propSort, wrapForMultiSelect, returnObjectsWherePropMatches } from '../../../utilities';
 
 const SKILL_CODE = 'code';
@@ -17,11 +17,19 @@ class SkillCodeFilter extends Component {
     };
   }
 
+  componentWillMount() {
+    this.setupValues(this.props);
+  }
+
   // We want to set the user's default skills in state.selectedOptions, but don't want to repeat
   // the process on every update. So if userSkills exist and we didn't already set them as defaults,
   // this will compare them against all skill codes and add the ones that are present in userSkills,
   // based on a matching 'code' prop found in both arrays.
   componentWillReceiveProps(props) {
+    this.setupValues(props);
+  }
+
+  setupValues(props) {
     const { selectedOptions } = this.state;
     const { filters, userSkills } = props;
     if (props.userSkills.length && !selectedOptions.hasBeenUpdated) {
@@ -70,7 +78,7 @@ SkillCodeFilter.propTypes = {
   filters: FILTERS.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
-  userSkills: USER_SKILL_CODE_ARRAY,
+  // userSkills: USER_SKILL_CODE_ARRAY,
   label: PropTypes.string,
   labelSrOnly: PropTypes.bool,
 };

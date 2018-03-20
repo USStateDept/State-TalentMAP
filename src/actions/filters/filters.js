@@ -128,9 +128,9 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           responses.mappedParams.push(...responses.asyncParams);
           responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
           // Finally, dispatch a success
+          dispatch(filtersFetchDataSuccess(responses));
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
-          dispatch(filtersFetchDataSuccess(responses));
         })
         .catch(() => {
           dispatch(filtersHasErrored(true));
