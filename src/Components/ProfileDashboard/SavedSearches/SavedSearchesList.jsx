@@ -15,7 +15,6 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
         savedSearch={savedSearch}
         goToSavedSearch={goToSavedSearch}
         mappedParams={mappedParams}
-        condensedView
         /* pass a parentClassName that we can use from the BorderedList component */
         parentClassName="parent-list-container list-transparent"
       />,

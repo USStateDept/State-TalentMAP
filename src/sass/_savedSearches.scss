@@ -1,0 +1,33 @@
+.saved-searches-page {
+
+  .saved-searches-list {
+    border: 1px solid $color-gray-lighter;
+    border-bottom: 0;
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
+
+  .saved-search-card {
+    background-color: $color-white;
+    border-bottom: 1px solid $color-gray-light;
+    padding: 1em 2em;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .button-container {
+    float: right;
+
+    button {
+      margin-right: 1em;
+      margin-top: 0;
+    }
+
+    button:last-child {
+      margin-right: 0;
+    }
+  }
+
+}
