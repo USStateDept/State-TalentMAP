@@ -80,7 +80,6 @@ SkillCodeFilter.propTypes = {
   filters: FILTERS.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
-  // userSkills: USER_SKILL_CODE_ARRAY,
   label: PropTypes.string,
   labelSrOnly: PropTypes.bool,
 };
