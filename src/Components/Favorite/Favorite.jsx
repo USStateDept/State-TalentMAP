@@ -54,14 +54,19 @@ class Favorite extends Component {
   }
 
   render() {
-    const { hideText, useLongText, hasBorder, useButtonClass, useSpinnerWhite } = this.props;
-    const { loading } = this.state;
+    const { as: type, className, hideText, useLongText, hasBorder } = this.props;
+
+    const style = {
+      pointerEvents: this.state.loading ? 'none' : 'inherit',
+    };
 
     const shortTextFavorite = 'Favorite';
     const longTextFavorite = 'Add to Favorites';
     const shortTextRemove = 'Remove';
     const longTextRemove = 'Remove from Favorites';
 
+    let options = {};
+    let classNames = ['favorite-container'];
     let favoriteText = shortTextFavorite;
     let removeText = shortTextRemove;
 
@@ -70,57 +75,57 @@ class Favorite extends Component {
       removeText = longTextRemove;
     }
 
-    // set defaults
+    // Set defaults
     let text = favoriteText;
     let title = 'Add to Favorites';
-    let iconClass = 'star-o';
+    let icon = 'star-o';
 
-    // update for saved state
-    const savedState = this.getSavedState();
-    if (savedState) {
+    // Update for saved state
+    if (this.getSavedState()) {
       text = removeText;
       title = 'Remove from Favorites';
-      iconClass = 'star';
+      icon = 'star';
     }
     if (hideText) {
       text = null;
     }
 
-    const style = {
-      pointerEvents: 'inherit',
+    // Text configs
+    if (hideText) {
+      text = null;
+    }
+
+    // Class configs
+    if (hasBorder) {
+      classNames.push('favorites-button-border');
+    }
+
+    classNames.push(className);
+    classNames = classNames
+      .join(' ')
+      .trim();
+
+    options = {
+      type,
+      title,
+      style,
+      className: classNames,
+      onClick: this.toggleSaved,
     };
 
-    if (loading) { style.pointerEvents = 'none'; }
-
-    let borderClass = '';
-    const hasBorderNoButtonClass = hasBorder && !useButtonClass;
-    if (hasBorderNoButtonClass) { borderClass = 'favorites-button-border'; }
-
-    let buttonClass = '';
-    if (useButtonClass) { buttonClass = 'usa-button'; }
-
-    let spinnerClass = 'ds-c-spinner';
-    if (useButtonClass || useSpinnerWhite) { spinnerClass = `${spinnerClass} spinner-white`; }
-
-    const interactiveElementClass = `favorite-container ${borderClass} ${buttonClass}`;
-
     return (
-      <InteractiveElement
-        type="div"
-        title={title}
-        style={style}
-        className={interactiveElementClass}
-        onClick={this.toggleSaved}
-      >
-        {loading && <span className={spinnerClass} />}
-        {!loading && <FontAwesome name={iconClass} />}
-        {text}
+      <InteractiveElement {...options}>
+        {this.state.loading ?
+          (<span className="ds-c-spinner" />) :
+          (<FontAwesome name={icon} />)}{text}
       </InteractiveElement>
     );
   }
 }
 
 Favorite.propTypes = {
+  className: PropTypes.string,
+  as: PropTypes.string.isRequired,
   onToggle: PropTypes.func.isRequired,
   refKey: PropTypes.node.isRequired,
   hideText: PropTypes.bool,
@@ -133,6 +138,8 @@ Favorite.propTypes = {
 };
 
 Favorite.defaultProps = {
+  className: '',
+  as: 'div',
   hideText: false,
   isLoading: false,
   compareArray: [],

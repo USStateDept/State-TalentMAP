@@ -98,8 +98,14 @@ $favorite-spinner-size: 14px;
     }
   }
 
-  .spinner-white {
-    color: $color-white;
-    margin-right: .5em;
+  &.usa-button {
+    .ds-c-spinner {
+      &,
+      &:before,
+      &:after {
+        width: $favorite-spinner-size - 1;
+        height: $favorite-spinner-size - 1;
+      }
+    }
   }
 }

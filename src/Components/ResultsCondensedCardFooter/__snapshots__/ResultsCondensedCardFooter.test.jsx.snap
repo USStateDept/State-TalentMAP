@@ -13,7 +13,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       <strong>
         Position Number: 
       </strong>
-      00025003
+      10034001
     </div>
     <div
       className="condensed-card-footer-right"
@@ -21,7 +21,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       <strong>
         Posted: 
       </strong>
-      01/12/2018
+      03/08/2018
     </div>
   </div>
 </div>

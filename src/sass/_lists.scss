@@ -17,7 +17,7 @@ dl {
       font-size: 1.6rem;
 
       &.truncate {
-        overflow: hiddem;
+        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
