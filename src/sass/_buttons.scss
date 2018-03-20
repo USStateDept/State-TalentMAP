@@ -1,7 +1,6 @@
 .unstyled-button {
   -moz-appearance: unset;
   -webkit-appearance: unset;
-  appearance: unset;
   background-color: transparent;
   border: 0;
   border-radius: 0;
@@ -149,12 +148,6 @@
 
 .tm-button-no-box {
   box-shadow: 0 0 0 2px transparent inset;
-}
-
-.link-button-wrapper {
-  a {
-    color: $color-white;
-  }
 }
 
 .post-data-button {

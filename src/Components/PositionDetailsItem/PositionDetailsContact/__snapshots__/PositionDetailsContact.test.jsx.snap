@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionDetailsContact matches snapshot 1`] = `
+<div
+  className="position-details-contact"
+>
+  <div
+    className="contact-container"
+  >
+    <div
+      className="usa-grid-full contact-section website-section"
+    >
+      <PositionTitleSubDescription
+        formattedContent="None listed."
+        isAllowedToEdit={false}
+        onSubmitText={[Function]}
+        plainContent=""
+        shouldShowEditor={false}
+        title="Post Website"
+        toggleEditor={[Function]}
+      />
+    </div>
+    <div
+      className="usa-grid-full contact-section poc-section"
+    >
+      <PositionTitleSubDescription
+        formattedContent="None listed."
+        isAllowedToEdit={false}
+        onSubmitText={[Function]}
+        plainContent=""
+        shouldShowEditor={false}
+        title="Point of Contact"
+        toggleEditor={[Function]}
+      />
+    </div>
+  </div>
+  <div
+    className="contact-container"
+  >
+    Updated Date: 
+    06/08/2017
+  </div>
+</div>
+`;

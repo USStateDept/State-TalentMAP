@@ -89,4 +89,15 @@ describe('Favorite', () => {
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={array} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when useSpinnerWhite is true', () => {
+    const array = [{ id: refKey }];
+    const wrapper = shallow(<Favorite
+      onToggle={() => {}}
+      compareArray={array}
+      refKey={refKey}
+      useSpinnerWhite
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

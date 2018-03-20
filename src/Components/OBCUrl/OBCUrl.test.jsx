@@ -54,4 +54,12 @@ describe('OBCUrlComponent', () => {
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when isButton is true', () => {
+    const wrapper = shallow(<OBCUrl
+      id="5A"
+      isButton
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

@@ -38,6 +38,7 @@ class ProfileMenu extends Component {
           <ProfileMenuCollapsed
             toggleMenu={onSetProfileMenuExpanded}
             expand={this.expandMenu}
+            isCDO={isCDO}
             isGlossaryEditor={isGlossaryEditor}
           />
     );

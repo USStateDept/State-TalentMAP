@@ -202,7 +202,7 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // Format the date into our preferred format.
 // We can take any valid date and convert it into M.D.YYYY format, or any
 // format provided with the dateFormat param.
-export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
+export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
     const formattedDate = format(date, dateFormat);
@@ -290,10 +290,13 @@ export const propOrDefault = (obj, path, defaultToReturn = null) => {
   for (let i = 0; i < args.length; i += 1) {
     if (valueToReturn && returnSubProp(i)) {
       valueToReturn = valueToReturn[args[i]];
-    } else if (!valueToReturn || !returnSubProp(i)) {
+    } else if ((!valueToReturn && valueToReturn !== 0) || !returnSubProp(i)) {
       return defaultToReturn;
     }
   }
+  // ensure that if valueToReturn is false, to set it as the defaultToReturn.
+  // also check for 0 equality, since we still want to return 0s
+  if (!valueToReturn && valueToReturn !== 0) { valueToReturn = defaultToReturn; }
   return valueToReturn;
 };
 
