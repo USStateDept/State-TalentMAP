@@ -290,10 +290,13 @@ export const propOrDefault = (obj, path, defaultToReturn = null) => {
   for (let i = 0; i < args.length; i += 1) {
     if (valueToReturn && returnSubProp(i)) {
       valueToReturn = valueToReturn[args[i]];
-    } else if (!valueToReturn || !returnSubProp(i)) {
+    } else if ((!valueToReturn && valueToReturn !== 0) || !returnSubProp(i)) {
       return defaultToReturn;
     }
   }
+  // ensure that if valueToReturn is false, to set it as the defaultToReturn.
+  // also check for 0 equality, since we still want to return 0s
+  if (!valueToReturn && valueToReturn !== 0) { valueToReturn = defaultToReturn; }
   return valueToReturn;
 };
 

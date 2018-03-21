@@ -54,7 +54,7 @@ class Favorite extends Component {
   }
 
   render() {
-    const { hideText, useLongText, hasBorder, useButtonClass } = this.props;
+    const { hideText, useLongText, hasBorder, useButtonClass, useSpinnerWhite } = this.props;
     const { loading } = this.state;
 
     const shortTextFavorite = 'Favorite';
@@ -100,7 +100,7 @@ class Favorite extends Component {
     if (useButtonClass) { buttonClass = 'usa-button'; }
 
     let spinnerClass = 'ds-c-spinner';
-    if (useButtonClass) { spinnerClass = `${spinnerClass} spinner-white`; }
+    if (useButtonClass || useSpinnerWhite) { spinnerClass = `${spinnerClass} spinner-white`; }
 
     const interactiveElementClass = `favorite-container ${borderClass} ${buttonClass}`;
 
@@ -129,6 +129,7 @@ Favorite.propTypes = {
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
   useButtonClass: PropTypes.bool,
+  useSpinnerWhite: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -138,6 +139,7 @@ Favorite.defaultProps = {
   hasBorder: false,
   useLongText: false,
   useButtonClass: false,
+  useSpinnerWhite: false,
 };
 
 export default Favorite;
