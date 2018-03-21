@@ -1,8 +1,6 @@
-import axios from 'axios';
 import { first, get, isArray, merge } from 'lodash';
-import { EMPTY_FUNCTION } from '../Constants/PropTypes';
-import { fetchUserToken } from '../utilities';
 import api from '../api';
+import { EMPTY_FUNCTION } from '../Constants/PropTypes';
 
 export function glossaryHasErrored(bool) {
   return {
@@ -88,8 +86,8 @@ export function glossaryFetchData(bypassLoading = false) {
       dispatch(glossaryIsLoading(true));
     }
 
-    axios
-      .get(`${api}/glossary/?is_archived=false`, { headers: { Authorization: fetchUserToken() } })
+    api
+      .get('/glossary/?is_archived=false')
       .then(({ data }) => {
         dispatch(glossaryFetchDataSuccess(data));
         dispatch(glossaryIsLoading(false));
@@ -110,8 +108,8 @@ export function glossaryEditorFetchData(bypassLoading = false) {
       dispatch(glossaryEditorIsLoading(true));
     }
 
-    axios
-      .get(`${api}/glossary/`, { headers: { Authorization: fetchUserToken() } })
+    api
+      .get('/glossary/')
       .then(({ data }) => {
         dispatch(glossaryEditorFetchDataSuccess(data));
         dispatch(glossaryEditorIsLoading(false));
@@ -130,8 +128,8 @@ export function glossaryPatch(term = {}, onSuccess = EMPTY_FUNCTION) {
     dispatch(glossaryPatchIsLoading(true));
     dispatch(glossaryPatchHasErrored(false));
 
-    axios
-      .patch(`${api}/glossary/${term.id}/`, term, { headers: { Authorization: fetchUserToken() } })
+    api
+      .patch(`/glossary/${term.id}/`, term)
       .then(({ data }) => {
         dispatch(glossaryFetchData());
         dispatch(glossaryEditorFetchData(true));
@@ -161,8 +159,8 @@ export function glossaryPost(term = {}, onSuccess = EMPTY_FUNCTION) {
     dispatch(glossaryPostIsLoading(true));
     dispatch(glossaryPostHasErrored(false));
 
-    axios
-      .post(`${api}/glossary/`, term, { headers: { Authorization: fetchUserToken() } })
+    api
+      .post('/glossary/', term)
       .then(({ data }) => {
         dispatch(glossaryFetchData());
         dispatch(glossaryEditorFetchData());

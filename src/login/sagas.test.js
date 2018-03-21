@@ -1,12 +1,12 @@
 import { expectSaga } from 'redux-saga-test-plan';
-import axios from 'axios';
+import api from '../api';
 import MockAdapter from 'axios-mock-adapter';
 import loginWatcher, { changeErrorMessage, errorMessage, loginApi } from './sagas';
 
 describe('login functions', () => {
   it('can log in and set the client', () => {
-    const mockAdapter = new MockAdapter(axios);
-    mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(200,
+    const mockAdapter = new MockAdapter(api);
+    mockAdapter.onPost('/accounts/token/').reply(200,
       { token: '12345' },
     );
     return expectSaga(loginWatcher)
@@ -20,8 +20,8 @@ describe('login functions', () => {
         password: 'admin',
       })
 
-      // Start the test. Returns a Promise.
-      .run();
+      // Start the test. Returns a Promise. [silent warnings]
+      .silentRun();
   });
 
   it('can log out and unset the client', () => expectSaga(loginWatcher)
@@ -33,12 +33,12 @@ describe('login functions', () => {
         type: 'LOGOUT_REQUESTING',
       })
 
-      // Start the test. Returns a Promise.
-      .run());
+      // Start the test. Returns a Promise. [silent warnings]
+      .silentRun());
 
   it('can can catch empty login fields', () => {
-    const mockAdapter = new MockAdapter(axios);
-    mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(200,
+    const mockAdapter = new MockAdapter(api);
+    mockAdapter.onPost('/accounts/token/').reply(200,
       { token: '12345' },
     );
     return expectSaga(loginWatcher)
@@ -52,13 +52,13 @@ describe('login functions', () => {
         password: '',
       })
 
-      // Start the test. Returns a Promise.
-      .run();
+      // Start the test. Returns a Promise. [silent warnings]
+      .silentRun();
   });
 
   it('can catch AJAX errors', () => {
-    const mockAdapter = new MockAdapter(axios);
-    mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(400,
+    const mockAdapter = new MockAdapter(api);
+    mockAdapter.onPost('/accounts/token/').reply(400,
       'error',
     );
     loginApi('user', 'pass');

@@ -1,8 +1,6 @@
-import axios from 'axios';
+import { CancelToken } from 'axios';
 import api from '../api';
-import { fetchUserToken } from '../utilities';
 
-const CancelToken = axios.CancelToken;
 let cancel;
 
 export function resultsHasErrored(bool) {
@@ -47,10 +45,7 @@ export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
     if (cancel) { cancel(); }
     dispatch(resultsSimilarPositionsIsLoading(true));
-    axios.get(`${api}/position/${id}/similar/?limit=3`, {
-      headers: { Authorization: fetchUserToken() },
-    },
-    )
+    api.get(`/position/${id}/similar/?limit=3`)
       .then(response => response.data)
       .then((results) => {
         dispatch(resultsSimilarPositionsFetchDataSuccess(results));
@@ -68,13 +63,10 @@ export function resultsFetchData(query) {
   return (dispatch) => {
     if (cancel) { cancel(); }
     dispatch(resultsIsLoading(true));
-    axios.get(`${api}/position/?${query}`, {
-      headers: { Authorization: fetchUserToken() },
-      cancelToken: new CancelToken((c) => {
-        cancel = c;
-      }),
-    },
-    )
+    api
+      .get(`/position/?${query}`, {
+        cancelToken: new CancelToken((c) => { cancel = c; }),
+      })
       .then(response => response.data)
       .then((results) => {
         dispatch(resultsFetchDataSuccess(results));
