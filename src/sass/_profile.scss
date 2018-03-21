@@ -25,6 +25,7 @@
     font-size: 1em;
     font-weight: normal;
     margin-bottom: 10px;
+    margin-top: 5px;
   }
 
   .usa-grid-full {
@@ -33,6 +34,22 @@
 
   .favorite-positions-container {
     position: relative;
+
+    .favorites-top-section {
+      margin-bottom: 2em;
+    }
+
+    .condensed-card {
+      margin-bottom: 35px;
+    }
+
+    .favorites-title-container {
+      float: left;
+    }
+
+    .results-dropdown {
+      float: right;
+    }
   }
 
   .bidder-portfolio-container {

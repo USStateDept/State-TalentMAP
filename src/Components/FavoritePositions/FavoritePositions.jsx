@@ -2,25 +2,43 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, BID_RESULTS } from '../../Constants/PropTypes';
 import ProfileSectionTitle from '../ProfileSectionTitle';
-import FavoritePositionsList from '../FavoritePositionsList';
 import Spinner from '../Spinner';
+import SelectForm from '../SelectForm';
+import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
+import HomePagePositionsList from '../HomePagePositionsList';
 
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
 toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
-toggleBid, bidList }) => (
+toggleBid, bidList, onSortChange }) => (
   <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
-    <ProfileSectionTitle title="Your Favorite Positions:" />
+    <div className="usa-grid-full favorites-top-section">
+      <div className="favorites-title-container">
+        <ProfileSectionTitle title="Your Favorite Positions:" />
+      </div>
+      <div className="results-dropdown results-dropdown-sort">
+        <SelectForm
+          id="sort"
+          label="Sort by:"
+          onSelectOption={onSortChange}
+          options={POSITION_SEARCH_SORTS.options}
+          disabled={favoritePositionsIsLoading}
+        />
+      </div>
+    </div>
     {
       favoritePositionsIsLoading && !favoritePositionsHasErrored &&
         <Spinner type="homepage-position-results" size="big" />
     }
-    <FavoritePositionsList
+    <HomePagePositionsList
+      positions={favorites.results}
       favorites={favorites.results}
       toggleFavorite={toggleFavorite}
-      toggleFavoritePositionIsLoading={toggleFavoritePositionIsLoading}
-      toggleFavoritePositionHasErrored={toggleFavoritePositionHasErrored}
+      userProfileFavoritePositionIsLoading={toggleFavoritePositionIsLoading}
+      userProfileFavoritePositionHasErrored={toggleFavoritePositionHasErrored}
       toggleBid={toggleBid}
       bidList={bidList}
+      title="favorites"
+      maxLength={300}
     />
   </div>
 );
@@ -34,6 +52,7 @@ FavoritePositions.propTypes = {
   toggleFavoritePositionHasErrored: PropTypes.bool,
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
+  onSortChange: PropTypes.func.isRequired,
 };
 
 FavoritePositions.defaultProps = {
