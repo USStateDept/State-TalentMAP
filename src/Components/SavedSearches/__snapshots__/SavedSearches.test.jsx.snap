@@ -2,16 +2,17 @@
 
 exports[`SavedSearchesComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full profile-content-inner-container saved-searches-container
+  className="usa-grid-full profile-content-inner-container saved-searches-container saved-searches-page
       "
 >
   <ProfileSectionTitle
-    title="Your Saved Searches:"
+    title="Saved Searches"
   />
   <SavedSearchesList
     cloneSavedSearch={[Function]}
     deleteSearch={[Function]}
     goToSavedSearch={[Function]}
+    mappedParams={Array []}
     savedSearches={
       Object {
         "results": Array [

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
-import SavedSearches from '../../Components/SavedSearches';
+import SavedSearchesWrapper from '../../Components/SavedSearches/SavedSearchesWrapper';
 import Dashboard from '../../Containers/Dashboard/Dashboard';
 import GlossaryEditor from '../../Containers/GlossaryEditor';
 import ProfileMenu from '../ProfileMenu';
@@ -24,7 +24,7 @@ const ProfilePage = ({ user }) => (
         />
         <Route
           path="/profile/searches"
-          component={SavedSearches}
+          component={SavedSearchesWrapper}
         />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
       </Switch>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { SAVED_SEARCH_PARENT_OBJECT, DELETE_SAVED_SEARCH_HAS_ERRORED, DELETE_SAVED_SEARCH_SUCCESS,
 CLONE_SAVED_SEARCH_HAS_ERRORED, CLONE_SAVED_SEARCH_SUCCESS, EMPTY_FUNCTION, FILTERS_PARENT } from '../../Constants/PropTypes';
@@ -9,15 +8,8 @@ import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/D
 import { mapSavedSearchesToSingleQuery } from '../../utilities';
 
 class SavedSearchesMap extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      savedSearches: props.savedSearches,
-    };
-  }
   componentWillMount() {
-    const { filters, fetchFilters } = this.props;
-    const { savedSearches } = this.state;
+    const { filters, fetchFilters, savedSearches } = this.props;
 
     const mappedSearchQuery = mapSavedSearchesToSingleQuery(savedSearches);
 
@@ -25,7 +17,8 @@ class SavedSearchesMap extends Component {
     // if so, we'll pass back the saved filters
     // as a param, which tells our filters action
     // to not perform AJAX, and simply compare
-    // the query params against the filters
+    // the query params against the filters.
+    // Don't try to fetch filters if filtersIsLoading is true.
     if (filters.hasFetched) {
       fetchFilters(filters, mappedSearchQuery, filters);
     } else { // if not, we'll perform AJAX
@@ -55,7 +48,7 @@ class SavedSearchesMap extends Component {
       goToSavedSearch,
       cloneSavedSearch,
       filtersIsLoading,
-      mappedParams: filters.mappedParams,
+      mappedParams: filters.mappedParams || [],
     };
 
     return (
@@ -118,4 +111,4 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SavedSearchesMap));
+export default connect(mapStateToProps, mapDispatchToProps)(SavedSearchesMap);

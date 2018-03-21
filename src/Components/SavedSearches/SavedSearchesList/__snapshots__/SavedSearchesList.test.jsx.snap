@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SavedSearchesListComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full saved-searches-list"
+  >
+    <SavedSearchListResultsCard
+      cloneSavedSearch={[Function]}
+      deleteSearch={[Function]}
+      goToSavedSearch={[Function]}
+      mappedParams={Array []}
+      parentClassName="parent-list-container list-transparent"
+      savedSearch={
+        Object {
+          "count": 0,
+          "date_created": "2018-03-09T17:47:07.133624Z",
+          "date_updated": "2018-03-09T17:47:07.133651Z",
+          "endpoint": "/api/v1/position/",
+          "filters": Object {
+            "grade__code__in": "02",
+            "is_domestic": "true",
+            "post__cost_of_living_adjustment__gt": "0",
+            "post__in": "151",
+            "post__tour_of_duty__code__in": "O,Q",
+            "q": "german",
+            "skill__code__in": "6080,2080",
+          },
+          "id": 7,
+          "name": "Test 33",
+          "owner": "Jenny Townpost",
+        }
+      }
+    />
+  </div>
+</div>
+`;
