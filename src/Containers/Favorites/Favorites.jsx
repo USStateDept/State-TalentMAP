@@ -13,6 +13,7 @@ class FavoritePositionsContainer extends Component {
   constructor(props) {
     super(props);
     this.onToggleFavorite = this.onToggleFavorite.bind(this);
+    this.getSortedFavorites = this.getSortedFavorites.bind(this);
   }
 
   componentWillMount() {
@@ -26,6 +27,12 @@ class FavoritePositionsContainer extends Component {
 
   getFavorites() {
     this.props.fetchData();
+  }
+
+  getSortedFavorites(type) {
+    if (type.target && type.target.value) {
+      this.props.fetchData(type.target.value);
+    }
   }
 
   render() {
@@ -42,6 +49,7 @@ class FavoritePositionsContainer extends Component {
         toggleFavorite={this.onToggleFavorite}
         toggleBid={toggleBid}
         bidList={bidList.results}
+        onSortChange={this.getSortedFavorites}
       />
     );
   }
@@ -84,7 +92,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(favoritePositionsFetchData()),
+  fetchData: sortType => dispatch(favoritePositionsFetchData(sortType)),
   toggleFavorite: (id, remove) =>
     // Since this page references the full Favorites route, pass true to explicitly refresh them
     dispatch(userProfileToggleFavoritePosition(id, remove, true)),

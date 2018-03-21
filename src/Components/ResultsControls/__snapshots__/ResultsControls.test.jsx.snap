@@ -21,6 +21,7 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
     >
       <SelectForm
         defaultSort=""
+        disabled={false}
         emptyOptionText="- Select -"
         id="sort"
         includeFirstEmptyOption={false}
@@ -42,6 +43,7 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
     >
       <SelectForm
         defaultSort={10}
+        disabled={false}
         emptyOptionText="- Select -"
         id="pageSize"
         includeFirstEmptyOption={false}

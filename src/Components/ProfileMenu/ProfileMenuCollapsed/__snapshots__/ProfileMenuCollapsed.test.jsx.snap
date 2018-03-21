@@ -19,22 +19,46 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      hidden={false}
       iconName="user"
       link="/profile/dashboard/"
+      search=""
     />
     <withRouter(NavLink)
-      iconName="star"
-      link="/profile/favorites/"
-    />
-    <withRouter(NavLink)
-      iconName="search"
-      link="/profile/searches/"
+      hidden={true}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
     />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="comments-o"
+      link="/profile/inbox/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="globe"
+      link="/profile/notifications/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="users"
+      link="/profile/contacts/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="file-text"
+      link="/profile/documents/"
+      search=""
     />
   </NavLinksContainer>
 </div>
@@ -59,22 +83,46 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      hidden={false}
       iconName="user"
       link="/profile/dashboard/"
+      search=""
     />
     <withRouter(NavLink)
-      iconName="star"
-      link="/profile/favorites/"
-    />
-    <withRouter(NavLink)
-      iconName="search"
-      link="/profile/searches/"
+      hidden={true}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
     />
     <withRouter(NavLink)
       hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="comments-o"
+      link="/profile/inbox/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="globe"
+      link="/profile/notifications/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="users"
+      link="/profile/contacts/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="file-text"
+      link="/profile/documents/"
+      search=""
     />
   </NavLinksContainer>
 </div>

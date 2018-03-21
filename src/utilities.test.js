@@ -245,7 +245,7 @@ describe('formatDate', () => {
     // converted date
     const formattedDate = formatDate(unformattedDate);
     // should be formatted using the default format
-    expect(formattedDate).toBe('1.15.2017');
+    expect(formattedDate).toBe('01/15/2017');
   });
 
   it('returns a properly formatted date with a custom format', () => {

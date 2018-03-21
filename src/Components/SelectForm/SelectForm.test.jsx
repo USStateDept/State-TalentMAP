@@ -98,4 +98,16 @@ describe('SelectForm', () => {
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when disabled', () => {
+    wrapper = shallow(<SelectForm
+      id={1}
+      label="Some label"
+      defaultSort=""
+      options={POSITION_SEARCH_SORTS.options}
+      onSelectOption={() => {}}
+      disabled
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

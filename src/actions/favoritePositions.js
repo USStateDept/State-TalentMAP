@@ -21,11 +21,13 @@ export function favoritePositionsFetchDataSuccess(results) {
   };
 }
 
-export function favoritePositionsFetchData() {
+export function favoritePositionsFetchData(sortType) {
   return (dispatch) => {
     dispatch(favoritePositionsIsLoading(true));
     dispatch(favoritePositionsHasErrored(false));
-    axios.get(`${api}/position/favorites/`, { headers: { Authorization: fetchUserToken() } })
+    let url = `${api}/position/favorites/`;
+    if (sortType) { url += `?ordering=${sortType}`; }
+    axios.get(url, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then((results) => {
               dispatch(favoritePositionsHasErrored(false));
