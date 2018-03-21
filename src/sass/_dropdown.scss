@@ -9,7 +9,7 @@
 
 .dropdown__content {
   display: none;
-  left: -80px;
+  right: 0px;
   min-width: 160px;
   position: absolute;
   z-index: $dropdown-content-z;
@@ -46,17 +46,21 @@
   }
 }
 
-.account-dropdown .dropdown__trigger {
-  display: inline-block;
-  height: $avatar-dropdown-size;
-}
+.account-dropdown {
+  position: relative;
 
-.account-dropdown .dropdown__trigger::after {
-  margin: 0 0 0 5px;
-  font-family: "FontAwesome";
-  font-size: 2rem;
-  vertical-align: middle;
-  content: "\f107";
+  .dropdown__trigger {
+    display: inline-block;
+    height: $avatar-dropdown-size;
+
+    &:after {
+      margin: 0 0 0 5px;
+      font-family: "FontAwesome";
+      font-size: 2rem;
+      vertical-align: middle;
+      content: "\f107";
+    }
+  }
 }
 
 .account-dropdown--avatar,

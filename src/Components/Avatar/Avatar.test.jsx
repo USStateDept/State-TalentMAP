@@ -29,7 +29,7 @@ describe('Avatar', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<Avatar />);
+    const wrapper = shallow(<Avatar {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

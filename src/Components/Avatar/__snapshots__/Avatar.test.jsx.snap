@@ -2,13 +2,15 @@
 
 exports[`Avatar matches snapshot 1`] = `
 <span
-  aria-label=""
-  className=""
+  aria-label="John Doe"
+  className="special-class"
   onClick={[Function]}
   role="img"
 >
   <div
     className="tm-avatar"
-  />
+  >
+    JD
+  </div>
 </span>
 `;
