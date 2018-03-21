@@ -8,3 +8,10 @@
     width: $size;
   }
 }
+
+.tm-checkbox-transparent {
+  [type=checkbox]:not(:checked) + label::before,
+  [type=radio]:not(:checked) + label::before {
+    background-color: transparent;
+  }
+}
