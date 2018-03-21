@@ -38,7 +38,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
     className="contact-container"
   >
     Updated Date: 
-    6.8.2017
+    06/08/2017
   </div>
 </div>
 `;
