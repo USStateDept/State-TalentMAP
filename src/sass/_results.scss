@@ -404,6 +404,8 @@
     background-color: $color-gray-lightest-alt;
     color: $color-black;
     font-size: 1.1em;
+    max-height: 400px;
+    overflow-y: scroll;
     padding: 1rem;
   }
 
