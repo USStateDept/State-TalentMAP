@@ -6,6 +6,7 @@ import Spinner from '../Spinner';
 import SelectForm from '../SelectForm';
 import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import HomePagePositionsList from '../HomePagePositionsList';
+import Alert from '../Alert';
 
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
 toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
@@ -28,6 +29,10 @@ toggleBid, bidList, onSortChange }) => (
     {
       favoritePositionsIsLoading && !favoritePositionsHasErrored &&
         <Spinner type="homepage-position-results" size="big" />
+    }
+    {
+      !favoritePositionsIsLoading && !favorites.results.length &&
+        <Alert title="You do not have any favorited positions." />
     }
     <HomePagePositionsList
       positions={favorites.results}

@@ -111,7 +111,7 @@ export function routeChangeUnsetCurrentSearch() {
   };
 }
 
-export function savedSearchesFetchData() {
+export function savedSearchesFetchData(sortType) {
   return (dispatch) => {
     dispatch(savedSearchesIsLoading(true));
     dispatch(savedSearchesHasErrored(false));

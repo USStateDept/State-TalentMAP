@@ -32,6 +32,17 @@ describe('FavoritePositionsComponent', () => {
     expect(wrapper.instance().props.favorites).toBe(resultsObject);
   });
 
+  it('displays an alert if there are no positions', () => {
+    const wrapper = shallow(
+      <FavoritePositions
+        {...props}
+        favorites={{ results: [] }}
+        favoritePositionsIsLoading={false}
+      />,
+    );
+    expect(wrapper.find('Alert').exists()).toBe(true);
+  });
+
   it('renders the Spinner when loading', () => {
     const wrapper = shallow(
       <FavoritePositions

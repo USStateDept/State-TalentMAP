@@ -6,19 +6,35 @@ import Spinner from '../Spinner';
 import SavedSearchesList from './SavedSearchesList';
 import Alert from '../Alert/Alert';
 import ProfileSectionTitle from '../ProfileSectionTitle';
+import SelectForm from '../SelectForm';
+import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
 
 const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
-  goToSavedSearch, deleteSearch,
+  goToSavedSearch, deleteSearch, onSortChange,
   deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
   cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
   cloneSavedSearchSuccess, mappedParams, filtersIsLoading }) => {
-  const isLoading = filtersIsLoading || savedSearchesIsLoading;
+  const isLoading = filtersIsLoading || savedSearchesIsLoading || cloneSavedSearchIsLoading
+    || deleteSavedSearchIsLoading;
   return (
     <div
       className={`usa-grid-full profile-content-inner-container saved-searches-container saved-searches-page
-      ${(savedSearchesIsLoading || cloneSavedSearchIsLoading) ? 'results-loading' : ''}`}
+      ${(isLoading) ? 'results-loading' : ''}`}
     >
-      <ProfileSectionTitle title="Saved Searches" />
+      <div className="usa-grid-full searches-top-section">
+        <div className="searches-title-container">
+          <ProfileSectionTitle title="Saved Searches" />
+        </div>
+        <div className="results-dropdown results-dropdown-sort">
+          <SelectForm
+            id="sort"
+            label="Sort by:"
+            onSelectOption={onSortChange}
+            options={SAVED_SEARCH_SORTS.options}
+            disabled={savedSearchesIsLoading}
+          />
+        </div>
+      </div>
       {
         // Deleting a saved search has errored
         !deleteSavedSearchIsLoading && !deleteSavedSearchSuccess && deleteSavedSearchHasErrored &&
@@ -87,6 +103,7 @@ SavedSearches.propTypes = {
   cloneSavedSearchSuccess: CLONE_SAVED_SEARCH_SUCCESS.isRequired,
   mappedParams: MAPPED_PARAM_ARRAY,
   filtersIsLoading: PropTypes.bool.isRequired,
+  onSortChange: PropTypes.func.isRequired,
 };
 
 SavedSearches.defaultProps = {
