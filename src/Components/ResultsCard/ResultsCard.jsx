@@ -10,10 +10,23 @@ import Favorite from '../Favorite/Favorite';
 import BidCount from '../BidCount';
 import CompareCheck from '../CompareCheck/CompareCheck';
 
-import { formatDate, getBidStatisticsObject } from '../../utilities';
+import { formatDate, getBidStatisticsObject, propOrDefault } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
-import { NO_LAST_UPDATED_DATE, NO_BID_CYCLE } from '../../Constants/SystemMessages';
+import {
+  NO_ASSIGNMENT_USER,
+  NO_BID_CYCLE,
+  NO_BUREAU,
+  NO_END_DATE,
+  NO_GRADE,
+  NO_LANGUAGES,
+  NO_POSITION_NUMBER,
+  NO_POST,
+  NO_SKILL,
+  NO_TOUR_OF_DUTY,
+  NO_CREATE_DATE,
+  NO_UPDATE_DATE,
+} from '../../Constants/SystemMessages';
 
 const ResultsCard = (props) => {
   const options = {};
@@ -26,6 +39,22 @@ const ResultsCard = (props) => {
     userProfileFavoritePositionHasErrored,
   } = props;
 
+  const dateFormat = 'M.DD.YYYY';
+  const getResult = (path, defaultValue) => {
+    let value = _.get(result, path, defaultValue);
+
+    if ((/_date|date_/i).test(path) && value !== defaultValue) {
+      value = formatDate(value, dateFormat);
+    }
+
+    return value;
+  };
+
+  const position = getResult('position_number', NO_POSITION_NUMBER);
+
+  // Wrap result is a lodash wrapper for chaining lodash methods
+  // initial() -> slices up to the last item (not included) in an array
+  // value() -> returns the final value after everything is processed
   const bidCycle = _.chain(result)
     .get('bid_statistics[0].bidcycle', NO_BID_CYCLE)
     .split(' ')
@@ -39,20 +68,20 @@ const ResultsCard = (props) => {
       'Bid Cycle': bidCycle,
     },
     {
-      'Grade': _.get(result, 'grade', ''),
-      'Post': _.get(result, 'post.location', ''),
-      'Skill Code': _.get(result, 'skill', ''),
-      'Language': _.get(result, 'languages[0].language', ''),
+      'Grade': getResult('grade', NO_GRADE),
+      'Post': getResult('post.location', NO_POST),
+      'Skill Code': getResult('skill', NO_SKILL),
+      'Language': getResult('languages[0].language', NO_LANGUAGES),
     },
     {
-      'Bureau': _.get(result, 'bureau', ''),
-      'Tour of Duty': _.get(result, 'post.tour_of_duty'),
-      'Transfer Eligibility Date': '',
-      'Incumbent': _.get(result, 'current_assignment.user', ''),
+      'Bureau': getResult('bureau', NO_BUREAU),
+      'Tour of Duty': getResult('post.tour_of_duty', NO_TOUR_OF_DUTY),
+      'Transfer Eligibility Date': getResult('current_assignment.estimated_end_date', NO_END_DATE),
+      'Incumbent': getResult('current_assignment.user', NO_ASSIGNMENT_USER),
     },
     {
-      'Posted': formatDate(_.get(result, 'description.date_created', NO_LAST_UPDATED_DATE), 'M.DD.YYYY'),
-      'Position Number': _.get(result, 'position_number', ''),
+      'Posted': getResult('description.date_created', NO_UPDATE_DATE),
+      'Position Number': position,
     },
     /* eslint-enable quote-props */
   ];
@@ -69,7 +98,7 @@ const ResultsCard = (props) => {
 
   options.compare = {
     as: 'button',
-    refKey: result.id,
+    refKey: position,
     onToggle,
   };
 
