@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const ProfileSectionTitle = ({ title }) => (
-  <div className="usa-grid-full">
+  <h2 className="usa-grid-full hello-greeting">
     {title}
-  </div>
+  </h2>
 );
 
 ProfileSectionTitle.propTypes = {
