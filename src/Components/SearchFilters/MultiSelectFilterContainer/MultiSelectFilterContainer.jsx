@@ -6,7 +6,7 @@ import { FILTER_ITEMS_ARRAY, EMPTY_FUNCTION } from '../../../Constants/PropTypes
 const shortid = require('shortid'); // only use shortid if we don't have a key to use
 
 const MultiSelectFilterContainer = ({ multiSelectFilterList, setAccordion }) => (
-  <Accordion>
+  <Accordion className="accordion-inverse">
     {
           multiSelectFilterList.map(item => (
             <AccordionItem
