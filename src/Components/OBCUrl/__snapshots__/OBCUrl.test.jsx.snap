@@ -20,6 +20,17 @@ exports[`OBCUrlComponent matches snapshot when id is a string 1`] = `
 </a>
 `;
 
+exports[`OBCUrlComponent matches snapshot when isButton is true 1`] = `
+<LinkButton
+  className="post-data-button"
+  isExternal={true}
+  toLink="/obc/post/5A"
+  useDefaultClass={true}
+>
+  Post details
+</LinkButton>
+`;
+
 exports[`OBCUrlComponent matches snapshot when type is "country" 1`] = `
 <a
   href="/talentmap/obc/country/5"

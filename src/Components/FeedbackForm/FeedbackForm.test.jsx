@@ -42,11 +42,11 @@ describe('FeedbackFormComponent', () => {
     const wrapper = shallow(
       <FeedbackForm
         {...props}
-        feedbackHasErrored={{ hasErrored: true, message: 'Error occured' }}
+        feedbackHasErrored={{ hasErrored: true, message: 'Error occurred' }}
       />,
     );
     expect(wrapper).toBeDefined();
-    expect(wrapper.find('.feedback-submission-messages').text()).toBe('Error occured');
+    expect(wrapper.find('.feedback-submission-messages').text()).toBe('Error occurred');
   });
 
   it('displays the success text when feedbackSuccess is true', () => {
