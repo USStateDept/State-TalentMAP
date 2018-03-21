@@ -7,6 +7,7 @@ import SelectForm from '../SelectForm';
 import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import HomePagePositionsList from '../HomePagePositionsList';
 import Alert from '../Alert';
+import { NO_FAVORITES } from '../../Constants/SystemMessages';
 
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
 toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
@@ -32,7 +33,7 @@ toggleBid, bidList, onSortChange }) => (
     }
     {
       !favoritePositionsIsLoading && !favorites.results.length &&
-        <Alert title="You do not have any favorited positions." />
+        <Alert title={NO_FAVORITES} />
     }
     <HomePagePositionsList
       positions={favorites.results}
