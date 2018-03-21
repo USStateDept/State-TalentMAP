@@ -32,3 +32,13 @@ export const BID_PORTFOLIO_SORTS = {
 };
 
 BID_PORTFOLIO_SORTS.defaultSort = BID_PORTFOLIO_SORTS.options[0].value;
+
+export const SAVED_SEARCH_SORTS = {
+  options: [
+    { value: '', text: 'Sort option', disabled: true },
+    { value: 'name', text: 'Name' },
+    { value: 'date_updated', text: 'Date created' },
+  ],
+};
+
+SAVED_SEARCH_SORTS.defaultSort = SAVED_SEARCH_SORTS.options[0].value;
