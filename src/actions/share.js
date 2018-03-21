@@ -19,7 +19,7 @@ export function shareSuccess(share) {
     type: 'SHARE_SUCCESS',
     share,
   };
-}
+};
 
 export function shareSendData(data) {
   return (dispatch) => {
@@ -42,4 +42,4 @@ export function shareSendData(data) {
         return err.response.data.message;
       });
   };
-}
+};
