@@ -24,7 +24,7 @@ exports[`OBCUrlComponent matches snapshot when isButton is true 1`] = `
 <LinkButton
   className="post-data-button"
   isExternal={true}
-  toLink="/obc/post/5A"
+  toLink="/talentmap/obc/post/5A"
   useDefaultClass={true}
 >
   Post details
