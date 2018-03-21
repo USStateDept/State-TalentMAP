@@ -86,7 +86,10 @@ export function savedSearchesSuccess(state = { results: [] }, action) {
       return state;
   }
 }
-export function savedSearchesIsLoading(state = false, action) {
+
+// Set as true so that SavedSearchesMap container waits for param mapping
+// before rendering
+export function savedSearchesIsLoading(state = true, action) {
   switch (action.type) {
     case 'SAVED_SEARCHES_IS_LOADING':
       return action.isLoading;

@@ -24,7 +24,8 @@ export function filtersFetchDataSuccess(filters) {
   };
 }
 
-export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses) {
+export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses,
+  fromResultsPage = false) {
   return (dispatch) => {
     dispatch(filtersIsLoading(true));
     dispatch(filtersHasErrored(false));
@@ -51,7 +52,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
     // and perform any custom, conditional labeling.
     // TODO we should verify these against VALID_PARAMS.
     function mapAsyncParams() {
-      const asyncFilters = responses.asyncParams;
+      const asyncFilters = responses.asyncParams || [];
 
       // create a promise to retrieve our filters that rely on ajax
       const asyncQueryProms = asyncFilters.map((item) => {
@@ -128,9 +129,9 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           responses.mappedParams.push(...responses.asyncParams);
           responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
           // Finally, dispatch a success
+          dispatch(filtersFetchDataSuccess(responses));
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
-          dispatch(filtersFetchDataSuccess(responses));
         })
         .catch(() => {
           dispatch(filtersHasErrored(true));
@@ -147,8 +148,12 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         });
       });
       // check for option queryParamObject to map against (used for pill filters)
-      responses.mappedParams = [];
-      responses.asyncParams = [];
+
+      // Only clear the params if we're on the Results page
+      if (fromResultsPage) {
+        responses.mappedParams = [];
+        responses.asyncParams = [];
+      }
 
       // Set any custom descriptions
       // TODO externalize these to some kind of template helper?
@@ -192,6 +197,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
                 if (ASYNC_PARAMS.indexOf(mappedObject.selectionRef) > -1) {
                   responses.asyncParams.push(mappedObject);
                 } else {
+                  if (!responses.mappedParams) { responses.mappedParams = []; }
                   responses.mappedParams.push(mappedObject);
                 }
               });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import { FILTERS, USER_SKILL_CODE_ARRAY } from '../../../Constants/PropTypes';
+import { FILTERS } from '../../../Constants/PropTypes';
 import { propSort, wrapForMultiSelect, returnObjectsWherePropMatches } from '../../../utilities';
 
 const SKILL_CODE = 'code';
@@ -17,28 +17,45 @@ class SkillCodeFilter extends Component {
     };
   }
 
+  componentWillMount() {
+    this.setupValues(this.props);
+  }
+
   // We want to set the user's default skills in state.selectedOptions, but don't want to repeat
   // the process on every update. So if userSkills exist and we didn't already set them as defaults,
   // this will compare them against all skill codes and add the ones that are present in userSkills,
   // based on a matching 'code' prop found in both arrays.
   componentWillReceiveProps(props) {
+    this.setupValues(props);
+  }
+
+  setupValues(props) {
     const { selectedOptions } = this.state;
     const { filters, userSkills } = props;
     if (props.userSkills.length && !selectedOptions.hasBeenUpdated) {
       const options = wrapFilters(filters);
       const defaultSkills = returnObjectsWherePropMatches(options, userSkills, 'code');
       selectedOptions.value = defaultSkills;
-      this.handleChange(selectedOptions.value);
+      this.handleChange(selectedOptions.value, true);
     }
   }
 
-  // set local state with new selected options, and also return them via the prop function.
-  // we also update the hasBeenUpdated property to true ao that we don't try to re-set userSkills
-  handleChange(selectedOptions) {
+  // Set local state with new selected options, and also return them via the prop function.
+  // we also update the hasBeenUpdated property to true ao that we don't try to re-set userSkills.
+  // We set bypass to true when inorganic/programatic calls to this function are made.
+  handleChange(selectedOptions, bypass = false) {
     // set state with new values
-    this.setState({ selectedOptions: { value: selectedOptions, hasBeenUpdated: true } });
-    // pass to onFilterSelect prop function
-    this.props.onFilterSelect(selectedOptions);
+    const { selectedOptions: selectedOptionsState } = this.state;
+    this.setState({ selectedOptions: Object.assign(
+      selectedOptionsState, { value: selectedOptions }) });
+    // Pass to onFilterSelect prop function.
+    // These are only used for "real" changes by the user, opposed to
+    // programatic setup performed.
+    if (!bypass) {
+      this.setState({ selectedOptions: Object.assign(
+        selectedOptionsState, { hasBeenUpdated: true }) });
+      this.props.onFilterSelect(selectedOptions);
+    }
   }
 
   render() {
@@ -70,7 +87,6 @@ SkillCodeFilter.propTypes = {
   filters: FILTERS.isRequired,
   onFilterSelect: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
-  userSkills: USER_SKILL_CODE_ARRAY,
   label: PropTypes.string,
   labelSrOnly: PropTypes.bool,
 };

@@ -23,6 +23,7 @@ describe('SavedSearchesContainer', () => {
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
         ChildElement={ChildElement}
+        mappedParams={[]}
       />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
@@ -38,6 +39,7 @@ describe('SavedSearchesContainer', () => {
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
         ChildElement={ChildElement}
+        mappedParams={[]}
       />,
     );
     wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });

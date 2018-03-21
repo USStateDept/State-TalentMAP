@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from '../../../../Constants/PropTypes';
 import { mapSavedSearchToDescriptions } from '../../../../utilities';
-import SavedSearchPillList from './SavedSearchPillList';
+import SavedSearchPillList from '../../../SavedSearchPillList';
 
 const SavedSearchListResultsCard = ({ savedSearch, goToSavedSearch, mappedParams }) => {
   const pills = mapSavedSearchToDescriptions(savedSearch.filters, mappedParams).slice(0, 4);
