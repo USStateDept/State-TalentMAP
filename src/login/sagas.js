@@ -1,8 +1,5 @@
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
-import axios from 'axios';
-
 import { push } from 'react-router-redux';
-
 import api from '../api';
 
 // Our login constants
@@ -32,7 +29,7 @@ import {
   unsetNotificationsCount,
 } from '../actions/notifications';
 
-const loginUrl = `${api}/accounts/token/`;
+const loginUrl = '/accounts/token/';
 
 export const errorMessage = { message: null };
 
@@ -44,7 +41,7 @@ export function loginApi(username, password) {
   if (!username || !password) {
     return changeErrorMessage('Fields cannot be blank');
   }
-  return axios.post(loginUrl, { username, password })
+  return api.post(loginUrl, { username, password })
     .then(response => response.data.token)
     .catch((error) => { changeErrorMessage(error.message); });
 }
