@@ -11,6 +11,8 @@ const LinkButton = ({ children, className, toLink, useDefaultClass, isExternal }
         type="submit"
         role="button"
         href={toLink}
+        rel="noopener noreferrer"
+        target="_blank"
       >
         {children}
       </a>

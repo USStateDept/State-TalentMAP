@@ -9,8 +9,8 @@ import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_USER_LISTED, NO_DATE 
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
 import { propOrDefault, formatDate } from '../../utilities';
-import LinkButton from '../LinkButton';
-import { OBC_POST_URL_PREFIX } from '../../Constants/OBC';
+import ViewPostDataButton from '../ViewPostDataButton';
+import OBCUrl from '../OBCUrl';
 
 const CompareList = ({ compare, isLoading, goBackLink }) => {
   const compareArray = compare.slice(0, COMPARE_LIMIT);
@@ -69,13 +69,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                           {propOrDefault(c, 'post.location', NO_POST)}
                           {
                             propOrDefault(c, 'post.obc_id') ?
-                              <LinkButton
-                                isExternal
-                                className="post-data-button"
-                                toLink={`${OBC_POST_URL_PREFIX}${propOrDefault(c, 'post.obc_id')}`}
-                              >
-                                <FontAwesome name="map-marker" />View Post Data
-                              </LinkButton>
+                              <ViewPostDataButton id={c.post.obc_id} />
                             :
                             null
                           }
@@ -153,7 +147,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <a href={`${OBC_POST_URL_PREFIX}${propOrDefault(c, 'post.obc_id')}`}>Details</a></span> : null }
+                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
                         </td>
                       ))
                     }
@@ -165,7 +159,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <a href={`${OBC_POST_URL_PREFIX}${propOrDefault(c, 'post.obc_id')}`}>Details</a></span> : null }
+                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
                         </td>
                       ))
                     }
