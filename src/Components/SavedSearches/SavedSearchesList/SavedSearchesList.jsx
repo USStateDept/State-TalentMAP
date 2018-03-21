@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import SavedSearchesListResultsCard from '../SavedSearchesListResultsCard';
 import Alert from '../../Alert';
 import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
+import { NO_SAVED_SEARCHES } from '../../../Constants/SystemMessages';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch, cloneSavedSearch,
 mappedParams }) => {
@@ -29,7 +30,7 @@ mappedParams }) => {
         </div>
       }
       {
-        !savedSearchArray.length && <Alert title="You do not have any saved searches." />
+        !savedSearchArray.length && <Alert title={NO_SAVED_SEARCHES} />
       }
     </div>
   );
