@@ -43,18 +43,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={true}
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidtracker"
-        search=""
-        title="Bidder Tracker"
-      />
-      <withRouter(NavLink)
         hidden={false}
         link="/profile/favorites/"
         search=""
@@ -68,46 +56,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={true}
-      iconName="pie-chart"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
       title="Glossary Editor"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="comments-o"
-      link="/profile/inbox/"
-      search=""
-      title="Inbox"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="globe"
-      link="/profile/notifications/"
-      search=""
-      title="Notifications"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="users"
-      link="/profile/contacts/"
-      search=""
-      title="Contacts"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="file-text"
-      link="/profile/documents/"
-      search=""
-      title="Documents"
     />
   </NavLinksContainer>
 </div>
@@ -157,18 +110,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       />
       <withRouter(NavLink)
         hidden={false}
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidtracker"
-        search=""
-        title="Bidder Tracker"
-      />
-      <withRouter(NavLink)
-        hidden={false}
         link="/profile/favorites/"
         search=""
         title="Favorites"
@@ -182,45 +123,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
     </withRouter(NavLink)>
     <withRouter(NavLink)
       hidden={false}
-      iconName="pie-chart"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
-      hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
       title="Glossary Editor"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="comments-o"
-      link="/profile/inbox/"
-      search=""
-      title="Inbox"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="globe"
-      link="/profile/notifications/"
-      search=""
-      title="Notifications"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="users"
-      link="/profile/contacts/"
-      search=""
-      title="Contacts"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="file-text"
-      link="/profile/documents/"
-      search=""
-      title="Documents"
     />
   </NavLinksContainer>
 </div>
@@ -270,18 +176,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={false}
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidtracker"
-        search=""
-        title="Bidder Tracker"
-      />
-      <withRouter(NavLink)
-        hidden={false}
         link="/profile/favorites/"
         search=""
         title="Favorites"
@@ -294,46 +188,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
       title="Glossary Editor"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="comments-o"
-      link="/profile/inbox/"
-      search=""
-      title="Inbox"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="globe"
-      link="/profile/notifications/"
-      search=""
-      title="Notifications"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="users"
-      link="/profile/contacts/"
-      search=""
-      title="Contacts"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="file-text"
-      link="/profile/documents/"
-      search=""
-      title="Documents"
     />
   </NavLinksContainer>
 </div>
