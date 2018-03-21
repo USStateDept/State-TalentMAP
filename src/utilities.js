@@ -214,7 +214,7 @@ export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
 
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
-  `${process.env.PUBLIC_URL}${strAssetPath}`;
+  `${process.env.PUBLIC_URL}${strAssetPath}`.replace('//', '/');
 
 // Filter by objects that contain a specified prop(s) that match a string.
 // Check if any of "array"'s objects' "props" contain "keyword"

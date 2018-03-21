@@ -2,7 +2,7 @@
 
 exports[`OBCUrlComponent matches snapshot 1`] = `
 <a
-  href="/obc/post/5"
+  href="/talentmap/obc/post/5"
   rel="noopener noreferrer"
   target="_blank"
 >
@@ -12,7 +12,7 @@ exports[`OBCUrlComponent matches snapshot 1`] = `
 
 exports[`OBCUrlComponent matches snapshot when id is a string 1`] = `
 <a
-  href="/obc/post/5A"
+  href="/talentmap/obc/post/5A"
   rel="noopener noreferrer"
   target="_blank"
 >
@@ -24,7 +24,7 @@ exports[`OBCUrlComponent matches snapshot when isButton is true 1`] = `
 <LinkButton
   className="post-data-button"
   isExternal={true}
-  toLink="/obc/post/5A"
+  toLink="/talentmap/obc/post/5A"
   useDefaultClass={true}
 >
   Post details
@@ -33,7 +33,7 @@ exports[`OBCUrlComponent matches snapshot when isButton is true 1`] = `
 
 exports[`OBCUrlComponent matches snapshot when type is "country" 1`] = `
 <a
-  href="/obc/country/5"
+  href="/talentmap/obc/country/5"
   rel="noopener noreferrer"
   target="_blank"
 >
