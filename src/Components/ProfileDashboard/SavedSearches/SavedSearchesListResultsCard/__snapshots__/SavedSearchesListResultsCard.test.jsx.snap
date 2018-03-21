@@ -16,6 +16,7 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
       <SavedSearchPillList
         pills={
           Array [
+            "german",
             "two",
             "ADMINISTRATIVE SUPPORT",
             "United States",

@@ -12,7 +12,7 @@ import SavedSearchesList from '../../Components/ProfileDashboard/SavedSearches/S
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('SavedSearchesContainer', () => {
+describe('SavedSearchesMapContainer', () => {
   const ChildElement = SavedSearchesList;
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
@@ -27,7 +27,7 @@ describe('SavedSearchesContainer', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('calls fetchFilters if filters.hasFetched is true', () => {
+  it('calls fetchFilters if filters.hasFetched is true and filtersIsLoading is false', () => {
     let setArgsAgainst = [];
     function spy(...rest) {
       setArgsAgainst = [...rest];
@@ -41,6 +41,7 @@ describe('SavedSearchesContainer', () => {
         deleteSearch={() => {}}
         ChildElement={ChildElement}
         fetchFilters={spy}
+        filtersIsLoading={false}
       />,
     );
     wrapper.setProps({ filters: { ...wrapper.instance().props.filters, hasFetched: true } });

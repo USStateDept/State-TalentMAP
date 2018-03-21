@@ -62,7 +62,16 @@ exports[`SkillCodeFilterComponent matches snapshot 1`] = `
     simpleValue={false}
     tabSelectsValue={true}
     trimFilter={true}
-    value={Array []}
+    value={
+      Array [
+        Object {
+          "code": "1",
+          "custom_description": "1",
+          "label": "1",
+          "value": "1",
+        },
+      ]
+    }
     valueComponent={[Function]}
     valueKey="value"
   />

@@ -11,6 +11,9 @@ import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/D
 import SavedSearchesMap from '../SavedSearchesMap';
 import { formQueryString } from '../../utilities';
 
+// Wrapper for anything related to saved searches
+// Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
+// that use this container.
 class SavedSearchesContainer extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +38,7 @@ class SavedSearchesContainer extends Component {
 
   render() {
     const { savedSearches, deleteSearch, cloneSearch, ChildElement,
-      savedSearchesHasErrored, savedSearchesIsLoading, deleteSavedSearchHasErrored,
+      savedSearchesIsLoading, deleteSavedSearchHasErrored,
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
       cloneSavedSearchHasErrored, cloneSavedSearchSuccess } = this.props;
     return (
@@ -43,8 +46,6 @@ class SavedSearchesContainer extends Component {
         <div className="saved-search-parent-container">
           <SavedSearchesMap
             savedSearches={savedSearches}
-            savedSearchesHasErrored={savedSearchesHasErrored}
-            savedSearchesIsLoading={savedSearchesIsLoading}
             goToSavedSearch={this.goToSavedSearch}
             deleteSearch={deleteSearch}
             deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
@@ -68,7 +69,6 @@ SavedSearchesContainer.propTypes = {
   savedSearchesFetchData: PropTypes.func.isRequired,
   savedSearches: SAVED_SEARCH_PARENT_OBJECT,
   savedSearchesIsLoading: PropTypes.bool.isRequired,
-  savedSearchesHasErrored: PropTypes.bool.isRequired,
   setCurrentSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   deleteSavedSearchIsLoading: PropTypes.bool.isRequired,

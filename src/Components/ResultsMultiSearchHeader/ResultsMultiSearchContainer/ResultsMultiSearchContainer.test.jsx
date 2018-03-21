@@ -20,6 +20,7 @@ describe('ResultsMultiSearchContainer', () => {
     userProfile: bidderUserObject,
     fetchFilters: () => {},
     onNavigateTo: () => {},
+    history: { location: { pathname: '/results' } },
   };
 
   it('is defined', () => {
@@ -65,6 +66,31 @@ describe('ResultsMultiSearchContainer', () => {
     wrapper.update();
     // define the instance
     sinon.assert.calledOnce(fetchFiltersSpy);
+  });
+
+  it('does not fetch filters if the current route exists in the bypassRoutes', () => {
+    const fetchFiltersSpy = sinon.spy();
+    const wrapper = shallow(<ResultsMultiSearchContainer.WrappedComponent
+      {...props}
+      fetchFilters={fetchFiltersSpy}
+      filters={{ ...props.filters, hasFetched: true }}
+      history={{ location: { pathname: '/profile/dashboard' } }}
+    />);
+    wrapper.update();
+    sinon.assert.callCount(fetchFiltersSpy, 0);
+  });
+
+
+  it('fetches filters if the current route does not exist in the bypassRoutes', () => {
+    const fetchFiltersSpy = sinon.spy();
+    const wrapper = shallow(<ResultsMultiSearchContainer.WrappedComponent
+      {...props}
+      fetchFilters={fetchFiltersSpy}
+      filters={{ ...props.filters, hasFetched: true }}
+      history={{ location: { pathname: '/profile/favorites' } }}
+    />);
+    wrapper.update();
+    sinon.assert.callCount(fetchFiltersSpy, 1);
   });
 });
 

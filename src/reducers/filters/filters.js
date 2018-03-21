@@ -181,7 +181,7 @@ export function filtersHasErrored(state = false, action) {
       return state;
   }
 }
-export function filtersIsLoading(state = false, action) {
+export function filtersIsLoading(state = true, action) {
   switch (action.type) {
     case 'FILTERS_IS_LOADING':
       return action.isLoading;

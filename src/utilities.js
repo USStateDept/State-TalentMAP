@@ -290,10 +290,13 @@ export const propOrDefault = (obj, path, defaultToReturn = null) => {
   for (let i = 0; i < args.length; i += 1) {
     if (valueToReturn && returnSubProp(i)) {
       valueToReturn = valueToReturn[args[i]];
-    } else if (!valueToReturn || !returnSubProp(i)) {
+    } else if ((!valueToReturn && valueToReturn !== 0) || !returnSubProp(i)) {
       return defaultToReturn;
     }
   }
+  // ensure that if valueToReturn is false, to set it as the defaultToReturn.
+  // also check for 0 equality, since we still want to return 0s
+  if (!valueToReturn && valueToReturn !== 0) { valueToReturn = defaultToReturn; }
   return valueToReturn;
 };
 
@@ -325,7 +328,8 @@ export const userHasPermissions = (permissionsToCheck = [], userPermissions = []
 // found across the different saved search objects.
 // See Constants/PropTypes SAVED_SEARCH_OBJECT
 export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
-  const clonedSavedSearches = cloneDeep(savedSearchesObject.results);
+  const clonedSavedSearchesObject = cloneDeep(savedSearchesObject);
+  const clonedSavedSearches = clonedSavedSearchesObject.results;
   const mappedSearchTerms = clonedSavedSearches.slice().map(s => s.filters);
   const mappedSearchTermsFormatted = mappedSearchTerms.map((m) => {
     const filtered = m;
@@ -370,6 +374,11 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
   searchKeys.forEach((s) => { clonedSearchObject[s] = clonedSearchObject[s].split(','); });
 
   const arrayToReturn = [];
+
+  // Push the keyword search, since it won't match up with a real filter
+  if (savedSearchObject.q) {
+    arrayToReturn.push(savedSearchObject.q);
+  }
 
   searchKeys.forEach((s) => {
     clonedSearchObject[s].forEach((c) => {

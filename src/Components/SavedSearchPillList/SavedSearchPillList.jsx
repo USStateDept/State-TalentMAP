@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { shortenString } from '../../../../../utilities';
+import { shortenString } from '../../utilities';
 
 const SavedSearchPillList = ({ pills }) => (
   pills.length ?
