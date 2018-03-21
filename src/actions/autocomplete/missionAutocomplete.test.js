@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import axios from 'axios';
+import api from '../../api';
 import MockAdapter from 'axios-mock-adapter';
 import * as actions from './missionAutocomplete';
 
@@ -9,7 +9,7 @@ const mockStore = configureMockStore(middlewares);
 
 describe('async actions', () => {
   beforeEach(() => {
-    const mockAdapter = new MockAdapter(axios);
+    const mockAdapter = new MockAdapter(api);
 
     const results = [
       {
@@ -22,16 +22,16 @@ describe('async actions', () => {
       },
     ];
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/?q=Afgh&limit=3').reply(200,
+    mockAdapter.onGet('/country/?q=Afgh&limit=3').reply(200,
       results,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/?q=fake&limit=3').reply(404,
+    mockAdapter.onGet('/country/?q=fake&limit=3').reply(404,
       null,
     );
   });
 
-  it('can fetch post reuslts', (done) => {
+  it('can fetch post results', (done) => {
     const store = mockStore({ results: [] });
 
     const f = () => {

@@ -23,7 +23,7 @@ api.interceptors.response.use(response => response, (error) => {
       // exports of api to be undefined. So this causes an error for `userProfile.js` when
       // attempting to login. Went with the eslint quick re-enable to get around this.
       /* eslint-disable global-require */
-      require('./store').dispatch(logoutRequest());
+      require('./store').store.dispatch(logoutRequest());
       /* eslint-enable global-require */
       break;
 
