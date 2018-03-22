@@ -30,7 +30,7 @@ const DefinitionList = (props) => {
         props.children.length ?
           props.children :
           items.map(item => (
-            <Definition id="hi" key={shortid.generate()} {...item} />
+            <Definition key={shortid.generate()} {...item} />
           ))
        }
     </dl>

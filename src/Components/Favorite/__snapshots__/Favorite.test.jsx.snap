@@ -81,7 +81,10 @@ exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
   <FontAwesome
     name="star-o"
   />
-  Favorite
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;
 
@@ -166,6 +169,9 @@ exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
   <FontAwesome
     name="star"
   />
-  Remove
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;
