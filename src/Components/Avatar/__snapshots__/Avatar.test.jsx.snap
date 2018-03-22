@@ -1,16 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Avatar matches snapshot 1`] = `
-<span
+<InteractiveElement
   aria-label="John Doe"
   className="special-class"
   onClick={[Function]}
   role="img"
+  type="div"
 >
   <div
     className="tm-avatar"
   >
     JD
   </div>
-</span>
+</InteractiveElement>
 `;

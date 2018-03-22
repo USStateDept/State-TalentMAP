@@ -5,6 +5,7 @@ import Avatar from './Avatar';
 
 describe('Avatar', () => {
   const props = {
+    initials: 'JD',
     firstName: 'John',
     lastName: 'Doe',
     className: 'special-class',
@@ -16,7 +17,7 @@ describe('Avatar', () => {
   });
 
   it('contains attributes for accessibility', () => {
-    const wrapper = shallow(<Avatar {...props} />).find('span');
+    const wrapper = shallow(<Avatar {...props} />);
     const caption = `${props.firstName} ${props.lastName}`;
 
     expect(wrapper.prop('role')).toBe('img')
