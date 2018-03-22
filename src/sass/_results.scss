@@ -133,6 +133,20 @@ $filter-container-width: 100% - $results-container-width;
       }
     }
 
+    // Divider Accent
+    .divider {
+      &::after {
+        background-color: $bg-gray-dark-1;
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        right: -(10px + (10px - $button-gutter));
+        top: 0;
+        width: 1px;
+      }
+    }
+
     .usa-button {
       font-size: 1.3rem;
       font-weight: 400;
