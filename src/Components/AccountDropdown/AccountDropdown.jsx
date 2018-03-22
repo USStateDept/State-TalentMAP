@@ -28,6 +28,7 @@ export class AccountDropdown extends Component {
     const { shouldDisplayName, userProfile } = this.props;
     const displayName = userProfile ? userProfile.display_name : '...';
     const avatar = {
+      initials: get(userProfile, 'user.initials'),
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
     };

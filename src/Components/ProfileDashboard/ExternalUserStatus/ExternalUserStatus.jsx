@@ -5,11 +5,11 @@ import Status from '../UserProfile/Status';
 import USER_TYPES from '../../../Constants/UserTypes';
 import MailToButton from '../../MailToButton';
 
-const ExternalUserStatus = ({ firstName, lastName, type, showMail, email }) => (
+const ExternalUserStatus = ({ initials, firstName, lastName, type, showMail, email }) => (
   <div className="usa-grid-full cdo-container">
     <div className="usa-grid-full cdo-container-inner section-padded-inner-container">
       <div className="profile-picture-container">
-        <Avatar firstName={firstName} lastName={lastName} />
+        <Avatar intiias={initials} firstName={firstName} lastName={lastName} />
         <div className="picture-status-container">
           <Status hideText />
         </div>
@@ -30,6 +30,7 @@ const ExternalUserStatus = ({ firstName, lastName, type, showMail, email }) => (
 );
 
 ExternalUserStatus.propTypes = {
+  initials: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['cdo', 'ao', 'hr']).isRequired,

@@ -15,11 +15,12 @@ describe('AccountDropdown', () => {
     userProfile: {
       display_name: 'John Doe',
       user: {
+        initials: 'JD',
         first_name: 'John',
         last_name: 'Doe',
       },
     },
-  }
+  };
 
   it('is defined', () => {
     const accountDropdown = shallow(<AccountDropdown />);

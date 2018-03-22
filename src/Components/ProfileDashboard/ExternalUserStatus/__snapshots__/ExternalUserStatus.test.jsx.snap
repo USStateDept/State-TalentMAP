@@ -14,6 +14,7 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
         className=""
         firstName="John"
         initials=""
+        intiias="JD"
         lastName="Doe"
         onClick={[Function]}
       />

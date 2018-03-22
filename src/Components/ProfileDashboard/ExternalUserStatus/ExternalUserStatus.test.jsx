@@ -6,6 +6,7 @@ import ExternalUserStatus from './ExternalUserStatus';
 describe('ExternalUserStatusComponent', () => {
   const props = {
     type: 'cdo',
+    initials: 'JD',
     firstName: 'John',
     lastName: 'Doe',
   };
