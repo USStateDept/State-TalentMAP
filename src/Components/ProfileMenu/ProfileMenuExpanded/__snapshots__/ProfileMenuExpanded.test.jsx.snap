@@ -30,20 +30,28 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
           "title": "",
         }
       }
+      hidden={false}
       iconName="user"
+      search=""
       title="Profile"
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        link="/profile/dashboard/"
+        hidden={false}
+        link="/profile/dashboard"
+        search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
+        hidden={false}
         link="/profile/favorites/"
+        search=""
         title="Favorites"
       />
       <withRouter(NavLink)
+        hidden={false}
         link="/profile/searches/"
+        search=""
         title="Saved Searches"
       />
     </withRouter(NavLink)>
@@ -88,20 +96,28 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
           "title": "",
         }
       }
+      hidden={false}
       iconName="user"
+      search=""
       title="Profile"
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        link="/profile/dashboard/"
+        hidden={false}
+        link="/profile/dashboard"
+        search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
+        hidden={false}
         link="/profile/favorites/"
+        search=""
         title="Favorites"
       />
       <withRouter(NavLink)
+        hidden={false}
         link="/profile/searches/"
+        search=""
         title="Saved Searches"
       />
     </withRouter(NavLink)>
@@ -146,20 +162,28 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
           "title": "",
         }
       }
+      hidden={false}
       iconName="user"
+      search=""
       title="Profile"
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        link="/profile/dashboard/"
+        hidden={false}
+        link="/profile/dashboard"
+        search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
+        hidden={false}
         link="/profile/favorites/"
+        search=""
         title="Favorites"
       />
       <withRouter(NavLink)
+        hidden={false}
         link="/profile/searches/"
+        search=""
         title="Saved Searches"
       />
     </withRouter(NavLink)>
