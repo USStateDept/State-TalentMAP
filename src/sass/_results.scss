@@ -144,12 +144,11 @@
 }
 
 .filter-container {
-  background-color: $color-black;
   float: left;
-  font-size: .8em;
+  font-size: .9em;
   height: auto;
   margin-right: 0;
-  padding: 15px 10px;
+  padding: 0 10px 15px;
   width: 20%;
 
   label {
@@ -157,26 +156,38 @@
   }
 
   .reset-filters {
-    border-bottom: solid 1px;
+    color: $blue-primary;
     cursor: pointer;
     font-weight: bold;
+
+    .fa {
+      color: $color-red;
+      float: left;
+      margin: 2px 5px 0 0;
+    }
   }
 
   @media screen and (max-width: $screen-md-min) {
+    border: 1px solid $tm-navy-dark;
     height: 100px;
     margin-bottom: 10px;
     overflow-y: scroll;
+    padding: 15px 10px;
     width: 100%;
+
+    .filter-container-bottom {
+      margin: 15px 0;
+    }
   }
 
   .filter-container-top {
-    color: $color-white;
+    color: $color-gray-darkest;
     margin-bottom: .5em;
   }
 
   .filter-container-bottom {
-    color: $color-white;
-    margin: 15px 0;
+    color: $color-gray-darkest;
+    margin: 0 0 15px;
   }
 
   .filter-control-container {
@@ -191,6 +202,10 @@
   .filter-control-right {
     float: left;
     width: 50%;
+
+    span {
+      float: right;
+    }
   }
 }
 
@@ -260,9 +275,16 @@
     font-size: 1em;
   }
 
-  .usa-accordion-content {
-    background-color: $color-black;
+  .usa-accordion-button {
+    background-color: $tm-navy-dark;
     color: $color-white;
+    font-weight: normal;
+    padding: .7em;
+  }
+
+  .usa-accordion-content {
+    background-color: $color-gray-lightest-alt;
+    color: $color-black;
     font-size: 1.1em;
     padding: 1rem;
   }

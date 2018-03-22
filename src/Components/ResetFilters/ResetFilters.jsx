@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 import InteractiveElement from '../InteractiveElement';
 
 class ResetFilters extends Component {
@@ -21,7 +22,7 @@ class ResetFilters extends Component {
 
   render() {
     const { confirm } = this.state;
-    const text = confirm ? 'Are you sure?' : 'Reset Filters';
+    const text = confirm ? 'Are you sure?' : <span><FontAwesome name="times" />Clear Filters</span>;
     return (
       <div className="reset-filters-container">
         <InteractiveElement
