@@ -54,6 +54,17 @@ exports[`HomePageFiltersSectionComponent matches snapshot 1`] = `
               "description": "region",
             },
           },
+          Object {
+            "data": Array [
+              Object {
+                "id": 1,
+                "name": "Bid Cycle Winter 2019",
+              },
+            ],
+            "item": Object {
+              "description": "bidCycle",
+            },
+          },
         ]
       }
       isLoading={false}
