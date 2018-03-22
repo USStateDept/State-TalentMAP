@@ -10,6 +10,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
     <Avatar
       className="dashboard-user-profile-picture"
       firstName="John"
+      initials=""
       lastName="Doe"
       onClick={[Function]}
     />
@@ -33,6 +34,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
     <Avatar
       className="dashboard-user-profile-picture"
       firstName="John"
+      initials=""
       lastName="Doe"
       onClick={[Function]}
     />
@@ -56,6 +58,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
     <Avatar
       className="dashboard-user-profile-picture"
       firstName="John"
+      initials=""
       lastName="Doe"
       onClick={[Function]}
     />

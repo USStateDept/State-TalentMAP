@@ -13,6 +13,7 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
       <Avatar
         className=""
         firstName="John"
+        initials=""
         lastName="Doe"
         onClick={[Function]}
       />
