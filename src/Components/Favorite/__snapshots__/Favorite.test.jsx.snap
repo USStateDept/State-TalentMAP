@@ -15,8 +15,10 @@ exports[`Favorite matches snapshot - Add state 1`] = `
   <FontAwesome
     name="star-o"
   />
-   
-  Favorite
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;
 
@@ -35,8 +37,10 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
   <FontAwesome
     name="star"
   />
-   
-  Remove from Favorites
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;
 
@@ -55,8 +59,10 @@ exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
   <FontAwesome
     name="star-o"
   />
-   
-  Favorite
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;
 
@@ -75,8 +81,10 @@ exports[`Favorite matches snapshot when useLongText is true - Add state 1`] = `
   <FontAwesome
     name="star-o"
   />
-   
-  Add to Favorites
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;
 
@@ -95,8 +103,10 @@ exports[`Favorite matches snapshot when useLongText is true - Remove state 1`] =
   <FontAwesome
     name="star"
   />
-   
-  Remove
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;
 
@@ -115,7 +125,9 @@ exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
   <FontAwesome
     name="star"
   />
-   
-  Remove
+  <MediaQueryWrapper
+    breakpoint="screenMdMax"
+    widthType="max"
+  />
 </InteractiveElement>
 `;

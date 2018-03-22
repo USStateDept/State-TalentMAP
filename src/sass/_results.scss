@@ -39,7 +39,7 @@
     margin-top: 0.2rem;
     margin-bottom: 1rem;
 
-    h1,
+    h3,
     dt,
     dd {
       font-family: "Roboto";
@@ -48,7 +48,7 @@
       font-size: 1.7rem;
     }
 
-    h1,
+    h3,
     dt {
       font-weight: 500;
     }
@@ -121,6 +121,15 @@
         margin: 0em;
         width: em(14px);
       }
+
+      @media screen and (max-width: $screen-md-max) {
+        padding-left: 1rem;
+        right: 1rem;
+      }
+    }
+
+    @media screen and (max-width: $screen-md-min) {
+      float: left;
     }
 
     .favorite-container {
@@ -141,7 +150,7 @@
 
       &:hover {
         color: $primary-blue-darker;
-        box-shadow:: $button-box-shadow $primary-blue-darker;
+        box-shadow: $button-box-shadow $primary-blue-darker;
       }
 
       &:disabled,

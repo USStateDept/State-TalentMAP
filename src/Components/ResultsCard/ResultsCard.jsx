@@ -107,7 +107,7 @@ const ResultsCard = (props) => {
     <div id={result.id} className="results-card">
       <Row className="header" fluid>
         <Column columns="5">
-          <h1>{result.title}</h1>
+          <h3>{result.title}</h3>
           <Link to={`/details/${result.position_number}`} title="View Details">View Details</Link>
         </Column>
         <Column columns="7">

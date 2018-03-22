@@ -15,9 +15,9 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
       className=""
       columns="5"
     >
-      <h1>
+      <h3>
         OMS (DCM)
-      </h1>
+      </h3>
       <Link
         replace={false}
         title="View Details"
@@ -56,7 +56,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
         items={
           Object {
             "Grade": "06",
-            "Language": "",
+            "Language": "None listed",
             "Post": "Monrovia, Liberia",
             "Skill Code": "OFFICE MANAGEMENT (9017)",
           }
@@ -75,7 +75,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
             "Bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
             "Incumbent": "John Doe",
             "Tour of Duty": "2 YRS (2 R & R)",
-            "Transfer Eligibility Date": "",
+            "Transfer Eligibility Date": "3.13.2020",
           }
         }
         truncate={true}
@@ -116,7 +116,7 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
           className="usa-button usa-button-secondary"
           limit={5}
           onToggle={[Function]}
-          refKey={6}
+          refKey="10034001"
           type="compare"
         />
       </Column>
