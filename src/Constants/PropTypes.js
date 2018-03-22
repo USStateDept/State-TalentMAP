@@ -180,6 +180,7 @@ export const USER_SKILL_CODE_ARRAY = PropTypes.arrayOf(USER_SKILL_CODE);
 export const USER_NESTED_OBJECT = PropTypes.shape({
   username: PropTypes.string,
   email: PropTypes.string,
+  initials: PropTypes.string,
   first_name: PropTypes.string,
   last_name: PropTypes.string,
 });
@@ -261,6 +262,7 @@ export const REGION_SELECTION = PropTypes.shape({
 
 export const BID_REVIEWER_OBJECT = PropTypes.shape({
   username: PropTypes.string,
+  initials: PropTypes.string,
   first_name: PropTypes.string,
   last_name: PropTypes.string,
   email: PropTypes.string,
@@ -381,6 +383,7 @@ export const NOTIFICATION_LIST = PropTypes.shape({
 
 export const CDO_OBJECT = PropTypes.shape({
   username: PropTypes.string,
+  initials: PropTypes.string,
   first_name: PropTypes.string,
   last_name: PropTypes.string,
   email: PropTypes.string,
