@@ -1,6 +1,6 @@
 import { expectSaga } from 'redux-saga-test-plan';
-import api from '../api';
 import MockAdapter from 'axios-mock-adapter';
+import api from '../api';
 import loginWatcher, { changeErrorMessage, errorMessage, loginApi } from './sagas';
 
 describe('login functions', () => {

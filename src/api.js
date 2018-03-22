@@ -9,11 +9,12 @@ export const config = {
 const api = axios.create(config);
 
 api.interceptors.request.use((request) => {
+  const requestWithAuth = request;
   if (hasValidToken()) {
-    request.headers.Authorization = fetchUserToken();
+    requestWithAuth.headers.Authorization = fetchUserToken();
   }
 
-  return request;
+  return requestWithAuth;
 });
 
 api.interceptors.response.use(response => response, (error) => {

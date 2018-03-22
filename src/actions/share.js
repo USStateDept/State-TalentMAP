@@ -5,21 +5,21 @@ export function shareHasErrored(bool) {
     type: 'SHARE_HAS_ERRORED',
     hasErrored: bool,
   };
-};
+}
 
 export function shareIsSending(bool) {
   return {
     type: 'SHARE_IS_SENDING',
     isLoading: bool,
   };
-};
+}
 
 export function shareSuccess(share) {
   return {
     type: 'SHARE_SUCCESS',
     share,
   };
-};
+}
 
 export function shareSendData(data) {
   return (dispatch) => {
@@ -35,11 +35,11 @@ export function shareSendData(data) {
       .then(share => dispatch(shareSuccess(share)))
       .catch((err) => {
         dispatch(shareHasErrored(
-          err.response.data.message || 'An error occurred trying to share this position.'
+          err.response.data.message || 'An error occurred trying to share this position.',
         ));
         dispatch(shareIsSending(false));
         dispatch(shareSuccess(false));
         return err.response.data.message;
       });
   };
-};
+}
