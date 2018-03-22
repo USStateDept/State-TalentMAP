@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { Row, Column } from '../Layout';
 import DefinitionList, { Definition } from '../DefinitionList';
 import Favorite from '../Favorite/Favorite';
+import MediaQueryWrapper from '../MediaQuery';
 import BidCount from '../BidCount';
 import CompareCheck from '../CompareCheck/CompareCheck';
 
@@ -104,41 +105,48 @@ const ResultsCard = (props) => {
   };
 
   return (
-    <div id={result.id} className="results-card">
-      <Row className="header" fluid>
-        <Column columns="5">
-          <h3>{result.title}</h3>
-          <Link to={`/details/${result.position_number}`} title="View Details">View Details</Link>
-        </Column>
-        <Column columns="7">
-          <DefinitionList items={sections[0]} />
-        </Column>
-      </Row>
-      <Row id={result.id} fluid>
-        <Column columns="5">
-          <DefinitionList items={sections[1]} />
-        </Column>
-        <Column columns="7">
-          <DefinitionList items={sections[2]} />
-        </Column>
-      </Row>
-      <Row className="footer" fluid>
-        <Column>
-          <Column columns="5" as="section">
-            {
-              !!favorites &&
-                <Favorite {...options.favorite} />
-            }
-            <CompareCheck className="usa-button usa-button-secondary" {...options.compare} />
-          </Column>
-          <Column columns="7" as="section">
-            <div>
-              <DefinitionList items={sections[3]} />
-            </div>
-          </Column>
-        </Column>
-      </Row>
-    </div>
+    <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
+      {(matches) => {
+        const columns = matches ? [5, 6] : [5, 6];
+        return (
+          <div id={result.id} className="results-card">
+            <Row className="header" fluid>
+              <Column columns={columns[0]}>
+                <h3>{result.title}</h3>
+                <Link to={`/details/${result.position_number}`} title="View Details">View Details</Link>
+              </Column>
+              <Column columns={columns[1]}>
+                <DefinitionList items={sections[0]} />
+              </Column>
+            </Row>
+            <Row id={result.id} fluid>
+              <Column columns={columns[0]}>
+                <DefinitionList items={sections[1]} />
+              </Column>
+              <Column columns={columns[1]}>
+                <DefinitionList items={sections[2]} />
+              </Column>
+            </Row>
+            <Row className="footer" fluid>
+              <Column>
+                <Column className="divider" columns={columns[0]} as="section">
+                  {
+                    !!favorites &&
+                      <Favorite {...options.favorite} />
+                  }
+                  <CompareCheck className="usa-button usa-button-secondary" {...options.compare} />
+                </Column>
+                <Column columns={columns[1]} as="section">
+                  <div>
+                    <DefinitionList items={sections[3]} />
+                  </div>
+                </Column>
+              </Column>
+            </Row>
+          </div>
+        );
+      }}
+    </MediaQueryWrapper>
   );
 };
 

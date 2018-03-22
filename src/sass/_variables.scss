@@ -1,14 +1,13 @@
-/**
- * Global Variables
- */
-
+//**
+//* Global Variables
+//*
 // We also import variables from ./sass-vars with sass-vars-loader
 @import '~uswds/dist/scss/lib/bourbon';
 @import '~uswds/dist/scss/core/variables';
 
-/**
- * Color Palette
- */
+//**
+//* Color Palette
+//*
 // Primary
 $primary-blue: #0071BC;
 $primary-blue-darker: #205493;
@@ -43,23 +42,23 @@ $tertiary-success-lightest: #E7F4E4;
 $tertiary-cool-blue: #205493;
 $tertiary-cool-blue-light: #4773AA;
 $tertiary-cool-blue-lighter: #8BA6CA;
-$tertiary-cool-blue-lightest: #dce4ef;
+$tertiary-cool-blue-lightest: #DCE4EF;
 
 // Background
-$bg-gray-dark-0: #323045; /* Base */
+$bg-gray-dark-0: #323045; //# Base
 $bg-gray-dark-1: #5B616B;
 $bg-gray-dark-2: #AEB0B5;
 $bg-gray-dark-3: #D6D7D9;
-$bg-gray-dark-4: #F1F1F1; /* Lightest */
+$bg-gray-dark-4: #F1F1F1; //# Lightest
 
-$bg-gray-medium-0: #B1B1B1; /* Base */
+$bg-gray-medium-0: #B1B1B1; //# Base
 $bg-gray-medium-1: #CCCCCC;
 $bg-gray-medium-2: #E0E0E0;
-$bg-gray-medium-3: #F0F0F0; /* Lightest */
+$bg-gray-medium-3: #F0F0F0; //# Lightest
 
-$bg-blue-dark-0: #112E51; /* Base */
+$bg-blue-dark-0: #112E51; //# Base
 $bg-blue-dark-1: #00293F;
-$bg-blue-dark-2: #DCE4EF; /* Lightest */
+$bg-blue-dark-2: #DCE4EF; //# Lightest
 
 // Special State
 $progress: $tertiary-success;
@@ -71,7 +70,7 @@ $growth: #00FA87;
 $growth-dark: #009472;
 
 // Main
-$alert-red: #b03c3f;
+$alert-red: #B03C3F;
 
 $blue-primary-light: #E6F1F8;
 $blue-primary: $primary-blue;
@@ -110,17 +109,17 @@ $tm-gray: #AAAAAA;
 $tm-navy: #215493;
 $tm-navy-dark: $blue-primary-darkest;
 
-/**
- * Avatar Dropdown
- */
+//**
+//* Avatar Dropdown
+//*
 $avatar-background: $color-white;
 $avatar-dropdown-border-top-color: rgba(0, 0, 0, .05);
 $avatar-dropdown-box-shadow-color: rgba(0, 0, 0, .15);
 $avatar-dropdown-account-segment-color: #E1E1E1;
 
-/**
- * Editor
- */
+//**
+//* Editor
+//*
 $editor-background: #FEFEFE;
 $editor-border: #DDDDDD;
 $editor-box-shadow: #ABABAB;
@@ -131,9 +130,9 @@ $editor-headline-color: #888888;
 $results-card-accent: $blue-primary;
 $results-card-border: $color-gray-lighter;
 
-/**
- * z-index
- */
+//**
+//* z-index
+//*
 // we'll use this section to keep track of and order them
 $autosuggest-suggestions-container-open-z: 2;
 $spinner-z: 100;
