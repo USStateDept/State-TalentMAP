@@ -150,7 +150,7 @@
   }
 
   .current-user-section {
-    // min-height: 350px;
+    min-height: 350px;
   }
 
   .current-user-section-container:last-child {
@@ -286,7 +286,7 @@
     display: inline-block;
     width: $avatar-size;
     height: $avatar-size;
-    margin: 1em 0 2em;
+    margin: 1em 0;
     vertical-align: middle;
   }
 
