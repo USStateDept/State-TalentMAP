@@ -1,6 +1,7 @@
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import api from '../api';
+import isCurrentPath from '../Components/ProfileMenu/navigation';
 
 // Our login constants
 import {
@@ -62,8 +63,15 @@ function* logout() {
   // .. inform redux that our logout was successful
   yield put({ type: LOGOUT_SUCCESS });
 
+  // Check if the user is already on the login page. We don't want a race
+  // condition to infinitely loop them back to the login page, should
+  // any requests be made that result in 401
+  const isOnLoginPage = isCurrentPath(window.location.pathname, '/login');
+
   // redirect to the /login screen
-  yield put(push('/login'));
+  if (!isOnLoginPage) {
+    yield put(push('/login'));
+  }
 }
 
 function* loginFlow(username, password) {
