@@ -45,6 +45,25 @@ describe('SavedSearchesContainer', () => {
     wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
     sinon.assert.calledOnce(spy);
   });
+
+  it('can call the getSortedSearches function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <SavedSearchesContainer.WrappedComponent
+        onNavigateTo={() => {}}
+        fetchData={() => {}}
+        savedSearchesFetchData={spy}
+        setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
+        ChildElement={ChildElement}
+        mappedParams={[]}
+      />,
+    );
+    wrapper.instance().getSortedSearches({ target: { value: 'title' } });
+    // fetchData is called once at mount,
+    // and should be called twice after getSortedFavorites is called.
+    sinon.assert.calledTwice(spy);
+  });
 });
 
 describe('mapDispatchToProps', () => {

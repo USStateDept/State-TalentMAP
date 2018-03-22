@@ -8,8 +8,25 @@ import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/D
 import { mapSavedSearchesToSingleQuery } from '../../utilities';
 
 class SavedSearchesMap extends Component {
-  componentWillMount() {
-    const { filters, fetchFilters, savedSearches } = this.props;
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasSetupValues: false,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setupValues(nextProps);
+  }
+
+  setupValues(nextProps) {
+    const { filters, fetchFilters, savedSearches, savedSearchesIsLoading,
+      cloneSavedSearchIsLoading, deleteSavedSearchIsLoading } = nextProps;
+    const { hasSetupValues } = this.state;
+
+    // is anything loading from the parent? if so, don't try to fetch filters
+    const isLoading = savedSearchesIsLoading || cloneSavedSearchIsLoading
+      || deleteSavedSearchIsLoading;
 
     const mappedSearchQuery = mapSavedSearchesToSingleQuery(savedSearches);
 
@@ -19,9 +36,13 @@ class SavedSearchesMap extends Component {
     // to not perform AJAX, and simply compare
     // the query params against the filters.
     // Don't try to fetch filters if filtersIsLoading is true.
-    if (filters.hasFetched) {
+    // We'll only perform this once after component mount, so we
+    // set hasSetupValues to true after completing setup.
+    if (filters.hasFetched && !isLoading && !hasSetupValues) {
+      this.setState({ hasSetupValues: true });
       fetchFilters(filters, mappedSearchQuery, filters);
-    } else { // if not, we'll perform AJAX
+    } else if (!isLoading && !hasSetupValues) { // if not, we'll perform AJAX
+      this.setState({ hasSetupValues: true });
       fetchFilters(filters, mappedSearchQuery);
     }
   }
@@ -31,7 +52,7 @@ class SavedSearchesMap extends Component {
       savedSearchesHasErrored, savedSearchesIsLoading, deleteSavedSearchHasErrored,
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
       cloneSavedSearchHasErrored, cloneSavedSearchSuccess, goToSavedSearch,
-      filtersIsLoading } = this.props;
+      filtersIsLoading, onSortChange } = this.props;
 
     const props = {
       savedSearches,
@@ -48,6 +69,7 @@ class SavedSearchesMap extends Component {
       goToSavedSearch,
       cloneSavedSearch,
       filtersIsLoading,
+      onSortChange,
       mappedParams: filters.mappedParams || [],
     };
 
@@ -74,6 +96,7 @@ SavedSearchesMap.propTypes = {
   fetchFilters: PropTypes.func.isRequired,
   ChildElement: PropTypes.func.isRequired,
   filtersIsLoading: PropTypes.bool,
+  onSortChange: PropTypes.func.isRequired,
 };
 
 SavedSearchesMap.defaultProps = {
