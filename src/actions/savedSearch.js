@@ -101,11 +101,13 @@ export function routeChangeUnsetCurrentSearch() {
   };
 }
 
-export function savedSearchesFetchData() {
+export function savedSearchesFetchData(sortType) {
   return (dispatch) => {
     dispatch(savedSearchesIsLoading(true));
     dispatch(savedSearchesHasErrored(false));
-    axios.get(`${api}/searches/`, { headers: { Authorization: fetchUserToken() } })
+    let url = `${api}/searches/`;
+    if (sortType) { url += `?ordering=${sortType}`; }
+    axios.get(url, { headers: { Authorization: fetchUserToken() } })
             .then(response => response.data)
             .then((results) => {
               dispatch(savedSearchesSuccess(results));
