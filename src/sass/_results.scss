@@ -39,7 +39,7 @@
     margin-top: 0.2rem;
     margin-bottom: 1rem;
 
-    h1,
+    h3,
     dt,
     dd {
       margin-top: 0rem;
@@ -47,9 +47,9 @@
       font-size: 1.8rem;
     }
 
-    h1 {
-      font-family: "Roboto";
-      text-transform: uppercase;
+    h3,
+    dt {
+      font-weight: 500;
     }
   }
 
@@ -119,6 +119,15 @@
         position: relative;
         width: em(14px);
       }
+
+      @media screen and (max-width: $screen-md-max) {
+        padding-left: 1rem;
+        right: 1rem;
+      }
+    }
+
+    @media screen and (max-width: $screen-md-min) {
+      float: left;
     }
 
     .favorite-container {
@@ -145,7 +154,7 @@
 
       &:hover {
         color: $primary-blue-darker;
-        box-shadow:: $button-box-shadow $primary-blue-darker;
+        box-shadow: $button-box-shadow $primary-blue-darker;
       }
 
       &:disabled,

@@ -1,15 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import InteractiveElement from '../InteractiveElement';
+import MediaQueryWrapper from '../MediaQuery';
+
 import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import { existsInArray } from '../../utilities';
-import InteractiveElement from '../InteractiveElement';
+
+const Types = {
+  SHORT: 0,
+  LONG: 1,
+};
+
+const States = {
+  UNCHECKED: 'unchecked',
+  CHECKED: 'checked',
+};
+
+/**
+ * @interface
+ * interface Texts {
+ *   [key: States]: [
+ *    [key in Types]: string;
+ *   ];
+ * }
+ */
+const Texts = {
+  checked: [
+    'Remove',
+    'Remove from Favorites',
+  ],
+
+  unchecked: [
+    'Favorite',
+    'Add to Favorites',
+  ],
+};
+
+const getText$ = (state, type) => Texts[state][type];
 
 class Favorite extends Component {
   constructor(props) {
     super(props);
-    this.toggleSaved = this.toggleSaved.bind(this);
-
     this.state = {
       loading: props.isLoading,
     };
@@ -36,13 +68,31 @@ class Favorite extends Component {
     return isUpdate;
   }
 
+  get icon() {
+    return this.getSavedState() ? 'star' : 'star-o';
+  }
+
+  get title() {
+    const state = this.getSavedState() ? States.CHECKED : States.UNCHECKED;
+    return getText$(state, Types.LONG);
+  }
+
   getSavedState() {
     // Is the refKey in the array? If so, return true
     const { compareArray, refKey } = this.props;
     return existsInArray(refKey, compareArray);
   }
 
-  toggleSaved() {
+  getText(enforceShort = false) {
+    const { hideText, useLongText } = this.props;
+    const checked = this.getSavedState();
+    const state = checked ? States.CHECKED : States.UNCHECKED;
+    const type = (useLongText && !enforceShort) ? Types.LONG : Types.SHORT;
+
+    return hideText ? null : getText$(state, type);
+  }
+
+  toggleSaved = () => {
     const { onToggle, refKey } = this.props;
 
     this.setState({
@@ -54,46 +104,30 @@ class Favorite extends Component {
   }
 
   render() {
-    const { as: type, className, hideText, useLongText, hasBorder } = this.props;
+    const { loading } = this.state;
+    const {
+      as: type,
+      className,
+      hasBorder,
+      useButtonClass,
+      useSpinnerWhite,
+    } = this.props;
 
+    const icon = this.icon;
+    const title = this.title;
+    const onClick = this.toggleSaved;
     const style = {
       pointerEvents: this.state.loading ? 'none' : 'inherit',
     };
 
-    const shortTextFavorite = 'Favorite';
-    const longTextFavorite = 'Add to Favorites';
-    const shortTextRemove = 'Remove';
-    const longTextRemove = 'Remove from Favorites';
+    const options = {
+      type,
+      title,
+      style,
+      onClick,
+    };
 
-    let options = {};
     let classNames = ['favorite-container'];
-    let favoriteText = shortTextFavorite;
-    let removeText = shortTextRemove;
-
-    if (useLongText) {
-      favoriteText = longTextFavorite;
-      removeText = longTextRemove;
-    }
-
-    // Set defaults
-    let text = favoriteText;
-    let title = 'Add to Favorites';
-    let icon = 'star-o';
-
-    // Update for saved state
-    if (this.getSavedState()) {
-      text = removeText;
-      title = 'Remove from Favorites';
-      icon = 'star';
-    }
-    if (hideText) {
-      text = null;
-    }
-
-    // Text configs
-    if (hideText) {
-      text = null;
-    }
 
     // Class configs
     if (hasBorder) {
@@ -105,19 +139,23 @@ class Favorite extends Component {
       .join(' ')
       .trim();
 
-    options = {
-      type,
-      title,
-      style,
-      className: classNames,
-      onClick: this.toggleSaved,
-    };
+    options.className = classNames;
+
+    let spinnerClass = 'ds-c-spinner';
+    if (useButtonClass || useSpinnerWhite) {
+      spinnerClass = `${spinnerClass} spinner-white`;
+    }
 
     return (
       <InteractiveElement {...options}>
-        {this.state.loading ?
-          (<span className="ds-c-spinner" />) :
-          (<FontAwesome name={icon} />)}{text}
+        {loading ?
+          (<span className={spinnerClass} />) :
+          (<FontAwesome name={icon} />)}
+        <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
+          {matches => (
+            <span>{this.getText(matches)}</span>
+          )}
+        </MediaQueryWrapper>
       </InteractiveElement>
     );
   }
