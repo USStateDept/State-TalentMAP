@@ -84,20 +84,6 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             throw error;
           });
         }
-        if (item.selectionRef === ENDPOINT_PARAMS.mission) {
-          dispatch(filtersIsLoading(true));
-          return axios.get(`${api}/country/${item.codeRef}/`)
-          .then((response) => {
-            const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
-            // push the object to cache
-            responses.asyncFilterCache.push(obj);
-            // and return the object
-            return obj;
-          })
-          .catch((error) => {
-            throw error;
-          });
-        }
         return {};
       });
 

@@ -144,20 +144,6 @@ const items =
       },
       {
         item: {
-          title: 'Mission',
-          sort: 1000,
-          bool: false,
-          description: 'mission',
-          endpoint: 'country/?limit=7',
-          selectionRef: ENDPOINT_PARAMS.mission,
-          choices: [
-          ],
-        },
-        data: [
-        ],
-      },
-      {
-        item: {
           title: 'Post',
           sort: 1100,
           bool: false,
