@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
-import InteractiveElement from '../InteractiveElement';
 
 const propTypes = {
   initials: PropTypes.string,
@@ -20,9 +19,11 @@ const defaultProps = {
 };
 
 const Avatar = ({ initials, firstName, lastName, className, onClick }) => (
-  <InteractiveElement className={className} onClick={onClick} role="img" aria-label={`${firstName} ${lastName}`}>
-    <div className="tm-avatar">{initials}</div>
-  </InteractiveElement>
+  /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+  <div className={`tm-avatar ${className}`} onClick={onClick} role="img" aria-label={`${firstName} ${lastName}`}>
+    {initials}
+  </div>
+  /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
 );
 
 Avatar.propTypes = propTypes;
