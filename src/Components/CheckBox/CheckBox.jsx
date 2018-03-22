@@ -19,10 +19,10 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { id, label, title, name, labelSrOnly, small } = this.props;
+    const { id, label, title, name, labelSrOnly, small, className } = this.props;
     const { checked } = this.state;
     return (
-      <div className={`usa-grid-full tm-checkbox ${small ? 'tm-checkbox-small' : ''}`}>
+      <div className={`usa-grid-full ${className} tm-checkbox ${small ? 'tm-checkbox-small' : ''}`}>
         <input
           type="checkbox"
           id={id}
@@ -47,6 +47,7 @@ CheckBox.propTypes = {
   onCheckBoxClick: PropTypes.func,
   labelSrOnly: PropTypes.bool,
   small: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 CheckBox.defaultProps = {
@@ -55,6 +56,7 @@ CheckBox.defaultProps = {
   onCheckBoxClick: EMPTY_FUNCTION,
   labelSrOnly: false,
   small: false,
+  className: '',
 };
 
 export default CheckBox;
