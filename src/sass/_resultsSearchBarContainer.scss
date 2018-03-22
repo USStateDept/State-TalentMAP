@@ -1,6 +1,4 @@
 // Overrides styles for the react-select module
-// scss-lint:disable SelectorFormat
-
 $input-height: 40px;
 
 .results-search-bar {
@@ -58,8 +56,8 @@ $input-height: 40px;
     margin-top: 35px;
 
     button {
+      font-size: .9em;
       padding: 10px 25px;
-      font-size: 0.9em;
     }
   }
 
@@ -144,11 +142,11 @@ $input-height: 40px;
 
   .search-submit-button {
     button {
-      min-width: 90px;
-      margin-top: 5px;
-      padding: 12px 10px;
-      font-size: 0.8em;
+      font-size: .8em;
       line-height: rem(16);
+      margin-top: 5px;
+      min-width: 90px;
+      padding: 12px 10px;
     }
   }
 
