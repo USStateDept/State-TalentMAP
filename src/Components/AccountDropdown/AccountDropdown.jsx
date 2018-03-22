@@ -27,10 +27,12 @@ export class AccountDropdown extends Component {
   render() {
     const { shouldDisplayName, userProfile } = this.props;
     const displayName = userProfile ? userProfile.display_name : '...';
+    const initials = userProfile ? userProfile.initials : '';
     const avatar = {
-      initials: get(userProfile, 'user.initials'),
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
+      initials,
+      displayName,
     };
 
     const isLoading = compact(values(avatar)).length > 0;

@@ -8,7 +8,8 @@ const UserProfileGeneralInformation = ({ userProfile }) => (
     <div className="section-padded-inner-container">
       <Avatar
         className="dashboard-user-profile-picture"
-        initials={userProfile.user.initials}
+        initials={userProfile.initials}
+        display_name={userProfile.display_name}
         firstName={userProfile.user.first_name}
         lastName={userProfile.user.last_name}
       />
