@@ -18,6 +18,7 @@ class SavedSearchesContainer extends Component {
   constructor(props) {
     super(props);
     this.goToSavedSearch = this.goToSavedSearch.bind(this);
+    this.getSortedSearches = this.getSortedSearches.bind(this);
   }
 
   componentWillMount() {
@@ -28,6 +29,13 @@ class SavedSearchesContainer extends Component {
 
   getSavedSearches() {
     this.props.savedSearchesFetchData();
+  }
+
+  getSortedSearches(type) {
+    if (type.target && type.target.value) {
+      this.props.savedSearchesFetchData(type.target.value);
+      this.setState({ defaultSort: type.target.value });
+    }
   }
 
   goToSavedSearch(savedSearchObject) {
@@ -42,24 +50,23 @@ class SavedSearchesContainer extends Component {
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
       cloneSavedSearchHasErrored, cloneSavedSearchSuccess } = this.props;
     return (
-      !savedSearchesIsLoading ?
-        <div className="saved-search-parent-container">
-          <SavedSearchesMap
-            savedSearches={savedSearches}
-            goToSavedSearch={this.goToSavedSearch}
-            deleteSearch={deleteSearch}
-            deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
-            deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
-            deleteSavedSearchSuccess={deleteSavedSearchSuccess}
-            cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
-            cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
-            cloneSavedSearchSuccess={cloneSavedSearchSuccess}
-            cloneSavedSearch={cloneSearch}
-            ChildElement={ChildElement}
-          />
-        </div>
-        :
-        <div className="saved-search-parent-container" />
+      <div className="saved-search-parent-container">
+        <SavedSearchesMap
+          savedSearches={savedSearches}
+          savedSearchesIsLoading={savedSearchesIsLoading}
+          goToSavedSearch={this.goToSavedSearch}
+          deleteSearch={deleteSearch}
+          deleteSavedSearchIsLoading={deleteSavedSearchIsLoading}
+          deleteSavedSearchHasErrored={deleteSavedSearchHasErrored}
+          deleteSavedSearchSuccess={deleteSavedSearchSuccess}
+          cloneSavedSearchIsLoading={cloneSavedSearchIsLoading}
+          cloneSavedSearchHasErrored={cloneSavedSearchHasErrored}
+          cloneSavedSearchSuccess={cloneSavedSearchSuccess}
+          cloneSavedSearch={cloneSearch}
+          ChildElement={ChildElement}
+          onSortChange={this.getSortedSearches}
+        />
+      </div>
     );
   }
 }
@@ -118,7 +125,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 export const mapDispatchToProps = dispatch => ({
   onNavigateTo: dest => dispatch(push(dest)),
-  savedSearchesFetchData: () => dispatch(savedSearchesFetchData()),
+  savedSearchesFetchData: sortType => dispatch(savedSearchesFetchData(sortType)),
   setCurrentSavedSearch: e => dispatch(setCurrentSavedSearch(e)),
   deleteSearch: id => dispatch(deleteSavedSearch(id)),
   routeChangeResetState: () => dispatch(routeChangeResetState()),

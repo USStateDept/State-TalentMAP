@@ -32,6 +32,16 @@ describe('SavedSearchesListComponent', () => {
       .toBe(searchObjectParent.results[0].id);
   });
 
+  it('displays an alert if there are no results', () => {
+    const wrapper = shallow(
+      <SavedSearchesList
+        {...props}
+        savedSearches={{ results: [] }}
+      />,
+    );
+    expect(wrapper.find('Alert').exists()).toBe(true);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <SavedSearchesList

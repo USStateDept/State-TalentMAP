@@ -22,12 +22,13 @@ describe('SavedSearchesMapContainer', () => {
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
         ChildElement={ChildElement}
+        onSortChange={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
 
-  it('calls fetchFilters if filters.hasFetched is true and filtersIsLoading is false', () => {
+  it('calls fetchFilters if filters.hasFetched is true and savedSearchesIsLoading is false', () => {
     let setArgsAgainst = [];
     function spy(...rest) {
       setArgsAgainst = [...rest];
@@ -42,11 +43,35 @@ describe('SavedSearchesMapContainer', () => {
         ChildElement={ChildElement}
         fetchFilters={spy}
         filtersIsLoading={false}
+        onSortChange={() => {}}
+        savedSearchesIsLoading={false}
       />,
     );
     wrapper.setProps({ filters: { ...wrapper.instance().props.filters, hasFetched: true } });
-    wrapper.instance().componentWillMount();
     expect(setArgsAgainst.length).toBe(3);
+  });
+
+  it('calls fetchFilters if filters.hasFetched is false and savedSearchesIsLoading is false', () => {
+    let setArgsAgainst = [];
+    function spy(...rest) {
+      setArgsAgainst = [...rest];
+    }
+    const wrapper = shallow(
+      <SavedSearchesMap.WrappedComponent
+        onNavigateTo={() => {}}
+        fetchData={() => {}}
+        savedSearchesFetchData={() => {}}
+        setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
+        ChildElement={ChildElement}
+        fetchFilters={spy}
+        filtersIsLoading={false}
+        onSortChange={() => {}}
+        savedSearchesIsLoading={false}
+      />,
+    );
+    wrapper.setProps({ filters: { ...wrapper.instance().props.filters, hasFetched: false } });
+    expect(setArgsAgainst.length).toBe(2);
   });
 });
 
