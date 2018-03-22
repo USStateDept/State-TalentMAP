@@ -20,7 +20,7 @@ describe('Avatar', () => {
     const wrapper = shallow(<Avatar {...props} />);
     const caption = `${props.firstName} ${props.lastName}`;
 
-    expect(wrapper.prop('role')).toBe('img')
+    expect(wrapper.prop('role')).toBe('img');
     expect(wrapper.prop('aria-label')).toBe(caption);
   });
 
