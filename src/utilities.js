@@ -3,11 +3,8 @@ import queryString from 'query-string';
 import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
 import numeral from 'numeral';
-<<<<<<< HEAD
 import cloneDeep from 'lodash/cloneDeep';
-=======
 import { get } from 'lodash';
->>>>>>> f2d763fe... Stale Token API Interceptors
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;

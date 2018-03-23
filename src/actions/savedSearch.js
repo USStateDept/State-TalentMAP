@@ -115,22 +115,9 @@ export function savedSearchesFetchData(sortType) {
   return (dispatch) => {
     dispatch(savedSearchesIsLoading(true));
     dispatch(savedSearchesHasErrored(false));
-<<<<<<< HEAD
-    let url = `${api}/searches/`;
+    let url = '/searches/';
     if (sortType) { url += `?ordering=${sortType}`; }
-    axios.get(url, { headers: { Authorization: fetchUserToken() } })
-            .then(response => response.data)
-            .then((results) => {
-              dispatch(savedSearchesSuccess(results));
-              dispatch(savedSearchesIsLoading(false));
-              dispatch(savedSearchesHasErrored(false));
-            })
-            .catch(() => {
-              dispatch(savedSearchesIsLoading(false));
-              dispatch(savedSearchesHasErrored(true));
-            });
-=======
-    api.get('/searches/')
+    api.get(url)
       .then(response => response.data)
       .then((results) => {
         dispatch(savedSearchesIsLoading(false));
@@ -141,7 +128,6 @@ export function savedSearchesFetchData(sortType) {
         dispatch(savedSearchesIsLoading(false));
         dispatch(savedSearchesHasErrored(true));
       });
->>>>>>> f2d763fe... Stale Token API Interceptors
   };
 }
 

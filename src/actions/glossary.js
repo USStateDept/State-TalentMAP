@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import axios from 'axios';
-import { fetchUserToken } from '../utilities';
-=======
 import { first, get, isArray, merge } from 'lodash';
->>>>>>> f2d763fe... Stale Token API Interceptors
 import api from '../api';
 import { EMPTY_FUNCTION } from '../Constants/PropTypes';
 
@@ -88,19 +83,6 @@ export function glossaryFetchData(bypassLoading = false) {
     if (!bypassLoading) {
       dispatch(glossaryIsLoading(true));
     }
-<<<<<<< HEAD
-    dispatch(glossaryHasErrored(false));
-    axios.get(`${api}/glossary/?is_archived=false`, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryFetchDataSuccess(data));
-          dispatch(glossaryIsLoading(false));
-          dispatch(glossaryHasErrored(false));
-        })
-        .catch(() => {
-          dispatch(glossaryIsLoading(false));
-          dispatch(glossaryHasErrored(true));
-        });
-=======
 
     api
       .get('/glossary/?is_archived=false')
@@ -113,7 +95,6 @@ export function glossaryFetchData(bypassLoading = false) {
         dispatch(glossaryIsLoading(false));
         dispatch(glossaryHasErrored(true));
       });
->>>>>>> f2d763fe... Stale Token API Interceptors
   };
 }
 
@@ -122,19 +103,6 @@ export function glossaryEditorFetchData(bypassLoading = false) {
     if (!bypassLoading) {
       dispatch(glossaryEditorIsLoading(true));
     }
-<<<<<<< HEAD
-    dispatch(glossaryEditorHasErrored(false));
-    axios.get(`${api}/glossary/`, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryEditorFetchDataSuccess(data));
-          dispatch(glossaryEditorIsLoading(false));
-          dispatch(glossaryEditorHasErrored(false));
-        })
-        .catch(() => {
-          dispatch(glossaryEditorIsLoading(false));
-          dispatch(glossaryEditorHasErrored(true));
-        });
-=======
 
     api
       .get('/glossary/')
@@ -147,34 +115,14 @@ export function glossaryEditorFetchData(bypassLoading = false) {
         dispatch(glossaryEditorIsLoading(false));
         dispatch(glossaryEditorHasErrored(true));
       });
->>>>>>> f2d763fe... Stale Token API Interceptors
   };
 }
 
-export function glossaryPatch(term = {}) {
+export function glossaryPatch(term = {}, onSuccess = EMPTY_FUNCTION) {
   return (dispatch) => {
     dispatch(glossaryPatchSuccess(false));
     dispatch(glossaryPatchIsLoading(true));
     dispatch(glossaryPatchHasErrored(false));
-<<<<<<< HEAD
-    axios.patch(`${api}/glossary/${term.id}/`, term, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryFetchData());
-          dispatch(glossaryEditorFetchData(true));
-          dispatch(glossaryPatchSuccess(true, data.id));
-          dispatch(glossaryPatchIsLoading(false));
-          dispatch(glossaryPatchHasErrored(false, data.id));
-        })
-        .catch(() => {
-          dispatch(glossaryPatchSuccess(false));
-          dispatch(glossaryPatchIsLoading(false));
-          dispatch(glossaryPatchHasErrored(true, term.id));
-        });
-  };
-}
-
-export function glossaryPost(term = {}) {
-=======
 
     api
       .patch(`/glossary/${term.id}/`, term)
@@ -202,26 +150,10 @@ export function glossaryPost(term = {}) {
 }
 
 export function glossaryPost(term = {}, onSuccess = EMPTY_FUNCTION) {
->>>>>>> f2d763fe... Stale Token API Interceptors
   return (dispatch) => {
     dispatch(glossaryPostSuccess(false));
     dispatch(glossaryPostIsLoading(true));
     dispatch(glossaryPostHasErrored(false));
-<<<<<<< HEAD
-    axios.post(`${api}/glossary/`, term, { headers: { Authorization: fetchUserToken() } })
-        .then(({ data }) => {
-          dispatch(glossaryFetchData());
-          dispatch(glossaryEditorFetchData());
-          dispatch(glossaryPostSuccess(true, data.id));
-          dispatch(glossaryPostIsLoading(false));
-          dispatch(glossaryPostHasErrored(false));
-        })
-        .catch(() => {
-          dispatch(glossaryPostSuccess(false));
-          dispatch(glossaryPostIsLoading(false));
-          dispatch(glossaryPostHasErrored(true));
-        });
-=======
 
     api
       .post('/glossary/', term)
@@ -252,6 +184,5 @@ export function glossaryEditorCancel(id = null) {
   return (dispatch) => {
     dispatch(glossaryPatchHasErrored(false, id));
     dispatch(glossaryPostHasErrored(false));
->>>>>>> f2d763fe... Stale Token API Interceptors
   };
 }
