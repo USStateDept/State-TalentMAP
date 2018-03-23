@@ -6,6 +6,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     return `${filterItemObject.description} (${filterItemObject.code})`;
   } else if (filterItem.item.description === 'post') {
     return filterItemObject.location;
+  } else if (filterItem.item.description === 'bidCycle') {
+    return filterItemObject.name;
   }
   return false;
 }
@@ -16,6 +18,7 @@ export function getPillDescription(filterItemObject) {
   filterItemObject.description ||
   filterItemObject.long_description ||
   filterItemObject.code ||
+  filterItemObject.name ||
   '';
 }
 
