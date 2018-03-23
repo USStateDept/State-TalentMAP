@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from '../api';
 
 export function postHasErrored(bool) {
@@ -7,12 +6,14 @@ export function postHasErrored(bool) {
     hasErrored: bool,
   };
 }
+
 export function postIsLoading(bool) {
   return {
     type: 'POST_IS_LOADING',
     isLoading: bool,
   };
 }
+
 export function postFetchDataSuccess(post) {
   return {
     type: 'POST_FETCH_DATA_SUCCESS',
@@ -23,12 +24,12 @@ export function postFetchDataSuccess(post) {
 export function postFetchData(query) {
   return (dispatch) => {
     dispatch(postIsLoading(true));
-    axios.get(`${api}/orgpost/${query}/`)
-            .then((response) => {
-              dispatch(postIsLoading(false));
-              return response.data;
-            })
-            .then(post => dispatch(postFetchDataSuccess(post)))
-            .catch(() => dispatch(postHasErrored(true)));
+    api.get(`/orgpost/${query}/`)
+      .then((response) => {
+        dispatch(postIsLoading(false));
+        return response.data;
+      })
+      .then(post => dispatch(postFetchDataSuccess(post)))
+      .catch(() => dispatch(postHasErrored(true)));
   };
 }
