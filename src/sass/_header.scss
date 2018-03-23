@@ -72,6 +72,12 @@
     top: 35%;
   }
 
+  .account-container {
+    .header-nav-link {
+      top: ($header-desktop-height - $avatar-dropdown-size) / 2;
+    }
+  }
+
   .notifications-container {
     .header-nav-link {
       padding-left: 0;

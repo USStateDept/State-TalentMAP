@@ -1,8 +1,8 @@
 // We also import variables from ./sass-vars with sass-vars-loader
 
-/**
- * Global Variables
- */
+//**
+//* Global Variables
+//*
 $alert-red: #b03c3f;
 $color-red: #cb232d;
 $color-gray-lightest: #f1f1f1;
@@ -36,18 +36,18 @@ $color-gold-darkest: #4b3709;
 $color-dodger-blue: #1e90ff;
 $color-black-box-shadow: rgba(0, 0, 0, .75);
 
-/**
- * Header
- */
+//**
+//* Header
+//*
 $header-desktop-height: 75px;
 
-/**
- * Avatar
- */
+//**
+//* Avatar
+//*
 $avatar-size: 100px;
 $avatar-background: $tm-navy;
 $avatar-color: $color-white;
-$avatar-text-ratio: 0.4;
+$avatar-text-ratio: .45;
 
 // Avatar Dropdowns
 $avatar-dropdown-size: 45px;
@@ -56,9 +56,9 @@ $avatar-dropdown-border-top-color: rgba(0, 0, 0, .05);
 $avatar-dropdown-box-shadow-color: rgba(0, 0, 0, .15);
 $avatar-dropdown-account-segment-color: #e1e1e1;
 
-/**
- * Editor
- */
+//**
+//* Editor
+//*
 $editor-background: #fefefe;
 $editor-border: #ddd;
 $editor-box-shadow: #ababab;
@@ -66,9 +66,9 @@ $editor-headline-background: #fbfbfb;
 $editor-headline-background-focus: #f3f3f3;
 $editor-headline-color: #888;
 
-/**
- * Misc Settings
- */
+//**
+//* Misc Settings
+//*
 // z-index
 $autosuggest-suggestions-container-open-z: 2;
 $spinner-z: 100;
