@@ -36,4 +36,9 @@ describe('InteractiveElementComponent', () => {
     const wrapper = shallow(<InteractiveElement type="div">text</InteractiveElement>);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when type is "a"', () => {
+    const wrapper = shallow(<InteractiveElement type="a">text</InteractiveElement>);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

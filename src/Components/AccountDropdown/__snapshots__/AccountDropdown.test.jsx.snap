@@ -40,13 +40,13 @@ exports[`AccountDropdown matches snapshot 1`] = `
     <div
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
     >
-      <Link
+      <InteractiveElement
+        className=""
         onClick={[Function]}
-        replace={false}
-        to="/login"
+        type="a"
       >
         Logout
-      </Link>
+      </InteractiveElement>
     </div>
   </DropdownContent>
 </Dropdown>
@@ -96,13 +96,13 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
     <div
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
     >
-      <Link
+      <InteractiveElement
+        className=""
         onClick={[Function]}
-        replace={false}
-        to="/login"
+        type="a"
       >
         Logout
-      </Link>
+      </InteractiveElement>
     </div>
   </DropdownContent>
 </Dropdown>

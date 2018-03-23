@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import close from 'uswds/dist/img/close.svg'; // close X icon
+import InteractiveElement from '../../InteractiveElement';
 
 const MobileNav = ({ user, logout, showLogin }) => (
   <nav className="usa-nav">
@@ -35,7 +36,7 @@ const MobileNav = ({ user, logout, showLogin }) => (
                 showLogin ?
                   <Link to="login" id="login-mobile">Login</Link>
                 :
-                  <Link to="login" id="logout-mobile" onClick={logout}>Logout</Link>
+                  <InteractiveElement type="a" id="logout-mobile" onClick={logout}>Logout</InteractiveElement>
               }
             </li>
           </span>

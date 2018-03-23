@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set environment
+export NODE_ENV=production
+
 # The public prefix for the web application
 # Default - /talentmap/
 export PUBLIC_URL=/talentmap/

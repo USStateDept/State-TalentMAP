@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
+import { push } from 'react-router-redux';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import { getLastRouteLink } from '../../actions/routerLocations';
 import CompareList from '../../Components/CompareList/CompareList';
 import { COMPARE_LIST, ROUTER_LOCATIONS } from '../../Constants/PropTypes';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Results extends Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class Results extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.getComparisons(this.props.match.params.ids);
     }

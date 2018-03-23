@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
 import { getAssetPath } from '../../utilities';
+import InteractiveElement from '../InteractiveElement';
 
 export class AccountDropdown extends Component {
 
@@ -56,7 +57,7 @@ export class AccountDropdown extends Component {
           <div
             className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
           >
-            <Link to="/login" onClick={this.logout}>Logout</Link>
+            <InteractiveElement type="a" onClick={this.logout}>Logout</InteractiveElement>
           </div>
         </DropdownContent>
       </Dropdown>
