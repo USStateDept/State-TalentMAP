@@ -23,13 +23,12 @@ import { PROFILE_MENU } from './Menu';
  * hasKeys({ key1: 'value1', key2: 'value2' }, ['key2', 'key3'])
  * // => false
  */
-function hasKeys(item, searchKeys) {
+function hasKeys(item, keyArray) {
   const result = compact( // Removes false values from array
-    // Maps array to result of has()
-    searchKeys.map(key => has(item, key)),
+    keyArray.map(key => has(item, key)), // Maps array to result of has()
   );
 
-  return (result.length === keys.length);
+  return (result.length === keyArray.length);
 }
 
 describe('Menu', () => {
@@ -42,15 +41,15 @@ describe('Menu', () => {
    */
   /* eslint-disable key-spacing, no-multi-spaces */
   const rules = {
-    text:              { type: 'string',  required: true },
-    icon:              { type: 'string',  required: false },
-    route:             { type: 'string',  required: false },
-    params:            { type: 'string',  required: false },
+    text: { type: 'string', required: true },
+    icon: { type: 'string', required: false },
+    route: { type: 'string', required: false },
+    params: { type: 'string', required: false },
     toggleMenuSection: { type: 'boolean', required: false },
-    expandedSection:   { type: 'boolean', required: false },
-    isCDO:             { type: 'boolean', required: false },
-    isGlossaryEditor:  { type: 'boolean', required: false },
-    children:          { type: 'array',   required: false },
+    expandedSection: { type: 'boolean', required: false },
+    isCDO: { type: 'boolean', required: false },
+    isGlossaryEditor: { type: 'boolean', required: false },
+    children: { type: 'array', required: false },
   };
   /* eslint-enable key-spacing, no-multi-spaces */
 
@@ -89,15 +88,19 @@ describe('Menu', () => {
       let type;
       let validate;
 
-      forOwn(item, (value, key) => {
-        rule = rules[key];
-        type = rule.type;
-        validate = types[type];
+      /* eslint-disable  no-restricted-syntax */
+      for (key in item) {
+        if (rules[key]) {
+          rule = rules[key];
+          type = rule.type;
+          validate = types[type];
+          value = item[key];
 
-        // console.log([key, rule, type, value, validate]);
-        // If tests fail, use: console.log([key, type, value, validate(value)]);
-        if (!validate(value)) {
-          return false;
+          // If tests fail, use:
+          // console.log([key, type, value, validate(value)]);
+          if (!validate(value)) {
+            return false;
+          }
         }
 
         return true;
@@ -105,10 +108,12 @@ describe('Menu', () => {
 
       return true;
     };
+    /* eslint-enable  no-restricted-syntax */
 
     const expectAllToValidate = (items) => {
       items.forEach((item) => {
-        // If tests fail, use: console.log([key, validateRules(item)]);
+        // If tests fail, use:
+        // console.log([key, validateRules(item)]);
         expect(validateRules(item)).toBe(true);
 
         if (isArray(item.children)) {
