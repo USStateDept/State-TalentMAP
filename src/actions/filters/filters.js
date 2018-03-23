@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { removeDuplicates } from '../../utilities';
@@ -72,7 +71,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         }
         if (item.selectionRef === ENDPOINT_PARAMS.post) {
           dispatch(filtersIsLoading(true));
-          return axios.get(`${api}/orgpost/${item.codeRef}/`)
+          return api.get(`/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
