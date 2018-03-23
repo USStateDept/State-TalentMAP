@@ -226,7 +226,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       // our dynamic filters
       const dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
       const queryProms = dynamicFilters.map(item => (
-        axios.get(`${api}/${item.item.endpoint}`)
+        api.get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
             itemFilter.data = response.data.results;

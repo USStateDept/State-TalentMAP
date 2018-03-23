@@ -1,4 +1,4 @@
-import axios, { CancelToken } from 'axios';
+import { CancelToken } from 'axios';
 import api from '../../api';
 
 let cancel;
@@ -9,12 +9,14 @@ export function postSearchHasErrored(bool) {
     hasErrored: bool,
   };
 }
+
 export function postSearchIsLoading(bool) {
   return {
     type: 'POST_SEARCH_IS_LOADING',
     isLoading: bool,
   };
 }
+
 export function postSearchSuccess(posts) {
   return {
     type: 'POST_SEARCH_FETCH_DATA_SUCCESS',
@@ -27,25 +29,24 @@ export function postSearchFetchData(query) {
     if (cancel) { cancel(); }
     dispatch(postSearchHasErrored(false));
     dispatch(postSearchIsLoading(true));
-    axios.get(`${api}/orgpost/?q=${query}&limit=3`, {
+    api.get(`/orgpost/?q=${query}&limit=3`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),
-    },
-    )
-      .then(({ data }) => {
-        dispatch(postSearchIsLoading(false));
-        let filteredResults = [];
-        if (data.results) {
-          // results should have a location
-          filteredResults = data.results.filter(post => post.location !== null);
-        }
-        return filteredResults;
-      })
-      .then(results => dispatch(postSearchSuccess(results)))
-      .catch(() => {
-        dispatch(postSearchHasErrored(true));
-        dispatch(postSearchIsLoading(false));
-      });
+    })
+    .then(({ data }) => {
+      dispatch(postSearchIsLoading(false));
+      let filteredResults = [];
+      if (data.results) {
+        // results should have a location
+        filteredResults = data.results.filter(post => post.location !== null);
+      }
+      return filteredResults;
+    })
+    .then(results => dispatch(postSearchSuccess(results)))
+    .catch(() => {
+      dispatch(postSearchHasErrored(true));
+      dispatch(postSearchIsLoading(false));
+    });
   };
 }

@@ -4,6 +4,7 @@ import distanceInWords from 'date-fns/distance_in_words';
 import format from 'date-fns/format';
 import numeral from 'numeral';
 import cloneDeep from 'lodash/cloneDeep';
+import { get } from 'lodash';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -43,6 +44,21 @@ export function localStorageToggleValue(key, value) {
 
 export function validStateEmail(email) {
   return /.+@state.gov$/.test(email.trim());
+}
+
+export function hasValidToken() {
+  try {
+    /* eslint-disable no-unused-vars */
+    const token = JSON.parse(localStorage.getItem('token'));
+    /* eslint-enable no-unused-vars */
+    return true;
+  } catch (error) {
+    // If token exists and is bad (maybe user injected)
+    // Drop the token anyways just so we can have the container
+    // render login directly
+    localStorage.removeItem('token');
+    return false;
+  }
 }
 
 export function fetchUserToken() {
@@ -276,29 +292,8 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 // obj should be an object, such as { a: { b: 1, c: { d: 2 } } }
 // path should be a string to the desired path - "a.b.c.d"
 // defaultToReturn should be the default value you want to return if the traversal fails
-export const propOrDefault = (obj, path, defaultToReturn = null) => {
-  // split the path into individual strings
-  const args = path.split('.');
-
-  let valueToReturn = obj;
-
-  // function to determine if object contains the next i property
-  const returnSubProp = i => Object.prototype.hasOwnProperty.call(valueToReturn, args[i]);
-
-  // iterate through each arg and change valueToReturn to the next i property if it exists,
-  // otherwise return the defaultToReturn
-  for (let i = 0; i < args.length; i += 1) {
-    if (valueToReturn && returnSubProp(i)) {
-      valueToReturn = valueToReturn[args[i]];
-    } else if ((!valueToReturn && valueToReturn !== 0) || !returnSubProp(i)) {
-      return defaultToReturn;
-    }
-  }
-  // ensure that if valueToReturn is false, to set it as the defaultToReturn.
-  // also check for 0 equality, since we still want to return 0s
-  if (!valueToReturn && valueToReturn !== 0) { valueToReturn = defaultToReturn; }
-  return valueToReturn;
-};
+export const propOrDefault = (obj, path, defaultToReturn = null) =>
+  get(obj, path, defaultToReturn);
 
 // Return the correct object from the bidStatisticsArray.
 // If it doesn't exist, return an empty object.

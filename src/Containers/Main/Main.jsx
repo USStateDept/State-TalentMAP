@@ -1,9 +1,6 @@
-/* eslint-disable */
 import React from 'react';
 import { Provider } from 'react-redux';
-
 import { ConnectedRouter } from 'react-router-redux';
-
 import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
@@ -11,9 +8,7 @@ import Glossary from '../../Containers/Glossary';
 import Feedback from '../../Containers/Feedback';
 import FeedbackButton from '../../Containers/FeedbackButton';
 import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
-
 import checkIndexAuthorization from '../../lib/check-auth';
-
 import { store, history } from '../../store';
 
 const isAuthorized = () => checkIndexAuthorization(store);
