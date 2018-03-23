@@ -13,6 +13,7 @@ export const ENDPOINT_PARAMS = {
   mission: 'post__location__country__in',
   post: 'post__in',
   available: 'is_available_in_current_bidcycle',
+  bidCycle: 'is_available_in_bidcycle',
 };
 
 // Take our custom query param from the Bidder Portfolio navigation and convert them to queries
