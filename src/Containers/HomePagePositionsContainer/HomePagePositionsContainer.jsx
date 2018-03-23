@@ -5,6 +5,7 @@ import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import HomePagePositions from '../../Components/HomePagePositions/HomePagePositions';
 import { EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
+import Spinner from '../../Components/Spinner';
 
 class HomePagePositionsContainer extends Component {
 
@@ -14,24 +15,33 @@ class HomePagePositionsContainer extends Component {
   }
 
   render() {
-    const { homePagePositions,
+    const { homePagePositions, userProfileIsLoading,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
       userProfile, userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored, onNavigateTo,
       toggleFavorite, toggleBid, bidList } = this.props;
     return (
-      <HomePagePositions
-        homePagePositions={homePagePositions}
-        homePagePositionsHasErrored={homePagePositionsHasErrored}
-        homePagePositionsIsLoading={homePagePositionsIsLoading}
-        userProfile={userProfile}
-        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        onNavigateTo={onNavigateTo}
-        toggleFavorite={toggleFavorite}
-        toggleBid={toggleBid}
-        bidList={bidList}
-      />
+      <div className="content-container">
+        {
+          (userProfileIsLoading || homePagePositionsIsLoading) &&
+            <Spinner type="homepage-position-results" size="big" />
+        }
+        {
+          !userProfileIsLoading && !homePagePositionsIsLoading &&
+          <HomePagePositions
+            homePagePositions={homePagePositions}
+            homePagePositionsHasErrored={homePagePositionsHasErrored}
+            homePagePositionsIsLoading={homePagePositionsIsLoading}
+            userProfile={userProfile}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+            onNavigateTo={onNavigateTo}
+            toggleFavorite={toggleFavorite}
+            toggleBid={toggleBid}
+            bidList={bidList}
+          />
+        }
+      </div>
     );
   }
 }
@@ -48,6 +58,7 @@ HomePagePositionsContainer.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
+  userProfileIsLoading: PropTypes.bool,
 };
 
 HomePagePositionsContainer.defaultProps = {
@@ -58,6 +69,7 @@ HomePagePositionsContainer.defaultProps = {
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
   userProfile: {},
+  userProfileIsLoading: false,
 };
 
 const mapStateToProps = state => ({
@@ -65,6 +77,7 @@ const mapStateToProps = state => ({
   homePagePositions: state.homePagePositions,
   homePagePositionsHasErrored: state.homePagePositionsHasErrored,
   homePagePositionsIsLoading: state.homePagePositionsIsLoading,
+  userProfileIsLoading: state.userProfileIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
