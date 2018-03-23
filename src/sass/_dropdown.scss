@@ -9,9 +9,9 @@
 
 .dropdown__content {
   display: none;
-  right: 0px;
   min-width: 160px;
   position: absolute;
+  right: 0;
   z-index: $dropdown-content-z;
 }
 
@@ -20,8 +20,9 @@
 }
 
 .account-dropdown--avatar {
-  border-radius: 20px;
-  height: 20px;
+  font-size: $avatar-dropdown-size * $avatar-text-ratio;
+  height: $avatar-dropdown-size;
+  line-height: $avatar-dropdown-size;
   margin: 0 5px 0 0;
   width: 20px;
 }
