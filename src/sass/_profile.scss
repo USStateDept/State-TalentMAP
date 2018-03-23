@@ -618,6 +618,11 @@ $padding-no-border: $total-padding - $border;
     text-align: center;
   }
 
+  .button-wrapper {
+    display: inline-block;
+    text-align: center;
+  }
+
   a {
     font-size: .8em;
   }

@@ -12,7 +12,9 @@ const BidListComingSoon = () => (
     <div className="bid-list-container">
       <div className="bid-list-content">
         <div className="primary-text">Coming Soon</div>
-        <LinkButton toLink="/about" className="tm-button-transparent">More Information</LinkButton>
+        <div className="button-wrapper">
+          <LinkButton toLink="/about" className="tm-button-transparent">More Information</LinkButton>
+        </div>
       </div>
     </div>
   </div>
