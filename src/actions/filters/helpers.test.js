@@ -37,7 +37,6 @@ describe('filter helpers', () => {
   it('can return correct values for the getPostOrMissionDescription function', () => {
     // all valid properties should return a templated value
     expect(getPostOrMissionDescription({ type: 'post', location: 'Paris', short_name: 'PAR' })).toBe('Paris (Post)');
-    expect(getPostOrMissionDescription({ type: 'mission', location: 'Paris', short_name: 'PAR' })).toBe('PAR (Mission)');
     // but unmapped descriptions will return false
     expect(getPostOrMissionDescription({ type: 'invalid', location: 'Paris', short_name: 'PAR' })).toBe(false);
   });
