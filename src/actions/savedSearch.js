@@ -121,8 +121,8 @@ export function savedSearchesFetchData(sortType) {
     api.get(url)
       .then(response => response.data)
       .then((results) => {
-        dispatch(savedSearchesIsLoading(false));
         dispatch(savedSearchesSuccess(results));
+        dispatch(savedSearchesIsLoading(false));
         dispatch(savedSearchesHasErrored(false));
       })
       .catch(() => {
