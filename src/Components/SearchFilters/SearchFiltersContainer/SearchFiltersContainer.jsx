@@ -5,7 +5,7 @@ import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
 import AutoSuggest from '../../AutoSuggest';
 import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
+import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
@@ -36,7 +36,7 @@ class SearchFiltersContainer extends Component {
     this.props.setAccordion({ main: a, sub: b });
   }
   render() {
-    const { fetchMissionAutocomplete, missionSearchResults, fetchPostAutocomplete,
+    const { fetchPostAutocomplete,
     postSearchResults, isCDO } = this.props;
 
     // Get our boolean filter names.
@@ -65,7 +65,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'post', 'region', 'tod', 'mission', 'language'];
+    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'post', 'region', 'tod', 'language'];
 
     // create map
     const multiSelectFilterMap = new Map();
@@ -101,12 +101,6 @@ class SearchFiltersContainer extends Component {
         displayProperty = 'location';
         suggestionTemplate = SuggestionChoicePost; // special template for posts
       }
-      if (n === 'mission') {
-        getSuggestions = fetchMissionAutocomplete;
-        suggestions = missionSearchResults;
-        placeholder = 'Start typing a mission';
-        onSuggestionSelected = this.onMissionSuggestionSelected;
-      }
       if (item) {
         sortedFilters.push(
           { content:
@@ -114,7 +108,7 @@ class SearchFiltersContainer extends Component {
               <div className="usa-grid-full">
                 {
                 // Only show the autosuggest for post and mission filters.
-                (n === 'post' || n === 'mission') ?
+                (n === 'post') ?
                   <AutoSuggest
                     getSuggestions={getSuggestions}
                     suggestions={suggestions}
@@ -174,8 +168,6 @@ SearchFiltersContainer.propTypes = {
   queryParamToggle: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT.isRequired,
   setAccordion: PropTypes.func.isRequired,
-  fetchMissionAutocomplete: PropTypes.func.isRequired,
-  missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   isCDO: PropTypes.bool.isRequired,
