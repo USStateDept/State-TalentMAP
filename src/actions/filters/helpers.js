@@ -8,18 +8,28 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     return filterItemObject.location;
   } else if (filterItem.item.description === 'bidCycle') {
     return filterItemObject.name;
+  } else if (filterItem.item.description === 'postDiff') {
+    return filterItemObject.description;
+  } else if (filterItem.item.description === 'dangerPay') {
+    return filterItemObject.description;
   }
   return false;
 }
 
-// our standard method for getting a pill description
-export function getPillDescription(filterItemObject) {
+// Our standard method for getting a pill description.
+// Pass a customType string for special rendering.
+export function getPillDescription(filterItemObject, customType) {
+  if (customType === 'dangerPay') {
+    return `Danger Pay: ${filterItemObject.description}`;
+  } else if (customType === 'postDiff') {
+    return `Post Differential: ${filterItemObject.description}`;
+  }
   return filterItemObject.short_description ||
-  filterItemObject.description ||
-  filterItemObject.long_description ||
-  filterItemObject.code ||
-  filterItemObject.name ||
-  '';
+    filterItemObject.description ||
+    filterItemObject.long_description ||
+    filterItemObject.code ||
+    filterItemObject.name ||
+    '';
 }
 
 // when getting pill descriptions for posts or missions, perform alternate method
@@ -52,10 +62,18 @@ export function doesCodeOrIdMatch(filterItem, filterItemObject, mappedObject) {
 export function isBooleanFilter(description) {
   if (
     description === 'COLA' ||
-    description === 'postDiff' ||
-    description === 'dangerPay' ||
     description === 'domestic' ||
     description === 'available'
+  ) {
+    return true;
+  }
+  return false;
+}
+
+export function isPercentageFilter(description) {
+  if (
+    description === 'dangerPay' ||
+    description === 'postDiff'
   ) {
     return true;
   }
