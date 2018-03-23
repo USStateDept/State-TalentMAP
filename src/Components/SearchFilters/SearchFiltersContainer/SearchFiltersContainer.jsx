@@ -42,7 +42,7 @@ class SearchFiltersContainer extends Component {
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedBooleanNames = ['postDiff', 'dangerPay', 'COLA', 'domestic'];
+    const sortedBooleanNames = ['COLA', 'domestic'];
     // if and only if it's a CDO, we'll show the 'Available' filter
     if (isCDO) { sortedBooleanNames.push('available'); }
 
@@ -127,7 +127,7 @@ class SearchFiltersContainer extends Component {
                   key={item.item.title}
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
-                  queryProperty={(n === 'post' || n === 'mission' || n === 'bidCycle') ? '_id' : 'code'}
+                  queryProperty={(n === 'post' || n === 'bidCycle') ? '_id' : 'code'}
                 />
               </div>
             ),
