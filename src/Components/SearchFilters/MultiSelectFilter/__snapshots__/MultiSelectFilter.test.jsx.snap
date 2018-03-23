@@ -8,7 +8,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
 >
   <CheckBox
     className="tm-checkbox-transparent"
-    id="checkboxdescription-undefined"
+    id="checkboxdescription-filterType"
     label="description"
     labelSrOnly={false}
     name="description"
