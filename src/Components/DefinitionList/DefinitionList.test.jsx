@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import { keys, map, zipObject } from 'lodash';
+import { map, zipObject } from 'lodash';
 import DefinitionList, { Definition } from './';
 
 const mock = [
@@ -36,7 +36,7 @@ describe('DefinitionList', () => {
   it('can receive `items` as an object of key/values', () => {
     const items = zipObject(
       map(mock, 'term'),
-      map(mock, 'definition')
+      map(mock, 'definition'),
     );
 
     const wrapper = shallow(<DefinitionList items={items} />);
@@ -49,9 +49,7 @@ describe('DefinitionList', () => {
       className: 'definitions-theme-1',
     };
 
-    const wrapper = shallow(
-      <DefinitionList {...props} />
-    );
+    const wrapper = shallow(<DefinitionList {...props} />);
 
     expect(wrapper.find(`#${props.id}`).exists()).toBe(true);
     expect(wrapper.find(`.${props.className}`).exists()).toBe(true);
