@@ -1,6 +1,4 @@
-import axios from 'axios';
 import api from '../api';
-import { fetchUserToken } from '../utilities';
 import { USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS,
 RECENTLY_POSTED_POSITIONS, FAVORITED_POSITIONS } from '../Constants/PropTypes';
 
@@ -17,12 +15,14 @@ export function homePagePositionsHasErrored(bool) {
     hasErrored: bool,
   };
 }
+
 export function homePagePositionsIsLoading(bool) {
   return {
     type: 'HOME_PAGE_POSITIONS_IS_LOADING',
     isLoading: bool,
   };
 }
+
 export function homePagePositionsFetchDataSuccess(results) {
   return {
     type: 'HOME_PAGE_POSITIONS_FETCH_DATA_SUCCESS',
@@ -78,7 +78,7 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
     }
 
     // create a promise with all the queries we defined
-    const queryProms = queryTypes.map(type => axios.get(`${api}/position/${type.query}`, { headers: { Authorization: fetchUserToken() } }));
+    const queryProms = queryTypes.map(type => api.get(`/position/${type.query}`));
 
     Promise.all(queryProms)
       // Promise.all returns a single array which matches the order of the originating array...

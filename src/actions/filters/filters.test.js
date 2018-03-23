@@ -72,20 +72,6 @@ const items = {
       data: [
       ],
     },
-    {
-      item: {
-        title: 'Mission',
-        sort: 1000,
-        bool: false,
-        description: 'mission',
-        endpoint: 'country/?limit=7',
-        selectionRef: ENDPOINT_PARAMS.mission,
-        choices: [
-        ],
-      },
-      data: [
-      ],
-    },
   ],
 };
 
@@ -151,14 +137,6 @@ describe('async actions', () => {
 
     mockAdapter.onGet('http://localhost:8000/api/v1/grade/').reply(200,
       grades,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/?limit=7').reply(200,
-      missions,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/1/').reply(200,
-      missions.results[0],
     );
 
     mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?limit=7').reply(200,

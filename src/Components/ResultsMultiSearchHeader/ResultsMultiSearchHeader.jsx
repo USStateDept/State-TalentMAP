@@ -36,6 +36,10 @@ class ResultsMultiSearchHeader extends Component {
     this.state[GRADE_PARAM] = null;
   }
 
+  componentWillMount() {
+    this.setupDefaultValues(this.props);
+  }
+
   componentWillReceiveProps(props) {
     this.setupDefaultValues(props);
   }

@@ -43,18 +43,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={true}
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidtracker"
-        search=""
-        title="Bidder Tracker"
-      />
-      <withRouter(NavLink)
         hidden={false}
         link="/profile/favorites/"
         search=""
@@ -157,18 +145,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       />
       <withRouter(NavLink)
         hidden={false}
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidtracker"
-        search=""
-        title="Bidder Tracker"
-      />
-      <withRouter(NavLink)
-        hidden={false}
         link="/profile/favorites/"
         search=""
         title="Favorites"
@@ -267,18 +243,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/dashboard"
         search=""
         title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Bidder Portfolio"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        link="/profile/bidtracker"
-        search=""
-        title="Bidder Tracker"
       />
       <withRouter(NavLink)
         hidden={false}

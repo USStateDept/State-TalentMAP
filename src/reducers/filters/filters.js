@@ -1,8 +1,21 @@
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
+// Set what filters we want to fetch
 const items =
   {
     filters: [
+      {
+        item: {
+          title: 'Bid Cycle',
+          sort: 100,
+          description: 'bidCycle',
+          endpoint: 'bidcycle/',
+          selectionRef: ENDPOINT_PARAMS.bidCycle,
+          text: 'Choose Bid Cycles',
+        },
+        data: [
+        ],
+      },
       {
         item: {
           title: 'Skill Code',
@@ -144,20 +157,6 @@ const items =
       },
       {
         item: {
-          title: 'Mission',
-          sort: 1000,
-          bool: false,
-          description: 'mission',
-          endpoint: 'country/?limit=7',
-          selectionRef: ENDPOINT_PARAMS.mission,
-          choices: [
-          ],
-        },
-        data: [
-        ],
-      },
-      {
-        item: {
           title: 'Post',
           sort: 1100,
           bool: false,
@@ -181,7 +180,7 @@ export function filtersHasErrored(state = false, action) {
       return state;
   }
 }
-export function filtersIsLoading(state = false, action) {
+export function filtersIsLoading(state = true, action) {
   switch (action.type) {
     case 'FILTERS_IS_LOADING':
       return action.isLoading;

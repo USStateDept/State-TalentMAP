@@ -150,6 +150,12 @@
   box-shadow: 0 0 0 2px transparent inset;
 }
 
+.link-button-wrapper {
+  a {
+    color: $color-white;
+  }
+}
+
 .post-data-button {
   .fa {
     margin-right: .5em;

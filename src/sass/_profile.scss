@@ -22,7 +22,10 @@
 
   .hello-greeting {
     font-family: Merriweather;
+    font-size: 1em;
+    font-weight: normal;
     margin-bottom: 10px;
+    margin-top: 5px;
   }
 
   .usa-grid-full {
@@ -92,6 +95,18 @@
 
   .saved-searches-container {
     position: relative;
+
+    .searches-top-section {
+      margin-bottom: 1em;
+    }
+
+    .searches-title-container {
+      float: left;
+    }
+
+    .usa-form {
+      float: right;
+    }
   }
 
   .bid-list-delete-button-container {

@@ -24,10 +24,6 @@ describe('SearchFiltersContainerComponent', () => {
       data: [{ isSelected: true }],
     },
     {
-      item: { title: 'mission', description: 'mission', selectionRef: 'ref3' },
-      data: [{ isSelected: true }],
-    },
-    {
       item: { title: 'COLA', description: 'cola', selectionRef: 'ref4', bool: true },
       data: [{ isSelected: false }],
     },
@@ -191,7 +187,7 @@ describe('SearchFiltersContainerComponent', () => {
 
   it('orders the filters in the correct order', () => {
     // filter order defined in the component
-    const filterOrder = ['skill', 'grade', 'post', 'region', 'tod', 'mission'];
+    const filterOrder = ['skill', 'grade', 'post', 'region', 'tod'];
     const wrapper = shallow(
       <SearchFiltersContainer
         {...props}

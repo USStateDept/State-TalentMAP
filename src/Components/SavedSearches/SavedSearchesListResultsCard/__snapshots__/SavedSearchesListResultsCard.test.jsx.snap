@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full saved-search-card profile-section-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-one-fourth"
+    >
+      <div>
+        <span
+          className="title"
+        >
+          Name: 
+        </span>
+        <h3>
+          Test 33
+        </h3>
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Created: 
+        </span>
+        <span>
+          03/09/2018
+        </span>
+      </div>
+    </div>
+    <div
+      className="usa-width-one-half"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <div
+          className="usa-width-one-fourth title"
+        >
+          Your selections:
+        </div>
+        <div
+          className="usa-width-three-fourths"
+        >
+          <SavedSearchPillList
+            pills={
+              Array [
+                "german",
+                "two",
+                "ADMINISTRATIVE SUPPORT",
+                "United States",
+              ]
+            }
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="usa-width-one-fourth"
+    >
+      <div
+        className="button-container"
+      >
+        <button
+          className="usa-button-secondary"
+          onClick={[Function]}
+        >
+          Delete
+        </button>
+        <button
+          className="usa-button"
+          onClick={[Function]}
+        >
+          View
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -65,14 +65,23 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 label="Skill Code"
                 labelSrOnly={false}
                 onFilterSelect={[Function]}
-                userSkills={Array []}
+                userSkills={
+                  Array [
+                    Object {
+                      "code": "6218",
+                    },
+                    Object {
+                      "code": "6211",
+                    },
+                  ]
+                }
               />
             </div>
             <div
               className="usa-width-one-twelfth search-results-inputs search-keyword"
             >
               <SelectForm
-                defaultSort={null}
+                defaultSort="03"
                 disabled={false}
                 emptyOptionText=""
                 id="grade-searchbar-filter"

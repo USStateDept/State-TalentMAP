@@ -52,18 +52,6 @@ export const PROFILE_MENU = MenuConfig([
         route: '/profile/dashboard',
       },
       {
-        text: 'Bidder Portfolio',
-        route: '/profile/bidderportfolio',
-        isCDO: true,
-        params: {
-          type: 'all',
-        },
-      },
-      {
-        text: 'Bidder Tracker',
-        route: '/profile/bidtracker',
-      },
-      {
         text: 'Favorites',
         route: '/profile/favorites/',
       },
@@ -74,12 +62,6 @@ export const PROFILE_MENU = MenuConfig([
     ],
   },
   {
-    text: 'Statistics',
-    icon: 'pie-chart',
-    route: '/profile/statistics',
-    isCDO: true,
-  },
-  {
     text: 'Glossary Editor',
     icon: 'book',
     route: '/profile/glossaryeditor/',
@@ -87,26 +69,6 @@ export const PROFILE_MENU = MenuConfig([
     params: {
       type: 'all',
     },
-  },
-  {
-    text: 'Inbox',
-    icon: 'comments-o',
-    route: '/profile/inbox/',
-  },
-  {
-    text: 'Notifications',
-    icon: 'globe',
-    route: '/profile/notifications/',
-  },
-  {
-    text: 'Contacts',
-    icon: 'users',
-    route: '/profile/contacts/',
-  },
-  {
-    text: 'Documents',
-    icon: 'file-text',
-    route: '/profile/documents/',
   },
 ]);
 
