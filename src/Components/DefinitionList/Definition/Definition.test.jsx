@@ -15,12 +15,12 @@ describe('Definition', () => {
   };
 
   it('can render `term` prop', () => {
-    const wrapper = shallow(<Definition {...mock } />);
+    const wrapper = shallow(<Definition {...mock} />);
     expect(wrapper.find('dt').text()).toEqual(`${mock.term}:`);
   });
 
   it('can render `definition` prop', () => {
-    const wrapper = shallow(<Definition {...mock } />);
+    const wrapper = shallow(<Definition {...mock} />);
     expect(wrapper.find('dd').text()).toEqual(mock.definition);
   });
 
@@ -32,7 +32,7 @@ describe('Definition', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<Definition {...props} {...mock } />);
+    const wrapper = shallow(<Definition {...props} {...mock} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
