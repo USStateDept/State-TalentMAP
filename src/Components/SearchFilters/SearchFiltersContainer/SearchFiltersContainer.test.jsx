@@ -121,20 +121,6 @@ describe('SearchFiltersContainerComponent', () => {
     expect(toggleValue.b).toBe(2);
   });
 
-  it('can call the onSetAccordionLanguage function', () => {
-    const toggleValue = { a: null, b: null };
-    const wrapper = shallow(
-      <SearchFiltersContainer
-        {...props}
-        setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
-      />,
-    );
-
-    wrapper.instance().onSetAccordionLanguage(1);
-    expect(toggleValue.a).toBe('Language');
-    expect(toggleValue.b).toBe(1);
-  });
-
   it('can call the on[x]SuggestionSelected functions', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
