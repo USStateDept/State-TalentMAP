@@ -1,9 +1,7 @@
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
-import axios from 'axios';
-
 import { push } from 'react-router-redux';
-
 import api from '../api';
+import isCurrentPath from '../Components/ProfileMenu/navigation';
 
 // Our login constants
 import {
@@ -32,7 +30,7 @@ import {
   unsetNotificationsCount,
 } from '../actions/notifications';
 
-const loginUrl = `${api}/accounts/token/`;
+const loginUrl = '/accounts/token/';
 
 export const errorMessage = { message: null };
 
@@ -44,7 +42,7 @@ export function loginApi(username, password) {
   if (!username || !password) {
     return changeErrorMessage('Fields cannot be blank');
   }
-  return axios.post(loginUrl, { username, password })
+  return api.post(loginUrl, { username, password })
     .then(response => response.data.token)
     .catch((error) => { changeErrorMessage(error.message); });
 }
@@ -65,8 +63,15 @@ function* logout() {
   // .. inform redux that our logout was successful
   yield put({ type: LOGOUT_SUCCESS });
 
+  // Check if the user is already on the login page. We don't want a race
+  // condition to infinitely loop them back to the login page, should
+  // any requests be made that result in 401
+  const isOnLoginPage = isCurrentPath(window.location.pathname, '/login');
+
   // redirect to the /login screen
-  yield put(push('/login'));
+  if (!isOnLoginPage) {
+    yield put(push('/login'));
+  }
 }
 
 function* loginFlow(username, password) {

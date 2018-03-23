@@ -1,8 +1,21 @@
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
+// Set what filters we want to fetch
 const items =
   {
     filters: [
+      {
+        item: {
+          title: 'Bid Cycle',
+          sort: 100,
+          description: 'bidCycle',
+          endpoint: 'bidcycle/',
+          selectionRef: ENDPOINT_PARAMS.bidCycle,
+          text: 'Choose Bid Cycles',
+        },
+        data: [
+        ],
+      },
       {
         item: {
           title: 'Skill Code',

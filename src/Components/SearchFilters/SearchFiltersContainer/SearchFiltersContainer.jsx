@@ -71,7 +71,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['skill', 'grade', 'post', 'region', 'tod'];
+    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'post', 'region', 'tod'];
 
     // create map
     const multiSelectFilterMap = new Map();
@@ -161,7 +161,7 @@ class SearchFiltersContainer extends Component {
                   key={item.item.title}
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
-                  queryProperty={(n === 'post' || n === 'mission') ? '_id' : 'code'}
+                  queryProperty={(n === 'post' || n === 'mission' || n === 'bidCycle') ? '_id' : 'code'}
                 />
               </div>
             ),

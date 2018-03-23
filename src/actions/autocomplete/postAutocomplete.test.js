@@ -1,12 +1,12 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import api from '../../api';
 import * as actions from './postAutocomplete';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const mockAdapter = new MockAdapter(axios);
+const mockAdapter = new MockAdapter(api);
 
 const results = [
   {
@@ -23,11 +23,11 @@ const results = [
   },
 ];
 
-mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?q=Dubai&limit=3').reply(200,
+mockAdapter.onGet('/orgpost/?q=Dubai&limit=3').reply(200,
   { results },
 );
 
-mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?q=fake&limit=3').reply(404,
+mockAdapter.onGet('/v1/orgpost/?q=fake&limit=3').reply(404,
   null,
 );
 
@@ -48,7 +48,7 @@ describe('async actions', () => {
   it('can handle responses with null locations', (done) => {
     const store = mockStore({ posts: [] });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?q=Dubai&limit=3').reply(200,
+    mockAdapter.onGet('/api/v1/orgpost/?q=Dubai&limit=3').reply(200,
       { results: [
         Object.assign({}, results[0]),
         Object.assign(results[0], { location: null }),
