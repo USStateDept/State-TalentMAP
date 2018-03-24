@@ -42,11 +42,12 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
     <div
       className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
     >
+      <h3 />
       <span>
+         | 
         <FontAwesome
           name="bolt"
         />
-         | 
       </span>
       OMS (DCM)
     </div>
