@@ -1,1 +1,1 @@
-export { default as ResultsCard } from './ResultsCard';
+export { default } from './ResultsCard';

@@ -32,7 +32,7 @@ const InteractiveElement = ({ children, type, className, ...rest }) => {
 
     default:
       // Set where type != (button|input)
-      props.role = 'button';
+      defaultProps.role = 'button';
   }
 
   return (

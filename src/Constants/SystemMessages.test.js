@@ -3,7 +3,6 @@ import * as SystemMessages from './SystemMessages';
 const expectedMessages = [
   'NO_ASSIGNMENT_DATE',
   'NO_ASSIGNMENT_POSITION',
-  'NO_ASSIGNMENT_USER',
   'NO_BID_CYCLE',
   'NO_BIRTHDAY',
   'NO_BUREAU',
@@ -52,14 +51,16 @@ describe('SystemMessages', () => {
       expect(SystemMessages[msg]).toBeDefined();
     });
   });
+
   it('should have all expected messages that accept parameters defined', () => {
-    const expectedMessages = [
+    const textToCheck = 'test_word';
+    const messages = [
       'UPDATED_SAVED_SEARCH_SUCCESS',
       'NEW_SAVED_SEARCH_SUCCESS',
     ];
-    expectedMessages.forEach((msg) => {
-      const textToCheck = 'test_word';
-      expect(SystemMessages[msg](textToCheck).indexOf(textToCheck)).toBeDefined();
+
+    messages.forEach((message) => {
+      expect(SystemMessages[message](textToCheck).indexOf(textToCheck)).toBeDefined();
     });
   });
 });

@@ -5,7 +5,7 @@ import { omit } from 'lodash';
 const Row = (props) => {
   const Element = props.as;
   const options = omit(props, ['fluid', 'as', 'children']);
-  options.className = `${props.fluid ? 'usa-grid-full' : 'usa-grid'} ${options.className}`.trim();
+  options.className = `${props.fluid ? 'usa-grid-full' : 'usa-grid'} ${props.className}`.trim();
   return (
     <Element {...options}>
       {props.children}

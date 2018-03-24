@@ -10,7 +10,7 @@ const defaults = {
   truncate: true,
 };
 
-const DefinitionList = (props) => {
+const DefinitionList = ({ truncate = true, ...props }) => {
   const options = omit(props, keys(defaults));
   let items = props.items;
 
@@ -19,6 +19,7 @@ const DefinitionList = (props) => {
     items = map(items, (item, key) => merge({
       term: key,
       definition: item,
+      truncate,
     }));
   }
 
@@ -51,6 +52,7 @@ DefinitionList.propTypes = {
       PropTypes.shape({
         term: PropTypes.string,
         definition: PropTypes.string,
+        truncate: PropTypes.bool,
       }),
     ),
   ]),

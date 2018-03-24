@@ -34,7 +34,6 @@ dd {
   &.truncate {
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
 
     @media screen and (max-width: $screen-md-max) {
       white-space: normal;

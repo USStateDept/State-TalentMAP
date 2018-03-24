@@ -11,7 +11,7 @@ describe('Row', () => {
         <span>span</span>
         <div>div</div>
         <span>span</span>
-      </Row>
+      </Row>,
     );
 
     expect(wrapper.find(selector).children('span')).toHaveLength(2);
@@ -20,7 +20,6 @@ describe('Row', () => {
 
   it('renders `fluid` prop correctly', () => {
     const selector = '.usa-grid-full';
-    const wrapper = shallow(<Row fluid />);
 
     expect(shallow(<Row />).find(selector).exists()).toBe(false);
     expect(shallow(<Row fluid />).find(selector).exists()).toBe(true);
@@ -29,7 +28,7 @@ describe('Row', () => {
   it('renders `as` prop and renders new tag', () => {
     const tags = ('button|div|span|section|p').split('|');
 
-    tags.map(tag => {
+    tags.forEach((tag) => {
       expect(shallow(<Row as={tag} />).find(tag).exists()).toBe(true);
     });
   });
@@ -38,7 +37,7 @@ describe('Row', () => {
     const wrapper = shallow(
       <Row id="row-1" className="tm-grid">
         <div className="usa-width-one-whole" />
-      </Row>
+      </Row>,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
