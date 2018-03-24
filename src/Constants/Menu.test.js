@@ -6,6 +6,7 @@ import {
   isNumber,
   isObject,
   isString,
+  forOwn,
   keys,
   pickBy,
 } from 'lodash';
@@ -38,6 +39,7 @@ describe('Menu', () => {
    *    required: boolean,
    *  }
    */
+  /* eslint-disable key-spacing, no-multi-spaces */
   const rules = {
     text: { type: 'string', required: true },
     icon: { type: 'string', required: false },
@@ -49,6 +51,7 @@ describe('Menu', () => {
     isGlossaryEditor: { type: 'boolean', required: false },
     children: { type: 'array', required: false },
   };
+  /* eslint-enable key-spacing, no-multi-spaces */
 
   const types = {
     array: isArray,
@@ -81,9 +84,7 @@ describe('Menu', () => {
      * @return {boolean}     validation result
      */
     const validateRules = (item) => {
-      let key;
       let rule;
-      let value;
       let type;
       let validate;
 
@@ -101,7 +102,9 @@ describe('Menu', () => {
             return false;
           }
         }
-      }
+
+        return true;
+      });
 
       return true;
     };

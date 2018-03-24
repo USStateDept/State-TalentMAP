@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { merge } from 'lodash';
 import { filtersFetchData } from '../../actions/filters/filters';
-import { SAVED_SEARCH_PARENT_OBJECT, DELETE_SAVED_SEARCH_HAS_ERRORED, DELETE_SAVED_SEARCH_SUCCESS,
-CLONE_SAVED_SEARCH_HAS_ERRORED, CLONE_SAVED_SEARCH_SUCCESS, EMPTY_FUNCTION, FILTERS_PARENT } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import { mapSavedSearchesToSingleQuery } from '../../utilities';
+import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
+import {
+  SAVED_SEARCH_PARENT_OBJECT,
+  DELETE_SAVED_SEARCH_HAS_ERRORED,
+  DELETE_SAVED_SEARCH_SUCCESS,
+  CLONE_SAVED_SEARCH_HAS_ERRORED,
+  CLONE_SAVED_SEARCH_SUCCESS,
+  EMPTY_FUNCTION,
+  FILTERS_PARENT,
+} from '../../Constants/PropTypes';
 
 class SavedSearchesMap extends Component {
   constructor(props) {
@@ -15,18 +23,30 @@ class SavedSearchesMap extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setupValues(nextProps);
+  componentWillReceiveProps({ fetchFilters, ...rest }) {
+    // To resolve eslint error no-unused-prop-types for `fetchFilters`
+    const props = merge({ fetchFilters }, rest);
+    this.setupValues(props);
   }
 
-  setupValues(nextProps) {
-    const { filters, fetchFilters, savedSearches, savedSearchesIsLoading,
-      cloneSavedSearchIsLoading, deleteSavedSearchIsLoading } = nextProps;
+  setupValues(props) {
+    const {
+      filters,
+      fetchFilters,
+      savedSearches,
+      savedSearchesIsLoading,
+      cloneSavedSearchIsLoading,
+      deleteSavedSearchIsLoading,
+    } = props;
+
     const { hasSetupValues } = this.state;
 
     // is anything loading from the parent? if so, don't try to fetch filters
-    const isLoading = savedSearchesIsLoading || cloneSavedSearchIsLoading
-      || deleteSavedSearchIsLoading;
+    const isLoading = (
+      savedSearchesIsLoading ||
+      cloneSavedSearchIsLoading ||
+      deleteSavedSearchIsLoading
+    );
 
     const mappedSearchQuery = mapSavedSearchesToSingleQuery(savedSearches);
 
