@@ -20,14 +20,16 @@ const defaultProps = {
 
 const Avatar = ({ initials, firstName, lastName, className, onClick }) => (
   /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+  /* eslint-disable jsx-a11y/no-static-element-interactions */
   <div className={`tm-avatar ${className}`} onClick={onClick} role="img" aria-label={`${firstName} ${lastName}`}>
     {initials}
   </div>
   /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
+  /* eslint-enable jsx-a11y/no-static-element-interactions */
 );
 
-Avatar.propTypes = propTypes;
 
+Avatar.propTypes = propTypes;
 Avatar.defaultProps = defaultProps;
 
 export default Avatar;
