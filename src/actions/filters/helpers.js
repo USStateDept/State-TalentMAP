@@ -26,8 +26,6 @@ export function getPillDescription(filterItemObject) {
 export function getPostOrMissionDescription(data) {
   if (data.type === 'post') {
     return `${data.location} (Post)`;
-  } else if (data.type === 'mission') {
-    return `${data.short_name} (Mission)`;
   }
   return false;
 }

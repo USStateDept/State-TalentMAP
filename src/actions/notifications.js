@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { fetchUserToken } from '../utilities';
 import api from '../api';
+import { hasValidToken } from '../utilities';
 
 export function notificationsHasErrored(bool) {
   return {
@@ -67,18 +66,17 @@ export function unsetNotificationsCount() {
 
 export function notificationsCountFetchData() {
   return (dispatch) => {
-    const userToken = fetchUserToken();
-    if (userToken) {
-      axios.get(`${api}/notification/?limit=1&is_read=false`, { headers: { Authorization: userToken } })
-              .then(({ data }) => {
-                dispatch(notificationsCountFetchDataSuccess(data.count));
-                dispatch(notificationsCountIsLoading(false));
-                dispatch(notificationsCountHasErrored(false));
-              })
-              .catch(() => {
-                dispatch(notificationsCountHasErrored(true));
-                dispatch(notificationsCountIsLoading(false));
-              });
+    if (hasValidToken()) {
+      api.get('/notification/?limit=1&is_read=false')
+        .then(({ data }) => {
+          dispatch(notificationsCountFetchDataSuccess(data.count));
+          dispatch(notificationsCountIsLoading(false));
+          dispatch(notificationsCountHasErrored(false));
+        })
+        .catch(() => {
+          dispatch(notificationsCountHasErrored(true));
+          dispatch(notificationsCountIsLoading(false));
+        });
     } else {
       dispatch(notificationsCountHasErrored(true));
       dispatch(notificationsCountIsLoading(false));
@@ -88,16 +86,16 @@ export function notificationsCountFetchData() {
 
 export function notificationsFetchData(limit = 3, ordering = '-date_updated', tags = undefined, isRead = undefined) {
   return (dispatch) => {
-    axios.get(`${api}/notification/?limit=${limit}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`, { headers: { Authorization: fetchUserToken() } })
-            .then(({ data }) => {
-              dispatch(notificationsFetchDataSuccess(data));
-              dispatch(notificationsIsLoading(false));
-              dispatch(notificationsHasErrored(false));
-            })
-            .catch(() => {
-              dispatch(notificationsHasErrored(true));
-              dispatch(notificationsIsLoading(false));
-            });
+    api.get(`/notification/?limit=${limit}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
+      .then(({ data }) => {
+        dispatch(notificationsFetchDataSuccess(data));
+        dispatch(notificationsIsLoading(false));
+        dispatch(notificationsHasErrored(false));
+      })
+      .catch(() => {
+        dispatch(notificationsHasErrored(true));
+        dispatch(notificationsIsLoading(false));
+      });
   };
 }
 
@@ -109,16 +107,16 @@ export function bidTrackerNotificationsFetchData() {
 
 export function markNotification(id, isRead = true) {
   return (dispatch) => {
-    axios.patch(`${api}/notification/${id}/`, { is_read: isRead }, { headers: { Authorization: fetchUserToken() } })
-            .then(({ data }) => {
-              dispatch(markNotificationSuccess(data));
-              dispatch(markNotificationIsLoading(false));
-              dispatch(markNotificationHasErrored(false));
-              dispatch(bidTrackerNotificationsFetchData());
-            })
-            .catch(() => {
-              dispatch(markNotificationHasErrored(true));
-              dispatch(markNotificationIsLoading(false));
-            });
+    api.patch(`/notification/${id}/`, { is_read: isRead })
+      .then(({ data }) => {
+        dispatch(markNotificationSuccess(data));
+        dispatch(markNotificationIsLoading(false));
+        dispatch(markNotificationHasErrored(false));
+        dispatch(bidTrackerNotificationsFetchData());
+      })
+      .catch(() => {
+        dispatch(markNotificationHasErrored(true));
+        dispatch(markNotificationIsLoading(false));
+      });
   };
 }
