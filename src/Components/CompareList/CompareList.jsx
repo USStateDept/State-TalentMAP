@@ -11,11 +11,13 @@ import LanguageList from '../LanguageList/LanguageList';
 import { propOrDefault, formatDate } from '../../utilities';
 import ViewPostDataButton from '../ViewPostDataButton';
 import OBCUrl from '../OBCUrl';
+import PageTitle from '../PageTitle';
 
-const CompareList = ({ compare, isLoading, goBackLink }) => {
+const CompareList = ({ compare, isLoading, goBackLink, pageTitle }) => {
   const compareArray = compare.slice(0, COMPARE_LIMIT);
   return (
     <div className="usa-grid-full content-container">
+      <PageTitle pageTitle={pageTitle} srOnly />
       {
         goBackLink.text && // if goBackLink.text is defined, render...
         <div>
@@ -178,6 +180,7 @@ CompareList.propTypes = {
   compare: COMPARE_LIST,
   isLoading: PropTypes.bool,
   goBackLink: GO_BACK_TO_LINK.isRequired,
+  pageTitle: PropTypes.string.isRequired,
 };
 
 CompareList.defaultProps = {

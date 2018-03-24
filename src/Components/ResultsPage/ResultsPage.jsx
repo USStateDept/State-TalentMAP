@@ -10,6 +10,7 @@ import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 import ResultsFilterContainer from '../ResultsFilterContainer/ResultsFilterContainer';
+import PageTitle from '../PageTitle';
 
 class Results extends Component {
   constructor(props) {
@@ -35,11 +36,13 @@ class Results extends Component {
             newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
-            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar }
+            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
+            pageTitle }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
       <div className="results content-container">
+        <PageTitle pageTitle={pageTitle} srOnly />
         {
           shouldShowSearchBar &&
           <ResultsSearchHeader
@@ -148,6 +151,7 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
+  pageTitle: PropTypes.string.isRequired,
 };
 
 Results.defaultProps = {
