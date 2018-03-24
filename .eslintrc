@@ -12,7 +12,8 @@
     "globals": {
         "window": true,
         "document": true,
-        "localStorage": true
+        "localStorage": true,
+        "sessionStorage": true
     },
     "parser": "babel-eslint",
     "parserOptions": {

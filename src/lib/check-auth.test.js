@@ -26,16 +26,16 @@ describe('check-auth', () => {
     store = configureStore();
   });
 
-  it('can return false when a token is not set in local storage', () => {
-    localStorage.clear();
+  it('can return false when a token is not set in session storage', () => {
+    sessionStorage.clear();
     expect(checkIndexAuthorization(store)).toBe(false);
-    localStorage.clear();
+    sessionStorage.clear();
   });
 
-  it('can return false when a token is not set in local storage', () => {
-    localStorage.clear();
-    localStorage.setItem('token', '1234');
+  it('can return false when a token is not set in session storage', () => {
+    sessionStorage.clear();
+    sessionStorage.setItem('token', '1234');
     expect(checkIndexAuthorization(store)).toBe(true);
-    localStorage.clear();
+    sessionStorage.clear();
   });
 });

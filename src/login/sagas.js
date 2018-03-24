@@ -58,7 +58,7 @@ function* logout() {
   yield put(unsetNotificationsCount());
 
   // remove our token
-  localStorage.removeItem('token');
+  sessionStorage.removeItem('token');
 
   // .. inform redux that our logout was successful
   yield put({ type: LOGOUT_SUCCESS });
@@ -87,8 +87,8 @@ function* loginFlow(username, password) {
     // also inform redux that our login was successful
     yield put({ type: LOGIN_SUCCESS });
 
-    // set a stringified version of our token to localstorage on our domain
-    localStorage.setItem('token', JSON.stringify(token));
+    // set a stringified version of our token to sessionStorage on our domain
+    sessionStorage.setItem('token', JSON.stringify(token));
 
     // get the user's profile data
     yield put(userProfileFetchData());

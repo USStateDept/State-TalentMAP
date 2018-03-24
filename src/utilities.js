@@ -62,7 +62,7 @@ export function hasValidToken() {
 }
 
 export function fetchUserToken() {
-  const key = JSON.parse(localStorage.getItem('token'));
+  const key = JSON.parse(sessionStorage.getItem('token'));
   if (key) {
     return `Token ${key}`;
   }
