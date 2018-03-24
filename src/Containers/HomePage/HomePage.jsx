@@ -21,10 +21,13 @@ class HomePage extends Component {
 
   render() {
     const { userProfile, userProfileIsLoading, toggleFavorite, toggleBid, bidList,
-      userProfileFavoritePositionIsLoading, onNavigateTo,
+      userProfileFavoritePositionIsLoading, onNavigateTo, pageTitle,
       userProfileFavoritePositionHasErrored, homePagePositionsIsLoading } = this.props;
     return (
       <div className="home content-container">
+        <h1 className="sr-only">
+          ${pageTitle}
+        </h1>
         {
           (userProfileIsLoading || homePagePositionsIsLoading) &&
             <Spinner type="homepage-position-results" size="big" />
@@ -56,6 +59,7 @@ HomePage.propTypes = {
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   homePagePositionsIsLoading: PropTypes.bool,
+  pageTitle: PropTypes.string.isRequired,
 };
 
 HomePage.defaultProps = {

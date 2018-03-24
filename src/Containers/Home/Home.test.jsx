@@ -19,6 +19,7 @@ describe('Home', () => {
         bidListFetchData={() => {}}
         toggleFavorite={() => {}}
         onNavigateTo={() => {}}
+        pageTitle="Home"
       />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
@@ -31,6 +32,7 @@ describe('Home', () => {
         bidListFetchData={() => {}}
         toggleFavorite={() => {}}
         onNavigateTo={() => {}}
+        pageTitle="Home"
       />
     </MemoryRouter></Provider>);
     expect(home).toBeDefined();
@@ -42,6 +44,7 @@ describe('Home', () => {
       onNavigateTo={() => {}}
       toggleFavorite={() => {}}
       bidListFetchData={() => {}}
+      pageTitle="Home"
     />);
     wrapper.instance().onChildSubmit();
   });
