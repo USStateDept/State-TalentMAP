@@ -18,6 +18,7 @@ describe('Main', () => {
         routerLocations={routerLocations}
         isAuthorized={() => true}
         onNavigateTo={() => {}}
+        pageTitle="Compare"
       />
     </MemoryRouter></Provider>);
     expect(compare).toBeDefined();
@@ -29,6 +30,7 @@ describe('Main', () => {
         routerLocations={routerLocations}
         isAuthorized={() => false}
         onNavigateTo={() => {}}
+        pageTitle="Compare"
       />
     </MemoryRouter></Provider>);
     expect(compare).toBeDefined();

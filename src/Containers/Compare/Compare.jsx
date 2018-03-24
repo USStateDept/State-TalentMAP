@@ -30,13 +30,14 @@ class Results extends Component {
   }
 
   render() {
-    const { comparisons, hasErrored, isLoading, routerLocations } = this.props;
+    const { comparisons, hasErrored, isLoading, routerLocations, pageTitle } = this.props;
     return (
       <CompareList
         compare={comparisons}
         hasErrored={hasErrored}
         isLoading={isLoading}
         goBackLink={getLastRouteLink(routerLocations)}
+        pageTitle={pageTitle}
       />
     );
   }
@@ -55,6 +56,7 @@ Results.propTypes = {
   comparisons: COMPARE_LIST,
   isAuthorized: PropTypes.func.isRequired,
   routerLocations: ROUTER_LOCATIONS,
+  pageTitle: PropTypes.string.isRequired,
 };
 
 Results.defaultProps = {

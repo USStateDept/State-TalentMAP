@@ -207,7 +207,7 @@ class Results extends Component {
             userProfileFavoritePositionHasErrored, currentSavedSearch,
             newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
-            postSearchHasErrored, shouldShowSearchBar } = this.props;
+            postSearchHasErrored, shouldShowSearchBar, pageTitle } = this.props;
     return (
       <ResultsPage
         results={results}
@@ -246,6 +246,7 @@ class Results extends Component {
         postSearchIsLoading={postSearchIsLoading}
         postSearchHasErrored={postSearchHasErrored}
         shouldShowSearchBar={shouldShowSearchBar}
+        pageTitle={pageTitle}
       />
     );
   }
@@ -282,6 +283,7 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
+  pageTitle: PropTypes.string.isRequired,
 };
 
 Results.defaultProps = {

@@ -4,6 +4,7 @@ import { USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import HomePagePositionsContainer from '../HomePagePositionsContainer/HomePagePositionsContainer';
 import Spinner from '../../Components/Spinner';
+import PageTitle from '../../Components/PageTitle';
 
 class HomePage extends Component {
   constructor(props) {
@@ -25,9 +26,7 @@ class HomePage extends Component {
       userProfileFavoritePositionHasErrored, homePagePositionsIsLoading } = this.props;
     return (
       <div className="home content-container">
-        <h1 className="sr-only">
-          ${pageTitle}
-        </h1>
+        <PageTitle pageTitle={pageTitle} srOnly />
         {
           (userProfileIsLoading || homePagePositionsIsLoading) &&
             <Spinner type="homepage-position-results" size="big" />
