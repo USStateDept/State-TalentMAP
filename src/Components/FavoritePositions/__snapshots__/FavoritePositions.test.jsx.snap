@@ -228,8 +228,17 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "effective_date": "2012-10-22T00:00:00Z",
           "grade": "06",
           "id": 6,
+          "is_highlighted": false,
           "is_overseas": true,
           "languages": Array [],
+          "latest_bidcycle": Object {
+            "active": true,
+            "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
+            "cycle_end_date": "2018-06-13T15:51:10.980554Z",
+            "cycle_start_date": "2017-12-13T15:51:10.980554Z",
+            "id": 1,
+            "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+          },
           "organization": "(MONROVIA) MONROVIA LIBERIA",
           "position_number": "10034001",
           "post": Object {
@@ -287,6 +296,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "effective_date": "2016-10-02T00:00:00Z",
           "grade": "04",
           "id": 60,
+          "is_highlighted": false,
           "is_overseas": true,
           "languages": Array [
             Object {
@@ -304,6 +314,14 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "spoken_proficiency": "0",
             },
           ],
+          "latest_bidcycle": Object {
+            "active": true,
+            "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
+            "cycle_end_date": "2018-06-13T15:51:10.980554Z",
+            "cycle_start_date": "2017-12-13T15:51:10.980554Z",
+            "id": 1,
+            "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+          },
           "organization": "(PORT AU PRIN) PORT AU PRINCE HAITI",
           "position_number": "56082000",
           "post": Object {
@@ -369,8 +387,17 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "effective_date": "2012-10-22T00:00:00Z",
           "grade": "06",
           "id": 6,
+          "is_highlighted": false,
           "is_overseas": true,
           "languages": Array [],
+          "latest_bidcycle": Object {
+            "active": true,
+            "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
+            "cycle_end_date": "2018-06-13T15:51:10.980554Z",
+            "cycle_start_date": "2017-12-13T15:51:10.980554Z",
+            "id": 1,
+            "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+          },
           "organization": "(MONROVIA) MONROVIA LIBERIA",
           "position_number": "10034001",
           "post": Object {
@@ -428,6 +455,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "effective_date": "2016-10-02T00:00:00Z",
           "grade": "04",
           "id": 60,
+          "is_highlighted": false,
           "is_overseas": true,
           "languages": Array [
             Object {
@@ -445,6 +473,14 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "spoken_proficiency": "0",
             },
           ],
+          "latest_bidcycle": Object {
+            "active": true,
+            "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
+            "cycle_end_date": "2018-06-13T15:51:10.980554Z",
+            "cycle_start_date": "2017-12-13T15:51:10.980554Z",
+            "id": 1,
+            "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+          },
           "organization": "(PORT AU PRIN) PORT AU PRINCE HAITI",
           "position_number": "56082000",
           "post": Object {

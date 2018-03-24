@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
+import { get, isArray, isNumber } from 'lodash';
 import { Row, Column } from '../Layout';
 import DefinitionList, { Definition } from '../DefinitionList';
 import Favorite from '../Favorite/Favorite';
@@ -15,12 +15,14 @@ import { formatDate, getBidStatisticsObject, propOrDefault } from '../../utiliti
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
-  NO_ASSIGNMENT_USER,
-  NO_BID_CYCLE,
   NO_BUREAU,
+  NO_BID_CYCLE,
+  NO_COLA,
+  NO_DANGER_PAY,
   NO_END_DATE,
   NO_GRADE,
   NO_LANGUAGES,
+  NO_POST_DIFFERENTIAL,
   NO_POSITION_NUMBER,
   NO_POST,
   NO_SKILL,
@@ -41,44 +43,41 @@ const ResultsCard = (props) => {
   } = props;
 
   const dateFormat = 'M.DD.YYYY';
-  const getResult = (path, defaultValue) => {
-    let value = _.get(result, path, defaultValue);
+  const getResult = (path, defaultValue, isRate = false) => {
+    let value = get(result, path, defaultValue);
 
     if ((/_date|date_/i).test(path) && value !== defaultValue) {
       value = formatDate(value, dateFormat);
+    }
+
+    if (isRate && isNumber(value)) {
+      value = `${value}%`;
     }
 
     return value;
   };
 
   const position = getResult('position_number', NO_POSITION_NUMBER);
+  const languages = getResult('languages', []);
 
-  // Wrap result is a lodash wrapper for chaining lodash methods
-  // initial() -> slices up to the last item (not included) in an array
-  // value() -> returns the final value after everything is processed
-  const bidCycle = _.chain(result)
-    .get('bid_statistics[0].bidcycle', NO_BID_CYCLE)
-    .split(' ')
-    .initial()
-    .join(' ')
-    .value();
+  const language = (isArray(languages) && languages.length) ?
+    `${getResult('languages[0].language', NO_LANGUAGES)} (1/${languages.length})` :
+    NO_LANGUAGES;
 
   const sections = [
     /* eslint-disable quote-props */
     {
-      'Bid Cycle': bidCycle,
-    },
-    {
+      'Skill Code': getResult('skill', NO_SKILL),
       'Grade': getResult('grade', NO_GRADE),
       'Post': getResult('post.location', NO_POST),
-      'Skill Code': getResult('skill', NO_SKILL),
-      'Language': getResult('languages[0].language', NO_LANGUAGES),
+      'Bureau': getResult('bureau', NO_BUREAU),
     },
     {
-      'Bureau': getResult('bureau', NO_BUREAU),
       'Tour of Duty': getResult('post.tour_of_duty', NO_TOUR_OF_DUTY),
-      'Transfer Eligibility Date': getResult('current_assignment.estimated_end_date', NO_END_DATE),
-      'Incumbent': getResult('current_assignment.user', NO_ASSIGNMENT_USER),
+      'Language': language,
+      'Post Differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
+      'COLA': getResult('post.cost_of_living_adjustment', NO_COLA, true),
+      'Danger Pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
     },
     {
       'Posted': getResult('description.date_created', NO_UPDATE_DATE),
@@ -115,16 +114,13 @@ const ResultsCard = (props) => {
                 <h3>{result.title}</h3>
                 <Link to={`/details/${result.position_number}`} title="View Details">View Details</Link>
               </Column>
-              <Column columns={columns[1]}>
-                <DefinitionList items={sections[0]} />
-              </Column>
             </Row>
             <Row id={result.id} fluid>
               <Column columns={columns[0]}>
-                <DefinitionList items={sections[1]} />
+                <DefinitionList items={sections[0]} />
               </Column>
               <Column columns={columns[1]}>
-                <DefinitionList items={sections[2]} />
+                <DefinitionList items={sections[1]} />
               </Column>
             </Row>
             <Row className="footer" fluid>
@@ -138,7 +134,7 @@ const ResultsCard = (props) => {
                 </Column>
                 <Column columns={columns[1]} as="section">
                   <div>
-                    <DefinitionList items={sections[3]} />
+                    <DefinitionList items={sections[2]} />
                   </div>
                 </Column>
               </Column>

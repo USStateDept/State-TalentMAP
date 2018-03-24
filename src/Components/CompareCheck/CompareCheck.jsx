@@ -56,13 +56,13 @@ class CompareCheck extends Component {
   }
 
   render() {
-    const props = this.props;
+    const { className, as: type } = this.props;
     const isChecked = this.getSavedState();
     const text = this.isDisabled() ? 'Limit Reached' : 'Compare';
     const icon = isChecked ? 'check-square-o' : 'square-o';
     const options = {
-      type: props.as,
-      className: [props.className, 'compare-check-box-container'],
+      type,
+      className: [className, 'compare-check-box-container'],
       onClick: this.toggleSaved,
     };
 

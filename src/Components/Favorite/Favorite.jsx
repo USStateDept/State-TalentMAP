@@ -68,15 +68,6 @@ class Favorite extends Component {
     return isUpdate;
   }
 
-  get icon() {
-    return this.getSavedState() ? 'star' : 'star-o';
-  }
-
-  get title() {
-    const state = this.getSavedState() ? States.CHECKED : States.UNCHECKED;
-    return getText$(state, Types.LONG);
-  }
-
   getSavedState() {
     // Is the refKey in the array? If so, return true
     const { compareArray, refKey } = this.props;
@@ -90,6 +81,15 @@ class Favorite extends Component {
     const type = (useLongText && !enforceShort) ? Types.LONG : Types.SHORT;
 
     return hideText ? null : getText$(state, type);
+  }
+
+  get icon() {
+    return this.getSavedState() ? 'star' : 'star-o';
+  }
+
+  get title() {
+    const state = this.getSavedState() ? States.CHECKED : States.UNCHECKED;
+    return getText$(state, Types.LONG);
   }
 
   toggleSaved = () => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
+import { forOwn } from 'lodash';
 import Column, { columnsMap } from './Column';
 
 describe('Column', () => {
@@ -13,7 +14,7 @@ describe('Column', () => {
         <span>span</span>
         <div>div</div>
         <span>span</span>
-      </Column>
+      </Column>,
     );
 
     expect(wrapper.find(selector).children('span')).toHaveLength(2);
@@ -21,22 +22,18 @@ describe('Column', () => {
   });
 
   it('renders `columns` prop correctly', () => {
-    let column,
-        className,
-        selector;
+    let selector;
 
-    for(column in columnsMap) {
-      className = columnsMap[column];
+    forOwn(columnsMap, (className, column) => {
       selector = `.${prefix}-${className}`;
-
       expect(shallow(<Column columns={column} />).find(selector).exists()).toBe(true);
-    }
+    });
   });
 
   it('renders `as` prop and renders new tag', () => {
     const tags = ('button|div|span|section|p').split('|');
 
-    tags.map(tag => {
+    tags.forEach((tag) => {
       expect(shallow(<Column as={tag} />).find(tag).exists()).toBe(true);
     });
   });
@@ -45,7 +42,7 @@ describe('Column', () => {
     const wrapper = shallow(
       <Column id="Column-1" className="tm-grid">
         <div className="usa-width-one-whole" />
-      </Column>
+      </Column>,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
