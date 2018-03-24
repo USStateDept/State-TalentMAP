@@ -7,12 +7,11 @@ import BidListComingSoon from './BidListComingSoon';
 import Favorites from './Favorites';
 import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 
-const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
-  notificationsIsLoading, bidListIsLoading, favoritePositions, favoritePositionsIsLoading }) => (
+const ProfileDashboard = ({ userProfile, isLoading, 
+  favoritePositions, favoritePositionsIsLoading }) => (
     <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
       {
-        (isLoading || assignmentIsLoading || notificationsIsLoading || bidListIsLoading
-          || favoritePositionsIsLoading) ?
+        (isLoading || favoritePositionsIsLoading) ?
             <Spinner type="homepage-position-results" size="big" />
           :
             <div className="usa-grid-full">
@@ -60,9 +59,6 @@ const ProfileDashboard = ({ userProfile, isLoading, assignmentIsLoading,
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  assignmentIsLoading: PropTypes.bool.isRequired,
-  notificationsIsLoading: PropTypes.bool.isRequired,
-  bidListIsLoading: PropTypes.bool.isRequired,
   favoritePositions: FAVORITE_POSITIONS_ARRAY,
   favoritePositionsIsLoading: PropTypes.bool,
 };

@@ -30,30 +30,6 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
       link="/profile/glossaryeditor/"
       search="?type=all"
     />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="comments-o"
-      link="/profile/inbox/"
-      search=""
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="globe"
-      link="/profile/notifications/"
-      search=""
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="users"
-      link="/profile/contacts/"
-      search=""
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="file-text"
-      link="/profile/documents/"
-      search=""
-    />
   </NavLinksContainer>
 </div>
 `;
@@ -87,30 +63,6 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
       iconName="book"
       link="/profile/glossaryeditor/"
       search="?type=all"
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="comments-o"
-      link="/profile/inbox/"
-      search=""
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="globe"
-      link="/profile/notifications/"
-      search=""
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="users"
-      link="/profile/contacts/"
-      search=""
-    />
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="file-text"
-      link="/profile/documents/"
-      search=""
     />
   </NavLinksContainer>
 </div>
