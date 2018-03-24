@@ -29,11 +29,6 @@ exports[`Header matches snapshot when logged in 1`] = `
             replace={false}
             to="/"
           >
-            <h1
-              className="sr-only"
-            >
-              TalentMAP
-            </h1>
             <img
               alt="TalentMAP logo"
               src="/assets/logos/png/horizontal_color_thin.png"
@@ -106,11 +101,6 @@ exports[`Header matches snapshot when logged out 1`] = `
             replace={false}
             to="/"
           >
-            <h1
-              className="sr-only"
-            >
-              TalentMAP
-            </h1>
             <img
               alt="TalentMAP logo"
               src="/assets/logos/png/horizontal_color_thin.png"
