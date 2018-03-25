@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shortId from 'shortid';
 import FontAwesome from 'react-fontawesome';
+import Helmet from 'react-helmet';
 import { COMPARE_LIST, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
 import COMPARE_LIMIT from '../../Constants/Compare';
 import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_USER_LISTED, NO_DATE } from '../../Constants/SystemMessages';
@@ -18,6 +19,9 @@ const CompareList = ({ compare, isLoading, goBackLink, pageTitle }) => {
   return (
     <div className="usa-grid-full content-container">
       <PageTitle pageTitle={pageTitle} srOnly />
+      <Helmet>
+        <title>{pageTitle}</title>
+      </Helmet>
       {
         goBackLink.text && // if goBackLink.text is defined, render...
         <div>
