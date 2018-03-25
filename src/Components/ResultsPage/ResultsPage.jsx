@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE,
 SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY,
@@ -43,6 +44,10 @@ class Results extends Component {
     return (
       <div className="results content-container">
         <PageTitle pageTitle={pageTitle} srOnly />
+        <Helmet>
+          <title>{pageTitle}</title>
+          <meta property="og:url" content={window.location.href} />
+        </Helmet>
         {
           shouldShowSearchBar &&
           <ResultsSearchHeader
