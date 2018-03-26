@@ -187,6 +187,8 @@ export const USER_NESTED_OBJECT = PropTypes.shape({
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
+  initials: PropTypes.string,
+  display_name: PropTypes.string,
   user: USER_NESTED_OBJECT,
   is_cdo: PropTypes.bool,
   languages: LANGUAGE_QUALIFICATIONS,
@@ -261,6 +263,7 @@ export const REGION_SELECTION = PropTypes.shape({
 
 export const BID_REVIEWER_OBJECT = PropTypes.shape({
   username: PropTypes.string,
+  initials: PropTypes.string,
   first_name: PropTypes.string,
   last_name: PropTypes.string,
   email: PropTypes.string,
@@ -381,6 +384,7 @@ export const NOTIFICATION_LIST = PropTypes.shape({
 
 export const CDO_OBJECT = PropTypes.shape({
   username: PropTypes.string,
+  initials: PropTypes.string,
   first_name: PropTypes.string,
   last_name: PropTypes.string,
   email: PropTypes.string,

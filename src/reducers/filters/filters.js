@@ -99,7 +99,6 @@ const items =
         item: {
           title: 'Post Differential',
           sort: 600,
-          bool: true,
           description: 'postDiff',
           selectionRef: ENDPOINT_PARAMS.postDiff,
           text: 'Include only positions with a post differential',
@@ -107,14 +106,19 @@ const items =
           ],
         },
         data: [
-          { code: '0', short_description: 'Yes' },
+          { id: 5, code: '5', description: '5%' },
+          { id: 10, code: '10', description: '10%' },
+          { id: 15, code: '15', description: '15%' },
+          { id: 20, code: '20', description: '20%' },
+          { id: 25, code: '25', description: '25%' },
+          { id: 30, code: '30', description: '30%' },
+          { id: 35, code: '35', description: '35%' },
         ],
       },
       {
         item: {
           title: 'Danger Pay',
           sort: 700,
-          bool: true,
           description: 'dangerPay',
           selectionRef: ENDPOINT_PARAMS.danger,
           text: 'Include only positions with danger pay',
@@ -122,7 +126,9 @@ const items =
           ],
         },
         data: [
-          { code: '0', short_description: 'Yes' },
+          { id: 150, code: '15', description: '15%' },
+          { id: 250, code: '25', description: '25%' },
+          { id: 350, code: '35', description: '35%' },
         ],
       },
       {

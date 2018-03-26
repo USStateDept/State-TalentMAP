@@ -158,26 +158,6 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "id": "accordion-tod",
           "title": "tod",
         },
-        Object {
-          "content": <LanguageFilter
-            item={
-              Object {
-                "item": Object {},
-              }
-            }
-            queryParamUpdate={[Function]}
-            selectedAccordion={
-              Object {
-                "main": "",
-                "sub": "",
-              }
-            }
-            setAccordion={[Function]}
-          />,
-          "expanded": false,
-          "id": "accordion-undefined",
-          "title": undefined,
-        },
       ]
     }
     queryParamToggle={[Function]}

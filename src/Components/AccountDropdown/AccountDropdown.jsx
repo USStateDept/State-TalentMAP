@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
+import PropTypes from 'prop-types';
+import { get, compact, values } from 'lodash';
+import Avatar from '../Avatar';
+
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath } from '../../utilities';
 
 export class AccountDropdown extends Component {
 
@@ -25,19 +27,21 @@ export class AccountDropdown extends Component {
   render() {
     const { shouldDisplayName, userProfile } = this.props;
     const displayName = userProfile ? userProfile.display_name : '...';
-    const avatar = getAssetPath('/assets/img/avatar.png');
+    const initials = userProfile ? userProfile.initials : '';
+    const avatar = {
+      firstName: get(userProfile, 'user.first_name'),
+      lastName: get(userProfile, 'user.last_name'),
+      initials,
+      displayName,
+    };
+
+    const isLoading = compact(values(avatar)).length > 0;
+
     return (
-      <Dropdown
-        className="account-dropdown"
-        ref={(dropdown) => { this.dropdown = dropdown; }}
-        removeElement
-      >
+      isLoading &&
+      <Dropdown className="account-dropdown" ref={(dropdown) => { this.dropdown = dropdown; }} removeElement>
         <DropdownTrigger href="/#">
-          <img
-            alt="avatar"
-            className="account-dropdown--avatar"
-            src={avatar}
-          />
+          <Avatar className="account-dropdown--avatar" {...avatar} />
           {
             shouldDisplayName &&
               <span className="account-dropdown--name" id="account-username">{displayName}</span>
@@ -48,14 +52,10 @@ export class AccountDropdown extends Component {
             <div>Signed in as</div>
             <strong>{displayName}</strong>
           </div>
-          <div
-            className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
-          >
+          <div className="account-dropdown--identity account-dropdown--segment account-dropdown-link">
             <Link to="/profile/dashboard" onClick={this.hideDropdown}>Profile</Link>
           </div>
-          <div
-            className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
-          >
+          <div className="account-dropdown--identity account-dropdown--segment account-dropdown-link">
             <Link to="/login" onClick={this.logout}>Logout</Link>
           </div>
         </DropdownContent>
