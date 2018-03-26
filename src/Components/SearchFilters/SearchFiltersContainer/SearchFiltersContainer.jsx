@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
-import LanguageFilter from '../LanguageFilter/LanguageFilter';
 import AutoSuggest from '../../AutoSuggest';
 import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
@@ -15,7 +14,6 @@ class SearchFiltersContainer extends Component {
   constructor(props) {
     super(props);
     this.onSetAccordion = this.onSetAccordion.bind(this);
-    this.onSetAccordionLanguage = this.onSetAccordionLanguage.bind(this);
     this.onMissionSuggestionSelected = this.onMissionSuggestionSelected.bind(this);
     this.onPostSuggestionSelected = this.onPostSuggestionSelected.bind(this);
   }
@@ -37,10 +35,6 @@ class SearchFiltersContainer extends Component {
   onSetAccordion(a, b) {
     this.props.setAccordion({ main: a, sub: b });
   }
-
-  onSetAccordionLanguage(a) {
-    this.props.setAccordion({ main: 'Language', sub: a });
-  }
   render() {
     const { fetchPostAutocomplete,
     postSearchResults, isCDO } = this.props;
@@ -48,7 +42,7 @@ class SearchFiltersContainer extends Component {
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedBooleanNames = ['postDiff', 'dangerPay', 'COLA', 'domestic'];
+    const sortedBooleanNames = ['COLA', 'domestic'];
     // if and only if it's a CDO, we'll show the 'Available' filter
     if (isCDO) { sortedBooleanNames.push('available'); }
 
@@ -71,7 +65,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'post', 'region', 'tod'];
+    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'post', 'region', 'tod', 'language', 'postDiff', 'dangerPay'];
 
     // create map
     const multiSelectFilterMap = new Map();
@@ -87,34 +81,6 @@ class SearchFiltersContainer extends Component {
         multiSelectFilterMap.set(f.item.description, f);
       }
     });
-
-    // get our language filter, which we'll render differently
-    const languageFilters = this.props.filters.find(
-      searchFilter =>
-        (
-          searchFilter.item.description === 'language'
-        ),
-    );
-
-    // make sure we have an object to use in case there were no languages passed down
-    const languageFilter = languageFilters || { item: {} };
-
-    // languageFilters should only have one object, so we simply call languageFilters[0]
-    const languageFilterObject =
-      { content:
-        (<LanguageFilter
-          key={languageFilter.item.title}
-          item={languageFilter}
-          selectedAccordion={this.props.selectedAccordion}
-          queryParamUpdate={(l) => {
-            this.props.queryParamUpdate({ [languageFilter.item.selectionRef]: l });
-          }}
-          setAccordion={this.onSetAccordionLanguage}
-        />),
-        title: languageFilter.item.title,
-        id: `accordion-${languageFilter.item.title}`,
-        expanded: languageFilter.item.title === this.props.selectedAccordion.main,
-      };
 
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
@@ -161,7 +127,7 @@ class SearchFiltersContainer extends Component {
                   key={item.item.title}
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
-                  queryProperty={(n === 'post' || n === 'mission' || n === 'bidCycle') ? '_id' : 'code'}
+                  queryProperty={(n === 'post' || n === 'bidCycle') ? '_id' : 'code'}
                 />
               </div>
             ),
@@ -172,8 +138,6 @@ class SearchFiltersContainer extends Component {
         );
       }
     });
-    // add language last
-    sortedFilters.push(languageFilterObject);
 
     return (
       <div>
