@@ -10,6 +10,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             <MultiSelectFilter
+              groupAlpha={true}
               item={
                 Object {
                   "data": Array [
@@ -37,6 +38,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             <MultiSelectFilter
+              groupAlpha={false}
               item={
                 Object {
                   "data": Array [
@@ -80,6 +82,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
               suggestions={Array []}
             />
             <MultiSelectFilter
+              groupAlpha={false}
               item={
                 Object {
                   "data": Array [
@@ -107,6 +110,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             <MultiSelectFilter
+              groupAlpha={false}
               item={
                 Object {
                   "data": Array [
@@ -136,6 +140,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             <MultiSelectFilter
+              groupAlpha={false}
               item={
                 Object {
                   "data": Array [
