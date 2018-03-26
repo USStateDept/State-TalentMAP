@@ -4,6 +4,128 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full saved-searches-list-profile-container"
 >
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-grid-full section-padded-inner-container"
+    >
+      <div
+        className="usa-width-one-whole"
+      >
+        <PositionInformation
+          className=""
+          icon="clock-o"
+          small={false}
+          title="Saved Searches"
+        />
+      </div>
+    </div>
+    <div
+      className="saved-search-list-container"
+    >
+      <BorderedList
+        contentArray={
+          Array [
+            <SavedSearchListResultsCard
+              goToSavedSearch={[Function]}
+              mappedParams={
+                Array [
+                  Object {
+                    "codeRef": "6080",
+                    "description": "ADMINISTRATIVE SUPPORT",
+                    "selectionRef": "skill__code__in",
+                  },
+                  Object {
+                    "codeRef": "O",
+                    "description": "United States",
+                    "selectionRef": "post__tour_of_duty__code__in",
+                  },
+                  Object {
+                    "codeRef": "02",
+                    "description": "two",
+                    "selectionRef": "grade__code__in",
+                  },
+                ]
+              }
+              parentClassName="parent-list-container list-transparent"
+              savedSearch={
+                Object {
+                  "count": 0,
+                  "date_created": "2018-03-09T17:47:07.133624Z",
+                  "date_updated": "2018-03-09T17:47:07.133651Z",
+                  "endpoint": "/api/v1/position/",
+                  "filters": Object {
+                    "post__tour_of_duty__code__in": "O",
+                    "q": "german",
+                    "skill__code__in": "6080",
+                  },
+                  "id": 7,
+                  "name": "Test 33",
+                  "owner": "Jenny Townpost",
+                }
+              }
+            />,
+            <SavedSearchListResultsCard
+              goToSavedSearch={[Function]}
+              mappedParams={
+                Array [
+                  Object {
+                    "codeRef": "6080",
+                    "description": "ADMINISTRATIVE SUPPORT",
+                    "selectionRef": "skill__code__in",
+                  },
+                  Object {
+                    "codeRef": "O",
+                    "description": "United States",
+                    "selectionRef": "post__tour_of_duty__code__in",
+                  },
+                  Object {
+                    "codeRef": "02",
+                    "description": "two",
+                    "selectionRef": "grade__code__in",
+                  },
+                ]
+              }
+              parentClassName="parent-list-container list-transparent"
+              savedSearch={
+                Object {
+                  "count": 0,
+                  "date_created": "2018-02-21T16:29:20.905425Z",
+                  "date_updated": "2018-02-21T16:29:20.905461Z",
+                  "endpoint": "/api/v1/position/",
+                  "filters": Object {
+                    "grade__code__in": "02",
+                    "skill__code__in": "6080",
+                  },
+                  "id": 8,
+                  "name": "test 3",
+                  "owner": "Jenny Townpost",
+                }
+              }
+            />,
+          ]
+        }
+      />
+    </div>
+    <div
+      className="section-padded-inner-container small-link-container view-more-link-centered"
+    >
+      <Link
+        replace={false}
+        to="/profile/searches/"
+      >
+        View More
+      </Link>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SavedSearchesListComponent matches snapshot when filtersIsLoading is true 1`] = `
+<div
+  className="usa-grid-full saved-searches-list-profile-container"
+>
   <Spinner
     size="big"
     type="homepage-position-results"
@@ -15,9 +137,42 @@ exports[`SavedSearchesListComponent matches snapshot when there are no saved sea
 <div
   className="usa-grid-full saved-searches-list-profile-container"
 >
-  <Spinner
-    size="big"
-    type="homepage-position-results"
-  />
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-grid-full section-padded-inner-container"
+    >
+      <div
+        className="usa-width-one-whole"
+      >
+        <PositionInformation
+          className=""
+          icon="clock-o"
+          small={false}
+          title="Saved Searches"
+        />
+      </div>
+    </div>
+    <div
+      className="saved-search-list-container"
+    >
+      <div
+        className="usa-grid-full section-padded-inner-container"
+      >
+        <NoSavedSearches />
+      </div>
+    </div>
+    <div
+      className="section-padded-inner-container small-link-container view-more-link-centered"
+    >
+      <Link
+        replace={false}
+        to="/profile/searches/"
+      >
+        View More
+      </Link>
+    </div>
+  </div>
 </div>
 `;
