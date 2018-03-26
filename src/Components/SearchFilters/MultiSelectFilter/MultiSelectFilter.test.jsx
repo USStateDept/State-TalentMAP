@@ -6,7 +6,7 @@ import MultiSelectFilter from './MultiSelectFilter';
 
 describe('MultiSelectFilterComponent', () => {
   const item = {
-    item: { title: 'title', selectionRef: 'ref' },
+    item: { title: 'title', selectionRef: 'ref', description: 'filterType' },
     data: [{ isSelected: true, long_description: 'description', title: 'title', name: 'name' }],
   };
 

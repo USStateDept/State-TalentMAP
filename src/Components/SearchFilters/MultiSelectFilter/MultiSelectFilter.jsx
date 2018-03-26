@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import shortid from 'shortid';
 import FieldSet from '../../FieldSet/FieldSet';
 import CheckBox from '../../CheckBox/CheckBox';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
@@ -24,12 +25,12 @@ class MultiSelectFilter extends Component {
             const itemLabel = getItemLabel(itemData);
             return (<CheckBox
               _id={itemData.id} /* when we need the original id */
-              id={`checkbox${itemLabel}`}
-              key={`${item.item.selectionRef}-${itemData.code}`}
+              id={`checkbox${itemLabel}-${item.item.description}`}
+              key={shortid.generate()}
               label={itemLabel}
               title={itemLabel}
               name={itemLabel}
-              value={itemData.isSelected}
+              value={itemData.isSelected || false}
               code={itemData.code}
               selectionRef={item.item.selectionRef}
               onCheckBoxClick={this.onCheckBoxClick}

@@ -50,8 +50,6 @@ describe('filter helpers', () => {
   it('can return correct values for the isBooleanFilter function', () => {
     // all valid properties should return true
     expect(isBooleanFilter('COLA')).toBe(true);
-    expect(isBooleanFilter('postDiff')).toBe(true);
-    expect(isBooleanFilter('dangerPay')).toBe(true);
     expect(isBooleanFilter('domestic')).toBe(true);
     expect(isBooleanFilter('available')).toBe(true);
     expect(isBooleanFilter('invalud')).toBe(false);
