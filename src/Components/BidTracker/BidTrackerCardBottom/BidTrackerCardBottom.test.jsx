@@ -7,6 +7,7 @@ import { bidderUserObject } from '../../../__mocks__/userObject';
 describe('BidTrackerCardBottomComponent', () => {
   const reviewer = {
     username: 'woodwardw',
+    initials: 'WW',
     first_name: 'Wendy',
     last_name: 'Woodward',
     email: 'woodwardw@state.gov',

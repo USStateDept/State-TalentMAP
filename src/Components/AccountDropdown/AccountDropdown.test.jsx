@@ -11,6 +11,16 @@ import { AccountDropdown } from './AccountDropdown';
 describe('AccountDropdown', () => {
   const middlewares = [thunk];
   const mockStore = configureStore(middlewares);
+  const props = {
+    userProfile: {
+      display_name: 'John Doe',
+      user: {
+        initials: 'JD',
+        first_name: 'John',
+        last_name: 'Doe',
+      },
+    },
+  };
 
   it('is defined', () => {
     const accountDropdown = shallow(<AccountDropdown />);
@@ -18,12 +28,12 @@ describe('AccountDropdown', () => {
   });
 
   it('can take different props', () => {
-    const accountDropdown = shallow(<AccountDropdown userProfile={{ user: { display_name: 'test' } }} />);
+    const accountDropdown = shallow(<AccountDropdown />);
     expect(accountDropdown).toBeDefined();
   });
 
   it('can click the logout link', () => {
-    const accountDropdown = shallow(<AccountDropdown />);
+    const accountDropdown = shallow(<AccountDropdown {...props} />);
 
     // define the instance
     const instance = accountDropdown.instance();
@@ -67,10 +77,9 @@ describe('AccountDropdown', () => {
   });
 
   it("can render the logged in user's name when shouldDisplayName is true", () => {
-    const displayName = 'test';
     const accountDropdown = mount(<Provider store={mockStore({})}><MemoryRouter>
-      <AccountDropdown shouldDisplayName userProfile={{ display_name: displayName }} />
+      <AccountDropdown {...props} shouldDisplayName />
     </MemoryRouter></Provider>);
-    expect(accountDropdown.find('#account-username').text()).toBe(displayName);
+    expect(accountDropdown.find('#account-username').text()).toBe(props.userProfile.display_name);
   });
 });

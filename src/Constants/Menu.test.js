@@ -1,16 +1,16 @@
-import { PROFILE_MENU } from './Menu';
 import {
   compact,
-  filter,
   has,
   isArray,
   isBoolean,
   isNumber,
   isObject,
   isString,
+  forOwn,
   keys,
-  pickBy
+  pickBy,
 } from 'lodash';
+import { PROFILE_MENU } from './Menu';
 
 /**
  * Utility function that verifies if objects contains
@@ -23,12 +23,13 @@ import {
  * hasKeys({ key1: 'value1', key2: 'value2' }, ['key2', 'key3'])
  * // => false
  */
-function hasKeys(item, keys) {
+function hasKeys(item, searchKeys) {
   const result = compact( // Removes false values from array
-    keys.map(key => has(item, key)) // Maps array to result of has()
+    // Maps array to result of has()
+    searchKeys.map(key => has(item, key)),
   );
 
-  return (result.length == keys.length);
+  return (result.length === keys.length);
 }
 
 describe('Menu', () => {
@@ -39,6 +40,7 @@ describe('Menu', () => {
    *    required: boolean,
    *  }
    */
+  /* eslint-disable key-spacing, no-multi-spaces */
   const rules = {
     text:              { type: 'string',  required: true },
     icon:              { type: 'string',  required: false },
@@ -50,6 +52,7 @@ describe('Menu', () => {
     isGlossaryEditor:  { type: 'boolean', required: false },
     children:          { type: 'array',   required: false },
   };
+  /* eslint-enable key-spacing, no-multi-spaces */
 
   const types = {
     array: isArray,
@@ -57,16 +60,16 @@ describe('Menu', () => {
     number: isNumber,
     object: isObject,
     string: isString,
-  }
+  };
 
   it('Verify PROFILE_MENU contains required options', () => {
-    const requiredRules = pickBy(rules, (item) => item.required);
+    const requiredRules = pickBy(rules, item => item.required);
     const requiredKeys = keys(requiredRules);
-    const expectAllToContainRequired = items => {
-      items.map((item) => {
+    const expectAllToContainRequired = (items) => {
+      items.forEach((item) => {
         expect(hasKeys(item, requiredKeys)).toBe(true);
 
-        if(isArray(item.children)) {
+        if (isArray(item.children)) {
           expectAllToContainRequired(item.children);
         }
       });
@@ -82,43 +85,37 @@ describe('Menu', () => {
      * @return {boolean}     validation result
      */
     const validateRules = (item) => {
-      let key;
       let rule;
-      let value;
       let type;
       let validate;
 
-      for(key in item) {
-        if(rules[key]) {
-          rule = rules[key];
-          type = rule.type;
-          validate = types[type];
-          value = item[key];
+      forOwn(item, (value, key) => {
+        rule = rules[key];
+        type = rule.type;
+        validate = types[type];
 
-          // If tests fail, use:
-          // console.log([key, type, value, validate(value)]);
-
-          if(!validate(value)) {
-            return false;
-          }
+        // console.log([key, rule, type, value, validate]);
+        // If tests fail, use: console.log([key, type, value, validate(value)]);
+        if (!validate(value)) {
+          return false;
         }
-      }
+
+        return true;
+      });
 
       return true;
     };
 
-    const expectAllToValidate = items => {
-      items.map((item, key) => {
-        // If tests fail, use:
-        // console.log([key, validateRules(item)]);
-
+    const expectAllToValidate = (items) => {
+      items.forEach((item) => {
+        // If tests fail, use: console.log([key, validateRules(item)]);
         expect(validateRules(item)).toBe(true);
 
-        if(isArray(item.children)) {
+        if (isArray(item.children)) {
           expectAllToValidate(item.children);
         }
       });
-    }
+    };
 
     expectAllToValidate(PROFILE_MENU);
   });
