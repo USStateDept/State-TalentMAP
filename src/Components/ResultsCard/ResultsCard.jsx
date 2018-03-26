@@ -105,43 +105,40 @@ const ResultsCard = (props) => {
 
   return (
     <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
-      {(matches) => {
-        const columns = matches ? [5, 6] : [5, 6];
-        return (
-          <div id={result.id} className="results-card">
-            <Row className="header" fluid>
-              <Column columns={columns[0]}>
-                <h3>{result.title}</h3>
-                <Link to={`/details/${result.position_number}`} title="View Details">View Details</Link>
+      {matches => (
+        <div id={result.id} className="results-card">
+          <Row className="header" fluid>
+            <Column columns="6">
+              <h3>{result.title}</h3>
+              <Link to={`/details/${result.position_number}`} title="View Details">View Details</Link>
+            </Column>
+          </Row>
+          <Row id={result.id} fluid>
+            <Column columns="6">
+              <DefinitionList items={sections[0]} />
+            </Column>
+            <Column columns="6">
+              <DefinitionList items={sections[1]} />
+            </Column>
+          </Row>
+          <Row className="footer" fluid>
+            <Column>
+              <Column className="divider" columns="6" as="section">
+                {
+                  !!favorites &&
+                    <Favorite {...options.favorite} />
+                }
+                <CompareCheck className="usa-button usa-button-secondary" {...options.compare} />
               </Column>
-            </Row>
-            <Row id={result.id} fluid>
-              <Column columns={columns[0]}>
-                <DefinitionList items={sections[0]} />
+              <Column columns="6" as="section">
+                <div>
+                  <DefinitionList items={sections[2]} />
+                </div>
               </Column>
-              <Column columns={columns[1]}>
-                <DefinitionList items={sections[1]} />
-              </Column>
-            </Row>
-            <Row className="footer" fluid>
-              <Column>
-                <Column className="divider" columns={columns[0]} as="section">
-                  {
-                    !!favorites &&
-                      <Favorite {...options.favorite} />
-                  }
-                  <CompareCheck className="usa-button usa-button-secondary" {...options.compare} />
-                </Column>
-                <Column columns={columns[1]} as="section">
-                  <div>
-                    <DefinitionList items={sections[2]} />
-                  </div>
-                </Column>
-              </Column>
-            </Row>
-          </div>
-        );
-      }}
+            </Column>
+          </Row>
+        </div>
+      )}
     </MediaQueryWrapper>
   );
 };
