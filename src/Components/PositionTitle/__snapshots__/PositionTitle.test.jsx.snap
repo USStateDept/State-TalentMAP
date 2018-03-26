@@ -4,6 +4,24 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
 <div
   className="position-details-header-container"
 >
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title />
+    <meta
+      content="undefined 00003027"
+      property="og:title"
+    />
+    <meta
+      content="a description"
+      property="og:description"
+    />
+    <meta
+      content="http://localhost/"
+      property="og:url"
+    />
+  </HelmetWrapper>
   <div
     className="position-details-header"
   >

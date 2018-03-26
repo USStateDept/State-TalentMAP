@@ -8,6 +8,14 @@ exports[`CompareListComponent matches snapshot 1`] = `
     pageTitle="Compare"
     srOnly={true}
   />
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Compare
+    </title>
+  </HelmetWrapper>
   <div>
     <button
       className="button-back-link"
@@ -286,6 +294,14 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
     pageTitle="Compare"
     srOnly={true}
   />
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Compare
+    </title>
+  </HelmetWrapper>
   <div>
     <button
       className="button-back-link"

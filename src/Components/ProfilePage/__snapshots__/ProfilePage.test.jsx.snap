@@ -4,6 +4,10 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
 <div
   className="profile-page"
 >
+  <PageTitle
+    pageTitle="Profile"
+    srOnly={true}
+  />
   <Connect(ProfileMenu)
     isCDO={false}
     isGlossaryEditor={false}
