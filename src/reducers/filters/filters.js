@@ -57,7 +57,8 @@ const items =
           title: 'Tour of Duty',
           sort: 400,
           description: 'tod',
-          endpoint: 'tour_of_duty/?is_available=true&ordering=months',
+          // only display available TODs that do not contain "transfer", ordered by months
+          endpoint: 'tour_of_duty/?is_available=true&ordering=months&long_description__icontains!=transfer',
           selectionRef: ENDPOINT_PARAMS.tod,
           text: 'Choose tour of duty length',
           choices: [
