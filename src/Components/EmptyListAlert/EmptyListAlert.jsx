@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const EmptyListAlert = ({ textLineOne, textLineTwo }) => (
   <div className="usa-grid-full empty-list-alert">
     <p>{textLineOne}</p>
-    { textLineTwo && <p>{textLineTwo}</p> }
+    { textLineTwo.length && <p>{textLineTwo}</p> }
   </div>
 );
 
