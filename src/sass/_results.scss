@@ -34,6 +34,7 @@
   border-left: 8px solid $results-card-accent;
   margin-bottom: 2rem;
   padding: 1.1rem;
+  padding-right: 20%;
 
   .header {
     margin-bottom: 1rem;
@@ -68,7 +69,7 @@
       vertical-align: middle;
     }
 
-    $button-gutter: 8px;
+    $button-gutter: 6px;
     $button-offset: $button-gutter / 2;
 
     section:nth-child(1) {
@@ -123,7 +124,7 @@
         display: block;
         height: 100%;
         position: absolute;
-        right: -(10px + (10px - $button-gutter));
+        right: -(8px + (8px - $button-gutter));
         top: 0;
         width: 1px;
       }
