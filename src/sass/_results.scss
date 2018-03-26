@@ -1,3 +1,6 @@
+$results-container-width: 78%;
+$filter-container-width: 100% - $results-container-width;
+
 .results {
   label {
     font-size: .8em;
@@ -268,7 +271,7 @@
   height: auto;
   margin-right: 0;
   padding: 0 10px 15px;
-  width: 20%;
+  width: $filter-container-width;
 
   label {
     margin-top: 1rem;
@@ -331,7 +334,7 @@
 .results-container {
   float: left;
   padding-left: 30px;
-  width: 80%;
+  width: $results-container-width;
 
   @media screen and (max-width: $screen-md-min) {
     padding-left: 0;
@@ -410,7 +413,7 @@
   .accordion-checkbox-grade {
     .tm-checkbox {
       float: left;
-      width: 35%;
+      // width: 35%;
     }
   }
 }

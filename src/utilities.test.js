@@ -96,6 +96,7 @@ describe('fetchUserToken', () => {
 describe('sort functions', () => {
   const items = [{ title: 'a', description: 'a' }, { title: 'b', description: 'b' }];
   const pills = [{ description: 'a' }, { code: 'b' }];
+  const grades = [{ code: '01' }, { code: '02' }, { code: 'fake' }, { code: 'MC' }];
 
   it('can sort by description', () => {
     expect(propSort('description')(items[0], items[1])).toBe(-1);
@@ -113,6 +114,14 @@ describe('sort functions', () => {
     expect(pillSort(pills[0], pills[1])).toBe(-1);
     expect(pillSort(pills[1], pills[0])).toBe(1);
     expect(pillSort(pills[0], pills[0])).toBe(0);
+  });
+
+  it('can apply custom sorting to grades', () => {
+    expect(sortGrades(grades[0], grades[1])).toBe(-1);
+    expect(sortGrades(grades[1], grades[0])).toBe(1);
+    expect(sortGrades(grades[0], grades[2])).toBe(-1);
+    expect(sortGrades(grades[3], grades[2])).toBe(-1);
+    expect(sortGrades(grades[2], grades[3])).toBe(1);
   });
 });
 

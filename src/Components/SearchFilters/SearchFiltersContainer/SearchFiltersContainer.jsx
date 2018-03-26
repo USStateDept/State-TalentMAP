@@ -6,7 +6,7 @@ import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterConta
 import AutoSuggest from '../../AutoSuggest';
 import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
-import { propSort } from '../../../utilities';
+import { propSort, sortGrades } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
 class SearchFiltersContainer extends Component {
@@ -76,6 +76,8 @@ class SearchFiltersContainer extends Component {
         // extra handling for skill
         if (f.item.description === 'skill') {
           f.data.sort(propSort('description'));
+        } else if (f.item.description === 'grade') {
+          f.data.sort(sortGrades);
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
