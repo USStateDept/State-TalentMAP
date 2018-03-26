@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoSavedSearchesComponent matches snapshot 1`] = `
+<EmptyListAlert
+  textLineOne="You haven't saved any searches."
+  textLineTwo={
+    <span>
+      Reuse this job search in the future by clicking "Save this search".
+  Try naming your search something memorable, like "Summer Positions 2018".
+    </span>
+  }
+/>
+`;

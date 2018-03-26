@@ -39,7 +39,7 @@ describe('SavedSearchesListComponent', () => {
         savedSearches={{ results: [] }}
       />,
     );
-    expect(wrapper.find('Alert').exists()).toBe(true);
+    expect(wrapper.find('NoSavedSearches').exists()).toBe(true);
   });
 
   it('matches snapshot', () => {
