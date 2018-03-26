@@ -2,7 +2,7 @@ import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { removeDuplicates } from '../../utilities';
 import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
-  doesCodeOrIdMatch, isBooleanFilter } from './helpers';
+  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
 
 export function filtersHasErrored(bool) {
   return {
@@ -171,6 +171,9 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
                       // boolean filters are special since they don't rely on AJAX
                       if (isBooleanFilter(response.item.description)) {
                         mappedObject.description = response.item.title;
+                      } else if (isPercentageFilter(response.item.description)) {
+                        mappedObject.description =
+                          getPillDescription(filterItemObject, response.item.description);
                       } else {
                         // try to get the shortest description since pills should be small
                         mappedObject.description = getPillDescription(filterItemObject);
