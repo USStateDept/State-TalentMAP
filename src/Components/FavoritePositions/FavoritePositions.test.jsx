@@ -45,6 +45,13 @@ describe('FavoritePositionsComponent', () => {
 
   it('renders the Spinner when loading', () => {
     const wrapper = shallow(
+      <FavoritePositions {...props} />,
+    );
+    expect(wrapper.instance().props.favorites).toBe(resultsObject);
+  });
+
+  it('renders the Spinner when loading', () => {
+    const wrapper = shallow(
       <FavoritePositions
         {...props}
         favoritePositionsIsLoading

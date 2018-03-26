@@ -6,11 +6,11 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
 >
   <PositionsSectionTitle
     title={
-      <span
+      <h2
         className="positions-section-title"
       >
         Title
-      </span>
+      </h2>
     }
     viewMoreLink=""
   />

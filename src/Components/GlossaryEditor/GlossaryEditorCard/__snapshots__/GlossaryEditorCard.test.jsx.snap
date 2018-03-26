@@ -41,7 +41,7 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
   </div>
   <GlossaryEditorCardBottom
     dateUpdated="2018-02-07T15:33:52.986137Z"
-    hasErrored={Object {}}
+    hasErrored={false}
     id={3}
     isArchived={false}
     isNewTerm={false}
@@ -93,7 +93,7 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
   </div>
   <GlossaryEditorCardBottom
     dateUpdated="2018-02-07T15:33:52.986137Z"
-    hasErrored={Object {}}
+    hasErrored={false}
     id={3}
     isArchived={false}
     isNewTerm={false}

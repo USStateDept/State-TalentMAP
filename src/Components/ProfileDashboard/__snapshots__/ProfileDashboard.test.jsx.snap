@@ -17,7 +17,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
     >
       <div
         className="usa-width-five-twelfths user-dashboard-section-container
-                      user-dashboard-column-1"
+                        user-dashboard-column-1"
       >
         <div
           className="usa-width-one-whole user-dashboard-section current-user-section"
@@ -90,7 +90,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       </div>
       <div
         className="usa-width-seven-twelfths user-dashboard-section-container
-                      user-dashboard-column-2"
+                        user-dashboard-column-2"
       >
         <div
           className="usa-width-one-whole user-dashboard-section favorites-section"

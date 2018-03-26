@@ -44,7 +44,7 @@ class Home extends Component {
     const { onNavigateTo, items, homePagePositions,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
       userProfile, userProfileIsLoading, toggleFavorite, toggleBid,
-      userProfileFavoritePositionIsLoading, bidList,
+      userProfileFavoritePositionIsLoading, bidList, pageTitle,
       userProfileFavoritePositionHasErrored, filtersIsLoading } = this.props;
     return (
       <HomePage
@@ -61,6 +61,7 @@ class Home extends Component {
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         toggleBid={toggleBid}
         bidList={bidList.results}
+        pageTitle={pageTitle}
       />
     );
   }
@@ -83,6 +84,7 @@ Home.propTypes = {
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
   filtersIsLoading: PropTypes.bool,
+  pageTitle: PropTypes.string.isRequired,
 };
 
 Home.defaultProps = {

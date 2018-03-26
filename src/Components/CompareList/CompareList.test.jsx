@@ -9,6 +9,7 @@ import resultsObject from '../../__mocks__/resultsObject';
 describe('CompareListComponent', () => {
   const props = {
     goBackLink: { text: 'Go back to search results' },
+    pageTitle: 'Compare',
   };
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<MemoryRouter>

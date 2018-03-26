@@ -6,12 +6,11 @@ import GlossaryEditorCardBottom from './GlossaryEditorCardBottom';
 describe('GlossaryEditorCardBottomComponent', () => {
   const props = {
     isNewTerm: true,
-    hasErrored: false,
+    hasErrored: {},
     showEmptyWarning: false,
     dateUpdated: '2018-02-07T13:59:13.282581Z',
     updatedBy: 'John Doe',
     isArchived: false,
-    id: 1,
     submitGlossaryTerm: () => {},
   };
 
@@ -25,19 +24,21 @@ describe('GlossaryEditorCardBottomComponent', () => {
     expect(wrapper.find('ErrorMessage').props().showEmptyWarning).toBe(true);
   });
 
-  it('displays a response error when ids match', () => {
+  it('displays a response error when is new term', () => {
+    const state = { message: 'error', hasErrored: true };
     const wrapper = shallow(<GlossaryEditorCardBottom
       {...props}
-      hasErrored={{ id: 1, hasErrored: true }}
+      hasErrored={state}
       id={1}
     />);
-    expect(wrapper.find('ErrorMessage').props().showResponseError).toBe(true);
+    expect(wrapper.find('ErrorMessage').props().error).toBe(state);
   });
 
   it('does not display a response error when ids do not match', () => {
     const wrapper = shallow(<GlossaryEditorCardBottom
       {...props}
-      hasErrored={{ id: 1, hasErrored: true }}
+      isNewTerm={false}
+      hasErrored={{ id: 1, message: 'error', hasErrored: true }}
       id={2}
     />);
     expect(wrapper.find('ErrorMessage').exists()).toBe(false);
@@ -54,13 +55,14 @@ describe('GlossaryEditorCardBottomComponent', () => {
   it('displays the bottom section when isNewTerm is false', () => {
     const wrapper = shallow(<GlossaryEditorCardBottom
       {...props}
+      id={1}
       isNewTerm={false}
     />);
     expect(wrapper.find('History').exists()).toBe(true);
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<GlossaryEditorCardBottom {...props} />);
+    const wrapper = shallow(<GlossaryEditorCardBottom {...props} id={1} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

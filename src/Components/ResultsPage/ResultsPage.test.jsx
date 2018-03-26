@@ -52,6 +52,7 @@ describe('ResultsPageComponent', () => {
       postSearchIsLoading={false}
       postSearchHasErrored={false}
       shouldShowSearchBar
+      pageTitle="Results"
     />);
     expect(wrapper).toBeDefined();
   });
@@ -88,6 +89,7 @@ describe('ResultsPageComponent', () => {
       postSearchIsLoading={false}
       postSearchHasErrored={false}
       shouldShowSearchBar
+      pageTitle="Results"
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -123,6 +125,7 @@ describe('ResultsPageComponent', () => {
       postSearchIsLoading={false}
       postSearchHasErrored={false}
       shouldShowSearchBar
+      pageTitle="Results"
     />);
     expect(wrapper).toBeDefined();
   });
@@ -157,6 +160,7 @@ describe('ResultsPageComponent', () => {
       postSearchIsLoading={false}
       postSearchHasErrored={false}
       shouldShowSearchBar
+      pageTitle="Results"
     />);
     wrapper.instance().onChildToggle();
     expect(wrapper).toBeDefined();
