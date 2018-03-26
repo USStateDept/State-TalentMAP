@@ -1,0 +1,42 @@
+dl {
+  &.definitions {
+    display: table;
+    margin-bottom: 0;
+    margin-top: 0;
+    min-width: 100px;
+    width: 100%;
+
+    > div {
+      display: table;
+    }
+
+    dt,
+    dd {
+      display: table-cell;
+      font-size: 1.6rem;
+      overflow: visible;
+      width: auto;
+    }
+
+    dt {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    dd {
+      padding: 0 0 0 .5rem;
+    }
+  }
+}
+
+dt,
+dd {
+  &.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media screen and (max-width: $screen-md-max) {
+      white-space: normal;
+    }
+  }
+}

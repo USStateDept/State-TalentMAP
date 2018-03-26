@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Row matches snapshot 1`] = `
+<div
+  className="usa-grid tm-grid"
+  id="row-1"
+>
+  <div
+    className="usa-width-one-whole"
+  />
+</div>
+`;

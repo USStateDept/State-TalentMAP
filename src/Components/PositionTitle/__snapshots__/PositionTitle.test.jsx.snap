@@ -34,6 +34,8 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             className="usa-width-one-third title-actions-section"
           >
             <Favorite
+              as="div"
+              className=""
               compareArray={Array []}
               hasBorder={false}
               hideText={false}

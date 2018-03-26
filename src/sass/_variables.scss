@@ -1,54 +1,138 @@
+//**
+//* Global Variables
+//*
 // We also import variables from ./sass-vars with sass-vars-loader
+@import '~uswds/dist/scss/lib/bourbon';
+@import '~uswds/dist/scss/core/variables';
 
-// Global Variables
-$alert-red: #b03c3f;
-$color-red: #cb232d;
-$color-gray-lightest: #f1f1f1;
-$color-gray-lightest-alt: #f0f0f0;
-$color-gray-lighter: #d6d7d9;
-$color-gray-light: #aeb0b5;
-$blue-primary: #0071bc;
-$blue-primary-light: #e6f1f8;
-$color-white: #fff;
-$color-black: #000;
-$color-gray: #5b616b;
+//**
+//* Color Palette
+//*
+// Primary
+$primary-blue: #0071BC;
+$primary-blue-darker: #205493;
+$primary-blue-darkest: #112E51;
+$primary-base: #333333;
+$primary-gray-dark: #4E4E4E;
+
+$primary-alt-darkest: #046B99;
+$primary-alt-dark: #00A6D2;
+$primary-alt-base: #02BFE7;
+$primary-alt-light: #9BDAF1;
+$primary-alt-lightest: #E1F3F8;
+
+// Secondary
+$secondary-darkest: #981B1E;
+$secondary-dark: #CD2026;
+$secondary-base: #E31C3D;
+$secondary-light: #E59393;
+$secondary-lightest: #F9DEDE;
+
+// Tertiary
+$tertiary-gold: #FDB81E;
+$tertiary-gold-light: #F9C642;
+$tertiary-gold-lighter: #FAD980;
+$tertiary-gold-lightest: #FFF1D2;
+
+$tertiary-success: #2E8540;
+$tertiary-success-light: #4AA564;
+$tertiary-success-lighter: #94BFA2;
+$tertiary-success-lightest: #E7F4E4;
+
+$tertiary-cool-blue: #205493;
+$tertiary-cool-blue-light: #4773AA;
+$tertiary-cool-blue-lighter: #8BA6CA;
+$tertiary-cool-blue-lightest: #DCE4EF;
+
+// Background
+$bg-gray-dark-0: #323045; //# Base
+$bg-gray-dark-1: #5B616B;
+$bg-gray-dark-2: #AEB0B5;
+$bg-gray-dark-3: #D6D7D9;
+$bg-gray-dark-4: #F1F1F1; //# Lightest
+
+$bg-gray-medium-0: #B1B1B1; //# Base
+$bg-gray-medium-1: #CCCCCC;
+$bg-gray-medium-2: #E0E0E0;
+$bg-gray-medium-3: #F0F0F0; //# Lightest
+
+$bg-blue-dark-0: #112E51; //# Base
+$bg-blue-dark-1: #00293F;
+$bg-blue-dark-2: #DCE4EF; //# Lightest
+
+// Special State
+$progress: $tertiary-success;
+$progress-medium: $tertiary-success-light;
+$progress-light: $tertiary-success-lighter;
+$progress-lightest: $tertiary-success-lightest;
+
+$growth: #00FA87;
+$growth-dark: #009472;
+
+// Main
+$alert-red: #B03C3F;
+
+$blue-primary-light: #E6F1F8;
+$blue-primary: $primary-blue;
+$blue-primary-darker: $primary-blue-darker;
+$blue-primary-darkest: $primary-blue-darkest;
+
+$color-red: #CB232D;
+$color-gray-lightest: $bg-gray-dark-4;
+$color-gray-lightest-alt: $bg-gray-medium-3;
+$color-gray-lighter: $bg-gray-dark-3;
+$color-gray-light: $bg-gray-dark-2;
+$color-gray: $bg-gray-dark-1;
 $color-gray-darkest: #212121;
-$tm-dark-blue: #00293f;
-$tm-white-smoke: #f5f5f5;
-$tm-white-smoke-light: #f7f7f7;
-$tm-navy: #215493;
-$tm-navy-dark: #112e51;
-$color-primary-alt-light: #9bdaf1;
-$color-blue-active: #205493;
-$color-blue-hover: #0071bb;
-$color-primary-alt-lightest: #e1f3f8;
-$color-blue-light: #e6f0f9;
-$color-green: #4da365;
-$color-green-dark: #2e8540;
-$color-green-dark-opacity50: #95be9d;
-$color-green-light: #ecf6ee;
-$color-gold: #f8c54f;
-$color-gold-dark: #fdb81e;
-$color-gold-darker: #976e12;
-$color-gold-darkest: #4b3709;
-$color-dodger-blue: #1e90ff;
+$color-white: #FFFFFF;
+$color-black: #000000;
 $color-black-box-shadow: rgba(0, 0, 0, .75);
+$color-primary-alt-light: $primary-alt-light;
+$color-blue-active: $blue-primary-darker;
+$color-blue-hover: #0071BB;
+$color-primary-alt-lightest: $primary-alt-lightest;
+$color-blue-light: #E6F0F9;
+$color-green: #4DA365;
+$color-green-dark: $tertiary-success;
+$color-green-dark-opacity50: #95BE9D;
+$color-green-light: #ECF6EE;
+$color-gold: #F8C54F;
+$color-gold-dark: #FDB81E;
+$color-gold-darker: #976E12;
+$color-gold-darkest: #4B3709;
+$color-dodger-blue: #1E90FF;
 
-//avatar dropdown
-$avatar-background: #fff;
+$tm-dark-blue: $bg-blue-dark-1;
+$tm-white-smoke: #F5F5F5;
+$tm-white-smoke-light: #F7F7F7;
+$tm-gray: #AAAAAA;
+$tm-navy: #215493;
+$tm-navy-dark: $blue-primary-darkest;
+
+//**
+//* Avatar Dropdown
+//*
+$avatar-background: $color-white;
 $avatar-dropdown-border-top-color: rgba(0, 0, 0, .05);
 $avatar-dropdown-box-shadow-color: rgba(0, 0, 0, .15);
-$avatar-dropdown-account-segment-color: #e1e1e1;
+$avatar-dropdown-account-segment-color: #E1E1E1;
 
-// editor
-$editor-background: #fefefe;
-$editor-border: #ddd;
-$editor-box-shadow: #ababab;
-$editor-headline-background: #fbfbfb;
-$editor-headline-background-focus: #f3f3f3;
-$editor-headline-color: #888;
+//**
+//* Editor
+//*
+$editor-background: #FEFEFE;
+$editor-border: #DDDDDD;
+$editor-box-shadow: #ABABAB;
+$editor-headline-background: #FBFBFB;
+$editor-headline-background-focus: #F3F3F3;
+$editor-headline-color: #888888;
 
-// z-index values
+$results-card-accent: $blue-primary;
+$results-card-border: $color-gray-lighter;
+
+//**
+//* z-index
+//*
 // we'll use this section to keep track of and order them
 $autosuggest-suggestions-container-open-z: 2;
 $spinner-z: 100;
