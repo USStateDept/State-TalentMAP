@@ -88,6 +88,7 @@ $color-white: #FFFFFF;
 $color-black: #000000;
 $color-black-box-shadow: rgba(0, 0, 0, .75);
 $color-primary-alt-light: $primary-alt-light;
+$color-black-box-shadow: rgba(0, 0, 0, .75);
 $color-blue-active: $blue-primary-darker;
 $color-blue-hover: #0071BB;
 $color-primary-alt-lightest: $primary-alt-lightest;
@@ -110,9 +111,23 @@ $tm-navy: #215493;
 $tm-navy-dark: $blue-primary-darkest;
 
 //**
+//* Header
+//*
+$header-desktop-height: 75px;
+
+//**
+//* Avatar
+//*
+$avatar-size: 100px;
+$avatar-background: $tm-navy;
+$avatar-color: $color-white;
+$avatar-text-ratio: .45;
+
+//**
 //* Avatar Dropdown
 //*
-$avatar-background: $color-white;
+$avatar-dropdown-size: 45px;
+$avatar-dropdown-background: $color-white;
 $avatar-dropdown-border-top-color: rgba(0, 0, 0, .05);
 $avatar-dropdown-box-shadow-color: rgba(0, 0, 0, .15);
 $avatar-dropdown-account-segment-color: #E1E1E1;

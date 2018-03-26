@@ -144,7 +144,6 @@ class Favorite extends Component {
       .trim();
 
     options.className = classNames;
-
     let spinnerClass = 'ds-c-spinner';
     if (useButtonClass || useSpinnerWhite) {
       spinnerClass = `${spinnerClass} spinner-white`;

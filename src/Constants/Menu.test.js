@@ -23,12 +23,13 @@ import { PROFILE_MENU } from './Menu';
  * hasKeys({ key1: 'value1', key2: 'value2' }, ['key2', 'key3'])
  * // => false
  */
-function hasKeys(item, keyArray) {
+function hasKeys(item, searchKeys) {
   const result = compact( // Removes false values from array
-    keyArray.map(key => has(item, key)), // Maps array to result of has()
+    // Maps array to result of has()
+    searchKeys.map(key => has(item, key)),
   );
 
-  return (result.length === keyArray.length);
+  return (result.length === keys.length);
 }
 
 describe('Menu', () => {
@@ -88,19 +89,15 @@ describe('Menu', () => {
       let type;
       let validate;
 
-      /* eslint-disable  no-restricted-syntax */
-      for (key in item) {
-        if (rules[key]) {
-          rule = rules[key];
-          type = rule.type;
-          validate = types[type];
-          value = item[key];
+      forOwn(item, (value, key) => {
+        rule = rules[key];
+        type = rule.type;
+        validate = types[type];
 
-          // If tests fail, use:
-          // console.log([key, type, value, validate(value)]);
-          if (!validate(value)) {
-            return false;
-          }
+        // console.log([key, rule, type, value, validate]);
+        // If tests fail, use: console.log([key, type, value, validate(value)]);
+        if (!validate(value)) {
+          return false;
         }
 
         return true;
@@ -108,12 +105,10 @@ describe('Menu', () => {
 
       return true;
     };
-    /* eslint-enable  no-restricted-syntax */
 
     const expectAllToValidate = (items) => {
       items.forEach((item) => {
-        // If tests fail, use:
-        // console.log([key, validateRules(item)]);
+        // If tests fail, use: console.log([key, validateRules(item)]);
         expect(validateRules(item)).toBe(true);
 
         if (isArray(item.children)) {
