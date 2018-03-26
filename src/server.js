@@ -56,6 +56,7 @@ app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
 });
 
 app.get(ROUTES, (request, response) => {
+  response.sendStatus(200);
   response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 
