@@ -2,59 +2,48 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ExternalUserStatus from '../../ProfileDashboard/ExternalUserStatus';
 import OrganizationStamp from '../../OrganizationStamp';
-import { BID_REVIEWER_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import StaticDevContent from '../../StaticDevContent';
 
-const BidTrackerCardBottom = ({ bureau, reviewer, userProfile }) => {
-  // eslint-disable-next-line no-confusing-arrow
-  const getName = obj => obj ? `${obj.first_name} ${obj.last_name}` : null;
-  const reviewerName = getName(reviewer);
-  const cdo = userProfile.cdo;
-  const cdoName = getName(cdo);
+import { BID_REVIEWER_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
+
+const BidTrackerCardBottom = (props) => {
+  const { bureau, userProfile } = props;
+  const getUser = user => (user ?
+  {
+    email: user.email,
+    initials: user.initials,
+    firstName: user.first_name,
+    lastName: user.last_name,
+  } :
+  null);
+
+  const reviewer = getUser(props.reviewer);
+  const cdo = getUser(userProfile.cdo);
 
   return (
     <div className="usa-grid-full bid-tracker-card-bottom">
       {
-        cdoName &&
+        cdo &&
         <div className="bid-tracker-card-bottom-section">
-          <ExternalUserStatus
-            showMail
-            type="cdo"
-            name={cdoName}
-            email={cdo.email}
-          />
+          <ExternalUserStatus type="cdo" {...cdo} showMail />
         </div>
       }
       <div className="bid-tracker-card-bottom-section">
         <StaticDevContent>
-          <OrganizationStamp
-            showMail
-            abbreviation="AF"
-            name={bureau}
-          />
+          <OrganizationStamp abbreviation="AF" name={bureau} showMail />
         </StaticDevContent>
       </div>
       {
-        reviewerName &&
+        reviewer &&
         <div className="bid-tracker-card-bottom-section">
-          <ExternalUserStatus
-            showMail
-            type="ao"
-            name={reviewerName}
-            email={reviewer.email}
-          />
+          <ExternalUserStatus type="ao" {...reviewer} showMail />
         </div>
       }
       {
-        reviewerName &&
+        reviewer &&
         <div className="bid-tracker-card-bottom-section">
           <StaticDevContent>
-            <ExternalUserStatus
-              showMail
-              type="hr"
-              name={reviewerName}
-              email={reviewer.email}
-            />
+            <ExternalUserStatus type="hr" {...reviewer} showMail />
           </StaticDevContent>
         </div>
       }

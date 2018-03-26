@@ -42,7 +42,9 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
               "cdo": Object {
                 "email": "shadtrachl@state.gov",
                 "first_name": "Leah",
+                "initials": "LS",
                 "last_name": "Shadtrach",
+                "username": "shadtrachl",
               },
               "display_name": "John",
               "favorite_positions": Array [
@@ -76,6 +78,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
               "user": Object {
                 "email": "doej@state.gov",
                 "first_name": "John",
+                "initials": "JD",
                 "last_name": "Doe",
                 "username": "jdoe",
               },
@@ -100,7 +103,9 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
             "cdo": Object {
               "email": "shadtrachl@state.gov",
               "first_name": "Leah",
+              "initials": "LS",
               "last_name": "Shadtrach",
+              "username": "shadtrachl",
             },
             "display_name": "John",
             "favorite_positions": Array [
@@ -134,6 +139,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
             "user": Object {
               "email": "doej@state.gov",
               "first_name": "John",
+              "initials": "JD",
               "last_name": "Doe",
               "username": "jdoe",
             },
