@@ -16,6 +16,7 @@ export const bidderUserObject = {
     },
   ],
   user: {
+    initials: 'JD',
     first_name: 'John',
     last_name: 'Doe',
     email: 'doej@state.gov',
@@ -25,6 +26,8 @@ export const bidderUserObject = {
   initials: 'JD',
   is_cdo: false,
   cdo: {
+    username: 'shadtrachl',
+    initials: 'LS',
     first_name: 'Leah',
     last_name: 'Shadtrach',
     email: 'shadtrachl@state.gov',
