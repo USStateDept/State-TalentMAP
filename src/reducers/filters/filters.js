@@ -106,7 +106,6 @@ const items =
           ],
         },
         data: [
-          { id: 0, code: '0', description: '0%' },
           { id: 5, code: '5', description: '5%' },
           { id: 10, code: '10', description: '10%' },
           { id: 15, code: '15', description: '15%' },
