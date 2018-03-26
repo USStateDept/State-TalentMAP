@@ -89,6 +89,23 @@ export const propSort = propName => (a, b) => {
   return 0; // default return value (no sorting)
 };
 
+// Custom grade sorting
+export const sortGrades = (a, b) => {
+  const sortingArray = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '00', 'CM', 'MC', 'OC', 'OM'];
+  const A = a.code;
+  const B = b.code;
+
+  // if grade is not in sortingArray, push to bottom of list.
+  const indexOfA = sortingArray.indexOf(A) >= 0 ? sortingArray.indexOf(A) : sortingArray.length;
+  const indexOfB = sortingArray.indexOf(B) >= 0 ? sortingArray.indexOf(B) : sortingArray.length;
+
+  if (indexOfA < indexOfB) {
+    return -1;
+  }
+  if (indexOfA > indexOfB) { return 1; }
+  return 0;
+};
+
 // function to find the Region filters
 export const formExploreRegionDropdown = (filters) => {
   function filterRegion(filterItem) {
