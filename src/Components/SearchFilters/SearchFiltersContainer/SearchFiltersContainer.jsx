@@ -128,6 +128,7 @@ class SearchFiltersContainer extends Component {
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
                   queryProperty={(n === 'post' || n === 'bidCycle') ? '_id' : 'code'}
+                  groupAlpha={n === 'skill'}
                 />
               </div>
             ),

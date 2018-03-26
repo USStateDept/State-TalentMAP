@@ -207,6 +207,18 @@
       float: right;
     }
   }
+
+  .term-title {
+    border-bottom: 1px solid $color-gray-light;
+    font-weight: bold;
+    margin-top: 1em;
+  }
+
+  .term-group-first {
+    .term-title {
+      margin-top: 0;
+    }
+  }
 }
 
 .results-container {
