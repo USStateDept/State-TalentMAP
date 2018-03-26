@@ -22,6 +22,7 @@ const ProfileDashboard = ({
     ) : (
       <div className="usa-grid-full">
         <div className="hello-greeting">
+          <h2 className="sr-only">Dashboard</h2>
           {`Hello, ${userProfile.display_name}`}
         </div>
         <div className="usa-grid-full">
