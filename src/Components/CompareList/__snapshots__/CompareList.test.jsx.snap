@@ -228,15 +228,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               N/A 
-              <span>
-                 | 
-                <OBCUrl
-                  id={162}
-                  isButton={false}
-                  label="Details"
-                  type="post"
-                />
-              </span>
             </td>
             <td>
               N/A 
@@ -250,15 +241,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               N/A 
-              <span>
-                 | 
-                <OBCUrl
-                  id={162}
-                  isButton={false}
-                  label="Details"
-                  type="post"
-                />
-              </span>
             </td>
             <td>
               N/A 

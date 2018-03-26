@@ -10,7 +10,7 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Position Title: 
     </span>
-    00025003
+    10034001
   </div>
   <div>
     <span
@@ -18,7 +18,7 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Post: 
     </span>
-    MASERU, LESOTHO
+    Monrovia, Liberia
   </div>
   <div>
     <span
@@ -34,7 +34,7 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Grade: 
     </span>
-    05
+    06
   </div>
 </div>
 `;

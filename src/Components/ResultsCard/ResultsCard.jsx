@@ -94,6 +94,7 @@ const ResultsCard = (props) => {
     refKey: result.id,
     onToggle: toggleFavorite,
     useLongText: true,
+    useButtonClass: true,
   };
 
   options.compare = {

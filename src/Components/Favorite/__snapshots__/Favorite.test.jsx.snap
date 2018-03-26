@@ -46,7 +46,7 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
 
 exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
 <InteractiveElement
-  className="favorite-container  usa-button"
+  className="favorite-container usa-button"
   onClick={[Function]}
   style={
     Object {
@@ -112,7 +112,7 @@ exports[`Favorite matches snapshot when useLongText is true - Remove state 1`] =
 
 exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
 <InteractiveElement
-  className="favorite-container  "
+  className="favorite-container"
   onClick={[Function]}
   style={
     Object {

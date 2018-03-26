@@ -117,7 +117,7 @@ class Favorite extends Component {
     const title = this.title;
     const onClick = this.toggleSaved;
     const style = {
-      pointerEvents: this.state.loading ? 'none' : 'inherit',
+      pointerEvents: loading ? 'none' : 'inherit',
     };
 
     const options = {
@@ -130,8 +130,12 @@ class Favorite extends Component {
     let classNames = ['favorite-container'];
 
     // Class configs
-    if (hasBorder) {
+    if (hasBorder && !useButtonClass) {
       classNames.push('favorites-button-border');
+    }
+
+    if (useButtonClass) {
+      classNames.push('usa-button');
     }
 
     classNames.push(className);
@@ -140,7 +144,6 @@ class Favorite extends Component {
       .trim();
 
     options.className = classNames;
-
     let spinnerClass = 'ds-c-spinner';
     if (useButtonClass || useSpinnerWhite) {
       spinnerClass = `${spinnerClass} spinner-white`;
