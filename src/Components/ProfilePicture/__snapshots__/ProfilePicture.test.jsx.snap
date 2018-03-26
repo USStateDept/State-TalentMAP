@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`ProfilePicture matches snapshot 1`] = `
-<img
-  alt="avatar"
-  className="dashboard-user-profile-picture "
-  src="/assets/img/avatar.png"
-/>
-`;

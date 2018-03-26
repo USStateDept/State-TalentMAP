@@ -63,7 +63,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
       >
         <AccountDropdown
           logoutRequest={[Function]}
-          shouldDisplayName={false}
+          shouldDisplayName={true}
           userProfile={
             Object {
               "bid_statistics": Array [
@@ -75,7 +75,9 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
               "cdo": Object {
                 "email": "shadtrachl@state.gov",
                 "first_name": "Leah",
+                "initials": "LS",
                 "last_name": "Shadtrach",
+                "username": "shadtrachl",
               },
               "display_name": "John",
               "favorite_positions": Array [
@@ -109,6 +111,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
               "user": Object {
                 "email": "doej@state.gov",
                 "first_name": "John",
+                "initials": "JD",
                 "last_name": "Doe",
                 "username": "jdoe",
               },
