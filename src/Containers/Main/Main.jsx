@@ -12,6 +12,7 @@ import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
 import checkIndexAuthorization from '../../lib/check-auth';
 import { store, history } from '../../store';
 import { getApplicationPath, getAssetPath } from '../../utilities';
+import ConnectedPageTitle from '../../Components/PageTitle/ConnectedPageTitle';
 
 const isAuthorized = () => checkIndexAuthorization(store);
 
@@ -19,6 +20,7 @@ const Main = props => (
   <Provider store={store} history={history}>
     <ConnectedRouter history={history}>
       <div>
+        <ConnectedPageTitle history={history} />
         <Helmet titleTemplate="%s - TalentMAP" defaultTitle="TalentMAP">
           <meta property="og:title" content="TalentMAP" />
           <meta property="og:type" content="website" />
