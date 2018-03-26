@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar matches snapshot 1`] = `
+<div
+  aria-label="John Doe"
+  className="tm-avatar special-class"
+  onClick={[Function]}
+  role="img"
+>
+  JD
+</div>
+`;
