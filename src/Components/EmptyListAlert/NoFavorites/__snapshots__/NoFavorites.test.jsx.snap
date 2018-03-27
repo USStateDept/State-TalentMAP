@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoFavoritesComponent matches snapshot 1`] = `
+<EmptyListAlert
+  textLineOne="You haven't added any favorites."
+  textLineTwo={
+    <span>
+      Collect your favorite job positions by clicking on the 
+      <FontAwesome
+        name="star-o"
+      />
+      <span
+        className="sr-only"
+      >
+        star icon
+      </span>
+       while you search.
+    </span>
+  }
+/>
+`;

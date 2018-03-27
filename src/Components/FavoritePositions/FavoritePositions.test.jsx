@@ -40,7 +40,7 @@ describe('FavoritePositionsComponent', () => {
         favoritePositionsIsLoading={false}
       />,
     );
-    expect(wrapper.find('Alert').exists()).toBe(true);
+    expect(wrapper.find('NoFavorites').exists()).toBe(true);
   });
 
   it('renders the Spinner when loading', () => {
