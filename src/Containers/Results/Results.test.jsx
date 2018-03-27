@@ -32,7 +32,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -56,7 +55,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -82,7 +80,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     // define the instance
@@ -115,7 +112,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
@@ -141,7 +137,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     // define the instance
@@ -173,7 +168,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     wrapper.instance().saveSearch('test', 1);
@@ -200,7 +194,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     const history = { value: { search: null } };
@@ -236,7 +229,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     const history = { value: { search: null } };
@@ -272,7 +264,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     const history = { value: { search: null } };
@@ -308,7 +299,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     const history = { value: { search: null } };
@@ -342,7 +332,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
       />,
     );
     wrapper.instance().componentDidMount();

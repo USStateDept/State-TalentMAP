@@ -1,1 +1,18 @@
 scss_files: 'src/sass/**/*.scss'
+linters:
+  HexLength:
+    style: 'long'
+  HexNotation:
+    style: 'uppercase'
+  ImportantRule:
+    enabled: false
+  NestingDepth:
+    max_depth: 4
+    ignore_parent_selectors: true
+  SelectorDepth:
+    max_depth: 4
+  SelectorFormat:
+    convention: ^[a-zA-Z\-[0-9]]+$
+  # TODO: We should integrate autoprefixer to handle this in the future
+  VendorPrefix:
+    enabled: false

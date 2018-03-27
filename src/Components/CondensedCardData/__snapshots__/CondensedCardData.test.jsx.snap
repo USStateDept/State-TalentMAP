@@ -5,7 +5,7 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
-    content="MASERU, LESOTHO"
+    content="Monrovia, Liberia"
     hasFixedTitleWidth={true}
     title="Post"
   />
@@ -17,24 +17,7 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   <CondensedCardDataPoint
     content={
       <LanguageList
-        languages={
-          Array [
-            Object {
-              "id": 1,
-              "language": "French (FR)",
-              "reading_proficiency": "2",
-              "representation": "French (FR) 2/2",
-              "spoken_proficiency": "2",
-            },
-            Object {
-              "id": 1,
-              "language": "German (GM)",
-              "reading_proficiency": "2",
-              "representation": "German (GM) 2/2",
-              "spoken_proficiency": "2",
-            },
-          ]
-        }
+        languages={Array []}
         propToUse="language"
       />
     }

@@ -42,15 +42,15 @@ describe('Menu', () => {
    */
   /* eslint-disable key-spacing, no-multi-spaces */
   const rules = {
-    text:              { type: 'string',  required: true },
-    icon:              { type: 'string',  required: false },
-    route:             { type: 'string',  required: false },
-    params:            { type: 'string',  required: false },
+    text: { type: 'string', required: true },
+    icon: { type: 'string', required: false },
+    route: { type: 'string', required: false },
+    params: { type: 'string', required: false },
     toggleMenuSection: { type: 'boolean', required: false },
-    expandedSection:   { type: 'boolean', required: false },
-    isCDO:             { type: 'boolean', required: false },
-    isGlossaryEditor:  { type: 'boolean', required: false },
-    children:          { type: 'array',   required: false },
+    expandedSection: { type: 'boolean', required: false },
+    isCDO: { type: 'boolean', required: false },
+    isGlossaryEditor: { type: 'boolean', required: false },
+    children: { type: 'array', required: false },
   };
   /* eslint-enable key-spacing, no-multi-spaces */
 

@@ -135,6 +135,12 @@
 }
 
 .favorite-container {
+  &.usa-button {
+    .fa {
+      color: $color-white;
+    }
+  }
+
   .fa {
     color: $blue-primary;
   }
