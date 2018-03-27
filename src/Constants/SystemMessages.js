@@ -41,7 +41,6 @@ export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
 export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';
 export const DECLINE_BID_SUCCESS = 'Bid successfully declined.';
 export const DECLINE_BID_ERROR = 'Error trying to decline this bid.';
-
 export const SUBMIT_BID_SUCCESS = 'Bid successfully submitted.';
 export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 
@@ -49,3 +48,5 @@ export const NEW_SAVED_SEARCH_SUCCESS = name =>
   `New search with the name "${name}" has been saved! You can go to your profile to view all of your saved searches.`;
 export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
   `Search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;
+export const NO_DATE = DEFAULT_TEXT;
+export const NO_BID_CYCLE = DEFAULT_TEXT;
