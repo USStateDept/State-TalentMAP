@@ -5,7 +5,7 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
   className="usa-grid-full"
 >
   <div
-    className="usa-grid-full saved-searches-list"
+    className="usa-grid-full saved-searches-list "
   >
     <SavedSearchListResultsCard
       cloneSavedSearch={[Function]}
