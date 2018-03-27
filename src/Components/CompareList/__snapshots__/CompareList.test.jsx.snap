@@ -44,7 +44,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th>
               <div
                 className="column-title-main"
-              />
+              >
+                Position - First
+              </div>
               <div
                 className="column-title-link"
               >
@@ -62,7 +64,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th>
               <div
                 className="column-title-main"
-              />
+              >
+                Position - Second
+              </div>
               <div
                 className="column-title-link"
               >

@@ -89,6 +89,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
               "tour_of_duty": "2YRR",
             },
             "skill": "OFFICE MANAGEMENT (9017)",
+            "title": "Position - First",
             "update_date": "2017-06-08",
           },
           Object {
@@ -112,6 +113,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
             "position_number": "00025003",
             "post": null,
             "skill": "OFFICE MANAGEMENT (9017)",
+            "title": "Position - Second",
             "update_date": "2017-06-08",
           },
         ],
@@ -195,6 +197,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
                 "tour_of_duty": "2YRR",
               },
               "skill": "OFFICE MANAGEMENT (9017)",
+              "title": "Position - First",
               "update_date": "2017-06-08",
             },
             Object {
@@ -218,6 +221,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
               "position_number": "00025003",
               "post": null,
               "skill": "OFFICE MANAGEMENT (9017)",
+              "title": "Position - Second",
               "update_date": "2017-06-08",
             },
           ],

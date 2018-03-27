@@ -29,6 +29,7 @@ const resultsObject = {
         { id: 1, language: 'French (FR)', reading_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' },
         { id: 1, language: 'German (GM)', reading_proficiency: '2', spoken_proficiency: '2', representation: 'German (GM) 2/2' },
       ],
+      title: 'Position - First',
     },
     { id: 60,
       grade: '03',
@@ -51,6 +52,7 @@ const resultsObject = {
       ],
       post: null,
       languages: [],
+      title: 'Position - Second',
     },
   ],
 };
