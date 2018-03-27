@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SavedSearchesListResultsCard from '../SavedSearchesListResultsCard';
-import Alert from '../../Alert';
 import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
-import { NO_SAVED_SEARCHES } from '../../../Constants/SystemMessages';
+import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch, cloneSavedSearch,
 mappedParams }) => {
@@ -22,15 +21,17 @@ mappedParams }) => {
       />,
     )
   ));
+  let emptyListClass = 'saved-searches-list-empty';
+  if (savedSearchArray.length) { emptyListClass = ''; }
   return (
     <div className="usa-grid-full">
       {
-        <div className="usa-grid-full saved-searches-list">
+        <div className={`usa-grid-full saved-searches-list ${emptyListClass}`}>
           {savedSearchArray.map(s => s)}
         </div>
       }
       {
-        !savedSearchArray.length && <Alert title={NO_SAVED_SEARCHES} />
+        !savedSearchArray.length && <NoSavedSearches />
       }
     </div>
   );
