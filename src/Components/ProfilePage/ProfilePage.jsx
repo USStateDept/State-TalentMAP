@@ -8,11 +8,9 @@ import ProfileMenu from '../ProfileMenu';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { userHasPermissions } from '../../utilities';
 import GLOSSARY_EDITOR_PERM from '../../Constants/Permissions';
-import PageTitle from '../PageTitle';
 
 const ProfilePage = ({ user }) => (
   <div className="profile-page">
-    <PageTitle pageTitle="Profile" srOnly />
     <ProfileMenu
       isCDO={user.is_cdo}
       isGlossaryEditor={userHasPermissions([GLOSSARY_EDITOR_PERM], user.permission_groups)}

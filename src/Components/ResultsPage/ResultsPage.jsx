@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE,
 SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY,
@@ -11,7 +10,6 @@ import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 import ResultsFilterContainer from '../ResultsFilterContainer/ResultsFilterContainer';
-import PageTitle from '../PageTitle';
 
 class Results extends Component {
   constructor(props) {
@@ -37,17 +35,11 @@ class Results extends Component {
             newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
-            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            pageTitle }
+            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
       <div className="results content-container">
-        <PageTitle pageTitle={pageTitle} srOnly />
-        <Helmet>
-          <title>{pageTitle}</title>
-          <meta property="og:url" content={window.location.href} />
-        </Helmet>
         {
           shouldShowSearchBar &&
           <ResultsSearchHeader
@@ -156,7 +148,6 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
-  pageTitle: PropTypes.string.isRequired,
 };
 
 Results.defaultProps = {

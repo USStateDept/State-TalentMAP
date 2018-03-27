@@ -4,18 +4,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full content-container"
 >
-  <PageTitle
-    pageTitle="Compare"
-    srOnly={true}
-  />
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Compare
-    </title>
-  </HelmetWrapper>
   <div>
     <button
       className="button-back-link"
@@ -290,18 +278,6 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 <div
   className="usa-grid-full content-container"
 >
-  <PageTitle
-    pageTitle="Compare"
-    srOnly={true}
-  />
-  <HelmetWrapper
-    defer={true}
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      Compare
-    </title>
-  </HelmetWrapper>
   <div>
     <button
       className="button-back-link"

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 import { USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import HomePagePositionsContainer from '../HomePagePositionsContainer/HomePagePositionsContainer';
 import Spinner from '../../Components/Spinner';
-import PageTitle from '../../Components/PageTitle';
 
 class HomePage extends Component {
   constructor(props) {
@@ -23,14 +21,10 @@ class HomePage extends Component {
 
   render() {
     const { userProfile, userProfileIsLoading, toggleFavorite, toggleBid, bidList,
-      userProfileFavoritePositionIsLoading, onNavigateTo, pageTitle,
+      userProfileFavoritePositionIsLoading, onNavigateTo,
       userProfileFavoritePositionHasErrored, homePagePositionsIsLoading } = this.props;
     return (
       <div className="home content-container">
-        <PageTitle pageTitle={pageTitle} srOnly />
-        <Helmet>
-          <title>{pageTitle}</title>
-        </Helmet>
         {
           (userProfileIsLoading || homePagePositionsIsLoading) &&
             <Spinner type="homepage-position-results" size="big" />
@@ -62,7 +56,6 @@ HomePage.propTypes = {
   toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   homePagePositionsIsLoading: PropTypes.bool,
-  pageTitle: PropTypes.string.isRequired,
 };
 
 HomePage.defaultProps = {
