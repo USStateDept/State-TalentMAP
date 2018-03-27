@@ -17,20 +17,27 @@ class PageMetaContainer extends Component {
     this.getPageTitle();
   }
 
+  setPageTitle(historyObject) {
+    // loop through routes
+    routes.forEach((route) => {
+      if (matchPath(historyObject.pathname, { path: route.path, exact: false })) {
+        // set pageTitle if it exists
+        if (route.pageTitle) {
+          this.setState({ pageTitle: route.pageTitle });
+        }
+      }
+    });
+  }
+
   getPageTitle() {
     const { history } = this.props;
 
+    // perform once on mount
+    this.setPageTitle(history.location);
+
     // listen for changes in history
     history.listen((historyObject) => {
-      // loop through routes
-      routes.forEach((route) => {
-        if (matchPath(historyObject.pathname, { path: route.path, exact: false })) {
-          // set pageTitle if it exists
-          if (route.pageTitle) {
-            this.setState({ pageTitle: route.pageTitle });
-          }
-        }
-      });
+      this.setPageTitle(historyObject);
     });
   }
 
