@@ -26,6 +26,7 @@ exports[`GlossaryEditorCardListComponent matches snapshot 1`] = `
         "B",
       ]
     }
+    onGlossaryEditorCancel={[Function]}
     submitGlossaryTerm={[Function]}
     terms={
       Object {
@@ -103,6 +104,7 @@ exports[`GlossaryEditorCardListComponent matches snapshot when there are no term
         "B",
       ]
     }
+    onGlossaryEditorCancel={[Function]}
     submitGlossaryTerm={[Function]}
     terms={Object {}}
   />

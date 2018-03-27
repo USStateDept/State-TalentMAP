@@ -1,3 +1,7 @@
+.usa-button {
+  font-family: 'Roboto';
+}
+
 // for when we want to use react Links as buttons
 .button-link {
   a:visited {
@@ -20,6 +24,18 @@
 .glossary-editor-card-definition,
 .Select--multi .Select-multi-value-wrapper {
   -ms-overflow-style: none;
+}
+
+// Overrides USWDS horizontal padding (2.7em) on submit buttons
+// to what they have on all other buttons
+@media screen and (min-width: 600px) {
+  $padding-horizontal: 2rem;
+
+  [type=submit] {
+    padding-left: $padding-horizontal;
+    padding-right: $padding-horizontal;
+    width: auto;
+  }
 }
 
 // IE10+ specific styles

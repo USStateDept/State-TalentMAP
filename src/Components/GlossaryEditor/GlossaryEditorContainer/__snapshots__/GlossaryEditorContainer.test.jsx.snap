@@ -13,6 +13,7 @@ exports[`GlossaryEditorContainerComponent matches snapshot 1`] = `
     }
     glossaryPatchHasErrored={Object {}}
     glossaryPatchSuccess={Object {}}
+    onGlossaryEditorCancel={[Function]}
     submitGlossaryFirstLetter={[Function]}
     submitGlossaryTerm={[Function]}
     terms={

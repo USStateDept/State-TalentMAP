@@ -1,4 +1,3 @@
-// scss-lint:disable SelectorFormat,VendorPrefix
 .editor {
   background: $editor-background;
   border: 1px solid $editor-border;
@@ -10,7 +9,7 @@
   padding: 16px;
 }
 
-.editor :global(.public-DraftEditor-content) {
+.editor :global(.public-DraftEditor-content) { // scss-lint:disable MergeableSelector, SelectorFormat
   min-height: 140px;
 }
 
@@ -34,7 +33,7 @@
   }
 }
 
-.draftJsToolbar__toolbar__dNtBH {
+.draftJsToolbar__toolbar__dNtBH { // scss-lint:disable SelectorFormat
   left: unset;
   position: unset;
   -webkit-transform: unset;

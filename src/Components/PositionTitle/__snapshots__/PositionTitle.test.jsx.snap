@@ -4,6 +4,26 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
 <div
   className="position-details-header-container"
 >
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Test Position
+    </title>
+    <meta
+      content="Test Position 00003027"
+      property="og:title"
+    />
+    <meta
+      content="a description"
+      property="og:description"
+    />
+    <meta
+      content="http://localhost/"
+      property="og:url"
+    />
+  </HelmetWrapper>
   <div
     className="position-details-header"
   >
@@ -22,7 +42,9 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             <div
               className="position-details-header-title"
             >
-              <h1 />
+              <h1>
+                Test Position
+              </h1>
             </div>
             <div>
               Post: 
@@ -34,6 +56,8 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             className="usa-width-one-third title-actions-section"
           >
             <Favorite
+              as="div"
+              className=""
               compareArray={Array []}
               hasBorder={false}
               hideText={false}

@@ -387,3 +387,7 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 
   return arrayToReturn;
 };
+
+// returns the base application path,
+// ie, https://hostname:8080/PUBLIC_URL/
+export const getApplicationPath = () => `${window.location.origin}${process.env.PUBLIC_URL}`;

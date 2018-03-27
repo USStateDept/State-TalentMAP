@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
 import GlossaryEditorCardList from '../GlossaryEditorCardList';
 import Alert from '../../Alert/Alert';
 
-const GlossaryEditorContainer = ({ glossaryItems, submitGlossaryTerm,
-submitGlossaryFirstLetter, availableLetters, glossaryPatchHasErrored, glossaryPatchSuccess }) => {
+const GlossaryEditorContainer = (props) => {
+  const {
+    glossaryItems,
+    submitGlossaryTerm,
+    submitGlossaryFirstLetter,
+    availableLetters,
+    glossaryPatchHasErrored,
+    glossaryPatchSuccess,
+    onGlossaryEditorCancel,
+  } = props;
+
   const noResults = glossaryItems.length === 0;
+
   return (
     <div className="usa-grid-full user-dashboard">
       <GlossaryEditorCardList
@@ -16,6 +26,7 @@ submitGlossaryFirstLetter, availableLetters, glossaryPatchHasErrored, glossaryPa
         availableLetters={availableLetters}
         glossaryPatchHasErrored={glossaryPatchHasErrored}
         glossaryPatchSuccess={glossaryPatchSuccess}
+        onGlossaryEditorCancel={onGlossaryEditorCancel}
       />
       {
         noResults &&
@@ -34,11 +45,13 @@ GlossaryEditorContainer.propTypes = {
   availableLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
   glossaryPatchHasErrored: GLOSSARY_ERROR_OBJECT,
   glossaryPatchSuccess: GLOSSARY_SUCCESS_OBJECT,
+  onGlossaryEditorCancel: PropTypes.func,
 };
 
 GlossaryEditorContainer.defaultProps = {
   glossaryPatchHasErrored: {},
   glossaryPatchSuccess: {},
+  onGlossaryEditorCancel: EMPTY_FUNCTION,
 };
 
 export default GlossaryEditorContainer;

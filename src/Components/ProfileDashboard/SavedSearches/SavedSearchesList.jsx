@@ -6,7 +6,7 @@ import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import SavedSearchesListResultsCard from './SavedSearchesListResultsCard';
 import Spinner from '../../Spinner';
-import { NO_SAVED_SEARCHES } from '../../../Constants/SystemMessages';
+import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filtersIsLoading }) => {
   const savedSearchArray = [];
@@ -36,7 +36,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
             {
               savedSearchArray.length === 0 ?
                 <div className="usa-grid-full section-padded-inner-container">
-                  {NO_SAVED_SEARCHES}
+                  <NoSavedSearches />
                 </div>
               :
                 <BorderedList contentArray={savedSearchArray} />

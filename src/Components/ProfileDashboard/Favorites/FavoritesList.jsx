@@ -4,7 +4,7 @@ import { BID_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import FavoriteListResultsCard from './FavoritesListResultsCard';
-import { NO_FAVORITES } from '../../../Constants/SystemMessages';
+import NoFavorites from '../../EmptyListAlert/NoFavorites';
 
 const FavoriteList = ({ favorites }) => {
   const positionArray = [];
@@ -29,7 +29,7 @@ const FavoriteList = ({ favorites }) => {
         {
           positionArray.length === 0 ?
             <div className="usa-grid-full section-padded-inner-container">
-              {NO_FAVORITES}
+              <NoFavorites />
             </div>
           :
             <BorderedList contentArray={positionArray} />

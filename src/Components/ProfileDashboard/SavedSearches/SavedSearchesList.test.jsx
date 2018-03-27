@@ -9,7 +9,7 @@ describe('SavedSearchesListComponent', () => {
     savedSearches: searchObjectParent,
     goToSavedSearch: () => {},
     mappedParams,
-    filtersIsLoading: true,
+    filtersIsLoading: false,
   };
   it('is defined', () => {
     const wrapper = shallow(<SavedSearchesList {...props} />);
@@ -18,6 +18,11 @@ describe('SavedSearchesListComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(<SavedSearchesList {...props} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when filtersIsLoading is true', () => {
+    const wrapper = shallow(<SavedSearchesList {...props} filtersIsLoading />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
