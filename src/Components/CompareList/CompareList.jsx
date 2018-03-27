@@ -12,7 +12,7 @@ import { propOrDefault, formatDate } from '../../utilities';
 import ViewPostDataButton from '../ViewPostDataButton';
 import OBCUrl from '../OBCUrl';
 
-const CompareList = ({ compare, isLoading, goBackLink, pageTitle }) => {
+const CompareList = ({ compare, isLoading, goBackLink }) => {
   const compareArray = compare.slice(0, COMPARE_LIMIT);
   return (
     <div className="usa-grid-full content-container">

@@ -44,7 +44,7 @@ class Home extends Component {
     const { onNavigateTo, items, homePagePositions,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
       userProfile, userProfileIsLoading, toggleFavorite, toggleBid,
-      userProfileFavoritePositionIsLoading, bidList, pageTitle,
+      userProfileFavoritePositionIsLoading, bidList,
       userProfileFavoritePositionHasErrored, filtersIsLoading } = this.props;
     return (
       <HomePage

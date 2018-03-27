@@ -30,7 +30,7 @@ class Results extends Component {
   }
 
   render() {
-    const { comparisons, hasErrored, isLoading, routerLocations, pageTitle } = this.props;
+    const { comparisons, hasErrored, isLoading, routerLocations } = this.props;
     return (
       <CompareList
         compare={comparisons}
