@@ -90,9 +90,18 @@ class GlossaryEditorPage extends Component {
   }
 
   render() {
-    const { glossaryIsLoading, glossaryHasErrored, submitGlossaryTerm,
-      submitNewGlossaryTerm, glossaryPatchHasErrored, glossaryPatchSuccess,
-      glossaryPostHasErrored, glossaryPostSuccess } = this.props;
+    const {
+      glossaryIsLoading,
+      glossaryHasErrored,
+      submitGlossaryTerm,
+      submitNewGlossaryTerm,
+      glossaryPatchHasErrored,
+      glossaryPatchSuccess,
+      glossaryPostHasErrored,
+      glossaryPostSuccess,
+      onGlossaryEditorCancel,
+    } = this.props;
+
     const { localSearchIsLoading } = this.state;
 
     const glossaryIsLoadingAsyncOrSync = glossaryIsLoading || localSearchIsLoading;
@@ -104,6 +113,7 @@ class GlossaryEditorPage extends Component {
       <div className="bidder-portfolio-page glossary-editor-page">
         <GlossaryEditorPageHeader
           submitNewGlossaryTerm={submitNewGlossaryTerm}
+          onGlossaryEditorCancel={onGlossaryEditorCancel}
           glossaryPostHasErrored={glossaryPostHasErrored}
           glossaryPostSuccess={glossaryPostSuccess}
         />
@@ -129,6 +139,7 @@ class GlossaryEditorPage extends Component {
                   availableLetters={availableLetters}
                   glossaryPatchHasErrored={glossaryPatchHasErrored}
                   glossaryPatchSuccess={glossaryPatchSuccess}
+                  onGlossaryEditorCancel={onGlossaryEditorCancel}
                 />
             }
           </div>
@@ -146,15 +157,17 @@ GlossaryEditorPage.propTypes = {
   submitNewGlossaryTerm: PropTypes.func.isRequired,
   glossaryPatchHasErrored: GLOSSARY_ERROR_OBJECT,
   glossaryPatchSuccess: GLOSSARY_SUCCESS_OBJECT,
-  glossaryPostHasErrored: PropTypes.bool,
+  glossaryPostHasErrored: GLOSSARY_ERROR_OBJECT,
   glossaryPostSuccess: GLOSSARY_SUCCESS_OBJECT,
+  onGlossaryEditorCancel: PropTypes.func,
 };
 
 GlossaryEditorPage.defaultProps = {
   glossaryPatchHasErrored: {},
   glossaryPatchSuccess: {},
-  glossaryPostHasErrored: false,
+  glossaryPostHasErrored: {},
   glossaryPostSuccess: {},
+  onGlossaryEditorCancel: EMPTY_FUNCTION,
 };
 
 export default GlossaryEditorPage;

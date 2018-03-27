@@ -26,6 +26,7 @@ import { validStateEmail,
          formatIdSpacing,
          userHasPermissions,
          getAssetPath,
+         getApplicationPath,
        } from './utilities';
 
 describe('local storage', () => {
@@ -456,5 +457,16 @@ describe('getAssetPath', () => {
     const assetPath = '/image.png';
     const result = getAssetPath(assetPath);
     expect(result).toBe(`/public${assetPath}`);
+  });
+});
+
+describe('getApplicationPath', () => {
+  it('returns a valid path', () => {
+    // set env
+    process.env.PUBLIC_URL = '/application/';
+
+    const result = getApplicationPath();
+
+    expect(result).toBe('http://localhost/application/');
   });
 });
