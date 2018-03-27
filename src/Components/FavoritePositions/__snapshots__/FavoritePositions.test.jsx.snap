@@ -11,7 +11,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
       className="favorites-title-container"
     >
       <ProfileSectionTitle
-        title="Your Favorite Positions:"
+        title="Favorites"
       />
     </div>
     <div

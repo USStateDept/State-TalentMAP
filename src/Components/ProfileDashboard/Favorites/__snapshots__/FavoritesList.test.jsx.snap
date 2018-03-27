@@ -154,7 +154,7 @@ exports[`FavoritesListComponent matches snapshot when there are no bids 1`] = `
     <div
       className="usa-grid-full section-padded-inner-container"
     >
-      You do not have any favorited positions.
+      <NoFavorites />
     </div>
   </div>
   <div
