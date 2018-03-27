@@ -10,7 +10,7 @@ const Routes = props => (
           key={route.path}
           exact={route.exact}
           path={route.path}
-          component={() => route.component(props, route.pageTitle)}
+          component={() => route.component(props)}
         />
       ))
     }
