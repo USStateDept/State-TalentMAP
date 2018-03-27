@@ -8,9 +8,11 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
     defer={true}
     encodeSpecialCharacters={true}
   >
-    <title />
+    <title>
+      Test Position
+    </title>
     <meta
-      content="undefined 00003027"
+      content="Test Position 00003027"
       property="og:title"
     />
     <meta
@@ -40,7 +42,9 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             <div
               className="position-details-header-title"
             >
-              <h1 />
+              <h1>
+                Test Position
+              </h1>
             </div>
             <div>
               Post: 
