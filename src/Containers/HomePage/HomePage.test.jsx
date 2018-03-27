@@ -26,7 +26,6 @@ describe('HomePageComponent', () => {
       userProfileFavoritePositionHasErrored={false}
       toggleBid={() => {}}
       bidList={bidListObject.results}
-      pageTitle="Home"
     />);
     expect(wrapper).toBeDefined();
   });
@@ -41,7 +40,6 @@ describe('HomePageComponent', () => {
       userProfileFavoritePositionHasErrored={false}
       toggleBid={() => {}}
       bidList={bidListObject.results}
-      pageTitle="Home"
     />);
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
   });
@@ -57,7 +55,6 @@ describe('HomePageComponent', () => {
       userProfileFavoritePositionHasErrored={false}
       toggleBid={() => {}}
       bidList={bidListObject.results}
-      pageTitle="Home"
     />);
     wrapper.instance().props.onNavigateTo();
     sinon.assert.calledOnce(spy);
