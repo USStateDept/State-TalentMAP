@@ -61,7 +61,6 @@ class Home extends Component {
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         toggleBid={toggleBid}
         bidList={bidList.results}
-        pageTitle={pageTitle}
       />
     );
   }
@@ -84,7 +83,6 @@ Home.propTypes = {
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
   filtersIsLoading: PropTypes.bool,
-  pageTitle: PropTypes.string.isRequired,
 };
 
 Home.defaultProps = {

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 import { USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import HomePagePositionsContainer from '../HomePagePositionsContainer/HomePagePositionsContainer';

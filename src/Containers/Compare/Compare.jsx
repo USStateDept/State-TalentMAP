@@ -37,7 +37,6 @@ class Results extends Component {
         hasErrored={hasErrored}
         isLoading={isLoading}
         goBackLink={getLastRouteLink(routerLocations)}
-        pageTitle={pageTitle}
       />
     );
   }
@@ -56,7 +55,6 @@ Results.propTypes = {
   comparisons: COMPARE_LIST,
   isAuthorized: PropTypes.func.isRequired,
   routerLocations: ROUTER_LOCATIONS,
-  pageTitle: PropTypes.string.isRequired,
 };
 
 Results.defaultProps = {
