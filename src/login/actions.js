@@ -1,6 +1,7 @@
 import {
   LOGIN_REQUESTING,
   LOGOUT_REQUESTING,
+  TOKEN_VALIDATION_REQUESTING,
 } from './constants';
 
 export const loginRequest = function loginRequest({ username, password }) {
@@ -14,5 +15,12 @@ export const loginRequest = function loginRequest({ username, password }) {
 export const logoutRequest = function logoutRequest() {
   return {
     type: LOGOUT_REQUESTING,
+  };
+};
+
+export const tokenValidationRequest = function tokenValidationRequest(token) {
+  return {
+    type: TOKEN_VALIDATION_REQUESTING,
+    token,
   };
 };

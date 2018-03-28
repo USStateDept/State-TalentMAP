@@ -4,6 +4,7 @@ import {
   LOGIN_ERROR,
   LOGOUT_REQUESTING,
   LOGOUT_SUCCESS,
+  TOKEN_VALIDATION_REQUESTING,
 } from './constants';
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
 const reducer = function loginReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUESTING:
+    case TOKEN_VALIDATION_REQUESTING:
       return {
         requesting: true,
         successful: false,

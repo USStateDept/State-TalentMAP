@@ -20,4 +20,8 @@ describe('login reducers', () => {
   it('can set reducer LOGOUT_SUCCESS', () => {
     expect(reducer({ }, { type: 'LOGOUT_SUCCESS' }).successful).toBe(true);
   });
+
+  it('can set reducer TOKEN_VALIDATION_REQUESTING', () => {
+    expect(reducer({ }, { type: 'TOKEN_VALIDATION_REQUESTING' }).loggedIn).toBe(false);
+  });
 });
