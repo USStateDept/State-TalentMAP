@@ -1,30 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { omit } from 'lodash';
+import { merge } from 'lodash';
+import Base from '../Base';
 
+/* eslint-disable react/prop-types */
 const Row = (props) => {
-  const Element = props.as;
-  const options = omit(props, ['fluid', 'as', 'children']);
+  const options = merge({}, props);
   options.className = `${props.fluid ? 'usa-grid-full' : 'usa-grid'} ${props.className}`.trim();
   return (
-    <Element {...options}>
+    <Base {...options}>
       {props.children}
-    </Element>
+    </Base>
   );
 };
+/* eslint-enable react/prop-types */
 
-Row.propTypes = {
-  className: PropTypes.string,
+Row.propTypes = merge({}, Base.propTypes, {
   fluid: PropTypes.bool,
-  children: PropTypes.node,
-  as: PropTypes.string.isRequired,
-};
+});
 
-Row.defaultProps = {
-  as: 'div',
-  className: '',
+Row.defaultProps = merge({}, Base.defaultProps, {
   fluid: false,
-  children: null,
-};
+});
 
 export default Row;
