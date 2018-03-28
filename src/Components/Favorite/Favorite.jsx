@@ -42,6 +42,7 @@ const getText$ = (state, type) => Texts[state][type];
 class Favorite extends Component {
   constructor(props) {
     super(props);
+    this.toggleSaved = this.toggleSaved.bind(this);
     this.state = {
       loading: props.isLoading,
     };
@@ -92,7 +93,7 @@ class Favorite extends Component {
     return getText$(state, Types.LONG);
   }
 
-  toggleSaved = () => {
+  toggleSaved() {
     const { onToggle, refKey } = this.props;
 
     this.setState({
