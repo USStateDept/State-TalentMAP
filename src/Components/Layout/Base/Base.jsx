@@ -13,7 +13,7 @@ const Base = (props) => {
   const Element = props.as;
   const options = omit(props, exceptions);
 
-  options.className = options.className.trim();
+  options.className = props.className.trim();
 
   return (
     <Element {...options}>
