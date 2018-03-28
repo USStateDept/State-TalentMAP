@@ -10,6 +10,12 @@ class CheckBox extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ checked: { value: nextProps.value } });
+    }
+  }
+
   onCheck() {
     const { checked } = this.state;
     checked.value = !checked.value;
