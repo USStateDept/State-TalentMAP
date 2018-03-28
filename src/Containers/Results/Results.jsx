@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { withRouter } from 'react-router';
 import queryString from 'query-string';
+import debounce from 'lodash/debounce';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
@@ -36,6 +38,9 @@ class Results extends Component {
       defaultPageNumber: { value: 1 },
       defaultKeyword: { value: '' },
     };
+
+    // Create an instance attribute for storing a reference to debounced requests
+    this.debounced = debounce(() => {});
   }
 
   componentWillMount() {
@@ -116,7 +121,9 @@ class Results extends Component {
     // finally, turn the object back into a string
     const newQueryString = queryString.stringify(parsedQuery);
     // check if there were actually any changes (example - two fast clicks of a pill)
-    if (newQueryString !== this.state.query.value) { this.updateHistory(newQueryString); }
+    if (newQueryString !== this.state.query.value) {
+      this.updateHistory(newQueryString);
+    }
   }
 
   createQueryParams() {
@@ -165,8 +172,12 @@ class Results extends Component {
 
   // updates the history by passing a string of query params
   updateHistory(q) {
-    this.context.router.history.push({
-      search: q,
+    this.setState({ query: { value: q } }, () => {
+      window.history.pushState('', '', `/results?${q}`);
+      this.debounced.cancel();
+      // add debounce so that quickly selecting multiple filters is smooth
+      this.debounced = debounce(() => this.createQueryParams(), this.props.debounceTimeInMs);
+      this.debounced();
     });
   }
 
@@ -251,6 +262,10 @@ class Results extends Component {
   }
 }
 
+Results.contextTypes = {
+  router: PropTypes.object,
+};
+
 Results.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
@@ -282,6 +297,7 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
+  debounceTimeInMs: PropTypes.number,
 };
 
 Results.defaultProps = {
@@ -310,6 +326,7 @@ Results.defaultProps = {
   postSearchIsLoading: false,
   postSearchHasErrored: false,
   shouldShowSearchBar: true,
+  debounceTimeInMs: 50,
 };
 
 Results.contextTypes = {
@@ -359,4 +376,4 @@ export const mapDispatchToProps = dispatch => ({
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

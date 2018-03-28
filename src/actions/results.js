@@ -1,5 +1,6 @@
 import { CancelToken } from 'axios';
 import api from '../api';
+import { propOrDefault } from '../utilities';
 
 let cancel;
 
@@ -61,7 +62,7 @@ export function resultsFetchSimilarPositions(id) {
 
 export function resultsFetchData(query) {
   return (dispatch) => {
-    if (cancel) { cancel(); }
+    if (cancel) { cancel(); dispatch(resultsIsLoading(true)); }
     dispatch(resultsIsLoading(true));
     api
       .get(`/position/?${query}`, {
@@ -73,9 +74,14 @@ export function resultsFetchData(query) {
         dispatch(resultsIsLoading(false));
         dispatch(resultsHasErrored(false));
       })
-      .catch(() => {
-        dispatch(resultsIsLoading(false));
-        dispatch(resultsHasErrored(true));
+      .catch((err) => {
+        if (propOrDefault(err, 'constructor.name') === 'Cancel') {
+          dispatch(resultsIsLoading(true));
+          dispatch(resultsHasErrored(false));
+        } else {
+          dispatch(resultsIsLoading(false));
+          dispatch(resultsHasErrored(true));
+        }
       });
   };
 }
