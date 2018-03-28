@@ -511,3 +511,14 @@ export const CLIENT_BY_ID = PropTypes.shape({
 });
 
 export const HOME_PAGE_CARD_TYPE = PropTypes.oneOf(['default', 'serviceNeed']);
+
+export const BID_CYCLE = PropTypes.shape({
+  id: PropTypes.number,
+  name: PropTypes.string,
+  cycle_start_date: PropTypes.string,
+  cycle_deadline_date: PropTypes.string,
+  cycle_end_date: PropTypes.string,
+  active: PropTypes.bool,
+});
+
+export const BID_CYCLES = PropTypes.arrayOf(BID_CYCLE);
