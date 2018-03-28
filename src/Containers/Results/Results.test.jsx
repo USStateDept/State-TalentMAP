@@ -14,6 +14,7 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Results', () => {
+  const debounceTimeInMs = 500;
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Results
@@ -181,7 +182,7 @@ describe('Results', () => {
     expect(savedSearch.id).toBe(1);
   });
 
-  it('can call the onQueryParamToggle function when removing a param', () => {
+  it('can call the onQueryParamToggle function when removing a param', (done) => {
     const wrapper = shallow(
       <Results.WrappedComponent
         results={resultsObject}
@@ -203,21 +204,23 @@ describe('Results', () => {
         pageTitle="Results"
       />,
     );
-    const history = { value: { search: null } };
     // define the instance
     const instance = wrapper.instance();
-    // spy the onQueryParamUpdate function
-    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
-    wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
-    wrapper.instance().state.query.value = 'language=1%2C2&ordering=bureau&q=German&skill=1';
+    instance.state.query.value = 'language=1&skill=2';
     // remove the skill
-    wrapper.instance().onQueryParamToggle('skill', '1', true);
-    sinon.assert.calledOnce(handleUpdateSpy);
-    // make sure the skill was removed
-    expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German');
+    instance.onQueryParamToggle('language', '1', true);
+
+    const f = () => {
+      setTimeout(() => {
+        // make sure the skill was removed
+        expect(instance.state.query.value).toBe('skill=2');
+        done();
+      }, debounceTimeInMs + 100);
+    };
+    f();
   });
 
-  it('can call the onQueryParamToggle function when adding a param value and that param already exists', () => {
+  it('can call the onQueryParamToggle function when adding a param value and that param already exists', (done) => {
     const wrapper = shallow(
       <Results.WrappedComponent
         results={resultsObject}
@@ -239,21 +242,23 @@ describe('Results', () => {
         pageTitle="Results"
       />,
     );
-    const history = { value: { search: null } };
     // define the instance
     const instance = wrapper.instance();
-    // spy the onQueryParamUpdate function
-    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
-    wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
-    wrapper.instance().state.query.value = 'language=1%2C2&ordering=bureau&q=German&skill=1&page=2';
-    // add the skill
-    wrapper.instance().onQueryParamToggle('skill', '2', false);
-    sinon.assert.calledOnce(handleUpdateSpy);
-    // make sure the skill was added
-    expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German&skill=1%2C2');
+    instance.state.query.value = 'language=1&skill=2';
+    // remove the skill
+    instance.onQueryParamToggle('language', '2', false);
+
+    const f = () => {
+      setTimeout(() => {
+        // make sure the skill was removed
+        expect(instance.state.query.value).toBe('language=1%2C2&skill=2');
+        done();
+      }, debounceTimeInMs + 100);
+    };
+    f();
   });
 
-  it('can call the onQueryParamToggle function when adding a param value and that param does not exist', () => {
+  it('can call the onQueryParamToggle function when adding a param value and that param does not exist', (done) => {
     const wrapper = shallow(
       <Results.WrappedComponent
         results={resultsObject}
@@ -275,18 +280,20 @@ describe('Results', () => {
         pageTitle="Results"
       />,
     );
-    const history = { value: { search: null } };
     // define the instance
     const instance = wrapper.instance();
-    // spy the onQueryParamUpdate function
-    const handleUpdateSpy = sinon.spy(instance, 'onQueryParamToggle');
-    wrapper.instance().context.router = { history: { push: (h) => { history.value = h; } } };
-    wrapper.instance().state.query.value = 'language=1%2C2&ordering=bureau&q=German&page=2';
-    // add the skill
-    wrapper.instance().onQueryParamToggle('skill', '2', false);
-    sinon.assert.calledOnce(handleUpdateSpy);
-    // make sure the skill was added
-    expect(history.value.search).toBe('language=1%2C2&ordering=bureau&q=German&skill=2');
+    instance.state.query.value = 'language=1&skill=2';
+    // remove the skill
+    instance.onQueryParamToggle('newFilter', '2', false);
+
+    const f = () => {
+      setTimeout(() => {
+        // make sure the skill was removed
+        expect(instance.state.query.value).toBe('language=1&newFilter=2&skill=2');
+        done();
+      }, debounceTimeInMs + 100);
+    };
+    f();
   });
 
   it('can call the onQueryParamToggle function and handle removing non-existent params', () => {
