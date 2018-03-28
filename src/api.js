@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchUserToken, hasValidToken } from './utilities';
+import { fetchUserToken, hasValidToken, propOrDefault } from './utilities';
 import { logoutRequest } from './login/actions';
 
 export const config = {
