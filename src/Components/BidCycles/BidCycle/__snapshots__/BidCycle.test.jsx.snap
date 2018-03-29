@@ -1,57 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidCycleComponent matches snapshot 1`] = `
-<Card
-  as="div"
-  className=""
->
-  <Row
-    as="div"
-    className=""
-    fluid={true}
-  >
-    <Column
-      as="div"
-      className=""
-      columns="3"
-    >
-      <DefinitionList
-        items={Array []}
-        truncate={true}
-      >
-        <Definition
-          definition=""
-          term="Name"
-          truncate={true}
-        />
-        <Definition
-          definition={null}
-          term="Deadline Date"
-          truncate={true}
-        />
-      </DefinitionList>
-    </Column>
-    <Column
-      as="div"
-      className=""
-      columns="3"
-    >
-      <DefinitionList
-        items={Array []}
-        truncate={true}
-      >
-        <Definition
-          definition={null}
-          term="Start Date"
-          truncate={true}
-        />
-        <Definition
-          definition={null}
-          term="End Date"
-          truncate={true}
-        />
-      </DefinitionList>
-    </Column>
-  </Row>
-</Card>
+<MediaQuery
+  maxWidth="760px"
+  values={Object {}}
+/>
 `;
