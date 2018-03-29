@@ -10,6 +10,7 @@ import { existsInArray } from '../../utilities';
 const Types = {
   SHORT: 0,
   LONG: 1,
+  TITLE: 2,
 };
 
 const States = {
@@ -28,11 +29,13 @@ const States = {
 const Texts = {
   checked: [
     'Remove',
+    'Remove Favorite',
     'Remove from Favorites',
   ],
 
   unchecked: [
     'Favorite',
+    'Add to Favorites',
     'Add to Favorites',
   ],
 };
@@ -42,6 +45,7 @@ const getText$ = (state, type) => Texts[state][type];
 class Favorite extends Component {
   constructor(props) {
     super(props);
+    this.toggleSaved = this.toggleSaved.bind(this);
     this.state = {
       loading: props.isLoading,
     };
@@ -89,10 +93,10 @@ class Favorite extends Component {
 
   get title() {
     const state = this.getSavedState() ? States.CHECKED : States.UNCHECKED;
-    return getText$(state, Types.LONG);
+    return getText$(state, Types.TITLE);
   }
 
-  toggleSaved = () => {
+  toggleSaved() {
     const { onToggle, refKey } = this.props;
 
     this.setState({

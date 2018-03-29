@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import shortid from 'shortid';
 import groupBy from 'lodash/groupBy';
 import FieldSet from '../../FieldSet/FieldSet';
 import CheckBox from '../../CheckBox/CheckBox';
@@ -52,7 +51,7 @@ class MultiSelectFilter extends Component {
               return (<CheckBox
                 _id={itemData.id} /* when we need the original id */
                 id={`checkbox${itemLabel}-${item.item.description}`}
-                key={shortid.generate()}
+                key={`checkbox${itemLabel}-${item.item.description}`}
                 label={itemLabel}
                 title={itemLabel}
                 name={itemLabel}
@@ -76,7 +75,7 @@ class MultiSelectFilter extends Component {
                         <CheckBox
                           _id={itemData.id} /* when we need the original id */
                           id={`checkbox${itemLabel}-${item.item.description}`}
-                          key={shortid.generate()}
+                          key={`checkbox${itemLabel}-${item.item.description}`}
                           label={itemLabel}
                           title={itemLabel}
                           name={itemLabel}

@@ -1,3 +1,6 @@
+$filter-container-width: 23%;
+$results-container-width: 100% - $filter-container-width;
+
 .results {
   label {
     font-size: .8em;
@@ -105,10 +108,6 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-
-        @media only screen and (max-width: $screen-md-min) and (min-width: $screen-sm-min) {
-          margin-top: 24px;
-        }
 
         @media screen and (max-width: $screen-sm-max) {
           left: 24px;
@@ -268,7 +267,17 @@
   height: auto;
   margin-right: 0;
   padding: 0 10px 15px;
-  width: 20%;
+  width: $filter-container-width;
+
+  [type=checkbox],
+  [type=radio] {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: 0;
+    opacity: 0;
+    padding: 0;
+    position: fixed;
+  }
 
   label {
     margin-top: 1rem;
@@ -343,7 +352,7 @@
 .results-container {
   float: left;
   padding-left: 30px;
-  width: 80%;
+  width: $results-container-width;
 
   @media screen and (max-width: $screen-md-min) {
     padding-left: 0;
@@ -370,6 +379,10 @@
   .drop-downs {
     float: right;
     margin-top: 4px;
+  }
+
+  .dropdowns-container {
+    float: right;
   }
 }
 
@@ -416,6 +429,8 @@
     background-color: $color-gray-lightest-alt;
     color: $color-black;
     font-size: 1.1em;
+    max-height: 550px;
+    overflow-y: auto;
     padding: 1rem;
   }
 
