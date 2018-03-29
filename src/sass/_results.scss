@@ -461,10 +461,13 @@ $results-container-width: 100% - $filter-container-width;
 }
 
 .save-new-search-container {
-  background-color: $color-gray-lightest;
-  border: solid 1px $color-black;
+  background-color: $blue-primary-light;
   margin: 0 0 10px;
   padding: 10px;
+
+  .fa {
+    margin-right: 10px;
+  }
 
   .save-search-link {
     cursor: pointer;
