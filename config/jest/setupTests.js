@@ -12,3 +12,6 @@ const errorWrapper = (message) => {
 
 // set globally
 global.console.error = errorWrapper;
+
+// Avoid jest error: "Error: Not implemented: navigation (except hash changes)"
+global.window.location.assign = () => {};

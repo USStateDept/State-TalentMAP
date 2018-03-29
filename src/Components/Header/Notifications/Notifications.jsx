@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { notificationsCountFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
 import isCurrentPath from '../../ProfileMenu/navigation';
-import { PUBLIC_ROOT } from '../../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../../login/routes';
 
 class Notifications extends Component {
   componentWillMount() {
@@ -14,7 +14,7 @@ class Notifications extends Component {
     // If the user is on the login page, don't try to pull notifications.
     //
     // Define the login route
-    const loginRoute = PUBLIC_ROOT;
+    const loginRoute = LOGIN_REDIRECT;
 
     // Check if the user is on the login route
     const isOnLoginPage = isCurrentPath(loginRoute, location.pathname);

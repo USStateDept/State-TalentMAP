@@ -8,7 +8,7 @@ import Compare from '../../Containers/Compare/Compare';
 import LoginRedirect from '../../Containers/LoginRedirect';
 import RoutesArray from '../../routes';
 
-const Components = { Home, Profile, Results, Position, Login, Compare, LoginRedirect};
+const Components = { Home, Profile, Results, Position, Login, Compare, LoginRedirect };
 
 const mappedRoutesArray = RoutesArray.map((Route) => {
   const Component = Components[Route.componentName];

@@ -38,20 +38,20 @@ describe('NotificationsComponent', () => {
     sinon.assert.calledTwice(spy);
   });
 
-  it('does not refresh data on mount or on history change if history.pathname is "/login"', () => {
+  it('does not refresh data on mount or on history change if history.pathname is "/loginRedirect"', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Notifications.WrappedComponent
         history={history}
         notificationsCount={4}
         fetchNotificationsCount={spy}
-        location={{ pathname: '/login' }}
+        location={{ pathname: '/loginRedirect' }}
       />,
     );
     // should not be called on mount
     sinon.assert.notCalled(spy);
-    wrapper.instance().props.history.push('/login');
-    // should not be called on subsequent history push of '/login'
+    wrapper.instance().props.history.push('/loginRedirect');
+    // should not be called on subsequent history push of '/loginRedirect'
     sinon.assert.notCalled(spy);
   });
 
