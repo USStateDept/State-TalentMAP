@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import MediaQuery from 'react-responsive';
 import { Row, Column, Card } from '../../Layout';
 import DefinitionList, { Definition } from '../../DefinitionList';
 import { BID_CYCLE } from '../../../Constants/PropTypes';
@@ -42,22 +43,26 @@ const BidCycle = (props) => {
   };
 
   return (cycle ?
-    <Card>
-      <Row fluid>
-        <Column columns="3">
-          <DefinitionList>
-            <Definition term="Name" definition={cycle.name} />
-            <Definition term="Deadline Date" definition={cycle.deadline} />
-          </DefinitionList>
-        </Column>
-        <Column columns="3">
-          <DefinitionList>
-            <Definition term="Start Date" definition={cycle.start} />
-            <Definition term="End Date" definition={cycle.end} />
-          </DefinitionList>
-        </Column>
-      </Row>
-    </Card> :
+    <MediaQuery maxWidth="760px">
+      {matches => (
+        <Card>
+          <Row fluid>
+            <Column columns={(matches ? 12 : 3)}>
+              <DefinitionList>
+                <Definition term="Name" definition={cycle.name} />
+                <Definition term="Deadline Date" definition={cycle.deadline} />
+              </DefinitionList>
+            </Column>
+            <Column columns={(matches ? 12 : 3)}>
+              <DefinitionList>
+                <Definition term="Start Date" definition={cycle.start} />
+                <Definition term="End Date" definition={cycle.end} />
+              </DefinitionList>
+            </Column>
+          </Row>
+        </Card>
+      )}
+    </MediaQuery> :
     null
   );
 };

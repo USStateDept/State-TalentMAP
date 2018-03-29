@@ -9,17 +9,6 @@ import BidCycleComponent from '../../Components/BidCycles';
 import { BID_CYCLES } from '../../Constants/PropTypes';
 
 class BidCycles extends Component {
-  static propTypes = {
-    cycles: BID_CYCLES.isRequired,
-    actions: PropTypes.shape({
-      fetchCycles: PropTypes.func,
-    }).isRequired,
-  };
-
-  static defaultProps = {
-    cycles: [],
-  };
-
   componentDidMount() {
     if (!this.props.cycles.length) {
       this.props.actions.fetchCycles();
@@ -37,6 +26,17 @@ class BidCycles extends Component {
     );
   }
 }
+
+BidCycles.propTypes = {
+  cycles: BID_CYCLES.isRequired,
+  actions: PropTypes.shape({
+    fetchCycles: PropTypes.func,
+  }).isRequired,
+};
+
+BidCycles.defaultProps = {
+  cycles: [],
+};
 
 const mapStateToProps = state => ({
   cycles: state.bidCycles,
