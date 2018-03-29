@@ -109,10 +109,6 @@ $results-container-width: 100% - $filter-container-width;
         top: 50%;
         transform: translateY(-50%);
 
-        @media only screen and (max-width: $screen-md-min) and (min-width: $screen-sm-min) {
-          margin-top: 24px;
-        }
-
         @media screen and (max-width: $screen-sm-max) {
           left: 24px;
         }
