@@ -1,5 +1,4 @@
 .position-details-header-container {
-  background-image: url('#{$asset-path}/assets/img/us-flag.jpg');
   color: $color-white;
   position: relative;
 }
@@ -169,9 +168,9 @@
 }
 
 .offset-bid-button-container {
+  bottom: -45%;
   left: 65%;
   position: absolute;
-  top: 71%;
 
   .bid-list-button,
   a {

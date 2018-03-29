@@ -63,4 +63,9 @@
       }
     }
   }
+
+  // fix the placeholder text being too low
+  .react-autosuggest__input {
+    line-height: 0;
+  }
 }
