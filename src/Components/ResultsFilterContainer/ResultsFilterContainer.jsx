@@ -13,6 +13,13 @@ class ResultsFilterContainer extends Component {
     this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+    return false;
+  }
+
   onQueryParamUpdate(e) {
     this.props.onQueryParamUpdate(e);
     this.props.onChildToggle();

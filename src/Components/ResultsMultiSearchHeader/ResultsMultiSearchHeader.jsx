@@ -101,9 +101,15 @@ class ResultsMultiSearchHeader extends Component {
 
   formatQuery() {
     const { q, [SKILL_PARAM]: skillCodes, [BUREAU_PARAM]: bureaus,
-      [GRADE_PARAM]: grades } = this.state;
+      [GRADE_PARAM]: grades, defaultBureau, defaultGrade } = this.state;
     const skills = skillCodes.slice().map(s => s.code);
-    const query = { q, [SKILL_PARAM]: skills, [BUREAU_PARAM]: bureaus, [GRADE_PARAM]: grades };
+    // use the defaults if the new value doesn't exist
+    const query = {
+      q,
+      [SKILL_PARAM]: skills,
+      [BUREAU_PARAM]: bureaus || defaultBureau,
+      [GRADE_PARAM]: grades || defaultGrade,
+    };
     return query;
   }
 
