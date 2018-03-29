@@ -7,6 +7,9 @@ exports[`SaveNewSearchPromptComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full"
   >
+    <FontAwesome
+      name="bookmark"
+    />
     <a
       className="save-search-link"
       onClick={[Function]}
