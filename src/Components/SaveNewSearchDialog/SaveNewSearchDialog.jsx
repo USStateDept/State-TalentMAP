@@ -39,7 +39,7 @@ class SaveNewSearchDialog extends Component {
         >
           <TextInput
             id="saved-search"
-            label="Name:"
+            label="Name"
             changeText={onTextChange}
             type={inputType}
             value={currentSavedSearch.name}
@@ -58,7 +58,7 @@ class SaveNewSearchDialog extends Component {
               </button>
               : null
           }
-          <button className="saved-search-form-secondary-button" onClick={onCancel}>Cancel</button>
+          <button className="usa-button-secondary saved-search-form-secondary-button" onClick={onCancel}>Cancel</button>
         </div>
       </Form>
     );
