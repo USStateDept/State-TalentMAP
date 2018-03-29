@@ -4,12 +4,17 @@ exports[`TotalResults displays page numbers and total results correctly when on 
 <span
   id="total-results"
 >
-  1
-   - 
-  25
+  Viewing 
+  <strong>
+    1
+    -
+    25
+  </strong>
    of 
-  103
-   positions found
+  <strong>
+    103
+  </strong>
+   Results
 </span>
 `;
 
@@ -17,12 +22,17 @@ exports[`TotalResults displays page numbers and total results correctly when on 
 <span
   id="total-results"
 >
-  26
-   - 
-  50
+  Viewing 
+  <strong>
+    26
+    -
+    50
+  </strong>
    of 
-  103
-   positions found
+  <strong>
+    103
+  </strong>
+   Results
 </span>
 `;
 
@@ -30,12 +40,17 @@ exports[`TotalResults displays page numbers and total results correctly when on 
 <span
   id="total-results"
 >
-  51
-   - 
-  75
+  Viewing 
+  <strong>
+    51
+    -
+    75
+  </strong>
    of 
-  103
-   positions found
+  <strong>
+    103
+  </strong>
+   Results
 </span>
 `;
 
@@ -43,12 +58,17 @@ exports[`TotalResults displays page numbers and total results correctly when rea
 <span
   id="total-results"
 >
-  101
-   - 
-  103
+  Viewing 
+  <strong>
+    101
+    -
+    103
+  </strong>
    of 
-  103
-   positions found
+  <strong>
+    103
+  </strong>
+   Results
 </span>
 `;
 
@@ -56,12 +76,17 @@ exports[`TotalResults displays page numbers and total results correctly when rea
 <span
   id="total-results"
 >
-  76
-   - 
-  100
+  Viewing 
+  <strong>
+    76
+    -
+    100
+  </strong>
    of 
-  103
-   positions found
+  <strong>
+    103
+  </strong>
+   Results
 </span>
 `;
 
@@ -69,11 +94,16 @@ exports[`TotalResults matches snapshot 1`] = `
 <span
   id="total-results"
 >
-  1
-   - 
-  0
+  Viewing 
+  <strong>
+    1
+    -
+    0
+  </strong>
    of 
-  103
-   positions found
+  <strong>
+    103
+  </strong>
+   Results
 </span>
 `;
