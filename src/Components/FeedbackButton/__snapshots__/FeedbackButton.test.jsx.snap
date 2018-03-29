@@ -6,6 +6,9 @@ exports[`FeedbackComponent matches snapshot 1`] = `
   id="feedback-open-icon"
   onClick={[Function]}
 >
-  Provide Feedback
+  Provide Feedback 
+  <FontAwesome
+    name="angle-up"
+  />
 </button>
 `;
