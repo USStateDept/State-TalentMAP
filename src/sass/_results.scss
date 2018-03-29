@@ -270,6 +270,16 @@
   padding: 0 10px 15px;
   width: 20%;
 
+  [type=checkbox],
+  [type=radio] {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: 0;
+    opacity: 0;
+    padding: 0;
+    position: fixed;
+  }
+
   label {
     margin-top: 1rem;
   }
@@ -416,6 +426,8 @@
     background-color: $color-gray-lightest-alt;
     color: $color-black;
     font-size: 1.1em;
+    max-height: 300px;
+    overflow-y: auto;
     padding: 1rem;
   }
 
