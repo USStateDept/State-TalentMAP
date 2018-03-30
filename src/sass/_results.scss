@@ -368,6 +368,15 @@ $filter-container-width: 100% - $results-container-width;
   padding-left: 30px;
   width: $results-container-width;
 
+  .selections-container,
+  .pill-list-container {
+    display: inline;
+  }
+
+  .selections-container {
+    margin-right: .7em;
+  }
+
   @media screen and (max-width: $screen-md-min) {
     padding-left: 0;
     width: 100%;
@@ -432,8 +441,12 @@ $filter-container-width: 100% - $results-container-width;
     font-size: 1em;
   }
 
+  .usa-accordion > li {
+    margin-bottom: 1rem;
+  }
+
   .usa-accordion-button {
-    background-color: $tm-navy-dark;
+    background-color: $bg-blue-dark-1;
     color: $color-white;
     font-weight: normal;
     padding: .7em;
@@ -561,9 +574,9 @@ $filter-container-width: 100% - $results-container-width;
   }
 
   select {
-    background-color: $color-gray-lightest;
-    border: 0;
-    border-radius: 7px;
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    border-radius: 3px;
     font-size: .8em;
     height: 28px;
     overflow: hidden;

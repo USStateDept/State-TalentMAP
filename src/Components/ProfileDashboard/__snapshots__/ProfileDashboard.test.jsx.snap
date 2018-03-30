@@ -7,16 +7,11 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
   <div
     className="usa-grid-full"
   >
-    <div
-      className="hello-greeting"
+    <h2
+      className="sr-only"
     >
-      <h2
-        className="sr-only"
-      >
-        Dashboard
-      </h2>
-      Hello, John
-    </div>
+      Dashboard
+    </h2>
     <div
       className="usa-grid-full"
     >

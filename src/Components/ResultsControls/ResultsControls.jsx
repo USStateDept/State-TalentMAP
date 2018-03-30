@@ -44,6 +44,7 @@ class ResultsControls extends Component {
                 onSelectOption={this.onSelectOrdering}
                 options={sortBy.options}
                 defaultSort={defaultSort}
+                className="select-blue select-offset select-small"
               />
             </div>
             <div className="results-dropdown results-dropdown-page-size">
@@ -53,6 +54,7 @@ class ResultsControls extends Component {
                 onSelectOption={this.onSelectLimit}
                 options={pageSizes.options}
                 defaultSort={defaultPageSize}
+                className="select-blue select-offset select-small"
               />
             </div>
           </div>

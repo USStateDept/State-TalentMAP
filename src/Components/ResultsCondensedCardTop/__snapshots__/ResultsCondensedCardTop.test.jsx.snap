@@ -26,7 +26,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
       replace={false}
       to="/details/10034001"
     >
-      View More
+      View Position
     </Link>
   </div>
 </div>
@@ -46,7 +46,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
         <FontAwesome
           name="bolt"
         />
-         | 
+         
       </span>
       OMS (DCM)
     </div>
@@ -64,7 +64,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
       replace={false}
       to="/details/10034001"
     >
-      View More
+      View Position
     </Link>
   </div>
 </div>

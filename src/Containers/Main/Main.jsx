@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
+import { ScrollContext } from 'react-router-scroll-4';
 import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';

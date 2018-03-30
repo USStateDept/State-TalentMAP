@@ -105,6 +105,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
               className="usa-width-one-sixth search-results-inputs search-keyword"
             >
               <SelectForm
+                className="select-black select-small"
                 defaultSort={null}
                 disabled={false}
                 emptyOptionText="- Select -"
