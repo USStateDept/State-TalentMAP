@@ -19,6 +19,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       className="portfolio-sort-container-contents"
     >
       <SelectForm
+        className="select-offset select-black"
         defaultSort=""
         disabled={false}
         emptyOptionText="- Select -"
@@ -72,6 +73,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       className="portfolio-sort-container-contents"
     >
       <SelectForm
+        className="select-offset select-black"
         defaultSort=""
         disabled={false}
         emptyOptionText="- Select -"

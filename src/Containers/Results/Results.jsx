@@ -16,7 +16,7 @@ import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS,
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
 USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
@@ -52,19 +52,6 @@ class Results extends Component {
       onNavigateTo(PUBLIC_ROOT);
     } else {
       this.createQueryParams();
-    }
-  }
-
-  componentDidMount() {
-    // Check if the user came from another page.
-    // If so, scroll the user to the top of the page.
-    const { routerLocations } = this.props;
-    const rLength = routerLocations.length;
-    if (rLength > 1) {
-      // compare the most recent and second-most recent pathnames
-      if (routerLocations[rLength - 1].pathname !== routerLocations[rLength - 2].pathname) {
-        window.scrollTo(0, 0);
-      }
     }
   }
 
@@ -277,7 +264,6 @@ Results.propTypes = {
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
@@ -308,7 +294,6 @@ Results.defaultProps = {
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
-  routerLocations: [],
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
