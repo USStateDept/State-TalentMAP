@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidCyclesComponent matches snapshot 1`] = `
+exports[`BidCycleList Component matches snapshot 1`] = `
 <Row
   as="div"
   className=""
@@ -14,7 +14,7 @@ exports[`BidCyclesComponent matches snapshot 1`] = `
     <ProfileSectionTitle
       title="Bid Cycles"
     />
-    <BidCycle
+    <BidCycleCard
       cycle={
         Object {
           "active": true,

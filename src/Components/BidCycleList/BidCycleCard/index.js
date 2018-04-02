@@ -1,1 +1,1 @@
-export { default } from './BidCycle';
+export { default } from './BidCycleCard';

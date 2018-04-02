@@ -1,2 +1,2 @@
-export { default } from './BidCycles';
-export { default as BidCycle } from './BidCycle';
+export { default } from './BidCycleList';
+export { default as BidCycleCard } from './BidCycleCard';

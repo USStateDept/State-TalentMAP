@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { get } from 'lodash';
 import MediaQuery from 'react-responsive';
 import { Row, Column, Card } from '../../Layout';
 import DefinitionList, { Definition } from '../../DefinitionList';
@@ -15,17 +15,7 @@ const getCycleInfo = (item, key) => {
     cycle_deadline_date: NO_DATE,
   };
 
-  let item$ = _.get(item, key, defaults[key]);
-
-  if (key === 'name') {
-    // 1. Splits a string like '<name> YYYY-MM-MM HH:MM:SS.000000+00:00' into an array
-    // 2. Slices the array and takes first item in the list
-    // 3. Joins it back to a string
-    item$ = _.chain(item$)
-      .split(' ')
-      .first()
-      .value();
-  }
+  let item$ = get(item, key, defaults[key]);
 
   if ((/date/).test(key)) {
     item$ = formatDate(item$, 'M.D.YYYY');
@@ -34,7 +24,7 @@ const getCycleInfo = (item, key) => {
   return item$;
 };
 
-const BidCycle = (props) => {
+const BidCycleCard = (props) => {
   const cycle = {
     name: getCycleInfo(props.cycle, 'name'),
     start: getCycleInfo(props.cycle, 'cycle_start_date'),
@@ -67,11 +57,11 @@ const BidCycle = (props) => {
   );
 };
 
-BidCycle.propTypes = {
+BidCycleCard.propTypes = {
   cycle: BID_CYCLE,
 };
 
-BidCycle.defaultProps = {
+BidCycleCard.defaultProps = {
   cycle: {
     name: '',
     cycle_deadline_date: null,
@@ -81,4 +71,4 @@ BidCycle.defaultProps = {
   },
 };
 
-export default BidCycle;
+export default BidCycleCard;
