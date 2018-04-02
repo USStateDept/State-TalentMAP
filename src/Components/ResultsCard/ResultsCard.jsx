@@ -42,12 +42,11 @@ const ResultsCard = (props) => {
     userProfileFavoritePositionHasErrored,
   } = props;
 
-  const dateFormat = 'M.DD.YYYY';
   const getResult = (path, defaultValue, isRate = false) => {
     let value = get(result, path, defaultValue);
 
     if ((/_date|date_/i).test(path) && value !== defaultValue) {
-      value = formatDate(value, dateFormat);
+      value = formatDate(value);
     }
 
     if (isRate && isNumber(value)) {
@@ -80,7 +79,7 @@ const ResultsCard = (props) => {
       'Danger Pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
     },
     {
-      'Posted': getResult('description.date_created', NO_UPDATE_DATE),
+      'Posted': getResult('effective_date', NO_UPDATE_DATE),
       'Position Number': position,
     },
     /* eslint-enable quote-props */
