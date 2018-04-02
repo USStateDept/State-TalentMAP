@@ -23,6 +23,9 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+// remove 'X-Powered-By' header
+app.disable('x-powered-by');
+
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
 
