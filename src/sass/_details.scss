@@ -287,3 +287,20 @@
     margin-right: 10px;
   }
 }
+
+.how-to-bid {
+  border: 1px solid $bg-gray-dark-3;
+  margin-top: 30px;
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 0;
+  }
+
+  .contact-container {
+    border: 0;
+  }
+}

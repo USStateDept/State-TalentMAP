@@ -39,3 +39,13 @@
 .Select-menu-outer {
   z-index: $skill-code-dropdown-z;
 }
+
+.Select.is-focused {
+  outline: 2px dotted #aeb0b5;
+  outline-offset: 3px;
+}
+
+.Select.is-focused:not(.is-open) > .Select-control {
+  border-color: transparent;
+  box-shadow: none;
+}
