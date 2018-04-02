@@ -1,4 +1,3 @@
-// scss-lint:disable VendorPrefix
 .tm-spinner {
 
   margin: auto;
@@ -95,6 +94,19 @@ $favorite-spinner-size: 14px;
       border-width: $favorite-spinner-border-width;
       height: $favorite-spinner-size;
       width: $favorite-spinner-size;
+    }
+  }
+
+  &.usa-button {
+    .ds-c-spinner {
+      // scss-lint:disable PseudoElement
+      &,
+      &::before,
+      &::after {
+        height: $favorite-spinner-size - 1;
+        width: ($favorite-spinner-size - 1);
+      }
+      // scss-lint:enable PseudoElement
     }
   }
 

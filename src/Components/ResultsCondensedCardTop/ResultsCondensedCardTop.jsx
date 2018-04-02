@@ -21,7 +21,7 @@ const ResultsCondensedCardTop = ({ position, type }) => {
           }
         >
           {useType && <span><FontAwesome name={icon} /> | </span>}
-          {position.title}
+          <h3>{position.title}</h3>
         </div>
         <div
           className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"

@@ -10,7 +10,7 @@ describe('TotalResults', () => {
   const pageNumber = 1;
   const pageSize = 25;
 
-  const applyViewText = (beginning, through, totalNum) => `${beginning} - ${through} of ${totalNum} positions found`;
+  const applyViewText = (beginning, through, totalNum) => `Viewing ${beginning}-${through} of ${totalNum} Results`;
 
   it('can receive props', () => {
     wrapper = shallow(

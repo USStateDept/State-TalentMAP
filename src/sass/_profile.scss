@@ -1,7 +1,4 @@
-// scss-lint:disable SelectorDepth
-// scss-lint:disable NestingDepth
 // Nesting depth was needed, otherwise styles broke if placed outside of parent class (.expandable-link)
-
 .profile-page {
   border: solid 0 1px 1px 1px $color-gray-light;
   display: flex;
@@ -240,6 +237,15 @@
     .fa {
       margin-right: 5px;
     }
+
+    h2 {
+      display: inline-block;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: inherit;
+    }
   }
 
   .dashboard-section-title-small {
@@ -284,10 +290,10 @@
 
   .dashboard-user-profile-picture {
     display: inline-block;
-    width: $avatar-size;
     height: $avatar-size;
     margin: 1em 0;
     vertical-align: middle;
+    width: $avatar-size;
   }
 
   .start-end {

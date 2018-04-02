@@ -13,7 +13,7 @@ exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
     <TextInput
       changeText={[Function]}
       id="saved-search"
-      label="Name:"
+      label="Name"
       labelMessage=""
       labelSrOnly={false}
       placeholder=""
@@ -30,7 +30,7 @@ exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
       Save
     </button>
     <button
-      className="saved-search-form-secondary-button"
+      className="usa-button-secondary saved-search-form-secondary-button"
       onClick={[Function]}
     >
       Cancel

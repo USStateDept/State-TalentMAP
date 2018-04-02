@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Definition matches snapshot 1`] = `
+<div
+  className="definition-test"
+  id="definition"
+>
+  <dt>
+    Term #1:
+  </dt>
+  <dd
+    className="truncate"
+  >
+    Definition #1
+  </dd>
+</div>
+`;

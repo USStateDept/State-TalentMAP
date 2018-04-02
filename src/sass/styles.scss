@@ -3,33 +3,34 @@
 
 // Fonts
 // Merriweather
-@import '../../node_modules/typeface-merriweather/index.css';
+@import '~typeface-merriweather/index.css';
 // Roboto
-@import '../../node_modules/typeface-roboto/index.css';
+@import '~typeface-roboto/index.css';
 
 // Spinner from the CMSGov Design System Layout
-@import '../../node_modules/@cmsgov/design-system-core/dist/components/Spinner/Spinner.css';
+@import '~@cmsgov/design-system-core/dist/components/Spinner/Spinner.css';
 
 // USWDS
-@import '../../node_modules/uswds/dist/css/uswds.css';
+@import '~uswds/dist/css/uswds.css';
 
 // Draft.js
-@import '../../node_modules/draft-js/dist/Draft.css';
+@import '~draft-js/dist/Draft.css';
 
 // react-tippy tooltip
-@import '../../node_modules/react-tippy/dist/tippy.css';
+@import '~react-tippy/dist/tippy.css';
 
 // rc-steps
-@import '../../node_modules/rc-steps/assets/index.css';
+@import '~rc-steps/assets/index.css';
 
 // react-select
-@import '../../node_modules/react-select/dist/react-select.css';
+@import '~react-select/dist/react-select.css';
 
 // Global
 @import 'variables';
 
 // Components
 @import 'containers';
+@import 'lists';
 @import 'autosuggest';
 @import 'avatar';
 @import 'interactiveElement';

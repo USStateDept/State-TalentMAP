@@ -7,5 +7,10 @@ exports[`EmptyListAlertComponent matches snapshot 1`] = `
   <p>
     Here is some text
   </p>
+  <p>
+    <span>
+      And here is an element!
+    </span>
+  </p>
 </div>
 `;

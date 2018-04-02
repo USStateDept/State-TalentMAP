@@ -10,6 +10,7 @@ import FeedbackButton from '../../Containers/FeedbackButton';
 import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
 import checkIndexAuthorization from '../../lib/check-auth';
 import { store, history } from '../../store';
+import PageMeta from '../../Containers/PageMeta';
 
 const isAuthorized = () => checkIndexAuthorization(store);
 
@@ -17,6 +18,7 @@ const Main = props => (
   <Provider store={store} history={history}>
     <ConnectedRouter history={history}>
       <div>
+        <PageMeta history={history} />
         <Header {...props} isAuthorized={isAuthorized} />
         <main id="main-content">
           <Routes {...props} isAuthorized={isAuthorized} />

@@ -1,8 +1,7 @@
-$results-container-width: 78%;
-$filter-container-width: 100% - $results-container-width;
+$filter-container-width: 23%;
+$results-container-width: 100% - $filter-container-width;
 
 .results {
-
   label {
     font-size: .8em;
   }
@@ -34,55 +33,171 @@ $filter-container-width: 100% - $results-container-width;
 
 .results-card {
   background-color: $color-white;
-  border: 1px solid $color-gray-lighter;
-  border-left-width: 8px;
-  margin-bottom: 1em;
-  padding: 1em 1.2em;
+  border: 1px solid $results-card-border;
+  border-left: 8px solid $results-card-accent;
+  margin-bottom: 2rem;
+  padding: 1.1rem;
+  padding-right: 20%;
+
+  .header {
+    margin-bottom: 1rem;
+    margin-top: .2rem;
+
+    h3,
+    dt,
+    dd {
+      font-family: 'Roboto';
+      font-size: 1.7rem;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+
+    h3,
+    dt {
+      font-weight: 500;
+    }
+  }
+
+  .footer {
+    margin-bottom: rem(14px);
+    margin-top: rem(14px);
+    padding-top: rem(4px);
+
+    $section-height: 38px;
+
+    section {
+      display: inline-block;
+      min-height: $section-height;
+      position: relative;
+      vertical-align: middle;
+    }
+
+    $button-gutter: 6px;
+    $button-offset: $button-gutter / 2;
+
+    section:nth-child(1) {
+      padding-left: $button-offset;
+      padding-right: $button-offset;
+
+      .usa-button {
+        margin: 0;
+        position: relative;
+        width: 50%;
+
+        @media screen and (max-width: $screen-sm-min) {
+          position: static;
+          width: 100%;
+        }
+      }
+
+      .usa-button:nth-child(1) {
+        left: -$button-offset;
+
+        @media screen and (max-width: $screen-sm-min) {
+          margin-bottom: .5em;
+        }
+      }
+
+      .usa-button:nth-child(2) {
+        right: -$button-offset;
+      }
+    }
+
+    section:nth-child(2) {
+      > div {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+        @media screen and (max-width: $screen-sm-max) {
+          left: 24px;
+        }
+      }
+    }
+
+    // Divider Accent
+    .divider {
+      &::after {
+        background-color: $bg-gray-dark-1;
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        right: -(8px + (8px - $button-gutter));
+        top: 0;
+        width: 1px;
+      }
+    }
+
+    .usa-button {
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: em(15px);
+
+      .fa,
+      .ds-c-spinner {
+        margin: 0;
+        position: relative;
+        width: em(14px);
+      }
+
+      @media screen and (max-width: $screen-md-max) {
+        padding-left: 1rem;
+        right: 1rem;
+      }
+    }
+
+    .favorite-container {
+      float: none;
+
+      &.usa-button {
+        color: $color-white;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+
+    $button-box-shadow: inset 0 0 0 1px;
+
+    .usa-button-secondary {
+      box-shadow: $button-box-shadow $bg-gray-dark-1;
+      color: $primary-base;
+
+      &:hover {
+        box-shadow: $button-box-shadow $primary-blue-darker;
+        color: $primary-blue-darker;
+      }
+
+      &:disabled,
+      &:disabled:active,
+      &:disabled:hover,
+      &:disabled:focus, {
+        box-shadow: $button-box-shadow $bg-gray-dark-3;
+        color: $bg-gray-dark-3;
+
+      }
+
+      &.usa-button-active,
+      &.usa-button-active:hover {
+        box-shadow: $button-box-shadow $primary-blue-darkest;
+        color: $primary-blue-darkest;
+      }
+
+      .fa {
+        top: 1px;
+      }
+    }
+
+    dt,
+    dd {
+      font-family: 'Roboto';
+      font-size: rem(12px);
+      line-height: rem(14px);
+    }
+  }
 
   .bid-count-container {
     float: right;
-  }
-
-  .results-card-title {
-    float: left;
-    text-transform: uppercase;
-  }
-
-  .results-card-favorite {
-    float: right;
-    font-size: .9em;
-  }
-
-  .results-card-data-section {
-    border-right: solid;
-    border-width: 1px;
-    margin-top: 1em;
-  }
-
-  .data-section-right-container {
-    margin-top: 1em;
-
-    .data-section-right {
-      margin-left: 60px;
-      margin-right: 80px;
-
-      @media screen and (max-width: $screen-md-min) {
-        margin-left: 0;
-      }
-    }
-  }
-
-  .data-section-left-container {
-    border-right: solid 1px;
-    margin-top: 1em;
-
-    @media screen and (max-width: $screen-xs-max) {
-      border-right: 0;
-    }
-
-    .data-section-left {
-      margin-right: 80px;
-    }
   }
 
   .section-title {
@@ -153,6 +268,16 @@ $filter-container-width: 100% - $results-container-width;
   margin-right: 0;
   padding: 0 10px 15px;
   width: $filter-container-width;
+
+  [type=checkbox],
+  [type=radio] {
+    box-sizing: border-box;
+    margin: 0;
+    margin-left: 0;
+    opacity: 0;
+    padding: 0;
+    position: fixed;
+  }
 
   label {
     margin-top: 1rem;
@@ -255,6 +380,10 @@ $filter-container-width: 100% - $results-container-width;
     float: right;
     margin-top: 4px;
   }
+
+  .dropdowns-container {
+    float: right;
+  }
 }
 
 .results-list-container {
@@ -267,7 +396,6 @@ $filter-container-width: 100% - $results-container-width;
 }
 
 .search-filters-container {
-
   .boolean-filter-container {
     margin-left: 10px;
     padding-top: 10px;
@@ -301,6 +429,8 @@ $filter-container-width: 100% - $results-container-width;
     background-color: $color-gray-lightest-alt;
     color: $color-black;
     font-size: 1.1em;
+    max-height: 550px;
+    overflow-y: auto;
     padding: 1rem;
   }
 
@@ -318,7 +448,6 @@ $filter-container-width: 100% - $results-container-width;
 }
 
 .accordion-checkbox-language {
-
   .usa-accordion-content {
     background-color: $color-white;
     color: $color-black;
@@ -332,10 +461,13 @@ $filter-container-width: 100% - $results-container-width;
 }
 
 .save-new-search-container {
-  background-color: $color-gray-lightest;
-  border: solid 1px $color-black;
+  background-color: $blue-primary-light;
   margin: 0 0 10px;
   padding: 10px;
+
+  .fa {
+    margin-right: 10px;
+  }
 
   .save-search-link {
     cursor: pointer;

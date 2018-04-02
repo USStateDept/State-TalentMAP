@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
-import { NO_LAST_UPDATED_DATE } from '../../../Constants/SystemMessages';
+import { NO_UPDATE_DATE } from '../../../Constants/SystemMessages';
 import { mapSavedSearchToDescriptions, formatDate } from '../../../utilities';
 import SavedSearchPillList from '../../SavedSearchPillList';
 
@@ -9,7 +9,7 @@ const SavedSearchListResultsCard = ({ savedSearch, goToSavedSearch, mappedParams
 deleteSearch }) => {
   const pills = mapSavedSearchToDescriptions(savedSearch.filters, mappedParams);
   const dateCreated = savedSearch.date_created ?
-    formatDate(savedSearch.date_created) : NO_LAST_UPDATED_DATE;
+    formatDate(savedSearch.date_created) : NO_UPDATE_DATE;
   return (
     <div className="usa-grid-full saved-search-card profile-section-container" key={savedSearch.id}>
       <div className="usa-grid-full">

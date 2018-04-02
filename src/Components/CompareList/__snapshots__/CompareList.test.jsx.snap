@@ -44,13 +44,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th>
               <div
                 className="column-title-main"
-              />
+              >
+                OMS (DCM)
+              </div>
               <div
                 className="column-title-link"
               >
                 <Link
                   replace={false}
-                  to="/details/00025003"
+                  to="/details/10034001"
                 >
                   Learn more
                 </Link>
@@ -62,13 +64,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th>
               <div
                 className="column-title-main"
-              />
+              >
+                SPECIAL AGENT
+              </div>
               <div
                 className="column-title-link"
               >
                 <Link
                   replace={false}
-                  to="/details/00025003"
+                  to="/details/56082000"
                 >
                   Learn more
                 </Link>
@@ -90,17 +94,13 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </th>
             <td>
-              MASERU, LESOTHO
-              <ViewPostDataButton
-                id={162}
-                type="post"
-              />
+              Monrovia, Liberia
               <div
                 className="border-extension-layer-2"
               />
             </td>
             <td>
-              None listed
+              Port-Au-Prince, Haiti
               <div
                 className="border-extension-layer-2"
               />
@@ -116,7 +116,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               OFFICE MANAGEMENT (9017)
             </td>
             <td>
-              OFFICE MANAGEMENT (9017)
+              SECURITY (2501)
             </td>
           </tr>
           <tr>
@@ -126,10 +126,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Position Number
             </th>
             <td>
-              00025003
+              10034001
             </td>
             <td>
-              00025003
+              56082000
             </td>
           </tr>
           <tr>
@@ -138,6 +138,12 @@ exports[`CompareListComponent matches snapshot 1`] = `
             >
               Language
             </th>
+            <td>
+              <LanguageList
+                languages={Array []}
+                propToUse="representation"
+              />
+            </td>
             <td>
               <LanguageList
                 languages={
@@ -150,20 +156,14 @@ exports[`CompareListComponent matches snapshot 1`] = `
                       "spoken_proficiency": "2",
                     },
                     Object {
-                      "id": 1,
-                      "language": "German (GM)",
-                      "reading_proficiency": "2",
-                      "representation": "German (GM) 2/2",
-                      "spoken_proficiency": "2",
+                      "id": 20,
+                      "language": "Haitian Creole (HC)",
+                      "reading_proficiency": "0",
+                      "representation": "Haitian Creole (HC) 0/0",
+                      "spoken_proficiency": "0",
                     },
                   ]
                 }
-                propToUse="representation"
-              />
-            </td>
-            <td>
-              <LanguageList
-                languages={Array []}
                 propToUse="representation"
               />
             </td>
@@ -175,10 +175,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Transfer Eligibility Date
             </th>
             <td>
-              None listed
+              03/13/2020
             </td>
             <td>
-              None listed
+              03/13/2020
             </td>
           </tr>
           <tr>
@@ -188,10 +188,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Incumbent
             </th>
             <td>
-              None listed
+              John Doe
             </td>
             <td>
-              None listed
+              John Doe
             </td>
           </tr>
           <tr>
@@ -201,10 +201,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Bureau
             </th>
             <td>
-              150000
+              (AF) BUREAU OF AFRICAN AFFAIRS
             </td>
             <td>
-              150000
+              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
           </tr>
           <tr>
@@ -214,10 +214,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Tour of Duty
             </th>
             <td>
-              2YRR
+              2 YRS (2 R & R)
             </td>
             <td>
-              None listed
+              2 YRS (2 R & R)
             </td>
           </tr>
           <tr>
@@ -228,15 +228,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               N/A 
-              <span>
-                 | 
-                <OBCUrl
-                  id={162}
-                  isButton={false}
-                  label="Details"
-                  type="post"
-                />
-              </span>
             </td>
             <td>
               N/A 
@@ -250,15 +241,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               N/A 
-              <span>
-                 | 
-                <OBCUrl
-                  id={162}
-                  isButton={false}
-                  label="Details"
-                  type="post"
-                />
-              </span>
             </td>
             <td>
               N/A 

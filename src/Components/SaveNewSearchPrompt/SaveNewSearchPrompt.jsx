@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
 import { ifEnter } from '../../utilities';
 
@@ -9,6 +10,7 @@ const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
   return (
     <div className="usa-grid-full">
       <div className="usa-grid-full">
+        <FontAwesome name="bookmark" />
         {
           currentSearchExists ? `Saved search: ${currentSavedSearch.name}. ` : null
         }
