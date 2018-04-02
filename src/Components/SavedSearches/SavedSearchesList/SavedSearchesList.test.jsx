@@ -13,6 +13,7 @@ describe('SavedSearchesListComponent', () => {
     cloneSavedSearch: () => {},
     mappedParams: [],
   };
+
   it('is defined', () => {
     const wrapper = shallow(
       <SavedSearchesList
@@ -48,6 +49,9 @@ describe('SavedSearchesListComponent', () => {
         {...props}
       />,
     );
+
+    window.toJSON = () => {};
+
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

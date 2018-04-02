@@ -1,0 +1,11 @@
+.scrollarea {
+  .scrollbar-container {
+    opacity: 1 !important;
+    width: $scrollbar-width !important;
+
+    .scrollbar {
+      background-color: $blue-primary-darker !important;
+      width: $scrollbar-width !important;
+    }
+  }
+}
