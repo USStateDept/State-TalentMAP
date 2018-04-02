@@ -1,11 +1,16 @@
+@import '~react-scrollbar/dist/css/scrollArea.css';
+
 .scrollarea {
   .scrollbar-container {
-    opacity: 1 !important;
-    width: $scrollbar-width !important;
+    &.vertical,
+    &.horizontal {
+      opacity: 1;
+      width: $scrollbar-width;
 
-    .scrollbar {
-      background-color: $blue-primary-darker !important;
-      width: $scrollbar-width !important;
+      .scrollbar {
+        background-color: $blue-primary-darker;
+        width: $scrollbar-width;
+      }
     }
   }
 }

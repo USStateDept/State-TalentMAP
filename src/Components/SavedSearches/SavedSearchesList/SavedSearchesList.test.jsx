@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import toJSON from 'enzyme-to-json';
 import SavedSearchesList from './SavedSearchesList';
 import searchObjectParent from '../../../__mocks__/searchObjectParent';
 
@@ -41,17 +40,5 @@ describe('SavedSearchesListComponent', () => {
       />,
     );
     expect(wrapper.find('NoSavedSearches').exists()).toBe(true);
-  });
-
-  it('matches snapshot', () => {
-    const wrapper = shallow(
-      <SavedSearchesList
-        {...props}
-      />,
-    );
-
-    window.toJSON = () => {};
-
-    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
