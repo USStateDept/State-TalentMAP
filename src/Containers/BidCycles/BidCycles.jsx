@@ -5,7 +5,7 @@ import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 
 import { fetchBidCycles } from '../../actions/bidCycles';
-import BidCycleComponent from '../../Components/BidCycles';
+import BidCycleList from '../../Components/BidCycleList';
 import { BID_CYCLES } from '../../Constants/PropTypes';
 
 class BidCycles extends Component {
@@ -21,7 +21,7 @@ class BidCycles extends Component {
 
     return (
       <div className="profile-content-inner-container bid-cycles-container">
-        <BidCycleComponent {...props} />
+        <BidCycleList {...props} />
       </div>
     );
   }

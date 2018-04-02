@@ -1,21 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import BidCycles from './BidCycles';
+import BidCycleList from './BidCycleList';
 import mock from '../../__mocks__/bidCycles';
 
-describe('BidCyclesComponent', () => {
+describe('BidCycleList Component', () => {
   const props = {
     cycles: mock,
   };
 
   it('is defined', () => {
-    const wrapper = shallow(<BidCycles {...props} />);
+    const wrapper = shallow(<BidCycleList {...props} />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<BidCycles {...props} />);
+    const wrapper = shallow(<BidCycleList {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
