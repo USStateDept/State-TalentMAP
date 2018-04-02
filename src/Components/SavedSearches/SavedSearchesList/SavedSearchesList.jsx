@@ -1,40 +1,96 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ScrollArea from 'react-scrollbar';
+import { merge } from 'lodash';
 import SavedSearchesListResultsCard from '../SavedSearchesListResultsCard';
 import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
 import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 
-const SavedSearchesList = ({ savedSearches, goToSavedSearch, deleteSearch, cloneSavedSearch,
-mappedParams }) => {
-  const savedSearchArray = [];
-  savedSearches.results.slice().forEach(savedSearch => (
-    savedSearchArray.push(
-      <SavedSearchesListResultsCard
-        savedSearch={savedSearch}
-        goToSavedSearch={goToSavedSearch}
-        deleteSearch={deleteSearch}
-        key={savedSearch.id}
-        cloneSavedSearch={cloneSavedSearch}
-        mappedParams={mappedParams}
-        /* pass a parentClassName that we can use from the BorderedList component */
-        parentClassName="parent-list-container list-transparent"
-      />,
-    )
-  ));
-  let emptyListClass = 'saved-searches-list-empty';
-  if (savedSearchArray.length) { emptyListClass = ''; }
-  return (
-    <div className="usa-grid-full">
-      {
-        <div className={`usa-grid-full saved-searches-list ${emptyListClass}`}>
-          {savedSearchArray.map(s => s)}
-        </div>
-      }
-      {
-        !savedSearchArray.length && <NoSavedSearches />
-      }
-    </div>
-  );
+class SavedSearchesList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      scroll$: null,
+      scroll: {
+        horizontal: false,
+        focusableTabIndex: 0,
+        style: {},
+        verticalContainerStyle: {
+        },
+      },
+    };
+
+    this.scroll$ = null;
+  }
+
+  componentDidMount() {
+    this.updateScroll();
+    window.addEventListener('resize', this.updateScroll);
+  }
+
+  componentWillUnmount() {
+    window.addEventListener('resize', null);
+  }
+
+  updateScroll() {
+    const scroll = merge({}, this.state.scroll);
+    const header = document.getElementById('header');
+    const list = this.scroll$;
+
+    if (header && list) {
+      scroll.style.height = (window.innerHeight - header.offsetHeight - 110);
+      this.setState({ scroll });
+      this.context.scrollArea.refresh();
+    }
+  }
+
+  render() {
+    const savedSearchArray = [];
+    const {
+      savedSearches,
+      goToSavedSearch,
+      deleteSearch,
+      cloneSavedSearch,
+      mappedParams,
+    } = this.props;
+
+    savedSearches.results.slice().forEach(savedSearch => (
+      savedSearchArray.push(
+        <SavedSearchesListResultsCard
+          savedSearch={savedSearch}
+          goToSavedSearch={goToSavedSearch}
+          deleteSearch={deleteSearch}
+          key={savedSearch.id}
+          cloneSavedSearch={cloneSavedSearch}
+          mappedParams={mappedParams}
+          /* pass a parentClassName that we can use from the BorderedList component */
+          parentClassName="parent-list-container list-transparent"
+        />,
+      )
+    ));
+
+    let emptyListClass = 'saved-searches-list-empty';
+    if (savedSearchArray.length) { emptyListClass = ''; }
+
+    return (
+      <div className="usa-grid-full" ref={(el) => { this.scroll$ = el; }}>
+        {
+          <ScrollArea {...this.state.scroll}>
+            <div className={`usa-grid-full saved-searches-list ${emptyListClass}`}>
+              {savedSearchArray.map(s => s)}
+            </div>
+          </ScrollArea>
+        }
+        {
+          !savedSearchArray.length && <NoSavedSearches />
+        }
+      </div>
+    );
+  }
+}
+
+SavedSearchesList.contextTypes = {
+  scrollArea: PropTypes.object,
 };
 
 SavedSearchesList.propTypes = {

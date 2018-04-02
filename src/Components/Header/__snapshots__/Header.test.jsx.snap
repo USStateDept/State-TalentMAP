@@ -6,6 +6,7 @@ exports[`Header matches snapshot when logged in 1`] = `
 >
   <header
     className="usa-header usa-header-extended tm-header"
+    id="header"
     role="banner"
   >
     <GovBanner />
@@ -78,6 +79,7 @@ exports[`Header matches snapshot when logged out 1`] = `
 >
   <header
     className="usa-header usa-header-extended tm-header"
+    id="header"
     role="banner"
   >
     <GovBanner />
