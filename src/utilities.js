@@ -391,3 +391,16 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 // returns the base application path,
 // ie, https://hostname:8080/PUBLIC_URL/
 export const getApplicationPath = () => `${window.location.origin}${process.env.PUBLIC_URL}`;
+
+// Adds spaces between position number characters so that it's accessible for screen readers.
+// Based on this accessibility feedback:
+// When a letter is used in the position number, such as S7250404,
+// the screen reader reads the number as a full-length numeral
+// (i.e., "S. 7 million two hundred thousand ….). This can confuse or disorient the user as
+// they navigate and search for positions.
+export const getAccessiblePositionNumber = (positionNumber) => {
+  if (positionNumber) {
+    return positionNumber.split('').join(' ');
+  }
+  return null;
+};
