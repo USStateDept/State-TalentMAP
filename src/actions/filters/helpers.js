@@ -7,6 +7,8 @@ export function getCustomGradeDescription(gradeCode) {
     return 'MC Minister-Counselor (FE-MC)';
   } else if (gradeCode === 'OC') {
     return 'OC Couneslor (FE-OC)';
+  } else if (gradeCode === 'OM') {
+    return 'Office Manager (OM)';
   }
   return gradeCode;
 }
