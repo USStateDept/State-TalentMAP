@@ -57,6 +57,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           title="Skill Code"
         />
         <CondensedCardDataPoint
+          ariaLabel="0 0 0 0 3 0 2 7"
           content="00003027"
           hasFixedTitleWidth={false}
           title="Position Number"
