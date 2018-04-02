@@ -4,8 +4,8 @@ import { NO_DATE } from '../../Constants/SystemMessages';
 import { formatDate } from '../../utilities';
 
 const ResultsCondensedCardFooter = ({ position }) => {
-  const date = position.description && position.description.date_created ?
-    formatDate(position.description.date_created) : NO_DATE;
+  const date = position.effective_date ?
+    formatDate(position.effective_date) : NO_DATE;
   return (
     <div className="condensed-card-footer">
       <div className="usa-grid-full condensed-card-footer-container">
