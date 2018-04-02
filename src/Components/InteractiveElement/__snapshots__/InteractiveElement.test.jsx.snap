@@ -2,11 +2,10 @@
 
 exports[`InteractiveElementComponent matches snapshot 1`] = `
 <span
-  className="interactive-element "
+  className="interactive-element"
   onKeyDown={[Function]}
   role="button"
   tabIndex="0"
-  type="span"
 >
   text
 </span>
@@ -14,11 +13,10 @@ exports[`InteractiveElementComponent matches snapshot 1`] = `
 
 exports[`InteractiveElementComponent matches snapshot when type is "div" 1`] = `
 <div
-  className="interactive-element "
+  className="interactive-element"
   onKeyDown={[Function]}
   role="button"
   tabIndex="0"
-  type="div"
 >
   text
 </div>

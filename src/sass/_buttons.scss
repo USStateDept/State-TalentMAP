@@ -1,7 +1,6 @@
 .unstyled-button {
   -moz-appearance: unset;
   -webkit-appearance: unset;
-  appearance: unset;
   background-color: transparent;
   border: 0;
   border-radius: 0;
@@ -136,6 +135,12 @@
 }
 
 .favorite-container {
+  &.usa-button {
+    .fa {
+      color: $color-white;
+    }
+  }
+
   .fa {
     color: $blue-primary;
   }

@@ -41,6 +41,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             "position_number": "00003027",
             "post": null,
             "skill": "OFFICE MANAGEMENT (9017)",
+            "title": "Test Position",
             "update_date": "2017-06-08",
           }
         }
@@ -139,6 +140,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
             "position_number": "00003027",
             "post": null,
             "skill": "OFFICE MANAGEMENT (9017)",
+            "title": "Test Position",
             "update_date": "2017-06-08",
           }
         }

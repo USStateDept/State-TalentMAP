@@ -11,7 +11,10 @@ const Components = { Home, Profile, Results, Position, Login, Compare };
 
 const mappedRoutesArray = RoutesArray.map((Route) => {
   const Component = Components[Route.componentName];
-  return { ...Route, component: props => <Component {...props} /> };
+  return { ...Route,
+    component: props =>
+      <Component {...props} />,
+  };
 });
 
 export default mappedRoutesArray;

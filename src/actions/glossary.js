@@ -40,10 +40,10 @@ export function glossaryEditorFetchDataSuccess(glossary) {
   };
 }
 
-export function glossaryPatchHasErrored(bool = false, id = null) {
+export function glossaryPatchHasErrored(bool = false, id = null, message = null) {
   return {
     type: 'GLOSSARY_PATCH_HAS_ERRORED',
-    hasErrored: { id, hasErrored: bool },
+    value: { id, message, hasErrored: bool },
   };
 }
 export function glossaryPatchIsLoading(bool) {
@@ -59,10 +59,10 @@ export function glossaryPatchSuccess(bool = false, id = null) {
   };
 }
 
-export function glossaryPostHasErrored(bool = false) {
+export function glossaryPostHasErrored(bool = false, message = null) {
   return {
     type: 'GLOSSARY_POST_HAS_ERRORED',
-    hasErrored: bool,
+    value: { id: null, message, hasErrored: bool },
   };
 }
 export function glossaryPostIsLoading(bool) {
@@ -80,6 +80,8 @@ export function glossaryPostSuccess(bool = false, id = null) {
 
 export function glossaryFetchData(bypassLoading = false) {
   return (dispatch) => {
+    dispatch(glossaryHasErrored(false));
+
     if (!bypassLoading) {
       dispatch(glossaryIsLoading(true));
     }
@@ -100,6 +102,8 @@ export function glossaryFetchData(bypassLoading = false) {
 
 export function glossaryEditorFetchData(bypassLoading = false) {
   return (dispatch) => {
+    dispatch(glossaryEditorHasErrored(false));
+
     if (!bypassLoading) {
       dispatch(glossaryEditorIsLoading(true));
     }

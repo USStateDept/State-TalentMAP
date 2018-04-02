@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmptyListAlertComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full empty-list-alert"
+>
+  <p>
+    Here is some text
+  </p>
+  <p>
+    <span>
+      And here is an element!
+    </span>
+  </p>
+</div>
+`;

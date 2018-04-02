@@ -5,6 +5,7 @@ import breakpoints from '../../sass/sass-vars/variables';
 
 const MediaQueryWrapper = ({ breakpoint, widthType, children }) => {
   const mediaProps = {};
+
   // set the right prop based on the widthType
   if (widthType === 'max') { mediaProps.maxWidth = breakpoints[`${breakpoint}Num`]; }
   if (widthType === 'min') { mediaProps.minWidth = breakpoints[`${breakpoint}Num`]; }
@@ -18,7 +19,7 @@ const MediaQueryWrapper = ({ breakpoint, widthType, children }) => {
 MediaQueryWrapper.propTypes = {
   breakpoint: PropTypes.oneOf(['screenSmMin', 'screenXsMax', 'screenMdMin', 'screenSmMax', 'screenLgMin', 'screenMdMax']).isRequired,
   widthType: PropTypes.oneOf(['max', 'min']).isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
 };
 
 export default MediaQueryWrapper;

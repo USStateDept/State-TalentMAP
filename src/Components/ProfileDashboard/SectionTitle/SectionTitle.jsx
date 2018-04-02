@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 
 const PositionInformation = ({ title, icon, small, className }) => (
   <div className={`dashboard-section-title ${className} ${small ? 'dashboard-section-title-small' : ''}`}>
-    { !!icon.length && <FontAwesome name={icon} /> } <span>{title}</span>
+    { !!icon.length && <FontAwesome name={icon} /> } <h2>{title}</h2>
   </div>
 );
 

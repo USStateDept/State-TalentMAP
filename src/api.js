@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { fetchUserToken, hasValidToken } from './utilities';
+import { fetchUserToken, hasValidToken, propOrDefault } from './utilities';
 import { logoutRequest } from './login/actions';
 
 export const config = {
@@ -18,7 +18,7 @@ api.interceptors.request.use((request) => {
 });
 
 api.interceptors.response.use(response => response, (error) => {
-  switch (error.response.status) {
+  switch (propOrDefault(error, 'response.status')) {
     case 401:
       // Due to timing of import store before history is created, importing store here causes
       // exports of api to be undefined. So this causes an error for `userProfile.js` when

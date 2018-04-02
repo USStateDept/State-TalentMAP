@@ -4,6 +4,12 @@ import toJSON from 'enzyme-to-json';
 import ErrorMessage from './ErrorMessage';
 
 describe('ErrorMessageComponent', () => {
+  const errorProp = {
+    id: 1,
+    message: 'error',
+    hasErrored: true,
+  };
+
   it('is defined', () => {
     const wrapper = shallow(<ErrorMessage />);
     expect(wrapper).toBeDefined();
@@ -15,8 +21,8 @@ describe('ErrorMessageComponent', () => {
   });
 
   it('displays a response error', () => {
-    const wrapper = shallow(<ErrorMessage showResponseError />);
-    expect(wrapper.find('.usa-input-error-message').text()).toBe('Error updating term.');
+    const wrapper = shallow(<ErrorMessage error={errorProp} />);
+    expect(wrapper.find('.usa-input-error-message').text()).toBe(errorProp.message);
   });
 
   it('matches snapshot', () => {
@@ -30,7 +36,7 @@ describe('ErrorMessageComponent', () => {
   });
 
   it('matches snapshot when showResponseError is true', () => {
-    const wrapper = shallow(<ErrorMessage showResponseError />);
+    const wrapper = shallow(<ErrorMessage error={errorProp} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 

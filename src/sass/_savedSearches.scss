@@ -7,6 +7,10 @@
     margin-top: 1em;
   }
 
+  .saved-searches-list-empty {
+    border: 0;
+  }
+
   .saved-search-card {
     background-color: $color-white;
     border-bottom: 1px solid $color-gray-light;

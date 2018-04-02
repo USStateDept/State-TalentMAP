@@ -32,7 +32,6 @@ History.propTypes = {
   // unless this was a term initially loaded into the database and never changed.
   dateUpdated: PropTypes.string,
   updatedBy: PropTypes.string,
-
   isArchived: PropTypes.bool,
   id: PropTypes.number.isRequired,
   submitGlossaryTerm: PropTypes.func.isRequired,

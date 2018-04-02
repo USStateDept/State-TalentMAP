@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import OBCUrl from '../OBCUrl';
 import Favorite from '../Favorite/Favorite';
 import ViewPostDataButton from '../ViewPostDataButton';
@@ -13,6 +14,12 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
   const obcId = propOrDefault(details, 'post.obc_id');
   return (
     <div className="position-details-header-container">
+      <Helmet>
+        <title>{details.title}</title>
+        <meta property="og:title" content={`${details.title} ${details.position_number}`} />
+        <meta property="og:description" content={details.description.content} />
+        <meta property="og:url" content={window.location.href} />
+      </Helmet>
       <div className="position-details-header">
         <div className="usa-grid positions-details-header-grid">
           <div className="usa-width-one-half">
