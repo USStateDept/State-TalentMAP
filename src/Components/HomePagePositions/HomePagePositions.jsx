@@ -25,7 +25,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   const userSkillCodePositions = homePagePositions[USER_SKILL_CODE_POSITIONS];
   const favoritedPositions = homePagePositions[FAVORITED_POSITIONS];
   let rowTwoPositions = userSkillCodePositions;
-  let rowTwoTitle = 'Positions in Skill';
+  let rowTwoTitle = 'Positions in Skills';
   let rowTwoLink = '/results';
   if (rowTwoPositions && rowTwoPositions.length) {
     // form a link to view positions with the user's skills
@@ -36,7 +36,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   } else if (favoritedPositions) {
     // update everything to denote that these are favorited positions
     rowTwoPositions = favoritedPositions;
-    rowTwoTitle = 'Favorited Positions';
+    rowTwoTitle = 'Favorited positions';
     rowTwoLink = '/profile/favorites/';
   }
 
@@ -45,7 +45,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   // If the user does not have a grade, we'll display recent positions.
   const userGradeRecentPositions = homePagePositions[USER_GRADE_RECENT_POSITIONS];
   const recentPositions = homePagePositions[RECENTLY_POSTED_POSITIONS];
-  let rowThreeTitle = 'Recently Posted Positions in Grade';
+  let rowThreeTitle = 'Recently posted positions in grade';
   let rowThreePositions = userGradeRecentPositions;
   let rowThreeLink = '/results';
   if (userGradeRecentPositions) {
@@ -56,7 +56,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   } else if (recentPositions) {
     // update everything to to denote that these are recently posted positions
     rowThreePositions = recentPositions;
-    rowThreeTitle = 'Recently Posted Positions';
+    rowThreeTitle = 'Recently posted positions';
     rowThreeLink = '/results?ordering=description__date_created';
   }
   return (
@@ -65,7 +65,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
         className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
       >
         <HomePagePositionsSection
-          title="Service Needs Positions"
+          title="Service needs positions"
           maxLength="3"
           viewMoreLink={serviceNeedsLink}
           icon="bolt"

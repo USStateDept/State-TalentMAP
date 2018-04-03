@@ -12,3 +12,6 @@ const errorWrapper = (message) => {
 
 // set globally
 global.console.error = errorWrapper;
+
+// needed for ScrollContext
+global.scrollTo = jest.fn();

@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationItemComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full notification-card"
+>
+  <InformationDataPoint
+    className=""
+    content="content"
+    sideBySide={false}
+    title="3 months ago"
+    titleOnBottom={true}
+  />
+</div>
+`;

@@ -87,7 +87,7 @@
 
   .saved-search-card {
     min-height: 50px;
-    padding: 5px 10px;
+    padding: 5px 15px;
   }
 
   .saved-searches-container {
@@ -611,7 +611,7 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
-  background-color: $tm-navy;
+  background-color: $blue-primary;
   color: $color-white;
   font-size: 1.1em;
   max-height: 450px;
@@ -707,6 +707,7 @@ $padding-no-border: $total-padding - $border;
 
 .user-dashboard-main {
   margin-right: 5%;
+  padding-top: 65px;
 }
 
 .profile-section-container {
@@ -758,22 +759,6 @@ $padding-no-border: $total-padding - $border;
 .saved-searches-list-profile-container {
   min-height: 260px;
   position: relative;
-
-  .list-transparent {
-    padding-left: .8em;
-
-    .bordered-list-content {
-      border-color: transparent;
-    }
-  }
-
-  li {
-    border-bottom: 1px solid $color-gray-light;
-
-    &:last-child {
-      border: 0;
-    }
-  }
 
   .tm-button-transparent {
     padding: .7em 3em;
