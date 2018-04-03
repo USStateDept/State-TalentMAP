@@ -4,7 +4,7 @@ import { matchPath, withRouter } from 'react-router';
 import Helmet from 'react-helmet';
 import PageTitle from '../../Components/PageTitle';
 import routes from '../../routes';
-import { getApplicationPath, getAssetPath } from '../../utilities';
+import { getApplicationPath, getAssetPath, focusById } from '../../utilities';
 
 class PageMetaContainer extends Component {
   constructor(props) {
@@ -37,6 +37,7 @@ class PageMetaContainer extends Component {
 
     // listen for changes in history
     history.listen((historyObject) => {
+      focusById('root');
       this.setPageTitle(historyObject);
     });
   }
