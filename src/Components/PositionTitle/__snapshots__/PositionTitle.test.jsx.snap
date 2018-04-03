@@ -46,7 +46,9 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
                 Test Position
               </h1>
             </div>
-            <div>
+            <div
+              className="post-title"
+            >
               Post: 
               MASERU, LESOTHO
                

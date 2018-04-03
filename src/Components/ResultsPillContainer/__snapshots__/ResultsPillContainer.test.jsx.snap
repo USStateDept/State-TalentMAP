@@ -4,7 +4,11 @@ exports[`ResultsPillContainerComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  Your Selections:
+  <div
+    className="selections-container"
+  >
+    Your Selections:
+  </div>
   <PillList
     items={
       Array [

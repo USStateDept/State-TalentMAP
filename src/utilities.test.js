@@ -26,45 +26,46 @@ import { validStateEmail,
          formatIdSpacing,
          userHasPermissions,
          getAssetPath,
+         sortGrades,
          getApplicationPath,
          getAccessiblePositionNumber,
        } from './utilities';
 
 describe('local storage', () => {
   it('should be able to fetch the existence of a value when there is one values in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(true);
     localStorage.clear();
   });
 
   it('should be able to fetch the existence of a value when there are multiple values in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1', '2']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(true);
     localStorage.clear();
   });
 
   it('should be able to fetch the existence of a value when that value is not in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['2', '3']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['2', '3']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(false);
     localStorage.clear();
   });
 
   it('should be able to fetch the count of an array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1', '2']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.count).toBe(2);
     localStorage.clear();
   });
 
   it('should be able to toggle a value in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    let retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1', '2']));
+    let retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(true);
-    localStorageToggleValue('key', '1');
-    retrieved = localStorageFetchValue('key', '1');
+    localStorageToggleValue('keyName', '1');
+    retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(false);
     localStorage.clear();
   });
@@ -97,6 +98,7 @@ describe('fetchUserToken', () => {
 describe('sort functions', () => {
   const items = [{ title: 'a', description: 'a' }, { title: 'b', description: 'b' }];
   const pills = [{ description: 'a' }, { code: 'b' }];
+  const grades = [{ code: '01' }, { code: '02' }, { code: 'fake' }, { code: 'MC' }];
 
   it('can sort by description', () => {
     expect(propSort('description')(items[0], items[1])).toBe(-1);
@@ -114,6 +116,15 @@ describe('sort functions', () => {
     expect(pillSort(pills[0], pills[1])).toBe(-1);
     expect(pillSort(pills[1], pills[0])).toBe(1);
     expect(pillSort(pills[0], pills[0])).toBe(0);
+  });
+
+  it('can apply custom sorting to grades', () => {
+    expect(sortGrades(grades[0], grades[1])).toBe(-1);
+    expect(sortGrades(grades[1], grades[0])).toBe(1);
+    expect(sortGrades(grades[0], grades[2])).toBe(-1);
+    expect(sortGrades(grades[3], grades[2])).toBe(-1);
+    expect(sortGrades(grades[2], grades[3])).toBe(1);
+    expect(sortGrades(grades[2], grades[2])).toBe(0);
   });
 });
 

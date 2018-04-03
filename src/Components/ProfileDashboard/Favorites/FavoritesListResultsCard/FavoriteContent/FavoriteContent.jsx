@@ -6,12 +6,8 @@ import { POSITION_DETAILS } from '../../../../../Constants/PropTypes';
 const FavoriteContent = ({ position }) => (
   <div className="usa-grid-full bid-content-container">
     <div>
-      <span className="bid-list-card-title-post">Position Title: </span>
+      <span className="bid-list-card-title-post">Position title: </span>
       {position.position_number}
-    </div>
-    <div>
-      <span className="bid-list-card-title-post">Post: </span>
-      {propOrDefault(position, 'post.location', NO_POST)}
     </div>
     <div>
       <span className="bid-list-card-title-post">Skill Code: </span>
@@ -20,6 +16,10 @@ const FavoriteContent = ({ position }) => (
     <div>
       <span className="bid-list-card-title-post">Grade: </span>
       {propOrDefault(position, 'grade', NO_GRADE)}
+    </div>
+    <div>
+      <span className="bid-list-card-title-post">Post: </span>
+      {propOrDefault(position, 'post.location', NO_POST)}
     </div>
   </div>
 );
