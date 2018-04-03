@@ -79,7 +79,9 @@ $filter-container-width: 100% - $results-container-width;
       padding-left: $button-offset;
       padding-right: $button-offset;
 
-      .usa-button {
+      .usa-button,
+      .compare-check-box-container {
+        display: inline-block;
         margin: 0;
         position: relative;
         width: 50%;
@@ -90,16 +92,33 @@ $filter-container-width: 100% - $results-container-width;
         }
       }
 
-      .usa-button:nth-child(1) {
+      .usa-button {
         left: -$button-offset;
-
-        @media screen and (max-width: $screen-sm-min) {
-          margin-bottom: .5em;
-        }
       }
 
-      .usa-button:nth-child(2) {
+      .compare-check-box-container {
+        font-size: rem(14px);
+        line-height: 39px;
+        padding-left: 2rem;
         right: -$button-offset;
+        top: 1px;
+      }
+
+      .fa {
+        left: -2px;
+        position: relative;
+        top: 1px;
+      }
+
+      @media screen and (max-width: $screen-sm-min) {
+        .usa-button {
+          margin-bottom: .5em;
+        }
+
+        .compare-check-box-container {
+          padding-left: 0;
+          text-align: center;
+        }
       }
     }
 
