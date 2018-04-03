@@ -123,6 +123,7 @@ describe('sort functions', () => {
     expect(sortGrades(grades[0], grades[2])).toBe(-1);
     expect(sortGrades(grades[3], grades[2])).toBe(-1);
     expect(sortGrades(grades[2], grades[3])).toBe(1);
+    expect(sortGrades(grades[2], grades[2])).toBe(0);
   });
 });
 

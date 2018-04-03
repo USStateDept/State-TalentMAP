@@ -1,16 +1,18 @@
 // Attempt to map the non-numeric grade codes to a full description.
 // If no match is found, return the unmodified code.
 export function getCustomGradeDescription(gradeCode) {
-  if (gradeCode === 'CM') {
-    return 'CM Career Minister (FE-CM)';
-  } else if (gradeCode === 'MC') {
-    return 'MC Minister-Counselor (FE-MC)';
-  } else if (gradeCode === 'OC') {
-    return 'OC Couneslor (FE-OC)';
-  } else if (gradeCode === 'OM') {
-    return 'Office Manager (OM)';
+  switch (gradeCode) {
+    case 'CM':
+      return 'CM Career Minister (FE-CM)';
+    case 'MC':
+      return 'MC Minister-Counselor (FE-MC)';
+    case 'OC':
+      return 'OC Couneslor (FE-OC)';
+    case 'OM':
+      return 'Office Manager (OM)';
+    default:
+      return gradeCode;
   }
-  return gradeCode;
 }
 
 // create a custom description based on the filter type
