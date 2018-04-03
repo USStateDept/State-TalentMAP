@@ -271,7 +271,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
   return array;
 };
 
-// focus an element on the page based on its ID. Pass an optional, positive timeout number to
+// Focus an element on the page based on its ID. Pass an optional, positive timeout number to
 // execute the focus within a timeout.
 export const focusById = (id, timeout) => {
   let element = document.getElementById(id);
@@ -280,7 +280,9 @@ export const focusById = (id, timeout) => {
   } else {
     setTimeout(() => {
       element = document.getElementById(id);
-      element.focus();
+      if (element) {
+        element.focus();
+      }
     }, timeout);
   }
 };
