@@ -1,4 +1,5 @@
 import {
+  getCustomGradeDescription,
   getFilterCustomDescription,
   getPillDescription,
   getPostOrMissionDescription,
@@ -7,6 +8,14 @@ import {
 } from './helpers';
 
 describe('filter helpers', () => {
+  it('can return custom grade descriptions', () => {
+    expect(getCustomGradeDescription('CM')).toBe('CM Career Minister (FE-CM)');
+    expect(getCustomGradeDescription('MC')).toBe('MC Minister-Counselor (FE-MC)');
+    expect(getCustomGradeDescription('OC')).toBe('OC Couneslor (FE-OC)');
+    expect(getCustomGradeDescription('OM')).toBe('Office Manager (OM)');
+    expect(getCustomGradeDescription('06')).toBe('06');
+  });
+
   it('can return correct values for the getFilterCustomDescription function', () => {
     // templated strings are returned based on the description value
     expect(getFilterCustomDescription(
