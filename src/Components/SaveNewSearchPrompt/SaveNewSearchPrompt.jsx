@@ -19,7 +19,7 @@ const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
           tabIndex="0"
           role="link"
           onClick={toggleInput}
-          onKeyUp={(e) => { if (ifEnter(e)) { toggleInput(); } }}
+          onKeyUp={(e) => { if (ifEnter(e)) { toggleInput(e); } }}
         >
           {currentSearchExists ? 'Edit this search.' : 'Save this search.'}
         </a>
