@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import Row from './Row';
 
@@ -27,9 +27,9 @@ describe('Row', () => {
 
   it('renders `as` prop and renders new tag', () => {
     const tags = ('button|div|span|section|p').split('|');
-
     tags.forEach((tag) => {
-      expect(shallow(<Row as={tag} />).find(tag).exists()).toBe(true);
+      const wrapper = mount(<Row as={tag} />);
+      expect(wrapper.find(tag).exists()).toBe(true);
     });
   });
 

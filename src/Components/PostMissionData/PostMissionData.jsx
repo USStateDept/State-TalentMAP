@@ -17,7 +17,7 @@ const PostMissionData = ({ post }) => (
         }
         Location: {post.location}
         <br />
-        Tour of duty: {post.tour_of_duty}
+        Tour of Duty: {post.tour_of_duty}
         <br />
         Type: Embassy {/* TODO replace hard-coded value with API value */}
         <br />

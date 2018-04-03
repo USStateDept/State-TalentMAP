@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card matches snapshot 1`] = `
+<Base
+  as="div"
+  className="card tm-grid"
+  id="Card-1"
+>
+  <div
+    className="usa-width-one-whole"
+  />
+</Base>
+`;

@@ -68,4 +68,14 @@
   .react-autosuggest__input {
     line-height: 0;
   }
+
+  // fix border edge not being flush with left side of container
+  .expandable-link > .children-ul {
+    margin-left: -5px;
+
+    // set the same value as positive
+    .link-highlighted > .list-item-wrapper {
+      margin-left: 5px;
+    }
+  }
 }
