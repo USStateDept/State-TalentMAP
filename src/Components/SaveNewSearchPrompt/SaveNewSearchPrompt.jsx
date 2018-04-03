@@ -18,7 +18,7 @@ const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
         <InteractiveElement
           className="save-search-link"
           type="span"
-          onClick={(e) => { toggleInput(e); focusById('saved-search'); }}
+          onClick={(e) => { toggleInput(e); focusById('saved-search', 1); }}
           role="link"
         >
           {currentSearchExists ? 'Edit this search.' : 'Save this search.'}

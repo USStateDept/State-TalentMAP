@@ -271,10 +271,18 @@ export const filterByProps = (keyword, props = [], array = []) => {
   return array;
 };
 
-// focus an element on the page based on its ID
-export const focusById = (id) => {
-  const element = document.getElementById(id);
-  if (element) { element.focus(); }
+// focus an element on the page based on its ID. Pass an optional, positive timeout number to
+// execute the focus within a timeout.
+export const focusById = (id, timeout) => {
+  let element = document.getElementById(id);
+  if (!timeout) {
+    if (element) { element.focus(); }
+  } else {
+    setTimeout(() => {
+      element = document.getElementById(id);
+      element.focus();
+    }, timeout);
+  }
 };
 
 // Give objects in an array the necessary value and label props needed when
