@@ -70,9 +70,6 @@ export const PROFILE_MENU = MenuConfig([
     icon: 'book',
     route: '/profile/glossaryeditor/',
     isGlossaryEditor: true,
-    params: {
-      type: 'all',
-    },
   },
 ]);
 
