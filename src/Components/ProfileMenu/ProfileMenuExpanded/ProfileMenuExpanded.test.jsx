@@ -33,9 +33,13 @@ describe('ProfileMenuExpandedComponent', () => {
   });
 
   it('matches snapshot when isCDO is true', () => {
-    const wrapper = shallow(
-      <ProfileMenuExpanded {...props} />,
-    );
+    const wrapper = shallow(<ProfileMenuExpanded {...props} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when user is bidcycle_admin', () => {
+    const roles = ['bidcycle_admin'];
+    const wrapper = shallow(<ProfileMenuExpanded {...props} roles={roles} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
