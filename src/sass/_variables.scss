@@ -118,7 +118,7 @@ $header-desktop-height: 75px;
 //* Avatar
 //*
 $avatar-size: 100px;
-$avatar-background: $tm-navy;
+$avatar-background: $blue-primary;
 $avatar-color: $color-white;
 $avatar-text-ratio: .45;
 
@@ -156,5 +156,6 @@ $scrollbar-width: 10px;
 $autosuggest-suggestions-container-open-z: 2;
 $spinner-z: 100;
 $feedback-button-z: 10000;
+$skill-code-dropdown-z: 10500;
 $feedback-z: 11000;
 $dropdown-content-z: 15000;

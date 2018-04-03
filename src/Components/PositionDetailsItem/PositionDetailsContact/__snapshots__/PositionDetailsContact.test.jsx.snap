@@ -16,7 +16,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
         onSubmitText={[Function]}
         plainContent=""
         shouldShowEditor={false}
-        title="Post Website"
+        title="Post website"
         toggleEditor={[Function]}
       />
     </div>
@@ -29,7 +29,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
         onSubmitText={[Function]}
         plainContent=""
         shouldShowEditor={false}
-        title="Point of Contact"
+        title="Point-of-contact"
         toggleEditor={[Function]}
       />
     </div>
@@ -37,7 +37,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
   <div
     className="contact-container"
   >
-    Updated Date: 
+    Updated date: 
     06/08/2017
   </div>
 </div>

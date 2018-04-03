@@ -5,7 +5,7 @@ import PillList from '../PillList/PillList';
 
 const ResultsPillContainer = ({ items, onPillClick }) => (
   <div className="usa-grid-full">
-    Your Selections:
+    <div className="selections-container">Your Selections:</div>
     <PillList
       items={items}
       onPillClick={(param, value, remove) => onPillClick(param, value, remove)}

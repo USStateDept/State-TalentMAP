@@ -38,6 +38,10 @@
     border-right: 1px solid $color-white;
   }
 
+  .post-title {
+    font-size: 1.15em;
+  }
+
   .position-details-header-title {
     font-size: 1.5em;
     margin-bottom: .2em;
@@ -283,5 +287,22 @@
 
   .favorite-container span {
     margin-right: 10px;
+  }
+}
+
+.how-to-bid {
+  border: 1px solid $bg-gray-dark-3;
+  margin-top: 30px;
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 0;
+  }
+
+  .contact-container {
+    border: 0;
   }
 }

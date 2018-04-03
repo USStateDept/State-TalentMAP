@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { routerReducer as router } from 'react-router-redux';
 import { reducer as form } from 'redux-form';
 import client from '../client/reducer';
 import login from '../login/reducer';
+import { reducer as bidCycles } from './bidCycles';
 import results from './results';
 import filters from './filters';
 import post from './post';
@@ -62,8 +63,9 @@ export default combineReducers({
   ...selectedSearchbarFilters,
   ...showFeedback,
   ...feedback,
-  router: routerReducer,
+  router,
   form,
   client,
   login,
+  bidCycles,
 });

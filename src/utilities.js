@@ -87,6 +87,23 @@ export const propSort = propName => (a, b) => {
   return 0; // default return value (no sorting)
 };
 
+// Custom grade sorting
+export const sortGrades = (a, b) => {
+  const sortingArray = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '00', 'CM', 'MC', 'OC', 'OM'];
+  const A = a.code;
+  const B = b.code;
+
+  // if grade is not in sortingArray, push to bottom of list.
+  const indexOfA = sortingArray.indexOf(A) >= 0 ? sortingArray.indexOf(A) : sortingArray.length;
+  const indexOfB = sortingArray.indexOf(B) >= 0 ? sortingArray.indexOf(B) : sortingArray.length;
+
+  if (indexOfA < indexOfB) {
+    return -1;
+  }
+  if (indexOfA > indexOfB) { return 1; }
+  return 0;
+};
+
 // function to find the Region filters
 export const formExploreRegionDropdown = (filters) => {
   function filterRegion(filterItem) {
@@ -220,7 +237,7 @@ export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
     const formattedDate = format(date, dateFormat);
-    // and finally return the formatte date
+    // and finally return the formatted date
     return formattedDate;
   }
   return null;
@@ -391,3 +408,16 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 // returns the base application path,
 // ie, https://hostname:8080/PUBLIC_URL/
 export const getApplicationPath = () => `${window.location.origin}${process.env.PUBLIC_URL}`;
+
+// Adds spaces between position number characters so that it's accessible for screen readers.
+// Based on this accessibility feedback:
+// When a letter is used in the position number, such as S7250404,
+// the screen reader reads the number as a full-length numeral
+// (i.e., "S. 7 million two hundred thousand ….). This can confuse or disorient the user as
+// they navigate and search for positions.
+export const getAccessiblePositionNumber = (positionNumber) => {
+  if (positionNumber) {
+    return positionNumber.split('').join(' ');
+  }
+  return null;
+};
