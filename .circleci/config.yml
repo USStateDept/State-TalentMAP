@@ -24,6 +24,8 @@ jobs:
           paths:
             - ./node_modules
             - ~/.cache/yarn
+    environment:
+      TZ: "/usr/share/zoneinfo/America/New_York"
   docker-build:
     <<: *default-docker-node
     steps:
