@@ -496,7 +496,9 @@ $filter-container-width: 100% - $results-container-width;
   }
 
   .save-search-link {
+    color: $blue-primary;
     cursor: pointer;
+    text-decoration: underline;
   }
 
   .usa-input-error {
