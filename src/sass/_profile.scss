@@ -654,7 +654,7 @@ $padding-no-border: $total-padding - $border;
   font-size: 1.1em;
   max-height: 450px;
   min-height: 260px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .primary-text {
     text-transform: uppercase;
