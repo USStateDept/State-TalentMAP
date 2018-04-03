@@ -191,6 +191,7 @@ class ResultsMultiSearchHeader extends Component {
                       includeFirstEmptyOption
                       onSelectOption={this.onChangeGrade}
                       emptyOptionText=""
+                      className="select-black select-small"
                     />
                   </div>
                   <div className="usa-width-one-sixth search-results-inputs search-keyword">
@@ -201,6 +202,7 @@ class ResultsMultiSearchHeader extends Component {
                       defaultSort={defaultBureau}
                       includeFirstEmptyOption
                       onSelectOption={this.onChangeBureau}
+                      className="select-black select-small"
                     />
                   </div>
                   <div className="usa-width-one-twelfth search-submit-button">

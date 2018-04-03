@@ -21,10 +21,7 @@ const ProfileDashboard = ({
       <Spinner type="homepage-position-results" size="big" />
     ) : (
       <div className="usa-grid-full">
-        <div className="hello-greeting">
-          <h2 className="sr-only">Dashboard</h2>
-          {`Hello, ${userProfile.display_name}`}
-        </div>
+        <h2 className="sr-only">Dashboard</h2>
         <div className="usa-grid-full">
           <div
             className={`usa-width-five-twelfths user-dashboard-section-container
