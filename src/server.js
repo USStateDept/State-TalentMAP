@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bunyan = require('bunyan');
 const routesArray = require('./routes.js');
+const metadata = require('./saml2-config').metadata;
 
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
@@ -59,7 +60,8 @@ app.get(`${PUBLIC_URL}login`, (request, response, next) => {
 
 // saml2 metadata
 app.get(`${PUBLIC_URL}metadata/`, (request, response, next) => {
-  response.redirect(`${API_ROOT}/saml2/metadata/`);
+  response.type('application/xml');
+  response.send(metadata);
   next();
 });
 
