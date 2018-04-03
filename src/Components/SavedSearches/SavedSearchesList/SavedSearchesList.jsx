@@ -84,15 +84,14 @@ class SavedSearchesList extends Component {
     return (
       <div className="usa-grid-full" ref={(el) => { this.container$ = el; }}>
         {
+          !!savedSearchArray.length &&
           <ScrollArea {...this.state.scroll} ref={(el) => { this.scroll$ = el; }}>
             <div className={`usa-grid-full saved-searches-list ${emptyListClass}`}>
               {savedSearchArray.map(s => s)}
             </div>
           </ScrollArea>
         }
-        {
-          !savedSearchArray.length && <NoSavedSearches />
-        }
+        { !savedSearchArray.length && <NoSavedSearches /> }
       </div>
     );
   }
