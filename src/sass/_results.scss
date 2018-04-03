@@ -501,7 +501,9 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .save-search-link {
+    color: $blue-primary;
     cursor: pointer;
+    text-decoration: underline;
   }
 
   .usa-input-error {
