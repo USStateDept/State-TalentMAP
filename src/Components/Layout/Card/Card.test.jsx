@@ -1,43 +1,45 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import Row from './Row';
+import Card from './Card';
 
-describe('Row', () => {
+describe('Card', () => {
+  const selector = '.card';
+
+  it('has own className any additional others', () => {
+    const suffix = 'test';
+    const wrapper = shallow(<Card className={suffix} />);
+
+    expect(wrapper.find(`${selector}.${suffix}`).exists()).toBe(true);
+  });
+
   it('can receive children prop', () => {
-    const selector = '.usa-grid';
     const wrapper = shallow(
-      <Row>
+      <Card>
         <span>span</span>
         <div>div</div>
         <span>span</span>
-      </Row>,
+      </Card>,
     );
 
     expect(wrapper.find(selector).children('span')).toHaveLength(2);
     expect(wrapper.find(selector).children('div')).toHaveLength(1);
   });
 
-  it('renders `fluid` prop correctly', () => {
-    const selector = '.usa-grid-full';
-
-    expect(shallow(<Row />).find(selector).exists()).toBe(false);
-    expect(shallow(<Row fluid />).find(selector).exists()).toBe(true);
-  });
-
   it('renders `as` prop and renders new tag', () => {
     const tags = ('button|div|span|section|p').split('|');
+
     tags.forEach((tag) => {
-      const wrapper = mount(<Row as={tag} />);
+      const wrapper = mount(<Card as={tag} />);
       expect(wrapper.find(tag).exists()).toBe(true);
     });
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <Row id="row-1" className="tm-grid">
+      <Card id="Card-1" className="tm-grid">
         <div className="usa-width-one-whole" />
-      </Row>,
+      </Card>,
     );
 
     expect(toJSON(wrapper)).toMatchSnapshot();
