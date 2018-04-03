@@ -1,5 +1,5 @@
 import React from 'react';
-import { isPlainObject, keys, map, merge, omit } from 'lodash';
+import { isArray, isPlainObject, keys, map, merge, omit } from 'lodash';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import Definition from './Definition/Definition';
@@ -12,6 +12,7 @@ const defaults = {
 
 const DefinitionList = ({ truncate = true, ...props }) => {
   const options = omit(props, keys(defaults));
+  const children = !isArray(props.children) ? [props.children] : props.children;
   let items = props.items;
 
   // Transform prop type objects
@@ -28,8 +29,8 @@ const DefinitionList = ({ truncate = true, ...props }) => {
   return (
     <dl {...options}>
       {
-        props.children.length ?
-          props.children :
+        children.length ?
+          children :
           items.map(item => (
             <Definition key={shortid.generate()} {...item} />
           ))

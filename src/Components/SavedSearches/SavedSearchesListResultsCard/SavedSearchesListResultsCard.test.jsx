@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import React from 'react';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
@@ -32,7 +32,7 @@ describe('SavedSearchesListResultsCardComponent', () => {
 
   it('can click the delete button', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(
+    const wrapper = mount(
       <SavedSearchesListResultsCard
         {...props}
         deleteSearch={spy}
@@ -44,12 +44,13 @@ describe('SavedSearchesListResultsCardComponent', () => {
 
   it('can click the View button', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(
+    const wrapper = mount(
       <SavedSearchesListResultsCard
         {...props}
         goToSavedSearch={spy}
       />,
     );
+
     wrapper.find('button').at(1).simulate('click');
     sinon.assert.calledOnce(spy);
   });
