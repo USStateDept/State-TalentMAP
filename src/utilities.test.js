@@ -28,6 +28,7 @@ import { validStateEmail,
          getAssetPath,
          sortGrades,
          getApplicationPath,
+         getAccessiblePositionNumber,
        } from './utilities';
 
 describe('local storage', () => {
@@ -479,5 +480,13 @@ describe('getApplicationPath', () => {
     const result = getApplicationPath();
 
     expect(result).toBe('http://localhost/application/');
+  });
+});
+
+describe('getAccessiblePositionNumber', () => {
+  it('adds spaces to a position number', () => {
+    const positionNumber = 'S7001';
+
+    expect(getAccessiblePositionNumber(positionNumber)).toBe('S 7 0 0 1');
   });
 });
