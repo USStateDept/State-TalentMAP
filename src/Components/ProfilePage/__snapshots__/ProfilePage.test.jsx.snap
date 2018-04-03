@@ -5,7 +5,6 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
   className="profile-page"
 >
   <Connect(ProfileMenu)
-    isAdmin={true}
     isCDO={false}
     isGlossaryEditor={false}
   />
