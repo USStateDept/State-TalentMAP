@@ -13,6 +13,18 @@
   position: absolute;
   right: 0;
   z-index: $dropdown-content-z;
+
+  .account-dropdown-link {
+    display: block;
+    padding: 10px 15px;
+    width: 100%;
+  }
+
+  .account-dropdown-link:hover,
+  .account-dropdown-link:focus {
+    background: $blue-primary;
+    color: $color-white;
+  }
 }
 
 .dropdown--active .dropdown__content {
