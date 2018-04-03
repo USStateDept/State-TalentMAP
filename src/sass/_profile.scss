@@ -111,8 +111,12 @@
       float: right;
     }
 
-    .scrollarea-content {
-      padding-right: $scrollbar-width - 2;
+    .scrollarea {
+      margin-top: 1em;
+
+      .scrollarea-content {
+        padding-right: $scrollbar-width - 2;
+      }
     }
   }
 
