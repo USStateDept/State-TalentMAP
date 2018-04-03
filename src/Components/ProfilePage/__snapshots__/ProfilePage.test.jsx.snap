@@ -5,6 +5,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
   className="profile-page"
 >
   <Connect(ProfileMenu)
+    isAdmin={true}
     isCDO={false}
     isGlossaryEditor={false}
   />
@@ -15,6 +16,10 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
       <Route
         component={[Function]}
         path="/profile/dashboard"
+      />
+      <Route
+        component={[Function]}
+        path="/profile/cycles"
       />
       <Route
         component={[Function]}

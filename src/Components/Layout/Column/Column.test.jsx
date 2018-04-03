@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { forOwn } from 'lodash';
 import Column, { columnsMap } from './Column';
@@ -34,7 +34,8 @@ describe('Column', () => {
     const tags = ('button|div|span|section|p').split('|');
 
     tags.forEach((tag) => {
-      expect(shallow(<Column as={tag} />).find(tag).exists()).toBe(true);
+      const wrapper = mount(<Column as={tag} />);
+      expect(wrapper.find(tag).exists()).toBe(true);
     });
   });
 

@@ -82,7 +82,7 @@ class PositionDetailsContact extends Component {
         <div className="contact-container">
           <div className="usa-grid-full contact-section website-section">
             <PositionTitleSubDescription
-              title="Post Website"
+              title="Post website"
               formattedContent={formattedPostWebsite}
               plainContent={plainTextPostWebsite}
               shouldShowEditor={shouldShowWebsiteEditor.value}
@@ -93,7 +93,7 @@ class PositionDetailsContact extends Component {
           </div>
           <div className="usa-grid-full contact-section poc-section">
             <PositionTitleSubDescription
-              title="Point of Contact"
+              title="Point-of-contact"
               formattedContent={formattedPointOfContact}
               plainContent={plainTextPointOfContact}
               shouldShowEditor={shouldShowPocEditor.value}
@@ -104,7 +104,7 @@ class PositionDetailsContact extends Component {
           </div>
         </div>
         <div className="contact-container">
-          Updated Date: {formattedDate}
+          Updated date: {formattedDate}
         </div>
       </div>
     );
