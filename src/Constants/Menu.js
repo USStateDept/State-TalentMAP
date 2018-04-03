@@ -52,6 +52,10 @@ export const PROFILE_MENU = MenuConfig([
         route: '/profile/dashboard',
       },
       {
+        text: 'Bid Cycles',
+        route: '/profile/cycles/',
+      },
+      {
         text: 'Favorites',
         route: '/profile/favorites/',
       },
