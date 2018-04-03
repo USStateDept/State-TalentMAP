@@ -10,15 +10,14 @@ exports[`SaveNewSearchPromptComponent matches snapshot 1`] = `
     <FontAwesome
       name="bookmark"
     />
-    <a
+    <InteractiveElement
       className="save-search-link"
       onClick={[Function]}
-      onKeyUp={[Function]}
       role="link"
-      tabIndex="0"
+      type="span"
     >
       Save this search.
-    </a>
+    </InteractiveElement>
      
     You will be able to come back to these results later.
   </div>
