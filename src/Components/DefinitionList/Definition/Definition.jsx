@@ -6,6 +6,7 @@ const defaults = {
   term: '',
   definition: '',
   truncate: true,
+  children: '',
 };
 
 const Definition = (props) => {
@@ -15,6 +16,10 @@ const Definition = (props) => {
   term = (term || '').length && `${term}:`;
   definition = definition || '';
 
+  if (props.children) {
+    definition = props.children;
+  }
+
   return (
     <div {...options}>
       <dt>{term}</dt>
@@ -23,10 +28,17 @@ const Definition = (props) => {
   );
 };
 
+const Node = PropTypes.node;
+
 Definition.propTypes = {
   term: PropTypes.string,
   definition: PropTypes.string,
   truncate: PropTypes.bool,
+  /** Takes precedence over `definition` if both props are used. */
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(Node),
+    Node,
+  ]),
 };
 
 Definition.defaultProps = defaults;
