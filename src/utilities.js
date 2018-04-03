@@ -237,7 +237,7 @@ export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
     const formattedDate = format(date, dateFormat);
-    // and finally return the formatte date
+    // and finally return the formatted date
     return formattedDate;
   }
   return null;
