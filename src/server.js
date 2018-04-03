@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bunyan = require('bunyan');
 const routesArray = require('./routes.js');
-const metadata = require('./saml2-config').metadata;
+const { metadata, login } = require('./saml2-config');
 
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
@@ -54,7 +54,18 @@ app.post(PUBLIC_URL, (request, response, next) => {
 
 // saml2 login
 app.get(`${PUBLIC_URL}login`, (request, response, next) => {
-  response.redirect(`${API_ROOT}/saml2/login/`);
+  // create handler
+  // eslint-disable-next-line no-unused-vars
+  const loginHandler = (err, loginUrl, requestId) => {
+    if (err) {
+      response.sendStatus(500);
+    } else {
+      response.redirect(loginUrl);
+    }
+  };
+
+  login(loginHandler);
+
   next();
 });
 
