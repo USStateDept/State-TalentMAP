@@ -45,7 +45,7 @@ const items =
           title: 'Grade',
           sort: 300,
           description: 'grade',
-          endpoint: 'grade/',
+          endpoint: 'grade/?is_available=true',
           selectionRef: ENDPOINT_PARAMS.grade,
           text: 'Choose grades',
         },
