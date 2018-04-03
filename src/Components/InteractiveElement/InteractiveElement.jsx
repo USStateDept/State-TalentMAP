@@ -16,7 +16,7 @@ const InteractiveElement = ({ children, type, className, ...rest }) => {
   // Anything here can override defaultProps.
   const props = {
     children,
-    onKeyDown: onClick ? (e) => { if (ifEnter(e)) { onClick(); } } : EMPTY_FUNCTION,
+    onKeyDown: onClick ? (e) => { if (ifEnter(e)) { onClick(e); } } : EMPTY_FUNCTION,
     className: (`interactive-element ${className}`).trim(),
     ...rest,
   };
