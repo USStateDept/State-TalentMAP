@@ -111,7 +111,8 @@
     "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand",
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
-    "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html"
+    "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
+    "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html"
   },
   "jest": {
     "collectCoverageFrom": [
