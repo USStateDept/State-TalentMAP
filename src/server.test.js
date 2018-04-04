@@ -18,6 +18,6 @@ describe('proxy server routes', () => {
   });
   // this route depends on default environment variables
   it('redirects on /talentmap/metadata', (done) => {
-    request(server).get('/talentmap/metadata').expect(302, done);
+    request(server).get('/talentmap/metadata').expect(200, done);
   });
 });
