@@ -95,7 +95,6 @@ app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
 
 app.get(ROUTES, (request, response) => {
   response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
-  response.sendStatus(200);
 });
 
 // this is our wildcard, 404 route
