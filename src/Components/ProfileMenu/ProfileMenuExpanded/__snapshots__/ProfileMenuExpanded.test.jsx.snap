@@ -281,7 +281,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
       title="Glossary Editor"
     />
   </NavLinksContainer>
