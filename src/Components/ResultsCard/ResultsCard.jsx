@@ -77,7 +77,6 @@ const ResultsCard = (props) => {
       'Language': language,
       'Post Differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
       'Danger Pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
-      'COLA': getResult('post.cost_of_living_adjustment', NO_COLA, true),
     },
     {
       'Posted': getResult('effective_date', NO_UPDATE_DATE),
@@ -110,7 +109,7 @@ const ResultsCard = (props) => {
           <Row className="header" fluid>
             <Column columns="6">
               <h3>{title}</h3>
-              <Link to={`/details/${result.position_number}`}>View details</Link>
+              <Link to={`/details/${result.position_number}`}>View Position</Link>
             </Column>
           </Row>
           <Row id={result.id} fluid>
