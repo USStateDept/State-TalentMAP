@@ -10,7 +10,9 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
     <div
       className="title-container editor-hidden editor-hidden--title"
     >
-      6/8
+      <h4>
+        6/8
+      </h4>
     </div>
     <div
       className="actions-container"
@@ -18,11 +20,6 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
       <div
         className="actions-inner-container"
       >
-        <Connect(StaticDevContent)>
-          <div>
-            History
-          </div>
-        </Connect(StaticDevContent)>
         <InteractiveElement
           className=""
           onClick={[Function]}
@@ -62,7 +59,9 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
     <div
       className="title-container editor-hidden editor-hidden--title"
     >
-      6/8
+      <h4>
+        6/8
+      </h4>
     </div>
     <div
       className="actions-container"
@@ -70,11 +69,6 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
       <div
         className="actions-inner-container"
       >
-        <Connect(StaticDevContent)>
-          <div>
-            History
-          </div>
-        </Connect(StaticDevContent)>
         <InteractiveElement
           className=""
           onClick={[Function]}

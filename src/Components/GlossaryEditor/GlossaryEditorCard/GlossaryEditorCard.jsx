@@ -4,7 +4,6 @@ import { GLOSSARY_OBJECT, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT } from '../../..
 import TextEditor from '../../TextEditor';
 import InteractiveElement from '../../InteractiveElement';
 import GlossaryEditorCardBottom from '../GlossaryEditorCardBottom';
-import StaticDevContent from '../../StaticDevContent';
 
 const isEmpty = value => (value || '').length === 0;
 
@@ -136,24 +135,21 @@ class GlossaryEditorCard extends Component {
           <div className={`title-container ${editorHiddenClass} ${titleContainerClass}`}>
             {
               shouldHideEditor ?
-              renderedTitle :
-              <TextEditor
-                initialText={renderedTitle}
-                onSubmitText={this.submitDefinition}
-                cancel={this.cancel}
-                hideButtons
-                onChangeText={this.updateTitle}
-                draftJsProps={{ placeholder: 'Title' }}
-              />
+                <h4>{renderedTitle}</h4> :
+                <TextEditor
+                  initialText={renderedTitle}
+                  onSubmitText={this.submitDefinition}
+                  cancel={this.cancel}
+                  hideButtons
+                  onChangeText={this.updateTitle}
+                  draftJsProps={{ placeholder: 'Title' }}
+                />
             }
           </div>
           {
             !isNewTerm &&
               <div className="actions-container">
                 <div className="actions-inner-container">
-                  <StaticDevContent>
-                    <div>History</div>
-                  </StaticDevContent>
                   <InteractiveElement role="link" onClick={this.toggleEditorState}>{shouldHideEditor ? 'Edit' : 'Cancel'}</InteractiveElement>
                 </div>
               </div>
