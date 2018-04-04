@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const bunyan = require('bunyan');
+// const bunyan = require('bunyan');
 const routesArray = require('./routes.js');
 const { metadata, login, logout } = require('./saml2-config');
 
