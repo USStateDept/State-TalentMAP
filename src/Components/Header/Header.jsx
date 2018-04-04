@@ -132,7 +132,7 @@ export class Header extends Component {
         >
           Skip to main content
         </InteractiveElement>
-        <header className="usa-header usa-header-extended tm-header" role="banner">
+        <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <GovBanner />
           <BetaHeader />

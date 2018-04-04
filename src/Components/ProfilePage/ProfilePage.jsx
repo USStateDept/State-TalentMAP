@@ -13,7 +13,7 @@ import ProfileMenu from '../ProfileMenu';
 const ProfilePage = ({ user }) => (
   <div className="profile-page">
     <ProfileMenu
-      isAdmin={user.is_admin || true}
+      roles={user.permission_groups}
       isCDO={user.is_cdo}
       isGlossaryEditor={userHasPermissions([GLOSSARY_EDITOR_PERM], user.permission_groups)}
     />

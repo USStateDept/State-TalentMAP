@@ -32,6 +32,7 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-router-scroll-4": "^1.0.0-beta.1",
     "react-scroll": "^1.7.5",
+    "react-scrollbar": "^0.5.4",
     "react-select": "^1.1.0",
     "react-simple-dropdown": "^3.2.0",
     "react-tippy": "^1.2.2",
@@ -109,7 +110,8 @@
     "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand",
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
-    "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html"
+    "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
+    "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html"
   },
   "jest": {
     "collectCoverageFrom": [
