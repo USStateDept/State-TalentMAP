@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
 const routesArray = require('./routes.js');
 const { metadata, login } = require('./saml2-config');
@@ -42,6 +43,10 @@ app.disable('x-powered-by');
 
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
+
+app.use(bodyParser.urlencoded({
+  extended: true,
+}));
 
 // middleware for logging
 app.use(loggingMiddleware);
