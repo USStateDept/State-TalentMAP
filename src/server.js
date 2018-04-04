@@ -25,9 +25,10 @@ const OBC_URL = process.env.OBC_URL;
 const port = process.env.PORT || 3000;
 
 // set up logger
-const logger = bunyan.createLogger({ name: 'TalentMAP' });
+// const logger = bunyan.createLogger({ name: 'TalentMAP' });
 
 // logging middleware
+/*
 const loggingMiddleware = (request, response, next) => {
   const log = {
     reqId: request.id,
@@ -35,6 +36,7 @@ const loggingMiddleware = (request, response, next) => {
   logger.info(log);
   next();
 };
+*/
 
 const app = express();
 
@@ -49,16 +51,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 // middleware for logging
-app.use(loggingMiddleware);
+// app.use(loggingMiddleware);
 
 // saml2 acs
-app.post(PUBLIC_URL, (request, response, next) => {
+app.post(PUBLIC_URL, (request, response) => {
   response.redirect(307, `${API_ROOT}/saml2/acs/`);
-  next();
 });
 
 // saml2 login
-app.get(`${PUBLIC_URL}login`, (request, response, next) => {
+app.get(`${PUBLIC_URL}login`, (request, response) => {
   // create handler
   // eslint-disable-next-line no-unused-vars
   const loginHandler = (err, loginUrl, requestId) => {
@@ -70,43 +71,36 @@ app.get(`${PUBLIC_URL}login`, (request, response, next) => {
   };
 
   login(loginHandler);
-
-  next();
 });
 
 // saml2 metadata
-app.get(`${PUBLIC_URL}metadata/`, (request, response, next) => {
+app.get(`${PUBLIC_URL}metadata`, (request, response) => {
   response.type('application/xml');
   response.send(metadata);
-  next();
 });
 
 // OBC redirect - posts
-app.get(`${PUBLIC_URL}obc/post/:id`, (request, response, next) => {
+app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
   response.redirect(`${OBC_URL}/post/detail/${id}`);
-  next();
 });
 
 // OBC redirect - countries
-app.get(`${PUBLIC_URL}obc/country/:id`, (request, response, next) => {
+app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
   response.redirect(`${OBC_URL}/country/detail/${id}`);
-  next();
 });
 
-app.get(ROUTES, (request, response, next) => {
+app.get(ROUTES, (request, response) => {
   response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
   response.sendStatus(200);
-  next();
 });
 
 // this is our wildcard, 404 route
-app.get('*', (request, response, next) => {
+app.get('*', (request, response) => {
   response.sendStatus(404);
-  next();
 });
 
 const server = app.listen(port);
