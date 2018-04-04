@@ -12,6 +12,7 @@ import { merge } from 'lodash';
  *    params?: { [key: string]: string; };
  *    toggleMenuSection?: boolean;
  *    expandedSection?: boolean;
+ *    roles?: Array<string>;
  *    isCDO?: boolean;
  *    isGlossaryEditor?: boolean;
  *    children?: Array<MenuItem>;
@@ -22,6 +23,7 @@ function MenuConfig(config) {
     const item$ = merge({
       toggleMenuSection: false,
       expandedSection: false,
+      roles: [],
       isCDO: false,
       isGlossaryEditor: false,
     }, item);
@@ -54,6 +56,9 @@ export const PROFILE_MENU = MenuConfig([
       {
         text: 'Bid Cycles',
         route: '/profile/cycles/',
+        roles: [
+          'bidcycle_admin',
+        ],
       },
       {
         text: 'Favorites',
