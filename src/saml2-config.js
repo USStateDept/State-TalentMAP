@@ -1,23 +1,24 @@
 const saml2 = require('saml2-js');
 const fs = require('fs');
+const path = require('path');
 
 // load constants from env vars
 const ENTITY_ID = process.env.ENTITY_ID || 'http://localhost:3000/talentmap/';
-const ASSERT_ENDPOINT = process.env.ASSERT_ENDPOINT || 'http://localhost:5000/';
+const ASSERT_ENDPOINT = process.env.ASSERT_ENDPOINT || 'http://localhost:3000/talentmap/';
 
 // load certs
-const certFile = fs.readFileSync(process.env.CERT_FILE);
-const keyFile = fs.readFileSync(process.env.KEY_FILE);
+const certFile = process.env.CERT_FILE || path.join(__dirname, '../certs', 'talentmap-dev.crt');
+const keyFile = process.env.KEY_FILE || path.join(__dirname, '../certs', 'talentmap-dev.key');
 
 // identity provide config
 const SSO_LOGIN_URL = process.env.SSO_LOGIN_URL || 'http://localhost:5000/login';
-const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL || 'http://localhost:5000/login';
+const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL || 'http://localhost:5000/logout';
 
 // Create service provider with options
 const serviceProvider = new saml2.ServiceProvider({
   entity_id: ENTITY_ID,
-  private_key: keyFile,
-  certificate: certFile,
+  private_key: fs.readFileSync(keyFile),
+  certificate: fs.readFileSync(certFile),
   assert_endpoint: ASSERT_ENDPOINT,
   force_authn: true,
 });
