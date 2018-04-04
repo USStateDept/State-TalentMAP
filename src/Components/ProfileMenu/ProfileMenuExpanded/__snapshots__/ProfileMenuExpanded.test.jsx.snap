@@ -65,7 +65,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
       title="Glossary Editor"
     />
   </NavLinksContainer>
@@ -137,7 +137,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
       title="Glossary Editor"
     />
   </NavLinksContainer>
@@ -209,7 +209,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
       title="Glossary Editor"
     />
   </NavLinksContainer>
@@ -281,7 +281,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
       title="Glossary Editor"
     />
   </NavLinksContainer>

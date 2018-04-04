@@ -28,7 +28,7 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
     />
   </NavLinksContainer>
 </div>
@@ -62,7 +62,7 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
       hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
     />
   </NavLinksContainer>
 </div>
