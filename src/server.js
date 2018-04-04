@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
 const routesArray = require('./routes.js');
-const { metadata, login } = require('./saml2-config');
+const { metadata, login, logout } = require('./saml2-config');
 
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
@@ -72,6 +72,20 @@ app.get(`${PUBLIC_URL}login`, (request, response) => {
 
   login(loginHandler);
 });
+
+
+app.get(`${PUBLIC_URL}logout`, (request, response) => {
+  const logoutHandler = (err, logoutUrl) => {
+    if (err) {
+      response.sendStatus(500);
+    } else {
+      response.redirect(logoutUrl);
+    }
+  };
+
+  logout(logoutHandler);
+});
+
 
 // saml2 metadata
 app.get(`${PUBLIC_URL}metadata`, (request, response) => {
