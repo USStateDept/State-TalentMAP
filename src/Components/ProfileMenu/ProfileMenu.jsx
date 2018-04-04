@@ -26,7 +26,7 @@ class ProfileMenu extends Component {
     const {
       profileMenuExpanded,
       profileMenuSectionExpanded,
-      isAdmin,
+      roles,
       isCDO,
       isGlossaryEditor,
       onSetProfileMenuExpanded,
@@ -34,7 +34,7 @@ class ProfileMenu extends Component {
     } = this.props;
 
     const options = {
-      isAdmin,
+      roles,
       isCDO,
       isGlossaryEditor,
     };
@@ -61,7 +61,7 @@ ProfileMenu.propTypes = {
   profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED.isRequired,
   onSetProfileMenuExpanded: PropTypes.func.isRequired,
   onSetProfileMenuSectionExpanded: PropTypes.func.isRequired,
-  isAdmin: PropTypes.bool,
+  roles: PropTypes.arrayOf(PropTypes.string),
   isCDO: PropTypes.bool,
   isGlossaryEditor: PropTypes.bool,
 };
@@ -71,7 +71,7 @@ ProfileMenu.defaultProps = {
   profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED_OBJECT,
   onSetProfileMenuExpanded: EMPTY_FUNCTION,
   onSetProfileMenuSectionExpanded: EMPTY_FUNCTION,
-  isAdmin: false,
+  roles: [],
   isCDO: false,
   isGlossaryEditor: false,
 };
