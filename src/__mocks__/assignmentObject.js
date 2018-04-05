@@ -7,7 +7,13 @@ const assignmentObject = {
     position_number: '58348065',
     title: 'PROJECT DIRECTOR',
     post: {
-      location: 'Tunis, Tunisia',
+      location: {
+        id: 103,
+        country: 'Sierra Leone',
+        code: '00A',
+        city: 'Freetown',
+        state: '',
+      },
     },
   },
 };

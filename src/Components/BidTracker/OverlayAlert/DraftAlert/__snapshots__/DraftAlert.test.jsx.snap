@@ -49,7 +49,6 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         >
           Post: 
         </span>
-        Curacao
       </div>
       <div>
         <span
@@ -57,7 +56,7 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         >
           Skill Code: 
         </span>
-        Curacao
+        POLITICAL AND ECONOMIC AFFAIRS (6050)
       </div>
       <div>
         <span

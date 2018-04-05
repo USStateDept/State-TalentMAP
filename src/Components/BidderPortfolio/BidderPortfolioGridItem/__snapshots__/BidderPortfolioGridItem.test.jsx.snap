@@ -15,6 +15,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
       >
         <CheckBox
           className=""
+          disabled={false}
           id="checkbox-1"
           label="Select this user"
           labelSrOnly={true}
