@@ -1,3 +1,5 @@
+import { getPostName } from '../../utilities';
+
 // create a custom description based on the filter type
 export function getFilterCustomDescription(filterItem, filterItemObject) {
   if (filterItem.item.description === 'region') {
@@ -5,12 +7,14 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
   } else if (filterItem.item.description === 'skill') {
     return `${filterItemObject.description} (${filterItemObject.code})`;
   } else if (filterItem.item.description === 'post') {
-    return filterItemObject.location;
+    return getPostName(filterItemObject);
   } else if (filterItem.item.description === 'bidCycle') {
     return filterItemObject.name;
   } else if (filterItem.item.description === 'postDiff') {
     return filterItemObject.description;
   } else if (filterItem.item.description === 'dangerPay') {
+    return filterItemObject.description;
+  } else if (filterItemObject.description === 'functionalRegion') {
     return filterItemObject.description;
   }
   return false;
@@ -35,7 +39,7 @@ export function getPillDescription(filterItemObject, customType) {
 // when getting pill descriptions for posts or missions, perform alternate method
 export function getPostOrMissionDescription(data) {
   if (data.type === 'post') {
-    return `${data.location} (Post)`;
+    return `${getPostName(data)} (Post)`;
   }
   return false;
 }
@@ -62,7 +66,6 @@ export function doesCodeOrIdMatch(filterItem, filterItemObject, mappedObject) {
 export function isBooleanFilter(description) {
   if (
     description === 'COLA' ||
-    description === 'domestic' ||
     description === 'available'
   ) {
     return true;

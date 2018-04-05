@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
-import AutoSuggest from '../../AutoSuggest';
 import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
+import BureauFilter from '../BureauFilter';
+import PostFilter from '../PostFilter';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
-import { propSort } from '../../../utilities';
+import { propSort, getPostName } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
 class SearchFiltersContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.onSetAccordion = this.onSetAccordion.bind(this);
     this.onMissionSuggestionSelected = this.onMissionSuggestionSelected.bind(this);
     this.onPostSuggestionSelected = this.onPostSuggestionSelected.bind(this);
   }
@@ -32,9 +32,6 @@ class SearchFiltersContainer extends Component {
     this.props.queryParamUpdate(object);
   }
 
-  onSetAccordion(a, b) {
-    this.props.setAccordion({ main: a, sub: b });
-  }
   render() {
     const { fetchPostAutocomplete,
     postSearchResults, isCDO } = this.props;
@@ -42,7 +39,7 @@ class SearchFiltersContainer extends Component {
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedBooleanNames = ['COLA', 'domestic'];
+    const sortedBooleanNames = ['COLA'];
     // if and only if it's a CDO, we'll show the 'Available' filter
     if (isCDO) { sortedBooleanNames.push('available'); }
 
@@ -82,6 +79,14 @@ class SearchFiltersContainer extends Component {
       }
     });
 
+    // special handling for functional bureau
+    const functionalBureaus = this.props.filters.slice().find(f => f.item.description === 'functionalRegion');
+
+    // special handling for is_domestic filter
+    const domesticFilter = this.props.filters.find(f => f.item.description === 'domestic');
+    const overseasIsSelected = domesticFilter.data.find(d => d.code === 'false').isSelected;
+    const domesticIsSelected = domesticFilter.data.find(d => d.code === 'true').isSelected;
+
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
     multiSelectFilterNames.forEach((n) => {
@@ -98,31 +103,48 @@ class SearchFiltersContainer extends Component {
         suggestions = postSearchResults;
         placeholder = 'Start typing a post';
         onSuggestionSelected = this.onPostSuggestionSelected;
-        displayProperty = 'location';
+        displayProperty = getPostName;
         suggestionTemplate = SuggestionChoicePost; // special template for posts
       }
       if (item) {
         sortedFilters.push(
           { content:
+            // eslint-disable-next-line
+            n === 'region' ?
+            (
+              <BureauFilter
+                item={item}
+                functionalBureaus={functionalBureaus}
+                queryParamToggle={this.props.queryParamToggle}
+              />
+            )
+            :
+            n === 'post' ?
+              (
+                <PostFilter
+                  item={item}
+                  queryParamToggle={this.props.queryParamToggle}
+                  queryParamUpdate={this.props.queryParamUpdate}
+                  overseasIsSelected={overseasIsSelected}
+                  domesticIsSelected={domesticIsSelected}
+                  autoSuggestProps={{
+                    getSuggestions,
+                    suggestions,
+                    placeholder,
+                    onSuggestionSelected,
+                    queryProperty: 'id',
+                    displayProperty,
+                    suggestionTemplate,
+                    id: `${n}-autosuggest-container`,
+                    inputId: `${n}-autosuggest-input`,
+                    label: 'Search posts',
+                    labelSrOnly: false,
+                  }}
+                />
+              )
+            :
             (
               <div className="usa-grid-full">
-                {
-                // Only show the autosuggest for post and mission filters.
-                (n === 'post') ?
-                  <AutoSuggest
-                    getSuggestions={getSuggestions}
-                    suggestions={suggestions}
-                    placeholder={placeholder}
-                    onSuggestionSelected={onSuggestionSelected}
-                    queryProperty="id"
-                    displayProperty={displayProperty}
-                    suggestionTemplate={suggestionTemplate}
-                    id={`${n}-autosuggest-container`}
-                    inputId={`${n}-autosuggest-input`}
-                    label={`${item.item.title} name`}
-                  />
-                  : null
-                }
                 <MultiSelectFilter
                   key={item.item.title}
                   item={item}
@@ -143,7 +165,6 @@ class SearchFiltersContainer extends Component {
     return (
       <div>
         <MultiSelectFilterContainer
-          setAccordion={this.onSetAccordion}
           multiSelectFilterList={sortedFilters}
           queryParamToggle={this.props.queryParamToggle}
         />
@@ -168,7 +189,6 @@ SearchFiltersContainer.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT.isRequired,
-  setAccordion: PropTypes.func.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   isCDO: PropTypes.bool.isRequired,

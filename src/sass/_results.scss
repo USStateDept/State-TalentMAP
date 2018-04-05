@@ -427,6 +427,25 @@
     padding: 1rem;
   }
 
+  .accordion-checkbox-post {
+    .usa-accordion-button {
+      float: left;
+      padding-left: 0;
+      width: 85%;
+    }
+
+    // target the first checkbox and not the child ones
+    .accordion-content-small > .tm-checkbox {
+      float: left;
+      margin: 0 10% 0 0;
+      width: 5%;
+    }
+  }
+
+  .accordion-checkbox-bureau {
+    padding: .5em 0 0;
+  }
+
   .accordion-checkbox-grade {
     .tm-checkbox {
       float: left;

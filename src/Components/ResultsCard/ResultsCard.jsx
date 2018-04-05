@@ -11,7 +11,7 @@ import MediaQueryWrapper from '../MediaQuery';
 import BidCount from '../BidCount';
 import CompareCheck from '../CompareCheck/CompareCheck';
 
-import { formatDate, getBidStatisticsObject, propOrDefault } from '../../utilities';
+import { formatDate, getBidStatisticsObject, propOrDefault, getPostName } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
@@ -64,12 +64,14 @@ const ResultsCard = (props) => {
     `${getResult('languages[0].language', NO_LANGUAGES)} (1/${languages.length})` :
     NO_LANGUAGES;
 
+  const post = getPostName(result.post, NO_POST);
+
   const sections = [
     /* eslint-disable quote-props */
     {
       'Skill Code': getResult('skill', NO_SKILL),
       'Grade': getResult('grade', NO_GRADE),
-      'Post': getResult('post.location', NO_POST),
+      'Post': post,
       'Bureau': getResult('bureau', NO_BUREAU),
     },
     {
