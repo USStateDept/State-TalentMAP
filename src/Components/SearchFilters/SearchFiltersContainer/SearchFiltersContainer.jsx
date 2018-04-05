@@ -86,8 +86,10 @@ class SearchFiltersContainer extends Component {
 
     // special handling for is_domestic filter
     const domesticFilter = (this.props.filters || []).find(f => f.item.description === 'domestic');
-    const overseasIsSelected = (domesticFilter.data || []).find(d => d.code === 'false').isSelected;
-    const domesticIsSelected = (domesticFilter.data || []).find(d => d.code === 'true').isSelected;
+    const overseasFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'false');
+    const domesticFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'true');
+    const overseasIsSelected = propOrDefault(overseasFilterData, 'isSelected', false);
+    const domesticIsSelected = propOrDefault(domesticFilterData, 'isSelected', false);
 
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
@@ -158,7 +160,6 @@ class SearchFiltersContainer extends Component {
             ),
             title: item.item.title,
             id: `accordion-${item.item.title}`,
-            expanded: item.item.title === this.props.selectedAccordion.main,
           },
         );
       }
@@ -190,7 +191,6 @@ SearchFiltersContainer.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
-  selectedAccordion: ACCORDION_SELECTION_OBJECT.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   isCDO: PropTypes.bool.isRequired,

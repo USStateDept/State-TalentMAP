@@ -73,16 +73,16 @@ class BureauFilter extends Component {
   }
 }
 
-/* eslint-disable */
 BureauFilter.propTypes = {
   item: FILTER_ITEM.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
   queryProperty: PropTypes.string,
-  functionalBureaus: FILTER_ITEM.isRequired,
+  functionalBureaus: FILTER_ITEM,
 };
 
 BureauFilter.defaultProps = {
   queryProperty: 'code',
+  functionalBureaus: { data: [] },
 };
 
 export default BureauFilter;
