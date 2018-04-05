@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
+const helmet = require('helmet');
 const routesArray = require('./routes.js');
 const { metadata, login, logout } = require('./saml2-config');
 
@@ -37,6 +38,9 @@ const app = express();
 
 // remove 'X-Powered-By' header
 app.disable('x-powered-by');
+
+// middleware for HTTP headers
+app.use(helmet());
 
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
