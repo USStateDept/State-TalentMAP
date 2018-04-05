@@ -94,13 +94,13 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </th>
             <td>
-              Monrovia, Liberia
+              LI6000000
               <div
                 className="border-extension-layer-2"
               />
             </td>
             <td>
-              Port-Au-Prince, Haiti
+              HA7000000
               <div
                 className="border-extension-layer-2"
               />

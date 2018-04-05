@@ -85,9 +85,9 @@ class SearchFiltersContainer extends Component {
     const functionalBureaus = this.props.filters.slice().find(f => f.item.description === 'functionalRegion');
 
     // special handling for is_domestic filter
-    const domesticFilter = this.props.filters.find(f => f.item.description === 'domestic');
-    const overseasIsSelected = domesticFilter.data.find(d => d.code === 'false').isSelected;
-    const domesticIsSelected = domesticFilter.data.find(d => d.code === 'true').isSelected;
+    const domesticFilter = (this.props.filters || []).find(f => f.item.description === 'domestic');
+    const overseasIsSelected = (domesticFilter.data || []).find(d => d.code === 'false').isSelected;
+    const domesticIsSelected = (domesticFilter.data || []).find(d => d.code === 'true').isSelected;
 
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
