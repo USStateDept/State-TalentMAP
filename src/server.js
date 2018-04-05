@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-// const bunyan = require('bunyan');
+const bunyan = require('bunyan');
 const routesArray = require('./routes.js');
 const { metadata, login, logout } = require('./saml2-config');
 
@@ -25,18 +25,13 @@ const OBC_URL = process.env.OBC_URL;
 const port = process.env.PORT || 3000;
 
 // set up logger
-// const logger = bunyan.createLogger({ name: 'TalentMAP' });
+const logger = bunyan.createLogger({ name: 'TalentMAP' });
 
 // logging middleware
-/*
 const loggingMiddleware = (request, response, next) => {
-  const log = {
-    reqId: request.id,
-  };
-  logger.info(log);
+  request.logger = logger;
   next();
 };
-*/
 
 const app = express();
 
@@ -51,7 +46,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // middleware for logging
-// app.use(loggingMiddleware);
+app.use(loggingMiddleware);
 
 // saml2 acs
 app.post(PUBLIC_URL, (request, response) => {
@@ -113,6 +108,7 @@ app.get(ROUTES, (request, response) => {
 
 // this is our wildcard, 404 route
 app.get('*', (request, response) => {
+  request.logger.info(`Invalid request - ${request.url}`);
   response.sendStatus(404);
 });
 
