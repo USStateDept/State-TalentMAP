@@ -5,7 +5,8 @@ import OBCUrl from '../OBCUrl';
 import Favorite from '../Favorite/Favorite';
 import ViewPostDataButton from '../ViewPostDataButton';
 import { POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault } from '../../utilities';
+import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
+import { NO_POST } from '../../Constants/SystemMessages';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 

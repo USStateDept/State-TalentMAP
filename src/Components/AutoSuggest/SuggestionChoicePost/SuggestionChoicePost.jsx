@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getPostName } from '../../../utilities';
 
 const SuggestionChoicePost = ({ suggestion }) => (
   <div className="render-suggestion render-suggestion--post">
-    {suggestion.location}
+    {getPostName(suggestion)}
   </div>
 );
 

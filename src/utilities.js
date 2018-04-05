@@ -77,9 +77,13 @@ export const pillSort = (a, b) => {
   return 0; // default return value (no sorting)
 };
 
-export const propSort = propName => (a, b) => {
-  const A = a[propName].toString().toLowerCase();
-  const B = b[propName].toString().toLowerCase();
+export const propSort = (propName, nestedPropName) => (a, b) => {
+  let A = a[propName];
+  if (nestedPropName) { A = a[propName][nestedPropName]; }
+  A = A.toString().toLowerCase();
+  let B = b[propName];
+  if (nestedPropName) { B = b[propName][nestedPropName]; }
+  B = B.toString().toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -148,7 +152,7 @@ export const scrollToTop = (config = defaultScrollConfig) => {
 // We set custom ones first in the list.
 export const getItemLabel = itemData =>
   itemData.custom_description || itemData.long_description ||
-  itemData.description || itemData.code;
+  itemData.description || itemData.code || itemData.name;
 
 // abcde 4 // a...
 // Shortens strings to varying lengths
@@ -413,6 +417,18 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
   });
 
   return arrayToReturn;
+};
+
+export const getPostName = (post, defaultValue = null) => {
+  if (post.location && post.location.city) {
+    if (post.location.country === 'United States') {
+      return `${post.location.city}, ${post.location.state}`;
+    }
+    return `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
+  } else if (post.code) {
+    return post.code;
+  }
+  return defaultValue;
 };
 
 // returns the base application path,
