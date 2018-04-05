@@ -1,3 +1,6 @@
+$filter-container-width: 23%;
+$results-container-width: 100% - $filter-container-width;
+
 .results {
   label {
     font-size: .8em;
@@ -76,7 +79,9 @@
       padding-left: $button-offset;
       padding-right: $button-offset;
 
-      .usa-button {
+      .usa-button,
+      .compare-check-box-container {
+        display: inline-block;
         margin: 0;
         position: relative;
         width: 50%;
@@ -87,16 +92,33 @@
         }
       }
 
-      .usa-button:nth-child(1) {
+      .usa-button {
         left: -$button-offset;
-
-        @media screen and (max-width: $screen-sm-min) {
-          margin-bottom: .5em;
-        }
       }
 
-      .usa-button:nth-child(2) {
+      .compare-check-box-container {
+        font-size: rem(14px);
+        line-height: 39px;
+        padding-left: 2rem;
         right: -$button-offset;
+        top: 1px;
+      }
+
+      .fa {
+        left: -2px;
+        position: relative;
+        top: 1px;
+      }
+
+      @media screen and (max-width: $screen-sm-min) {
+        .usa-button {
+          margin-bottom: .5em;
+        }
+
+        .compare-check-box-container {
+          padding-left: 0;
+          text-align: center;
+        }
       }
     }
 
@@ -264,7 +286,7 @@
   height: auto;
   margin-right: 0;
   padding: 0 10px 15px;
-  width: 20%;
+  width: $filter-container-width;
 
   [type=checkbox],
   [type=radio] {
@@ -349,7 +371,16 @@
 .results-container {
   float: left;
   padding-left: 30px;
-  width: 80%;
+  width: $results-container-width;
+
+  .selections-container,
+  .pill-list-container {
+    display: inline;
+  }
+
+  .selections-container {
+    margin-right: .7em;
+  }
 
   @media screen and (max-width: $screen-md-min) {
     padding-left: 0;
@@ -376,6 +407,10 @@
   .drop-downs {
     float: right;
     margin-top: 4px;
+  }
+
+  .dropdowns-container {
+    float: right;
   }
 }
 
@@ -411,8 +446,12 @@
     font-size: 1em;
   }
 
+  .usa-accordion > li {
+    margin-bottom: 1rem;
+  }
+
   .usa-accordion-button {
-    background-color: $tm-navy-dark;
+    background-color: $bg-blue-dark-1;
     color: $color-white;
     font-weight: normal;
     padding: .7em;
@@ -422,12 +461,14 @@
     background-color: $color-gray-lightest-alt;
     color: $color-black;
     font-size: 1.1em;
-    max-height: 300px;
+    max-height: 550px;
     overflow-y: auto;
     padding: 1rem;
   }
 
   .accordion-checkbox-post {
+    min-height: 220px;
+
     .usa-accordion-button {
       float: left;
       padding-left: 0;
@@ -449,7 +490,6 @@
   .accordion-checkbox-grade {
     .tm-checkbox {
       float: left;
-      width: 35%;
     }
   }
 }
@@ -473,13 +513,18 @@
 }
 
 .save-new-search-container {
-  background-color: $color-gray-lightest;
-  border: solid 1px $color-black;
+  background-color: $blue-primary-light;
   margin: 0 0 10px;
   padding: 10px;
 
+  .fa {
+    margin-right: 10px;
+  }
+
   .save-search-link {
+    color: $blue-primary;
     cursor: pointer;
+    text-decoration: underline;
   }
 
   .usa-input-error {
@@ -556,9 +601,9 @@
   }
 
   select {
-    background-color: $color-gray-lightest;
-    border: 0;
-    border-radius: 7px;
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    border-radius: 3px;
     font-size: .8em;
     height: 28px;
     overflow: hidden;

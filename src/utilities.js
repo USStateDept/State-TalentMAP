@@ -91,6 +91,23 @@ export const propSort = (propName, nestedPropName) => (a, b) => {
   return 0; // default return value (no sorting)
 };
 
+// Custom grade sorting
+export const sortGrades = (a, b) => {
+  const sortingArray = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '00', 'CM', 'MC', 'OC', 'OM'];
+  const A = a.code;
+  const B = b.code;
+
+  // if grade is not in sortingArray, push to bottom of list.
+  const indexOfA = sortingArray.indexOf(A) >= 0 ? sortingArray.indexOf(A) : sortingArray.length;
+  const indexOfB = sortingArray.indexOf(B) >= 0 ? sortingArray.indexOf(B) : sortingArray.length;
+
+  if (indexOfA < indexOfB) {
+    return -1;
+  }
+  if (indexOfA > indexOfB) { return 1; }
+  return 0;
+};
+
 // function to find the Region filters
 export const formExploreRegionDropdown = (filters) => {
   function filterRegion(filterItem) {
@@ -224,7 +241,7 @@ export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
     const formattedDate = format(date, dateFormat);
-    // and finally return the formatte date
+    // and finally return the formatted date
     return formattedDate;
   }
   return null;
@@ -258,10 +275,20 @@ export const filterByProps = (keyword, props = [], array = []) => {
   return array;
 };
 
-// focus an element on the page based on its ID
-export const focusById = (id) => {
-  const element = document.getElementById(id);
-  if (element) { element.focus(); }
+// Focus an element on the page based on its ID. Pass an optional, positive timeout number to
+// execute the focus within a timeout.
+export const focusById = (id, timeout) => {
+  let element = document.getElementById(id);
+  if (!timeout) {
+    if (element) { element.focus(); }
+  } else {
+    setTimeout(() => {
+      element = document.getElementById(id);
+      if (element) {
+        element.focus();
+      }
+    }, timeout);
+  }
 };
 
 // Give objects in an array the necessary value and label props needed when
@@ -407,3 +434,16 @@ export const getPostName = (post, defaultValue = null) => {
 // returns the base application path,
 // ie, https://hostname:8080/PUBLIC_URL/
 export const getApplicationPath = () => `${window.location.origin}${process.env.PUBLIC_URL}`;
+
+// Adds spaces between position number characters so that it's accessible for screen readers.
+// Based on this accessibility feedback:
+// When a letter is used in the position number, such as S7250404,
+// the screen reader reads the number as a full-length numeral
+// (i.e., "S. 7 million two hundred thousand ….). This can confuse or disorient the user as
+// they navigate and search for positions.
+export const getAccessiblePositionNumber = (positionNumber) => {
+  if (positionNumber) {
+    return positionNumber.split('').join(' ');
+  }
+  return null;
+};

@@ -10,7 +10,7 @@ const SuggestionChoicePost = ({ suggestion }) => (
 
 SuggestionChoicePost.propTypes = {
   suggestion: PropTypes.shape({
-    location: PropTypes.string.isRequired,
+    location: PropTypes.shape({}),
   }).isRequired,
 };
 

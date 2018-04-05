@@ -60,7 +60,7 @@ exports[`SkillCodeFilterComponent matches snapshot 1`] = `
     scrollMenuIntoView={true}
     searchable={false}
     simpleValue={false}
-    tabSelectsValue={true}
+    tabSelectsValue={false}
     trimFilter={true}
     value={
       Array [

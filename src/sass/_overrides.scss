@@ -1,5 +1,73 @@
-.usa-button {
+// USWDS font-family overrides
+// Define here
+@mixin font-override {
   font-family: 'Roboto';
+}
+
+[type=button],
+[type=submit],
+[type=reset],
+[type=image],
+button,
+html,
+h6,
+.usa-accordion-button,
+.usa-alert-text,
+.usa-button,
+.usa-button-primary,
+.usa-button:visited,
+.usa-button-primary:visited,
+.usa-form-hint,
+.usa-form-note, {
+  @include font-override;
+}
+
+.usa-sans {
+  a,
+  p,
+  li,
+  span {
+    @include font-override;
+  }
+}
+
+.usa-accordion,
+.usa-accordion-bordered {
+  > ul {
+    > li {
+      @include font-override;
+    }
+
+    button {
+      @include font-override;
+    }
+  }
+
+  > li {
+    @include font-override;
+  }
+}
+
+.usa-nav-primary,
+.usa-sidenav-list {
+  a {
+    @include font-override;
+  }
+}
+
+// USWDS Button overrides to match designs
+.usa-button,
+.usa-button-primary,
+.usa-button:visited,
+.usa-button-primary:visited,
+button,
+[type=button],
+[type=submit],
+[type=reset],
+[type=image] {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: rem(16px);
 }
 
 // for when we want to use react Links as buttons
@@ -61,6 +129,21 @@
       fieldset {
         width: 100%;
       }
+    }
+  }
+
+  // fix the placeholder text being too low
+  .react-autosuggest__input {
+    line-height: 0;
+  }
+
+  // fix border edge not being flush with left side of container
+  .expandable-link > .children-ul {
+    margin-left: -5px;
+
+    // set the same value as positive
+    .link-highlighted > .list-item-wrapper {
+      margin-left: 5px;
     }
   }
 }

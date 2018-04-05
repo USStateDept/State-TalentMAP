@@ -7,7 +7,7 @@ import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import BureauFilter from '../BureauFilter';
 import PostFilter from '../PostFilter';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
-import { propSort, getPostName } from '../../../utilities';
+import { propSort, sortGrades, getPostName } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
 class SearchFiltersContainer extends Component {
@@ -73,6 +73,8 @@ class SearchFiltersContainer extends Component {
         // extra handling for skill
         if (f.item.description === 'skill') {
           f.data.sort(propSort('description'));
+        } else if (f.item.description === 'grade') {
+          f.data.sort(sortGrades);
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);

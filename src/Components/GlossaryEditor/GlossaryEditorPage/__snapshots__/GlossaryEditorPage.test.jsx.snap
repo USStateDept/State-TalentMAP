@@ -17,9 +17,6 @@ exports[`GlossaryEditorPageComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
   >
-    <Connect(StaticDevContent)>
-      <TopNav />
-    </Connect(StaticDevContent)>
     <div
       className="usa-grid-full bidder-portfolio-listing "
     >
@@ -117,9 +114,6 @@ exports[`GlossaryEditorPageComponent matches snapshot when glossaryIsLoading is 
   <div
     className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
   >
-    <Connect(StaticDevContent)>
-      <TopNav />
-    </Connect(StaticDevContent)>
     <div
       className="usa-grid-full bidder-portfolio-listing results-loading"
     >

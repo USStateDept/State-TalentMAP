@@ -29,7 +29,7 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
                 <div className="position-details-header-title">
                   <h1>{details.title}</h1>
                 </div>
-                <div>
+                <div className="post-title">
                   Post: {getPostName(details.post, NO_POST)}
                   { obcId && <span> (<OBCUrl id={obcId} />)</span> }
                 </div>

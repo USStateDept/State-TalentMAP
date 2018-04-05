@@ -9,11 +9,11 @@
   }
 
   .usa-accordion-button[aria-expanded=false]:not(.tm-nested-accordion-button) {
-    background-image: url('#{$asset-path}/assets/img/plus-white.svg');
+    background-image: url('#{$asset-path}assets/img/plus-white.svg');
   }
 
   .usa-accordion-button[aria-expanded=true]:not(.tm-nested-accordion-button) {
-    background-image: url('#{$asset-path}/assets/img/minus-white.svg');
+    background-image: url('#{$asset-path}assets/img/minus-white.svg');
   }
 }
 

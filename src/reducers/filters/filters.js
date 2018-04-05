@@ -45,7 +45,7 @@ const items =
           title: 'Grade',
           sort: 300,
           description: 'grade',
-          endpoint: 'grade/',
+          endpoint: 'grade/?is_available=true',
           selectionRef: ENDPOINT_PARAMS.grade,
           text: 'Choose grades',
         },
@@ -59,7 +59,7 @@ const items =
           description: 'tod',
           endpoint: 'tour_of_duty/?is_available=true&ordering=months',
           selectionRef: ENDPOINT_PARAMS.tod,
-          text: 'Choose tour of duty length',
+          text: 'Choose Tour of Duty length',
           choices: [
           ],
         },

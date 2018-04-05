@@ -36,23 +36,27 @@ class ResultsControls extends Component {
           }
         </div>
         <div className="usa-width-two-thirds drop-downs">
-          <div className="results-dropdown results-dropdown-sort">
-            <SelectForm
-              id="sort"
-              label="Sort by:"
-              onSelectOption={this.onSelectOrdering}
-              options={sortBy.options}
-              defaultSort={defaultSort}
-            />
-          </div>
-          <div className="results-dropdown results-dropdown-page-size">
-            <SelectForm
-              id="pageSize"
-              label="Results:"
-              onSelectOption={this.onSelectLimit}
-              options={pageSizes.options}
-              defaultSort={defaultPageSize}
-            />
+          <div className="dropdowns-container">
+            <div className="results-dropdown results-dropdown-sort">
+              <SelectForm
+                id="sort"
+                label="Sort by:"
+                onSelectOption={this.onSelectOrdering}
+                options={sortBy.options}
+                defaultSort={defaultSort}
+                className="select-blue select-offset select-small"
+              />
+            </div>
+            <div className="results-dropdown results-dropdown-page-size">
+              <SelectForm
+                id="pageSize"
+                label="Results:"
+                onSelectOption={this.onSelectLimit}
+                options={pageSizes.options}
+                defaultSort={defaultPageSize}
+                className="select-blue select-offset select-small"
+              />
+            </div>
           </div>
         </div>
       </div>
