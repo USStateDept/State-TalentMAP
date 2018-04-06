@@ -61,4 +61,10 @@ describe('Alert', () => {
     expect(alert.find('.usa-alert-heading').text()).toBe(title);
     expect(alert.find('.usa-alert-text').length).toBe(errorBody.length);
   });
+
+  it('matches snapshot when isAriaLive is true', () => {
+    const title = 'Success title';
+    alert = shallow(<Alert type="success" title={title} messages={alertBody} isAriaLive />);
+    expect(toJSON(alert)).toMatchSnapshot();
+  });
 });
