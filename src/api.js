@@ -3,7 +3,7 @@ import { fetchUserToken, hasValidToken, propOrDefault } from './utilities';
 import { logoutRequest } from './login/actions';
 
 export const config = {
-  baseURL: process.env.API_URL || 'http://192.168.1.164:8000/api/v1',
+  baseURL: process.env.API_URL || 'http://localhost:8000/api/v1',
 };
 
 const api = axios.create(config);
