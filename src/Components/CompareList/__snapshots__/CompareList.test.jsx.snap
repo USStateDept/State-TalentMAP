@@ -100,7 +100,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </td>
             <td>
-              Freetown, Sierra Leone
+              Chicago, IL
               <div
                 className="border-extension-layer-2"
               />
