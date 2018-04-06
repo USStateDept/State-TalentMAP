@@ -111,7 +111,7 @@ const ResultsCard = (props) => {
           <Row className="header" fluid>
             <Column columns="6">
               <h3>{title}</h3>
-              <Link to={`/details/${result.position_number}`}>View Position</Link>
+              <Link to={`/details/${result.position_number}`}>View position</Link>
             </Column>
           </Row>
           <Row id={result.id} fluid>

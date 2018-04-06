@@ -2,9 +2,10 @@
 
 exports[`PostFilterComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full tm-nested-accordions"
+  className="usa-grid-full"
 >
   <AutoSuggest
+    className="post-auto-suggest-container"
     customInputProps={
       Object {
         "disabled": false,
@@ -24,94 +25,98 @@ exports[`PostFilterComponent matches snapshot 1`] = `
     suggestionTemplate={[Function]}
     suggestions={Array []}
   />
-  <Accordion
-    className=""
-    isMultiselectable={false}
+  <div
+    className="usa-grid-full tm-nested-accordions"
   >
-    <AccordionItem
-      buttonClass="tm-nested-accordion-button"
-      childClass=""
-      className="accordion-content-small"
-      expanded={false}
-      id="domestic-post-sub-accordion"
-      preContent={
-        <CheckBox
-          className="tm-checkbox-transparent"
-          disabled={false}
-          id="select-all-domestic"
-          label="Toggle filter by domestic positions"
-          labelSrOnly={true}
-          name=""
-          onCheckBoxClick={[Function]}
-          small={false}
-          title=""
-          value={false}
-        />
-      }
-      setAccordion={[Function]}
-      title="Domestic"
-      useIdClass={true}
+    <Accordion
+      className=""
+      isMultiselectable={false}
     >
-      <div
-        className="usa-grid-full"
+      <AccordionItem
+        buttonClass="tm-nested-accordion-button"
+        childClass=""
+        className="accordion-content-small"
+        expanded={false}
+        id="domestic-post-sub-accordion"
+        preContent={
+          <CheckBox
+            className="tm-checkbox-transparent"
+            disabled={false}
+            id="select-all-domestic"
+            label="Toggle filter by domestic positions"
+            labelSrOnly={true}
+            name=""
+            onCheckBoxClick={[Function]}
+            small={false}
+            title=""
+            value={false}
+          />
+        }
+        setAccordion={[Function]}
+        title="Domestic"
+        useIdClass={true}
       >
-        <CheckBox
-          className="tm-checkbox-transparent"
-          disabled={false}
-          id="checkboxName-domestic-post-post"
-          label="Name"
-          labelSrOnly={false}
-          name="Name"
-          onCheckBoxClick={[Function]}
-          selectionRef="post"
-          small={false}
-          title="Name"
-          value={false}
-        />
-      </div>
-    </AccordionItem>
-    <AccordionItem
-      buttonClass="tm-nested-accordion-button"
-      childClass=""
-      className="accordion-content-small"
-      expanded={false}
-      id="overseas-post-sub-accordion"
-      preContent={
-        <CheckBox
-          className="tm-checkbox-transparent"
-          disabled={false}
-          id="select-all-overseas"
-          label="Toggle filter by overseas positions"
-          labelSrOnly={true}
-          name=""
-          onCheckBoxClick={[Function]}
-          small={false}
-          title=""
-          value={false}
-        />
-      }
-      setAccordion={[Function]}
-      title="Overseas"
-      useIdClass={true}
-    >
-      <div
-        className="usa-grid-full"
+        <div
+          className="usa-grid-full"
+        >
+          <CheckBox
+            className="tm-checkbox-transparent"
+            disabled={false}
+            id="checkboxName-domestic-post-post"
+            label="Name"
+            labelSrOnly={false}
+            name="Name"
+            onCheckBoxClick={[Function]}
+            selectionRef="post"
+            small={false}
+            title="Name"
+            value={false}
+          />
+        </div>
+      </AccordionItem>
+      <AccordionItem
+        buttonClass="tm-nested-accordion-button"
+        childClass=""
+        className="accordion-content-small"
+        expanded={false}
+        id="overseas-post-sub-accordion"
+        preContent={
+          <CheckBox
+            className="tm-checkbox-transparent"
+            disabled={false}
+            id="select-all-overseas"
+            label="Toggle filter by overseas positions"
+            labelSrOnly={true}
+            name=""
+            onCheckBoxClick={[Function]}
+            small={false}
+            title=""
+            value={false}
+          />
+        }
+        setAccordion={[Function]}
+        title="Overseas"
+        useIdClass={true}
       >
-        <CheckBox
-          className="tm-checkbox-transparent"
-          disabled={false}
-          id="checkboxName-overseas-post-post"
-          label="Name"
-          labelSrOnly={false}
-          name="Name"
-          onCheckBoxClick={[Function]}
-          selectionRef="post"
-          small={false}
-          title="Name"
-          value={false}
-        />
-      </div>
-    </AccordionItem>
-  </Accordion>
+        <div
+          className="usa-grid-full"
+        >
+          <CheckBox
+            className="tm-checkbox-transparent"
+            disabled={false}
+            id="checkboxName-overseas-post-post"
+            label="Name"
+            labelSrOnly={false}
+            name="Name"
+            onCheckBoxClick={[Function]}
+            selectionRef="post"
+            small={false}
+            title="Name"
+            value={false}
+          />
+        </div>
+      </AccordionItem>
+    </Accordion>
+  </div>
 </div>
 `;

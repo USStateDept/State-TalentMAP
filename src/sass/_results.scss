@@ -3,7 +3,7 @@ $filter-container-width: 100% - $results-container-width;
 
 .results {
   label {
-    font-size: .8em;
+    font-size: .9em;
   }
 
   .results-dropdown-page-size {
@@ -47,7 +47,7 @@ $filter-container-width: 100% - $results-container-width;
     dt,
     dd {
       font-family: 'Roboto';
-      font-size: 1.7rem;
+      font-size: 1.6rem;
       margin-bottom: 0;
       margin-top: 0;
     }
@@ -162,7 +162,7 @@ $filter-container-width: 100% - $results-container-width;
     }
 
     .usa-button {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 400;
       line-height: em(15px);
 
@@ -459,7 +459,7 @@ $filter-container-width: 100% - $results-container-width;
     font-size: 1em;
   }
 
-  .usa-accordion > li {
+  .usa-accordion:not(:last-child) > li {
     margin-bottom: 1rem;
   }
 
@@ -483,19 +483,34 @@ $filter-container-width: 100% - $results-container-width;
     .usa-accordion-button {
       float: left;
       padding-left: 0;
-      width: 85%;
+      width: 84%;
     }
 
     // target the first checkbox and not the child ones
     .accordion-content-small > .tm-checkbox {
       float: left;
-      margin: 0 10% 0 0;
+      margin: 0 6% 0 5%;
       width: 5%;
     }
   }
 
+  .accordion-checkbox-post {
+    min-height: 220px;
+  }
+
+  .accordion-checkbox-skill-code,
+  .accordion-checkbox-post,
   .accordion-checkbox-bureau {
-    padding: .5em 0 0;
+    padding: 0;
+
+    .tm-nested-accordions {
+      padding-bottom: .5em;
+      padding-top: .5em;
+    }
+
+    .post-auto-suggest-container {
+      padding: .5em;
+    }
   }
 
   .accordion-checkbox-grade {
@@ -525,7 +540,7 @@ $filter-container-width: 100% - $results-container-width;
 
 .save-new-search-container {
   background-color: $blue-primary-light;
-  margin: 0 0 10px;
+  margin: 10px 0 5px;
   padding: 10px;
 
   .fa {
