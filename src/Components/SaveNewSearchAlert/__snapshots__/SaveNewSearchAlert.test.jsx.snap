@@ -2,11 +2,10 @@
 
 exports[`SaveNewSearchAlertComponent matches snapshot 1`] = `
 <div
-  aria-atomic="true"
-  aria-live="polite"
   className="usa-grid-full saved-search-alert"
 >
   <Alert
+    isAriaLive={true}
     messages={
       Array [
         Object {
