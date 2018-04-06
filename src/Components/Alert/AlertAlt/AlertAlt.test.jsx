@@ -58,4 +58,11 @@ describe('AlertAltComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when isAriaLive is true', () => {
+    const wrapper = shallow(
+      <AlertAlt title="title" isAriaLive />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });
