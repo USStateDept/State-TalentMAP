@@ -29,6 +29,17 @@ const items =
         ],
       },
       {
+        // we won't query position directly on cone, but instead
+        // use the individual skill codes
+        item: {
+          title: 'Skill Code',
+          description: 'skillCone',
+          endpoint: 'skill/cone/',
+        },
+        data: [
+        ],
+      },
+      {
         item: {
           title: 'Language',
           sort: 500,

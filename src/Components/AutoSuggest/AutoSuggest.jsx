@@ -68,7 +68,7 @@ export default class AutoSuggest extends Component {
   render() {
     const { value } = this.state;
     const { placeholder, suggestions, onSuggestionsClearRequested, id,
-      customInputProps, inputId, label, labelSrOnly } = this.props;
+      customInputProps, inputId, label, labelSrOnly, className } = this.props;
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
@@ -81,7 +81,7 @@ export default class AutoSuggest extends Component {
 
     // Finally, render it.
     return (
-      <div className="usa-grid-full">
+      <div className={`usa-grid-full ${className}`}>
         <label htmlFor={inputId} className={labelSrOnly ? 'usa-sr-only' : undefined}>{label}</label>
         <AutoSuggestComponent
           suggestions={suggestions}
@@ -140,6 +140,8 @@ AutoSuggest.propTypes = {
 
   // the template to use for rendering suggestions
   suggestionTemplate: PropTypes.func,
+
+  className: PropTypes.string,
 };
 
 AutoSuggest.defaultProps = {
@@ -153,4 +155,5 @@ AutoSuggest.defaultProps = {
   displayProperty: 'short_name',
   queryProperty: '',
   suggestionTemplate: SuggestionChoice,
+  className: undefined,
 };

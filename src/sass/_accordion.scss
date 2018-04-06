@@ -18,7 +18,7 @@
 }
 
 $accordion-content-small-font-size: .9em;
-$accordion-content-small-padding-left: 1em;
+$accordion-content-small-padding-left: 2em;
 
 .tm-nested-accordions {
 
@@ -29,7 +29,7 @@ $accordion-content-small-padding-left: 1em;
   }
 
   .usa-accordion-button {
-    background-color: initial;
+    background-color: transparent;
     color: initial;
   }
 
@@ -63,5 +63,9 @@ $accordion-content-small-padding-left: 1em;
   .usa-accordion-content {
     font-size: $accordion-content-small-font-size;
     padding-left: $accordion-content-small-padding-left;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
   }
 }

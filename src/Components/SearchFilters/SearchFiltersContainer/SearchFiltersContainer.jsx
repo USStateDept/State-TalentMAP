@@ -6,6 +6,7 @@ import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterConta
 import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import BureauFilter from '../BureauFilter';
 import PostFilter from '../PostFilter';
+import SkillFilter from '../SkillFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
@@ -91,6 +92,9 @@ class SearchFiltersContainer extends Component {
     const overseasIsSelected = propOrDefault(overseasFilterData, 'isSelected', false);
     const domesticIsSelected = propOrDefault(domesticFilterData, 'isSelected', false);
 
+    // get skill cones
+    const skillCones = (this.props.filters || []).find(f => f.item.description === 'skillCone');
+
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
     multiSelectFilterNames.forEach((n) => {
@@ -110,54 +114,67 @@ class SearchFiltersContainer extends Component {
         displayProperty = getPostName;
         suggestionTemplate = SuggestionChoicePost; // special template for posts
       }
-      if (item) {
-        sortedFilters.push(
-          { content:
-            // eslint-disable-next-line
-            n === 'region' ?
-            (
+
+      const getFilter = (type) => {
+        switch (type) {
+          case 'region':
+            return (
               <BureauFilter
                 item={item}
                 functionalBureaus={functionalBureaus}
                 queryParamToggle={this.props.queryParamToggle}
               />
-            )
-            :
-            n === 'post' ?
-              (
-                <PostFilter
-                  item={item}
-                  queryParamToggle={this.props.queryParamToggle}
-                  queryParamUpdate={this.props.queryParamUpdate}
-                  overseasIsSelected={overseasIsSelected}
-                  domesticIsSelected={domesticIsSelected}
-                  autoSuggestProps={{
-                    getSuggestions,
-                    suggestions,
-                    placeholder,
-                    onSuggestionSelected,
-                    queryProperty: 'id',
-                    displayProperty,
-                    suggestionTemplate,
-                    id: `${n}-autosuggest-container`,
-                    inputId: `${n}-autosuggest-input`,
-                    label: 'Search posts',
-                    labelSrOnly: false,
-                  }}
-                />
-              )
-            :
-            (
+            );
+          case 'post':
+            return (
+              <PostFilter
+                item={item}
+                queryParamToggle={this.props.queryParamToggle}
+                queryParamUpdate={this.props.queryParamUpdate}
+                overseasIsSelected={overseasIsSelected}
+                domesticIsSelected={domesticIsSelected}
+                autoSuggestProps={{
+                  getSuggestions,
+                  suggestions,
+                  placeholder,
+                  onSuggestionSelected,
+                  queryProperty: 'id',
+                  displayProperty,
+                  suggestionTemplate,
+                  id: `${type}-autosuggest-container`,
+                  inputId: `${type}-autosuggest-input`,
+                  label: 'Search posts',
+                  labelSrOnly: false,
+                }}
+              />
+            );
+          case 'skill':
+            return (
+              <SkillFilter
+                item={item}
+                queryParamToggle={this.props.queryParamToggle}
+                queryParamUpdate={this.props.queryParamUpdate}
+                skillCones={skillCones}
+              />
+            );
+          default:
+            return (
               <div className="usa-grid-full">
                 <MultiSelectFilter
                   key={item.item.title}
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
-                  queryProperty={(n === 'post' || n === 'bidCycle') ? '_id' : 'code'}
-                  groupAlpha={n === 'skill'}
+                  queryProperty={(type === 'post' || type === 'bidCycle') ? '_id' : 'code'}
+                  groupAlpha={type === 'skill'}
                 />
               </div>
-            ),
+            );
+        }
+      };
+
+      if (item) {
+        sortedFilters.push(
+          { content: getFilter(n),
             title: item.item.title,
             id: `accordion-${item.item.title}`,
           },
