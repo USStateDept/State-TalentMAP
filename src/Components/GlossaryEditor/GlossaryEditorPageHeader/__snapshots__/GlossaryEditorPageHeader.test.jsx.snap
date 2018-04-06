@@ -56,6 +56,7 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
     </div>
   </div>
   <Alert
+    isAriaLive={true}
     messages={
       Array [
         Object {
