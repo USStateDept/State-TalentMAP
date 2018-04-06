@@ -12,6 +12,7 @@ exports[`NotificationsSectionComponent matches snapshot 1`] = `
       onDismiss={[Function]}
     >
       <AlertAlt
+        isAriaLive={false}
         message="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
         title="Notification"
         type="success"

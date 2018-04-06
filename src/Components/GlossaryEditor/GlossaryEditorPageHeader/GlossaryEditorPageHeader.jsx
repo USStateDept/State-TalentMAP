@@ -36,7 +36,7 @@ class GlossaryEditorPage extends Component {
           </div>
         </div>
         {
-          showPostSuccess && <Alert type="success" title="Success" messages={[{ body: 'Successfully added term!' }]} />
+          showPostSuccess && <Alert type="success" title="Success" messages={[{ body: 'Successfully added term!' }]} isAriaLive />
         }
         {
           showNewTerm &&
