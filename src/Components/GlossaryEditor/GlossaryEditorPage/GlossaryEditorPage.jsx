@@ -5,11 +5,9 @@ import groupBy from 'lodash/groupBy';
 import { GLOSSARY_ARRAY, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
 import GlossaryEditorContainer from '../GlossaryEditorContainer';
-import TopNav from '../TopNav';
 import GlossaryEditorSearch from '../GlossaryEditorSearch';
 import { filterByProps } from '../../../utilities';
 import GlossaryEditorPageHeader from '../GlossaryEditorPageHeader';
-import StaticDevContent from '../../StaticDevContent';
 
 class GlossaryEditorPage extends Component {
   constructor(props) {
@@ -122,9 +120,6 @@ class GlossaryEditorPage extends Component {
           submitGlossaryTerm={submitGlossaryTerm}
         />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
-          <StaticDevContent>
-            <TopNav />
-          </StaticDevContent>
           <div className={`usa-grid-full bidder-portfolio-listing ${isLoading ? 'results-loading' : ''}`}>
             {
               isLoading &&
