@@ -2,6 +2,8 @@
 
 .scrollarea {
   .scrollbar-container {
+    z-index: $scrollbar-z;
+
     &.vertical,
     &.horizontal {
       opacity: 1;
