@@ -4,7 +4,6 @@
 }
 
 .position-details-header {
-
   overflow: hidden;
   padding: 2em 0;
   position: relative;
@@ -16,6 +15,7 @@
   h1 {
     font-family: inherit;
     font-size: 1em;
+    font-weight: 400;
     margin: 0;
   }
 
@@ -35,18 +35,19 @@
   }
 
   .header-title-container {
-    border-right: 1px solid $color-white;
+    border-right: 1px solid $bg-gray-dark-2;
   }
 
   .post-title {
     font-size: 1.15em;
+    font-weight: 300;
   }
 
   .position-details-header-title {
     font-size: 1.5em;
+    font-weight: 400;
     margin-bottom: .2em;
     margin-top: 1em;
-    text-transform: uppercase;
   }
 
   .position-details-header-body {
@@ -68,12 +69,12 @@
 }
 
 .position-details-container {
-
   font-size: .9em;
 
-  h2 {
-    font-family: inherit;
-    font-size: 1.2em;
+  h2,
+  .positions-section .positions-section-title {
+    font-family: 'Roboto';
+    font-size: 2rem;
     font-weight: bold;
   }
 
@@ -93,10 +94,15 @@
     border: 0;
   }
 
-  .positions-section
-  .positions-section-title {
-    font-family: inherit;
-    font-weight: bold;
+  hr {
+    border-bottom-width: 0;
+    border-color: $color-gray-lighter;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-style: solid;
+    border-top-width: 1px;
+    height: 0;
+    margin-top: 20px;
   }
 }
 
@@ -232,10 +238,10 @@
   .editor {
     margin-bottom: unset;
     padding: 10px;
-  }
 
-  .editor :global(.public-DraftEditor-content) {
-    min-height: 10px;
+    :global(.public-DraftEditor-content) {
+      min-height: 10px;
+    }
   }
 }
 
@@ -247,6 +253,10 @@
 
 .about-section-left {
   padding-right: 10%;
+
+  .view-more-link {
+    text-decoration: underline;
+  }
 }
 
 .position-details-contact-container {
@@ -276,6 +286,10 @@
 }
 
 .title-actions-section {
+  font-size: 1.3rem;
+  font-weight: 300;
+  opacity: .9;
+
   div {
     color: $color-white;
     float: left;
@@ -283,6 +297,7 @@
 
   .favorite-container .fa {
     color: $color-white;
+    font-size: 1.4rem;
   }
 
   .favorite-container span {
