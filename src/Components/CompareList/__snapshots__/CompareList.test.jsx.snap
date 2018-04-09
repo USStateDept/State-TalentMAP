@@ -54,7 +54,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   replace={false}
                   to="/details/10034001"
                 >
-                  View Position Details
+                  View position details
                 </Link>
               </div>
               <div
@@ -74,7 +74,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   replace={false}
                   to="/details/56082000"
                 >
-                  View Position Details
+                  View position details
                 </Link>
               </div>
               <div
