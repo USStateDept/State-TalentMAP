@@ -40,6 +40,7 @@ class Results extends Component {
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
       <div className="results content-container">
+        <h2 className="sr-only">Search results</h2>
         {
           shouldShowSearchBar &&
           <ResultsSearchHeader

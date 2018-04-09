@@ -17,7 +17,7 @@ import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-import { getAssetPath, propOrDefault, focusById } from '../../utilities';
+import { getAssetPath, propOrDefault, focusByFirstOfHeader } from '../../utilities';
 import MediaQuery from '../MediaQuery';
 import BetaHeader from './BetaHeader';
 import InteractiveElement from '../InteractiveElement';
@@ -127,7 +127,7 @@ export class Header extends Component {
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
         <InteractiveElement
           className="usa-skipnav"
-          onClick={() => focusById('main-content')}
+          onClick={() => focusByFirstOfHeader()}
           role="link"
         >
           Skip to main content
