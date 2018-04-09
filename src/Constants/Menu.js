@@ -54,19 +54,19 @@ export const PROFILE_MENU = MenuConfig([
         route: '/profile/dashboard',
       },
       {
-        text: 'Bid Cycles',
-        route: '/profile/cycles/',
-        roles: [
-          'bidcycle_admin',
-        ],
-      },
-      {
         text: 'Favorites',
         route: '/profile/favorites/',
       },
       {
         text: 'Saved Searches',
         route: '/profile/searches/',
+      },
+      {
+        text: 'Bid Cycles',
+        route: '/profile/cycles/',
+        roles: [
+          'bidcycle_admin',
+        ],
       },
     ],
   },

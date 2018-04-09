@@ -14,6 +14,7 @@ POSITION_SEARCH_SORTS.defaultSort = POSITION_SEARCH_SORTS.options[0].value;
 
 export const POSITION_PAGE_SIZES = {
   options: [
+    { value: 5, text: '5' },
     { value: 10, text: '10' },
     { value: 25, text: '25' },
     { value: 50, text: '50' },

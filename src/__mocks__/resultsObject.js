@@ -39,7 +39,13 @@ const resultsObject = {
       post: {
         id: 160,
         code: 'LI6000000',
-        location: 'Monrovia, Liberia',
+        location: {
+          id: 103,
+          country: 'Sierra Leone',
+          code: '00A',
+          city: 'Freetown',
+          state: '',
+        },
         tour_of_duty: '2 YRS (2 R & R)',
         cost_of_living_adjustment: 30,
         differential_rate: 30,
@@ -107,7 +113,13 @@ const resultsObject = {
       post: {
         id: 110,
         code: 'HA7000000',
-        location: 'Port-Au-Prince, Haiti',
+        location: {
+          id: 7,
+          country: 'United States',
+          code: '101',
+          city: 'Chicago',
+          state: 'IL',
+        },
         tour_of_duty: '2 YRS (2 R & R)',
         cost_of_living_adjustment: 15,
         differential_rate: 20,
