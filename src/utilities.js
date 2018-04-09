@@ -291,6 +291,22 @@ export const focusById = (id, timeout) => {
   }
 };
 
+// Determine which header type to focus. We always have a page title h1, so we
+// search for 1. The second h1, 2. the first h2, 3. the first h3, and focus which ever
+// is found first.
+export const focusByFirstOfHeader = (timeout = 1) => {
+  setTimeout(() => {
+    let element = document.getElementsByTagName('h1');
+    if (element) { element = element[1]; }
+    if (!element) { element = document.getElementsByTagName('h2')[0]; }
+    if (!element) { element = document.getElementsByTagName('h3')[0]; }
+    if (element) { element.setAttribute('tabindex', '-1'); }
+    if (element) {
+      element.focus();
+    }
+  }, timeout);
+};
+
 // Give objects in an array the necessary value and label props needed when
 // they're used in a multi-select list.
 export const wrapForMultiSelect = (options, valueProp, labelProp) => options.slice().map((f) => {
