@@ -17,6 +17,6 @@ export API_ROOT=http://localhost:8000/
 # Default - local test value http://localhost:4000/
 export OBC_URL=http://localhost:4000/
 
-# Protocol, hostname and port of ABOUT,
+# External link to the About page
 # Default - local test value https://github.com/18F/State-TalentMAP
-export ABOUT_URL=https://github.com/18F/State-TalentMAP
+export ABOUT_PAGE=https://github.com/18F/State-TalentMAP 
