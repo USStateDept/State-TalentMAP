@@ -1,3 +1,5 @@
+import { getPostName } from '../../utilities';
+
 // Attempt to map the non-numeric grade codes to a full description.
 // If no match is found, return the unmodified code.
 export function getCustomGradeDescription(gradeCode) {
@@ -22,7 +24,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
   } else if (filterItem.item.description === 'skill') {
     return `${filterItemObject.description} (${filterItemObject.code})`;
   } else if (filterItem.item.description === 'post') {
-    return filterItemObject.location;
+    return getPostName(filterItemObject);
   } else if (filterItem.item.description === 'bidCycle') {
     return filterItemObject.name;
   } else if (filterItem.item.description === 'postDiff') {
@@ -31,6 +33,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     return filterItemObject.description;
   } else if (filterItem.item.description === 'grade') {
     return getCustomGradeDescription(filterItemObject.code);
+  } else if (filterItemObject.description === 'functionalRegion') {
+    return filterItemObject.description;
   }
   return false;
 }
@@ -54,7 +58,7 @@ export function getPillDescription(filterItemObject, customType) {
 // when getting pill descriptions for posts or missions, perform alternate method
 export function getPostOrMissionDescription(data) {
   if (data.type === 'post') {
-    return `${data.location} (Post)`;
+    return `${getPostName(data)} (Post)`;
   }
   return false;
 }
@@ -81,7 +85,6 @@ export function doesCodeOrIdMatch(filterItem, filterItemObject, mappedObject) {
 export function isBooleanFilter(description) {
   if (
     description === 'COLA' ||
-    description === 'domestic' ||
     description === 'available'
   ) {
     return true;

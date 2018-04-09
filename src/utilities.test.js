@@ -29,6 +29,7 @@ import { validStateEmail,
          sortGrades,
          getApplicationPath,
          getAccessiblePositionNumber,
+         getPostName,
        } from './utilities';
 
 describe('local storage', () => {
@@ -488,5 +489,32 @@ describe('getAccessiblePositionNumber', () => {
     const positionNumber = 'S7001';
 
     expect(getAccessiblePositionNumber(positionNumber)).toBe('S 7 0 0 1');
+  });
+});
+
+describe('getPostName', () => {
+  it('returns a domestic post name', () => {
+    const post = { location: { city: 'Arlington', state: 'VA', country: 'United States' } };
+    expect(getPostName(post)).toBe('Arlington, VA');
+  });
+
+  it('returns an overseas post name', () => {
+    const post = { location: { city: 'London', state: null, country: 'United Kingdom' } };
+    expect(getPostName(post)).toBe('London, United Kingdom');
+  });
+
+  it('returns the code when location data is not available', () => {
+    const post = { location: null, code: '0AA' };
+    expect(getPostName(post)).toBe('0AA');
+  });
+
+  it('returns the default defaultValue when the code and location data are not available', () => {
+    const post = { location: null };
+    expect(getPostName(post)).toBe(null);
+  });
+
+  it('returns a custom defaultValue when the code and location data are not available', () => {
+    const post = { location: null };
+    expect(getPostName(post, 'default')).toBe('default');
   });
 });

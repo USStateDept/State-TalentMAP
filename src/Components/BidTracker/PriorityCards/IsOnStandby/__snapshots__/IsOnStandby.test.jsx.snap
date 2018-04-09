@@ -45,7 +45,13 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
             "position_number": "10035561",
             "post": Object {
               "id": 199,
-              "location": "Curacao",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
             "title": "POLITICAL/ECONOMIC OFFICER",

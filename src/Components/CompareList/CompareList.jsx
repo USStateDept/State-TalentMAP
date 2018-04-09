@@ -8,7 +8,7 @@ import COMPARE_LIMIT from '../../Constants/Compare';
 import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_USER_LISTED, NO_DATE } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
-import { propOrDefault, formatDate } from '../../utilities';
+import { propOrDefault, formatDate, getPostName } from '../../utilities';
 import ViewPostDataButton from '../ViewPostDataButton';
 import OBCUrl from '../OBCUrl';
 
@@ -66,7 +66,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          {propOrDefault(c, 'post.location', NO_POST)}
+                          {getPostName(c.post, NO_POST)}
                           {
                             propOrDefault(c, 'post.obc_id') ?
                               <ViewPostDataButton id={c.post.obc_id} />

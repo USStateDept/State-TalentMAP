@@ -5,6 +5,10 @@
 // default classes.
 .react-autosuggest__container {
   position: relative;
+
+  [disabled] {
+    cursor: no-drop;
+  }
 }
 
 .react-autosuggest__input {

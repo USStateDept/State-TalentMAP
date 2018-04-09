@@ -271,6 +271,14 @@ export const BID_REVIEWER_OBJECT = PropTypes.shape({
   is_cdo: PropTypes.bool,
 });
 
+export const POSITION_POST_NESTED_LOCATION = PropTypes.shape({
+  id: PropTypes.number,
+  country: PropTypes.string,
+  code: PropTypes.string,
+  city: PropTypes.string,
+  state: PropTypes.string,
+});
+
 export const BID_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   bidcycle: PropTypes.string,
@@ -285,7 +293,7 @@ export const BID_OBJECT = PropTypes.shape({
     update_date: PropTypes.string,
     post: PropTypes.shape({
       id: PropTypes.number,
-      location: PropTypes.string,
+      location: POSITION_POST_NESTED_LOCATION,
     }),
   }),
   reviewer: BID_REVIEWER_OBJECT,
@@ -334,7 +342,7 @@ export const ASSIGNMENT_OBJECT = PropTypes.shape({
     position_number: PropTypes.string,
     title: PropTypes.string,
     post: PropTypes.shape({
-      location: PropTypes.string,
+      location: POSITION_POST_NESTED_LOCATION,
     }),
   }),
 });
