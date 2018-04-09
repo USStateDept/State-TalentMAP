@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { matchPath, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import Helmet from 'react-helmet';
 import PageTitle from '../../Components/PageTitle';
 import routes from '../../routes';
 import { getApplicationPath, getAssetPath, focusById } from '../../utilities';
+import getBestMatchPath from './helpers';
 
 class PageMetaContainer extends Component {
   constructor(props) {
@@ -17,16 +18,12 @@ class PageMetaContainer extends Component {
     this.getPageTitle();
   }
 
+  // Determine the route's page title and set it to state
   setPageTitle(historyObject) {
-    // loop through routes
-    routes.forEach((route) => {
-      if (matchPath(historyObject.pathname, { path: route.path, exact: false })) {
-        // set pageTitle if it exists
-        if (route.pageTitle) {
-          this.setState({ pageTitle: route.pageTitle });
-        }
-      }
-    });
+    const matchedPath = getBestMatchPath(routes, historyObject);
+    if (matchedPath && matchedPath.pageTitle) {
+      this.setState({ pageTitle: matchedPath.pageTitle });
+    }
   }
 
   getPageTitle() {
