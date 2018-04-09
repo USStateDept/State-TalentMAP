@@ -18,7 +18,7 @@ const Footer = () => (
                 <Link className="usa-footer-primary-link" to="/">Home</Link>
               </li>
               <li className="usa-width-one-sixth usa-footer-primary-content">
-                <a className="usa-footer-primary-link" href="https://github.com/18F/State-TalentMAP">About</a>
+                <a className="usa-footer-primary-link" href={process.env.ABOUT_URL}>About</a>
               </li>
             </ul>
           </nav>
