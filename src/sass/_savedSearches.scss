@@ -16,7 +16,7 @@
   .saved-search-card {
     background-color: $color-white;
     border-bottom: 1px solid $color-gray-light;
-    padding: 1em 2em;
+    padding: 1.8em 2em;
 
     h3 {
       display: inline;
@@ -24,6 +24,17 @@
       font-size: inherit;
       font-weight: inherit;
       margin: 0;
+    }
+
+    .definitions {
+      dt,
+      dd {
+        font-size: 1.4rem;
+      }
+
+      > div {
+        line-height: 1.5;
+      }
     }
   }
 
