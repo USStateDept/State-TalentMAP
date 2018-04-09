@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { BID_OBJECT } from '../../../../Constants/PropTypes';
 import InteractiveElement from '../../../InteractiveElement';
 import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessages';
+import { getPostName } from '../../../../utilities';
 
 class DraftAlert extends Component {
   constructor(props) {
@@ -23,10 +24,9 @@ class DraftAlert extends Component {
     const { bid } = this.props;
     const position = bid.position;
     const positionTitle = position.title;
-    const post = position && position.post && position.post.location ?
-      position.post.location : NO_POST;
-    const skillCode = position && position.post ? position.post.location : NO_SKILL;
-    const grade = position && position.grade ? position.grade : NO_GRADE;
+    const post = getPostName(position.post, NO_POST);
+    const skillCode = position.skill ? position.skill : NO_SKILL;
+    const grade = position.grade ? position.grade : NO_GRADE;
     return (
       <div className="bid-tracker-alert-container bid-tracker-alert-container--draft">
         <div className="usa-grid-full">
