@@ -49,7 +49,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                         <th key={shortId.generate()}>
                           <div className="column-title-main">{c.title}</div>
                           <div className="column-title-link">
-                            <Link to={`/details/${c.position_number}`}>Learn more</Link>
+                            <Link to={`/details/${c.position_number}`}>View Position Details</Link>
                           </div>
                           <div className="border-extension" />
                         </th>
