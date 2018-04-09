@@ -56,6 +56,7 @@ class PositionDetails extends Component {
             editWebsiteContent={editWebsiteContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
+          <hr />
           <div className="usa-grid position-details-description-container">
             <PositionSimilarPositions
               id={details.id}
