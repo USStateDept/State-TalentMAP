@@ -52,7 +52,7 @@ Position.propTypes = {
 };
 
 Position.defaultProps = {
-  title: 'Similar Positions',
+  title: 'Similar positions',
   similarPositions: { results: [] },
   similarPositionsIsLoading: true,
   similarPositionsHasErrored: false,

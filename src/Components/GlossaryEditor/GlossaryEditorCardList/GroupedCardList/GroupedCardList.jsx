@@ -22,7 +22,7 @@ const GroupedCardList = (props) => {
       {
         groups.map(termGroup => (
           <div key={termGroup} className="usa-grid-full term-group">
-            <div className="term-title">{termGroup}</div>
+            <h3 className="term-title" aria-label={`Terms beginning with the character ${termGroup}`}>{termGroup}</h3>
             {
               terms[termGroup].map((term, i) => {
                 // Cache init

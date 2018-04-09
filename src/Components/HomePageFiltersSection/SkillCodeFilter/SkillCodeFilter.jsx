@@ -77,6 +77,7 @@ class SkillCodeFilter extends Component {
           closeOnSelect={false}
           placeholder="Select Skill Codes"
           isLoading={isLoading}
+          tabSelectsValue={false /* avoid focus trap */}
         />
       </div>
     );

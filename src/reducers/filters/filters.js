@@ -45,7 +45,7 @@ const items =
           title: 'Grade',
           sort: 300,
           description: 'grade',
-          endpoint: 'grade/',
+          endpoint: 'grade/?is_available=true',
           selectionRef: ENDPOINT_PARAMS.grade,
           text: 'Choose grades',
         },
@@ -60,7 +60,7 @@ const items =
           // only display available TODs that do not contain "transfer", ordered by months
           endpoint: 'tour_of_duty/?is_available=true&ordering=months&long_description__icontains!=transfer',
           selectionRef: ENDPOINT_PARAMS.tod,
-          text: 'Choose tour of duty length',
+          text: 'Choose Tour of Duty length',
           choices: [
           ],
         },

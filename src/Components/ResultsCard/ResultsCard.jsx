@@ -42,12 +42,11 @@ const ResultsCard = (props) => {
     userProfileFavoritePositionHasErrored,
   } = props;
 
-  const dateFormat = 'M.DD.YYYY';
   const getResult = (path, defaultValue, isRate = false) => {
     let value = get(result, path, defaultValue);
 
     if ((/_date|date_/i).test(path) && value !== defaultValue) {
-      value = formatDate(value, dateFormat);
+      value = formatDate(value);
     }
 
     if (isRate && isNumber(value)) {
@@ -57,6 +56,7 @@ const ResultsCard = (props) => {
     return value;
   };
 
+  const title = propOrDefault(result, 'title');
   const position = getResult('position_number', NO_POSITION_NUMBER);
   const languages = getResult('languages', []);
 
@@ -76,11 +76,10 @@ const ResultsCard = (props) => {
       'Tour of Duty': getResult('post.tour_of_duty', NO_TOUR_OF_DUTY),
       'Language': language,
       'Post Differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
-      'COLA': getResult('post.cost_of_living_adjustment', NO_COLA, true),
       'Danger Pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
     },
     {
-      'Posted': getResult('description.date_created', NO_UPDATE_DATE),
+      'Posted': getResult('effective_date', NO_UPDATE_DATE),
       'Position Number': position,
     },
     /* eslint-enable quote-props */
@@ -98,7 +97,7 @@ const ResultsCard = (props) => {
   };
 
   options.compare = {
-    as: 'button',
+    as: 'div',
     refKey: position,
     onToggle,
   };
@@ -109,8 +108,8 @@ const ResultsCard = (props) => {
         <div id={result.id} className="results-card">
           <Row className="header" fluid>
             <Column columns="6">
-              <h3>{result.title}</h3>
-              <Link to={`/details/${result.position_number}`} title="View Details">View Details</Link>
+              <h3>{title}</h3>
+              <Link to={`/details/${result.position_number}`}>View Position</Link>
             </Column>
           </Row>
           <Row id={result.id} fluid>
@@ -128,7 +127,7 @@ const ResultsCard = (props) => {
                   !!favorites &&
                     <Favorite {...options.favorite} />
                 }
-                <CompareCheck className="usa-button usa-button-secondary" {...options.compare} />
+                <CompareCheck {...options.compare} />
               </Column>
               <Column columns="6" as="section">
                 <div>

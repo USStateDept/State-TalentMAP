@@ -1,3 +1,20 @@
+// Attempt to map the non-numeric grade codes to a full description.
+// If no match is found, return the unmodified code.
+export function getCustomGradeDescription(gradeCode) {
+  switch (gradeCode) {
+    case 'CM':
+      return 'CM Career Minister (FE-CM)';
+    case 'MC':
+      return 'MC Minister-Counselor (FE-MC)';
+    case 'OC':
+      return 'OC Couneslor (FE-OC)';
+    case 'OM':
+      return 'Office Manager (OM)';
+    default:
+      return gradeCode;
+  }
+}
+
 // create a custom description based on the filter type
 export function getFilterCustomDescription(filterItem, filterItemObject) {
   if (filterItem.item.description === 'region') {
@@ -12,6 +29,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     return filterItemObject.description;
   } else if (filterItem.item.description === 'dangerPay') {
     return filterItemObject.description;
+  } else if (filterItem.item.description === 'grade') {
+    return getCustomGradeDescription(filterItemObject.code);
   }
   return false;
 }

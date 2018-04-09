@@ -79,7 +79,9 @@ $results-container-width: 100% - $filter-container-width;
       padding-left: $button-offset;
       padding-right: $button-offset;
 
-      .usa-button {
+      .usa-button,
+      .compare-check-box-container {
+        display: inline-block;
         margin: 0;
         position: relative;
         width: 50%;
@@ -90,16 +92,33 @@ $results-container-width: 100% - $filter-container-width;
         }
       }
 
-      .usa-button:nth-child(1) {
+      .usa-button {
         left: -$button-offset;
-
-        @media screen and (max-width: $screen-sm-min) {
-          margin-bottom: .5em;
-        }
       }
 
-      .usa-button:nth-child(2) {
+      .compare-check-box-container {
+        font-size: rem(14px);
+        line-height: 39px;
+        padding-left: 2rem;
         right: -$button-offset;
+        top: 1px;
+      }
+
+      .fa {
+        left: -2px;
+        position: relative;
+        top: 1px;
+      }
+
+      @media screen and (max-width: $screen-sm-min) {
+        .usa-button {
+          margin-bottom: .5em;
+        }
+
+        .compare-check-box-container {
+          padding-left: 0;
+          text-align: center;
+        }
       }
     }
 
@@ -354,6 +373,15 @@ $results-container-width: 100% - $filter-container-width;
   padding-left: 30px;
   width: $results-container-width;
 
+  .selections-container,
+  .pill-list-container {
+    display: inline;
+  }
+
+  .selections-container {
+    margin-right: .7em;
+  }
+
   @media screen and (max-width: $screen-md-min) {
     padding-left: 0;
     width: 100%;
@@ -418,8 +446,12 @@ $results-container-width: 100% - $filter-container-width;
     font-size: 1em;
   }
 
+  .usa-accordion > li {
+    margin-bottom: 1rem;
+  }
+
   .usa-accordion-button {
-    background-color: $tm-navy-dark;
+    background-color: $bg-blue-dark-1;
     color: $color-white;
     font-weight: normal;
     padding: .7em;
@@ -437,7 +469,6 @@ $results-container-width: 100% - $filter-container-width;
   .accordion-checkbox-grade {
     .tm-checkbox {
       float: left;
-      width: 35%;
     }
   }
 }
@@ -470,7 +501,9 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .save-search-link {
+    color: $blue-primary;
     cursor: pointer;
+    text-decoration: underline;
   }
 
   .usa-input-error {
@@ -547,9 +580,9 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   select {
-    background-color: $color-gray-lightest;
-    border: 0;
-    border-radius: 7px;
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    border-radius: 3px;
     font-size: .8em;
     height: 28px;
     overflow: hidden;

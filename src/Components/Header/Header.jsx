@@ -124,7 +124,7 @@ export class Header extends Component {
 
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
-        <header className="usa-header usa-header-extended tm-header" role="banner">
+        <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <GovBanner />
           <BetaHeader />

@@ -6,6 +6,7 @@ import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import SearchBar from '../SearchBar/SearchBar';
 import SkillCodeFilter from '../HomePageFiltersSection/SkillCodeFilter';
 import SelectForm from '../SelectForm';
+import { sortGrades } from '../../utilities';
 
 // Set our params as state names so we can easily
 // use them as properties to query on.
@@ -137,8 +138,10 @@ class ResultsMultiSearchHeader extends Component {
 
     // format grades
     const grades = filters.find(f => f.item && f.item.description === 'grade');
-    const mappedGrades = grades && grades.data ?
+    let mappedGrades = grades && grades.data ?
       grades.data.slice().map(g => ({ ...g, value: g.code, text: g.code })) : [];
+    // sort the grades using custom sorting
+    mappedGrades = mappedGrades.sort(sortGrades);
 
     // format bureaus
     const bureaus = filters.find(f => f.item && f.item.description === 'region');
@@ -188,6 +191,7 @@ class ResultsMultiSearchHeader extends Component {
                       includeFirstEmptyOption
                       onSelectOption={this.onChangeGrade}
                       emptyOptionText=""
+                      className="select-black select-small"
                     />
                   </div>
                   <div className="usa-width-one-sixth search-results-inputs search-keyword">
@@ -198,6 +202,7 @@ class ResultsMultiSearchHeader extends Component {
                       defaultSort={defaultBureau}
                       includeFirstEmptyOption
                       onSelectOption={this.onChangeBureau}
+                      className="select-black select-small"
                     />
                   </div>
                   <div className="usa-width-one-twelfth search-submit-button">

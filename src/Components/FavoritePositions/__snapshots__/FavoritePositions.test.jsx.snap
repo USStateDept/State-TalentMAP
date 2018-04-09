@@ -18,6 +18,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
       className="results-dropdown results-dropdown-sort"
     >
       <SelectForm
+        className="select-offset select-black"
         defaultSort=""
         disabled={false}
         emptyOptionText="- Select -"

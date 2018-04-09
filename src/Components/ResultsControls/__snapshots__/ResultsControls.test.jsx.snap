@@ -23,6 +23,7 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
         className="results-dropdown results-dropdown-sort"
       >
         <SelectForm
+          className="select-blue select-offset select-small"
           defaultSort=""
           disabled={false}
           emptyOptionText="- Select -"
@@ -45,6 +46,7 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
         className="results-dropdown results-dropdown-page-size"
       >
         <SelectForm
+          className="select-blue select-offset select-small"
           defaultSort={10}
           disabled={false}
           emptyOptionText="- Select -"

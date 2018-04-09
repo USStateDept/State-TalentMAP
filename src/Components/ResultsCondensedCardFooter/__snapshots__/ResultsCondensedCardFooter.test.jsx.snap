@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
+exports[`ResultsCondensedCardFooterComponent matches snapshot 1`] = `
 <div
   className="condensed-card-footer"
 >
@@ -21,7 +21,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
       <strong>
         Posted: 
       </strong>
-      03/08/2018
+      10/21/2012
     </div>
   </div>
 </div>

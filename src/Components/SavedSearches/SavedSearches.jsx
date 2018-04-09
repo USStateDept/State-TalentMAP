@@ -1,21 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SAVED_SEARCH_PARENT_OBJECT, DELETE_SAVED_SEARCH_HAS_ERRORED, DELETE_SAVED_SEARCH_SUCCESS,
-CLONE_SAVED_SEARCH_HAS_ERRORED, CLONE_SAVED_SEARCH_SUCCESS, MAPPED_PARAM_ARRAY } from '../../Constants/PropTypes';
-import Spinner from '../Spinner';
-import SavedSearchesList from './SavedSearchesList';
 import Alert from '../Alert/Alert';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import SelectForm from '../SelectForm';
+import Spinner from '../Spinner';
+import SavedSearchesList from './SavedSearchesList';
+import {
+  SAVED_SEARCH_PARENT_OBJECT,
+  DELETE_SAVED_SEARCH_HAS_ERRORED,
+  DELETE_SAVED_SEARCH_SUCCESS,
+  CLONE_SAVED_SEARCH_HAS_ERRORED,
+  CLONE_SAVED_SEARCH_SUCCESS,
+  MAPPED_PARAM_ARRAY,
+} from '../../Constants/PropTypes';
 import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
 
-const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
-  goToSavedSearch, deleteSearch, onSortChange,
-  deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
-  cloneSavedSearch, cloneSavedSearchIsLoading, cloneSavedSearchHasErrored,
-  cloneSavedSearchSuccess, mappedParams, filtersIsLoading }) => {
-  const isLoading = filtersIsLoading || savedSearchesIsLoading || cloneSavedSearchIsLoading
-    || deleteSavedSearchIsLoading;
+const SavedSearches = (props) => {
+  const {
+    savedSearches,
+    savedSearchesIsLoading,
+    goToSavedSearch,
+    deleteSearch,
+    onSortChange,
+    deleteSavedSearchIsLoading,
+    deleteSavedSearchHasErrored,
+    deleteSavedSearchSuccess,
+    cloneSavedSearch,
+    cloneSavedSearchIsLoading,
+    cloneSavedSearchHasErrored,
+    cloneSavedSearchSuccess,
+    mappedParams,
+    filtersIsLoading,
+  } = props;
+
+  const isLoading = (
+    filtersIsLoading || savedSearchesIsLoading ||
+    cloneSavedSearchIsLoading || deleteSavedSearchIsLoading
+  );
+
   return (
     <div
       className={`usa-grid-full profile-content-inner-container saved-searches-container saved-searches-page
@@ -42,6 +64,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
             type="error"
             title="Error"
             messages={[{ body: deleteSavedSearchHasErrored }]}
+            isAriaLive
           />
       }
       {
@@ -51,6 +74,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
             type="success"
             title="Success"
             messages={[{ body: deleteSavedSearchSuccess }]}
+            isAriaLive
           />
       }
       {
@@ -60,6 +84,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
             type="error"
             title="Error"
             messages={[{ body: cloneSavedSearchHasErrored }]}
+            isAriaLive
           />
       }
       {
@@ -69,6 +94,7 @@ const SavedSearches = ({ savedSearches, savedSearchesIsLoading,
             type="success"
             title="Success"
             messages={[{ body: cloneSavedSearchSuccess }]}
+            isAriaLive
           />
       }
       {

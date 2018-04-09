@@ -4,7 +4,7 @@ import toJSON from 'enzyme-to-json';
 import ResultsCondensedCardFooter from './ResultsCondensedCardFooter';
 import resultsObject from '../../__mocks__/resultsObject';
 
-describe('ResultsCondensedCardBottomComponent', () => {
+describe('ResultsCondensedCardFooterComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
       <ResultsCondensedCardFooter

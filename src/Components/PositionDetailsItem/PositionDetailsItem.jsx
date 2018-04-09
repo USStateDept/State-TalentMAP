@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { NO_BUREAU, NO_GRADE, NO_SKILL, NO_END_DATE, NO_USER_LISTED, NO_TOUR_OF_DUTY } from '../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
-import { formatDate, propOrDefault } from '../../utilities';
+import { formatDate, propOrDefault, getAccessiblePositionNumber } from '../../utilities';
 import PositionDetailsDescription from './PositionDetailsDescription';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import PositionDetailsContact from './PositionDetailsContact';
 import OBCUrl from '../OBCUrl';
+import HowToBid from './HowToBid';
 
 const PositionDetailsItem = ({ details, editDescriptionContent, resetDescriptionEditMessages,
 editPocContent, editWebsiteContent }) => {
@@ -35,7 +36,7 @@ editPocContent, editWebsiteContent }) => {
           />
           <div className="usa-grid-full data-point-section">
             <CondensedCardDataPoint title="Skill Code" content={details.skill || NO_SKILL} />
-            <CondensedCardDataPoint title="Position Number" content={details.position_number} />
+            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position Number" content={details.position_number} />
             <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} />} />
             <CondensedCardDataPoint title="Grade" content={details.grade || NO_GRADE} />
             <CondensedCardDataPoint title="Transfer Eligibility Date" content={formattedTourEndDate} />
@@ -53,6 +54,7 @@ editPocContent, editWebsiteContent }) => {
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
+          <HowToBid />
         </div>
       </div>
     </div>

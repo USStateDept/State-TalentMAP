@@ -73,7 +73,6 @@ class SavedSearchesMap extends Component {
       deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
       cloneSavedSearchHasErrored, cloneSavedSearchSuccess, goToSavedSearch,
       filtersIsLoading, onSortChange } = this.props;
-
     const props = {
       savedSearches,
       deleteSearch,
@@ -141,6 +140,7 @@ SavedSearchesMap.defaultProps = {
 
 SavedSearchesMap.contextTypes = {
   router: PropTypes.object,
+  container: PropTypes.element,
 };
 
 const mapStateToProps = state => ({

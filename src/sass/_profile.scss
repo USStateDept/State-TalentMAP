@@ -87,7 +87,13 @@
 
   .saved-search-card {
     min-height: 50px;
-    padding: 5px 10px;
+    padding: 5px 15px;
+
+    .usa-width-one-half {
+      dd {
+        padding-left: 1.5rem;
+      }
+    }
   }
 
   .saved-searches-container {
@@ -103,6 +109,14 @@
 
     .usa-form {
       float: right;
+    }
+
+    .scrollarea {
+      margin-top: 1em;
+
+      .scrollarea-content {
+        padding-right: $scrollbar-width - 2;
+      }
     }
   }
 
@@ -568,6 +582,8 @@ $padding-no-border: $total-padding - $border;
 }
 
 .saved-search-card {
+  position: relative;
+
   .bid-list-card-title-position {
     font-weight: bold;
     text-transform: uppercase;
@@ -587,6 +603,28 @@ $padding-no-border: $total-padding - $border;
 
   .bid-status-declined {
     color: $alert-red;
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    .button-container {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 23.23176% + 2.35765%;
+
+      .button-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+      }
+
+      button {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
   }
 }
 
@@ -611,12 +649,12 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
-  background-color: $tm-navy;
+  background-color: $blue-primary;
   color: $color-white;
   font-size: 1.1em;
   max-height: 450px;
   min-height: 260px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .primary-text {
     text-transform: uppercase;
@@ -707,6 +745,7 @@ $padding-no-border: $total-padding - $border;
 
 .user-dashboard-main {
   margin-right: 5%;
+  padding-top: 65px;
 }
 
 .profile-section-container {
@@ -758,22 +797,6 @@ $padding-no-border: $total-padding - $border;
 .saved-searches-list-profile-container {
   min-height: 260px;
   position: relative;
-
-  .list-transparent {
-    padding-left: .8em;
-
-    .bordered-list-content {
-      border-color: transparent;
-    }
-  }
-
-  li {
-    border-bottom: 1px solid $color-gray-light;
-
-    &:last-child {
-      border: 0;
-    }
-  }
 
   .tm-button-transparent {
     padding: .7em 3em;
