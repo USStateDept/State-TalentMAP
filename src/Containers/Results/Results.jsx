@@ -23,6 +23,8 @@ import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
 
+const DEFAULT_PAGE_NUMBER = 1;
+
 class Results extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +37,7 @@ class Results extends Component {
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: '' },
       defaultPageSize: { value: 0 },
-      defaultPageNumber: { value: 1 },
+      defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
     };
 
@@ -127,7 +129,7 @@ class Results extends Component {
       parseInt(limit, 10) || POSITION_PAGE_SIZES.defaultSort;
     // set our default page number
     defaultPageNumber.value =
-      parseInt(page, 10) || defaultPageNumber.value;
+      parseInt(page, 10) || DEFAULT_PAGE_NUMBER;
     // set our default keyword (?q=...)
     defaultKeyword.value =
       q || defaultKeyword.value;
