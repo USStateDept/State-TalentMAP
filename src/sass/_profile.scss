@@ -126,7 +126,6 @@
 
   .profile-content-container {
     background-color: $tm-white-smoke-light;
-    border-left: solid 1px $color-gray-light;
     flex-grow: 1;
     min-height: 700px;
     right: 0;
@@ -332,6 +331,10 @@ $padding-no-border: $total-padding - $border;
   height: 100%;
   min-width: 200px;
 
+  .fa {
+    color: $blue-primary-darker;
+  }
+
   .fa-container {
     float: left;
     min-width: $total-padding;
@@ -354,8 +357,8 @@ $padding-no-border: $total-padding - $border;
   }
 
   .link-highlighted {
-    background-color: $color-blue-light;
-    border-left: $border solid $blue-primary;
+    background-color: $tm-white-smoke-light;
+    border-left: $border solid $primary-blue-darker;
 
     .title-container {
       font-weight: bold;

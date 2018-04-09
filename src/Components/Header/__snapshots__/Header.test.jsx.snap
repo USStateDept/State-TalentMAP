@@ -4,6 +4,14 @@ exports[`Header matches snapshot when logged in 1`] = `
 <div
   className="search-bar-hidden is-on-results-page"
 >
+  <InteractiveElement
+    className="usa-skipnav"
+    onClick={[Function]}
+    role="link"
+    type="div"
+  >
+    Skip to main content
+  </InteractiveElement>
   <header
     className="usa-header usa-header-extended tm-header"
     id="header"
@@ -78,6 +86,14 @@ exports[`Header matches snapshot when logged out 1`] = `
 <div
   className="search-bar-hidden is-on-results-page"
 >
+  <InteractiveElement
+    className="usa-skipnav"
+    onClick={[Function]}
+    role="link"
+    type="div"
+  >
+    Skip to main content
+  </InteractiveElement>
   <header
     className="usa-header usa-header-extended tm-header"
     id="header"
