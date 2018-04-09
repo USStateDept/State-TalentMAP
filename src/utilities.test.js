@@ -25,6 +25,7 @@ import { validStateEmail,
          propOrDefault,
          formatIdSpacing,
          userHasPermissions,
+         getAssetPath,
        } from './utilities';
 
 describe('local storage', () => {
@@ -244,7 +245,7 @@ describe('formatDate', () => {
     // converted date
     const formattedDate = formatDate(unformattedDate);
     // should be formatted using the default format
-    expect(formattedDate).toBe('1.15.2017');
+    expect(formattedDate).toBe('01/15/2017');
   });
 
   it('returns a properly formatted date with a custom format', () => {
@@ -433,5 +434,27 @@ describe('userHasPermissions', () => {
     permissionsToCheck = [];
     userPermissions = [];
     expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+});
+
+describe('getAssetPath', () => {
+  it('returns the correct path with no PUBLIC_URL', () => {
+    const assetPath = '/image.png';
+    const result = getAssetPath(assetPath);
+    expect(result).toBe(assetPath);
+  });
+
+  it('returns the correct path with a PUBLIC_URL', () => {
+    process.env.PUBLIC_URL = '/public';
+    const assetPath = '/image.png';
+    const result = getAssetPath(assetPath);
+    expect(result).toBe(`/public${assetPath}`);
+  });
+
+  it('returns the correct path with a PUBLIC_URL with a trailing slash', () => {
+    process.env.PUBLIC_URL = '/public/';
+    const assetPath = '/image.png';
+    const result = getAssetPath(assetPath);
+    expect(result).toBe(`/public${assetPath}`);
   });
 });

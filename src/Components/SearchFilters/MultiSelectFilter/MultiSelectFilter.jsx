@@ -18,7 +18,7 @@ class MultiSelectFilter extends Component {
   render() {
     const { item } = this.props;
     return (
-      <FieldSet key={item.item.title} legend={item.item.title}>
+      <FieldSet key={item.item.title} legend={item.item.title} legendSrOnly>
         {
           item.data.map((itemData) => {
             const itemLabel = getItemLabel(itemData);
@@ -33,6 +33,7 @@ class MultiSelectFilter extends Component {
               code={itemData.code}
               selectionRef={item.item.selectionRef}
               onCheckBoxClick={this.onCheckBoxClick}
+              className="tm-checkbox-transparent"
             />);
           })
         }

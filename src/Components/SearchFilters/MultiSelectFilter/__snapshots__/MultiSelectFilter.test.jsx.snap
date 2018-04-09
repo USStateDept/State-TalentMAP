@@ -4,9 +4,10 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
 <FieldSet
   className=""
   legend="title"
-  legendSrOnly={false}
+  legendSrOnly={true}
 >
   <CheckBox
+    className="tm-checkbox-transparent"
     id="checkboxdescription"
     label="description"
     labelSrOnly={false}

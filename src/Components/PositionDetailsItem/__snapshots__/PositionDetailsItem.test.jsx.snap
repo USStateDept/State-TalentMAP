@@ -5,118 +5,147 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
   className="usa-grid-full"
 >
   <div
-    className="usa-width-one-whole"
+    className="usa-grid position-details-description-container positions-details-about-position"
   >
     <div
-      className="position-details-description-container"
+      className="usa-width-two-thirds about-section-left"
     >
-      <div
-        className="usa-width-one-whole position-details-description"
-      >
-        <span
-          className="position-details-description-title"
-        >
-          Post Description
-        </span>
-        <br />
-        <div
-          className="usa-width-one-whole"
-        >
-          <PositionDetailsDataPoint
-            description="FREETOWN SIERRA LEONE (FREETOWN)"
-            title="Organization"
-          />
-          <PositionDetailsDataPoint
-            description={
-              <Link
-                replace={false}
-                to="/post/162"
-              >
-                MASERU, LESOTHO
-              </Link>
-            }
-            title="Post"
-          />
-          <PositionDetailsDataPoint
-            description="150000"
-            title="Bureau"
-          />
-          <PositionDetailsDataPoint
-            description={15}
-            title="Post Differential"
-          />
-          <PositionDetailsDataPoint
-            description="Yes"
-            title="Overseas"
-          />
-          <PositionDetailsDataPoint
-            description={
-              <Connect(StaticDevContent)>
-                <span>
-                  Region
-                </span>
-              </Connect(StaticDevContent)>
-            }
-            title="Region"
-          />
-        </div>
-      </div>
-      <hr
-        width="85%"
+      <h2>
+        About the Position
+      </h2>
+      <PositionDetailsDescription
+        details={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
+            "bureau": null,
+            "create_date": "2006-09-20",
+            "description": Object {
+              "content": "a description",
+              "point_of_contact": "202-555-5555",
+              "website": "https://www.state.gov/post",
+            },
+            "grade": "05",
+            "id": 6,
+            "is_overseas": true,
+            "languages": Array [],
+            "organization": null,
+            "position_number": "00003027",
+            "post": null,
+            "skill": "OFFICE MANAGEMENT (9017)",
+            "update_date": "2017-06-08",
+          }
+        }
+        editDescriptionContent={[Function]}
+        resetDescriptionEditMessages={[Function]}
       />
       <div
-        className="usa-width-one-whole position-details-description"
+        className="usa-grid-full data-point-section"
       >
-        <span
-          className="position-details-description-title"
-        >
-          Position Description
-        </span>
-        <br />
-        <div
-          className="usa-width-one-whole"
-        >
-          <PositionDetailsDataPoint
-            description="05"
-            title="Grade"
-          />
-          <PositionDetailsDataPoint
-            description={
-              <LanguageList
-                languages={
-                  Array [
-                    Object {
-                      "id": 1,
-                      "language": "French (FR)",
-                      "reading_proficiency": "2",
-                      "representation": "French (FR) 2/2",
-                      "spoken_proficiency": "2",
-                    },
-                  ]
-                }
-                propToUse="language"
-              />
-            }
-            title="Language"
-          />
-          <PositionDetailsDataPoint
-            description="OFFICE MANAGEMENT (9017)"
-            title="Skill Code"
-          />
-          <PositionDetailsDataPoint
-            description={0}
-            title="Danger Pay"
-          />
-          <PositionDetailsDataPoint
-            description="None listed"
-            title="Estimated End Date"
-          />
-          <PositionDetailsDataPoint
-            description="None listed"
-            title="Incumbent"
-          />
-        </div>
+        <CondensedCardDataPoint
+          content="OFFICE MANAGEMENT (9017)"
+          hasFixedTitleWidth={false}
+          title="Skill Code"
+        />
+        <CondensedCardDataPoint
+          content="00003027"
+          hasFixedTitleWidth={false}
+          title="Position Number"
+        />
+        <CondensedCardDataPoint
+          content={
+            <LanguageList
+              languages={Array []}
+              propToUse="language"
+            />
+          }
+          hasFixedTitleWidth={false}
+          title="Language"
+        />
+        <CondensedCardDataPoint
+          content="05"
+          hasFixedTitleWidth={false}
+          title="Grade"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Transfer Eligibility Date"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Incumbent"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Bureau"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Tour of Duty"
+        />
+        <CondensedCardDataPoint
+          content="N/A"
+          hasFixedTitleWidth={false}
+          title="Post Differential"
+        />
+        <CondensedCardDataPoint
+          content="N/A"
+          hasFixedTitleWidth={false}
+          title="Danger Pay"
+        />
       </div>
+    </div>
+    <div
+      className="usa-width-one-third position-details-contact-container"
+    >
+      <PositionDetailsContact
+        bidListToggleIsLoading={false}
+        details={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
+            "bureau": null,
+            "create_date": "2006-09-20",
+            "description": Object {
+              "content": "a description",
+              "point_of_contact": "202-555-5555",
+              "website": "https://www.state.gov/post",
+            },
+            "grade": "05",
+            "id": 6,
+            "is_overseas": true,
+            "languages": Array [],
+            "organization": null,
+            "position_number": "00003027",
+            "post": null,
+            "skill": "OFFICE MANAGEMENT (9017)",
+            "update_date": "2017-06-08",
+          }
+        }
+        editPocContent={[Function]}
+        editWebsiteContent={[Function]}
+        resetDescriptionEditMessages={[Function]}
+      />
     </div>
   </div>
 </div>

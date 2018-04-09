@@ -1,36 +1,48 @@
-// Use this file as a starting point for your project's .eslintrc.
+// Use this file as a starting point for your project"s .eslintrc.
 // Copy this file, and add rule overrides as needed.
 // the base style guide for this project is Airbnb
 // see: https://github.com/airbnb/javascript
 {
-    "extends": "airbnb",
-    "env": {
-        "es6": true,
-        "jasmine": true,
-        "jest": true
+  "extends": "airbnb",
+  "env": {
+    "es6": true,
+    "jasmine": true,
+    "jest": true
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "localStorage": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "globals": {
-        "window": true,
-        "document": true,
-        "localStorage": true
-    },
-    "parser": "babel-eslint",
-    "parserOptions": {
-      "allowImportExportEverywhere": true
-    },
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "moduleDirectory": ["node_modules", "src/js"]
-            }
-        }
-    },
-    // overrides to the Airbnb style follow
-    "rules": {
-        // allow names to be the same as the default for Redux container testing
-        "import/no-named-as-default": [0],
-        // allow test files to import packages in devDependencies
-        // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js?(x)", "/src/testUtilities/**/*"]}]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+          "node_modules",
+          "src/js"
+        ]
+      }
     }
+  },
+  // overrides to the Airbnb style follow
+  "rules": {
+    // allow names to be the same as the default for Redux container testing
+    "import/no-named-as-default": [0],
+    // allow test files to import packages in devDependencies
+    // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "**/*.test.js?(x)",
+        "/src/testUtilities/**/*"
+      ]
+    }]
+  }
 }

@@ -2,7 +2,7 @@
 
 exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
 <Accordion
-  className=""
+  className="accordion-inverse"
   isMultiselectable={false}
 >
   <AccordionItem

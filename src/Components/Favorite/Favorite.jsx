@@ -1,15 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import InteractiveElement from '../InteractiveElement';
+import MediaQueryWrapper from '../MediaQuery';
+
 import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import { existsInArray } from '../../utilities';
-import InteractiveElement from '../InteractiveElement';
+
+const Types = {
+  SHORT: 0,
+  LONG: 1,
+};
+
+const States = {
+  UNCHECKED: 'unchecked',
+  CHECKED: 'checked',
+};
+
+/**
+ * @interface
+ * interface Texts {
+ *   [key: States]: [
+ *    [key in Types]: string;
+ *   ];
+ * }
+ */
+const Texts = {
+  checked: [
+    'Remove',
+    'Remove from Favorites',
+  ],
+
+  unchecked: [
+    'Favorite',
+    'Add to Favorites',
+  ],
+};
+
+const getText$ = (state, type) => Texts[state][type];
 
 class Favorite extends Component {
   constructor(props) {
     super(props);
-    this.toggleSaved = this.toggleSaved.bind(this);
-
     this.state = {
       loading: props.isLoading,
     };
@@ -42,7 +74,25 @@ class Favorite extends Component {
     return existsInArray(refKey, compareArray);
   }
 
-  toggleSaved() {
+  getText(enforceShort = false) {
+    const { hideText, useLongText } = this.props;
+    const checked = this.getSavedState();
+    const state = checked ? States.CHECKED : States.UNCHECKED;
+    const type = (useLongText && !enforceShort) ? Types.LONG : Types.SHORT;
+
+    return hideText ? null : getText$(state, type);
+  }
+
+  get icon() {
+    return this.getSavedState() ? 'star' : 'star-o';
+  }
+
+  get title() {
+    const state = this.getSavedState() ? States.CHECKED : States.UNCHECKED;
+    return getText$(state, Types.LONG);
+  }
+
+  toggleSaved = () => {
     const { onToggle, refKey } = this.props;
 
     this.setState({
@@ -54,60 +104,70 @@ class Favorite extends Component {
   }
 
   render() {
-    const { hideText, useLongText } = this.props;
+    const { loading } = this.state;
+    const {
+      as: type,
+      className,
+      hasBorder,
+      useButtonClass,
+      useSpinnerWhite,
+    } = this.props;
 
-    const shortTextFavorite = 'Favorite';
-    const longTextFavorite = 'Add to Favorites';
-    const shortTextRemove = 'Remove';
-    const longTextRemove = 'Remove from Favorites';
-
-    let favoriteText = shortTextFavorite;
-    let removeText = shortTextRemove;
-
-    if (useLongText) {
-      favoriteText = longTextFavorite;
-      removeText = longTextRemove;
-    }
-
-    // set defaults
-    let text = favoriteText;
-    let title = 'Add to Favorites';
-    let iconClass = 'star-o';
-
-    // update for saved state
-    if (this.getSavedState()) {
-      text = removeText;
-      title = 'Remove from Favorites';
-      iconClass = 'star';
-    }
-
+    const icon = this.icon;
+    const title = this.title;
+    const onClick = this.toggleSaved;
     const style = {
-      pointerEvents: this.state.loading ? 'none' : 'inherit',
+      pointerEvents: loading ? 'none' : 'inherit',
     };
-    const borderClass = this.props.hasBorder ? 'favorites-button-border' : '';
 
-    if (hideText) {
-      text = null;
+    const options = {
+      type,
+      title,
+      style,
+      onClick,
+    };
+
+    let classNames = ['favorite-container'];
+
+    // Class configs
+    if (hasBorder && !useButtonClass) {
+      classNames.push('favorites-button-border');
+    }
+
+    if (useButtonClass) {
+      classNames.push('usa-button');
+    }
+
+    classNames.push(className);
+    classNames = classNames
+      .join(' ')
+      .trim();
+
+    options.className = classNames;
+
+    let spinnerClass = 'ds-c-spinner';
+    if (useButtonClass || useSpinnerWhite) {
+      spinnerClass = `${spinnerClass} spinner-white`;
     }
 
     return (
-      <InteractiveElement
-        type="div"
-        title={title}
-        style={style}
-        className={`favorite-container ${borderClass}`}
-        onClick={this.toggleSaved}
-      >
-        {this.state.loading ?
-          (<span className="ds-c-spinner" />) :
-          (<FontAwesome name={iconClass} />)}{text}
-
+      <InteractiveElement {...options}>
+        {loading ?
+          (<span className={spinnerClass} />) :
+          (<FontAwesome name={icon} />)}
+        <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
+          {matches => (
+            <span>{this.getText(matches)}</span>
+          )}
+        </MediaQueryWrapper>
       </InteractiveElement>
     );
   }
 }
 
 Favorite.propTypes = {
+  className: PropTypes.string,
+  as: PropTypes.string.isRequired,
   onToggle: PropTypes.func.isRequired,
   refKey: PropTypes.node.isRequired,
   hideText: PropTypes.bool,
@@ -115,14 +175,20 @@ Favorite.propTypes = {
   isLoading: PropTypes.bool,
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
+  useButtonClass: PropTypes.bool,
+  useSpinnerWhite: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
+  className: '',
+  as: 'div',
   hideText: false,
   isLoading: false,
   compareArray: [],
   hasBorder: false,
   useLongText: false,
+  useButtonClass: false,
+  useSpinnerWhite: false,
 };
 
 export default Favorite;

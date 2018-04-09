@@ -1,4 +1,3 @@
-import axios from 'axios';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { removeDuplicates } from '../../utilities';
@@ -70,7 +69,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         // We'll do this for posts and missions.
         }
         if (item.selectionRef === ENDPOINT_PARAMS.post) {
-          return axios.get(`${api}/orgpost/${item.codeRef}/`)
+          return api.get(`/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
@@ -83,7 +82,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           });
         }
         if (item.selectionRef === ENDPOINT_PARAMS.mission) {
-          return axios.get(`${api}/country/${item.codeRef}/`)
+          return api.get(`/country/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
@@ -218,7 +217,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       // our dynamic filters
       const dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
       const queryProms = dynamicFilters.map(item => (
-        axios.get(`${api}/${item.item.endpoint}`)
+        api.get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
             itemFilter.data = response.data.results;

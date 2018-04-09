@@ -5,8 +5,9 @@ exports[`GlossaryEditorPageComponent matches snapshot 1`] = `
   className="bidder-portfolio-page glossary-editor-page"
 >
   <GlossaryEditorPage
-    glossaryPostHasErrored={false}
+    glossaryPostHasErrored={Object {}}
     glossaryPostSuccess={Object {}}
+    onGlossaryEditorCancel={[Function]}
     submitNewGlossaryTerm={[Function]}
   />
   <GlossaryEditorSearch
@@ -90,6 +91,7 @@ exports[`GlossaryEditorPageComponent matches snapshot 1`] = `
         }
         glossaryPatchHasErrored={Object {}}
         glossaryPatchSuccess={Object {}}
+        onGlossaryEditorCancel={[Function]}
         submitGlossaryFirstLetter={[Function]}
         submitGlossaryTerm={[Function]}
       />
@@ -103,8 +105,9 @@ exports[`GlossaryEditorPageComponent matches snapshot when glossaryIsLoading is 
   className="bidder-portfolio-page glossary-editor-page"
 >
   <GlossaryEditorPage
-    glossaryPostHasErrored={false}
+    glossaryPostHasErrored={Object {}}
     glossaryPostSuccess={Object {}}
+    onGlossaryEditorCancel={[Function]}
     submitNewGlossaryTerm={[Function]}
   />
   <GlossaryEditorSearch

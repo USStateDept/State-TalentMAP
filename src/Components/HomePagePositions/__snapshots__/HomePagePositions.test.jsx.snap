@@ -136,9 +136,10 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       favorites={Array []}
+      hasErrored={false}
       icon="bolt"
       isLoading={false}
-      maxLength="3"
+      maxLength={3}
       positions={
         Array [
           Object {
@@ -150,6 +151,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
+      useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
@@ -283,9 +285,10 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       favorites={Array []}
+      hasErrored={false}
       icon="briefcase"
       isLoading={false}
-      maxLength="3"
+      maxLength={3}
       positions={
         Array [
           Object {
@@ -298,6 +301,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
+      useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?skill__code__in=,"
@@ -431,9 +435,10 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       favorites={Array []}
+      hasErrored={false}
       icon="flag"
       isLoading={false}
-      maxLength="3"
+      maxLength={3}
       positions={
         Array [
           Object {
@@ -446,6 +451,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
+      useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?grade__code__in=03"
@@ -590,14 +596,16 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
         ]
       }
       favorites={Array []}
+      hasErrored={false}
       icon="bolt"
       isLoading={false}
-      maxLength="3"
+      maxLength={3}
       positions={Array []}
       title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
+      useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
@@ -731,17 +739,19 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
         ]
       }
       favorites={Array []}
+      hasErrored={false}
       icon="briefcase"
       isLoading={false}
-      maxLength="3"
+      maxLength={3}
       positions={Array []}
-      title="Positions in Skill"
+      title="Favorited Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
+      useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results"
+      viewMoreLink="/profile/favorites/"
     />
     <HomePagePositionsSection
       bidList={
@@ -872,17 +882,19 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
         ]
       }
       favorites={Array []}
+      hasErrored={false}
       icon="flag"
       isLoading={false}
-      maxLength="3"
+      maxLength={3}
       positions={Array []}
-      title="Recently Posted Positions in Grade 03"
+      title="Recently Posted Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
+      useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?grade__code__in=03"
+      viewMoreLink="/results?ordering=description__date_created"
     />
   </div>
 </div>

@@ -28,7 +28,16 @@ describe('GET reducers', () => {
 
 describe('PATCH reducers', () => {
   it('can set reducer GLOSSARY_PATCH_HAS_ERRORED', () => {
-    expect(reducers.glossaryPatchHasErrored({}, { type: 'GLOSSARY_PATCH_HAS_ERRORED', hasErrored: { id: 1, hasErrored: true } }).hasErrored).toBe(true);
+    const state = {
+      type: 'GLOSSARY_PATCH_HAS_ERRORED',
+      value: {
+        id: 1,
+        message: 'error',
+        hasErrored: true,
+      },
+    };
+
+    expect(reducers.glossaryPatchHasErrored({}, state)).toBe(state.value);
   });
 
   it('can set reducer GLOSSARY_PATCH_IS_LOADING', () => {
@@ -42,7 +51,15 @@ describe('PATCH reducers', () => {
 
 describe('POST reducers', () => {
   it('can set reducer GLOSSARY_POST_HAS_ERRORED', () => {
-    expect(reducers.glossaryPostHasErrored(false, { type: 'GLOSSARY_POST_HAS_ERRORED', hasErrored: true })).toBe(true);
+    const state = {
+      type: 'GLOSSARY_POST_HAS_ERRORED',
+      value: {
+        message: 'error',
+        hasErrored: true,
+      },
+    };
+
+    expect(reducers.glossaryPostHasErrored({}, state)).toBe(state.value);
   });
 
   it('can set reducer GLOSSARY_POST_IS_LOADING', () => {
