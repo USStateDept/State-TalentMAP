@@ -7,8 +7,13 @@ import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
 import InteractiveElement from '../../InteractiveElement';
 
-const DesktopNav = ({ isLoggedIn, shouldShowSearchBar,
-userProfile, logout, toggleSearchVisibility }) => (
+const DesktopNav = ({
+  isLoggedIn,
+  shouldShowSearchBar,
+  userProfile,
+  logout,
+  toggleSearchVisibility,
+}) => (
   <div className="navigation-container">
     <div className="nav-link-container header-nav-desktop desktop-nav-only">
       {
@@ -30,7 +35,7 @@ userProfile, logout, toggleSearchVisibility }) => (
       <div className="header-nav-link-container">
         <div className="header-nav-link">
           <div className="header-nav-link-text about-text">
-            <a href="https://github.com/18F/State-TalentMAP">About</a>
+            <a href={process.env.ABOUT_URL}>About</a>
           </div>
         </div>
       </div>

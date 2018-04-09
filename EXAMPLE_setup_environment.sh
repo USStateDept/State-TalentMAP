@@ -12,7 +12,11 @@ export STATIC_PATH=/var/www/html/talentmap/
 # Default - local dev, http://localhost:8000/
 export API_ROOT=http://localhost:8000/
 
-# Protocol, hostname and port of OBC, 
+# Protocol, hostname and port of OBC,
 # which provides post and country details
 # Default - local test value http://localhost:4000/
 export OBC_URL=http://localhost:4000/
+
+# Protocol, hostname and port of ABOUT,
+# Default - local test value https://github.com/18F/State-TalentMAP
+export ABOUT_URL=https://github.com/18F/State-TalentMAP

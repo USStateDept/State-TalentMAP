@@ -23,7 +23,7 @@ const MobileNav = ({ user, logout, showLogin }) => (
             <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="https://github.com/18F/State-TalentMAP">About</a>
+            <a href={process.env.ABOUT_URL}>About</a>
           </li>
           <span className="usa-unstyled-list mobile-nav-only">
             <hr />
