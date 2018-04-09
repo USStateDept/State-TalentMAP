@@ -784,8 +784,10 @@ $padding-no-border: $total-padding - $border;
   color: $color-white;
   float: left;
   font-size: .8em;
+  font-weight: 300;
+  line-height: 1.8;
   margin: 0 .7em .5em 0;
-  padding: .2em .7em;
+  padding: 2px .7em 0;
 }
 
 .saved-searches-list-profile-container {
