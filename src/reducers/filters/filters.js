@@ -82,6 +82,19 @@ const items =
       },
       {
         item: {
+          title: 'Functional Bureaus',
+          sort: 105,
+          description: 'functionalRegion',
+          endpoint: 'organization/group/',
+          selectionRef: ENDPOINT_PARAMS.functionalOrg,
+          text: 'Choose functional bureau',
+          choices: [
+          ],
+        },
+        data: [],
+      },
+      {
+        item: {
           title: 'COLA',
           sort: 800,
           bool: true, // use bool: true to share a common HTML template
@@ -135,7 +148,6 @@ const items =
         item: {
           title: 'Domestic',
           sort: 900,
-          bool: true,
           description: 'domestic',
           selectionRef: ENDPOINT_PARAMS.domestic,
           text: 'Include only domestic positions',
@@ -143,7 +155,8 @@ const items =
           ],
         },
         data: [
-          { code: 'true', short_description: 'Yes' },
+          { code: 'true', short_description: 'Domestic' },
+          { code: 'false', short_description: 'Overseas' },
         ],
       },
       {
@@ -167,7 +180,7 @@ const items =
           sort: 1100,
           bool: false,
           description: 'post',
-          endpoint: 'orgpost/?limit=7',
+          endpoint: 'orgpost/?limit=500&is_available=true',
           selectionRef: ENDPOINT_PARAMS.post,
           choices: [
           ],

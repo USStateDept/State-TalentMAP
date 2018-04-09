@@ -25,11 +25,11 @@ describe('filter helpers', () => {
       { item: { description: 'skill' } }, { description: 'test', code: 't' }),
     ).toBe('test (t)');
     expect(getFilterCustomDescription(
-      { item: { description: 'post' } }, { location: 'Paris' }),
-    ).toBe('Paris');
+      { item: { description: 'post' } }, { location: { city: 'Paris', country: 'France' } }),
+    ).toBe('Paris, France');
     // but unmapped descriptions will return false
     expect(getFilterCustomDescription(
-      { item: { description: 'invalid' } }, { location: 'Paris' }),
+      { item: { description: 'invalid' } }, { location: { city: 'Paris', country: 'France' } }),
     ).toBe(false);
   });
 
@@ -45,9 +45,9 @@ describe('filter helpers', () => {
 
   it('can return correct values for the getPostOrMissionDescription function', () => {
     // all valid properties should return a templated value
-    expect(getPostOrMissionDescription({ type: 'post', location: 'Paris', short_name: 'PAR' })).toBe('Paris (Post)');
+    expect(getPostOrMissionDescription({ type: 'post', location: { city: 'Paris', country: 'France' }, short_name: 'PAR' })).toBe('Paris, France (Post)');
     // but unmapped descriptions will return false
-    expect(getPostOrMissionDescription({ type: 'invalid', location: 'Paris', short_name: 'PAR' })).toBe(false);
+    expect(getPostOrMissionDescription({ type: 'invalid', location: { city: 'Paris', country: 'France' }, short_name: 'PAR' })).toBe(false);
   });
 
   it('can return correct values for the doesCodeOrIdMatch function', () => {
@@ -59,7 +59,6 @@ describe('filter helpers', () => {
   it('can return correct values for the isBooleanFilter function', () => {
     // all valid properties should return true
     expect(isBooleanFilter('COLA')).toBe(true);
-    expect(isBooleanFilter('domestic')).toBe(true);
     expect(isBooleanFilter('available')).toBe(true);
     expect(isBooleanFilter('invalud')).toBe(false);
   });

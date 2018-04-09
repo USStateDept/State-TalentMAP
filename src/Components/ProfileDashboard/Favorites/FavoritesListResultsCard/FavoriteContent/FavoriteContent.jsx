@@ -1,5 +1,5 @@
 import React from 'react';
-import { propOrDefault } from '../../../../../utilities';
+import { propOrDefault, getPostName } from '../../../../../utilities';
 import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../../../../Constants/PropTypes';
 
@@ -19,7 +19,7 @@ const FavoriteContent = ({ position }) => (
     </div>
     <div>
       <span className="bid-list-card-title-post">Post: </span>
-      {propOrDefault(position, 'post.location', NO_POST)}
+      {getPostName(position.post, NO_POST)}
     </div>
   </div>
 );

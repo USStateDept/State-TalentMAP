@@ -18,7 +18,13 @@ const bidListObject = {
         bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
         post: {
           id: 199,
-          location: 'Curacao',
+          location: {
+            id: 103,
+            country: 'Sierra Leone',
+            code: '00A',
+            city: 'Freetown',
+            state: '',
+          },
         },
       },
       status: 'approved',
@@ -59,7 +65,13 @@ const bidListObject = {
         bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
         post: {
           id: 235,
-          location: 'Freetown, Sierra Leone',
+          location: {
+            id: 103,
+            country: 'Sierra Leone',
+            code: '00A',
+            city: 'Freetown',
+            state: '',
+          },
         },
       },
       status: 'closed',
@@ -100,7 +112,13 @@ const bidListObject = {
         bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
         post: {
           id: 195,
-          location: 'The Hague, Netherlands',
+          location: {
+            id: 103,
+            country: 'Sierra Leone',
+            code: '00A',
+            city: 'Freetown',
+            state: '',
+          },
         },
       },
       status: 'closed',

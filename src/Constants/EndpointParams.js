@@ -6,6 +6,7 @@ export const ENDPOINT_PARAMS = {
   grade: 'grade__code__in',
   tod: 'post__tour_of_duty__code__in',
   org: 'bureau__code__in',
+  functionalOrg: 'organization__groups__in',
   cola: 'post__cost_of_living_adjustment__gt',
   postDiff: 'post__differential_rate__in',
   danger: 'post__danger_pay__in',
@@ -26,18 +27,7 @@ export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
 };
 
 export const VALID_PARAMS = [
-  ENDPOINT_PARAMS.skill,
-  ENDPOINT_PARAMS.language,
-  ENDPOINT_PARAMS.grade,
-  ENDPOINT_PARAMS.tod,
-  ENDPOINT_PARAMS.org,
-  ENDPOINT_PARAMS.cola,
-  ENDPOINT_PARAMS.postDiff,
-  ENDPOINT_PARAMS.danger,
-  ENDPOINT_PARAMS.domestic,
-  ENDPOINT_PARAMS.mission,
-  ENDPOINT_PARAMS.post,
-  ENDPOINT_PARAMS.available,
+  ...Object.values(ENDPOINT_PARAMS),
   'q',
 ];
 

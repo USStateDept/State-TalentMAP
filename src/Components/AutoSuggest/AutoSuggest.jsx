@@ -29,10 +29,19 @@ export default class AutoSuggest extends Component {
   }
 
   onKeyChange(event, { newValue }) {
+    const { displayProperty } = this.props;
+    let newStateValue;
+    // If the user is typing, then newValue is a string,
+    // but if the user is arrowing through suggestions, then newValue is an object.
+    // We also check if the displayProperty is a function.
+    if (typeof newValue !== 'string' && typeof displayProperty === 'function') {
+      newStateValue = displayProperty(newValue);
+    } else {
+      newStateValue = newValue[this.props.displayProperty] ?
+        newValue[this.props.displayProperty] : newValue;
+    }
     this.setState({
-      // If the user is typing, then newValue is a string,
-      // but if the user is arrowing through suggestions, then newValue is an object.
-      value: newValue[this.props.displayProperty] ? newValue[this.props.displayProperty] : newValue,
+      value: newStateValue,
     });
   }
 
@@ -122,7 +131,8 @@ AutoSuggest.propTypes = {
   onSuggestionsClearRequested: PropTypes.func,
 
   // Which property should show up in the text input when a suggestion is chosen?
-  displayProperty: PropTypes.string,
+  // Can be a string or a function.
+  displayProperty: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
   // Which property should be sent back when onSuggestionSelected is called?
   // If none is delcared, the entire suggestion object is returned.

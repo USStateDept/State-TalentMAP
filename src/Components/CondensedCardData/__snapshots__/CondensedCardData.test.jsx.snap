@@ -5,7 +5,7 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
-    content="Monrovia, Liberia"
+    content="Freetown, Sierra Leone"
     hasFixedTitleWidth={true}
     title="Post"
   />

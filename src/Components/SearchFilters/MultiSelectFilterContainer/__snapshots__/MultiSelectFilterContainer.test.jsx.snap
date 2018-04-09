@@ -6,8 +6,10 @@ exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
   isMultiselectable={false}
 >
   <AccordionItem
+    buttonClass=""
+    childClass=""
     className=""
-    expanded={true}
+    expanded={false}
     id="checkbox-title"
     setAccordion={[Function]}
     title="title"
