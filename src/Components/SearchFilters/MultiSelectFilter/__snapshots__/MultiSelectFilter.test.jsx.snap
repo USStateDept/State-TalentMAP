@@ -8,6 +8,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
 >
   <CheckBox
     className="tm-checkbox-transparent"
+    disabled={false}
     id="checkboxdescription-filterType"
     label="description"
     labelSrOnly={false}
@@ -20,6 +21,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
   />
   <CheckBox
     className="tm-checkbox-transparent"
+    disabled={false}
     id="checkboxdescription-filterType"
     label="description"
     labelSrOnly={false}
@@ -49,6 +51,7 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
     </div>
     <CheckBox
       className="tm-checkbox-transparent"
+      disabled={false}
       id="checkboxdescription-filterType"
       label="description"
       labelSrOnly={false}
@@ -70,6 +73,7 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
     </div>
     <CheckBox
       className="tm-checkbox-transparent"
+      disabled={false}
       id="checkboxdescription-filterType"
       label="description"
       labelSrOnly={false}

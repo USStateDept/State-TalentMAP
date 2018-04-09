@@ -54,7 +54,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   replace={false}
                   to="/details/10034001"
                 >
-                  Learn more
+                  View position details
                 </Link>
               </div>
               <div
@@ -74,7 +74,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   replace={false}
                   to="/details/56082000"
                 >
-                  Learn more
+                  View position details
                 </Link>
               </div>
               <div
@@ -94,13 +94,13 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </th>
             <td>
-              Monrovia, Liberia
+              Freetown, Sierra Leone
               <div
                 className="border-extension-layer-2"
               />
             </td>
             <td>
-              Port-Au-Prince, Haiti
+              Chicago, IL
               <div
                 className="border-extension-layer-2"
               />

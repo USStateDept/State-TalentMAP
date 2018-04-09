@@ -7,7 +7,13 @@ const assignmentObject = {
     position_number: '58348065',
     title: 'PROJECT DIRECTOR',
     post: {
-      location: 'Tunis, Tunisia',
+      location: {
+        id: 4,
+        country: 'United States',
+        code: '500',
+        city: 'Washington',
+        state: 'DC',
+      },
     },
   },
 };
