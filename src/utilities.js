@@ -420,12 +420,12 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 };
 
 export const getPostName = (post, defaultValue = null) => {
-  if (post.location && post.location.city) {
-    if (post.location.country === 'United States') {
+  if (propOrDefault(post, 'location.city')) {
+    if (propOrDefault(post, 'location.country') === 'United States') {
       return `${post.location.city}, ${post.location.state}`;
     }
     return `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
-  } else if (post.code) {
+  } else if (propOrDefault(post, 'code')) {
     return post.code;
   }
   return defaultValue;

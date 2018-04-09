@@ -24,8 +24,7 @@ class DraftAlert extends Component {
     const { bid } = this.props;
     const position = bid.position;
     const positionTitle = position.title;
-    const post = position && position.post && position.post.location ?
-      getPostName(position.post.location) : NO_POST;
+    const post = getPostName(position.post, NO_POST);
     const skillCode = position.skill ? position.skill : NO_SKILL;
     const grade = position.grade ? position.grade : NO_GRADE;
     return (
