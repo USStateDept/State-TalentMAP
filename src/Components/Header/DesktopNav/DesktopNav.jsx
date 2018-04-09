@@ -30,7 +30,7 @@ userProfile, logout, toggleSearchVisibility }) => (
       <div className="header-nav-link-container">
         <div className="header-nav-link">
           <div className="header-nav-link-text about-text">
-            <a href="https://github.com/18F/State-TalentMAP">About</a>
+            <a href={`${process.env.PUBLIC_URL}about`}>About</a>
           </div>
         </div>
       </div>

@@ -16,3 +16,6 @@ export API_ROOT=http://localhost:8000/
 # which provides post and country details
 # Default - local test value http://localhost:4000/
 export OBC_URL=http://localhost:4000/
+
+# External link to the About page
+export ABOUT_PAGE=https://github.com/18F/State-TalentMAP

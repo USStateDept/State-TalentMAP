@@ -50,7 +50,7 @@ exports[`MobileNav matches snapshot when showLogin is false 1`] = `
         </li>
         <li>
           <a
-            href="https://github.com/18F/State-TalentMAP"
+            href="about"
           >
             About
           </a>
@@ -134,7 +134,7 @@ exports[`MobileNav matches snapshot when showLogin is true 1`] = `
         </li>
         <li>
           <a
-            href="https://github.com/18F/State-TalentMAP"
+            href="about"
           >
             About
           </a>
