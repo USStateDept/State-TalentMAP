@@ -3,8 +3,7 @@ FROM node:6.11.5
 # Create certificates for testing
 RUN mkdir /certs
 COPY certs /certs/
-WORKDIR /certs
-RUN chmod +x certs.sh
+RUN cd certs && chmod +x certs.sh
 RUN ./certs.sh
 
 RUN mkdir /app
