@@ -17,6 +17,7 @@ import { validStateEmail,
          getTimeDistanceInWords,
          formatDate,
          focusById,
+         focusByFirstOfHeader,
          wrapForMultiSelect,
          returnObjectsWherePropMatches,
          numbersToPercentString,
@@ -287,6 +288,54 @@ describe('focusById', () => {
     global.document.getElementById = id => elements[id];
     focusById('test');
     sinon.assert.calledOnce(focusSpy);
+  });
+});
+
+describe('focusByFirstOfHeader', () => {
+  let valuesSetBySetAttribute = [];
+  const setAttribute = (attribute, value) => { valuesSetBySetAttribute = [attribute, value]; };
+
+  let focusSpy = sinon.spy();
+  let elements = {
+    h1: [
+      {},
+      { focus: focusSpy, setAttribute },
+    ],
+    h2: {},
+  };
+  global.document.getElementsByTagName = tag => elements[tag];
+  it('can focus and set attributes to the first header found', (done) => {
+    focusByFirstOfHeader();
+    const f = () => {
+      setTimeout(() => {
+        sinon.assert.calledOnce(focusSpy);
+        expect(valuesSetBySetAttribute[0]).toBe('tabindex');
+        expect(valuesSetBySetAttribute[1]).toBe('-1');
+        done();
+      }, 10);
+    };
+    f();
+  });
+
+  it('can focus the first h2 if h1 does not exist', (done) => {
+    // reset spy and attribute array
+    valuesSetBySetAttribute = [];
+    focusSpy = sinon.spy();
+    elements = {
+      h2: [
+        { focus: focusSpy, setAttribute },
+      ],
+    };
+    focusByFirstOfHeader();
+    const f = () => {
+      setTimeout(() => {
+        sinon.assert.calledOnce(focusSpy);
+        expect(valuesSetBySetAttribute[0]).toBe('tabindex');
+        expect(valuesSetBySetAttribute[1]).toBe('-1');
+        done();
+      }, 10);
+    };
+    f();
   });
 });
 
