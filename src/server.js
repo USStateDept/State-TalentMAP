@@ -22,6 +22,9 @@ const ROUTES = routesArray.map(route => `${PUBLIC_URL}${route.path}${route.exact
 // example: https://www.obcurl.gov
 const OBC_URL = process.env.OBC_URL;
 
+// path to external about page
+const ABOUT_PAGE = process.env.ABOUT_PAGE || 'https://github.com/18F/State-TalentMAP';
+
 // application port
 const port = process.env.PORT || 3000;
 
@@ -104,6 +107,10 @@ app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
   response.redirect(`${OBC_URL}/country/detail/${id}`);
+});
+
+app.get(`${PUBLIC_URL}about`, (request, response) => {
+  response.redirect(`${ABOUT_PAGE}`);
 });
 
 app.get(ROUTES, (request, response) => {

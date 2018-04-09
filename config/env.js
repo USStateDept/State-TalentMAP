@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
@@ -29,7 +27,7 @@ const dotenvFiles = [
 // if this file is missing. dotenv will never modify any environment variables
 // that have already been set.
 // https://github.com/motdotla/dotenv
-dotenvFiles.forEach(dotenvFile => {
+dotenvFiles.forEach((dotenvFile) => {
   if (fs.existsSync(dotenvFile)) {
     require('dotenv').config({
       path: dotenvFile,
@@ -56,13 +54,14 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
-const ABOUT_URL = process.env.ABOUT_URL || 'https://github.com/18F/State-TalentMAP';
+const ENV = NODE_ENV || 'development';
+const ABOUT_URL = (NODE_ENV === 'development') ? 'https://github.com/18F/State-TalentMAP' : `${process.env.PUBLIC_URL}about`;
 
 function getClientEnvironment(publicUrl) {
   const initial = {
     // Useful for determining whether we’re running in production mode.
     // Most importantly, it switches React into the correct mode.
-    NODE_ENV: process.env.NODE_ENV || 'development',
+    NODE_ENV: ENV,
     // Useful for resolving the correct path to static assets in `public`.
     // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
     // This should only be used as an escape hatch. Normally you would put
