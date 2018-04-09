@@ -22,7 +22,7 @@ const Main = props => (
         <div>
           <PageMeta history={history} />
           <Header {...props} isAuthorized={isAuthorized} />
-          <main id="main-content" tabIndex="-1">
+          <main id="main-content">
             <Routes {...props} isAuthorized={isAuthorized} />
           </main>
           <Footer />
