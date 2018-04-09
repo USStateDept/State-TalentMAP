@@ -65,6 +65,14 @@ class BureauFilter extends Component {
     this.setState(stateToSet);
   }
 
+  doSkillConeChildrenExists(cone) {
+    const { item } = this.props;
+    if (item.data.find(s => s.cone === cone.name)) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const { item, skillCones } = this.props;
     return (
@@ -72,6 +80,7 @@ class BureauFilter extends Component {
         <Accordion>
           {
             skillCones.data.map(cone => (
+              this.doSkillConeChildrenExists(cone) &&
               <AccordionItem
                 key={cone.id}
                 className="accordion-content-small"

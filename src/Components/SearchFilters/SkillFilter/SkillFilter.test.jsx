@@ -29,6 +29,7 @@ describe('SkillFilterComponent', () => {
     data: [
       { name: 'Cone1', id: 1 },
       { name: 'Cone2', id: 2 },
+      { name: 'ConeWithNoChildren', id: 3 },
     ],
   };
 
@@ -81,6 +82,16 @@ describe('SkillFilterComponent', () => {
     const spy = sinon.spy(wrapper.instance(), 'setParentCheckboxes');
     wrapper.instance().componentWillReceiveProps(props);
     sinon.assert.calledOnce(spy);
+  });
+
+  it('does not render cones with zero children', () => {
+    const wrapper = shallow(
+      <SkillFilter
+        {...props}
+      />,
+    );
+    // should only render two out of the three cones
+    expect(wrapper.find('AccordionItem').length).toBe(2);
   });
 
   it('matches snapshot', () => {
