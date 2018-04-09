@@ -32,7 +32,9 @@ class PositionDetailsDescription extends Component {
     }
 
     return (
-      <InteractiveElement onClick={this.toggleValue} className="view-more-link">{text}<FontAwesome name={icon} /></InteractiveElement>
+      <InteractiveElement onClick={this.toggleValue} className="view-more-link">
+        {text}<FontAwesome name={icon} />
+      </InteractiveElement>
     );
   }
 }
