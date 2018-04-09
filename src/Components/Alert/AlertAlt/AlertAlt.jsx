@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
-const AlertAlt = ({ type, title, message }) => {
+const AlertAlt = ({ type, title, message, isAriaLive }) => {
   let icon;
   switch (type) {
     case 'warning':
@@ -19,10 +19,17 @@ const AlertAlt = ({ type, title, message }) => {
       icon = 'info-circle';
       break;
   }
+  let ariaLiveProps = {};
+  if (isAriaLive) {
+    ariaLiveProps = {
+      'aria-live': 'polite',
+      'aria-atomic': 'true',
+    };
+  }
   return (
     // 'type' is injected into the class name
     // type 'error' requires an ARIA role
-    <div className={`tm-alert tm-alert-${type}`} role={(type === 'error') ? 'alert' : null}>
+    <div className={`tm-alert tm-alert-${type}`} role={(type === 'error') ? 'alert' : null} {...ariaLiveProps}>
       <div className="usa-grid-full tm-alert-body">
         <div className="usa-grid-full tm-alert-icon">
           <FontAwesome size="lg" name={icon} />
@@ -40,11 +47,13 @@ AlertAlt.propTypes = {
   type: PropTypes.oneOf(['info', 'warning', 'error', 'success']),
   title: PropTypes.string.isRequired,
   message: PropTypes.string,
+  isAriaLive: PropTypes.bool,
 };
 
 AlertAlt.defaultProps = {
   type: 'info',
   message: '',
+  isAriaLive: false,
 };
 
 export default AlertAlt;

@@ -3,7 +3,6 @@ import React from 'react';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import SearchFiltersContainer from './SearchFiltersContainer';
-import { ACCORDION_SELECTION } from '../../../Constants/DefaultProps';
 
 describe('SearchFiltersContainerComponent', () => {
   const items = [
@@ -33,12 +32,9 @@ describe('SearchFiltersContainerComponent', () => {
     },
   ];
 
-  const accordion = ACCORDION_SELECTION;
-
   const props = {
     queryParamUpdate: () => {},
     queryParamToggle: () => {},
-    selectedAccordion: accordion,
     setAccordion: () => {},
     filters: items,
     fetchMissionAutocomplete: () => {},
@@ -101,20 +97,6 @@ describe('SearchFiltersContainerComponent', () => {
     // un-check the filter
     wrapper.instance().onBooleanFilterClick(false, '0', 'skill');
     expect(toggleValue.value.skill).toBe('');
-  });
-
-  it('can call the onSetAccordion function', () => {
-    const toggleValue = { a: null, b: null };
-    const wrapper = shallow(
-      <SearchFiltersContainer
-        {...props}
-        setAccordion={(a) => { toggleValue.a = a.main; toggleValue.b = a.sub; }}
-      />,
-    );
-
-    wrapper.instance().onSetAccordion(1, 2);
-    expect(toggleValue.a).toBe(1);
-    expect(toggleValue.b).toBe(2);
   });
 
   it('can call the on[x]SuggestionSelected functions', () => {

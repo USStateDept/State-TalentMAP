@@ -23,7 +23,13 @@ export const clientObject = {
       position_number: '58312265',
       title: 'PROJECT DIRECTOR',
       post: {
-        location: 'Guatemala, Guatemala',
+        location: {
+          id: 103,
+          country: 'Sierra Leone',
+          code: '00A',
+          city: 'Freetown',
+          state: '',
+        },
       },
     },
   },
@@ -170,7 +176,13 @@ export const clientBids = {
         update_date: '2017-06-08T00:00:00Z',
         post: {
           id: 192,
-          location: 'Abuja, Nigeria',
+          location: {
+            id: 103,
+            country: 'Sierra Leone',
+            code: '00A',
+            city: 'Freetown',
+            state: '',
+          },
         },
       },
       waivers: [],
@@ -213,7 +225,13 @@ export const clientBids = {
         update_date: '2017-06-08T00:00:00Z',
         post: {
           id: 48,
-          location: 'Brazzaville, Congo (Brazzaville)',
+          location: {
+            id: 103,
+            country: 'Sierra Leone',
+            code: '00A',
+            city: 'Freetown',
+            state: '',
+          },
         },
       },
       waivers: [

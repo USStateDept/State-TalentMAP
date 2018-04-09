@@ -39,7 +39,7 @@ export function postSearchFetchData(query) {
       let filteredResults = [];
       if (data.results) {
         // results should have a location
-        filteredResults = data.results.filter(post => post.location !== null);
+        filteredResults = data.results.filter(post => post.location.city !== null);
       }
       return filteredResults;
     })

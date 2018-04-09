@@ -8,10 +8,12 @@
 
   .column-title-sub,
   .column-title-link {
-    font-weight: normal;
+    font-weight: 300;
   }
 
   .column-title-link {
+    font-size: 1.4rem;
+
     a {
       color: $color-white;
     }
@@ -33,7 +35,7 @@
 
     .border-visible {
       background: $blue-primary;
-      height: 200%;
+      height: 100%;
       left: -300px;
       position: absolute;
       top: 0;
@@ -43,11 +45,17 @@
 
     th {
       background: inherit;
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.6;
+      padding-bottom: 2.5rem;
+      padding-top: 2.5rem;
       position: relative;
     }
 
     th:first-of-type {
-      padding: 1em 1em 0;
+      padding-top: 2.4rem;
+      vertical-align: top;
     }
   }
 

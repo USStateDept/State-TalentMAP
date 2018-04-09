@@ -1,15 +1,67 @@
 // provide a custom expanded/retracted icon to the accordion
 .accordion-inverse {
   .usa-accordion-button {
-    background-image: none;
     background-position: 94%;
   }
 
-  .usa-accordion-button[aria-expanded=false] {
+  .usa-accordion-button:not(.tm-nested-accordion-button) {
+    background-image: none;
+  }
+
+  .usa-accordion-button[aria-expanded=false]:not(.tm-nested-accordion-button) {
     background-image: url('#{$asset-path}assets/img/plus-white.svg');
   }
 
-  .usa-accordion-button[aria-expanded=true] {
+  .usa-accordion-button[aria-expanded=true]:not(.tm-nested-accordion-button) {
     background-image: url('#{$asset-path}assets/img/minus-white.svg');
+  }
+}
+
+$accordion-content-small-font-size: .9em;
+$accordion-content-small-padding-left: 1em;
+
+.tm-nested-accordions {
+
+  .usa-accordion-content {
+    max-height: initial;
+    overflow-y: none;
+    padding-top: 0;
+  }
+
+  .usa-accordion-button {
+    background-color: initial;
+    color: initial;
+  }
+
+  .tm-nested-accordion {
+    padding-left: 0;
+    padding-right: 0;
+
+    .usa-accordion-content {
+      font-size: $accordion-content-small-font-size;
+      padding-left: $accordion-content-small-padding-left;
+    }
+
+    .usa-accordion-button {
+      font-size: .8em;
+      padding-right: 30%;
+    }
+  }
+}
+
+.tm-nested-accordion-button {
+  padding-bottom: 0;
+}
+
+.tm-double-nested-accordion-button {
+  padding-bottom: 0;
+}
+
+.accordion-content-small {
+  min-height: 1px;
+
+  .usa-accordion-content {
+    font-size: $accordion-content-small-font-size;
+    padding-left: $accordion-content-small-padding-left;
   }
 }

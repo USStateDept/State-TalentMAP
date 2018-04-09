@@ -15,3 +15,7 @@ global.console.error = errorWrapper;
 
 // needed for ScrollContext
 global.scrollTo = jest.fn();
+
+// Needed for Object.values, otherwise will receive
+// "TypeError: Object.values is not a function"
+Object.values = (obj) => Object.keys(obj).map(key => obj[key])

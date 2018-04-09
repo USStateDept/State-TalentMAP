@@ -64,6 +64,7 @@ const SavedSearches = (props) => {
             type="error"
             title="Error"
             messages={[{ body: deleteSavedSearchHasErrored }]}
+            isAriaLive
           />
       }
       {
@@ -73,6 +74,7 @@ const SavedSearches = (props) => {
             type="success"
             title="Success"
             messages={[{ body: deleteSavedSearchSuccess }]}
+            isAriaLive
           />
       }
       {
@@ -82,6 +84,7 @@ const SavedSearches = (props) => {
             type="error"
             title="Error"
             messages={[{ body: cloneSavedSearchHasErrored }]}
+            isAriaLive
           />
       }
       {
@@ -91,6 +94,7 @@ const SavedSearches = (props) => {
             type="success"
             title="Success"
             messages={[{ body: cloneSavedSearchSuccess }]}
+            isAriaLive
           />
       }
       {
