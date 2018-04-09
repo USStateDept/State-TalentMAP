@@ -4,7 +4,7 @@ import { matchPath, withRouter } from 'react-router';
 import Helmet from 'react-helmet';
 import PageTitle from '../../Components/PageTitle';
 import routes from '../../routes';
-import { getApplicationPath, getAssetPath } from '../../utilities';
+import { getApplicationPath, getAssetPath, focusById } from '../../utilities';
 
 class PageMetaContainer extends Component {
   constructor(props) {
@@ -34,9 +34,11 @@ class PageMetaContainer extends Component {
 
     // perform once on mount
     this.setPageTitle(history.location);
+    focusById('page-title');
 
     // listen for changes in history
     history.listen((historyObject) => {
+      focusById('page-title');
       this.setPageTitle(historyObject);
     });
   }
@@ -47,7 +49,7 @@ class PageMetaContainer extends Component {
         <div>
           <PageTitle pageTitle={this.state.pageTitle} srOnly />
           <Helmet titleTemplate="%s - TalentMAP" defaultTitle="TalentMAP">
-            <title>{this.state.pageTitle}</title>
+            <title tabIndex="-1">{this.state.pageTitle}</title>
             <meta property="og:title" content={this.state.pageTitle} />
             <meta property="og:url" content={window.location.href} />
             <meta property="og:type" content="website" />

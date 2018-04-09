@@ -17,9 +17,10 @@ import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-import { getAssetPath, propOrDefault } from '../../utilities';
+import { getAssetPath, propOrDefault, focusByFirstOfHeader } from '../../utilities';
 import MediaQuery from '../MediaQuery';
 import BetaHeader from './BetaHeader';
+import InteractiveElement from '../InteractiveElement';
 
 export class Header extends Component {
   constructor(props) {
@@ -124,6 +125,13 @@ export class Header extends Component {
 
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
+        <InteractiveElement
+          className="usa-skipnav"
+          onClick={() => focusByFirstOfHeader()}
+          role="link"
+        >
+          Skip to main content
+        </InteractiveElement>
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <GovBanner />
