@@ -36,6 +36,7 @@ exports[`Footer Component matches snapshot 1`] = `
             >
               <a
                 className="usa-footer-primary-link"
+                href="/talentmap/about"
               >
                 About
               </a>
