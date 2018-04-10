@@ -20,7 +20,6 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run: yarn
-      - run: cd certs && chmod +x certs.sh && ./certs.sh
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -46,6 +45,9 @@ jobs:
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
+      - run: chmod +x ./certs/certs.sh 
+      - run: cd certs && ./certs.sh
+      - run: cd ..
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run: yarn
