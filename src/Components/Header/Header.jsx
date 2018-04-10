@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
-import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
 import { logoutRequest } from '../../login/actions';
@@ -133,7 +132,6 @@ export class Header extends Component {
           Skip to main content
         </InteractiveElement>
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
-          <ToggleContent />
           <GovBanner />
           <BetaHeader />
           <div className="usa-navbar">
