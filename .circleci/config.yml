@@ -20,6 +20,7 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run: yarn
+      - run: cd certs && chmod +x certs.sh && ./certs.sh
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
