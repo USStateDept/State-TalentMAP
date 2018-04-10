@@ -81,97 +81,100 @@ class PostFilter extends Component {
     if (postSelectionDisabled) { autoSuggestProps.placeholder = 'Remove regional filters'; }
 
     return (
-      <div className="usa-grid-full tm-nested-accordions">
+      <div className="usa-grid-full">
         <AutoSuggest
           {...autoSuggestProps}
+          className="post-auto-suggest-container"
           customInputProps={{
             disabled: postSelectionDisabled,
           }}
         />
-        <Accordion>
-          <AccordionItem
-            className="accordion-content-small"
-            id="domestic-post-sub-accordion"
-            title="Domestic"
-            preContent={(
-              <CheckBox
-                id="select-all-domestic"
-                onCheckBoxClick={this.onSelectAllDomesticPosts}
-                className="tm-checkbox-transparent"
-                value={this.state.allDomesticSelected}
-                label="Toggle filter by domestic positions"
-                labelSrOnly
-              />
-            )}
-            buttonClass="tm-nested-accordion-button"
-          >
-            <div className="usa-grid-full">
-              {
-                domesticPosts.map((itemData) => {
-                  const itemLabel = getItemLabel(itemData);
-                  const itemLabelNoSpaces = formatIdSpacing(itemLabel);
-                  return (
-                    <CheckBox
-                      _id={itemData.id} /* when we need the original id */
-                      id={`checkbox${itemLabelNoSpaces}-domestic-post-${item.item.description}`}
-                      key={`checkbox${itemLabel}-domestic-post-${item.item.description}`}
-                      label={itemLabel}
-                      title={itemLabel}
-                      name={itemLabel}
-                      value={allDomesticSelected ? true : itemData.isSelected || false}
-                      code={itemData.code}
-                      selectionRef={item.item.selectionRef}
-                      onCheckBoxClick={this.onCheckBoxClick}
-                      className="tm-checkbox-transparent"
-                      disabled={allDomesticSelected || allOverseasSelected}
-                    />
-                  );
-                })
-              }
-            </div>
-          </AccordionItem>
-          <AccordionItem
-            className="accordion-content-small"
-            id="overseas-post-sub-accordion"
-            title="Overseas"
-            buttonClass="tm-nested-accordion-button"
-            preContent={(
-              <CheckBox
-                id="select-all-overseas"
-                onCheckBoxClick={this.onSelectAllOverseasPosts}
-                className="tm-checkbox-transparent"
-                value={this.state.allOverseasSelected}
-                label="Toggle filter by overseas positions"
-                labelSrOnly
-              />
-            )}
-          >
-            <div className="usa-grid-full">
-              {
-                overseasPosts.map((itemData) => {
-                  const itemLabel = getItemLabel(itemData);
-                  const itemLabelNoSpaces = formatIdSpacing(itemLabel);
-                  return (
-                    <CheckBox
-                      _id={itemData.id} /* when we need the original id */
-                      id={`checkbox${itemLabelNoSpaces}-overseas-post-${item.item.description}`}
-                      key={`checkbox${itemLabel}-overseas-post-${item.item.description}`}
-                      label={itemLabel}
-                      title={itemLabel}
-                      name={itemLabel}
-                      value={allOverseasSelected ? true : itemData.isSelected || false}
-                      code={itemData.code}
-                      selectionRef={item.item.selectionRef}
-                      onCheckBoxClick={this.onCheckBoxClick}
-                      className="tm-checkbox-transparent"
-                      disabled={allOverseasSelected || allDomesticSelected}
-                    />
-                  );
-                })
-              }
-            </div>
-          </AccordionItem>
-        </Accordion>
+        <div className="usa-grid-full tm-nested-accordions">
+          <Accordion>
+            <AccordionItem
+              className="accordion-content-small"
+              id="domestic-post-sub-accordion"
+              title="Domestic"
+              preContent={(
+                <CheckBox
+                  id="select-all-domestic"
+                  onCheckBoxClick={this.onSelectAllDomesticPosts}
+                  className="tm-checkbox-transparent"
+                  value={this.state.allDomesticSelected}
+                  label="Toggle filter by domestic positions"
+                  labelSrOnly
+                />
+              )}
+              buttonClass="tm-nested-accordion-button"
+            >
+              <div className="usa-grid-full">
+                {
+                  domesticPosts.map((itemData) => {
+                    const itemLabel = getItemLabel(itemData);
+                    const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                    return (
+                      <CheckBox
+                        _id={itemData.id} /* when we need the original id */
+                        id={`checkbox${itemLabelNoSpaces}-domestic-post-${item.item.description}`}
+                        key={`checkbox${itemLabel}-domestic-post-${item.item.description}`}
+                        label={itemLabel}
+                        title={itemLabel}
+                        name={itemLabel}
+                        value={allDomesticSelected ? true : itemData.isSelected || false}
+                        code={itemData.code}
+                        selectionRef={item.item.selectionRef}
+                        onCheckBoxClick={this.onCheckBoxClick}
+                        className="tm-checkbox-transparent"
+                        disabled={allDomesticSelected || allOverseasSelected}
+                      />
+                    );
+                  })
+                }
+              </div>
+            </AccordionItem>
+            <AccordionItem
+              className="accordion-content-small"
+              id="overseas-post-sub-accordion"
+              title="Overseas"
+              buttonClass="tm-nested-accordion-button"
+              preContent={(
+                <CheckBox
+                  id="select-all-overseas"
+                  onCheckBoxClick={this.onSelectAllOverseasPosts}
+                  className="tm-checkbox-transparent"
+                  value={this.state.allOverseasSelected}
+                  label="Toggle filter by overseas positions"
+                  labelSrOnly
+                />
+              )}
+            >
+              <div className="usa-grid-full">
+                {
+                  overseasPosts.map((itemData) => {
+                    const itemLabel = getItemLabel(itemData);
+                    const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                    return (
+                      <CheckBox
+                        _id={itemData.id} /* when we need the original id */
+                        id={`checkbox${itemLabelNoSpaces}-overseas-post-${item.item.description}`}
+                        key={`checkbox${itemLabel}-overseas-post-${item.item.description}`}
+                        label={itemLabel}
+                        title={itemLabel}
+                        name={itemLabel}
+                        value={allOverseasSelected ? true : itemData.isSelected || false}
+                        code={itemData.code}
+                        selectionRef={item.item.selectionRef}
+                        onCheckBoxClick={this.onCheckBoxClick}
+                        className="tm-checkbox-transparent"
+                        disabled={allOverseasSelected || allDomesticSelected}
+                      />
+                    );
+                  })
+                }
+              </div>
+            </AccordionItem>
+          </Accordion>
+        </div>
       </div>
     );
   }

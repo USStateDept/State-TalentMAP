@@ -6,7 +6,7 @@ const BidTrackerCardTitle = ({ title, id }) => (
   <div className="bid-tracker-card-title-container">
     <div className="bid-tracker-card-title-text">{title}</div>
     <div className="bid-tracker-card-title-link">
-      <Link to={`/details/${id}`}>View Position</Link>
+      <Link to={`/details/${id}`}>View position</Link>
     </div>
   </div>
 );

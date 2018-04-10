@@ -6,29 +6,30 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     multiSelectFilterList={
       Array [
         Object {
-          "content": <div
-            className="usa-grid-full"
-          >
-            <MultiSelectFilter
-              groupAlpha={true}
-              item={
-                Object {
-                  "data": Array [
-                    Object {
-                      "isSelected": true,
-                    },
-                  ],
-                  "item": Object {
-                    "description": "skill",
-                    "selectionRef": "ref3",
-                    "title": "skill",
+          "content": <BureauFilter
+            item={
+              Object {
+                "data": Array [
+                  Object {
+                    "isSelected": true,
                   },
-                }
+                ],
+                "item": Object {
+                  "description": "skill",
+                  "selectionRef": "ref3",
+                  "title": "skill",
+                },
               }
-              queryParamToggle={[Function]}
-              queryProperty="code"
-            />
-          </div>,
+            }
+            queryParamToggle={[Function]}
+            queryParamUpdate={[Function]}
+            queryProperty="code"
+            skillCones={
+              Object {
+                "data": Array [],
+              }
+            }
+          />,
           "id": "accordion-skill",
           "title": "skill",
         },

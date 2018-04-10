@@ -108,7 +108,7 @@ exports[`FavoritesListResultsCardComponent matches snapshot 1`] = `
         toLink="/details/10034001"
         useDefaultClass={true}
       >
-        View Position
+        View position
       </LinkButton>
     </div>
   </div>

@@ -16,7 +16,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot 1`] = `
       replace={false}
       to="/details/a123"
     >
-      View Position
+      View position
     </Link>
   </div>
 </div>
