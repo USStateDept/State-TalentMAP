@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import close from 'uswds/dist/img/close.svg'; // close X icon
+import { getAssetPath } from '../../../utilities';
 
 const MobileNav = ({ user, logout, showLogin }) => (
   <nav className="usa-nav">
@@ -23,7 +24,7 @@ const MobileNav = ({ user, logout, showLogin }) => (
             <Link to="/">Home</Link>
           </li>
           <li>
-            <a href={process.env.ABOUT_URL}>About</a>
+            <a href={getAssetPath('/about')}>About</a>
           </li>
           <span className="usa-unstyled-list mobile-nav-only">
             <hr />

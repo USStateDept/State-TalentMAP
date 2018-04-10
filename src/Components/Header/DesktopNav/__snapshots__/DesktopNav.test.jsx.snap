@@ -43,7 +43,9 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         <div
           className="header-nav-link-text about-text"
         >
-          <a>
+          <a
+            href="/talentmap/about"
+          >
             About
           </a>
         </div>
@@ -158,7 +160,9 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
         <div
           className="header-nav-link-text about-text"
         >
-          <a>
+          <a
+            href="/talentmap/about"
+          >
             About
           </a>
         </div>
