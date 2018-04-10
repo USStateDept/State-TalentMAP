@@ -40,7 +40,7 @@ class SearchFiltersContainer extends Component {
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedBooleanNames = ['COLA'];
+    const sortedBooleanNames = [];
     // if and only if it's a CDO, we'll show the 'Available' filter
     if (isCDO) { sortedBooleanNames.push('available'); }
 
