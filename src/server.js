@@ -44,6 +44,7 @@ app.disable('x-powered-by');
 
 // middleware for HTTP headers
 app.use(helmet());
+app.use(helmet.noCache());
 
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));
