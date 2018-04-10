@@ -69,6 +69,9 @@ export const POSITION_DETAILS = PropTypes.shape({
   }),
   post: POST_MISSION_DATA,
   languages: LANGUAGES,
+  current_assignment: PropTypes.shape({
+    estimated_end_date: PropTypes.string,
+  }),
 });
 
 export const POSITION_DETAILS_ARRAY = PropTypes.arrayOf(POSITION_DETAILS);

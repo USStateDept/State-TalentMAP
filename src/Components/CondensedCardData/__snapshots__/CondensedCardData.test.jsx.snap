@@ -24,12 +24,74 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
     hasFixedTitleWidth={true}
     title="Language"
   />
-  <Connect(StaticDevContent)>
-    <CondensedCardDataPoint
-      content="6.1.18"
-      hasFixedTitleWidth={true}
-      title="Time of estimated departure"
-    />
-  </Connect(StaticDevContent)>
+  <CondensedCardDataPoint
+    content="03/13/2020"
+    hasFixedTitleWidth={true}
+    title="Time of estimated departure"
+  />
+</div>
+`;
+
+exports[`CondensedCardDataComponent matches snapshot with an empty estimated end date 1`] = `
+<div
+  className="usa-grid-full condensed-card-data"
+>
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone"
+    hasFixedTitleWidth={true}
+    title="Post"
+  />
+  <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="Skill Code"
+  />
+  <CondensedCardDataPoint
+    content={
+      <LanguageList
+        languages={Array []}
+        propToUse="language"
+      />
+    }
+    hasFixedTitleWidth={true}
+    title="Language"
+  />
+  <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="Time of estimated departure"
+  />
+</div>
+`;
+
+exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
+<div
+  className="usa-grid-full condensed-card-data"
+>
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone"
+    hasFixedTitleWidth={true}
+    title="Post"
+  />
+  <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="Skill Code"
+  />
+  <CondensedCardDataPoint
+    content={
+      <LanguageList
+        languages={Array []}
+        propToUse="language"
+      />
+    }
+    hasFixedTitleWidth={true}
+    title="Language"
+  />
+  <CondensedCardDataPoint
+    content="03/13/2020"
+    hasFixedTitleWidth={true}
+    title="Time of estimated departure"
+  />
 </div>
 `;
