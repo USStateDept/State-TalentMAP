@@ -14,6 +14,8 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
         className="checkbox-container"
       >
         <CheckBox
+          className=""
+          disabled={false}
           id="checkbox-1"
           label="Select this user"
           labelSrOnly={true}
@@ -41,7 +43,9 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
               "cdo": Object {
                 "email": "shadtrachl@state.gov",
                 "first_name": "Leah",
+                "initials": "LS",
                 "last_name": "Shadtrach",
+                "username": "shadtrachl",
               },
               "display_name": "John",
               "favorite_positions": Array [
@@ -56,7 +60,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
               ],
               "grade": "03",
               "id": 1,
-              "intials": "JD",
+              "initials": "JD",
               "is_cdo": false,
               "skills": Array [
                 Object {
@@ -75,6 +79,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
               "user": Object {
                 "email": "doej@state.gov",
                 "first_name": "John",
+                "initials": "JD",
                 "last_name": "Doe",
                 "username": "jdoe",
               },
@@ -99,7 +104,9 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
             "cdo": Object {
               "email": "shadtrachl@state.gov",
               "first_name": "Leah",
+              "initials": "LS",
               "last_name": "Shadtrach",
+              "username": "shadtrachl",
             },
             "display_name": "John",
             "favorite_positions": Array [
@@ -114,7 +121,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
             ],
             "grade": "03",
             "id": 1,
-            "intials": "JD",
+            "initials": "JD",
             "is_cdo": false,
             "skills": Array [
               Object {
@@ -133,6 +140,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
             "user": Object {
               "email": "doej@state.gov",
               "first_name": "John",
+              "initials": "JD",
               "last_name": "Doe",
               "username": "jdoe",
             },

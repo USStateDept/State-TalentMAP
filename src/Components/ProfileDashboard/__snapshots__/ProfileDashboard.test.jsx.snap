@@ -7,17 +7,17 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
   <div
     className="usa-grid-full"
   >
-    <div
-      className="hello-greeting"
+    <h2
+      className="sr-only"
     >
-      Hello, John
-    </div>
+      Dashboard
+    </h2>
     <div
       className="usa-grid-full"
     >
       <div
         className="usa-width-five-twelfths user-dashboard-section-container
-                      user-dashboard-column-1"
+                        user-dashboard-column-1"
       >
         <div
           className="usa-width-one-whole user-dashboard-section current-user-section"
@@ -38,7 +38,9 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                 "cdo": Object {
                   "email": "shadtrachl@state.gov",
                   "first_name": "Leah",
+                  "initials": "LS",
                   "last_name": "Shadtrach",
+                  "username": "shadtrachl",
                 },
                 "display_name": "John",
                 "favorite_positions": Array [
@@ -53,7 +55,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                 ],
                 "grade": "03",
                 "id": 1,
-                "intials": "JD",
+                "initials": "JD",
                 "is_cdo": false,
                 "skills": Array [
                   Object {
@@ -72,6 +74,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
                 "user": Object {
                   "email": "doej@state.gov",
                   "first_name": "John",
+                  "initials": "JD",
                   "last_name": "Doe",
                   "username": "jdoe",
                 },
@@ -87,7 +90,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       </div>
       <div
         className="usa-width-seven-twelfths user-dashboard-section-container
-                      user-dashboard-column-2"
+                        user-dashboard-column-2"
       >
         <div
           className="usa-width-one-whole user-dashboard-section favorites-section"
@@ -112,8 +115,6 @@ exports[`ProfileDashboardComponent matches snapshot when loading 1`] = `
   className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container"
 >
   <Spinner
-    filled={false}
-    inverse={false}
     size="big"
     type="homepage-position-results"
   />

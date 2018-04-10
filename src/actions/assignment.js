@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { fetchUserToken } from '../utilities';
 import api from '../api';
 
 export function assignmentHasErrored(bool) {
@@ -23,16 +21,17 @@ export function assignmentFetchDataSuccess(assignment) {
 
 export function assignmentFetchData(status = 'active') {
   return (dispatch) => {
-    axios.get(`${api}/profile/assignments/?status=${status}`, { headers: { Authorization: fetchUserToken() } })
-            .then(({ data }) => data.results[0] || {})
-            .then((assignment) => {
-              dispatch(assignmentFetchDataSuccess(assignment));
-              dispatch(assignmentIsLoading(false));
-              dispatch(assignmentHasErrored(false));
-            })
-            .catch(() => {
-              dispatch(assignmentHasErrored(true));
-              dispatch(assignmentIsLoading(false));
-            });
+    api
+      .get(`/profile/assignments/?status=${status}`)
+      .then(({ data }) => data.results[0] || {})
+      .then((assignment) => {
+        dispatch(assignmentFetchDataSuccess(assignment));
+        dispatch(assignmentIsLoading(false));
+        dispatch(assignmentHasErrored(false));
+      })
+      .catch(() => {
+        dispatch(assignmentHasErrored(true));
+        dispatch(assignmentIsLoading(false));
+      });
   };
 }

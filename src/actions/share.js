@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { fetchUserToken } from '../utilities';
 import api from '../api';
 
 export function shareHasErrored(bool) {
@@ -8,12 +6,14 @@ export function shareHasErrored(bool) {
     hasErrored: bool,
   };
 }
+
 export function shareIsSending(bool) {
   return {
     type: 'SHARE_IS_SENDING',
     isLoading: bool,
   };
 }
+
 export function shareSuccess(share) {
   return {
     type: 'SHARE_SUCCESS',
@@ -26,18 +26,20 @@ export function shareSendData(data) {
     dispatch(shareIsSending(true));
     dispatch(shareSuccess(false));
     dispatch(shareHasErrored(false));
-    axios.post(`${api}/share/`, data, { headers: { Authorization: fetchUserToken() } })
-            .then((response) => {
-              dispatch(shareIsSending(false));
-              dispatch(shareHasErrored(false));
-              return response.data;
-            })
-            .then(share => dispatch(shareSuccess(share)))
-            .catch((err) => {
-              dispatch(shareHasErrored(err.response.data.message || 'An error occurred trying to share this position.'));
-              dispatch(shareIsSending(false));
-              dispatch(shareSuccess(false));
-              return err.response.data.message;
-            });
+    api.post('/share/', data)
+      .then((response) => {
+        dispatch(shareIsSending(false));
+        dispatch(shareHasErrored(false));
+        return response.data;
+      })
+      .then(share => dispatch(shareSuccess(share)))
+      .catch((err) => {
+        dispatch(shareHasErrored(
+          err.response.data.message || 'An error occurred trying to share this position.',
+        ));
+        dispatch(shareIsSending(false));
+        dispatch(shareSuccess(false));
+        return err.response.data.message;
+      });
   };
 }

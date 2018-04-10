@@ -19,22 +19,16 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      hidden={false}
       iconName="user"
       link="/profile/dashboard/"
-    />
-    <withRouter(NavLink)
-      iconName="star"
-      link="/profile/favorites/"
-    />
-    <withRouter(NavLink)
-      iconName="search"
-      link="/profile/searches/"
+      search=""
     />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
     />
   </NavLinksContainer>
 </div>
@@ -59,22 +53,16 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      hidden={false}
       iconName="user"
       link="/profile/dashboard/"
-    />
-    <withRouter(NavLink)
-      iconName="star"
-      link="/profile/favorites/"
-    />
-    <withRouter(NavLink)
-      iconName="search"
-      link="/profile/searches/"
+      search=""
     />
     <withRouter(NavLink)
       hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
+      search=""
     />
   </NavLinksContainer>
 </div>

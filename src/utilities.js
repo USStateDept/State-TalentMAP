@@ -1,9 +1,8 @@
 import Scroll from 'react-scroll';
 import queryString from 'query-string';
-import distanceInWords from 'date-fns/distance_in_words';
-import format from 'date-fns/format';
+import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
-import cloneDeep from 'lodash/cloneDeep';
+import { cloneDeep, get, keys, merge as merge$ } from 'lodash';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -45,6 +44,21 @@ export function validStateEmail(email) {
   return /.+@state.gov$/.test(email.trim());
 }
 
+export function hasValidToken() {
+  try {
+    /* eslint-disable no-unused-vars */
+    const token = JSON.parse(localStorage.getItem('token'));
+    /* eslint-enable no-unused-vars */
+    return true;
+  } catch (error) {
+    // If token exists and is bad (maybe user injected)
+    // Drop the token anyways just so we can have the container
+    // render login directly
+    localStorage.removeItem('token');
+    return false;
+  }
+}
+
 export function fetchUserToken() {
   const key = JSON.parse(localStorage.getItem('token'));
   if (key) {
@@ -63,14 +77,35 @@ export const pillSort = (a, b) => {
   return 0; // default return value (no sorting)
 };
 
-export const propSort = propName => (a, b) => {
-  const A = a[propName].toString().toLowerCase();
-  const B = b[propName].toString().toLowerCase();
+export const propSort = (propName, nestedPropName) => (a, b) => {
+  let A = a[propName];
+  if (nestedPropName) { A = a[propName][nestedPropName]; }
+  A = A.toString().toLowerCase();
+  let B = b[propName];
+  if (nestedPropName) { B = b[propName][nestedPropName]; }
+  B = B.toString().toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
   if (A > B) { return 1; }
   return 0; // default return value (no sorting)
+};
+
+// Custom grade sorting
+export const sortGrades = (a, b) => {
+  const sortingArray = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '00', 'CM', 'MC', 'OC', 'OM'];
+  const A = a.code;
+  const B = b.code;
+
+  // if grade is not in sortingArray, push to bottom of list.
+  const indexOfA = sortingArray.indexOf(A) >= 0 ? sortingArray.indexOf(A) : sortingArray.length;
+  const indexOfB = sortingArray.indexOf(B) >= 0 ? sortingArray.indexOf(B) : sortingArray.length;
+
+  if (indexOfA < indexOfB) {
+    return -1;
+  }
+  if (indexOfA > indexOfB) { return 1; }
+  return 0;
 };
 
 // function to find the Region filters
@@ -117,7 +152,7 @@ export const scrollToTop = (config = defaultScrollConfig) => {
 // We set custom ones first in the list.
 export const getItemLabel = itemData =>
   itemData.custom_description || itemData.long_description ||
-  itemData.description || itemData.code;
+  itemData.description || itemData.code || itemData.name;
 
 // abcde 4 // a...
 // Shortens strings to varying lengths
@@ -202,11 +237,11 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 // Format the date into our preferred format.
 // We can take any valid date and convert it into M.D.YYYY format, or any
 // format provided with the dateFormat param.
-export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
+export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
     const formattedDate = format(date, dateFormat);
-    // and finally return the formatte date
+    // and finally return the formatted date
     return formattedDate;
   }
   return null;
@@ -214,7 +249,7 @@ export const formatDate = (date, dateFormat = 'M.D.YYYY') => {
 
 // Prefix asset paths with the PUBLIC_URL
 export const getAssetPath = strAssetPath =>
-  `${process.env.PUBLIC_URL}${strAssetPath}`;
+  `${process.env.PUBLIC_URL}${strAssetPath}`.replace('//', '/');
 
 // Filter by objects that contain a specified prop(s) that match a string.
 // Check if any of "array"'s objects' "props" contain "keyword"
@@ -240,10 +275,36 @@ export const filterByProps = (keyword, props = [], array = []) => {
   return array;
 };
 
-// focus an element on the page based on its ID
-export const focusById = (id) => {
-  const element = document.getElementById(id);
-  if (element) { element.focus(); }
+// Focus an element on the page based on its ID. Pass an optional, positive timeout number to
+// execute the focus within a timeout.
+export const focusById = (id, timeout) => {
+  let element = document.getElementById(id);
+  if (!timeout) {
+    if (element) { element.focus(); }
+  } else {
+    setTimeout(() => {
+      element = document.getElementById(id);
+      if (element) {
+        element.focus();
+      }
+    }, timeout);
+  }
+};
+
+// Determine which header type to focus. We always have a page title h1, so we
+// search for 1. The second h1, 2. the first h2, 3. the first h3, and focus which ever
+// is found first.
+export const focusByFirstOfHeader = (timeout = 1) => {
+  setTimeout(() => {
+    let element = document.getElementsByTagName('h1');
+    if (element) { element = element[1]; }
+    if (!element) { element = document.getElementsByTagName('h2')[0]; }
+    if (!element) { element = document.getElementsByTagName('h3')[0]; }
+    if (element) { element.setAttribute('tabindex', '-1'); }
+    if (element) {
+      element.focus();
+    }
+  }, timeout);
 };
 
 // Give objects in an array the necessary value and label props needed when
@@ -276,26 +337,8 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 // obj should be an object, such as { a: { b: 1, c: { d: 2 } } }
 // path should be a string to the desired path - "a.b.c.d"
 // defaultToReturn should be the default value you want to return if the traversal fails
-export const propOrDefault = (obj, path, defaultToReturn = null) => {
-  // split the path into individual strings
-  const args = path.split('.');
-
-  let valueToReturn = obj;
-
-  // function to determine if object contains the next i property
-  const returnSubProp = i => Object.prototype.hasOwnProperty.call(valueToReturn, args[i]);
-
-  // iterate through each arg and change valueToReturn to the next i property if it exists,
-  // otherwise return the defaultToReturn
-  for (let i = 0; i < args.length; i += 1) {
-    if (valueToReturn && returnSubProp(i)) {
-      valueToReturn = valueToReturn[args[i]];
-    } else if (!valueToReturn || !returnSubProp(i)) {
-      return defaultToReturn;
-    }
-  }
-  return valueToReturn;
-};
+export const propOrDefault = (obj, path, defaultToReturn = null) =>
+  get(obj, path, defaultToReturn);
 
 // Return the correct object from the bidStatisticsArray.
 // If it doesn't exist, return an empty object.
@@ -325,7 +368,8 @@ export const userHasPermissions = (permissionsToCheck = [], userPermissions = []
 // found across the different saved search objects.
 // See Constants/PropTypes SAVED_SEARCH_OBJECT
 export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
-  const clonedSavedSearches = cloneDeep(savedSearchesObject.results);
+  const clonedSavedSearchesObject = cloneDeep(savedSearchesObject);
+  const clonedSavedSearches = clonedSavedSearchesObject.results;
   const mappedSearchTerms = clonedSavedSearches.slice().map(s => s.filters);
   const mappedSearchTermsFormatted = mappedSearchTerms.map((m) => {
     const filtered = m;
@@ -335,11 +379,14 @@ export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
 
   function merge(...rest) {
     return [].reduce.call(rest, (acc, x) => {
-      Object.keys(x).forEach((k) => {
-        acc[k] = (acc[k] || []).concat(x[k]);
-        acc[k] = acc[k].filter((item, index, self) => self.indexOf(item) === index);
+      const acc$ = merge$({}, acc);
+
+      keys(x).forEach((k) => {
+        acc$[k] = (acc$[k] || []).concat(x[k]);
+        acc$[k] = acc$[k].filter((item, index, self) => self.indexOf(item) === index);
       });
-      return acc;
+
+      return acc$;
     }, {});
   }
 
@@ -371,6 +418,11 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 
   const arrayToReturn = [];
 
+  // Push the keyword search, since it won't match up with a real filter
+  if (savedSearchObject.q) {
+    arrayToReturn.push(savedSearchObject.q);
+  }
+
   searchKeys.forEach((s) => {
     clonedSearchObject[s].forEach((c) => {
       const foundParam = mappedParams.find(m => m.selectionRef === s && m.codeRef === c);
@@ -381,4 +433,33 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
   });
 
   return arrayToReturn;
+};
+
+export const getPostName = (post, defaultValue = null) => {
+  if (propOrDefault(post, 'location.city')) {
+    if (propOrDefault(post, 'location.country') === 'United States') {
+      return `${post.location.city}, ${post.location.state}`;
+    }
+    return `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
+  } else if (propOrDefault(post, 'code')) {
+    return post.code;
+  }
+  return defaultValue;
+};
+
+// returns the base application path,
+// ie, https://hostname:8080/PUBLIC_URL/
+export const getApplicationPath = () => `${window.location.origin}${process.env.PUBLIC_URL}`;
+
+// Adds spaces between position number characters so that it's accessible for screen readers.
+// Based on this accessibility feedback:
+// When a letter is used in the position number, such as S7250404,
+// the screen reader reads the number as a full-length numeral
+// (i.e., "S. 7 million two hundred thousand ….). This can confuse or disorient the user as
+// they navigate and search for positions.
+export const getAccessiblePositionNumber = (positionNumber) => {
+  if (positionNumber) {
+    return positionNumber.split('').join(' ');
+  }
+  return null;
 };

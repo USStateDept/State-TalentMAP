@@ -1,7 +1,6 @@
 .unstyled-button {
   -moz-appearance: unset;
   -webkit-appearance: unset;
-  appearance: unset;
   background-color: transparent;
   border: 0;
   border-radius: 0;
@@ -136,6 +135,12 @@
 }
 
 .favorite-container {
+  &.usa-button {
+    .fa {
+      color: $color-white;
+    }
+  }
+
   .fa {
     color: $blue-primary;
   }
@@ -154,5 +159,21 @@
 .link-button-wrapper {
   a {
     color: $color-white;
+  }
+}
+
+.post-data-button {
+  .fa {
+    margin-right: .5em;
+  }
+}
+
+.button-back-link {
+  font-size: 1.4rem;
+  margin-bottom: 2.5rem;
+  margin-top: 2.5rem;
+
+  .fa {
+    margin-right: 5px;
   }
 }

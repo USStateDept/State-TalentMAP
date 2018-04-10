@@ -16,8 +16,10 @@ import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-import { getAssetPath, propOrDefault } from '../../utilities';
+import { getAssetPath, propOrDefault, focusByFirstOfHeader } from '../../utilities';
 import MediaQuery from '../MediaQuery';
+import BetaHeader from './BetaHeader';
+import InteractiveElement from '../InteractiveElement';
 
 export class Header extends Component {
   constructor(props) {
@@ -117,12 +119,22 @@ export class Header extends Component {
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
     const searchBarVisibilityClass = showResultsSearchHeaderClass ? 'search-bar-visible' : 'search-bar-hidden';
 
-    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute();
+    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute()
+      && showResultsSearchHeaderClass;
 
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
-        <header className="usa-header usa-header-extended tm-header" role="banner">
+        <InteractiveElement
+          className="usa-skipnav"
+          onClick={() => focusByFirstOfHeader()}
+          role="link"
+        >
+          Skip to main content
+        </InteractiveElement>
+        <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
+          <ToggleContent />
           <GovBanner />
+          <BetaHeader />
           <div className="usa-navbar">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">

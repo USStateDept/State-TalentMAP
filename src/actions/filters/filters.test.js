@@ -72,20 +72,6 @@ const items = {
       data: [
       ],
     },
-    {
-      item: {
-        title: 'Mission',
-        sort: 1000,
-        bool: false,
-        description: 'mission',
-        endpoint: 'country/?limit=7',
-        selectionRef: ENDPOINT_PARAMS.mission,
-        choices: [
-        ],
-      },
-      data: [
-      ],
-    },
   ],
 };
 
@@ -100,23 +86,36 @@ describe('async actions', () => {
   };
 
   beforeEach(() => {
-    const skills = { count: 2,
-      results: [{ id: 2, code: '0010', description: 'EXECUTIVE (PAS)' },
-    { id: 3, code: '0020', description: 'EXECUTIVE (CAREER)' }] };
-
-    const grades = { count: 2, results: [{ id: 2, code: '00' }, { id: 3, code: '01' }] };
-
-    const regions = { count: 1, results: [{ long_description: 'test', short_description: 'test' }] };
-
-    const missions = { count: 1,
+    const skills = {
+      count: 2,
       results: [
         {
-          id: 1,
-          code: 'AFG',
-          short_code: 'AF',
-          location_prefix: 'AF',
-          name: 'Islamic Republic of Afghanistan',
-          short_name: 'Afghanistan',
+          id: 2,
+          code: '0010',
+          description: 'EXECUTIVE (PAS)',
+        },
+        {
+          id: 3,
+          code: '0020',
+          description: 'EXECUTIVE (CAREER)',
+        },
+      ],
+    };
+
+    const grades = {
+      count: 2,
+      results: [
+        { id: 2, code: '00' },
+        { id: 3, code: '01' },
+      ],
+    };
+
+    const regions = {
+      count: 1,
+      results: [
+        {
+          long_description: 'test',
+          short_description: 'test',
         },
       ],
     };
@@ -151,14 +150,6 @@ describe('async actions', () => {
 
     mockAdapter.onGet('http://localhost:8000/api/v1/grade/').reply(200,
       grades,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/?limit=7').reply(200,
-      missions,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/country/1/').reply(200,
-      missions.results[0],
     );
 
     mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/?limit=7').reply(200,

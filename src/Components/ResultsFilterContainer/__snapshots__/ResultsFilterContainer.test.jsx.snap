@@ -8,12 +8,12 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
     className="filter-container-bottom"
   >
     <div
-      className="filter-control-container"
+      className="usa-grid-full filter-control-container"
     >
       <div
         className="filter-control-left"
       >
-        Select Filter
+        Select Filter:
       </div>
       <div
         className="filter-control-right"
@@ -23,7 +23,6 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
         />
       </div>
     </div>
-    <br />
     <div
       className="usa-grid-full search-filters-container"
     >

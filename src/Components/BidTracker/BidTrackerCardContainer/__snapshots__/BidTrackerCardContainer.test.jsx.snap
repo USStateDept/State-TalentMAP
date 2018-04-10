@@ -28,7 +28,13 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "position_number": "10035561",
           "post": Object {
             "id": 199,
-            "location": "Curacao",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
           },
           "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
           "title": "POLITICAL/ECONOMIC OFFICER",
@@ -63,7 +69,9 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "cdo": Object {
           "email": "shadtrachl@state.gov",
           "first_name": "Leah",
+          "initials": "LS",
           "last_name": "Shadtrach",
+          "username": "shadtrachl",
         },
         "display_name": "John",
         "favorite_positions": Array [
@@ -78,7 +86,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         ],
         "grade": "03",
         "id": 1,
-        "intials": "JD",
+        "initials": "JD",
         "is_cdo": false,
         "skills": Array [
           Object {
@@ -97,6 +105,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "user": Object {
           "email": "doej@state.gov",
           "first_name": "John",
+          "initials": "JD",
           "last_name": "Doe",
           "username": "jdoe",
         },
@@ -133,7 +142,13 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "position_number": "10035561",
           "post": Object {
             "id": 199,
-            "location": "Curacao",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
           },
           "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
           "title": "POLITICAL/ECONOMIC OFFICER",
@@ -185,7 +200,13 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "position_number": "10035561",
           "post": Object {
             "id": 199,
-            "location": "Curacao",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
           },
           "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
           "title": "POLITICAL/ECONOMIC OFFICER",

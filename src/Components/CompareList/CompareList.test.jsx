@@ -7,43 +7,46 @@ import CompareList from './CompareList';
 import resultsObject from '../../__mocks__/resultsObject';
 
 describe('CompareListComponent', () => {
-  let compare = null;
-  let wrapper = null;
-
-  beforeEach(() => {
-    compare = TestUtils.renderIntoDocument(<MemoryRouter>
-      <CompareList compare={resultsObject.results} />
-    </MemoryRouter>);
-  });
-
+  const props = {
+    goBackLink: { text: 'Go back to search results' },
+  };
   it('is defined', () => {
-    expect(compare).toBeDefined();
+    const wrapper = TestUtils.renderIntoDocument(<MemoryRouter>
+      <CompareList {...props} compare={resultsObject.results} />
+    </MemoryRouter>);
+    expect(wrapper).toBeDefined();
   });
 
   it('can receive props', () => {
-    wrapper = shallow(<CompareList compare={resultsObject.results} />);
+    const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);
     expect(wrapper.instance().props.compare[0].id).toBe(6);
   });
 
+  it('displays the Go Back button if goBackLink.text exists', () => {
+    const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);
+    expect(wrapper.find('.button-back-link').exists()).toBe(true);
+  });
+
   it('displays the comparison list when isLoading is false', () => {
-    wrapper = shallow(<CompareList compare={resultsObject.results} isLoading={false} />);
+    const wrapper = shallow(
+      <CompareList {...props} compare={resultsObject.results} isLoading={false} />);
     expect(wrapper.find('.comparison-table-container').exists()).toBe(true);
     expect(wrapper.find('Spinner').exists()).toBe(false);
   });
 
   it('displays the Spinner when isLoading is true', () => {
-    wrapper = shallow(<CompareList compare={resultsObject.results} isLoading />);
+    const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} isLoading />);
     expect(wrapper.find('.comparison-table-container').exists()).toBe(false);
     expect(wrapper.find('Spinner').exists()).toBe(true);
   });
 
   it('matches snapshot', () => {
-    wrapper = shallow(<CompareList compare={resultsObject.results} />);
+    const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot when isLoading is true', () => {
-    wrapper = shallow(<CompareList compare={resultsObject.results} isLoading />);
+    const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} isLoading />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

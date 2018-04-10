@@ -1,210 +1,79 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
-import TextEditor from '../TextEditor';
-import PositionTitleSubDescription from '../PositionTitleSubDescription';
-import EditContentButton from '../EditContentButton';
-import { POSITION_DETAILS, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
+import Helmet from 'react-helmet';
 import OBCUrl from '../OBCUrl';
-import { NO_POSITION_WEB_SITE, NO_POSITION_POC, NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
-import { getAssetPath, shortenString, propOrDefault } from '../../utilities';
+import Favorite from '../Favorite/Favorite';
+import ViewPostDataButton from '../ViewPostDataButton';
+import { POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
+import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
+import { NO_POST } from '../../Constants/SystemMessages';
 
-const seal = getAssetPath('/assets/img/rsz_dos-seal-bw.png');
+const seal = getAssetPath('/assets/img/us-flag.jpg');
 
-class PositionTitle extends Component {
-  constructor(props) {
-    super(props);
-    this.toggleWebsiteEditor = this.toggleWebsiteEditor.bind(this);
-    this.togglePocEditor = this.togglePocEditor.bind(this);
-    this.toggleDescriptionEditor = this.toggleDescriptionEditor.bind(this);
-    this.submitWebsiteEdit = this.submitWebsiteEdit.bind(this);
-    this.submitPocEdit = this.submitPocEdit.bind(this);
-    this.submitDescriptionEdit = this.submitDescriptionEdit.bind(this);
-    this.state = {
-      shouldShowWebsiteEditor: { value: false },
-      shouldShowPocEditor: { value: false },
-      shouldShowDescriptionEditor: { value: false },
-      newWebsiteContent: { value: null },
-      newPocContent: { value: null },
-      newDescriptionContent: { value: null },
-    };
-  }
-
-  toggleWebsiteEditor() {
-    // reset any alert messages
-    this.props.resetDescriptionEditMessages();
-    const { shouldShowWebsiteEditor } = this.state;
-    shouldShowWebsiteEditor.value = !shouldShowWebsiteEditor.value;
-    this.setState({ shouldShowWebsiteEditor });
-  }
-
-  togglePocEditor() {
-    // reset any alert messages
-    this.props.resetDescriptionEditMessages();
-    const { shouldShowPocEditor } = this.state;
-    shouldShowPocEditor.value = !shouldShowPocEditor.value;
-    this.setState({ shouldShowPocEditor });
-  }
-
-  toggleDescriptionEditor() {
-    // reset any alert messages
-    this.props.resetDescriptionEditMessages();
-    const { shouldShowDescriptionEditor } = this.state;
-    shouldShowDescriptionEditor.value = !shouldShowDescriptionEditor.value;
-    this.setState({ shouldShowDescriptionEditor });
-  }
-
-  submitWebsiteEdit(content) {
-    const { newWebsiteContent } = this.state;
-    newWebsiteContent.value = content;
-    this.setState({ newWebsiteContent });
-    this.props.editWebsiteContent(content);
-    this.toggleWebsiteEditor();
-  }
-
-  submitPocEdit(content) {
-    const { newPocContent } = this.state;
-    newPocContent.value = content;
-    this.setState({ newPocContent });
-    this.props.editPocContent(content);
-    this.togglePocEditor();
-  }
-
-  submitDescriptionEdit(content) {
-    const { newDescriptionContent } = this.state;
-    newDescriptionContent.value = content;
-    this.setState({ newDescriptionContent });
-    this.props.editDescriptionContent(content);
-    this.toggleDescriptionEditor();
-  }
-
-  render() {
-    const { details, goBackLink } = this.props;
-    const { shouldShowWebsiteEditor, shouldShowPocEditor, shouldShowDescriptionEditor,
-      newWebsiteContent, newPocContent, newDescriptionContent } = this.state;
-
-    // For each editable section, we need to set three variables:
-    // 1. To check if it exists (not null)
-    // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
-    // 3. A formatted version for public viewing
-
-    const description = propOrDefault(details, 'description.content');
-    const plainTextDescription = description ? newDescriptionContent.value || description : '';
-    const formattedDescription = description ?
-      shortenString(plainTextDescription) :
-      NO_POSITION_DESCRIPTION;
-
-    const postWebsite = propOrDefault(details, 'description.website');
-    const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : '';
-    const formattedPostWebsite = postWebsite ?
-      <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
-    NO_POSITION_WEB_SITE;
-
-    const pointOfContact = propOrDefault(details, 'description.point_of_contact');
-    const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : '';
-    const formattedPointOfContact = pointOfContact ?
-      <a href={`tel:${plainTextPointOfContact}`}>{plainTextPointOfContact}</a> :
-    NO_POSITION_POC;
-
-    const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
-
-    const obcId = propOrDefault(details, 'post.obc_id');
-
-    return (
-      <div className="position-details-header-container">
-        <div className="position-details-header">
-          <div className="usa-grid positions-details-header-grid">
-            <div className="usa-width-one-half">
-              <div className="position-details-header-back">
-                {
-                  goBackLink.text && // if goBackLink.text is defined, render...
-                  <div>
-                    <FontAwesome name="arrow-left" />
-                        &nbsp;
-                    <a
-                      className="back-link"
-                      tabIndex="0"
-                      role="link"
-                      onClick={() => window.history.back()}
-                    >
-                      {goBackLink.text}
-                    </a>
-                  </div>
-                }
+const PositionTitle = ({ details, toggleFavorite, userProfile,
+  userProfileFavoritePositionIsLoading }) => {
+  const obcId = propOrDefault(details, 'post.obc_id');
+  return (
+    <div className="position-details-header-container">
+      <Helmet>
+        <title>{details.title}</title>
+        <meta property="og:title" content={`${details.title} ${details.position_number}`} />
+        <meta property="og:description" content={details.description.content} />
+        <meta property="og:url" content={window.location.href} />
+      </Helmet>
+      <div className="position-details-header">
+        <div className="usa-grid positions-details-header-grid">
+          <div className="usa-width-one-half">
+            <div className="usa-grid-full">
+              <div className="usa-width-two-thirds header-title-container">
+                <div className="position-details-header-title">
+                  <h1>{details.title}</h1>
+                </div>
+                <div className="post-title">
+                  Post: {getPostName(details.post, NO_POST)}
+                  { obcId && <span> (<OBCUrl id={obcId} />)</span> }
+                </div>
               </div>
-              <div className="position-details-header-title">
-                <strong>Position Number: {details.position_number}</strong>
+              <div className="usa-width-one-third title-actions-section">
+                <Favorite
+                  onToggle={toggleFavorite}
+                  refKey={details.id}
+                  compareArray={userProfile.favorite_positions}
+                  isLoading={userProfileFavoritePositionIsLoading}
+                  useLongText
+                  useSpinnerWhite
+                />
               </div>
-              <div className="position-details-header-body editable-position-field">
-                <strong>Description: </strong>
-                {
-                  !shouldShowDescriptionEditor.value &&
-                    <span className="usa-grid-full">
-                      {formattedDescription}
-                      {
-                        isAllowedToEdit &&
-                          <EditContentButton
-                            onToggle={this.toggleDescriptionEditor}
-                          />
-                      }
-                    </span>
-                }
-                {
-                  shouldShowDescriptionEditor.value &&
-                  <TextEditor
-                    initialText={plainTextDescription}
-                    onSubmitText={this.submitDescriptionEdit}
-                    cancel={this.toggleDescriptionEditor}
-                  />
-                }
-              </div>
-              <PositionTitleSubDescription
-                title="Post website"
-                formattedContent={formattedPostWebsite}
-                plainContent={plainTextPostWebsite}
-                shouldShowEditor={shouldShowWebsiteEditor.value}
-                onSubmitText={this.submitWebsiteEdit}
-                toggleEditor={this.toggleWebsiteEditor}
-                isAllowedToEdit={isAllowedToEdit}
-              />
-              <PositionTitleSubDescription
-                title="Point of Contact"
-                formattedContent={formattedPointOfContact}
-                plainContent={plainTextPointOfContact}
-                shouldShowEditor={shouldShowPocEditor.value}
-                onSubmitText={this.submitPocEdit}
-                toggleEditor={this.togglePocEditor}
-                isAllowedToEdit={isAllowedToEdit}
-              />
             </div>
           </div>
-          <img
-            className="position-details-header-image"
-            alt="department of state seal"
-            src={seal}
-          />
         </div>
-        <div className="offset-bid-button-container">
-          <div className="offset-bid-button-container-count">
-            { obcId && <OBCUrl id={obcId} /> }
-          </div>
+        <img
+          className="position-details-header-image"
+          alt="United States flag background"
+          src={seal}
+        />
+      </div>
+      <div className="offset-bid-button-container">
+        <div className="offset-bid-button-container-button">
+          { !!obcId && <ViewPostDataButton id={obcId} /> }
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
-  goBackLink: GO_BACK_TO_LINK.isRequired,
-  editWebsiteContent: PropTypes.func.isRequired,
-  editPocContent: PropTypes.func.isRequired,
-  editDescriptionContent: PropTypes.func.isRequired,
-  resetDescriptionEditMessages: PropTypes.func.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+  userProfileFavoritePositionIsLoading: PropTypes.bool,
+  userProfile: USER_PROFILE,
 };
 
 PositionTitle.defaultProps = {
   details: null,
+  bidListToggleIsLoading: false,
+  userProfileFavoritePositionIsLoading: false,
+  userProfile: {},
 };
 
 export default PositionTitle;

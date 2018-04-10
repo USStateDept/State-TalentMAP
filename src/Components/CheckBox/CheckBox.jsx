@@ -10,6 +10,12 @@ class CheckBox extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ checked: { value: nextProps.value } });
+    }
+  }
+
   onCheck() {
     const { checked } = this.state;
     checked.value = !checked.value;
@@ -19,10 +25,10 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { id, label, title, name, labelSrOnly, small } = this.props;
+    const { id, label, title, name, labelSrOnly, small, className, disabled } = this.props;
     const { checked } = this.state;
     return (
-      <div className={`usa-grid-full tm-checkbox ${small ? 'tm-checkbox-small' : ''}`}>
+      <div className={`usa-grid-full ${className} tm-checkbox ${small ? 'tm-checkbox-small' : ''}`}>
         <input
           type="checkbox"
           id={id}
@@ -31,6 +37,7 @@ class CheckBox extends Component {
           value={checked.value}
           onChange={() => this.onCheck()}
           checked={checked.value}
+          disabled={disabled}
         />
         <label htmlFor={id}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
       </div>
@@ -47,6 +54,8 @@ CheckBox.propTypes = {
   onCheckBoxClick: PropTypes.func,
   labelSrOnly: PropTypes.bool,
   small: PropTypes.bool,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {
@@ -55,6 +64,8 @@ CheckBox.defaultProps = {
   onCheckBoxClick: EMPTY_FUNCTION,
   labelSrOnly: false,
   small: false,
+  className: '',
+  disabled: false,
 };
 
 export default CheckBox;

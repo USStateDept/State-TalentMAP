@@ -6,50 +6,64 @@ import resultsObject from '../../__mocks__/resultsObject';
 import bidListObject from '../../__mocks__/bidListObject';
 
 describe('FavoritePositionsComponent', () => {
+  const props = {
+    favorites: resultsObject,
+    toggleFavorite: () => {},
+    toggleFavoritePositionIsLoading: false,
+    toggleFavoritePositionHasErrored: false,
+    favoritePositionsIsLoading: false,
+    favoritePositionsHasErrored: false,
+    bidList: bidListObject.results,
+    toggleBid: () => {},
+    onSortChange: () => {},
+  };
+
   it('is defined', () => {
     const wrapper = shallow(
-      <FavoritePositions
-        favorites={resultsObject}
-        toggleFavorite={() => {}}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
-        favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        bidList={bidListObject.results}
-        toggleBid={() => {}}
-      />,
+      <FavoritePositions {...props} />,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('can receive props', () => {
     const wrapper = shallow(
-      <FavoritePositions
-        favorites={resultsObject}
-        toggleFavorite={() => {}}
-        toggleFavoritePositionIsLoading
-        toggleFavoritePositionHasErrored={false}
-        favoritePositionsIsLoading
-        favoritePositionsHasErrored={false}
-        bidList={bidListObject.results}
-        toggleBid={() => {}}
-      />,
+      <FavoritePositions {...props} />,
     );
     expect(wrapper.instance().props.favorites).toBe(resultsObject);
   });
 
-  it('matches snapshot', () => {
+  it('displays an alert if there are no positions', () => {
     const wrapper = shallow(
       <FavoritePositions
-        favorites={resultsObject}
-        toggleFavorite={() => {}}
-        toggleFavoritePositionIsLoading={false}
-        toggleFavoritePositionHasErrored={false}
+        {...props}
+        favorites={{ results: [] }}
         favoritePositionsIsLoading={false}
-        favoritePositionsHasErrored={false}
-        bidList={bidListObject.results}
-        toggleBid={() => {}}
       />,
+    );
+    expect(wrapper.find('NoFavorites').exists()).toBe(true);
+  });
+
+  it('renders the Spinner when loading', () => {
+    const wrapper = shallow(
+      <FavoritePositions {...props} />,
+    );
+    expect(wrapper.instance().props.favorites).toBe(resultsObject);
+  });
+
+  it('renders the Spinner when loading', () => {
+    const wrapper = shallow(
+      <FavoritePositions
+        {...props}
+        favoritePositionsIsLoading
+        favoritePositionsHasErrored={false}
+      />,
+    );
+    expect(wrapper.find('Spinner').exists()).toBe(true);
+  });
+
+  it('matches snapshot', () => {
+    const wrapper = shallow(
+      <FavoritePositions {...props} />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

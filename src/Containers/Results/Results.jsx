@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { withRouter } from 'react-router';
 import queryString from 'query-string';
+import debounce from 'lodash/debounce';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
@@ -14,12 +16,14 @@ import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS,
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
 USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
+
+const DEFAULT_PAGE_NUMBER = 1;
 
 class Results extends Component {
   constructor(props) {
@@ -33,9 +37,12 @@ class Results extends Component {
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: '' },
       defaultPageSize: { value: 0 },
-      defaultPageNumber: { value: 1 },
+      defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
     };
+
+    // Create an instance attribute for storing a reference to debounced requests
+    this.debounced = debounce(() => {});
   }
 
   componentWillMount() {
@@ -47,19 +54,6 @@ class Results extends Component {
       onNavigateTo(PUBLIC_ROOT);
     } else {
       this.createQueryParams();
-    }
-  }
-
-  componentDidMount() {
-    // Check if the user came from another page.
-    // If so, scroll the user to the top of the page.
-    const { routerLocations } = this.props;
-    const rLength = routerLocations.length;
-    if (rLength > 1) {
-      // compare the most recent and second-most recent pathnames
-      if (routerLocations[rLength - 1].pathname !== routerLocations[rLength - 2].pathname) {
-        window.scrollTo(0, 0);
-      }
     }
   }
 
@@ -116,7 +110,9 @@ class Results extends Component {
     // finally, turn the object back into a string
     const newQueryString = queryString.stringify(parsedQuery);
     // check if there were actually any changes (example - two fast clicks of a pill)
-    if (newQueryString !== this.state.query.value) { this.updateHistory(newQueryString); }
+    if (newQueryString !== this.state.query.value) {
+      this.updateHistory(newQueryString);
+    }
   }
 
   createQueryParams() {
@@ -133,7 +129,7 @@ class Results extends Component {
       parseInt(limit, 10) || POSITION_PAGE_SIZES.defaultSort;
     // set our default page number
     defaultPageNumber.value =
-      parseInt(page, 10) || defaultPageNumber.value;
+      parseInt(page, 10) || DEFAULT_PAGE_NUMBER;
     // set our default keyword (?q=...)
     defaultKeyword.value =
       q || defaultKeyword.value;
@@ -165,8 +161,12 @@ class Results extends Component {
 
   // updates the history by passing a string of query params
   updateHistory(q) {
-    this.context.router.history.push({
-      search: q,
+    this.setState({ query: { value: q } }, () => {
+      window.history.pushState('', '', `/results?${q}`);
+      this.debounced.cancel();
+      // add debounce so that quickly selecting multiple filters is smooth
+      this.debounced = debounce(() => this.createQueryParams(), this.props.debounceTimeInMs);
+      this.debounced();
     });
   }
 
@@ -251,6 +251,10 @@ class Results extends Component {
   }
 }
 
+Results.contextTypes = {
+  router: PropTypes.object,
+};
+
 Results.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   fetchData: PropTypes.func.isRequired,
@@ -262,7 +266,6 @@ Results.propTypes = {
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
@@ -282,6 +285,7 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
+  debounceTimeInMs: PropTypes.number,
 };
 
 Results.defaultProps = {
@@ -292,7 +296,6 @@ Results.defaultProps = {
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
-  routerLocations: [],
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
@@ -310,6 +313,7 @@ Results.defaultProps = {
   postSearchIsLoading: false,
   postSearchHasErrored: false,
   shouldShowSearchBar: true,
+  debounceTimeInMs: 50,
 };
 
 Results.contextTypes = {
@@ -344,7 +348,7 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
   fetchFilters: (items, queryParams, savedFilters) =>
-    dispatch(filtersFetchData(items, queryParams, savedFilters)),
+    dispatch(filtersFetchData(items, queryParams, savedFilters, true)),
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) =>
@@ -359,4 +363,4 @@ export const mapDispatchToProps = dispatch => ({
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

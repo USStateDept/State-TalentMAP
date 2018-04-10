@@ -35,6 +35,23 @@ describe('FavoritesContainer', () => {
     wrapper.instance().onToggleFavorite();
     sinon.assert.calledOnce(spy);
   });
+
+  it('can call the getSortedFavorites function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <FavoritesContainer.WrappedComponent
+        fetchData={spy}
+        toggleFavorite={() => {}}
+        bidList={bidListObject}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
+      />,
+    );
+    wrapper.instance().getSortedFavorites({ target: { value: 'title' } });
+    // fetchData is called once at mount,
+    // and should be called twice after getSortedFavorites is called.
+    sinon.assert.calledTwice(spy);
+  });
 });
 
 describe('mapDispatchToProps', () => {

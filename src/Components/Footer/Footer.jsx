@@ -18,7 +18,7 @@ const Footer = () => (
                 <Link className="usa-footer-primary-link" to="/">Home</Link>
               </li>
               <li className="usa-width-one-sixth usa-footer-primary-content">
-                <a className="usa-footer-primary-link" href="https://github.com/18F/State-TalentMAP">About</a>
+                <a className="usa-footer-primary-link" href={getAssetPath('/about')}>About</a>
               </li>
             </ul>
           </nav>
@@ -26,8 +26,8 @@ const Footer = () => (
         <div className="usa-width-one-half">
           <div className="questions-container">
             <span className="help-text">Need Help? Contact </span>
-            | <a href="mailto:TeamTalentMapOutreach@Dos.gov">
-              TeamTalentMapOutreach@Dos.gov
+            | <a href="mailto:TalentMAP@State.gov">
+              TalentMAP@State.gov
             </a>
           </div>
         </div>

@@ -6,9 +6,15 @@ import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
 import InteractiveElement from '../../InteractiveElement';
+import { getAssetPath } from '../../../utilities';
 
-const DesktopNav = ({ isLoggedIn, shouldShowSearchBar,
-userProfile, logout, toggleSearchVisibility }) => (
+const DesktopNav = ({
+  isLoggedIn,
+  shouldShowSearchBar,
+  userProfile,
+  logout,
+  toggleSearchVisibility,
+}) => (
   <div className="navigation-container">
     <div className="nav-link-container header-nav-desktop desktop-nav-only">
       {
@@ -30,7 +36,7 @@ userProfile, logout, toggleSearchVisibility }) => (
       <div className="header-nav-link-container">
         <div className="header-nav-link">
           <div className="header-nav-link-text about-text">
-            <a href="https://github.com/18F/State-TalentMAP">About</a>
+            <a href={getAssetPath('/about')}>About</a>
           </div>
         </div>
       </div>
@@ -39,10 +45,11 @@ userProfile, logout, toggleSearchVisibility }) => (
       <div className="header-nav-link-container account-container">
         <div className="header-nav-link">
           {
-            isLoggedIn &&
+            (isLoggedIn && userProfile.user) &&
             <AccountDropdown
               userProfile={userProfile}
               logoutRequest={logout}
+              shouldDisplayName
             />
           }
         </div>

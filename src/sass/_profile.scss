@@ -1,7 +1,4 @@
-// scss-lint:disable SelectorDepth
-// scss-lint:disable NestingDepth
 // Nesting depth was needed, otherwise styles broke if placed outside of parent class (.expandable-link)
-
 .profile-page {
   border: solid 0 1px 1px 1px $color-gray-light;
   display: flex;
@@ -22,7 +19,10 @@
 
   .hello-greeting {
     font-family: Merriweather;
+    font-size: 1em;
+    font-weight: normal;
     margin-bottom: 10px;
+    margin-top: 5px;
   }
 
   .usa-grid-full {
@@ -31,6 +31,22 @@
 
   .favorite-positions-container {
     position: relative;
+
+    .favorites-top-section {
+      margin-bottom: 1.2em;
+    }
+
+    .condensed-card {
+      margin-bottom: 35px;
+    }
+
+    .favorites-title-container {
+      float: left;
+    }
+
+    .results-dropdown {
+      float: right;
+    }
   }
 
   .bidder-portfolio-container {
@@ -71,11 +87,37 @@
 
   .saved-search-card {
     min-height: 50px;
-    padding: 5px 10px;
+    padding: 5px 15px;
+
+    .usa-width-one-half {
+      dd {
+        padding-left: 1.5rem;
+      }
+    }
   }
 
   .saved-searches-container {
     position: relative;
+
+    .searches-top-section {
+      margin-bottom: 1em;
+    }
+
+    .searches-title-container {
+      float: left;
+    }
+
+    .usa-form {
+      float: right;
+    }
+
+    .scrollarea {
+      margin-top: 1em;
+
+      .scrollarea-content {
+        padding-right: $scrollbar-width - 2;
+      }
+    }
   }
 
   .bid-list-delete-button-container {
@@ -84,7 +126,6 @@
 
   .profile-content-container {
     background-color: $tm-white-smoke-light;
-    border-left: solid 1px $color-gray-light;
     flex-grow: 1;
     min-height: 700px;
     right: 0;
@@ -119,7 +160,7 @@
   }
 
   .current-user-section {
-    // min-height: 350px;
+    min-height: 350px;
   }
 
   .current-user-section-container:last-child {
@@ -209,6 +250,15 @@
     .fa {
       margin-right: 5px;
     }
+
+    h2 {
+      display: inline-block;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: inherit;
+    }
   }
 
   .dashboard-section-title-small {
@@ -252,11 +302,11 @@
   }
 
   .dashboard-user-profile-picture {
-    border-radius: 75px;
-    height: 100px;
-    margin: 1em 0 2em;
+    display: inline-block;
+    height: $avatar-size;
+    margin: 1em 0;
     vertical-align: middle;
-    width: 100px;
+    width: $avatar-size;
   }
 
   .start-end {
@@ -281,6 +331,10 @@ $padding-no-border: $total-padding - $border;
   height: 100%;
   min-width: 200px;
 
+  .fa {
+    color: $blue-primary-darker;
+  }
+
   .fa-container {
     float: left;
     min-width: $total-padding;
@@ -303,8 +357,8 @@ $padding-no-border: $total-padding - $border;
   }
 
   .link-highlighted {
-    background-color: $color-blue-light;
-    border-left: $border solid $blue-primary;
+    background-color: $tm-white-smoke-light;
+    border-left: $border solid $primary-blue-darker;
 
     .title-container {
       font-weight: bold;
@@ -531,6 +585,8 @@ $padding-no-border: $total-padding - $border;
 }
 
 .saved-search-card {
+  position: relative;
+
   .bid-list-card-title-position {
     font-weight: bold;
     text-transform: uppercase;
@@ -550,6 +606,28 @@ $padding-no-border: $total-padding - $border;
 
   .bid-status-declined {
     color: $alert-red;
+  }
+
+  @media screen and (min-width: $screen-lg-min) {
+    .button-container {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 23.23176% + 2.35765%;
+
+      .button-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+      }
+
+      button {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
   }
 }
 
@@ -574,12 +652,12 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
-  background-color: $tm-navy;
+  background-color: $blue-primary;
   color: $color-white;
   font-size: 1.1em;
   max-height: 450px;
   min-height: 260px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .primary-text {
     text-transform: uppercase;
@@ -587,6 +665,11 @@ $padding-no-border: $total-padding - $border;
 
   .bid-list-content {
     margin-top: 85px;
+    text-align: center;
+  }
+
+  .button-wrapper {
+    display: inline-block;
     text-align: center;
   }
 
@@ -665,6 +748,7 @@ $padding-no-border: $total-padding - $border;
 
 .user-dashboard-main {
   margin-right: 5%;
+  padding-top: 65px;
 }
 
 .profile-section-container {
@@ -709,29 +793,15 @@ $padding-no-border: $total-padding - $border;
   color: $color-white;
   float: left;
   font-size: .8em;
+  font-weight: 300;
+  line-height: 1.8;
   margin: 0 .7em .5em 0;
-  padding: .2em .7em;
+  padding: 2px .7em 0;
 }
 
 .saved-searches-list-profile-container {
   min-height: 260px;
   position: relative;
-
-  .list-transparent {
-    padding-left: .8em;
-
-    .bordered-list-content {
-      border-color: transparent;
-    }
-  }
-
-  li {
-    border-bottom: 1px solid $color-gray-light;
-
-    &:last-child {
-      border: 0;
-    }
-  }
 
   .tm-button-transparent {
     padding: .7em 3em;

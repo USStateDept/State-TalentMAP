@@ -1,5 +1,6 @@
 $condensed-card-margin-bottom: 15px;
 $condensed-card-padding: 9px 20px 9px;
+$condensed-card-data-padding: 15px 20px 9px;
 
 .condensed-card {
 
@@ -85,6 +86,16 @@ $condensed-card-padding: 9px 20px 9px;
 
   .condensed-card-top-header-left {
     float: left;
+
+    h3 {
+      display: inline;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin-bottom: inherit;
+      margin-top: 0;
+    }
   }
 
   .condensed-card-top-header-right {
@@ -99,7 +110,7 @@ $condensed-card-padding: 9px 20px 9px;
 
   .condensed-card-bottom-container {
     background-color: $color-white;
-    padding: $condensed-card-padding;
+    padding: $condensed-card-data-padding;
     padding-bottom: 20px;
     position: relative;
   }

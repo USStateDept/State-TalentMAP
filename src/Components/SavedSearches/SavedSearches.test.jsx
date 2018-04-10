@@ -5,21 +5,28 @@ import SavedSearches from './SavedSearches';
 import searchObjectParent from '../../__mocks__/searchObjectParent';
 
 describe('SavedSearchesComponent', () => {
+  const props = {
+    savedSearches: searchObjectParent,
+    savedSearchesIsLoading: false,
+    savedSearchesHasErrored: false,
+    goToSavedSearch: () => {},
+    deleteSearch: () => {},
+    deleteSavedSearchIsLoading: false,
+    deleteSavedSearchHasErrored: false,
+    deleteSavedSearchSuccess: false,
+    cloneSavedSearchIsLoading: false,
+    cloneSavedSearchHasErrored: false,
+    cloneSavedSearchSuccess: false,
+    cloneSavedSearch: () => {},
+    filtersIsLoading: false,
+    onSortChange: () => {},
+    defaultSort: '',
+  };
+
   it('is defined', () => {
     const wrapper = shallow(
       <SavedSearches
-        savedSearches={searchObjectParent}
-        savedSearchesIsLoading={false}
-        savedSearchesHasErrored={false}
-        goToSavedSearch={() => {}}
-        deleteSearch={() => {}}
-        deleteSavedSearchIsLoading={false}
-        deleteSavedSearchHasErrored={false}
-        deleteSavedSearchSuccess={false}
-        cloneSavedSearchIsLoading={false}
-        cloneSavedSearchHasErrored={false}
-        cloneSavedSearchSuccess={false}
-        cloneSavedSearch={() => {}}
+        {...props}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -28,18 +35,7 @@ describe('SavedSearchesComponent', () => {
   it('can receive props', () => {
     const wrapper = shallow(
       <SavedSearches
-        savedSearches={searchObjectParent}
-        savedSearchesIsLoading
-        savedSearchesHasErrored={false}
-        goToSavedSearch={() => {}}
-        deleteSearch={() => {}}
-        deleteSavedSearchIsLoading={false}
-        deleteSavedSearchHasErrored={false}
-        deleteSavedSearchSuccess={false}
-        cloneSavedSearchIsLoading={false}
-        cloneSavedSearchHasErrored={false}
-        cloneSavedSearchSuccess={false}
-        cloneSavedSearch={() => {}}
+        {...props}
       />,
     );
     expect(wrapper.instance().props.savedSearches.results[0].id)
@@ -49,18 +45,7 @@ describe('SavedSearchesComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(
       <SavedSearches
-        savedSearches={searchObjectParent}
-        savedSearchesIsLoading={false}
-        savedSearchesHasErrored={false}
-        goToSavedSearch={() => {}}
-        deleteSearch={() => {}}
-        deleteSavedSearchIsLoading={false}
-        deleteSavedSearchHasErrored={false}
-        deleteSavedSearchSuccess={false}
-        cloneSavedSearchIsLoading={false}
-        cloneSavedSearchHasErrored={false}
-        cloneSavedSearchSuccess={false}
-        cloneSavedSearch={() => {}}
+        {...props}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

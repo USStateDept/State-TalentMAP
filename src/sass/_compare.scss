@@ -1,10 +1,24 @@
-.compare-card {
-  background-color: $color-gray-lightest;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  padding: 15px 30px;
-}
-
 .comparison-container {
   position: relative;
+
+  .post-data-button {
+    color: $color-white;
+    font-size: .8em;
+    margin-bottom: 0;
+    padding-left: .8em;
+    padding-right: .8em;
+
+    span {
+      text-align: center;
+    }
+  }
+
+  .border-bottom-extension {
+    background: $blue-primary;
+    height: 1px;
+    left: -300px;
+    position: relative;
+    top: -1px;
+    width: 2000px;
+  }
 }

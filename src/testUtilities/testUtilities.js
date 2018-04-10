@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import api from '../api';
 
 // Tests all functions within a mapDispatchToProps function.
 // We take two arguments, one is the entire mapDispatchToProps function, which
@@ -42,7 +42,7 @@ export function testDispatchFunctions(mapDispatchToProps, config = {}) {
 export function setupAsyncMocks() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
-  const mockAdapter = new MockAdapter(axios);
+  const mockAdapter = new MockAdapter(api);
 
   return { mockStore, mockAdapter };
 }

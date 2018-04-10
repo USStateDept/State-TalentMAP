@@ -6,6 +6,7 @@ import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import SavedSearchesListResultsCard from './SavedSearchesListResultsCard';
 import Spinner from '../../Spinner';
+import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filtersIsLoading }) => {
   const savedSearchArray = [];
@@ -15,7 +16,6 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
         savedSearch={savedSearch}
         goToSavedSearch={goToSavedSearch}
         mappedParams={mappedParams}
-        condensedView
         /* pass a parentClassName that we can use from the BorderedList component */
         parentClassName="parent-list-container list-transparent"
       />,
@@ -36,7 +36,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
             {
               savedSearchArray.length === 0 ?
                 <div className="usa-grid-full section-padded-inner-container">
-                  You do not have any saved searches.
+                  <NoSavedSearches />
                 </div>
               :
                 <BorderedList contentArray={savedSearchArray} />

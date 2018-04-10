@@ -74,7 +74,7 @@
 
   .account-container {
     .header-nav-link {
-      top: 26%;
+      top: ($header-desktop-height - $avatar-dropdown-size) / 2;
     }
   }
 
@@ -130,7 +130,7 @@
     }
 
     .usa-navbar {
-      height: 75px;
+      height: $header-desktop-height;
       max-width: 1200px;
       padding-left: 0;
       padding-right: 5px; // handle notification count position
@@ -185,5 +185,14 @@
   // but the user is on the search results page, which has its own search bar.
   .is-on-results-page {
     border-bottom-color: $tm-dark-blue;
+  }
+}
+
+.usa-banner-inner {
+
+  padding-left: 0;
+
+  @media screen and (max-width: $screen-md-max) {
+    padding-left: 20px;
   }
 }

@@ -2,17 +2,34 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shortId from 'shortid';
-import { COMPARE_LIST } from '../../Constants/PropTypes';
+import FontAwesome from 'react-fontawesome';
+import { COMPARE_LIST, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
 import COMPARE_LIMIT from '../../Constants/Compare';
-import { NO_POST, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL, NO_BUREAU, NO_ORG,
-NO_DANGER_PAY, NO_COLA, NO_SKILL, NO_GRADE, NO_REST_RELAXATION } from '../../Constants/SystemMessages';
+import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_USER_LISTED, NO_DATE } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
+import { propOrDefault, formatDate, getPostName } from '../../utilities';
+import ViewPostDataButton from '../ViewPostDataButton';
+import OBCUrl from '../OBCUrl';
 
-const CompareList = ({ compare, isLoading }) => {
+const CompareList = ({ compare, isLoading, goBackLink }) => {
   const compareArray = compare.slice(0, COMPARE_LIMIT);
   return (
-    <div className="usa-grid-full">
+    <div className="usa-grid-full content-container">
+      {
+        goBackLink.text && // if goBackLink.text is defined, render...
+        <div>
+          <button
+            className="button-back-link"
+            tabIndex="0"
+            role="link"
+            onClick={() => window.history.back()}
+          >
+            <FontAwesome name="arrow-left" />
+            {goBackLink.text}
+          </button>
+        </div>
+      }
       <div className="comparison-container">
         {
           isLoading ?
@@ -23,17 +40,18 @@ const CompareList = ({ compare, isLoading }) => {
                 <caption className="usa-sr-only">Position details comparison:</caption>
                 <thead>
                   <tr>
-                    <th scope="row">Position</th>
+                    <th scope="row">
+                      Position
+                      <div className="border-extension border-visible" />
+                    </th>
                     {
                       compareArray.map(c => (
                         <th key={shortId.generate()}>
                           <div className="column-title-main">{c.title}</div>
-                          <div className="column-title-sub">
-                            {c.post && c.post.location ? c.post.location : NO_POST}
-                          </div>
                           <div className="column-title-link">
-                            <Link to={`/details/${c.position_number}`}>Learn more</Link>
+                            <Link to={`/details/${c.position_number}`}>View position details</Link>
                           </div>
+                          <div className="border-extension" />
                         </th>
                       ))
                     }
@@ -41,10 +59,38 @@ const CompareList = ({ compare, isLoading }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">Grade</th>
+                    <th scope="row">
+                      Post
+                      <div className="border-extension-layer-2 border-visible-layer-2" />
+                    </th>
                     {
                       compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.grade || NO_GRADE}</td>
+                        <td key={shortId.generate()}>
+                          {getPostName(c.post, NO_POST)}
+                          {
+                            propOrDefault(c, 'post.obc_id') ?
+                              <ViewPostDataButton id={c.post.obc_id} />
+                            :
+                            null
+                          }
+                          <div className="border-extension-layer-2" />
+                        </td>
+                      ))
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">Skill Code</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>{c.skill || NO_SKILL}</td>
+                      ))
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">Position Number</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>{c.position_number}</td>
                       ))
                     }
                   </tr>
@@ -59,36 +105,22 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Skill Code</th>
+                    <th scope="row">Transfer Eligibility Date</th>
                     {
                       compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.skill || NO_SKILL}</td>
+                        <td key={shortId.generate()}>
+                          {propOrDefault(c, 'current_assignment.estimated_end_date') ? formatDate(c.current_assignment.estimated_end_date) : NO_DATE }
+                        </td>
                       ))
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Overseas</th>
+                    <th scope="row">Incumbent</th>
                     {
                       compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.is_overseas ? 'Yes' : 'No'}</td>
-                      ))
-                    }
-                  </tr>
-                </tbody>
-              </table>
-              <table className="tm-table">
-                <caption className="usa-sr-only">Post details comparison:</caption>
-                <thead className="tm-header-no-columns">
-                  <tr>
-                    <th scope="row">Post</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">Organization</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.organization || NO_ORG}</td>
+                        <td key={shortId.generate()}>
+                          {propOrDefault(c, 'current_assignment.user', NO_USER_LISTED)}
+                        </td>
                       ))
                     }
                   </tr>
@@ -97,35 +129,6 @@ const CompareList = ({ compare, isLoading }) => {
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>{c.bureau || NO_BUREAU}</td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Post Differential</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {c.post && c.post.differential_rate
-                            ? c.post.differential_rate : NO_POST_DIFFERENTIAL}
-                        </td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Danger Pay</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {c.post && c.post.danger_pay ? c.post.danger_pay : NO_DANGER_PAY}
-                        </td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Consumable Allowance</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.post && c.post.has_consumable_allowance ? 'Yes' : 'No'}</td>
                       ))
                     }
                   </tr>
@@ -140,37 +143,30 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Cost of Living Adjustment</th>
+                    <th scope="row">Post Differential</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          {c.post && c.post.cost_of_living_adjustment
-                            ? c.post.cost_of_living_adjustment : NO_COLA}
+                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
                         </td>
                       ))
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Service Needs Differential</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.post && c.post.has_service_needs_differential ? 'Yes' : 'No'}</td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Rest & Relaxation Point</th>
+                    <th scope="row">
+                      Danger Pay
+                    </th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          {c.post && c.post.rest_relaxation_point
-                            ? c.post.rest_relaxation_point : NO_REST_RELAXATION}
+                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
                         </td>
                       ))
                     }
                   </tr>
                 </tbody>
               </table>
+              <div className="border-bottom-extension" />
             </div>
         }
       </div>
@@ -181,6 +177,7 @@ const CompareList = ({ compare, isLoading }) => {
 CompareList.propTypes = {
   compare: COMPARE_LIST,
   isLoading: PropTypes.bool,
+  goBackLink: GO_BACK_TO_LINK.isRequired,
 };
 
 CompareList.defaultProps = {

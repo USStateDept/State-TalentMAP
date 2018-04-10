@@ -13,6 +13,13 @@ class ResultsFilterContainer extends Component {
     this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    if (this.props !== nextProps) {
+      return true;
+    }
+    return false;
+  }
+
   onQueryParamUpdate(e) {
     this.props.onQueryParamUpdate(e);
     this.props.onChildToggle();
@@ -31,13 +38,12 @@ class ResultsFilterContainer extends Component {
     return (
       <div className="filter-container">
         <div className="filter-container-bottom">
-          <div className="filter-control-container">
-            <div className="filter-control-left">Select Filter</div>
+          <div className="usa-grid-full filter-control-container">
+            <div className="filter-control-left">Select Filter:</div>
             <div className="filter-control-right">
               <ResetFilters resetFilters={resetFilters} />
             </div>
           </div>
-          <br />
           <div className="usa-grid-full search-filters-container">
             <SearchFiltersContainer
               filters={filters}

@@ -1,20 +1,19 @@
-// scss-lint:disable SelectorDepth
-// scss-lint:disable NestingDepth
-// Disabling these rules because we want to keep our styles within a single .tm-table class
-
 .tm-table {
   $border-radius: 9px;
   color: $color-gray;
+  font-size: .9em;
+  margin-bottom: 0;
   table-layout: fixed;
   width: 100%;
 
   .column-title-sub,
   .column-title-link {
-    font-size: .8em;
-    font-weight: normal;
+    font-weight: 300;
   }
 
   .column-title-link {
+    font-size: 1.4rem;
+
     a {
       color: $color-white;
     }
@@ -26,67 +25,84 @@
     overflow-wrap: break-word;
   }
 
-  th {
-    font-size: 1.2em;
-  }
-
   thead {
-    th:nth-of-type(odd) {
-      background: $color-gray;
-      color: $color-white;
+    background: $blue-primary;
+    color: $color-white;
+
+    .border-extension {
+      height: 1px;
     }
 
-    th:nth-of-type(even) {
-      background: $color-gray-light;
-      color: $color-white;
+    .border-visible {
+      background: $blue-primary;
+      height: 100%;
+      left: -300px;
+      position: absolute;
+      top: 0;
+      width: 2000px;
+      z-index: -100;
     }
 
-    th:nth-of-type(2) {
-      border-radius: $border-radius 0 0;
+    th {
+      background: inherit;
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.6;
+      padding-bottom: 2.5rem;
+      padding-top: 2.5rem;
+      position: relative;
     }
 
-    th:last-child {
-      border-radius: 0 $border-radius 0 0;
-    }
-
-    // first header should have no border or background
     th:first-of-type {
-      background: none;
-      border: 0;
-      color: inherit;
-      padding: 1em 1em 0;
+      padding-top: 2.4rem;
+      vertical-align: top;
     }
   }
 
   tbody {
+    position: relative;
+
+    .border-extension-layer-2 {
+      height: 1px;
+    }
+
+    .border-visible-layer-2 {
+      background: $color-white;
+      height: 200%;
+      left: -300px;
+      position: absolute;
+      top: 0;
+      width: 2000px;
+      z-index: -50;
+    }
+
+    .border-extension {
+      height: 1px;
+    }
+
+    .border-visible {
+      background: $blue-primary;
+      height: 1px;
+      left: -300px;
+      position: relative;
+      top: 16px;
+      width: 2000px;
+    }
+
+    th:first-of-type {
+      position: relative;
+    }
+
     th {
-      background-color: $color-gray;
-      color: $color-white;
-      font-size: .8em;
+      background-color: $color-white;
       padding-bottom: 1em;
       padding-right: 1em;
       text-transform: uppercase;
       width: 18%;
     }
 
-    tr:first-child {
-      th {
-        border-radius: $border-radius 0 0;
-      }
-    }
-
-    tr:last-child {
-      th {
-        border-radius: 0 0 0 $border-radius;
-      }
-    }
-
-    td:nth-of-type(even) {
-      background: $color-gray-lighter;
-    }
-
-    td:nth-of-type(odd) {
-      background: $color-gray-lightest;
+    td {
+      border-left: 1px solid $blue-primary;
     }
   }
 }

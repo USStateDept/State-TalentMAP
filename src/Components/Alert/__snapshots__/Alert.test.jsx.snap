@@ -92,3 +92,27 @@ exports[`Alert displays warning alert 1`] = `
   </div>
 </div>
 `;
+
+exports[`Alert matches snapshot when isAriaLive is true 1`] = `
+<div
+  aria-atomic="true"
+  aria-live="polite"
+  className="usa-alert usa-alert-success"
+  role={null}
+>
+  <div
+    className="usa-alert-body"
+  >
+    <h3
+      className="usa-alert-heading"
+    >
+      Success title
+    </h3>
+    <p
+      className="usa-alert-text"
+    >
+      Alert body
+    </p>
+  </div>
+</div>
+`;

@@ -2,8 +2,21 @@
 
 exports[`CompareListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full content-container"
 >
+  <div>
+    <button
+      className="button-back-link"
+      onClick={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      <FontAwesome
+        name="arrow-left"
+      />
+      Go back to search results
+    </button>
+  </div>
   <div
     className="comparison-container"
   >
@@ -24,46 +37,49 @@ exports[`CompareListComponent matches snapshot 1`] = `
               scope="row"
             >
               Position
+              <div
+                className="border-extension border-visible"
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
-              />
-              <div
-                className="column-title-sub"
               >
-                MASERU, LESOTHO
+                OMS (DCM)
               </div>
               <div
                 className="column-title-link"
               >
                 <Link
                   replace={false}
-                  to="/details/00025003"
+                  to="/details/10034001"
                 >
-                  Learn more
+                  View position details
                 </Link>
               </div>
+              <div
+                className="border-extension"
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
-              />
-              <div
-                className="column-title-sub"
               >
-                None listed
+                SPECIAL AGENT
               </div>
               <div
                 className="column-title-link"
               >
                 <Link
                   replace={false}
-                  to="/details/00025003"
+                  to="/details/56082000"
                 >
-                  Learn more
+                  View position details
                 </Link>
               </div>
+              <div
+                className="border-extension"
+              />
             </th>
           </tr>
         </thead>
@@ -72,48 +88,21 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Grade
+              Post
+              <div
+                className="border-extension-layer-2 border-visible-layer-2"
+              />
             </th>
             <td>
-              05
-            </td>
-            <td>
-              03
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Language
-            </th>
-            <td>
-              <LanguageList
-                languages={
-                  Array [
-                    Object {
-                      "id": 1,
-                      "language": "French (FR)",
-                      "reading_proficiency": "2",
-                      "representation": "French (FR) 2/2",
-                      "spoken_proficiency": "2",
-                    },
-                    Object {
-                      "id": 1,
-                      "language": "German (GM)",
-                      "reading_proficiency": "2",
-                      "representation": "German (GM) 2/2",
-                      "spoken_proficiency": "2",
-                    },
-                  ]
-                }
-                propToUse="representation"
+              Freetown, Sierra Leone
+              <div
+                className="border-extension-layer-2"
               />
             </td>
             <td>
-              <LanguageList
-                languages={Array []}
-                propToUse="representation"
+              Chicago, IL
+              <div
+                className="border-extension-layer-2"
               />
             </td>
           </tr>
@@ -127,55 +116,82 @@ exports[`CompareListComponent matches snapshot 1`] = `
               OFFICE MANAGEMENT (9017)
             </td>
             <td>
-              OFFICE MANAGEMENT (9017)
+              SECURITY (2501)
             </td>
           </tr>
           <tr>
             <th
               scope="row"
             >
-              Overseas
+              Position Number
             </th>
             <td>
-              Yes
+              10034001
             </td>
             <td>
-              Yes
+              56082000
             </td>
           </tr>
-        </tbody>
-      </table>
-      <table
-        className="tm-table"
-      >
-        <caption
-          className="usa-sr-only"
-        >
-          Post details comparison:
-        </caption>
-        <thead
-          className="tm-header-no-columns"
-        >
           <tr>
             <th
               scope="row"
             >
-              Post
+              Language
             </th>
+            <td>
+              <LanguageList
+                languages={Array []}
+                propToUse="representation"
+              />
+            </td>
+            <td>
+              <LanguageList
+                languages={
+                  Array [
+                    Object {
+                      "id": 1,
+                      "language": "French (FR)",
+                      "reading_proficiency": "2",
+                      "representation": "French (FR) 2/2",
+                      "spoken_proficiency": "2",
+                    },
+                    Object {
+                      "id": 20,
+                      "language": "Haitian Creole (HC)",
+                      "reading_proficiency": "0",
+                      "representation": "Haitian Creole (HC) 0/0",
+                      "spoken_proficiency": "0",
+                    },
+                  ]
+                }
+                propToUse="representation"
+              />
+            </td>
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <th
               scope="row"
             >
-              Organization
+              Transfer Eligibility Date
             </th>
             <td>
-              YAOUNDE CAMEROON (YAOUNDE)
+              03/13/2020
             </td>
             <td>
-              YAOUNDE CAMEROON (YAOUNDE)
+              03/13/2020
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Incumbent
+            </th>
+            <td>
+              John Doe
+            </td>
+            <td>
+              John Doe
             </td>
           </tr>
           <tr>
@@ -185,49 +201,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Bureau
             </th>
             <td>
-              150000
+              (AF) BUREAU OF AFRICAN AFFAIRS
             </td>
             <td>
-              150000
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Post Differential
-            </th>
-            <td>
-              15
-            </td>
-            <td>
-              None listed
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Danger Pay
-            </th>
-            <td>
-              None listed
-            </td>
-            <td>
-              None listed
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Consumable Allowance
-            </th>
-            <td>
-              No
-            </td>
-            <td>
-              No
+              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
           </tr>
           <tr>
@@ -237,53 +214,43 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Tour of Duty
             </th>
             <td>
-              2YRR
+              2 YRS (2 R & R)
             </td>
             <td>
-              None listed
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Cost of Living Adjustment
-            </th>
-            <td>
-              None listed
-            </td>
-            <td>
-              None listed
+              2 YRS (2 R & R)
             </td>
           </tr>
           <tr>
             <th
               scope="row"
             >
-              Service Needs Differential
+              Post Differential
             </th>
             <td>
-              No
+              N/A 
             </td>
             <td>
-              No
+              N/A 
             </td>
           </tr>
           <tr>
             <th
               scope="row"
             >
-              Rest & Relaxation Point
+              Danger Pay
             </th>
             <td>
-              London
+              N/A 
             </td>
             <td>
-              None listed
+              N/A 
             </td>
           </tr>
         </tbody>
       </table>
+      <div
+        className="border-bottom-extension"
+      />
     </div>
   </div>
 </div>
@@ -291,14 +258,25 @@ exports[`CompareListComponent matches snapshot 1`] = `
 
 exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full content-container"
 >
+  <div>
+    <button
+      className="button-back-link"
+      onClick={[Function]}
+      role="link"
+      tabIndex="0"
+    >
+      <FontAwesome
+        name="arrow-left"
+      />
+      Go back to search results
+    </button>
+  </div>
   <div
     className="comparison-container"
   >
     <Spinner
-      filled={false}
-      inverse={false}
       size="big"
       type="homepage-position-results"
     />

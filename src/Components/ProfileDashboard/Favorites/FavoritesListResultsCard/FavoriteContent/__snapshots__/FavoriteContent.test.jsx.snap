@@ -8,17 +8,9 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     <span
       className="bid-list-card-title-post"
     >
-      Position Title: 
+      Position title: 
     </span>
-    00025003
-  </div>
-  <div>
-    <span
-      className="bid-list-card-title-post"
-    >
-      Post: 
-    </span>
-    MASERU, LESOTHO
+    10034001
   </div>
   <div>
     <span
@@ -34,7 +26,15 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Grade: 
     </span>
-    05
+    06
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Post: 
+    </span>
+    Freetown, Sierra Leone
   </div>
 </div>
 `;

@@ -17,6 +17,7 @@ import { validStateEmail,
          getTimeDistanceInWords,
          formatDate,
          focusById,
+         focusByFirstOfHeader,
          wrapForMultiSelect,
          returnObjectsWherePropMatches,
          numbersToPercentString,
@@ -25,43 +26,48 @@ import { validStateEmail,
          propOrDefault,
          formatIdSpacing,
          userHasPermissions,
+         getAssetPath,
+         sortGrades,
+         getApplicationPath,
+         getAccessiblePositionNumber,
+         getPostName,
        } from './utilities';
 
 describe('local storage', () => {
   it('should be able to fetch the existence of a value when there is one values in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(true);
     localStorage.clear();
   });
 
   it('should be able to fetch the existence of a value when there are multiple values in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1', '2']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(true);
     localStorage.clear();
   });
 
   it('should be able to fetch the existence of a value when that value is not in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['2', '3']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['2', '3']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(false);
     localStorage.clear();
   });
 
   it('should be able to fetch the count of an array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    const retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1', '2']));
+    const retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.count).toBe(2);
     localStorage.clear();
   });
 
   it('should be able to toggle a value in the array', () => {
-    localStorage.setItem('key', JSON.stringify(['1', '2']));
-    let retrieved = localStorageFetchValue('key', '1');
+    localStorage.setItem('keyName', JSON.stringify(['1', '2']));
+    let retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(true);
-    localStorageToggleValue('key', '1');
-    retrieved = localStorageFetchValue('key', '1');
+    localStorageToggleValue('keyName', '1');
+    retrieved = localStorageFetchValue('keyName', '1');
     expect(retrieved.exists).toBe(false);
     localStorage.clear();
   });
@@ -94,6 +100,7 @@ describe('fetchUserToken', () => {
 describe('sort functions', () => {
   const items = [{ title: 'a', description: 'a' }, { title: 'b', description: 'b' }];
   const pills = [{ description: 'a' }, { code: 'b' }];
+  const grades = [{ code: '01' }, { code: '02' }, { code: 'fake' }, { code: 'MC' }];
 
   it('can sort by description', () => {
     expect(propSort('description')(items[0], items[1])).toBe(-1);
@@ -111,6 +118,15 @@ describe('sort functions', () => {
     expect(pillSort(pills[0], pills[1])).toBe(-1);
     expect(pillSort(pills[1], pills[0])).toBe(1);
     expect(pillSort(pills[0], pills[0])).toBe(0);
+  });
+
+  it('can apply custom sorting to grades', () => {
+    expect(sortGrades(grades[0], grades[1])).toBe(-1);
+    expect(sortGrades(grades[1], grades[0])).toBe(1);
+    expect(sortGrades(grades[0], grades[2])).toBe(-1);
+    expect(sortGrades(grades[3], grades[2])).toBe(-1);
+    expect(sortGrades(grades[2], grades[3])).toBe(1);
+    expect(sortGrades(grades[2], grades[2])).toBe(0);
   });
 });
 
@@ -244,7 +260,7 @@ describe('formatDate', () => {
     // converted date
     const formattedDate = formatDate(unformattedDate);
     // should be formatted using the default format
-    expect(formattedDate).toBe('1.15.2017');
+    expect(formattedDate).toBe('01/15/2017');
   });
 
   it('returns a properly formatted date with a custom format', () => {
@@ -272,6 +288,54 @@ describe('focusById', () => {
     global.document.getElementById = id => elements[id];
     focusById('test');
     sinon.assert.calledOnce(focusSpy);
+  });
+});
+
+describe('focusByFirstOfHeader', () => {
+  let valuesSetBySetAttribute = [];
+  const setAttribute = (attribute, value) => { valuesSetBySetAttribute = [attribute, value]; };
+
+  let focusSpy = sinon.spy();
+  let elements = {
+    h1: [
+      {},
+      { focus: focusSpy, setAttribute },
+    ],
+    h2: {},
+  };
+  global.document.getElementsByTagName = tag => elements[tag];
+  it('can focus and set attributes to the first header found', (done) => {
+    focusByFirstOfHeader();
+    const f = () => {
+      setTimeout(() => {
+        sinon.assert.calledOnce(focusSpy);
+        expect(valuesSetBySetAttribute[0]).toBe('tabindex');
+        expect(valuesSetBySetAttribute[1]).toBe('-1');
+        done();
+      }, 10);
+    };
+    f();
+  });
+
+  it('can focus the first h2 if h1 does not exist', (done) => {
+    // reset spy and attribute array
+    valuesSetBySetAttribute = [];
+    focusSpy = sinon.spy();
+    elements = {
+      h2: [
+        { focus: focusSpy, setAttribute },
+      ],
+    };
+    focusByFirstOfHeader();
+    const f = () => {
+      setTimeout(() => {
+        sinon.assert.calledOnce(focusSpy);
+        expect(valuesSetBySetAttribute[0]).toBe('tabindex');
+        expect(valuesSetBySetAttribute[1]).toBe('-1');
+        done();
+      }, 10);
+    };
+    f();
   });
 });
 
@@ -433,5 +497,73 @@ describe('userHasPermissions', () => {
     permissionsToCheck = [];
     userPermissions = [];
     expect(userHasPermissions(permissionsToCheck, userPermissions)).toBe(true);
+  });
+});
+
+describe('getAssetPath', () => {
+  it('returns the correct path with no PUBLIC_URL', () => {
+    const assetPath = '/image.png';
+    const result = getAssetPath(assetPath);
+    expect(result).toBe(assetPath);
+  });
+
+  it('returns the correct path with a PUBLIC_URL', () => {
+    process.env.PUBLIC_URL = '/public';
+    const assetPath = '/image.png';
+    const result = getAssetPath(assetPath);
+    expect(result).toBe(`/public${assetPath}`);
+  });
+
+  it('returns the correct path with a PUBLIC_URL with a trailing slash', () => {
+    process.env.PUBLIC_URL = '/public/';
+    const assetPath = '/image.png';
+    const result = getAssetPath(assetPath);
+    expect(result).toBe(`/public${assetPath}`);
+  });
+});
+
+describe('getApplicationPath', () => {
+  it('returns a valid path', () => {
+    // set env
+    process.env.PUBLIC_URL = '/application/';
+
+    const result = getApplicationPath();
+
+    expect(result).toBe('http://localhost/application/');
+  });
+});
+
+describe('getAccessiblePositionNumber', () => {
+  it('adds spaces to a position number', () => {
+    const positionNumber = 'S7001';
+
+    expect(getAccessiblePositionNumber(positionNumber)).toBe('S 7 0 0 1');
+  });
+});
+
+describe('getPostName', () => {
+  it('returns a domestic post name', () => {
+    const post = { location: { city: 'Arlington', state: 'VA', country: 'United States' } };
+    expect(getPostName(post)).toBe('Arlington, VA');
+  });
+
+  it('returns an overseas post name', () => {
+    const post = { location: { city: 'London', state: null, country: 'United Kingdom' } };
+    expect(getPostName(post)).toBe('London, United Kingdom');
+  });
+
+  it('returns the code when location data is not available', () => {
+    const post = { location: null, code: '0AA' };
+    expect(getPostName(post)).toBe('0AA');
+  });
+
+  it('returns the default defaultValue when the code and location data are not available', () => {
+    const post = { location: null };
+    expect(getPostName(post)).toBe(null);
+  });
+
+  it('returns a custom defaultValue when the code and location data are not available', () => {
+    const post = { location: null };
+    expect(getPostName(post, 'default')).toBe('default');
   });
 });

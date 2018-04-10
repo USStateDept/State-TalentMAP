@@ -5,7 +5,7 @@ import Pill from '../Pill/Pill';
 import { pillSort } from '../../utilities';
 
 const PillList = ({ items, onPillClick }) => (
-  <div>
+  <div className="pill-list-container">
     {
       (items.slice().sort(pillSort))
         .map(item =>

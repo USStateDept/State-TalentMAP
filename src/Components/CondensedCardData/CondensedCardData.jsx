@@ -4,12 +4,13 @@ import { NO_POST, NO_SKILL } from '../../Constants/SystemMessages';
 import LanguageList from '../LanguageList';
 import StaticDevContent from '../StaticDevContent';
 import CondensedCardDataPoint from './CondensedCardDataPoint';
+import { getPostName } from '../../utilities';
 
 const CondensedCardData = ({ position }) => (
   <div className="usa-grid-full condensed-card-data">
     <CondensedCardDataPoint
       title="Post"
-      content={position.post ? position.post.location : NO_POST}
+      content={getPostName(position.post, NO_POST)}
       hasFixedTitleWidth
     />
     <CondensedCardDataPoint

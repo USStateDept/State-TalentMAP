@@ -20,4 +20,7 @@ describe('proxy server routes', () => {
   it('redirects on /talentmap/metadata', (done) => {
     request(server).get('/talentmap/metadata').expect(302, done);
   });
+  it('redirects on /talentmap/about', (done) => {
+    request(server).get('/talentmap/about').expect(302, done);
+  });
 });

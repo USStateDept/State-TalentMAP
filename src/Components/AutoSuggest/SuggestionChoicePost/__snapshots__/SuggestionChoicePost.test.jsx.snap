@@ -4,6 +4,6 @@ exports[`SuggestionChoicePostComponent matches snapshot 1`] = `
 <div
   className="render-suggestion render-suggestion--post"
 >
-  test
+  Freetown, Sierra Leone
 </div>
 `;

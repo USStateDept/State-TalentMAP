@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FavoritesButton from '../FavoritesButton/FavoritesButton';
 import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
-import { NO_POSITION_DESCRIPTION } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
-import PositionAdditionalDetails from '../PositionAdditionalDetails/PositionAdditionalDetails';
+import PositionSimilarPositions from '../../Containers/PositionSimilarPositions';
 
 class PositionDetails extends Component {
   constructor(props) {
@@ -32,9 +30,9 @@ class PositionDetails extends Component {
         toggleBidPosition, bidList, bidListToggleIsLoading,
         editPocContent, editWebsiteContent,
         resetDescriptionEditMessages } = this.props;
-    const isReady = details && !isLoading && !hasErrored;
+    const isReady = details && userProfile.id && !isLoading && !hasErrored;
     return (
-      <div className="content-container">
+      <div className="content-container position-details-container">
         { isReady &&
         <div>
           <PositionTitle
@@ -47,28 +45,25 @@ class PositionDetails extends Component {
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
+            toggleFavorite={toggleFavorite}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfile={userProfile}
           />
-          <PositionDetailsItem details={details} />
-          <PositionAdditionalDetails
-            content={
-              details.description && details.description.content ?
-              this.state.newDescriptionContent.value || details.description.content :
-              NO_POSITION_DESCRIPTION
-            }
+          <PositionDetailsItem
+            details={details}
+            editDescriptionContent={this.editDescriptionContent}
+            editPocContent={editPocContent}
+            editWebsiteContent={editWebsiteContent}
+            resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
-          <div className="usa-grid">
-            {
-              !!userProfile.favorite_positions &&
-              <FavoritesButton
-                onToggle={toggleFavorite}
-                refKey={details.id}
-                isLoading={userProfileFavoritePositionIsLoading}
-                compareArray={userProfile.favorite_positions}
-              />
-            }
+          <hr />
+          <div className="usa-grid position-details-description-container">
+            <PositionSimilarPositions
+              id={details.id}
+            />
           </div>
         </div>}
-        {isLoading && <Spinner type="position-details" size="big" />}
+        {!isReady && <Spinner type="position-details" size="big" />}
       </div>
     );
   }

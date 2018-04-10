@@ -26,7 +26,13 @@ exports[`AdditionalViewComponent matches snapshot 1`] = `
               "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
               "position_number": "58312265",
               "post": Object {
-                "location": "Guatemala, Guatemala",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "CONSTRUCTION ENGINEERING (6218)",
               "title": "PROJECT DIRECTOR",
@@ -96,7 +102,6 @@ exports[`AdditionalViewComponent matches snapshot when isLoading is true 1`] = `
   className="usa-grid-full bidder-portfolio-additional-container"
 >
   <Spinner
-    filled={false}
     inverse={true}
     size="big"
     type="portfolio-additional"

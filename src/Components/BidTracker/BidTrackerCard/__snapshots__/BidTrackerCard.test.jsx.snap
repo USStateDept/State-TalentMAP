@@ -28,7 +28,13 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "position_number": "10035561",
             "post": Object {
               "id": 199,
-              "location": "Curacao",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
             "title": "POLITICAL/ECONOMIC OFFICER",
@@ -77,7 +83,13 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -123,7 +135,13 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -179,7 +197,9 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "cdo": Object {
               "email": "shadtrachl@state.gov",
               "first_name": "Leah",
+              "initials": "LS",
               "last_name": "Shadtrach",
+              "username": "shadtrachl",
             },
             "display_name": "John",
             "favorite_positions": Array [
@@ -194,7 +214,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             ],
             "grade": "03",
             "id": 1,
-            "intials": "JD",
+            "initials": "JD",
             "is_cdo": false,
             "skills": Array [
               Object {
@@ -213,6 +233,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "user": Object {
               "email": "doej@state.gov",
               "first_name": "John",
+              "initials": "JD",
               "last_name": "Doe",
               "username": "jdoe",
             },
