@@ -88,9 +88,9 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
         results.forEach((result, i) => {
           resultsTypes[queryTypes[i].name] = result.data.results;
         });
+        dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
         dispatch(homePagePositionsHasErrored(false));
         dispatch(homePagePositionsIsLoading(false));
-        dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
       })
       .catch(() => {
         dispatch(homePagePositionsHasErrored(true));
