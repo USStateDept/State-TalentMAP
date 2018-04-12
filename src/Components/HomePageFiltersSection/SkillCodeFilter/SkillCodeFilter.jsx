@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { orderBy } from 'lodash';
 import { FILTERS } from '../../../Constants/PropTypes';
 import { propSort, wrapForMultiSelect, returnObjectsWherePropMatches } from '../../../utilities';
 
@@ -64,13 +65,15 @@ class SkillCodeFilter extends Component {
     const options = wrapFilters(filters);
     const sortedOptions = options.sort(propSort('custom_description'));
     const labelClass = labelSrOnly ? 'usa-sr-only' : '';
+    // sort options by code
+    const sortedSelections = orderBy(selectedOptions.value, ['code']);
     return (
       <div>
         <label htmlFor="skill-multi-select" className={labelClass}>{label}</label>
         <Select
           id="skill-multi-select"
           multi
-          value={selectedOptions.value}
+          value={sortedSelections}
           searchable={false}
           options={sortedOptions}
           onChange={this.handleChange}
