@@ -2,7 +2,7 @@
 
 exports[`LanguageList takes no props 1`] = `
 <span>
-  None listed
+  None
 </span>
 `;
 
