@@ -155,7 +155,7 @@ describe('SearchFiltersContainerComponent', () => {
 
   it('orders the filters in the correct order', () => {
     // filter order defined in the component
-    const filterOrder = ['skill', 'grade', 'post', 'region', 'tod'];
+    const filterOrder = ['skill', 'grade', 'region', 'post', 'tod'];
     const wrapper = shallow(
       <SearchFiltersContainer
         {...props}
