@@ -20,7 +20,7 @@ export function getCustomGradeDescription(gradeCode) {
 // create a custom description based on the filter type
 export function getFilterCustomDescription(filterItem, filterItemObject) {
   if (filterItem.item.description === 'region') {
-    return `${filterItemObject.long_description} (${filterItemObject.short_description})`;
+    return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
   } else if (filterItem.item.description === 'skill') {
     return `${filterItemObject.description} (${filterItemObject.code})`;
   } else if (filterItem.item.description === 'post') {
