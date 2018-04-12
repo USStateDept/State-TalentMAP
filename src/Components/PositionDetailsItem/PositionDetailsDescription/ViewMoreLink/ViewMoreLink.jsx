@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from '../../../InteractiveElement';
 
-class PositionDetailsDescription extends Component {
+class ViewMoreLink extends Component {
   constructor(props) {
     super(props);
     this.toggleValue = this.toggleValue.bind(this);
@@ -39,13 +39,13 @@ class PositionDetailsDescription extends Component {
   }
 }
 
-PositionDetailsDescription.propTypes = {
+ViewMoreLink.propTypes = {
   defaultValue: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
 };
 
-PositionDetailsDescription.defaultProps = {
+ViewMoreLink.defaultProps = {
   defaultValue: true,
 };
 
-export default PositionDetailsDescription;
+export default ViewMoreLink;
