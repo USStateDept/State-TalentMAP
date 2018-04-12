@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { orderBy } from 'lodash';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
@@ -24,13 +25,15 @@ class BureauFilter extends Component {
   render() {
     const { item, functionalBureaus } = this.props;
     const regionalBureaus = item.data.slice().filter(b => b.is_regional);
+    // sort the regional bureaus by their calculated label
+    const sortedRegionalBureuas = orderBy(regionalBureaus, e => getItemLabel(e));
     return (
       <div className="usa-grid-full tm-nested-accordions">
         <Accordion>
           <AccordionItem className="accordion-content-small" id="regional-bureau-sub-accordion" title="Regional Bureaus" buttonClass="tm-nested-accordion-button">
             <div className="usa-grid-full">
               {
-                regionalBureaus.map((itemData) => {
+                sortedRegionalBureuas.map((itemData) => {
                   const itemLabel = getItemLabel(itemData);
                   return (<CheckBox
                     _id={itemData.id} /* when we need the original id */
