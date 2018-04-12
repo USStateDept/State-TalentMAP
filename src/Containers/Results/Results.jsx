@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import debounce from 'lodash/debounce';
 import queryParamUpdate from '../queryParams';
-import { scrollToTop, cleanQueryParams } from '../../utilities';
+import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
@@ -162,7 +162,7 @@ class Results extends Component {
   // updates the history by passing a string of query params
   updateHistory(q) {
     this.setState({ query: { value: q } }, () => {
-      window.history.pushState('', '', `/results?${q}`);
+      window.history.pushState('', '', getAssetPath(`/results?${q}`));
       this.debounced.cancel();
       // add debounce so that quickly selecting multiple filters is smooth
       this.debounced = debounce(() => this.createQueryParams(), this.props.debounceTimeInMs);
