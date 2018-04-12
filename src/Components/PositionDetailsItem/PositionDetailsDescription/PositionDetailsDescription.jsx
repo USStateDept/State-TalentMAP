@@ -16,7 +16,7 @@ class PositionDetailsDescription extends Component {
     this.state = {
       shouldShowDescriptionEditor: { value: false },
       newDescriptionContent: { value: null },
-      shouldDisplayFullDescription: false,
+      shouldDisplayFullDescription: true,
     };
   }
 
@@ -72,7 +72,10 @@ class PositionDetailsDescription extends Component {
                     onToggle={this.toggleDescriptionEditor}
                   />
               }
-              <ViewMoreLink onChange={this.onDescriptionLengthToggle} />
+              <ViewMoreLink
+                defaultValue={!shouldDisplayFullDescription}
+                onChange={this.onDescriptionLengthToggle}
+              />
             </span>
         }
         {
