@@ -47,6 +47,11 @@ $accordion-content-small-padding-left: 2em;
 
 .tm-nested-accordion-button {
   padding-bottom: 0;
+
+  .accordion-item-title {
+    padding-right: 1.5em;
+    padding-top: .1em;
+  }
 }
 
 .tm-double-nested-accordion-button {
