@@ -61,6 +61,35 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "title": "grade",
         },
         Object {
+          "content": <BureauFilter
+            functionalBureaus={
+              Object {
+                "data": Array [],
+              }
+            }
+            item={
+              Object {
+                "data": Array [
+                  Object {
+                    "isSelected": false,
+                    "long_description": "test",
+                    "short_description": "test",
+                  },
+                ],
+                "item": Object {
+                  "description": "region",
+                  "selectionRef": "ref5",
+                  "title": "region",
+                },
+              }
+            }
+            queryParamToggle={[Function]}
+            queryProperty="code"
+          />,
+          "id": "accordion-region",
+          "title": "region",
+        },
+        Object {
           "content": <PostFilter
             autoSuggestProps={
               Object {
@@ -99,35 +128,6 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           />,
           "id": "accordion-post",
           "title": "post",
-        },
-        Object {
-          "content": <BureauFilter
-            functionalBureaus={
-              Object {
-                "data": Array [],
-              }
-            }
-            item={
-              Object {
-                "data": Array [
-                  Object {
-                    "isSelected": false,
-                    "long_description": "test",
-                    "short_description": "test",
-                  },
-                ],
-                "item": Object {
-                  "description": "region",
-                  "selectionRef": "ref5",
-                  "title": "region",
-                },
-              }
-            }
-            queryParamToggle={[Function]}
-            queryProperty="code"
-          />,
-          "id": "accordion-region",
-          "title": "region",
         },
         Object {
           "content": <div

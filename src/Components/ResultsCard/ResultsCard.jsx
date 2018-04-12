@@ -71,8 +71,8 @@ const ResultsCard = (props) => {
     {
       'Skill Code': getResult('skill', NO_SKILL),
       'Grade': getResult('grade', NO_GRADE),
-      'Post': post,
       'Bureau': getResult('bureau', NO_BUREAU),
+      'Post': post,
     },
     {
       'Tour of Duty': getResult('post.tour_of_duty', NO_TOUR_OF_DUTY),
