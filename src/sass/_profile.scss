@@ -326,7 +326,7 @@ $padding-no-border: $total-padding - $border;
   min-width: 200px;
 
   .fa {
-    color: $blue-primary-darker;
+    color: $blue-primary;
   }
 
   .fa-container {
@@ -352,7 +352,7 @@ $padding-no-border: $total-padding - $border;
 
   .link-highlighted {
     background-color: $tm-white-smoke-light;
-    border-left: $border solid $primary-blue-darker;
+    border-left: $border solid $primary-blue;
 
     .title-container {
       font-weight: bold;

@@ -463,3 +463,11 @@ export const getAccessiblePositionNumber = (positionNumber) => {
   }
   return null;
 };
+
+// returns a percentage string for differential data.
+export const getDifferentialPercentage = (differential, defaultValue = '') => {
+  if (isNumber(differential)) {
+    return `${differential}%`;
+  }
+  return defaultValue;
+};
