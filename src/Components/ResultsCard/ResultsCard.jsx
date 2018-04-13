@@ -102,7 +102,6 @@ const ResultsCard = (props) => {
   };
 
   options.compare = {
-    id: result.id,
     as: 'div',
     refKey: position,
     onToggle,
