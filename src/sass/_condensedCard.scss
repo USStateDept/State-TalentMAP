@@ -86,6 +86,7 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .condensed-card-top-header-left {
     float: left;
+    width: auto;
 
     h3 {
       display: inline;
@@ -101,6 +102,19 @@ $condensed-card-data-padding: 15px 20px 9px;
   .condensed-card-top-header-right {
     float: right;
     text-align: right;
+    width: auto;
+
+    dt,
+    dd {
+      display: inline;
+      float: left;
+      margin-left: 0;
+    }
+
+    dd {
+      font-weight: 300;
+      margin-left: 5px;
+    }
   }
 
   .condensed-card-last-updated {
@@ -111,7 +125,7 @@ $condensed-card-data-padding: 15px 20px 9px;
   .condensed-card-bottom-container {
     background-color: $color-white;
     padding: $condensed-card-data-padding;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
     position: relative;
   }
 
@@ -159,6 +173,7 @@ $condensed-card-data-padding: 15px 20px 9px;
   }
 
   .condensed-card-data {
+    line-height: 1.4em;
     margin-bottom: 20px;
 
     a {

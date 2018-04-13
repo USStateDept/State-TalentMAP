@@ -20,7 +20,7 @@ describe('filter helpers', () => {
     // templated strings are returned based on the description value
     expect(getFilterCustomDescription(
       { item: { description: 'region' } }, { short_description: 't', long_description: 'test' }),
-    ).toBe('test (t)');
+    ).toBe('(t) test');
     expect(getFilterCustomDescription(
       { item: { description: 'skill' } }, { description: 'test', code: 't' }),
     ).toBe('test (t)');

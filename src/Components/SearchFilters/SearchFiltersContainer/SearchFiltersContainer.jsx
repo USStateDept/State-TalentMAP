@@ -63,7 +63,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'post', 'region', 'tod', 'language', 'postDiff', 'dangerPay'];
+    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'region', 'post', 'tod', 'language', 'postDiff', 'dangerPay'];
 
     // create map
     const multiSelectFilterMap = new Map();
