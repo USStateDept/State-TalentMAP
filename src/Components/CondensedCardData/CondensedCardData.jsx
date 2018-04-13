@@ -11,23 +11,23 @@ const CondensedCardData = ({ position }) => {
   return (
     <div className="usa-grid-full condensed-card-data">
       <CondensedCardDataPoint
-        title="Post"
-        content={getPostName(position.post, NO_POST)}
-        hasFixedTitleWidth
-      />
-      <CondensedCardDataPoint
         title="Skill Code"
         content={position.skill || NO_SKILL}
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint
-        title="Language"
-        content={<LanguageList languages={position.languages} />}
+        title="Post"
+        content={getPostName(position.post, NO_POST)}
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint
-        title="Time of estimated departure"
+        title="Transfer eligibility date"
         content={estimatedEndDate}
+        hasFixedTitleWidth
+      />
+      <CondensedCardDataPoint
+        title="Language"
+        content={<LanguageList languages={position.languages} />}
         hasFixedTitleWidth
       />
     </div>
