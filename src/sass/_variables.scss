@@ -151,6 +151,13 @@ $results-card-border: $color-gray-lighter;
 $scrollbar-width: 10px;
 
 //**
+//* Accessibility
+//*
+$tm-focus-outline-default: 2px dotted $color-black;
+$tm-focus-outline-color-alt: $color-white;
+$tm-focus-outline-offset-default: 3px;
+
+//**
 //* z-index
 //*
 // we'll use this section to keep track of and order them

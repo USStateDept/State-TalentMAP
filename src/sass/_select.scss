@@ -41,8 +41,15 @@
 }
 
 .Select.is-focused {
-  outline: 2px dotted $bg-gray-dark-2;
+  outline: 2px dotted $color-white;
   outline-offset: 3px;
+}
+
+.Select-option {
+  &.is-focused {
+    background-color: $blue-primary;
+    color: $color-white;
+  }
 }
 
 .Select.is-focused:not(.is-open) > .Select-control {
