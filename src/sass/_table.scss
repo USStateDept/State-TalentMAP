@@ -1,7 +1,8 @@
+$tm-table-blue: $primary-blue-darkest;
+
 .tm-table {
   $border-radius: 9px;
   color: $color-gray;
-  font-size: .9em;
   margin-bottom: 0;
   table-layout: fixed;
   width: 100%;
@@ -26,7 +27,7 @@
   }
 
   thead {
-    background: $blue-primary;
+    background: $tm-table-blue;
     color: $color-white;
 
     .border-extension {
@@ -34,7 +35,7 @@
     }
 
     .border-visible {
-      background: $blue-primary;
+      background: $tm-table-blue;
       height: 100%;
       left: -300px;
       position: absolute;
@@ -45,7 +46,7 @@
 
     th {
       background: inherit;
-      font-size: 1.5rem;
+      font-size: 1.9rem;
       font-weight: 500;
       line-height: 1.6;
       padding-bottom: 2.5rem;
@@ -81,12 +82,19 @@
     }
 
     .border-visible {
-      background: $blue-primary;
+      background: $tm-table-blue;
       height: 1px;
       left: -300px;
       position: relative;
       top: 16px;
       width: 2000px;
+    }
+
+    tr:first-of-type {
+      th,
+      td {
+        padding-top: 1.5em;
+      }
     }
 
     th:first-of-type {
@@ -97,12 +105,11 @@
       background-color: $color-white;
       padding-bottom: 1em;
       padding-right: 1em;
-      text-transform: uppercase;
       width: 18%;
     }
 
     td {
-      border-left: 1px solid $blue-primary;
+      border-left: 1px solid $tm-table-blue;
     }
   }
 }
