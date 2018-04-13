@@ -101,6 +101,8 @@ class Favorite extends Component {
 
     this.setState({
       loading: true,
+      alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
+        this position ${this.getSavedState() ? 'from' : 'to'} your favorites list.`,
     });
 
     // pass the key and the "remove" param
@@ -157,16 +159,22 @@ class Favorite extends Component {
     }
 
     return (
-      <InteractiveElement {...options}>
-        {loading ?
-          (<span className={spinnerClass} />) :
-          (<FontAwesome name={icon} />)}
-        <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
-          {matches => (
-            <span>{this.getText(matches)}</span>
-          )}
-        </MediaQueryWrapper>
-      </InteractiveElement>
+      <span>
+        {
+          this.state.alertMessage &&
+          <span className="usa-sr-only" aria-live="polite" aria-atomic="true">{this.state.alertMessage}</span>
+        }
+        <InteractiveElement {...options}>
+          {loading ?
+            (<span className={spinnerClass} />) :
+            (<FontAwesome name={icon} />)}
+          <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
+            {matches => (
+              <span>{this.getText(matches)}</span>
+            )}
+          </MediaQueryWrapper>
+        </InteractiveElement>
+      </span>
     );
   }
 }
