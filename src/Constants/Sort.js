@@ -1,12 +1,13 @@
 export const POSITION_SEARCH_SORTS = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
-    { value: 'title', text: 'Title' },
-    { value: 'grade', text: 'Grade' },
-    { value: 'position_number', text: 'Number' },
-    { value: 'description__date_created', text: 'Posted Date' },
-    { value: 'post__has_service_needs_differential', text: 'Service Need' },
-    { value: 'bureau__long_description', text: 'Bureau' },
+    { value: 'title', text: 'Position title: A-Z' },
+    { value: '-grade', text: 'Grade: Low to high' },
+    { value: 'bureau__long_description', text: 'Bureau: A-Z' },
+    { value: '-description__date_created', text: 'Posted date: Most recent' },
+    { value: '-effective_date', text: 'Transfer eligibility date: Most recent' },
+    { value: 'position_number', text: 'Position number: Low to high' },
+    { value: 'post__has_service_needs_differential', text: 'Service need' },
   ],
 };
 
