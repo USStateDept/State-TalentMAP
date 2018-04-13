@@ -5,14 +5,19 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
+    content="OFFICE MANAGEMENT (9017)"
+    hasFixedTitleWidth={true}
+    title="Skill Code"
+  />
+  <CondensedCardDataPoint
     content="Freetown, Sierra Leone"
     hasFixedTitleWidth={true}
     title="Post"
   />
   <CondensedCardDataPoint
-    content="OFFICE MANAGEMENT (9017)"
+    content="03/13/2020"
     hasFixedTitleWidth={true}
-    title="Skill Code"
+    title="Transfer eligibility date"
   />
   <CondensedCardDataPoint
     content={
@@ -23,11 +28,6 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
     }
     hasFixedTitleWidth={true}
     title="Language"
-  />
-  <CondensedCardDataPoint
-    content="03/13/2020"
-    hasFixedTitleWidth={true}
-    title="Time of estimated departure"
   />
 </div>
 `;
@@ -37,6 +37,11 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="Skill Code"
+  />
+  <CondensedCardDataPoint
     content="Freetown, Sierra Leone"
     hasFixedTitleWidth={true}
     title="Post"
@@ -44,7 +49,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
   <CondensedCardDataPoint
     content="None listed"
     hasFixedTitleWidth={true}
-    title="Skill Code"
+    title="Transfer eligibility date"
   />
   <CondensedCardDataPoint
     content={
@@ -55,11 +60,6 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
     }
     hasFixedTitleWidth={true}
     title="Language"
-  />
-  <CondensedCardDataPoint
-    content="None listed"
-    hasFixedTitleWidth={true}
-    title="Time of estimated departure"
   />
 </div>
 `;
@@ -69,14 +69,19 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="Skill Code"
+  />
+  <CondensedCardDataPoint
     content="Freetown, Sierra Leone"
     hasFixedTitleWidth={true}
     title="Post"
   />
   <CondensedCardDataPoint
-    content="None listed"
+    content="03/13/2020"
     hasFixedTitleWidth={true}
-    title="Skill Code"
+    title="Transfer eligibility date"
   />
   <CondensedCardDataPoint
     content={
@@ -87,11 +92,6 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
     }
     hasFixedTitleWidth={true}
     title="Language"
-  />
-  <CondensedCardDataPoint
-    content="03/13/2020"
-    hasFixedTitleWidth={true}
-    title="Time of estimated departure"
   />
 </div>
 `;
