@@ -439,6 +439,10 @@ $results-container-width: 100% - $filter-container-width;
     width: 100%;
   }
 
+  [type=checkbox]:focus + label::before {
+    outline: $tm-focus-outline-default;
+  }
+
   fieldset {
     margin: 0 0 10px;
   }
