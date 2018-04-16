@@ -13,8 +13,8 @@ const SavedSearchListResultsCard = ({ savedSearch, goToSavedSearch, mappedParams
           <div>{savedSearch.name}</div>
           <SavedSearchPillList pills={pills} />
         </div>
-        <div className="usa-width-one-half favorites-card-section">
-          <button className="tm-button-transparent" onClick={() => goToSavedSearch(savedSearch)} >View</button>
+        <div className="usa-width-one-fourth favorites-card-section">
+          <button onClick={() => goToSavedSearch(savedSearch)} >View Search</button>
         </div>
       </div>
     </div>
