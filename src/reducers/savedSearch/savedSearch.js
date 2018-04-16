@@ -14,10 +14,11 @@ export function newSavedSearchIsSaving(state = false, action) {
       return state;
   }
 }
-export function newSavedSearchSuccess(state = false, action) {
+export function newSavedSearchSuccess(state = { title: null, message: null }, action) {
   switch (action.type) {
     case 'NEW_SAVED_SEARCH_SUCCESS':
-      return action.newSavedSearch;
+      return action && action.newSavedSearch && action.newSavedSearch.message ?
+        action.newSavedSearch : { title: null, message: null };
     default:
       return state;
   }
