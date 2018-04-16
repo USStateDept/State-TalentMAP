@@ -47,6 +47,7 @@ class SaveNewSearchDialog extends Component {
           />
         </FieldSet>
         <div className="saved-search-form-buttons">
+          <button className="usa-button-secondary saved-search-form-secondary-button" onClick={onCancel}>Cancel</button>
           <button className="saved-search-form-primary-button" type="submit">{ currentSearchExists ? 'Save As' : 'Save' }</button>
           {
             currentSavedSearch.id ?
@@ -58,7 +59,6 @@ class SaveNewSearchDialog extends Component {
               </button>
               : null
           }
-          <button className="usa-button-secondary saved-search-form-secondary-button" onClick={onCancel}>Cancel</button>
         </div>
       </Form>
     );
