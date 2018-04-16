@@ -26,32 +26,37 @@ exports[`SelectForm matches snapshot 1`] = `
     <option
       value="title"
     >
-      Title
+      Position title: A-Z
     </option>
     <option
-      value="grade"
+      value="-grade"
     >
-      Grade
+      Grade: Low to high
+    </option>
+    <option
+      value="-bureau"
+    >
+      Bureau: A-Z
+    </option>
+    <option
+      value="-effective_date"
+    >
+      Posted date: Most recent
+    </option>
+    <option
+      value="current_assignment__estimated_end_date"
+    >
+      Transfer eligibility date: Soonest
     </option>
     <option
       value="position_number"
     >
-      Number
+      Position number: Low to high
     </option>
     <option
-      value="description__date_created"
+      value="-post__has_service_needs_differential"
     >
-      Posted Date
-    </option>
-    <option
-      value="post__has_service_needs_differential"
-    >
-      Service Need
-    </option>
-    <option
-      value="bureau__long_description"
-    >
-      Bureau
+      Service need
     </option>
   </select>
 </div>
@@ -83,32 +88,37 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
     <option
       value="title"
     >
-      Title
+      Position title: A-Z
     </option>
     <option
-      value="grade"
+      value="-grade"
     >
-      Grade
+      Grade: Low to high
+    </option>
+    <option
+      value="-bureau"
+    >
+      Bureau: A-Z
+    </option>
+    <option
+      value="-effective_date"
+    >
+      Posted date: Most recent
+    </option>
+    <option
+      value="current_assignment__estimated_end_date"
+    >
+      Transfer eligibility date: Soonest
     </option>
     <option
       value="position_number"
     >
-      Number
+      Position number: Low to high
     </option>
     <option
-      value="description__date_created"
+      value="-post__has_service_needs_differential"
     >
-      Posted Date
-    </option>
-    <option
-      value="post__has_service_needs_differential"
-    >
-      Service Need
-    </option>
-    <option
-      value="bureau__long_description"
-    >
-      Bureau
+      Service need
     </option>
   </select>
 </div>
