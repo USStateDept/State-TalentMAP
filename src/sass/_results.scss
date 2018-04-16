@@ -97,8 +97,6 @@ $results-container-width: 100% - $filter-container-width;
       }
 
       .compare-check-box-container {
-        border: 1px solid $color-black;
-        border-radius: 5px;
         font-size: rem(14px);
         line-height: 39px;
         right: -$button-offset;
