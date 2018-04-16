@@ -22,11 +22,6 @@ describe('CompareListComponent', () => {
     expect(wrapper.instance().props.compare[0].id).toBe(6);
   });
 
-  it('displays the Go Back button if goBackLink.text exists', () => {
-    const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);
-    expect(wrapper.find('.button-back-link').exists()).toBe(true);
-  });
-
   it('displays the comparison list when isLoading is false', () => {
     const wrapper = shallow(
       <CompareList {...props} compare={resultsObject.results} isLoading={false} />);

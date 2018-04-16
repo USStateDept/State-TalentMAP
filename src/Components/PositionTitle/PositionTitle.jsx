@@ -22,7 +22,7 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
         <meta property="og:url" content={window.location.href} />
       </Helmet>
       <div className="position-details-header">
-        <div className="usa-grid positions-details-header-grid">
+        <div className="usa-grid-full positions-details-header-grid padded-main-content">
           <div className="usa-width-one-half">
             <div className="usa-grid-full">
               <div className="usa-width-two-thirds header-title-container">
