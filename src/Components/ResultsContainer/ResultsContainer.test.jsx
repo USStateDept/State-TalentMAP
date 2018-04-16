@@ -41,7 +41,7 @@ describe('ResultsContainerComponent', () => {
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         saveSearch={() => {}}
-        newSavedSearchSuccess={false}
+        newSavedSearchSuccess={{}}
         newSavedSearchHasErrored={false}
         newSavedSearchIsSaving={false}
         resetSavedSearchAlerts={() => {}}
@@ -66,7 +66,7 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
@@ -90,7 +90,7 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
@@ -116,7 +116,7 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       scrollToTop={scrollSpy}
@@ -143,7 +143,7 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}

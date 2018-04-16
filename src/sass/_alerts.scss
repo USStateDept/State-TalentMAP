@@ -36,6 +36,20 @@
   margin-top: 0;
 }
 
+.usa-alert {
+  background-position-x: 1.7em;
+  background-size: 2.2em;
+  padding-bottom: 2.4rem;
+
+  * {
+    font-family: inherit;
+  }
+
+  h3 {
+    font-size: 1.9rem;
+  }
+}
+
 .usa-alert-text {
   min-height: .5em;
 }
