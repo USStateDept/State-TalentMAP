@@ -85,6 +85,15 @@
     }
   }
 
+  .position-details-description-container:first-of-type.back-container {
+    padding-bottom: .5em;
+    padding-top: 0;
+  }
+
+  .back-container:empty {
+    display: none;
+  }
+
   .positions-section {
     min-height: 100px;
   }

@@ -25,8 +25,8 @@ editPocContent, editWebsiteContent }) => {
   let formattedOBCData = 'N/A';
   if (OBCId) { formattedOBCData = (<span>N/A | <OBCUrl id={OBCId} type="post" /></span>); }
   return (
-    <div className="usa-grid-full">
-      <div className="usa-grid position-details-description-container positions-details-about-position">
+    <div className="usa-grid-full padded-main-content">
+      <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className="usa-width-two-thirds about-section-left">
           <h2>About the Position</h2>
           <PositionDetailsDescription

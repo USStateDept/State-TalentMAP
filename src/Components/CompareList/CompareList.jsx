@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shortId from 'shortid';
-import FontAwesome from 'react-fontawesome';
-import { COMPARE_LIST, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
+import BackButton from '../BackButton';
+import { COMPARE_LIST } from '../../Constants/PropTypes';
 import COMPARE_LIMIT from '../../Constants/Compare';
 import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_USER_LISTED, NO_DATE } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
@@ -12,24 +12,13 @@ import { propOrDefault, formatDate, getPostName } from '../../utilities';
 import ViewPostDataButton from '../ViewPostDataButton';
 import OBCUrl from '../OBCUrl';
 
-const CompareList = ({ compare, isLoading, goBackLink }) => {
+const CompareList = ({ compare, isLoading }) => {
   const compareArray = compare.slice(0, COMPARE_LIMIT);
   return (
     <div className="usa-grid-full content-container">
-      {
-        goBackLink.text && // if goBackLink.text is defined, render...
-        <div>
-          <button
-            className="button-back-link"
-            tabIndex="0"
-            role="link"
-            onClick={() => window.history.back()}
-          >
-            <FontAwesome name="arrow-left" />
-            {goBackLink.text}
-          </button>
-        </div>
-      }
+      <div>
+        <BackButton />
+      </div>
       <div className="comparison-container">
         {
           isLoading ?
@@ -177,7 +166,6 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
 CompareList.propTypes = {
   compare: COMPARE_LIST,
   isLoading: PropTypes.bool,
-  goBackLink: GO_BACK_TO_LINK.isRequired,
 };
 
 CompareList.defaultProps = {

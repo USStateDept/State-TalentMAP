@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackButton matches snapshot 1`] = `
+<button
+  className="button-back-link usa-button-secondary"
+  onClick={[Function]}
+  role="link"
+  tabIndex="0"
+>
+  <FontAwesome
+    name="arrow-left"
+  />
+  Back to Home Page
+</button>
+`;
