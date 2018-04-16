@@ -80,7 +80,16 @@ exports[`Footer Component matches snapshot 1`] = `
           src="/assets/img/rsz_dos-seal.png"
         />
         <div
-          className="usa-footer-logo-img-tm-container"
+          className="usa-footer-logo-img-tm-container container--hr"
+        >
+          <img
+            alt="Bureau of Human Resources logo"
+            className="usa-footer-logo-img logo-img-hr"
+            src="/assets/img/hr-logo.png"
+          />
+        </div>
+        <div
+          className="usa-footer-logo-img-tm-container container--logo"
         >
           <img
             alt="TalentMAP logo"
