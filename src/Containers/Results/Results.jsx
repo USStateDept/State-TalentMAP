@@ -36,7 +36,7 @@ class Results extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      defaultSort: { value: '' },
+      defaultSort: { value: POSITION_SEARCH_SORTS.defaultSort },
       defaultPageSize: { value: 0 },
       defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
