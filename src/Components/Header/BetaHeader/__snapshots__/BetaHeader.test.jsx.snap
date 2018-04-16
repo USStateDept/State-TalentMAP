@@ -10,7 +10,7 @@ exports[`BetaHeader matches snapshot 1`] = `
     <FontAwesome
       name="gears"
     />
-    Welcome to TalentMAP!  Use this site to research positions and continue to bid using FSBid. New features are coming soon.
+    Welcome to TalentMAP! This site is new and features will continue to be added.
   </div>
 </div>
 `;
