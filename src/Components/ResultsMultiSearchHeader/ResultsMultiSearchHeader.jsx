@@ -240,7 +240,7 @@ ResultsMultiSearchHeader.defaultProps = {
   filters: [],
   defaultFilters: {},
   filtersIsLoading: false,
-  placeholder: 'Location, Skill Code, Grade, Language, Position Number',
+  placeholder: 'Location, Skill Code, Grade, Language, Position number',
   userProfile: {},
   onFilterChange: EMPTY_FUNCTION,
 };

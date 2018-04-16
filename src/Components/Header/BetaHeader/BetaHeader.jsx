@@ -7,8 +7,8 @@ const BetaHeader = () => (
   <div className="usa-banner tm-beta-header">
     <div className="usa-grid usa-banner-inner">
       <FontAwesome name="gears" />
-      Welcome to TalentMAP! This site is new and features will continue to
-      be added.
+      Welcome to TalentMAP!  Use this site to research positions and continue to bid using FSBid.
+       New features are coming soon.
       {/* <Link to="/about">Read more about how to use this site and what&#39;s to come.</Link> */}
     </div>
   </div>

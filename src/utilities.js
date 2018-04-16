@@ -2,7 +2,7 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
-import { cloneDeep, get, keys, merge as merge$ } from 'lodash';
+import { cloneDeep, get, keys, merge as merge$, isNumber } from 'lodash';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -462,4 +462,12 @@ export const getAccessiblePositionNumber = (positionNumber) => {
     return positionNumber.split('').join(' ');
   }
   return null;
+};
+
+// returns a percentage string for differential data.
+export const getDifferentialPercentage = (differential, defaultValue = '') => {
+  if (isNumber(differential)) {
+    return `${differential}%`;
+  }
+  return defaultValue;
 };
