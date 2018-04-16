@@ -228,6 +228,11 @@ export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
   sub: PropTypes.string,
 });
 
+export const NEW_SAVED_SEARCH_SUCCESS_OBJECT = PropTypes.shape({
+  title: PropTypes.string,
+  message: PropTypes.string,
+});
+
 export const SAVED_SEARCH_MESSAGE = STRING_OR_BOOL;
 
 export const SAVED_SEARCH_OBJECT = PropTypes.shape({

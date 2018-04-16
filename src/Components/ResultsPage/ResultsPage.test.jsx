@@ -39,7 +39,7 @@ describe('ResultsPageComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
@@ -75,7 +75,7 @@ describe('ResultsPageComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
@@ -110,7 +110,7 @@ describe('ResultsPageComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
@@ -144,7 +144,7 @@ describe('ResultsPageComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
