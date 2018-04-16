@@ -43,9 +43,9 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
 // Pass a customType string for special rendering.
 export function getPillDescription(filterItemObject, customType) {
   if (customType === 'dangerPay') {
-    return `Danger Pay: ${filterItemObject.description}`;
+    return `Danger pay: ${filterItemObject.description}`;
   } else if (customType === 'postDiff') {
-    return `Post Differential: ${filterItemObject.description}`;
+    return `Post differential: ${filterItemObject.description}`;
   }
   return filterItemObject.short_description ||
     filterItemObject.description ||

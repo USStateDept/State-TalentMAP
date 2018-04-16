@@ -5,11 +5,10 @@ import shortId from 'shortid';
 import FontAwesome from 'react-fontawesome';
 import { COMPARE_LIST, GO_BACK_TO_LINK } from '../../Constants/PropTypes';
 import COMPARE_LIMIT from '../../Constants/Compare';
-import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_USER_LISTED, NO_DATE } from '../../Constants/SystemMessages';
+import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
-import { propOrDefault, formatDate, getPostName } from '../../utilities';
-import ViewPostDataButton from '../ViewPostDataButton';
+import { propOrDefault, formatDate, getPostName, getDifferentialPercentage, getAccessiblePositionNumber } from '../../utilities';
 import OBCUrl from '../OBCUrl';
 
 const CompareList = ({ compare, isLoading, goBackLink }) => {
@@ -49,7 +48,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                         <th key={shortId.generate()}>
                           <div className="column-title-main">{c.title}</div>
                           <div className="column-title-link">
-                            <Link to={`/details/${c.position_number}`}>View position details</Link>
+                            <Link to={`/details/${c.position_number}`}>View position</Link>
                           </div>
                           <div className="border-extension" />
                         </th>
@@ -59,20 +58,15 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">
-                      Post
-                      <div className="border-extension-layer-2 border-visible-layer-2" />
-                    </th>
+                    <th scope="row">Position number</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          {getPostName(c.post, NO_POST)}
-                          {
-                            propOrDefault(c, 'post.obc_id') ?
-                              <ViewPostDataButton id={c.post.obc_id} />
-                            :
-                            null
-                          }
+                          <span aria-labelledby={getAccessiblePositionNumber(c.position_number)}>
+                            {c.position_number}
+                          </span>
+                          {/* border-extension-layer-2- should be inside
+                            of first data point of table */}
                           <div className="border-extension-layer-2" />
                         </td>
                       ))
@@ -87,10 +81,33 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Position Number</th>
+                    <th scope="row">Bureau</th>
                     {
                       compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.position_number}</td>
+                        <td key={shortId.generate()}>{c.bureau || NO_BUREAU}</td>
+                      ))
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Post
+                      <div className="border-extension-layer-2 border-visible-layer-2" />
+                    </th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          {getPostName(c.post, NO_POST)}
+                        </td>
+                      ))
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">Tour of duty</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          {c.post && c.post.tour_of_duty ? c.post.tour_of_duty : NO_TOUR_OF_DUTY}
+                        </td>
                       ))
                     }
                   </tr>
@@ -105,61 +122,35 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Transfer Eligibility Date</th>
+                    <th scope="row">Post differential</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          {propOrDefault(c, 'current_assignment.estimated_end_date') ? formatDate(c.current_assignment.estimated_end_date) : NO_DATE }
-                        </td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Incumbent</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {propOrDefault(c, 'current_assignment.user', NO_USER_LISTED)}
-                        </td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Bureau</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>{c.bureau || NO_BUREAU}</td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Tour of Duty</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {c.post && c.post.tour_of_duty ? c.post.tour_of_duty : NO_TOUR_OF_DUTY}
-                        </td>
-                      ))
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">Post Differential</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
+                          {getDifferentialPercentage(propOrDefault(c, 'post.differential_rate'), NO_POST_DIFFERENTIAL)}
+                          {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
                         </td>
                       ))
                     }
                   </tr>
                   <tr>
                     <th scope="row">
-                      Danger Pay
+                      Danger pay
                     </th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
-                          N/A {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
+                          {getDifferentialPercentage(propOrDefault(c, 'post.danger_pay'), NO_DANGER_PAY)}
+                          {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
+                        </td>
+                      ))
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">Transfer eligibility date</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          {propOrDefault(c, 'current_assignment.estimated_end_date') ? formatDate(c.current_assignment.estimated_end_date) : NO_DATE }
                         </td>
                       ))
                     }

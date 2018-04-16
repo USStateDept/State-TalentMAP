@@ -54,6 +54,10 @@ const ResultsCard = (props) => {
       value = `${value}%`;
     }
 
+    if (!value) {
+      value = defaultValue;
+    }
+
     return value;
   };
 

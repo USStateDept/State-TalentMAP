@@ -36,15 +36,15 @@ editPocContent, editWebsiteContent }) => {
           />
           <div className="usa-grid-full data-point-section">
             <CondensedCardDataPoint title="Skill Code" content={details.skill || NO_SKILL} />
-            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position Number" content={details.position_number} />
+            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position number" content={details.position_number} />
             <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} />} />
             <CondensedCardDataPoint title="Grade" content={details.grade || NO_GRADE} />
-            <CondensedCardDataPoint title="Transfer Eligibility Date" content={formattedTourEndDate} />
+            <CondensedCardDataPoint title="Transfer eligibility date" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={formattedIncumbent} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
-            <CondensedCardDataPoint title="Tour of Duty" content={formattedTOD} />
-            <CondensedCardDataPoint title="Post Differential" content={formattedOBCData} />
-            <CondensedCardDataPoint title="Danger Pay" content={formattedOBCData} />
+            <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
+            <CondensedCardDataPoint title="Post differential" content={formattedOBCData} />
+            <CondensedCardDataPoint title="Danger pay" content={formattedOBCData} />
           </div>
         </div>
         <div className="usa-width-one-third position-details-contact-container">

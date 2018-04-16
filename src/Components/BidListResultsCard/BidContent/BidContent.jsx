@@ -7,7 +7,7 @@ const BidContent = ({ status, positionNumber, postName }) => (
   <div className="usa-grid-full bid-content-container">
     <BidStatus status={status} />
     <div>
-      <span className="bid-list-card-title-position">Position Number </span>
+      <span className="bid-list-card-title-position">Position number </span>
       <Link to={`/details/${positionNumber}`}>
         {positionNumber}
       </Link>
