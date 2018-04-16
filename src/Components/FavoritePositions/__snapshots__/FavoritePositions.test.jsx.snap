@@ -35,28 +35,32 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "",
             },
             Object {
-              "text": "Title",
+              "text": "Position title: A-Z",
               "value": "title",
             },
             Object {
-              "text": "Grade",
-              "value": "grade",
+              "text": "Grade: Low to high",
+              "value": "-grade",
             },
             Object {
-              "text": "Number",
+              "text": "Bureau: A-Z",
+              "value": "-bureau",
+            },
+            Object {
+              "text": "Posted date: Most recent",
+              "value": "-effective_date",
+            },
+            Object {
+              "text": "Transfer eligibility date: Soonest",
+              "value": "current_assignment__estimated_end_date",
+            },
+            Object {
+              "text": "Position number: Low to high",
               "value": "position_number",
             },
             Object {
-              "text": "Posted Date",
-              "value": "description__date_created",
-            },
-            Object {
-              "text": "Service Need",
-              "value": "post__has_service_needs_differential",
-            },
-            Object {
-              "text": "Bureau",
-              "value": "bureau__long_description",
+              "text": "Service need",
+              "value": "-post__has_service_needs_differential",
             },
           ]
         }
