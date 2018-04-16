@@ -100,4 +100,11 @@ describe('Favorite', () => {
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot after clicking', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<Favorite onToggle={spy} compareArray={[]} refKey={refKey} />);
+    wrapper.find('InteractiveElement').simulate('click');
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

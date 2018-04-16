@@ -99,8 +99,8 @@ $results-container-width: 100% - $filter-container-width;
       .compare-check-box-container {
         font-size: rem(14px);
         line-height: 39px;
-        padding-left: 2rem;
         right: -$button-offset;
+        text-align: center;
         top: 1px;
       }
 
@@ -437,6 +437,10 @@ $results-container-width: 100% - $filter-container-width;
     width: 100%;
   }
 
+  [type=checkbox]:focus + label::before {
+    outline: $tm-focus-outline-default;
+  }
+
   fieldset {
     margin: 0 0 10px;
   }
@@ -620,7 +624,7 @@ $results-container-width: 100% - $filter-container-width;
     font-size: .8em;
     height: 28px;
     overflow: hidden;
-    padding: 0 .7em;
+    padding: 0 1.5em 0 .7em;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 130px;

@@ -36,12 +36,12 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
               "value": "",
             },
             Object {
-              "text": "Name",
+              "text": "Name: A-Z",
               "value": "name",
             },
             Object {
-              "text": "Date created",
-              "value": "date_updated",
+              "text": "Date created: Most recent",
+              "value": "-date_updated",
             },
           ]
         }

@@ -58,7 +58,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">Position Number</th>
+                    <th scope="row">Position number</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -102,7 +102,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Tour of Duty</th>
+                    <th scope="row">Tour of duty</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -122,7 +122,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Post Differential</th>
+                    <th scope="row">Post differential</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -134,7 +134,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                   </tr>
                   <tr>
                     <th scope="row">
-                      Danger Pay
+                      Danger pay
                     </th>
                     {
                       compareArray.map(c => (
@@ -146,7 +146,7 @@ const CompareList = ({ compare, isLoading, goBackLink }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Transfer Eligibility Date</th>
+                    <th scope="row">Transfer eligibility date</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>

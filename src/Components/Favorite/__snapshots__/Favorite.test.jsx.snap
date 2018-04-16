@@ -1,133 +1,177 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Favorite matches snapshot - Add state 1`] = `
-<InteractiveElement
-  className="favorite-container"
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
+<span>
+  <InteractiveElement
+    className="favorite-container"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "inherit",
+      }
     }
-  }
-  title="Add to Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star-o"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
+    title="Add to Favorites"
+    type="div"
+  >
+    <FontAwesome
+      name="star-o"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
 `;
 
 exports[`Favorite matches snapshot - Remove state 1`] = `
-<InteractiveElement
-  className="favorite-container"
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
+<span>
+  <InteractiveElement
+    className="favorite-container"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "inherit",
+      }
     }
-  }
-  title="Remove from Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
+    title="Remove from Favorites"
+    type="div"
+  >
+    <FontAwesome
+      name="star"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
+`;
+
+exports[`Favorite matches snapshot after clicking 1`] = `
+<span>
+  <span
+    aria-atomic="true"
+    aria-live="polite"
+    className="usa-sr-only"
+  >
+    You have added
+        this position to your favorites list.
+  </span>
+  <InteractiveElement
+    className="favorite-container"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
+    title="Add to Favorites"
+    type="div"
+  >
+    <span
+      className="ds-c-spinner"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
 `;
 
 exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
-<InteractiveElement
-  className="favorite-container usa-button"
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
+<span>
+  <InteractiveElement
+    className="favorite-container usa-button"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "inherit",
+      }
     }
-  }
-  title="Add to Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star-o"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
+    title="Add to Favorites"
+    type="div"
+  >
+    <FontAwesome
+      name="star-o"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
 `;
 
 exports[`Favorite matches snapshot when useLongText is true - Add state 1`] = `
-<InteractiveElement
-  className="favorite-container"
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
+<span>
+  <InteractiveElement
+    className="favorite-container"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "inherit",
+      }
     }
-  }
-  title="Add to Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star-o"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
+    title="Add to Favorites"
+    type="div"
+  >
+    <FontAwesome
+      name="star-o"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
 `;
 
 exports[`Favorite matches snapshot when useLongText is true - Remove state 1`] = `
-<InteractiveElement
-  className="favorite-container"
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
+<span>
+  <InteractiveElement
+    className="favorite-container"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "inherit",
+      }
     }
-  }
-  title="Remove from Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
+    title="Remove from Favorites"
+    type="div"
+  >
+    <FontAwesome
+      name="star"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
 `;
 
 exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
-<InteractiveElement
-  className="favorite-container"
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
+<span>
+  <InteractiveElement
+    className="favorite-container"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "inherit",
+      }
     }
-  }
-  title="Remove from Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
+    title="Remove from Favorites"
+    type="div"
+  >
+    <FontAwesome
+      name="star"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
 `;

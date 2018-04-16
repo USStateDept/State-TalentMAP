@@ -17,7 +17,8 @@ import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
+USER_PROFILE, SAVED_SEARCH_MESSAGE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
+SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
@@ -35,7 +36,7 @@ class Results extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      defaultSort: { value: '' },
+      defaultSort: { value: POSITION_SEARCH_SORTS.defaultSort },
       defaultPageSize: { value: 0 },
       defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
@@ -270,7 +271,7 @@ Results.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
+  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
@@ -299,7 +300,7 @@ Results.defaultProps = {
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
-  newSavedSearchSuccess: false,
+  newSavedSearchSuccess: {},
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},

@@ -88,7 +88,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Position Number
+              Position number
             </th>
             <td>
               <span
@@ -157,7 +157,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Tour of Duty
+              Tour of duty
             </th>
             <td>
               2 YRS (2 R & R)
@@ -206,7 +206,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post Differential
+              Post differential
             </th>
             <td>
               30%
@@ -219,7 +219,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Danger Pay
+              Danger pay
             </th>
             <td>
               0%
@@ -232,7 +232,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Transfer Eligibility Date
+              Transfer eligibility date
             </th>
             <td>
               03/13/2020

@@ -10,7 +10,7 @@ describe('savedSearch reducers', () => {
   });
 
   it('can set reducer NEW_SAVED_SEARCH_SUCCESS', () => {
-    expect(reducers.newSavedSearchSuccess(false, { type: 'NEW_SAVED_SEARCH_SUCCESS', newSavedSearch: true })).toBe(true);
+    expect(reducers.newSavedSearchSuccess(false, { type: 'NEW_SAVED_SEARCH_SUCCESS', newSavedSearch: true }).message).toBe(null);
   });
 
   it('can set reducer CURRENT_SAVED_SEARCH', () => {

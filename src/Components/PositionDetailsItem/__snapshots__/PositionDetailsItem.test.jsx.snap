@@ -60,7 +60,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           ariaLabel="0 0 0 0 3 0 2 7"
           content="00003027"
           hasFixedTitleWidth={false}
-          title="Position Number"
+          title="Position number"
         />
         <CondensedCardDataPoint
           content={
@@ -80,7 +80,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         <CondensedCardDataPoint
           content="None listed"
           hasFixedTitleWidth={false}
-          title="Transfer Eligibility Date"
+          title="Transfer eligibility date"
         />
         <CondensedCardDataPoint
           content="None listed"
@@ -95,17 +95,17 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         <CondensedCardDataPoint
           content="None listed"
           hasFixedTitleWidth={false}
-          title="Tour of Duty"
+          title="Tour of duty"
         />
         <CondensedCardDataPoint
           content="N/A"
           hasFixedTitleWidth={false}
-          title="Post Differential"
+          title="Post differential"
         />
         <CondensedCardDataPoint
           content="N/A"
           hasFixedTitleWidth={false}
-          title="Danger Pay"
+          title="Danger pay"
         />
       </div>
     </div>

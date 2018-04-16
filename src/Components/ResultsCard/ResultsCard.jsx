@@ -29,6 +29,7 @@ import {
   NO_TOUR_OF_DUTY,
   NO_CREATE_DATE,
   NO_UPDATE_DATE,
+  NO_DATE,
 } from '../../Constants/SystemMessages';
 
 const ResultsCard = (props) => {
@@ -53,6 +54,10 @@ const ResultsCard = (props) => {
       value = `${value}%`;
     }
 
+    if (!value) {
+      value = defaultValue;
+    }
+
     return value;
   };
 
@@ -69,20 +74,22 @@ const ResultsCard = (props) => {
   const sections = [
     /* eslint-disable quote-props */
     {
+      'Bid cycle': getResult('latest_bidcycle.name', NO_BID_CYCLE),
       'Skill Code': getResult('skill', NO_SKILL),
       'Grade': getResult('grade', NO_GRADE),
       'Bureau': getResult('bureau', NO_BUREAU),
       'Post': post,
     },
     {
-      'Tour of Duty': getResult('post.tour_of_duty', NO_TOUR_OF_DUTY),
+      'Tour of duty': getResult('post.tour_of_duty', NO_TOUR_OF_DUTY),
       'Language': language,
-      'Post Differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
-      'Danger Pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
+      'Post differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
+      'Danger pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
+      'Transfer eligibility date': getResult('current_assignment.estimated_end_date', NO_DATE),
     },
     {
       'Posted': getResult('effective_date', NO_UPDATE_DATE),
-      'Position Number': position,
+      'Position number': position,
     },
     /* eslint-enable quote-props */
   ];
