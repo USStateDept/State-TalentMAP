@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import CompareList from './CompareList';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -11,9 +9,7 @@ describe('CompareListComponent', () => {
     goBackLink: { text: 'Go back to search results' },
   };
   it('is defined', () => {
-    const wrapper = TestUtils.renderIntoDocument(<MemoryRouter>
-      <CompareList {...props} compare={resultsObject.results} />
-    </MemoryRouter>);
+    const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);
     expect(wrapper).toBeDefined();
   });
 
