@@ -27,6 +27,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   let rowTwoPositions = userSkillCodePositions;
   let rowTwoTitle = 'Positions in Skills';
   let rowTwoLink = '/results';
+  let rowTwoIcon = 'briefcase';
   if (rowTwoPositions && rowTwoPositions.length) {
     // form a link to view positions with the user's skills
     const ids = userProfile.skills.map(s => s.code);
@@ -38,6 +39,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
     rowTwoPositions = favoritedPositions;
     rowTwoTitle = 'Favorited positions';
     rowTwoLink = '/profile/favorites/';
+    rowTwoIcon = 'star';
   }
 
   // Define row three data.
@@ -83,7 +85,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           title={rowTwoTitle}
           maxLength="3"
           viewMoreLink={rowTwoLink}
-          icon="briefcase"
+          icon={rowTwoIcon}
           favorites={userProfile.favorite_positions}
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
