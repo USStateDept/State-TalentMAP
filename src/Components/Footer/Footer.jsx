@@ -5,6 +5,7 @@ import { getAssetPath } from '../../utilities';
 import logo from '../../assets/logos/png/horizontal_color.png';
 
 const dosFooterLogo = getAssetPath('/assets/img/rsz_dos-seal.png');
+const hrFooterLogo = getAssetPath('/assets/img/hr-logo.png');
 const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
 
 const Footer = () => (
@@ -41,7 +42,14 @@ const Footer = () => (
             src={dosFooterLogo}
             alt="DOS Seal"
           />
-          <div className="usa-footer-logo-img-tm-container">
+          <div className="usa-footer-logo-img-tm-container container--hr">
+            <img
+              className="usa-footer-logo-img logo-img-hr"
+              src={hrFooterLogo}
+              alt="Bureau of Human Resources logo"
+            />
+          </div>
+          <div className="usa-footer-logo-img-tm-container container--logo">
             <img
               className="usa-footer-logo-img-tm logo-img-tm"
               src={tmFooterLogo}
