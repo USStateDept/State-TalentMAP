@@ -49,7 +49,7 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
     ];
 
     // Search for positions that match the user's skill, if it exists.
-    // Otherwise, search for positions with skill code 0060.
+    // Otherwise, search for positions with Skill code 0060.
     if (skills && skills.length) {
       const ids = skills.map(s => s.id);
       const querySkillCodes = ids.join(',');

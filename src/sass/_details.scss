@@ -1,6 +1,18 @@
 .position-details-header-container {
   color: $color-white;
   position: relative;
+
+  .post-data-button {
+    font-size: 1.6rem;
+    padding: 1em 4em;
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    .post-data-button {
+      font-size: 1.5rem;
+      padding: 1em 2em;
+    }
+  }
 }
 
 .position-details-header {
@@ -69,12 +81,11 @@
 }
 
 .position-details-container {
-  font-size: .9em;
 
   h2,
   .positions-section .positions-section-title {
     font-family: 'Roboto';
-    font-size: 2rem;
+    font-size: 2.4rem;
     font-weight: bold;
   }
 

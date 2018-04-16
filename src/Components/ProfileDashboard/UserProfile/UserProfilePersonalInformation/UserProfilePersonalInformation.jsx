@@ -8,7 +8,7 @@ const UserProfilePersonalInformation = ({ userProfile }) => (
   <div className="usa-grid-full current-user-section-container current-user-personal-information">
     <div className="section-padded-inner-container">
       <InformationDataPoint
-        title="Skill Code"
+        title="Skill code"
         content={<SkillCodeList skillCodes={userProfile.skills} />}
         className="skill-code-data-point-container skill-code-data-point-container-one"
       />
