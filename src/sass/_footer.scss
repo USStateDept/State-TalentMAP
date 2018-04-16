@@ -38,11 +38,22 @@
   }
 
   .usa-footer-logo-img-tm-container {
-    border-left: 1px solid;
     float: left;
     margin-left: 20px;
     margin-top: 15px;
-    min-height: 60px;
+    min-height: 70px;
+  }
+
+  .container--hr {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    margin-top: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .container--logo {
+    margin-left: 0;
   }
 }
 
@@ -63,7 +74,7 @@
 
     a {
       color: $color-white;
-      font-weight: 200;
+      font-weight: 300;
       text-decoration: none;
     }
 
