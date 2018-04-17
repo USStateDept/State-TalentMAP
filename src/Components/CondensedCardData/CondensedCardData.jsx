@@ -11,7 +11,7 @@ const CondensedCardData = ({ position }) => {
   return (
     <div className="usa-grid-full condensed-card-data">
       <CondensedCardDataPoint
-        title="Skill Code"
+        title="Skill code"
         content={position.skill || NO_SKILL}
         hasFixedTitleWidth
       />

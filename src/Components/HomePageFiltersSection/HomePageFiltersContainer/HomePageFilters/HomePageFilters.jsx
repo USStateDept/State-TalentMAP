@@ -13,7 +13,7 @@ const HomePageFiltersSection = ({ filters, submitSearch, onFilterSelect, isLoadi
     <div className="usa-grid-full">
       <Form className="usa-grid-full" onFormSubmit={submitSearch}>
         <FieldSet
-          legend="Search by Skill Code"
+          legend="Search by Skill code"
         >
           <SkillCodeFilter
             filters={skillCodesData}

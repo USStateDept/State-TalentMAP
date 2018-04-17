@@ -44,7 +44,7 @@ exports[`BidderPortfolioGridListHeaderComponent matches snapshot 1`] = `
     >
       <BidderPortfolioGridListHeaderItem
         className=""
-        content="Skill Code / Birthdate"
+        content="Skill code / Birthdate"
       />
     </div>
     <div

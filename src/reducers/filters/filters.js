@@ -23,14 +23,14 @@ const items =
           description: 'skill',
           endpoint: 'skill/',
           selectionRef: ENDPOINT_PARAMS.skill,
-          text: 'Choose skill codes',
+          text: 'Choose Skill codes',
         },
         data: [
         ],
       },
       {
         // we won't query position directly on cone, but instead
-        // use the individual skill codes
+        // use the individual Skill codes
         item: {
           title: 'Skill Code',
           description: 'skillCone',

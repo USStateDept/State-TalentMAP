@@ -7,7 +7,7 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   <CondensedCardDataPoint
     content="OFFICE MANAGEMENT (9017)"
     hasFixedTitleWidth={true}
-    title="Skill Code"
+    title="Skill code"
   />
   <CondensedCardDataPoint
     content="Freetown, Sierra Leone"
@@ -39,7 +39,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
   <CondensedCardDataPoint
     content="None listed"
     hasFixedTitleWidth={true}
-    title="Skill Code"
+    title="Skill code"
   />
   <CondensedCardDataPoint
     content="Freetown, Sierra Leone"
@@ -71,7 +71,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
   <CondensedCardDataPoint
     content="None listed"
     hasFixedTitleWidth={true}
-    title="Skill Code"
+    title="Skill code"
   />
   <CondensedCardDataPoint
     content="Freetown, Sierra Leone"
