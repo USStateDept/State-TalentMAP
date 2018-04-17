@@ -59,7 +59,7 @@ describe('HomePageComponent', () => {
       {...props}
       homePagePositions={fallBackPositions}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorites Positions');
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorited Positions');
     expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently posted positions');
   });
 
