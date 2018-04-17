@@ -96,7 +96,16 @@ app.get(`${PUBLIC_URL}metadata`, (request, response) => {
   response.send(metadata);
 });
 
+// OBC redirect - post data detail
+// endpoint for post-specific data points
+app.get(`${PUBLIC_URL}obc/post/data/:id`, (request, response) => {
+  // set the id passed in the route and pass it to the redirect
+  const id = request.params.id;
+  response.redirect(`${OBC_URL}/post/postdatadetails/${id}`);
+});
+
 // OBC redirect - posts
+// endpoint for post, ie landing page
 app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
@@ -104,6 +113,7 @@ app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
 });
 
 // OBC redirect - countries
+// endpoint for country, ie landing page
 app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
