@@ -59,6 +59,15 @@ class PositionDetailsDescription extends Component {
       formattedDescription = plainTextDescription;
     }
 
+    let hideViewMoreLink = false;
+    if (
+    (shortenString(plainTextDescription).length || 0) === (description ? description.length : 0)) {
+      hideViewMoreLink = true;
+    }
+
+    console.log(shortenString(plainTextDescription).length || 0);
+    console.log(description ? description.length : 0);
+
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
     return (
       <div className="position-details-header-body editable-position-field">
@@ -72,10 +81,13 @@ class PositionDetailsDescription extends Component {
                     onToggle={this.toggleDescriptionEditor}
                   />
               }
-              <ViewMoreLink
-                defaultValue={!shouldDisplayFullDescription}
-                onChange={this.onDescriptionLengthToggle}
-              />
+              {
+                !hideViewMoreLink &&
+                <ViewMoreLink
+                  defaultValue={!shouldDisplayFullDescription}
+                  onChange={this.onDescriptionLengthToggle}
+                />
+              }
             </span>
         }
         {
