@@ -165,7 +165,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
           },
         ]
       }
-      title="Service needs positions"
+      title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
@@ -501,7 +501,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
           },
         ]
       }
-      title="Recently posted positions in grade 03"
+      title="Recently Posted Positions in Grade 03"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
@@ -673,7 +673,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       isLoading={false}
       maxLength="3"
       positions={Array []}
-      title="Service needs positions"
+      title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
@@ -995,7 +995,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       isLoading={false}
       maxLength="3"
       positions={Array []}
-      title="Recently posted positions in grade 03"
+      title="Recently Posted Positions in Grade 03"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
