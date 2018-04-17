@@ -52,14 +52,14 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   let rowThreeLink = '/results';
   if (userGradeRecentPositions) {
     // update the link to view positions with the user's grade
-    rowThreeLink = `/results?grade__code__in=${userProfile.grade}`;
+    rowThreeLink = `/results?grade__code__in=${userProfile.grade}&ordering=-effective_date`;
     // update the title based on the user's grade
     rowThreeTitle = `${rowThreeTitle} ${userProfile.grade}`;
   } else if (recentPositions) {
     // update everything to to denote that these are recently posted positions
     rowThreePositions = recentPositions;
     rowThreeTitle = 'Recently posted positions';
-    rowThreeLink = '/results?ordering=description__date_created';
+    rowThreeLink = '/results?ordering=-effective_date';
   }
   return (
     <div className="homepage-positions-section-container">
