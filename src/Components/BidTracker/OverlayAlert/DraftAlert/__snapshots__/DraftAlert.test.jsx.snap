@@ -55,7 +55,7 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         <span
           className="title"
         >
-          Skill Code: 
+          Skill code: 
         </span>
         POLITICAL AND ECONOMIC AFFAIRS (6050)
       </div>
