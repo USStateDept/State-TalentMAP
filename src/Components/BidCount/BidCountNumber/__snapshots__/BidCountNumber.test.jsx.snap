@@ -38,7 +38,7 @@ exports[`BidCountNumberComponent matches snapshot where type = atSkillBids 1`] =
     style={Object {}}
     tabIndex="0"
     theme="dark"
-    title="Number of bidders who are at Skill Code."
+    title="Number of bidders who are at Skill code."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
@@ -90,7 +90,7 @@ exports[`BidCountNumberComponent matches snapshot where type = inGradeAtSkillBid
     style={Object {}}
     tabIndex="0"
     theme="dark"
-    title="Number of bidders who are at Grade and Skill Code."
+    title="Number of bidders who are at Grade and Skill code."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}

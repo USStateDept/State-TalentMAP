@@ -12,7 +12,7 @@ const items = {
       description: 'skill',
       endpoint: 'skill/',
       selectionRef: 'skill__code__in',
-      text: 'Choose skill codes',
+      text: 'Choose Skill codes',
     },
       data: [
       ],
