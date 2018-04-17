@@ -46,7 +46,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
               <div
                 className="search-sub-text"
               >
-                Example: Mexico City Mexico, Political Affairs (5505), Russian 3/3...
+                Example: Abuja, Nigeria, Political Affairs (5505), Russian 3/3...
               </div>
             </div>
             <div
