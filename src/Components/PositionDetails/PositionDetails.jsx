@@ -5,6 +5,7 @@ import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionSimilarPositions from '../../Containers/PositionSimilarPositions';
+import GoBackLink from '../BackButton';
 
 class PositionDetails extends Component {
   constructor(props) {
@@ -33,6 +34,11 @@ class PositionDetails extends Component {
     const isReady = details && userProfile.id && !isLoading && !hasErrored;
     return (
       <div className="content-container position-details-container">
+        <div
+          className="usa-grid-full position-details-description-container positions-details-about-position back-container padded-main-content"
+        >
+          <GoBackLink />
+        </div>
         { isReady &&
         <div>
           <PositionTitle
@@ -57,7 +63,7 @@ class PositionDetails extends Component {
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
           <hr />
-          <div className="usa-grid position-details-description-container">
+          <div className="usa-grid-full position-details-description-container padded-main-content">
             <PositionSimilarPositions
               id={details.id}
             />

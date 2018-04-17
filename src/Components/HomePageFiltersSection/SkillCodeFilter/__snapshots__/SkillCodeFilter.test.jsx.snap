@@ -53,7 +53,7 @@ exports[`SkillCodeFilterComponent matches snapshot 1`] = `
       ]
     }
     pageSize={5}
-    placeholder="Select Skill Codes"
+    placeholder="Select Skill codes"
     removeSelected={true}
     required={false}
     rtl={false}
