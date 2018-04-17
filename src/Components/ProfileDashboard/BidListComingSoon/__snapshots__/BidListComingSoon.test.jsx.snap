@@ -29,18 +29,6 @@ exports[`BidListComingSoonComponent matches snapshot 1`] = `
       >
         Coming Soon
       </div>
-      <div
-        className="button-wrapper"
-      >
-        <LinkButton
-          className="tm-button-transparent"
-          isExternal={false}
-          toLink="/about"
-          useDefaultClass={true}
-        >
-          More Information
-        </LinkButton>
-      </div>
     </div>
   </div>
 </div>
