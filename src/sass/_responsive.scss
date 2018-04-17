@@ -14,7 +14,7 @@
 }
 
 .padded-main-content {
-  @media screen and (max-width: $screen-lg-min) {
+  @media screen and (max-width: $screen-lg-min - 1) {
     padding-left: 20px !important;
     padding-right: 20px !important;
   }

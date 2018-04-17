@@ -165,7 +165,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
           },
         ]
       }
-      title="Service needs positions"
+      title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
@@ -173,6 +173,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -341,6 +342,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?skill__code__in=,"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -501,14 +503,15 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
           },
         ]
       }
-      title="Recently posted positions in grade 03"
+      title="Recently Posted Positions in Grade 03"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?grade__code__in=03"
+      viewMoreLink="/results?grade__code__in=03&ordering=-effective_date"
+      wrapInLink={true}
     />
   </div>
 </div>
@@ -673,7 +676,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       isLoading={false}
       maxLength="3"
       positions={Array []}
-      title="Service needs positions"
+      title="Service Needs Positions"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
@@ -681,6 +684,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -842,6 +846,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -995,14 +1000,15 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       isLoading={false}
       maxLength="3"
       positions={Array []}
-      title="Recently posted positions in grade 03"
+      title="Recently Posted Positions in Grade 03"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?grade__code__in=03"
+      viewMoreLink="/results?grade__code__in=03&ordering=-effective_date"
+      wrapInLink={true}
     />
   </div>
 </div>

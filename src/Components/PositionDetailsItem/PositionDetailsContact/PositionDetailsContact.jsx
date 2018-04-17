@@ -103,7 +103,7 @@ class PositionDetailsContact extends Component {
           </div>
         </div>
         <div className="contact-container">
-          Updated date: {formattedDate}
+          Updated: {formattedDate}
         </div>
       </div>
     );

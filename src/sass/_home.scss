@@ -115,6 +115,11 @@
     bottom: -1px;
     display: inline-block;
     position: relative;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 
   .positions-section-title {
@@ -128,6 +133,14 @@
     .fa {
       color: $blue-primary;
       margin-right: 8px;
+    }
+
+    .fa-angle-right {
+      color: $color-black;
+      display: inline-flex;
+      font-size: 2.6rem;
+      font-weight: bold;
+      margin: 0 0 0 7px;
     }
   }
 

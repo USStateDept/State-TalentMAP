@@ -664,7 +664,7 @@ $padding-no-border: $total-padding - $border;
   }
 
   .bid-list-content {
-    margin-top: 85px;
+    margin-top: 105px;
     text-align: center;
   }
 
@@ -778,6 +778,15 @@ $padding-no-border: $total-padding - $border;
     float: left;
   }
 
+  .favorites-card-section:nth-child(2) {
+    float: right;
+  }
+
+  .link-button {
+    float: right;
+    font-size: 1.3rem;
+  }
+
   .saved-search-card {
     padding: 5px 15px;
   }
@@ -805,6 +814,15 @@ $padding-no-border: $total-padding - $border;
 
   .tm-button-transparent {
     padding: .7em 3em;
+  }
+
+  .favorites-card-section:nth-child(2) {
+    float: right;
+  }
+
+  button {
+    float: right;
+    font-size: 1.3rem;
   }
 }
 

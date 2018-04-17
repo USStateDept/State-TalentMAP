@@ -22,10 +22,10 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
         <meta property="og:url" content={window.location.href} />
       </Helmet>
       <div className="position-details-header">
-        <div className="usa-grid positions-details-header-grid">
-          <div className="usa-width-one-half">
+        <div className="usa-grid-full positions-details-header-grid padded-main-content">
+          <div className="usa-width-two-thirds">
             <div className="usa-grid-full">
-              <div className="usa-width-two-thirds header-title-container">
+              <div className="usa-width-one-half header-title-container">
                 <div className="position-details-header-title">
                   <h1>{details.title}</h1>
                 </div>
@@ -34,7 +34,7 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
                   { obcId && <span> (<OBCUrl id={obcId} />)</span> }
                 </div>
               </div>
-              <div className="usa-width-one-third title-actions-section">
+              <div className="usa-width-one-half title-actions-section">
                 <Favorite
                   onToggle={toggleFavorite}
                   refKey={details.id}
@@ -42,6 +42,7 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
                   isLoading={userProfileFavoritePositionIsLoading}
                   useLongText
                   useSpinnerWhite
+                  useButtonClass
                 />
               </div>
             </div>

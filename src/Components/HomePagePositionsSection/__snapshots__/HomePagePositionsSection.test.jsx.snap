@@ -6,11 +6,20 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
 >
   <PositionsSectionTitle
     title={
-      <h2
-        className="positions-section-title"
+      <Link
+        replace={false}
+        title="View more Title"
+        to=""
       >
-        Title
-      </h2>
+        <h2
+          className="positions-section-title"
+        >
+          Title
+          <FontAwesome
+            name="angle-right"
+          />
+        </h2>
+      </Link>
     }
     viewMoreLink=""
   />

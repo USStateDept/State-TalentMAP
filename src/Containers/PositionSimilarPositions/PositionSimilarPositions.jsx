@@ -31,6 +31,7 @@ class Position extends Component {
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         toggleBid={toggleBid}
         useSpinner
+        wrapInLink={false}
       />
     );
   }
@@ -52,7 +53,7 @@ Position.propTypes = {
 };
 
 Position.defaultProps = {
-  title: 'Similar positions',
+  title: 'Similar Positions',
   similarPositions: { results: [] },
   similarPositionsIsLoading: true,
   similarPositionsHasErrored: false,
