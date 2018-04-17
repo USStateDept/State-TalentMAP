@@ -100,15 +100,15 @@ exports[`FavoritesListResultsCardComponent matches snapshot 1`] = `
       />
     </div>
     <div
-      className="usa-width-one-half favorites-card-section"
+      className="usa-width-one-fourth favorites-card-section"
     >
       <LinkButton
-        className="tm-button-transparent"
+        className=""
         isExternal={false}
         toLink="/details/10034001"
         useDefaultClass={true}
       >
-        View position
+        View Position
       </LinkButton>
     </div>
   </div>
