@@ -18,7 +18,7 @@ const GlossarySearch = ({ changeText, searchTextValue }) => (
       labelSrOnly={false}
       placeholder="Search for terms"
     />
-    <div className="glossary-search-sub">Examples: post, Tour of duty</div>
+    <div className="glossary-search-sub">Examples: Tandem, Tour of duty</div>
   </FieldSet>
 );
 
