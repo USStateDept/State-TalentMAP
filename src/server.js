@@ -110,7 +110,7 @@ app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
   response.redirect(`${OBC_URL}/country/detail/${id}`);
 });
 
-app.get(`${PUBLIC_URL}about`, (request, response) => {
+app.get(`${PUBLIC_URL}about/more`, (request, response) => {
   response.redirect(`${ABOUT_PAGE}`);
 });
 
