@@ -130,6 +130,7 @@ const items =
           ],
         },
         data: [
+          { id: 0, code: '0', description: 'No post differential' },
           { id: 5, code: '5', description: '5%' },
           { id: 10, code: '10', description: '10%' },
           { id: 15, code: '15', description: '15%' },
@@ -150,6 +151,7 @@ const items =
           ],
         },
         data: [
+          { id: 100, code: '0', description: 'No danger pay' },
           { id: 150, code: '15', description: '15%' },
           { id: 250, code: '25', description: '25%' },
           { id: 350, code: '35', description: '35%' },
