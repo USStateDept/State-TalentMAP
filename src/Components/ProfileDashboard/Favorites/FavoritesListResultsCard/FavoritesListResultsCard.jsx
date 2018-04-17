@@ -15,8 +15,8 @@ const FavoritesListResultsCard = ({ position }) => (
           }
         />
       </div>
-      <div className="usa-width-one-half favorites-card-section">
-        <LinkButton className="tm-button-transparent" toLink={`/details/${position.position_number}`}>View position</LinkButton>
+      <div className="usa-width-one-fourth favorites-card-section">
+        <LinkButton toLink={`/details/${position.position_number}`}>View Position</LinkButton>
       </div>
     </div>
   </div>

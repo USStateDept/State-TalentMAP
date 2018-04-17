@@ -5,17 +5,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
   className="usa-grid-full content-container"
 >
   <div>
-    <button
-      className="button-back-link"
-      onClick={[Function]}
-      role="link"
-      tabIndex="0"
-    >
-      <FontAwesome
-        name="arrow-left"
-      />
-      Go back to search results
-    </button>
+    <Connect(withRouter(BackButton)) />
   </div>
   <div
     className="comparison-container"
@@ -115,7 +105,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Skill Code
+              Skill code
             </th>
             <td>
               OFFICE MANAGEMENT (9017)
@@ -256,17 +246,7 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
   className="usa-grid-full content-container"
 >
   <div>
-    <button
-      className="button-back-link"
-      onClick={[Function]}
-      role="link"
-      tabIndex="0"
-    >
-      <FontAwesome
-        name="arrow-left"
-      />
-      Go back to search results
-    </button>
+    <Connect(withRouter(BackButton)) />
   </div>
   <div
     className="comparison-container"
