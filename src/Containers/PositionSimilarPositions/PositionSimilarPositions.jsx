@@ -31,6 +31,7 @@ class Position extends Component {
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         toggleBid={toggleBid}
         useSpinner
+        wrapInLink={false}
       />
     );
   }
