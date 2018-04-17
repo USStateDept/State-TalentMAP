@@ -174,7 +174,7 @@ class ResultsMultiSearchHeader extends Component {
                       onChangeText={this.onChangeText}
                       defaultValue={q}
                     />
-                    <div className="search-sub-text">Example: Mexico City Mexico, Political Affairs (5505), Russian 3/3...</div>
+                    <div className="search-sub-text">Example: Abuja, Nigeria, Political Affairs (5505), Russian 3/3...</div>
                   </div>
                   <div className="usa-width-one-fourth search-results-inputs search-keyword">
                     <SkillCodeFilter
