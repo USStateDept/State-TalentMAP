@@ -59,14 +59,12 @@ class PositionDetailsDescription extends Component {
       formattedDescription = plainTextDescription;
     }
 
+    // determine if the ViewMoreLink needs to be rendered based on description length.
     let hideViewMoreLink = false;
     if (
-    (shortenString(plainTextDescription).length || 0) === (description ? description.length : 0)) {
+    (shortenString(plainTextDescription).length || 0) <= (description ? description.length : 0)) {
       hideViewMoreLink = true;
     }
-
-    console.log(shortenString(plainTextDescription).length || 0);
-    console.log(description ? description.length : 0);
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
     return (
