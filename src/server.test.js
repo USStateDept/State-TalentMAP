@@ -45,7 +45,7 @@ describe('proxy server routes', () => {
   it('redirects on GET /talentmap/obc/post/42', (done) => {
     request(server).get('/talentmap/obc/post/42').expect(302, done);
   });
-  it('redirects on /talentmap/about', (done) => {
-    request(server).get('/talentmap/about').expect(302, done);
+  it('redirects on /talentmap/about/more', (done) => {
+    request(server).get('/talentmap/about/more').expect(302, done);
   });
 });
