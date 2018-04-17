@@ -37,7 +37,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   } else if (favoritedPositions) {
     // update everything to denote that these are favorited positions
     rowTwoPositions = favoritedPositions;
-    rowTwoTitle = 'Favorited positions';
+    rowTwoTitle = 'Favorited Positions';
     rowTwoLink = '/profile/favorites/';
     rowTwoIcon = 'star';
   }
@@ -47,7 +47,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   // If the user does not have a grade, we'll display recent positions.
   const userGradeRecentPositions = homePagePositions[USER_GRADE_RECENT_POSITIONS];
   const recentPositions = homePagePositions[RECENTLY_POSTED_POSITIONS];
-  let rowThreeTitle = 'Recently posted positions in grade';
+  let rowThreeTitle = 'Recently Posted Positions in Grade';
   let rowThreePositions = userGradeRecentPositions;
   let rowThreeLink = '/results';
   if (userGradeRecentPositions) {
@@ -58,7 +58,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   } else if (recentPositions) {
     // update everything to to denote that these are recently posted positions
     rowThreePositions = recentPositions;
-    rowThreeTitle = 'Recently posted positions';
+    rowThreeTitle = 'Recently Posted Positions';
     rowThreeLink = '/results?ordering=description__date_created';
   }
   return (
@@ -67,7 +67,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
         className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
       >
         <HomePagePositionsSection
-          title="Service needs positions"
+          title="Service Needs Positions"
           maxLength="3"
           viewMoreLink={serviceNeedsLink}
           icon="bolt"
