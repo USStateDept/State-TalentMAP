@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NO_BUREAU, NO_GRADE, NO_SKILL, NO_END_DATE, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL } from '../../Constants/SystemMessages';
+import { NO_BUREAU, NO_GRADE, NO_SKILL, NO_END_DATE, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from '../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import { formatDate, propOrDefault, getAccessiblePositionNumber, getDifferentialPercentage } from '../../utilities';
@@ -19,7 +19,7 @@ editPocContent, editWebsiteContent }) => {
   const formattedTOD = propOrDefault(details, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
 
   const postDifferential = getDifferentialPercentage(propOrDefault(details, 'post.cost_of_living_adjustment'), NO_POST_DIFFERENTIAL);
-  const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.cost_of_living_adjustment'), NO_POST_DIFFERENTIAL);
+  const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.cost_of_living_adjustment'), NO_DANGER_PAY);
 
   const OBCId = propOrDefault(details, 'post.obc_id');
   const getFormattedObcData = (prefix) => {
