@@ -51,8 +51,8 @@ class PositionDetailsDescription extends Component {
     // 3. A formatted version for public viewing
 
     const description = propOrDefault(details, 'description.content');
-    const plainTextDescription = description ? newDescriptionContent.value || description : '';
-    let formattedDescription = description ?
+    const plainTextDescription = description ? newDescriptionContent.value || description : newDescriptionContent.value || '';
+    let formattedDescription = description || newDescriptionContent.value ?
       shortenString(plainTextDescription) :
       NO_POSITION_DESCRIPTION;
     if (description && shouldDisplayFullDescription) {
