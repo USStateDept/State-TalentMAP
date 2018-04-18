@@ -10,7 +10,7 @@ exports[`HomePageFiltersComponent matches snapshot 1`] = `
   >
     <FieldSet
       className=""
-      legend="Search by Skill code"
+      legend="Search by Skill cone (code)"
       legendSrOnly={false}
     >
       <SkillCodeFilter

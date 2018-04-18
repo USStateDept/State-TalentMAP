@@ -133,7 +133,7 @@ class ResultsMultiSearchHeader extends Component {
     const { placeholder, filters, userProfile, filtersIsLoading } = this.props;
     const { q, defaultGrade, defaultBureau, [SKILL_PARAM]: skills } = this.state;
 
-    // format Skill codes
+    // format skill cones
     const skillCodes = filters.find(f => f.item && f.item.description === 'skill');
     const skillCodesData = skillCodes ? skillCodes.data : [];
 
@@ -178,7 +178,7 @@ class ResultsMultiSearchHeader extends Component {
                   </div>
                   <div className="usa-width-one-fourth search-results-inputs search-keyword">
                     <SkillCodeFilter
-                      label="Skill code"
+                      label="Skill cone"
                       isLoading={filtersIsLoading}
                       filters={skillCodesData}
                       onFilterSelect={this.onChangeSkills}
