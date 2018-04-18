@@ -23,7 +23,7 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
     content={
       <LanguageList
         languages={Array []}
-        propToUse="language"
+        propToUse="representation"
       />
     }
     hasFixedTitleWidth={true}
@@ -55,7 +55,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
     content={
       <LanguageList
         languages={Array []}
-        propToUse="language"
+        propToUse="representation"
       />
     }
     hasFixedTitleWidth={true}
@@ -87,7 +87,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
     content={
       <LanguageList
         languages={Array []}
-        propToUse="language"
+        propToUse="representation"
       />
     }
     hasFixedTitleWidth={true}
