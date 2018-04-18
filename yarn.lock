@@ -7928,7 +7928,7 @@ safe-regex@^1.1.0:
   dependencies:
     ret "~0.1.10"
 
-saml2-js@^2.0.2:
+saml2-js@2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/saml2-js/-/saml2-js-2.0.2.tgz#5429171e429ef3e82c9b9af9f49ce81c0a163729"
   dependencies:
