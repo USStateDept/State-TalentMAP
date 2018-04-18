@@ -100,7 +100,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         <CondensedCardDataPoint
           content="None listed"
           hasFixedTitleWidth={false}
-          title="Transfer eligibility date"
+          title="TED"
         />
       </div>
     </div>

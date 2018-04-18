@@ -46,7 +46,7 @@ exports[`SelectForm matches snapshot 1`] = `
     <option
       value="current_assignment__estimated_end_date"
     >
-      Transfer eligibility date: Soonest
+      TED: Soonest
     </option>
     <option
       value="position_number"
@@ -108,7 +108,7 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
     <option
       value="current_assignment__estimated_end_date"
     >
-      Transfer eligibility date: Soonest
+      TED: Soonest
     </option>
     <option
       value="position_number"
