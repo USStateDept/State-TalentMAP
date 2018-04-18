@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
 import { get, isArray, isNumber } from 'lodash';
+import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList, { Definition } from '../DefinitionList';
 import Favorite from '../Favorite/Favorite';
@@ -27,7 +28,6 @@ import {
   NO_POST,
   NO_SKILL,
   NO_TOUR_OF_DUTY,
-  NO_CREATE_DATE,
   NO_UPDATE_DATE,
   NO_DATE,
 } from '../../Constants/SystemMessages';
@@ -84,7 +84,7 @@ const ResultsCard = (props) => {
       'Transfer eligibility date': getResult('current_assignment.estimated_end_date', NO_DATE),
     },
     {
-      'Posted': getResult('effective_date', NO_UPDATE_DATE),
+      'Posted': getResult(COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
       'Position number': position,
     },
     /* eslint-enable quote-props */

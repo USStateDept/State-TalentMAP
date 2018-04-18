@@ -1,11 +1,12 @@
 import React from 'react';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
-import { NO_DATE } from '../../Constants/SystemMessages';
+import { NO_UPDATE_DATE } from '../../Constants/SystemMessages';
+import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { formatDate } from '../../utilities';
 
 const ResultsCondensedCardFooter = ({ position }) => {
-  const date = position.effective_date ?
-    formatDate(position.effective_date) : NO_DATE;
+  const date = position[COMMON_PROPERTIES.posted] ?
+    formatDate(position[COMMON_PROPERTIES.posted]) : NO_UPDATE_DATE;
   return (
     <div className="condensed-card-footer">
       <div className="usa-grid-full condensed-card-footer-container">
