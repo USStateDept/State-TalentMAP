@@ -27,7 +27,7 @@ const CondensedCardData = ({ position }) => {
       />
       <CondensedCardDataPoint
         title="Language"
-        content={<LanguageList languages={position.languages} />}
+        content={<LanguageList languages={position.languages} propToUse="representation" />}
         hasFixedTitleWidth
       />
     </div>

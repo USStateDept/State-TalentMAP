@@ -27,6 +27,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     return getPostName(filterItemObject);
   } else if (filterItem.item.description === 'bidCycle') {
     return filterItemObject.name;
+  } else if (filterItem.item.description === 'language') {
+    return `${filterItemObject.formal_description} (${filterItemObject.code})`;
   } else if (filterItem.item.description === 'postDiff') {
     return filterItemObject.description;
   } else if (filterItem.item.description === 'dangerPay') {
@@ -46,6 +48,8 @@ export function getPillDescription(filterItemObject, customType) {
     return `Danger pay: ${filterItemObject.description}`;
   } else if (customType === 'postDiff') {
     return `Post differential: ${filterItemObject.description}`;
+  } else if (customType === 'language') {
+    return filterItemObject.custom_description;
   }
   return filterItemObject.short_description ||
     filterItemObject.description ||

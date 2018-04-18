@@ -44,7 +44,7 @@ editPocContent, editWebsiteContent }) => {
             <CondensedCardDataPoint title="Grade" content={details.grade || NO_GRADE} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
             <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
-            <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} />} />
+            <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} propToUse="representation" />} />
             <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
             <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
