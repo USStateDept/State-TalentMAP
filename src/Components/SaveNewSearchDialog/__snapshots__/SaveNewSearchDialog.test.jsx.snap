@@ -26,12 +26,14 @@ exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
     <button
       className="usa-button-secondary saved-search-form-secondary-button"
       onClick={[Function]}
+      type="button"
     >
       Cancel
     </button>
     <button
       className="saved-search-form-primary-button"
-      type="submit"
+      onClick={[Function]}
+      type="button"
     >
       Save
     </button>
