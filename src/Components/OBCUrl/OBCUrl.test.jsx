@@ -52,6 +52,14 @@ describe('OBCUrlComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when type is "post-data"', () => {
+    const wrapper = shallow(<OBCUrl
+      id={5}
+      type="post-data"
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('matches snapshot when type is "country"', () => {
     const wrapper = shallow(<OBCUrl
       id={5}
