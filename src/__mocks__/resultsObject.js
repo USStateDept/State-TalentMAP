@@ -16,6 +16,7 @@ const resultsObject = {
       create_date: '2006-09-20T00:00:00Z',
       update_date: '2017-06-08T00:00:00Z',
       effective_date: '2012-10-22T00:00:00Z',
+      posted_date: '2012-10-22T00:00:00Z',
       status_code: null,
       status: null,
       description: {
@@ -90,6 +91,7 @@ const resultsObject = {
       create_date: '2006-09-20T00:00:00Z',
       update_date: '2017-06-08T00:00:00Z',
       effective_date: '2016-10-02T00:00:00Z',
+      posted_date: '2016-10-02T00:00:00Z',
       status_code: null,
       status: null,
       description: {

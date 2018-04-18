@@ -18,12 +18,14 @@ editPocContent, editWebsiteContent }) => {
   const formattedBureau = details.bureau || NO_BUREAU;
   const formattedTOD = propOrDefault(details, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
 
-  const postDifferential = getDifferentialPercentage(propOrDefault(details, 'post.cost_of_living_adjustment'), NO_POST_DIFFERENTIAL);
-  const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.cost_of_living_adjustment'), NO_DANGER_PAY);
+  const postDifferential = getDifferentialPercentage(propOrDefault(details, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
+  const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.danger_pay'), NO_DANGER_PAY);
 
   const OBCId = propOrDefault(details, 'post.obc_id');
   const getFormattedObcData = (prefix) => {
-    if (OBCId) { return (<span> {prefix} | <OBCUrl id={OBCId} type="post" /></span>); }
+    if (OBCId) {
+      return (<span> {prefix} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    }
     return prefix;
   };
   return (
