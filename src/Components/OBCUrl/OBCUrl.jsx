@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LinkButton from '../LinkButton';
-import { OBC_COUNTRY_URL_PREFIX, OBC_POST_URL_PREFIX } from '../../Constants/OBC';
+import { OBC_COUNTRY_URL_PREFIX, OBC_POST_URL_PREFIX, OBC_POST_DATA_URL_PREFIX } from '../../Constants/OBC';
 import { getAssetPath } from '../../utilities';
 
 const OBCUrl = ({ id, type, label, isButton }) => {
@@ -13,6 +13,11 @@ const OBCUrl = ({ id, type, label, isButton }) => {
     case 'country':
       url = getAssetPath(`${OBC_COUNTRY_URL_PREFIX}${id}`);
       text = 'Country';
+      break;
+
+    case 'post-data':
+      url = getAssetPath(`${OBC_POST_DATA_URL_PREFIX}${id}`);
+      text = 'Post';
       break;
 
     default:
@@ -36,7 +41,7 @@ const OBCUrl = ({ id, type, label, isButton }) => {
 
 OBCUrl.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  type: PropTypes.oneOf(['post', 'country']),
+  type: PropTypes.oneOf(['post', 'post-data', 'country']),
   label: PropTypes.node,
   isButton: PropTypes.bool,
 };
