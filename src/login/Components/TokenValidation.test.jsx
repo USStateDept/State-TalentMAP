@@ -1,8 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { Login } from './index';
+import { TokenValidation } from './TokenValidation';
 
-describe('Login', () => {
+describe('TokenValidation', () => {
   const loginObject = {
     requesting: true,
     successful: false,
@@ -18,16 +18,16 @@ describe('Login', () => {
   ];
 
   it('can render', () => {
-    const wrapper = shallow(<Login login={loginObject} />);
+    const wrapper = shallow(<TokenValidation login={loginObject} />);
     expect(wrapper).toBeDefined();
   });
 
-  it('can render with errors', () => {
-    const wrapper = shallow(<Login login={{ ...loginObject,
-      requesting: false,
-      errors,
-      messages: errors }}
-    />);
+  it('can handle other props', () => {
+    const wrapper = shallow(
+      <TokenValidation
+        login={{ ...loginObject, requesting: false, errors, messages: errors }}
+      />,
+    );
     expect(wrapper).toBeDefined();
   });
 });
