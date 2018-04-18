@@ -33,7 +33,22 @@ const logger = bunyan.createLogger({ name: 'TalentMAP' });
 
 // logging middleware
 const loggingMiddleware = (request, response, next) => {
-  request.logger = logger;
+  // object to log
+  const log = {
+    method: request.method,
+    headers: request.headers,
+    url: request.url,
+    query: request.query,
+  };
+
+  response.on('error', () => {
+    logger.error(log);
+  });
+
+  response.on('finish', () => {
+    logger.info(log);
+  });
+
   next();
 };
 
@@ -122,8 +137,7 @@ app.get(ROUTES, (request, response) => {
 
 // this is our wildcard, 404 route
 app.get('*', (request, response) => {
-  request.logger.info(`Invalid request - ${request.url}`);
-  response.sendStatus(404);
+  response.sendStatus(404).end();
 });
 
 const server = app.listen(port);
