@@ -6,7 +6,7 @@ export const ENDPOINT_PARAMS = {
   grade: 'grade__code__in',
   tod: 'post__tour_of_duty__code__in',
   org: 'bureau__code__in',
-  functionalOrg: 'organization__groups__in',
+  functionalOrg: 'org_has_groups',
   cola: 'post__cost_of_living_adjustment__gt',
   postDiff: 'post__differential_rate__in',
   danger: 'post__danger_pay__in',
