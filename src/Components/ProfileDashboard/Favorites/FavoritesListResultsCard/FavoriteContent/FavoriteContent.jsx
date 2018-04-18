@@ -10,7 +10,7 @@ const FavoriteContent = ({ position }) => (
       {position.position_number}
     </div>
     <div>
-      <span className="bid-list-card-title-post">Skill Code: </span>
+      <span className="bid-list-card-title-post">Skill code: </span>
       {propOrDefault(position, 'skill', NO_SKILL)}
     </div>
     <div>

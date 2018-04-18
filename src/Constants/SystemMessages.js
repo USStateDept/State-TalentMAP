@@ -28,7 +28,7 @@ export const NO_SAVED_SEARCHES = 'You do not have any saved searches.';
 export const NO_SKILL = DEFAULT_TEXT;
 export const NO_TOUR_OF_DUTY = DEFAULT_TEXT;
 export const NO_USER_LISTED = DEFAULT_TEXT;
-export const NO_USER_SKILL_CODE = 'No Skill Codes listed';
+export const NO_USER_SKILL_CODE = 'No Skill codes listed';
 
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
 
@@ -44,7 +44,10 @@ export const DECLINE_BID_ERROR = 'Error trying to decline this bid.';
 export const SUBMIT_BID_SUCCESS = 'Bid successfully submitted.';
 export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 
+export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
+export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';
+
 export const NEW_SAVED_SEARCH_SUCCESS = name =>
   `New search with the name "${name}" has been saved! You can go to your profile to view all of your saved searches.`;
 export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
-  `Search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;
+  `Your saved search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;

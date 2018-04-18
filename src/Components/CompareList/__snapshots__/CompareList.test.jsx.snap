@@ -5,17 +5,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
   className="usa-grid-full content-container"
 >
   <div>
-    <button
-      className="button-back-link"
-      onClick={[Function]}
-      role="link"
-      tabIndex="0"
-    >
-      <FontAwesome
-        name="arrow-left"
-      />
-      Go back to search results
-    </button>
+    <Connect(withRouter(BackButton)) />
   </div>
   <div
     className="comparison-container"
@@ -54,7 +44,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   replace={false}
                   to="/details/10034001"
                 >
-                  View position details
+                  View position
                 </Link>
               </div>
               <div
@@ -74,7 +64,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   replace={false}
                   to="/details/56082000"
                 >
-                  View position details
+                  View position
                 </Link>
               </div>
               <div
@@ -88,19 +78,24 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post
-              <div
-                className="border-extension-layer-2 border-visible-layer-2"
-              />
+              Position number
             </th>
             <td>
-              Freetown, Sierra Leone
+              <span
+                aria-labelledby="1 0 0 3 4 0 0 1"
+              >
+                10034001
+              </span>
               <div
                 className="border-extension-layer-2"
               />
             </td>
             <td>
-              Chicago, IL
+              <span
+                aria-labelledby="5 6 0 8 2 0 0 0"
+              >
+                56082000
+              </span>
               <div
                 className="border-extension-layer-2"
               />
@@ -110,7 +105,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Skill Code
+              Skill code
             </th>
             <td>
               OFFICE MANAGEMENT (9017)
@@ -123,13 +118,42 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Position Number
+              Bureau
             </th>
             <td>
-              10034001
+              (AF) BUREAU OF AFRICAN AFFAIRS
             </td>
             <td>
-              56082000
+              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Post
+              <div
+                className="border-extension-layer-2 border-visible-layer-2"
+              />
+            </th>
+            <td>
+              Freetown, Sierra Leone
+            </td>
+            <td>
+              Chicago, IL
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Tour of duty
+            </th>
+            <td>
+              2 YRS (2 R & R)
+            </td>
+            <td>
+              2 YRS (2 R & R)
             </td>
           </tr>
           <tr>
@@ -172,78 +196,39 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Transfer Eligibility Date
+              Post differential
+            </th>
+            <td>
+              30%
+            </td>
+            <td>
+              20%
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Danger pay
+            </th>
+            <td>
+              0%
+            </td>
+            <td>
+              15%
+            </td>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Transfer eligibility date
             </th>
             <td>
               03/13/2020
             </td>
             <td>
               03/13/2020
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Incumbent
-            </th>
-            <td>
-              John Doe
-            </td>
-            <td>
-              John Doe
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Bureau
-            </th>
-            <td>
-              (AF) BUREAU OF AFRICAN AFFAIRS
-            </td>
-            <td>
-              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Tour of Duty
-            </th>
-            <td>
-              2 YRS (2 R & R)
-            </td>
-            <td>
-              2 YRS (2 R & R)
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Post Differential
-            </th>
-            <td>
-              N/A 
-            </td>
-            <td>
-              N/A 
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Danger Pay
-            </th>
-            <td>
-              N/A 
-            </td>
-            <td>
-              N/A 
             </td>
           </tr>
         </tbody>
@@ -261,17 +246,7 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
   className="usa-grid-full content-container"
 >
   <div>
-    <button
-      className="button-back-link"
-      onClick={[Function]}
-      role="link"
-      tabIndex="0"
-    >
-      <FontAwesome
-        name="arrow-left"
-      />
-      Go back to search results
-    </button>
+    <Connect(withRouter(BackButton)) />
   </div>
   <div
     className="comparison-container"

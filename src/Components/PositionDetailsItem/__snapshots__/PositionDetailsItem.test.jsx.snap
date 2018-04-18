@@ -2,10 +2,10 @@
 
 exports[`PositionDetailsItem matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full padded-main-content"
 >
   <div
-    className="usa-grid position-details-description-container positions-details-about-position"
+    className="usa-grid-full position-details-description-container positions-details-about-position"
   >
     <div
       className="usa-width-two-thirds about-section-left"
@@ -52,15 +52,30 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         className="usa-grid-full data-point-section"
       >
         <CondensedCardDataPoint
-          content="OFFICE MANAGEMENT (9017)"
-          hasFixedTitleWidth={false}
-          title="Skill Code"
-        />
-        <CondensedCardDataPoint
           ariaLabel="0 0 0 0 3 0 2 7"
           content="00003027"
           hasFixedTitleWidth={false}
-          title="Position Number"
+          title="Position number"
+        />
+        <CondensedCardDataPoint
+          content="OFFICE MANAGEMENT (9017)"
+          hasFixedTitleWidth={false}
+          title="Skill code"
+        />
+        <CondensedCardDataPoint
+          content="05"
+          hasFixedTitleWidth={false}
+          title="Grade"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Bureau"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Tour of duty"
         />
         <CondensedCardDataPoint
           content={
@@ -73,39 +88,19 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           title="Language"
         />
         <CondensedCardDataPoint
-          content="05"
+          content="None listed"
           hasFixedTitleWidth={false}
-          title="Grade"
+          title="Post differential"
         />
         <CondensedCardDataPoint
           content="None listed"
           hasFixedTitleWidth={false}
-          title="Transfer Eligibility Date"
+          title="Danger pay"
         />
         <CondensedCardDataPoint
           content="None listed"
           hasFixedTitleWidth={false}
-          title="Incumbent"
-        />
-        <CondensedCardDataPoint
-          content="None listed"
-          hasFixedTitleWidth={false}
-          title="Bureau"
-        />
-        <CondensedCardDataPoint
-          content="None listed"
-          hasFixedTitleWidth={false}
-          title="Tour of Duty"
-        />
-        <CondensedCardDataPoint
-          content="N/A"
-          hasFixedTitleWidth={false}
-          title="Post Differential"
-        />
-        <CondensedCardDataPoint
-          content="N/A"
-          hasFixedTitleWidth={false}
-          title="Danger Pay"
+          title="Transfer eligibility date"
         />
       </div>
     </div>

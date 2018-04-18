@@ -133,7 +133,7 @@ class ResultsMultiSearchHeader extends Component {
     const { placeholder, filters, userProfile, filtersIsLoading } = this.props;
     const { q, defaultGrade, defaultBureau, [SKILL_PARAM]: skills } = this.state;
 
-    // format skill codes
+    // format Skill codes
     const skillCodes = filters.find(f => f.item && f.item.description === 'skill');
     const skillCodesData = skillCodes ? skillCodes.data : [];
 
@@ -174,11 +174,11 @@ class ResultsMultiSearchHeader extends Component {
                       onChangeText={this.onChangeText}
                       defaultValue={q}
                     />
-                    <div className="search-sub-text">Example: Mexico City Mexico, Political Affairs (5505), Russian 3/3...</div>
+                    <div className="search-sub-text">Example: Abuja, Nigeria, Political Affairs (5505), Russian 3/3...</div>
                   </div>
                   <div className="usa-width-one-fourth search-results-inputs search-keyword">
                     <SkillCodeFilter
-                      label="Skill Code"
+                      label="Skill code"
                       isLoading={filtersIsLoading}
                       filters={skillCodesData}
                       onFilterSelect={this.onChangeSkills}
@@ -240,7 +240,7 @@ ResultsMultiSearchHeader.defaultProps = {
   filters: [],
   defaultFilters: {},
   filtersIsLoading: false,
-  placeholder: 'Location, Skill Code, Grade, Language, Position Number',
+  placeholder: 'Location, Skill code, Grade, Language, Position number',
   userProfile: {},
   onFilterChange: EMPTY_FUNCTION,
 };

@@ -12,7 +12,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     currentSavedSearch={Object {}}
     newSavedSearchHasErrored={false}
     newSavedSearchIsSaving={false}
-    newSavedSearchSuccess={false}
+    newSavedSearchSuccess={Object {}}
     saveSearch={[Function]}
   />
   <ResultsControls

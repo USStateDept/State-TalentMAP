@@ -25,13 +25,12 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
       />
     </div>
     <div
-      className="usa-width-one-half favorites-card-section"
+      className="usa-width-one-fourth favorites-card-section"
     >
       <button
-        className="tm-button-transparent"
         onClick={[Function]}
       >
-        View
+        View Search
       </button>
     </div>
   </div>

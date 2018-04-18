@@ -54,6 +54,10 @@ const ResultsCard = (props) => {
       value = `${value}%`;
     }
 
+    if (!value) {
+      value = defaultValue;
+    }
+
     return value;
   };
 
@@ -71,7 +75,7 @@ const ResultsCard = (props) => {
     /* eslint-disable quote-props */
     {
       'Bid cycle': getResult('latest_bidcycle.name', NO_BID_CYCLE),
-      'Skill Code': getResult('skill', NO_SKILL),
+      'Skill code': getResult('skill', NO_SKILL),
       'Grade': getResult('grade', NO_GRADE),
       'Bureau': getResult('bureau', NO_BUREAU),
       'Post': post,

@@ -36,6 +36,18 @@
   margin-top: 0;
 }
 
+.usa-alert {
+  padding-bottom: 2.4rem;
+
+  * {
+    font-family: inherit;
+  }
+
+  h3 {
+    font-size: 1.9rem;
+  }
+}
+
 .usa-alert-text {
   min-height: .5em;
 }

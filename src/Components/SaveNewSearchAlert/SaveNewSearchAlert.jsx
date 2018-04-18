@@ -1,19 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { NEW_SAVED_SEARCH_SUCCESS_OBJECT } from '../../Constants/PropTypes';
 import Alert from '../Alert/Alert';
 
 const SaveNewSearchAlert = ({ newSavedSearchSuccess }) => (
   <div className="usa-grid-full saved-search-alert">
-    <Alert type="success" title="Success" messages={[{ body: newSavedSearchSuccess }]} isAriaLive />
+    <Alert type="success" title={newSavedSearchSuccess.title} messages={[{ body: newSavedSearchSuccess.message }]} isAriaLive />
   </div>
 );
 
 SaveNewSearchAlert.propTypes = {
-  newSavedSearchSuccess: PropTypes.string,
-};
-
-SaveNewSearchAlert.defaultProps = {
-  newSavedSearchSuccess: false,
+  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
 };
 
 export default SaveNewSearchAlert;

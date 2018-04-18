@@ -11,7 +11,7 @@ exports[`BidContentComponent matches snapshot 1`] = `
     <span
       className="bid-list-card-title-position"
     >
-      Position Number 
+      Position number 
     </span>
     <Link
       replace={false}

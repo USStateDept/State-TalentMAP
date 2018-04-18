@@ -59,8 +59,8 @@ describe('HomePageComponent', () => {
       {...props}
       homePagePositions={fallBackPositions}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorited positions');
-    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently posted positions');
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorited Positions');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently Posted Positions');
   });
 
   it('sets links correctly for fallback positions', () => {
@@ -69,7 +69,7 @@ describe('HomePageComponent', () => {
       homePagePositions={fallBackPositions}
     />);
     expect(wrapper.find('HomePagePositionsSection').at(1).prop('viewMoreLink')).toBe('/profile/favorites/');
-    expect(wrapper.find('HomePagePositionsSection').at(2).prop('viewMoreLink')).toBe('/results?ordering=description__date_created');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('viewMoreLink')).toBe('/results?ordering=-effective_date');
   });
 
   it('can set position section titles correctly', () => {
@@ -77,7 +77,7 @@ describe('HomePageComponent', () => {
       {...props}
     />);
     expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Positions in skill 1');
-    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently posted positions in grade 03');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently Posted Positions in Grade 03');
   });
 
   it('matches snapshot when the positions arrays are empty', () => {

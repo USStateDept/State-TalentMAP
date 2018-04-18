@@ -31,6 +31,7 @@ import { validStateEmail,
          getApplicationPath,
          getAccessiblePositionNumber,
          getPostName,
+         getDifferentialPercentage,
        } from './utilities';
 
 describe('local storage', () => {
@@ -565,5 +566,23 @@ describe('getPostName', () => {
   it('returns a custom defaultValue when the code and location data are not available', () => {
     const post = { location: null };
     expect(getPostName(post, 'default')).toBe('default');
+  });
+});
+
+describe('getDifferentialPercentage', () => {
+  it('returns a percentage for a differential', () => {
+    expect(getDifferentialPercentage(30)).toBe('30%');
+  });
+
+  it('returns a percentage for a differential of 0', () => {
+    expect(getDifferentialPercentage(0)).toBe('0%');
+  });
+
+  it('returns the default value for a differential of null', () => {
+    expect(getDifferentialPercentage(null)).toBe('');
+  });
+
+  it('returns a custom default value for a differential of null', () => {
+    expect(getDifferentialPercentage(null, 'custom')).toBe('custom');
   });
 });

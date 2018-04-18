@@ -27,6 +27,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   let rowTwoPositions = userSkillCodePositions;
   let rowTwoTitle = 'Positions in Skills';
   let rowTwoLink = '/results';
+  let rowTwoIcon = 'briefcase';
   if (rowTwoPositions && rowTwoPositions.length) {
     // form a link to view positions with the user's skills
     const ids = userProfile.skills.map(s => s.code);
@@ -36,8 +37,9 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   } else if (favoritedPositions) {
     // update everything to denote that these are favorited positions
     rowTwoPositions = favoritedPositions;
-    rowTwoTitle = 'Favorited positions';
+    rowTwoTitle = 'Favorited Positions';
     rowTwoLink = '/profile/favorites/';
+    rowTwoIcon = 'star';
   }
 
   // Define row three data.
@@ -45,19 +47,19 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   // If the user does not have a grade, we'll display recent positions.
   const userGradeRecentPositions = homePagePositions[USER_GRADE_RECENT_POSITIONS];
   const recentPositions = homePagePositions[RECENTLY_POSTED_POSITIONS];
-  let rowThreeTitle = 'Recently posted positions in grade';
+  let rowThreeTitle = 'Recently Posted Positions in Grade';
   let rowThreePositions = userGradeRecentPositions;
   let rowThreeLink = '/results';
   if (userGradeRecentPositions) {
     // update the link to view positions with the user's grade
-    rowThreeLink = `/results?grade__code__in=${userProfile.grade}`;
+    rowThreeLink = `/results?grade__code__in=${userProfile.grade}&ordering=-effective_date`;
     // update the title based on the user's grade
     rowThreeTitle = `${rowThreeTitle} ${userProfile.grade}`;
   } else if (recentPositions) {
     // update everything to to denote that these are recently posted positions
     rowThreePositions = recentPositions;
-    rowThreeTitle = 'Recently posted positions';
-    rowThreeLink = '/results?ordering=description__date_created';
+    rowThreeTitle = 'Recently Posted Positions';
+    rowThreeLink = '/results?ordering=-effective_date';
   }
   return (
     <div className="homepage-positions-section-container">
@@ -65,7 +67,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
         className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
       >
         <HomePagePositionsSection
-          title="Service needs positions"
+          title="Service Needs Positions"
           maxLength="3"
           viewMoreLink={serviceNeedsLink}
           icon="bolt"
@@ -83,7 +85,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           title={rowTwoTitle}
           maxLength="3"
           viewMoreLink={rowTwoLink}
-          icon="briefcase"
+          icon={rowTwoIcon}
           favorites={userProfile.favorite_positions}
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}

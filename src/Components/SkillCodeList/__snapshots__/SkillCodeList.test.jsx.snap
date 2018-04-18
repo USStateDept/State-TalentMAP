@@ -8,7 +8,7 @@ exports[`SkillCodeList matches snapshot with an array of three items 1`] = `
 
 exports[`SkillCodeList matches snapshot with an empty array 1`] = `
 <span>
-  No Skill Codes listed
+  No Skill codes listed
 </span>
 `;
 
