@@ -7,7 +7,7 @@ const ViewPostDataButton = ({ id, type }) => (
   <OBCUrl
     id={id}
     type={type}
-    label={<span><FontAwesome name="map-marker" /> View Post Data</span>}
+    label={<span><FontAwesome name="map-marker" /> View OBC Post Info</span>}
     isButton
   />
 );

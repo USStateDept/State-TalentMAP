@@ -62,16 +62,15 @@ class PositionDetailsContact extends Component {
     // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
     // 3. A formatted version for public viewing
     const postWebsite = propOrDefault(details, 'description.website');
-    const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : '';
-    const formattedPostWebsite = postWebsite ?
+    const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : newWebsiteContent.value || '';
+    const formattedPostWebsite = postWebsite || newWebsiteContent.value ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
     NO_POSITION_WEB_SITE;
 
     const pointOfContact = propOrDefault(details, 'description.point_of_contact');
-    const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : '';
-    const formattedPointOfContact = pointOfContact ?
-      <a href={`tel:${plainTextPointOfContact}`}>{plainTextPointOfContact}</a> :
-    NO_POSITION_POC;
+    const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : newPocContent.value || '';
+    const formattedPointOfContact = pointOfContact || newPocContent.value ?
+      plainTextPointOfContact : NO_POSITION_POC;
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
@@ -104,7 +103,7 @@ class PositionDetailsContact extends Component {
           </div>
         </div>
         <div className="contact-container">
-          Updated date: {formattedDate}
+          Updated: {formattedDate}
         </div>
       </div>
     );
