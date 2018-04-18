@@ -74,7 +74,7 @@ const ResultsCard = (props) => {
       'Language': language,
       'Post differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
       'Danger pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
-      'Transfer eligibility date': getResult('current_assignment.estimated_end_date', NO_DATE),
+      'TED': getResult('current_assignment.estimated_end_date', NO_DATE),
     },
     {
       'Posted': getResult(COMMON_PROPERTIES.posted, NO_UPDATE_DATE),

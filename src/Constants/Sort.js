@@ -7,7 +7,7 @@ export const POSITION_SEARCH_SORTS = {
     { value: '-grade', text: 'Grade: Low to high' }, // sort by grade "ranking"
     { value: '-bureau', text: 'Bureau: A-Z' }, // numbers first, then A-Z
     { value: `-${COMMON_PROPERTIES.posted}`, text: 'Posted date: Most recent' }, // sort by soonest posted_date
-    { value: 'current_assignment__estimated_end_date', text: 'Transfer eligibility date: Soonest' },
+    { value: 'current_assignment__estimated_end_date', text: 'TED: Soonest' },
     { value: 'position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
     { value: '-post__has_service_needs_differential', text: 'Service need' }, // sort by service needs first
   ],
