@@ -510,7 +510,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?grade__code__in=03&ordering=-effective_date"
+      viewMoreLink="/results?grade__code__in=03&ordering=-posted_date"
       wrapInLink={true}
     />
   </div>
@@ -1007,7 +1007,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?grade__code__in=03&ordering=-effective_date"
+      viewMoreLink="/results?grade__code__in=03&ordering=-posted_date"
       wrapInLink={true}
     />
   </div>

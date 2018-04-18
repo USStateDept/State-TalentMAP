@@ -69,7 +69,7 @@ describe('HomePageComponent', () => {
       homePagePositions={fallBackPositions}
     />);
     expect(wrapper.find('HomePagePositionsSection').at(1).prop('viewMoreLink')).toBe('/profile/favorites/');
-    expect(wrapper.find('HomePagePositionsSection').at(2).prop('viewMoreLink')).toBe('/results?ordering=-effective_date');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('viewMoreLink')).toBe('/results?ordering=-posted_date');
   });
 
   it('can set position section titles correctly', () => {

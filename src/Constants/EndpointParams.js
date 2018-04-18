@@ -17,6 +17,11 @@ export const ENDPOINT_PARAMS = {
   bidCycle: 'is_available_in_bidcycle',
 };
 
+// any properties that we want to abstract to a common name
+export const COMMON_PROPERTIES = {
+  posted: 'posted_date',
+};
+
 // Take our custom query param from the Bidder Portfolio navigation and convert them to queries
 export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
   all: {},
