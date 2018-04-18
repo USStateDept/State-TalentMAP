@@ -40,7 +40,7 @@ exports[`FeedbackFormComponent matches snapshot 1`] = `
         <FieldSet
           className=""
           legend="General feedback"
-          legendSrOnly={false}
+          legendSrOnly={true}
         >
           <TextEditorLoadable
             hideButtons={true}
@@ -57,7 +57,7 @@ exports[`FeedbackFormComponent matches snapshot 1`] = `
             className=""
             disabled={false}
             id="additional-feedback-checkbox"
-            label="Can we contact you about providing additional feedback for TalentMAP?"
+            label="Check here if we can contact you about your TalentMAP feedback?"
             labelSrOnly={false}
             name=""
             onCheckBoxClick={[Function]}
@@ -121,7 +121,7 @@ exports[`FeedbackFormComponent matches snapshot when visible is false 1`] = `
         <FieldSet
           className=""
           legend="General feedback"
-          legendSrOnly={false}
+          legendSrOnly={true}
         >
           <TextEditorLoadable
             hideButtons={true}
@@ -138,7 +138,7 @@ exports[`FeedbackFormComponent matches snapshot when visible is false 1`] = `
             className=""
             disabled={false}
             id="additional-feedback-checkbox"
-            label="Can we contact you about providing additional feedback for TalentMAP?"
+            label="Check here if we can contact you about your TalentMAP feedback?"
             labelSrOnly={false}
             name=""
             onCheckBoxClick={[Function]}

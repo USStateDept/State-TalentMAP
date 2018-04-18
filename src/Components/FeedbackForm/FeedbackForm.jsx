@@ -55,7 +55,7 @@ const FeedbackFormComponent = ({ visible, toggleVisibility, feedbackIsSending,
         <div className="feedback-content-container">
           <h3 id="feedback-title">Feedback</h3>
           <Form onFormSubmit={submitFeedback}>
-            <FieldSet legend="General feedback">
+            <FieldSet legend="General feedback" legendSrOnly>
               <TextEditor
                 hideButtons
                 onChangeText={onChangeText}
@@ -66,7 +66,7 @@ const FeedbackFormComponent = ({ visible, toggleVisibility, feedbackIsSending,
               <CheckBox
                 id="additional-feedback-checkbox"
                 value={additionalFeedbackCheck}
-                label="Can we contact you about providing additional feedback for TalentMAP?"
+                label="Check here if we can contact you about your TalentMAP feedback?"
                 onCheckBoxClick={onCheckBoxClick}
               />
             </FieldSet>
