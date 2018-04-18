@@ -135,7 +135,7 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Transfer eligibility date</th>
+                    <th scope="row">TED</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
