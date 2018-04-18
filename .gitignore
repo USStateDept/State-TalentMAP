@@ -10,6 +10,9 @@ codeclimate.html
 # production
 /build
 
+# certificates for testing
+/certs
+
 # misc
 .DS_Store
 .env.local
