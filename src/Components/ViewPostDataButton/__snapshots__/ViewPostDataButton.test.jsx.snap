@@ -9,7 +9,7 @@ exports[`ViewPostDataButtonComponent matches snapshot 1`] = `
       <FontAwesome
         name="map-marker"
       />
-       View Post Data
+       View OBC Post Info
     </span>
   }
   type="post"

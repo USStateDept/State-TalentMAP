@@ -40,3 +40,13 @@ exports[`OBCUrlComponent matches snapshot when type is "country" 1`] = `
   Country details
 </a>
 `;
+
+exports[`OBCUrlComponent matches snapshot when type is "post-data" 1`] = `
+<a
+  href="/talentmap/obc/post/data/5"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  Post details
+</a>
+`;
