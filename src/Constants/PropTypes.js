@@ -57,7 +57,7 @@ export const POSITION_DETAILS = PropTypes.shape({
   is_overseas: PropTypes.bool,
   create_date: PropTypes.string,
   update_date: PropTypes.string,
-  effective_date: PropTypes.string,
+  posted_date: PropTypes.string,
   description: PropTypes.shape({
     id: PropTypes.number,
     last_editing_user: PropTypes.string,
@@ -110,7 +110,7 @@ export const FILTER = PropTypes.shape({
   description: PropTypes.string,
   long_description: PropTypes.string,
   short_description: PropTypes.string,
-  effective_date: PropTypes.string,
+  posted_date: PropTypes.string,
   isSelected: PropTypes.bool,
 });
 
