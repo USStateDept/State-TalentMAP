@@ -59,6 +59,15 @@ class PositionDetailsDescription extends Component {
       formattedDescription = plainTextDescription;
     }
 
+    // Determine if the ViewMoreLink needs to be rendered based on description length.
+    // Example: if shortened string is same length as original, there is no need to display
+    // the "View More" link.
+    let hideViewMoreLink = false;
+    if ((shortenString(plainTextDescription).length || 0) >=
+    (plainTextDescription ? plainTextDescription.length : 0)) {
+      hideViewMoreLink = true;
+    }
+
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
     return (
       <div className="position-details-header-body editable-position-field">
@@ -72,10 +81,13 @@ class PositionDetailsDescription extends Component {
                     onToggle={this.toggleDescriptionEditor}
                   />
               }
-              <ViewMoreLink
-                defaultValue={!shouldDisplayFullDescription}
-                onChange={this.onDescriptionLengthToggle}
-              />
+              {
+                !hideViewMoreLink &&
+                <ViewMoreLink
+                  defaultValue={!shouldDisplayFullDescription}
+                  onChange={this.onDescriptionLengthToggle}
+                />
+              }
             </span>
         }
         {
