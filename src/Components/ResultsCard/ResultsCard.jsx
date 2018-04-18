@@ -1,28 +1,23 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
-import { get, isArray, isNumber } from 'lodash';
+import { get, isNumber } from 'lodash';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
-import DefinitionList, { Definition } from '../DefinitionList';
+import DefinitionList from '../DefinitionList';
 import Favorite from '../Favorite/Favorite';
 import MediaQueryWrapper from '../MediaQuery';
-import BidCount from '../BidCount';
 import CompareCheck from '../CompareCheck/CompareCheck';
+import LanguageList from '../LanguageList';
 
-import { formatDate, getBidStatisticsObject, propOrDefault, getPostName } from '../../utilities';
+import { formatDate, propOrDefault, getPostName } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
   NO_BUREAU,
   NO_BID_CYCLE,
-  NO_COLA,
   NO_DANGER_PAY,
-  NO_END_DATE,
   NO_GRADE,
-  NO_LANGUAGES,
   NO_POST_DIFFERENTIAL,
   NO_POSITION_NUMBER,
   NO_POST,
@@ -61,9 +56,7 @@ const ResultsCard = (props) => {
   const position = getResult('position_number', NO_POSITION_NUMBER);
   const languages = getResult('languages', []);
 
-  const language = (isArray(languages) && languages.length) ?
-    `${getResult('languages[0].language', NO_LANGUAGES)} (1/${languages.length})` :
-    NO_LANGUAGES;
+  const language = (<LanguageList languages={languages} propToUse="representation" />);
 
   const post = getPostName(result.post, NO_POST);
 
@@ -109,7 +102,7 @@ const ResultsCard = (props) => {
 
   return (
     <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
-      {matches => (
+      {() => (
         <div id={result.id} className="results-card">
           <Row className="header" fluid>
             <Column columns="6">

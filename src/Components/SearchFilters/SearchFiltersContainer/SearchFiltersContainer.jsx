@@ -71,10 +71,12 @@ class SearchFiltersContainer extends Component {
     this.props.filters.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
-        if (f.item.description === 'skill') {
+        if (f.item.description === 'skill' && f.data) {
           f.data.sort(propSort('description'));
-        } else if (f.item.description === 'grade') {
+        } else if (f.item.description === 'grade' && f.data) {
           f.data.sort(sortGrades);
+        } else if (f.item.description === 'language' && f.data) {
+          f.data.sort(propSort('custom_description'));
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);

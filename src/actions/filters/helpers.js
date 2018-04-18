@@ -25,6 +25,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     return getPostName(filterItemObject);
   } else if (filterItem.item.description === 'bidCycle') {
     return filterItemObject.name;
+  } else if (filterItem.item.description === 'language') {
+    return `${filterItemObject.formal_description} (${filterItemObject.code})`;
   } else if (filterItem.item.description === 'postDiff') {
     return filterItemObject.description;
   } else if (filterItem.item.description === 'dangerPay') {
