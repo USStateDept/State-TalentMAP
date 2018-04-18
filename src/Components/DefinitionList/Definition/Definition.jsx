@@ -32,7 +32,7 @@ const Node = PropTypes.node;
 
 Definition.propTypes = {
   term: PropTypes.string,
-  definition: PropTypes.string,
+  definition: PropTypes.node,
   truncate: PropTypes.bool,
   /** Takes precedence over `definition` if both props are used. */
   children: PropTypes.oneOfType([
