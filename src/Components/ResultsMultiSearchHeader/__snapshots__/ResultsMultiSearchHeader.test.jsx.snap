@@ -38,7 +38,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 noForm={true}
                 onChangeText={[Function]}
                 onSubmitSearch={[Function]}
-                placeholder="Location, Skill code, Grade, Language, Position number"
+                placeholder="Location, Skill cone (code), Grade, Language, Position number"
                 submitDisabled={false}
                 submitText="Search"
                 type="medium"
@@ -62,7 +62,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                   ]
                 }
                 isLoading={false}
-                label="Skill code"
+                label="Skill cone"
                 labelSrOnly={false}
                 onFilterSelect={[Function]}
                 userSkills={

@@ -22,7 +22,7 @@ const BidderPortfolioGridListHeader = () => (
         </div>
       </div>
       <div className="usa-width-one-fourth grid-list-header-col-two">
-        <BidderPortfolioGridListHeaderItem content="Skill code / Birthdate" />
+        <BidderPortfolioGridListHeaderItem content="Skill cone (code) / Birthdate" />
       </div>
       <div className="usa-width-one-fourth grid-list-header-col-three">
         <BidderPortfolioGridListHeaderItem content="Draft bids / Submitted bids" />

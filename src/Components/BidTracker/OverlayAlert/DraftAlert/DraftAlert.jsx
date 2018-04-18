@@ -59,7 +59,7 @@ class DraftAlert extends Component {
               {post}
             </div>
             <div>
-              <span className="title">Skill code: </span>
+              <span className="title">Skill cone (code): </span>
               {skillCode}
             </div>
             <div>

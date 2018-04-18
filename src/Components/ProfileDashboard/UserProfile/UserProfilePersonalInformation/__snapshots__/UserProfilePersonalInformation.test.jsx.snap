@@ -30,7 +30,7 @@ exports[`UserProfilePersonalInformationComponent matches snapshot 1`] = `
         />
       }
       sideBySide={false}
-      title="Skill code"
+      title="Skill cone (code)"
       titleOnBottom={false}
     />
     <InformationDataPoint
