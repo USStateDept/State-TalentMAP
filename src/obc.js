@@ -9,9 +9,14 @@ app.get('/country/detail/:id', (request, response) => {
   response.send(`OBC Country ${request.params.id}`);
 });
 
+app.get('/post/detail/data/:id', (request, response) => {
+  response.status(200);
+  response.send(`OBC Post Data Detail ${request.params.id}`);
+});
+
 app.get('/post/detail/:id', (request, response) => {
   response.status(200);
-  response.send(`OBC Country ${request.params.id}`);
+  response.send(`OBC Post ${request.params.id}`);
 });
 
 app.get('*', (request, response) => {

@@ -176,7 +176,8 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
                           getPillDescription(filterItemObject, response.item.description);
                       } else {
                         // try to get the shortest description since pills should be small
-                        mappedObject.description = getPillDescription(filterItemObject);
+                        mappedObject.description =
+                          getPillDescription(filterItemObject, response.item.description);
                       }
                     }
                   });

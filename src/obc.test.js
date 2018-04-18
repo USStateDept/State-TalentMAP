@@ -13,6 +13,9 @@ describe('proxy server routes', () => {
   it('responds to /country/detail', (done) => {
     request(server).get('/country/detail/42').expect(200, done);
   });
+  it('responds to /post/detail/data', (done) => {
+    request(server).get('/post/detail/data/42').expect(200, done);
+  });
   it('responds to /post/detail', (done) => {
     request(server).get('/post/detail/42').expect(200, done);
   });

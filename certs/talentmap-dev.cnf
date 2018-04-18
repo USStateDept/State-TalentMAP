@@ -1,0 +1,13 @@
+[ req ]
+default_bits = 2048
+default_md = sha256
+prompt = no
+encrypt_key = no
+distinguished_name = dn
+
+[ dn ]
+C = US
+ST=DC
+L=Washington
+O = TalentMAP
+CN = talentmap.dev
