@@ -21,15 +21,22 @@ class SaveNewSearchDialog extends Component {
   }
 
   render() {
-    const { onCancel, onTextChange,
-      newSavedSearchHasErrored, newSavedSearchSuccess, currentSavedSearch } = this.props;
+    const {
+      onCancel,
+      onTextChange,
+      newSavedSearchHasErrored,
+      newSavedSearchSuccess,
+      currentSavedSearch,
+    } = this.props;
     const currentSearchExists = currentSavedSearch.id;
+
     // Check the "type" prop.
     // Setting this as an if statement allows us to easily add conditions if needed
     let inputType;
     if (newSavedSearchHasErrored) {
       inputType = 'error';
     }
+
     return (
       <Form className="usa-grid-full saved-search-form" onFormSubmit={this.submitNewSavedSearch}>
         <FieldSet
