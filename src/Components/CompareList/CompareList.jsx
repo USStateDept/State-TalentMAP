@@ -116,7 +116,7 @@ const CompareList = ({ compare, isLoading }) => {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
                           {getDifferentialPercentage(propOrDefault(c, 'post.differential_rate'), NO_POST_DIFFERENTIAL)}
-                          {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="Details" /></span> : null }
+                          {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl type="post-data" id={c.post.obc_id} label="Details" /></span> : null }
                         </td>
                       ))
                     }
