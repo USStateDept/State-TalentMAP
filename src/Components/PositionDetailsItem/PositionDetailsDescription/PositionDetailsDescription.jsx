@@ -52,6 +52,7 @@ class PositionDetailsDescription extends Component {
 
     const description = propOrDefault(details, 'description.content');
     const plainTextDescription = description ? newDescriptionContent.value || description : '';
+
     let formattedDescription = description ?
       shortenString(plainTextDescription) :
       NO_POSITION_DESCRIPTION;
@@ -59,10 +60,12 @@ class PositionDetailsDescription extends Component {
       formattedDescription = plainTextDescription;
     }
 
-    // determine if the ViewMoreLink needs to be rendered based on description length.
+    // Determine if the ViewMoreLink needs to be rendered based on description length.
+    // Example: if shortened string is same length as original, there is no need to display
+    // the "View More" link.
     let hideViewMoreLink = false;
-    if (
-    (shortenString(plainTextDescription).length || 0) <= (description ? description.length : 0)) {
+    if ((shortenString(plainTextDescription).length || 0) >=
+    (plainTextDescription ? plainTextDescription.length : 0)) {
       hideViewMoreLink = true;
     }
 

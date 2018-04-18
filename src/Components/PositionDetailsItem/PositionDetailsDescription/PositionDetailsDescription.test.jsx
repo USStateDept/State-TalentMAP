@@ -51,6 +51,20 @@ describe('PositionDetailsDescription', () => {
     expect(wrapper.find('EditContentButton')).toHaveLength(0);
   });
 
+  it('displays the ViewMoreLink when the description is long enough', () => {
+    const wrapper = shallow(
+      <PositionDetailsDescription {...props} details={{ ...props.details, description: { content: 'abc '.repeat(500) } }} />,
+    );
+    expect(wrapper.find('ViewMoreLink').exists()).toBe(true);
+  });
+
+  it('hides the ViewMoreLink when the description is short enough', () => {
+    const wrapper = shallow(
+      <PositionDetailsDescription {...props} details={{ ...props.details, description: { content: 'abc '.repeat(10) } }} />,
+    );
+    expect(wrapper.find('ViewMoreLink').exists()).toBe(false);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <PositionDetailsDescription {...props} />,
