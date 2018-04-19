@@ -9,7 +9,7 @@ import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilt
 import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
-import GovBanner from './GovBanner/GovBanner';
+import StateBanner from './StateBanner/StateBanner';
 import ResultsMultiSearchHeaderContainer from '../ResultsMultiSearchHeader/ResultsMultiSearchContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
@@ -132,9 +132,9 @@ export class Header extends Component {
           Skip to main content
         </InteractiveElement>
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
-          <GovBanner />
+          <StateBanner />
           <BetaHeader />
-          <div className="usa-navbar">
+          <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">
               <div className="usa-logo-text">

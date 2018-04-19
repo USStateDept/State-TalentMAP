@@ -43,23 +43,19 @@ class SaveNewSearchContainer extends Component {
     const { newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving } = this.props;
     return (
       <div className={`usa-grid-full save-new-search-container ${newSavedSearchIsSaving ? 'results-loading' : ''}`}>
+        <SaveNewSearchPrompt
+          toggleInput={this.toggleInput}
+          currentSavedSearch={currentSavedSearch}
+        />
         {
-          showInput.value ?
-          (
-            <SaveNewSearchDialog
-              onFormSubmit={this.submitSavedSearch}
-              onTextChange={this.changeNewSearchName}
-              onCancel={this.toggleInput}
-              newSavedSearchHasErrored={newSavedSearchHasErrored}
-              currentSavedSearch={currentSavedSearch}
-            />
-          ) :
-          (
-            <SaveNewSearchPrompt
-              toggleInput={this.toggleInput}
-              currentSavedSearch={currentSavedSearch}
-            />
-          )
+          showInput.value &&
+          <SaveNewSearchDialog
+            onFormSubmit={this.submitSavedSearch}
+            onTextChange={this.changeNewSearchName}
+            onCancel={this.toggleInput}
+            newSavedSearchHasErrored={newSavedSearchHasErrored}
+            currentSavedSearch={currentSavedSearch}
+          />
         }
       </div>
     );

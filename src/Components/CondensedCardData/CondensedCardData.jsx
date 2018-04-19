@@ -21,13 +21,13 @@ const CondensedCardData = ({ position }) => {
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint
-        title="Transfer eligibility date"
+        title="TED"
         content={estimatedEndDate}
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint
         title="Language"
-        content={<LanguageList languages={position.languages} />}
+        content={<LanguageList languages={position.languages} propToUse="representation" />}
         hasFixedTitleWidth
       />
     </div>

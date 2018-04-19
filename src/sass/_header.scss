@@ -17,7 +17,7 @@
 
   .search-text {
     cursor: pointer;
-    min-width: 88px;
+    min-width: 90px;
   }
 
   .navigation-container {
@@ -37,12 +37,10 @@
   }
 
   .usa-logo {
+    margin-left: 0;
+
     a {
       display: inline-block;
-    }
-
-    @media screen and (max-width: $screen-md-max) {
-      padding-left: 20px;
     }
 
     @media screen and (max-width: $screen-sm-min) {
@@ -189,8 +187,9 @@
 }
 
 .usa-banner-inner {
-
+  padding-bottom: .5em;
   padding-left: 0;
+  padding-top: .5em;
 
   @media screen and (max-width: $screen-md-max) {
     padding-left: 20px;

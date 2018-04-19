@@ -201,6 +201,15 @@ $condensed-card-data-padding: 15px 20px 9px;
   }
 }
 
+@media screen and (max-width: $screen-md-min) {
+  .usa-width-one-third.condensed-card {
+    display: block;
+    float: left;
+    margin-right: initial;
+    width: 100%;
+  }
+}
+
 .condensed-card-first-big {
   float: left;
 

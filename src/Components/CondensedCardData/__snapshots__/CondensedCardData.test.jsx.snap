@@ -17,13 +17,13 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   <CondensedCardDataPoint
     content="03/13/2020"
     hasFixedTitleWidth={true}
-    title="Transfer eligibility date"
+    title="TED"
   />
   <CondensedCardDataPoint
     content={
       <LanguageList
         languages={Array []}
-        propToUse="language"
+        propToUse="representation"
       />
     }
     hasFixedTitleWidth={true}
@@ -49,13 +49,13 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
   <CondensedCardDataPoint
     content="None listed"
     hasFixedTitleWidth={true}
-    title="Transfer eligibility date"
+    title="TED"
   />
   <CondensedCardDataPoint
     content={
       <LanguageList
         languages={Array []}
-        propToUse="language"
+        propToUse="representation"
       />
     }
     hasFixedTitleWidth={true}
@@ -81,13 +81,13 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
   <CondensedCardDataPoint
     content="03/13/2020"
     hasFixedTitleWidth={true}
-    title="Transfer eligibility date"
+    title="TED"
   />
   <CondensedCardDataPoint
     content={
       <LanguageList
         languages={Array []}
-        propToUse="language"
+        propToUse="representation"
       />
     }
     hasFixedTitleWidth={true}
