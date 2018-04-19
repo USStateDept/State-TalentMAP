@@ -1,5 +1,6 @@
 import React from 'react';
 import Alert from '../../Alert';
+import { getAssetPath } from '../../../utilities';
 
 const AboutContent = () => (
   <div className="usa-grid-full">
@@ -20,7 +21,11 @@ const AboutContent = () => (
       equitably assigning employees with the right skills to the right
       positions at the right time.`}
     </p>
-    <Alert type="info" title="TalentMAP Progress is Ongoing" messages={[{ body: 'For more information, visit HR Systems Online Resources. ' }]} />
+    <Alert
+      type="info"
+      title="TalentMAP Progress is Ongoing"
+      messages={[{ body: <span>For more information, visit <a href={getAssetPath('/about/more')}>HR Systems Online Resources</a>.</span> }]}
+    />
     <h2>How TalentMAP Works</h2>
     <p>
       {`The Bureau of Human Resources Executive Office (HR/EX) in partnership with the Bureau
