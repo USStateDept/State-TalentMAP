@@ -49,11 +49,12 @@ exports[`MobileNav matches snapshot when showLogin is false 1`] = `
           </Link>
         </li>
         <li>
-          <a
-            href="/talentmap/about"
+          <Link
+            replace={false}
+            to="/about"
           >
             About
-          </a>
+          </Link>
         </li>
         <span
           className="usa-unstyled-list mobile-nav-only"
@@ -133,11 +134,12 @@ exports[`MobileNav matches snapshot when showLogin is true 1`] = `
           </Link>
         </li>
         <li>
-          <a
-            href="/talentmap/about"
+          <Link
+            replace={false}
+            to="/about"
           >
             About
-          </a>
+          </Link>
         </li>
         <span
           className="usa-unstyled-list mobile-nav-only"

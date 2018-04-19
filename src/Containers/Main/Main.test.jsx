@@ -82,4 +82,10 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
+  it('handles an about route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/about']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
 });

@@ -9,6 +9,12 @@
     }
   }
 
+  .usa-footer-primary-content,
+  .usa-footer-primary-content {
+    border-bottom: 0;
+    border-top: 0;
+  }
+
   // scss-lint:disable SelectorFormat
   .usa-footer-secondary_section a {
     color: $blue-primary;
