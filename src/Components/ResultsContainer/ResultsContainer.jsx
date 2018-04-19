@@ -43,13 +43,6 @@ class ResultsContainer extends Component {
           items={pillFilters}
           onPillClick={onQueryParamToggle}
         />
-        <SaveNewSearchContainer
-          saveSearch={saveSearch}
-          newSavedSearchSuccess={newSavedSearchSuccess}
-          newSavedSearchHasErrored={newSavedSearchHasErrored}
-          currentSavedSearch={currentSavedSearch}
-          newSavedSearchIsSaving={newSavedSearchIsSaving}
-        />
         <ResultsControls
           results={results}
           hasLoaded={hasLoaded}
@@ -59,6 +52,13 @@ class ResultsContainer extends Component {
           sortBy={sortBy}
           defaultPageNumber={defaultPageNumber}
           queryParamUpdate={queryParamUpdate}
+        />
+        <SaveNewSearchContainer
+          saveSearch={saveSearch}
+          newSavedSearchSuccess={newSavedSearchSuccess}
+          newSavedSearchHasErrored={newSavedSearchHasErrored}
+          currentSavedSearch={currentSavedSearch}
+          newSavedSearchIsSaving={newSavedSearchIsSaving}
         />
         {
           // is not loading, results array exists, but is empty
