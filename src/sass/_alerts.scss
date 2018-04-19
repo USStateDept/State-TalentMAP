@@ -39,8 +39,9 @@
 .usa-alert {
   padding-bottom: 2.4rem;
 
-  * {
-    font-family: inherit;
+  *,
+  .usa-alert-body > .usa-alert-text {
+    font-family: Roboto;
   }
 
   h3 {

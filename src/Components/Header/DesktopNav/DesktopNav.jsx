@@ -6,7 +6,6 @@ import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
 import InteractiveElement from '../../InteractiveElement';
-import { getAssetPath } from '../../../utilities';
 
 const DesktopNav = ({
   isLoggedIn,
@@ -33,13 +32,7 @@ const DesktopNav = ({
         </div>
       }
       <NavLink link="/" title="Home" navLinkClass="home-text" />
-      <div className="header-nav-link-container">
-        <div className="header-nav-link">
-          <div className="header-nav-link-text about-text">
-            <a href={getAssetPath('/about')}>About</a>
-          </div>
-        </div>
-      </div>
+      <NavLink link="/about" title="About" navLinkClass="about-text" />
     </div>
     <div className="header-nav-desktop desktop-nav-only account-notification-container">
       <div className="header-nav-link-container account-container">

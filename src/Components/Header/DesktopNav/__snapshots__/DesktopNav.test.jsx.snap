@@ -34,23 +34,11 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
       navLinkClass="home-text"
       title="Home"
     />
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text about-text"
-        >
-          <a
-            href="/talentmap/about"
-          >
-            About
-          </a>
-        </div>
-      </div>
-    </div>
+    <withRouter()
+      link="/about"
+      navLinkClass="about-text"
+      title="About"
+    />
   </div>
   <div
     className="header-nav-desktop desktop-nav-only account-notification-container"
@@ -151,23 +139,11 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
       navLinkClass="home-text"
       title="Home"
     />
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text about-text"
-        >
-          <a
-            href="/talentmap/about"
-          >
-            About
-          </a>
-        </div>
-      </div>
-    </div>
+    <withRouter()
+      link="/about"
+      navLinkClass="about-text"
+      title="About"
+    />
   </div>
   <div
     className="header-nav-desktop desktop-nav-only account-notification-container"

@@ -19,7 +19,7 @@ const Footer = () => (
                 <Link className="usa-footer-primary-link" to="/">Home</Link>
               </li>
               <li className="usa-width-one-sixth usa-footer-primary-content">
-                <a className="usa-footer-primary-link" href={getAssetPath('/about')}>About</a>
+                <Link className="usa-footer-primary-link" to='/about'>About</Link>
               </li>
             </ul>
           </nav>
@@ -35,7 +35,7 @@ const Footer = () => (
       </div>
     </div>
     <div className="usa-footer-secondary_section tm-footer-body">
-      <div className="usa-grid-full tm-footer-body-inner-container">
+      <div className="usa-grid-full tm-footer-body-inner-container padded-main-content">
         <div className="usa-footer-logo usa-width-one-half">
           <img
             className="usa-footer-logo-img logo-img-seal"

@@ -20,7 +20,7 @@ exports[`Header matches snapshot when logged in 1`] = `
     <StateBanner />
     <BetaHeader />
     <div
-      className="usa-navbar"
+      className="usa-navbar padded-main-content padded-main-content--header"
     >
       <button
         className="usa-menu-btn"
@@ -101,7 +101,7 @@ exports[`Header matches snapshot when logged out 1`] = `
     <StateBanner />
     <BetaHeader />
     <div
-      className="usa-navbar"
+      className="usa-navbar padded-main-content padded-main-content--header"
     >
       <button
         className="usa-menu-btn"

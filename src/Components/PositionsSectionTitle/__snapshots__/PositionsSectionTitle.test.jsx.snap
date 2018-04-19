@@ -5,7 +5,7 @@ exports[`PositionsSectionTitleComponent matches snapshot 1`] = `
   className="usa-grid-full positions-section-container"
 >
   <div
-    className="usa-width-one-half positions-section-container-left"
+    className="usa-width-one-whole positions-section-container-left"
   >
     <PositionsSectionTitleHeader
       title="title"
