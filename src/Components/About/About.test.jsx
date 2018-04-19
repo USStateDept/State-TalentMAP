@@ -4,12 +4,12 @@ import toJSON from 'enzyme-to-json';
 import About from './About';
 
 describe('About', () => {
-  it('is defined with a default type of info', () => {
+  it('is defined', () => {
     const wrapper = shallow(<About />);
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when isAriaLive is true', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<About />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
