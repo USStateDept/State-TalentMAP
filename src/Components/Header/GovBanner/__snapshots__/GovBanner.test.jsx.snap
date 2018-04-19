@@ -11,17 +11,74 @@ exports[`GovBanner matches snapshot 1`] = `
       className="usa-banner-header"
     >
       <div
-        className="usa-grid usa-banner-inner padded-main-content"
+        className="usa-grid usa-banner-inner"
       >
         <img
           alt="U.S. flag"
-          src="/assets/img/rsz_dos-seal.png"
+          src="favicon-57.png"
         />
         <p>
-          This is a product of the Department of State
+          An official website of the United States government
         </p>
+        <button
+          aria-controls="gov-banner"
+          aria-expanded="false"
+          className="usa-accordion-button usa-banner-button"
+        >
+          <span
+            className="usa-banner-button-text"
+          >
+            Here's how you know 
+          </span>
+        </button>
       </div>
     </header>
+    <div
+      aria-hidden="true"
+      className="usa-banner-content usa-grid usa-accordion-content"
+      id="gov-banner"
+    >
+      <div
+        className="usa-banner-guidance-gov usa-width-one-half"
+      >
+        <img
+          alt="Dot gov"
+          className="usa-banner-icon usa-media_block-img"
+          src="icon-dot-gov.svg"
+        />
+        <div
+          className="usa-media_block-body"
+        >
+          <p>
+            <strong>
+              The .gov means it’s official.
+            </strong>
+            <br />
+            Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
+          </p>
+        </div>
+      </div>
+      <div
+        className="usa-banner-guidance-ssl usa-width-one-half"
+      >
+        <img
+          alt="SSL"
+          className="usa-banner-icon usa-media_block-img"
+          src="icon-https.svg"
+        />
+        <div
+          className="usa-media_block-body"
+        >
+          <p>
+            This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The 
+            <strong>
+              https://
+            </strong>
+             means all transmitted data is encrypted  — in other words, any information or browsing history that you provide is transmitted securely.
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;

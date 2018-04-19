@@ -9,7 +9,7 @@ import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilt
 import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
-import GovBanner from './GovBanner/GovBanner';
+import StateBanner from './StateBanner/StateBanner';
 import ResultsMultiSearchHeaderContainer from '../ResultsMultiSearchHeader/ResultsMultiSearchContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
