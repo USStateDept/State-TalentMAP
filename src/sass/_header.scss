@@ -187,8 +187,9 @@
 }
 
 .usa-banner-inner {
-
+  padding-bottom: .5em;
   padding-left: 0;
+  padding-top: .5em;
 
   @media screen and (max-width: $screen-md-max) {
     padding-left: 20px;
