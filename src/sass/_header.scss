@@ -37,12 +37,10 @@
   }
 
   .usa-logo {
+    margin-left: 0;
+
     a {
       display: inline-block;
-    }
-
-    @media screen and (max-width: $screen-md-max) {
-      padding-left: 20px;
     }
 
     @media screen and (max-width: $screen-sm-min) {

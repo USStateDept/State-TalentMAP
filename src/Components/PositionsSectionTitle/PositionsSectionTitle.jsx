@@ -5,7 +5,7 @@ import PositionsSectionTitleViewMore from '../PositionsSectionTitleViewMore';
 
 const PositionsSectionTitle = ({ title, viewMoreLink }) => (
   <div className="usa-grid-full positions-section-container">
-    <div className="usa-width-one-half positions-section-container-left">
+    <div className="usa-width-one-whole positions-section-container-left">
       <PositionsSectionTitleHeader title={title} />
     </div>
     <div className="usa-width-one-half positions-section-container-right">

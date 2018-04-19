@@ -134,7 +134,7 @@ export class Header extends Component {
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
           <GovBanner />
           <BetaHeader />
-          <div className="usa-navbar">
+          <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">
               <div className="usa-logo-text">

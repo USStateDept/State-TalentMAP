@@ -50,6 +50,10 @@ describe('proxy server routes', () => {
     request(server).get('/talentmap/obc/post/42').expect(302, done);
   });
 
+  it('does not redirect on an exact match of /talentmap/about', (done) => {
+    request(server).get('/talentmap/about/more').expect(302, done);
+  });
+
   it('redirects on /talentmap/about/more', (done) => {
     request(server).get('/talentmap/about/more').expect(302, done);
   });
