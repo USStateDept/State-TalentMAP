@@ -17,7 +17,12 @@
   // scss-lint:enable SelectorFormat
 
   .usa-footer-logo {
+    float: left;
     min-height: 100px;
+  }
+
+  .usa-footer-contact-links {
+    float: left;
   }
 
   .usa-footer-logo-img {
