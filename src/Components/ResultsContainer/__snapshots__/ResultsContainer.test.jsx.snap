@@ -8,13 +8,6 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     items={Array []}
     onPillClick={[Function]}
   />
-  <SaveNewSearchContainer
-    currentSavedSearch={Object {}}
-    newSavedSearchHasErrored={false}
-    newSavedSearchIsSaving={false}
-    newSavedSearchSuccess={Object {}}
-    saveSearch={[Function]}
-  />
   <ResultsControls
     defaultPageNumber={0}
     defaultPageSize={10}
@@ -217,6 +210,13 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
         ],
       }
     }
+  />
+  <SaveNewSearchContainer
+    currentSavedSearch={Object {}}
+    newSavedSearchHasErrored={false}
+    newSavedSearchIsSaving={false}
+    newSavedSearchSuccess={Object {}}
+    saveSearch={[Function]}
   />
   <div
     className="results-list-container"

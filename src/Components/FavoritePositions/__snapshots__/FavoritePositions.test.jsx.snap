@@ -51,7 +51,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "-posted_date",
             },
             Object {
-              "text": "Transfer eligibility date: Soonest",
+              "text": "TED: Soonest",
               "value": "current_assignment__estimated_end_date",
             },
             Object {

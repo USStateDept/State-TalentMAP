@@ -47,7 +47,7 @@ editPocContent, editWebsiteContent }) => {
             <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} propToUse="representation" />} />
             <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
             <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
-            <CondensedCardDataPoint title="Transfer eligibility date" content={formattedTourEndDate} />
+            <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
           </div>
         </div>
         <div className="usa-width-one-third position-details-contact-container">
