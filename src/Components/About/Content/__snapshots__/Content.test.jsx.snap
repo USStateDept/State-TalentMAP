@@ -42,7 +42,15 @@ exports[`Content matches snapshot 1`] = `
     messages={
       Array [
         Object {
-          "body": "For more information, visit HR Systems Online Resources. ",
+          "body": <span>
+            For more information, visit 
+            <a
+              href="/about/more"
+            >
+              HR Systems Online Resources
+            </a>
+            .
+          </span>,
         },
       ]
     }
