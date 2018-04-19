@@ -27,8 +27,8 @@ const Footer = () => (
         <div className="usa-width-one-half">
           <div className="questions-container">
             <span className="help-text">Need Help? Contact </span>
-            | <a href="mailto:TalentMAP@State.gov">
-              TalentMAP@State.gov
+            <a href="mailto:HRHelpDesk@state.gov">
+              HRHelpDesk@state.gov
             </a>
           </div>
         </div>
@@ -59,10 +59,7 @@ const Footer = () => (
         </div>
         <div className="usa-footer-contact-links usa-width-one-half tm-footer-body-contact">
           <div className="tm-footer-body-contact-item">
-            To share your feedback with us, open an issue or pull request on our <a href="https://github.com/18F/State-TalentMAP">Github Repository</a>
-          </div>
-          <div className="tm-footer-body-contact-item">
-            This project is a beta for Department of State
+            To share your feedback with us, please contact <a href="mailto:TalentMAP@state.gov">TalentMAP@state.gov</a>
           </div>
         </div>
       </div>
