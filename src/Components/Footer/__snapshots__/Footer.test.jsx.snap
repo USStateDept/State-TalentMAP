@@ -56,11 +56,10 @@ exports[`Footer Component matches snapshot 1`] = `
           >
             Need Help? Contact 
           </span>
-          | 
           <a
-            href="mailto:TalentMAP@State.gov"
+            href="mailto:HRHelpDesk@state.gov"
           >
-            TalentMAP@State.gov
+            HRHelpDesk@state.gov
           </a>
         </div>
       </div>
@@ -105,17 +104,12 @@ exports[`Footer Component matches snapshot 1`] = `
         <div
           className="tm-footer-body-contact-item"
         >
-          To share your feedback with us, open an issue or pull request on our 
+          To share your feedback with us, please contact 
           <a
-            href="https://github.com/18F/State-TalentMAP"
+            href="mailto:TalentMAP@state.gov"
           >
-            Github Repository
+            TalentMAP@state.gov
           </a>
-        </div>
-        <div
-          className="tm-footer-body-contact-item"
-        >
-          This project is a beta for Department of State
         </div>
       </div>
     </div>
