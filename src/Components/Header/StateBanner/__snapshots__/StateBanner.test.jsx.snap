@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StateBanner matches snapshot 1`] = `
+<div
+  className="usa-banner"
+>
+  <div
+    className="usa-accordion"
+  >
+    <header
+      className="usa-banner-header"
+    >
+      <div
+        className="usa-grid usa-banner-inner padded-main-content"
+      >
+        <img
+          alt="U.S. flag"
+          src="/assets/img/rsz_dos-seal.png"
+        />
+        <p>
+          This is a product of the Department of State
+        </p>
+      </div>
+    </header>
+  </div>
+</div>
+`;
