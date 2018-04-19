@@ -21,7 +21,7 @@ const CondensedCardData = ({ position }) => {
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint
-        title="Transfer eligibility date"
+        title="TED"
         content={estimatedEndDate}
         hasFixedTitleWidth
       />
