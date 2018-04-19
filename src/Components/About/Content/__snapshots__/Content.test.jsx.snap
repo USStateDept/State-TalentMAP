@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Content matches snapshot when isAriaLive is true 1`] = `
+exports[`Content matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
