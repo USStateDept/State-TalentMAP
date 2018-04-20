@@ -7,7 +7,7 @@ const FavoriteContent = ({ position }) => (
   <div className="usa-grid-full bid-content-container">
     <div>
       <span className="bid-list-card-title-post">Position title: </span>
-      {position.position_number}
+      {position.title}
     </div>
     <div>
       <span className="bid-list-card-title-post">Skill code: </span>
