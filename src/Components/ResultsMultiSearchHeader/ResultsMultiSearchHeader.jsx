@@ -178,7 +178,7 @@ class ResultsMultiSearchHeader extends Component {
                   </div>
                   <div className="usa-width-one-fourth search-results-inputs search-keyword">
                     <SkillCodeFilter
-                      label="Skill code"
+                      label="Skill Code"
                       isLoading={filtersIsLoading}
                       filters={skillCodesData}
                       onFilterSelect={this.onChangeSkills}
