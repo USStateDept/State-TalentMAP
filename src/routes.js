@@ -5,6 +5,7 @@ const routesArray = [
   { path: '/results', componentName: 'Results', pageTitle: 'Search Results' },
   { path: '/details/:id', componentName: 'Position', pageTitle: 'Position details' },
   { path: '/compare/:ids', componentName: 'Compare', pageTitle: 'Compare Positions' },
+  { path: '/about', exact: true, componentName: 'About', pageTitle: 'About' },
   { path: '/tokenValidation', componentName: 'Login', pageTitle: 'Token Validation' },
   { path: '/loginRedirect', componentName: 'LoginRedirect', pageTitle: 'Login Redirect' },
 ];

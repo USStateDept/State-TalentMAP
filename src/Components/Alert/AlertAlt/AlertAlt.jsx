@@ -46,7 +46,7 @@ const AlertAlt = ({ type, title, message, isAriaLive }) => {
 AlertAlt.propTypes = {
   type: PropTypes.oneOf(['info', 'warning', 'error', 'success']),
   title: PropTypes.string.isRequired,
-  message: PropTypes.string,
+  message: PropTypes.node,
   isAriaLive: PropTypes.bool,
 };
 

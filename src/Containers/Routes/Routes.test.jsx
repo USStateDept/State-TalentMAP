@@ -78,4 +78,11 @@ describe('Routes', () => {
       </MemoryRouter></Provider>);
     expect(routes).toBeDefined();
   });
+  it('handles an about route', () => {
+    const routes = TestUtils.renderIntoDocument(<Provider store={mockStore({})}>
+      <MemoryRouter initialEntries={['/about']}>
+        <Routes isAuthorized={() => true} />
+      </MemoryRouter></Provider>);
+    expect(routes).toBeDefined();
+  });
 });

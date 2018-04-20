@@ -7,7 +7,7 @@ const GovBanner = () => (
   <div className="usa-banner">
     <div className="usa-accordion">
       <header className="usa-banner-header">
-        <div className="usa-grid usa-banner-inner">
+        <div className="usa-grid usa-banner-inner padded-main-content">
           <img src={flag} alt="U.S. flag" />
           <p>An official website of the United States government</p>
           <button

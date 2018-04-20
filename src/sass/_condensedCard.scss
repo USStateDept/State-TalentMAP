@@ -86,7 +86,6 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .condensed-card-top-header-left {
     float: left;
-    width: auto;
 
     h3 {
       display: inline;
@@ -198,6 +197,15 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .title-fixed-width {
     min-width: 80px;
+  }
+}
+
+@media screen and (max-width: $screen-md-min) {
+  .usa-width-one-third.condensed-card {
+    display: block;
+    float: left;
+    margin-right: initial;
+    width: 100%;
   }
 }
 
