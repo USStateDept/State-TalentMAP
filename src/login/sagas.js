@@ -1,8 +1,7 @@
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
-import Cookies from 'universal-cookie';
+import cookies from 'universal-cookie';
 import { push } from 'react-router-redux';
 import api from '../api';
-import isCurrentPath from '../Components/ProfileMenu/navigation';
 
 import { redirectToLogout, redirectToLogin } from '../utilities';
 
