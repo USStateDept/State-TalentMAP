@@ -10,4 +10,13 @@ const routesArray = [
   { path: '/loginRedirect', componentName: 'LoginRedirect', pageTitle: 'Login Redirect' },
 ];
 
+switch (process.env.NODE_ENV) {
+  case 'development':
+    routesArray.unshift({ path: '/login', componentName: 'Login' });
+    break;
+
+  default:
+    break;
+}
+
 module.exports = routesArray;

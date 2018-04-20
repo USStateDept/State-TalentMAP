@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import Cookies from 'universal-cookie';
-import { connect } from 'react-redux';
 
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Alert from '../../Components/Alert/Alert';
 
-import { tokenValidationRequest } from '../actions';
+// import { tokenValidationRequest } from '../actions';
+import { initialState } from '../reducer';
 
 // initialize cookies
 const cookies = new Cookies();
@@ -67,27 +67,18 @@ export class TokenValidation extends Component {
 }
 
 TokenValidation.propTypes = {
+  tokenValidationRequest: PropTypes.func,
   login: PropTypes.shape({
     requesting: PropTypes.bool,
     successful: PropTypes.bool,
     messages: PropTypes.array,
     errors: PropTypes.array,
   }).isRequired,
-  tokenValidationRequest: PropTypes.func,
 };
 
 TokenValidation.defaultProps = {
   tokenValidationRequest: EMPTY_FUNCTION,
+  login: initialState,
 };
 
-const mapStateToProps = state => ({
-  login: state.login,
-});
-
-export const mapDispatchToProps = dispatch => ({
-  tokenValidationRequest: token => dispatch(tokenValidationRequest(token)),
-});
-
-const connected = connect(mapStateToProps, mapDispatchToProps)(TokenValidation);
-
-export default connected;
+export default TokenValidation;
