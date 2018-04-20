@@ -1,31 +1,39 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
 const shortid = require('shortid');
 
-const Alert = ({ type, title, messages, isAriaLive }) => {
-  // 'type' is injected into the class name
-  // type 'error' requires an ARIA role
-  let ariaLiveProps = {};
-  if (isAriaLive) {
-    ariaLiveProps = {
-      'aria-live': 'polite',
-      'aria-atomic': 'true',
-    };
+class Alert extends Component {
+  // prevent unneeded rerenders, which can cause accessibility issues
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
   }
-  return (
-    <div className={`usa-alert usa-alert-${type}`} role={(type === 'error') ? 'alert' : null} {...ariaLiveProps}>
-      <div className="usa-alert-body">
-        <h3 className="usa-alert-heading">{title}</h3>
-        {messages.map(message =>
-          (<p className="usa-alert-text" key={shortid.generate()}>
-            {message.body}
-          </p>),
-        )}
+  render() {
+    const { type, title, messages, isAriaLive } = this.props;
+    // 'type' is injected into the class name
+    // type 'error' requires an ARIA role
+    let ariaLiveProps = {};
+    if (isAriaLive) {
+      ariaLiveProps = {
+        'aria-live': 'polite',
+        'aria-atomic': 'true',
+      };
+    }
+    return (
+      <div className={`usa-alert usa-alert-${type}`} role={(type === 'error') ? 'alert' : null} {...ariaLiveProps}>
+        <div className="usa-alert-body">
+          <h3 className="usa-alert-heading">{title}</h3>
+          {messages.map(message =>
+            (<p className="usa-alert-text" key={shortid.generate()}>
+              {message.body}
+            </p>),
+          )}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Alert.propTypes = {
   type: PropTypes.oneOf(['info', 'warning', 'error', 'success']),
