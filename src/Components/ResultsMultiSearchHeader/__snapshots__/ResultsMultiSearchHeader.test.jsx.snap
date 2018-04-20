@@ -62,7 +62,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                   ]
                 }
                 isLoading={false}
-                label="Skill code"
+                label="Skill Code"
                 labelSrOnly={false}
                 onFilterSelect={[Function]}
                 userSkills={
