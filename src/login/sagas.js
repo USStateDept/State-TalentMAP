@@ -47,17 +47,6 @@ export function tokenApi(token) {
     .catch(error => changeErrorMessage(error.message));
 }
 
-/* Development Login */
-export function loginApi(username, password) {
-  if (!username || !password) {
-    return changeErrorMessage('Fields cannot be blank');
-  }
-
-  return api.post('/accounts/token/', { username, password })
-    .then(response => response.data.token)
-    .catch((error) => { changeErrorMessage(error.message); });
-}
-
 function* logout() {
   // dispatches the CLIENT_UNSET action
   yield put(unsetClient());
@@ -80,7 +69,7 @@ function* logout() {
   redirectToLogout();
 }
 
-function* tokenFlow(tokenToCheck) {
+export function* tokenFlow(tokenToCheck) {
   // try to call to our loginApi() function. Redux Saga
   // will pause here until we either are successful or
   // receive an error

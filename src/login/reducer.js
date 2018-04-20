@@ -6,7 +6,7 @@ import {
   TOKEN_VALIDATION_REQUESTING,
 } from './constants';
 
-const initialState = {
+export const initialState = {
   requesting: false,
   successful: false,
   messages: [],
