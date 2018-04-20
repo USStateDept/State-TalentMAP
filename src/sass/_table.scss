@@ -1,6 +1,8 @@
 $tm-table-blue: $primary-blue-darkest;
 
 .tm-table {
+  $border-visible-height: 500%;
+
   $border-radius: 9px;
   color: $primary-base;
   margin-bottom: 0;
@@ -23,7 +25,7 @@ $tm-table-blue: $primary-blue-darkest;
   th,
   td {
     border: 0;
-    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   thead {
@@ -36,7 +38,7 @@ $tm-table-blue: $primary-blue-darkest;
 
     .border-visible {
       background: $tm-table-blue;
-      height: 100%;
+      height: $border-visible-height;
       left: -300px;
       position: absolute;
       top: 0;
@@ -69,7 +71,7 @@ $tm-table-blue: $primary-blue-darkest;
 
     .border-visible-layer-2 {
       background: $color-white;
-      height: 200%;
+      height: $border-visible-height + 500%;
       left: -300px;
       position: absolute;
       top: 0;
