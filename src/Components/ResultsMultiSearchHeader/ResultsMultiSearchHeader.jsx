@@ -147,7 +147,7 @@ class ResultsMultiSearchHeader extends Component {
     // format bureaus
     const bureaus = filters.find(f => f.item && f.item.description === 'region');
     const mappedBureaus = bureaus && bureaus.data ?
-      bureaus.data.slice().map(g => ({ ...g, value: g.code, text: g.short_description })) : [];
+      bureaus.data.slice().map(g => ({ ...g, value: g.code, text: g.custom_description })) : [];
     // sort the regional bureaus by their calculated label
     const sortedBureuas = orderBy(mappedBureaus, ['text']);
 
@@ -200,7 +200,7 @@ class ResultsMultiSearchHeader extends Component {
                   <div className="usa-width-one-sixth search-results-inputs search-keyword">
                     <SelectForm
                       id="bureau-searchbar-filter"
-                      label="Bureau"
+                      label="Regional Bureau"
                       options={sortedBureuas}
                       defaultSort={defaultBureau}
                       includeFirstEmptyOption

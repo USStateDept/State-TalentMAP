@@ -111,7 +111,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 emptyOptionText="- Select -"
                 id="bureau-searchbar-filter"
                 includeFirstEmptyOption={true}
-                label="Bureau"
+                label="Regional Bureau"
                 languages={Array []}
                 onSelectOption={[Function]}
                 options={
@@ -119,7 +119,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                     Object {
                       "code": "bur",
                       "custom_description": "bureau",
-                      "text": undefined,
+                      "text": "bureau",
                       "value": "bur",
                     },
                   ]
