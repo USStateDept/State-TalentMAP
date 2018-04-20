@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
-import { logoutRequest } from '../../login/actions';
+import { authRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import StateBanner from './StateBanner/StateBanner';
@@ -219,7 +219,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
-  logout: () => dispatch(logoutRequest()),
+  logout: () => dispatch(authRequest(false)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
   setSearchFilters: query => dispatch(setSelectedSearchbarFilters(query)),

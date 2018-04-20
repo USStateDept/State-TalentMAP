@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import Cookies from 'universal-cookie';
 
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Alert from '../../Components/Alert/Alert';
+import { auth } from '../sagas';
 
-// import { tokenValidationRequest } from '../actions';
 import { initialState } from '../reducer';
-
-// initialize cookies
-const cookies = new Cookies();
 
 export class TokenValidation extends Component {
   // Check for token on component mount
@@ -20,9 +16,8 @@ export class TokenValidation extends Component {
     // First check to see if there's a token in the query params.
     let token = parsedQuery.tmApiToken;
     // If not, check if one exists in the cookies.
-    if (!token) { token = cookies.get('tmApiToken'); }
-    // If neither criteria is met, set the token to a fake token
-    // which will cause a failure.
+    if (!token) { token = auth.get(); }
+    // If neither criteria is met, set the token to a fake token which will cause a failure.
     if (!token) { token = 'No token'; }
     // Finally, pass that token to the tokenValidationRequest function
     this.props.tokenValidationRequest(token);

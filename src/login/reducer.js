@@ -1,4 +1,7 @@
+import { merge } from 'lodash';
+
 import {
+  LOGIN_REQUESTING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_REQUESTING,
@@ -15,58 +18,57 @@ export const initialState = {
 };
 
 const reducer = function loginReducer(state = initialState, action) {
+  let state$;
+
   switch (action.type) {
     case TOKEN_VALIDATION_REQUESTING:
-      return {
+    case LOGIN_REQUESTING:
+      state$ = {
         requesting: true,
-        successful: false,
         messages: [{ body: 'Logging in...', time: new Date() }],
-        errors: [],
-        loggedIn: false,
       };
+
+      break;
 
     case LOGIN_SUCCESS:
-      return {
-        errors: [],
-        messages: [],
-        requesting: false,
+      state$ = {
         successful: true,
         loggedIn: true,
       };
+
+      break;
 
     case LOGOUT_REQUESTING:
-      return {
+      state$ = {
         requesting: true,
-        successful: false,
         messages: [{ body: 'Logging out...', time: new Date() }],
-        errors: [],
         loggedIn: true,
       };
 
+      break;
+
     case LOGOUT_SUCCESS:
-      return {
-        errors: [],
-        messages: [],
-        requesting: false,
+      state$ = {
         successful: true,
-        loggedIn: false,
       };
 
+      break;
+
     case LOGIN_ERROR:
-      return {
+      state$ = {
         errors: state.errors.concat([{
           body: action.error.toString(),
           time: new Date(),
         }]),
-        messages: [],
-        requesting: false,
-        successful: false,
-        loggedIn: false,
       };
 
+      break;
+
     default:
-      return state;
+      break;
   }
+
+  return merge({}, initialState, state$, state);
 };
 
 export default reducer;
