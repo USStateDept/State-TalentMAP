@@ -18,7 +18,7 @@ const items =
       },
       {
         item: {
-          title: 'Skill Code',
+          title: 'Skill Cone (Code)',
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
