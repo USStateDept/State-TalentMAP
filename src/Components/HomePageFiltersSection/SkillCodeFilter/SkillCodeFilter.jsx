@@ -75,7 +75,7 @@ class SkillCodeFilter extends Component {
           options={sortedOptions}
           onChange={this.handleChange}
           closeOnSelect={false}
-          placeholder="Select Skill cones (codes)"
+          placeholder="Select Skill codes"
           isLoading={isLoading}
           tabSelectsValue={false /* avoid focus trap */}
         />
