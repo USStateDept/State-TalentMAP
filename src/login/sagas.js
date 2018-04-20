@@ -1,36 +1,21 @@
+import { isObject } from 'lodash';
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
-import cookies from 'universal-cookie';
 import { push } from 'react-router-redux';
-import api from '../api';
 
+import api from '../api';
+import { unsetNotificationsCount } from '../actions/notifications';
+import { userProfileFetchData, unsetUserProfile } from '../actions/userProfile';
+import { setClient, unsetClient } from '../client/actions';
+import isCurrentPath from '../Components/ProfileMenu/navigation';
 import { redirectToLogout, redirectToLogin } from '../utilities';
+import { authError, authRequest, authSuccess } from './actions';
 
 // Our login constants
 import {
-  LOGIN_SUCCESS,
-  LOGIN_ERROR,
+  LOGIN_REQUESTING,
   LOGOUT_REQUESTING,
-  LOGOUT_SUCCESS,
   TOKEN_VALIDATION_REQUESTING,
 } from './constants';
-
-// So that we can modify our Client piece of state
-import {
-  setClient,
-  unsetClient,
-} from '../client/actions';
-
-// So that we can pull the user's profile
-// and unset the profile object on logout
-import {
-  userProfileFetchData,
-  unsetUserProfile,
-} from '../actions/userProfile';
-
-// We'll also clear any notifications on logout
-import {
-  unsetNotificationsCount,
-} from '../actions/notifications';
 
 export const errorMessage = { message: null };
 
@@ -47,73 +32,143 @@ export function tokenApi(token) {
     .catch(error => changeErrorMessage(error.message));
 }
 
-function* logout() {
-  // dispatches the CLIENT_UNSET action
-  yield put(unsetClient());
+export const auth = {
+  get: () => {
+    try {
+      const token = JSON.parse(localStorage.getItem('token'));
+      return token;
+    } catch (error) {
+      // If token exists and is bad (maybe user injected)
+      // Drop the token anyways just so we can have the container render login directly
+      auth.reset();
+      return false;
+    }
+  },
 
-  // unset the user profile
-  yield put(unsetUserProfile());
+  set: (token) => {
+    // set a stringified version of our token to localstorage
+    localStorage.setItem('token', JSON.stringify(token));
+  },
 
-  // unset notifications count
-  yield put(unsetNotificationsCount());
+  reset: () => {
+    // remove our local storage token
+    localStorage.removeItem('token');
+  },
 
-  // remove our local storage token
-  localStorage.removeItem('token');
+  // set login method, default to username + password
+  mode: () => (process.env.LOGIN_MODE || 'basic'),
 
-  // remove our cookie token
-  cookies.remove('tmApiToken');
+  isBasicAuth: () => (auth.mode() === 'basic'),
+  isSAMLAuth: () => (auth.mode() !== 'basic'),
+};
 
-  // .. inform redux that our logout was successful
-  yield put({ type: LOGOUT_SUCCESS });
+function loginRequest(username, password) {
+  if (!username || !password) {
+    return changeErrorMessage('Fields cannot be blank');
+  }
 
-  redirectToLogout();
+  put(authRequest(true, username, password));
+
+  return api.post('/accounts/token/', { username, password })
+    .then((response) => {
+      const token = response.data.token;
+
+      if (token) {
+        // inform Redux to set our client token
+        put(setClient(token));
+        // also inform redux that our login was successful
+        put(authSuccess());
+        // get the user's profile data
+        put(userProfileFetchData());
+      }
+
+      put(authError(true, 'API response error'));
+
+      return token;
+    })
+    .catch((error) => {
+      put(authError(true, error.message));
+      return error;
+    });
 }
 
-export function* tokenFlow(tokenToCheck) {
-  // try to call to our loginApi() function. Redux Saga
-  // will pause here until we either are successful or
-  // receive an error
-  const tokenWasSuccessful = yield call(tokenApi, tokenToCheck);
+function* logoutRequest() {
+  // dispatches the CLIENT_UNSET action
+  yield put(unsetClient());
+  // unset the user profile
+  yield put(unsetUserProfile());
+  // unset notifications count
+  yield put(unsetNotificationsCount());
+  // .. inform redux that our logout was successful
+  yield put(authSuccess(false));
+}
 
-  if (tokenWasSuccessful) {
-    // inform Redux to set our client token
-    yield put(setClient(tokenToCheck));
+export function* login(credentials = {}) {
+  let token = credentials;
 
-    // also inform redux that our login was successful
-    yield put({ type: LOGIN_SUCCESS });
+  // Determine between basic and saml auth
+  if (isObject(token)) {
+    // try to call to our loginApi() function.  Redux Saga
+    // will pause here until we either are successful or
+    // receive an error
+    token = yield call(loginRequest, token.username, token.password);
+  }
 
-    // set a stringified version of our token to localstorage on our domain
-    localStorage.setItem('token', JSON.stringify(tokenToCheck));
-
-    // get the user's profile data
-    yield put(userProfileFetchData());
-
+  if (token) {
+    auth.set(token);
     // redirect them to home
     yield put(push('/'));
-  } else {
-    // error? send it to redux
-    yield put({ type: LOGIN_ERROR, error: errorMessage.message });
   }
+
   if (yield cancelled()) {
     redirectToLogin();
   }
 
   // return the token for health and wealth
-  return tokenToCheck;
+  return token;
+}
+
+export function* logout() {
+  yield put(logoutRequest);
+  auth.reset();
+
+  if (auth.isSAML) {
+    redirectToLogout();
+  } else {
+    const isOnLoginPage = isCurrentPath(window.location.pathname, '/login');
+
+    if (!isOnLoginPage) {
+      yield put(push('/login'));
+    }
+  }
 }
 
 // Our watcher (saga).  It will watch for many things.
 function* loginWatcher() {
-  // Check if user entered already logged in or not
-  while (true) { // eslint-disable-line no-constant-condition
-    const { tokenValidating } = yield race({
-      tokenValidating: take(TOKEN_VALIDATION_REQUESTING),
-      loggingOut: take(LOGOUT_REQUESTING),
-    });
+  const evaluate = true;
+  const isSAML = auth.isSAMLAuth();
+  const races = {
+    loggingIn: take(isSAML ? TOKEN_VALIDATION_REQUESTING : LOGIN_REQUESTING),
+    loggingOut: take(LOGOUT_REQUESTING),
+  };
 
-    if (tokenValidating) {
-      const { token } = tokenValidating;
-      yield call(tokenFlow, token);
+  // Check if user entered already logged in or not
+  while (evaluate) {
+    const { loggingIn } = yield race(races);
+
+    if (loggingIn) {
+      let credentials;
+
+      if (isSAML) {
+        credentials = loggingIn.token;
+      } else {
+        credentials = {
+          username: loggingIn.username,
+          password: loggingIn.password,
+        };
+      }
+
+      yield call(login, credentials);
     } else {
       // log out
       yield call(logout);

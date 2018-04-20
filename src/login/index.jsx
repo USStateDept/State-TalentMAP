@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { keys, merge, pick } from 'lodash';
+
 import LoginForm, { LoginForm as _LoginForm } from './Components/LoginForm';
 import TokenValidation from './Components/TokenValidation';
-import { login, tokenValidationRequest } from './actions';
 
-// set login method, default to username + password
-const loginMode = process.env.LOGIN_MODE || 'password';
-const isSAML = (loginMode !== 'password');
+import { authRequest, tokenValidationRequest } from './actions';
+import { auth } from './sagas';
+
+const isSAML = auth.isSAMLAuth();
 
 // Get functional component prop-type config
 const props$ = {
@@ -35,10 +36,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  onSubmit: (form) => {
-    console.log(form);
-    return dispatch(login(form.username, form.password));
-  },
+  onSubmit: ({ username, password }) => dispatch(authRequest(true, username, password)),
   tokenValidationRequest: token => dispatch(tokenValidationRequest(token)),
 });
 

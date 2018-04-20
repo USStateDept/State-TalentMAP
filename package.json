@@ -47,7 +47,6 @@
     "shortid": "^2.2.8",
     "typeface-merriweather": "^0.0.54",
     "typeface-roboto": "^0.0.50",
-    "universal-cookie": "^2.1.2",
     "uswds": "~1.6.0"
   },
   "devDependencies": {
