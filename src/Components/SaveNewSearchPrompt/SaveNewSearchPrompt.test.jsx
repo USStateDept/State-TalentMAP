@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import SaveNewSearchPrompt from './SaveNewSearchPrompt';
 
@@ -14,6 +15,18 @@ describe('SaveNewSearchPromptComponent', () => {
       />,
     );
     expect(wrapper).toBeDefined();
+  });
+
+  it('calls functions after clicking InteractiveElement', () => {
+    const spy = sinon.spy();
+    wrapper = shallow(
+      <SaveNewSearchPrompt
+        toggleInput={spy}
+        newSavedSearchSuccess="success"
+      />,
+    );
+    wrapper.find('InteractiveElement').simulate('click');
+    sinon.assert.calledOnce(spy);
   });
 
   it('can handle receiving currently selected saved searches', () => {

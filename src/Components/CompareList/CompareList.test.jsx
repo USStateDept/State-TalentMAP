@@ -36,6 +36,13 @@ describe('CompareListComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when there is an obc id', () => {
+    const resultsWithObc = { ...resultsObject };
+    resultsWithObc.results[0].post.obc_id = 1;
+    const wrapper = shallow(<CompareList {...props} compare={resultsWithObc.results} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('matches snapshot when isLoading is true', () => {
     const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} isLoading />);
     expect(toJSON(wrapper)).toMatchSnapshot();

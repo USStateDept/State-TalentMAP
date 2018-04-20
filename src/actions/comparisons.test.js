@@ -40,14 +40,31 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number__in=6,60').reply(200,
       comparisons,
     );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number__in=5,20').reply(404,
+      null,
+    );
   });
 
-  it('can fetch a position', (done) => {
+  it('can fetch positions', (done) => {
     const store = mockStore({ comparisons: [] });
 
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.comparisonsFetchData('6,60'));
+        store.dispatch(actions.comparisonsIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching positions', (done) => {
+    const store = mockStore({ comparisons: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.comparisonsFetchData('5,20'));
         store.dispatch(actions.comparisonsIsLoading());
         done();
       }, 0);
