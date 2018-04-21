@@ -1,14 +1,13 @@
-import { isObject } from 'lodash';
+import { isObject, merge } from 'lodash';
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
-
 import api from '../api';
 import { unsetNotificationsCount } from '../actions/notifications';
 import { userProfileFetchData, unsetUserProfile } from '../actions/userProfile';
 import { setClient, unsetClient } from '../client/actions';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
 import { redirectToLogout, redirectToLogin } from '../utilities';
-import { authError, authRequest, authSuccess } from './actions';
+import { authError, authRequest, authSuccess, tokenValidationRequest } from './actions';
 
 // Our login constants
 import {
@@ -17,19 +16,19 @@ import {
   TOKEN_VALIDATION_REQUESTING,
 } from './constants';
 
-export const errorMessage = { message: null };
-
-export function changeErrorMessage(e) {
-  errorMessage.message = e;
-}
-
-export function tokenApi(token) {
-  if (!token) {
-    return changeErrorMessage('Token cannot be blank');
+/**
+ * Utilities
+ */
+export function getError(e) {
+  // Supports error messages or error objects
+  if (isObject(e)) {
+    return merge({
+      message: null,
+    }, e);
   }
-  return api.get('/profile/', { headers: { Authorization: `Token ${token}` } })
-    .then(response => response.data)
-    .catch(error => changeErrorMessage(error.message));
+  return {
+    message: (e || ''),
+  };
 }
 
 export const auth = {
@@ -55,69 +54,94 @@ export const auth = {
     localStorage.removeItem('token');
   },
 
-  // set login method, default to username + password
+  /**
+   * Auth/Login Mode
+   *   @Values 'saml'|'basic'
+   *   @Default 'basic' (username/password)
+   */
   mode: () => (process.env.LOGIN_MODE || 'basic'),
-
   isBasicAuth: () => (auth.mode() === 'basic'),
   isSAMLAuth: () => (auth.mode() !== 'basic'),
 };
 
-function loginRequest(username, password) {
-  if (!username || !password) {
-    return changeErrorMessage('Fields cannot be blank');
-  }
+/**
+ * API Requests
+ */
+ // This creates short chainable axios object similar to Observables.map()
+ // Mainly so we can do some data pre-processing first for sake of reusability
+export const requests = {
+  basic: ({ username, password }) => {
+    if (!username || !password) {
+      return Promise.reject(
+        new Error('Fields cannot be blank'),
+      );
+    }
 
-  put(authRequest(true, username, password));
+    return api.post('/accounts/token/', { username, password });
+  },
 
-  return api.post('/accounts/token/', { username, password })
-    .then((response) => {
-      const token = response.data.token;
+  saml: (token) => {
+    if (!token) {
+      return Promise.reject(
+        new Error('Token cannot be blank'),
+      );
+    }
 
-      if (token) {
-        // inform Redux to set our client token
-        put(setClient(token));
-        // also inform redux that our login was successful
-        put(authSuccess());
-        // get the user's profile data
-        put(userProfileFetchData());
-      }
+    const headers = { Authorization: `Token ${token}` };
+    // This is to have one uniform api response from basic and saml api calls
+    // So this is to transform the request before the caller gets it
+    return api.get('/api/v1/profile/', { headers });
+  },
+};
 
-      put(authError(true, 'API response error'));
-
-      return token;
-    })
-    .catch((error) => {
-      put(authError(true, error.message));
-      return error;
-    });
+function loginRequest(credentials) {
+  const request = requests[auth.isSAMLAuth() ? 'saml' : 'basic'](credentials);
+  return request
+    .then(response => ({ response }))
+    .catch(error => ({ error }));
 }
 
-function* logoutRequest() {
-  // dispatches the CLIENT_UNSET action
-  yield put(unsetClient());
-  // unset the user profile
-  yield put(unsetUserProfile());
-  // unset notifications count
-  yield put(unsetNotificationsCount());
-  // .. inform redux that our logout was successful
-  yield put(authSuccess(false));
-}
-
+/**
+ * Sagas
+ */
 export function* login(credentials = {}) {
+  const isSAML = auth.isSAMLAuth();
   let token = credentials;
 
   // Determine between basic and saml auth
-  if (isObject(token)) {
-    // try to call to our loginApi() function.  Redux Saga
-    // will pause here until we either are successful or
-    // receive an error
-    token = yield call(loginRequest, token.username, token.password);
+  if (isSAML && isObject(token)) {
+    token = {
+      username: token.username,
+      password: token.password,
+    };
   }
 
-  if (token) {
+  if (isSAML) {
+    yield put(tokenValidationRequest(credentials));
+  } else {
+    yield put(authRequest(true, credentials.username, credentials.password));
+  }
+
+  // try to call to our loginApi() function. Redux Saga will pause
+  // here until we either are successful or receive an error
+  const { response, error } = yield call(loginRequest, token);
+
+  if (response) {
+    token = response.data.token;
+
+    // inform Redux to set our client token
+    yield put(setClient(token));
+    // also inform redux that our login was successful
+    yield put(authSuccess());
+    // get the user's profile data
+    yield put(userProfileFetchData());
+
     auth.set(token);
+
     // redirect them to home
     yield put(push('/'));
+  } else {
+    yield put(authError(true, error.message));
   }
 
   if (yield cancelled()) {
@@ -128,47 +152,56 @@ export function* login(credentials = {}) {
   return token;
 }
 
-export function* logout() {
-  yield put(logoutRequest);
+function* logout() {
+  // dispatches the CLIENT_UNSET action
+  yield put(unsetClient());
+  // unset the user profile
+  yield put(unsetUserProfile());
+  // unset notifications count
+  yield put(unsetNotificationsCount());
+
+  // remove our token
   auth.reset();
 
-  if (auth.isSAML) {
-    redirectToLogout();
-  } else {
-    const isOnLoginPage = isCurrentPath(window.location.pathname, '/login');
+  // .. inform redux that our logout was successful
+  yield put(authSuccess(false));
 
-    if (!isOnLoginPage) {
-      yield put(push('/login'));
-    }
+  redirectToLogout();
+  // Check if the user is already on the login page. We don't want a race
+  // condition to infinitely loop them back to the login page, should
+  // any requests be made that result in 401
+  const isOnLoginPage = isCurrentPath(window.location.pathname, '/login');
+
+  // redirect to the /login screen
+  if (!isOnLoginPage) {
+    yield put(push('/login'));
   }
 }
 
 // Our watcher (saga).  It will watch for many things.
 function* loginWatcher() {
   const evaluate = true;
-  const isSAML = auth.isSAMLAuth();
-  const races = {
-    loggingIn: take(isSAML ? TOKEN_VALIDATION_REQUESTING : LOGIN_REQUESTING),
-    loggingOut: take(LOGOUT_REQUESTING),
-  };
-
   // Check if user entered already logged in or not
   while (evaluate) {
+    const isSAML = auth.isSAMLAuth();
+    const races = {
+      loggingIn: take(isSAML ? TOKEN_VALIDATION_REQUESTING : LOGIN_REQUESTING),
+      loggingOut: take(LOGOUT_REQUESTING),
+    };
+
     const { loggingIn } = yield race(races);
 
     if (loggingIn) {
-      let credentials;
-
       if (isSAML) {
-        credentials = loggingIn.token;
+        yield call(login, loggingIn.token);
       } else {
-        credentials = {
+        const credentials = {
           username: loggingIn.username,
           password: loggingIn.password,
         };
-      }
 
-      yield call(login, credentials);
+        yield call(login, credentials);
+      }
     } else {
       // log out
       yield call(logout);

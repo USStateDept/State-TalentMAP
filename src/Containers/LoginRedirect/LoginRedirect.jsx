@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import { Redirect } from 'react-router';
-// import { redirectToLogin } from '../../utilities';
+import { redirectToLogin } from '../../utilities';
 import Alert from '../../Components/Alert';
 
 // Used as an internal route so that we can push this route to history
@@ -9,6 +8,7 @@ import Alert from '../../Components/Alert';
 // opposed to an internal React route.
 class LoginRedirect extends Component {
   componentDidMount() {
+    redirectToLogin();
   }
 
   render() {

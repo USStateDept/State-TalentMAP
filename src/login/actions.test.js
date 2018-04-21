@@ -1,6 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { logoutRequest, tokenValidationRequest } from './actions';
+import { authRequest, tokenValidationRequest } from './actions';
 import { LOGOUT_REQUESTING, TOKEN_VALIDATION_REQUESTING } from './constants';
 
 const middlewares = [thunk];
@@ -20,7 +20,7 @@ describe('login actions', () => {
   });
 
   it('can perform logout', () => {
-    const result = store.dispatch(logoutRequest());
+    const result = store.dispatch(authRequest(false));
     expect(result.type).toBe(LOGOUT_REQUESTING);
   });
 });
