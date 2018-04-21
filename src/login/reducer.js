@@ -68,7 +68,7 @@ const reducer = function loginReducer(state = initialState, action) {
       break;
   }
 
-  return merge({}, initialState, state$, state);
+  return merge({}, initialState, state, state$);
 };
 
 export default reducer;

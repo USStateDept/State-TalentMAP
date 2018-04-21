@@ -14,11 +14,17 @@ const keyFile = process.env.KEY_FILE || path.join(__dirname, '../certs', 'talent
 const SSO_LOGIN_URL = process.env.SSO_LOGIN_URL || 'http://localhost:5000/login';
 const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL || 'http://localhost:5000/logout';
 
+let privateKey = null;
+let cert = null;
+
+if (fs.existsSync(keyFile)) { privateKey = fs.readFileSync(keyFile); }
+if (fs.existsSync(cert)) { cert = fs.readFileSync(certFile); }
+
 // Create service provider with options
 const serviceProvider = new saml2.ServiceProvider({
   entity_id: ENTITY_ID,
-  private_key: fs.readFileSync(keyFile),
-  certificate: fs.readFileSync(certFile),
+  private_key: privateKey,
+  certificate: cert,
   assert_endpoint: ASSERT_ENDPOINT,
   force_authn: true,
 });
@@ -41,4 +47,3 @@ const logout = (handler) => {
 };
 
 module.exports = { metadata, login, logout };
-

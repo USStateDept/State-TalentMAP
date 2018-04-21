@@ -1,6 +1,14 @@
-import { shallow } from 'enzyme';
 import React from 'react';
-import { Login } from './index';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import TestUtils from 'react-dom/test-utils';
+import thunk from 'redux-thunk';
+
+import Login from './index';
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares)({});
 
 describe('Login', () => {
   const loginObject = {
@@ -18,16 +26,33 @@ describe('Login', () => {
   ];
 
   it('can render', () => {
-    const wrapper = shallow(<Login login={loginObject} />);
+    const wrapper = TestUtils.renderIntoDocument(
+      <Provider store={mockStore}>
+        <MemoryRouter>
+          <Login login={loginObject} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
     expect(wrapper).toBeDefined();
   });
 
   it('can render with errors', () => {
-    const wrapper = shallow(<Login login={{ ...loginObject,
+    const mock = {
+      ...loginObject,
       requesting: false,
       errors,
-      messages: errors }}
-    />);
+      messages: errors,
+    };
+
+    const wrapper = TestUtils.renderIntoDocument(
+      <Provider store={mockStore}>
+        <MemoryRouter>
+          <Login login={mock} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
     expect(wrapper).toBeDefined();
   });
 });

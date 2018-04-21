@@ -8,10 +8,10 @@ import {
   TOKEN_VALIDATION_REQUESTING,
 } from './constants';
 
-export const authRequest = (isLogin = true, username = null, password = null) => ({
+export const authRequest = (isLogin = true, credentials = { username: null, password: null }) => ({
   type: isLogin ? LOGIN_REQUESTING : LOGOUT_REQUESTING,
-  username,
-  password,
+  username: credentials.username,
+  password: credentials.password,
 });
 
 export const authSuccess = (isLogin = true) => ({

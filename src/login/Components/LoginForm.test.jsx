@@ -10,6 +10,11 @@ describe('Login', () => {
     errors: [],
   };
 
+  const props = {
+    handleSubmit: () => {},
+    onSubmit: () => {},
+  };
+
   const errors = [
     {
       body: 'Request failed with status code 400',
@@ -18,7 +23,7 @@ describe('Login', () => {
   ];
 
   it('can render', () => {
-    const wrapper = shallow(<LoginForm login={loginObject} />);
+    const wrapper = shallow(<LoginForm login={loginObject}{...props} />);
     expect(wrapper).toBeDefined();
   });
 
@@ -26,20 +31,25 @@ describe('Login', () => {
     const wrapper = shallow(
       <LoginForm
         login={{ ...loginObject, requesting: false, errors, messages: errors }}
+        {...props}
       />,
     );
+
     expect(wrapper).toBeDefined();
   });
 
-  xit('can submit a username and password', () => {
+  it('can submit a username and password', () => {
     const wrapper = shallow(
       <LoginForm
         login={{ ...loginObject, requesting: false }}
+        {...props}
       />,
     );
+
     wrapper.find('#username').simulate('change', { target: { value: 'admin' } });
     wrapper.find('#password').simulate('change', { target: { value: 'admin' } });
     wrapper.find('[type="submit"]').simulate('click');
+
     expect(wrapper).toBeDefined();
   });
 });

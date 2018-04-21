@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const helmet = require('helmet');
-const path = require('path');
-const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
 const helmet = require('helmet');
+const path = require('path');
 const routesArray = require('./routes.js');
 const { metadata, login } = require('./saml2-config');
 
@@ -21,11 +19,13 @@ const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
 
+/* eslint-disable no-unused-vars */
 // Define the SAML login redirect
 let SAML_LOGIN = `${API_ROOT}/saml2/acs/`;
 if (USE_MOCK_SAML) {
   SAML_LOGIN = `${PUBLIC_URL}login.html`;
 }
+/* eslint-enable no-unused-vars */
 
 // Define the SAML logout redirect
 let SAML_LOGOUT = `${API_ROOT}/saml2/logout/`;
