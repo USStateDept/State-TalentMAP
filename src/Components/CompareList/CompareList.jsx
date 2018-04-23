@@ -62,7 +62,7 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Skill cone (code)</th>
+                    <th scope="row">Skill code</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>{c.skill || NO_SKILL}</td>
