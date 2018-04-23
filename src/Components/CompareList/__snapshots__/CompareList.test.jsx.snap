@@ -335,6 +335,9 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               scope="row"
             >
               Position number
+              <div
+                className="border-extension-layer-2 border-visible-layer-2"
+              />
             </th>
             <td>
               <span
@@ -388,9 +391,6 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               scope="row"
             >
               Post
-              <div
-                className="border-extension-layer-2 border-visible-layer-2"
-              />
             </th>
             <td>
               Freetown, Sierra Leone
