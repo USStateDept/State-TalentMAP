@@ -18,7 +18,7 @@ export const authSuccess = (isLogin = true) => ({
   type: isLogin ? LOGIN_SUCCESS : LOGOUT_SUCCESS,
 });
 
-export const authError = (isLogin = true, message: null) => ({
+export const authError = (isLogin = true, message = null) => ({
   type: isLogin ? LOGIN_ERROR : LOGOUT_ERROR,
   message,
 });
