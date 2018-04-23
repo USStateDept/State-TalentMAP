@@ -26,7 +26,9 @@ const ResultsCondensedCardTop = ({ position, type }) => {
         <div
           className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
         >
-          <dt>Grade:</dt> <dd>{position.grade}</dd>
+          <dl>
+            <dt>Grade:</dt> <dd>{position.grade}</dd>
+          </dl>
         </div>
       </div>
       <div className="usa-grid-full">

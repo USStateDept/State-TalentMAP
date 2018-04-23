@@ -7,7 +7,7 @@ import EditContentButton from './EditContentButton';
 describe('EditContentButtonComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <EditContentButton onToggle={() => {}} />,
+      <EditContentButton onToggle={() => {}} id="id" />,
     );
     expect(wrapper).toBeDefined();
   });
@@ -15,7 +15,7 @@ describe('EditContentButtonComponent', () => {
   it('can be clicked', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <EditContentButton onToggle={spy} />,
+      <EditContentButton onToggle={spy} id="id" />,
     );
     wrapper.find('FontAwesome').simulate('click');
     sinon.assert.calledOnce(spy);
@@ -24,7 +24,7 @@ describe('EditContentButtonComponent', () => {
   it('can respond to an enter keyUp', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <EditContentButton onToggle={spy} />,
+      <EditContentButton onToggle={spy} id="id" />,
     );
     // should only respond to 13
     wrapper.find('FontAwesome').simulate('keyUp', { keyCode: 13 });
@@ -34,7 +34,7 @@ describe('EditContentButtonComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <EditContentButton onToggle={() => {}} />,
+      <EditContentButton onToggle={() => {}} id="id" />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

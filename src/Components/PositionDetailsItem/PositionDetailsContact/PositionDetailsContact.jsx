@@ -88,6 +88,7 @@ class PositionDetailsContact extends Component {
               onSubmitText={this.submitWebsiteEdit}
               toggleEditor={this.toggleWebsiteEditor}
               isAllowedToEdit={isAllowedToEdit}
+              id="website"
             />
           </div>
           <div className="usa-grid-full contact-section poc-section">
@@ -99,6 +100,7 @@ class PositionDetailsContact extends Component {
               onSubmitText={this.submitPocEdit}
               toggleEditor={this.togglePocEditor}
               isAllowedToEdit={isAllowedToEdit}
+              id="poc"
             />
           </div>
         </div>

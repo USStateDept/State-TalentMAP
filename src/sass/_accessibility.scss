@@ -31,3 +31,11 @@ a {
     outline-color: $tm-focus-outline-color-alt;
   }
 }
+
+.Select-clear-zone {
+  color: $color-gray-darkest;
+}
+
+.Select-arrow {
+  border-color: $color-gray-darkest transparent transparent;
+}

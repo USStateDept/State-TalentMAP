@@ -14,6 +14,7 @@ describe('PositionTitleSubDescriptionComponent', () => {
         onSubmitText={() => {}}
         toggleEditor={() => {}}
         isAllowedToEdit
+        id="id"
       />,
     );
     expect(wrapper.instance().props.title).toBe('title');
@@ -29,6 +30,7 @@ describe('PositionTitleSubDescriptionComponent', () => {
         onSubmitText={() => {}}
         toggleEditor={() => {}}
         isAllowedToEdit
+        id="id"
       />,
     );
     expect(wrapper.find('EditContentButton')).toHaveLength(1);
@@ -44,6 +46,7 @@ describe('PositionTitleSubDescriptionComponent', () => {
         onSubmitText={() => {}}
         toggleEditor={() => {}}
         isAllowedToEdit={false}
+        id="id"
       />,
     );
     expect(wrapper.find('EditContentButton')).toHaveLength(0);
@@ -59,6 +62,7 @@ describe('PositionTitleSubDescriptionComponent', () => {
         onSubmitText={() => {}}
         toggleEditor={() => {}}
         isAllowedToEdit
+        id="id"
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -74,6 +78,7 @@ describe('PositionTitleSubDescriptionComponent', () => {
         onSubmitText={() => {}}
         toggleEditor={() => {}}
         isAllowedToEdit
+        id="id"
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

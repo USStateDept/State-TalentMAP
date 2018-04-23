@@ -78,6 +78,7 @@ class PositionDetailsDescription extends Component {
               {
                 isAllowedToEdit &&
                   <EditContentButton
+                    id="description"
                     onToggle={this.toggleDescriptionEditor}
                   />
               }

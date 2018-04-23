@@ -107,7 +107,7 @@ const ResultsCard = (props) => {
   return (
     <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
       {() => (
-        <div id={result.id} className="results-card">
+        <div id={`${result.id}-card`} className="results-card">
           <Row className="header" fluid>
             <Column columns="6">
               <h3>{title}</h3>

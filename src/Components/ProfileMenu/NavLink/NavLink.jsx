@@ -90,10 +90,10 @@ class NavLink extends Component {
     const isHighlighted = isCurrentPath(this.props.location.pathname, link);
     const { showNestedLinks } = this.state;
     return (
-      <div>
+      <li>
         {
           !hidden &&
-          <li className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
+          <div className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
             <div className="list-item-wrapper">
               {
                 this.wrapInLink( // wrap our element
@@ -123,9 +123,9 @@ class NavLink extends Component {
                 {children}
               </ul>
             }
-          </li>
+          </div>
         }
-      </div>
+      </li>
     );
   }
 }
