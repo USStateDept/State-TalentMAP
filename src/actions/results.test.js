@@ -43,7 +43,7 @@ describe('async actions', () => {
     );
   });
 
-  it('can fetch a position', (done) => {
+  it('can fetch positions', (done) => {
     const store = mockStore({ results: [] });
 
     const f = () => {
@@ -63,6 +63,25 @@ describe('async actions', () => {
       setTimeout(() => {
         store.dispatch(actions.resultsFetchSimilarPositions(''));
         store.dispatch(actions.resultsSimilarPositionsIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching positions', (done) => {
+    const store = mockStore({ results: [] });
+
+    mockAdapter.reset();
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/?').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.resultsFetchData(''));
+        store.dispatch(actions.resultsIsLoading());
         done();
       }, 0);
     };

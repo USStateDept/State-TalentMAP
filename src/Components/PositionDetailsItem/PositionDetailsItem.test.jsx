@@ -45,4 +45,22 @@ describe('PositionDetailsItem', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when there is an obc id', () => {
+    const newDetails = { ...props.details };
+    newDetails.post = { obc_id: 1 };
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} details={newDetails} />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when various data is missing from the position', () => {
+    const newDetails = { ...props.details, grade: null, skill: null };
+    newDetails.current_assignment = { estimated_end_date: null };
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} details={newDetails} />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });
