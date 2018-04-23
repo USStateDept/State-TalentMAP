@@ -187,8 +187,9 @@ PostFilter.propTypes = {
   queryProperty: PropTypes.string,
   autoSuggestProps: PropTypes.shape({}).isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
-  overseasIsSelected: PropTypes.bool,
-  domesticIsSelected: PropTypes.bool,
+  // these props are used by function param, so ignore lines:
+  overseasIsSelected: PropTypes.bool, // eslint-disable-line
+  domesticIsSelected: PropTypes.bool, // eslint-disable-line
 };
 
 PostFilter.defaultProps = {
