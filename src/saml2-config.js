@@ -18,7 +18,7 @@ let privateKey = null;
 let cert = null;
 
 if (fs.existsSync(keyFile)) { privateKey = fs.readFileSync(keyFile); }
-if (fs.existsSync(cert)) { cert = fs.readFileSync(certFile); }
+if (fs.existsSync(certFile)) { cert = fs.readFileSync(certFile); }
 
 // Create service provider with options
 const serviceProvider = new saml2.ServiceProvider({
