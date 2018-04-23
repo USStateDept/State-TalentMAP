@@ -40,7 +40,7 @@ editPocContent, editWebsiteContent }) => {
           />
           <div className="usa-grid-full data-point-section">
             <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position number" content={details.position_number} />
-            <CondensedCardDataPoint title="Skill cone (code)" content={details.skill || NO_SKILL} />
+            <CondensedCardDataPoint title="Skill code" content={details.skill || NO_SKILL} />
             <CondensedCardDataPoint title="Grade" content={details.grade || NO_GRADE} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
             <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
