@@ -60,7 +60,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         <CondensedCardDataPoint
           content="OFFICE MANAGEMENT (9017)"
           hasFixedTitleWidth={false}
-          title="Skill cone (code)"
+          title="Skill code"
         />
         <CondensedCardDataPoint
           content="05"
