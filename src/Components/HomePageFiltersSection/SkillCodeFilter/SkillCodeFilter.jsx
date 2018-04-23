@@ -23,7 +23,7 @@ class SkillCodeFilter extends Component {
 
   // We want to set the user's default skills in state.selectedOptions, but don't want to repeat
   // the process on every update. So if userSkills exist and we didn't already set them as defaults,
-  // this will compare them against all Skill cone and add the ones that are present in userSkills,
+  // this will compare them against all Skill codes and add the ones that are present in userSkills,
   // based on a matching 'code' prop found in both arrays.
   componentWillReceiveProps(props) {
     this.setupValues(props);
