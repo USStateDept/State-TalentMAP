@@ -1,4 +1,6 @@
 import React from 'react';
+import { shallow } from 'enzyme';
+import sinon from 'sinon';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -12,20 +14,47 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('Home', () => {
+  const props = {
+    userProfile: { id: 1, skills: [], grade: '01' },
+    userProfileFavoritePositionIsLoading: false,
+    userProfileFavoritePositionHasErrored: false,
+    toggleFavorite: () => {},
+    toggleBid: () => {},
+    onNavigateTo: () => {},
+    bidList: [],
+    homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
+  };
   it('is defined', () => {
-    const home = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+    const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <HomePagePositionsContainer
-        userProfile={{ skills: [], grade: '01' }}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
-        toggleFavorite={() => {}}
-        toggleBid={() => {}}
-        onNavigateTo={() => {}}
-        bidList={[]}
-        homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+        {...props}
       />
     </MemoryRouter></Provider>);
-    expect(home).toBeDefined();
+    expect(wrapper).toBeDefined();
+  });
+
+  it('fetches data on componentWillMount', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <HomePagePositionsContainer.WrappedComponent
+        {...props}
+        homePagePositionsFetchData={spy}
+      />);
+    expect(wrapper).toBeDefined();
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('fetches data on componentWillReceiveProps', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <HomePagePositionsContainer.WrappedComponent
+        {...props}
+        homePagePositionsFetchData={spy}
+      />);
+    wrapper.instance().setState({ hasFetched: false });
+    wrapper.setProps({});
+    expect(wrapper.instance().state.hasFetched).toBe(true);
+    sinon.assert.calledTwice(spy);
   });
 });
 

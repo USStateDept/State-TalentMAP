@@ -47,15 +47,20 @@ const CompareList = ({ compare, isLoading }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">Position number</th>
+                    <th scope="row">
+                      Position number
+                      {/* border-extension-layer-2 border-visible-layer-2 should be inside
+                        of first data point's <tr> in the <tbody> */}
+                      <div className="border-extension-layer-2 border-visible-layer-2" />
+                    </th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
                           <span aria-labelledby={getAccessiblePositionNumber(c.position_number)}>
                             {c.position_number}
                           </span>
-                          {/* border-extension-layer-2- should be inside
-                            of first data point of table */}
+                          {/* border-extension-layer-2 should be inside
+                            of first data point's <td> in the <tbody> */}
                           <div className="border-extension-layer-2" />
                         </td>
                       ))
@@ -80,7 +85,6 @@ const CompareList = ({ compare, isLoading }) => {
                   <tr>
                     <th scope="row">
                       Post
-                      <div className="border-extension-layer-2 border-visible-layer-2" />
                     </th>
                     {
                       compareArray.map(c => (

@@ -36,4 +36,19 @@ describe('InteractiveElementComponent', () => {
     const wrapper = shallow(<InteractiveElement type="div">text</InteractiveElement>);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when type is "submit"', () => {
+    const wrapper = shallow(<InteractiveElement type="submit">submit!</InteractiveElement>);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when type is "button"', () => {
+    const wrapper = shallow(<InteractiveElement type="button">a button!</InteractiveElement>);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when type is other', () => {
+    const wrapper = shallow(<InteractiveElement type="dt">arbitrary element</InteractiveElement>);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

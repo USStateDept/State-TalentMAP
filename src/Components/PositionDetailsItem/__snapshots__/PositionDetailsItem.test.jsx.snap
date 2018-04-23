@@ -149,3 +149,337 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
+<div
+  className="usa-grid-full padded-main-content"
+>
+  <div
+    className="usa-grid-full position-details-description-container positions-details-about-position"
+  >
+    <div
+      className="usa-width-two-thirds about-section-left"
+    >
+      <h2>
+        About the Position
+      </h2>
+      <PositionDetailsDescription
+        details={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
+            "bureau": null,
+            "create_date": "2006-09-20",
+            "description": Object {
+              "content": "a description",
+              "point_of_contact": "202-555-5555",
+              "website": "https://www.state.gov/post",
+            },
+            "grade": "05",
+            "id": 6,
+            "is_overseas": true,
+            "languages": Array [],
+            "organization": null,
+            "position_number": "00003027",
+            "post": Object {
+              "obc_id": 1,
+            },
+            "skill": "OFFICE MANAGEMENT (9017)",
+            "title": "Test Position",
+            "update_date": "2017-06-08",
+          }
+        }
+        editDescriptionContent={[Function]}
+        resetDescriptionEditMessages={[Function]}
+      />
+      <div
+        className="usa-grid-full data-point-section"
+      >
+        <CondensedCardDataPoint
+          ariaLabel="0 0 0 0 3 0 2 7"
+          content="00003027"
+          hasFixedTitleWidth={false}
+          title="Position number"
+        />
+        <CondensedCardDataPoint
+          content="OFFICE MANAGEMENT (9017)"
+          hasFixedTitleWidth={false}
+          title="Skill code"
+        />
+        <CondensedCardDataPoint
+          content="05"
+          hasFixedTitleWidth={false}
+          title="Grade"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Bureau"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Tour of duty"
+        />
+        <CondensedCardDataPoint
+          content={
+            <LanguageList
+              languages={Array []}
+              propToUse="representation"
+            />
+          }
+          hasFixedTitleWidth={false}
+          title="Language"
+        />
+        <CondensedCardDataPoint
+          content={
+            <span>
+               
+              None listed
+               | 
+              <OBCUrl
+                id={1}
+                isButton={false}
+                label="View OBC Data"
+                type="post-data"
+              />
+            </span>
+          }
+          hasFixedTitleWidth={false}
+          title="Post differential"
+        />
+        <CondensedCardDataPoint
+          content={
+            <span>
+               
+              None listed
+               | 
+              <OBCUrl
+                id={1}
+                isButton={false}
+                label="View OBC Data"
+                type="post-data"
+              />
+            </span>
+          }
+          hasFixedTitleWidth={false}
+          title="Danger pay"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="TED"
+        />
+      </div>
+    </div>
+    <div
+      className="usa-width-one-third position-details-contact-container"
+    >
+      <PositionDetailsContact
+        bidListToggleIsLoading={false}
+        details={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
+            "bureau": null,
+            "create_date": "2006-09-20",
+            "description": Object {
+              "content": "a description",
+              "point_of_contact": "202-555-5555",
+              "website": "https://www.state.gov/post",
+            },
+            "grade": "05",
+            "id": 6,
+            "is_overseas": true,
+            "languages": Array [],
+            "organization": null,
+            "position_number": "00003027",
+            "post": Object {
+              "obc_id": 1,
+            },
+            "skill": "OFFICE MANAGEMENT (9017)",
+            "title": "Test Position",
+            "update_date": "2017-06-08",
+          }
+        }
+        editPocContent={[Function]}
+        editWebsiteContent={[Function]}
+        resetDescriptionEditMessages={[Function]}
+      />
+      <HowToBid />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PositionDetailsItem matches snapshot when various data is missing from the position 1`] = `
+<div
+  className="usa-grid-full padded-main-content"
+>
+  <div
+    className="usa-grid-full position-details-description-container positions-details-about-position"
+  >
+    <div
+      className="usa-width-two-thirds about-section-left"
+    >
+      <h2>
+        About the Position
+      </h2>
+      <PositionDetailsDescription
+        details={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
+            "bureau": null,
+            "create_date": "2006-09-20",
+            "current_assignment": Object {
+              "estimated_end_date": null,
+            },
+            "description": Object {
+              "content": "a description",
+              "point_of_contact": "202-555-5555",
+              "website": "https://www.state.gov/post",
+            },
+            "grade": null,
+            "id": 6,
+            "is_overseas": true,
+            "languages": Array [],
+            "organization": null,
+            "position_number": "00003027",
+            "post": null,
+            "skill": null,
+            "title": "Test Position",
+            "update_date": "2017-06-08",
+          }
+        }
+        editDescriptionContent={[Function]}
+        resetDescriptionEditMessages={[Function]}
+      />
+      <div
+        className="usa-grid-full data-point-section"
+      >
+        <CondensedCardDataPoint
+          ariaLabel="0 0 0 0 3 0 2 7"
+          content="00003027"
+          hasFixedTitleWidth={false}
+          title="Position number"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Skill code"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Grade"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Bureau"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Tour of duty"
+        />
+        <CondensedCardDataPoint
+          content={
+            <LanguageList
+              languages={Array []}
+              propToUse="representation"
+            />
+          }
+          hasFixedTitleWidth={false}
+          title="Language"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Post differential"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Danger pay"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="TED"
+        />
+      </div>
+    </div>
+    <div
+      className="usa-width-one-third position-details-contact-container"
+    >
+      <PositionDetailsContact
+        bidListToggleIsLoading={false}
+        details={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "bidcycle": 1,
+                "id": 1,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 3,
+              },
+            ],
+            "bureau": null,
+            "create_date": "2006-09-20",
+            "current_assignment": Object {
+              "estimated_end_date": null,
+            },
+            "description": Object {
+              "content": "a description",
+              "point_of_contact": "202-555-5555",
+              "website": "https://www.state.gov/post",
+            },
+            "grade": null,
+            "id": 6,
+            "is_overseas": true,
+            "languages": Array [],
+            "organization": null,
+            "position_number": "00003027",
+            "post": null,
+            "skill": null,
+            "title": "Test Position",
+            "update_date": "2017-06-08",
+          }
+        }
+        editPocContent={[Function]}
+        editWebsiteContent={[Function]}
+        resetDescriptionEditMessages={[Function]}
+      />
+      <HowToBid />
+    </div>
+  </div>
+</div>
+`;
