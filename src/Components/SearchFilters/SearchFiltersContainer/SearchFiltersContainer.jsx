@@ -93,7 +93,7 @@ class SearchFiltersContainer extends Component {
     const overseasIsSelected = propOrDefault(overseasFilterData, 'isSelected', false);
     const domesticIsSelected = propOrDefault(domesticFilterData, 'isSelected', false);
 
-    // get skill codes
+    // get skill cones
     const skillCones = (this.props.filters || []).find(f => f.item.description === 'skillCone');
 
     // adding filters based on multiSelectFilterNames
