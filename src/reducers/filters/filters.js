@@ -18,7 +18,7 @@ const items =
       },
       {
         item: {
-          title: 'Skill Code',
+          title: 'Skill Cone (Code)',
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
@@ -32,7 +32,7 @@ const items =
         // we won't query position directly on cone, but instead
         // use the individual Skill codes
         item: {
-          title: 'Skill Code',
+          title: 'Skill Cone',
           description: 'skillCone',
           endpoint: 'skill/cone/',
         },
