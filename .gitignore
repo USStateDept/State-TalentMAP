@@ -13,6 +13,8 @@ codeclimate.html
 # certificates for testing
 certs/**/*
 !certs/README.md
+!certs/certs.sh
+!certs/*.cnf
 
 # misc
 .DS_Store
