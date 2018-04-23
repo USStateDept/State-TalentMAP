@@ -45,7 +45,7 @@ const PositionInformation = ({ assignment }) => {
           content={formattedPosition}
         />
         <InformationDataPoint
-          title="Skill cone (code)"
+          title="Skill code"
           content={formattedSkill}
         />
       </div>

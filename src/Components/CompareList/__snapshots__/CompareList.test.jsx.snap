@@ -108,7 +108,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Skill cone (code)
+              Skill code
             </th>
             <td>
               OFFICE MANAGEMENT (9017)

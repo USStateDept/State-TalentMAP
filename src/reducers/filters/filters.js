@@ -32,7 +32,7 @@ const items =
         // we won't query position directly on cone, but instead
         // use the individual Skill codes
         item: {
-          title: 'Skill Cone (Code)',
+          title: 'Skill Cone',
           description: 'skillCone',
           endpoint: 'skill/cone/',
         },
