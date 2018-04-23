@@ -22,14 +22,31 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/100/').reply(200,
       post,
     );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/200/').reply(404,
+      null,
+    );
   });
 
-  it('can fetch a position', (done) => {
+  it('can fetch a post', (done) => {
     const store = mockStore({ post: [] });
 
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.postFetchData('100'));
+        store.dispatch(actions.postIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching a post', (done) => {
+    const store = mockStore({ post: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.postFetchData('200'));
         store.dispatch(actions.postIsLoading());
         done();
       }, 0);

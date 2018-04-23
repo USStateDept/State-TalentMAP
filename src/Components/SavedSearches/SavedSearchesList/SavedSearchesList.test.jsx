@@ -1,5 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import sinon from 'sinon';
 import SavedSearchesList from './SavedSearchesList';
 import searchObjectParent from '../../../__mocks__/searchObjectParent';
 
@@ -19,6 +20,28 @@ describe('SavedSearchesListComponent', () => {
         {...props}
       />,
     );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined after componentDidMount', () => {
+    const wrapper = shallow(
+      <SavedSearchesList
+        {...props}
+      />,
+    );
+    window.addEventListener = sinon.spy();
+    wrapper.instance().componentDidMount();
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined after componentWillUnmount', () => {
+    const wrapper = shallow(
+      <SavedSearchesList
+        {...props}
+      />,
+    );
+    window.addEventListener = sinon.spy();
+    wrapper.instance().componentWillUnmount();
     expect(wrapper).toBeDefined();
   });
 
