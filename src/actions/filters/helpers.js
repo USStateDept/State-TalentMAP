@@ -34,7 +34,6 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
   } else if (filterItem.item.description === 'grade') {
     return getCustomGradeDescription(filterItemObject.code);
   }
-  return false;
 }
 
 // Our standard method for getting a pill description.
@@ -45,12 +44,6 @@ export function getPillDescription(filterItemObject, customType) {
   } else if (customType === 'postDiff') {
     return `Post Differential: ${filterItemObject.description}`;
   }
-  return filterItemObject.short_description ||
-    filterItemObject.description ||
-    filterItemObject.long_description ||
-    filterItemObject.code ||
-    filterItemObject.name ||
-    '';
 }
 
 // when getting pill descriptions for posts or missions, perform alternate method
