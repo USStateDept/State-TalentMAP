@@ -112,6 +112,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand",
+    "test:local": "node scripts/test.js --env=jsdom --no-cache --coverage -u",
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
