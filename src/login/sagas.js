@@ -90,7 +90,7 @@ export const requests = {
     const headers = { Authorization: `Token ${token}` };
     // This is to have one uniform api response from basic and saml api calls
     // So this is to transform the request before the caller gets it
-    return api.get('/api/v1/profile/', { headers });
+    return api.get('/profile/', { headers });
   },
 };
 
