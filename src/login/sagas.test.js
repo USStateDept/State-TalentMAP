@@ -22,7 +22,7 @@ describe('login functions', () => {
     setAuthMode('saml');
 
     mockAdapter
-      .onGet('/api/v1/profile/')
+      .onGet('/profile/')
       .reply(200, mocks.token);
 
     return expectSaga(loginWatcher)
