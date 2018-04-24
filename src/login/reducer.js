@@ -19,52 +19,35 @@ export const initialState = {
 };
 
 const reducer = function loginReducer(state = initialState, action) {
-  let state$;
+  const state$ = merge({}, initialState);
 
   switch (action.type) {
     case TOKEN_VALIDATION_REQUESTING:
     case LOGIN_REQUESTING:
-      state$ = {
-        requesting: true,
-        messages: [{ body: 'Logging in...', time: new Date() }],
-      };
-
+      state$.requesting = true;
+      state$.messages = [{ body: 'Logging in...', time: new Date() }];
       break;
 
     case LOGIN_SUCCESS:
-      state$ = {
-        requesting: false,
-        successful: true,
-        loggedIn: true,
-      };
-
+      state$.successful = true;
+      state$.loggedIn = true;
       break;
 
     case LOGOUT_REQUESTING:
-      state$ = {
-        requesting: true,
-        messages: [{ body: 'Logging out...', time: new Date() }],
-        loggedIn: true,
-      };
-
+      state$.requesting = true;
+      state$.messages = [{ body: 'Logging in...', time: new Date() }];
+      state$.loggedIn = true;
       break;
 
     case LOGOUT_SUCCESS:
-      state$ = {
-        requesting: false,
-        successful: true,
-      };
-
+      state$.successful = true;
       break;
 
     case LOGIN_ERROR:
-      state$ = {
-        request: false,
-        errors: state.errors.concat([{
-          body: propOrDefault(action, 'error'),
-          time: new Date(),
-        }]),
-      };
+      state$.errors = state.errors.concat([{
+        body: propOrDefault(action, 'error', '').toString(),
+        time: new Date(),
+      }]);
 
       break;
 
@@ -72,7 +55,7 @@ const reducer = function loginReducer(state = initialState, action) {
       break;
   }
 
-  return merge({}, initialState, state, state$);
+  return state$;
 };
 
 export default reducer;

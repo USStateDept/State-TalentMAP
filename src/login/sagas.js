@@ -109,13 +109,6 @@ export function* login(credentials = {}) {
   let token = credentials;
 
   // Determine between basic and saml auth
-  if (isSAML && isObject(token)) {
-    token = {
-      username: token.username,
-      password: token.password,
-    };
-  }
-
   if (isSAML) {
     yield put(tokenValidationRequest(credentials));
   } else {
