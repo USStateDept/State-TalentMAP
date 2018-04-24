@@ -33,6 +33,7 @@ const reducer = function loginReducer(state = initialState, action) {
 
     case LOGIN_SUCCESS:
       state$ = {
+        requesting: false,
         successful: true,
         loggedIn: true,
       };
@@ -50,6 +51,7 @@ const reducer = function loginReducer(state = initialState, action) {
 
     case LOGOUT_SUCCESS:
       state$ = {
+        requesting: false,
         successful: true,
       };
 
@@ -57,6 +59,7 @@ const reducer = function loginReducer(state = initialState, action) {
 
     case LOGIN_ERROR:
       state$ = {
+        request: false,
         errors: state.errors.concat([{
           body: propOrDefault(action, 'error'),
           time: new Date(),
