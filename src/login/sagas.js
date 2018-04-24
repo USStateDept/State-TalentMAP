@@ -6,7 +6,7 @@ import { unsetNotificationsCount } from '../actions/notifications';
 import { userProfileFetchData, unsetUserProfile } from '../actions/userProfile';
 import { setClient, unsetClient } from '../client/actions';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
-import { redirectToLogout, redirectToLogin } from '../utilities';
+import { propOrDefault, redirectToLogout, redirectToLogin } from '../utilities';
 import { authError, authRequest, authSuccess, tokenValidationRequest } from './actions';
 
 // Our login constants
@@ -141,7 +141,7 @@ export function* login(credentials = {}) {
     // redirect them to home
     yield put(push('/'));
   } else {
-    yield put(authError(true, error.message));
+    yield put(authError(true, propOrDefault(error, 'message', 'A issue during login has occured')));
   }
 
   if (yield cancelled()) {

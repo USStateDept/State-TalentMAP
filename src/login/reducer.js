@@ -1,4 +1,5 @@
 import { merge } from 'lodash';
+import { propOrDefault } from '../utilities';
 
 import {
   LOGIN_REQUESTING,
@@ -57,7 +58,7 @@ const reducer = function loginReducer(state = initialState, action) {
     case LOGIN_ERROR:
       state$ = {
         errors: state.errors.concat([{
-          body: action.error.toString(),
+          body: propOrDefault(action, 'error'),
           time: new Date(),
         }]),
       };
