@@ -63,7 +63,7 @@ export function userProfileFetchData(bypass) {
 
     // use api' Promise.all to fetch the profile and permissions, and then combine them
     // into one object
-    axios.all([getUserAccount(), getUserPermissions()])
+    return axios.all([getUserAccount(), getUserPermissions()])
       .then(axios.spread((acct, perms) => {
         // form the userProfile object
         const account = acct.data;

@@ -129,14 +129,14 @@ export function* login(credentials = {}) {
   if (response) {
     token = response.data.token;
 
+    auth.set(token);
+
     // inform Redux to set our client token
     yield put(setClient(token));
-    // also inform redux that our login was successful
-    yield put(authSuccess());
     // get the user's profile data
     yield put(userProfileFetchData());
-
-    auth.set(token);
+    // also inform redux that our login was successful
+    yield put(authSuccess());
 
     // redirect them to home
     yield put(push('/'));
@@ -167,6 +167,7 @@ function* logout() {
   yield put(authSuccess(false));
 
   redirectToLogout();
+
   // Check if the user is already on the login page. We don't want a race
   // condition to infinitely loop them back to the login page, should
   // any requests be made that result in 401
