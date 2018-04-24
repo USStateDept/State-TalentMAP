@@ -352,8 +352,11 @@ export const getBidStatisticsObject = (bidStatisticsArray) => {
 // replace spaces with hyphens so that id attributes are valid
 export const formatIdSpacing = (id) => {
   if (id) {
-    const idString = id.toString();
-    return idString.split(' ').join('-');
+    let idString = id.toString();
+    idString = idString.split(' ').join('-');
+    // remove any non-alphanumeric character, excluding hyphen
+    idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
+    return idString;
   }
   // if id is not defined, return null
   return null;

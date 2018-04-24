@@ -20,4 +20,9 @@ describe('ExternalUserStatusComponent', () => {
     const wrapper = shallow(<ExternalUserStatus {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when showMail is true', () => {
+    const wrapper = shallow(<ExternalUserStatus {...props} showMail />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

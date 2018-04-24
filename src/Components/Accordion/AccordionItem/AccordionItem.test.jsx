@@ -18,6 +18,20 @@ describe('AccordionItemComponent', () => {
     expect(wrapper.instance().props.id).toBe('id');
   });
 
+  it('can receive different props', () => {
+    const wrapper = shallow(
+      <AccordionItem
+        id="id"
+        expanded
+        setAccordion={() => {}}
+        preContent={<span />}
+      >
+        <span>child</span>
+      </AccordionItem>,
+    );
+    expect(wrapper.instance().props.id).toBe('id');
+  });
+
   it('can click the button', () => {
     const expanded = { value: null };
     const wrapper = shallow(

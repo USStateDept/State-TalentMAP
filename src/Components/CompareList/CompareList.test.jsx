@@ -13,6 +13,16 @@ describe('CompareListComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when data is missing', () => {
+    const newResults = [...resultsObject.results];
+    newResults[0].bureau = null;
+    newResults[0].skill = null;
+    newResults[0].post.tour_of_duty = null;
+    newResults[0].current_assignment.estimated_end_date = null;
+    const wrapper = shallow(<CompareList {...props} compare={newResults} />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('can receive props', () => {
     const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);
     expect(wrapper.instance().props.compare[0].id).toBe(6);
