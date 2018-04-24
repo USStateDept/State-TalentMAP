@@ -18,6 +18,13 @@ describe('IsOnStandbyComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('accepts different props', () => {
+    const wrapper = shallow(
+      <IsOnStandby {...props} useDisabledClass />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <IsOnStandby {...props} />,
