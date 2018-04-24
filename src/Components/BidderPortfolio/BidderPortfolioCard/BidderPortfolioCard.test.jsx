@@ -10,7 +10,7 @@ describe('BidderPortfolioCardComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('renders 0 if bid_statics is undefined', () => {
+  it('renders 0 if bid_statistics is undefined', () => {
     const newProfile = { ...bidderUserObject };
     newProfile.bid_statistics = [null];
     const wrapper = shallow(<BidderPortfolioCard userProfile={newProfile} />);
