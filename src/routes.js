@@ -1,4 +1,5 @@
 const routesArray = [
+  { path: '/login', componentName: 'Login' },
   { path: '/', exact: true, componentName: 'Home', pageTitle: 'Home' },
   { path: '/results', componentName: 'Results', pageTitle: 'Search Results' },
   { path: '/profile', componentName: 'Profile', pageTitle: 'Profile' },
@@ -8,14 +9,5 @@ const routesArray = [
   { path: '/tokenValidation', componentName: 'Login', pageTitle: 'Token Validation' },
   { path: '/loginRedirect', componentName: 'LoginRedirect', pageTitle: 'Login Redirect' },
 ];
-
-switch (process.env.NODE_ENV) {
-  case 'development':
-    routesArray.unshift({ path: '/login', componentName: 'Login' });
-    break;
-
-  default:
-    break;
-}
 
 module.exports = routesArray;

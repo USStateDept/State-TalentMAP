@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  onSubmit: ({ username, password }) => dispatch(authRequest(true, username, password)),
+  onSubmit: ({ username, password }) => dispatch(authRequest(true, { username, password })),
   tokenValidationRequest: token => dispatch(tokenValidationRequest(token)),
 });
 
