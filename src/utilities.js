@@ -359,8 +359,8 @@ export const formatIdSpacing = (id) => {
     idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
     return idString;
   }
-  // if id is not defined, return null
-  return null;
+  // if id is not defined, return a shortid
+  return shortid.generate();
 };
 
 // provide an array of permissions to check if they all exist in an array of user permissions
