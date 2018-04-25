@@ -37,7 +37,6 @@ import { validStateEmail,
          mapSavedSearchToDescriptions,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
-import filtersArray from './__mocks__/filtersArray';
 
 describe('local storage', () => {
   it('should be able to fetch the existence of a value when there is one values in the array', () => {
@@ -461,9 +460,11 @@ describe('formatIdSpacing', () => {
   });
 
   it('can format undefined values', () => {
-    expect(formatIdSpacing(undefined)).toBe(null);
-    expect(formatIdSpacing(null)).toBe(null);
-    expect(formatIdSpacing(false)).toBe(null);
+    // these will be randomly generated shortids, so we just check that they have length
+    // greater than 3
+    expect(formatIdSpacing(undefined).length).toBeGreaterThan(3);
+    expect(formatIdSpacing(null).length).toBeGreaterThan(3);
+    expect(formatIdSpacing(false).length).toBeGreaterThan(3);
   });
 });
 

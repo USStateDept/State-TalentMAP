@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
 import { cloneDeep, get, keys, merge as merge$, isNumber } from 'lodash';
+import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 
 const scroll = Scroll.animateScroll;
@@ -358,8 +359,8 @@ export const formatIdSpacing = (id) => {
     idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
     return idString;
   }
-  // if id is not defined, return null
-  return null;
+  // if id is not defined, return a shortid
+  return shortid.generate();
 };
 
 // provide an array of permissions to check if they all exist in an array of user permissions

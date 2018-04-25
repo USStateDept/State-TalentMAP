@@ -36,4 +36,16 @@ describe('notifications reducers', () => {
   it('can set reducer MARK_NOTIFICATION_FETCH_DATA_SUCCESS', () => {
     expect(reducers.markNotificationSuccess(false, { type: 'MARK_NOTIFICATION_SUCCESS', response: true })).toBe(true);
   });
+
+  it('can call default state reducer MARK_NOTIFICATION_HAS_ERRORED', () => {
+    expect(reducers.markNotificationHasErrored(false, { type: 'OTHER', hasErrored: true })).toBe(false);
+  });
+
+  it('can call default state reducer MARK_NOTIFICATION_IS_LOADING', () => {
+    expect(reducers.markNotificationIsLoading(false, { type: 'OTHER', isLoading: true })).toBe(false);
+  });
+
+  it('can call default state reducer MARK_NOTIFICATION_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.markNotificationSuccess(false, { type: 'OTHER', response: true })).toBe(false);
+  });
 });
