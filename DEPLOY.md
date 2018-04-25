@@ -91,10 +91,17 @@ sudo cp -r build/* /var/www/html/ -v
 
 ## Start Node server
 
-There is a simple Node + Express application that serves the front end and needs to run as a background process.  NOTE - you may need to run `which nohup` to get the correct path.
+There is a simple Node + Express application that serves the front end and needs to run as a background process. The node process manager [pm2](https://github.com/Unitech/pm2) is used to manage this.
 
-```bash
-/usr/bin/nohup node server.js &
+Ensure pm2 is installed globally:
+
+```
+npm install pm2 -g
+```
+Then use pm2 to start the node server:
+
+```
+pm2 start /var/www/server.js
 ```
 
 ## Restart Apache
