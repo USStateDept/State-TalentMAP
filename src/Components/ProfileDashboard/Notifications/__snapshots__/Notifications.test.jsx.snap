@@ -2,7 +2,7 @@
 
 exports[`NotificationsComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full notifications-container"
 >
   <div
     className="usa-grid-full section-padded-inner-container padded-container-no-bottom"
@@ -67,7 +67,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
 
 exports[`NotificationsComponent matches snapshot when there are zero notifications 1`] = `
 <div
-  className="usa-grid-full"
+  className="usa-grid-full notifications-container"
 >
   <div
     className="usa-grid-full section-padded-inner-container padded-container-no-bottom"

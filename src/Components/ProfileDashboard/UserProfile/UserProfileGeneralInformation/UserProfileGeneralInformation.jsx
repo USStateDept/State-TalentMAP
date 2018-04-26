@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { USER_PROFILE } from '../../../../Constants/PropTypes';
 import SectionTitle from '../../SectionTitle';
 import ProfilePicture from '../../../ProfilePicture';
 
-const UserProfileGeneralInformation = ({ userProfile }) => (
+const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) => (
   <div className="current-user-top current-user-section-container">
     <div className="section-padded-inner-container">
       <ProfilePicture />
@@ -14,9 +15,12 @@ const UserProfileGeneralInformation = ({ userProfile }) => (
 
 UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
+  showEditLink: PropTypes.bool,
+  useGroup: PropTypes.bool,
 };
 
 UserProfileGeneralInformation.defaultProps = {
+  showEditLink: true,
   useGroup: false,
 };
 

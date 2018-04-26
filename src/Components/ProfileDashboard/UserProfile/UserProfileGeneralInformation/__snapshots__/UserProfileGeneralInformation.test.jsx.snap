@@ -12,11 +12,38 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
       className=""
       source="/assets/img/avatar.png"
     />
+    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
       small={true}
-      title="John Doe"
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+              Object {
+                "code": "6211",
+                "cone": null,
+                "description": "COMPUTER SCIENCE",
+                "id": 40,
+              },
+            ]
+          }
+        />
+      }
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
     />
   </div>
 </div>
@@ -34,11 +61,38 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
       className=""
       source="/assets/img/avatar.png"
     />
+    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
       small={true}
-      title="John Doe"
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+              Object {
+                "code": "6211",
+                "cone": null,
+                "description": "COMPUTER SCIENCE",
+                "id": 40,
+              },
+            ]
+          }
+        />
+      }
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
     />
   </div>
 </div>
@@ -56,12 +110,22 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
       className=""
       source="/assets/img/avatar.png"
     />
+    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
       small={true}
-      title="John Doe"
+      title="Doe, John"
     />
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Generalist • F2"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
   </div>
 </div>
 `;
