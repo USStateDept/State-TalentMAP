@@ -2,7 +2,7 @@
 
 exports[`BidTrackerComponent matches snapshot 1`] = `
 <div
-  className="bid-tracker-page"
+  className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
   <NotificationsSection
     markBidTrackerNotification={[Function]}
@@ -298,7 +298,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
 
 exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] = `
 <div
-  className="bid-tracker-page"
+  className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
   <NotificationsSection
     markBidTrackerNotification={[Function]}

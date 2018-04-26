@@ -62,6 +62,10 @@ export const PROFILE_MENU = MenuConfig([
         route: '/profile/searches/',
       },
       {
+        text: 'Bid Tracker',
+        route: '/profile/bidtracker/',
+      },
+      {
         text: 'Bid Cycles',
         route: '/profile/cycles/',
         roles: [
