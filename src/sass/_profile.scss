@@ -232,6 +232,10 @@
 
   .notifications-section {
     min-height: 250px;
+
+    .bordered-list {
+      min-height: 150px;
+    }
   }
 
   .bidlist-section {
@@ -635,6 +639,10 @@ $padding-no-border: $total-padding - $border;
   background-color: $blue-primary;
   color: $color-white;
 
+  .bid-list-header-text {
+    margin-top: 5px;
+  }
+
   .bid-list-header-button-container {
 
     text-align: right;
@@ -652,8 +660,6 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
-  background-color: $blue-primary;
-  color: $color-white;
   font-size: 1.1em;
   max-height: 450px;
   min-height: 260px;
@@ -747,7 +753,6 @@ $padding-no-border: $total-padding - $border;
 }
 
 .user-dashboard-main {
-  margin-right: 5%;
   padding-top: 65px;
 }
 
