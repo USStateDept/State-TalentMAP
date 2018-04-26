@@ -8,6 +8,7 @@ import PositionInformation from './PositionInformation';
 import Notifications from './Notifications';
 import Spinner from '../Spinner';
 import StaticDevContent from '../StaticDevContent';
+import ProfileSectionTitle from '../ProfileSectionTitle';
 
 const ProfileDashboard = ({ userProfile, isLoading, 
   favoritePositions, favoritePositionsIsLoading }) => (
