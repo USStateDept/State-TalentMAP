@@ -66,6 +66,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
               onToggle={[Function]}
               refKey={6}
               useButtonClass={true}
+              useButtonClassSecondary={false}
               useLongText={true}
               useSpinnerWhite={true}
             />
