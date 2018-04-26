@@ -1,27 +1,52 @@
 import reducer from './reducer';
 
 describe('login reducers', () => {
-  xit('can set reducer LOGIN_REQUESTING', () => {
-    expect(reducer(undefined, { type: 'LOGIN_REQUESTING', hasErrored: true }).requesting).toBe(true);
+  it('can set reducer LOGIN_REQUESTING', () => {
+    const result = reducer(undefined, { type: 'LOGIN_REQUESTING', hasErrored: true });
+    expect(result.requesting).toBe(true);
+    expect(result.loggedIn).toBe(false);
   });
 
   it('can set reducer LOGIN_SUCCESS', () => {
-    expect(reducer(undefined, { type: 'LOGIN_SUCCESS', isLoading: true }).successful).toBe(true);
+    const result = reducer(undefined, { type: 'LOGIN_SUCCESS', isLoading: true });
+    expect(result.successful).toBe(true);
+    expect(result.requesting).toBe(false);
+    expect(result.loggedIn).toBe(true);
   });
 
   it('can set reducer LOGIN_ERROR', () => {
-    expect(reducer({ errors: [503] }, { type: 'LOGIN_ERROR', post: true, error: 404 }).errors.length).toBeGreaterThan(0);
+    const result = reducer({ errors: [503] }, { type: 'LOGIN_ERROR', post: true, error: 404 });
+    expect(result.errors.length).toBeGreaterThan(0);
+    expect(result.loggedIn).toBe(false);
+    expect(result.requesting).toBe(false);
+    expect(result.loggedIn).toBe(false);
   });
 
   it('can set reducer LOGOUT_REQUESTING', () => {
-    expect(reducer({ }, { type: 'LOGOUT_REQUESTING' }).successful).toBe(false);
+    const result = reducer({ }, { type: 'LOGOUT_REQUESTING' });
+    expect(result.successful).toBe(false);
+    expect(result.requesting).toBe(true);
+    expect(result.loggedIn).toBe(true);
   });
 
   it('can set reducer LOGOUT_SUCCESS', () => {
-    expect(reducer({ }, { type: 'LOGOUT_SUCCESS' }).successful).toBe(true);
+    const result = reducer({ }, { type: 'LOGOUT_SUCCESS' });
+    expect(result.successful).toBe(true);
+    expect(result.requesting).toBe(false);
+    expect(result.loggedIn).toBe(false);
   });
 
   it('can set reducer TOKEN_VALIDATION_REQUESTING', () => {
-    expect(reducer({ }, { type: 'TOKEN_VALIDATION_REQUESTING' }).loggedIn).toBe(false);
+    const result = reducer({ }, { type: 'TOKEN_VALIDATION_REQUESTING' });
+    expect(result.loggedIn).toBe(false);
+    expect(result.requesting).toBe(true);
+    expect(result.loggedIn).toBe(false);
+  });
+
+  it('can handle the default case', () => {
+    const result = reducer({ }, { type: 'BANANA 🍌' });
+    expect(result.loggedIn).toBe(false);
+    expect(result.requesting).toBe(false);
+    expect(result.loggedIn).toBe(false);
   });
 });
