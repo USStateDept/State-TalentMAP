@@ -25,6 +25,7 @@ import {
   NO_TOUR_OF_DUTY,
   NO_UPDATE_DATE,
   NO_DATE,
+  NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 const ResultsCard = (props) => {
@@ -75,6 +76,7 @@ const ResultsCard = (props) => {
       'Post differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
       'Danger pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
       'TED': getResult('current_assignment.estimated_end_date', NO_DATE),
+      'Incumbent': getResult('current_assignment.user', NO_USER_LISTED),
     },
     {
       'Posted': getResult(COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
