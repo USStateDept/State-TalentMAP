@@ -8,6 +8,7 @@ import PositionInformation from './PositionInformation';
 import Notifications from './Notifications';
 import Spinner from '../Spinner';
 import StaticDevContent from '../StaticDevContent';
+import ProfileSectionTitle from '../ProfileSectionTitle';
 
 const ProfileDashboard = ({
   userProfile, isLoading, assignment, assignmentIsLoading, notifications,
@@ -18,7 +19,9 @@ const ProfileDashboard = ({
       <Spinner type="homepage-position-results" size="big" />
     ) : (
       <div className="usa-grid-full">
-        <h2 className="sr-only">Dashboard</h2>
+        <div className="usa-grid-full dashboard-top-section">
+          <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} />
+        </div>
         <div className="usa-grid-full">
           <div
             className={`usa-width-one-fourth user-dashboard-section-container

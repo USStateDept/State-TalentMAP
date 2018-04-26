@@ -137,6 +137,10 @@
   font-size: 15px;
   position: relative;
 
+  .dashboard-top-section {
+    margin-bottom: 1.2em;
+  }
+
   .user-dashboard-section-container {
     float: left;
   }
@@ -750,10 +754,6 @@ $padding-no-border: $total-padding - $border;
       color: $color-black;
     }
   }
-}
-
-.user-dashboard-main {
-  padding-top: 65px;
 }
 
 .profile-section-container {

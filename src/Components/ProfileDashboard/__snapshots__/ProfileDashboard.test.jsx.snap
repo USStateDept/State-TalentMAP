@@ -7,11 +7,13 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
   <div
     className="usa-grid-full"
   >
-    <h2
-      className="sr-only"
+    <div
+      className="usa-grid-full dashboard-top-section"
     >
-      Dashboard
-    </h2>
+      <ProfileSectionTitle
+        title="Hello, John"
+      />
+    </div>
     <div
       className="usa-grid-full"
     >
