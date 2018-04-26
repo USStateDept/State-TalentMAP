@@ -116,7 +116,9 @@ class Favorite extends Component {
       className,
       hasBorder,
       useButtonClass,
+      useButtonClassSecondary,
       useSpinnerWhite,
+      hideText,
     } = this.props;
 
     const icon = this.icon;
@@ -144,6 +146,14 @@ class Favorite extends Component {
       classNames.push('usa-button');
     }
 
+    if (useButtonClassSecondary) {
+      classNames.push('usa-button-secondary');
+    }
+
+    if (hideText) {
+      classNames.push('button-text-hidden');
+    }
+
     classNames.push(className);
     classNames = classNames
       .join(' ')
@@ -152,7 +162,7 @@ class Favorite extends Component {
     options.className = classNames;
     let spinnerClass = 'ds-c-spinner';
     if (useButtonClass || useSpinnerWhite) {
-      spinnerClass = `${spinnerClass} spinner-white`;
+      spinnerClass = `${spinnerClass} ${useButtonClassSecondary ? 'spinner-blue' : 'spinner-white'}`;
     }
 
     return (
@@ -187,6 +197,7 @@ Favorite.propTypes = {
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
   useButtonClass: PropTypes.bool,
+  useButtonClassSecondary: PropTypes.bool,
   useSpinnerWhite: PropTypes.bool,
 };
 
@@ -199,6 +210,7 @@ Favorite.defaultProps = {
   hasBorder: false,
   useLongText: false,
   useButtonClass: false,
+  useButtonClassSecondary: false,
   useSpinnerWhite: false,
 };
 
