@@ -33,8 +33,8 @@ export class TokenValidation extends Component {
     } = this.props;
 
     return (
-      <div className="usa-grid login-container content-container">
-        <div className="usa-grid login">
+      <div className="usa-grid-full login-container content-container padded-main-content">
+        <div className="usa-grid-full login">
           <div className="auth-messages">
             {
               !requesting && !!errors.length &&

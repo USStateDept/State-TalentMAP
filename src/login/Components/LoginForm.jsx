@@ -21,8 +21,8 @@ export const LoginForm = (props) => {
     } = props;
 
   return (
-    <div className="usa-grid login-container content-container">
-      <div className="usa-grid login">
+    <div className="usa-grid-full login-container content-container padded-main-content">
+      <div className="usa-grid-full login">
         <form className="usa-form" onSubmit={handleSubmit(onSubmit)}>
           <fieldset>
             <legend className="usa-drop_text">Sign in</legend>
