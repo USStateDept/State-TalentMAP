@@ -106,22 +106,32 @@ function loginRequest(credentials) {
  */
 export function* login(credentials = {}) {
   const isSAML = auth.isSAMLAuth();
-  let token = credentials;
+  let token = null;
 
   // Determine between basic and saml auth
   if (isSAML) {
-    yield put(tokenValidationRequest(credentials));
+    // set token
+    token = credentials;
+    yield put(tokenValidationRequest(token));
   } else {
-    yield put(authRequest(true, credentials.username, credentials.password));
+    // create auth object
+    const authCredentials = { username: credentials.username, password: credentials.password };
+    yield put(authRequest(true, authCredentials));
+
+    // try to call to our loginApi() function. Redux Saga will pause
+    // here until we either are successful or receive an error
+    const { response, error } = yield call(loginRequest, authCredentials);
+
+    if (response) {
+      token = response.data.token;
+    } else {
+      yield put(authError(true, propOrDefault(error, 'message', 'An issue during login has occured')));
+    }
   }
 
-  // try to call to our loginApi() function. Redux Saga will pause
-  // here until we either are successful or receive an error
-  const { response, error } = yield call(loginRequest, token);
-
-  if (response) {
-    token = response.data.token;
-
+  // We have a token, proceed to log user in
+  if (token !== null) {
+    // set token
     auth.set(token);
 
     // inform Redux to set our client token
@@ -134,7 +144,7 @@ export function* login(credentials = {}) {
     // redirect them to home
     yield put(push('/'));
   } else {
-    yield put(authError(true, propOrDefault(error, 'message', 'A issue during login has occured')));
+    yield put(authError(true, 'An issue during login has occured'));
   }
 
   if (yield cancelled()) {
