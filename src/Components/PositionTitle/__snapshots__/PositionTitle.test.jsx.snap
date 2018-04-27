@@ -80,6 +80,29 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
     />
   </div>
   <div
+    className="offset-bid-button-container offset-bid-count-container"
+  >
+    <div
+      className="usa-grid-full position-title-bid-count"
+    >
+      <BidCount
+        altStyle={true}
+        bidStatistics={
+          Object {
+            "at_skill": 0,
+            "bidcycle": 1,
+            "id": 1,
+            "in_grade": 0,
+            "in_grade_at_skill": 0,
+            "total_bids": 3,
+          }
+        }
+        hideLabel={false}
+        label="Bid Count"
+      />
+    </div>
+  </div>
+  <div
     className="offset-bid-button-container"
   >
     <div
