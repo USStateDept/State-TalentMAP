@@ -8,7 +8,6 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import PositionDetailsContact from './PositionDetailsContact';
 import OBCUrl from '../OBCUrl';
-import HowToBid from './HowToBid';
 
 const PositionDetailsItem = ({ details, editDescriptionContent, resetDescriptionEditMessages,
 editPocContent, editWebsiteContent }) => {
@@ -57,7 +56,6 @@ editPocContent, editWebsiteContent }) => {
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
-          <HowToBid />
         </div>
       </div>
     </div>

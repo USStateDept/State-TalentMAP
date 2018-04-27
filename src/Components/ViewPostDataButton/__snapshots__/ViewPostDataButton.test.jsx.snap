@@ -2,6 +2,7 @@
 
 exports[`ViewPostDataButtonComponent matches snapshot 1`] = `
 <OBCUrl
+  altStyle={false}
   id={1}
   isButton={true}
   label={

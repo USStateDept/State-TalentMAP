@@ -4,7 +4,7 @@ import LinkButton from '../LinkButton';
 import { OBC_COUNTRY_URL_PREFIX, OBC_POST_URL_PREFIX, OBC_POST_DATA_URL_PREFIX } from '../../Constants/OBC';
 import { getAssetPath } from '../../utilities';
 
-const OBCUrl = ({ id, type, label, isButton }) => {
+const OBCUrl = ({ id, type, label, isButton, altStyle }) => {
   let url;
   let text; // link text value
 
@@ -33,7 +33,7 @@ const OBCUrl = ({ id, type, label, isButton }) => {
     // should be defined on the same server that is serving the react application.
     // We open it in a new tab.
     isButton ?
-      <LinkButton isExternal className="post-data-button" toLink={url} >{text}</LinkButton>
+      <LinkButton isExternal className={`post-data-button ${altStyle ? 'usa-button-secondary' : ''}`} toLink={url} >{text}</LinkButton>
       :
       <a href={url} rel="noopener noreferrer" target="_blank">{text}</a>
   );
@@ -44,12 +44,14 @@ OBCUrl.propTypes = {
   type: PropTypes.oneOf(['post', 'post-data', 'country']),
   label: PropTypes.node,
   isButton: PropTypes.bool,
+  altStyle: PropTypes.bool,
 };
 
 OBCUrl.defaultProps = {
   type: 'post',
   label: null,
   isButton: false,
+  altStyle: false,
 };
 
 export default OBCUrl;
