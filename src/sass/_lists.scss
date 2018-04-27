@@ -1,31 +1,28 @@
-dl {
-  &.definitions {
+.definitions {
+  display: table;
+  margin-bottom: 0;
+  margin-top: 0;
+  min-width: 100px;
+  width: 100%;
+
+  > div {
     display: table;
-    margin-bottom: 0;
-    margin-top: 0;
-    min-width: 100px;
-    width: 100%;
 
-    > div {
-      display: table;
-    }
-
-    dt,
-    dd {
+    > span {
       display: table-cell;
       font-size: 1.5rem;
       overflow: visible;
       vertical-align: top;
       width: auto;
-    }
 
-    dt {
-      font-weight: 500;
-      white-space: nowrap;
-    }
+      &:nth-child(1) {
+        font-weight: 500;
+        white-space: nowrap;
+      }
 
-    dd {
-      padding: 0 0 0 .5rem;
+      &:nth-child(2) {
+        padding: 0 0 0 .5rem;
+      }
     }
   }
 }

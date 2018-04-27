@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import Definition from './Definition';
 
@@ -15,13 +15,15 @@ describe('Definition', () => {
   };
 
   it('can render `term` prop', () => {
-    const wrapper = shallow(<Definition {...mock} />);
-    expect(wrapper.find('dt').text()).toEqual(`${mock.term}:`);
+    const wrapper = mount(<Definition {...mock} />);
+    const expected = wrapper.find('div > span').at(0).text();
+    expect(expected).toEqual(`${mock.term}:`);
   });
 
   it('can render `definition` prop', () => {
     const wrapper = shallow(<Definition {...mock} />);
-    expect(wrapper.find('dd').text()).toEqual(mock.definition);
+    const expected = wrapper.find('div > span').at(1).text();
+    expect(expected).toEqual(mock.definition);
   });
 
   it('can recieve other props such as `className` and `id`', () => {

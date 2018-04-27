@@ -22,8 +22,8 @@ const Definition = (props) => {
 
   return (
     <div {...options}>
-      <dt>{term}</dt>
-      <dd className={props.truncate && 'truncate'}>{definition}</dd>
+      <span>{term}</span>
+      <span className={props.truncate && 'truncate'}>{definition}</span>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const DefinitionList = ({ truncate = true, ...props }) => {
   options.className = options.className ? `definitions ${options.className}` : 'definitions';
 
   return (
-    <dl {...options}>
+    <div {...options}>
       {
         children.length ?
           children :
@@ -35,7 +35,7 @@ const DefinitionList = ({ truncate = true, ...props }) => {
             <Definition key={shortid.generate()} {...item} />
           ))
        }
-    </dl>
+    </div>
   );
 };
 
