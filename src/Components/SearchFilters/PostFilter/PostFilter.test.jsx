@@ -102,4 +102,54 @@ describe('PostFilterComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('can receive null countries for onSelectAllDomesticPosts', () => {
+    const nullCountries = [
+      { name: 'Name', location: { city: 'City', state: 'ST', country: null } },
+      { name: 'Name', location: { city: 'City' } },
+      { name: 'Name' },
+    ];
+    const countryProps = props;
+    countryProps.item.data = nullCountries;
+
+    const spy = sinon.spy();
+
+    const wrapper = shallow(
+      <PostFilter
+        {...countryProps}
+        queryParamUpdate={spy}
+      />,
+    );
+    wrapper.instance().onSelectAllDomesticPosts(true);
+    sinon.assert.calledOnce(spy);
+    expect(wrapper.instance().state.allDomesticSelected).toBe(false);
+    wrapper.instance().onSelectAllDomesticPosts(false);
+    sinon.assert.calledTwice(spy);
+    expect(wrapper.instance().state.allDomesticSelected).toBe(true);
+  });
+
+  it('can receive null countries for onSelectAllOverseasPosts', () => {
+    const nullCountries = [
+      { name: 'Name', location: { city: 'City', state: 'ST', country: null } },
+      { name: 'Name', location: { city: 'City' } },
+      { name: 'Name' },
+    ];
+    const countryProps = props;
+    countryProps.item.data = nullCountries;
+
+    const spy = sinon.spy();
+
+    const wrapper = shallow(
+      <PostFilter
+        {...countryProps}
+        queryParamUpdate={spy}
+      />,
+    );
+    wrapper.instance().onSelectAllOverseasPosts(true);
+    sinon.assert.calledOnce(spy);
+    expect(wrapper.instance().state.allOverseasSelected).toBe(false);
+    wrapper.instance().onSelectAllOverseasPosts(false);
+    sinon.assert.calledTwice(spy);
+    expect(wrapper.instance().state.allOverseasSelected).toBe(true);
+  });
 });
