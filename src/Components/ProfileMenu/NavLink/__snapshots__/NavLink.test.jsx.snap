@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavLinkComponent matches snapshot without children 1`] = `
-<div>
-  <li
+<li>
+  <div
     className="usa-grid-full  link-highlighted"
   >
     <div
@@ -30,6 +30,6 @@ exports[`NavLinkComponent matches snapshot without children 1`] = `
         </span>
       </Link>
     </div>
-  </li>
-</div>
+  </div>
+</li>
 `;

@@ -12,6 +12,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
     >
       <PositionTitleSubDescription
         formattedContent="None listed."
+        id="website"
         isAllowedToEdit={false}
         onSubmitText={[Function]}
         plainContent=""
@@ -25,6 +26,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
     >
       <PositionTitleSubDescription
         formattedContent="None listed."
+        id="poc"
         isAllowedToEdit={false}
         onSubmitText={[Function]}
         plainContent=""

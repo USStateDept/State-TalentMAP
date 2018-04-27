@@ -17,6 +17,7 @@ exports[`PositionTitleSubDescriptionComponent matches snapshot when editor is hi
       content
     </span>
     <EditContentButton
+      id="id"
       onToggle={[Function]}
     />
   </div>

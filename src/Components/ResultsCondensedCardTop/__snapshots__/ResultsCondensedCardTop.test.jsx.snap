@@ -17,13 +17,15 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
     <div
       className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
     >
-      <dt>
-        Grade:
-      </dt>
-       
-      <dd>
-        06
-      </dd>
+      <dl>
+        <dt>
+          Grade:
+        </dt>
+         
+        <dd>
+          06
+        </dd>
+      </dl>
     </div>
   </div>
   <div
@@ -62,13 +64,15 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
     <div
       className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
     >
-      <dt>
-        Grade:
-      </dt>
-       
-      <dd>
-        06
-      </dd>
+      <dl>
+        <dt>
+          Grade:
+        </dt>
+         
+        <dd>
+          06
+        </dd>
+      </dl>
     </div>
   </div>
   <div

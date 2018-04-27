@@ -2,7 +2,7 @@
 
 exports[`EditContentButtonComponent matches snapshot 1`] = `
 <FontAwesome
-  id="description-edit"
+  id="description-edit-id"
   name="pencil"
   onClick={[Function]}
   onKeyUp={[Function]}
