@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
-         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE, NEW_SAVED_SEARCH_SUCCESS_OBJECT } from '../../Constants/PropTypes';
+         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
+         BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
@@ -29,7 +30,8 @@ class ResultsContainer extends Component {
             defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
             toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts,
+            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, toggleBid,
+            bidList,
       } = this.props;
     return (
       <div className="results-container">
@@ -82,6 +84,8 @@ class ResultsContainer extends Component {
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
               userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              toggleBid={toggleBid}
+              bidList={bidList}
             />
           </div>
         }
@@ -131,6 +135,8 @@ ResultsContainer.propTypes = {
   currentSavedSearch: SAVED_SEARCH_OBJECT,
   resetSavedSearchAlerts: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 ResultsContainer.defaultProps = {

@@ -226,6 +226,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       type="position-results"
     />
     <ResultsList
+      bidList={Array []}
       favorites={Array []}
       isLoading={false}
       onToggle={[Function]}
@@ -403,6 +404,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
           ],
         }
       }
+      toggleBid={[Function]}
       toggleFavorite={[Function]}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}

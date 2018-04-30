@@ -368,6 +368,7 @@ describe('mapDispatchToProps', () => {
     fetchMissionAutocomplete: ['?q'],
     fetchPostAutocomplete: ['?q'],
     toggleSearchBarVisibility: ['?q'],
+    toggleBid: [1, true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });
