@@ -104,56 +104,6 @@ function loginRequest(credentials) {
 /**
  * Sagas
  */
-export function* login(credentials = {}) {
-  const isSAML = auth.isSAMLAuth();
-  let token = null;
-
-  // Determine between basic and saml auth
-  if (isSAML) {
-    // set token
-    token = credentials;
-  } else {
-    // create auth object
-    const authCredentials = { username: credentials.username, password: credentials.password };
-    yield put(authRequest(true, authCredentials));
-
-    // try to call to our loginApi() function. Redux Saga will pause
-    // here until we either are successful or receive an error
-    const { response, error } = yield call(loginRequest, authCredentials);
-
-    if (response) {
-      token = response.data.token;
-    } else {
-      yield put(authError(true, propOrDefault(error, 'message', 'An issue during login has occured')));
-    }
-  }
-
-  // We have a token, proceed to log user in
-  if (token !== null) {
-    // set token
-    auth.set(token);
-
-    // inform Redux to set our client token
-    yield put(setClient(token));
-    // get the user's profile data
-    yield put(userProfileFetchData());
-    // also inform redux that our login was successful
-    yield put(authSuccess());
-
-    // redirect them to home
-    yield put(push('/'));
-  } else {
-    yield put(authError(true, 'An issue during login has occured'));
-  }
-
-  if (yield cancelled()) {
-    redirectToLogin();
-  }
-
-  // return the token for health and wealth
-  return token;
-}
-
 function* logout() {
   // dispatches the CLIENT_UNSET action
   yield put(unsetClient());
@@ -179,6 +129,62 @@ function* logout() {
   if (!isOnLoginPage) {
     yield put(push('/login'));
   }
+}
+
+export function* login(credentials = {}) {
+  const isSAML = auth.isSAMLAuth();
+  let token = null;
+
+  // if credentials is null, don't attempt login, to prevent a loop
+  if (credentials) {
+    // Determine between basic and saml auth
+    if (isSAML) {
+      // set token
+      token = credentials;
+    } else {
+      // create auth object
+      const authCredentials = { username: credentials.username, password: credentials.password };
+      yield put(authRequest(true, authCredentials));
+
+      // try to call to our loginApi() function. Redux Saga will pause
+      // here until we either are successful or receive an error
+      const { response, error } = yield call(loginRequest, authCredentials);
+
+      if (response) {
+        token = response.data.token;
+      } else {
+        yield put(authError(true, propOrDefault(error, 'message', 'An issue during login has occured')));
+      }
+    }
+
+    // We have a token, proceed to log user in
+    if (token !== null) {
+      // set token
+      auth.set(token);
+
+      // inform Redux to set our client token
+      yield put(setClient(token));
+      // get the user's profile data
+      yield put(userProfileFetchData());
+      // also inform redux that our login was successful
+      yield put(authSuccess());
+
+      // redirect them to home
+      yield put(push('/'));
+    } else {
+      yield put(authError(true, 'An issue during login has occured'));
+    }
+
+    if (yield cancelled()) {
+      redirectToLogin();
+    }
+
+    // return the token for health and wealth
+    return token;
+  }
+  // if credentials is null, logout
+  logout();
+  return null;
 }
 
 // Our watcher (saga).  It will watch for many things.
