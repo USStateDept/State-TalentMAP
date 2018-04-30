@@ -2,7 +2,7 @@
 
 exports[`BidTrackerComponent matches snapshot 1`] = `
 <div
-  className="bid-tracker-page"
+  className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
   <NotificationsSection
     markBidTrackerNotification={[Function]}
@@ -66,9 +66,11 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
       className="usa-width-one-half bid-tracker-greeting-container"
     >
       <div
-        className="hello-greeting bid-tracker-greeting"
+        className="usa-grid-full"
       >
-        Bid Tracker
+        <ProfileSectionTitle
+          title="Bid Tracker"
+        />
       </div>
     </div>
     <div
@@ -300,7 +302,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
 
 exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] = `
 <div
-  className="bid-tracker-page"
+  className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
   <NotificationsSection
     markBidTrackerNotification={[Function]}
@@ -364,9 +366,11 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
       className="usa-width-one-half bid-tracker-greeting-container"
     >
       <div
-        className="hello-greeting bid-tracker-greeting"
+        className="usa-grid-full"
       >
-        Bid Tracker
+        <ProfileSectionTitle
+          title="Bid Tracker"
+        />
       </div>
     </div>
     <div

@@ -82,6 +82,12 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
+  it('handles a profile/bidtracker route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/bidtracker']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
   it('handles an about route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/about']}>
       <Main />

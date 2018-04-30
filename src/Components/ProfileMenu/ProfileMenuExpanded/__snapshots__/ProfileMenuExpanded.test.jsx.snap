@@ -55,6 +55,12 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         title="Saved Searches"
       />
       <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
         hidden={true}
         link="/profile/cycles/"
         search=""
@@ -125,6 +131,12 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         link="/profile/searches/"
         search=""
         title="Saved Searches"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -199,6 +211,12 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Saved Searches"
       />
       <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
         hidden={true}
         link="/profile/cycles/"
         search=""
@@ -269,6 +287,12 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/searches/"
         search=""
         title="Saved Searches"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
       />
       <withRouter(NavLink)
         hidden={false}
