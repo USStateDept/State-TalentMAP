@@ -14,6 +14,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
       initials="JD"
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
     <PositionInformation
       className="current-user-name"
@@ -39,6 +40,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
       initials="JD"
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
     <PositionInformation
       className="current-user-name"
@@ -64,6 +66,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
       initials="JD"
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
     <PositionInformation
       className="current-user-name"
