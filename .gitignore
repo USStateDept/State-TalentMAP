@@ -11,7 +11,10 @@ codeclimate.html
 /build
 
 # certificates for testing
-/certs
+certs/**/*
+!certs/README.md
+!certs/certs.sh
+!certs/*.cnf
 
 # misc
 .DS_Store
