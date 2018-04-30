@@ -61,7 +61,7 @@ export const auth = {
    */
   mode: () => (process.env.LOGIN_MODE || 'basic'),
   isBasicAuth: () => (auth.mode() === 'basic'),
-  isSAMLAuth: () => (auth.mode() !== 'basic'),
+  isSAMLAuth: () => (auth.mode() === 'saml'),
 };
 
 /**
@@ -192,7 +192,7 @@ function* loginWatcher() {
   const evaluate = true;
   // Check if user entered already logged in or not
   while (evaluate) {
-    const isSAML = (process.env.LOGIN_MODE !== 'basic');
+    const isSAML = (process.env.LOGIN_MODE === 'saml');
     const races = {
       loggingIn: take(isSAML ? TOKEN_VALIDATION_REQUESTING : LOGIN_REQUESTING),
       loggingOut: take(LOGOUT_REQUESTING),
