@@ -17,8 +17,8 @@ export class TokenValidation extends Component {
     let token = parsedQuery.tmApiToken;
     // If not, check if one exists in the cookies.
     if (!token) { token = auth.get(); }
-    // If neither criteria is met, set the token to a fake token which will cause a failure.
-    if (!token) { token = 'No token'; }
+    // If neither criteria is met, set the token to null which will cause a failure.
+    if (!token) { token = null; }
     // Finally, pass that token to the tokenValidationRequest function
     this.props.tokenValidationRequest(token);
   }
