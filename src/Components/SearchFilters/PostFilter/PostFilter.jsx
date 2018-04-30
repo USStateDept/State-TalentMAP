@@ -6,6 +6,7 @@ import CheckBox from '../../CheckBox';
 import { getItemLabel, formatIdSpacing, propSort } from '../../../utilities';
 import AutoSuggest from '../../AutoSuggest';
 
+/* eslint-disable react/no-unused-prop-types */
 class PostFilter extends Component {
   constructor(props) {
     super(props);
@@ -197,5 +198,6 @@ PostFilter.defaultProps = {
   overseasIsSelected: false,
   domesticIsSelected: false,
 };
+/* eslint-enable react/no-unused-prop-types */
 
 export default PostFilter;

@@ -5,6 +5,7 @@ import numeral from 'numeral';
 import { cloneDeep, get, keys, merge as merge$, isNumber } from 'lodash';
 import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
+import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
 const scroll = Scroll.animateScroll;
 
@@ -474,4 +475,22 @@ export const getDifferentialPercentage = (differential, defaultValue = '') => {
     return `${differential}%`;
   }
   return defaultValue;
+};
+
+// redirect to express /login route
+export const redirectToLogin = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_ROUTE}`);
+};
+
+// redirect to react /loginRedirect route
+export const redirectToLoginRedirect = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_REDIRECT}`);
+};
+
+// redirect to express /logout route
+export const redirectToLogout = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };
