@@ -9,33 +9,15 @@ const mocks = {
   },
 };
 
-// Change env variable and reset module context
-const setAuthMode = (mode = 'basic') => {
-  process.env.LOGIN_MODE = mode;
-  jest.resetModules();
-};
-
-describe('login functions', () => {
-  xit('can set the client upon providing a valid token (SAML Auth)', () => {
-    // set auth mode to saml
-    setAuthMode('saml');
-
-    return expectSaga(loginWatcher)
-      // Assert that the `put` will eventually happen.
-      .put({ type: 'CLIENT_SET', token: '12345' })
-      // Dispatch any actions that the saga will `take`.
-      .dispatch({
-        type: 'TOKEN_VALIDATION_REQUESTING',
-        token: '12345',
-      })
-      // Start the test. Returns a Promise. [silent warnings]
-      .silentRun();
+describe('login functions - basic auth', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    delete process.env.LOGIN_MODE;
+    process.env.LOGIN_MODE = 'basic';
   });
 
   it('can log in and set the client (LocalStorage Auth)', () => {
     const mockAdapter = new MockAdapter(api);
-
-    setAuthMode('basic');
 
     mockAdapter
       .onPost('/accounts/token/')
@@ -66,8 +48,6 @@ describe('login functions', () => {
   it('can can catch empty login fields', () => {
     const mockAdapter = new MockAdapter(api);
 
-    setAuthMode('basic');
-
     mockAdapter
       .onPost('/accounts/token/')
       .reply(200, mocks.token);
@@ -96,4 +76,24 @@ describe('login functions', () => {
     const error = getError('error');
     expect(error.message).toBe('error');
   });
+});
+
+describe('login for SAML', () => {
+  beforeEach(() => {
+    jest.resetModules();
+    delete process.env.LOGIN_MODE;
+    process.env.LOGIN_MODE = 'saml';
+  });
+
+  it('can set the client upon providing a valid token (SAML Auth)', () =>
+    expectSaga(loginWatcher)
+      // Assert that the `put` will eventually happen.
+      .put({ type: 'CLIENT_SET', token: '12345' })
+      // Dispatch any actions that the saga will `take`.
+      .dispatch({
+        type: 'TOKEN_VALIDATION_REQUESTING',
+        token: '12345',
+      })
+      // Start the test. Returns a Promise. [silent warnings]
+      .silentRun());
 });
