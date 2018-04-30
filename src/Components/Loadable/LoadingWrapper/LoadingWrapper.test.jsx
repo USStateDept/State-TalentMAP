@@ -9,6 +9,11 @@ describe('LoadingWrapper', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is renders LoadingError when error prop exists', () => {
+    const wrapper = shallow(<LoadingWrapper error={{}} />);
+    expect(wrapper.find('LoadingError').exists()).toBe(true);
+  });
+
   it('matches snapshot', () => {
     const wrapper = <LoadingWrapper />;
     expect(toJSON(wrapper)).toMatchSnapshot();
