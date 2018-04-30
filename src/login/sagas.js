@@ -7,7 +7,7 @@ import { userProfileFetchData, unsetUserProfile } from '../actions/userProfile';
 import { setClient, unsetClient } from '../client/actions';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
 import { propOrDefault, redirectToLogout, redirectToLogin } from '../utilities';
-import { authError, authRequest, authSuccess, tokenValidationRequest } from './actions';
+import { authError, authRequest, authSuccess } from './actions';
 
 // Our login constants
 import {
@@ -112,7 +112,6 @@ export function* login(credentials = {}) {
   if (isSAML) {
     // set token
     token = credentials;
-    yield put(tokenValidationRequest(token));
   } else {
     // create auth object
     const authCredentials = { username: credentials.username, password: credentials.password };
@@ -187,7 +186,7 @@ function* loginWatcher() {
   const evaluate = true;
   // Check if user entered already logged in or not
   while (evaluate) {
-    const isSAML = auth.isSAMLAuth();
+    const isSAML = (process.env.LOGIN_MODE === 'saml');
     const races = {
       loggingIn: take(isSAML ? TOKEN_VALIDATION_REQUESTING : LOGIN_REQUESTING),
       loggingOut: take(LOGOUT_REQUESTING),
