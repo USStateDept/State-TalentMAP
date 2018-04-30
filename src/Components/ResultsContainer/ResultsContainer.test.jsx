@@ -45,6 +45,8 @@ describe('ResultsContainerComponent', () => {
         newSavedSearchHasErrored={false}
         newSavedSearchIsSaving={false}
         resetSavedSearchAlerts={() => {}}
+        toggleBid={() => {}}
+        bidList={[]}
       />
     </MemoryRouter>);
     expect(wrapper).toBeDefined();
@@ -70,6 +72,8 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -94,6 +98,8 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     expect(wrapper.instance().props.pageSize).toBe(20);
   });
@@ -121,6 +127,8 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchIsSaving={false}
       scrollToTop={scrollSpy}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     wrapper.instance().onPageChange(1);
     sinon.assert.calledOnce(spy);
@@ -147,6 +155,8 @@ describe('ResultsContainerComponent', () => {
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

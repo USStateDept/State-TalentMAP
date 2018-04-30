@@ -11,6 +11,7 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
   className={null}
 >
   <ResultsCard
+    bidList={Array []}
     favorites={Array []}
     onToggle={[Function]}
     result={
@@ -92,11 +93,13 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08T00:00:00Z",
       }
     }
+    toggleBid={[Function]}
     toggleFavorite={[Function]}
     userProfileFavoritePositionHasErrored={false}
     userProfileFavoritePositionIsLoading={false}
   />
   <ResultsCard
+    bidList={Array []}
     favorites={Array []}
     onToggle={[Function]}
     result={
@@ -191,6 +194,7 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08T00:00:00Z",
       }
     }
+    toggleBid={[Function]}
     toggleFavorite={[Function]}
     userProfileFavoritePositionHasErrored={false}
     userProfileFavoritePositionIsLoading={false}
