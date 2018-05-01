@@ -9,7 +9,7 @@ const ExternalUserStatus = ({ initials, firstName, lastName, type, showMail, ema
   <div className="usa-grid-full cdo-container">
     <div className="usa-grid-full cdo-container-inner section-padded-inner-container">
       <div className="profile-picture-container">
-        <Avatar intiias={initials} firstName={firstName} lastName={lastName} />
+        <Avatar initials={initials} firstName={firstName} lastName={lastName} small />
         <div className="picture-status-container">
           <Status hideText />
         </div>
