@@ -6,7 +6,16 @@ import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionSimilarPositions from '../../Containers/PositionSimilarPositions';
 import GoBackLink from '../BackButton';
-import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
+
+import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
+import {
+  BID_LIST,
+  GO_BACK_TO_LINK,
+  POSITION_DETAILS,
+  USER_PROFILE,
+  HIGHLIGHT_POSITION,
+  EMPTY_FUNCTION,
+} from '../../Constants/PropTypes';
 
 class PositionDetails extends Component {
   constructor(props) {
@@ -41,6 +50,8 @@ class PositionDetails extends Component {
       editPocContent,
       editWebsiteContent,
       resetDescriptionEditMessages,
+      highlightPosition,
+      onHighlight,
     } = this.props;
 
     const isReady = details && userProfile.id && !isLoading && !hasErrored;
@@ -73,6 +84,8 @@ class PositionDetails extends Component {
             editWebsiteContent={editWebsiteContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
             userProfile={userProfile}
+            highlightPosition={highlightPosition}
+            onHighlight={onHighlight}
           />
           <hr />
           <Row className="position-details-description-container padded-main-content" fluid>
@@ -100,6 +113,8 @@ PositionDetails.propTypes = {
   resetDescriptionEditMessages: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
   editWebsiteContent: PropTypes.func.isRequired,
+  highlightPosition: HIGHLIGHT_POSITION,
+  onHighlight: PropTypes.func.isRequired,
 };
 
 PositionDetails.defaultProps = {
@@ -111,6 +126,8 @@ PositionDetails.defaultProps = {
   descriptionEditHasErrored: false,
   descriptionEditIsLoading: false,
   descriptionEditSuccess: false,
+  highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
+  onHighlight: EMPTY_FUNCTION,
 };
 
 export default PositionDetails;

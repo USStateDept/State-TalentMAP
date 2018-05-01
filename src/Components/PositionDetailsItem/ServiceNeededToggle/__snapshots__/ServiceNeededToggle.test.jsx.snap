@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServiceNeededToggle matches snapshot 1`] = `
+<div
+  className="service-needed-toggle"
+>
+  <InteractiveElement
+    className="usa-button"
+    onClick={[Function]}
+    type="div"
+  >
+    <FontAwesome
+      name="square-o"
+    />
+     
+    Mark as Service Need
+  </InteractiveElement>
+</div>
+`;

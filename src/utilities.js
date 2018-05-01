@@ -2,7 +2,7 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
-import { cloneDeep, get, keys, merge as merge$, isNumber } from 'lodash';
+import { cloneDeep, get, isEqual, isNumber, isObject, keys, merge as merge$, transform } from 'lodash';
 import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
@@ -494,3 +494,13 @@ export const redirectToLogout = () => {
   const prefix = process.env.PUBLIC_URL || '';
   window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };
+
+export const difference = (object, base) => transform(object, (result, value, key) => {
+  /* eslint-disable no-param-reassign */
+  if (!isEqual(value, base[key])) {
+    result[key] = isObject(value) && isObject(base[key]) ?
+      difference(value, base[key]) :
+      value;
+  }
+  /* eslint-enable no-param-reassign */
+});

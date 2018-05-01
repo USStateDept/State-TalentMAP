@@ -4,6 +4,7 @@ import { reducer as form } from 'redux-form';
 import client from '../client/reducer';
 import login from '../login/reducer';
 import { reducer as bidCycles } from './bidCycles';
+import { reducer as highlightPosition } from './highlightPosition';
 import results from './results';
 import filters from './filters';
 import post from './post';
@@ -68,4 +69,5 @@ export default combineReducers({
   client,
   login,
   bidCycles,
+  highlightPosition,
 });

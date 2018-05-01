@@ -14,7 +14,13 @@ import {
   getDifferentialPercentage,
 } from '../../utilities';
 
-import { POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
+import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
+import {
+  POSITION_DETAILS,
+  USER_PROFILE,
+  HIGHLIGHT_POSITION,
+  EMPTY_FUNCTION,
+} from '../../Constants/PropTypes';
 import {
   NO_BUREAU,
   NO_GRADE,
@@ -33,6 +39,8 @@ const PositionDetailsItem = (props) => {
     editPocContent,
     editWebsiteContent,
     userProfile,
+    highlightPosition,
+    onHighlight,
   } = props;
 
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
@@ -82,7 +90,12 @@ const PositionDetailsItem = (props) => {
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
-          <ServiceNeededToggle userProfile={userProfile} />
+          <ServiceNeededToggle
+            userProfile={userProfile}
+            position={details}
+            loading={highlightPosition.loading}
+            onChange={onHighlight}
+          />
           <HowToBid />
         </div>
       </div>
@@ -97,11 +110,15 @@ PositionDetailsItem.propTypes = {
   editWebsiteContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
+  highlightPosition: HIGHLIGHT_POSITION,
+  onHighlight: PropTypes.func.isRequired,
 };
 
 PositionDetailsItem.defaultProps = {
   details: null,
   userProfile: {},
+  highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
+  onHighlight: EMPTY_FUNCTION,
 };
 
 export default PositionDetailsItem;
