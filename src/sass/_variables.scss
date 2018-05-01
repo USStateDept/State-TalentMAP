@@ -153,7 +153,8 @@ $scrollbar-width: 10px;
 //**
 //* Accessibility
 //*
-$tm-focus-outline-default: 2px dotted $color-black;
+$tm-focus-outline-color: $color-black;
+$tm-focus-outline-default: 2px dotted $tm-focus-outline-color;
 $tm-focus-outline-color-alt: $color-white;
 $tm-focus-outline-offset-default: 3px;
 

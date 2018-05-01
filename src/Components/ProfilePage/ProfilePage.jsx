@@ -6,6 +6,7 @@ import BidCycles from '../../Containers/BidCycles';
 import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
 import GlossaryEditor from '../../Containers/GlossaryEditor';
 import BidTracker from '../../Containers/BidTracker';
+import BidStatistics from '../../Containers/BidStatistics';
 import SavedSearchesWrapper from '../../Components/SavedSearches/SavedSearchesWrapper';
 import GLOSSARY_EDITOR_PERM from '../../Constants/Permissions';
 import { USER_PROFILE } from '../../Constants/PropTypes';
@@ -27,6 +28,7 @@ const ProfilePage = ({ user }) => (
         <Route path="/profile/favorites" component={FavoritePositionsContainer} />
         <Route path="/profile/searches" component={SavedSearchesWrapper} />
         <Route path="/profile/bidtracker" component={BidTracker} />
+        <Route path="/profile/statistics" component={BidStatistics} />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
       </Switch>
     </div>
