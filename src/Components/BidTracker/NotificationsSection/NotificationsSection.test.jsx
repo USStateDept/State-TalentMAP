@@ -69,4 +69,17 @@ describe('NotificationsSectionComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when tags contains "declined"', () => {
+    const newNotifications = { ...notificationsObject };
+    newNotifications.results[0].tags = ['declined'];
+    const wrapper = shallow(
+      <NotificationsSection
+        notifications={newNotifications}
+        notificationsIsLoading={false}
+        markBidTrackerNotification={() => {}}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });
