@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
+import { Row } from '../Layout';
 import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
 import PositionDetailsItem from '../PositionDetailsItem/PositionDetailsItem';
 import PositionSimilarPositions from '../../Containers/PositionSimilarPositions';
 import GoBackLink from '../BackButton';
+import { BID_LIST, GO_BACK_TO_LINK, POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
 
 class PositionDetails extends Component {
   constructor(props) {
@@ -26,19 +27,29 @@ class PositionDetails extends Component {
   }
 
   render() {
-    const { details, isLoading, hasErrored, goBackLink,
-        userProfile, toggleFavorite, userProfileFavoritePositionIsLoading,
-        toggleBidPosition, bidList, bidListToggleIsLoading,
-        editPocContent, editWebsiteContent,
-        resetDescriptionEditMessages } = this.props;
+    const {
+      details,
+      isLoading,
+      hasErrored,
+      goBackLink,
+      userProfile,
+      toggleFavorite,
+      userProfileFavoritePositionIsLoading,
+      toggleBidPosition,
+      bidList,
+      bidListToggleIsLoading,
+      editPocContent,
+      editWebsiteContent,
+      resetDescriptionEditMessages,
+    } = this.props;
+
     const isReady = details && userProfile.id && !isLoading && !hasErrored;
+
     return (
       <div className="content-container position-details-container">
-        <div
-          className="usa-grid-full position-details-description-container positions-details-about-position back-container padded-main-content"
-        >
+        <Row className="position-details-description-container positions-details-about-position back-container padded-main-content" fluid>
           <GoBackLink />
-        </div>
+        </Row>
         { isReady &&
         <div>
           <PositionTitle
@@ -61,13 +72,12 @@ class PositionDetails extends Component {
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
+            userProfile={userProfile}
           />
           <hr />
-          <div className="usa-grid-full position-details-description-container padded-main-content">
-            <PositionSimilarPositions
-              id={details.id}
-            />
-          </div>
+          <Row className="position-details-description-container padded-main-content" fluid>
+            <PositionSimilarPositions id={details.id} />
+          </Row>
         </div>}
         {!isReady && <Spinner type="position-details" size="big" />}
       </div>
