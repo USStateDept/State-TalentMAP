@@ -6,13 +6,13 @@ import { push } from 'react-router-redux';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Profile extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     }
   }
 

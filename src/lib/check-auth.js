@@ -1,16 +1,12 @@
 import { setClient } from '../client/actions';
+import { auth } from '../login/sagas';
 
 function checkAuthorization(dispatch) {
   // attempt to grab the token from localstorage
-  const storedToken = localStorage.getItem('token');
+  const token = auth.get();
 
   // if it exists
-  if (storedToken) {
-    // parse it down into an object
-    const token = JSON.parse(storedToken);
-
-    // TODO include check for token expiration
-
+  if (token) {
     // update our redux state with the token and return true
     dispatch(setClient(token));
     return true;
@@ -19,9 +15,4 @@ function checkAuthorization(dispatch) {
   return false;
 }
 
-export default function checkIndexAuthorization({ dispatch }) {
-  if (checkAuthorization(dispatch)) {
-    return true;
-  }
-  return false;
-}
+export default ({ dispatch }) => checkAuthorization(dispatch);

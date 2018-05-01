@@ -26,3 +26,14 @@ exports[`BidStatisticsComponent matches snapshot 1`] = `
   />
 </div>
 `;
+
+exports[`BidStatisticsComponent matches snapshot when isLoading is true 1`] = `
+<div
+  className="section-padded-inner-container bid-stats-page"
+>
+  <Spinner
+    size="big"
+    type="homepage-position-results"
+  />
+</div>
+`;

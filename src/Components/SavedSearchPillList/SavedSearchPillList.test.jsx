@@ -14,6 +14,15 @@ describe('FavoriteContentComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when length is 0', () => {
+    const wrapper = shallow(
+      <SavedSearchPillList
+        pills={[]}
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <SavedSearchPillList
