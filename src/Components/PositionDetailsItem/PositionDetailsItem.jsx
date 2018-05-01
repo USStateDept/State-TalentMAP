@@ -68,11 +68,15 @@ PositionDetailsItem.propTypes = {
   editWebsiteContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
+  highlightPosition: HIGHLIGHT_POSITION,
+  onHighlight: PropTypes.func.isRequired,
 };
 
 PositionDetailsItem.defaultProps = {
   details: null,
   userProfile: {},
+  highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
+  onHighlight: EMPTY_FUNCTION,
 };
 
 export default PositionDetailsItem;

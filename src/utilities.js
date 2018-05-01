@@ -493,3 +493,13 @@ export const redirectToLogout = () => {
   const prefix = process.env.PUBLIC_URL || '';
   window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };
+
+export const difference = (object, base) => transform(object, (result, value, key) => {
+  /* eslint-disable no-param-reassign */
+  if (!isEqual(value, base[key])) {
+    result[key] = isObject(value) && isObject(base[key]) ?
+      difference(value, base[key]) :
+      value;
+  }
+  /* eslint-enable no-param-reassign */
+});
