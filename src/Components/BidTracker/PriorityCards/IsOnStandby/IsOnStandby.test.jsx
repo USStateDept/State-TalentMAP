@@ -19,8 +19,10 @@ describe('IsOnStandbyComponent', () => {
   });
 
   it('accepts different props', () => {
+    const newBid = { ...bid };
+    newBid.status = 'closed';
     const wrapper = shallow(
-      <IsOnStandby {...props} useDisabledClass />,
+      <IsOnStandby {...props} bid={newBid} />,
     );
     expect(wrapper).toBeDefined();
   });
