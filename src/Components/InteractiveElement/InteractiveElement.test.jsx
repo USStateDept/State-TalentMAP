@@ -37,6 +37,11 @@ describe('InteractiveElementComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when type is "a"', () => {
+    const wrapper = shallow(<InteractiveElement type="a">text</InteractiveElement>);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('matches snapshot when type is "submit"', () => {
     const wrapper = shallow(<InteractiveElement type="submit">submit!</InteractiveElement>);
     expect(toJSON(wrapper)).toMatchSnapshot();

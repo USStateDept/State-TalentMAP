@@ -28,7 +28,8 @@ describe('AccountDropdown', () => {
   });
 
   it('can take different props', () => {
-    const accountDropdown = shallow(<AccountDropdown />);
+    const profile = { display_name: null, user: null };
+    const accountDropdown = shallow(<AccountDropdown userProfile={profile} />);
     expect(accountDropdown).toBeDefined();
   });
 
@@ -42,7 +43,7 @@ describe('AccountDropdown', () => {
     // forceUpdate required for test to pass
     instance.forceUpdate();
     // click to logout
-    accountDropdown.find('[to="/login"]').simulate('click');
+    accountDropdown.find('[to="/logout"]').simulate('click');
     // logout function should have been called once
     sinon.assert.calledOnce(handleClickSpy);
   });
@@ -67,12 +68,12 @@ describe('AccountDropdown', () => {
   });
 
   it('matches snapshot', () => {
-    const accountDropdown = shallow(<AccountDropdown />);
+    const accountDropdown = shallow(<AccountDropdown {...props} />);
     expect(toJSON(accountDropdown)).toMatchSnapshot();
   });
 
   it('matches snapshot when shouldDisplayName is true', () => {
-    const accountDropdown = shallow(<AccountDropdown shouldDisplayName />);
+    const accountDropdown = shallow(<AccountDropdown {...props} shouldDisplayName />);
     expect(toJSON(accountDropdown)).toMatchSnapshot();
   });
 

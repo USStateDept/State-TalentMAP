@@ -26,7 +26,7 @@ exports[`CheckBoxComponent matches snapshot 1`] = `
 </div>
 `;
 
-exports[`CheckBoxComponent matches snapshot when small = true 1`] = `
+exports[`CheckBoxComponent matches snapshot when small = true and labelSrOnly = true 1`] = `
 <div
   className="usa-grid-full  tm-checkbox tm-checkbox-small"
 >
@@ -44,7 +44,7 @@ exports[`CheckBoxComponent matches snapshot when small = true 1`] = `
     htmlFor="id"
   >
     <span
-      className=""
+      className="usa-sr-only"
     >
       label
     </span>
