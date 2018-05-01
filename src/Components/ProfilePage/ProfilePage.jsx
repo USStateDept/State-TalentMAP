@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Dashboard from '../../Containers/Dashboard/Dashboard';
+import BidderPortfolio from '../../Containers/BidderPortfolio';
 import BidCycles from '../../Containers/BidCycles';
 import FavoritePositionsContainer from '../../Containers/Favorites/Favorites';
 import GlossaryEditor from '../../Containers/GlossaryEditor';
@@ -21,6 +22,7 @@ const ProfilePage = ({ user }) => (
     <div className="usa-grid-full profile-content-container">
       <Switch>
         <Route path="/profile/dashboard" component={Dashboard} />
+        <Route path="/profile/bidderportfolio" component={BidderPortfolio} />
         <Route path="/profile/cycles" component={BidCycles} />
         <Route path="/profile/favorites" component={FavoritePositionsContainer} />
         <Route path="/profile/searches" component={SavedSearchesWrapper} />

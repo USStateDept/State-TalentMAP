@@ -461,12 +461,12 @@ $padding-no-border: $total-padding - $border;
   margin-bottom: 30px;
 
   .is-underlined {
-    border-bottom: 6px solid $color-black;
+    border-bottom: 8px solid $color-black;
     border-spacing: 6px;
   }
 
   .is-not-underlined {
-    border-bottom: 6px solid transparent;
+    border-bottom: 8px solid transparent;
     border-spacing: 6px;
   }
 }
