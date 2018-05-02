@@ -43,6 +43,7 @@ const PositionDetailsItem = (props) => {
     onHighlight,
   } = props;
 
+  const isHighlightLoading = highlightPosition.loading;
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
@@ -93,7 +94,7 @@ const PositionDetailsItem = (props) => {
           <ServiceNeededToggle
             userProfile={userProfile}
             position={details}
-            loading={highlightPosition.loading}
+            loading={isHighlightLoading}
             onChange={onHighlight}
           />
           <HowToBid />

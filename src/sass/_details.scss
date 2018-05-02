@@ -308,6 +308,24 @@
     margin-bottom: 10px;
     margin-left: 1px;
     margin-top: 10px;
+
+    .fa::before,
+    .ds-c-spinner::before {
+      top: 1px;
+    }
+
+    $spinner-size: 14px;
+
+    .ds-c-spinner {
+      margin-right: 4px;
+
+      &,
+      &::before,
+      &::after {
+        height: $spinner-size;
+        width: $spinner-size;
+      }
+    }
   }
 }
 

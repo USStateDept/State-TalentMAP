@@ -25,7 +25,6 @@ export function highlightPositionFetchData() {
     const url = '/position/highlighted/';
 
     dispatch(highlightPositionIsLoading(true));
-    dispatch(highlightPositionHasErrored(false));
 
     api
       .get(url)
@@ -47,7 +46,6 @@ export function getHighlightedPosition(id) {
     const url = `/position/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
-    dispatch(highlightPositionHasErrored(false));
 
     api
       .get(url)
@@ -68,14 +66,12 @@ export function putHighlightedPosition(id) {
     const url = `/position/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
-    dispatch(highlightPositionHasErrored(false));
 
     api
       .put(url)
       .then(response => response.data)
       .then(() => {
         dispatch(highlightPositionHasErrored(false));
-        dispatch(highlightPositionIsLoading(false));
         dispatch(highlightPositionFetchData());
         dispatch(positionDetailsPatchState({
           id,
@@ -101,7 +97,6 @@ export function deleteHighlightPosition(id) {
       .then(response => response.data)
       .then(() => {
         dispatch(highlightPositionHasErrored(false));
-        dispatch(highlightPositionIsLoading(false));
         dispatch(highlightPositionFetchData());
         dispatch(positionDetailsPatchState({
           id,
