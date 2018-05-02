@@ -15,20 +15,32 @@ const props = {
 };
 
 describe('ServiceNeededToggle', () => {
-  it('is defined', () => {
+  beforeEach(() => {
     props.userProfile.is_superuser = true;
+  });
+
+  it('is defined', () => {
     const toggle = shallow(<ServiceNeededToggle {...props} />);
     expect(toggle.html()).not.toBeNull();
   });
 
-  it('Only renders when user is superuser', () => {
+  it('only renders when user is superuser', () => {
     props.userProfile.is_superuser = false;
     const toggle = shallow(<ServiceNeededToggle {...props} />);
     expect(toggle.html()).toBeNull();
   });
 
+  it('verifies loading state renders and refreshes', () => {
+    let toggle;
+
+    toggle = shallow(<ServiceNeededToggle {...props} loading />);
+    expect(toggle.find('.ds-c-spinner').length).toBe(1);
+
+    toggle = shallow(<ServiceNeededToggle {...props} loading={false} />);
+    expect(toggle.find('.ds-c-spinner').length).toBe(0);
+  });
+
   it('matches snapshot', () => {
-    props.userProfile.is_superuser = true;
     const toggle = shallow(<ServiceNeededToggle {...props} />);
     expect(toJSON(toggle)).toMatchSnapshot();
   });
