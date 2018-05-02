@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import TestUtils from 'react-dom/test-utils';
 import thunk from 'redux-thunk';
+import { testDispatchFunctions } from '../testUtilities/testUtilities';
 
-import Login from './index';
+import Login, { mapDispatchToProps } from './index';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares)({});
@@ -55,4 +56,12 @@ describe('Login', () => {
 
     expect(wrapper).toBeDefined();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    onSubmit: [{ username: 'u', password: 'p' }],
+    tokenValidationRequest: ['token'],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });
