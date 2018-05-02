@@ -29,6 +29,18 @@ describe('reducers', () => {
     expect(state).toEqual(expected);
   });
 
+  it('can set error state', () => {
+    const action = { type: HIGHLIGHT_POSITION_HAS_ERRORED, error: true };
+    const state = reducer(initialState, action);
+    const expected = {
+      success: false,
+      error: true,
+      loading: false,
+    };
+
+    expect(state).toEqual(expected);
+  });
+
   it('can set loading state', () => {
     const action = { type: HIGHLIGHT_POSITION_IS_LOADING, loading: true };
     const state = reducer(initialState, action);
