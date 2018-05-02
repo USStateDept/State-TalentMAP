@@ -36,6 +36,7 @@ import { validStateEmail,
          mapSavedSearchesToSingleQuery,
          mapSavedSearchToDescriptions,
          difference,
+         redirectToLoginRedirect,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -702,5 +703,16 @@ describe('difference', () => {
     };
 
     expect(diff).toEqual(expected);
+  });
+});
+
+describe('redirectToLoginRedirect', () => {
+  it('assigns a new window location', () => {
+    let newLocation;
+    process.env.PUBLIC_URL = '/test';
+    // eslint-disable-next-line no-return-assign
+    window.location.assign = loc => newLocation = loc;
+    redirectToLoginRedirect();
+    expect(newLocation).toBe('/test/loginRedirect');
   });
 });
