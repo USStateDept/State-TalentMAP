@@ -115,7 +115,8 @@
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
-    "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html"
+    "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html",
+    "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json"
   },
   "jest": {
     "collectCoverageFrom": [

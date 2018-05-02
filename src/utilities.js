@@ -6,6 +6,11 @@ import { get } from 'lodash';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
+const cloneDeep = require('lodash/cloneDeep');
+const get = require('lodash/get');
+const keys = require('lodash/keys');
+const isNumber = require('lodash/isNumber');
+
 const scroll = Scroll.animateScroll;
 
 export function localStorageFetchValue(key, value) {

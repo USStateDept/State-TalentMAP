@@ -1,8 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import { map, zipObject } from 'lodash';
 import DefinitionList, { Definition } from './';
+
+const map = require('lodash/map');
+const zipObject = require('lodash/zipObject');
 
 const mock = [
   { term: 'Term #1', definition: 'Definition #1' },
