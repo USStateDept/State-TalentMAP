@@ -17,7 +17,7 @@ Install dependencies with `yarn install` or `npm i`
 
 ### EditorConfig
 
-We use [EditorConfig](http://editorconfig.org/) to ensure consistency across file formats and code editing environments.  EditorConfig supports a variety of popular code editors listed [here](http://editorconfig.org/#download). 
+We use [EditorConfig](http://editorconfig.org/) to ensure consistency across file formats and code editing environments.  EditorConfig supports a variety of popular code editors listed [here](http://editorconfig.org/#download).
 
 ## Running the App
 
@@ -25,16 +25,13 @@ We use [EditorConfig](http://editorconfig.org/) to ensure consistency across fil
 
 You will need the [State TalentMAP API](https://github.com/18F/State-TalentMAP-API) running locally in order for this application to make requests to the API.
 
-### React Application 
+### React Application
 
+#### `yarn start` or `npm start`
 
-#### `yarn start` or `npm start` 
+Runs the app in development mode.  Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Runs the app in development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will see the build errors and lint warnings in the console.
+The page will reload if you make edits.  You will see the build errors and lint warnings in the console.
 
 <img src='https://camo.githubusercontent.com/41678b3254cf583d3186c365528553c7ada53c6e/687474703a2f2f692e696d6775722e636f6d2f466e4c566677362e706e67' width='600' alt='Build errors'>
 
@@ -47,15 +44,21 @@ By default, runs tests related to files changed since the last commit.
 
 #### `yarn build` or `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder.  It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-By default, it also [includes a service worker](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app) so that your app loads from local cache on future visits.
+The build is minified and the filenames include the hashes.  By default, it also [includes a service worker](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app) so that your app loads from local cache on future visits.
 
 Your app is ready to be deployed.
 
 See the [create-react-app](https://github.com/facebookincubator/create-react-app) documentation for more details.
+
+## Docker
+
+The front end application is Dockerized and available in a `docker-compose` stack with the API.  Setup and more available [here](DOCKER.md).
+
+## Deploying
+
+There is a brief deployment guide [here](DEPLOY.md) that discusses deployment up the front end application.  For more thorough intructions, including the API, checkout out the [wiki](https://github.com/18F/State-TalentMAP/wiki/Deployment-Guide).
 
 ## Accessibility
 
