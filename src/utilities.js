@@ -2,8 +2,13 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
-import { cloneDeep, get, keys, merge as merge$, isNumber } from 'lodash';
+import { merge as merge$ } from 'lodash/merge';
 import { VALID_PARAMS } from './Constants/EndpointParams';
+
+const cloneDeep = require('lodash/cloneDeep');
+const get = require('lodash/get');
+const keys = require('lodash/keys');
+const isNumber = require('lodash/isNumber');
 
 const scroll = Scroll.animateScroll;
 

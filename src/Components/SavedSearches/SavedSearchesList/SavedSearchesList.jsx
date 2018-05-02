@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ScrollArea from 'react-scrollbar/dist/no-css';
-import { merge } from 'lodash';
 import SavedSearchesListResultsCard from '../SavedSearchesListResultsCard';
 import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
 import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
+
+const merge = require('lodash/merge');
 
 class SavedSearchesList extends Component {
   constructor(props) {
