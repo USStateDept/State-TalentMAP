@@ -1,3 +1,4 @@
+import { merge } from 'lodash';
 import {
   HIGHLIGHT_POSITION_HAS_ERRORED,
   HIGHLIGHT_POSITION_IS_LOADING,
@@ -10,7 +11,7 @@ export const initialState = {
 };
 
 export default function highlightPositionsReducer(state = initialState, action) {
-  const newState = state;
+  const newState = merge({}, state);
 
   switch (action.type) {
     case HIGHLIGHT_POSITION_HAS_ERRORED:
@@ -28,6 +29,6 @@ export default function highlightPositionsReducer(state = initialState, action) 
     default:
       break;
   }
-  console.log([action.type, newState.loading]);
+
   return newState;
 }

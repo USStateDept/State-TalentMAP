@@ -35,6 +35,7 @@ import { validStateEmail,
          getDifferentialPercentage,
          mapSavedSearchesToSingleQuery,
          mapSavedSearchToDescriptions,
+         difference,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -611,5 +612,95 @@ describe('mapSavedSearchToDescriptions', () => {
     );
     const expected = ['german', 'test A'];
     expect(isEqual(mappedDescriptions, expected)).toBe(true);
+  });
+});
+
+describe('difference', () => {
+  it('verify diff between 2 - 1 level objects when there ARE differences', () => {
+    const itemA = {
+      boolean: true,
+      array: null,
+    };
+
+    const itemB = {
+      boolean: false,
+      array: [],
+      new: 'I am new!',
+    };
+
+    const diff = difference(itemA, itemB);
+    const expected = {
+      boolean: false,
+      array: [],
+      new: 'I am new!',
+    };
+
+    expect(diff).toEqual(expected);
+  });
+
+  it('verify diff between 2 - 1 level objects when there NO differences', () => {
+    const itemA = {
+      boolean: true,
+      array: [],
+      string: 'string',
+    };
+
+    const itemB = {
+      boolean: true,
+      array: [],
+    };
+
+    const diff = difference(itemA, itemB);
+    const expected = {};
+
+    expect(diff).toEqual(expected);
+  });
+
+  it('verify diff between 2 - deep level objects', () => {
+    const itemA = {
+      data: {
+        boolean: false,
+        number: -1,
+        key: 'key',
+      },
+
+      params: {
+        config: '/var/usr/app',
+        count: 0,
+        data: {
+          boolean: false,
+          page: 1,
+        },
+      },
+    };
+
+    const itemB = {
+      data: {
+        boolean: false,
+        number: -1,
+        key: 'key',
+      },
+
+      params: {
+        config: '/var/usr/app',
+        count: 320,
+        data: {
+          boolean: false,
+          page: 10,
+        },
+      },
+    };
+
+    const diff = difference(itemA, itemB);
+    const expected = {
+      params: {
+        count: 320,
+        data: {
+          page: 10,
+        },
+      },
+    };
+
+    expect(diff).toEqual(expected);
   });
 });

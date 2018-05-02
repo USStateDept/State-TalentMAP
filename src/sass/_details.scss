@@ -311,6 +311,7 @@
 
     .fa::before,
     .ds-c-spinner::before {
+      position: relative;
       top: 1px;
     }
 

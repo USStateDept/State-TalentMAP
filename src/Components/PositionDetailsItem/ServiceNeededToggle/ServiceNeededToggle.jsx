@@ -14,25 +14,6 @@ export default class ServiceNeededToggle extends Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.state = {
-      loading: props.loading,
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps');
-    console.log(nextProps.loading);
-  }
-
-  shouldComponentUpdate(props) {
-    console.log('shouldComponentUpdate');
-    console.log([this.state.loading, props.loading]);
-    if (this.state.loading !== props.loading) {
-      this.setState({ loading: props.loading });
-      // this
-    }
-
-    return true;
   }
 
   onClick() {
@@ -54,7 +35,6 @@ export default class ServiceNeededToggle extends Component {
   }
 
   render() {
-    const { loading } = this.props;
     const props = this.props;
     const user = props.userProfile;
     const wrapper = {
@@ -74,11 +54,7 @@ export default class ServiceNeededToggle extends Component {
     options.className = options.className
       .join(' ')
       .trim();
-    console.log(loading);
-    console.log(!props.loading ?
-      (<FontAwesome name={this.icon} />) :
-      (<div className="ds-c-spinner" />),
-    );
+
     return isSuperuser ?
       (<div {...wrapper}>
         <InteractiveElement {...options}>
@@ -96,7 +72,7 @@ ServiceNeededToggle.propTypes = {
   className: PropTypes.string,
   position: POSITION_DETAILS,
   userProfile: USER_PROFILE,
-  loading: PropTypes.bool,
+  loading: PropTypes.bool.isRequired,
   onChange: PropTypes.func,
 };
 
@@ -105,6 +81,6 @@ ServiceNeededToggle.defaultProps = {
   className: '',
   position: {},
   userProfile: {},
-  loading: null,
+  loading: false,
   onChange: EMPTY_FUNCTION,
 };
