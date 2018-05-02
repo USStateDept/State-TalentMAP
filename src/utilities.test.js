@@ -34,6 +34,7 @@ import { validStateEmail,
          getDifferentialPercentage,
          mapSavedSearchesToSingleQuery,
          mapSavedSearchToDescriptions,
+         redirectToLoginRedirect,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -610,5 +611,16 @@ describe('mapSavedSearchToDescriptions', () => {
     );
     const expected = ['german', 'test A'];
     expect(isEqual(mappedDescriptions, expected)).toBe(true);
+  });
+});
+
+describe('redirectToLoginRedirect', () => {
+  it('assigns a new window location', () => {
+    let newLocation;
+    process.env.PUBLIC_URL = '/test';
+    // eslint-disable-next-line no-return-assign
+    window.location.assign = loc => newLocation = loc;
+    redirectToLoginRedirect();
+    expect(newLocation).toBe('/test/loginRedirect');
   });
 });
