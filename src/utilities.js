@@ -494,11 +494,19 @@ export const redirectToLogout = () => {
   window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };
 
-export const difference = (object, base) => transform(object, (result, value, key) => {
+/**
+ * ~ Returns a Deep Diff Object Between 2 Objects (First parameter as base) ~
+ * base = { param1: true, param2: 'loading' };
+ * object = { param1: false, param2: 'loading' };
+ *
+ * difference(base, object) => { param1: false }
+ * difference(object, base) => { param1: true }
+ */
+export const difference = (base, object) => transform(object, (result, value, key) => {
   /* eslint-disable no-param-reassign */
   if (!isEqual(value, base[key])) {
     result[key] = isObject(value) && isObject(base[key]) ?
-      difference(value, base[key]) :
+      difference(base[key], value) :
       value;
   }
   /* eslint-enable no-param-reassign */
