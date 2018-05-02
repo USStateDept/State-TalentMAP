@@ -15,22 +15,24 @@ export default class ServiceNeededToggle extends Component {
     super(props);
     this.onClick = this.onClick.bind(this);
     this.state = {
-      loading: props.loading || false,
+      loading: props.loading,
     };
   }
 
-  shouldComponentUpdate(props) {
-    let isUpdate = true;
+  componentWillReceiveProps(nextProps) {
+    console.log('componentWillReceiveProps');
+    console.log(nextProps.loading);
+  }
 
-    // If update changes state, don't update the component
+  shouldComponentUpdate(props) {
+    console.log('shouldComponentUpdate');
+    console.log([this.state.loading, props.loading]);
     if (this.state.loading !== props.loading) {
-      isUpdate = false;
-      this.setState({
-        loading: props.loading,
-      });
+      this.setState({ loading: props.loading });
+      // this
     }
 
-    return isUpdate;
+    return true;
   }
 
   onClick() {
@@ -52,11 +54,11 @@ export default class ServiceNeededToggle extends Component {
   }
 
   render() {
+    const { loading } = this.props;
     const props = this.props;
-    const state = this.state;
     const user = props.userProfile;
     const wrapper = {
-      className: ['service-needed-toggle'],
+      className: 'service-needed-toggle',
     };
 
     const isSuperuser = user.is_superuser;
@@ -65,26 +67,25 @@ export default class ServiceNeededToggle extends Component {
       onClick: this.onClick,
     };
 
-    if (state.checked) {
+    if (this.checked) {
       options.className.push('usa-button-active');
     }
 
     options.className = options.className
       .join(' ')
       .trim();
-
-    if (state.loading) {
-      wrapper.className.push('ds-c-spinner');
-    }
-
-    wrapper.className = wrapper.className
-      .join(' ')
-      .trim();
-
+    console.log(loading);
+    console.log(!props.loading ?
+      (<FontAwesome name={this.icon} />) :
+      (<div className="ds-c-spinner" />),
+    );
     return isSuperuser ?
       (<div {...wrapper}>
         <InteractiveElement {...options}>
-          <FontAwesome name={this.icon} /> {this.text}
+          {!props.loading ?
+            (<FontAwesome name={this.icon} />) :
+            (<div className="ds-c-spinner" />)
+          } {this.text}
         </InteractiveElement>
       </div>) : (null);
   }
@@ -104,6 +105,6 @@ ServiceNeededToggle.defaultProps = {
   className: '',
   position: {},
   userProfile: {},
-  loading: false,
+  loading: null,
   onChange: EMPTY_FUNCTION,
 };

@@ -6,6 +6,7 @@ import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import OBCUrl from '../OBCUrl';
 
+  const isHighlightLoading = highlightPosition.loading;
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 

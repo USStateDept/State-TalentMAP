@@ -20,7 +20,7 @@ export default function highlightPositionsReducer(state = initialState, action) 
       break;
 
     case HIGHLIGHT_POSITION_IS_LOADING:
-      newState.loading = true;
+      newState.loading = action.loading;
       newState.success = false;
       newState.error = false;
       break;
@@ -28,6 +28,6 @@ export default function highlightPositionsReducer(state = initialState, action) 
     default:
       break;
   }
-
+  console.log([action.type, newState.loading]);
   return newState;
 }
