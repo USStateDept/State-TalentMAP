@@ -62,6 +62,15 @@ describe('GlossaryEditorCardComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('can call the hasDefinitionChanged function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<GlossaryEditorCard {...props} submitGlossaryTerm={spy} />);
+    const instance = wrapper.instance();
+    instance.state.newDefinition = 'a term';
+    wrapper.setProps({ ...props, term: { definition: 'brand new term' } });
+    expect(instance.hasDefinitionChanged).toBe(true);
+  });
+
   it('can display the zero length alert', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<GlossaryEditorCard {...props} submitGlossaryTerm={spy} />);

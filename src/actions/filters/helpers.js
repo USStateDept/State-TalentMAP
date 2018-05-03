@@ -19,44 +19,46 @@ export function getCustomGradeDescription(gradeCode) {
 
 // create a custom description based on the filter type
 export function getFilterCustomDescription(filterItem, filterItemObject) {
-  if (filterItem.item.description === 'region') {
-    return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
-  } else if (filterItem.item.description === 'skill') {
-    return `${filterItemObject.description} (${filterItemObject.code})`;
-  } else if (filterItem.item.description === 'post') {
-    return getPostName(filterItemObject);
-  } else if (filterItem.item.description === 'bidCycle') {
-    return filterItemObject.name;
-  } else if (filterItem.item.description === 'language') {
-    return `${filterItemObject.formal_description} (${filterItemObject.code})`;
-  } else if (filterItem.item.description === 'postDiff') {
-    return filterItemObject.description;
-  } else if (filterItem.item.description === 'dangerPay') {
-    return filterItemObject.description;
-  } else if (filterItem.item.description === 'grade') {
-    return getCustomGradeDescription(filterItemObject.code);
-  } else if (filterItemObject.description === 'functionalRegion') {
-    return filterItemObject.description;
+  switch (filterItem.item.description) {
+    case 'region':
+      return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
+    case 'skill':
+      return `${filterItemObject.description} (${filterItemObject.code})`;
+    case 'post':
+      return getPostName(filterItemObject);
+    case 'bidCycle':
+      return filterItemObject.name;
+    case 'language':
+      return `${filterItemObject.formal_description} (${filterItemObject.code})`;
+    case 'grade':
+      return getCustomGradeDescription(filterItemObject.code);
+    case 'postDiff':
+    case 'dangerPay':
+    case 'functionalRegion':
+      return filterItemObject.description;
+    default:
+      return false;
   }
-  return false;
 }
 
 // Our standard method for getting a pill description.
 // Pass a customType string for special rendering.
 export function getPillDescription(filterItemObject, customType) {
-  if (customType === 'dangerPay') {
-    return `Danger pay: ${filterItemObject.description}`;
-  } else if (customType === 'postDiff') {
-    return `Post differential: ${filterItemObject.description}`;
-  } else if (customType === 'language') {
-    return filterItemObject.custom_description;
+  switch (customType) {
+    case 'dangerPay':
+      return `Danger pay: ${filterItemObject.description}`;
+    case 'postDiff':
+      return `Post differential: ${filterItemObject.description}`;
+    case 'language':
+      return filterItemObject.custom_description;
+    default:
+      return filterItemObject.short_description ||
+      filterItemObject.description ||
+      filterItemObject.long_description ||
+      filterItemObject.code ||
+      filterItemObject.name ||
+      '';
   }
-  return filterItemObject.short_description ||
-    filterItemObject.description ||
-    filterItemObject.long_description ||
-    filterItemObject.code ||
-    filterItemObject.name ||
-    '';
 }
 
 // when getting pill descriptions for posts or missions, perform alternate method

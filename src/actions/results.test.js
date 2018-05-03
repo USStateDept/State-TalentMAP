@@ -41,6 +41,11 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/position/1/similar/?limit=3').reply(200,
       results,
     );
+
+    // We'll use this mock to provide coverage in /src/api.js
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/2/similar/?limit=3').reply(401,
+      'Invalid token',
+    );
   });
 
   it('can fetch positions', (done) => {
@@ -61,7 +66,20 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.resultsFetchSimilarPositions(''));
+        store.dispatch(actions.resultsFetchSimilarPositions(1));
+        store.dispatch(actions.resultsSimilarPositionsIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching similar positions', (done) => {
+    const store = mockStore({ results: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.resultsFetchSimilarPositions(2));
         store.dispatch(actions.resultsSimilarPositionsIsLoading());
         done();
       }, 0);

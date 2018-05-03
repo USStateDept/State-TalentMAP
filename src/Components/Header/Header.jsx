@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
+import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
-import { logoutRequest } from '../../login/actions';
+import { authRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import StateBanner from './StateBanner/StateBanner';
@@ -132,6 +133,7 @@ export class Header extends Component {
           Skip to main content
         </InteractiveElement>
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
+          <ToggleContent />
           <StateBanner />
           <BetaHeader />
           <div className="usa-navbar padded-main-content padded-main-content--header">
@@ -219,7 +221,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
-  logout: () => dispatch(logoutRequest()),
+  logout: () => dispatch(authRequest(false)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
   setSearchFilters: query => dispatch(setSelectedSearchbarFilters(query)),
