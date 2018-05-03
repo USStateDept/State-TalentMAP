@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import OBCUrl from '../OBCUrl';
+import BidListButton from '../BidListButton';
 import Favorite from '../Favorite/Favorite';
-import ViewPostDataButton from '../ViewPostDataButton';
 import BidCount from '../BidCount';
-import { POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
 import { NO_POST } from '../../Constants/SystemMessages';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
-const PositionTitle = ({ details, toggleFavorite, userProfile,
-  userProfileFavoritePositionIsLoading }) => {
+const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, userProfile,
+  userProfileFavoritePositionIsLoading, bidListToggleIsLoading }) => {
   const obcId = propOrDefault(details, 'post.obc_id');
   const stats = getBidStatisticsObject(details.bid_statistics);
   return (
@@ -62,9 +62,12 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
         </div>
       </div>
       <div className="offset-bid-button-container">
-        <div className="offset-bid-button-container-button">
-          { !!obcId && <ViewPostDataButton id={obcId} /> }
-        </div>
+        <BidListButton
+          toggleBidPosition={toggleBidPosition}
+          compareArray={bidList.results}
+          id={details.id}
+          isLoading={bidListToggleIsLoading}
+        />
       </div>
     </div>
   );
@@ -72,6 +75,9 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
+  toggleBidPosition: PropTypes.func.isRequired,
+  bidList: BID_LIST.isRequired,
+  bidListToggleIsLoading: PropTypes.bool,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
@@ -83,5 +89,6 @@ PositionTitle.defaultProps = {
   userProfileFavoritePositionIsLoading: false,
   userProfile: {},
 };
+
 
 export default PositionTitle;

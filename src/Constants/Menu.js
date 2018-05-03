@@ -73,7 +73,21 @@ export const PROFILE_MENU = MenuConfig([
           'bidcycle_admin',
         ],
       },
+      {
+        text: 'Bidder Portfolio',
+        route: '/profile/bidderportfolio',
+        isCDO: true,
+        params: {
+          type: 'all',
+        },
+      },
     ],
+  },
+  {
+    text: 'Statistics',
+    icon: 'pie-chart',
+    route: '/profile/statistics',
+    isCDO: true,
   },
   {
     text: 'Glossary Editor',
