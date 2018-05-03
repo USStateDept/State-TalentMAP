@@ -12,6 +12,7 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
 >
   <ResultsCard
     favorites={Array []}
+    id="6-1"
     onToggle={[Function]}
     result={
       Object {
@@ -98,6 +99,7 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
   />
   <ResultsCard
     favorites={Array []}
+    id="60-1"
     onToggle={[Function]}
     result={
       Object {

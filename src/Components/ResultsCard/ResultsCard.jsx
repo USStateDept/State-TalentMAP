@@ -30,6 +30,7 @@ import {
 const ResultsCard = (props) => {
   const options = {};
   const {
+    id,
     result,
     onToggle,
     favorites,
@@ -107,14 +108,14 @@ const ResultsCard = (props) => {
   return (
     <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
       {() => (
-        <div id={result.id} className="results-card">
+        <div id={id} className="results-card">
           <Row className="header" fluid>
             <Column columns="6">
               <h3>{title}</h3>
               <Link to={`/details/${result.position_number}`}>View position</Link>
             </Column>
           </Row>
-          <Row id={result.id} fluid>
+          <Row id={`${id}-inner`} fluid>
             <Column columns="6">
               <DefinitionList items={sections[0]} />
             </Column>
@@ -146,6 +147,7 @@ const ResultsCard = (props) => {
 
 
 ResultsCard.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   result: POSITION_DETAILS.isRequired,
   onToggle: PropTypes.func.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
