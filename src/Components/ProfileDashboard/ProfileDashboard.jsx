@@ -9,6 +9,8 @@ import Notifications from './Notifications';
 import Spinner from '../Spinner';
 import StaticDevContent from '../StaticDevContent';
 import ProfileSectionTitle from '../ProfileSectionTitle';
+import { Row, Column } from '../Layout';
+import MediaQueryWrapper from '../MediaQuery';
 
 const ProfileDashboard = ({
   userProfile, isLoading, assignment, assignmentIsLoading, notifications,
@@ -22,40 +24,47 @@ const ProfileDashboard = ({
         <div className="usa-grid-full dashboard-top-section">
           <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} />
         </div>
-        <div className="usa-grid-full">
-          <div
-            className={`usa-width-one-fourth user-dashboard-section-container
-              user-dashboard-column-1`}
-          >
-            <div className="usa-width-one-whole user-dashboard-section current-user-section">
-              <UserProfile userProfile={userProfile} />
-            </div>
-            <div className="usa-width-one-whole user-dashboard-section cdo-section">
-              <StaticDevContent>
-                <ExternalUserStatus type="cdo" initials="LS" firstName="Leah" lastName="Shadtrach" small />
-              </StaticDevContent>
-            </div>
-          </div>
-          <div
-            className={`usa-width-one-fourth user-dashboard-section-container
-              user-dashboard-column-2`}
-          >
-            <div className="usa-width-one-whole user-dashboard-section position-info-section">
-              <PositionInformation assignment={assignment} />
-            </div>
-            <div className="usa-width-one-whole user-dashboard-section notifications-section">
-              <Notifications notifications={notifications} />
-            </div>
-          </div>
-          <div
-            className={`usa-width-one-half user-dashboard-section-container
-              user-dashboard-column-3`}
-          >
-            <div className="usa-width-one-whole user-dashboard-section bidlist-section">
-              <BidList bids={bidList} />
-            </div>
-          </div>
-        </div>
+        <MediaQueryWrapper breakpoint="screenSmMax" widthType="max">
+          {(matches) => {
+            const columns = !matches ? [3, 3, 6] : [12, 12, 12];
+            return (
+              <Row className="usa-grid-full">
+                <Column
+                  columns={columns[0]}
+                  className={'user-dashboard-section-container user-dashboard-column-1'}
+                >
+                  <div className="usa-width-one-whole user-dashboard-section current-user-section">
+                    <UserProfile userProfile={userProfile} />
+                  </div>
+                  <div className="usa-width-one-whole user-dashboard-section cdo-section">
+                    <StaticDevContent>
+                      <ExternalUserStatus type="cdo" initials="LS" firstName="Leah" lastName="Shadtrach" small />
+                    </StaticDevContent>
+                  </div>
+                </Column>
+                <Column
+                  columns={columns[1]}
+                  className={'user-dashboard-section-container user-dashboard-column-2'}
+                >
+                  <div className="usa-width-one-whole user-dashboard-section position-info-section">
+                    <PositionInformation assignment={assignment} />
+                  </div>
+                  <div className="usa-width-one-whole user-dashboard-section notifications-section">
+                    <Notifications notifications={notifications} />
+                  </div>
+                </Column>
+                <Column
+                  columns={columns[2]}
+                  className="user-dashboard-section-container user-dashboard-column-3"
+                >
+                  <div className="usa-width-one-whole user-dashboard-section bidlist-section">
+                    <BidList bids={bidList} />
+                  </div>
+                </Column>
+              </Row>
+            );
+          }}
+        </MediaQueryWrapper>
       </div>
     )}
   </div>
