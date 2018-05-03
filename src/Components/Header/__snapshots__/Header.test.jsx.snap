@@ -17,6 +17,7 @@ exports[`Header matches snapshot when logged in 1`] = `
     id="header"
     role="banner"
   >
+    <Connect(Component) />
     <StateBanner />
     <BetaHeader />
     <div
@@ -98,6 +99,7 @@ exports[`Header matches snapshot when logged out 1`] = `
     id="header"
     role="banner"
   >
+    <Connect(Component) />
     <StateBanner />
     <BetaHeader />
     <div

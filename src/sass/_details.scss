@@ -7,10 +7,20 @@
     padding: 1em 4em;
   }
 
+  .bid-count-label {
+    font-weight: normal;
+    margin: .3em 1.2em 0 0;
+  }
+
+  .position-title-bid-count {
+    .bid-count-list {
+      float: left;
+    }
+  }
+
   @media screen and (max-width: $screen-xs-max) {
-    .post-data-button {
-      font-size: 1.5rem;
-      padding: 1em 2em;
+    .favorite-container {
+      max-width: 50%;
     }
   }
 }
@@ -48,6 +58,10 @@
 
   .header-title-container {
     border-right: 1px solid $bg-gray-dark-2;
+
+    @media screen and (max-width: $screen-xs-max) {
+      border-right: 0;
+    }
   }
 
   .post-title {
@@ -198,14 +212,18 @@
 }
 
 .offset-bid-button-container {
-  bottom: -45%;
+  bottom: -27%;
   left: 65%;
   position: absolute;
 
   .bid-list-button,
   a {
-    box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
+    box-shadow: $button-box-shadow;
     padding: 1em 3em;
+
+    @media screen and (max-width: $screen-xs-max) {
+      padding: .5em 2em;
+    }
   }
 
   .offset-bid-button-container-count {
@@ -216,15 +234,10 @@
       white-space: nowrap;
     }
   }
+}
 
-  .bid-count-list {
-    padding: 0;
-  }
-
-  .bid-count-list
-  li {
-    color: $color-white;
-  }
+.offset-bid-count-container {
+  bottom: 29%;
 }
 
 .edit-description-alert-container {
@@ -303,6 +316,15 @@
   .contact-container:first-of-type {
     border-bottom: 0;
   }
+
+  .contact-container:nth-of-type(2):not(.no-button) {
+    padding-bottom: 4em;
+  }
+
+  .offset-bid-button-container {
+    bottom: -22%;
+    left: 5%;
+  }
 }
 
 .title-actions-section {
@@ -321,7 +343,9 @@
   }
 
   .favorite-container span {
-    margin-right: 10px;
+    &.fa {
+      margin-right: 10px;
+    }
   }
 }
 

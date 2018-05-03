@@ -25,4 +25,14 @@ describe('BidStatisticsComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when isLoading is true', () => {
+    const wrapper = shallow(
+      <BidStatistics
+        {...props}
+        isLoading
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

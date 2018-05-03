@@ -3,6 +3,11 @@
 exports[`PositionDetailsContact matches snapshot 1`] = `
 <div
   className="position-details-contact"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
 >
   <div
     className="contact-container"
@@ -35,10 +40,17 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
     </div>
   </div>
   <div
-    className="contact-container"
+    className="contact-container no-button"
   >
     Updated: 
     06/08/2017
+  </div>
+  <div
+    className="offset-bid-button-container"
+  >
+    <div
+      className="offset-bid-button-container-button"
+    />
   </div>
 </div>
 `;

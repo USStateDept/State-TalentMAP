@@ -6,6 +6,7 @@ import CheckBox from '../../CheckBox';
 import { getItemLabel, formatIdSpacing, propSort } from '../../../utilities';
 import AutoSuggest from '../../AutoSuggest';
 
+/* eslint-disable react/no-unused-prop-types */
 class PostFilter extends Component {
   constructor(props) {
     super(props);
@@ -60,11 +61,11 @@ class PostFilter extends Component {
   }
 
   getAllDomesticCodes(props = this.props) {
-    return props.item.data.slice().filter(b => b.location.country === 'United States');
+    return props.item.data.slice().filter(b => (b.location && b.location.country === 'United States'));
   }
 
   getAllOverseasCodes(props = this.props) {
-    return props.item.data.slice().filter(b => b.location.country !== 'United States');
+    return props.item.data.slice().filter(b => (b.location && b.location.country !== 'United States'));
   }
 
   render() {
@@ -187,8 +188,9 @@ PostFilter.propTypes = {
   queryProperty: PropTypes.string,
   autoSuggestProps: PropTypes.shape({}).isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
-  overseasIsSelected: PropTypes.bool,
-  domesticIsSelected: PropTypes.bool,
+  // these props are used by function param, so ignore lines:
+  overseasIsSelected: PropTypes.bool, // eslint-disable-line
+  domesticIsSelected: PropTypes.bool, // eslint-disable-line
 };
 
 PostFilter.defaultProps = {
@@ -196,5 +198,6 @@ PostFilter.defaultProps = {
   overseasIsSelected: false,
   domesticIsSelected: false,
 };
+/* eslint-enable react/no-unused-prop-types */
 
 export default PostFilter;

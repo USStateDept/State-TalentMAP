@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidCountComponent matches snapshot 1`] = `
-<div>
+<div
+  className="usa-grid-full bid-count-container "
+>
   <div
     className="bid-count-label"
     id="bid-counts"
@@ -33,7 +35,9 @@ exports[`BidCountComponent matches snapshot 1`] = `
 `;
 
 exports[`BidCountComponent matches snapshot when hideLabel is true 1`] = `
-<div>
+<div
+  className="usa-grid-full bid-count-container "
+>
   <div
     className="bid-count-label usa-sr-only"
     id="bid-counts"

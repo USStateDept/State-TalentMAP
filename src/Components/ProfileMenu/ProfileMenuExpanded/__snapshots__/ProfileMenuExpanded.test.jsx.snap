@@ -66,7 +66,20 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
@@ -144,7 +157,20 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
@@ -222,7 +248,20 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={true}
       iconName="book"
@@ -300,7 +339,20 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"

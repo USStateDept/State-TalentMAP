@@ -8,6 +8,7 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
     className="usa-grid-full condensed-card-footer-container"
   >
     <BidCount
+      altStyle={false}
       bidStatistics={
         Object {
           "at_skill": 5,
@@ -17,6 +18,7 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
         }
       }
       hideLabel={false}
+      label="Bid Count:"
     />
   </div>
 </div>
