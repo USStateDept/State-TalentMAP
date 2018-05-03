@@ -9,6 +9,8 @@ import Notifications from './Notifications';
 import Spinner from '../Spinner';
 import StaticDevContent from '../StaticDevContent';
 import ProfileSectionTitle from '../ProfileSectionTitle';
+import { Row, Column } from '../Layout';
+import MediaQueryWrapper from '../MediaQuery';
 
 const ProfileDashboard = ({ userProfile, isLoading, 
   favoritePositions, favoritePositionsIsLoading }) => (
