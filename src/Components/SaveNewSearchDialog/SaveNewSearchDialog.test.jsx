@@ -52,6 +52,22 @@ describe('SaveNewSearchDialogComponent', () => {
     expect(form.valueSec).toBe(savedSearch.id);
   });
 
+  it('can call the onSubmit function', () => {
+    const savedSearch = { id: 1, name: 'test' };
+    const spy = sinon.spy();
+    wrapper = shallow(
+      <SaveNewSearchDialog
+        onCancel={() => {}}
+        onTextChange={() => {}}
+        onFormSubmit={spy}
+        newSavedSearchHasErrored="error"
+        currentSavedSearch={savedSearch}
+      />,
+    );
+    wrapper.instance().onSubmit();
+    sinon.assert.calledOnce(spy);
+  });
+
   it('can call functions', () => {
     const cancelSpy = sinon.spy();
     const textSpy = sinon.spy();

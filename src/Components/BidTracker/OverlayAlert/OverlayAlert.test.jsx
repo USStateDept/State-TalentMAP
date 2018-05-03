@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import OverlayAlert from './OverlayAlert';
-import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
+import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP,
   HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP } from '../../../Constants/BidData';
 import bidListObject from '../../../__mocks__/bidListObject';
 
@@ -16,7 +16,7 @@ describe('OverlayAlertComponent', () => {
   };
 
   // All possible props, plus  fake prop to test the default case of the switch
-  const types = [APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP,
+  const types = [APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP,
     HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP, 'fake prop'];
 
   it('is defined', () => {

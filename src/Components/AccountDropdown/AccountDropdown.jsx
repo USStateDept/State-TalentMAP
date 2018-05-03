@@ -55,7 +55,7 @@ export class AccountDropdown extends Component {
             <strong>{displayName}</strong>
           </div>
           <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/profile/dashboard" onClick={this.hideDropdown}>Profile</Link>
-          <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/login" onClick={this.logout}>Logout</Link>
+          <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/logout" onClick={this.logout}>Logout</Link>
         </DropdownContent>
       </Dropdown>
     );

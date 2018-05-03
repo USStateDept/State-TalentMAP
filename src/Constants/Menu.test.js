@@ -39,7 +39,6 @@ describe('Menu', () => {
    *    required: boolean,
    *  }
    */
-  /* eslint-disable key-spacing, no-multi-spaces */
   const rules = {
     text: { type: 'string', required: true },
     icon: { type: 'string', required: false },
@@ -52,7 +51,6 @@ describe('Menu', () => {
     isGlossaryEditor: { type: 'boolean', required: false },
     children: { type: 'array', required: false },
   };
-  /* eslint-enable key-spacing, no-multi-spaces */
 
   const types = {
     array: isArray,

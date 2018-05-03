@@ -3,7 +3,9 @@ import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
 import { merge as merge$ } from 'lodash/merge';
+
 import { VALID_PARAMS } from './Constants/EndpointParams';
+import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
 const cloneDeep = require('lodash/cloneDeep');
 const get = require('lodash/get');
@@ -357,11 +359,14 @@ export const getBidStatisticsObject = (bidStatisticsArray) => {
 // replace spaces with hyphens so that id attributes are valid
 export const formatIdSpacing = (id) => {
   if (id) {
-    const idString = id.toString();
-    return idString.split(' ').join('-');
+    let idString = id.toString();
+    idString = idString.split(' ').join('-');
+    // remove any non-alphanumeric character, excluding hyphen
+    idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
+    return idString;
   }
-  // if id is not defined, return null
-  return null;
+  // if id is not defined, return a shortid
+  return shortid.generate();
 };
 
 // provide an array of permissions to check if they all exist in an array of user permissions
@@ -441,15 +446,15 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 };
 
 export const getPostName = (post, defaultValue = null) => {
-  if (propOrDefault(post, 'location.city')) {
-    if (propOrDefault(post, 'location.country') === 'United States') {
-      return `${post.location.city}, ${post.location.state}`;
-    }
-    return `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
+  let valueToReturn = defaultValue;
+  if (propOrDefault(post, 'location.city') && propOrDefault(post, 'location.country') === 'United States') {
+    valueToReturn = `${post.location.city}, ${post.location.state}`;
+  } else if (propOrDefault(post, 'location.city')) {
+    valueToReturn = `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
   } else if (propOrDefault(post, 'code')) {
-    return post.code;
+    valueToReturn = post.code;
   }
-  return defaultValue;
+  return valueToReturn;
 };
 
 // returns the base application path,
@@ -475,4 +480,22 @@ export const getDifferentialPercentage = (differential, defaultValue = '') => {
     return `${differential}%`;
   }
   return defaultValue;
+};
+
+// redirect to express /login route
+export const redirectToLogin = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_ROUTE}`);
+};
+
+// redirect to react /loginRedirect route
+export const redirectToLoginRedirect = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_REDIRECT}`);
+};
+
+// redirect to express /logout route
+export const redirectToLogout = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };

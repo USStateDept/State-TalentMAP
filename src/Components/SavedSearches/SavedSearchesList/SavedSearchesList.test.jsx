@@ -23,15 +23,24 @@ describe('SavedSearchesListComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('is defined after componentDidMount', () => {
-    const wrapper = shallow(
-      <SavedSearchesList
-        {...props}
-      />,
-    );
-    window.addEventListener = sinon.spy();
-    wrapper.instance().componentDidMount();
-    expect(wrapper).toBeDefined();
+  [true, false].forEach((val) => {
+    it(`is defined after componentDidMount and $scroll = ${val}`, (done) => {
+      const wrapper = shallow(
+        <SavedSearchesList
+          {...props}
+        />,
+      );
+      wrapper.instance().scroll$ = val ? { handleWindowResize: () => {} } : false;
+      window.addEventListener = sinon.spy();
+      wrapper.instance().componentDidMount();
+      const f = () => {
+        setTimeout(() => {
+          expect(wrapper).toBeDefined();
+          done();
+        }, 0);
+      };
+      f();
+    });
   });
 
   it('is defined after componentWillUnmount', () => {
@@ -53,6 +62,38 @@ describe('SavedSearchesListComponent', () => {
     );
     expect(wrapper.instance().props.savedSearches.results[0].id)
       .toBe(searchObjectParent.results[0].id);
+  });
+
+  it('can call updateScroll', () => {
+    global.document.getElementById = () => ({ offsetHeight: 101 });
+    const wrapper = shallow(
+      <SavedSearchesList
+        {...props}
+      />,
+    );
+    wrapper.instance().container$ = true;
+    wrapper.instance().updateScroll();
+    expect(wrapper.instance().state.scroll.style.height).toBe(557);
+  });
+
+  it('can call setContainerRef', () => {
+    const wrapper = shallow(
+      <SavedSearchesList
+        {...props}
+      />,
+    );
+    wrapper.instance().setContainerRef(1);
+    expect(wrapper.instance().container$).toBe(1);
+  });
+
+  it('can call setScrollRef', () => {
+    const wrapper = shallow(
+      <SavedSearchesList
+        {...props}
+      />,
+    );
+    wrapper.instance().setScrollRef(1);
+    expect(wrapper.instance().scroll$).toBe(1);
   });
 
   it('displays an alert if there are no results', () => {

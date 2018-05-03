@@ -51,3 +51,58 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`ExternalUserStatusComponent matches snapshot when showMail is true 1`] = `
+<div
+  className="usa-grid-full cdo-container"
+>
+  <div
+    className="usa-grid-full cdo-container-inner section-padded-inner-container"
+  >
+    <div
+      className="profile-picture-container"
+    >
+      <Avatar
+        className=""
+        firstName="John"
+        initials=""
+        intiias="JD"
+        lastName="Doe"
+        onClick={[Function]}
+      />
+      <div
+        className="picture-status-container"
+      >
+        <Status
+          hideText={true}
+        />
+      </div>
+    </div>
+    <div
+      className="cdo-text-container"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <div
+          className="usa-width-one-whole cdo-header"
+        >
+          Career Development Officer
+        </div>
+        <div
+          className="usa-width-one-whole cdo-name"
+        >
+          <span
+            className="cdo-name-text"
+          >
+            John Doe
+          </span>
+          <MailToButton
+            email=""
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

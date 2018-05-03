@@ -11,6 +11,8 @@ class SavedSearchesList extends Component {
   constructor(props) {
     super(props);
     this.updateScroll = this.updateScroll.bind(this);
+    this.setScrollRef = this.setScrollRef.bind(this);
+    this.setContainerRef = this.setContainerRef.bind(this);
     this.state = {
       container$: null,
       scroll$: null,
@@ -41,6 +43,14 @@ class SavedSearchesList extends Component {
 
   componentWillUnmount() {
     window.addEventListener('resize', null);
+  }
+
+  setContainerRef(el) {
+    this.container$ = el;
+  }
+
+  setScrollRef(el) {
+    this.scroll$ = el;
   }
 
   updateScroll() {
@@ -83,10 +93,10 @@ class SavedSearchesList extends Component {
     if (savedSearchArray.length) { emptyListClass = ''; }
 
     return (
-      <div className="usa-grid-full" ref={(el) => { this.container$ = el; }}>
+      <div className="usa-grid-full" ref={this.setContainerRef}>
         {
           !!savedSearchArray.length &&
-          <ScrollArea {...this.state.scroll} ref={(el) => { this.scroll$ = el; }}>
+          <ScrollArea {...this.state.scroll} ref={this.setScrollRef}>
             <div className={`usa-grid-full saved-searches-list ${emptyListClass}`}>
               {savedSearchArray.map(s => s)}
             </div>
