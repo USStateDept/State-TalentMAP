@@ -35,6 +35,7 @@ const isNumber = require('lodash/isNumber');
 const ResultsCard = (props) => {
   const options = {};
   const {
+    id,
     result,
     onToggle,
     favorites,
@@ -121,7 +122,7 @@ const ResultsCard = (props) => {
   return (
     <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
       {() => (
-        <div id={result.id} className="results-card">
+        <div id={id} className="results-card">
           <Row className="header" fluid>
             <Column columns="6">
               <h3>{title}</h3>
@@ -164,6 +165,7 @@ const ResultsCard = (props) => {
 
 
 ResultsCard.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   result: POSITION_DETAILS.isRequired,
   onToggle: PropTypes.func.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
