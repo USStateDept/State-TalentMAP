@@ -3,7 +3,7 @@ import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
 import { merge as merge$ } from 'lodash/merge';
-
+import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
