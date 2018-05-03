@@ -18,6 +18,16 @@ describe('MultiSelectFilterContainerComponent', () => {
     expect(wrapper.instance().props.multiSelectFilterList[0].title).toBe(items[0].title);
   });
 
+  it('is defined title does not exist', () => {
+    const wrapper = shallow(
+      <MultiSelectFilterContainer
+        queryParamToggle={() => {}}
+        multiSelectFilterList={[{ expanded: true }]}
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <MultiSelectFilterContainer

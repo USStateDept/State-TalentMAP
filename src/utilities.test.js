@@ -1,4 +1,5 @@
 import sinon from 'sinon';
+import { isEqual } from 'lodash';
 import { validStateEmail,
          localStorageFetchValue,
          localStorageToggleValue,
@@ -32,7 +33,11 @@ import { validStateEmail,
          getAccessiblePositionNumber,
          getPostName,
          getDifferentialPercentage,
+         mapSavedSearchesToSingleQuery,
+         mapSavedSearchToDescriptions,
+         redirectToLoginRedirect,
        } from './utilities';
+import { searchObjectParent } from './__mocks__/searchObject';
 
 describe('local storage', () => {
   it('should be able to fetch the existence of a value when there is one values in the array', () => {
@@ -456,9 +461,11 @@ describe('formatIdSpacing', () => {
   });
 
   it('can format undefined values', () => {
-    expect(formatIdSpacing(undefined)).toBe(null);
-    expect(formatIdSpacing(null)).toBe(null);
-    expect(formatIdSpacing(false)).toBe(null);
+    // these will be randomly generated shortids, so we just check that they have length
+    // greater than 3
+    expect(formatIdSpacing(undefined).length).toBeGreaterThan(3);
+    expect(formatIdSpacing(null).length).toBeGreaterThan(3);
+    expect(formatIdSpacing(false).length).toBeGreaterThan(3);
   });
 });
 
@@ -584,5 +591,37 @@ describe('getDifferentialPercentage', () => {
 
   it('returns a custom default value for a differential of null', () => {
     expect(getDifferentialPercentage(null, 'custom')).toBe('custom');
+  });
+});
+
+describe('mapSavedSearchesToSingleQuery', () => {
+  const searches = searchObjectParent;
+  it('maps multiple saved searches to a single query', () => {
+    const mappedSearch = mapSavedSearchesToSingleQuery(searches);
+    const expected = { grade__code__in: '02', post__tour_of_duty__code__in: 'O', q: 'german', skill__code__in: '6080' };
+    expect(isEqual(mappedSearch, expected)).toBe(true);
+  });
+});
+
+describe('mapSavedSearchToDescriptions', () => {
+  const searches = searchObjectParent;
+  const mappedFilters = [{ selectionRef: 'skill__code__in', description: 'test A', codeRef: '6080' }];
+  it('maps saved searches to descriptions', () => {
+    const mappedDescriptions = mapSavedSearchToDescriptions(
+      searches.results[0].filters, mappedFilters,
+    );
+    const expected = ['german', 'test A'];
+    expect(isEqual(mappedDescriptions, expected)).toBe(true);
+  });
+});
+
+describe('redirectToLoginRedirect', () => {
+  it('assigns a new window location', () => {
+    let newLocation;
+    process.env.PUBLIC_URL = '/test';
+    // eslint-disable-next-line no-return-assign
+    window.location.assign = loc => newLocation = loc;
+    redirectToLoginRedirect();
+    expect(newLocation).toBe('/test/loginRedirect');
   });
 });

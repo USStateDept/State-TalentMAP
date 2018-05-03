@@ -1,6 +1,7 @@
+import sinon from 'sinon';
 import * as PropTypes from './PropTypes';
 
-describe('SystemMessages', () => {
+describe('PropTypes', () => {
   it('Should return LANGUAGES', () => {
     expect(PropTypes.LANGUAGES).toBeDefined();
   });
@@ -23,5 +24,12 @@ describe('SystemMessages', () => {
 
   it('Should return USER_PROFILE', () => {
     expect(PropTypes.USER_PROFILE).toBeDefined();
+  });
+
+  it('can call PREVENT_DEFAULT', () => {
+    const mock = { fn: PropTypes.PREVENT_DEFAULT };
+    const spy = sinon.spy(mock, 'fn');
+    mock.fn({ preventDefault: () => {} });
+    sinon.assert.calledOnce(spy);
   });
 });

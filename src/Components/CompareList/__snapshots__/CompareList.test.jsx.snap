@@ -111,7 +111,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Skill code
             </th>
             <td>
-              OFFICE MANAGEMENT (9017)
+              None listed
             </td>
             <td>
               SECURITY (2501)
@@ -124,7 +124,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Bureau
             </th>
             <td>
-              (AF) BUREAU OF AFRICAN AFFAIRS
+              None listed
             </td>
             <td>
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
@@ -150,7 +150,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Tour of duty
             </th>
             <td>
-              2 YRS (2 R & R)
+              None listed
             </td>
             <td>
               2 YRS (2 R & R)
@@ -225,7 +225,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               TED
             </th>
             <td>
-              03/13/2020
+              None listed
             </td>
             <td>
               03/13/2020
@@ -370,7 +370,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Skill code
             </th>
             <td>
-              OFFICE MANAGEMENT (9017)
+              None listed
             </td>
             <td>
               SECURITY (2501)
@@ -383,7 +383,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Bureau
             </th>
             <td>
-              (AF) BUREAU OF AFRICAN AFFAIRS
+              None listed
             </td>
             <td>
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
@@ -409,7 +409,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Tour of duty
             </th>
             <td>
-              2 YRS (2 R & R)
+              None listed
             </td>
             <td>
               2 YRS (2 R & R)
@@ -504,7 +504,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               TED
             </th>
             <td>
-              03/13/2020
+              None listed
             </td>
             <td>
               03/13/2020

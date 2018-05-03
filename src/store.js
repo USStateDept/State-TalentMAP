@@ -20,10 +20,10 @@ const middleware = routerMiddleware(history);
 
 function configureStore(initialState) {
   return createStore(
-        rootReducer,
-        initialState,
-        applyMiddleware(thunk, middleware, sagaMiddleware),
-    );
+    rootReducer,
+    initialState,
+    applyMiddleware(thunk, middleware, sagaMiddleware),
+  );
 }
 
 const store = configureStore();

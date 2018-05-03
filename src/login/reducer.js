@@ -1,12 +1,16 @@
+import { merge } from 'lodash';
+import { propOrDefault } from '../utilities';
+
 import {
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_REQUESTING,
   LOGOUT_SUCCESS,
+  TOKEN_VALIDATION_REQUESTING,
 } from './constants';
 
-const initialState = {
+export const initialState = {
   requesting: false,
   successful: false,
   messages: [],
@@ -15,58 +19,43 @@ const initialState = {
 };
 
 const reducer = function loginReducer(state = initialState, action) {
+  const state$ = merge({}, initialState);
+
   switch (action.type) {
+    case TOKEN_VALIDATION_REQUESTING:
     case LOGIN_REQUESTING:
-      return {
-        requesting: true,
-        successful: false,
-        messages: [{ body: 'Logging in...', time: new Date() }],
-        errors: [],
-        loggedIn: false,
-      };
+      state$.requesting = true;
+      state$.messages = [{ body: 'Logging in...', time: new Date() }];
+      break;
 
     case LOGIN_SUCCESS:
-      return {
-        errors: [],
-        messages: [],
-        requesting: false,
-        successful: true,
-        loggedIn: true,
-      };
+      state$.successful = true;
+      state$.loggedIn = true;
+      break;
 
     case LOGOUT_REQUESTING:
-      return {
-        requesting: true,
-        successful: false,
-        messages: [{ body: 'Logging out...', time: new Date() }],
-        errors: [],
-        loggedIn: true,
-      };
+      state$.requesting = true;
+      state$.messages = [{ body: 'Logging in...', time: new Date() }];
+      state$.loggedIn = true;
+      break;
 
     case LOGOUT_SUCCESS:
-      return {
-        errors: [],
-        messages: [],
-        requesting: false,
-        successful: true,
-        loggedIn: false,
-      };
+      state$.successful = true;
+      break;
 
     case LOGIN_ERROR:
-      return {
-        errors: state.errors.concat([{
-          body: action.error.toString(),
-          time: new Date(),
-        }]),
-        messages: [],
-        requesting: false,
-        successful: false,
-        loggedIn: false,
-      };
+      state$.errors = state.errors.concat([{
+        body: propOrDefault(action, 'error', '').toString(),
+        time: new Date(),
+      }]);
+
+      break;
 
     default:
-      return state;
+      break;
   }
+
+  return state$;
 };
 
 export default reducer;
