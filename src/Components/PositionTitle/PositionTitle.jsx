@@ -4,8 +4,9 @@ import Helmet from 'react-helmet';
 import OBCUrl from '../OBCUrl';
 import Favorite from '../Favorite/Favorite';
 import ViewPostDataButton from '../ViewPostDataButton';
+import BidCount from '../BidCount';
 import { POSITION_DETAILS, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
+import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
 import { NO_POST } from '../../Constants/SystemMessages';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
@@ -13,6 +14,7 @@ const seal = getAssetPath('/assets/img/us-flag.jpg');
 const PositionTitle = ({ details, toggleFavorite, userProfile,
   userProfileFavoritePositionIsLoading }) => {
   const obcId = propOrDefault(details, 'post.obc_id');
+  const stats = getBidStatisticsObject(details.bid_statistics);
   return (
     <div className="position-details-header-container">
       <Helmet>
@@ -53,6 +55,11 @@ const PositionTitle = ({ details, toggleFavorite, userProfile,
           alt="United States flag background"
           src={seal}
         />
+      </div>
+      <div className="offset-bid-button-container offset-bid-count-container">
+        <div className="usa-grid-full position-title-bid-count">
+          <BidCount bidStatistics={stats} label="Bid Count" altStyle />
+        </div>
       </div>
       <div className="offset-bid-button-container">
         <div className="offset-bid-button-container-button">

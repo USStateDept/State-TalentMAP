@@ -1,5 +1,9 @@
-openssl genrsa -out talentmap-dev.key 2048
+CERT_PATH=$(printf %q "$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)")
+CONFIG=$CERT_PATH/talentmap-dev.cnf
+KEY=$CERT_PATH/talentmap-dev.key
+CSR=$CERT_PATH/talentmap-dev.csr
+CERT=$CERT_PATH/talentmap-dev.crt
 
-openssl req -new -config talentmap-dev.cnf -key talentmap-dev.key -out talentmap-dev.csr
-
-openssl x509 -req -sha256 -days 365 -in talentmap-dev.csr -signkey talentmap-dev.key -out talentmap-dev.crt
+eval "openssl genrsa -out $KEY 2048"
+eval "openssl req -new -config $CONFIG -key $KEY -out $CSR"
+eval "openssl x509 -req -sha256 -days 365 -in $CSR -signkey $KEY -out $CERT"

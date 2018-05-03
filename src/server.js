@@ -1,19 +1,37 @@
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
 const helmet = require('helmet');
+const path = require('path');
 const routesArray = require('./routes.js');
 const { metadata, login } = require('./saml2-config');
 
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
 
+// Are we using a mock SAML for demo purposes?
+// If so, the env var USE_MOCK_SAML should be 1.
+const USE_MOCK_SAML = process.env.USE_MOCK_SAML === '1';
+
 // define the API root url
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
+
+/* eslint-disable no-unused-vars */
+// Define the SAML login redirect
+let SAML_LOGIN = `${API_ROOT}/saml2/acs/`;
+if (USE_MOCK_SAML) {
+  SAML_LOGIN = `${PUBLIC_URL}login.html`;
+}
+/* eslint-enable no-unused-vars */
+
+// Define the SAML logout redirect
+let SAML_LOGOUT = `${API_ROOT}/saml2/logout/`;
+if (USE_MOCK_SAML) {
+  SAML_LOGOUT = `${PUBLIC_URL}login.html`;
+}
 
 // Routes from React, with wildcard added to the end if the route is not exact
 const ROUTES = routesArray.map(route => `${PUBLIC_URL}${route.path}${route.exact ? '' : '*'}`.replace('//', '/'));
@@ -53,6 +71,9 @@ const loggingMiddleware = (request, response, next) => {
 };
 
 const app = express();
+
+// body parser
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // remove 'X-Powered-By' header
 app.disable('x-powered-by');
@@ -109,6 +130,10 @@ app.get(`${PUBLIC_URL}obc/post/data/:id`, (request, response) => {
   // set the id passed in the route and pass it to the redirect
   const id = request.params.id;
   response.redirect(`${OBC_URL}/post/postdatadetails/${id}`);
+});
+
+app.get(`${PUBLIC_URL}logout`, (request, response) => {
+  response.redirect(SAML_LOGOUT);
 });
 
 // OBC redirect - posts
