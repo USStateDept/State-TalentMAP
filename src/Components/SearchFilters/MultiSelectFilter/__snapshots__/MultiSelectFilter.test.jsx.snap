@@ -32,6 +32,19 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
     title="description"
     value={true}
   />
+  <CheckBox
+    className="tm-checkbox-transparent"
+    disabled={false}
+    id="checkboxdescription 2-filterType"
+    label="description 2"
+    labelSrOnly={false}
+    name="description 2"
+    onCheckBoxClick={[Function]}
+    selectionRef="ref"
+    small={false}
+    title="description 2"
+    value={true}
+  />
 </FieldSet>
 `;
 
@@ -82,6 +95,28 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
       selectionRef="ref"
       small={false}
       title="description"
+      value={true}
+    />
+  </div>
+  <div
+    className="usa-grid-full term-group "
+  >
+    <div
+      className="term-title"
+    >
+      #
+    </div>
+    <CheckBox
+      className="tm-checkbox-transparent"
+      disabled={false}
+      id="checkboxdescription 2-filterType"
+      label="description 2"
+      labelSrOnly={false}
+      name="description 2"
+      onCheckBoxClick={[Function]}
+      selectionRef="ref"
+      small={false}
+      title="description 2"
       value={true}
     />
   </div>

@@ -1,5 +1,109 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AccountDropdown matches snapshot 1`] = `null`;
+exports[`AccountDropdown matches snapshot 1`] = `
+<Dropdown
+  className="account-dropdown"
+  removeElement={true}
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <Avatar
+      className="account-dropdown--avatar"
+      displayName="John Doe"
+      firstName="John"
+      initials=""
+      lastName="Doe"
+      onClick={[Function]}
+    />
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+    >
+      <div>
+        Signed in as
+      </div>
+      <strong>
+        John Doe
+      </strong>
+    </div>
+    <Link
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/profile/dashboard"
+    >
+      Profile
+    </Link>
+    <Link
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/logout"
+    >
+      Logout
+    </Link>
+  </DropdownContent>
+</Dropdown>
+`;
 
-exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `null`;
+exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
+<Dropdown
+  className="account-dropdown"
+  removeElement={true}
+>
+  <DropdownTrigger
+    className=""
+    href="/#"
+  >
+    <Avatar
+      className="account-dropdown--avatar"
+      displayName="John Doe"
+      firstName="John"
+      initials=""
+      lastName="Doe"
+      onClick={[Function]}
+    />
+    <span
+      className="account-dropdown--name"
+      id="account-username"
+    >
+      John Doe
+    </span>
+  </DropdownTrigger>
+  <DropdownContent
+    className=""
+  >
+    <div
+      className="account-dropdown--identity account-dropdown--segment"
+    >
+      <div>
+        Signed in as
+      </div>
+      <strong>
+        John Doe
+      </strong>
+    </div>
+    <Link
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/profile/dashboard"
+    >
+      Profile
+    </Link>
+    <Link
+      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/logout"
+    >
+      Logout
+    </Link>
+  </DropdownContent>
+</Dropdown>
+`;

@@ -10,6 +10,13 @@ describe('BidderPortfolioGridItemComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when bid_statistics is undefined', () => {
+    const newProfile = { ...bidderUserObject };
+    bidderUserObject.bid_statistics = [];
+    const wrapper = shallow(<BidderPortfolioGridItem userProfile={newProfile} />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('can set expanded state to true and then false with the expandSection function', () => {
     const wrapper = shallow(<BidderPortfolioGridItem userProfile={bidderUserObject} />);
     // should start out as false
