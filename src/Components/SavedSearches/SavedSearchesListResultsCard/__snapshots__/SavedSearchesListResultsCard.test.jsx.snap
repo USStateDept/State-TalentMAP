@@ -6,3 +6,10 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
   widthType="max"
 />
 `;
+
+exports[`SavedSearchesListResultsCardComponent matches snapshot when saved search has no date 1`] = `
+<MediaQueryWrapper
+  breakpoint="screenSmMax"
+  widthType="max"
+/>
+`;

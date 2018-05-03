@@ -63,4 +63,16 @@ describe('SavedSearchesListResultsCardComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when saved search has no date', () => {
+    const savedSearch = { ...props.savedSearch };
+    savedSearch.date_created = null;
+    const wrapper = shallow(
+      <SavedSearchesListResultsCard
+        {...props}
+        savedSearch={savedSearch}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

@@ -73,7 +73,7 @@ exports[`MobileNav matches snapshot when showLogin is false 1`] = `
               id="logout-mobile"
               onClick={[Function]}
               replace={false}
-              to="login"
+              to="/logout"
             >
               Logout
             </Link>

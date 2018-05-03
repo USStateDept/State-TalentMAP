@@ -29,6 +29,11 @@ describe('Avatar', () => {
     expect(wrapper.find(`.${props.className}`).exists()).toBe(true);
   });
 
+  it('applies the class when the small prop is true', () => {
+    const wrapper = shallow(<Avatar {...props} small />);
+    expect(wrapper.find('.tm-avatar--small').exists()).toBe(true);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(<Avatar {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();

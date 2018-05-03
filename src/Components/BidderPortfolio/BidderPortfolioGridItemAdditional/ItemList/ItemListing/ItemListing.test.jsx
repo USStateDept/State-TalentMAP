@@ -15,6 +15,15 @@ describe('ItemListingComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('renders an alert if items.length is 0', () => {
+    const wrapper = shallow(
+      <ItemListing
+        {...props}
+        items={[]}
+      />);
+    expect(wrapper.find('span').exists()).toBe(true);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ItemListing

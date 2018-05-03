@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NO_BUREAU, NO_GRADE, NO_SKILL, NO_END_DATE, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from '../../Constants/SystemMessages';
+import { NO_BUREAU, NO_GRADE, NO_SKILL, NO_END_DATE, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL, NO_DANGER_PAY, NO_USER_LISTED } from '../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import { formatDate, propOrDefault, getAccessiblePositionNumber, getDifferentialPercentage } from '../../utilities';
@@ -8,7 +8,6 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import PositionDetailsContact from './PositionDetailsContact';
 import OBCUrl from '../OBCUrl';
-import HowToBid from './HowToBid';
 
 const PositionDetailsItem = ({ details, editDescriptionContent, resetDescriptionEditMessages,
 editPocContent, editWebsiteContent }) => {
@@ -28,6 +27,8 @@ editPocContent, editWebsiteContent }) => {
     }
     return prefix;
   };
+
+  const incumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
   return (
     <div className="usa-grid-full padded-main-content">
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
@@ -48,6 +49,7 @@ editPocContent, editWebsiteContent }) => {
             <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
             <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
+            <CondensedCardDataPoint title="Incumbent" content={incumbent} />
           </div>
         </div>
         <div className="usa-width-one-third position-details-contact-container">
@@ -57,7 +59,6 @@ editPocContent, editWebsiteContent }) => {
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
-          <HowToBid />
         </div>
       </div>
     </div>

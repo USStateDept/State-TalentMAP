@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PositionTitleSubDescription from '../../PositionTitleSubDescription';
+import ViewPostDataButton from '../../ViewPostDataButton';
 import { POSITION_DETAILS } from '../../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC } from '../../../Constants/SystemMessages';
 import { propOrDefault, formatDate } from '../../../utilities';
@@ -76,8 +77,10 @@ class PositionDetailsContact extends Component {
 
     const formattedDate = formatDate(details.update_date);
 
+    const obcId = propOrDefault(details, 'post.obc_id');
+
     return (
-      <div className="position-details-contact">
+      <div className="position-details-contact" style={{ position: 'relative' }}>
         <div className="contact-container">
           <div className="usa-grid-full contact-section website-section">
             <PositionTitleSubDescription
@@ -102,8 +105,13 @@ class PositionDetailsContact extends Component {
             />
           </div>
         </div>
-        <div className="contact-container">
+        <div className={`contact-container ${!obcId ? 'no-button' : ''}`}>
           Updated: {formattedDate}
+        </div>
+        <div className="offset-bid-button-container">
+          <div className="offset-bid-button-container-button">
+            { !!obcId && <ViewPostDataButton id={obcId} altStyle /> }
+          </div>
         </div>
       </div>
     );
