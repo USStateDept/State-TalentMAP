@@ -16,6 +16,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
       initials=""
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
   </DropdownTrigger>
   <DropdownContent
@@ -67,6 +68,7 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
       initials=""
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
     <span
       className="account-dropdown--name"
