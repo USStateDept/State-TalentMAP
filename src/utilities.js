@@ -10,6 +10,7 @@ const cloneDeep = require('lodash/cloneDeep');
 const get = require('lodash/get');
 const keys = require('lodash/keys');
 const isNumber = require('lodash/isNumber');
+const merge$ = require('lodash/merge');
 
 const scroll = Scroll.animateScroll;
 
