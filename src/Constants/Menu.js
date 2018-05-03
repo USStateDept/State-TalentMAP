@@ -62,13 +62,31 @@ export const PROFILE_MENU = MenuConfig([
         route: '/profile/searches/',
       },
       {
+        text: 'Bid Tracker',
+        route: '/profile/bidtracker/',
+      },
+      {
         text: 'Bid Cycles',
         route: '/profile/cycles/',
         roles: [
           'bidcycle_admin',
         ],
       },
+      {
+        text: 'Bidder Portfolio',
+        route: '/profile/bidderportfolio',
+        isCDO: true,
+        params: {
+          type: 'all',
+        },
+      },
     ],
+  },
+  {
+    text: 'Statistics',
+    icon: 'pie-chart',
+    route: '/profile/statistics',
+    isCDO: true,
   },
   {
     text: 'Glossary Editor',

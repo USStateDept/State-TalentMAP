@@ -56,6 +56,8 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 const ENV = NODE_ENV || 'development';
 const ABOUT_URL = (NODE_ENV === 'development') ? 'https://github.com/18F/State-TalentMAP' : `${process.env.PUBLIC_URL}about`;
+const LOGIN_MODE = process.env.LOGIN_MODE || 'basic';
+const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
 
 function getClientEnvironment(publicUrl) {
   const initial = {
@@ -68,6 +70,8 @@ function getClientEnvironment(publicUrl) {
     // images into the `src` and `import` them in code to get their paths.
     PUBLIC_URL: publicUrl,
     ABOUT_URL,
+    LOGIN_MODE,
+    API_URL,
   };
 
   const raw = Object.keys(process.env)

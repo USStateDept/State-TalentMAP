@@ -55,12 +55,31 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         title="Saved Searches"
       />
       <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
         hidden={true}
         link="/profile/cycles/"
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
@@ -127,12 +146,31 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         title="Saved Searches"
       />
       <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
         hidden={true}
         link="/profile/cycles/"
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
@@ -199,12 +237,31 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Saved Searches"
       />
       <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
         hidden={true}
         link="/profile/cycles/"
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={true}
       iconName="book"
@@ -272,11 +329,30 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={false}
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
+      />
+      <withRouter(NavLink)
+        hidden={false}
         link="/profile/cycles/"
         search=""
         title="Bid Cycles"
       />
+      <withRouter(NavLink)
+        hidden={false}
+        link="/profile/bidderportfolio"
+        search="?type=all"
+        title="Bidder Portfolio"
+      />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      hidden={false}
+      iconName="pie-chart"
+      link="/profile/statistics"
+      search=""
+      title="Statistics"
+    />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
