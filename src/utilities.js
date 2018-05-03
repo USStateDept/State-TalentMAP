@@ -2,7 +2,6 @@ import Scroll from 'react-scroll';
 import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
 import numeral from 'numeral';
-import { merge as merge$ } from 'lodash/merge';
 import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
@@ -11,6 +10,7 @@ const cloneDeep = require('lodash/cloneDeep');
 const get = require('lodash/get');
 const keys = require('lodash/keys');
 const isNumber = require('lodash/isNumber');
+const merge$ = require('lodash/merge');
 
 const scroll = Scroll.animateScroll;
 
