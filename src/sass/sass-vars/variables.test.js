@@ -30,4 +30,9 @@ describe('asset-path', () => {
   it('is defined', () => {
     expect(variables['asset-path']).toBeDefined();
   });
+
+  it('is defined when process.env.PUBLIC_URL exists', () => {
+    process.env.PUBLIC_URL = 'test';
+    expect(variables['asset-path']).toBe('"test"');
+  });
 });

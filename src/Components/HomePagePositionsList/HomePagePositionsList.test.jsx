@@ -25,6 +25,16 @@ describe('HomePagePositionsList', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('renders the results-loading class if isLoading is true', () => {
+    const wrapper = shallow(<HomePagePositionsList
+      maxLength={3}
+      positions={resultsObject.results}
+      {...props}
+      isLoading
+    />);
+    expect(wrapper.find('.results-loading').exists()).toBe(true);
+  });
+
   it('displays two rows', () => {
         // test with 7 positions and a max of 6
     const maxLength = 6;

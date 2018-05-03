@@ -4,3 +4,8 @@ src/registerServiceWorker.js
 scripts/*
 config/*
 coverage/*
+
+# login-related files
+public/script.js
+public/login.html
+public/jquery-2.2.4.min.js

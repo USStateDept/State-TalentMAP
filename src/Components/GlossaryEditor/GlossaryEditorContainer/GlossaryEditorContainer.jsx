@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
 import GlossaryEditorCardList from '../GlossaryEditorCardList';
-import Alert from '../../Alert/Alert';
 
 const GlossaryEditorContainer = (props) => {
   const {
@@ -15,8 +14,6 @@ const GlossaryEditorContainer = (props) => {
     onGlossaryEditorCancel,
   } = props;
 
-  const noResults = glossaryItems.length === 0;
-
   return (
     <div className="usa-grid-full user-dashboard">
       <GlossaryEditorCardList
@@ -28,12 +25,6 @@ const GlossaryEditorContainer = (props) => {
         glossaryPatchSuccess={glossaryPatchSuccess}
         onGlossaryEditorCancel={onGlossaryEditorCancel}
       />
-      {
-        noResults &&
-        <div className="usa-width-two-thirds">
-          <Alert title="There are no Glossary terms." messages={[{ body: 'Try adding the first one.' }]} />
-        </div>
-      }
     </div>
   );
 };

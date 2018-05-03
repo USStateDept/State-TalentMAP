@@ -99,7 +99,7 @@ describe('CheckBoxComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('matches snapshot when small = true', () => {
+  it('matches snapshot when small = true and labelSrOnly = true', () => {
     const wrapper = shallow(
       <CheckBox
         id="id"
@@ -109,6 +109,7 @@ describe('CheckBoxComponent', () => {
         value="value"
         onCheckBoxClick={() => {}}
         small
+        labelSrOnly
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
