@@ -31,13 +31,25 @@ $results-container-width: 100% - $filter-container-width;
   pointer-events: none;
 }
 
+.results-card-padded-section {
+  padding-right: 20%;
+}
+
 .results-card {
   background-color: $color-white;
   border: 1px solid $results-card-border;
   border-left: 8px solid $results-card-accent;
   margin-bottom: 2rem;
   padding: 1.1rem;
-  padding-right: 20%;
+
+  .bid-count-container {
+    font-size: .95em;
+
+    .bid-count-label {
+      font-weight: normal;
+      padding-top: .4em;
+    }
+  }
 
   .header {
     margin-bottom: 1rem;
@@ -79,12 +91,18 @@ $results-container-width: 100% - $filter-container-width;
       padding-left: $button-offset;
       padding-right: $button-offset;
 
+      .tm-button,
       .usa-button,
       .compare-check-box-container {
         display: inline-block;
         margin: 0;
+        margin-bottom: 5px;
         position: relative;
-        width: 50%;
+        width: 37%;
+
+        &:not(last-child) {
+          margin-right: 15px;
+        }
 
         @media screen and (max-width: $screen-sm-min) {
           position: static;
@@ -93,19 +111,31 @@ $results-container-width: 100% - $filter-container-width;
       }
 
       .usa-button {
-        left: -$button-offset;
+        width: auto;
+      }
+
+      .tm-button {
+        font-size: rem(14px);
+        padding: 12px 15px;
+        width: auto;
       }
 
       .compare-check-box-container {
+        border: 1px solid $color-black;
+        border-radius: 5px;
         font-size: rem(14px);
         line-height: 39px;
-        right: -$button-offset;
         text-align: center;
-        top: 1px;
+
+        // scss-lint:disable NestingDepth SelectorDepth
+        .fa {
+          left: -2px;
+          position: relative;
+        }
+        // scss-lint:enable NestingDepth SelectorDepth
       }
 
       .fa {
-        left: -2px;
         position: relative;
       }
 
@@ -147,7 +177,7 @@ $results-container-width: 100% - $filter-container-width;
       }
     }
 
-    .usa-button {
+    .usa-button:not(.favorite-container) {
       font-size: 1.4rem;
       font-weight: 400;
       line-height: em(15px);
@@ -166,18 +196,14 @@ $results-container-width: 100% - $filter-container-width;
     }
 
     .favorite-container {
+      border: 1px solid $color-black;
+      box-shadow: none;
       float: none;
-
-      &.usa-button {
-        color: $color-white;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
     }
 
     $button-box-shadow: inset 0 0 0 1px;
 
-    .usa-button-secondary {
+    .usa-button-secondary:not(.favorite-container) {
       box-shadow: $button-box-shadow $bg-gray-dark-1;
       color: $primary-base;
 
@@ -388,7 +414,6 @@ $results-container-width: 100% - $filter-container-width;
 
   .favorite-container {
     line-height: 20px;
-    min-width: 76px;
     text-align: center;
   }
 
