@@ -106,8 +106,12 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   <div
     className="offset-bid-button-container"
   >
-    <div
-      className="offset-bid-button-container-button"
+    <BidListButton
+      className="bid-list-button"
+      compareArray={Array []}
+      id={6}
+      isLoading={false}
+      toggleBidPosition={[Function]}
     />
   </div>
 </div>
