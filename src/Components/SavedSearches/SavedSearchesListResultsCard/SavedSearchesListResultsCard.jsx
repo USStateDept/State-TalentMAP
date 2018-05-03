@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import { Row, Column } from '../../Layout';
 import MediaQueryWrapper from '../../MediaQuery';
 import DefinitionList, { Definition } from '../../DefinitionList';
@@ -8,6 +7,8 @@ import SavedSearchPillList from '../../SavedSearchPillList';
 import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
 import { NO_UPDATE_DATE } from '../../../Constants/SystemMessages';
 import { mapSavedSearchToDescriptions, formatDate } from '../../../utilities';
+
+const get = require('lodash/get');
 
 const SavedSearchListResultsCard = (props) => {
   const {

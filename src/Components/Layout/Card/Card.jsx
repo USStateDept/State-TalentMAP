@@ -1,6 +1,7 @@
 import React from 'react';
-import { merge } from 'lodash';
 import Base from '../Base';
+
+const merge = require('lodash/merge');
 
 /* eslint-disable react/prop-types */
 const Card = (props) => {

@@ -1,8 +1,15 @@
 import React from 'react';
-import { isArray, isPlainObject, keys, map, merge, omit } from 'lodash';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import Definition from './Definition/Definition';
+
+const isArray = require('lodash/isArray');
+const isPlainObject = require('lodash/isPlainObject');
+const keys = require('lodash/keys');
+const map = require('lodash/map');
+const omit = require('lodash/omit');
+
+const merge = require('lodash/merge');
 
 const defaults = {
   items: [],

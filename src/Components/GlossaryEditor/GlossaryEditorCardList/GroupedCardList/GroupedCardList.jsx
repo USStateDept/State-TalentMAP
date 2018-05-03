@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { extend } from 'lodash';
 import { EMPTY_FUNCTION, GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../../Constants/PropTypes';
 import GlossaryEditorCard from '../../GlossaryEditorCard';
+
+const extend = require('lodash/extend');
 
 // Holds all response error states for editor cards
 const errors = {};
