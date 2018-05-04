@@ -47,10 +47,6 @@ export default class ServiceNeededToggle extends Component {
       onClick: this.onClick,
     };
 
-    if (this.checked) {
-      options.className.push('usa-button-active');
-    }
-
     options.className = options.className
       .join(' ')
       .trim();
