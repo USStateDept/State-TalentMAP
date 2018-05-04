@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { merge } from 'lodash';
 import Base from '../Base';
-
-const merge = require('lodash/merge');
 
 /* eslint-disable react/prop-types */
 const Row = (props) => {

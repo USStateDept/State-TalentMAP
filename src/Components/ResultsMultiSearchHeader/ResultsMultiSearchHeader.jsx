@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { orderBy } from 'lodash';
 import { FILTER_ITEMS_ARRAY, USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import SearchBar from '../SearchBar/SearchBar';
 import SkillCodeFilter from '../HomePageFiltersSection/SkillCodeFilter';
 import SelectForm from '../SelectForm';
 import { sortGrades } from '../../utilities';
-
-const orderBy = require('lodash/orderBy');
 
 // Set our params as state names so we can easily
 // use them as properties to query on.

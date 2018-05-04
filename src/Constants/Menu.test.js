@@ -1,15 +1,5 @@
+import { compact, has, isArray, isBoolean, isNumber, isObject, isString, forOwn, keys, pickBy } from 'lodash';
 import { PROFILE_MENU } from './Menu';
-
-const compact = require('lodash/compact');
-const has = require('lodash/has');
-const isArray = require('lodash/isArray');
-const isBoolean = require('lodash/isBoolean');
-const isNumber = require('lodash/isNumber');
-const isObject = require('lodash/isObject');
-const isString = require('lodash/isString');
-const forOwn = require('lodash/forOwn');
-const keys = require('lodash/keys');
-const pickBy = require('lodash/pickBy');
 
 /**
  * Utility function that verifies if objects contains

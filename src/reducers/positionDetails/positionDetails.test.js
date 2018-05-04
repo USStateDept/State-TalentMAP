@@ -1,6 +1,5 @@
+import { isEqual } from 'lodash';
 import * as reducers from './positionDetails';
-
-const isEqual = require('lodash/isEqual');
 
 describe('reducers', () => {
   it('can set reducer POSITION_DETAILS_HAS_ERRORED', () => {

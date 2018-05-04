@@ -5,10 +5,6 @@ import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdow
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
 import { getAssetPath } from '../../utilities';
 
-const get = require('lodash/get');
-const compact = require('lodash/compact');
-const values = require('lodash/values');
-
 export class AccountDropdown extends Component {
 
   constructor(props) {
