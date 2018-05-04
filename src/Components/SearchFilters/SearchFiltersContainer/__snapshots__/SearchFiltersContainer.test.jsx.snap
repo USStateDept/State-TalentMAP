@@ -15,6 +15,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   },
                 ],
                 "item": Object {
+                  "custom_description": "skill",
                   "description": "skill",
                   "selectionRef": "ref3",
                   "title": "skill",
@@ -144,7 +145,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   ],
                   "item": Object {
                     "description": "tod",
-                    "selectionRef": "ref3",
+                    "selectionRef": "reftod",
                     "title": "tod",
                   },
                 }
