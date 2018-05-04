@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { merge } from 'lodash';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { mapSavedSearchesToSingleQuery } from '../../utilities';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -14,6 +13,8 @@ import {
   EMPTY_FUNCTION,
   FILTERS_PARENT,
 } from '../../Constants/PropTypes';
+
+const merge = require('lodash/merge');
 
 class SavedSearchesMap extends Component {
   constructor(props) {

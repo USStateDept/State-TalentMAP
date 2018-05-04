@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isNumber } from 'lodash';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
 import Favorite from '../Favorite/Favorite';
+import BidListButton from '../BidListButton';
 import MediaQueryWrapper from '../MediaQuery';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
+import BidCount from '../BidCount';
 
-import { formatDate, propOrDefault, getPostName } from '../../utilities';
+import { formatDate, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
 
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 import {
   NO_BUREAU,
   NO_BID_CYCLE,
@@ -28,6 +29,9 @@ import {
   NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
+const get = require('lodash/get');
+const isNumber = require('lodash/isNumber');
+
 const ResultsCard = (props) => {
   const options = {};
   const {
@@ -37,6 +41,8 @@ const ResultsCard = (props) => {
     toggleFavorite,
     userProfileFavoritePositionIsLoading,
     userProfileFavoritePositionHasErrored,
+    toggleBid,
+    bidList,
   } = props;
 
   const getResult = (path, defaultValue, isRate = false) => {
@@ -65,6 +71,8 @@ const ResultsCard = (props) => {
 
   const post = getPostName(result.post, NO_POST);
 
+  const stats = getBidStatisticsObject(result.bid_statistics);
+
   const sections = [
     /* eslint-disable quote-props */
     {
@@ -90,20 +98,28 @@ const ResultsCard = (props) => {
   ];
 
   options.favorite = {
-    as: 'button',
     isLoading: userProfileFavoritePositionIsLoading,
     hasErrored: userProfileFavoritePositionHasErrored,
     compareArray: favorites,
     refKey: result.id,
     onToggle: toggleFavorite,
-    useLongText: true,
+    hideText: true,
+    hasBorder: true,
     useButtonClass: true,
+    useButtonClassSecondary: true,
   };
 
   options.compare = {
     as: 'div',
     refKey: position,
     onToggle,
+  };
+
+  options.bidlistButton = {
+    className: 'tm-button',
+    id: result.id,
+    toggleBidPosition: toggleBid,
+    compareArray: bidList,
   };
 
   return (
@@ -115,8 +131,11 @@ const ResultsCard = (props) => {
               <h3>{title}</h3>
               <Link to={`/details/${result.position_number}`}>View position</Link>
             </Column>
+            <Column columns="6">
+              <BidCount bidStatistics={stats} altStyle />
+            </Column>
           </Row>
-          <Row id={result.id} fluid>
+          <Row id={result.id} fluid className="results-card-padded-section">
             <Column columns="6">
               <DefinitionList items={sections[0]} />
             </Column>
@@ -124,16 +143,17 @@ const ResultsCard = (props) => {
               <DefinitionList items={sections[1]} />
             </Column>
           </Row>
-          <Row className="footer" fluid>
+          <Row className="footer results-card-padded-section" fluid>
             <Column>
-              <Column className="divider" columns="6" as="section">
+              <Column className="divider" columns="8" as="section">
                 {
                   !!favorites &&
                     <Favorite {...options.favorite} />
                 }
+                <BidListButton {...options.bidlistButton} />
                 <CompareCheck {...options.compare} />
               </Column>
-              <Column columns="6" as="section">
+              <Column columns="4" as="section">
                 <div>
                   <DefinitionList items={sections[2]} />
                 </div>
@@ -154,6 +174,8 @@ ResultsCard.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 ResultsCard.defaultProps = {

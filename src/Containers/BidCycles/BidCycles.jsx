@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { pick } from 'lodash';
 import PropTypes from 'prop-types';
 
 import { fetchBidCycles } from '../../actions/bidCycles';
 import BidCycleList from '../../Components/BidCycleList';
 import { BID_CYCLES } from '../../Constants/PropTypes';
+
+const pick = require('lodash/pick');
 
 class BidCycles extends Component {
   componentDidMount() {

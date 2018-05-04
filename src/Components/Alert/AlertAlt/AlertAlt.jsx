@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
 import FontAwesome from 'react-fontawesome';
+
+const isEqual = require('lodash/isEqual');
 
 class AlertAlt extends Component {
   // prevent unneeded rerenders, which can cause accessibility issues

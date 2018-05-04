@@ -25,7 +25,7 @@ export function testDispatchFunctions(mapDispatchToProps, config = {}) {
     Object.keys(spiedProps).forEach((prop) => {
       // set the prop to test
       const propToTest = spiedProps[prop];
-      // set an params passed in the config object
+      // set any params passed in the config object
       let params = [];
       // if there any arguments for that param, set them
       if (config[prop]) { params = config[prop]; }
