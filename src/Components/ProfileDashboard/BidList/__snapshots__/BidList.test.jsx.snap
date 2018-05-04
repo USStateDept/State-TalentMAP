@@ -201,7 +201,7 @@ exports[`BidListComponent matches snapshot 1`] = `
   >
     <Link
       replace={false}
-      to="/profile/bidlist/"
+      to="/profile/bidtracker/"
     >
       See Bid List
     </Link>
@@ -244,7 +244,7 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
   >
     <Link
       replace={false}
-      to="/profile/bidlist/"
+      to="/profile/bidtracker/"
     >
       See Bid List
     </Link>

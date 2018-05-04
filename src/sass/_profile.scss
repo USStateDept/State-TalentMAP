@@ -137,6 +137,10 @@
   font-size: 15px;
   position: relative;
 
+  .dashboard-top-section {
+    margin-bottom: 1.2em;
+  }
+
   .user-dashboard-section-container {
     float: left;
   }
@@ -232,6 +236,10 @@
 
   .notifications-section {
     min-height: 250px;
+
+    .bordered-list {
+      min-height: 150px;
+    }
   }
 
   .bidlist-section {
@@ -304,7 +312,7 @@
   .dashboard-user-profile-picture {
     display: inline-block;
     height: $avatar-size;
-    margin: 1em 0;
+    margin: .5em 0;
     vertical-align: middle;
     width: $avatar-size;
   }
@@ -635,6 +643,10 @@ $padding-no-border: $total-padding - $border;
   background-color: $blue-primary;
   color: $color-white;
 
+  .bid-list-header-text {
+    margin-top: 5px;
+  }
+
   .bid-list-header-button-container {
 
     text-align: right;
@@ -652,8 +664,6 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
-  background-color: $blue-primary;
-  color: $color-white;
   font-size: 1.1em;
   max-height: 450px;
   min-height: 260px;
@@ -744,11 +754,6 @@ $padding-no-border: $total-padding - $border;
       color: $color-black;
     }
   }
-}
-
-.user-dashboard-main {
-  margin-right: 5%;
-  padding-top: 65px;
 }
 
 .profile-section-container {
