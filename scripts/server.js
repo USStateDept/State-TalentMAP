@@ -1,8 +1,8 @@
 const express = require('express');
-const TalentMapMiddleware = require('../src/server');
+const TalentMAPMiddleware = require('../src/server');
 
-const app = TalentMapMiddleware(express());
-const server = app.listen(TalentMapMiddleware.getEnv('PORT'));
+const app = TalentMAPMiddleware(express());
+const server = app.listen(TalentMAPMiddleware.getEnv('PORT'));
 
 // export the the app and server separately
 module.exports = {

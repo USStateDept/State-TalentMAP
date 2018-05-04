@@ -2,7 +2,7 @@
 
 const errorOverlayMiddleware = require('react-error-overlay/middleware');
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
-const TalentMapMiddleware = require('../src/server');
+const TalentMAPMiddleware = require('../src/server');
 const config = require('./webpack.config.dev');
 const paths = require('./paths');
 
@@ -80,7 +80,7 @@ module.exports = function(proxy, allowedHost, compiler) {
     public: allowedHost,
     proxy,
     before(app) {
-      TalentMapMiddleware(app, compiler);
+      TalentMAPMiddleware(app, compiler);
     },
     setup(app) {
       // This lets us open files from the runtime error overlay.

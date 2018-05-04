@@ -110,7 +110,7 @@ const getSAMLRoute = (type = 'login') => {
  *   => scripts/server.js
  *   => config/webpackDevServer.config.js
  */
-const TalentMapMiddleware = (app, compiler = null) => {
+const TalentMAPMiddleware = (app, compiler = null) => {
   cache.WEBPACK = !!compiler;
   cache.TEST = (process.env.NODE_ENV === 'test');
 
@@ -306,6 +306,6 @@ const TalentMapMiddleware = (app, compiler = null) => {
   return app;
 };
 
-TalentMapMiddleware.getEnv = getEnv;
+TalentMAPMiddleware.getEnv = getEnv;
 
-module.exports = TalentMapMiddleware;
+module.exports = TalentMAPMiddleware;
