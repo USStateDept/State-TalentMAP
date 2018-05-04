@@ -5,6 +5,7 @@
   "dependencies": {
     "@cmsgov/design-system-core": "^1.18.0",
     "axios": "^0.17.1",
+    "babel-plugin-lodash": "^3.3.2",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "bunyan": "^1.8.12",
@@ -17,6 +18,7 @@
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "lodash": "^4.17.4",
+    "lodash-webpack-plugin": "^0.11.5",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
@@ -116,7 +118,8 @@
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
-    "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html"
+    "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html",
+    "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json"
   },
   "jest": {
     "collectCoverageFrom": [

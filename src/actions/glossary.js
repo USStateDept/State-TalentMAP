@@ -1,10 +1,6 @@
+import { first, get, isArray, merge } from 'lodash';
 import api from '../api';
 import { EMPTY_FUNCTION } from '../Constants/PropTypes';
-
-const first = require('lodash/first');
-const get = require('lodash/get');
-const isArray = require('lodash/isArray');
-const merge = require('lodash/merge');
 
 export function glossaryHasErrored(bool) {
   return {

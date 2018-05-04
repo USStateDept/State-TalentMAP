@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
-const isEqual = require('lodash/isEqual');
 const shortid = require('shortid');
 
 class Alert extends Component {

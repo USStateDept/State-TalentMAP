@@ -1,19 +1,11 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
+import { cloneDeep, get, isEqual, isNumber, isObject, keys, merge as merge$, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
-
-const cloneDeep = require('lodash/cloneDeep');
-const get = require('lodash/get');
-const isEqual = require('lodash/isEqual');
-const isNumber = require('lodash/isNumber');
-const isObject = require('lodash/isObject');
-const keys = require('lodash/keys');
-const merge$ = require('lodash/merge');
-const transform = require('lodash/transform');
 
 const scroll = Scroll.animateScroll;
 

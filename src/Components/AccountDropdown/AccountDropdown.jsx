@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import PropTypes from 'prop-types';
+import { get, compact, values } from 'lodash';
 import Avatar from '../Avatar';
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
-
-const get = require('lodash/get');
-const compact = require('lodash/compact');
-const values = require('lodash/values');
 
 export class AccountDropdown extends Component {
 

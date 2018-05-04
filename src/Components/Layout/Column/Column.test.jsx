@@ -1,9 +1,8 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
+import { forOwn } from 'lodash';
 import Column, { columnsMap } from './Column';
-
-const forOwn = require('lodash/forOwn');
 
 describe('Column', () => {
   const prefix = 'usa-width';

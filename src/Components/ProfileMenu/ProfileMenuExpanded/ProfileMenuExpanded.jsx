@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { difference } from 'lodash';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
 
 import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../../Constants/DefaultProps';
 import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import { PROFILE_MENU } from '../../../Constants/Menu';
-
-const difference = require('lodash/difference');
 
 function getProps(options, roles, params = {}) {
   const missingRoles = difference(options.roles, roles);

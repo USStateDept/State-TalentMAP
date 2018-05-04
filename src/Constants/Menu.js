@@ -1,6 +1,5 @@
+import { merge } from 'lodash';
 import queryString from 'query-string';
-
-const merge = require('lodash/merge');
 
 /**
  * Interface for Profile Menu Configuration

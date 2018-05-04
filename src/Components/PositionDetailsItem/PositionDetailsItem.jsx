@@ -29,6 +29,7 @@ import {
   NO_TOUR_OF_DUTY,
   NO_POST_DIFFERENTIAL,
   NO_DANGER_PAY,
+  NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 const PositionDetailsItem = (props) => {
