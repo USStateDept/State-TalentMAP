@@ -62,6 +62,7 @@ const PositionDetailsItem = (props) => {
     return prefix;
   };
 
+  const incumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
   return (
     <div className="usa-grid-full padded-main-content">
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
@@ -82,6 +83,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
             <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
+            <CondensedCardDataPoint title="Incumbent" content={incumbent} />
           </div>
         </div>
         <div className="usa-width-one-third position-details-contact-container">

@@ -31,3 +31,11 @@ a {
     outline-color: $tm-focus-outline-color-alt;
   }
 }
+
+.bidder-portfolio-search-container {
+  .results-search-bar {
+    *:focus {
+      outline-color: $tm-focus-outline-color;
+    }
+  }
+}

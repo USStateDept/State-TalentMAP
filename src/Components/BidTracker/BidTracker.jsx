@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
+import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import NotificationsSection from './NotificationsSection';
 import ContactCDOButton from './ContactCDOButton';
@@ -11,7 +12,7 @@ notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
 userProfileIsLoading }) => {
   const isLoading = bidListIsLoading || userProfileIsLoading;
   return (
-    <div className="bid-tracker-page">
+    <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
       <NotificationsSection
         notifications={notifications}
         notificationsIsLoading={notificationsIsLoading}
@@ -19,8 +20,8 @@ userProfileIsLoading }) => {
       />
       <div className="usa-grid-full">
         <div className="usa-width-one-half bid-tracker-greeting-container">
-          <div className="hello-greeting bid-tracker-greeting">
-            Bid Tracker
+          <div className="usa-grid-full">
+            <ProfileSectionTitle title="Bid Tracker" />
           </div>
         </div>
         <div className="usa-width-one-half bid-tracker-cdo-email-container">

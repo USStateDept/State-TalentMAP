@@ -7,105 +7,17 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
   <div
     className="usa-grid-full"
   >
-    <h2
-      className="sr-only"
-    >
-      Dashboard
-    </h2>
     <div
-      className="usa-grid-full"
+      className="usa-grid-full dashboard-top-section"
     >
-      <div
-        className="usa-width-five-twelfths user-dashboard-section-container
-                        user-dashboard-column-1"
-      >
-        <div
-          className="usa-width-one-whole user-dashboard-section current-user-section"
-        >
-          <UserProfile
-            showContactInformation={true}
-            showEditLink={true}
-            showGeneralInformation={true}
-            useGroup={false}
-            userProfile={
-              Object {
-                "bid_statistics": Array [
-                  Object {
-                    "draft": 1,
-                    "submitted": 1,
-                  },
-                ],
-                "cdo": Object {
-                  "email": "shadtrachl@state.gov",
-                  "first_name": "Leah",
-                  "initials": "LS",
-                  "last_name": "Shadtrach",
-                  "username": "shadtrachl",
-                },
-                "display_name": "John",
-                "favorite_positions": Array [
-                  Object {
-                    "id": 1,
-                    "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-                  },
-                  Object {
-                    "id": 4,
-                    "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-                  },
-                ],
-                "grade": "03",
-                "id": 1,
-                "initials": "JD",
-                "is_cdo": false,
-                "skills": Array [
-                  Object {
-                    "code": "6218",
-                    "cone": null,
-                    "description": "CONSTRUCTION ENGINEERING",
-                    "id": 63,
-                  },
-                  Object {
-                    "code": "6211",
-                    "cone": null,
-                    "description": "COMPUTER SCIENCE",
-                    "id": 40,
-                  },
-                ],
-                "user": Object {
-                  "email": "doej@state.gov",
-                  "first_name": "John",
-                  "initials": "JD",
-                  "last_name": "Doe",
-                  "username": "jdoe",
-                },
-              }
-            }
-          />
-        </div>
-        <div
-          className="usa-width-one-whole user-dashboard-section"
-        >
-          <BidListComingSoon />
-        </div>
-      </div>
-      <div
-        className="usa-width-seven-twelfths user-dashboard-section-container
-                        user-dashboard-column-2"
-      >
-        <div
-          className="usa-width-one-whole user-dashboard-section favorites-section"
-        >
-          <SavedSearchesWrapper />
-        </div>
-        <div
-          className="usa-width-one-whole user-dashboard-section favorites-section"
-        >
-          <FavoriteList
-            favorites={Array []}
-          />
-        </div>
-      </div>
+      <ProfileSectionTitle
+        title="Hello, John"
+      />
     </div>
+    <MediaQueryWrapper
+      breakpoint="screenSmMax"
+      widthType="max"
+    />
   </div>
 </div>
 `;

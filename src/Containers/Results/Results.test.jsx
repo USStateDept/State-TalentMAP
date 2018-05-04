@@ -33,6 +33,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -56,6 +58,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -81,6 +85,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -113,6 +119,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
@@ -139,6 +147,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     wrapper.instance().saveSearch('test', 1);
@@ -167,6 +177,8 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -206,6 +218,8 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -245,6 +259,8 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -282,6 +298,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -305,6 +323,7 @@ describe('mapDispatchToProps', () => {
     fetchMissionAutocomplete: ['?q'],
     fetchPostAutocomplete: ['?q'],
     toggleSearchBarVisibility: ['?q'],
+    toggleBid: [1, true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });

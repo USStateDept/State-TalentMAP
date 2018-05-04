@@ -13,10 +13,10 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
       <Avatar
         className=""
         firstName="John"
-        initials=""
-        intiias="JD"
+        initials="JD"
         lastName="Doe"
         onClick={[Function]}
+        small={true}
       />
       <div
         className="picture-status-container"
@@ -65,10 +65,10 @@ exports[`ExternalUserStatusComponent matches snapshot when showMail is true 1`] 
       <Avatar
         className=""
         firstName="John"
-        initials=""
-        intiias="JD"
+        initials="JD"
         lastName="Doe"
         onClick={[Function]}
+        small={true}
       />
       <div
         className="picture-status-container"

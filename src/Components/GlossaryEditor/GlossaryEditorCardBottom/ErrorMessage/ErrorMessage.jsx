@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isObject } from 'lodash';
 import { GLOSSARY_ERROR_OBJECT } from '../../../../Constants/PropTypes';
+
+const isObject = require('lodash/isObject');
 
 const ErrorMessage = ({ showEmptyWarning, error }) => {
   const showResponseError = isObject(error) ? error.hasErrored : error; // Deprecated prop

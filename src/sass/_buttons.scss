@@ -135,9 +135,26 @@
 }
 
 .favorite-container {
-  &.usa-button {
+  &.usa-button:not(.usa-button-secondary) {
     .fa {
       color: $color-white;
+    }
+  }
+
+  &.button-text-hidden {
+    margin-top: 0;
+    padding-bottom: 11.5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 11.5px;
+
+    .spinner-white,
+    .spinner-blue {
+      margin-right: 0;
+    }
+
+    .fa {
+      margin-right: 0;
     }
   }
 

@@ -7,6 +7,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
   <div
     className="section-padded-inner-container"
   >
+    <Status
+      hideText={false}
+    />
     <Avatar
       className="dashboard-user-profile-picture"
       display_name="John"
@@ -14,12 +17,40 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
       initials="JD"
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
+    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
       small={true}
-      title="John Doe"
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+              Object {
+                "code": "6211",
+                "cone": null,
+                "description": "COMPUTER SCIENCE",
+                "id": 40,
+              },
+            ]
+          }
+        />
+      }
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
     />
   </div>
 </div>
@@ -32,6 +63,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
   <div
     className="section-padded-inner-container"
   >
+    <Status
+      hideText={false}
+    />
     <Avatar
       className="dashboard-user-profile-picture"
       display_name="John"
@@ -39,12 +73,40 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
       initials="JD"
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
+    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
       small={true}
-      title="John Doe"
+      title="Doe, John"
+    />
+    <InformationDataPoint
+      className="skill-code-data-point-container skill-code-data-point-container-skill"
+      content={
+        <SkillCodeList
+          skillCodes={
+            Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+              Object {
+                "code": "6211",
+                "cone": null,
+                "description": "COMPUTER SCIENCE",
+                "id": 40,
+              },
+            ]
+          }
+        />
+      }
+      sideBySide={false}
+      title=""
+      titleOnBottom={false}
     />
   </div>
 </div>
@@ -57,6 +119,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
   <div
     className="section-padded-inner-container"
   >
+    <Status
+      hideText={false}
+    />
     <Avatar
       className="dashboard-user-profile-picture"
       display_name="John"
@@ -64,13 +129,24 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
       initials="JD"
       lastName="Doe"
       onClick={[Function]}
+      small={false}
     />
+    <EditProfile />
     <PositionInformation
       className="current-user-name"
       icon=""
       small={true}
-      title="John Doe"
+      title="Doe, John"
     />
+    <Connect(StaticDevContent)>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Generalist • F2"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+    </Connect(StaticDevContent)>
   </div>
 </div>
 `;

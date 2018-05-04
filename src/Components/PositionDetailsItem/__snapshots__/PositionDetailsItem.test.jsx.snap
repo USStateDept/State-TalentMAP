@@ -102,6 +102,11 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           hasFixedTitleWidth={false}
           title="TED"
         />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Incumbent"
+        />
       </div>
     </div>
     <div
@@ -284,6 +289,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
               None listed
                | 
               <OBCUrl
+                altStyle={false}
                 id={1}
                 isButton={false}
                 label="View OBC Data"
@@ -301,6 +307,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
               None listed
                | 
               <OBCUrl
+                altStyle={false}
                 id={1}
                 isButton={false}
                 label="View OBC Data"
@@ -315,6 +322,11 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
           content="None listed"
           hasFixedTitleWidth={false}
           title="TED"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Incumbent"
         />
       </div>
     </div>
@@ -510,6 +522,11 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
           content="None listed"
           hasFixedTitleWidth={false}
           title="TED"
+        />
+        <CondensedCardDataPoint
+          content="None listed"
+          hasFixedTitleWidth={false}
+          title="Incumbent"
         />
       </div>
     </div>
