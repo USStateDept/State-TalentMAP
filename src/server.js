@@ -6,166 +6,306 @@ const path = require('path');
 const routesArray = require('./routes.js');
 const { metadata, login } = require('./saml2-config');
 
-// define full path to static build
-const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
-
-// Are we using a mock SAML for demo purposes?
-// If so, the env var USE_MOCK_SAML should be 1.
-const USE_MOCK_SAML = process.env.USE_MOCK_SAML === '1';
-
-// define the API root url
-const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
-
-// define the prefix for the application
-const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
-
-/* eslint-disable no-unused-vars */
-// Define the SAML login redirect
-let SAML_LOGIN = `${API_ROOT}/saml2/acs/`;
-if (USE_MOCK_SAML) {
-  SAML_LOGIN = `${PUBLIC_URL}login.html`;
-}
-/* eslint-enable no-unused-vars */
-
-// Define the SAML logout redirect
-let SAML_LOGOUT = `${API_ROOT}/saml2/logout/`;
-if (USE_MOCK_SAML) {
-  SAML_LOGOUT = `${PUBLIC_URL}login.html`;
-}
-
-// Routes from React, with wildcard added to the end if the route is not exact
-const ROUTES = routesArray.map(route => `${PUBLIC_URL}${route.path}${route.exact ? '' : '*'}`.replace('//', '/'));
-
-// define the OBC root url
-// example: https://www.obcurl.gov
-const OBC_URL = process.env.OBC_URL;
-
-// path to external about page
-const ABOUT_PAGE = process.env.ABOUT_PAGE || 'https://github.com/18F/State-TalentMAP';
-
-// application port
-const port = process.env.PORT || 3000;
-
-// set up logger
-const logger = bunyan.createLogger({ name: 'TalentMAP' });
-
-// logging middleware
-const loggingMiddleware = (request, response, next) => {
-  // object to log
-  const log = {
-    method: request.method,
-    headers: request.headers,
-    url: request.url,
-    query: request.query,
-  };
-
-  response.on('error', () => {
-    logger.error(log);
-  });
-
-  response.on('finish', () => {
-    logger.info(log);
-  });
-
-  next();
+/**
+ * ~ Settings Cache ~
+ * This is mainly to prevent the need to include the query parameter on every request.
+ * Setting will always update when it is changed according to priority
+ * (left is higher priority with right being fallback priority):
+ *   Environment Variable -> Query Parameter
+ */
+const cache = {
+  LOGIN_MODE: null, // Only works in DEVELOPMENT
+  DEBUG: null,
+  WEBPACK: false,
+  TEST: false,
 };
 
-const app = express();
+/**
+ * ~ Utilities ~
+ * Wrapped in closures for changing modes on the fly (without restarting) via:
+ * QueryParams (Dev only) - Matches environment variable in camel-case form )
+ * Environment (All environments)
+ */
+// /development|test/).test(process.env.NODE_ENV
+const isDev = () => (process.env.NODE_ENV === 'development');
+const isProd = () => (process.env.NODE_ENV === 'production');
+// Enables logging middleware
+const isDebug = (request) => {
+  const debug = cache.DEBUG || process.env.DEBUG || request.query.debug || false;
 
-// body parser
-app.use(bodyParser.urlencoded({ extended: false }));
+  if (isDev() && cache.DEBUG !== debug) {
+    // eslint-disable-next-line no-console
+    console.log(`DEBUG => ${debug}`);
+  }
 
-// remove 'X-Powered-By' header
-app.disable('x-powered-by');
+  // Cache DEBUG setting
+  cache.DEBUG = debug;
 
-// middleware for HTTP headers
-app.use(helmet());
-app.use(helmet.noCache());
+  return debug;
+};
 
-// middleware for static assets
-app.use(PUBLIC_URL, express.static(STATIC_PATH));
+const isSAML = (request) => {
+  const mode = cache.LOGIN_MODE || process.env.LOGIN_MODE || request.query.loginMode || 'password';
 
-app.use(bodyParser.urlencoded({
-  extended: true,
-}));
-
-// middleware for logging
-app.use(loggingMiddleware);
-
-// saml2 acs
-app.post(PUBLIC_URL, (request, response) => {
-  response.redirect(307, `${API_ROOT}/saml2/acs/`);
-});
-
-// saml2 login
-app.get(`${PUBLIC_URL}login`, (request, response) => {
-  // create handler
-  // eslint-disable-next-line no-unused-vars
-  const loginHandler = (err, loginUrl, requestId) => {
-    if (err) {
-      response.sendStatus(500);
-    } else {
-      response.redirect(loginUrl);
+  if (isDev() || cache.TEST) {
+    if (cache.LOGIN_MODE !== mode) {
+      // eslint-disable-next-line no-console
+      console.log(`LOGIN_MODE => ${mode}`);
     }
+
+    cache.LOGIN_MODE = mode;
+    return (mode !== 'password');
+  }
+
+  return true;
+};
+
+const getEnv = (key = null) => {
+  const fallbacks = {
+    PORT: 3000,                                     // application port
+    STATIC_PAGE: path.join(__dirname, '../build'),
+    API_ROOT: 'http://localhost:8000',              // define the API root url
+    PUBLIC_URL: '/talentmap/',
+    ABOUT_PAGE: 'https://github.com/18F/State-TalentMAP',
   };
 
-  login(loginHandler);
-});
+  const fallback = fallbacks[key] || null;
 
+  if (isDev() && key === 'PUBLIC_URL') {
+    process.env[key] = '/';
+  }
 
-app.get(`${PUBLIC_URL}logout`, (request, response) => {
-  response.redirect(`${API_ROOT}/saml2/logout/`);
-});
+  return (process.env[key] || fallback);
+};
 
+const useSAMLMock = () => (isDev() && isSAML()) || isProd();
+const getSAMLRoute = (type = 'login') => {
+  let route = null;
 
-// saml2 metadata
-app.get(`${PUBLIC_URL}metadata`, (request, response) => {
-  response.type('application/xml');
-  response.send(metadata);
-});
+  switch (type) {
+    // Define the SAML login redirect
+    case 'login':
+      route = useSAMLMock() ?
+        `${getEnv('PUBLIC_URL')}login.html` :
+        `${getEnv('API_ROOT')}/saml2/acs/`;
 
-// OBC redirect - post data detail
-// endpoint for post-specific data points
-app.get(`${PUBLIC_URL}obc/post/data/:id`, (request, response) => {
-  // set the id passed in the route and pass it to the redirect
-  const id = request.params.id;
-  response.redirect(`${OBC_URL}/post/postdatadetails/${id}`);
-});
+      break;
+    // Define the SAML logout redirect
+    case 'logout':
+      route = useSAMLMock() ?
+        `${getEnv('PUBLIC_URL')}login.html` :
+        `${getEnv('API_ROOT')}/saml2/logout/`;
+      break;
+    // Default case
+    default:
+      break;
+  }
 
-app.get(`${PUBLIC_URL}logout`, (request, response) => {
-  response.redirect(SAML_LOGOUT);
-});
+  return route;
+};
 
-// OBC redirect - posts
-// endpoint for post, ie landing page
-app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
-  // set the id passed in the route and pass it to the redirect
-  const id = request.params.id;
-  response.redirect(`${OBC_URL}/post/detail/${id}`);
-});
+/**
+ * ~ TalentMAP Middleware ~
+ * Entry Points:
+ *   => scripts/server.js
+ *   => config/webpackDevServer.config.js
+ */
+const TalentMapMiddleware = (app, compiler = null) => {
+  cache.WEBPACK = !!compiler;
+  cache.TEST = (process.env.NODE_ENV === 'test');
 
-// OBC redirect - countries
-// endpoint for country, ie landing page
-app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
-  // set the id passed in the route and pass it to the redirect
-  const id = request.params.id;
-  response.redirect(`${OBC_URL}/country/detail/${id}`);
-});
+  // Routes from React, with wildcard added to the end if the route is not exact
+  const ROUTES = routesArray
+    .map(route => `${getEnv('PUBLIC_URL')}${route.path}${route.exact ? '' : '*'}`
+    .replace('//', '/'));
 
-app.get(`${PUBLIC_URL}about/more`, (request, response) => {
-  response.redirect(`${ABOUT_PAGE}`);
-});
+  // define full path to static build
+  const STATIC_PATH = getEnv('STATIC_PATH');
+  // define the prefix for the application
+  const PUBLIC_URL = getEnv('PUBLIC_URL');
+  // define the OBC root url
+  // example: https://www.obcurl.gov
+  const OBC_URL = getEnv('OBC_URL');
+  // path to external about page
+  const ABOUT_PAGE = getEnv('ABOUT_PAGE');
 
-app.get(ROUTES, (request, response) => {
-  response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
-});
+  // set up logger
+  const logger = bunyan.createLogger({ name: 'TalentMAP' });
 
-// this is our wildcard, 404 route
-app.get('*', (request, response) => {
-  response.sendStatus(404).end();
-});
+  // logging middleware
+  const loggingMiddleware = (request, response, next) => {
+    // object to log
+    const log = {
+      method: request.method,
+      headers: request.headers,
+      url: request.url,
+      query: request.query,
+    };
 
-const server = app.listen(port);
+    response.on('error', () => {
+      if (isDebug(request)) {
+        logger.error(log);
+      }
+    });
 
-// export the the app and server separately
-module.exports = { app, server };
+    response.on('finish', () => {
+      if (isDebug(request)) {
+        logger.info(log);
+      }
+    });
+
+    next();
+  };
+
+  // body parser
+  app.use(bodyParser.urlencoded({ extended: false }));
+
+  // remove 'X-Powered-By' header
+  app.disable('x-powered-by');
+
+  // middleware for HTTP headers
+  app.use(helmet());
+  app.use(helmet.noCache());
+
+  // middleware for static assets
+  if (!(cache.WEBPACK || cache.TEST)) {
+    app.use(PUBLIC_URL, express.static(STATIC_PATH));
+  }
+
+  app.use(bodyParser.urlencoded({
+    extended: true,
+  }));
+
+  // middleware for logging
+  app.use(loggingMiddleware);
+
+  // saml2 acs
+  app.post(PUBLIC_URL, (request, response, next) => {
+    if (isSAML(request)) {
+      response.redirect(307, getSAMLRoute('login'));
+    } else {
+      next();
+    }
+  });
+
+  // saml2 login
+  app.get(`${PUBLIC_URL}login`, (request, response, next) => {
+    // create handler
+    // eslint-disable-next-line no-unused-vars
+    const loginHandler = (err, loginUrl, requestId) => {
+      if (err) {
+        response.sendStatus(500);
+      } else {
+        response.redirect(loginUrl);
+      }
+    };
+
+    if (isSAML(request)) {
+      if (isProd()) {
+        login(loginHandler);
+      } else {
+        // eslint-disable no-lonely-if, consistent-return */
+        // Render SAML Mock Login Template (login.html)
+        /*
+        if (compiler) {
+          // If our webpack-dev-server compiler is available, lets use it
+          const filename = path.join(compiler.outputPath, '../public/login.html');
+          console.log(filename);
+          compiler.outputFileSystem.readFile(filename, (error, result) => {
+            if (error) {
+              return next(error);
+            }
+
+            response.set('content-type', 'text/html');
+            response.send(result);
+            response.end();
+          });
+        } else {
+          // Otherwise, just render the html route
+        }
+        */
+        // eslint-enable no-lonely-if, consistent-return
+        const filename = path.resolve('./public/login.html');
+        response.sendFile(filename);
+      }
+    } else {
+      next();
+    }
+  });
+
+  app.get(`${PUBLIC_URL}logout`, (request, response, next) => {
+    if (isSAML(request)) {
+      if (isProd()) {
+        response.sendFile(getSAMLRoute('logout'));
+      } else {
+        response.redirect(`${getEnv('PUBLIC_URL')}login`);
+      }
+    } else {
+      next();
+    }
+  });
+
+  // saml2 metadata
+  app.get(`${PUBLIC_URL}metadata`, (request, response, next) => {
+    if (isSAML(request)) {
+      response.type('application/xml');
+      response.send(metadata);
+    } else {
+      next();
+    }
+  });
+
+  // OBC redirect - post data detail
+  // endpoint for post-specific data points
+  app.get(`${PUBLIC_URL}obc/post/data/:id`, (request, response) => {
+    // set the id passed in the route and pass it to the redirect
+    const id = request.params.id;
+    response.redirect(`${OBC_URL}/post/postdatadetails/${id}`);
+  });
+
+  // OBC redirect - posts
+  // endpoint for post, ie landing page
+  app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
+    // set the id passed in the route and pass it to the redirect
+    const id = request.params.id;
+    response.redirect(`${OBC_URL}/post/detail/${id}`);
+  });
+
+  // OBC redirect - countries
+  // endpoint for country, ie landing page
+  app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
+    // set the id passed in the route and pass it to the redirect
+    const id = request.params.id;
+    response.redirect(`${OBC_URL}/country/detail/${id}`);
+  });
+
+  app.get(`${PUBLIC_URL}about/more`, (request, response) => {
+    response.redirect(`${ABOUT_PAGE}`);
+  });
+
+  if (!cache.WEBPACK) {
+    if (!cache.TEST) {
+      app.get(ROUTES, (request, response) => {
+        response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
+      });
+
+      // this is our wildcard, 404 route
+      app.get('*', (request, response) => {
+        console.log('hi2');
+        response.sendStatus(404).end();
+      });
+    } else {
+      app.use('/talentmap', (request, response) => {
+        const filename = path.resolve('./public/index.html');
+        response.sendFile(filename);
+        response.sendStatus(200);
+      });
+    }
+  }
+
+  return app;
+};
+
+TalentMapMiddleware.getEnv = getEnv;
+
+module.exports = TalentMapMiddleware;
