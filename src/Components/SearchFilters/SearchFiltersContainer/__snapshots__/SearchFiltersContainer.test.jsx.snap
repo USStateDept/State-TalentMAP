@@ -15,6 +15,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   },
                 ],
                 "item": Object {
+                  "custom_description": "skill",
                   "description": "skill",
                   "selectionRef": "ref3",
                   "title": "skill",
@@ -144,7 +145,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   ],
                   "item": Object {
                     "description": "tod",
-                    "selectionRef": "ref3",
+                    "selectionRef": "reftod",
                     "title": "tod",
                   },
                 }
@@ -155,6 +156,34 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           </div>,
           "id": "accordion-tod",
           "title": "tod",
+        },
+        Object {
+          "content": <div
+            className="usa-grid-full"
+          >
+            <MultiSelectFilter
+              groupAlpha={false}
+              item={
+                Object {
+                  "data": Array [
+                    Object {
+                      "isSelected": true,
+                    },
+                  ],
+                  "item": Object {
+                    "custom_description": "language 1",
+                    "description": "language",
+                    "selectionRef": "refLan",
+                    "title": "skill",
+                  },
+                }
+              }
+              queryParamToggle={[Function]}
+              queryProperty="code"
+            />
+          </div>,
+          "id": "accordion-skill",
+          "title": "skill",
         },
       ]
     }

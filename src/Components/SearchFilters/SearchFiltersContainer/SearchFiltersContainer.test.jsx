@@ -15,11 +15,19 @@ describe('SearchFiltersContainerComponent', () => {
       data: [{ isSelected: true }],
     },
     {
-      item: { title: 'skill', description: 'skill', selectionRef: 'ref3' },
+      item: { title: 'post', description: 'domestic', selectionRef: 'refDom' },
+      data: [{ isSelected: true, code: null }, { isSelected: true, code: '100' }],
+    },
+    {
+      item: { title: 'skill', description: 'skill', custom_description: 'skill', selectionRef: 'ref3' },
       data: [{ isSelected: true }],
     },
     {
-      item: { title: 'tod', description: 'tod', selectionRef: 'ref3' },
+      item: { title: 'skill', description: 'language', custom_description: 'language 1', selectionRef: 'refLan' },
+      data: [{ isSelected: true }],
+    },
+    {
+      item: { title: 'tod', description: 'tod', selectionRef: 'reftod' },
       data: [{ isSelected: true }],
     },
     {
