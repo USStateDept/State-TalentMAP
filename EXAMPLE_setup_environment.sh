@@ -28,3 +28,18 @@ export OBC_URL=http://localhost:4000/
 # External link to the About page
 # Default - local test value https://github.com/18F/State-TalentMAP
 export ABOUT_PAGE=https://github.com/18F/State-TalentMAP 
+
+# SAML configuration
+
+# external facing endpoints
+export ENTITY_ID=http://localhost:3000/talentmap/
+export ASSERT_ENDPOINT=http://localhost:3000/talentmap/
+
+# server certificate
+export CERT_FILE=/path/to/cert_file.crt
+export KEY_FILE=/path/to/key_file.key
+
+# identity provider config
+export SSO_LOGIN_URL=http://localhost:5000/login
+export SSO_LOGOUT_URL=http://localhost:5000/logout
+export SSO_CERT_FILE=/path/to/cert_file.crt
