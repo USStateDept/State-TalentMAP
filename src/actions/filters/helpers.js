@@ -7,7 +7,7 @@ export function getCustomGradeDescription(gradeCode) {
     case 'MC':
       return 'MC Minister-Counselor (FE-MC)';
     case 'OC':
-      return 'OC Couneslor (FE-OC)';
+      return 'OC Counselor (FE-OC)';
     case 'OM':
       return 'Office Manager (OM)';
     default:
