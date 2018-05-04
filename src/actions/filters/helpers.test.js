@@ -46,6 +46,9 @@ describe('filter helpers', () => {
 
   it('can return correct values for the getPillDescription function', () => {
     // all valid properties should return their own value
+    expect(getPillDescription({ description: 'test' }, 'dangerPay')).toBe('Danger pay: test');
+    expect(getPillDescription({ description: 'test' }, 'postDiff')).toBe('Post differential: test');
+    expect(getPillDescription({ custom_description: 'test' }, 'language')).toBe('test');
     expect(getPillDescription({ short_description: 'test' })).toBe('test');
     expect(getPillDescription({ description: 'test' })).toBe('test');
     expect(getPillDescription({ long_description: 'test' })).toBe('test');
