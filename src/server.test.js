@@ -25,7 +25,7 @@ describe('proxy server routes', () => {
   });
 
   it('redirects on GET /talentmap/logout', (done) => {
-    request(server).get('/talentmap/logout').expect(302, done);
+    request(server).get('/talentmap/logout').expect(200, done);
   });
 
   it('responds to POST /talentmap/login', (done) => {
