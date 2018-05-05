@@ -27,6 +27,17 @@ describe('filter helpers', () => {
     expect(getFilterCustomDescription(
       { item: { description: 'post' } }, { location: { city: 'Paris', country: 'France' } }),
     ).toBe('Paris, France');
+    expect(getFilterCustomDescription(
+      { item: { description: 'bidCycle' } }, { name: 'test' }),
+    ).toBe('test');
+    expect(getFilterCustomDescription(
+      { item: { description: 'language' } }, { formal_description: 'test', code: '1' }),
+    ).toBe('test (1)');
+    ['postDiff', 'dangerPay', 'functionalRegion'].forEach((f) => {
+      expect(getFilterCustomDescription(
+        { item: { description: f } }, { description: 'test' }),
+      ).toBe('test');
+    });
     // but unmapped descriptions will return false
     expect(getFilterCustomDescription(
       { item: { description: 'invalid' } }, { location: { city: 'Paris', country: 'France' } }),
@@ -35,6 +46,9 @@ describe('filter helpers', () => {
 
   it('can return correct values for the getPillDescription function', () => {
     // all valid properties should return their own value
+    expect(getPillDescription({ description: 'test' }, 'dangerPay')).toBe('Danger pay: test');
+    expect(getPillDescription({ description: 'test' }, 'postDiff')).toBe('Post differential: test');
+    expect(getPillDescription({ custom_description: 'test' }, 'language')).toBe('test');
     expect(getPillDescription({ short_description: 'test' })).toBe('test');
     expect(getPillDescription({ description: 'test' })).toBe('test');
     expect(getPillDescription({ long_description: 'test' })).toBe('test');

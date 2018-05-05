@@ -154,4 +154,9 @@ describe('async actions', () => {
     };
     f();
   });
+
+  it('can call glossaryEditorCancel', () => {
+    const store = mockStore({ glossary: {} });
+    store.dispatch(actions.glossaryEditorCancel(1));
+  });
 });
