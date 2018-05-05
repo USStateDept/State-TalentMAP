@@ -63,7 +63,7 @@ const isSAML = (request) => {
 const getEnv = (key = null) => {
   const fallbacks = {
     PORT: 3000,                                     // application port
-    STATIC_PAGE: path.join(__dirname, '../build'),
+    STATIC_PATH: path.join(__dirname, '../build'),
     API_ROOT: 'http://localhost:8000',              // define the API root url
     PUBLIC_URL: '/talentmap/',
     ABOUT_PAGE: 'https://github.com/18F/State-TalentMAP',
