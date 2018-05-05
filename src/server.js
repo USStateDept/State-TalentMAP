@@ -33,7 +33,7 @@ const isProd = () => (process.env.NODE_ENV === 'production');
 const isDebug = (request) => {
   const debug = cache.DEBUG || process.env.DEBUG || request.query.debug || false;
 
-  if (isDev() && cache.DEBUG !== debug) {
+  if (isDev() && cache.DEBUG !== debug && !cache.TEST) {
     // eslint-disable-next-line no-console
     console.log(`DEBUG => ${debug}`);
   }
@@ -48,7 +48,7 @@ const isSAML = (request) => {
   const mode = cache.LOGIN_MODE || process.env.LOGIN_MODE || request.query.loginMode || 'password';
 
   if (isDev() || cache.TEST) {
-    if (cache.LOGIN_MODE !== mode) {
+    if (cache.LOGIN_MODE !== mode && !cache.TEST) {
       // eslint-disable-next-line no-console
       console.log(`LOGIN_MODE => ${mode}`);
     }
@@ -204,27 +204,6 @@ const TalentMAPMiddleware = (app, compiler = null) => {
       if (isProd()) {
         login(loginHandler);
       } else {
-        // eslint-disable no-lonely-if, consistent-return */
-        // Render SAML Mock Login Template (login.html)
-        /*
-        if (compiler) {
-          // If our webpack-dev-server compiler is available, lets use it
-          const filename = path.join(compiler.outputPath, '../public/login.html');
-          console.log(filename);
-          compiler.outputFileSystem.readFile(filename, (error, result) => {
-            if (error) {
-              return next(error);
-            }
-
-            response.set('content-type', 'text/html');
-            response.send(result);
-            response.end();
-          });
-        } else {
-          // Otherwise, just render the html route
-        }
-        */
-        // eslint-enable no-lonely-if, consistent-return
         const filename = path.resolve('./public/login.html');
         response.sendFile(filename);
       }

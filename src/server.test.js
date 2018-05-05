@@ -24,12 +24,12 @@ describe('proxy server routes', () => {
     request(server).get('/talentmap/login').expect(200, done);
   });
 
-  it('renders on GET /talentmap/logout', (done) => {
-    request(server).get('/talentmap/logout').expect(200, done);
+  it('redirects on GET /talentmap/logout', (done) => {
+    request(server).get('/talentmap/logout').expect(302, done);
   });
 
-  it('responds to POST /talentmap/', (done) => {
-    request(server).post('/talentmap/').expect(200, done);
+  it('responds to POST /talentmap/login', (done) => {
+    request(server).post('/talentmap/login').expect(200, done);
   });
 
   // OBC
