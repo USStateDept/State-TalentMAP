@@ -14,6 +14,7 @@ const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
         const key = `${result.id}-${propOrDefault(result, 'latest_bidcycle.id', '')}`;
         return (
           <ResultsCard
+            id={key}
             toggleFavorite={toggleFavorite}
             favorites={favorites}
             key={key}
