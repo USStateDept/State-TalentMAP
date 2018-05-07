@@ -216,8 +216,14 @@
   left: 65%;
   position: absolute;
 
-  .bid-list-button {
-    box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
+  .bid-list-button,
+  a {
+    box-shadow: $button-box-shadow;
+    padding: 1em 3em;
+
+    @media screen and (max-width: $screen-xs-max) {
+      padding: .5em 2em;
+    }
   }
 
   .offset-bid-button-container-count {
@@ -318,6 +324,31 @@
   .offset-bid-button-container {
     bottom: -22%;
     left: 5%;
+  }
+
+  .service-needed-toggle {
+    margin-bottom: 10px;
+    margin-left: 1px;
+    margin-top: 10px;
+
+    .fa::before,
+    .ds-c-spinner::before {
+      position: relative;
+      top: 1px;
+    }
+
+    $spinner-size: 14px;
+
+    .ds-c-spinner {
+      margin-right: 4px;
+
+      &,
+      &::before,
+      &::after {
+        height: $spinner-size;
+        width: $spinner-size;
+      }
+    }
   }
 }
 

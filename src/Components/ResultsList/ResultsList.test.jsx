@@ -1,8 +1,6 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import ResultsList from './ResultsList';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -11,7 +9,7 @@ describe('ResultsListComponent', () => {
   let wrapper = null;
 
   beforeEach(() => {
-    results = TestUtils.renderIntoDocument(<MemoryRouter>
+    results = shallow(
       <ResultsList
         results={resultsObject}
         toggleFavorite={() => {}}
@@ -19,8 +17,8 @@ describe('ResultsListComponent', () => {
         userProfileFavoritePositionHasErrored={false}
         toggleBid={() => {}}
         bidList={[]}
-      />
-    </MemoryRouter>);
+      />,
+    );
   });
 
   it('is defined', () => {

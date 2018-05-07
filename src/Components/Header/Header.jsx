@@ -132,8 +132,9 @@ export class Header extends Component {
         >
           Skip to main content
         </InteractiveElement>
-        <header className="usa-header usa-header-extended tm-header" role="banner">
-          <GovBanner />
+        <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
+          <ToggleContent />
+          <StateBanner />
           <BetaHeader />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>

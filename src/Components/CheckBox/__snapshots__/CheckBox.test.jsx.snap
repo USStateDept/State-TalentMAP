@@ -6,6 +6,7 @@ exports[`CheckBoxComponent matches snapshot 1`] = `
 >
   <input
     checked="value"
+    disabled={false}
     id="id"
     name="name"
     onChange={[Function]}
@@ -31,6 +32,7 @@ exports[`CheckBoxComponent matches snapshot when small = true and labelSrOnly = 
 >
   <input
     checked="value"
+    disabled={false}
     id="id"
     name="name"
     onChange={[Function]}

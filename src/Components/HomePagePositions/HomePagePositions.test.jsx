@@ -60,7 +60,7 @@ describe('HomePageComponent', () => {
       homePagePositions={fallBackPositions}
     />);
     expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorited Positions');
-    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently posted positions');
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('title')).toBe('Recently Posted Positions');
   });
 
   it('sets links correctly for fallback positions', () => {

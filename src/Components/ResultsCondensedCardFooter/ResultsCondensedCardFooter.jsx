@@ -11,7 +11,7 @@ const ResultsCondensedCardFooter = ({ position }) => {
     <div className="condensed-card-footer">
       <div className="usa-grid-full condensed-card-footer-container">
         <div className="condensed-card-footer-left">
-          <strong>Position Number: </strong>
+          <strong>Position number: </strong>
           {position.position_number}
         </div>
         <div className="condensed-card-footer-right">

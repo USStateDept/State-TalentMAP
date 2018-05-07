@@ -32,7 +32,8 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
                   <h1>{details.title}</h1>
                 </div>
                 <div className="post-title">
-                  Post: {details.post.location} { obcId && <span>(<OBCUrl id={obcId} />)</span> }
+                  Post: {getPostName(details.post, NO_POST)}
+                  { obcId && <span> (<OBCUrl id={obcId} />)</span> }
                 </div>
               </div>
               <div className="usa-width-one-half title-actions-section">

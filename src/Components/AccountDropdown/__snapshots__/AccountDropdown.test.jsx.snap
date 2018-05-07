@@ -9,10 +9,14 @@ exports[`AccountDropdown matches snapshot 1`] = `
     className=""
     href="/#"
   >
-    <img
-      alt="avatar"
+    <Avatar
       className="account-dropdown--avatar"
-      src="/assets/img/avatar.png"
+      displayName="John Doe"
+      firstName="John"
+      initials=""
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
   </DropdownTrigger>
   <DropdownContent
@@ -24,30 +28,26 @@ exports[`AccountDropdown matches snapshot 1`] = `
       <div>
         Signed in as
       </div>
-      <strong />
+      <strong>
+        John Doe
+      </strong>
     </div>
-    <div
+    <Link
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/profile/dashboard"
     >
-      <Link
-        onClick={[Function]}
-        replace={false}
-        to="/profile/dashboard"
-      >
-        Profile
-      </Link>
-    </div>
-    <div
+      Profile
+    </Link>
+    <Link
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/logout"
     >
-      <Link
-        onClick={[Function]}
-        replace={false}
-        to="/login"
-      >
-        Logout
-      </Link>
-    </div>
+      Logout
+    </Link>
   </DropdownContent>
 </Dropdown>
 `;
@@ -61,15 +61,21 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
     className=""
     href="/#"
   >
-    <img
-      alt="avatar"
+    <Avatar
       className="account-dropdown--avatar"
-      src="/assets/img/avatar.png"
+      displayName="John Doe"
+      firstName="John"
+      initials=""
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
     <span
       className="account-dropdown--name"
       id="account-username"
-    />
+    >
+      John Doe
+    </span>
   </DropdownTrigger>
   <DropdownContent
     className=""
@@ -80,30 +86,26 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
       <div>
         Signed in as
       </div>
-      <strong />
+      <strong>
+        John Doe
+      </strong>
     </div>
-    <div
+    <Link
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/profile/dashboard"
     >
-      <Link
-        onClick={[Function]}
-        replace={false}
-        to="/profile/dashboard"
-      >
-        Profile
-      </Link>
-    </div>
-    <div
+      Profile
+    </Link>
+    <Link
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+      onClick={[Function]}
+      replace={false}
+      to="/logout"
     >
-      <Link
-        onClick={[Function]}
-        replace={false}
-        to="/login"
-      >
-        Logout
-      </Link>
-    </div>
+      Logout
+    </Link>
   </DropdownContent>
 </Dropdown>
 `;

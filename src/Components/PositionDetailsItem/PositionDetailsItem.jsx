@@ -1,10 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NO_BUREAU, NO_GRADE, NO_SKILL, NO_END_DATE, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL, NO_DANGER_PAY, NO_USER_LISTED } from '../../Constants/SystemMessages';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import OBCUrl from '../OBCUrl';
+import HowToBid from './HowToBid';
+import PositionDetailsDescription from './PositionDetailsDescription';
+import PositionDetailsContact from './PositionDetailsContact';
+import ServiceNeededToggle from './ServiceNeededToggle';
+import {
+  formatDate,
+  propOrDefault,
+  getAccessiblePositionNumber,
+  getDifferentialPercentage,
+} from '../../utilities';
+
+import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
+import {
+  POSITION_DETAILS,
+  USER_PROFILE,
+  HIGHLIGHT_POSITION,
+  EMPTY_FUNCTION,
+} from '../../Constants/PropTypes';
+import {
+  NO_BUREAU,
+  NO_GRADE,
+  NO_SKILL,
+  NO_END_DATE,
+  NO_TOUR_OF_DUTY,
+  NO_POST_DIFFERENTIAL,
+  NO_DANGER_PAY,
+  NO_USER_LISTED,
+} from '../../Constants/SystemMessages';
+
+const PositionDetailsItem = (props) => {
+  const {
+    details,
+    editDescriptionContent,
+    resetDescriptionEditMessages,
+    editPocContent,
+    editWebsiteContent,
+    userProfile,
+    highlightPosition,
+    onHighlight,
+  } = props;
 
   const isHighlightLoading = highlightPosition.loading;
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
@@ -37,16 +75,16 @@ import OBCUrl from '../OBCUrl';
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
           <div className="usa-grid-full data-point-section">
-            <CondensedCardDataPoint title="Skill Code" content={details.skill || NO_SKILL} />
-            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position Number" content={details.position_number} />
-            <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} />} />
+            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position number" content={details.position_number} />
+            <CondensedCardDataPoint title="Skill code" content={details.skill || NO_SKILL} />
             <CondensedCardDataPoint title="Grade" content={details.grade || NO_GRADE} />
-            <CondensedCardDataPoint title="Transfer Eligibility Date" content={formattedTourEndDate} />
-            <CondensedCardDataPoint title="Incumbent" content={formattedIncumbent} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
-            <CondensedCardDataPoint title="Tour of Duty" content={formattedTOD} />
-            <CondensedCardDataPoint title="Post Differential" content={formattedOBCData} />
-            <CondensedCardDataPoint title="Danger Pay" content={formattedOBCData} />
+            <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
+            <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} propToUse="representation" />} />
+            <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
+            <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
+            <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
+            <CondensedCardDataPoint title="Incumbent" content={incumbent} />
           </div>
         </div>
         <div className="usa-width-one-third position-details-contact-container">
@@ -56,6 +94,13 @@ import OBCUrl from '../OBCUrl';
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
+          <ServiceNeededToggle
+            userProfile={userProfile}
+            position={details}
+            loading={isHighlightLoading}
+            onChange={onHighlight}
+          />
+          <HowToBid />
         </div>
       </div>
     </div>

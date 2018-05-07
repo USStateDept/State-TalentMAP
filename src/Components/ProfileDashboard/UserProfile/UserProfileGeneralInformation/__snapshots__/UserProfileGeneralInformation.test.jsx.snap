@@ -7,10 +7,17 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
   <div
     className="section-padded-inner-container"
   >
-    <ProfilePicture
-      alt="avatar"
-      className=""
-      source="/assets/img/avatar.png"
+    <Status
+      hideText={false}
+    />
+    <Avatar
+      className="dashboard-user-profile-picture"
+      display_name="John"
+      firstName="John"
+      initials="JD"
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
     <EditProfile />
     <PositionInformation
@@ -56,10 +63,17 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
   <div
     className="section-padded-inner-container"
   >
-    <ProfilePicture
-      alt="avatar"
-      className=""
-      source="/assets/img/avatar.png"
+    <Status
+      hideText={false}
+    />
+    <Avatar
+      className="dashboard-user-profile-picture"
+      display_name="John"
+      firstName="John"
+      initials="JD"
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
     <EditProfile />
     <PositionInformation
@@ -105,10 +119,17 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
   <div
     className="section-padded-inner-container"
   >
-    <ProfilePicture
-      alt="avatar"
-      className=""
-      source="/assets/img/avatar.png"
+    <Status
+      hideText={false}
+    />
+    <Avatar
+      className="dashboard-user-profile-picture"
+      display_name="John"
+      firstName="John"
+      initials="JD"
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
     <EditProfile />
     <PositionInformation

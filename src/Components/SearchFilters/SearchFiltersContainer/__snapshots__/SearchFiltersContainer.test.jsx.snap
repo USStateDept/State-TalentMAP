@@ -158,24 +158,32 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "title": "tod",
         },
         Object {
-          "content": <LanguageFilter
-            item={
-              Object {
-                "item": Object {},
+          "content": <div
+            className="usa-grid-full"
+          >
+            <MultiSelectFilter
+              groupAlpha={false}
+              item={
+                Object {
+                  "data": Array [
+                    Object {
+                      "isSelected": true,
+                    },
+                  ],
+                  "item": Object {
+                    "custom_description": "language 1",
+                    "description": "language",
+                    "selectionRef": "refLan",
+                    "title": "skill",
+                  },
+                }
               }
-            }
-            queryParamUpdate={[Function]}
-            selectedAccordion={
-              Object {
-                "main": "",
-                "sub": "",
-              }
-            }
-            setAccordion={[Function]}
-          />,
-          "expanded": false,
-          "id": "accordion-undefined",
-          "title": undefined,
+              queryParamToggle={[Function]}
+              queryProperty="code"
+            />
+          </div>,
+          "id": "accordion-skill",
+          "title": "skill",
         },
       ]
     }

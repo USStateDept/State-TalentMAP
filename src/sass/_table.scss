@@ -4,7 +4,7 @@ $tm-table-blue: $primary-blue-darkest;
   $border-visible-height: 500%;
 
   $border-radius: 9px;
-  color: $color-gray;
+  color: $primary-base;
   margin-bottom: 0;
   table-layout: fixed;
   width: 100%;
@@ -15,7 +15,7 @@ $tm-table-blue: $primary-blue-darkest;
   }
 
   .column-title-link {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 
     a {
       color: $color-white;

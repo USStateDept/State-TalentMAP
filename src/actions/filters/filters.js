@@ -70,22 +70,10 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         // We'll do this for posts and missions.
         }
         if (item.selectionRef === ENDPOINT_PARAMS.post) {
+          dispatch(filtersIsLoading(true));
           return api.get(`/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
-            // push the object to cache
-            responses.asyncFilterCache.push(obj);
-            // and return the object
-            return obj;
-          })
-          .catch((error) => {
-            throw error;
-          });
-        }
-        if (item.selectionRef === ENDPOINT_PARAMS.mission) {
-          return api.get(`/country/${item.codeRef}/`)
-          .then((response) => {
-            const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
             // and return the object

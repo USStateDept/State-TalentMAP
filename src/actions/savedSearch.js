@@ -1,5 +1,6 @@
 import api from '../api';
 import * as SystemMessages from '../Constants/SystemMessages';
+import { propOrDefault } from '../utilities';
 
 export function newSavedSearchHasErrored(bool) {
   return {
@@ -115,7 +116,9 @@ export function savedSearchesFetchData(sortType) {
   return (dispatch) => {
     dispatch(savedSearchesIsLoading(true));
     dispatch(savedSearchesHasErrored(false));
-    api.get('/searches/')
+    let url = '/searches/';
+    if (sortType) { url += `?ordering=${sortType}`; }
+    api.get(url)
       .then(response => response.data)
       .then((results) => {
         dispatch(savedSearchesSuccess(results));
@@ -196,7 +199,7 @@ export function saveSearch(data, id) {
     // to post or patch to the correct endpoint
     const config = {
       method: id ? 'patch' : 'post',
-      url: `/searches/${id ? '/id' : '/'}`,
+      url: id ? `/searches/${id}/` : '/searches/',
       data,
     };
 
@@ -219,7 +222,9 @@ export function saveSearch(data, id) {
         dispatch(setCurrentSavedSearch(response.data));
       })
       .catch((err) => {
-        dispatch(newSavedSearchHasErrored(JSON.stringify(err.response.data) || 'An error occurred trying to save this search.'));
+        dispatch(newSavedSearchHasErrored(
+          { title: 'Error', message: propOrDefault(err, 'response.data', 'An error occurred trying to save this search.') },
+        ));
         dispatch(newSavedSearchIsSaving(false));
         dispatch(newSavedSearchSuccess(false));
       });

@@ -1,8 +1,6 @@
-.usa-skipnav {
-  text-decoration: underline;
-}
-
-.usa-button {
+// USWDS font-family overrides
+// Define here
+@mixin font-override {
   font-family: 'Roboto';
 }
 
@@ -152,4 +150,8 @@ button,
       margin-left: 5px;
     }
   }
+}
+
+.usa-skipnav {
+  text-decoration: underline;
 }

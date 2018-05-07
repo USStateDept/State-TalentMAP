@@ -16,7 +16,7 @@
   }
 
   [disabled]:checked + label::before {
-    background-image: url('#{$asset-path}/assets/img/check-gray.svg');
+    background-image: url('#{$asset-path}assets/img/check-gray.svg');
     background-size: 2em;
   }
 }

@@ -41,7 +41,6 @@ export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
 export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';
 export const DECLINE_BID_SUCCESS = 'Bid successfully declined.';
 export const DECLINE_BID_ERROR = 'Error trying to decline this bid.';
-
 export const SUBMIT_BID_SUCCESS = 'Bid successfully submitted.';
 export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 

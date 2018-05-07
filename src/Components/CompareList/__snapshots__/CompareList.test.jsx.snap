@@ -78,7 +78,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Position Number
+              Position number
+              <div
+                className="border-extension-layer-2 border-visible-layer-2"
+              />
             </th>
             <td>
               <span
@@ -144,7 +147,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Tour of Duty
+              Tour of duty
             </th>
             <td>
               None listed
@@ -193,7 +196,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post Differential
+              Post differential
             </th>
             <td>
               30%
@@ -206,7 +209,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Danger Pay
+              Danger pay
             </th>
             <td>
               0%
@@ -219,7 +222,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Transfer Eligibility Date
+              TED
             </th>
             <td>
               None listed

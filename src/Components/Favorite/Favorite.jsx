@@ -164,9 +164,6 @@ class Favorite extends Component {
     if (useButtonClass || useSpinnerWhite) {
       spinnerClass = `${spinnerClass} ${useButtonClassSecondary ? 'spinner-blue' : 'spinner-white'}`;
     }
-    if (hideText) {
-      text = null;
-    }
 
     return (
       <span>

@@ -4,11 +4,15 @@
     background-position: 94%;
   }
 
-  .usa-accordion-button[aria-expanded=false] {
+  .usa-accordion-button:not(.tm-nested-accordion-button) {
+    background-image: none;
+  }
+
+  .usa-accordion-button[aria-expanded=false]:not(.tm-nested-accordion-button) {
     background-image: url('#{$asset-path}assets/img/plus-white.svg');
   }
 
-  .usa-accordion-button[aria-expanded=true] {
+  .usa-accordion-button[aria-expanded=true]:not(.tm-nested-accordion-button) {
     background-image: url('#{$asset-path}assets/img/minus-white.svg');
   }
 }

@@ -88,6 +88,12 @@
   .saved-search-card {
     min-height: 50px;
     padding: 5px 15px;
+
+    .usa-width-one-half {
+      dd {
+        padding-left: 1.5rem;
+      }
+    }
   }
 
   .saved-searches-container {
@@ -304,11 +310,11 @@
   }
 
   .dashboard-user-profile-picture {
-    border-radius: 75px;
-    height: 100px;
-    margin: 1em 0 2em;
+    display: inline-block;
+    height: $avatar-size;
+    margin: .5em 0;
     vertical-align: middle;
-    width: 100px;
+    width: $avatar-size;
   }
 
   .start-end {

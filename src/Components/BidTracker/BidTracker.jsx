@@ -6,7 +6,6 @@ import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import NotificationsSection from './NotificationsSection';
 import ContactCDOButton from './ContactCDOButton';
-import ProfileSectionTitle from '../ProfileSectionTitle';
 
 const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
 notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
@@ -21,7 +20,9 @@ userProfileIsLoading }) => {
       />
       <div className="usa-grid-full">
         <div className="usa-width-one-half bid-tracker-greeting-container">
-          <ProfileSectionTitle title="Bid Tracker" />
+          <div className="usa-grid-full">
+            <ProfileSectionTitle title="Bid Tracker" />
+          </div>
         </div>
         <div className="usa-width-one-half bid-tracker-cdo-email-container">
           <div className="bid-tracker-cdo-email">

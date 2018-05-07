@@ -36,44 +36,40 @@
   height: $avatar-dropdown-size;
   line-height: $avatar-dropdown-size;
   margin: 0 5px 0 0;
-  width: 20px;
+  width: $avatar-dropdown-size;
 }
 
-.account-dropdown-link:hover {
-  background: $blue-primary;
-  color: $color-white;
-  padding: 0;
+.account-dropdown {
+  position: relative;
 
-  a {
-    color: $color-white;
-    display: block;
-    padding: 10px 15px;
-    width: 100%;
+  .dropdown__trigger {
+    display: inline-block;
+    height: $avatar-dropdown-size;
+
+    &::after {
+      content: '\f107';
+      font-family: 'FontAwesome';
+      font-size: 2rem;
+      margin: 0 0 0 5px;
+      vertical-align: middle;
+    }
   }
-}
 
-.account-dropdown .dropdown__trigger {
-  line-height: 20px;
-  padding: 10px 0;
-}
-
-.account-dropdown .dropdown__trigger::after {
-  content: '\25BE';
-  margin: 0 0 0 5px;
+  .dropdown__content {
+    background: $avatar-dropdown-background;
+    border-top: $avatar-dropdown-border-top-color 1px solid;
+    box-shadow: 0 5px 8px $avatar-dropdown-box-shadow-color;
+    margin-top: 5px;
+  }
 }
 
 .account-dropdown--avatar,
 .account-dropdown--name {
-  height: 35px;
   vertical-align: middle;
-  width: 35px;
 }
 
-.account-dropdown .dropdown__content {
-  background: $avatar-background;
-  border-top: $avatar-dropdown-border-top-color 1px solid;
-  box-shadow: 0 5px 8px $avatar-dropdown-box-shadow-color;
-  margin-top: 5px;
+.account-dropdown--name {
+  margin-left: 5px;
 }
 
 .account-dropdown--quick-links,

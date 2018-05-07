@@ -47,7 +47,12 @@ const CompareList = ({ compare, isLoading }) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">Position Number</th>
+                    <th scope="row">
+                      Position number
+                      {/* border-extension-layer-2 border-visible-layer-2 should be inside
+                        of first data point's <tr> in the <tbody> */}
+                      <div className="border-extension-layer-2 border-visible-layer-2" />
+                    </th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -90,7 +95,7 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Tour of Duty</th>
+                    <th scope="row">Tour of duty</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -110,7 +115,7 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Post Differential</th>
+                    <th scope="row">Post differential</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>
@@ -122,7 +127,7 @@ const CompareList = ({ compare, isLoading }) => {
                   </tr>
                   <tr>
                     <th scope="row">
-                      Danger Pay
+                      Danger pay
                     </th>
                     {
                       compareArray.map(c => (
@@ -134,7 +139,7 @@ const CompareList = ({ compare, isLoading }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">Transfer Eligibility Date</th>
+                    <th scope="row">TED</th>
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>

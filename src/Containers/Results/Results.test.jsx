@@ -33,7 +33,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -57,7 +58,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
     expect(results).toBeDefined();
@@ -83,7 +85,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -116,42 +119,12 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
     sinon.assert.calledOnce(spy);
-  });
-
-  it('can call the resetFilters function', () => {
-    const wrapper = shallow(
-      <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
-        toggleFavorite={() => {}}
-        saveSearch={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        pageTitle="Results"
-      />,
-    );
-    // define the instance
-    const instance = wrapper.instance();
-    // spy the onQueryParamUpdate function
-    const handleUpdateSpy = sinon.spy(instance, 'resetFilters');
-    wrapper.instance().context.router = { history: { push: () => {} } };
-    wrapper.instance().resetFilters();
-    sinon.assert.calledOnce(handleUpdateSpy);
   });
 
   it('can call the saveSearch function', () => {
@@ -174,7 +147,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     wrapper.instance().saveSearch('test', 1);
@@ -202,6 +176,9 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         pageTitle="Results"
+        debounceTimeInMs={debounceTimeInMs}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -240,6 +217,9 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         pageTitle="Results"
+        debounceTimeInMs={debounceTimeInMs}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -278,6 +258,9 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         pageTitle="Results"
+        debounceTimeInMs={debounceTimeInMs}
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     // define the instance
@@ -315,7 +298,8 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        pageTitle="Results"
+        toggleBid={() => {}}
+        bidListFetchData={() => {}}
       />,
     );
     const history = { value: { search: null } };
@@ -325,35 +309,6 @@ describe('Results', () => {
     // There wasn't a change, so we should refresh the page - i.e., value.search
     // shouldn't change.
     expect(history.value.search).toBe(null);
-  });
-
-  it('can handle routerLocations upon mount', () => {
-    global.scrollTo = jest.fn();
-    const routerLocations = [{ pathname: 'test' }, { pathname: 'test2' }];
-    const wrapper = shallow(
-      <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
-        toggleFavorite={() => {}}
-        saveSearch={() => {}}
-        routerLocations={routerLocations}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        pageTitle="Results"
-      />,
-    );
-    wrapper.instance().componentDidMount();
-    expect(global.scrollTo).toBeCalled();
   });
 });
 

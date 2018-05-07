@@ -1,5 +1,5 @@
-$results-container-width: 78%;
-$filter-container-width: 100% - $results-container-width;
+$filter-container-width: 23%;
+$results-container-width: 100% - $filter-container-width;
 
 .results {
   label {
@@ -177,21 +177,7 @@ $filter-container-width: 100% - $results-container-width;
       }
     }
 
-    // Divider Accent
-    .divider {
-      &::after {
-        background-color: $bg-gray-dark-1;
-        content: '';
-        display: block;
-        height: 100%;
-        position: absolute;
-        right: -(10px + (10px - $button-gutter));
-        top: 0;
-        width: 1px;
-      }
-    }
-
-    .usa-button {
+    .usa-button:not(.favorite-container) {
       font-size: 1.4rem;
       font-weight: 400;
       line-height: em(15px);
@@ -508,7 +494,8 @@ $filter-container-width: 100% - $results-container-width;
     padding: 1rem;
   }
 
-  .accordion-checkbox-post {
+  .accordion-checkbox-post,
+  .accordion-checkbox-skill-cone-code {
     .usa-accordion-button {
       float: left;
       padding-left: 0;

@@ -38,7 +38,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 noForm={true}
                 onChangeText={[Function]}
                 onSubmitSearch={[Function]}
-                placeholder="Location, Skill Code, Grade, Language, Position Number"
+                placeholder="Location, Skill cone (code), Grade, Language, Position number"
                 submitDisabled={false}
                 submitText="Search"
                 type="medium"
@@ -81,7 +81,8 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
               className="usa-width-one-twelfth search-results-inputs search-keyword"
             >
               <SelectForm
-                defaultSort={null}
+                className="select-black select-small"
+                defaultSort="03"
                 disabled={false}
                 emptyOptionText=""
                 id="grade-searchbar-filter"

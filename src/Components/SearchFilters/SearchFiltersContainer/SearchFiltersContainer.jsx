@@ -6,8 +6,9 @@ import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterConta
 import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import BureauFilter from '../BureauFilter';
 import PostFilter from '../PostFilter';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
-import { propSort, sortGrades } from '../../../utilities';
+import SkillFilter from '../SkillFilter';
+import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
+import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
 class SearchFiltersContainer extends Component {
@@ -62,7 +63,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'post', 'region', 'tod', 'mission', 'language'];
+    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'region', 'post', 'tod', 'language', 'postDiff', 'dangerPay'];
 
     // create map
     const multiSelectFilterMap = new Map();

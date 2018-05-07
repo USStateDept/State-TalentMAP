@@ -104,28 +104,6 @@ exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
 </span>
 `;
 
-exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
-<InteractiveElement
-  className="favorite-container  usa-button"
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
-    }
-  }
-  title="Add to Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star-o"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
-`;
-
 exports[`Favorite matches snapshot when useLongText is true - Add state 1`] = `
 <span>
   <InteractiveElement
@@ -196,26 +174,4 @@ exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
     />
   </InteractiveElement>
 </span>
-`;
-
-exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
-<InteractiveElement
-  className="favorite-container  "
-  onClick={[Function]}
-  style={
-    Object {
-      "pointerEvents": "inherit",
-    }
-  }
-  title="Remove from Favorites"
-  type="div"
->
-  <FontAwesome
-    name="star"
-  />
-  <MediaQueryWrapper
-    breakpoint="screenMdMax"
-    widthType="max"
-  />
-</InteractiveElement>
 `;

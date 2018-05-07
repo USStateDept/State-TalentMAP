@@ -66,13 +66,7 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggle
   return (
     <div className="usa-grid-full positions-section">
       <PositionsSectionTitle
-        title={
-          <span className="positions-section-title">
-            { !!icon.length && <FontAwesome name={icon} /> }
-            {title}
-          </h2>
-        }
-        viewMoreLink={viewMoreLink}
+        title={wrappedInLink}
       />
       {
         shouldDisplaySpinner && <Spinner size="small" type="homepage-positions-results" />

@@ -55,6 +55,10 @@ const ResultsCard = (props) => {
       value = `${value}%`;
     }
 
+    if (!value) {
+      value = defaultValue;
+    }
+
     return value;
   };
 
@@ -130,7 +134,7 @@ const ResultsCard = (props) => {
               <BidCount bidStatistics={stats} altStyle />
             </Column>
           </Row>
-          <Row id={result.id} fluid className="results-card-padded-section">
+          <Row id={`${id}-inner`} fluid>
             <Column columns="6">
               <DefinitionList items={sections[0]} />
             </Column>

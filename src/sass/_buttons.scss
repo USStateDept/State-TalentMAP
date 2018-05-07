@@ -173,17 +173,9 @@
   box-shadow: 0 0 0 2px transparent inset;
 }
 
-.post-data-button {
-  .fa {
-    margin-right: .5em;
-  }
-}
-
-.button-back-link {
-  font-size: .8em;
-
-  .fa {
-    margin-right: 5px;
+.link-button-wrapper {
+  a {
+    color: $color-white;
   }
 }
 

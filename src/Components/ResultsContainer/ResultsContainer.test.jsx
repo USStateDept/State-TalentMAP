@@ -1,7 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
 import ResultsContainer from './ResultsContainer';
@@ -25,7 +23,7 @@ describe('ResultsContainerComponent', () => {
     sortBy, pageSizes, pageSize, hasLoaded, onToggle } = config;
 
   it('is defined', () => {
-    wrapper = TestUtils.renderIntoDocument(<MemoryRouter>
+    wrapper = shallow(
       <ResultsContainer
         results={resultsObject}
         isLoading={isLoading}
@@ -47,8 +45,7 @@ describe('ResultsContainerComponent', () => {
         resetSavedSearchAlerts={() => {}}
         toggleBid={() => {}}
         bidList={[]}
-      />
-    </MemoryRouter>);
+      />);
     expect(wrapper).toBeDefined();
   });
 

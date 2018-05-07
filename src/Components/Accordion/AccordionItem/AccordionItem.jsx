@@ -11,7 +11,7 @@ buttonClass, childClass, preContent }) => {
     <li className={className}>
       {preContent}
       <button
-        className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : undefined}`}
+        className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''}`}
         aria-expanded={expanded}
         aria-controls={formattedId}
         onClick={() => setAccordion(expanded || !title ? '' : title)}
