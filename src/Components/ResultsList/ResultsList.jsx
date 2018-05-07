@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCard from '../../Components/ResultsCard/ResultsCard';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { propOrDefault } from '../../utilities';
 
 const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
                        userProfileFavoritePositionIsLoading,
@@ -9,17 +10,21 @@ const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
   const mapResults = results.results || [];
   return (
     <div className={isLoading ? 'results-loading' : null}>
-      { mapResults.map(result => (
-        <ResultsCard
-          toggleFavorite={toggleFavorite}
-          favorites={favorites}
-          key={result.id}
-          result={result}
-          onToggle={onToggle}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        />
-          ))}
+      { mapResults.map((result) => {
+        const key = `${result.id}-${propOrDefault(result, 'latest_bidcycle.id', '')}`;
+        return (
+          <ResultsCard
+            id={key}
+            toggleFavorite={toggleFavorite}
+            favorites={favorites}
+            key={key}
+            result={result}
+            onToggle={onToggle}
+            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
+            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+          />
+        );
+      })}
     </div>
   );
 };
