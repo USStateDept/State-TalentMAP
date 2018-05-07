@@ -3,17 +3,17 @@ export function mapRoutesToNames(route) {
   const preText = 'Back to';
   switch (route) {
     case '/results':
-      return `${preText} to Search Results`;
+      return `${preText} Search Results`;
     case '/':
       return `${preText} Home Page`;
     case '/details':
-      return `${preText} to Position Details`;
+      return `${preText} Position Details`;
     case '/profile':
       return `${preText} Profile`;
     case '/compare':
       return `${preText} Comparison`;
     case '/profile/bidtracker/':
-      return `${preText} to Bid Tracker`;
+      return `${preText} Bid Tracker`;
     default: // else, just return generic "Go back" text
       return 'Go back';
   }
