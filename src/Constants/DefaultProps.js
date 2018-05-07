@@ -1,5 +1,7 @@
 import { USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS } from './PropTypes';
 
+export { initialState as DEFAULT_HIGHLIGHT_POSITION } from '../reducers/highlightPosition';
+
 export const ACCORDION_SELECTION = { main: '', sub: '' };
 
 export const DEFAULT_HOME_PAGE_POSITIONS = {

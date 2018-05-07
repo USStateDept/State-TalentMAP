@@ -21,6 +21,13 @@ export function positionDetailsFetchDataSuccess(positionDetails) {
   };
 }
 
+export function positionDetailsPatchState(positionDetails) {
+  return {
+    type: 'POSITION_DETAILS_PATCH_STATE',
+    positionDetails,
+  };
+}
+
 export function positionDetailsFetchData(query) {
   return (dispatch) => {
     dispatch(positionDetailsIsLoading(true));

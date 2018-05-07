@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const omit = require('lodash/omit');
+import { omit } from 'lodash';
 
 const exceptions = [
   'as',

@@ -1,16 +1,11 @@
 import Scroll from 'react-scroll';
-import queryString from 'query-string';
 import { distanceInWords, format } from 'date-fns';
+import { cloneDeep, get, isEqual, isNumber, isObject, keys, merge as merge$, transform } from 'lodash';
 import numeral from 'numeral';
+import queryString from 'query-string';
 import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
-
-const cloneDeep = require('lodash/cloneDeep');
-const get = require('lodash/get');
-const keys = require('lodash/keys');
-const isNumber = require('lodash/isNumber');
-const merge$ = require('lodash/merge');
 
 const scroll = Scroll.animateScroll;
 
@@ -499,3 +494,21 @@ export const redirectToLogout = () => {
   const prefix = process.env.PUBLIC_URL || '';
   window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
 };
+
+/**
+ * ~ Returns a Deep Diff Object Between 2 Objects (First parameter as base) ~
+ * base = { param1: true, param2: 'loading' };
+ * object = { param1: false, param2: 'loading' };
+ *
+ * difference(base, object) => { param1: false }
+ * difference(object, base) => { param1: true }
+ */
+export const difference = (base, object) => transform(object, (result, value, key) => {
+  /* eslint-disable no-param-reassign */
+  if (!isEqual(value, base[key])) {
+    result[key] = isObject(value) && isObject(base[key]) ?
+      difference(base[key], value) :
+      value;
+  }
+  /* eslint-enable no-param-reassign */
+});

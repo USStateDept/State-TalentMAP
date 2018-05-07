@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const keys = require('lodash/keys');
-const omit = require('lodash/omit');
+import { keys, omit } from 'lodash';
 
 const defaults = {
   term: '',

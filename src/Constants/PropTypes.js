@@ -538,3 +538,9 @@ export const BID_CYCLE = PropTypes.shape({
 });
 
 export const BID_CYCLES = PropTypes.arrayOf(BID_CYCLE);
+
+export const HIGHLIGHT_POSITION = PropTypes.shape({
+  loading: PropTypes.bool,
+  success: PropTypes.bool,
+  error: PropTypes.bool,
+});

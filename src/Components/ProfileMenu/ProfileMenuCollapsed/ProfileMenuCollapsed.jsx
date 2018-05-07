@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { difference } from 'lodash';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
 import { PROFILE_MENU } from '../../../Constants/Menu';
-
-const difference = require('lodash/difference');
 
 const ProfileMenuCollapsed = ({ expand, roles, isCDO, isGlossaryEditor }) => (
   <div className="usa-grid-full profile-menu profile-menu-collapsed">

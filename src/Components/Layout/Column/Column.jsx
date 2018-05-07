@@ -1,9 +1,6 @@
 import React from 'react';
+import { merge, isNumber, isString } from 'lodash';
 import Base from '../Base';
-
-const merge = require('lodash/merge');
-const isNumber = require('lodash/isNumber');
-const isString = require('lodash/isString');
 
 export const columnsMap = {
   1: 'one-twelfth',

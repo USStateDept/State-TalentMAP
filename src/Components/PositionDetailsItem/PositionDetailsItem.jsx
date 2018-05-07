@@ -1,16 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NO_BUREAU, NO_GRADE, NO_SKILL, NO_END_DATE, NO_TOUR_OF_DUTY, NO_POST_DIFFERENTIAL, NO_DANGER_PAY, NO_USER_LISTED } from '../../Constants/SystemMessages';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import LanguageList from '../../Components/LanguageList/LanguageList';
-import { formatDate, propOrDefault, getAccessiblePositionNumber, getDifferentialPercentage } from '../../utilities';
-import PositionDetailsDescription from './PositionDetailsDescription';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
-import PositionDetailsContact from './PositionDetailsContact';
 import OBCUrl from '../OBCUrl';
+import HowToBid from './HowToBid';
+import PositionDetailsDescription from './PositionDetailsDescription';
+import PositionDetailsContact from './PositionDetailsContact';
+import ServiceNeededToggle from './ServiceNeededToggle';
+import {
+  formatDate,
+  propOrDefault,
+  getAccessiblePositionNumber,
+  getDifferentialPercentage,
+} from '../../utilities';
 
-const PositionDetailsItem = ({ details, editDescriptionContent, resetDescriptionEditMessages,
-editPocContent, editWebsiteContent }) => {
+import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
+import {
+  POSITION_DETAILS,
+  USER_PROFILE,
+  HIGHLIGHT_POSITION,
+  EMPTY_FUNCTION,
+} from '../../Constants/PropTypes';
+import {
+  NO_BUREAU,
+  NO_GRADE,
+  NO_SKILL,
+  NO_END_DATE,
+  NO_TOUR_OF_DUTY,
+  NO_POST_DIFFERENTIAL,
+  NO_DANGER_PAY,
+  NO_USER_LISTED,
+} from '../../Constants/SystemMessages';
+
+const PositionDetailsItem = (props) => {
+  const {
+    details,
+    editDescriptionContent,
+    resetDescriptionEditMessages,
+    editPocContent,
+    editWebsiteContent,
+    userProfile,
+    highlightPosition,
+    onHighlight,
+  } = props;
+
+  const isHighlightLoading = highlightPosition.loading;
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
@@ -25,6 +59,7 @@ editPocContent, editWebsiteContent }) => {
     if (OBCId) {
       return (<span> {prefix} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
     }
+
     return prefix;
   };
 
@@ -59,6 +94,13 @@ editPocContent, editWebsiteContent }) => {
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
+          <ServiceNeededToggle
+            userProfile={userProfile}
+            position={details}
+            loading={isHighlightLoading}
+            onChange={onHighlight}
+          />
+          <HowToBid />
         </div>
       </div>
     </div>
@@ -71,10 +113,16 @@ PositionDetailsItem.propTypes = {
   resetDescriptionEditMessages: PropTypes.func.isRequired,
   editWebsiteContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
+  userProfile: USER_PROFILE,
+  highlightPosition: HIGHLIGHT_POSITION,
+  onHighlight: PropTypes.func.isRequired,
 };
 
 PositionDetailsItem.defaultProps = {
   details: null,
+  userProfile: {},
+  highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
+  onHighlight: EMPTY_FUNCTION,
 };
 
 export default PositionDetailsItem;

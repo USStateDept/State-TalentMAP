@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { get, isNumber } from 'lodash';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -28,9 +29,6 @@ import {
   NO_DATE,
   NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
-
-const get = require('lodash/get');
-const isNumber = require('lodash/isNumber');
 
 const ResultsCard = (props) => {
   const options = {};

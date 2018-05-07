@@ -1,4 +1,6 @@
 import axios from 'axios';
+import { indexOf } from 'lodash';
+
 import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 
@@ -68,7 +70,11 @@ export function userProfileFetchData(bypass) {
         // form the userProfile object
         const account = acct.data;
         const permissions = perms.data;
-        const newProfileObject = { ...account, permission_groups: permissions.groups };
+        const newProfileObject = {
+          ...account,
+          is_superuser: indexOf(permissions.groups, 'superuser') > -1,
+          permission_groups: permissions.groups,
+        };
 
         // then perform dispatches
         dispatch(userProfileFetchDataSuccess(newProfileObject));

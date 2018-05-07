@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { orderBy } from 'lodash';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
 import { getItemLabel } from '../../../utilities';
-
-const orderBy = require('lodash/orderBy');
 
 class BureauFilter extends Component {
   constructor(props) {

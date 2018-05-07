@@ -1,11 +1,10 @@
 import React from 'react';
+import { find } from 'lodash';
 import BidCycleCard from './BidCycleCard';
 import { Row, Column } from '../Layout';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import { BID_CYCLES } from '../../Constants/PropTypes';
 import Menu from '../../Constants/Menu';
-
-const find = require('lodash/find');
 
 const title = find(Menu[0].children, { route: '/profile/cycles/' }).text;
 
