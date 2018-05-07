@@ -17,7 +17,7 @@ describe('routerLocations', () => {
   });
 
   it('can get the last route name', () => {
-    expect(actions.getLastRouteName(routerLocations)).toBe('Back to to Search Results');
+    expect(actions.getLastRouteName(routerLocations)).toBe('Back to Search Results');
   });
 
   it('returns false if there is only one item in history', () => {
