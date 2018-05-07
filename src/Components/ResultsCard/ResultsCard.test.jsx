@@ -13,6 +13,7 @@ describe('ResultsCardComponent', () => {
   it('is defined', () => {
     result = TestUtils.renderIntoDocument(<MemoryRouter>
       <ResultsCard
+        id={1}
         result={resultsObject.results[0]}
         onToggle={() => {}}
         toggleFavorite={() => {}}
@@ -28,6 +29,7 @@ describe('ResultsCardComponent', () => {
   it('can receive props', () => {
     wrapper = shallow(
       <ResultsCard
+        id={1}
         result={resultsObject.results[0]}
         onToggle={() => {}}
         toggleFavorite={() => {}}
@@ -42,6 +44,7 @@ describe('ResultsCardComponent', () => {
   it('can receive different types of results', () => {
     wrapper = shallow(
       <ResultsCard
+        id={1}
         result={resultsObject.results[1]}
         onToggle={() => {}}
         toggleFavorite={() => {}}
@@ -56,6 +59,7 @@ describe('ResultsCardComponent', () => {
   it('matches snapshot', () => {
     wrapper = shallow(
       <ResultsCard
+        id={1}
         result={resultsObject.results[0]}
         onToggle={() => {}}
         toggleFavorite={() => {}}
