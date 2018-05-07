@@ -270,7 +270,6 @@ const TalentMAPMiddleware = (app, compiler = null) => {
 
       // this is our wildcard, 404 route
       app.get('*', (request, response) => {
-        console.log('hi2');
         response.sendStatus(404).end();
       });
     } else {
