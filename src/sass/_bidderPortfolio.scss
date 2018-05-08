@@ -73,8 +73,71 @@
   list-style-type: none;
   margin-top: 0;
 
+  .usa-width-one-fourth:first-of-type {
+
+    .current-user-name {
+      margin-left: 0;
+    }
+
+    .dashboard-section-title.current-user-name.dashboard-section-title-small {
+      text-align: center;
+    }
+
+    .data-point-container.skill-code-data-point-container.skill-code-data-point-container-gen-spec,
+    .dashboard-section-title.current-user-name.dashboard-section-title-small {
+      margin-left: 0;
+    }
+
+    h2,
+    .skill-code-data-point-container > .data-point-content,
+    .list-view,
+    .status-container,
+    .current-user-name,
+    .skill-code-data-point-container-gen-spec {
+      text-align: center;
+    }
+
+  }
+
   .user-dashboard-section {
     margin-bottom: 0;
+  }
+
+  .current-user-top {
+    .section-padded-inner-container {
+      padding-top: 5px;
+    }
+  }
+
+  .name-group {
+    margin-left: 9%;
+    width: 39%;
+  }
+
+  .avatar-group {
+    padding-top: 5px;
+    width: 52%;
+  }
+
+  .avatar-group,
+  .name-group {
+    display: inline-block;
+    float: left;
+
+    .tm-avatar {
+      margin-left: 30%;
+      margin-top: 7%;
+    }
+
+    .skill-code-data-point-container,
+    .dashboard-section-title {
+      width: 100%;
+    }
+
+    .status-container {
+      margin: 0;
+      width: 100%;
+    }
   }
 }
 
@@ -117,7 +180,7 @@
 }
 
 .list-view {
-  margin-right: unset;
+  margin-right: inherit;
 
   .portfolio-grid-list-item {
     border-bottom: 0;
@@ -128,7 +191,7 @@
   }
 
   .bidder-portfolio-listing {
-    margin-right: unset;
+    margin-right: inherit;
   }
 
   .dashboard-user-profile-picture {
