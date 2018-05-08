@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
 const helmet = require('helmet');
 const path = require('path');
+const qs = require('query-string');
 const proxy = require('http-proxy-middleware');
 const routesArray = require('./routes.js');
 
@@ -47,7 +48,8 @@ const isDebug = (request) => {
 };
 
 const isSAML = (request) => {
-  const mode = cache.LOGIN_MODE || process.env.LOGIN_MODE || request.query.loginMode || 'password';
+  const defaultMode = isDev() ? 'password' : 'saml';
+  const mode = cache.LOGIN_MODE || process.env.LOGIN_MODE || request.query.loginMode || defaultMode;
 
   if (isDev() || cache.TEST) {
     if (cache.LOGIN_MODE !== mode && !cache.TEST) {
@@ -116,11 +118,6 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   cache.WEBPACK = !!compiler;
   cache.TEST = (process.env.NODE_ENV === 'test');
 
-  // Routes from React, with wildcard added to the end if the route is not exact
-  const ROUTES = routesArray
-    .map(route => `${getEnv('PUBLIC_URL')}${route.path}${route.exact ? '' : '*'}`
-    .replace('//', '/'));
-
   // define full path to static build
   const STATIC_PATH = getEnv('STATIC_PATH');
   // define the prefix for the application
@@ -130,6 +127,12 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   const OBC_URL = getEnv('OBC_URL');
   // path to external about page
   const ABOUT_PAGE = getEnv('ABOUT_PAGE');
+
+  // Routes from React, with wildcard added to the end if the route is not exact
+  const ROUTES = routesArray
+    .map(route => `${PUBLIC_URL}${route.path}${route.exact ? '' : '*'}`
+      .replace('//', '/'));
+
 
   /**
    * Remove X-Powered-By
@@ -167,14 +170,6 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     extended: false,
   }));
 
-  /**
-   * Static Assets
-   */
-
-  if (!cache.WEBPACK) {
-    app.use(PUBLIC_URL, express.static(STATIC_PATH));
-  }
-
   app.use(bodyParser.urlencoded({
     extended: true,
   }));
@@ -211,15 +206,6 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   /**
    * SAML
    */
-  // ACS
-  app.post(PUBLIC_URL, (request, response, next) => {
-    if (isSAML(request)) {
-      response.redirect(307, getSAMLRoute('login'));
-    } else {
-      next();
-    }
-  });
-
   // Login
   app.get(`${PUBLIC_URL}login`, (request, response, next) => {
     // create handler
@@ -244,6 +230,23 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     }
   });
 
+  app.get(PUBLIC_URL, (request, response, next) => {
+    if (isSAML(request)) {
+      response.redirect(`${PUBLIC_URL}login`);
+    } else {
+      next();
+    }
+  });
+
+  // ACS
+  app.post(PUBLIC_URL, (request, response, next) => {
+    if (isSAML(request)) {
+      response.redirect(getSAMLRoute('login'));
+    } else {
+      next();
+    }
+  });
+
   // Logout
   app.get(`${PUBLIC_URL}logout`, (request, response, next) => {
     if (isSAML(request)) {
@@ -258,6 +261,17 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     response.type('application/xml');
     response.send(metadata);
   });
+
+  if (PUBLIC_URL.length > 1) {
+    app.get('/tokenValidation', (request, response, next) => {
+      if (isSAML(request)) {
+        const query = qs.stringify(request.query);
+        response.redirect(`${PUBLIC_URL}tokenValidation?${query}`);
+      } else {
+        next();
+      }
+    });
+  }
 
   /**
    * OBC Routes
@@ -292,6 +306,13 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   app.get(`${PUBLIC_URL}about/more`, (request, response) => {
     response.redirect(`${ABOUT_PAGE}`);
   });
+
+  /**
+   * Static Assets
+   */
+  if (!cache.WEBPACK) {
+    app.use(PUBLIC_URL, express.static(STATIC_PATH));
+  }
 
   /**
    * Main Routes
