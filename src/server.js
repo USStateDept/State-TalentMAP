@@ -66,8 +66,8 @@ const getEnv = (key = null) => {
   const fallbacks = {
     PORT: 3000,                                     // application port
     STATIC_PATH: path.join(__dirname, '../build'),
-    API_ROOT: 'https://localhost:8000',              // define the API root url
-    PUBLIC_URL: '/talentmap/',
+    API_ROOT: 'http://localhost:8000',              // define the API root url
+    PUBLIC_URL: '/',
     ABOUT_PAGE: 'https://github.com/18F/State-TalentMAP',
   };
 
@@ -148,15 +148,17 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   // Supports secure ssl requests via protocol detection and isProd()
   const target = getEnv('API_ROOT');
   const secure = isProd() && (/^https:\/\//).test(target);
-  const apiProxy = proxy({
+  const proxyConfig = {
     target,
     changeOrigin: true,
-    logLevel: getEnv('DEBUG') ? 'debug' : 'silent',
+    logLevel: getEnv('DEBUG') ? 'debug' : 'info',
     protocolRewrite: true,
     secure,
-  });
+  };
 
-  app.use(`${PUBLIC_URL}api`, apiProxy);
+  const apiProxy = proxy(proxyConfig);
+
+  app.use('/api', apiProxy);
 
   /**
    * Body Parser
@@ -168,6 +170,7 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   /**
    * Static Assets
    */
+
   if (!cache.WEBPACK) {
     app.use(PUBLIC_URL, express.static(STATIC_PATH));
   }
@@ -293,14 +296,16 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   /**
    * Main Routes
    */
-  app.get(ROUTES, (request, response) => {
-    response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
-  });
+  if (!cache.WEBPACK) {
+    app.get(ROUTES, (request, response) => {
+      response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
+    });
 
-  // this is our wildcard, 404 route
-  app.get('*', (request, response) => {
-    response.sendStatus(404).end();
-  });
+    // this is our wildcard, 404 route
+    app.get('*', (request, response) => {
+      response.sendStatus(404).end();
+    });
+  }
 
   return app;
 };

@@ -60,6 +60,7 @@ const ENV = NODE_ENV || 'development';
 const ABOUT_URL = (NODE_ENV === 'development') ? 'https://github.com/18F/State-TalentMAP' : `${process.env.PUBLIC_URL}about`;
 const LOGIN_MODE = process.env.LOGIN_MODE || loginModeFallback;
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
+const PUBLIC_URL = process.env.PUBLIC_URL || '';
 
 function getClientEnvironment(publicUrl) {
   const initial = {
