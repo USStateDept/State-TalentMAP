@@ -35,15 +35,14 @@ export default class ServiceNeededToggle extends Component {
   }
 
   render() {
-    const props = this.props;
-    const user = props.userProfile;
+    const user = this.props.userProfile;
     const wrapper = {
       className: 'service-needed-toggle',
     };
 
     const isSuperuser = user.is_superuser;
     const options = {
-      className: ['usa-button', props.className],
+      className: ['usa-button', this.props.className],
       onClick: this.onClick,
     };
 
@@ -54,7 +53,7 @@ export default class ServiceNeededToggle extends Component {
     return isSuperuser ?
       (<div {...wrapper}>
         <InteractiveElement {...options}>
-          {!props.loading ?
+          {!this.props.loading ?
             (<FontAwesome name={this.icon} />) :
             (<div className="ds-c-spinner" />)
           } {this.text}
@@ -64,16 +63,14 @@ export default class ServiceNeededToggle extends Component {
 }
 
 ServiceNeededToggle.propTypes = {
-  as: PropTypes.string.isRequired,
   className: PropTypes.string,
   position: POSITION_DETAILS,
   userProfile: USER_PROFILE,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
 ServiceNeededToggle.defaultProps = {
-  as: 'div',
   className: '',
   position: {},
   userProfile: {},
