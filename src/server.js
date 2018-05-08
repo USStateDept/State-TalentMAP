@@ -66,7 +66,7 @@ const getEnv = (key = null) => {
   const fallbacks = {
     PORT: 3000,                                     // application port
     STATIC_PATH: path.join(__dirname, '../build'),
-    API_ROOT: 'http://localhost:8000',              // define the API root url
+    API_ROOT: 'https://localhost:8000',              // define the API root url
     PUBLIC_URL: '/talentmap/',
     ABOUT_PAGE: 'https://github.com/18F/State-TalentMAP',
   };
@@ -95,7 +95,7 @@ const getSAMLRoute = (type = 'login') => {
     // Define the SAML logout redirect
     case 'logout':
       route = useSAMLMock() ?
-        `${getEnv('PUBLIC_URL')}login.html` :
+        `${getEnv('PUBLIC_URL')}login` :
         `${getEnv('API_ROOT')}/saml2/logout/`;
       break;
     // Default case
@@ -132,16 +132,28 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   const ABOUT_PAGE = getEnv('ABOUT_PAGE');
 
   /**
+   * Remove X-Powered-By
+   */
+  app.disable('x-powered-by');
+
+  /**
+   * HTTP Headers
+   */
+  app.use(helmet());
+  app.use(helmet.noCache());
+
+  /**
    * API Proxy
    */
+  // Supports secure ssl requests via protocol detection and isProd()
+  const target = getEnv('API_ROOT');
+  const secure = isProd() && (/^https:\/\//).test(target);
   const apiProxy = proxy({
-    target: getEnv('API_ROOT'),
+    target,
     changeOrigin: true,
     logLevel: getEnv('DEBUG') ? 'debug' : 'silent',
     protocolRewrite: true,
-    router: {
-      'http://localhost:3000': 'http://localhost:8000',
-    },
+    secure,
   });
 
   app.use(`${PUBLIC_URL}api`, apiProxy);
@@ -152,17 +164,6 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   app.use(bodyParser.urlencoded({
     extended: false,
   }));
-
-  /**
-   * Remove X-Powered-By
-   */
-  app.disable('x-powered-by');
-
-  /**
-   * HTTP Headers
-   */
-  app.use(helmet());
-  app.use(helmet.noCache());
 
   /**
    * Static Assets
@@ -243,11 +244,7 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   // Logout
   app.get(`${PUBLIC_URL}logout`, (request, response, next) => {
     if (isSAML(request)) {
-      if (isProd()) {
-        response.sendFile(getSAMLRoute('logout'));
-      } else {
-        response.redirect(`${getEnv('PUBLIC_URL')}login`);
-      }
+      response.redirect(getSAMLRoute('logout'));
     } else {
       next();
     }
@@ -296,24 +293,14 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   /**
    * Main Routes
    */
-  if (!cache.WEBPACK) {
-    if (!cache.TEST) {
-      app.get(ROUTES, (request, response) => {
-        response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
-      });
+  app.get(ROUTES, (request, response) => {
+    response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
+  });
 
-      // this is our wildcard, 404 route
-      app.get('*', (request, response) => {
-        response.sendStatus(404).end();
-      });
-    }/* else {
-      app.use('/talentmap', (request, response) => {
-        const filename = path.resolve('./public/index.html');
-        response.sendFile(filename);
-        response.sendStatus(200);
-      });
-    } */
-  }
+  // this is our wildcard, 404 route
+  app.get('*', (request, response) => {
+    response.sendStatus(404).end();
+  });
 
   return app;
 };

@@ -71,7 +71,7 @@ choosePort(HOST, DEFAULT_PORT)
     const serverConfig = createDevServerConfig(
       proxyConfig,
       urls.lanUrlForConfig,
-      compiler,
+      compiler
     );
 
     const devServer = new WebpackDevServer(compiler, serverConfig);

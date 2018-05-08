@@ -3,11 +3,15 @@ const proxyServer = require('../scripts/server').server;
 
 describe('proxy server routes', () => {
   let server;
-  let tmp; // Store old value for PUBLIC_URL
+  const tmp = {};
 
   beforeAll(() => {
-    tmp = process.env.PUBLIC_URL;
+    // Keep a copy of all env variables used before tests
+    tmp.PUBLIC_URL = process.env.PUBLIC_URL;
+    tmp.LOGIN_MODE = process.env.LOGIN_MODE;
+    // Override env variables
     process.env.PUBLIC_URL = '/talentmap/';
+    process.env.LOGIN_MODE = 'saml';
   });
 
   beforeEach(() => {
@@ -34,11 +38,11 @@ describe('proxy server routes', () => {
   });
 
   it('redirects on GET /talentmap/logout', (done) => {
-    request(server).get('/talentmap/logout').expect(200, done);
+    request(server).get('/talentmap/logout').expect(302, done);
   });
 
-  it('responds to POST /talentmap/login', (done) => {
-    request(server).post('/talentmap/login').expect(200, done);
+  it('redirects on POST /talentmap/', (done) => {
+    request(server).post('/talentmap/').expect(307, done);
   });
 
   /**
@@ -69,6 +73,8 @@ describe('proxy server routes', () => {
   });
 
   afterAll(() => {
-    process.env.PUBLIC_URL = tmp;
+    // Restore environment variables
+    process.env.PUBLIC_URL = tmp.PUBLIC_URL;
+    process.env.LOGIN_MODE = tmp.LOGIN_MODE;
   });
 });
