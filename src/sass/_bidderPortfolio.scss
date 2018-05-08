@@ -180,7 +180,7 @@
 }
 
 .list-view {
-  margin-right: unset;
+  margin-right: inherit;
 
   .portfolio-grid-list-item {
     border-bottom: 0;
@@ -191,7 +191,7 @@
   }
 
   .bidder-portfolio-listing {
-    margin-right: unset;
+    margin-right: inherit;
   }
 
   .dashboard-user-profile-picture {
