@@ -12,30 +12,34 @@ import SkillCodeList from '../../../SkillCodeList';
 const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) => (
   <div className="current-user-top current-user-section-container">
     <div className="section-padded-inner-container">
-      <Status />
-      <Avatar
-        className="dashboard-user-profile-picture"
-        initials={userProfile.initials}
-        display_name={userProfile.display_name}
-        firstName={userProfile.user.first_name}
-        lastName={userProfile.user.last_name}
-      />
+      <div className="avatar-group">
+        <Status />
+        <Avatar
+          className="dashboard-user-profile-picture"
+          initials={userProfile.initials}
+          display_name={userProfile.display_name}
+          firstName={userProfile.user.first_name}
+          lastName={userProfile.user.last_name}
+        />
+      </div>
       { showEditLink && <EditProfile /> }
-      <SectionTitle small title={`${userProfile.user.last_name}, ${userProfile.user.first_name}`} className="current-user-name" />
-      {
-        useGroup ?
-          <StaticDevContent>
+      <div className="name-group">
+        <SectionTitle small title={`${userProfile.user.last_name}, ${userProfile.user.first_name}`} className="current-user-name" />
+        {
+          useGroup ?
+            <StaticDevContent>
+              <InformationDataPoint
+                content="Generalist • F2"
+                className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+              />
+            </StaticDevContent>
+            :
             <InformationDataPoint
-              content="Generalist • F2"
-              className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+              content={<SkillCodeList skillCodes={userProfile.skills} />}
+              className="skill-code-data-point-container skill-code-data-point-container-skill"
             />
-          </StaticDevContent>
-          :
-          <InformationDataPoint
-            content={<SkillCodeList skillCodes={userProfile.skills} />}
-            className="skill-code-data-point-container skill-code-data-point-container-skill"
-          />
-      }
+        }
+      </div>
     </div>
   </div>
 );
