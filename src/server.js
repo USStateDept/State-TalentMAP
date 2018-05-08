@@ -48,7 +48,7 @@ const isDebug = (request) => {
 };
 
 const isSAML = (request) => {
-  const defaultMode = isDev() ? 'password' : 'saml';
+  const defaultMode = isDev() ? 'basic' : 'saml';
   const mode = cache.LOGIN_MODE || process.env.LOGIN_MODE || request.query.loginMode || defaultMode;
 
   if (isDev() || cache.TEST) {
@@ -56,12 +56,9 @@ const isSAML = (request) => {
       // eslint-disable-next-line no-console
       console.log(`LOGIN_MODE => ${mode}`);
     }
-
-    cache.LOGIN_MODE = mode;
-    return (mode !== 'password');
   }
 
-  return true;
+  return (mode !== 'basic');
 };
 
 const getEnv = (key = null) => {
