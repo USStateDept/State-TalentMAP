@@ -19,34 +19,22 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      hidden={false}
       iconName="user"
       link="/profile/dashboard/"
+      search=""
     />
     <withRouter(NavLink)
+      hidden={true}
       iconName="pie-chart"
-      link="/profile/statistics/"
+      link="/profile/statistics"
+      search=""
     />
     <withRouter(NavLink)
       hidden={false}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
-    />
-    <withRouter(NavLink)
-      iconName="comments-o"
-      link="/profile/inbox/"
-    />
-    <withRouter(NavLink)
-      iconName="globe"
-      link="/profile/notifications/"
-    />
-    <withRouter(NavLink)
-      iconName="users"
-      link="/profile/contacts/"
-    />
-    <withRouter(NavLink)
-      iconName="file-text"
-      link="/profile/documents/"
+      search=""
     />
   </NavLinksContainer>
 </div>
@@ -71,34 +59,22 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
   </div>
   <NavLinksContainer>
     <withRouter(NavLink)
+      hidden={false}
       iconName="user"
       link="/profile/dashboard/"
+      search=""
     />
     <withRouter(NavLink)
+      hidden={true}
       iconName="pie-chart"
-      link="/profile/statistics/"
+      link="/profile/statistics"
+      search=""
     />
     <withRouter(NavLink)
       hidden={true}
       iconName="book"
       link="/profile/glossaryeditor/"
-      search="?type=all"
-    />
-    <withRouter(NavLink)
-      iconName="comments-o"
-      link="/profile/inbox/"
-    />
-    <withRouter(NavLink)
-      iconName="globe"
-      link="/profile/notifications/"
-    />
-    <withRouter(NavLink)
-      iconName="users"
-      link="/profile/contacts/"
-    />
-    <withRouter(NavLink)
-      iconName="file-text"
-      link="/profile/documents/"
+      search=""
     />
   </NavLinksContainer>
 </div>

@@ -1,4 +1,4 @@
-import axios, { CancelToken } from 'axios';
+import { CancelToken } from 'axios';
 import api from '../../api';
 
 let cancel;
@@ -9,12 +9,14 @@ export function missionSearchHasErrored(bool) {
     hasErrored: bool,
   };
 }
+
 export function missionSearchIsLoading(bool) {
   return {
     type: 'MISSION_SEARCH_IS_LOADING',
     isLoading: bool,
   };
 }
+
 export function missionSearchSuccess(missions) {
   return {
     type: 'MISSION_SEARCH_FETCH_DATA_SUCCESS',
@@ -27,20 +29,19 @@ export function missionSearchFetchData(query) {
     if (cancel) { cancel(); }
     dispatch(missionSearchHasErrored(false));
     dispatch(missionSearchIsLoading(true));
-    axios.get(`${api}/country/?q=${query}&limit=3`, {
+    api.get(`/country/?q=${query}&limit=3`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),
-    },
-    )
-      .then((response) => {
-        dispatch(missionSearchIsLoading(false));
-        return response.data.results;
-      })
-      .then(results => dispatch(missionSearchSuccess(results)))
-      .catch(() => {
-        dispatch(missionSearchHasErrored(true));
-        dispatch(missionSearchIsLoading(false));
-      });
+    })
+    .then((response) => {
+      dispatch(missionSearchIsLoading(false));
+      return response.data.results;
+    })
+    .then(results => dispatch(missionSearchSuccess(results)))
+    .catch(() => {
+      dispatch(missionSearchHasErrored(true));
+      dispatch(missionSearchIsLoading(false));
+    });
   };
 }

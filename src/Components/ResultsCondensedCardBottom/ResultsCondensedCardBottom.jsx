@@ -12,11 +12,13 @@ favorites }) => (
       <CondensedCardData position={position} />
       <div className="usa-grid-full condensed-card-buttons-section">
         <Favorite
-          hasBorder
           hideText
+          hasBorder
           refKey={position.id}
           onToggle={toggleFavorite}
           compareArray={favorites}
+          useButtonClass
+          useButtonClassSecondary
         />
         <BidListButton
           className="tm-button"

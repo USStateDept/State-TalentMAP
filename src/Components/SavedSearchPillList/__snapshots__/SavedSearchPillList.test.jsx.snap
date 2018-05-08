@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoriteContentComponent matches snapshot 1`] = `
+<div>
+  <div
+    className="saved-search-pill"
+  >
+    1
+  </div>
+  <div
+    className="saved-search-pill"
+  >
+    0A
+  </div>
+  <div
+    className="saved-search-pill"
+  >
+    Los Angeles, CA Un...
+  </div>
+</div>
+`;

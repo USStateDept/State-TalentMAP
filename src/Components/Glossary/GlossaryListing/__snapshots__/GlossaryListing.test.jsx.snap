@@ -6,9 +6,11 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
   isMultiselectable={true}
 >
   <AccordionItem
+    buttonClass=""
+    childClass=""
     className=""
     expanded={false}
-    id="6/8"
+    id="68"
     setAccordion={[Function]}
     title="6/8"
     useIdClass={false}
@@ -16,9 +18,11 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     Definition.
   </AccordionItem>
   <AccordionItem
+    buttonClass=""
+    childClass=""
     className=""
     expanded={false}
-    id="Assignments-Officer-(AO)"
+    id="Assignments-Officer-AO"
     setAccordion={[Function]}
     title="Assignments Officer (AO)"
     useIdClass={false}
@@ -26,6 +30,8 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     test
   </AccordionItem>
   <AccordionItem
+    buttonClass=""
+    childClass=""
     className=""
     expanded={false}
     id="Bidder"
@@ -36,6 +42,8 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     An employee who is applying for a position.
   </AccordionItem>
   <AccordionItem
+    buttonClass=""
+    childClass=""
     className=""
     expanded={false}
     id="Bureau"
@@ -46,6 +54,8 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     The organization sponsoring a position.
   </AccordionItem>
   <AccordionItem
+    buttonClass=""
+    childClass=""
     className=""
     expanded={false}
     id="C"

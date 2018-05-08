@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
-         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
+         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
+         BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
@@ -29,12 +30,13 @@ class ResultsContainer extends Component {
             defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
             toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts,
+            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, toggleBid,
+            bidList,
       } = this.props;
     return (
       <div className="results-container">
         {
-          newSavedSearchSuccess &&
+          newSavedSearchSuccess.title &&
           <Dismiss onDismiss={resetSavedSearchAlerts}>
             <SaveNewSearchAlert newSavedSearchSuccess={newSavedSearchSuccess} />
           </Dismiss>
@@ -42,13 +44,6 @@ class ResultsContainer extends Component {
         <ResultsPillContainer
           items={pillFilters}
           onPillClick={onQueryParamToggle}
-        />
-        <SaveNewSearchContainer
-          saveSearch={saveSearch}
-          newSavedSearchSuccess={newSavedSearchSuccess}
-          newSavedSearchHasErrored={newSavedSearchHasErrored}
-          currentSavedSearch={currentSavedSearch}
-          newSavedSearchIsSaving={newSavedSearchIsSaving}
         />
         <ResultsControls
           results={results}
@@ -59,6 +54,13 @@ class ResultsContainer extends Component {
           sortBy={sortBy}
           defaultPageNumber={defaultPageNumber}
           queryParamUpdate={queryParamUpdate}
+        />
+        <SaveNewSearchContainer
+          saveSearch={saveSearch}
+          newSavedSearchSuccess={newSavedSearchSuccess}
+          newSavedSearchHasErrored={newSavedSearchHasErrored}
+          currentSavedSearch={currentSavedSearch}
+          newSavedSearchIsSaving={newSavedSearchIsSaving}
         />
         {
           // is not loading, results array exists, but is empty
@@ -82,6 +84,8 @@ class ResultsContainer extends Component {
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
               userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
+              toggleBid={toggleBid}
+              bidList={bidList}
             />
           </div>
         }
@@ -125,12 +129,14 @@ ResultsContainer.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   saveSearch: PropTypes.func.isRequired,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
   resetSavedSearchAlerts: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 ResultsContainer.defaultProps = {

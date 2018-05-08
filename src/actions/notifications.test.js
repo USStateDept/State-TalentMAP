@@ -136,6 +136,10 @@ describe('async actions', () => {
     // check that it can handle errors
     mockAdapter.reset();
 
+    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&is_read=false').reply(404,
+      null,
+    );
+
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.notificationsCountFetchData());

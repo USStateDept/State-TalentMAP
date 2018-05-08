@@ -3,13 +3,19 @@
 
   .post-data-button {
     color: $color-white;
-    font-size: inherit;
+    font-size: .8em;
     margin-bottom: 0;
+    margin-top: .8em;
     padding-left: .8em;
+    padding-right: .8em;
+
+    span {
+      text-align: center;
+    }
   }
 
   .border-bottom-extension {
-    background: $blue-primary;
+    background: $primary-blue-darker;
     height: 1px;
     left: -300px;
     position: relative;

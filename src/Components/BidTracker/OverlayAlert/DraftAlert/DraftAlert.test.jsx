@@ -20,6 +20,16 @@ describe('DraftAlertComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when skill and grade are undefined', () => {
+    const wrapper = shallow(
+      <DraftAlert
+        {...props}
+        bid={{ ...props.bid, position: { ...props.bid.position, skill: null, grade: null } }}
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('can submit a bid', () => {
     const submitSpy = sinon.spy();
     const wrapper = shallow(

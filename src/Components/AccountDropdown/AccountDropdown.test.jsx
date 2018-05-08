@@ -11,6 +11,16 @@ import { AccountDropdown } from './AccountDropdown';
 describe('AccountDropdown', () => {
   const middlewares = [thunk];
   const mockStore = configureStore(middlewares);
+  const props = {
+    userProfile: {
+      display_name: 'John Doe',
+      user: {
+        initials: 'JD',
+        first_name: 'John',
+        last_name: 'Doe',
+      },
+    },
+  };
 
   it('is defined', () => {
     const accountDropdown = shallow(<AccountDropdown />);
@@ -18,12 +28,13 @@ describe('AccountDropdown', () => {
   });
 
   it('can take different props', () => {
-    const accountDropdown = shallow(<AccountDropdown userProfile={{ user: { display_name: 'test' } }} />);
+    const profile = { display_name: null, user: null };
+    const accountDropdown = shallow(<AccountDropdown userProfile={profile} />);
     expect(accountDropdown).toBeDefined();
   });
 
   it('can click the logout link', () => {
-    const accountDropdown = shallow(<AccountDropdown />);
+    const accountDropdown = shallow(<AccountDropdown {...props} />);
 
     // define the instance
     const instance = accountDropdown.instance();
@@ -32,7 +43,7 @@ describe('AccountDropdown', () => {
     // forceUpdate required for test to pass
     instance.forceUpdate();
     // click to logout
-    accountDropdown.find('[to="/login"]').simulate('click');
+    accountDropdown.find('[to="/logout"]').simulate('click');
     // logout function should have been called once
     sinon.assert.calledOnce(handleClickSpy);
   });
@@ -57,20 +68,19 @@ describe('AccountDropdown', () => {
   });
 
   it('matches snapshot', () => {
-    const accountDropdown = shallow(<AccountDropdown />);
+    const accountDropdown = shallow(<AccountDropdown {...props} />);
     expect(toJSON(accountDropdown)).toMatchSnapshot();
   });
 
   it('matches snapshot when shouldDisplayName is true', () => {
-    const accountDropdown = shallow(<AccountDropdown shouldDisplayName />);
+    const accountDropdown = shallow(<AccountDropdown {...props} shouldDisplayName />);
     expect(toJSON(accountDropdown)).toMatchSnapshot();
   });
 
   it("can render the logged in user's name when shouldDisplayName is true", () => {
-    const displayName = 'test';
     const accountDropdown = mount(<Provider store={mockStore({})}><MemoryRouter>
-      <AccountDropdown shouldDisplayName userProfile={{ display_name: displayName }} />
+      <AccountDropdown {...props} shouldDisplayName />
     </MemoryRouter></Provider>);
-    expect(accountDropdown.find('#account-username').text()).toBe(displayName);
+    expect(accountDropdown.find('#account-username').text()).toBe(props.userProfile.display_name);
   });
 });

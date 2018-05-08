@@ -28,7 +28,13 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "position_number": "10035561",
           "post": Object {
             "id": 199,
-            "location": "Curacao",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
           },
           "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
           "title": "POLITICAL/ECONOMIC OFFICER",
@@ -63,7 +69,9 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "cdo": Object {
           "email": "shadtrachl@state.gov",
           "first_name": "Leah",
+          "initials": "LS",
           "last_name": "Shadtrach",
+          "username": "shadtrachl",
         },
         "display_name": "John",
         "favorite_positions": Array [
@@ -78,7 +86,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         ],
         "grade": "03",
         "id": 1,
-        "intials": "JD",
+        "initials": "JD",
         "is_cdo": false,
         "skills": Array [
           Object {
@@ -97,6 +105,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "user": Object {
           "email": "doej@state.gov",
           "first_name": "John",
+          "initials": "JD",
           "last_name": "Doe",
           "username": "jdoe",
         },
@@ -106,7 +115,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
 </div>
 `;
 
-exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists is true and isPriority is false 1`] = `
+exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists is true and bid.is_priority is false 1`] = `
 <div
   className="bid-tracker-container"
 >
@@ -133,7 +142,13 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "position_number": "10035561",
           "post": Object {
             "id": 199,
-            "location": "Curacao",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
           },
           "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
           "title": "POLITICAL/ECONOMIC OFFICER",
@@ -158,54 +173,119 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
 </div>
 `;
 
-exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists is true and isPriority is true 1`] = `
+exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists is true and bid.is_priority is true 1`] = `
 <div
   className="bid-tracker-container"
 >
-  <IsOnStandby
-    bid={
-      Object {
-        "approved_date": "2017-12-20",
-        "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
-        "closed_date": "2017-12-20",
-        "create_date": "2017-12-20",
-        "declined_date": "2017-12-20",
-        "draft_date": "2017-12-20",
-        "handshake_accepted_date": "2017-12-20",
-        "handshake_declined_date": "2017-12-20",
-        "handshake_offered_date": "2017-12-20",
-        "id": 3,
-        "in_panel_date": "2017-12-20",
-        "is_priority": false,
-        "position": Object {
-          "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-          "create_date": "2015-08-05",
-          "grade": "03",
-          "id": 226,
-          "position_number": "10035561",
-          "post": Object {
-            "id": 199,
-            "location": "Curacao",
+  <IsPriority>
+    <BidTrackerCard
+      acceptBid={[Function]}
+      bid={
+        Object {
+          "approved_date": "2017-12-20",
+          "bidcycle": "Demo BidCycle 2017-10-31 16:00:51.254762",
+          "closed_date": "2017-12-20",
+          "create_date": "2017-12-20",
+          "declined_date": "2017-12-20",
+          "draft_date": "2017-12-20",
+          "handshake_accepted_date": "2017-12-20",
+          "handshake_declined_date": "2017-12-20",
+          "handshake_offered_date": "2017-12-20",
+          "id": 3,
+          "in_panel_date": "2017-12-20",
+          "is_priority": true,
+          "position": Object {
+            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+            "create_date": "2015-08-05",
+            "grade": "03",
+            "id": 226,
+            "position_number": "10035561",
+            "post": Object {
+              "id": 199,
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
+            },
+            "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+            "title": "POLITICAL/ECONOMIC OFFICER",
+            "update_date": "2017-06-08",
           },
-          "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-          "title": "POLITICAL/ECONOMIC OFFICER",
-          "update_date": "2017-06-08",
-        },
-        "reviewer": Object {
-          "email": "woodwardw@state.gov",
-          "first_name": "Wendy",
-          "is_cdo": false,
-          "last_name": "Woodward",
-          "phone_number": "555-555-5555",
-          "username": "woodwardw",
-        },
-        "scheduled_panel_date": "2017-12-20",
-        "status": "approved",
-        "submitted_date": "2017-12-20",
-        "update_date": "2017-12-20",
-        "user": "rehmant",
+          "reviewer": Object {
+            "email": "woodwardw@state.gov",
+            "first_name": "Wendy",
+            "is_cdo": false,
+            "last_name": "Woodward",
+            "phone_number": "555-555-5555",
+            "username": "woodwardw",
+          },
+          "scheduled_panel_date": "2017-12-20",
+          "status": "approved",
+          "submitted_date": "2017-12-20",
+          "update_date": "2017-12-20",
+          "user": "rehmant",
+        }
       }
-    }
-  />
+      declineBid={[Function]}
+      deleteBid={[Function]}
+      submitBid={[Function]}
+      userProfile={
+        Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
+          "cdo": Object {
+            "email": "shadtrachl@state.gov",
+            "first_name": "Leah",
+            "initials": "LS",
+            "last_name": "Shadtrach",
+            "username": "shadtrachl",
+          },
+          "display_name": "John",
+          "favorite_positions": Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+            },
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+            },
+          ],
+          "grade": "03",
+          "id": 1,
+          "initials": "JD",
+          "is_cdo": false,
+          "skills": Array [
+            Object {
+              "code": "6218",
+              "cone": null,
+              "description": "CONSTRUCTION ENGINEERING",
+              "id": 63,
+            },
+            Object {
+              "code": "6211",
+              "cone": null,
+              "description": "COMPUTER SCIENCE",
+              "id": 40,
+            },
+          ],
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "initials": "JD",
+            "last_name": "Doe",
+            "username": "jdoe",
+          },
+        }
+      }
+    />
+  </IsPriority>
 </div>
 `;

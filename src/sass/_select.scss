@@ -1,6 +1,4 @@
 // Overrides styles for the react-select module
-// scss-lint:disable SelectorFormat
-
 .Select-placeholder,
 .Select--single > .Select-control .Select-value {
   // override for accessibility
@@ -25,7 +23,7 @@
   }
 
   .Select-multi-value-wrapper {
-    overflow: scroll;
+    overflow: auto;
   }
 
   .Select-value-icon {
@@ -36,4 +34,25 @@
   .Select-value-icon:hover {
     color: $color-primary-alt-light;
   }
+}
+
+.Select-menu-outer {
+  z-index: $skill-code-dropdown-z;
+}
+
+.Select.is-focused {
+  outline: 2px dotted $color-white;
+  outline-offset: 3px;
+}
+
+.Select-option {
+  &.is-focused {
+    background-color: $blue-primary;
+    color: $color-white;
+  }
+}
+
+.Select.is-focused:not(.is-open) > .Select-control {
+  border-color: transparent;
+  box-shadow: none;
 }

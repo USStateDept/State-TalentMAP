@@ -3,14 +3,18 @@
 // Instead of modifying the source css, the SelectorFormat rule
 // has been disabled for this file in order to override styles on the
 // default classes.
-
 .react-autosuggest__container {
   position: relative;
+
+  [disabled] {
+    cursor: no-drop;
+  }
 }
 
 .react-autosuggest__input {
   border: 1px solid $color-gray-lighter;
   border-radius: 4px;
+  box-shadow: 0 0 10px 0 $color-gray-lighter;
   height: 30px;
   width: 100%;
 }
@@ -63,3 +67,4 @@
 .react-autosuggest__suggestion--highlighted {
   background-color: $color-primary-alt-light;
 }
+// scss-lint:enable SelectorFormat

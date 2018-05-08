@@ -15,6 +15,14 @@
 }
 
 .bidder-portfolio-page {
+
+  .tm-avatar {
+    font-size: 2rem;
+    height: 50px;
+    line-height: 5rem;
+    width: 50px;
+  }
+
   .bidder-portfolio-search-container {
     background-color: $color-gray-lighter;
     padding-bottom: 3px;
@@ -39,7 +47,7 @@
   }
 
   .results-search-bar {
-    background-color: unset;
+    background-color: inherit;
   }
 
   .results-search-bar-container {
@@ -65,8 +73,71 @@
   list-style-type: none;
   margin-top: 0;
 
+  .usa-width-one-fourth:first-of-type {
+
+    .current-user-name {
+      margin-left: 0;
+    }
+
+    .dashboard-section-title.current-user-name.dashboard-section-title-small {
+      text-align: center;
+    }
+
+    .data-point-container.skill-code-data-point-container.skill-code-data-point-container-gen-spec,
+    .dashboard-section-title.current-user-name.dashboard-section-title-small {
+      margin-left: 0;
+    }
+
+    h2,
+    .skill-code-data-point-container > .data-point-content,
+    .list-view,
+    .status-container,
+    .current-user-name,
+    .skill-code-data-point-container-gen-spec {
+      text-align: center;
+    }
+
+  }
+
   .user-dashboard-section {
     margin-bottom: 0;
+  }
+
+  .current-user-top {
+    .section-padded-inner-container {
+      padding-top: 5px;
+    }
+  }
+
+  .name-group {
+    margin-left: 9%;
+    width: 39%;
+  }
+
+  .avatar-group {
+    padding-top: 5px;
+    width: 52%;
+  }
+
+  .avatar-group,
+  .name-group {
+    display: inline-block;
+    float: left;
+
+    .tm-avatar {
+      margin-left: 30%;
+      margin-top: 7%;
+    }
+
+    .skill-code-data-point-container,
+    .dashboard-section-title {
+      width: 100%;
+    }
+
+    .status-container {
+      margin: 0;
+      width: 100%;
+    }
   }
 }
 
@@ -109,7 +180,7 @@
 }
 
 .list-view {
-  margin-right: unset;
+  margin-right: inherit;
 
   .portfolio-grid-list-item {
     border-bottom: 0;
@@ -120,18 +191,19 @@
   }
 
   .bidder-portfolio-listing {
-    margin-right: unset;
+    margin-right: inherit;
   }
 
   .dashboard-user-profile-picture {
     float: left;
-    height: 75px;
-    width: 75px;
+    margin: 0;
   }
 
   @media screen and (max-width: 730px) {
-    .dashboard-user-profile-picture {
+    .tm-avatar {
+      font-size: 1.8rem;
       height: 40px;
+      line-height: 4.2rem;
       width: 40px;
     }
   }
@@ -139,8 +211,8 @@
   .status-container,
   .current-user-name,
   .skill-code-data-point-container-gen-spec {
-    float: right;
-    margin-left: 5px;
+    float: left;
+    margin-left: 15px;
     text-align: left;
     width: 50%;
   }

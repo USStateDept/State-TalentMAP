@@ -5,8 +5,8 @@ exports[`SectionTitleComponent matches snapshot 1`] = `
   className="dashboard-section-title  "
 >
    
-  <span>
+  <h2>
     title
-  </span>
+  </h2>
 </div>
 `;

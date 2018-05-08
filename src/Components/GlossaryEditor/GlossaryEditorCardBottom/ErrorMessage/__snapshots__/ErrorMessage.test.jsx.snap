@@ -1,11 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorMessageComponent matches snapshot 1`] = `
-<span
-  className="usa-input-error-message"
-  role="alert"
-/>
-`;
+exports[`ErrorMessageComponent matches snapshot 1`] = `null`;
 
 exports[`ErrorMessageComponent matches snapshot when showEmptyWarning is true 1`] = `
 <span
@@ -22,7 +17,6 @@ exports[`ErrorMessageComponent matches snapshot when showResponseError and showE
   role="alert"
 >
   Title and definition cannot be blank.
-  Error updating term.
 </span>
 `;
 
@@ -31,6 +25,6 @@ exports[`ErrorMessageComponent matches snapshot when showResponseError is true 1
   className="usa-input-error-message"
   role="alert"
 >
-  Error updating term.
+  error
 </span>
 `;

@@ -22,7 +22,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
       />
       <Route
         component={[Function]}
-        path="/profile/bidtracker"
+        path="/profile/cycles"
       />
       <Route
         component={[Function]}
@@ -31,6 +31,10 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
       <Route
         component={[Function]}
         path="/profile/searches"
+      />
+      <Route
+        component={[Function]}
+        path="/profile/bidtracker"
       />
       <Route
         component={[Function]}

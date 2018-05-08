@@ -53,16 +53,25 @@ exports[`SkillCodeFilterComponent matches snapshot 1`] = `
       ]
     }
     pageSize={5}
-    placeholder="Select Skill Codes"
+    placeholder="Select Skill codes"
     removeSelected={true}
     required={false}
     rtl={false}
     scrollMenuIntoView={true}
     searchable={false}
     simpleValue={false}
-    tabSelectsValue={true}
+    tabSelectsValue={false}
     trimFilter={true}
-    value={Array []}
+    value={
+      Array [
+        Object {
+          "code": "1",
+          "custom_description": "1",
+          "label": "1",
+          "value": "1",
+        },
+      ]
+    }
     valueComponent={[Function]}
     valueKey="value"
   />

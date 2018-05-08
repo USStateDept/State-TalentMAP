@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths');
@@ -15,7 +13,7 @@ if (!NODE_ENV) {
 }
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
-var dotenvFiles = [
+const dotenvFiles = [
   `${paths.dotenv}.${NODE_ENV}.local`,
   `${paths.dotenv}.${NODE_ENV}`,
   // Don't include `.env.local` for `test` environment
@@ -29,7 +27,7 @@ var dotenvFiles = [
 // if this file is missing. dotenv will never modify any environment variables
 // that have already been set.
 // https://github.com/motdotla/dotenv
-dotenvFiles.forEach(dotenvFile => {
+dotenvFiles.forEach((dotenvFile) => {
   if (fs.existsSync(dotenvFile)) {
     require('dotenv').config({
       path: dotenvFile,
@@ -56,35 +54,39 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
+const ENV = NODE_ENV || 'development';
+const ABOUT_URL = (NODE_ENV === 'development') ? 'https://github.com/18F/State-TalentMAP' : `${process.env.PUBLIC_URL}about`;
+const LOGIN_MODE = process.env.LOGIN_MODE || 'basic';
+const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
 
 function getClientEnvironment(publicUrl) {
+  const initial = {
+    // Useful for determining whether we’re running in production mode.
+    // Most importantly, it switches React into the correct mode.
+    NODE_ENV: ENV,
+    // Useful for resolving the correct path to static assets in `public`.
+    // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
+    // This should only be used as an escape hatch. Normally you would put
+    // images into the `src` and `import` them in code to get their paths.
+    PUBLIC_URL: publicUrl,
+    ABOUT_URL,
+    LOGIN_MODE,
+    API_URL,
+  };
+
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
-    .reduce(
-      (env, key) => {
-        env[key] = process.env[key];
-        return env;
-      },
-      {
-        // Useful for determining whether we’re running in production mode.
-        // Most importantly, it switches React into the correct mode.
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        // Useful for resolving the correct path to static assets in `public`.
-        // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
-        // This should only be used as an escape hatch. Normally you would put
-        // images into the `src` and `import` them in code to get their paths.
-        PUBLIC_URL: publicUrl,
-      }
-    );
+    .reduce((env, key) => {
+      env[key] = process.env[key];
+      return env;
+    }, initial);
+
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
-    'process.env': Object.keys(raw).reduce(
-      (env, key) => {
-        env[key] = JSON.stringify(raw[key]);
-        return env;
-      },
-      {}
-    ),
+    'process.env': Object.keys(raw).reduce((env, key) => {
+      env[key] = JSON.stringify(raw[key]);
+      return env;
+    }, {}),
   };
 
   return { raw, stringified };

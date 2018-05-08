@@ -56,29 +56,54 @@ class CompareCheck extends Component {
   }
 
   render() {
-    let text = 'Compare Position';
-    if (this.isDisabled()) { text = 'Limit reached'; }
-    const iconClass = this.getSavedState() ? 'check-square-o' : 'square-o';
+    const { className, as: type } = this.props;
+    const isChecked = this.getSavedState();
+    const text = this.isDisabled() ? 'Limit Reached' : 'Compare';
+    const icon = isChecked ? 'check-square-o' : 'square-o';
+    const options = {
+      type,
+      className: [className, 'compare-check-box-container'],
+      onClick: this.toggleSaved,
+    };
+
+    if (isChecked) {
+      options.className.push('usa-button-active');
+    }
+
+    if (this.isDisabled()) {
+      options.disabled = true;
+    }
+
+    options.className = options.className
+      .join(' ')
+      .trim();
+
     return (
-      <InteractiveElement
-        type="div"
-        className="compare-check-box-container"
-        onClick={this.toggleSaved}
-      >
-        <FontAwesome name={iconClass} /> {text}
+      <InteractiveElement {...options}>
+        {
+          !this.isDisabled() &&
+            <FontAwesome name={icon} />
+        } {text}
       </InteractiveElement>
     );
   }
 }
 
 CompareCheck.propTypes = {
-  refKey: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  as: PropTypes.string.isRequired,
+  refKey: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   type: PropTypes.string,
   limit: PropTypes.number,
   onToggle: PropTypes.func,
 };
 
 CompareCheck.defaultProps = {
+  className: '',
+  as: 'div',
   type: 'compare',
   limit: COMPARE_LIMIT,
   onToggle: EMPTY_FUNCTION,

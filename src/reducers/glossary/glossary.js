@@ -1,3 +1,9 @@
+export const GLOSSARY_ERROR_OBJECT_DEFAULT = {
+  id: null,
+  message: null,
+  hasErrored: false,
+};
+
 export function glossaryHasErrored(state = false, action) {
   switch (action.type) {
     case 'GLOSSARY_HAS_ERRORED':
@@ -48,12 +54,12 @@ export function glossaryEditor(state = { results: [] }, action) {
   }
 }
 
-export function glossaryPatchHasErrored(state = { id: null, hasErrored: false }, action) {
+export function glossaryPatchHasErrored(state = GLOSSARY_ERROR_OBJECT_DEFAULT, action) {
   switch (action.type) {
     case 'GLOSSARY_PATCH_HAS_ERRORED':
-      return action.hasErrored;
+      return action.value;
     case '@@router/LOCATION_CHANGE':
-      return { id: null, success: false };
+      return GLOSSARY_ERROR_OBJECT_DEFAULT;
     default:
       return state;
   }
@@ -75,12 +81,12 @@ export function glossaryPatchSuccess(state = { id: null, success: false }, actio
   }
 }
 
-export function glossaryPostHasErrored(state = false, action) {
+export function glossaryPostHasErrored(state = GLOSSARY_ERROR_OBJECT_DEFAULT, action) {
   switch (action.type) {
     case 'GLOSSARY_POST_HAS_ERRORED':
-      return action.hasErrored;
+      return action.value;
     case '@@router/LOCATION_CHANGE':
-      return false;
+      return GLOSSARY_ERROR_OBJECT_DEFAULT;
     default:
       return state;
   }

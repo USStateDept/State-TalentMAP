@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 import { SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT } from '../../Constants/PropTypes';
-import { ifEnter } from '../../utilities';
+import InteractiveElement from '../InteractiveElement';
+import { focusById } from '../../utilities';
 
 const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
   currentSavedSearch }) => {
@@ -9,18 +11,18 @@ const SaveNewSearchPrompt = ({ toggleInput, newSavedSearchSuccess,
   return (
     <div className="usa-grid-full">
       <div className="usa-grid-full">
+        <FontAwesome name="bookmark" />
         {
           currentSearchExists ? `Saved search: ${currentSavedSearch.name}. ` : null
         }
-        <a
+        <InteractiveElement
           className="save-search-link"
-          tabIndex="0"
+          type="span"
+          onClick={(e) => { toggleInput(e); focusById('saved-search', 1); }}
           role="link"
-          onClick={toggleInput}
-          onKeyUp={(e) => { if (ifEnter(e)) { toggleInput(); } }}
         >
           {currentSearchExists ? 'Edit this search.' : 'Save this search.'}
-        </a>
+        </InteractiveElement>
         &nbsp;{currentSearchExists ? null : 'You will be able to come back to these results later.'}
       </div>
       {

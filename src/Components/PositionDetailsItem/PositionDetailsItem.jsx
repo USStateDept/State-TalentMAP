@@ -1,96 +1,106 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { NO_ORG, NO_POST, NO_BUREAU, NO_POST_DIFFERENTIAL,
-  NO_DANGER_PAY, NO_END_DATE, NO_USER_LISTED } from '../../Constants/SystemMessages';
-import { POSITION_DETAILS } from '../../Constants/PropTypes';
+import PropTypes from 'prop-types';
 import LanguageList from '../../Components/LanguageList/LanguageList';
-import PositionDetailsDataPoint from '../../Components/PositionDetailsDataPoint/PositionDetailsDataPoint';
-import StaticDevContent from '../StaticDevContent';
-import { formatDate, propOrDefault } from '../../utilities';
+import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
+import OBCUrl from '../OBCUrl';
+import HowToBid from './HowToBid';
+import PositionDetailsDescription from './PositionDetailsDescription';
+import PositionDetailsContact from './PositionDetailsContact';
+import ServiceNeededToggle from './ServiceNeededToggle';
+import {
+  formatDate,
+  propOrDefault,
+  getAccessiblePositionNumber,
+  getDifferentialPercentage,
+} from '../../utilities';
 
-const PositionDetailsItem = ({ details }) => {
+import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
+import {
+  POSITION_DETAILS,
+  USER_PROFILE,
+  HIGHLIGHT_POSITION,
+  EMPTY_FUNCTION,
+} from '../../Constants/PropTypes';
+import {
+  NO_BUREAU,
+  NO_GRADE,
+  NO_SKILL,
+  NO_END_DATE,
+  NO_TOUR_OF_DUTY,
+  NO_POST_DIFFERENTIAL,
+  NO_DANGER_PAY,
+  NO_USER_LISTED,
+} from '../../Constants/SystemMessages';
+
+const PositionDetailsItem = (props) => {
+  const {
+    details,
+    editDescriptionContent,
+    resetDescriptionEditMessages,
+    editPocContent,
+    editWebsiteContent,
+    userProfile,
+    highlightPosition,
+    onHighlight,
+  } = props;
+
+  const isHighlightLoading = highlightPosition.loading;
   const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
-  const formattedPost = propOrDefault(details, 'post.id') ?
-    <Link to={`/post/${details.post.id}`}>{details.post.location}</Link> : NO_POST;
-
   const formattedBureau = details.bureau || NO_BUREAU;
+  const formattedTOD = propOrDefault(details, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
 
-  const formattedDifferential = propOrDefault(details, 'post.differential_rate', NO_POST_DIFFERENTIAL);
+  const postDifferential = getDifferentialPercentage(propOrDefault(details, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
+  const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.danger_pay'), NO_DANGER_PAY);
 
-  const formattedOverseas = details.is_overseas ? 'Yes' : 'No';
+  const OBCId = propOrDefault(details, 'post.obc_id');
+  const getFormattedObcData = (prefix) => {
+    if (OBCId) {
+      return (<span> {prefix} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    }
 
-  const formattedDangerPay = propOrDefault(details, 'post.danger_pay', NO_DANGER_PAY);
+    return prefix;
+  };
 
-  const formattedIncumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
-
-  const formattedOrganization = details.organization || NO_ORG;
+  const incumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
   return (
-    <div className="usa-grid-full">
-      <div className="usa-width-one-whole">
-        <div className="position-details-description-container">
-          <div className="usa-width-one-whole position-details-description">
-            <span className="position-details-description-title">Post Description</span>
-            <br />
-            <div className="usa-width-one-whole">
-              <PositionDetailsDataPoint
-                title="Organization"
-                description={formattedOrganization}
-              />
-              <PositionDetailsDataPoint
-                title="Post"
-                description={formattedPost}
-              />
-              <PositionDetailsDataPoint
-                title="Bureau"
-                description={formattedBureau}
-              />
-              <PositionDetailsDataPoint
-                title="Post Differential"
-                description={formattedDifferential}
-              />
-              <PositionDetailsDataPoint
-                title="Overseas"
-                description={formattedOverseas}
-              />
-              <PositionDetailsDataPoint
-                title="Region"
-                description={<StaticDevContent><span>Region</span></StaticDevContent>}
-              />
-            </div>
+    <div className="usa-grid-full padded-main-content">
+      <div className="usa-grid-full position-details-description-container positions-details-about-position">
+        <div className="usa-width-two-thirds about-section-left">
+          <h2>About the Position</h2>
+          <PositionDetailsDescription
+            details={details}
+            editDescriptionContent={editDescriptionContent}
+            resetDescriptionEditMessages={resetDescriptionEditMessages}
+          />
+          <div className="usa-grid-full data-point-section">
+            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position number" content={details.position_number} />
+            <CondensedCardDataPoint title="Skill code" content={details.skill || NO_SKILL} />
+            <CondensedCardDataPoint title="Grade" content={details.grade || NO_GRADE} />
+            <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
+            <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
+            <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} propToUse="representation" />} />
+            <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
+            <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
+            <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
+            <CondensedCardDataPoint title="Incumbent" content={incumbent} />
           </div>
-          <hr width="85%" />
-          <div className="usa-width-one-whole position-details-description">
-            <span className="position-details-description-title">Position Description</span>
-            <br />
-            <div className="usa-width-one-whole">
-              <PositionDetailsDataPoint
-                title="Grade"
-                description={details.grade}
-              />
-              <PositionDetailsDataPoint
-                title="Language"
-                description={<LanguageList languages={details.languages} />}
-              />
-              <PositionDetailsDataPoint
-                title="Skill Code"
-                description={details.skill}
-              />
-              <PositionDetailsDataPoint
-                title="Danger Pay"
-                description={formattedDangerPay}
-              />
-              <PositionDetailsDataPoint
-                title="Estimated End Date"
-                description={formattedTourEndDate}
-              />
-              <PositionDetailsDataPoint
-                title="Incumbent"
-                description={formattedIncumbent}
-              />
-            </div>
-          </div>
+        </div>
+        <div className="usa-width-one-third position-details-contact-container">
+          <PositionDetailsContact
+            details={details}
+            editWebsiteContent={editWebsiteContent}
+            editPocContent={editPocContent}
+            resetDescriptionEditMessages={resetDescriptionEditMessages}
+          />
+          <ServiceNeededToggle
+            userProfile={userProfile}
+            position={details}
+            loading={isHighlightLoading}
+            onChange={onHighlight}
+          />
+          <HowToBid />
         </div>
       </div>
     </div>
@@ -99,10 +109,20 @@ const PositionDetailsItem = ({ details }) => {
 
 PositionDetailsItem.propTypes = {
   details: POSITION_DETAILS,
+  editDescriptionContent: PropTypes.func.isRequired,
+  resetDescriptionEditMessages: PropTypes.func.isRequired,
+  editWebsiteContent: PropTypes.func.isRequired,
+  editPocContent: PropTypes.func.isRequired,
+  userProfile: USER_PROFILE,
+  highlightPosition: HIGHLIGHT_POSITION,
+  onHighlight: PropTypes.func.isRequired,
 };
 
 PositionDetailsItem.defaultProps = {
   details: null,
+  userProfile: {},
+  highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
+  onHighlight: EMPTY_FUNCTION,
 };
 
 export default PositionDetailsItem;

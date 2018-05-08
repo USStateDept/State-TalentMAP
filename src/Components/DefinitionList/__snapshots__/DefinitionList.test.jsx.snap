@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DefinitionList matches snapshot 1`] = `
+<dl
+  className="definitions"
+>
+  <Definition
+    definition="Definition #1"
+    term="Term #1"
+    truncate={true}
+  />
+  <Definition
+    definition="Definition #2"
+    term="Term #2"
+    truncate={true}
+  />
+  <Definition
+    definition="Definition #3"
+    term="Term #3"
+    truncate={true}
+  />
+  <Definition
+    definition="Definition #4"
+    term="Term #4"
+    truncate={true}
+  />
+</dl>
+`;

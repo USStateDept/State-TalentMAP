@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionDetailsContact matches snapshot 1`] = `
+<div
+  className="position-details-contact"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    className="contact-container"
+  >
+    <div
+      className="usa-grid-full contact-section website-section"
+    >
+      <PositionTitleSubDescription
+        formattedContent="None listed."
+        isAllowedToEdit={false}
+        onSubmitText={[Function]}
+        plainContent=""
+        shouldShowEditor={false}
+        title="Post website"
+        toggleEditor={[Function]}
+      />
+    </div>
+    <div
+      className="usa-grid-full contact-section poc-section"
+    >
+      <PositionTitleSubDescription
+        formattedContent="None listed."
+        isAllowedToEdit={false}
+        onSubmitText={[Function]}
+        plainContent=""
+        shouldShowEditor={false}
+        title="Point-of-contact"
+        toggleEditor={[Function]}
+      />
+    </div>
+  </div>
+  <div
+    className="contact-container no-button"
+  >
+    Updated: 
+    06/08/2017
+  </div>
+  <div
+    className="offset-bid-button-container"
+  >
+    <div
+      className="offset-bid-button-container-button"
+    />
+  </div>
+</div>
+`;

@@ -49,15 +49,15 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         >
           Post: 
         </span>
-        Curacao
+        Freetown, Sierra Leone
       </div>
       <div>
         <span
           className="title"
         >
-          Skill Code: 
+          Skill code: 
         </span>
-        Curacao
+        POLITICAL AND ECONOMIC AFFAIRS (6050)
       </div>
       <div>
         <span

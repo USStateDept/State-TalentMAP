@@ -5,11 +5,9 @@ import groupBy from 'lodash/groupBy';
 import { GLOSSARY_ARRAY, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
 import GlossaryEditorContainer from '../GlossaryEditorContainer';
-import TopNav from '../TopNav';
 import GlossaryEditorSearch from '../GlossaryEditorSearch';
 import { filterByProps } from '../../../utilities';
 import GlossaryEditorPageHeader from '../GlossaryEditorPageHeader';
-import StaticDevContent from '../../StaticDevContent';
 
 class GlossaryEditorPage extends Component {
   constructor(props) {
@@ -90,9 +88,18 @@ class GlossaryEditorPage extends Component {
   }
 
   render() {
-    const { glossaryIsLoading, glossaryHasErrored, submitGlossaryTerm,
-      submitNewGlossaryTerm, glossaryPatchHasErrored, glossaryPatchSuccess,
-      glossaryPostHasErrored, glossaryPostSuccess } = this.props;
+    const {
+      glossaryIsLoading,
+      glossaryHasErrored,
+      submitGlossaryTerm,
+      submitNewGlossaryTerm,
+      glossaryPatchHasErrored,
+      glossaryPatchSuccess,
+      glossaryPostHasErrored,
+      glossaryPostSuccess,
+      onGlossaryEditorCancel,
+    } = this.props;
+
     const { localSearchIsLoading } = this.state;
 
     const glossaryIsLoadingAsyncOrSync = glossaryIsLoading || localSearchIsLoading;
@@ -104,6 +111,7 @@ class GlossaryEditorPage extends Component {
       <div className="bidder-portfolio-page glossary-editor-page">
         <GlossaryEditorPageHeader
           submitNewGlossaryTerm={submitNewGlossaryTerm}
+          onGlossaryEditorCancel={onGlossaryEditorCancel}
           glossaryPostHasErrored={glossaryPostHasErrored}
           glossaryPostSuccess={glossaryPostSuccess}
         />
@@ -112,9 +120,6 @@ class GlossaryEditorPage extends Component {
           submitGlossaryTerm={submitGlossaryTerm}
         />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
-          <StaticDevContent>
-            <TopNav />
-          </StaticDevContent>
           <div className={`usa-grid-full bidder-portfolio-listing ${isLoading ? 'results-loading' : ''}`}>
             {
               isLoading &&
@@ -129,6 +134,7 @@ class GlossaryEditorPage extends Component {
                   availableLetters={availableLetters}
                   glossaryPatchHasErrored={glossaryPatchHasErrored}
                   glossaryPatchSuccess={glossaryPatchSuccess}
+                  onGlossaryEditorCancel={onGlossaryEditorCancel}
                 />
             }
           </div>
@@ -146,15 +152,17 @@ GlossaryEditorPage.propTypes = {
   submitNewGlossaryTerm: PropTypes.func.isRequired,
   glossaryPatchHasErrored: GLOSSARY_ERROR_OBJECT,
   glossaryPatchSuccess: GLOSSARY_SUCCESS_OBJECT,
-  glossaryPostHasErrored: PropTypes.bool,
+  glossaryPostHasErrored: GLOSSARY_ERROR_OBJECT,
   glossaryPostSuccess: GLOSSARY_SUCCESS_OBJECT,
+  onGlossaryEditorCancel: PropTypes.func,
 };
 
 GlossaryEditorPage.defaultProps = {
   glossaryPatchHasErrored: {},
   glossaryPatchSuccess: {},
-  glossaryPostHasErrored: false,
+  glossaryPostHasErrored: {},
   glossaryPostSuccess: {},
+  onGlossaryEditorCancel: EMPTY_FUNCTION,
 };
 
 export default GlossaryEditorPage;

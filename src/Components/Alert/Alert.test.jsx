@@ -30,6 +30,13 @@ describe('Alert', () => {
     expect(alert.find('.usa-alert-text').text()).toBe(alertBody[0].body);
   });
 
+  it('updates with new props', () => {
+    const wrapper = shallow(
+      <Alert title="test" />,
+    );
+    expect(wrapper.instance().shouldComponentUpdate({ prop: 'new' })).toBe(true);
+  });
+
   it('applies "role=alert" when type is "error"', () => {
     const title = 'title';
     alert = shallow(<Alert type="error" title={title} messages={alertBody} />);
@@ -60,5 +67,11 @@ describe('Alert', () => {
     expect(alert.find('.usa-alert').prop('role')).toBeDefined();
     expect(alert.find('.usa-alert-heading').text()).toBe(title);
     expect(alert.find('.usa-alert-text').length).toBe(errorBody.length);
+  });
+
+  it('matches snapshot when isAriaLive is true', () => {
+    const title = 'Success title';
+    alert = shallow(<Alert type="success" title={title} messages={alertBody} isAriaLive />);
+    expect(toJSON(alert)).toMatchSnapshot();
   });
 });

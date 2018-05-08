@@ -1,0 +1,14 @@
+.cards {
+  border: 1px solid $color-gray-lighter;
+  border-bottom: 0;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.card {
+  background-color: $color-white;
+  border: 1px solid $color-gray-lighter;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  padding: 1em 2em;
+}

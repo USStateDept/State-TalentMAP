@@ -2,24 +2,65 @@
 
 exports[`InteractiveElementComponent matches snapshot 1`] = `
 <span
-  className="interactive-element "
+  className="interactive-element"
   onKeyDown={[Function]}
   role="button"
   tabIndex="0"
-  type="span"
 >
   text
 </span>
 `;
 
-exports[`InteractiveElementComponent matches snapshot when type is "div" 1`] = `
-<div
-  className="interactive-element "
+exports[`InteractiveElementComponent matches snapshot when type is "a" 1`] = `
+<a
+  className="interactive-element"
   onKeyDown={[Function]}
   role="button"
   tabIndex="0"
-  type="div"
+>
+  text
+</a>
+`;
+
+exports[`InteractiveElementComponent matches snapshot when type is "button" 1`] = `
+<button
+  className="interactive-element"
+  onKeyDown={[Function]}
+  tabIndex="0"
+>
+  a button!
+</button>
+`;
+
+exports[`InteractiveElementComponent matches snapshot when type is "div" 1`] = `
+<div
+  className="interactive-element"
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex="0"
 >
   text
 </div>
+`;
+
+exports[`InteractiveElementComponent matches snapshot when type is "submit" 1`] = `
+<button
+  className="interactive-element"
+  onKeyDown={[Function]}
+  tabIndex="0"
+  type="submit"
+>
+  submit!
+</button>
+`;
+
+exports[`InteractiveElementComponent matches snapshot when type is other 1`] = `
+<dt
+  className="interactive-element"
+  onKeyDown={[Function]}
+  role="button"
+  tabIndex="0"
+>
+  arbitrary element
+</dt>
 `;

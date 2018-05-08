@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { setProfileMenuExpanded, setProfileMenuSectionExpanded } from '../../actions/profileMenu';
 import { EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED } from '../../Constants/PropTypes';
 import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../Constants/DefaultProps';
@@ -23,22 +23,34 @@ class ProfileMenu extends Component {
   }
 
   render() {
-    const { profileMenuExpanded, profileMenuSectionExpanded, isCDO,
-      onSetProfileMenuExpanded, onSetProfileMenuSectionExpanded, isGlossaryEditor } = this.props;
+    const {
+      profileMenuExpanded,
+      profileMenuSectionExpanded,
+      roles,
+      isCDO,
+      isGlossaryEditor,
+      onSetProfileMenuExpanded,
+      onSetProfileMenuSectionExpanded,
+    } = this.props;
+
+    const options = {
+      roles,
+      isCDO,
+      isGlossaryEditor,
+    };
+
     return (
         profileMenuExpanded ?
           <ProfileMenuExpanded
-            expandedSection={profileMenuSectionExpanded}
+            {...options}
             collapse={this.collapseMenu}
+            expandedSection={profileMenuSectionExpanded}
             toggleMenuSection={onSetProfileMenuSectionExpanded}
-            isCDO={isCDO}
-            isGlossaryEditor={isGlossaryEditor}
-          />
-          :
+          /> :
           <ProfileMenuCollapsed
-            toggleMenu={onSetProfileMenuExpanded}
+            {...options}
             expand={this.expandMenu}
-            isGlossaryEditor={isGlossaryEditor}
+            toggleMenu={onSetProfileMenuExpanded}
           />
     );
   }
@@ -49,6 +61,7 @@ ProfileMenu.propTypes = {
   profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED.isRequired,
   onSetProfileMenuExpanded: PropTypes.func.isRequired,
   onSetProfileMenuSectionExpanded: PropTypes.func.isRequired,
+  roles: PropTypes.arrayOf(PropTypes.string),
   isCDO: PropTypes.bool,
   isGlossaryEditor: PropTypes.bool,
 };
@@ -58,6 +71,7 @@ ProfileMenu.defaultProps = {
   profileMenuSectionExpanded: PROFILE_MENU_SECTION_EXPANDED_OBJECT,
   onSetProfileMenuExpanded: EMPTY_FUNCTION,
   onSetProfileMenuSectionExpanded: EMPTY_FUNCTION,
+  roles: [],
   isCDO: false,
   isGlossaryEditor: false,
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS,
 USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS,
 RECENTLY_POSTED_POSITIONS, FAVORITED_POSITIONS } from '../../Constants/PropTypes';
+import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
@@ -25,8 +26,9 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   const userSkillCodePositions = homePagePositions[USER_SKILL_CODE_POSITIONS];
   const favoritedPositions = homePagePositions[FAVORITED_POSITIONS];
   let rowTwoPositions = userSkillCodePositions;
-  let rowTwoTitle = 'Positions in Skill';
+  let rowTwoTitle = 'Positions in Skills';
   let rowTwoLink = '/results';
+  let rowTwoIcon = 'briefcase';
   if (rowTwoPositions && rowTwoPositions.length) {
     // form a link to view positions with the user's skills
     const ids = userProfile.skills.map(s => s.code);
@@ -38,6 +40,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
     rowTwoPositions = favoritedPositions;
     rowTwoTitle = 'Favorited Positions';
     rowTwoLink = '/profile/favorites/';
+    rowTwoIcon = 'star';
   }
 
   // Define row three data.
@@ -50,14 +53,14 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   let rowThreeLink = '/results';
   if (userGradeRecentPositions) {
     // update the link to view positions with the user's grade
-    rowThreeLink = `/results?grade__code__in=${userProfile.grade}`;
+    rowThreeLink = `/results?grade__code__in=${userProfile.grade}&ordering=-${COMMON_PROPERTIES.posted}`;
     // update the title based on the user's grade
     rowThreeTitle = `${rowThreeTitle} ${userProfile.grade}`;
   } else if (recentPositions) {
     // update everything to to denote that these are recently posted positions
     rowThreePositions = recentPositions;
     rowThreeTitle = 'Recently Posted Positions';
-    rowThreeLink = '/results?ordering=description__date_created';
+    rowThreeLink = `/results?ordering=-${COMMON_PROPERTIES.posted}`;
   }
   return (
     <div className="homepage-positions-section-container">
@@ -83,7 +86,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           title={rowTwoTitle}
           maxLength="3"
           viewMoreLink={rowTwoLink}
-          icon="briefcase"
+          icon={rowTwoIcon}
           favorites={userProfile.favorite_positions}
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}

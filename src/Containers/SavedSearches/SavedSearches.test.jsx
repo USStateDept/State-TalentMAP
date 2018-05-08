@@ -8,11 +8,13 @@ import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import SavedSearchesContainer, { mapDispatchToProps } from './SavedSearches';
+import SavedSearchesList from '../../Components/ProfileDashboard/SavedSearches/SavedSearchesList';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('SavedSearchesContainer', () => {
+  const ChildElement = SavedSearchesList;
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <SavedSearchesContainer
@@ -20,6 +22,8 @@ describe('SavedSearchesContainer', () => {
         savedSearchesFetchData={() => {}}
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
+        ChildElement={ChildElement}
+        mappedParams={[]}
       />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
@@ -34,10 +38,31 @@ describe('SavedSearchesContainer', () => {
         savedSearchesFetchData={() => {}}
         setCurrentSavedSearch={() => {}}
         deleteSearch={() => {}}
+        ChildElement={ChildElement}
+        mappedParams={[]}
       />,
     );
     wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
     sinon.assert.calledOnce(spy);
+  });
+
+  it('can call the getSortedSearches function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <SavedSearchesContainer.WrappedComponent
+        onNavigateTo={() => {}}
+        fetchData={() => {}}
+        savedSearchesFetchData={spy}
+        setCurrentSavedSearch={() => {}}
+        deleteSearch={() => {}}
+        ChildElement={ChildElement}
+        mappedParams={[]}
+      />,
+    );
+    wrapper.instance().getSortedSearches({ target: { value: 'title' } });
+    // fetchData is called once at mount,
+    // and should be called twice after getSortedFavorites is called.
+    sinon.assert.calledTwice(spy);
   });
 });
 

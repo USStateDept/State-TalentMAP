@@ -115,15 +115,33 @@
     bottom: -1px;
     display: inline-block;
     position: relative;
+
+    a {
+      color: inherit;
+      display: block;
+      text-decoration: none;
+    }
   }
 
   .positions-section-title {
     font-family: Merriweather;
     font-size: 19px;
+    font-weight: inherit;
+    line-height: inherit;
+    margin-bottom: inherit;
+    margin-top: inherit;
 
     .fa {
       color: $blue-primary;
       margin-right: 8px;
+    }
+
+    .fa-angle-right {
+      color: $color-black;
+      display: inline-flex;
+      font-size: 2.6rem;
+      font-weight: bold;
+      margin: 0 0 0 7px;
     }
   }
 
