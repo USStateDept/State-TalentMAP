@@ -6,17 +6,12 @@ import GlossaryEditorPageHeader from './GlossaryEditorPageHeader';
 describe('GlossaryEditorPageHeaderComponent', () => {
   const props = {
     submitNewGlossaryTerm: () => {},
-    glossaryPostHasErrored: false,
+    glossaryPostHasErrored: {},
   };
 
   it('is defined', () => {
     const wrapper = shallow(<GlossaryEditorPageHeader {...props} />);
     expect(wrapper).toBeDefined();
-  });
-
-  it('displays an error alert', () => {
-    const wrapper = shallow(<GlossaryEditorPageHeader {...props} glossaryPostHasErrored />);
-    expect(wrapper.find('[type="error"]').exists()).toBe(true);
   });
 
   it('displays a success alert', () => {
@@ -28,9 +23,7 @@ describe('GlossaryEditorPageHeaderComponent', () => {
   });
 
   it('displays the term editor when showNewTerm is true', () => {
-    const wrapper = shallow(<GlossaryEditorPageHeader
-      {...props}
-    />);
+    const wrapper = shallow(<GlossaryEditorPageHeader {...props} />);
     wrapper.instance().toggleNewTermEditor();
     expect(wrapper.instance().state.showNewTerm).toBe(true);
     expect(wrapper.find('GlossaryEditorCard').exists()).toBe(true);
@@ -38,11 +31,6 @@ describe('GlossaryEditorPageHeaderComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(<GlossaryEditorPageHeader {...props} />);
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
-  it('matches snapshot when glossaryPatchHasErrored is true', () => {
-    const wrapper = shallow(<GlossaryEditorPageHeader {...props} glossaryPostHasErrored />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 

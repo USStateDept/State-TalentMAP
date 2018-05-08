@@ -2,13 +2,13 @@
 
 exports[`LanguageList takes no props 1`] = `
 <span>
-  None listed
+  None
 </span>
 `;
 
 exports[`LanguageList takes props 1`] = `
 <span>
-  French (FR) 
-  German (GM) 
+  French (FR), 
+  German (GM)
 </span>
 `;

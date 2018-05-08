@@ -26,7 +26,13 @@ exports[`AdditionalViewComponent matches snapshot 1`] = `
               "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
               "position_number": "58312265",
               "post": Object {
-                "location": "Guatemala, Guatemala",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "CONSTRUCTION ENGINEERING (6218)",
               "title": "PROJECT DIRECTOR",

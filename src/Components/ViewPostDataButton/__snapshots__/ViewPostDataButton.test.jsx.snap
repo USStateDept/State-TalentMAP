@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ViewPostDataButtonComponent matches snapshot 1`] = `
+<OBCUrl
+  altStyle={false}
+  id={1}
+  isButton={true}
+  label={
+    <span>
+      <FontAwesome
+        name="map-marker"
+      />
+       View OBC Post Info
+    </span>
+  }
+  type="post"
+/>
+`;

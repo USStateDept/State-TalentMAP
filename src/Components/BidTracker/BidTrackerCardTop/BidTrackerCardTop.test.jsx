@@ -18,6 +18,15 @@ describe('BidTrackerCardTopComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined with an invalid bid status', () => {
+    const newBid = { ...props.bid };
+    newBid.status = 'fake status';
+    const wrapper = shallow(
+      <BidTrackerCardTop {...props} bid={newBid} />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <BidTrackerCardTop {...props} />,

@@ -1,16 +1,40 @@
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
+// Set what filters we want to fetch
 const items =
   {
     filters: [
       {
         item: {
-          title: 'Skill Code',
+          title: 'Bid Cycle',
+          sort: 100,
+          description: 'bidCycle',
+          endpoint: 'bidcycle/',
+          selectionRef: ENDPOINT_PARAMS.bidCycle,
+          text: 'Choose Bid Cycles',
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Skill Cone (Code)',
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
           selectionRef: ENDPOINT_PARAMS.skill,
-          text: 'Choose skill codes',
+          text: 'Choose Skill codes',
+        },
+        data: [
+        ],
+      },
+      {
+        // we won't query position directly on cone, but instead
+        // use the individual Skill codes
+        item: {
+          title: 'Skill Cone',
+          description: 'skillCone',
+          endpoint: 'skill/cone/',
         },
         data: [
         ],
@@ -32,7 +56,7 @@ const items =
           title: 'Grade',
           sort: 300,
           description: 'grade',
-          endpoint: 'grade/',
+          endpoint: 'grade/?is_available=true',
           selectionRef: ENDPOINT_PARAMS.grade,
           text: 'Choose grades',
         },
@@ -46,7 +70,7 @@ const items =
           description: 'tod',
           endpoint: 'tour_of_duty/?is_available=true&ordering=months',
           selectionRef: ENDPOINT_PARAMS.tod,
-          text: 'Choose tour of duty length',
+          text: 'Choose Tour of Duty length',
           choices: [
           ],
         },
@@ -69,6 +93,19 @@ const items =
       },
       {
         item: {
+          title: 'Functional Bureaus',
+          sort: 105,
+          description: 'functionalRegion',
+          endpoint: 'organization/group/',
+          selectionRef: ENDPOINT_PARAMS.functionalOrg,
+          text: 'Choose functional bureau',
+          choices: [
+          ],
+        },
+        data: [],
+      },
+      {
+        item: {
           title: 'COLA',
           sort: 800,
           bool: true, // use bool: true to share a common HTML template
@@ -86,7 +123,6 @@ const items =
         item: {
           title: 'Post Differential',
           sort: 600,
-          bool: true,
           description: 'postDiff',
           selectionRef: ENDPOINT_PARAMS.postDiff,
           text: 'Include only positions with a post differential',
@@ -94,14 +130,20 @@ const items =
           ],
         },
         data: [
-          { code: '0', short_description: 'Yes' },
+          { id: 0, code: '0', description: 'No post differential' },
+          { id: 5, code: '5', description: '5%' },
+          { id: 10, code: '10', description: '10%' },
+          { id: 15, code: '15', description: '15%' },
+          { id: 20, code: '20', description: '20%' },
+          { id: 25, code: '25', description: '25%' },
+          { id: 30, code: '30', description: '30%' },
+          { id: 35, code: '35', description: '35%' },
         ],
       },
       {
         item: {
-          title: 'Danger Pay',
+          title: 'Danger pay',
           sort: 700,
-          bool: true,
           description: 'dangerPay',
           selectionRef: ENDPOINT_PARAMS.danger,
           text: 'Include only positions with danger pay',
@@ -109,14 +151,16 @@ const items =
           ],
         },
         data: [
-          { code: '0', short_description: 'Yes' },
+          { id: 100, code: '0', description: 'No danger pay' },
+          { id: 150, code: '15', description: '15%' },
+          { id: 250, code: '25', description: '25%' },
+          { id: 350, code: '35', description: '35%' },
         ],
       },
       {
         item: {
           title: 'Domestic',
           sort: 900,
-          bool: true,
           description: 'domestic',
           selectionRef: ENDPOINT_PARAMS.domestic,
           text: 'Include only domestic positions',
@@ -124,7 +168,8 @@ const items =
           ],
         },
         data: [
-          { code: 'true', short_description: 'Yes' },
+          { code: 'true', short_description: 'Domestic' },
+          { code: 'false', short_description: 'Overseas' },
         ],
       },
       {
@@ -144,25 +189,11 @@ const items =
       },
       {
         item: {
-          title: 'Mission',
-          sort: 1000,
-          bool: false,
-          description: 'mission',
-          endpoint: 'country/?limit=7',
-          selectionRef: ENDPOINT_PARAMS.mission,
-          choices: [
-          ],
-        },
-        data: [
-        ],
-      },
-      {
-        item: {
           title: 'Post',
           sort: 1100,
           bool: false,
           description: 'post',
-          endpoint: 'orgpost/?limit=7',
+          endpoint: 'orgpost/?limit=500&is_available=true',
           selectionRef: ENDPOINT_PARAMS.post,
           choices: [
           ],
@@ -181,7 +212,7 @@ export function filtersHasErrored(state = false, action) {
       return state;
   }
 }
-export function filtersIsLoading(state = false, action) {
+export function filtersIsLoading(state = true, action) {
   switch (action.type) {
     case 'FILTERS_IS_LOADING':
       return action.isLoading;

@@ -1,0 +1,41 @@
+// Set focus color for most elements to color-black
+// Then, call out any specific containers with a darker background color,
+// and set its child elements to use a white focus color.
+
+*,
+input,
+a {
+  &:focus {
+    outline: $tm-focus-outline-default;
+    outline-offset: $tm-focus-outline-offset-default;
+  }
+}
+
+*:focus,
+.usa-focus {
+  outline: $tm-focus-outline-default;
+  outline-offset: $tm-focus-outline-offset-default;
+}
+
+.Select.is-focused,
+.tm-feedback,
+.tm-footer-nav,
+.bid-list-container,
+.tm-glossary,
+.condensed-card-top,
+.position-details-header-container,
+.react-paginate .active,
+.results-search-bar,
+.header-nav-link-container.is-highlighted {
+  *:focus {
+    outline-color: $tm-focus-outline-color-alt;
+  }
+}
+
+.bidder-portfolio-search-container {
+  .results-search-bar {
+    *:focus {
+      outline-color: $tm-focus-outline-color;
+    }
+  }
+}

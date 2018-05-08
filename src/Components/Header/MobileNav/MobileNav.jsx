@@ -23,7 +23,7 @@ const MobileNav = ({ user, logout, showLogin }) => (
             <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="https://github.com/18F/State-TalentMAP">About</a>
+            <Link to="/about">About</Link>
           </li>
           <span className="usa-unstyled-list mobile-nav-only">
             <hr />
@@ -35,7 +35,7 @@ const MobileNav = ({ user, logout, showLogin }) => (
                 showLogin ?
                   <Link to="login" id="login-mobile">Login</Link>
                 :
-                  <Link to="login" id="logout-mobile" onClick={logout}>Logout</Link>
+                  <Link to="/logout" id="logout-mobile" onClick={logout}>Logout</Link>
               }
             </li>
           </span>

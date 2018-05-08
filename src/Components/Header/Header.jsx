@@ -7,19 +7,20 @@ import { push } from 'react-router-redux';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
-import { logoutRequest } from '../../login/actions';
+import { authRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
-import GovBanner from './GovBanner/GovBanner';
+import StateBanner from './StateBanner/StateBanner';
 import ResultsMultiSearchHeaderContainer from '../ResultsMultiSearchHeader/ResultsMultiSearchContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
-import { getAssetPath, propOrDefault } from '../../utilities';
+import { getAssetPath, propOrDefault, focusByFirstOfHeader } from '../../utilities';
 import MediaQuery from '../MediaQuery';
 import BetaHeader from './BetaHeader';
+import InteractiveElement from '../InteractiveElement';
 
 export class Header extends Component {
   constructor(props) {
@@ -119,15 +120,23 @@ export class Header extends Component {
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
     const searchBarVisibilityClass = showResultsSearchHeaderClass ? 'search-bar-visible' : 'search-bar-hidden';
 
-    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute();
+    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute()
+      && showResultsSearchHeaderClass;
 
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
-        <header className="usa-header usa-header-extended tm-header" role="banner">
+        <InteractiveElement
+          className="usa-skipnav"
+          onClick={() => focusByFirstOfHeader()}
+          role="link"
+        >
+          Skip to main content
+        </InteractiveElement>
+        <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
-          <GovBanner />
+          <StateBanner />
           <BetaHeader />
-          <div className="usa-navbar">
+          <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">
               <div className="usa-logo-text">
@@ -212,7 +221,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
-  logout: () => dispatch(logoutRequest()),
+  logout: () => dispatch(authRequest(false)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
   setSearchFilters: query => dispatch(setSelectedSearchbarFilters(query)),

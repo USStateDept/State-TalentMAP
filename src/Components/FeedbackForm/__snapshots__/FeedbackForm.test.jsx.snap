@@ -54,6 +54,8 @@ exports[`FeedbackFormComponent matches snapshot 1`] = `
           legendSrOnly={true}
         >
           <CheckBox
+            className=""
+            disabled={false}
             id="additional-feedback-checkbox"
             label="Can we contact you about providing additional feedback for TalentMAP?"
             labelSrOnly={false}
@@ -133,6 +135,8 @@ exports[`FeedbackFormComponent matches snapshot when visible is false 1`] = `
           legendSrOnly={true}
         >
           <CheckBox
+            className=""
+            disabled={false}
             id="additional-feedback-checkbox"
             label="Can we contact you about providing additional feedback for TalentMAP?"
             labelSrOnly={false}

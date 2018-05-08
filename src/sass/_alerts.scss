@@ -35,3 +35,20 @@
   font-size: 16px;
   margin-top: 0;
 }
+
+.usa-alert {
+  padding-bottom: 2.4rem;
+
+  *,
+  .usa-alert-body > .usa-alert-text {
+    font-family: Roboto;
+  }
+
+  h3 {
+    font-size: 1.9rem;
+  }
+}
+
+.usa-alert-text {
+  min-height: .5em;
+}

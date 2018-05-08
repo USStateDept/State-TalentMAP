@@ -17,46 +17,54 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
     className="usa-width-two-thirds drop-downs"
   >
     <div
-      className="results-dropdown results-dropdown-sort"
+      className="dropdowns-container"
     >
-      <SelectForm
-        defaultSort=""
-        emptyOptionText="- Select -"
-        id="sort"
-        includeFirstEmptyOption={false}
-        label="Sort by:"
-        languages={Array []}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "sort",
-              "value": "sort",
-            },
-          ]
-        }
-      />
-    </div>
-    <div
-      className="results-dropdown results-dropdown-page-size"
-    >
-      <SelectForm
-        defaultSort={10}
-        emptyOptionText="- Select -"
-        id="pageSize"
-        includeFirstEmptyOption={false}
-        label="Results:"
-        languages={Array []}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "10",
-              "value": 10,
-            },
-          ]
-        }
-      />
+      <div
+        className="results-dropdown results-dropdown-sort"
+      >
+        <SelectForm
+          className="select-blue select-offset select-small"
+          defaultSort=""
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="sort"
+          includeFirstEmptyOption={false}
+          label="Sort by:"
+          languages={Array []}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "text": "sort",
+                "value": "sort",
+              },
+            ]
+          }
+        />
+      </div>
+      <div
+        className="results-dropdown results-dropdown-page-size"
+      >
+        <SelectForm
+          className="select-blue select-offset select-small"
+          defaultSort={10}
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="pageSize"
+          includeFirstEmptyOption={false}
+          label="Results:"
+          languages={Array []}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "text": "10",
+                "value": 10,
+              },
+            ]
+          }
+        />
+      </div>
     </div>
   </div>
 </div>

@@ -10,6 +10,8 @@ exports[`SelectForm matches snapshot 1`] = `
     Some label
   </label>
   <select
+    className="select-offset select-black"
+    disabled={false}
     id={1}
     name={1}
     onChange={[Function]}
@@ -22,29 +24,101 @@ exports[`SelectForm matches snapshot 1`] = `
       Sort option
     </option>
     <option
-      value="grade"
+      value="title"
     >
-      Grade
+      Position title: A-Z
+    </option>
+    <option
+      value="-grade"
+    >
+      Grade: Low to high
+    </option>
+    <option
+      value="-bureau"
+    >
+      Bureau: A-Z
+    </option>
+    <option
+      value="-posted_date"
+    >
+      Posted date: Most recent
+    </option>
+    <option
+      value="current_assignment__estimated_end_date"
+    >
+      TED: Soonest
     </option>
     <option
       value="position_number"
     >
-      Number
+      Position number: Low to high
     </option>
     <option
-      value="description__date_created"
+      value="-post__has_service_needs_differential"
     >
-      Posted Date
+      Service need
+    </option>
+  </select>
+</div>
+`;
+
+exports[`SelectForm matches snapshot when disabled 1`] = `
+<div
+  className="usa-form"
+>
+  <label
+    htmlFor={1}
+  >
+    Some label
+  </label>
+  <select
+    className="select-offset select-black"
+    disabled={true}
+    id={1}
+    name={1}
+    onChange={[Function]}
+    value=""
+  >
+    <option
+      disabled={true}
+      value=""
+    >
+      Sort option
     </option>
     <option
-      value="post__has_service_needs_differential"
+      value="title"
     >
-      Service Need
+      Position title: A-Z
     </option>
     <option
-      value="bureau__long_description"
+      value="-grade"
     >
-      Bureau
+      Grade: Low to high
+    </option>
+    <option
+      value="-bureau"
+    >
+      Bureau: A-Z
+    </option>
+    <option
+      value="-posted_date"
+    >
+      Posted date: Most recent
+    </option>
+    <option
+      value="current_assignment__estimated_end_date"
+    >
+      TED: Soonest
+    </option>
+    <option
+      value="position_number"
+    >
+      Position number: Low to high
+    </option>
+    <option
+      value="-post__has_service_needs_differential"
+    >
+      Service need
     </option>
   </select>
 </div>

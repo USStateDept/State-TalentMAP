@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidListComingSoonComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-whole"
+    >
+      <PositionInformation
+        className=""
+        icon="clipboard"
+        small={false}
+        title="Bid List"
+      />
+    </div>
+  </div>
+  <div
+    className="bid-list-container"
+  >
+    <div
+      className="bid-list-content"
+    >
+      <div
+        className="primary-text"
+      >
+        Coming Soon
+      </div>
+    </div>
+  </div>
+</div>
+`;

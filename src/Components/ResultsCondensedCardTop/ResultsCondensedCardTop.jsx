@@ -20,16 +20,17 @@ const ResultsCondensedCardTop = ({ position, type }) => {
             'usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left'
           }
         >
-          {position.title} {useType && <span> | <FontAwesome name={icon} /></span> }
+          {useType && <span><FontAwesome name={icon} /> </span>}
+          <h3>{position.title}</h3>
         </div>
         <div
           className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
         >
-          Grade: {position.grade}
+          <dt>Grade:</dt> <dd>{position.grade}</dd>
         </div>
       </div>
       <div className="usa-grid-full">
-        <Link to={`/details/${position.position_number}`}>View More</Link>
+        <Link to={`/details/${position.position_number}`}>View position</Link>
       </div>
     </div>
   );

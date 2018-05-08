@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionDetailsDescription matches snapshot 1`] = `
+<div
+  className="position-details-header-body editable-position-field"
+>
+  <span
+    className="usa-grid-full"
+  >
+    There is no description for this position.
+  </span>
+</div>
+`;

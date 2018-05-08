@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
-ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE,
+ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
 SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY,
-POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+POST_DETAILS_ARRAY, EMPTY_FUNCTION, NEW_SAVED_SEARCH_SUCCESS_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
 import ResetComparisons from '../ResetComparisons/ResetComparisons';
@@ -35,11 +35,13 @@ class Results extends Component {
             newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
-            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar }
+            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
+            toggleBid, bidList }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
       <div className="results content-container">
+        <h2 className="sr-only">Search results</h2>
         {
           shouldShowSearchBar &&
           <ResultsSearchHeader
@@ -103,6 +105,8 @@ class Results extends Component {
             newSavedSearchIsSaving={newSavedSearchIsSaving}
             currentSavedSearch={currentSavedSearch}
             resetSavedSearchAlerts={resetSavedSearchAlerts}
+            toggleBid={toggleBid}
+            bidList={bidList}
           />
         </div>
       </div>
@@ -134,7 +138,7 @@ Results.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   saveSearch: PropTypes.func.isRequired,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE.isRequired,
+  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
@@ -148,6 +152,8 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_RESULTS.isRequired,
 };
 
 Results.defaultProps = {

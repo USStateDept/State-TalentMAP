@@ -9,7 +9,9 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
   >
     <ExternalUserStatus
       email="shadtrachl@state.gov"
-      name="Leah Shadtrach"
+      firstName="Leah"
+      initials="LS"
+      lastName="Shadtrach"
       showMail={true}
       type="cdo"
     />
@@ -30,7 +32,9 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
   >
     <ExternalUserStatus
       email="woodwardw@state.gov"
-      name="Wendy Woodward"
+      firstName="Wendy"
+      initials="WW"
+      lastName="Woodward"
       showMail={true}
       type="ao"
     />
@@ -41,7 +45,9 @@ exports[`BidTrackerCardBottomComponent matches snapshot 1`] = `
     <Connect(StaticDevContent)>
       <ExternalUserStatus
         email="woodwardw@state.gov"
-        name="Wendy Woodward"
+        firstName="Wendy"
+        initials="WW"
+        lastName="Woodward"
         showMail={true}
         type="hr"
       />

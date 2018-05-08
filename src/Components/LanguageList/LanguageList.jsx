@@ -5,8 +5,8 @@ import { LANGUAGES } from '../../Constants/PropTypes';
 
 const LanguageList = ({ languages, propToUse }) => {
   const languageList = (languages && languages.length)
-    ? languages.map(choice => (
-      `${choice[propToUse]} `
+    ? languages.map((choice, i) => (
+      `${choice[propToUse]}${i < languages.length - 1 ? ', ' : ''}`
     )) : NO_LANGUAGES;
   return (
     <span>

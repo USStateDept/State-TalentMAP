@@ -8,9 +8,13 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot 1`] = `
     className="usa-grid-full"
   >
     <div
-      className="usa-width-five-sixths hello-greeting"
+      className="usa-width-five-sixths"
     >
-      Glossary Editor
+      <h2
+        className="hello-greeting"
+      >
+        Glossary Editor
+      </h2>
     </div>
     <div
       className="usa-width-one-sixth create-term-container"
@@ -22,42 +26,6 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot 1`] = `
       </button>
     </div>
   </div>
-</div>
-`;
-
-exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPatchHasErrored is true 1`] = `
-<div
-  className="profile-content-inner-container glossary-editor-page-header"
->
-  <div
-    className="usa-grid-full"
-  >
-    <div
-      className="usa-width-five-sixths hello-greeting"
-    >
-      Glossary Editor
-    </div>
-    <div
-      className="usa-width-one-sixth create-term-container"
-    >
-      <button
-        onClick={[Function]}
-      >
-        Create term
-      </button>
-    </div>
-  </div>
-  <Alert
-    messages={
-      Array [
-        Object {
-          "body": "Try again",
-        },
-      ]
-    }
-    title="Error submitting term"
-    type="error"
-  />
 </div>
 `;
 
@@ -69,9 +37,13 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
     className="usa-grid-full"
   >
     <div
-      className="usa-width-five-sixths hello-greeting"
+      className="usa-width-five-sixths"
     >
-      Glossary Editor
+      <h2
+        className="hello-greeting"
+      >
+        Glossary Editor
+      </h2>
     </div>
     <div
       className="usa-width-one-sixth create-term-container"
@@ -84,6 +56,7 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
     </div>
   </div>
   <Alert
+    isAriaLive={true}
     messages={
       Array [
         Object {
@@ -105,9 +78,13 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when showNewTerm is 
     className="usa-grid-full"
   >
     <div
-      className="usa-width-five-sixths hello-greeting"
+      className="usa-width-five-sixths"
     >
-      Glossary Editor
+      <h2
+        className="hello-greeting"
+      >
+        Glossary Editor
+      </h2>
     </div>
     <div
       className="usa-width-one-sixth create-term-container"
@@ -126,11 +103,11 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when showNewTerm is 
       className="usa-width-one-whole glossary-editor-card-container"
     >
       <GlossaryEditorCard
-        hasErrored={false}
+        hasErrored={Object {}}
         isNewTerm={true}
         onCancel={[Function]}
+        onSuccess={Object {}}
         submitGlossaryTerm={[Function]}
-        success={Object {}}
         term={Object {}}
       />
     </div>

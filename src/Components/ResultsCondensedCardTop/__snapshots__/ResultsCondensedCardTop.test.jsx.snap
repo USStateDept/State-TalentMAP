@@ -10,13 +10,20 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
     <div
       className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
     >
-       
+      <h3>
+        OMS (DCM)
+      </h3>
     </div>
     <div
       className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
     >
-      Grade: 
-      05
+      <dt>
+        Grade:
+      </dt>
+       
+      <dd>
+        06
+      </dd>
     </div>
   </div>
   <div
@@ -24,9 +31,9 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
   >
     <Link
       replace={false}
-      to="/details/00025003"
+      to="/details/10034001"
     >
-      View More
+      View position
     </Link>
   </div>
 </div>
@@ -42,19 +49,26 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
     <div
       className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
     >
-       
       <span>
-         | 
         <FontAwesome
           name="bolt"
         />
+         
       </span>
+      <h3>
+        OMS (DCM)
+      </h3>
     </div>
     <div
       className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
     >
-      Grade: 
-      05
+      <dt>
+        Grade:
+      </dt>
+       
+      <dd>
+        06
+      </dd>
     </div>
   </div>
   <div
@@ -62,9 +76,9 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
   >
     <Link
       replace={false}
-      to="/details/00025003"
+      to="/details/10034001"
     >
-      View More
+      View position
     </Link>
   </div>
 </div>

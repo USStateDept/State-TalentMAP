@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
+import { push } from 'react-router-redux';
 import { comparisonsFetchData } from '../../actions/comparisons';
-import { getLastRouteLink } from '../../actions/routerLocations';
 import CompareList from '../../Components/CompareList/CompareList';
-import { COMPARE_LIST, ROUTER_LOCATIONS } from '../../Constants/PropTypes';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { COMPARE_LIST } from '../../Constants/PropTypes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Results extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class Results extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.getComparisons(this.props.match.params.ids);
     }
@@ -30,13 +29,12 @@ class Results extends Component {
   }
 
   render() {
-    const { comparisons, hasErrored, isLoading, routerLocations } = this.props;
+    const { comparisons, hasErrored, isLoading } = this.props;
     return (
       <CompareList
         compare={comparisons}
         hasErrored={hasErrored}
         isLoading={isLoading}
-        goBackLink={getLastRouteLink(routerLocations)}
       />
     );
   }
@@ -54,14 +52,12 @@ Results.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   comparisons: COMPARE_LIST,
   isAuthorized: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
 };
 
 Results.defaultProps = {
   comparisons: [],
   hasErrored: false,
   isLoading: true,
-  routerLocations: [],
 };
 
 Results.contextTypes = {
@@ -72,7 +68,6 @@ const mapStateToProps = state => ({
   comparisons: state.comparisons,
   hasErrored: state.comparisonsHasErrored,
   isLoading: state.comparisonsIsLoading,
-  routerLocations: state.routerLocations,
 });
 
 export const mapDispatchToProps = dispatch => ({

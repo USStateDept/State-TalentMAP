@@ -41,7 +41,7 @@ const BidList = ({ bids }) => {
         }
       </div>
       <div className="section-padded-inner-container small-link-container view-more-link-centered">
-        <Link to="/profile/bidlist/">See Bid List</Link>
+        <Link to="/profile/bidtracker/">See Bid List</Link>
       </div>
     </div>
   );

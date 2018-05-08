@@ -1,7 +1,5 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
 import ResultsContainer from './ResultsContainer';
@@ -25,7 +23,7 @@ describe('ResultsContainerComponent', () => {
     sortBy, pageSizes, pageSize, hasLoaded, onToggle } = config;
 
   it('is defined', () => {
-    wrapper = TestUtils.renderIntoDocument(<MemoryRouter>
+    wrapper = shallow(
       <ResultsContainer
         results={resultsObject}
         isLoading={isLoading}
@@ -41,12 +39,13 @@ describe('ResultsContainerComponent', () => {
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         saveSearch={() => {}}
-        newSavedSearchSuccess={false}
+        newSavedSearchSuccess={{}}
         newSavedSearchHasErrored={false}
         newSavedSearchIsSaving={false}
         resetSavedSearchAlerts={() => {}}
-      />
-    </MemoryRouter>);
+        toggleBid={() => {}}
+        bidList={[]}
+      />);
     expect(wrapper).toBeDefined();
   });
 
@@ -66,10 +65,12 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
   });
@@ -90,10 +91,12 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     expect(wrapper.instance().props.pageSize).toBe(20);
   });
@@ -116,11 +119,13 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       scrollToTop={scrollSpy}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     wrapper.instance().onPageChange(1);
     sinon.assert.calledOnce(spy);
@@ -143,10 +148,12 @@ describe('ResultsContainerComponent', () => {
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
-      newSavedSearchSuccess={false}
+      newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
+      toggleBid={() => {}}
+      bidList={[]}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

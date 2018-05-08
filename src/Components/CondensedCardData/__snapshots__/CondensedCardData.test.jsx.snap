@@ -5,48 +5,93 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
-    content="MASERU, LESOTHO"
+    content="OFFICE MANAGEMENT (9017)"
+    hasFixedTitleWidth={true}
+    title="Skill code"
+  />
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone"
     hasFixedTitleWidth={true}
     title="Post"
   />
   <CondensedCardDataPoint
-    content="OFFICE MANAGEMENT (9017)"
+    content="03/13/2020"
     hasFixedTitleWidth={true}
-    title="Skill Code"
+    title="TED"
   />
   <CondensedCardDataPoint
     content={
       <LanguageList
-        languages={
-          Array [
-            Object {
-              "id": 1,
-              "language": "French (FR)",
-              "reading_proficiency": "2",
-              "representation": "French (FR) 2/2",
-              "spoken_proficiency": "2",
-            },
-            Object {
-              "id": 1,
-              "language": "German (GM)",
-              "reading_proficiency": "2",
-              "representation": "German (GM) 2/2",
-              "spoken_proficiency": "2",
-            },
-          ]
-        }
-        propToUse="language"
+        languages={Array []}
+        propToUse="representation"
       />
     }
     hasFixedTitleWidth={true}
     title="Language"
   />
-  <Connect(StaticDevContent)>
-    <CondensedCardDataPoint
-      content="6.1.18"
-      hasFixedTitleWidth={true}
-      title="Time of estimated departure"
-    />
-  </Connect(StaticDevContent)>
+</div>
+`;
+
+exports[`CondensedCardDataComponent matches snapshot with an empty estimated end date 1`] = `
+<div
+  className="usa-grid-full condensed-card-data"
+>
+  <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="Skill code"
+  />
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone"
+    hasFixedTitleWidth={true}
+    title="Post"
+  />
+  <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="TED"
+  />
+  <CondensedCardDataPoint
+    content={
+      <LanguageList
+        languages={Array []}
+        propToUse="representation"
+      />
+    }
+    hasFixedTitleWidth={true}
+    title="Language"
+  />
+</div>
+`;
+
+exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
+<div
+  className="usa-grid-full condensed-card-data"
+>
+  <CondensedCardDataPoint
+    content="None listed"
+    hasFixedTitleWidth={true}
+    title="Skill code"
+  />
+  <CondensedCardDataPoint
+    content="Freetown, Sierra Leone"
+    hasFixedTitleWidth={true}
+    title="Post"
+  />
+  <CondensedCardDataPoint
+    content="03/13/2020"
+    hasFixedTitleWidth={true}
+    title="TED"
+  />
+  <CondensedCardDataPoint
+    content={
+      <LanguageList
+        languages={Array []}
+        propToUse="representation"
+      />
+    }
+    hasFixedTitleWidth={true}
+    title="Language"
+  />
 </div>
 `;

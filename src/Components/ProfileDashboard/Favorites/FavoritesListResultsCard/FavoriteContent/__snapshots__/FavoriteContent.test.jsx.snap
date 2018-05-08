@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FavoriteContentComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bid-content-container"
+>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Position title: 
+    </span>
+    OMS (DCM)
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Skill code: 
+    </span>
+    OFFICE MANAGEMENT (9017)
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Grade: 
+    </span>
+    06
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Post: 
+    </span>
+    Freetown, Sierra Leone
+  </div>
+</div>
+`;

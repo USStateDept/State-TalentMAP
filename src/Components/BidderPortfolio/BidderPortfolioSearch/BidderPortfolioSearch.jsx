@@ -7,7 +7,7 @@ const BidderPortfolioSearch = ({ onUpdate }) => (
     <div className="results-search-bar-container">
       <ResultsSearchHeader
         labelSrOnly
-        placeholder="Search Bidder Last Name, Skill Code..."
+        placeholder="Search Bidder Last Name, Skill cone (code)..."
         onUpdate={onUpdate}
       />
     </div>

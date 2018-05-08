@@ -5,16 +5,16 @@
 
   .alert-icon-badge {
     background-color: $blue-primary;
-    border-radius: 20px;
+    border-radius: 100%;
     color: $color-white;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 200;
-    padding-left: 1px;
+    padding: 2px 1px;
     position: absolute; // parent should have position: relative
     right: -5px;
     text-align: center;
-    top: 18px;
-    width: 13px;
+    top: 15px;
+    width: 14px;
   }
 
   .fa {

@@ -34,23 +34,11 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
       navLinkClass="home-text"
       title="Home"
     />
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text about-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP"
-          >
-            About
-          </a>
-        </div>
-      </div>
-    </div>
+    <withRouter()
+      link="/about"
+      navLinkClass="about-text"
+      title="About"
+    />
   </div>
   <div
     className="header-nav-desktop desktop-nav-only account-notification-container"
@@ -63,7 +51,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
       >
         <AccountDropdown
           logoutRequest={[Function]}
-          shouldDisplayName={false}
+          shouldDisplayName={true}
           userProfile={
             Object {
               "bid_statistics": Array [
@@ -75,7 +63,9 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
               "cdo": Object {
                 "email": "shadtrachl@state.gov",
                 "first_name": "Leah",
+                "initials": "LS",
                 "last_name": "Shadtrach",
+                "username": "shadtrachl",
               },
               "display_name": "John",
               "favorite_positions": Array [
@@ -90,7 +80,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
               ],
               "grade": "03",
               "id": 1,
-              "intials": "JD",
+              "initials": "JD",
               "is_cdo": false,
               "skills": Array [
                 Object {
@@ -109,6 +99,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
               "user": Object {
                 "email": "doej@state.gov",
                 "first_name": "John",
+                "initials": "JD",
                 "last_name": "Doe",
                 "username": "jdoe",
               },
@@ -152,23 +143,11 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
       navLinkClass="home-text"
       title="Home"
     />
-    <div
-      className="header-nav-link-container"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text about-text"
-        >
-          <a
-            href="https://github.com/18F/State-TalentMAP"
-          >
-            About
-          </a>
-        </div>
-      </div>
-    </div>
+    <withRouter()
+      link="/about"
+      navLinkClass="about-text"
+      title="About"
+    />
   </div>
   <div
     className="header-nav-desktop desktop-nav-only account-notification-container"

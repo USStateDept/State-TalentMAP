@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Row matches snapshot 1`] = `
+<Base
+  as="div"
+  className="usa-grid tm-grid"
+  fluid={false}
+  id="row-1"
+>
+  <div
+    className="usa-width-one-whole"
+  />
+</Base>
+`;

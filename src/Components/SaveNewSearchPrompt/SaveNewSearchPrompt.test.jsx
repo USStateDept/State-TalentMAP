@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
+import toJSON from 'enzyme-to-json';
 import SaveNewSearchPrompt from './SaveNewSearchPrompt';
 
 describe('SaveNewSearchPromptComponent', () => {
@@ -17,6 +17,18 @@ describe('SaveNewSearchPromptComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('calls functions after clicking InteractiveElement', () => {
+    const spy = sinon.spy();
+    wrapper = shallow(
+      <SaveNewSearchPrompt
+        toggleInput={spy}
+        newSavedSearchSuccess="success"
+      />,
+    );
+    wrapper.find('InteractiveElement').simulate('click');
+    sinon.assert.calledOnce(spy);
+  });
+
   it('can handle receiving currently selected saved searches', () => {
     const savedSearch = { id: 1, name: 'test' };
     wrapper = shallow(
@@ -28,22 +40,6 @@ describe('SaveNewSearchPromptComponent', () => {
     );
     expect(wrapper.find(savedSearch.name)).toBeDefined();
     expect(wrapper.find('Edit')).toBeDefined();
-  });
-
-  it('can respond to an enter key on the link', () => {
-    const spy = sinon.spy();
-    wrapper = shallow(
-      <SaveNewSearchPrompt
-        toggleInput={spy}
-        newSavedSearchSuccess="success"
-      />,
-    );
-    wrapper.find('a').simulate('keyUp', { keyCode: 13 });
-    sinon.assert.calledOnce(spy);
-    // should only respond to 13
-    wrapper.find('a').simulate('keyUp', { keyCode: 14 });
-    // therefore, it should still have only been called once
-    sinon.assert.calledOnce(spy);
   });
 
   it('matches snapshot', () => {

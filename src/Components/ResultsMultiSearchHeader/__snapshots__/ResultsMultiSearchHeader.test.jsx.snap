@@ -38,7 +38,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 noForm={true}
                 onChangeText={[Function]}
                 onSubmitSearch={[Function]}
-                placeholder="Location, Skill Code, Grade, Language, Position Number"
+                placeholder="Location, Skill cone (code), Grade, Language, Position number"
                 submitDisabled={false}
                 submitText="Search"
                 type="medium"
@@ -46,7 +46,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
               <div
                 className="search-sub-text"
               >
-                Example: Mexico City Mexico, Political Affairs (5505), Russian 3/3...
+                Example: Abuja, Nigeria, Political Affairs (5505), Russian 3/3...
               </div>
             </div>
             <div
@@ -65,14 +65,25 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 label="Skill Code"
                 labelSrOnly={false}
                 onFilterSelect={[Function]}
-                userSkills={Array []}
+                userSkills={
+                  Array [
+                    Object {
+                      "code": "6218",
+                    },
+                    Object {
+                      "code": "6211",
+                    },
+                  ]
+                }
               />
             </div>
             <div
               className="usa-width-one-twelfth search-results-inputs search-keyword"
             >
               <SelectForm
-                defaultSort={null}
+                className="select-black select-small"
+                defaultSort="03"
+                disabled={false}
                 emptyOptionText=""
                 id="grade-searchbar-filter"
                 includeFirstEmptyOption={true}
@@ -95,11 +106,13 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
               className="usa-width-one-sixth search-results-inputs search-keyword"
             >
               <SelectForm
+                className="select-black select-small"
                 defaultSort={null}
+                disabled={false}
                 emptyOptionText="- Select -"
                 id="bureau-searchbar-filter"
                 includeFirstEmptyOption={true}
-                label="Bureau"
+                label="Regional Bureau"
                 languages={Array []}
                 onSelectOption={[Function]}
                 options={
@@ -107,7 +120,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                     Object {
                       "code": "bur",
                       "custom_description": "bureau",
-                      "text": undefined,
+                      "text": "bureau",
                       "value": "bur",
                     },
                   ]

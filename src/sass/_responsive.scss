@@ -1,6 +1,4 @@
-// scss-lint:disable ImportantRule
 // use consistent padding for main content in condensed views
-
 .mobile-nav {
   .mobile-nav-only {
     @media screen and (min-width: $screen-md-min) {
@@ -16,8 +14,16 @@
 }
 
 .padded-main-content {
-  @media screen and (max-width: $screen-lg-min) {
+  @media screen and (max-width: $screen-lg-min + 40px) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     padding-left: 20px !important;
     padding-right: 20px !important;
+  }
+}
+
+.padded-main-content--header {
+  @media screen and (max-width: $screen-sm-max) {
+    padding-right: 0 !important;
   }
 }

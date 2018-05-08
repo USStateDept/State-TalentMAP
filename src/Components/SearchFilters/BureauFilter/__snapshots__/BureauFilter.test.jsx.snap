@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BureauFilterComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full tm-nested-accordions"
+>
+  <Accordion
+    className=""
+    isMultiselectable={false}
+  >
+    <AccordionItem
+      buttonClass="tm-nested-accordion-button"
+      childClass=""
+      className="accordion-content-small"
+      expanded={false}
+      id="regional-bureau-sub-accordion"
+      setAccordion={[Function]}
+      title="Regional Bureaus"
+      useIdClass={true}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <CheckBox
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName1-region-region"
+          label="Name1"
+          labelSrOnly={false}
+          name="Name1"
+          onCheckBoxClick={[Function]}
+          selectionRef="bureau"
+          small={false}
+          title="Name1"
+          value={false}
+        />
+      </div>
+    </AccordionItem>
+    <AccordionItem
+      buttonClass="tm-nested-accordion-button"
+      childClass=""
+      className="accordion-content-small"
+      expanded={false}
+      id="functional-bureau-sub-accordion"
+      setAccordion={[Function]}
+      title="Functional Bureaus"
+      useIdClass={true}
+    >
+      <CheckBox
+        className="tm-checkbox-transparent"
+        disabled={false}
+        id="checkbox-functional-bureau-undefined"
+        label="Name1"
+        labelSrOnly={false}
+        name="Name1"
+        onCheckBoxClick={[Function]}
+        selectionRef="bureau"
+        small={false}
+        title="Name1"
+        value={false}
+      />
+      <CheckBox
+        className="tm-checkbox-transparent"
+        disabled={false}
+        id="checkbox-functional-bureau-undefined"
+        label="Name2"
+        labelSrOnly={false}
+        name="Name2"
+        onCheckBoxClick={[Function]}
+        selectionRef="bureau"
+        small={false}
+        title="Name2"
+        value={false}
+      />
+    </AccordionItem>
+  </Accordion>
+</div>
+`;

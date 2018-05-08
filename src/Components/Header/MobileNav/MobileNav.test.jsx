@@ -5,6 +5,10 @@ import MobileNav from './MobileNav';
 import { bidderUserObject } from '../../../__mocks__/userObject';
 
 describe('MobileNav', () => {
+  beforeEach(() => {
+    process.env.PUBLIC_URL = '/talentmap/';
+  });
+
   it('is defined', () => {
     const wrapper = shallow(
       <MobileNav

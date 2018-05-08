@@ -20,5 +20,5 @@ module.exports = {
 
   // Set our asset path. This is similar to getAssetPath in utilities, but
   // we wrap the environment variable in quotes so it can be used in .scss files.
-  'asset-path': process.env.PUBLIC_URL ? `"${process.env.PUBLIC_URL}"` : '""',
+  get 'asset-path'() { return process.env.PUBLIC_URL ? `"${process.env.PUBLIC_URL}"` : '"/"'; },
 };

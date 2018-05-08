@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { fetchUserToken } from '../utilities';
+import { indexOf } from 'lodash';
+
 import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 
@@ -9,18 +10,21 @@ export function userProfileHasErrored(bool) {
     hasErrored: bool,
   };
 }
+
 export function userProfileIsLoading(bool) {
   return {
     type: 'USER_PROFILE_IS_LOADING',
     isLoading: bool,
   };
 }
+
 export function userProfileFetchDataSuccess(userProfile) {
   return {
     type: 'USER_PROFILE_FETCH_DATA_SUCCESS',
     userProfile,
   };
 }
+
 // when adding or removing a favorite
 export function userProfileFavoritePositionIsLoading(bool) {
   return {
@@ -28,6 +32,7 @@ export function userProfileFavoritePositionIsLoading(bool) {
     userProfileFavoritePositionIsLoading: bool,
   };
 }
+
 // when adding or removing a favorite has errored
 export function userProfileFavoritePositionHasErrored(bool) {
   return {
@@ -50,39 +55,39 @@ export function userProfileFetchData(bypass) {
       dispatch(userProfileHasErrored(false));
     }
 
-    // create functions to fetch user's profile and permissions
-
+    /**
+     * create functions to fetch user's profile and permissions
+     */
     // profile
-    function getUserAccount() {
-      return axios.get(`${api}/profile/`, { headers: { Authorization: fetchUserToken() } });
-    }
-
+    const getUserAccount = () => api.get('/profile/');
     // permissions
-    function getUserPermissions() {
-      return axios.get(`${api}/permission/user/`, { headers: { Authorization: fetchUserToken() } });
-    }
+    const getUserPermissions = () => api.get('/permission/user/');
 
-    // use axios' Promise.all to fetch the profile and permissions, and then combine them
+    // use api' Promise.all to fetch the profile and permissions, and then combine them
     // into one object
     axios.all([getUserAccount(), getUserPermissions()])
-            .then(axios.spread((acct, perms) => {
-              // form the userProfile object
-              const account = acct.data;
-              const permissions = perms.data;
-              const newProfileObject = { ...account, permission_groups: permissions.groups };
+      .then(axios.spread((acct, perms) => {
+        // form the userProfile object
+        const account = acct.data;
+        const permissions = perms.data;
+        const newProfileObject = {
+          ...account,
+          is_superuser: indexOf(permissions.groups, 'superuser') > -1,
+          permission_groups: permissions.groups,
+        };
 
-              // then perform dispatches
-              dispatch(userProfileFetchDataSuccess(newProfileObject));
-              dispatch(userProfileIsLoading(false));
-              dispatch(userProfileHasErrored(false));
-              dispatch(userProfileFavoritePositionHasErrored(false));
-              dispatch(userProfileFavoritePositionIsLoading(false));
-            }))
-            .catch(() => {
-              dispatch(userProfileHasErrored(true));
-              dispatch(userProfileIsLoading(false));
-              dispatch(userProfileFavoritePositionIsLoading(false));
-            });
+        // then perform dispatches
+        dispatch(userProfileFetchDataSuccess(newProfileObject));
+        dispatch(userProfileIsLoading(false));
+        dispatch(userProfileHasErrored(false));
+        dispatch(userProfileFavoritePositionHasErrored(false));
+        dispatch(userProfileFavoritePositionIsLoading(false));
+      }))
+      .catch(() => {
+        dispatch(userProfileHasErrored(true));
+        dispatch(userProfileIsLoading(false));
+        dispatch(userProfileFavoritePositionIsLoading(false));
+      });
   };
 }
 
@@ -97,31 +102,26 @@ export function userProfileFetchData(bypass) {
 export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false) {
   const idString = id.toString();
   return (dispatch) => {
+    const config = {
+      method: remove ? 'delete' : 'put',
+      url: `/position/${idString}/favorite/`,
+    };
+
     dispatch(userProfileFavoritePositionIsLoading(true));
     dispatch(userProfileFavoritePositionHasErrored(false));
-    let action = 'put';
-    if (remove) {
-      action = 'delete';
-    }
-    const auth = { headers: { Authorization: fetchUserToken() } };
-    // Now we can patch our profile with the new favorites.
-    // Axios is a little weird here in that for PUTs, it expects a body as the second argument,
-    // whereas for DELETEs, it expects the headers object...
-    // so we have to conditionally decide what position to put the headers object in.
-    const firstArg = action === 'delete' ? auth : {};
-    const secondArg = action === 'put' ? auth : null;
-    axios[action](`${api}/position/${idString}/favorite/`, firstArg, secondArg)
-            .then(() => {
-              dispatch(userProfileFetchData(true));
-              dispatch(userProfileFavoritePositionIsLoading(false));
-              dispatch(userProfileFavoritePositionHasErrored(false));
-              if (refreshFavorites) {
-                dispatch(favoritePositionsFetchData());
-              }
-            })
-            .catch(() => {
-              dispatch(userProfileFavoritePositionHasErrored(true));
-              dispatch(userProfileFavoritePositionIsLoading(false));
-            });
+
+    api(config)
+      .then(() => {
+        dispatch(userProfileFetchData(true));
+        dispatch(userProfileFavoritePositionIsLoading(false));
+        dispatch(userProfileFavoritePositionHasErrored(false));
+        if (refreshFavorites) {
+          dispatch(favoritePositionsFetchData());
+        }
+      })
+      .catch(() => {
+        dispatch(userProfileFavoritePositionHasErrored(true));
+        dispatch(userProfileFavoritePositionIsLoading(false));
+      });
   };
 }

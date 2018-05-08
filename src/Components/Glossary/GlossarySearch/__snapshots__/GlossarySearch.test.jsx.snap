@@ -18,7 +18,7 @@ exports[`GlossaryComponent matches snapshot 1`] = `
   <div
     className="glossary-search-sub"
   >
-    Examples: post, tour of duty
+    Examples: Tandem, Tour of duty
   </div>
 </FieldSet>
 `;

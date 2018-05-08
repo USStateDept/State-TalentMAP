@@ -5,7 +5,7 @@ import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import Status from '../Status';
 import EditProfile from '../EditProfile';
-import ProfilePicture from '../../../ProfilePicture';
+import Avatar from '../../../Avatar';
 import StaticDevContent from '../../../StaticDevContent';
 import SkillCodeList from '../../../SkillCodeList';
 
@@ -13,7 +13,13 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
   <div className="current-user-top current-user-section-container">
     <div className="section-padded-inner-container">
       <Status />
-      <ProfilePicture />
+      <Avatar
+        className="dashboard-user-profile-picture"
+        initials={userProfile.initials}
+        display_name={userProfile.display_name}
+        firstName={userProfile.user.first_name}
+        lastName={userProfile.user.last_name}
+      />
       { showEditLink && <EditProfile /> }
       <SectionTitle small title={`${userProfile.user.last_name}, ${userProfile.user.first_name}`} className="current-user-name" />
       {

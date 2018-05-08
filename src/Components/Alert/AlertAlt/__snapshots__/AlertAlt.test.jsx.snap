@@ -1,5 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AlertAltComponent matches snapshot when isAriaLive is true 1`] = `
+<div
+  aria-atomic="true"
+  aria-live="polite"
+  className="tm-alert tm-alert-info"
+  role={null}
+>
+  <div
+    className="usa-grid-full tm-alert-body"
+  >
+    <div
+      className="usa-grid-full tm-alert-icon"
+    >
+      <FontAwesome
+        name="info-circle"
+        size="lg"
+      />
+    </div>
+    <div
+      className="usa-grid-full tm-alert-text"
+    >
+      <div
+        className="tm-alert-heading"
+      >
+        title
+      </div>
+      <div
+        className="tm-alert-message"
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`AlertAltComponent matches snapshot when type equals error 1`] = `
 <div
   className="tm-alert tm-alert-error"

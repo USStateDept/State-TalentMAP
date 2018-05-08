@@ -29,10 +29,19 @@ export default class AutoSuggest extends Component {
   }
 
   onKeyChange(event, { newValue }) {
+    const { displayProperty } = this.props;
+    let newStateValue;
+    // If the user is typing, then newValue is a string,
+    // but if the user is arrowing through suggestions, then newValue is an object.
+    // We also check if the displayProperty is a function.
+    if (typeof newValue !== 'string' && typeof displayProperty === 'function') {
+      newStateValue = displayProperty(newValue);
+    } else {
+      newStateValue = newValue[this.props.displayProperty] ?
+        newValue[this.props.displayProperty] : newValue;
+    }
     this.setState({
-      // If the user is typing, then newValue is a string,
-      // but if the user is arrowing through suggestions, then newValue is an object.
-      value: newValue[this.props.displayProperty] ? newValue[this.props.displayProperty] : newValue,
+      value: newStateValue,
     });
   }
 
@@ -59,7 +68,7 @@ export default class AutoSuggest extends Component {
   render() {
     const { value } = this.state;
     const { placeholder, suggestions, onSuggestionsClearRequested, id,
-      customInputProps, inputId, label, labelSrOnly } = this.props;
+      customInputProps, inputId, label, labelSrOnly, className } = this.props;
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
@@ -72,7 +81,7 @@ export default class AutoSuggest extends Component {
 
     // Finally, render it.
     return (
-      <div className="usa-grid-full">
+      <div className={`usa-grid-full ${className}`}>
         <label htmlFor={inputId} className={labelSrOnly ? 'usa-sr-only' : undefined}>{label}</label>
         <AutoSuggestComponent
           suggestions={suggestions}
@@ -122,7 +131,8 @@ AutoSuggest.propTypes = {
   onSuggestionsClearRequested: PropTypes.func,
 
   // Which property should show up in the text input when a suggestion is chosen?
-  displayProperty: PropTypes.string,
+  // Can be a string or a function.
+  displayProperty: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
   // Which property should be sent back when onSuggestionSelected is called?
   // If none is delcared, the entire suggestion object is returned.
@@ -130,6 +140,8 @@ AutoSuggest.propTypes = {
 
   // the template to use for rendering suggestions
   suggestionTemplate: PropTypes.func,
+
+  className: PropTypes.string,
 };
 
 AutoSuggest.defaultProps = {
@@ -143,4 +155,5 @@ AutoSuggest.defaultProps = {
   displayProperty: 'short_name',
   queryProperty: '',
   suggestionTemplate: SuggestionChoice,
+  className: undefined,
 };

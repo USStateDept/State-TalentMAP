@@ -1,6 +1,4 @@
 // scss-lint:disable QualifyingElement
-// scss-lint:disable ImportantRule
-
 .tm-feedback-button {
   background-color: $color-gold-dark;
   border-color: $color-gold-dark;
@@ -11,6 +9,10 @@
   position: fixed;
   right: 4rem;
   z-index: $feedback-button-z;
+
+  .fa {
+    margin-left: 5px;
+  }
 }
 
 .tm-feedback-button:hover {
@@ -31,7 +33,7 @@
   }
 
   body {
-    font-family: sans-serif;
+    font-family: 'Roboto';
   }
 
   h3 {
@@ -48,8 +50,8 @@
   }
 
   .feedback {
-    background: $color-gray-darkest;
-    border-left: 1px solid $tm-navy-dark;
+    background: $primary-base;
+    border-left: 1px solid $primary-gray-dark;
     bottom: 0;
     max-height: 70%;
     overflow-y: scroll;

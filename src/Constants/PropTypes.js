@@ -57,7 +57,7 @@ export const POSITION_DETAILS = PropTypes.shape({
   is_overseas: PropTypes.bool,
   create_date: PropTypes.string,
   update_date: PropTypes.string,
-  effective_date: PropTypes.string,
+  posted_date: PropTypes.string,
   description: PropTypes.shape({
     id: PropTypes.number,
     last_editing_user: PropTypes.string,
@@ -69,6 +69,9 @@ export const POSITION_DETAILS = PropTypes.shape({
   }),
   post: POST_MISSION_DATA,
   languages: LANGUAGES,
+  current_assignment: PropTypes.shape({
+    estimated_end_date: PropTypes.string,
+  }),
 });
 
 export const POSITION_DETAILS_ARRAY = PropTypes.arrayOf(POSITION_DETAILS);
@@ -107,7 +110,7 @@ export const FILTER = PropTypes.shape({
   description: PropTypes.string,
   long_description: PropTypes.string,
   short_description: PropTypes.string,
-  effective_date: PropTypes.string,
+  posted_date: PropTypes.string,
   isSelected: PropTypes.bool,
 });
 
@@ -187,6 +190,8 @@ export const USER_NESTED_OBJECT = PropTypes.shape({
 export const USER_PROFILE = PropTypes.shape({
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
+  initials: PropTypes.string,
+  display_name: PropTypes.string,
   user: USER_NESTED_OBJECT,
   is_cdo: PropTypes.bool,
   languages: LANGUAGE_QUALIFICATIONS,
@@ -221,6 +226,11 @@ export const PILL_ITEM_ARRAY = PropTypes.arrayOf(PILL_ITEM);
 export const ACCORDION_SELECTION_OBJECT = PropTypes.shape({
   main: PropTypes.string,
   sub: PropTypes.string,
+});
+
+export const NEW_SAVED_SEARCH_SUCCESS_OBJECT = PropTypes.shape({
+  title: PropTypes.string,
+  message: PropTypes.string,
 });
 
 export const SAVED_SEARCH_MESSAGE = STRING_OR_BOOL;
@@ -261,11 +271,20 @@ export const REGION_SELECTION = PropTypes.shape({
 
 export const BID_REVIEWER_OBJECT = PropTypes.shape({
   username: PropTypes.string,
+  initials: PropTypes.string,
   first_name: PropTypes.string,
   last_name: PropTypes.string,
   email: PropTypes.string,
   phone_number: PropTypes.string,
   is_cdo: PropTypes.bool,
+});
+
+export const POSITION_POST_NESTED_LOCATION = PropTypes.shape({
+  id: PropTypes.number,
+  country: PropTypes.string,
+  code: PropTypes.string,
+  city: PropTypes.string,
+  state: PropTypes.string,
 });
 
 export const BID_OBJECT = PropTypes.shape({
@@ -282,7 +301,7 @@ export const BID_OBJECT = PropTypes.shape({
     update_date: PropTypes.string,
     post: PropTypes.shape({
       id: PropTypes.number,
-      location: PropTypes.string,
+      location: POSITION_POST_NESTED_LOCATION,
     }),
   }),
   reviewer: BID_REVIEWER_OBJECT,
@@ -331,7 +350,7 @@ export const ASSIGNMENT_OBJECT = PropTypes.shape({
     position_number: PropTypes.string,
     title: PropTypes.string,
     post: PropTypes.shape({
-      location: PropTypes.string,
+      location: POSITION_POST_NESTED_LOCATION,
     }),
   }),
 });
@@ -381,6 +400,7 @@ export const NOTIFICATION_LIST = PropTypes.shape({
 
 export const CDO_OBJECT = PropTypes.shape({
   username: PropTypes.string,
+  initials: PropTypes.string,
   first_name: PropTypes.string,
   last_name: PropTypes.string,
   email: PropTypes.string,
@@ -465,6 +485,7 @@ export const GROUPED_GLOSSARY_ARRAYS_OBJECT = PropTypes.shape({
 
 export const GLOSSARY_ERROR_OBJECT = PropTypes.shape({
   id: PropTypes.number,
+  message: PropTypes.string,
   hasErrored: PropTypes.bool,
 });
 
@@ -506,3 +527,20 @@ export const CLIENT_BY_ID = PropTypes.shape({
 });
 
 export const HOME_PAGE_CARD_TYPE = PropTypes.oneOf(['default', 'serviceNeed']);
+
+export const BID_CYCLE = PropTypes.shape({
+  id: PropTypes.number,
+  name: PropTypes.string,
+  cycle_start_date: PropTypes.string,
+  cycle_deadline_date: PropTypes.string,
+  cycle_end_date: PropTypes.string,
+  active: PropTypes.bool,
+});
+
+export const BID_CYCLES = PropTypes.arrayOf(BID_CYCLE);
+
+export const HIGHLIGHT_POSITION = PropTypes.shape({
+  loading: PropTypes.bool,
+  success: PropTypes.bool,
+  error: PropTypes.bool,
+});

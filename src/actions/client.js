@@ -1,21 +1,19 @@
-import axios from 'axios';
 import api from '../api';
-import { fetchUserToken } from '../utilities';
 
 export const fetchClient = clientId =>
-  axios.get(`${api}/client/${clientId}/`, { headers: { Authorization: fetchUserToken() } })
+  api.get(`/client/${clientId}/`)
     .then(({ data }) => data)
     .then(client => client)
     .catch(error => error);
 
 export const fetchClientWaivers = clientId =>
-  axios.get(`${api}/client/${clientId}/waivers/`, { headers: { Authorization: fetchUserToken() } })
+  api.get(`/client/${clientId}/waivers/`)
     .then(({ data }) => data)
     .then(client => client)
     .catch(error => error);
 
 export const fetchClientBids = clientId =>
-  axios.get(`${api}/client/${clientId}/bids/`, { headers: { Authorization: fetchUserToken() } })
+  api.get(`/client/${clientId}/bids/`)
     .then(({ data }) => data)
     .then(client => client)
     .catch(error => error);

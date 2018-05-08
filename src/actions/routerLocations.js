@@ -1,23 +1,21 @@
 // map paths to readable link text
 export function mapRoutesToNames(route) {
-  const preText = 'Go back';
+  const preText = 'Back to';
   switch (route) {
     case '/results':
-      return `${preText} to search results`;
+      return `${preText} Search Results`;
     case '/':
-      return `${preText} to the home page`;
+      return `${preText} Home Page`;
     case '/details':
-      return `${preText} to position details`;
-    case '/post':
-      return `${preText} to post details`;
+      return `${preText} Position Details`;
     case '/profile':
-      return `${preText} to your profile`;
+      return `${preText} Profile`;
     case '/compare':
-      return `${preText} to the comparison`;
+      return `${preText} Comparison`;
     case '/profile/bidtracker/':
-      return `${preText} to your bid tracker`;
+      return `${preText} Bid Tracker`;
     default: // else, just return generic "Go back" text
-      return preText;
+      return 'Go back';
   }
 }
 

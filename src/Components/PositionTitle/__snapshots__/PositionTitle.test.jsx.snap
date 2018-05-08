@@ -4,98 +4,90 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
 <div
   className="position-details-header-container"
 >
+  <HelmetWrapper
+    defer={true}
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      Test Position
+    </title>
+    <meta
+      content="Test Position 00003027"
+      property="og:title"
+    />
+    <meta
+      content="a description"
+      property="og:description"
+    />
+    <meta
+      content="http://localhost/"
+      property="og:url"
+    />
+  </HelmetWrapper>
   <div
     className="position-details-header"
   >
     <div
-      className="usa-grid positions-details-header-grid"
+      className="usa-grid-full positions-details-header-grid padded-main-content"
     >
       <div
-        className="usa-width-one-half"
+        className="usa-width-two-thirds"
       >
         <div
-          className="position-details-header-back"
+          className="usa-grid-full"
         >
-          <div>
-            <FontAwesome
-              name="arrow-left"
-            />
-             
-            <a
-              className="back-link"
-              onClick={[Function]}
-              role="link"
-              tabIndex="0"
+          <div
+            className="usa-width-one-half header-title-container"
+          >
+            <div
+              className="position-details-header-title"
             >
-              Go back text
-            </a>
+              <h1>
+                Test Position
+              </h1>
+            </div>
+            <div
+              className="post-title"
+            >
+              Post: 
+              Freetown, Sierra Leone
+            </div>
+          </div>
+          <div
+            className="usa-width-one-half title-actions-section"
+          >
+            <Favorite
+              as="div"
+              className=""
+              compareArray={Array []}
+              hasBorder={false}
+              hideText={false}
+              isLoading={false}
+              onToggle={[Function]}
+              refKey={6}
+              useButtonClass={true}
+              useButtonClassSecondary={false}
+              useLongText={true}
+              useSpinnerWhite={true}
+            />
           </div>
         </div>
-        <div
-          className="position-details-header-title"
-        >
-          <strong>
-            Position Number: 
-            00003027
-          </strong>
-        </div>
-        <div
-          className="position-details-header-body editable-position-field"
-        >
-          <strong>
-            Description: 
-          </strong>
-          <span
-            className="usa-grid-full"
-          >
-            a description
-          </span>
-        </div>
-        <PositionTitleSubDescription
-          formattedContent={
-            <a
-              href="https://www.state.gov/post"
-            >
-              https://www.state.gov/post
-            </a>
-          }
-          isAllowedToEdit={false}
-          onSubmitText={[Function]}
-          plainContent="https://www.state.gov/post"
-          shouldShowEditor={false}
-          title="Post website"
-          toggleEditor={[Function]}
-        />
-        <PositionTitleSubDescription
-          formattedContent={
-            <a
-              href="tel:202-555-5555"
-            >
-              202-555-5555
-            </a>
-          }
-          isAllowedToEdit={false}
-          onSubmitText={[Function]}
-          plainContent="202-555-5555"
-          shouldShowEditor={false}
-          title="Point of Contact"
-          toggleEditor={[Function]}
-        />
       </div>
     </div>
     <img
-      alt="department of state seal"
+      alt="United States flag background"
       className="position-details-header-image"
-      src="/assets/img/rsz_dos-seal-bw.png"
+      src="/assets/img/us-flag.jpg"
     />
   </div>
   <div
-    className="offset-bid-button-container"
+    className="offset-bid-button-container offset-bid-count-container"
   >
     <div
-      className="offset-bid-button-container-count"
+      className="usa-grid-full position-title-bid-count"
     >
       <BidCount
+        altStyle={true}
         bidStatistics={
           Object {
             "at_skill": 0,
@@ -107,19 +99,20 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
           }
         }
         hideLabel={false}
+        label="Bid Count"
       />
     </div>
-    <div
-      className="offset-bid-button-container-button"
-    >
-      <BidListButton
-        className="bid-list-button"
-        compareArray={Array []}
-        id={6}
-        isLoading={false}
-        toggleBidPosition={[Function]}
-      />
-    </div>
+  </div>
+  <div
+    className="offset-bid-button-container"
+  >
+    <BidListButton
+      className="bid-list-button"
+      compareArray={Array []}
+      id={6}
+      isLoading={false}
+      toggleBidPosition={[Function]}
+    />
   </div>
 </div>
 `;

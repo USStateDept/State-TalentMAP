@@ -1,5 +1,52 @@
 .bid-count-container {
   margin-top: 0;
+
+  .bid-count-list-item {
+    background: $blue-primary;
+    color: $color-white;
+    margin-bottom: 0;
+  }
+
+  .bid-count-number {
+    padding: .2em 1em;
+  }
+
+  .bid-count-list-item:first-child {
+    border-radius: 5px 0 0 5px;
+  }
+
+  .bid-count-list-item:last-child {
+    border-radius: 0 5px 5px 0;
+  }
+
+  .bid-count-list {
+    float: right;
+    padding-left: 0;
+  }
+
+  .bid-count-label {
+    float: left;
+    font-weight: bold;
+    margin-right: .5em;
+    padding-top: .2em;
+  }
+
+  &.bid-count-secondary {
+    .bid-count-list-item {
+      background: $color-white;
+      border-color: $color-gray;
+      color: $color-black;
+    }
+
+    .bid-count-list .bid-count-number {
+      padding: .5em .7em;
+    }
+
+    li {
+      border-color: $color-gray-light;
+      line-height: 1.8;
+    }
+  }
 }
 
 .bid-count-list {

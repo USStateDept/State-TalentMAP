@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full saved-search-card profile-section-container"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-one-half favorites-card-section"
+    >
+      <div>
+        Test 33
+      </div>
+      <SavedSearchPillList
+        pills={
+          Array [
+            "german",
+            "two",
+            "ADMINISTRATIVE SUPPORT",
+            "United States",
+          ]
+        }
+      />
+    </div>
+    <div
+      className="usa-width-one-fourth favorites-card-section"
+    >
+      <button
+        onClick={[Function]}
+      >
+        View Search
+      </button>
+    </div>
+  </div>
+</div>
+`;

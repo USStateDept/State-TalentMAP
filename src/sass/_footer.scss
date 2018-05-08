@@ -1,6 +1,3 @@
-// Disable SelectorFormat so that we can edit USWDS classes
-// scss-lint:disable SelectorFormat
-
 // footer container
 .tm-footer {
   padding: 0;
@@ -12,13 +9,26 @@
     }
   }
 
+  .usa-footer-primary-content,
+  .usa-footer-primary-content {
+    border-bottom: 0;
+    border-top: 0;
+  }
+
+  // scss-lint:disable SelectorFormat
   .usa-footer-secondary_section a {
     color: $blue-primary;
     text-decoration: none;
   }
+  // scss-lint:enable SelectorFormat
 
   .usa-footer-logo {
+    float: left;
     min-height: 100px;
+  }
+
+  .usa-footer-contact-links {
+    float: left;
   }
 
   .usa-footer-logo-img {
@@ -39,11 +49,22 @@
   }
 
   .usa-footer-logo-img-tm-container {
-    border-left: 1px solid;
     float: left;
     margin-left: 20px;
     margin-top: 15px;
-    min-height: 60px;
+    min-height: 70px;
+  }
+
+  .container--hr {
+    border-left: 1px solid;
+    border-right: 1px solid;
+    margin-top: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .container--logo {
+    margin-left: 0;
   }
 }
 
@@ -53,9 +74,10 @@
 
 // footer nav
 .tm-footer-nav {
-
   background-color: $tm-dark-blue;
   font-size: 16px;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 
   .questions-container {
     color: $color-white;
@@ -63,7 +85,7 @@
 
     a {
       color: $color-white;
-      font-weight: 200;
+      font-weight: 300;
       text-decoration: none;
     }
 
@@ -74,7 +96,8 @@
 
   .usa-footer-primary-link {
     color: $color-white;
-    font-weight: 200;
+    font-size: 1.4rem;
+    font-weight: 300;
     padding-bottom: 1rem;
     padding-top: 1rem;
   }
@@ -87,6 +110,8 @@
 // footer main body
 .tm-footer-body {
   background-color: $color-white;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
 
   .tm-footer-body-contact {
 
