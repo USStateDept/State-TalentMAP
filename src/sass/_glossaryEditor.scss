@@ -27,6 +27,14 @@
 }
 
 .glossary-editor-card {
+
+  h4 {
+    font-family: Roboto;
+    font-size: inherit;
+    font-weight: normal;
+    margin: 0;
+  }
+
   .editor-visible--definition {
     background: initial;
     height: initial;
@@ -112,6 +120,7 @@
   }
 
   .term-title {
+    font-family: 'Roboto';
     font-size: 2em;
     margin-bottom: 15px;
     padding-left: 5px;

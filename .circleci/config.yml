@@ -3,6 +3,7 @@ default-docker-node: &default-docker-node
   docker:
     - image: circleci/node:6.11.0
       environment:
+        TZ: "/usr/share/zoneinfo/America/New_York"
         CC_TEST_REPORTER_ID: c05c8cb360b66d7b92767ad0ffdeef2c8519f390d700b8bc2d2b7ee6c2760791
         COMPOSE_FILE_NAME: circleci-docker-compose.yml
         API_REPO_NAME: state-talentmap-api
@@ -44,6 +45,9 @@ jobs:
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
+      - run: chmod +x ./certs/certs.sh 
+      - run: cd certs && ./certs.sh
+      - run: cd ..
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run: yarn

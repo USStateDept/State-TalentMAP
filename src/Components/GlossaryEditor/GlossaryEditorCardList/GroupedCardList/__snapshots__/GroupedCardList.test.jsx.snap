@@ -7,11 +7,12 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full term-group"
   >
-    <div
+    <h3
+      aria-label="Terms beginning with the character A"
       className="term-title"
     >
       A
-    </div>
+    </h3>
     <div
       className="usa-width-one-half glossary-editor-card-container "
     >
@@ -39,11 +40,12 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full term-group"
   >
-    <div
+    <h3
+      aria-label="Terms beginning with the character B"
       className="term-title"
     >
       B
-    </div>
+    </h3>
     <div
       className="usa-width-one-half glossary-editor-card-container "
     >

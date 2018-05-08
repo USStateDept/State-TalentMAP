@@ -17,7 +17,7 @@ const Notifications = ({ notifications }) => {
     )
   ));
   return (
-    <div className="usa-grid-full">
+    <div className="usa-grid-full notifications-container">
       <div className="usa-grid-full section-padded-inner-container padded-container-no-bottom">
         <div className="usa-width-three-fourths">
           <SectionTitle title="Notifications" icon="globe" />

@@ -3,20 +3,35 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
+import PositionDetails from '../../Components/PositionDetails/PositionDetails';
+// Actions
 import { positionDetailsFetchData } from '../../actions/positionDetails';
+import { putHighlightedPosition, deleteHighlightPosition } from '../../actions/highlightPosition';
 import { getLastRouteLink } from '../../actions/routerLocations';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { bidListFetchData, toggleBidPosition } from '../../actions/bidList';
-import { editDescriptionContent, editPocContent, editWebsiteContent,
-resetMessages } from '../../actions/descriptionEdit';
-import PositionDetails from '../../Components/PositionDetails/PositionDetails';
-import { POSITION_DETAILS, ROUTER_LOCATIONS, USER_PROFILE, BID_LIST,
-BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, EMPTY_FUNCTION,
-DESCRIPTION_EDIT_HAS_ERRORED } from '../../Constants/PropTypes';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import {
+  editDescriptionContent,
+  editPocContent,
+  editWebsiteContent,
+  resetMessages,
+} from '../../actions/descriptionEdit';
+
+import { LOGIN_REDIRECT } from '../../login/routes';
+import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
+import {
+  POSITION_DETAILS,
+  ROUTER_LOCATIONS,
+  USER_PROFILE,
+  BID_LIST,
+  BID_LIST_TOGGLE_HAS_ERRORED,
+  BID_LIST_TOGGLE_SUCCESS,
+  DESCRIPTION_EDIT_HAS_ERRORED,
+  EMPTY_FUNCTION,
+  HIGHLIGHT_POSITION,
+} from '../../Constants/PropTypes';
 
 class Position extends Component {
-
   constructor(props) {
     super(props);
     this.editDescriptionContent = this.editDescriptionContent.bind(this);
@@ -26,7 +41,7 @@ class Position extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.getDetails(this.props.match.params.id);
       this.props.fetchBidList();
@@ -50,12 +65,30 @@ class Position extends Component {
   }
 
   render() {
-    const { positionDetails, isLoading, hasErrored, routerLocations, userProfile, toggleFavorite,
-        userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored,
-        bidList, toggleBid, bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
-        bidListToggleIsLoading, bidListToggleSuccess, descriptionEditHasErrored,
-        descriptionEditIsLoading, descriptionEditSuccess,
-        resetDescriptionEditMessages } = this.props;
+    const {
+      positionDetails,
+      isLoading,
+      hasErrored,
+      routerLocations,
+      userProfile,
+      toggleFavorite,
+      userProfileFavoritePositionIsLoading,
+      userProfileFavoritePositionHasErrored,
+      bidList,
+      toggleBid,
+      bidListHasErrored,
+      bidListIsLoading,
+      bidListToggleHasErrored,
+      bidListToggleIsLoading,
+      bidListToggleSuccess,
+      descriptionEditHasErrored,
+      descriptionEditIsLoading,
+      descriptionEditSuccess,
+      resetDescriptionEditMessages,
+      highlightPosition,
+      onHighlight,
+    } = this.props;
+
     return (
       <PositionDetails
         details={positionDetails[0]}
@@ -80,6 +113,8 @@ class Position extends Component {
         descriptionEditIsLoading={descriptionEditIsLoading}
         descriptionEditSuccess={descriptionEditSuccess}
         resetDescriptionEditMessages={resetDescriptionEditMessages}
+        highlightPosition={highlightPosition}
+        onHighlight={onHighlight}
       />
     );
   }
@@ -121,6 +156,8 @@ Position.propTypes = {
   descriptionEditIsLoading: PropTypes.bool,
   descriptionEditSuccess: PropTypes.bool,
   resetDescriptionEditMessages: PropTypes.func.isRequired,
+  highlightPosition: HIGHLIGHT_POSITION,
+  onHighlight: PropTypes.func.isRequired,
 };
 
 Position.defaultProps = {
@@ -146,6 +183,8 @@ Position.defaultProps = {
   descriptionEditHasErrored: false,
   descriptionEditIsLoading: false,
   descriptionEditSuccess: false,
+  highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
+  onHighlight: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -166,21 +205,21 @@ const mapStateToProps = (state, ownProps) => ({
   descriptionEditHasErrored: state.descriptionEditHasErrored,
   descriptionEditIsLoading: state.descriptionEditIsLoading,
   descriptionEditSuccess: state.descriptionEditSuccess,
+  highlightPosition: state.highlightPosition,
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: url => dispatch(positionDetailsFetchData(url)),
+  fetchData: id => dispatch(positionDetailsFetchData(id)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   fetchBidList: () => dispatch(bidListFetchData()),
   toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
-  editDescriptionContent: (id, content) => dispatch(
-    editDescriptionContent(id, content)),
-  editPocContent: (id, content) => dispatch(
-    editPocContent(id, content)),
-  editWebsiteContent: (id, content) => dispatch(
-    editWebsiteContent(id, content)),
+  editDescriptionContent: (id, content) => dispatch(editDescriptionContent(id, content)),
+  editPocContent: (id, content) => dispatch(editPocContent(id, content)),
+  editWebsiteContent: (id, content) => dispatch(editWebsiteContent(id, content)),
   resetDescriptionEditMessages: () => dispatch(resetMessages()),
+  onHighlight: (id, checked) =>
+    dispatch((checked ? putHighlightedPosition : deleteHighlightPosition)(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Position));

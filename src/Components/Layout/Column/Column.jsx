@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { isNumber, isString, omit } from 'lodash';
+import { merge, isNumber, isString } from 'lodash';
+import Base from '../Base';
 
 export const columnsMap = {
   1: 'one-twelfth',
@@ -17,21 +17,19 @@ export const columnsMap = {
   12: 'one-whole',
 };
 
+/* eslint-disable react/prop-types */
 const Column = (props) => {
-  const Element = props.as;
-  const options = omit(props, ['columns', 'as', 'children']);
+  const options = merge({}, props);
   options.className = (`usa-width-${columnsMap[props.columns]} ${props.className}`).trim();
   return (
-    <Element {...options}>
+    <Base {...options}>
       {props.children}
-    </Element>
+    </Base>
   );
 };
+/* eslint-enable react/prop-types */
 
-Column.propTypes = {
-  className: PropTypes.string,
-  children: PropTypes.node,
-  as: PropTypes.string.isRequired,
+Column.propTypes = merge({}, Base.propTypes, {
   columns: (props, propName, componentName) => {
     const prop = props[propName];
     const error = `Invalid prop ${propName} supplied to ${componentName}. ` +
@@ -48,13 +46,10 @@ Column.propTypes = {
 
     return null;
   },
-};
+});
 
-Column.defaultProps = {
-  className: '',
-  children: null,
-  as: 'div',
+Column.defaultProps = merge({}, Base.defaultProps, {
   columns: 12,
-};
+});
 
 export default Column;

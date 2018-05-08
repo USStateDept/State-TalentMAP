@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { filtersFetchData } from '../../actions/filters/filters';
 import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
@@ -10,7 +9,7 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import HomePage from '../../Containers/HomePage/HomePage';
 import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Home extends Component {
   constructor(props) {
@@ -24,20 +23,14 @@ class Home extends Component {
 
   componentWillMount() {
     if (!this.props.isAuthorized()) {
-      this.props.onNavigateTo(PUBLIC_ROOT);
+      this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
-      this.getFilters();
       this.props.bidListFetchData();
     }
   }
 
   onChildSubmit(e) {
     this.props.onNavigateTo(e);
-  }
-
-  getFilters() {
-    const { items } = this.props;
-    this.props.fetchData(items);
   }
 
   render() {
@@ -68,7 +61,6 @@ class Home extends Component {
 
 Home.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
-  fetchData: PropTypes.func,
   items: FILTERS_PARENT,
   isAuthorized: PropTypes.func.isRequired,
   homePagePositions: HOME_PAGE_POSITIONS,
@@ -87,7 +79,6 @@ Home.propTypes = {
 
 Home.defaultProps = {
   items: { filters: [] },
-  fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
   homePagePositionsFetchData: EMPTY_FUNCTION,
@@ -118,7 +109,6 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: items => dispatch(filtersFetchData(items)),
   homePagePositionsFetchData: (skills, grade) =>
     dispatch(homePagePositionsFetchData(skills, grade)),
   onNavigateTo: dest => dispatch(push(dest)),

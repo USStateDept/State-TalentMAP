@@ -6,11 +6,20 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
 >
   <PositionsSectionTitle
     title={
-      <span
-        className="positions-section-title"
+      <Link
+        replace={false}
+        title="View more Title"
+        to=""
       >
-        Title
-      </span>
+        <h2
+          className="positions-section-title"
+        >
+          Title
+          <FontAwesome
+            name="angle-right"
+          />
+        </h2>
+      </Link>
     }
     viewMoreLink=""
   />
@@ -38,7 +47,13 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
             "position_number": "10035561",
             "post": Object {
               "id": 199,
-              "location": "Curacao",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
             "title": "POLITICAL/ECONOMIC OFFICER",
@@ -79,7 +94,13 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
             "position_number": "00003026",
             "post": Object {
               "id": 235,
-              "location": "Freetown, Sierra Leone",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "OFFICE MANAGEMENT (9017)",
             "title": "OMS (COM)",
@@ -120,7 +141,13 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
             "position_number": "56001600",
             "post": Object {
               "id": 195,
-              "location": "The Hague, Netherlands",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "SECURITY (2501)",
             "title": "SPECIAL AGENT",
@@ -204,11 +231,18 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
             "has_consumable_allowance": true,
             "has_service_needs_differential": true,
             "id": 160,
-            "location": "Monrovia, Liberia",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
             "obc_id": null,
             "rest_relaxation_point": "Paris",
             "tour_of_duty": "2 YRS (2 R & R)",
           },
+          "posted_date": "2012-10-22T00:00:00Z",
           "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
           "skill": "OFFICE MANAGEMENT (9017)",
           "status": null,
@@ -287,11 +321,18 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
             "has_consumable_allowance": true,
             "has_service_needs_differential": true,
             "id": 110,
-            "location": "Port-Au-Prince, Haiti",
+            "location": Object {
+              "city": "Chicago",
+              "code": "101",
+              "country": "United States",
+              "id": 7,
+              "state": "IL",
+            },
             "obc_id": null,
             "rest_relaxation_point": "Miami",
             "tour_of_duty": "2 YRS (2 R & R)",
           },
+          "posted_date": "2016-10-02T00:00:00Z",
           "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
           "skill": "SECURITY (2501)",
           "status": null,

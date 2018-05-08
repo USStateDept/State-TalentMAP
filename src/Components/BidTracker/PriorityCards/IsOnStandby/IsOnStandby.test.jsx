@@ -18,6 +18,15 @@ describe('IsOnStandbyComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('accepts different props', () => {
+    const newBid = { ...bid };
+    newBid.status = 'closed';
+    const wrapper = shallow(
+      <IsOnStandby {...props} bid={newBid} />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <IsOnStandby {...props} />,

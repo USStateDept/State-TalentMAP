@@ -12,3 +12,13 @@ const errorWrapper = (message) => {
 
 // set globally
 global.console.error = errorWrapper;
+
+// needed for ScrollContext
+global.scrollTo = jest.fn();
+
+// Needed for Object.values, otherwise will receive
+// "TypeError: Object.values is not a function"
+Object.values = (obj) => Object.keys(obj).map(key => obj[key])
+
+// Avoid jest error: "Error: Not implemented: navigation (except hash changes)"
+global.window.location.assign = () => {};

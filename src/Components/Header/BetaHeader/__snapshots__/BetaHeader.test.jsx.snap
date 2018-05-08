@@ -5,12 +5,12 @@ exports[`BetaHeader matches snapshot 1`] = `
   className="usa-banner tm-beta-header"
 >
   <div
-    className="usa-grid usa-banner-inner"
+    className="usa-grid usa-banner-inner padded-main-content"
   >
     <FontAwesome
       name="gears"
     />
-    Welcome to TalentMAP! This site is new and features will continue to be added.
+    Welcome to TalentMAP!  Use this site to research positions and continue to bid using FSBid. New features are coming soon.
   </div>
 </div>
 `;

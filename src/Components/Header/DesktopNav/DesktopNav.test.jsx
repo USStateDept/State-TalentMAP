@@ -5,6 +5,10 @@ import DesktopNav from './DesktopNav';
 import { bidderUserObject } from '../../../__mocks__/userObject';
 
 describe('DesktopNav', () => {
+  beforeEach(() => {
+    process.env.PUBLIC_URL = '/talentmap/';
+  });
+
   it('is defined', () => {
     const wrapper = shallow(
       <DesktopNav

@@ -2,7 +2,7 @@ import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { removeDuplicates } from '../../utilities';
 import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
-  doesCodeOrIdMatch, isBooleanFilter } from './helpers';
+  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
 
 export function filtersHasErrored(bool) {
   return {
@@ -23,7 +23,8 @@ export function filtersFetchDataSuccess(filters) {
   };
 }
 
-export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses) {
+export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses,
+  fromResultsPage = false) {
   return (dispatch) => {
     dispatch(filtersIsLoading(true));
     dispatch(filtersHasErrored(false));
@@ -50,7 +51,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
     // and perform any custom, conditional labeling.
     // TODO we should verify these against VALID_PARAMS.
     function mapAsyncParams() {
-      const asyncFilters = responses.asyncParams;
+      const asyncFilters = responses.asyncParams || [];
 
       // create a promise to retrieve our filters that rely on ajax
       const asyncQueryProms = asyncFilters.map((item) => {
@@ -69,22 +70,10 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         // We'll do this for posts and missions.
         }
         if (item.selectionRef === ENDPOINT_PARAMS.post) {
+          dispatch(filtersIsLoading(true));
           return api.get(`/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
-            // push the object to cache
-            responses.asyncFilterCache.push(obj);
-            // and return the object
-            return obj;
-          })
-          .catch((error) => {
-            throw error;
-          });
-        }
-        if (item.selectionRef === ENDPOINT_PARAMS.mission) {
-          return api.get(`/country/${item.codeRef}/`)
-          .then((response) => {
-            const obj = Object.assign(response.data, { type: 'mission', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
             // and return the object
@@ -125,9 +114,9 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           responses.mappedParams.push(...responses.asyncParams);
           responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
           // Finally, dispatch a success
+          dispatch(filtersFetchDataSuccess(responses));
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
-          dispatch(filtersFetchDataSuccess(responses));
         })
         .catch(() => {
           dispatch(filtersHasErrored(true));
@@ -144,8 +133,12 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         });
       });
       // check for option queryParamObject to map against (used for pill filters)
-      responses.mappedParams = [];
-      responses.asyncParams = [];
+
+      // Only clear the params if we're on the Results page
+      if (fromResultsPage) {
+        responses.mappedParams = [];
+        responses.asyncParams = [];
+      }
 
       // Set any custom descriptions
       // TODO externalize these to some kind of template helper?
@@ -178,9 +171,13 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
                       // boolean filters are special since they don't rely on AJAX
                       if (isBooleanFilter(response.item.description)) {
                         mappedObject.description = response.item.title;
+                      } else if (isPercentageFilter(response.item.description)) {
+                        mappedObject.description =
+                          getPillDescription(filterItemObject, response.item.description);
                       } else {
                         // try to get the shortest description since pills should be small
-                        mappedObject.description = getPillDescription(filterItemObject);
+                        mappedObject.description =
+                          getPillDescription(filterItemObject, response.item.description);
                       }
                     }
                   });
@@ -189,6 +186,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
                 if (ASYNC_PARAMS.indexOf(mappedObject.selectionRef) > -1) {
                   responses.asyncParams.push(mappedObject);
                 } else {
+                  if (!responses.mappedParams) { responses.mappedParams = []; }
                   responses.mappedParams.push(mappedObject);
                 }
               });

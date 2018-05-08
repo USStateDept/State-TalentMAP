@@ -1,11 +1,31 @@
 .position-details-header-container {
-  background-image: url('#{$asset-path}/assets/img/us-flag.jpg');
   color: $color-white;
   position: relative;
+
+  .post-data-button {
+    font-size: 1.6rem;
+    padding: 1em 4em;
+  }
+
+  .bid-count-label {
+    font-weight: normal;
+    margin: .3em 1.2em 0 0;
+  }
+
+  .position-title-bid-count {
+    .bid-count-list {
+      float: left;
+    }
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    .favorite-container {
+      max-width: 50%;
+    }
+  }
 }
 
 .position-details-header {
-
   overflow: hidden;
   padding: 2em 0;
   position: relative;
@@ -17,6 +37,7 @@
   h1 {
     font-family: inherit;
     font-size: 1em;
+    font-weight: 400;
     margin: 0;
   }
 
@@ -36,14 +57,23 @@
   }
 
   .header-title-container {
-    border-right: 1px solid $color-white;
+    border-right: 1px solid $bg-gray-dark-2;
+
+    @media screen and (max-width: $screen-xs-max) {
+      border-right: 0;
+    }
+  }
+
+  .post-title {
+    font-size: 1.15em;
+    font-weight: 300;
   }
 
   .position-details-header-title {
     font-size: 1.5em;
+    font-weight: 400;
     margin-bottom: .2em;
     margin-top: 1em;
-    text-transform: uppercase;
   }
 
   .position-details-header-body {
@@ -66,11 +96,10 @@
 
 .position-details-container {
 
-  font-size: .9em;
-
-  h2 {
-    font-family: inherit;
-    font-size: 1.2em;
+  h2,
+  .positions-section .positions-section-title {
+    font-family: 'Roboto';
+    font-size: 2.4rem;
     font-weight: bold;
   }
 
@@ -79,6 +108,15 @@
       font-weight: bold;
       min-width: 200px;
     }
+  }
+
+  .position-details-description-container:first-of-type.back-container {
+    padding-bottom: .5em;
+    padding-top: 0;
+  }
+
+  .back-container:empty {
+    display: none;
   }
 
   .positions-section {
@@ -90,10 +128,15 @@
     border: 0;
   }
 
-  .positions-section
-  .positions-section-title {
-    font-family: inherit;
-    font-weight: bold;
+  hr {
+    border-bottom-width: 0;
+    border-color: $color-gray-lighter;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-style: solid;
+    border-top-width: 1px;
+    height: 0;
+    margin-top: 20px;
   }
 }
 
@@ -169,12 +212,18 @@
 }
 
 .offset-bid-button-container {
+  bottom: -27%;
   left: 65%;
   position: absolute;
-  top: 19%;
 
-  .bid-list-button {
-    box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
+  .bid-list-button,
+  a {
+    box-shadow: $button-box-shadow;
+    padding: 1em 3em;
+
+    @media screen and (max-width: $screen-xs-max) {
+      padding: .5em 2em;
+    }
   }
 
   .offset-bid-button-container-count {
@@ -185,15 +234,10 @@
       white-space: nowrap;
     }
   }
+}
 
-  .bid-count-list {
-    padding: 0;
-  }
-
-  .bid-count-list
-  li {
-    color: $color-white;
-  }
+.offset-bid-count-container {
+  bottom: 29%;
 }
 
 .edit-description-alert-container {
@@ -227,10 +271,10 @@
   .editor {
     margin-bottom: unset;
     padding: 10px;
-  }
 
-  .editor :global(.public-DraftEditor-content) {
-    min-height: 10px;
+    :global(.public-DraftEditor-content) {
+      min-height: 10px;
+    }
   }
 }
 
@@ -242,10 +286,14 @@
 
 .about-section-left {
   padding-right: 10%;
+
+  .view-more-link {
+    text-decoration: underline;
+  }
 }
 
 .position-details-contact-container {
-  margin-top: 50px;
+  margin-top: 30px;
 
   .editor {
     float: left;
@@ -268,9 +316,47 @@
   .contact-container:first-of-type {
     border-bottom: 0;
   }
+
+  .contact-container:nth-of-type(2):not(.no-button) {
+    padding-bottom: 4em;
+  }
+
+  .offset-bid-button-container {
+    bottom: -22%;
+    left: 5%;
+  }
+
+  .service-needed-toggle {
+    margin-bottom: 10px;
+    margin-left: 1px;
+    margin-top: 10px;
+
+    .fa::before,
+    .ds-c-spinner::before {
+      position: relative;
+      top: 1px;
+    }
+
+    $spinner-size: 14px;
+
+    .ds-c-spinner {
+      margin-right: 4px;
+
+      &,
+      &::before,
+      &::after {
+        height: $spinner-size;
+        width: $spinner-size;
+      }
+    }
+  }
 }
 
 .title-actions-section {
+  font-size: 1.3rem;
+  font-weight: 300;
+  opacity: .9;
+
   div {
     color: $color-white;
     float: left;
@@ -278,9 +364,33 @@
 
   .favorite-container .fa {
     color: $color-white;
+    font-size: 1.4rem;
   }
 
   .favorite-container span {
-    margin-right: 10px;
+    &.fa {
+      margin-right: 10px;
+    }
   }
+}
+
+.how-to-bid {
+  border: 1px solid $bg-gray-dark-3;
+  margin-top: 30px;
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 0;
+  }
+
+  .contact-container {
+    border: 0;
+  }
+}
+
+.service-needed-toggle + .how-to-bid {
+  margin-top: 0;
 }

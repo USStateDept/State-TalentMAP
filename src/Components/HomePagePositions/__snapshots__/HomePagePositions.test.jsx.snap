@@ -31,7 +31,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -72,7 +78,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "00003026",
               "post": Object {
                 "id": 235,
-                "location": "Freetown, Sierra Leone",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "OFFICE MANAGEMENT (9017)",
               "title": "OMS (COM)",
@@ -113,7 +125,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "56001600",
               "post": Object {
                 "id": 195,
-                "location": "The Hague, Netherlands",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "SECURITY (2501)",
               "title": "SPECIAL AGENT",
@@ -139,7 +157,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       hasErrored={false}
       icon="bolt"
       isLoading={false}
-      maxLength={3}
+      maxLength="3"
       positions={
         Array [
           Object {
@@ -155,6 +173,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -180,7 +199,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -221,7 +246,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "00003026",
               "post": Object {
                 "id": 235,
-                "location": "Freetown, Sierra Leone",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "OFFICE MANAGEMENT (9017)",
               "title": "OMS (COM)",
@@ -262,7 +293,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "56001600",
               "post": Object {
                 "id": 195,
-                "location": "The Hague, Netherlands",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "SECURITY (2501)",
               "title": "SPECIAL AGENT",
@@ -288,7 +325,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       hasErrored={false}
       icon="briefcase"
       isLoading={false}
-      maxLength={3}
+      maxLength="3"
       positions={
         Array [
           Object {
@@ -305,6 +342,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?skill__code__in=,"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -330,7 +368,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -371,7 +415,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "00003026",
               "post": Object {
                 "id": 235,
-                "location": "Freetown, Sierra Leone",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "OFFICE MANAGEMENT (9017)",
               "title": "OMS (COM)",
@@ -412,7 +462,13 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
               "position_number": "56001600",
               "post": Object {
                 "id": 195,
-                "location": "The Hague, Netherlands",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "SECURITY (2501)",
               "title": "SPECIAL AGENT",
@@ -438,7 +494,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       hasErrored={false}
       icon="flag"
       isLoading={false}
-      maxLength={3}
+      maxLength="3"
       positions={
         Array [
           Object {
@@ -454,7 +510,8 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?grade__code__in=03"
+      viewMoreLink="/results?grade__code__in=03&ordering=-posted_date"
+      wrapInLink={true}
     />
   </div>
 </div>
@@ -491,7 +548,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -532,7 +595,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "00003026",
               "post": Object {
                 "id": 235,
-                "location": "Freetown, Sierra Leone",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "OFFICE MANAGEMENT (9017)",
               "title": "OMS (COM)",
@@ -573,7 +642,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "56001600",
               "post": Object {
                 "id": 195,
-                "location": "The Hague, Netherlands",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "SECURITY (2501)",
               "title": "SPECIAL AGENT",
@@ -599,7 +674,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       hasErrored={false}
       icon="bolt"
       isLoading={false}
-      maxLength={3}
+      maxLength="3"
       positions={Array []}
       title="Service Needs Positions"
       toggleBid={[Function]}
@@ -609,6 +684,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -634,7 +710,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -675,7 +757,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "00003026",
               "post": Object {
                 "id": 235,
-                "location": "Freetown, Sierra Leone",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "OFFICE MANAGEMENT (9017)",
               "title": "OMS (COM)",
@@ -716,7 +804,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "56001600",
               "post": Object {
                 "id": 195,
-                "location": "The Hague, Netherlands",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "SECURITY (2501)",
               "title": "SPECIAL AGENT",
@@ -742,16 +836,17 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       hasErrored={false}
       icon="briefcase"
       isLoading={false}
-      maxLength={3}
+      maxLength="3"
       positions={Array []}
-      title="Favorited Positions"
+      title="Positions in Skills"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/profile/favorites/"
+      viewMoreLink="/results"
+      wrapInLink={true}
     />
     <HomePagePositionsSection
       bidList={
@@ -777,7 +872,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "10035561",
               "post": Object {
                 "id": 199,
-                "location": "Curacao",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
               "title": "POLITICAL/ECONOMIC OFFICER",
@@ -818,7 +919,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "00003026",
               "post": Object {
                 "id": 235,
-                "location": "Freetown, Sierra Leone",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "OFFICE MANAGEMENT (9017)",
               "title": "OMS (COM)",
@@ -859,7 +966,13 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
               "position_number": "56001600",
               "post": Object {
                 "id": 195,
-                "location": "The Hague, Netherlands",
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
               },
               "skill": "SECURITY (2501)",
               "title": "SPECIAL AGENT",
@@ -885,16 +998,17 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       hasErrored={false}
       icon="flag"
       isLoading={false}
-      maxLength={3}
+      maxLength="3"
       positions={Array []}
-      title="Recently Posted Positions"
+      title="Recently Posted Positions in Grade 03"
       toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}
-      viewMoreLink="/results?ordering=description__date_created"
+      viewMoreLink="/results?grade__code__in=03&ordering=-posted_date"
+      wrapInLink={true}
     />
   </div>
 </div>

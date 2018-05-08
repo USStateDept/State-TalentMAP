@@ -1,10 +1,11 @@
 import Scroll from 'react-scroll';
-import queryString from 'query-string';
-import distanceInWords from 'date-fns/distance_in_words';
-import format from 'date-fns/format';
+import { distanceInWords, format } from 'date-fns';
+import { cloneDeep, get, isEqual, isNumber, isObject, keys, merge as merge$, transform } from 'lodash';
 import numeral from 'numeral';
-import { get } from 'lodash';
+import queryString from 'query-string';
+import shortid from 'shortid';
 import { VALID_PARAMS } from './Constants/EndpointParams';
+import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
 const scroll = Scroll.animateScroll;
 
@@ -78,14 +79,35 @@ export const pillSort = (a, b) => {
   return 0; // default return value (no sorting)
 };
 
-export const propSort = propName => (a, b) => {
-  const A = a[propName].toString().toLowerCase();
-  const B = b[propName].toString().toLowerCase();
+export const propSort = (propName, nestedPropName) => (a, b) => {
+  let A = a[propName];
+  if (nestedPropName) { A = a[propName][nestedPropName]; }
+  A = A.toString().toLowerCase();
+  let B = b[propName];
+  if (nestedPropName) { B = b[propName][nestedPropName]; }
+  B = B.toString().toLowerCase();
   if (A < B) { // sort string ascending
     return -1;
   }
   if (A > B) { return 1; }
   return 0; // default return value (no sorting)
+};
+
+// Custom grade sorting
+export const sortGrades = (a, b) => {
+  const sortingArray = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '00', 'CM', 'MC', 'OC', 'OM'];
+  const A = a.code;
+  const B = b.code;
+
+  // if grade is not in sortingArray, push to bottom of list.
+  const indexOfA = sortingArray.indexOf(A) >= 0 ? sortingArray.indexOf(A) : sortingArray.length;
+  const indexOfB = sortingArray.indexOf(B) >= 0 ? sortingArray.indexOf(B) : sortingArray.length;
+
+  if (indexOfA < indexOfB) {
+    return -1;
+  }
+  if (indexOfA > indexOfB) { return 1; }
+  return 0;
 };
 
 // function to find the Region filters
@@ -132,7 +154,7 @@ export const scrollToTop = (config = defaultScrollConfig) => {
 // We set custom ones first in the list.
 export const getItemLabel = itemData =>
   itemData.custom_description || itemData.long_description ||
-  itemData.description || itemData.code;
+  itemData.description || itemData.code || itemData.name;
 
 // abcde 4 // a...
 // Shortens strings to varying lengths
@@ -221,7 +243,7 @@ export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
     const formattedDate = format(date, dateFormat);
-    // and finally return the formatte date
+    // and finally return the formatted date
     return formattedDate;
   }
   return null;
@@ -255,10 +277,36 @@ export const filterByProps = (keyword, props = [], array = []) => {
   return array;
 };
 
-// focus an element on the page based on its ID
-export const focusById = (id) => {
-  const element = document.getElementById(id);
-  if (element) { element.focus(); }
+// Focus an element on the page based on its ID. Pass an optional, positive timeout number to
+// execute the focus within a timeout.
+export const focusById = (id, timeout) => {
+  let element = document.getElementById(id);
+  if (!timeout) {
+    if (element) { element.focus(); }
+  } else {
+    setTimeout(() => {
+      element = document.getElementById(id);
+      if (element) {
+        element.focus();
+      }
+    }, timeout);
+  }
+};
+
+// Determine which header type to focus. We always have a page title h1, so we
+// search for 1. The second h1, 2. the first h2, 3. the first h3, and focus which ever
+// is found first.
+export const focusByFirstOfHeader = (timeout = 1) => {
+  setTimeout(() => {
+    let element = document.getElementsByTagName('h1');
+    if (element) { element = element[1]; }
+    if (!element) { element = document.getElementsByTagName('h2')[0]; }
+    if (!element) { element = document.getElementsByTagName('h3')[0]; }
+    if (element) { element.setAttribute('tabindex', '-1'); }
+    if (element) {
+      element.focus();
+    }
+  }, timeout);
 };
 
 // Give objects in an array the necessary value and label props needed when
@@ -306,13 +354,161 @@ export const getBidStatisticsObject = (bidStatisticsArray) => {
 // replace spaces with hyphens so that id attributes are valid
 export const formatIdSpacing = (id) => {
   if (id) {
-    const idString = id.toString();
-    return idString.split(' ').join('-');
+    let idString = id.toString();
+    idString = idString.split(' ').join('-');
+    // remove any non-alphanumeric character, excluding hyphen
+    idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
+    return idString;
   }
-  // if id is not defined, return null
-  return null;
+  // if id is not defined, return a shortid
+  return shortid.generate();
 };
 
 // provide an array of permissions to check if they all exist in an array of user permissions
 export const userHasPermissions = (permissionsToCheck = [], userPermissions = []) =>
   permissionsToCheck.every(val => userPermissions.indexOf(val) >= 0);
+
+// Takes multiple saved search objects and combines them into one object,
+// where the value for each property is an array of all individual values
+// found across the different saved search objects.
+// See Constants/PropTypes SAVED_SEARCH_OBJECT
+export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
+  const clonedSavedSearchesObject = cloneDeep(savedSearchesObject);
+  const clonedSavedSearches = clonedSavedSearchesObject.results;
+  const mappedSearchTerms = clonedSavedSearches.slice().map(s => s.filters);
+  const mappedSearchTermsFormatted = mappedSearchTerms.map((m) => {
+    const filtered = m;
+    Object.keys(m).forEach((k) => { if (!Array.isArray(filtered[k])) { filtered[k] = filtered[k].split(','); } });
+    return filtered;
+  });
+
+  function merge(...rest) {
+    return [].reduce.call(rest, (acc, x) => {
+      const acc$ = merge$({}, acc);
+
+      keys(x).forEach((k) => {
+        acc$[k] = (acc$[k] || []).concat(x[k]);
+        acc$[k] = acc$[k].filter((item, index, self) => self.indexOf(item) === index);
+      });
+
+      return acc$;
+    }, {});
+  }
+
+  const mergedFilters = mappedSearchTermsFormatted.length ?
+    merge(...mappedSearchTermsFormatted) : {};
+
+  const mergedFiltersWithoutArrays = { ...mergedFilters };
+
+  Object.keys(mergedFilters)
+    .forEach((f) => {
+      if (Array.isArray(mergedFilters[f])) {
+        mergedFiltersWithoutArrays[f] = mergedFilters[f].join();
+      }
+    });
+
+  const newQuery = mergedFiltersWithoutArrays;
+
+  return newQuery;
+};
+
+// Maps a saved search object against the full filter objects its related to, so that
+// we can return an array of descriptions based on the codes in the savedSearchObject.
+// See Constants/PropTypes SAVED_SEARCH_OBJECT and MAPPED_PARAM_ARRAY
+export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) => {
+  const clonedSearchObject = cloneDeep(savedSearchObject);
+  const searchKeys = Object.keys(clonedSearchObject);
+
+  searchKeys.forEach((s) => { clonedSearchObject[s] = clonedSearchObject[s].split(','); });
+
+  const arrayToReturn = [];
+
+  // Push the keyword search, since it won't match up with a real filter
+  if (savedSearchObject.q) {
+    arrayToReturn.push(savedSearchObject.q);
+  }
+
+  searchKeys.forEach((s) => {
+    clonedSearchObject[s].forEach((c) => {
+      const foundParam = mappedParams.find(m => m.selectionRef === s && m.codeRef === c);
+      if (foundParam && foundParam.description) {
+        arrayToReturn.push(foundParam.description);
+      }
+    });
+  });
+
+  return arrayToReturn;
+};
+
+export const getPostName = (post, defaultValue = null) => {
+  let valueToReturn = defaultValue;
+  if (propOrDefault(post, 'location.city') && propOrDefault(post, 'location.country') === 'United States') {
+    valueToReturn = `${post.location.city}, ${post.location.state}`;
+  } else if (propOrDefault(post, 'location.city')) {
+    valueToReturn = `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
+  } else if (propOrDefault(post, 'code')) {
+    valueToReturn = post.code;
+  }
+  return valueToReturn;
+};
+
+// returns the base application path,
+// ie, https://hostname:8080/PUBLIC_URL/
+export const getApplicationPath = () => `${window.location.origin}${process.env.PUBLIC_URL}`;
+
+// Adds spaces between position number characters so that it's accessible for screen readers.
+// Based on this accessibility feedback:
+// When a letter is used in the position number, such as S7250404,
+// the screen reader reads the number as a full-length numeral
+// (i.e., "S. 7 million two hundred thousand ….). This can confuse or disorient the user as
+// they navigate and search for positions.
+export const getAccessiblePositionNumber = (positionNumber) => {
+  if (positionNumber) {
+    return positionNumber.split('').join(' ');
+  }
+  return null;
+};
+
+// returns a percentage string for differential data.
+export const getDifferentialPercentage = (differential, defaultValue = '') => {
+  if (isNumber(differential)) {
+    return `${differential}%`;
+  }
+  return defaultValue;
+};
+
+// redirect to express /login route
+export const redirectToLogin = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_ROUTE}`);
+};
+
+// redirect to react /loginRedirect route
+export const redirectToLoginRedirect = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGIN_REDIRECT}`);
+};
+
+// redirect to express /logout route
+export const redirectToLogout = () => {
+  const prefix = process.env.PUBLIC_URL || '';
+  window.location.assign(`${prefix}${LOGOUT_ROUTE}`);
+};
+
+/**
+ * ~ Returns a Deep Diff Object Between 2 Objects (First parameter as base) ~
+ * base = { param1: true, param2: 'loading' };
+ * object = { param1: false, param2: 'loading' };
+ *
+ * difference(base, object) => { param1: false }
+ * difference(object, base) => { param1: true }
+ */
+export const difference = (base, object) => transform(object, (result, value, key) => {
+  /* eslint-disable no-param-reassign */
+  if (!isEqual(value, base[key])) {
+    result[key] = isObject(value) && isObject(base[key]) ?
+      difference(base[key], value) :
+      value;
+  }
+  /* eslint-enable no-param-reassign */
+});

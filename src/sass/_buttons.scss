@@ -1,7 +1,6 @@
 .unstyled-button {
   -moz-appearance: unset;
   -webkit-appearance: unset;
-  appearance: unset;
   background-color: transparent;
   border: 0;
   border-radius: 0;
@@ -136,9 +135,26 @@
 }
 
 .favorite-container {
-  &.usa-button {
+  &.usa-button:not(.usa-button-secondary) {
     .fa {
       color: $color-white;
+    }
+  }
+
+  &.button-text-hidden {
+    margin-top: 0;
+    padding-bottom: 11.5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 11.5px;
+
+    .spinner-white,
+    .spinner-blue {
+      margin-right: 0;
+    }
+
+    .fa {
+      margin-right: 0;
     }
   }
 
@@ -157,6 +173,12 @@
   box-shadow: 0 0 0 2px transparent inset;
 }
 
+.link-button-wrapper {
+  a {
+    color: $color-white;
+  }
+}
+
 .post-data-button {
   .fa {
     margin-right: .5em;
@@ -164,9 +186,52 @@
 }
 
 .button-back-link {
-  font-size: .8em;
+  font-size: 1.4rem;
+  margin-bottom: 2.5rem;
+  margin-top: 2.5rem;
 
   .fa {
+    margin-right: 5px;
+  }
+}
+
+.tm-button-feedback {
+  background-color: $tertiary-gold-lighter;
+  border: 1px solid $tertiary-gold-lighter;
+  box-shadow: 2px 5px 9px -4px $color-black-box-shadow;
+  color: $color-black;
+  display: inline-block;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  padding-bottom: 1em;
+  padding-top: 1em;
+
+  .fa {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background: $tertiary-gold-light;
+    border-bottom: 1px solid $tertiary-gold-lighter;
+    color: $color-black;
+
+    .fa {
+      color: $color-black;
+    }
+  }
+
+  &:active {
+    background: $tertiary-gold;
+    color: $color-black;
+
+    .fa {
+      color: $color-black;
+    }
+  }
+
+  .tm-button-alt-icon {
+    color: $color-black;
     margin-right: 5px;
   }
 }

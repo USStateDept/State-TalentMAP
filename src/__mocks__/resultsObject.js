@@ -16,6 +16,7 @@ const resultsObject = {
       create_date: '2006-09-20T00:00:00Z',
       update_date: '2017-06-08T00:00:00Z',
       effective_date: '2012-10-22T00:00:00Z',
+      posted_date: '2012-10-22T00:00:00Z',
       status_code: null,
       status: null,
       description: {
@@ -39,7 +40,13 @@ const resultsObject = {
       post: {
         id: 160,
         code: 'LI6000000',
-        location: 'Monrovia, Liberia',
+        location: {
+          id: 103,
+          country: 'Sierra Leone',
+          code: '00A',
+          city: 'Freetown',
+          state: '',
+        },
         tour_of_duty: '2 YRS (2 R & R)',
         cost_of_living_adjustment: 30,
         differential_rate: 30,
@@ -84,6 +91,7 @@ const resultsObject = {
       create_date: '2006-09-20T00:00:00Z',
       update_date: '2017-06-08T00:00:00Z',
       effective_date: '2016-10-02T00:00:00Z',
+      posted_date: '2016-10-02T00:00:00Z',
       status_code: null,
       status: null,
       description: {
@@ -107,7 +115,13 @@ const resultsObject = {
       post: {
         id: 110,
         code: 'HA7000000',
-        location: 'Port-Au-Prince, Haiti',
+        location: {
+          id: 7,
+          country: 'United States',
+          code: '101',
+          city: 'Chicago',
+          state: 'IL',
+        },
         tour_of_duty: '2 YRS (2 R & R)',
         cost_of_living_adjustment: 15,
         differential_rate: 20,

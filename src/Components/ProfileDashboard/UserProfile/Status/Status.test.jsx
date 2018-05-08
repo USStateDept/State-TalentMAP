@@ -13,4 +13,9 @@ describe('StatusComponent', () => {
     const wrapper = shallow(<Status />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when hideText is true', () => {
+    const wrapper = shallow(<Status hideText />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

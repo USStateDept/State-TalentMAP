@@ -9,9 +9,30 @@ import Spinner from '../../Components/Spinner';
 
 class HomePagePositionsContainer extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      // Track whether we've received a valid user profile and attempted to fetch positions.
+      hasFetched: false,
+    };
+  }
+
   componentWillMount() {
-    this.props.homePagePositionsFetchData(this.props.userProfile.skills,
-      this.props.userProfile.grade);
+    // Don't try to pull positions until we've received the user's profile.
+    if (this.props.userProfile.id) {
+      this.props.homePagePositionsFetchData(this.props.userProfile.skills,
+        this.props.userProfile.grade);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Once we have a valid user profile, fetch the positions, but only
+    // once. We'll set hasFetched to true to keep track.
+    if (nextProps.userProfile.id && !this.state.hasFetched) {
+      this.setState({ hasFetched: true });
+      nextProps.homePagePositionsFetchData(nextProps.userProfile.skills,
+        nextProps.userProfile.grade);
+    }
   }
 
   render() {

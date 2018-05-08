@@ -7,15 +7,17 @@ exports[`SaveNewSearchPromptComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full"
   >
-    <a
+    <FontAwesome
+      name="bookmark"
+    />
+    <InteractiveElement
       className="save-search-link"
       onClick={[Function]}
-      onKeyUp={[Function]}
       role="link"
-      tabIndex="0"
+      type="span"
     >
       Save this search.
-    </a>
+    </InteractiveElement>
      
     You will be able to come back to these results later.
   </div>

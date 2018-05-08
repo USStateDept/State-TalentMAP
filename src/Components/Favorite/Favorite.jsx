@@ -10,6 +10,7 @@ import { existsInArray } from '../../utilities';
 const Types = {
   SHORT: 0,
   LONG: 1,
+  TITLE: 2,
 };
 
 const States = {
@@ -28,11 +29,13 @@ const States = {
 const Texts = {
   checked: [
     'Remove',
+    'Remove Favorite',
     'Remove from Favorites',
   ],
 
   unchecked: [
     'Favorite',
+    'Add to Favorites',
     'Add to Favorites',
   ],
 };
@@ -42,6 +45,7 @@ const getText$ = (state, type) => Texts[state][type];
 class Favorite extends Component {
   constructor(props) {
     super(props);
+    this.toggleSaved = this.toggleSaved.bind(this);
     this.state = {
       loading: props.isLoading,
     };
@@ -89,14 +93,16 @@ class Favorite extends Component {
 
   get title() {
     const state = this.getSavedState() ? States.CHECKED : States.UNCHECKED;
-    return getText$(state, Types.LONG);
+    return getText$(state, Types.TITLE);
   }
 
-  toggleSaved = () => {
+  toggleSaved() {
     const { onToggle, refKey } = this.props;
 
     this.setState({
       loading: true,
+      alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
+        this position ${this.getSavedState() ? 'from' : 'to'} your favorites list.`,
     });
 
     // pass the key and the "remove" param
@@ -110,7 +116,9 @@ class Favorite extends Component {
       className,
       hasBorder,
       useButtonClass,
+      useButtonClassSecondary,
       useSpinnerWhite,
+      hideText,
     } = this.props;
 
     const icon = this.icon;
@@ -138,29 +146,42 @@ class Favorite extends Component {
       classNames.push('usa-button');
     }
 
+    if (useButtonClassSecondary) {
+      classNames.push('usa-button-secondary');
+    }
+
+    if (hideText) {
+      classNames.push('button-text-hidden');
+    }
+
     classNames.push(className);
     classNames = classNames
       .join(' ')
       .trim();
 
     options.className = classNames;
-
     let spinnerClass = 'ds-c-spinner';
     if (useButtonClass || useSpinnerWhite) {
-      spinnerClass = `${spinnerClass} spinner-white`;
+      spinnerClass = `${spinnerClass} ${useButtonClassSecondary ? 'spinner-blue' : 'spinner-white'}`;
     }
 
     return (
-      <InteractiveElement {...options}>
-        {loading ?
-          (<span className={spinnerClass} />) :
-          (<FontAwesome name={icon} />)}
-        <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
-          {matches => (
-            <span>{this.getText(matches)}</span>
-          )}
-        </MediaQueryWrapper>
-      </InteractiveElement>
+      <span>
+        {
+          this.state.alertMessage &&
+          <span className="usa-sr-only" aria-live="polite" aria-atomic="true">{this.state.alertMessage}</span>
+        }
+        <InteractiveElement {...options}>
+          {loading ?
+            (<span className={spinnerClass} />) :
+            (<FontAwesome name={icon} />)}
+          <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
+            {matches => (
+              <span>{this.getText(matches)}</span>
+            )}
+          </MediaQueryWrapper>
+        </InteractiveElement>
+      </span>
     );
   }
 }
@@ -176,6 +197,7 @@ Favorite.propTypes = {
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
   useButtonClass: PropTypes.bool,
+  useButtonClassSecondary: PropTypes.bool,
   useSpinnerWhite: PropTypes.bool,
 };
 
@@ -188,6 +210,7 @@ Favorite.defaultProps = {
   hasBorder: false,
   useLongText: false,
   useButtonClass: false,
+  useButtonClassSecondary: false,
   useSpinnerWhite: false,
 };
 

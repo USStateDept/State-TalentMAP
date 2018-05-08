@@ -1,17 +1,22 @@
+$tm-table-blue: $primary-blue-darkest;
+
 .tm-table {
+  $border-visible-height: 500%;
+
   $border-radius: 9px;
-  color: $color-gray;
-  font-size: .9em;
+  color: $primary-base;
   margin-bottom: 0;
   table-layout: fixed;
   width: 100%;
 
   .column-title-sub,
   .column-title-link {
-    font-weight: normal;
+    font-weight: 300;
   }
 
   .column-title-link {
+    font-size: 1.6rem;
+
     a {
       color: $color-white;
     }
@@ -20,11 +25,11 @@
   th,
   td {
     border: 0;
-    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   thead {
-    background: $blue-primary;
+    background: $tm-table-blue;
     color: $color-white;
 
     .border-extension {
@@ -32,8 +37,8 @@
     }
 
     .border-visible {
-      background: $blue-primary;
-      height: 200%;
+      background: $tm-table-blue;
+      height: $border-visible-height;
       left: -300px;
       position: absolute;
       top: 0;
@@ -43,11 +48,17 @@
 
     th {
       background: inherit;
+      font-size: 1.9rem;
+      font-weight: 500;
+      line-height: 1.6;
+      padding-bottom: 2.5rem;
+      padding-top: 2.5rem;
       position: relative;
     }
 
     th:first-of-type {
-      padding: 1em 1em 0;
+      padding-top: 2.4rem;
+      vertical-align: top;
     }
   }
 
@@ -60,7 +71,7 @@
 
     .border-visible-layer-2 {
       background: $color-white;
-      height: 200%;
+      height: $border-visible-height + 500%;
       left: -300px;
       position: absolute;
       top: 0;
@@ -73,12 +84,19 @@
     }
 
     .border-visible {
-      background: $blue-primary;
+      background: $tm-table-blue;
       height: 1px;
       left: -300px;
       position: relative;
       top: 16px;
       width: 2000px;
+    }
+
+    tr:first-of-type {
+      th,
+      td {
+        padding-top: 1.5em;
+      }
     }
 
     th:first-of-type {
@@ -89,12 +107,11 @@
       background-color: $color-white;
       padding-bottom: 1em;
       padding-right: 1em;
-      text-transform: uppercase;
       width: 18%;
     }
 
     td {
-      border-left: 1px solid $blue-primary;
+      border-left: 1px solid $tm-table-blue;
     }
   }
 }

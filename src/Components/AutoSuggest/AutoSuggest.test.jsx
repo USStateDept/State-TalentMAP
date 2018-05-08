@@ -149,7 +149,7 @@ describe('AutoSuggestComponent', () => {
       setTimeout(() => {
         sinon.assert.calledOnce(spy);
         done();
-      }, debounce);
+      }, debounce + 50);
     };
     f();
   });

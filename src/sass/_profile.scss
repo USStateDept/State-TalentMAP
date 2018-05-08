@@ -5,6 +5,10 @@
   position: relative;
   width: 100%;
 
+  .saved-search-parent-container {
+    min-height: 300px;
+  }
+
   .notifications-top {
     min-height: 155px;
   }
@@ -29,7 +33,7 @@
     position: relative;
 
     .favorites-top-section {
-      margin-bottom: 2em;
+      margin-bottom: 1.2em;
     }
 
     .condensed-card {
@@ -83,11 +87,37 @@
 
   .saved-search-card {
     min-height: 50px;
-    padding: 5px 10px;
+    padding: 5px 15px;
+
+    .usa-width-one-half {
+      dd {
+        padding-left: 1.5rem;
+      }
+    }
   }
 
   .saved-searches-container {
     position: relative;
+
+    .searches-top-section {
+      margin-bottom: 1em;
+    }
+
+    .searches-title-container {
+      float: left;
+    }
+
+    .usa-form {
+      float: right;
+    }
+
+    .scrollarea {
+      margin-top: 1em;
+
+      .scrollarea-content {
+        padding-right: $scrollbar-width - 2;
+      }
+    }
   }
 
   .bid-list-delete-button-container {
@@ -96,7 +126,6 @@
 
   .profile-content-container {
     background-color: $tm-white-smoke-light;
-    border-left: solid 1px $color-gray-light;
     flex-grow: 1;
     min-height: 700px;
     right: 0;
@@ -107,6 +136,10 @@
 .user-dashboard {
   font-size: 15px;
   position: relative;
+
+  .dashboard-top-section {
+    margin-bottom: 1.2em;
+  }
 
   .user-dashboard-section-container {
     float: left;
@@ -131,12 +164,13 @@
   }
 
   .current-user-section {
-    min-height: 450px;
+    min-height: 350px;
   }
 
   .current-user-section-container:last-child {
     border-bottom: 0;
     border-top: 0;
+    word-wrap: break-word;
   }
 
   .current-user-top {
@@ -202,6 +236,10 @@
 
   .notifications-section {
     min-height: 250px;
+
+    .bordered-list {
+      min-height: 150px;
+    }
   }
 
   .bidlist-section {
@@ -219,6 +257,15 @@
 
     .fa {
       margin-right: 5px;
+    }
+
+    h2 {
+      display: inline-block;
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      margin: inherit;
     }
   }
 
@@ -263,11 +310,11 @@
   }
 
   .dashboard-user-profile-picture {
-    border-radius: 75px;
-    height: 100px;
-    margin-bottom: 10px;
+    display: inline-block;
+    height: $avatar-size;
+    margin: .5em 0;
     vertical-align: middle;
-    width: 100px;
+    width: $avatar-size;
   }
 
   .start-end {
@@ -292,6 +339,10 @@ $padding-no-border: $total-padding - $border;
   height: 100%;
   min-width: 200px;
 
+  .fa {
+    color: $blue-primary;
+  }
+
   .fa-container {
     float: left;
     min-width: $total-padding;
@@ -314,8 +365,8 @@ $padding-no-border: $total-padding - $border;
   }
 
   .link-highlighted {
-    background-color: $color-blue-light;
-    border-left: $border solid $blue-primary;
+    background-color: $tm-white-smoke-light;
+    border-left: $border solid $primary-blue;
 
     .title-container {
       font-weight: bold;
@@ -418,12 +469,12 @@ $padding-no-border: $total-padding - $border;
   margin-bottom: 30px;
 
   .is-underlined {
-    border-bottom: 6px solid $color-black;
+    border-bottom: 8px solid $color-black;
     border-spacing: 6px;
   }
 
   .is-not-underlined {
-    border-bottom: 6px solid transparent;
+    border-bottom: 8px solid transparent;
     border-spacing: 6px;
   }
 }
@@ -542,6 +593,8 @@ $padding-no-border: $total-padding - $border;
 }
 
 .saved-search-card {
+  position: relative;
+
   .bid-list-card-title-position {
     font-weight: bold;
     text-transform: uppercase;
@@ -562,11 +615,37 @@ $padding-no-border: $total-padding - $border;
   .bid-status-declined {
     color: $alert-red;
   }
+
+  @media screen and (min-width: $screen-lg-min) {
+    .button-container {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      width: 23.23176% + 2.35765%;
+
+      .button-content {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+      }
+
+      button {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 .bid-list-header {
   background-color: $blue-primary;
   color: $color-white;
+
+  .bid-list-header-text {
+    margin-top: 5px;
+  }
 
   .bid-list-header-button-container {
 
@@ -585,9 +664,28 @@ $padding-no-border: $total-padding - $border;
 }
 
 .bid-list-container {
+  font-size: 1.1em;
   max-height: 450px;
-  min-height: 160px;
-  overflow-y: scroll;
+  min-height: 260px;
+  overflow-y: auto;
+
+  .primary-text {
+    text-transform: uppercase;
+  }
+
+  .bid-list-content {
+    margin-top: 105px;
+    text-align: center;
+  }
+
+  .button-wrapper {
+    display: inline-block;
+    text-align: center;
+  }
+
+  a {
+    font-size: .8em;
+  }
 }
 
 .parent-container-bid-status-declined {
@@ -656,4 +754,83 @@ $padding-no-border: $total-padding - $border;
       color: $color-black;
     }
   }
+}
+
+.profile-section-container {
+  .tm-button-transparent {
+    border: 1px solid $color-black;
+    color: $color-black;
+    float: right;
+    font-size: .8em;
+    padding: .7em 2em;
+  }
+}
+
+.favorites-list-container {
+  .parent-list-container {
+    background-color: $color-white;
+
+    .fa {
+      color: $blue-primary;
+    }
+
+    .bordered-list-content {
+      border-left: 5px solid $blue-primary;
+    }
+  }
+
+  .favorites-card-section {
+    float: left;
+  }
+
+  .favorites-card-section:nth-child(2) {
+    float: right;
+  }
+
+  .link-button {
+    float: right;
+    font-size: 1.3rem;
+  }
+
+  .saved-search-card {
+    padding: 5px 15px;
+  }
+
+  .data-point-container {
+    margin-bottom: 0;
+  }
+}
+
+.saved-search-pill {
+  background-color: $blue-primary;
+  border-radius: .7em;
+  color: $color-white;
+  float: left;
+  font-size: .8em;
+  font-weight: 300;
+  line-height: 1.8;
+  margin: 0 .7em .5em 0;
+  padding: 2px .7em 0;
+}
+
+.saved-searches-list-profile-container {
+  min-height: 260px;
+  position: relative;
+
+  .tm-button-transparent {
+    padding: .7em 3em;
+  }
+
+  .favorites-card-section:nth-child(2) {
+    float: right;
+  }
+
+  button {
+    float: right;
+    font-size: 1.3rem;
+  }
+}
+
+.saved-search-list-container {
+  min-height: 260px;
 }

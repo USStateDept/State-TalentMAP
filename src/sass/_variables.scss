@@ -86,8 +86,8 @@ $color-gray: $bg-gray-dark-1;
 $color-gray-darkest: #212121;
 $color-white: #FFFFFF;
 $color-black: #000000;
-$color-black-box-shadow: rgba(0, 0, 0, .75);
 $color-primary-alt-light: $primary-alt-light;
+$color-black-box-shadow: rgba(0, 0, 0, .75);
 $color-blue-active: $blue-primary-darker;
 $color-blue-hover: #0071BB;
 $color-primary-alt-lightest: $primary-alt-lightest;
@@ -110,9 +110,23 @@ $tm-navy: #215493;
 $tm-navy-dark: $blue-primary-darkest;
 
 //**
+//* Header
+//*
+$header-desktop-height: 75px;
+
+//**
+//* Avatar
+//*
+$avatar-size: 100px;
+$avatar-background: $blue-primary;
+$avatar-color: $color-white;
+$avatar-text-ratio: .36;
+
+//**
 //* Avatar Dropdown
 //*
-$avatar-background: $color-white;
+$avatar-dropdown-size: 45px;
+$avatar-dropdown-background: $color-white;
 $avatar-dropdown-border-top-color: rgba(0, 0, 0, .05);
 $avatar-dropdown-box-shadow-color: rgba(0, 0, 0, .15);
 $avatar-dropdown-account-segment-color: #E1E1E1;
@@ -131,11 +145,31 @@ $results-card-accent: $blue-primary;
 $results-card-border: $color-gray-lighter;
 
 //**
+//* Scrollbar
+//*
+$scrollbar-width: 10px;
+
+//**
+//* Accessibility
+//*
+$tm-focus-outline-color: $color-black;
+$tm-focus-outline-default: 2px dotted $tm-focus-outline-color;
+$tm-focus-outline-color-alt: $color-white;
+$tm-focus-outline-offset-default: 3px;
+
+//**
 //* z-index
 //*
 // we'll use this section to keep track of and order them
 $autosuggest-suggestions-container-open-z: 2;
-$spinner-z: 100;
-$feedback-button-z: 10000;
-$feedback-z: 11000;
 $dropdown-content-z: 15000;
+$feedback-z: 11000;
+$feedback-button-z: 10000;
+$scrollbar-z: 0;
+$skill-code-dropdown-z: 10500;
+$spinner-z: 100;
+
+//**
+// other variables
+//
+$button-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;

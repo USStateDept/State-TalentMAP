@@ -11,13 +11,14 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
       className="favorites-title-container"
     >
       <ProfileSectionTitle
-        title="Your Favorite Positions:"
+        title="Favorites"
       />
     </div>
     <div
       className="results-dropdown results-dropdown-sort"
     >
       <SelectForm
+        className="select-offset select-black"
         defaultSort=""
         disabled={false}
         emptyOptionText="- Select -"
@@ -34,28 +35,32 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "",
             },
             Object {
-              "text": "Title",
+              "text": "Position title: A-Z",
               "value": "title",
             },
             Object {
-              "text": "Grade",
-              "value": "grade",
+              "text": "Grade: Low to high",
+              "value": "-grade",
             },
             Object {
-              "text": "Number",
+              "text": "Bureau: A-Z",
+              "value": "-bureau",
+            },
+            Object {
+              "text": "Posted date: Most recent",
+              "value": "-posted_date",
+            },
+            Object {
+              "text": "TED: Soonest",
+              "value": "current_assignment__estimated_end_date",
+            },
+            Object {
+              "text": "Position number: Low to high",
               "value": "position_number",
             },
             Object {
-              "text": "Posted Date",
-              "value": "description__date_created",
-            },
-            Object {
-              "text": "Service Need",
-              "value": "post__has_service_needs_differential",
-            },
-            Object {
-              "text": "Bureau",
-              "value": "bureau__long_description",
+              "text": "Service need",
+              "value": "-post__has_service_needs_differential",
             },
           ]
         }
@@ -86,7 +91,13 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             "position_number": "10035561",
             "post": Object {
               "id": 199,
-              "location": "Curacao",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
             "title": "POLITICAL/ECONOMIC OFFICER",
@@ -127,7 +138,13 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             "position_number": "00003026",
             "post": Object {
               "id": 235,
-              "location": "Freetown, Sierra Leone",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "OFFICE MANAGEMENT (9017)",
             "title": "OMS (COM)",
@@ -168,7 +185,13 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             "position_number": "56001600",
             "post": Object {
               "id": 195,
-              "location": "The Hague, Netherlands",
+              "location": Object {
+                "city": "Freetown",
+                "code": "00A",
+                "country": "Sierra Leone",
+                "id": 103,
+                "state": "",
+              },
             },
             "skill": "SECURITY (2501)",
             "title": "SPECIAL AGENT",
@@ -249,11 +272,18 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             "has_consumable_allowance": true,
             "has_service_needs_differential": true,
             "id": 160,
-            "location": "Monrovia, Liberia",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
             "obc_id": null,
             "rest_relaxation_point": "Paris",
             "tour_of_duty": "2 YRS (2 R & R)",
           },
+          "posted_date": "2012-10-22T00:00:00Z",
           "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
           "skill": "OFFICE MANAGEMENT (9017)",
           "status": null,
@@ -332,11 +362,18 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             "has_consumable_allowance": true,
             "has_service_needs_differential": true,
             "id": 110,
-            "location": "Port-Au-Prince, Haiti",
+            "location": Object {
+              "city": "Chicago",
+              "code": "101",
+              "country": "United States",
+              "id": 7,
+              "state": "IL",
+            },
             "obc_id": null,
             "rest_relaxation_point": "Miami",
             "tour_of_duty": "2 YRS (2 R & R)",
           },
+          "posted_date": "2016-10-02T00:00:00Z",
           "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
           "skill": "SECURITY (2501)",
           "status": null,
@@ -408,11 +445,18 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             "has_consumable_allowance": true,
             "has_service_needs_differential": true,
             "id": 160,
-            "location": "Monrovia, Liberia",
+            "location": Object {
+              "city": "Freetown",
+              "code": "00A",
+              "country": "Sierra Leone",
+              "id": 103,
+              "state": "",
+            },
             "obc_id": null,
             "rest_relaxation_point": "Paris",
             "tour_of_duty": "2 YRS (2 R & R)",
           },
+          "posted_date": "2012-10-22T00:00:00Z",
           "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
           "skill": "OFFICE MANAGEMENT (9017)",
           "status": null,
@@ -491,11 +535,18 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             "has_consumable_allowance": true,
             "has_service_needs_differential": true,
             "id": 110,
-            "location": "Port-Au-Prince, Haiti",
+            "location": Object {
+              "city": "Chicago",
+              "code": "101",
+              "country": "United States",
+              "id": 7,
+              "state": "IL",
+            },
             "obc_id": null,
             "rest_relaxation_point": "Miami",
             "tour_of_duty": "2 YRS (2 R & R)",
           },
+          "posted_date": "2016-10-02T00:00:00Z",
           "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
           "skill": "SECURITY (2501)",
           "status": null,

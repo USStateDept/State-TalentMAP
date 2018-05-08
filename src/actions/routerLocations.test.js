@@ -3,7 +3,7 @@ import routerLocations from '../__mocks__/routerLocations';
 
 describe('routerLocations', () => {
   it('maps routes to names', () => {
-    ['/results', '/', '/details', '/post', 'fakeroute', '/profile', '/compare', '/profile/bidtracker/'].map(route => (
+    ['/results', '/', '/details', 'fakeroute', '/profile', '/compare', '/profile/bidtracker/'].map(route => (
       expect(actions.mapRoutesToNames(route)).toBeDefined()
     ));
   });
@@ -17,7 +17,7 @@ describe('routerLocations', () => {
   });
 
   it('can get the last route name', () => {
-    expect(actions.getLastRouteName(routerLocations)).toBe('Go back to search results');
+    expect(actions.getLastRouteName(routerLocations)).toBe('Back to Search Results');
   });
 
   it('returns false if there is only one item in history', () => {

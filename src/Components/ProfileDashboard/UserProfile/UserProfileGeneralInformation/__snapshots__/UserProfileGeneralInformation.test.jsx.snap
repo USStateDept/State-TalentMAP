@@ -10,10 +10,14 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
     <Status
       hideText={false}
     />
-    <ProfilePicture
-      alt="avatar"
-      className=""
-      source="/assets/img/avatar.png"
+    <Avatar
+      className="dashboard-user-profile-picture"
+      display_name="John"
+      firstName="John"
+      initials="JD"
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
     <EditProfile />
     <PositionInformation
@@ -62,10 +66,14 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
     <Status
       hideText={false}
     />
-    <ProfilePicture
-      alt="avatar"
-      className=""
-      source="/assets/img/avatar.png"
+    <Avatar
+      className="dashboard-user-profile-picture"
+      display_name="John"
+      firstName="John"
+      initials="JD"
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
     <EditProfile />
     <PositionInformation
@@ -114,10 +122,14 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
     <Status
       hideText={false}
     />
-    <ProfilePicture
-      alt="avatar"
-      className=""
-      source="/assets/img/avatar.png"
+    <Avatar
+      className="dashboard-user-profile-picture"
+      display_name="John"
+      firstName="John"
+      initials="JD"
+      lastName="Doe"
+      onClick={[Function]}
+      small={false}
     />
     <EditProfile />
     <PositionInformation

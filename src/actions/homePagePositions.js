@@ -1,13 +1,14 @@
 import api from '../api';
 import { USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS,
 RECENTLY_POSTED_POSITIONS, FAVORITED_POSITIONS } from '../Constants/PropTypes';
+import { COMMON_PROPERTIES } from '../Constants/EndpointParams';
 
 // Export our queries so that we can consistently test them.
 export const HIGHLIGHTED_POSITIONS_QUERY = 'highlighted/?limit=3';
 export const GET_SKILL_CODE_POSITIONS_QUERY = skillCodes => `?skill__in=${skillCodes}&limit=3`;
 export const FAVORITE_POSITIONS_QUERY = 'favorites/?limit=3';
-export const GET_GRADE_POSITIONS_QUERY = grade => `?grade__code__in=${grade}&limit=3&ordering=description__date_created`;
-export const RECENTLY_POSTED_POSITIONS_QUERY = '?limit=3&ordering=description__date_created';
+export const GET_GRADE_POSITIONS_QUERY = grade => `?grade__code__in=${grade}&limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
+export const RECENTLY_POSTED_POSITIONS_QUERY = `?limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
 
 export function homePagePositionsHasErrored(bool) {
   return {
@@ -49,7 +50,7 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
     ];
 
     // Search for positions that match the user's skill, if it exists.
-    // Otherwise, search for positions with skill code 0060.
+    // Otherwise, search for positions with Skill code 0060.
     if (skills && skills.length) {
       const ids = skills.map(s => s.id);
       const querySkillCodes = ids.join(',');
@@ -88,9 +89,9 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
         results.forEach((result, i) => {
           resultsTypes[queryTypes[i].name] = result.data.results;
         });
+        dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
         dispatch(homePagePositionsHasErrored(false));
         dispatch(homePagePositionsIsLoading(false));
-        dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
       })
       .catch(() => {
         dispatch(homePagePositionsHasErrored(true));

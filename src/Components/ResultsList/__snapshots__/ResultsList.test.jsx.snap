@@ -11,7 +11,9 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
   className={null}
 >
   <ResultsCard
+    bidList={Array []}
     favorites={Array []}
+    id="6-1"
     onToggle={[Function]}
     result={
       Object {
@@ -71,11 +73,18 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
           "has_consumable_allowance": true,
           "has_service_needs_differential": true,
           "id": 160,
-          "location": "Monrovia, Liberia",
+          "location": Object {
+            "city": "Freetown",
+            "code": "00A",
+            "country": "Sierra Leone",
+            "id": 103,
+            "state": "",
+          },
           "obc_id": null,
           "rest_relaxation_point": "Paris",
           "tour_of_duty": "2 YRS (2 R & R)",
         },
+        "posted_date": "2012-10-22T00:00:00Z",
         "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
         "skill": "OFFICE MANAGEMENT (9017)",
         "status": null,
@@ -85,12 +94,15 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08T00:00:00Z",
       }
     }
+    toggleBid={[Function]}
     toggleFavorite={[Function]}
     userProfileFavoritePositionHasErrored={false}
     userProfileFavoritePositionIsLoading={false}
   />
   <ResultsCard
+    bidList={Array []}
     favorites={Array []}
+    id="60-1"
     onToggle={[Function]}
     result={
       Object {
@@ -163,11 +175,18 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
           "has_consumable_allowance": true,
           "has_service_needs_differential": true,
           "id": 110,
-          "location": "Port-Au-Prince, Haiti",
+          "location": Object {
+            "city": "Chicago",
+            "code": "101",
+            "country": "United States",
+            "id": 7,
+            "state": "IL",
+          },
           "obc_id": null,
           "rest_relaxation_point": "Miami",
           "tour_of_duty": "2 YRS (2 R & R)",
         },
+        "posted_date": "2016-10-02T00:00:00Z",
         "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
         "skill": "SECURITY (2501)",
         "status": null,
@@ -177,6 +196,7 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08T00:00:00Z",
       }
     }
+    toggleBid={[Function]}
     toggleFavorite={[Function]}
     userProfileFavoritePositionHasErrored={false}
     userProfileFavoritePositionIsLoading={false}

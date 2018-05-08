@@ -40,4 +40,23 @@ describe('async actions', () => {
     };
     f();
   });
+
+  it('can handle errors when fetching assignments', (done) => {
+    const store = mockStore({ assignment: {} });
+
+    mockAdapter.reset();
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/profile/assignments/?status=active').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.assignmentFetchData());
+        store.dispatch(actions.assignmentIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
 });

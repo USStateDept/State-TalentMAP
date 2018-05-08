@@ -1,5 +1,6 @@
 import api from '../api';
 import * as SystemMessages from '../Constants/SystemMessages';
+import { propOrDefault } from '../utilities';
 
 export function newSavedSearchHasErrored(bool) {
   return {
@@ -111,15 +112,17 @@ export function routeChangeUnsetCurrentSearch() {
   };
 }
 
-export function savedSearchesFetchData() {
+export function savedSearchesFetchData(sortType) {
   return (dispatch) => {
     dispatch(savedSearchesIsLoading(true));
     dispatch(savedSearchesHasErrored(false));
-    api.get('/searches/')
+    let url = '/searches/';
+    if (sortType) { url += `?ordering=${sortType}`; }
+    api.get(url)
       .then(response => response.data)
       .then((results) => {
-        dispatch(savedSearchesIsLoading(false));
         dispatch(savedSearchesSuccess(results));
+        dispatch(savedSearchesIsLoading(false));
         dispatch(savedSearchesHasErrored(false));
       })
       .catch(() => {
@@ -196,7 +199,7 @@ export function saveSearch(data, id) {
     // to post or patch to the correct endpoint
     const config = {
       method: id ? 'patch' : 'post',
-      url: `/searches/${id ? '/id' : '/'}`,
+      url: id ? `/searches/${id}/` : '/searches/',
       data,
     };
 
@@ -211,13 +214,17 @@ export function saveSearch(data, id) {
         dispatch(newSavedSearchSuccess(
           // if an ID was passed, we know to use the UPDATED message
           id ?
-            SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) :
-            SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name),
+          { title: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS_TITLE,
+            message: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) } :
+          { title: SystemMessages.NEW_SAVED_SEARCH_SUCCESS_TITLE,
+            message: SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name) },
         ));
         dispatch(setCurrentSavedSearch(response.data));
       })
       .catch((err) => {
-        dispatch(newSavedSearchHasErrored(JSON.stringify(err.response.data) || 'An error occurred trying to save this search.'));
+        dispatch(newSavedSearchHasErrored(
+          { title: 'Error', message: propOrDefault(err, 'response.data', 'An error occurred trying to save this search.') },
+        ));
         dispatch(newSavedSearchIsSaving(false));
         dispatch(newSavedSearchSuccess(false));
       });

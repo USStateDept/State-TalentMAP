@@ -8,10 +8,6 @@ exports[`PositionDetailsDescription matches snapshot 1`] = `
     className="usa-grid-full"
   >
     There is no description for this position.
-    <PositionDetailsDescription
-      defaultValue={true}
-      onChange={[Function]}
-    />
   </span>
 </div>
 `;

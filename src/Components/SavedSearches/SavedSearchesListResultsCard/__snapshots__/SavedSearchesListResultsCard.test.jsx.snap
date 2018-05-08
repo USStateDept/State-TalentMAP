@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
+<MediaQueryWrapper
+  breakpoint="screenSmMax"
+  widthType="max"
+/>
+`;
+
+exports[`SavedSearchesListResultsCardComponent matches snapshot when saved search has no date 1`] = `
+<MediaQueryWrapper
+  breakpoint="screenSmMax"
+  widthType="max"
+/>
+`;

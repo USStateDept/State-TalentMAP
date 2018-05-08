@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+import { withRouter } from 'react-router';
 import queryString from 'query-string';
+import debounce from 'lodash/debounce';
 import queryParamUpdate from '../queryParams';
-import { scrollToTop, cleanQueryParams } from '../../utilities';
+import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
+import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
 import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
@@ -14,12 +17,15 @@ import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT, ROUTER_LOCATIONS,
-USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
-EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
+USER_PROFILE, SAVED_SEARCH_MESSAGE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
+SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
+EMPTY_FUNCTION, BID_LIST } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import { PUBLIC_ROOT } from '../../login/DefaultRoutes';
+import { LOGIN_REDIRECT } from '../../login/routes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
+
+const DEFAULT_PAGE_NUMBER = 1;
 
 class Results extends Component {
   constructor(props) {
@@ -31,11 +37,14 @@ class Results extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      defaultSort: { value: '' },
+      defaultSort: { value: POSITION_SEARCH_SORTS.defaultSort },
       defaultPageSize: { value: 0 },
-      defaultPageNumber: { value: 1 },
+      defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
     };
+
+    // Create an instance attribute for storing a reference to debounced requests
+    this.debounced = debounce(() => {});
   }
 
   componentWillMount() {
@@ -44,22 +53,10 @@ class Results extends Component {
     resetSavedSearchAlerts();
     // check auth
     if (!isAuthorized()) {
-      onNavigateTo(PUBLIC_ROOT);
+      onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.createQueryParams();
-    }
-  }
-
-  componentDidMount() {
-    // Check if the user came from another page.
-    // If so, scroll the user to the top of the page.
-    const { routerLocations } = this.props;
-    const rLength = routerLocations.length;
-    if (rLength > 1) {
-      // compare the most recent and second-most recent pathnames
-      if (routerLocations[rLength - 1].pathname !== routerLocations[rLength - 2].pathname) {
-        window.scrollTo(0, 0);
-      }
+      this.props.bidListFetchData();
     }
   }
 
@@ -116,7 +113,9 @@ class Results extends Component {
     // finally, turn the object back into a string
     const newQueryString = queryString.stringify(parsedQuery);
     // check if there were actually any changes (example - two fast clicks of a pill)
-    if (newQueryString !== this.state.query.value) { this.updateHistory(newQueryString); }
+    if (newQueryString !== this.state.query.value) {
+      this.updateHistory(newQueryString);
+    }
   }
 
   createQueryParams() {
@@ -133,7 +132,7 @@ class Results extends Component {
       parseInt(limit, 10) || POSITION_PAGE_SIZES.defaultSort;
     // set our default page number
     defaultPageNumber.value =
-      parseInt(page, 10) || defaultPageNumber.value;
+      parseInt(page, 10) || DEFAULT_PAGE_NUMBER;
     // set our default keyword (?q=...)
     defaultKeyword.value =
       q || defaultKeyword.value;
@@ -165,8 +164,12 @@ class Results extends Component {
 
   // updates the history by passing a string of query params
   updateHistory(q) {
-    this.context.router.history.push({
-      search: q,
+    this.setState({ query: { value: q } }, () => {
+      window.history.pushState('', '', getAssetPath(`/results?${q}`));
+      this.debounced.cancel();
+      // add debounce so that quickly selecting multiple filters is smooth
+      this.debounced = debounce(() => this.createQueryParams(), this.props.debounceTimeInMs);
+      this.debounced();
     });
   }
 
@@ -207,7 +210,7 @@ class Results extends Component {
             userProfileFavoritePositionHasErrored, currentSavedSearch,
             newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
-            postSearchHasErrored, shouldShowSearchBar } = this.props;
+            postSearchHasErrored, shouldShowSearchBar, toggleBid, bidList } = this.props;
     return (
       <ResultsPage
         results={results}
@@ -246,10 +249,16 @@ class Results extends Component {
         postSearchIsLoading={postSearchIsLoading}
         postSearchHasErrored={postSearchHasErrored}
         shouldShowSearchBar={shouldShowSearchBar}
+        toggleBid={toggleBid}
+        bidList={bidList.results}
       />
     );
   }
 }
+
+Results.contextTypes = {
+  router: PropTypes.object,
+};
 
 Results.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
@@ -262,12 +271,11 @@ Results.propTypes = {
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
+  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
@@ -282,6 +290,10 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
+  debounceTimeInMs: PropTypes.number,
+  toggleBid: PropTypes.func.isRequired,
+  bidList: BID_LIST.isRequired,
+  bidListFetchData: PropTypes.func.isRequired,
 };
 
 Results.defaultProps = {
@@ -292,11 +304,10 @@ Results.defaultProps = {
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
-  routerLocations: [],
   userProfile: {},
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
-  newSavedSearchSuccess: false,
+  newSavedSearchSuccess: {},
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},
@@ -310,6 +321,9 @@ Results.defaultProps = {
   postSearchIsLoading: false,
   postSearchHasErrored: false,
   shouldShowSearchBar: true,
+  debounceTimeInMs: 50,
+  toggleBid: EMPTY_FUNCTION,
+  bidList: { results: [] },
 };
 
 Results.contextTypes = {
@@ -339,12 +353,13 @@ const mapStateToProps = state => ({
   postSearchIsLoading: state.postSearchIsLoading,
   postSearchHasErrored: state.postSearchHasErrored,
   shouldShowSearchBar: state.shouldShowSearchBar,
+  bidList: state.bidListFetchDataSuccess,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(resultsFetchData(url)),
   fetchFilters: (items, queryParams, savedFilters) =>
-    dispatch(filtersFetchData(items, queryParams, savedFilters)),
+    dispatch(filtersFetchData(items, queryParams, savedFilters, true)),
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) =>
@@ -357,6 +372,8 @@ export const mapDispatchToProps = dispatch => ({
   fetchMissionAutocomplete: query => dispatch(missionSearchFetchData(query)),
   fetchPostAutocomplete: query => dispatch(postSearchFetchData(query)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
+  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
+  bidListFetchData: () => dispatch(bidListFetchData()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Results);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

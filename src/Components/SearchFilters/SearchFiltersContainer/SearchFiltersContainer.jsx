@@ -3,19 +3,18 @@ import PropTypes from 'prop-types';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
-import LanguageFilter from '../LanguageFilter/LanguageFilter';
-import AutoSuggest from '../../AutoSuggest';
 import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
-import { propSort } from '../../../utilities';
+import BureauFilter from '../BureauFilter';
+import PostFilter from '../PostFilter';
+import SkillFilter from '../SkillFilter';
+import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
+import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
 import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 
 class SearchFiltersContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.onSetAccordion = this.onSetAccordion.bind(this);
-    this.onSetAccordionLanguage = this.onSetAccordionLanguage.bind(this);
     this.onMissionSuggestionSelected = this.onMissionSuggestionSelected.bind(this);
     this.onPostSuggestionSelected = this.onPostSuggestionSelected.bind(this);
   }
@@ -34,21 +33,14 @@ class SearchFiltersContainer extends Component {
     this.props.queryParamUpdate(object);
   }
 
-  onSetAccordion(a, b) {
-    this.props.setAccordion({ main: a, sub: b });
-  }
-
-  onSetAccordionLanguage(a) {
-    this.props.setAccordion({ main: 'Language', sub: a });
-  }
   render() {
-    const { fetchMissionAutocomplete, missionSearchResults, fetchPostAutocomplete,
+    const { fetchPostAutocomplete,
     postSearchResults, isCDO } = this.props;
 
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedBooleanNames = ['postDiff', 'dangerPay', 'COLA', 'domestic'];
+    const sortedBooleanNames = [];
     // if and only if it's a CDO, we'll show the 'Available' filter
     if (isCDO) { sortedBooleanNames.push('available'); }
 
@@ -71,7 +63,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['skill', 'grade', 'post', 'region', 'tod', 'mission'];
+    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'region', 'post', 'tod', 'language', 'postDiff', 'dangerPay'];
 
     // create map
     const multiSelectFilterMap = new Map();
@@ -80,41 +72,30 @@ class SearchFiltersContainer extends Component {
     this.props.filters.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
-        if (f.item.description === 'skill') {
+        if (f.item.description === 'skill' && f.data) {
           f.data.sort(propSort('description'));
+        } else if (f.item.description === 'grade' && f.data) {
+          f.data.sort(sortGrades);
+        } else if (f.item.description === 'language' && f.data) {
+          f.data.sort(propSort('custom_description'));
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
       }
     });
 
-    // get our language filter, which we'll render differently
-    const languageFilters = this.props.filters.find(
-      searchFilter =>
-        (
-          searchFilter.item.description === 'language'
-        ),
-    );
+    // special handling for functional bureau
+    const functionalBureaus = this.props.filters.slice().find(f => f.item.description === 'functionalRegion');
 
-    // make sure we have an object to use in case there were no languages passed down
-    const languageFilter = languageFilters || { item: {} };
+    // special handling for is_domestic filter
+    const domesticFilter = (this.props.filters || []).find(f => f.item.description === 'domestic');
+    const overseasFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'false');
+    const domesticFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'true');
+    const overseasIsSelected = propOrDefault(overseasFilterData, 'isSelected', false);
+    const domesticIsSelected = propOrDefault(domesticFilterData, 'isSelected', false);
 
-    // languageFilters should only have one object, so we simply call languageFilters[0]
-    const languageFilterObject =
-      { content:
-        (<LanguageFilter
-          key={languageFilter.item.title}
-          item={languageFilter}
-          selectedAccordion={this.props.selectedAccordion}
-          queryParamUpdate={(l) => {
-            this.props.queryParamUpdate({ [languageFilter.item.selectionRef]: l });
-          }}
-          setAccordion={this.onSetAccordionLanguage}
-        />),
-        title: languageFilter.item.title,
-        id: `accordion-${languageFilter.item.title}`,
-        expanded: languageFilter.item.title === this.props.selectedAccordion.main,
-      };
+    // get skill cones
+    const skillCones = (this.props.filters || []).find(f => f.item.description === 'skillCone');
 
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
@@ -132,59 +113,80 @@ class SearchFiltersContainer extends Component {
         suggestions = postSearchResults;
         placeholder = 'Start typing a post';
         onSuggestionSelected = this.onPostSuggestionSelected;
-        displayProperty = 'location';
+        displayProperty = getPostName;
         suggestionTemplate = SuggestionChoicePost; // special template for posts
       }
-      if (n === 'mission') {
-        getSuggestions = fetchMissionAutocomplete;
-        suggestions = missionSearchResults;
-        placeholder = 'Start typing a mission';
-        onSuggestionSelected = this.onMissionSuggestionSelected;
-      }
-      if (item) {
-        sortedFilters.push(
-          { content:
-            (
+
+      const getFilter = (type) => {
+        switch (type) {
+          case 'region':
+            return (
+              <BureauFilter
+                item={item}
+                functionalBureaus={functionalBureaus}
+                queryParamToggle={this.props.queryParamToggle}
+              />
+            );
+          case 'post':
+            return (
+              <PostFilter
+                item={item}
+                queryParamToggle={this.props.queryParamToggle}
+                queryParamUpdate={this.props.queryParamUpdate}
+                overseasIsSelected={overseasIsSelected}
+                domesticIsSelected={domesticIsSelected}
+                autoSuggestProps={{
+                  getSuggestions,
+                  suggestions,
+                  placeholder,
+                  onSuggestionSelected,
+                  queryProperty: 'id',
+                  displayProperty,
+                  suggestionTemplate,
+                  id: `${type}-autosuggest-container`,
+                  inputId: `${type}-autosuggest-input`,
+                  label: 'Search posts',
+                  labelSrOnly: false,
+                }}
+              />
+            );
+          case 'skill':
+            return (
+              <SkillFilter
+                item={item}
+                queryParamToggle={this.props.queryParamToggle}
+                queryParamUpdate={this.props.queryParamUpdate}
+                skillCones={skillCones}
+              />
+            );
+          default:
+            return (
               <div className="usa-grid-full">
-                {
-                // Only show the autosuggest for post and mission filters.
-                (n === 'post' || n === 'mission') ?
-                  <AutoSuggest
-                    getSuggestions={getSuggestions}
-                    suggestions={suggestions}
-                    placeholder={placeholder}
-                    onSuggestionSelected={onSuggestionSelected}
-                    queryProperty="id"
-                    displayProperty={displayProperty}
-                    suggestionTemplate={suggestionTemplate}
-                    id={`${n}-autosuggest-container`}
-                    inputId={`${n}-autosuggest-input`}
-                    label={`${item.item.title} name`}
-                  />
-                  : null
-                }
                 <MultiSelectFilter
                   key={item.item.title}
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
-                  queryProperty={(n === 'post' || n === 'mission') ? '_id' : 'code'}
+                  queryProperty={(type === 'post' || type === 'bidCycle') ? '_id' : 'code'}
+                  groupAlpha={type === 'skill'}
                 />
               </div>
-            ),
+            );
+        }
+      };
+
+      if (item) {
+        sortedFilters.push(
+          { content: getFilter(n),
             title: item.item.title,
             id: `accordion-${item.item.title}`,
-            expanded: item.item.title === this.props.selectedAccordion.main,
           },
         );
       }
     });
-    // add language last
-    sortedFilters.push(languageFilterObject);
 
     return (
       <div>
         <MultiSelectFilterContainer
-          setAccordion={this.onSetAccordion}
           multiSelectFilterList={sortedFilters}
           queryParamToggle={this.props.queryParamToggle}
         />
@@ -208,10 +210,6 @@ SearchFiltersContainer.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
-  selectedAccordion: ACCORDION_SELECTION_OBJECT.isRequired,
-  setAccordion: PropTypes.func.isRequired,
-  fetchMissionAutocomplete: PropTypes.func.isRequired,
-  missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   isCDO: PropTypes.bool.isRequired,

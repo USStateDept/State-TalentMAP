@@ -18,6 +18,7 @@ exports[`BidderPortfolioGridListHeaderComponent matches snapshot 1`] = `
         >
           <CheckBox
             className=""
+            disabled={false}
             id="grid-header-select-all"
             label="Select all"
             labelSrOnly={true}
@@ -43,7 +44,7 @@ exports[`BidderPortfolioGridListHeaderComponent matches snapshot 1`] = `
     >
       <BidderPortfolioGridListHeaderItem
         className=""
-        content="Skill Code / Birthdate"
+        content="Skill code / Birthdate"
       />
     </div>
     <div

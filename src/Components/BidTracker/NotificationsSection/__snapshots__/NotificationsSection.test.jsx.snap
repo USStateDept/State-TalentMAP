@@ -12,7 +12,30 @@ exports[`NotificationsSectionComponent matches snapshot 1`] = `
       onDismiss={[Function]}
     >
       <AlertAlt
+        isAriaLive={false}
         message="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
+        title="Notification"
+        type="success"
+      />
+    </Dismiss>
+  </div>
+</div>
+`;
+
+exports[`NotificationsSectionComponent matches snapshot when tags contains "declined" 1`] = `
+<div>
+  <div
+    className="usa-grid-full bid-tracker-notifications"
+  >
+    <Dismiss
+      buttonClassName="dismiss-button"
+      buttonTitle="Dismiss this alert"
+      className="dismiss-alt"
+      onDismiss={[Function]}
+    >
+      <AlertAlt
+        isAriaLive={false}
+        message="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been offered a handshake."
         title="Notification"
         type="success"
       />

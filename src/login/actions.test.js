@@ -1,39 +1,49 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import { loginRequest, logoutRequest } from './actions';
+import { authRequest, tokenValidationRequest, authSuccess, authError } from './actions';
+import { LOGOUT_REQUESTING, TOKEN_VALIDATION_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_ERROR, LOGIN_REQUESTING } from './constants';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 describe('login actions', () => {
-  beforeEach(() => {
-    const mockAdapter = new MockAdapter(axios);
+  const store = mockStore({ login: [] });
 
-    const token = {
-      token: '93d2b76091f8d3f1fdf6b2d8d64a89004c5fb8bd',
-    };
+  const token = {
+    token: '93d2b76091f8d3f1fdf6b2d8d64a89004c5fb8bd',
+  };
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/accounts/token/').reply(200,
-      token,
-    );
+  it('can perform tokenValidationRequest', () => {
+    const result = store.dispatch(tokenValidationRequest(token));
+    expect(result.type).toBe(TOKEN_VALIDATION_REQUESTING);
+    expect(result.token).toBe(token);
   });
 
-  it('can perform login', (done) => {
-    const store = mockStore({ login: [] });
-
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(loginRequest({ username: 'admin', password: 'admin' }));
-        done();
-      }, 0);
-    };
-    f();
+  it('can perform login', () => {
+    const result = store.dispatch(authRequest());
+    expect(result.type).toBe(LOGIN_REQUESTING);
   });
 
   it('can perform logout', () => {
-    const store = mockStore({ login: [] });
-    store.dispatch(logoutRequest());
+    const result = store.dispatch(authRequest(false));
+    expect(result.type).toBe(LOGOUT_REQUESTING);
+  });
+
+  it('can handle login error', () => {
+    const result = store.dispatch(authError());
+    expect(result.type).toBe(LOGIN_ERROR);
+    expect(result.message).toEqual(null);
+  });
+
+  it('can handle logout error', () => {
+    const message = { body: 'error' };
+    const result = store.dispatch(authError(false, message));
+    expect(result.type).toBe(LOGOUT_ERROR);
+    expect(result.message).toEqual(message);
+  });
+
+  it('can handle authSuccess', () => {
+    const result = store.dispatch(authSuccess(true));
+    expect(result.type).toBe(LOGIN_SUCCESS);
   });
 });

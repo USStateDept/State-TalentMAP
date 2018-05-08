@@ -6,10 +6,12 @@ import SaveNewSearchAlert from './SaveNewSearchAlert';
 describe('SaveNewSearchAlertComponent', () => {
   let wrapper = null;
 
+  const message = { title: 'Title', message: 'A test message.' };
+
   it('is defined', () => {
     wrapper = shallow(
       <SaveNewSearchAlert
-        newSavedSearchSuccess="message"
+        newSavedSearchSuccess={message}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -18,7 +20,7 @@ describe('SaveNewSearchAlertComponent', () => {
   it('matches snapshot', () => {
     wrapper = shallow(
       <SaveNewSearchAlert
-        newSavedSearchSuccess="message"
+        newSavedSearchSuccess={message}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

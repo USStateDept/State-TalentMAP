@@ -12,7 +12,7 @@ exports[`BidderPortfolioSearchComponent matches snapshot 1`] = `
       labelSrOnly={true}
       onFilterChange={[Function]}
       onUpdate={[Function]}
-      placeholder="Search Bidder Last Name, Skill Code..."
+      placeholder="Search Bidder Last Name, Skill cone (code)..."
     />
   </div>
 </div>

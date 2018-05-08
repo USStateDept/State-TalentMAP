@@ -6,6 +6,7 @@ import Spinner from '../Spinner';
 import SelectForm from '../SelectForm';
 import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import HomePagePositionsList from '../HomePagePositionsList';
+import NoFavorites from '../EmptyListAlert/NoFavorites';
 
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
 toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
@@ -13,7 +14,7 @@ toggleBid, bidList, onSortChange }) => (
   <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full favorites-top-section">
       <div className="favorites-title-container">
-        <ProfileSectionTitle title="Your Favorite Positions:" />
+        <ProfileSectionTitle title="Favorites" />
       </div>
       <div className="results-dropdown results-dropdown-sort">
         <SelectForm
@@ -28,6 +29,10 @@ toggleBid, bidList, onSortChange }) => (
     {
       favoritePositionsIsLoading && !favoritePositionsHasErrored &&
         <Spinner type="homepage-position-results" size="big" />
+    }
+    {
+      !favoritePositionsIsLoading && !favorites.results.length &&
+        <NoFavorites />
     }
     <HomePagePositionsList
       positions={favorites.results}

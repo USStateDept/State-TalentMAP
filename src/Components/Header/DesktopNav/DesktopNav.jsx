@@ -9,8 +9,13 @@ import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
 import InteractiveElement from '../../InteractiveElement';
 
-const DesktopNav = ({ isLoggedIn, shouldShowSearchBar,
-userProfile, logout, toggleSearchVisibility }) => (
+const DesktopNav = ({
+  isLoggedIn,
+  shouldShowSearchBar,
+  userProfile,
+  logout,
+  toggleSearchVisibility,
+}) => (
   <div className="navigation-container">
     <div className="nav-link-container header-nav-desktop desktop-nav-only">
       {
@@ -29,22 +34,17 @@ userProfile, logout, toggleSearchVisibility }) => (
         </div>
       }
       <NavLink link="/" title="Home" navLinkClass="home-text" />
-      <div className="header-nav-link-container">
-        <div className="header-nav-link">
-          <div className="header-nav-link-text about-text">
-            <a href="https://github.com/18F/State-TalentMAP">About</a>
-          </div>
-        </div>
-      </div>
+      <NavLink link="/about" title="About" navLinkClass="about-text" />
     </div>
     <div className="header-nav-desktop desktop-nav-only account-notification-container">
       <div className="header-nav-link-container account-container">
         <div className="header-nav-link">
           {
-            isLoggedIn &&
+            (isLoggedIn && userProfile.user) &&
             <AccountDropdown
               userProfile={userProfile}
               logoutRequest={logout}
+              shouldDisplayName
             />
           }
         </div>

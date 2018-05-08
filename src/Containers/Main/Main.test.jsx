@@ -52,12 +52,6 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
-  it('handles a post details route', () => {
-    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/post/00011111']}>
-      <Main />
-    </MemoryRouter>);
-    expect(main).toBeDefined();
-  });
   it('handles a profile/favorites route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/favorites']}>
       <Main />
@@ -84,6 +78,18 @@ describe('Main', () => {
   });
   it('handles a profile/glossaryeditor route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/glossaryeditor']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles a profile/bidtracker route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/bidtracker']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles an about route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/about']}>
       <Main />
     </MemoryRouter>);
     expect(main).toBeDefined();

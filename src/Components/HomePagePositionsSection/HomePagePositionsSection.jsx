@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { Link } from 'react-router-dom';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import HomePagePositionsList from '../HomePagePositionsList';
 import Alert from '../Alert';
@@ -22,6 +23,7 @@ const propTypes = {
   type: HOME_PAGE_CARD_TYPE,
   useSpinner: PropTypes.bool,
   hasErrored: PropTypes.bool,
+  wrapInLink: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -33,25 +35,38 @@ const defaultProps = {
   type: 'default',
   useSpinner: false,
   hasErrored: false,
+  wrapInLink: true,
 };
 
 const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggleFavorite,
   favorites, isLoading, hasErrored, bidList, userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored, toggleBid, type, useSpinner }) => {
+  userProfileFavoritePositionHasErrored, toggleBid, type, useSpinner, wrapInLink }) => {
   const listIsReady = !!(positions && Object.keys(positions).length);
   const shouldShowAlert = !hasErrored && positions && !positions.length;
   const shouldShowErrorAlert = hasErrored && !isLoading;
   const shouldDisplaySpinner = useSpinner && isLoading;
+
+  const wrappedInLink = wrapInLink ?
+    (
+      <Link to={viewMoreLink} title={`View more ${title}`}>
+        <h2 className="positions-section-title">
+          { !!icon.length && <FontAwesome name={icon} /> }
+          {title}
+          <FontAwesome name="angle-right" />
+        </h2>
+      </Link>
+    )
+    :
+    (
+      <h2 className="positions-section-title">
+        { !!icon.length && <FontAwesome name={icon} /> }
+        {title}
+      </h2>
+    );
   return (
     <div className="usa-grid-full positions-section">
       <PositionsSectionTitle
-        title={
-          <span className="positions-section-title">
-            { !!icon.length && <FontAwesome name={icon} /> }
-            {title}
-          </span>
-        }
-        viewMoreLink={viewMoreLink}
+        title={wrappedInLink}
       />
       {
         shouldDisplaySpinner && <Spinner size="small" type="homepage-positions-results" />

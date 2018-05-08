@@ -16,7 +16,7 @@ const InteractiveElement = ({ children, type, className, ...rest }) => {
   // Anything here can override defaultProps.
   const props = {
     children,
-    onKeyDown: onClick ? (e) => { if (ifEnter(e)) { onClick(); } } : EMPTY_FUNCTION,
+    onKeyDown: onClick ? (e) => { if (ifEnter(e)) { onClick(e); } } : EMPTY_FUNCTION,
     className: (`interactive-element ${className}`).trim(),
     ...rest,
   };
@@ -39,7 +39,7 @@ const InteractiveElement = ({ children, type, className, ...rest }) => {
     // At the time of writing, CodeClimate's version of eslint-a11y-plugin
     // did not take role="button" into account with the following error:
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    <Node {...defaultProps}{...props}>
+    <Node {...defaultProps} {...props}>
       {children}
     </Node>
     // eslint-enable-next-line jsx-a11y/no-static-element-interactions

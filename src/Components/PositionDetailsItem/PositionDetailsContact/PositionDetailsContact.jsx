@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PositionTitleSubDescription from '../../PositionTitleSubDescription';
+import ViewPostDataButton from '../../ViewPostDataButton';
 import { POSITION_DETAILS } from '../../../Constants/PropTypes';
 import { NO_POSITION_WEB_SITE, NO_POSITION_POC } from '../../../Constants/SystemMessages';
 import { propOrDefault, formatDate } from '../../../utilities';
@@ -62,27 +63,28 @@ class PositionDetailsContact extends Component {
     // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
     // 3. A formatted version for public viewing
     const postWebsite = propOrDefault(details, 'description.website');
-    const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : '';
-    const formattedPostWebsite = postWebsite ?
+    const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : newWebsiteContent.value || '';
+    const formattedPostWebsite = postWebsite || newWebsiteContent.value ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
     NO_POSITION_WEB_SITE;
 
     const pointOfContact = propOrDefault(details, 'description.point_of_contact');
-    const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : '';
-    const formattedPointOfContact = pointOfContact ?
-      <a href={`tel:${plainTextPointOfContact}`}>{plainTextPointOfContact}</a> :
-    NO_POSITION_POC;
+    const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : newPocContent.value || '';
+    const formattedPointOfContact = pointOfContact || newPocContent.value ?
+      plainTextPointOfContact : NO_POSITION_POC;
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
     const formattedDate = formatDate(details.update_date);
 
+    const obcId = propOrDefault(details, 'post.obc_id');
+
     return (
-      <div className="position-details-contact">
+      <div className="position-details-contact" style={{ position: 'relative' }}>
         <div className="contact-container">
           <div className="usa-grid-full contact-section website-section">
             <PositionTitleSubDescription
-              title="Post Website"
+              title="Post website"
               formattedContent={formattedPostWebsite}
               plainContent={plainTextPostWebsite}
               shouldShowEditor={shouldShowWebsiteEditor.value}
@@ -93,7 +95,7 @@ class PositionDetailsContact extends Component {
           </div>
           <div className="usa-grid-full contact-section poc-section">
             <PositionTitleSubDescription
-              title="Point of Contact"
+              title="Point-of-contact"
               formattedContent={formattedPointOfContact}
               plainContent={plainTextPointOfContact}
               shouldShowEditor={shouldShowPocEditor.value}
@@ -103,8 +105,13 @@ class PositionDetailsContact extends Component {
             />
           </div>
         </div>
-        <div className="contact-container">
-          Updated Date: {formattedDate}
+        <div className={`contact-container ${!obcId ? 'no-button' : ''}`}>
+          Updated: {formattedDate}
+        </div>
+        <div className="offset-bid-button-container">
+          <div className="offset-bid-button-container-button">
+            { !!obcId && <ViewPostDataButton id={obcId} altStyle /> }
+          </div>
         </div>
       </div>
     );

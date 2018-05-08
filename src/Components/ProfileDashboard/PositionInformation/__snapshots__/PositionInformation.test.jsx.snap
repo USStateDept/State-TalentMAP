@@ -17,7 +17,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       className=""
       content={
         <StartEnd
-          end=""
+          end="10/10/2018"
           start="10/10/2016"
         />
       }
@@ -43,7 +43,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       className=""
       content="CONSTRUCTION ENGINEERING (6218)"
       sideBySide={false}
-      title="Skill Code"
+      title="Skill code"
       titleOnBottom={false}
     />
   </div>

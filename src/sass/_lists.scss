@@ -13,13 +13,14 @@ dl {
     dt,
     dd {
       display: table-cell;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       overflow: visible;
+      vertical-align: top;
       width: auto;
     }
 
     dt {
-      font-weight: 600;
+      font-weight: 500;
       white-space: nowrap;
     }
 

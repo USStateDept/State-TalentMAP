@@ -45,7 +45,6 @@ const HomePagePositionsList = ({ maxLength, positions, toggleFavorite, favorites
       positionList[j] = (
         <div className="usa-width-one-third condensed-card">
           <ResultsCondensedCard
-            key={p.id}
             favorites={favorites}
             toggleFavorite={toggleFavorite}
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { formatIdSpacing } from '../../utilities';
 
 class CheckBox extends Component {
   constructor(props) {
@@ -8,6 +9,12 @@ class CheckBox extends Component {
     this.state = {
       checked: { value: this.props.value },
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value !== this.props.value) {
+      this.setState({ checked: { value: nextProps.value } });
+    }
   }
 
   onCheck() {
@@ -19,20 +26,22 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { id, label, title, name, labelSrOnly, small, className } = this.props;
+    const { id, label, title, name, labelSrOnly, small, className, disabled } = this.props;
     const { checked } = this.state;
+    const formattedId = formatIdSpacing(id);
     return (
       <div className={`usa-grid-full ${className} tm-checkbox ${small ? 'tm-checkbox-small' : ''}`}>
         <input
           type="checkbox"
-          id={id}
+          id={formattedId}
           title={title}
           name={name}
           value={checked.value}
           onChange={() => this.onCheck()}
           checked={checked.value}
+          disabled={disabled}
         />
-        <label htmlFor={id}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
+        <label htmlFor={formattedId}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
       </div>
     );
   }
@@ -48,6 +57,7 @@ CheckBox.propTypes = {
   labelSrOnly: PropTypes.bool,
   small: PropTypes.bool,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {
@@ -57,6 +67,7 @@ CheckBox.defaultProps = {
   labelSrOnly: false,
   small: false,
   className: '',
+  disabled: false,
 };
 
 export default CheckBox;

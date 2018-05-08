@@ -1,5 +1,5 @@
-import queryString from 'query-string';
 import { merge } from 'lodash';
+import queryString from 'query-string';
 
 /**
  * Interface for Profile Menu Configuration
@@ -12,6 +12,7 @@ import { merge } from 'lodash';
  *    params?: { [key: string]: string; };
  *    toggleMenuSection?: boolean;
  *    expandedSection?: boolean;
+ *    roles?: Array<string>;
  *    isCDO?: boolean;
  *    isGlossaryEditor?: boolean;
  *    children?: Array<MenuItem>;
@@ -22,6 +23,7 @@ function MenuConfig(config) {
     const item$ = merge({
       toggleMenuSection: false,
       expandedSection: false,
+      roles: [],
       isCDO: false,
       isGlossaryEditor: false,
     }, item);
@@ -52,24 +54,31 @@ export const PROFILE_MENU = MenuConfig([
         route: '/profile/dashboard',
       },
       {
-        text: 'Bidder Portfolio',
-        route: '/profile/bidderportfolio',
-        isCDO: true,
-        params: {
-          type: 'all',
-        },
-      },
-      {
-        text: 'Bidder Tracker',
-        route: '/profile/bidtracker',
-      },
-      {
         text: 'Favorites',
         route: '/profile/favorites/',
       },
       {
         text: 'Saved Searches',
         route: '/profile/searches/',
+      },
+      {
+        text: 'Bid Tracker',
+        route: '/profile/bidtracker/',
+      },
+      {
+        text: 'Bid Cycles',
+        route: '/profile/cycles/',
+        roles: [
+          'bidcycle_admin',
+        ],
+      },
+      {
+        text: 'Bidder Portfolio',
+        route: '/profile/bidderportfolio',
+        isCDO: true,
+        params: {
+          type: 'all',
+        },
       },
     ],
   },
@@ -84,29 +93,6 @@ export const PROFILE_MENU = MenuConfig([
     icon: 'book',
     route: '/profile/glossaryeditor/',
     isGlossaryEditor: true,
-    params: {
-      type: 'all',
-    },
-  },
-  {
-    text: 'Inbox',
-    icon: 'comments-o',
-    route: '/profile/inbox/',
-  },
-  {
-    text: 'Notifications',
-    icon: 'globe',
-    route: '/profile/notifications/',
-  },
-  {
-    text: 'Contacts',
-    icon: 'users',
-    route: '/profile/contacts/',
-  },
-  {
-    text: 'Documents',
-    icon: 'file-text',
-    route: '/profile/documents/',
   },
 ]);
 

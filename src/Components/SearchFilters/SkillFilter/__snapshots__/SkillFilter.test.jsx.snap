@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkillFilterComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full tm-nested-accordions"
+>
+  <Accordion
+    className=""
+    isMultiselectable={false}
+  >
+    <AccordionItem
+      buttonClass="tm-nested-accordion-button"
+      childClass=""
+      className="accordion-content-small"
+      expanded={false}
+      id="skill-cone-accordion-1"
+      preContent={
+        <CheckBox
+          className="tm-checkbox-transparent"
+          cone={
+            Object {
+              "id": 1,
+              "name": "Cone1",
+            }
+          }
+          disabled={false}
+          id="select-all-cone-1"
+          label="Toggle filter by all positions with cone name Cone1"
+          labelSrOnly={true}
+          name=""
+          onCheckBoxClick={[Function]}
+          small={false}
+          title=""
+          value={false}
+        />
+      }
+      setAccordion={[Function]}
+      title="Cone1"
+      useIdClass={true}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <CheckBox
+          _id={1}
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName1-skill-1"
+          label="Name1"
+          labelSrOnly={false}
+          name="Name1"
+          onCheckBoxClick={[Function]}
+          selectionRef="skill"
+          small={false}
+          title="Name1"
+          value={false}
+        />
+      </div>
+    </AccordionItem>
+    <AccordionItem
+      buttonClass="tm-nested-accordion-button"
+      childClass=""
+      className="accordion-content-small"
+      expanded={false}
+      id="skill-cone-accordion-2"
+      preContent={
+        <CheckBox
+          className="tm-checkbox-transparent"
+          cone={
+            Object {
+              "id": 2,
+              "name": "Cone2",
+            }
+          }
+          disabled={false}
+          id="select-all-cone-2"
+          label="Toggle filter by all positions with cone name Cone2"
+          labelSrOnly={true}
+          name=""
+          onCheckBoxClick={[Function]}
+          small={false}
+          title=""
+          value={false}
+        />
+      }
+      setAccordion={[Function]}
+      title="Cone2"
+      useIdClass={true}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <CheckBox
+          _id={2}
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName2-skill-2"
+          label="Name2"
+          labelSrOnly={false}
+          name="Name2"
+          onCheckBoxClick={[Function]}
+          selectionRef="skill"
+          small={false}
+          title="Name2"
+          value={true}
+        />
+        <CheckBox
+          _id={3}
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName2-skill-2"
+          label="Name2"
+          labelSrOnly={false}
+          name="Name2"
+          onCheckBoxClick={[Function]}
+          selectionRef="skill"
+          small={false}
+          title="Name2"
+          value={false}
+        />
+      </div>
+    </AccordionItem>
+  </Accordion>
+</div>
+`;

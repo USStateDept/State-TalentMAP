@@ -10,28 +10,54 @@ class SaveNewSearchDialog extends Component {
     super(props);
     this.submitNewSavedSearch = this.submitNewSavedSearch.bind(this);
     this.submitUpdatedSavedSearch = this.submitUpdatedSavedSearch.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
+    this.state = {
+      type: 'enter',
+    };
+  }
+
+  onSubmit(e) {
+    const submit = this.isExisting ?
+      this.submitUpdatedSavedSearch :
+      this.submitNewSavedSearch;
+
+    submit(e);
+  }
+
+  get isExisting() {
+    const id = this.props.currentSavedSearch.id || 0;
+    return (id > 0);
   }
 
   submitNewSavedSearch(e) {
     this.props.onFormSubmit(e);
+    this.props.onCancel(e);
   }
 
   submitUpdatedSavedSearch(e) {
     this.props.onFormSubmit(e, this.props.currentSavedSearch.id);
+    this.props.onCancel(e);
   }
 
   render() {
-    const { onCancel, onTextChange,
-      newSavedSearchHasErrored, newSavedSearchSuccess, currentSavedSearch } = this.props;
-    const currentSearchExists = currentSavedSearch.id;
+    const {
+      onCancel,
+      onTextChange,
+      newSavedSearchHasErrored,
+      newSavedSearchSuccess,
+      currentSavedSearch,
+    } = this.props;
+
     // Check the "type" prop.
     // Setting this as an if statement allows us to easily add conditions if needed
     let inputType;
     if (newSavedSearchHasErrored) {
       inputType = 'error';
     }
+
     return (
-      <Form className="usa-grid-full saved-search-form" onFormSubmit={this.submitNewSavedSearch}>
+      <Form className="usa-grid-full saved-search-form" onFormSubmit={this.onSubmit}>
         <FieldSet
           className="saved-search-fieldset usa-width-one-half"
           legend="Add a new saved search"
@@ -39,7 +65,7 @@ class SaveNewSearchDialog extends Component {
         >
           <TextInput
             id="saved-search"
-            label="Name:"
+            label="Name"
             changeText={onTextChange}
             type={inputType}
             value={currentSavedSearch.name}
@@ -47,18 +73,29 @@ class SaveNewSearchDialog extends Component {
           />
         </FieldSet>
         <div className="saved-search-form-buttons">
-          <button className="saved-search-form-primary-button" type="submit">{ currentSearchExists ? 'Save As' : 'Save' }</button>
+          <button
+            type="button"
+            className="usa-button-secondary saved-search-form-secondary-button"
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="saved-search-form-primary-button"
+            onClick={this.submitNewSavedSearch}
+          >
+            { this.isExisting ? 'Save As' : 'Save' }
+          </button>
           {
-            currentSavedSearch.id ?
+            this.isExisting ?
               <button
                 className="saved-search-form-secondary-button"
                 onClick={this.submitUpdatedSavedSearch}
               >
                 Save
-              </button>
-              : null
+              </button> : null
           }
-          <button className="saved-search-form-secondary-button" onClick={onCancel}>Cancel</button>
         </div>
       </Form>
     );

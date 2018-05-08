@@ -103,7 +103,7 @@ $input-height: 40px;
   }
 
   legend {
-    text-transform: uppercase;
+    text-transform: capitalize;
   }
 
   .search-sub-text {
@@ -128,7 +128,7 @@ $input-height: 40px;
   }
 
   .Select-placeholder {
-    padding-top: 1px;
+    padding-top: 3px;
   }
 
   .results-search-bar {
@@ -142,9 +142,9 @@ $input-height: 40px;
 
   .search-submit-button {
     button {
-      font-size: .8em;
+      font-size: .9em;
       line-height: rem(16);
-      margin-top: 5px;
+      margin-top: 3px;
       min-width: 90px;
       padding: 12px 10px;
     }

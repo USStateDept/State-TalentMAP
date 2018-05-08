@@ -1,0 +1,16 @@
+.select-blue {
+  background-image: url('#{$asset-path}assets/img/angle-down-blue.svg');
+}
+
+.select-black {
+  background-image: url('#{$asset-path}assets/img/angle-down-black.svg');
+}
+
+.select-offset {
+  background-position-x: calc(100% - 8px);
+}
+
+select .select-small {
+  background-size: .7em;
+  padding: 0 1.5em 0 .7em;
+}

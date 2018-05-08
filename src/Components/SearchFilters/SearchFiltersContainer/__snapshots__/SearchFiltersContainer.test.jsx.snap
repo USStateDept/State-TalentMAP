@@ -6,29 +6,31 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     multiSelectFilterList={
       Array [
         Object {
-          "content": <div
-            className="usa-grid-full"
-          >
-            <MultiSelectFilter
-              item={
-                Object {
-                  "data": Array [
-                    Object {
-                      "isSelected": true,
-                    },
-                  ],
-                  "item": Object {
-                    "description": "skill",
-                    "selectionRef": "ref3",
-                    "title": "skill",
+          "content": <BureauFilter
+            item={
+              Object {
+                "data": Array [
+                  Object {
+                    "isSelected": true,
                   },
-                }
+                ],
+                "item": Object {
+                  "custom_description": "skill",
+                  "description": "skill",
+                  "selectionRef": "ref3",
+                  "title": "skill",
+                },
               }
-              queryParamToggle={[Function]}
-              queryProperty="code"
-            />
-          </div>,
-          "expanded": false,
+            }
+            queryParamToggle={[Function]}
+            queryParamUpdate={[Function]}
+            queryProperty="code"
+            skillCones={
+              Object {
+                "data": Array [],
+              }
+            }
+          />,
           "id": "accordion-skill",
           "title": "skill",
         },
@@ -37,6 +39,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             <MultiSelectFilter
+              groupAlpha={false}
               item={
                 Object {
                   "data": Array [
@@ -55,50 +58,75 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
               queryProperty="code"
             />
           </div>,
-          "expanded": false,
           "id": "accordion-grade",
           "title": "grade",
         },
         Object {
-          "content": <div
-            className="usa-grid-full"
-          >
-            <AutoSuggest
-              customInputProps={Object {}}
-              debounceMillis={350}
-              displayProperty="location"
-              getSuggestions={[Function]}
-              id="post-autosuggest-container"
-              inputId="post-autosuggest-input"
-              label="post name"
-              labelSrOnly={true}
-              onSuggestionSelected={[Function]}
-              onSuggestionsClearRequested={[Function]}
-              placeholder="Start typing a post"
-              queryProperty="id"
-              suggestionTemplate={[Function]}
-              suggestions={Array []}
-            />
-            <MultiSelectFilter
-              item={
-                Object {
-                  "data": Array [
-                    Object {
-                      "isSelected": true,
-                    },
-                  ],
-                  "item": Object {
-                    "description": "post",
-                    "selectionRef": "ref2",
-                    "title": "post",
-                  },
-                }
+          "content": <BureauFilter
+            functionalBureaus={
+              Object {
+                "data": Array [],
               }
-              queryParamToggle={[Function]}
-              queryProperty="_id"
-            />
-          </div>,
-          "expanded": false,
+            }
+            item={
+              Object {
+                "data": Array [
+                  Object {
+                    "isSelected": false,
+                    "long_description": "test",
+                    "short_description": "test",
+                  },
+                ],
+                "item": Object {
+                  "description": "region",
+                  "selectionRef": "ref5",
+                  "title": "region",
+                },
+              }
+            }
+            queryParamToggle={[Function]}
+            queryProperty="code"
+          />,
+          "id": "accordion-region",
+          "title": "region",
+        },
+        Object {
+          "content": <PostFilter
+            autoSuggestProps={
+              Object {
+                "displayProperty": [Function],
+                "getSuggestions": [Function],
+                "id": "post-autosuggest-container",
+                "inputId": "post-autosuggest-input",
+                "label": "Search posts",
+                "labelSrOnly": false,
+                "onSuggestionSelected": [Function],
+                "placeholder": "Start typing a post",
+                "queryProperty": "id",
+                "suggestionTemplate": [Function],
+                "suggestions": Array [],
+              }
+            }
+            domesticIsSelected={false}
+            item={
+              Object {
+                "data": Array [
+                  Object {
+                    "isSelected": true,
+                  },
+                ],
+                "item": Object {
+                  "description": "post",
+                  "selectionRef": "ref2",
+                  "title": "post",
+                },
+              }
+            }
+            overseasIsSelected={false}
+            queryParamToggle={[Function]}
+            queryParamUpdate={[Function]}
+            queryProperty="_id"
+          />,
           "id": "accordion-post",
           "title": "post",
         },
@@ -107,35 +135,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             className="usa-grid-full"
           >
             <MultiSelectFilter
-              item={
-                Object {
-                  "data": Array [
-                    Object {
-                      "isSelected": false,
-                      "long_description": "test",
-                      "short_description": "test",
-                    },
-                  ],
-                  "item": Object {
-                    "description": "region",
-                    "selectionRef": "ref5",
-                    "title": "region",
-                  },
-                }
-              }
-              queryParamToggle={[Function]}
-              queryProperty="code"
-            />
-          </div>,
-          "expanded": false,
-          "id": "accordion-region",
-          "title": "region",
-        },
-        Object {
-          "content": <div
-            className="usa-grid-full"
-          >
-            <MultiSelectFilter
+              groupAlpha={false}
               item={
                 Object {
                   "data": Array [
@@ -145,7 +145,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   ],
                   "item": Object {
                     "description": "tod",
-                    "selectionRef": "ref3",
+                    "selectionRef": "reftod",
                     "title": "tod",
                   },
                 }
@@ -154,7 +154,6 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
               queryProperty="code"
             />
           </div>,
-          "expanded": false,
           "id": "accordion-tod",
           "title": "tod",
         },
@@ -162,23 +161,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "content": <div
             className="usa-grid-full"
           >
-            <AutoSuggest
-              customInputProps={Object {}}
-              debounceMillis={350}
-              displayProperty="short_name"
-              getSuggestions={[Function]}
-              id="mission-autosuggest-container"
-              inputId="mission-autosuggest-input"
-              label="mission name"
-              labelSrOnly={true}
-              onSuggestionSelected={[Function]}
-              onSuggestionsClearRequested={[Function]}
-              placeholder="Start typing a mission"
-              queryProperty="id"
-              suggestionTemplate={[Function]}
-              suggestions={Array []}
-            />
             <MultiSelectFilter
+              groupAlpha={false}
               item={
                 Object {
                   "data": Array [
@@ -187,44 +171,23 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                     },
                   ],
                   "item": Object {
-                    "description": "mission",
-                    "selectionRef": "ref3",
-                    "title": "mission",
+                    "custom_description": "language 1",
+                    "description": "language",
+                    "selectionRef": "refLan",
+                    "title": "skill",
                   },
                 }
               }
               queryParamToggle={[Function]}
-              queryProperty="_id"
+              queryProperty="code"
             />
           </div>,
-          "expanded": false,
-          "id": "accordion-mission",
-          "title": "mission",
-        },
-        Object {
-          "content": <LanguageFilter
-            item={
-              Object {
-                "item": Object {},
-              }
-            }
-            queryParamUpdate={[Function]}
-            selectedAccordion={
-              Object {
-                "main": "",
-                "sub": "",
-              }
-            }
-            setAccordion={[Function]}
-          />,
-          "expanded": false,
-          "id": "accordion-undefined",
-          "title": undefined,
+          "id": "accordion-skill",
+          "title": "skill",
         },
       ]
     }
     queryParamToggle={[Function]}
-    setAccordion={[Function]}
   />
   <div
     className="boolean-filter-container"
