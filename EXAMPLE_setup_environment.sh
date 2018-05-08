@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Set environment
+# Set environment.
+# This should not be set to 'production' when installing dependencies,
+# otherwise dev dependencies required by the build process will not install.
 export NODE_ENV=production
 
 # Set authentication mode
@@ -27,7 +29,7 @@ export OBC_URL=http://localhost:4000/
 
 # External link to the About page
 # Default - local test value https://github.com/18F/State-TalentMAP
-export ABOUT_PAGE=https://github.com/18F/State-TalentMAP 
+export ABOUT_PAGE=https://github.com/18F/State-TalentMAP
 
 # SAML configuration
 
