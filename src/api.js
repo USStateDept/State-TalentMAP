@@ -2,9 +2,15 @@ import axios from 'axios';
 import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect } from './utilities';
 import { authRequest } from './login/actions';
 
+
+const baseURL = (process.env.NODE_ENV === 'test') ? 'http://localhost:8000' : '';
 export const config = {
-  baseURL: '/api/v1',
+  baseURL: `${baseURL}/api/v1`,
 };
+
+if (process.env.NODE_ENV === 'test') {
+  axios.defaults.port = 3000;
+}
 
 const api = axios.create(config);
 
