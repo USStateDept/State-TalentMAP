@@ -150,7 +150,6 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
-        as="div"
         className=""
         loading={false}
         onChange={[Function]}
@@ -373,7 +372,6 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
-        as="div"
         className=""
         loading={false}
         onChange={[Function]}
@@ -574,7 +572,6 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
-        as="div"
         className=""
         loading={false}
         onChange={[Function]}
