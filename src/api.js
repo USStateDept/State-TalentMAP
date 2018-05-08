@@ -3,7 +3,7 @@ import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect }
 import { authRequest } from './login/actions';
 
 export const config = {
-  baseURL: process.env.API_URL || 'http://localhost:8000/api/v1',
+  baseURL: '/api/v1',
 };
 
 const api = axios.create(config);

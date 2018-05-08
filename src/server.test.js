@@ -3,11 +3,20 @@ const proxyServer = require('../scripts/server').server;
 
 describe('proxy server routes', () => {
   let server;
+  let tmp; // Store old value for PUBLIC_URL
+
+  beforeAll(() => {
+    tmp = process.env.PUBLIC_URL;
+    process.env.PUBLIC_URL = '/talentmap/';
+  });
 
   beforeEach(() => {
     server = proxyServer;
   });
 
+  /**
+   * Main Routes
+   */
   it('responds to GET /talentmap/', (done) => {
     request(server).get('/talentmap/').expect(200, done);
   });
@@ -32,7 +41,9 @@ describe('proxy server routes', () => {
     request(server).post('/talentmap/login').expect(200, done);
   });
 
-  // OBC
+  /**
+   * OBC Routes
+   */
   it('redirects on GET /talentmap/obc/country/42', (done) => {
     request(server).get('/talentmap/obc/country/42').expect(302, done);
   });
@@ -45,6 +56,9 @@ describe('proxy server routes', () => {
     request(server).get('/talentmap/obc/post/42').expect(302, done);
   });
 
+  /**
+   * About Routes
+   */
   it('redirects on /talentmap/about/more', (done) => {
     request(server).get('/talentmap/about/more').expect(302, done);
   });
@@ -52,5 +66,9 @@ describe('proxy server routes', () => {
   afterEach(() => {
     // close the server after each test so that jest exits
     server.close();
+  });
+
+  afterAll(() => {
+    process.env.PUBLIC_URL = tmp;
   });
 });

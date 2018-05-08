@@ -28,5 +28,6 @@ exclude_patterns:
 - node_modules/
 - config/ # build configuration
 - scripts/ # build & utility scripts
+- public/ # Public Assets and Templates
 - src/__mocks__/ # test objects
 - src/Constants/PropTypes.js # shape definitions

@@ -3,7 +3,9 @@ const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
 const helmet = require('helmet');
 const path = require('path');
+const proxy = require('http-proxy-middleware');
 const routesArray = require('./routes.js');
+
 const { metadata, login } = require('./saml2-config');
 
 /**
@@ -129,12 +131,55 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   // path to external about page
   const ABOUT_PAGE = getEnv('ABOUT_PAGE');
 
-  // set up logger
-  const logger = bunyan.createLogger({ name: 'TalentMAP' });
+  /**
+   * API Proxy
+   */
+  const apiProxy = proxy({
+    target: getEnv('API_ROOT'),
+    changeOrigin: true,
+    logLevel: getEnv('DEBUG') ? 'debug' : 'silent',
+    protocolRewrite: true,
+    router: {
+      'http://localhost:3000': 'http://localhost:8000',
+    },
+  });
 
-  // logging middleware
+  app.use(`${PUBLIC_URL}api`, apiProxy);
+
+  /**
+   * Body Parser
+   */
+  app.use(bodyParser.urlencoded({
+    extended: false,
+  }));
+
+  /**
+   * Remove X-Powered-By
+   */
+  app.disable('x-powered-by');
+
+  /**
+   * HTTP Headers
+   */
+  app.use(helmet());
+  app.use(helmet.noCache());
+
+  /**
+   * Static Assets
+   */
+  if (!cache.WEBPACK) {
+    app.use(PUBLIC_URL, express.static(STATIC_PATH));
+  }
+
+  app.use(bodyParser.urlencoded({
+    extended: true,
+  }));
+
+  /**
+   * Logger
+   */
+  const logger = bunyan.createLogger({ name: 'TalentMAP' });
   const loggingMiddleware = (request, response, next) => {
-    // object to log
     const log = {
       method: request.method,
       headers: request.headers,
@@ -157,29 +202,12 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     next();
   };
 
-  // body parser
-  app.use(bodyParser.urlencoded({ extended: false }));
-
-  // remove 'X-Powered-By' header
-  app.disable('x-powered-by');
-
-  // middleware for HTTP headers
-  app.use(helmet());
-  app.use(helmet.noCache());
-
-  // middleware for static assets
-  if (!(cache.WEBPACK || cache.TEST)) {
-    app.use(PUBLIC_URL, express.static(STATIC_PATH));
-  }
-
-  app.use(bodyParser.urlencoded({
-    extended: true,
-  }));
-
-  // middleware for logging
   app.use(loggingMiddleware);
 
-  // saml2 acs
+  /**
+   * SAML
+   */
+  // ACS
   app.post(PUBLIC_URL, (request, response, next) => {
     if (isSAML(request)) {
       response.redirect(307, getSAMLRoute('login'));
@@ -188,7 +216,7 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     }
   });
 
-  // saml2 login
+  // Login
   app.get(`${PUBLIC_URL}login`, (request, response, next) => {
     // create handler
     // eslint-disable-next-line no-unused-vars
@@ -212,6 +240,7 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     }
   });
 
+  // Logout
   app.get(`${PUBLIC_URL}logout`, (request, response, next) => {
     if (isSAML(request)) {
       if (isProd()) {
@@ -225,16 +254,15 @@ const TalentMAPMiddleware = (app, compiler = null) => {
   });
 
   // saml2 metadata
-  app.get(`${PUBLIC_URL}metadata`, (request, response, next) => {
-    if (isSAML(request)) {
-      response.type('application/xml');
-      response.send(metadata);
-    } else {
-      next();
-    }
+  app.get(`${PUBLIC_URL}metadata`, (request, response) => {
+    response.type('application/xml');
+    response.send(metadata);
   });
 
-  // OBC redirect - post data detail
+  /**
+   * OBC Routes
+   */
+  // redirect - post data detail
   // endpoint for post-specific data points
   app.get(`${PUBLIC_URL}obc/post/data/:id`, (request, response) => {
     // set the id passed in the route and pass it to the redirect
@@ -242,7 +270,7 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     response.redirect(`${OBC_URL}/post/postdatadetails/${id}`);
   });
 
-  // OBC redirect - posts
+  // redirect - posts
   // endpoint for post, ie landing page
   app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
     // set the id passed in the route and pass it to the redirect
@@ -250,7 +278,7 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     response.redirect(`${OBC_URL}/post/detail/${id}`);
   });
 
-  // OBC redirect - countries
+  // redirect - countries
   // endpoint for country, ie landing page
   app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
     // set the id passed in the route and pass it to the redirect
@@ -258,10 +286,16 @@ const TalentMAPMiddleware = (app, compiler = null) => {
     response.redirect(`${OBC_URL}/country/detail/${id}`);
   });
 
+  /**
+   * About Routes
+   */
   app.get(`${PUBLIC_URL}about/more`, (request, response) => {
     response.redirect(`${ABOUT_PAGE}`);
   });
 
+  /**
+   * Main Routes
+   */
   if (!cache.WEBPACK) {
     if (!cache.TEST) {
       app.get(ROUTES, (request, response) => {
@@ -272,13 +306,13 @@ const TalentMAPMiddleware = (app, compiler = null) => {
       app.get('*', (request, response) => {
         response.sendStatus(404).end();
       });
-    } else {
+    }/* else {
       app.use('/talentmap', (request, response) => {
         const filename = path.resolve('./public/index.html');
         response.sendFile(filename);
         response.sendStatus(200);
       });
-    }
+    } */
   }
 
   return app;

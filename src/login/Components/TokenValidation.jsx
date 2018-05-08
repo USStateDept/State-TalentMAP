@@ -11,8 +11,7 @@ import { initialState } from '../reducer';
 export class TokenValidation extends Component {
   // Check for token on component mount
   componentWillMount() {
-    const query = window.location.search.replace('?', '') || '';
-    const parsedQuery = queryString.parse(query);
+    const parsedQuery = queryString.parse(window.location.search);
     // First check to see if there's a token in the query params.
     let token = parsedQuery.tmApiToken;
     // If not, check if one exists in the cookies.

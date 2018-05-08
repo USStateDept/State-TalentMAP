@@ -53,11 +53,13 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 
 // Grab NODE_ENV and REACT_APP_* environment variables and prepare them to be
 // injected into the application via DefinePlugin in Webpack configuration.
+const loginModeFallback = (NODE_ENV === 'production') ? 'saml' : 'basic';
+
 const REACT_APP = /^REACT_APP_/i;
 const ENV = NODE_ENV || 'development';
 const ABOUT_URL = (NODE_ENV === 'development') ? 'https://github.com/18F/State-TalentMAP' : `${process.env.PUBLIC_URL}about`;
-const LOGIN_MODE = process.env.LOGIN_MODE || 'basic';
-const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
+const LOGIN_MODE = process.env.LOGIN_MODE || loginModeFallback;
+const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 
 function getClientEnvironment(publicUrl) {
   const initial = {
@@ -71,7 +73,7 @@ function getClientEnvironment(publicUrl) {
     PUBLIC_URL: publicUrl,
     ABOUT_URL,
     LOGIN_MODE,
-    API_URL,
+    API_ROOT,
   };
 
   const raw = Object.keys(process.env)
