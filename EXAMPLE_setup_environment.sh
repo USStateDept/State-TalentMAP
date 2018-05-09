@@ -20,6 +20,11 @@ export STATIC_PATH=/var/www/html/talentmap/
 export API_ROOT=http://localhost:8000/
 export API_URL=http://localhost:8000/api/v1
 
+# Port number for the Express web application
+# This is important in shared environments
+# Default - 3000
+export PORT=3000
+
 # Protocol, hostname and port of OBC,
 # which provides post and country details
 # Default - local test value http://localhost:4000/
