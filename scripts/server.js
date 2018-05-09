@@ -8,7 +8,7 @@ const port = TalentMAPMiddleware.getEnv('PORT');
 const server = app.listen(port);
 
 if(process.env.NODE_ENV !== 'test') {
-  const name =  chalk`{hex('#005faf') Talent}{hex('#1873B7').bold MAP}`;
+  const name =  chalk`{bold.hsl(208,90,64) Talent}{hsl(234,82,30) MAP}`
 
   let message = [
     `${chalk.green('Server started successfully!')}`,
