@@ -1,9 +1,8 @@
 # United States Department of State TalentMAP
 
-[![Build Status](https://circleci.com/gh/18F/State-TalentMAP.svg?style=shield)](https://circleci.com/gh/18F/State-TalentMAP/)
-[![Test Coverage](https://codeclimate.com/github/18F/State-TalentMAP/badges/coverage.svg)](https://codeclimate.com/github/18F/State-TalentMAP/coverage)
-[![Code Climate](https://codeclimate.com/github/18F/State-TalentMAP/badges/gpa.svg)](https://codeclimate.com/github/18F/State-TalentMAP)
-[![Dependency Status](https://gemnasium.com/badges/github.com/18F/State-TalentMAP.svg)](https://gemnasium.com/github.com/18F/State-TalentMAP)
+[![Build Status](https://circleci.com/gh/MetaPhase-Consulting/State-TalentMAP.svg?style=shield)](https://circleci.com/gh/MetaPhase-Consulting/State-TalentMAP/)
+[![Test Coverage](https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/badges/coverage.svg)](https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/coverage)
+[![Code Climate](https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/badges/gpa.svg)](https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP)
 
 A comprehensive research, bidding, and matching system to match Foreign Service employees with the right skills to available posts and positions.
 
@@ -23,7 +22,7 @@ We use [EditorConfig](http://editorconfig.org/) to ensure consistency across fil
 
 ### TalentMAP API
 
-You will need the [State TalentMAP API](https://github.com/18F/State-TalentMAP-API) running locally in order for this application to make requests to the API.
+You will need the [State TalentMAP API](https://github.com/MetaPhase-Consulting/State-TalentMAP-API) running locally in order for this application to make requests to the API.
 
 ### React Application
 
@@ -58,7 +57,7 @@ The front end application is Dockerized and available in a `docker-compose` stac
 
 ## Deploying
 
-There is a brief deployment guide [here](DEPLOY.md) that discusses deployment up the front end application.  For more thorough intructions, including the API, checkout out the [wiki](https://github.com/18F/State-TalentMAP/wiki/Deployment-Guide).
+There is a brief deployment guide [here](DEPLOY.md) that discusses deployment up the front end application.  For more thorough intructions, including the API, checkout out the [wiki](https://github.com/MetaPhase-Consulting/State-TalentMAP/wiki/Deployment-Guide).
 
 ## Accessibility
 
