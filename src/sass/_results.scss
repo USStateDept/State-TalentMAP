@@ -43,6 +43,7 @@ $results-container-width: 100% - $filter-container-width;
   padding: 1.1rem;
 
   .bid-count-container {
+    float: right;
     font-size: .95em;
 
     .bid-count-label {
@@ -238,10 +239,6 @@ $results-container-width: 100% - $filter-container-width;
       font-size: rem(12px);
       line-height: rem(14px);
     }
-  }
-
-  .bid-count-container {
-    float: right;
   }
 
   .section-title {
