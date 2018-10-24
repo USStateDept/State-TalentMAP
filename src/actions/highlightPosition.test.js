@@ -21,6 +21,21 @@ describe('GET all highlighted position actions - /position/highlighted', () => {
     };
     f();
   });
+
+  it('can get highlight positions - handle error', (done) => {
+    mockAdapter.onGet('/position/highlighted/').reply(500);
+
+    const store = mockStore({ results: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.highlightPositionFetchData());
+        store.dispatch(actions.highlightPositionIsLoading(false));
+        done();
+      }, 0);
+    };
+    f();
+  });
 });
 
 describe('GET single highlighted position actions - position/:id/highlight/', () => {
@@ -31,7 +46,22 @@ describe('GET single highlighted position actions - position/:id/highlight/', ()
     mockAdapter.onGet(`/position/${positionID}/highlight/`).reply(200, {});
   });
 
-  it('can get highlight positions', (done) => {
+  it('can get a single highlight position', (done) => {
+    const store = mockStore({ results: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.getHighlightedPosition(positionID));
+        store.dispatch(actions.highlightPositionIsLoading(false));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can get a single highlight position - handle error', (done) => {
+    mockAdapter.onGet(`/position/${positionID}/highlight/`).reply(500);
+
     const store = mockStore({ results: [] });
 
     const f = () => {
@@ -53,7 +83,22 @@ describe('PUT single highlighted position actions - /position/:id/highlight/', (
     mockAdapter.onPut(`/position/${positionID}/highlight/`).reply(200, {});
   });
 
-  it('can get highlight positions', (done) => {
+  it('can put a highlight position', (done) => {
+    const store = mockStore({ results: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.putHighlightedPosition(positionID));
+        store.dispatch(actions.highlightPositionIsLoading(false));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can put a highlight position - handle error', (done) => {
+    mockAdapter.onPut(`/position/${positionID}/highlight/`).reply(500);
+
     const store = mockStore({ results: [] });
 
     const f = () => {
@@ -75,7 +120,22 @@ describe('DELETE single highlighted position actions - /position/:id/highlight/'
     mockAdapter.onDelete(`position/${positionID}/highlight/`).reply(200, {});
   });
 
-  it('can get highlight positions', (done) => {
+  it('can delete a highlight position', (done) => {
+    const store = mockStore({ results: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.deleteHighlightPosition(positionID));
+        store.dispatch(actions.highlightPositionIsLoading(false));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can delete a highlight position - handle error', (done) => {
+    mockAdapter.onDelete(`position/${positionID}/highlight/`).reply(500);
+
     const store = mockStore({ results: [] });
 
     const f = () => {
