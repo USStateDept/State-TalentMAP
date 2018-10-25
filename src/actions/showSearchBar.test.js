@@ -9,6 +9,11 @@ describe('showSearchBar actions', () => {
     store.dispatch(actions.toggleSearchBar(true));
   });
 
+  it('can call the toggleSearchBar function with default parameter', () => {
+    const store = mockStore({ shouldShowSearchBar: false });
+    store.dispatch(actions.toggleSearchBar());
+  });
+
   it('can call the toggleSearchBar function with show = false', () => {
     const store = mockStore({ shouldShowSearchBar: false });
     store.dispatch(actions.toggleSearchBar(false));
