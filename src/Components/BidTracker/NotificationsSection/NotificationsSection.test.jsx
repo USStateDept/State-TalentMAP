@@ -72,7 +72,7 @@ describe('NotificationsSectionComponent', () => {
 
   it('matches snapshot when tags contains "declined"', () => {
     const newNotifications = { ...notificationsObject };
-    newNotifications.results[0].tags = ['declined'];
+    newNotifications.results[0].tags = ['bidding', 'declined'];
     const wrapper = shallow(
       <NotificationsSection
         notifications={newNotifications}
