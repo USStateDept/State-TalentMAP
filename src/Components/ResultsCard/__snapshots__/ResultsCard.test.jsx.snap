@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsCardComponent can receive default values from result 1`] = `
+exports[`ResultsCardComponent matches snapshot 1`] = `
 <MediaQueryWrapper
   breakpoint="screenMdMax"
   widthType="max"
 />
 `;
 
-exports[`ResultsCardComponent matches snapshot 1`] = `
+exports[`ResultsCardComponent matches snapshot with empty result 1`] = `
 <MediaQueryWrapper
   breakpoint="screenMdMax"
   widthType="max"
