@@ -70,4 +70,19 @@ describe('ResultsCardComponent', () => {
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot with empty result', () => {
+    wrapper = shallow(
+      <ResultsCard
+        id={1}
+        result={{ id: 1 }}
+        onToggle={() => {}}
+        toggleFavorite={() => {}}
+        userProfileFavoritePositionIsLoading={false}
+        userProfileFavoritePositionHasErrored={false}
+        toggleBid={() => {}}
+        bidList={[]}
+      />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });
