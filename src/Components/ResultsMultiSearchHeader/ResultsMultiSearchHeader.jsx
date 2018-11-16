@@ -62,20 +62,30 @@ class ResultsMultiSearchHeader extends Component {
     this.setState({ q: e.target.value, qWasUpdated: true }, this.filterChange);
   }
 
+  setupSkills(defaultSkills) {
+    const { skillsWasUpdated } = this.state;
+    // set skills to correct state
+    if (!skillsWasUpdated && defaultSkills) {
+      const mappedDefaultSkills = defaultSkills.length ?
+        // map the skills as either a string or an object property 'code'
+        defaultSkills.slice().map(s => ({ code: s.code || s })) : [];
+      this.setState({ [SKILL_PARAM]: mappedDefaultSkills });
+    }
+  }
+
   // Setup default values only once so that we can mount the component while waiting
   // for async actions to complete. We'll also save state in redux so that the component can be
   // unmounted and remounted and maintain state. This is useful for responsively rendering this
   // component while maintaining the selected filters. We also have to balance that
   // with loading the user's defaults, but only on the initial page load.
   setupDefaultValues(props) {
-    const { skillsWasUpdated, gradeWasUpdated, qWasUpdated, bureauWasUpdated } = this.state;
-    const { userProfile, defaultFilters } = props;
+    const { gradeWasUpdated, qWasUpdated, bureauWasUpdated } = this.state;
+    const { userProfile: { grade, bureau, skills }, defaultFilters } = props;
 
     // set default values for our filters
-    const defaultGrade = defaultFilters[GRADE_PARAM] || userProfile.grade;
-    const defaultBureau = defaultFilters[BUREAU_PARAM] || userProfile.bureau;
+    const defaultGrade = defaultFilters[GRADE_PARAM] || grade;
+    const defaultBureau = defaultFilters[BUREAU_PARAM] || bureau;
     const defaultQuery = defaultFilters.q;
-    const defaultSkills = defaultFilters[SKILL_PARAM] || userProfile.skills;
 
     // set keyword to correct state
     if (!qWasUpdated && defaultQuery) {
@@ -92,13 +102,7 @@ class ResultsMultiSearchHeader extends Component {
       this.setState({ defaultBureau, bureauWasUpdated: true });
     }
 
-    // set skills to correct state
-    if (!skillsWasUpdated && (userProfile.skills || defaultFilters[SKILL_PARAM])) {
-      const mappedDefaultSkills = defaultSkills.length ?
-        // map the skills as either a string or an object property 'code'
-        defaultSkills.slice().map(s => ({ code: s.code || s })) : [];
-      this.setState({ [SKILL_PARAM]: mappedDefaultSkills });
-    }
+    this.setupSkills(skills || defaultFilters[SKILL_PARAM]);
   }
 
   formatQuery() {
