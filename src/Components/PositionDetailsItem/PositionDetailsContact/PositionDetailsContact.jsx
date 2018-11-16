@@ -52,26 +52,39 @@ class PositionDetailsContact extends Component {
     this.props.editPocContent(content);
     this.togglePocEditor();
   }
+  // For each editable section, we need to set three variables:
+  // 1. To check if it exists (not null)
+  // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
+  // 3. A formatted version for public viewing
 
-  render() {
+  get postWebsite() {
     const { details } = this.props;
-    const { shouldShowWebsiteEditor, shouldShowPocEditor,
-      newWebsiteContent, newPocContent } = this.state;
-
-    // For each editable section, we need to set three variables:
-    // 1. To check if it exists (not null)
-    // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
-    // 3. A formatted version for public viewing
+    const { newWebsiteContent } = this.state;
     const postWebsite = propOrDefault(details, 'description.website');
     const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : newWebsiteContent.value || '';
     const formattedPostWebsite = postWebsite || newWebsiteContent.value ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
     NO_POSITION_WEB_SITE;
 
+    return { plainTextPostWebsite, formattedPostWebsite };
+  }
+
+  get pointOfContact() {
+    const { details } = this.props;
+    const { newPocContent } = this.state;
     const pointOfContact = propOrDefault(details, 'description.point_of_contact');
     const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : newPocContent.value || '';
     const formattedPointOfContact = pointOfContact || newPocContent.value ?
       plainTextPointOfContact : NO_POSITION_POC;
+    return { plainTextPointOfContact, formattedPointOfContact };
+  }
+
+  render() {
+    const { details } = this.props;
+    const { shouldShowWebsiteEditor, shouldShowPocEditor } = this.state;
+
+    const { plainTextPostWebsite, formattedPostWebsite } = this.postWebsite;
+    const { plainTextPointOfContact, formattedPointOfContact } = this.pointOfContact;
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
