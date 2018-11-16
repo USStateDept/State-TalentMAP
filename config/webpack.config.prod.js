@@ -336,6 +336,7 @@ module.exports = {
     new LodashModuleReplacementPlugin({
       collections: true,
       paths: true,
+      shorthands: true,
     }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
