@@ -96,46 +96,10 @@ class Favorite extends Component {
     return getText$(state, Types.TITLE);
   }
 
-  toggleSaved() {
-    const { onToggle, refKey } = this.props;
+  get classNames() {
+    const { hasBorder, useButtonClass, useButtonClassSecondary, hideText, className } = this.props;
 
-    this.setState({
-      loading: true,
-      alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
-        this position ${this.getSavedState() ? 'from' : 'to'} your favorites list.`,
-    });
-
-    // pass the key and the "remove" param
-    onToggle(refKey, this.getSavedState());
-  }
-
-  render() {
-    const { loading } = this.state;
-    const {
-      as: type,
-      className,
-      hasBorder,
-      useButtonClass,
-      useButtonClassSecondary,
-      useSpinnerWhite,
-      hideText,
-    } = this.props;
-
-    const icon = this.icon;
-    const title = this.title;
-    const onClick = this.toggleSaved;
-    const style = {
-      pointerEvents: loading ? 'none' : 'inherit',
-    };
-
-    const options = {
-      type,
-      title,
-      style,
-      onClick,
-    };
-
-    let classNames = ['favorite-container'];
+    const classNames = ['favorite-container'];
 
     // Class configs
     if (hasBorder && !useButtonClass) {
@@ -155,15 +119,51 @@ class Favorite extends Component {
     }
 
     classNames.push(className);
-    classNames = classNames
-      .join(' ')
-      .trim();
 
-    options.className = classNames;
+    return classNames;
+  }
+
+  get spinnerClass() {
+    const { useButtonClass, useSpinnerWhite, useButtonClassSecondary } = this.props;
     let spinnerClass = 'ds-c-spinner';
     if (useButtonClass || useSpinnerWhite) {
       spinnerClass = `${spinnerClass} ${useButtonClassSecondary ? 'spinner-blue' : 'spinner-white'}`;
     }
+    return spinnerClass;
+  }
+
+  toggleSaved() {
+    const { onToggle, refKey } = this.props;
+
+    this.setState({
+      loading: true,
+      alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
+        this position ${this.getSavedState() ? 'from' : 'to'} your favorites list.`,
+    });
+
+    // pass the key and the "remove" param
+    onToggle(refKey, this.getSavedState());
+  }
+
+  render() {
+    const { loading } = this.state;
+    const { as: type } = this.props;
+
+    const icon = this.icon;
+    const title = this.title;
+    const onClick = this.toggleSaved;
+    const style = {
+      pointerEvents: loading ? 'none' : 'inherit',
+    };
+
+    const options = {
+      type,
+      title,
+      style,
+      onClick,
+    };
+
+    options.className = this.classNames.join(' ').trim();
 
     return (
       <span>
@@ -173,7 +173,7 @@ class Favorite extends Component {
         }
         <InteractiveElement {...options}>
           {loading ?
-            (<span className={spinnerClass} />) :
+            (<span className={this.spinnerClass} />) :
             (<FontAwesome name={icon} />)}
           <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
             {matches => (

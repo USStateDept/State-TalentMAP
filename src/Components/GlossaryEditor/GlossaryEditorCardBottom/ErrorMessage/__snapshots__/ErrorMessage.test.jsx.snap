@@ -2,6 +2,15 @@
 
 exports[`ErrorMessageComponent matches snapshot 1`] = `null`;
 
+exports[`ErrorMessageComponent matches snapshot when error is not an object 1`] = `
+<span
+  className="usa-input-error-message"
+  role="alert"
+>
+  Error updating term.
+</span>
+`;
+
 exports[`ErrorMessageComponent matches snapshot when showEmptyWarning is true 1`] = `
 <span
   className="usa-input-error-message"

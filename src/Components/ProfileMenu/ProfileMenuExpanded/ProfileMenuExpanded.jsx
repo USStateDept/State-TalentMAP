@@ -9,28 +9,36 @@ import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../../Constants/Default
 import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import { PROFILE_MENU } from '../../../Constants/Menu';
 
+function isHidden(options, roles, params) {
+  const hasMissingRoles = difference(options.roles, roles).length > 0;
+  return (options.isCDO && !params.isCDO) ||
+    (options.isGlossaryEditor && !params.isGlossaryEditor) || hasMissingRoles;
+}
+
+function getParamValueIfOption(option, param) {
+  return option && param;
+}
+
 function getProps(options, roles, params = {}) {
-  const missingRoles = difference(options.roles, roles);
   const props = {
     title: options.text,
     iconName: options.icon,
     link: options.route,
     search: (options.params || ''),
-    hidden: (options.isCDO && !params.isCDO) ||
-            (options.isGlossaryEditor && !params.isGlossaryEditor) ||
-            (missingRoles.length > 0),
+    hidden: isHidden(options, roles, params),
   };
 
   if (options.toggleMenuSection || options.expandedSection) {
     delete props.link;
 
-    if (options.toggleMenuSection) {
-      props.toggleMenuSection = params.toggleMenuSection;
-    }
-
-    if (options.expandedSection) {
-      props.expandedSection = params.expandedSection;
-    }
+    props.toggleMenuSection = getParamValueIfOption(
+      options.toggleMenuSection,
+      params.toggleMenuSection,
+    );
+    props.expandedSection = getParamValueIfOption(
+      options.expandedSection,
+      params.expandedSection,
+    );
   }
 
   return props;
