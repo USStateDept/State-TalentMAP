@@ -48,6 +48,30 @@ class GlossaryEditorCard extends Component {
     return !isEmpty(newTitle) && !isEmpty(newDefinition);
   }
 
+  get editorClasses() {
+    const { isNewTerm } = this.props;
+    const { editorHidden } = this.state;
+    const shouldHideEditor = editorHidden && !isNewTerm;
+    const editorHiddenClass = shouldHideEditor ? 'editor-hidden' : 'editor-visible';
+    const editorContainerHiddenClass = shouldHideEditor ? 'editor-container-hidden' : 'editor-container-visible';
+    const definitionContainerClass = shouldHideEditor ? 'editor-hidden--definition' : 'editor-visible--definition';
+    const titleContainerClass = shouldHideEditor ? 'editor-hidden--title' : 'editor-visible--title';
+
+    return {
+      editorHiddenClass,
+      editorContainerHiddenClass,
+      definitionContainerClass,
+      titleContainerClass,
+    };
+  }
+
+  get showEmptyWarning() {
+    const { displayZeroLengthAlert } = this.state;
+    const emptyTitleWarning = displayZeroLengthAlert.title;
+    const emptyDefinitionWarning = displayZeroLengthAlert.definition;
+    return emptyTitleWarning || emptyDefinitionWarning;
+  }
+
   toggleEditorState() {
     this.setState({ editorHidden: !this.state.editorHidden, displayZeroLengthAlert: false });
   }
@@ -113,21 +137,17 @@ class GlossaryEditorCard extends Component {
       editorHidden,
       newTitle,
       newDefinition,
-      displayZeroLengthAlert,
     } = this.state;
 
     const renderedTitle = newTitle || term.title;
     const renderedDefinition = newDefinition || term.definition;
-
     const shouldHideEditor = editorHidden && !isNewTerm;
-    const editorHiddenClass = shouldHideEditor ? 'editor-hidden' : 'editor-visible';
-    const editorContainerHiddenClass = shouldHideEditor ? 'editor-container-hidden' : 'editor-container-visible';
-    const definitionContainerClass = shouldHideEditor ? 'editor-hidden--definition' : 'editor-visible--definition';
-    const titleContainerClass = shouldHideEditor ? 'editor-hidden--title' : 'editor-visible--title';
-
-    const emptyTitleWarning = displayZeroLengthAlert.title;
-    const emptyDefinitionWarning = displayZeroLengthAlert.definition;
-    const showEmptyWarning = emptyTitleWarning || emptyDefinitionWarning;
+    const {
+      editorHiddenClass,
+      editorContainerHiddenClass,
+      definitionContainerClass,
+      titleContainerClass,
+    } = this.editorClasses;
 
     return (
       <div className={`usa-grid-full section-padded-inner-container glossary-editor-card ${editorContainerHiddenClass}`}>
@@ -172,7 +192,7 @@ class GlossaryEditorCard extends Component {
         <GlossaryEditorCardBottom
           isNewTerm={isNewTerm}
           hasErrored={hasErrored}
-          showEmptyWarning={showEmptyWarning}
+          showEmptyWarning={this.showEmptyWarning}
           dateUpdated={term.date_updated}
           updatedBy={term.last_editing_user}
           isArchived={term.is_archived}

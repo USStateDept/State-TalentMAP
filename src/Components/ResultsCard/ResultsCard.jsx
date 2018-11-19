@@ -30,6 +30,24 @@ import {
   NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
+const getResult = (result, path, defaultValue, isRate = false) => {
+  let value = get(result, path, defaultValue);
+
+  if ((/_date|date_/i).test(path) && value !== defaultValue) {
+    value = formatDate(value);
+  }
+
+  if (isRate && isNumber(value)) {
+    value = `${value}%`;
+  }
+
+  if (!value) {
+    value = defaultValue;
+  }
+
+  return value;
+};
+
 const ResultsCard = (props) => {
   const options = {};
   const {
@@ -44,27 +62,9 @@ const ResultsCard = (props) => {
     bidList,
   } = props;
 
-  const getResult = (path, defaultValue, isRate = false) => {
-    let value = get(result, path, defaultValue);
-
-    if ((/_date|date_/i).test(path) && value !== defaultValue) {
-      value = formatDate(value);
-    }
-
-    if (isRate && isNumber(value)) {
-      value = `${value}%`;
-    }
-
-    if (!value) {
-      value = defaultValue;
-    }
-
-    return value;
-  };
-
   const title = propOrDefault(result, 'title');
-  const position = getResult('position_number', NO_POSITION_NUMBER);
-  const languages = getResult('languages', []);
+  const position = getResult(result, 'position_number', NO_POSITION_NUMBER);
+  const languages = getResult(result, 'languages', []);
 
   const language = (<LanguageList languages={languages} propToUse="representation" />);
 
@@ -75,22 +75,22 @@ const ResultsCard = (props) => {
   const sections = [
     /* eslint-disable quote-props */
     {
-      'Bid cycle': getResult('latest_bidcycle.name', NO_BID_CYCLE),
-      'Skill code': getResult('skill', NO_SKILL),
-      'Grade': getResult('grade', NO_GRADE),
-      'Bureau': getResult('bureau', NO_BUREAU),
+      'Bid cycle': getResult(result, 'latest_bidcycle.name', NO_BID_CYCLE),
+      'Skill code': getResult(result, 'skill', NO_SKILL),
+      'Grade': getResult(result, 'grade', NO_GRADE),
+      'Bureau': getResult(result, 'bureau', NO_BUREAU),
       'Post': post,
     },
     {
-      'Tour of duty': getResult('post.tour_of_duty', NO_TOUR_OF_DUTY),
+      'Tour of duty': getResult(result, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
       'Language': language,
-      'Post differential': getResult('post.differential_rate', NO_POST_DIFFERENTIAL, true),
-      'Danger pay': getResult('post.danger_pay', NO_DANGER_PAY, true),
-      'TED': getResult('current_assignment.estimated_end_date', NO_DATE),
-      'Incumbent': getResult('current_assignment.user', NO_USER_LISTED),
+      'Post differential': getResult(result, 'post.differential_rate', NO_POST_DIFFERENTIAL, true),
+      'Danger pay': getResult(result, 'post.danger_pay', NO_DANGER_PAY, true),
+      'TED': getResult(result, 'current_assignment.estimated_end_date', NO_DATE),
+      'Incumbent': getResult(result, 'current_assignment.user', NO_USER_LISTED),
     },
     {
-      'Posted': getResult(COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
+      'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
       'Position number': position,
     },
     /* eslint-enable quote-props */

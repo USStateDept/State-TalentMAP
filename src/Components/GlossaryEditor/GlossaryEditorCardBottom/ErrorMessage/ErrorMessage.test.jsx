@@ -40,6 +40,11 @@ describe('ErrorMessageComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when error is not an object', () => {
+    const wrapper = shallow(<ErrorMessage error />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('matches snapshot when showResponseError and showEmptyWarning are true', () => {
     const wrapper = shallow(<ErrorMessage showResponseError showEmptyWarning />);
     expect(toJSON(wrapper)).toMatchSnapshot();
