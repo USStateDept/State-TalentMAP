@@ -19,7 +19,6 @@ describe('Home', () => {
     userProfileFavoritePositionIsLoading: false,
     userProfileFavoritePositionHasErrored: false,
     toggleFavorite: () => {},
-    toggleBid: () => {},
     onNavigateTo: () => {},
     bidList: [],
     homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,

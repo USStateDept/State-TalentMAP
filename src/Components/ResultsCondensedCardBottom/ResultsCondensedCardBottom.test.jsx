@@ -13,7 +13,6 @@ describe('ResultsCondensedCardBottomComponent', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
         toggleFavorite={() => {}}
         favorites={favorites}
@@ -26,7 +25,6 @@ describe('ResultsCondensedCardBottomComponent', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
         toggleFavorite={() => {}}
         favorites={favorites}
@@ -39,7 +37,6 @@ describe('ResultsCondensedCardBottomComponent', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
         toggleFavorite={() => {}}
         favorites={favorites}

@@ -236,7 +236,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
         toggleFavorite={[Function]}
         type="default"
         userProfileFavoritePositionHasErrored={false}
@@ -472,7 +471,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
         toggleFavorite={[Function]}
         type="default"
         userProfileFavoritePositionHasErrored={false}
@@ -708,7 +706,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
         toggleFavorite={[Function]}
         type="default"
         userProfileFavoritePositionHasErrored={false}
@@ -948,7 +945,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
         toggleFavorite={[Function]}
         type="default"
         userProfileFavoritePositionHasErrored={false}
@@ -1184,7 +1180,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
         toggleFavorite={[Function]}
         type="default"
         userProfileFavoritePositionHasErrored={false}
@@ -1420,7 +1415,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
         toggleFavorite={[Function]}
         type="default"
         userProfileFavoritePositionHasErrored={false}

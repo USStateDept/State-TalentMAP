@@ -5,7 +5,7 @@ import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, BID_
 import { propOrDefault } from '../../utilities';
 
 const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
-                       userProfileFavoritePositionIsLoading, toggleBid, bidList,
+                       userProfileFavoritePositionIsLoading, bidList,
                        userProfileFavoritePositionHasErrored }) => {
   const mapResults = results.results || [];
   return (
@@ -22,7 +22,6 @@ const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
             onToggle={onToggle}
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-            toggleBid={toggleBid}
             bidList={bidList}
           />
         );
@@ -39,7 +38,6 @@ ResultsList.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

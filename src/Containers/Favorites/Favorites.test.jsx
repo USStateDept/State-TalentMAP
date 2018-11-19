@@ -28,7 +28,6 @@ describe('FavoritesContainer', () => {
         fetchData={() => {}}
         toggleFavorite={spy}
         bidList={bidListObject}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -43,7 +42,6 @@ describe('FavoritesContainer', () => {
         fetchData={spy}
         toggleFavorite={() => {}}
         bidList={bidListObject}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -57,7 +55,6 @@ describe('FavoritesContainer', () => {
 describe('mapDispatchToProps', () => {
   const config = {
     toggleFavorite: [1, true],
-    toggleBid: [1, true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });

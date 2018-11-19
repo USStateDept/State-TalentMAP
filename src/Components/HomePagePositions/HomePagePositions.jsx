@@ -7,7 +7,7 @@ import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
-  userProfile, toggleFavorite, toggleBid, bidList,
+  userProfile, toggleFavorite, bidList,
   userProfileFavoritePositionIsLoading,
   userProfileFavoritePositionHasErrored }) => {
   // Conditionally set the position types in rows two and three.
@@ -78,7 +78,6 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           positions={serviceNeedPositions}
           isLoading={homePagePositionsIsLoading}
-          toggleBid={toggleBid}
           bidList={bidList}
           type="serviceNeed"
         />
@@ -93,7 +92,6 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           positions={rowTwoPositions}
           isLoading={homePagePositionsIsLoading}
-          toggleBid={toggleBid}
           bidList={bidList}
           type="default"
         />
@@ -108,7 +106,6 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           positions={rowThreePositions}
           isLoading={homePagePositionsIsLoading}
-          toggleBid={toggleBid}
           bidList={bidList}
           type="default"
         />
@@ -124,7 +121,6 @@ HomePagePositions.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

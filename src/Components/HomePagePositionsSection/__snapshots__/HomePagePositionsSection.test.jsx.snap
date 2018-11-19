@@ -344,7 +344,6 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
       ]
     }
     title="Title"
-    toggleBid={[Function]}
     toggleFavorite={[Function]}
     type="default"
     userProfileFavoritePositionHasErrored={false}

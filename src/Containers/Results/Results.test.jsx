@@ -33,7 +33,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -58,7 +57,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -85,7 +83,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -119,7 +116,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -147,7 +143,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -177,7 +172,6 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -218,7 +212,6 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -259,7 +252,6 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -298,7 +290,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -323,7 +314,6 @@ describe('mapDispatchToProps', () => {
     fetchMissionAutocomplete: ['?q'],
     fetchPostAutocomplete: ['?q'],
     toggleSearchBarVisibility: ['?q'],
-    toggleBid: [1, true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });
