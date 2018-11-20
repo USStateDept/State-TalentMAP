@@ -34,7 +34,8 @@ jobs:
           name: Docker Build
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            BRANCH=${CIRCLE_BRANCH//\//-}
+            TAG=$BRANCH-$CIRCLE_SHA1
             DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
             docker build -t talentmap/$DOCKER_HUB_REPO:$TAG .
             docker push talentmap/$DOCKER_HUB_REPO:$TAG
@@ -145,12 +146,13 @@ jobs:
       - run:
           name: Push Stable Docker Image
           command: |
-            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            BRANCH=${CIRCLE_BRANCH//\//-}
+            TAG=$BRANCH-$CIRCLE_SHA1
             DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker pull talentmap/$DOCKER_HUB_REPO:$TAG
-            docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
-            docker push talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
+            docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$BRANCH
+            docker push talentmap/$DOCKER_HUB_REPO:$BRANCH
 workflows:
   version: 2
   build_and_test:
