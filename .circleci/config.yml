@@ -150,7 +150,7 @@ jobs:
             TAG=$BRANCH-$CIRCLE_SHA1
             DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker pull talentmap/$DOCKER_HUB_REPO:$TAG
+            docker pull talentmap/$DOCKER_HUB_REPO:$BRANCH
             docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$BRANCH
             docker push talentmap/$DOCKER_HUB_REPO:$BRANCH
 workflows:
