@@ -6,7 +6,7 @@ import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
 import Favorite from '../Favorite/Favorite';
-import BidListButton from '../BidListButton';
+import BidListButton from '../../Containers/BidListButton';
 import MediaQueryWrapper from '../MediaQuery';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
@@ -58,7 +58,6 @@ const ResultsCard = (props) => {
     toggleFavorite,
     userProfileFavoritePositionIsLoading,
     userProfileFavoritePositionHasErrored,
-    toggleBid,
     bidList,
   } = props;
 
@@ -117,7 +116,6 @@ const ResultsCard = (props) => {
   options.bidlistButton = {
     className: 'tm-button',
     id: result.id,
-    toggleBidPosition: toggleBid,
     compareArray: bidList,
   };
 
@@ -174,7 +172,6 @@ ResultsCard.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

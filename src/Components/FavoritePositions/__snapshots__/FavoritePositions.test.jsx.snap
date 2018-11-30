@@ -558,7 +558,6 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
       ]
     }
     title="favorites"
-    toggleBid={[Function]}
     toggleFavorite={[Function]}
     type="default"
     userProfileFavoritePositionHasErrored={false}

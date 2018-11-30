@@ -166,7 +166,6 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       title="Service Needs Positions"
-      toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
       useSpinner={false}
@@ -335,7 +334,6 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       title="Positions in skill 1"
-      toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
@@ -504,7 +502,6 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       title="Recently Posted Positions in Grade 03"
-      toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
@@ -677,7 +674,6 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       maxLength="3"
       positions={Array []}
       title="Service Needs Positions"
-      toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="serviceNeed"
       useSpinner={false}
@@ -839,7 +835,6 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       maxLength="3"
       positions={Array []}
       title="Positions in Skills"
-      toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
@@ -1001,7 +996,6 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       maxLength="3"
       positions={Array []}
       title="Recently Posted Positions in Grade 03"
-      toggleBid={[Function]}
       toggleFavorite={[Function]}
       type="default"
       useSpinner={false}

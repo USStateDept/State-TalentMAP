@@ -17,7 +17,6 @@ describe('HomePageComponent', () => {
     toggleFavorite: () => {},
     userProfileFavoritePositionIsLoading: false,
     userProfileFavoritePositionHasErrored: false,
-    toggleBid: () => {},
     bidList: bidListObject.results,
     userProfile: { skills: ['1', '2'], grade: '03' },
   };

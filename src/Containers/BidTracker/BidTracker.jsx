@@ -25,7 +25,7 @@ class BidTrackerContainer extends Component {
   }
 
   render() {
-    const { bidList, toggleBid, deleteBid,
+    const { bidList, deleteBid,
       bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
       bidListToggleIsLoading, bidListToggleSuccess, submitBidPosition,
       submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
@@ -36,7 +36,6 @@ class BidTrackerContainer extends Component {
       markBidTrackerNotification, userProfile, userProfileIsLoading } = this.props;
     return (
       <BidTracker
-        toggleBidPosition={toggleBid}
         bidList={bidList}
         bidListHasErrored={bidListHasErrored}
         bidListIsLoading={bidListIsLoading}
@@ -72,7 +71,6 @@ class BidTrackerContainer extends Component {
 BidTrackerContainer.propTypes = {
   bidListRouteChangeResetState: PropTypes.func.isRequired,
   fetchBidList: PropTypes.func,
-  toggleBid: PropTypes.func,
   deleteBid: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
@@ -105,7 +103,6 @@ BidTrackerContainer.propTypes = {
 
 BidTrackerContainer.defaultProps = {
   fetchBidList: EMPTY_FUNCTION,
-  toggleBid: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
@@ -167,7 +164,6 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchBidList: () => dispatch(bidListFetchData()),
-  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListRouteChangeResetState: () => dispatch(routeChangeResetState()),
   submitBidPosition: id => dispatch(submitBid(id)),
   acceptBidPosition: id => dispatch(acceptBid(id)),

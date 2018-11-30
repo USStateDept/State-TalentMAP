@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
+import { bidListFetchData } from '../../actions/bidList';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
@@ -36,7 +36,7 @@ class Home extends Component {
   render() {
     const { onNavigateTo, items, homePagePositions,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
-      userProfile, userProfileIsLoading, toggleFavorite, toggleBid,
+      userProfile, userProfileIsLoading, toggleFavorite,
       userProfileFavoritePositionIsLoading, bidList,
       userProfileFavoritePositionHasErrored, filtersIsLoading } = this.props;
     return (
@@ -52,7 +52,6 @@ class Home extends Component {
         toggleFavorite={toggleFavorite}
         userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        toggleBid={toggleBid}
         bidList={bidList.results}
       />
     );
@@ -71,7 +70,6 @@ Home.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
   filtersIsLoading: PropTypes.bool,
@@ -89,7 +87,6 @@ Home.defaultProps = {
   userProfileIsLoading: false,
   userProfileFavoritePositionIsLoading: false,
   userProfileFavoritePositionHasErrored: false,
-  toggleBid: EMPTY_FUNCTION,
   bidList: { results: [] },
   filtersIsLoading: false,
 };
@@ -113,7 +110,6 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(homePagePositionsFetchData(skills, grade)),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
-  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleSearchBarVisibility: showHide => dispatch(toggleSearchBar(showHide)),
 });

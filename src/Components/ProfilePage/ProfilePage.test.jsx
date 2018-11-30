@@ -29,7 +29,6 @@ describe('ProfilePageComponent', () => {
     cloneSavedSearchHasErrored: false,
     cloneSavedSearchSuccess: false,
     cloneSavedSearch: () => {},
-    toggleBidPosition: () => {},
     bidListHasErrored: false,
     bidListIsLoading: false,
     bidList: { results: [] },

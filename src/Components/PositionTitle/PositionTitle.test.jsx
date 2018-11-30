@@ -8,7 +8,6 @@ import detailsObject from '../../__mocks__/detailsObject';
 describe('PositionTitleComponent', () => {
   const props = {
     details: detailsObject,
-    toggleBidPosition: () => {},
     toggleFavorite: () => {},
     userProfile: {},
     userProfileFavoritePositionIsLoading: false,

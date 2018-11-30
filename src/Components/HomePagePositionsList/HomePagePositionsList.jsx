@@ -11,7 +11,6 @@ const propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE,
   title: PropTypes.string.isRequired, // should be unique per page, since its used a react key
@@ -26,7 +25,7 @@ const defaultProps = {
 };
 
 const HomePagePositionsList = ({ maxLength, positions, toggleFavorite, favorites, isLoading,
-    userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored, toggleBid,
+    userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored,
     bidList, type, title }) => {
   // create an initial array with x groups of 3
   // because our grid is in thirds
@@ -50,7 +49,6 @@ const HomePagePositionsList = ({ maxLength, positions, toggleFavorite, favorites
             userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             position={p}
-            toggleBid={toggleBid}
             bidList={bidList}
             type={type}
           />

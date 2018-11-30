@@ -404,7 +404,6 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
           ],
         }
       }
-      toggleBid={[Function]}
       toggleFavorite={[Function]}
       userProfileFavoritePositionHasErrored={false}
       userProfileFavoritePositionIsLoading={false}

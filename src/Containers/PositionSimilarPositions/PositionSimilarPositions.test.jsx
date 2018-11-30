@@ -27,7 +27,6 @@ describe('mapDispatchToProps', () => {
   const config = {
     fetchSimilarPositions: [1],
     toggleFavorite: [1, true],
-    toggleBid: [1, true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });

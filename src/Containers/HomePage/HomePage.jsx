@@ -13,7 +13,7 @@ class HomePage extends Component {
   }
 
   render() {
-    const { userProfile, userProfileIsLoading, toggleFavorite, toggleBid, bidList,
+    const { userProfile, userProfileIsLoading, toggleFavorite, bidList,
       userProfileFavoritePositionIsLoading, onNavigateTo,
       userProfileFavoritePositionHasErrored } = this.props;
     return (
@@ -23,7 +23,6 @@ class HomePage extends Component {
           toggleFavorite={toggleFavorite}
           userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
           userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-          toggleBid={toggleBid}
           bidList={bidList}
           onNavigateTo={onNavigateTo}
           userProfileIsLoading={userProfileIsLoading}
@@ -40,7 +39,6 @@ HomePage.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

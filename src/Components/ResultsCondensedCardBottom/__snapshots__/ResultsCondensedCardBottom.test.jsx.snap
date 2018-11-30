@@ -116,7 +116,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         useLongText={false}
         useSpinnerWhite={false}
       />
-      <BidListButton
+      <Connect(BidListButtonContainer)
         className="tm-button"
         compareArray={
           Array [
@@ -264,8 +264,6 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
           ]
         }
         id={6}
-        isLoading={false}
-        toggleBidPosition={[Function]}
       />
     </div>
   </div>

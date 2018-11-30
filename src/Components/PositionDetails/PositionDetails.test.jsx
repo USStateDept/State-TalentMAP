@@ -16,7 +16,6 @@ describe('PositionDetailsComponent', () => {
     toggleFavorite: () => {},
     userProfileFavoritePositionIsLoading: false,
     userProfileFavoritePositionHasErrored: false,
-    toggleBidPosition: () => {},
     bidList,
     bidListToggleIsLoading: true,
     resetDescriptionEditMessages: () => {},
