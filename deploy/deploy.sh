@@ -37,6 +37,7 @@ export STATIC_PATH=/var/www/html/
 # certs generated from the certs.sh script
 export CERT_FILE=/home/ec2-user/State-TalentMAP-dev/certs/talentmap-dev.crt
 export KEY_FILE=/home/ec2-user/State-TalentMAP-dev/certs/talentmap-dev.key
+export LOGIN_MODE=basic
 
 # change to dev BEFORE install
 export NODE_ENV=dev
