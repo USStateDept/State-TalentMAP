@@ -1,3 +1,3 @@
-const bypassRoutes = ['/profile/dashboard', '/profile/searches'];
+const bypassRoutes = ['/profile/searches'];
 
 export default bypassRoutes;
