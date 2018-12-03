@@ -30,8 +30,7 @@ class ResultsContainer extends Component {
             defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
             toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
             userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, toggleBid,
-            bidList,
+            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, bidList,
       } = this.props;
     return (
       <div className="results-container">
@@ -84,7 +83,6 @@ class ResultsContainer extends Component {
               toggleFavorite={toggleFavorite}
               userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
               userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-              toggleBid={toggleBid}
               bidList={bidList}
             />
           </div>
@@ -135,7 +133,6 @@ ResultsContainer.propTypes = {
   currentSavedSearch: SAVED_SEARCH_OBJECT,
   resetSavedSearchAlerts: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

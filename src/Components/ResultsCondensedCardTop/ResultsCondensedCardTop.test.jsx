@@ -17,7 +17,6 @@ describe('ResultsCondensedCardTopComponent', () => {
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
       />,
     );
@@ -33,7 +32,6 @@ describe('ResultsCondensedCardTopComponent', () => {
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
       />,
     );
@@ -49,7 +47,6 @@ describe('ResultsCondensedCardTopComponent', () => {
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
       />,
     );
@@ -64,7 +61,6 @@ describe('ResultsCondensedCardTopComponent', () => {
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
         type="serviceNeed"
       />,
@@ -83,7 +79,6 @@ describe('ResultsCondensedCardTopComponent', () => {
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
       />,
     );

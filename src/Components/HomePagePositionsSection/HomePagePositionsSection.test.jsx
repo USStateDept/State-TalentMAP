@@ -12,7 +12,6 @@ describe('HomePagePositionsSection', () => {
     toggleFavorite: () => {},
     userProfileFavoritePositionIsLoading: false,
     userProfileFavoritePositionHasErrored: false,
-    toggleBid: () => {},
     bidList: bidListObject.results,
   };
 

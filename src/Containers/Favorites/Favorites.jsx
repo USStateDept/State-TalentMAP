@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
-import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
+import { bidListFetchData } from '../../actions/bidList';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { POSITION_SEARCH_RESULTS, BID_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -38,7 +38,7 @@ class FavoritePositionsContainer extends Component {
   render() {
     const { favoritePositions, userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored, favoritePositionsIsLoading,
-      favoritePositionsHasErrored, toggleBid, bidList } = this.props;
+      favoritePositionsHasErrored, bidList } = this.props;
     return (
       <FavoritePositions
         favorites={favoritePositions}
@@ -47,7 +47,6 @@ class FavoritePositionsContainer extends Component {
         toggleFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         toggleFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         toggleFavorite={this.onToggleFavorite}
-        toggleBid={toggleBid}
         bidList={bidList.results}
         onSortChange={this.getSortedFavorites}
       />
@@ -63,7 +62,6 @@ FavoritePositionsContainer.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
 };
@@ -96,7 +94,6 @@ export const mapDispatchToProps = dispatch => ({
   toggleFavorite: (id, remove) =>
     // Since this page references the full Favorites route, pass true to explicitly refresh them
     dispatch(userProfileToggleFavoritePosition(id, remove, true)),
-  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListFetchData: () => dispatch(bidListFetchData()),
 });
 

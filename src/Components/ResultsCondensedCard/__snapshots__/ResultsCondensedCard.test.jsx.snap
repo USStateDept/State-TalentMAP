@@ -330,7 +330,6 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
         "update_date": "2017-06-08T00:00:00Z",
       }
     }
-    toggleBid={[Function]}
     toggleFavorite={[Function]}
     type="default"
   />

@@ -8,7 +8,7 @@ import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD
 
 const ResultsCondensedCard = ({ position, toggleFavorite, favorites, bidList,
   userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored,
-  toggleBid, type }) => (
+  type }) => (
 
     <div className="usa-grid-full condensed-card-inner">
       <ResultsCondensedCardTop
@@ -24,7 +24,6 @@ const ResultsCondensedCard = ({ position, toggleFavorite, favorites, bidList,
         toggleFavorite={toggleFavorite}
         position={position}
         favorites={favorites}
-        toggleBid={toggleBid}
         bidList={bidList}
       />
       <ResultsCondensedCardFooter
@@ -39,7 +38,6 @@ ResultsCondensedCard.propTypes = {
   toggleFavorite: PropTypes.func.isRequired,
   userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE.isRequired,
 };

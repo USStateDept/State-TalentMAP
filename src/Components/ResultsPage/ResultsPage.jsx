@@ -36,7 +36,7 @@ class Results extends Component {
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            toggleBid, bidList }
+            bidList }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
@@ -105,7 +105,6 @@ class Results extends Component {
             newSavedSearchIsSaving={newSavedSearchIsSaving}
             currentSavedSearch={currentSavedSearch}
             resetSavedSearchAlerts={resetSavedSearchAlerts}
-            toggleBid={toggleBid}
             bidList={bidList}
           />
         </div>
@@ -152,7 +151,6 @@ Results.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

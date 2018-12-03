@@ -10,7 +10,6 @@ describe('HomePagePositionsList', () => {
     toggleFavorite: () => { },
     userProfileFavoritePositionIsLoading: false,
     userProfileFavoritePositionHasErrored: false,
-    toggleBid: () => { },
     bidList: bidListObject.results,
     type: 'default',
     title: 'title',

@@ -74,7 +74,6 @@ describe('mapDispatchToProps', () => {
     fetchData: [1],
     onNavigateTo: ['/profile'],
     toggleFavorite: [1, true],
-    toggleBid: [1, true],
     editDescriptionContent: [1, 'content'],
     editPocContent: [1, 'content'],
     editWebsiteContent: [1, 'content'],
