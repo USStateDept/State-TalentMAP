@@ -7,7 +7,7 @@ FeatureToggle.propTypes = {
   isEnabled: PropTypes.bool,
 };
 
-function isFeatureEnabled({ features }, featureName) {
+function isFeatureEnabled({ features = [] }, featureName) {
   return features.indexOf(featureName) !== -1;
 }
 
