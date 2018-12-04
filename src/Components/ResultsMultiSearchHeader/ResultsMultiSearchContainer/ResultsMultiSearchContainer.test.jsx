@@ -74,7 +74,7 @@ describe('ResultsMultiSearchContainer', () => {
       {...props}
       fetchFilters={fetchFiltersSpy}
       filters={{ ...props.filters, hasFetched: true }}
-      history={{ location: { pathname: '/profile/dashboard' } }}
+      history={{ location: { pathname: '/profile/searches' } }}
     />);
     wrapper.update();
     sinon.assert.callCount(fetchFiltersSpy, 0);
