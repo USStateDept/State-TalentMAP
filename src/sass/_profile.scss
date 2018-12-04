@@ -29,7 +29,8 @@
     max-width: none;
   }
 
-  .favorite-positions-container {
+  .favorite-positions-container,
+  .saved-searches-container {
     position: relative;
 
     .favorites-top-section {
@@ -105,10 +106,6 @@
 
     .searches-title-container {
       float: left;
-    }
-
-    .usa-form {
-      float: right;
     }
 
     .scrollarea {
