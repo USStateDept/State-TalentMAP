@@ -24,7 +24,6 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={bidListObject.results}
     />);
     expect(wrapper).toBeDefined();
@@ -38,7 +37,6 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={bidListObject.results}
     />);
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
@@ -53,7 +51,6 @@ describe('HomePageComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={bidListObject.results}
     />);
     wrapper.instance().props.onNavigateTo();

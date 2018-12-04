@@ -9,7 +9,7 @@ import { positionDetailsFetchData } from '../../actions/positionDetails';
 import { putHighlightedPosition, deleteHighlightPosition } from '../../actions/highlightPosition';
 import { getLastRouteLink } from '../../actions/routerLocations';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
-import { bidListFetchData, toggleBidPosition } from '../../actions/bidList';
+import { bidListFetchData } from '../../actions/bidList';
 import {
   editDescriptionContent,
   editPocContent,
@@ -75,7 +75,6 @@ class Position extends Component {
       userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored,
       bidList,
-      toggleBid,
       bidListHasErrored,
       bidListIsLoading,
       bidListToggleHasErrored,
@@ -99,7 +98,6 @@ class Position extends Component {
         toggleFavorite={toggleFavorite}
         userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        toggleBidPosition={toggleBid}
         bidList={bidList}
         bidListHasErrored={bidListHasErrored}
         bidListIsLoading={bidListIsLoading}
@@ -142,7 +140,6 @@ Position.propTypes = {
   userProfileFavoritePositionIsLoading: PropTypes.bool,
   userProfileFavoritePositionHasErrored: PropTypes.bool,
   fetchBidList: PropTypes.func,
-  toggleBid: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
   bidList: BID_LIST,
@@ -170,7 +167,6 @@ Position.defaultProps = {
   userProfileFavoritePositionIsLoading: true,
   userProfileFavoritePositionHasErrored: false,
   fetchBidList: EMPTY_FUNCTION,
-  toggleBid: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
@@ -213,7 +209,6 @@ export const mapDispatchToProps = dispatch => ({
   onNavigateTo: dest => dispatch(push(dest)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   fetchBidList: () => dispatch(bidListFetchData()),
-  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   editDescriptionContent: (id, content) => dispatch(editDescriptionContent(id, content)),
   editPocContent: (id, content) => dispatch(editPocContent(id, content)),
   editWebsiteContent: (id, content) => dispatch(editWebsiteContent(id, content)),

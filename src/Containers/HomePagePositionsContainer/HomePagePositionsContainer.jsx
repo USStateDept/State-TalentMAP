@@ -40,7 +40,7 @@ class HomePagePositionsContainer extends Component {
       homePagePositionsHasErrored, homePagePositionsIsLoading,
       userProfile, userProfileFavoritePositionIsLoading,
       userProfileFavoritePositionHasErrored, onNavigateTo,
-      toggleFavorite, toggleBid, bidList } = this.props;
+      toggleFavorite, bidList } = this.props;
     return (
       <div className="content-container">
         {
@@ -58,7 +58,6 @@ class HomePagePositionsContainer extends Component {
             userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             onNavigateTo={onNavigateTo}
             toggleFavorite={toggleFavorite}
-            toggleBid={toggleBid}
             bidList={bidList}
           />
         }
@@ -77,7 +76,6 @@ HomePagePositionsContainer.propTypes = {
   userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   userProfileIsLoading: PropTypes.bool,
 };

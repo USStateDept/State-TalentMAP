@@ -15,7 +15,6 @@ describe('ResultsListComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={[]}
       />,
     );
@@ -31,7 +30,6 @@ describe('ResultsListComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
@@ -43,7 +41,6 @@ describe('ResultsListComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -55,7 +52,6 @@ describe('ResultsListComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(wrapper.find('div').hasClass('results-loading')).toBe(false);
@@ -67,7 +63,6 @@ describe('ResultsListComponent', () => {
       toggleFavorite={() => {}}
       userProfileFavoritePositionIsLoading={false}
       userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();

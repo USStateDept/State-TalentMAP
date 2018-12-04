@@ -106,12 +106,10 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   <div
     className="offset-bid-button-container"
   >
-    <BidListButton
-      className="bid-list-button"
+    <Connect(BidListButtonContainer)
       compareArray={Array []}
       id={6}
       isLoading={false}
-      toggleBidPosition={[Function]}
     />
   </div>
 </div>

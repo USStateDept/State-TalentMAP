@@ -37,7 +37,6 @@ describe('BidTracker', () => {
 
 describe('mapDispatchToProps', () => {
   const config = {
-    toggleBid: [1, true],
     submitBidPosition: [1],
     acceptBidPosition: [1],
     declineBidPosition: [1],

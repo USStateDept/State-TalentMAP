@@ -1,17 +1,22 @@
 import { shallow } from 'enzyme';
 import React from 'react';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 import TestUtils from 'react-dom/test-utils';
+import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 import toJSON from 'enzyme-to-json';
 import ResultsCard from './ResultsCard';
 import resultsObject from '../../__mocks__/resultsObject';
+
+const mockStore = configureStore([thunk]);
 
 describe('ResultsCardComponent', () => {
   let result = null;
   let wrapper = null;
 
   it('is defined', () => {
-    result = TestUtils.renderIntoDocument(<MemoryRouter>
+    result = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <ResultsCard
         id={1}
         result={resultsObject.results[0]}
@@ -19,10 +24,9 @@ describe('ResultsCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={[]}
       />
-    </MemoryRouter>);
+    </MemoryRouter></Provider>);
     expect(result).toBeDefined();
   });
 
@@ -35,7 +39,6 @@ describe('ResultsCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={[]}
       />);
     expect(wrapper.instance().props.result.id).toBe(6);
@@ -50,7 +53,6 @@ describe('ResultsCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={[]}
       />);
     expect(wrapper.instance().props.result.id).toBe(60);
@@ -65,7 +67,6 @@ describe('ResultsCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={[]}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -80,7 +81,6 @@ describe('ResultsCardComponent', () => {
         toggleFavorite={() => {}}
         userProfileFavoritePositionIsLoading={false}
         userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={[]}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();

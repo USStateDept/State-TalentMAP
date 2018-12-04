@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resultsFetchSimilarPositions } from '../../actions/results';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
-import { bidListFetchData, toggleBidPosition } from '../../actions/bidList';
+import { bidListFetchData } from '../../actions/bidList';
 import { POSITION_SEARCH_RESULTS, USER_PROFILE, BID_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import HomePagePositionsSection from '../../Components/HomePagePositionsSection';
 
@@ -17,7 +17,7 @@ class Position extends Component {
   render() {
     const { title, similarPositions, toggleFavorite, similarPositionsHasErrored,
       userProfile, similarPositionsIsLoading, bidList, userProfileFavoritePositionIsLoading,
-      userProfileFavoritePositionHasErrored, toggleBid } = this.props;
+      userProfileFavoritePositionHasErrored } = this.props;
     return (
       <HomePagePositionsSection
         title={title}
@@ -29,7 +29,6 @@ class Position extends Component {
         bidList={bidList.results}
         userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
         userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-        toggleBid={toggleBid}
         useSpinner
         wrapInLink={false}
       />
@@ -48,7 +47,6 @@ Position.propTypes = {
   bidList: BID_LIST,
   userProfileFavoritePositionIsLoading: PropTypes.bool,
   userProfileFavoritePositionHasErrored: PropTypes.bool,
-  toggleBid: PropTypes.func.isRequired,
   fetchSimilarPositions: PropTypes.func.isRequired,
 };
 
@@ -62,7 +60,6 @@ Position.defaultProps = {
   bidList: { results: [] },
   userProfileFavoritePositionIsLoading: true,
   userProfileFavoritePositionHasErrored: false,
-  toggleBid: EMPTY_FUNCTION,
   fetchSimilarPositions: EMPTY_FUNCTION,
 };
 
@@ -85,7 +82,6 @@ export const mapDispatchToProps = dispatch => ({
   fetchSimilarPositions: id => dispatch(resultsFetchSimilarPositions(id)),
   toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   fetchBidList: () => dispatch(bidListFetchData()),
-  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Position);
