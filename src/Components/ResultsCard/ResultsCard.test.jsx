@@ -21,9 +21,6 @@ describe('ResultsCardComponent', () => {
         id={1}
         result={resultsObject.results[0]}
         onToggle={() => {}}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         bidList={[]}
       />
     </MemoryRouter></Provider>);
@@ -36,9 +33,6 @@ describe('ResultsCardComponent', () => {
         id={1}
         result={resultsObject.results[0]}
         onToggle={() => {}}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         bidList={[]}
       />);
     expect(wrapper.instance().props.result.id).toBe(6);
@@ -50,9 +44,6 @@ describe('ResultsCardComponent', () => {
         id={1}
         result={resultsObject.results[1]}
         onToggle={() => {}}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         bidList={[]}
       />);
     expect(wrapper.instance().props.result.id).toBe(60);
@@ -64,9 +55,6 @@ describe('ResultsCardComponent', () => {
         id={1}
         result={resultsObject.results[0]}
         onToggle={() => {}}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         bidList={[]}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -78,9 +66,6 @@ describe('ResultsCardComponent', () => {
         id={1}
         result={{ id: 1 }}
         onToggle={() => {}}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         bidList={[]}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();

@@ -28,8 +28,7 @@ class ResultsContainer extends Component {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
             defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
-            toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
-            userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
+            newSavedSearchHasErrored, saveSearch, newSavedSearchSuccess,
             currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, bidList,
       } = this.props;
     return (
@@ -80,9 +79,6 @@ class ResultsContainer extends Component {
               results={results}
               isLoading={!hasLoaded}
               favorites={userProfile.favorite_positions}
-              toggleFavorite={toggleFavorite}
-              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
               bidList={bidList}
             />
           </div>
@@ -123,9 +119,6 @@ ResultsContainer.propTypes = {
   pillFilters: PILL_ITEM_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,

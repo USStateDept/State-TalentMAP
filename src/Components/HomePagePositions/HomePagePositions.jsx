@@ -7,9 +7,7 @@ import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
-  userProfile, toggleFavorite, bidList,
-  userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored }) => {
+  userProfile, bidList }) => {
   // Conditionally set the position types in rows two and three.
   // Based on which we display, we have to format the title, link, and positions
   // to provide to the component.
@@ -73,9 +71,6 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           viewMoreLink={serviceNeedsLink}
           icon="bolt"
           favorites={userProfile.favorite_positions}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           positions={serviceNeedPositions}
           isLoading={homePagePositionsIsLoading}
           bidList={bidList}
@@ -87,9 +82,6 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           viewMoreLink={rowTwoLink}
           icon={rowTwoIcon}
           favorites={userProfile.favorite_positions}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           positions={rowTwoPositions}
           isLoading={homePagePositionsIsLoading}
           bidList={bidList}
@@ -101,9 +93,6 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
           viewMoreLink={rowThreeLink}
           icon="flag"
           favorites={userProfile.favorite_positions}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           positions={rowThreePositions}
           isLoading={homePagePositionsIsLoading}
           bidList={bidList}
@@ -118,9 +107,6 @@ HomePagePositions.propTypes = {
   homePagePositions: HOME_PAGE_POSITIONS.isRequired,
   homePagePositionsIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

@@ -166,11 +166,8 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       title="Service Needs Positions"
-      toggleFavorite={[Function]}
       type="serviceNeed"
       useSpinner={false}
-      userProfileFavoritePositionHasErrored={false}
-      userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
       wrapInLink={true}
     />
@@ -334,11 +331,8 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       title="Positions in skill 1"
-      toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
-      userProfileFavoritePositionHasErrored={false}
-      userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?skill__code__in=,"
       wrapInLink={true}
     />
@@ -502,11 +496,8 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
         ]
       }
       title="Recently Posted Positions in Grade 03"
-      toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
-      userProfileFavoritePositionHasErrored={false}
-      userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?grade__code__in=03&ordering=-posted_date"
       wrapInLink={true}
     />
@@ -674,11 +665,8 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       maxLength="3"
       positions={Array []}
       title="Service Needs Positions"
-      toggleFavorite={[Function]}
       type="serviceNeed"
       useSpinner={false}
-      userProfileFavoritePositionHasErrored={false}
-      userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?is_highlighted=true"
       wrapInLink={true}
     />
@@ -835,11 +823,8 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       maxLength="3"
       positions={Array []}
       title="Positions in Skills"
-      toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
-      userProfileFavoritePositionHasErrored={false}
-      userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results"
       wrapInLink={true}
     />
@@ -996,11 +981,8 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       maxLength="3"
       positions={Array []}
       title="Recently Posted Positions in Grade 03"
-      toggleFavorite={[Function]}
       type="default"
       useSpinner={false}
-      userProfileFavoritePositionHasErrored={false}
-      userProfileFavoritePositionIsLoading={false}
       viewMoreLink="/results?grade__code__in=03&ordering=-posted_date"
       wrapInLink={true}
     />

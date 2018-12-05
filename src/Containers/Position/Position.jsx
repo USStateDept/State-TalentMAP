@@ -8,7 +8,6 @@ import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import { putHighlightedPosition, deleteHighlightPosition } from '../../actions/highlightPosition';
 import { getLastRouteLink } from '../../actions/routerLocations';
-import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { bidListFetchData } from '../../actions/bidList';
 import {
   editDescriptionContent,
@@ -71,9 +70,6 @@ class Position extends Component {
       hasErrored,
       routerLocations,
       userProfile,
-      toggleFavorite,
-      userProfileFavoritePositionIsLoading,
-      userProfileFavoritePositionHasErrored,
       bidList,
       bidListHasErrored,
       bidListIsLoading,
@@ -95,9 +91,6 @@ class Position extends Component {
         hasErrored={hasErrored}
         goBackLink={getLastRouteLink(routerLocations)}
         userProfile={userProfile}
-        toggleFavorite={toggleFavorite}
-        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         bidList={bidList}
         bidListHasErrored={bidListHasErrored}
         bidListIsLoading={bidListIsLoading}
@@ -136,9 +129,6 @@ Position.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool,
-  userProfileFavoritePositionHasErrored: PropTypes.bool,
   fetchBidList: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
@@ -164,8 +154,6 @@ Position.defaultProps = {
   isLoading: true,
   routerLocations: [],
   userProfile: {},
-  userProfileFavoritePositionIsLoading: true,
-  userProfileFavoritePositionHasErrored: false,
   fetchBidList: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
@@ -190,8 +178,6 @@ const mapStateToProps = (state, ownProps) => ({
   routerLocations: state.routerLocations,
   id: ownProps,
   userProfile: state.userProfile,
-  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
   bidListHasErrored: state.bidListHasErrored,
   bidListIsLoading: state.bidListIsLoading,
   bidList: state.bidListFetchDataSuccess,
@@ -207,7 +193,6 @@ const mapStateToProps = (state, ownProps) => ({
 export const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(positionDetailsFetchData(id)),
   onNavigateTo: dest => dispatch(push(dest)),
-  toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   fetchBidList: () => dispatch(bidListFetchData()),
   editDescriptionContent: (id, content) => dispatch(editDescriptionContent(id, content)),
   editPocContent: (id, content) => dispatch(editPocContent(id, content)),

@@ -13,9 +13,6 @@ describe('ResultsCondensedCardTopComponent', () => {
       <ResultsCondensedCardTop
         position={resultsObject.results[0]}
         type={type}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
         bidList={bidListObject.results}
       />,
@@ -28,9 +25,6 @@ describe('ResultsCondensedCardTopComponent', () => {
       <ResultsCondensedCardTop
         position={resultsObject.results[0]}
         type={type}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
         bidList={bidListObject.results}
       />,
@@ -43,9 +37,6 @@ describe('ResultsCondensedCardTopComponent', () => {
       <ResultsCondensedCardTop
         position={resultsObject.results[0]}
         type={type}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
         bidList={bidListObject.results}
       />,
@@ -57,9 +48,6 @@ describe('ResultsCondensedCardTopComponent', () => {
     const wrapper = shallow(
       <ResultsCondensedCardTop
         position={resultsObject.results[0]}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
         bidList={bidListObject.results}
         type="serviceNeed"
@@ -75,9 +63,6 @@ describe('ResultsCondensedCardTopComponent', () => {
       <ResultsCondensedCardTop
         position={position}
         type={'default'}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         favorites={favorites}
         bidList={bidListObject.results}
       />,

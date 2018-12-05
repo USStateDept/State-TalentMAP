@@ -4,9 +4,7 @@ import ResultsCard from '../../Components/ResultsCard/ResultsCard';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 import { propOrDefault } from '../../utilities';
 
-const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
-                       userProfileFavoritePositionIsLoading, bidList,
-                       userProfileFavoritePositionHasErrored }) => {
+const ResultsList = ({ results, onToggle, isLoading, favorites, bidList }) => {
   const mapResults = results.results || [];
   return (
     <div className={isLoading ? 'results-loading' : null}>
@@ -15,13 +13,10 @@ const ResultsList = ({ results, onToggle, isLoading, favorites, toggleFavorite,
         return (
           <ResultsCard
             id={key}
-            toggleFavorite={toggleFavorite}
             favorites={favorites}
             key={key}
             result={result}
             onToggle={onToggle}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             bidList={bidList}
           />
         );
@@ -35,9 +30,6 @@ ResultsList.propTypes = {
   onToggle: PropTypes.func,
   isLoading: PropTypes.bool,
   favorites: FAVORITE_POSITIONS_ARRAY,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

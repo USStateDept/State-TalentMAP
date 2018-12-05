@@ -17,7 +17,6 @@ describe('Home', () => {
       <Home
         isAuthorized={() => true}
         bidListFetchData={() => {}}
-        toggleFavorite={() => {}}
         onNavigateTo={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -29,7 +28,6 @@ describe('Home', () => {
       <Home
         isAuthorized={() => false}
         bidListFetchData={() => {}}
-        toggleFavorite={() => {}}
         onNavigateTo={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -40,7 +38,6 @@ describe('Home', () => {
     const wrapper = shallow(<Home.WrappedComponent
       isAuthorized={() => true}
       onNavigateTo={() => {}}
-      toggleFavorite={() => {}}
       bidListFetchData={() => {}}
     />);
     wrapper.instance().onChildSubmit();

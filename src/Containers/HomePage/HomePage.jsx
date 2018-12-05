@@ -13,16 +13,11 @@ class HomePage extends Component {
   }
 
   render() {
-    const { userProfile, userProfileIsLoading, toggleFavorite, bidList,
-      userProfileFavoritePositionIsLoading, onNavigateTo,
-      userProfileFavoritePositionHasErrored } = this.props;
+    const { userProfile, userProfileIsLoading, bidList, onNavigateTo } = this.props;
     return (
       <div className="home content-container">
         <HomePagePositionsContainer
           favorites={userProfile.favorite_positions}
-          toggleFavorite={toggleFavorite}
-          userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-          userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
           bidList={bidList}
           onNavigateTo={onNavigateTo}
           userProfileIsLoading={userProfileIsLoading}
@@ -36,9 +31,6 @@ HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 
