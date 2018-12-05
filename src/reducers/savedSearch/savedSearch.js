@@ -1,7 +1,11 @@
 export function newSavedSearchHasErrored(state = false, action) {
   switch (action.type) {
     case 'NEW_SAVED_SEARCH_HAS_ERRORED':
-      return action.hasErrored;
+      return action
+        && action.hasErrored
+        && action.hasErrored.message
+        && action.hasErrored.message.name
+        && action.hasErrored.message.name[0];
     default:
       return state;
   }

@@ -2,7 +2,12 @@ import * as reducers from './savedSearch';
 
 describe('savedSearch reducers', () => {
   it('can set reducer NEW_SAVED_SEARCH_HAS_ERRORED', () => {
-    expect(reducers.newSavedSearchHasErrored(false, { type: 'NEW_SAVED_SEARCH_HAS_ERRORED', hasErrored: true })).toBe(true);
+    expect(reducers.newSavedSearchHasErrored(false, { type: 'NEW_SAVED_SEARCH_HAS_ERRORED', hasErrored: false })).toBe(false);
+  });
+
+  it('can set reducer NEW_SAVED_SEARCH_HAS_ERRORED with object', () => {
+    const hasErrored = { message: { name: ['Error'] } };
+    expect(reducers.newSavedSearchHasErrored(false, { type: 'NEW_SAVED_SEARCH_HAS_ERRORED', hasErrored })).toBe(hasErrored.message.name[0]);
   });
 
   it('can set reducer NEW_SAVED_SEARCH_IS_SAVING', () => {
