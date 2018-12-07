@@ -42,8 +42,6 @@ class PositionDetails extends Component {
       hasErrored,
       goBackLink,
       userProfile,
-      toggleFavorite,
-      userProfileFavoritePositionIsLoading,
       bidList,
       bidListToggleIsLoading,
       editPocContent,
@@ -71,8 +69,6 @@ class PositionDetails extends Component {
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
             userProfile={userProfile}
           />
           <PositionDetailsItem
@@ -102,8 +98,6 @@ PositionDetails.propTypes = {
   hasErrored: PropTypes.bool,
   goBackLink: GO_BACK_TO_LINK.isRequired,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
   bidList: BID_LIST.isRequired,
   bidListToggleIsLoading: PropTypes.bool,
   editDescriptionContent: PropTypes.func.isRequired,

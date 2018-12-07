@@ -7,9 +7,6 @@ import bidListObject from '../../__mocks__/bidListObject';
 
 describe('HomePagePositionsList', () => {
   const props = {
-    toggleFavorite: () => { },
-    userProfileFavoritePositionIsLoading: false,
-    userProfileFavoritePositionHasErrored: false,
     bidList: bidListObject.results,
     type: 'default',
     title: 'title',

@@ -36,16 +36,13 @@ class FavoritePositionsContainer extends Component {
   }
 
   render() {
-    const { favoritePositions, userProfileFavoritePositionIsLoading,
-      userProfileFavoritePositionHasErrored, favoritePositionsIsLoading,
+    const { favoritePositions, favoritePositionsIsLoading,
       favoritePositionsHasErrored, bidList } = this.props;
     return (
       <FavoritePositions
         favorites={favoritePositions}
         favoritePositionsIsLoading={favoritePositionsIsLoading}
         favoritePositionsHasErrored={favoritePositionsHasErrored}
-        toggleFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-        toggleFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         toggleFavorite={this.onToggleFavorite}
         bidList={bidList.results}
         onSortChange={this.getSortedFavorites}
@@ -60,8 +57,6 @@ FavoritePositionsContainer.propTypes = {
   favoritePositions: POSITION_SEARCH_RESULTS,
   favoritePositionsIsLoading: PropTypes.bool.isRequired,
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
 };
@@ -70,8 +65,6 @@ FavoritePositionsContainer.defaultProps = {
   favoritePositions: POSITION_RESULTS_OBJECT,
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
-  userProfileFavoritePositionIsLoading: false,
-  userProfileFavoritePositionHasErrored: false,
   bidList: { results: [] },
   bidListFecthData: EMPTY_FUNCTION,
 };
@@ -84,8 +77,6 @@ const mapStateToProps = state => ({
   favoritePositions: state.favoritePositions,
   favoritePositionsHasErrored: state.favoritePositionsHasErrored,
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
-  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
   bidList: state.bidListFetchDataSuccess,
 });
 
