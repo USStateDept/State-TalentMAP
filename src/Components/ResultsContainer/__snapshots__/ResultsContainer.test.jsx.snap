@@ -404,9 +404,6 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
           ],
         }
       }
-      toggleFavorite={[Function]}
-      userProfileFavoritePositionHasErrored={false}
-      userProfileFavoritePositionIsLoading={false}
     />
   </div>
   <div

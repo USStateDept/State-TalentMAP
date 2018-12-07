@@ -5,7 +5,7 @@ import { get, isNumber } from 'lodash';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
-import Favorite from '../Favorite/Favorite';
+import Favorite from '../../Containers/Favorite';
 import BidListButton from '../../Containers/BidListButton';
 import MediaQueryWrapper from '../MediaQuery';
 import CompareCheck from '../CompareCheck/CompareCheck';
@@ -55,9 +55,6 @@ const ResultsCard = (props) => {
     result,
     onToggle,
     favorites,
-    toggleFavorite,
-    userProfileFavoritePositionIsLoading,
-    userProfileFavoritePositionHasErrored,
     bidList,
   } = props;
 
@@ -96,11 +93,8 @@ const ResultsCard = (props) => {
   ];
 
   options.favorite = {
-    isLoading: userProfileFavoritePositionIsLoading,
-    hasErrored: userProfileFavoritePositionHasErrored,
     compareArray: favorites,
     refKey: result.id,
-    onToggle: toggleFavorite,
     hideText: true,
     hasBorder: true,
     useButtonClass: true,
@@ -169,9 +163,6 @@ ResultsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   onToggle: PropTypes.func.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

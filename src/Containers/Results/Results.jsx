@@ -11,7 +11,6 @@ import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
 import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
-import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
 import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
@@ -203,11 +202,10 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading, filters, toggleFavorite,
+    const { results, hasErrored, isLoading, filters,
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
-            userProfileFavoritePositionIsLoading, resetSavedSearchAlerts,
-            userProfileFavoritePositionHasErrored, currentSavedSearch,
+            resetSavedSearchAlerts, currentSavedSearch,
             newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
@@ -231,9 +229,6 @@ class Results extends Component {
         setAccordion={setAccordion}
         scrollToTop={scrollToTop}
         userProfile={userProfile}
-        toggleFavorite={toggleFavorite}
-        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         newSavedSearchSuccess={newSavedSearchSuccess}
         newSavedSearchIsSaving={newSavedSearchIsSaving}
         newSavedSearchHasErrored={newSavedSearchHasErrored}
@@ -271,9 +266,6 @@ Results.propTypes = {
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
@@ -303,8 +295,6 @@ Results.defaultProps = {
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
   userProfile: {},
-  userProfileFavoritePositionIsLoading: false,
-  userProfileFavoritePositionHasErrored: false,
   newSavedSearchSuccess: {},
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
@@ -337,8 +327,6 @@ const mapStateToProps = state => ({
   selectedAccordion: state.selectedAccordion,
   routerLocations: state.routerLocations,
   userProfile: state.userProfile,
-  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
   newSavedSearchSuccess: state.newSavedSearchSuccess,
   newSavedSearchIsSaving: state.newSavedSearchIsSaving,
   newSavedSearchHasErrored: state.newSavedSearchHasErrored,
@@ -359,11 +347,6 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(filtersFetchData(items, queryParams, savedFilters, true)),
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
-  toggleFavorite: (id, remove) =>
-    // We don't need to pull the full Favorite Positions route, since
-    // all we want to do is check that they exist in the profile, so
-    // we don't pass the refreshFavorites arg
-    dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
   resetSavedSearchAlerts: () => dispatch(routeChangeResetState()),
   fetchMissionAutocomplete: query => dispatch(missionSearchFetchData(query)),

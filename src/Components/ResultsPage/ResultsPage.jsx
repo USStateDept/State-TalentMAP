@@ -29,9 +29,8 @@ class Results extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
-            defaultPageNumber, onQueryParamUpdate, filters, userProfile, toggleFavorite,
-            selectedAccordion, setAccordion, scrollToTop, userProfileFavoritePositionIsLoading,
-            userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
+            defaultPageNumber, onQueryParamUpdate, filters, userProfile,
+            selectedAccordion, setAccordion, scrollToTop, saveSearch, newSavedSearchSuccess,
             newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
@@ -96,9 +95,6 @@ class Results extends Component {
             onQueryParamToggle={onQueryParamToggle}
             scrollToTop={scrollToTop}
             userProfile={userProfile}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             saveSearch={saveSearch}
             newSavedSearchSuccess={newSavedSearchSuccess}
             newSavedSearchHasErrored={newSavedSearchHasErrored}
@@ -133,9 +129,6 @@ Results.propTypes = {
   filters: FILTER_ITEMS_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,

@@ -35,9 +35,6 @@ describe('ResultsContainerComponent', () => {
         hasLoaded={hasLoaded}
         onToggle={onToggle}
         onQueryParamToggle={() => {}}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         saveSearch={() => {}}
         newSavedSearchSuccess={{}}
         newSavedSearchHasErrored={false}
@@ -60,9 +57,6 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
@@ -85,9 +79,6 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={false}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
@@ -112,9 +103,6 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={false}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
@@ -140,9 +128,6 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}

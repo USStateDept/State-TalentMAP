@@ -133,7 +133,7 @@ class Favorite extends Component {
   }
 
   toggleSaved() {
-    const { onToggle, refKey } = this.props;
+    const { onToggle, refKey, refresh } = this.props;
 
     this.setState({
       loading: true,
@@ -142,7 +142,7 @@ class Favorite extends Component {
     });
 
     // pass the key and the "remove" param
-    onToggle(refKey, this.getSavedState());
+    onToggle(refKey, this.getSavedState(), refresh);
   }
 
   render() {
@@ -199,6 +199,7 @@ Favorite.propTypes = {
   useButtonClass: PropTypes.bool,
   useButtonClassSecondary: PropTypes.bool,
   useSpinnerWhite: PropTypes.bool,
+  refresh: PropTypes.bool.isRequired,
 };
 
 Favorite.defaultProps = {
@@ -212,6 +213,7 @@ Favorite.defaultProps = {
   useButtonClass: false,
   useButtonClassSecondary: false,
   useSpinnerWhite: false,
+  refresh: false,
 };
 
 export default Favorite;
