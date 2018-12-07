@@ -35,9 +35,6 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
@@ -72,9 +69,6 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
@@ -108,9 +102,6 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
@@ -143,9 +134,6 @@ describe('ResultsPageComponent', () => {
       setAccordion={() => {}}
       filters={items}
       onUpdate={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}

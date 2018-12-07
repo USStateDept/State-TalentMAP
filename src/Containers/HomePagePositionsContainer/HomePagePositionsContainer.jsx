@@ -38,9 +38,7 @@ class HomePagePositionsContainer extends Component {
   render() {
     const { homePagePositions, userProfileIsLoading,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
-      userProfile, userProfileFavoritePositionIsLoading,
-      userProfileFavoritePositionHasErrored, onNavigateTo,
-      toggleFavorite, bidList } = this.props;
+      userProfile, onNavigateTo, bidList } = this.props;
     return (
       <div className="content-container">
         {
@@ -54,10 +52,7 @@ class HomePagePositionsContainer extends Component {
             homePagePositionsHasErrored={homePagePositionsHasErrored}
             homePagePositionsIsLoading={homePagePositionsIsLoading}
             userProfile={userProfile}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             onNavigateTo={onNavigateTo}
-            toggleFavorite={toggleFavorite}
             bidList={bidList}
           />
         }
@@ -72,10 +67,7 @@ HomePagePositionsContainer.propTypes = {
   homePagePositionsHasErrored: PropTypes.bool,
   homePagePositionsIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   onNavigateTo: PropTypes.func.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   userProfileIsLoading: PropTypes.bool,
 };
@@ -85,8 +77,6 @@ HomePagePositionsContainer.defaultProps = {
   homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
   homePagePositionsHasErrored: false,
   homePagePositionsIsLoading: true,
-  userProfileFavoritePositionIsLoading: false,
-  userProfileFavoritePositionHasErrored: false,
   userProfile: {},
   userProfileIsLoading: false,
 };

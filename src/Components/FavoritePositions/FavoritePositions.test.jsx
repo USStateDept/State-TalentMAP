@@ -8,7 +8,6 @@ import bidListObject from '../../__mocks__/bidListObject';
 describe('FavoritePositionsComponent', () => {
   const props = {
     favorites: resultsObject,
-    toggleFavorite: () => {},
     toggleFavoritePositionIsLoading: false,
     toggleFavoritePositionHasErrored: false,
     favoritePositionsIsLoading: false,

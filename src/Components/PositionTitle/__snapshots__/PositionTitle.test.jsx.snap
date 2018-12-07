@@ -56,17 +56,9 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
           <div
             className="usa-width-one-half title-actions-section"
           >
-            <Favorite
-              as="div"
-              className=""
-              compareArray={Array []}
-              hasBorder={false}
-              hideText={false}
-              isLoading={false}
-              onToggle={[Function]}
+            <Connect(FavoriteContainer)
               refKey={6}
               useButtonClass={true}
-              useButtonClassSecondary={false}
               useLongText={true}
               useSpinnerWhite={true}
             />
