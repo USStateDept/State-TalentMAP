@@ -187,6 +187,17 @@ export function* login(credentials = {}) {
   return null;
 }
 
+function getLoginCredentials(loggingIn, isSAML) {
+  if (isSAML) {
+    return loggingIn.token;
+  }
+
+  return {
+    username: loggingIn.username,
+    password: loggingIn.password,
+  };
+}
+
 // Our watcher (saga).  It will watch for many things.
 function* loginWatcher() {
   const evaluate = true;
@@ -201,16 +212,8 @@ function* loginWatcher() {
     const { loggingIn } = yield race(races);
 
     if (loggingIn) {
-      if (isSAML) {
-        yield call(login, loggingIn.token);
-      } else {
-        const credentials = {
-          username: loggingIn.username,
-          password: loggingIn.password,
-        };
-
-        yield call(login, credentials);
-      }
+      const credentials = getLoginCredentials(loggingIn, isSAML);
+      yield call(login, credentials);
     } else {
       // log out
       yield call(logout);
