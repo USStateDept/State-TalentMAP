@@ -91,9 +91,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
     <div
       className="usa-grid-full condensed-card-buttons-section"
     >
-      <Favorite
-        as="div"
-        className=""
+      <Connect(FavoriteContainer)
         compareArray={
           Array [
             Object {
@@ -108,13 +106,10 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         }
         hasBorder={true}
         hideText={true}
-        isLoading={false}
-        onToggle={[Function]}
         refKey={6}
+        refresh={false}
         useButtonClass={true}
         useButtonClassSecondary={true}
-        useLongText={false}
-        useSpinnerWhite={false}
       />
       <Connect(BidListButtonContainer)
         className="tm-button"

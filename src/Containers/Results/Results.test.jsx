@@ -22,7 +22,6 @@ describe('Results', () => {
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         resetSavedSearchAlerts={() => {}}
         fetchMissionAutocomplete={() => {}}
@@ -46,7 +45,6 @@ describe('Results', () => {
         isAuthorized={() => false}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         resetSavedSearchAlerts={() => {}}
         fetchMissionAutocomplete={() => {}}
@@ -73,7 +71,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -106,7 +103,6 @@ describe('Results', () => {
         fetchFilters={spy}
         setAccordion={() => {}}
         filters={{ hasFetched: true }}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -133,7 +129,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={(q, id) => { savedSearch.q = q; savedSearch.id = id; }}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -160,7 +155,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -200,7 +194,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -240,7 +233,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -280,7 +272,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -309,7 +300,6 @@ describe('mapDispatchToProps', () => {
     fetchFilters: [{}, '?q', '?q'],
     setAccordion: [{}],
     onNavigateTo: ['/details'],
-    toggleFavorite: [1, true],
     saveSearch: [{}, 1],
     fetchMissionAutocomplete: ['?q'],
     fetchPostAutocomplete: ['?q'],

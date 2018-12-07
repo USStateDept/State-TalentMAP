@@ -14,7 +14,6 @@ describe('ResultsCondensedCardBottomComponent', () => {
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
-        toggleFavorite={() => {}}
         favorites={favorites}
       />,
     );
@@ -26,7 +25,6 @@ describe('ResultsCondensedCardBottomComponent', () => {
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
-        toggleFavorite={() => {}}
         favorites={favorites}
       />,
     );
@@ -38,7 +36,6 @@ describe('ResultsCondensedCardBottomComponent', () => {
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
-        toggleFavorite={() => {}}
         favorites={favorites}
       />,
     );

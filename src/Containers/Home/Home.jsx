@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { bidListFetchData } from '../../actions/bidList';
-import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import HomePage from '../../Containers/HomePage/HomePage';
@@ -36,9 +35,7 @@ class Home extends Component {
   render() {
     const { onNavigateTo, items, homePagePositions,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
-      userProfile, userProfileIsLoading, toggleFavorite,
-      userProfileFavoritePositionIsLoading, bidList,
-      userProfileFavoritePositionHasErrored, filtersIsLoading } = this.props;
+      userProfile, userProfileIsLoading, bidList, filtersIsLoading } = this.props;
     return (
       <HomePage
         onNavigateTo={onNavigateTo}
@@ -49,9 +46,6 @@ class Home extends Component {
         homePagePositionsIsLoading={homePagePositionsIsLoading}
         userProfile={userProfile}
         userProfileIsLoading={userProfileIsLoading}
-        toggleFavorite={toggleFavorite}
-        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         bidList={bidList.results}
       />
     );
@@ -67,9 +61,6 @@ Home.propTypes = {
   homePagePositionsIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
   filtersIsLoading: PropTypes.bool,
@@ -85,8 +76,6 @@ Home.defaultProps = {
   homePagePositionsIsLoading: true,
   userProfile: {},
   userProfileIsLoading: false,
-  userProfileFavoritePositionIsLoading: false,
-  userProfileFavoritePositionHasErrored: false,
   bidList: { results: [] },
   filtersIsLoading: false,
 };
@@ -100,8 +89,6 @@ const mapStateToProps = state => ({
   homePagePositionsIsLoading: state.homePagePositionsIsLoading,
   userProfile: state.userProfile,
   userProfileIsLoading: state.userProfileIsLoading,
-  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
   bidList: state.bidListFetchDataSuccess,
 });
 
@@ -109,7 +96,6 @@ export const mapDispatchToProps = dispatch => ({
   homePagePositionsFetchData: (skills, grade) =>
     dispatch(homePagePositionsFetchData(skills, grade)),
   onNavigateTo: dest => dispatch(push(dest)),
-  toggleFavorite: (id, remove) => dispatch(userProfileToggleFavoritePosition(id, remove)),
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleSearchBarVisibility: showHide => dispatch(toggleSearchBar(showHide)),
 });
