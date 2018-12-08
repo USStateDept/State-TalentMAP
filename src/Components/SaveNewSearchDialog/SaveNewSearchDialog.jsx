@@ -8,21 +8,19 @@ import TextInput from '../TextInput';
 class SaveNewSearchDialog extends Component {
   constructor(props) {
     super(props);
-    this.submitNewSavedSearch = this.submitNewSavedSearch.bind(this);
-    this.submitUpdatedSavedSearch = this.submitUpdatedSavedSearch.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-
+    this.changeNewSearchName = this.changeNewSearchName.bind(this);
     this.state = {
-      type: 'enter',
+      newSearchName: { value: this.props.currentSavedSearch.name || '' },
     };
   }
 
   onSubmit(e) {
-    const submit = this.isExisting ?
-      this.submitUpdatedSavedSearch :
-      this.submitNewSavedSearch;
-
-    submit(e);
+    if (this.isExisting) {
+      this.submitSavedSearch(e, this.props.currentSavedSearch.id);
+    } else {
+      this.submitSavedSearch(e);
+    }
   }
 
   get isExisting() {
@@ -30,24 +28,24 @@ class SaveNewSearchDialog extends Component {
     return (id > 0);
   }
 
-  submitNewSavedSearch(e) {
-    this.props.onFormSubmit(e);
-    this.props.onCancel(e);
+  changeNewSearchName(e) {
+    const { newSearchName } = this.state;
+    newSearchName.value = e;
+    this.setState({ newSearchName });
   }
 
-  submitUpdatedSavedSearch(e) {
-    this.props.onFormSubmit(e, this.props.currentSavedSearch.id);
-    this.props.onCancel(e);
+  submitSavedSearch(e, id) {
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    this.props.saveSearch(this.state.newSearchName.value, id);
+    if (this.state.newSearchName.value) {
+      this.props.onCancel(e);
+    }
   }
 
   render() {
-    const {
-      onCancel,
-      onTextChange,
-      newSavedSearchHasErrored,
-      newSavedSearchSuccess,
-      currentSavedSearch,
-    } = this.props;
+    const { onCancel, newSavedSearchHasErrored, newSavedSearchSuccess } = this.props;
 
     // Check the "type" prop.
     // Setting this as an if statement allows us to easily add conditions if needed
@@ -66,9 +64,9 @@ class SaveNewSearchDialog extends Component {
           <TextInput
             id="saved-search"
             label="Name"
-            changeText={onTextChange}
+            changeText={this.changeNewSearchName}
             type={inputType}
-            value={currentSavedSearch.name}
+            value={this.state.newSearchName.value}
             labelMessage={newSavedSearchHasErrored || newSavedSearchSuccess}
           />
         </FieldSet>
@@ -83,7 +81,7 @@ class SaveNewSearchDialog extends Component {
           <button
             type="button"
             className="saved-search-form-primary-button"
-            onClick={this.submitNewSavedSearch}
+            onClick={this.onSubmit}
           >
             { this.isExisting ? 'Save As' : 'Save' }
           </button>
@@ -103,9 +101,8 @@ class SaveNewSearchDialog extends Component {
 }
 
 SaveNewSearchDialog.propTypes = {
+  saveSearch: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
-  onTextChange: PropTypes.func.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   newSavedSearchSuccess: SAVED_SEARCH_MESSAGE,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
