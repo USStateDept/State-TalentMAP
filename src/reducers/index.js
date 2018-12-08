@@ -33,6 +33,7 @@ import bidStatistics from './bidStatistics';
 import selectedSearchbarFilters from './selectedSearchbarFilters';
 import showFeedback from './showFeedback';
 import feedback from './feedback';
+import features from './features';
 
 
 export default combineReducers({
@@ -64,6 +65,7 @@ export default combineReducers({
   ...selectedSearchbarFilters,
   ...showFeedback,
   ...feedback,
+  ...features,
   router,
   form,
   client,
