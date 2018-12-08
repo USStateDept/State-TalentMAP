@@ -12,7 +12,6 @@ describe('ProfilePageComponent', () => {
   const props = {
     user: DEFAULT_USER_PROFILE,
     favoritePositions: resultsObject,
-    toggleFavorite: () => {},
     favoritePositionsIsLoading: false,
     favoritePositionsHasErrored: false,
     toggleFavoritePositionIsLoading: false,

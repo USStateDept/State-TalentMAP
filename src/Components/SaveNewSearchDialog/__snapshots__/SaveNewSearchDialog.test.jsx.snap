@@ -17,7 +17,7 @@ exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
       labelMessage=""
       labelSrOnly={false}
       placeholder=""
-      value={null}
+      value=""
     />
   </FieldSet>
   <div

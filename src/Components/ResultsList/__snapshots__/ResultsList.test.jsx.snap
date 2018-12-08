@@ -94,9 +94,6 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08T00:00:00Z",
       }
     }
-    toggleFavorite={[Function]}
-    userProfileFavoritePositionHasErrored={false}
-    userProfileFavoritePositionIsLoading={false}
   />
   <ResultsCard
     bidList={Array []}
@@ -195,9 +192,6 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
         "update_date": "2017-06-08T00:00:00Z",
       }
     }
-    toggleFavorite={[Function]}
-    userProfileFavoritePositionHasErrored={false}
-    userProfileFavoritePositionIsLoading={false}
   />
 </div>
 `;
