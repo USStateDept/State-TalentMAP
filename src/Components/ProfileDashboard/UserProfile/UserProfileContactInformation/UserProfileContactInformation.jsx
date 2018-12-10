@@ -6,7 +6,7 @@ import InformationDataPoint from '../../InformationDataPoint';
 import StaticDevContent from '../../../StaticDevContent';
 
 const UserProfileContactInformation = ({ userProfile }) => (
-  <div className="current-user-bottom current-user-section-container">
+  <div className="current-user-section-container">
     <div className="section-padded-inner-container">
       <SectionTitle small title="Contact Information" />
       <InformationDataPoint title="Email Address" content={userProfile.user.email || NO_EMAIL} />

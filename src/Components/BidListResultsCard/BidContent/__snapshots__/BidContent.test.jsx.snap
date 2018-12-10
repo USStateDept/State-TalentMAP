@@ -5,6 +5,7 @@ exports[`BidContentComponent matches snapshot 1`] = `
   className="usa-grid-full bid-content-container"
 >
   <BidStatus
+    positionTitle="Title"
     status="approved"
   />
   <div>

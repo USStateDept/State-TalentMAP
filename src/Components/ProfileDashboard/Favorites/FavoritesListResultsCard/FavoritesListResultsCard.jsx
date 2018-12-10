@@ -7,7 +7,7 @@ import LinkButton from '../../../LinkButton';
 const FavoritesListResultsCard = ({ position }) => (
   <div className="usa-grid-full saved-search-card favorites-card" key={position.id}>
     <div className="usa-grid-full">
-      <div className="usa-width-one-half favorites-card-section">
+      <div className="usa-width-two-thirds favorites-card-section">
         <InformationDataPoint
           titleOnBottom
           content={
@@ -15,7 +15,7 @@ const FavoritesListResultsCard = ({ position }) => (
           }
         />
       </div>
-      <div className="usa-width-one-fourth favorites-card-section">
+      <div className="usa-width-one-third favorites-card-section">
         <LinkButton toLink={`/details/${position.position_number}`}>View Position</LinkButton>
       </div>
     </div>

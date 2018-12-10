@@ -5,10 +5,16 @@ import BidStatus from './BidStatus';
 import { APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED, HAND_SHAKE_OFFERED,
 HAND_SHAKE_DECLINED, IN_PANEL, SUBMITTED } from '../../../Constants/BidStatuses';
 
+const props = {
+  status: APPROVED.property,
+  positionTitle: 'Title',
+};
+
 describe('BidStatusComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={APPROVED.property}
       />,
     );
@@ -18,6 +24,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for APPROVED', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={APPROVED.property}
       />,
     );
@@ -27,6 +34,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for CLOSED', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={CLOSED.property}
       />,
     );
@@ -36,6 +44,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for DRAFT', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={DRAFT.property}
       />,
     );
@@ -45,6 +54,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for DECLINED', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={DECLINED.property}
       />,
     );
@@ -54,6 +64,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for HAND_SHAKE_ACCEPTED', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={HAND_SHAKE_ACCEPTED.property}
       />,
     );
@@ -63,6 +74,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for HAND_SHAKE_OFFERED', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={HAND_SHAKE_OFFERED.property}
       />,
     );
@@ -72,6 +84,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for HAND_SHAKE_DECLINED', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={HAND_SHAKE_DECLINED.property}
       />,
     );
@@ -81,6 +94,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for IN_PANEL', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={IN_PANEL.property}
       />,
     );
@@ -90,6 +104,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for SUBMITTED', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status={SUBMITTED.property}
       />,
     );
@@ -99,6 +114,7 @@ describe('BidStatusComponent', () => {
   it('matches snapshot for other statuses', () => {
     const wrapper = shallow(
       <BidStatus
+        {...props}
         status="other"
       />,
     );

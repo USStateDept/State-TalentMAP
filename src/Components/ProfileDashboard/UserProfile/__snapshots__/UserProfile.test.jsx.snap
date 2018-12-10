@@ -61,61 +61,108 @@ exports[`UserProfileComponent matches snapshot 1`] = `
       }
     }
   />
-  <UserProfileContactInformation
-    showEditLink={true}
-    userProfile={
-      Object {
-        "bid_statistics": Array [
+  <div
+    className="current-user-bottom"
+  >
+    <div
+      className="current-user-section-border cdo-section"
+    >
+      <Connect(StaticDevContent)>
+        <ExternalUserStatus
+          email=""
+          firstName="Leah"
+          initials="LS"
+          lastName="Shadtrach"
+          showMail={false}
+          small={true}
+          type="cdo"
+        />
+      </Connect(StaticDevContent)>
+    </div>
+    <div
+      className="current-user-section-border"
+    >
+      <PositionInformation
+        assignment={
           Object {
-            "draft": 1,
-            "submitted": 1,
+            "end_date": "10-10-2018",
+            "estimated_end_date": "10-10-2018",
+            "position": Object {
+              "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
+              "position_number": "58348065",
+              "post": Object {
+                "location": Object {
+                  "city": "Washington",
+                  "code": "500",
+                  "country": "United States",
+                  "id": 4,
+                  "state": "DC",
+                },
+              },
+              "skill": "CONSTRUCTION ENGINEERING (6218)",
+              "title": "PROJECT DIRECTOR",
+            },
+            "start_date": "10-10-2016",
+          }
+        }
+      />
+    </div>
+    <UserProfileContactInformation
+      showEditLink={true}
+      userProfile={
+        Object {
+          "bid_statistics": Array [
+            Object {
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
+          "cdo": Object {
+            "email": "shadtrachl@state.gov",
+            "first_name": "Leah",
+            "initials": "LS",
+            "last_name": "Shadtrach",
+            "username": "shadtrachl",
           },
-        ],
-        "cdo": Object {
-          "email": "shadtrachl@state.gov",
-          "first_name": "Leah",
-          "initials": "LS",
-          "last_name": "Shadtrach",
-          "username": "shadtrachl",
-        },
-        "display_name": "John",
-        "favorite_positions": Array [
-          Object {
-            "id": 1,
-            "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-          },
-          Object {
-            "id": 4,
-            "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-          },
-        ],
-        "grade": "03",
-        "id": 1,
-        "initials": "JD",
-        "is_cdo": false,
-        "skills": Array [
-          Object {
-            "code": "6218",
-            "cone": null,
-            "description": "CONSTRUCTION ENGINEERING",
-            "id": 63,
-          },
-          Object {
-            "code": "6211",
-            "cone": null,
-            "description": "COMPUTER SCIENCE",
-            "id": 40,
-          },
-        ],
-        "user": Object {
-          "email": "doej@state.gov",
-          "first_name": "John",
+          "display_name": "John",
+          "favorite_positions": Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+            },
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+            },
+          ],
+          "grade": "03",
+          "id": 1,
           "initials": "JD",
-          "last_name": "Doe",
-          "username": "jdoe",
-        },
+          "is_cdo": false,
+          "skills": Array [
+            Object {
+              "code": "6218",
+              "cone": null,
+              "description": "CONSTRUCTION ENGINEERING",
+              "id": 63,
+            },
+            Object {
+              "code": "6211",
+              "cone": null,
+              "description": "COMPUTER SCIENCE",
+              "id": 40,
+            },
+          ],
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "initials": "JD",
+            "last_name": "Doe",
+            "username": "jdoe",
+          },
+        }
       }
-    }
-  />
+    />
+  </div>
 </div>
 `;

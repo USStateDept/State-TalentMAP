@@ -15,6 +15,7 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
         content={
           <BidContent
             positionNumber="05A"
+            positionTitle="AO"
             postName="Paris"
             status="submitted"
           />

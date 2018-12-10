@@ -11,6 +11,7 @@ describe('BidContentComponent', () => {
         status={APPROVED.property}
         positionNumber="055A45"
         postName="Paris"
+        positionTitle="Title"
       />,
     );
     expect(wrapper).toBeDefined();
@@ -22,6 +23,7 @@ describe('BidContentComponent', () => {
         status={APPROVED.property}
         positionNumber="055A45"
         postName="Paris"
+        positionTitle="Title"
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

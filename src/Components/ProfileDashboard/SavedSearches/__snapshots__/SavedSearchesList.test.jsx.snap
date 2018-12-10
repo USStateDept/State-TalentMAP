@@ -128,7 +128,7 @@ exports[`SavedSearchesListComponent matches snapshot when filtersIsLoading is tr
 >
   <Spinner
     size="big"
-    type="homepage-position-results"
+    type="saved-searches"
   />
 </div>
 `;
