@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { BID_STATISTICS_OBJECT } from '../../../Constants/PropTypes';
+import { BID_STATISTICS_OBJECT, POST_DETAILS } from '../../../Constants/PropTypes';
 import BidCount from '../../BidCount';
 import { SUBMITTED_PROP } from '../../../Constants/BidData';
 import { getPostName } from '../../../utilities';
@@ -19,7 +19,9 @@ const BidTrackerCardTitle = ({ title, id, status, bidStatistics, post }) => (
         <div className="bid-tracker-card-title-bottom">
           <strong>Post:</strong> {getPostName(post)}
         </div>
-        <BidCount bidStatistics={bidStatistics} altStyle />
+        <span className="bid-stats">
+          <BidCount bidStatistics={bidStatistics} altStyle />
+        </span>
       </div>
     }
   </div>
@@ -30,7 +32,7 @@ BidTrackerCardTitle.propTypes = {
   id: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   bidStatistics: BID_STATISTICS_OBJECT.isRequired,
-  post: PropTypes.shape({}).isRequired,
+  post: POST_DETAILS.isRequired,
 };
 
 export default BidTrackerCardTitle;
