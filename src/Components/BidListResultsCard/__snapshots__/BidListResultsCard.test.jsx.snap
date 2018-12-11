@@ -13,12 +13,30 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
       <InformationDataPoint
         className=""
         content={
-          <BidContent
-            positionNumber="05A"
-            positionTitle="AO"
-            postName="Paris"
-            status="submitted"
-          />
+          <div>
+            <BidContent
+              bidStatistics={
+                Object {
+                  "approved": 0,
+                  "bidcycle": "Demo BidCycle 2018-01-10 15:52:20.583434",
+                  "closed": 0,
+                  "declined": 0,
+                  "draft": 3,
+                  "handshake_accepted": 0,
+                  "handshake_declined": 0,
+                  "handshake_offered": 3,
+                  "id": 4,
+                  "in_panel": 0,
+                  "submitted": 4,
+                  "user": "Jenny Townpost",
+                }
+              }
+              positionNumber="05A"
+              positionTitle="AO"
+              postName="Paris"
+              status="submitted"
+            />
+          </div>
         }
         sideBySide={false}
         title={null}
