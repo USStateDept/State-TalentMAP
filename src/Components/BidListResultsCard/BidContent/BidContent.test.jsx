@@ -13,7 +13,7 @@ describe('BidContentComponent', () => {
         positionNumber="055A45"
         postName="Paris"
         positionTitle="Title"
-        bidStatistics={bidStatistics.result}
+        bidStatistics={bidStatistics}
       />,
     );
     expect(wrapper).toBeDefined();
