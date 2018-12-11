@@ -8,7 +8,21 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
     className="bid-tracker-title-content-container"
   >
     <BidTrackerCardTitle
+      bidStatistics={Object {}}
       id="10035561"
+      post={
+        Object {
+          "id": 199,
+          "location": Object {
+            "city": "Freetown",
+            "code": "00A",
+            "country": "Sierra Leone",
+            "id": 103,
+            "state": "",
+          },
+        }
+      }
+      status="approved"
       title="POLITICAL/ECONOMIC OFFICER"
     />
   </div>

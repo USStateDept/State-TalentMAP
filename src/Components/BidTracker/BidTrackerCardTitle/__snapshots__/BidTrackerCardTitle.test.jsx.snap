@@ -1,23 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidTrackerCardTitleComponent matches snapshot 1`] = `
+exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted" 1`] = `
 <div
-  className="bid-tracker-card-title-container"
+  className="usa-grid-full"
 >
   <div
-    className="bid-tracker-card-title-text"
+    className="usa-grid-full bid-tracker-card-title-container"
   >
-    Title
+    <div
+      className="bid-tracker-card-title-text"
+    >
+      Title
+    </div>
+    <div
+      className="bid-tracker-card-title-link"
+    >
+      <Link
+        replace={false}
+        to="/details/a123"
+      >
+        View position
+      </Link>
+    </div>
   </div>
   <div
-    className="bid-tracker-card-title-link"
+    className="usa-grid-full"
   >
-    <Link
-      replace={false}
-      to="/details/a123"
+    <div
+      className="bid-tracker-card-title-bottom"
     >
-      View position
-    </Link>
+      <strong>
+        Post:
+      </strong>
+       
+      Maseru, Lesotho
+    </div>
+    <BidCount
+      altStyle={true}
+      bidStatistics={
+        Object {
+          "approved_bidders": 1,
+          "available_domestic_positions": 81,
+          "available_international_positions": 159,
+          "available_positions": 240,
+          "bidding_days_remaining": 30,
+          "cycle_deadline_date": "2018-02-10T00:00:00Z",
+          "cycle_end_date": "2018-04-10T00:00:00Z",
+          "cycle_start_date": "2017-10-10T00:00:00Z",
+          "id": 1,
+          "in_panel_bidders": 0,
+          "name": "Demo BidCycle 2018-01-10 15:52:20.583434",
+          "total_bidders": 4,
+          "total_bids": 40,
+          "total_positions": 251,
+        }
+      }
+      hideLabel={false}
+      label="Bid Count:"
+    />
+  </div>
+</div>
+`;
+
+exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submitted" 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="usa-grid-full bid-tracker-card-title-container"
+  >
+    <div
+      className="bid-tracker-card-title-text"
+    >
+      Title
+    </div>
+    <div
+      className="bid-tracker-card-title-link"
+    >
+      <Link
+        replace={false}
+        to="/details/a123"
+      >
+        View position
+      </Link>
+    </div>
   </div>
 </div>
 `;

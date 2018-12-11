@@ -124,6 +124,14 @@ $draft-icon-offset: 120px;
   margin-bottom: 20px;
   min-width: $card-width;
 
+  .bid-count-container {
+    float: left;
+  }
+
+  .bid-count-label {
+    margin-top: .4em;
+  }
+
   .step-title-sub-text {
     color: $color-gray;
     font-size: 13px;
@@ -190,6 +198,12 @@ $draft-icon-offset: 120px;
     font-size: 19px;
     font-weight: bold;
     padding-right: 10px;
+  }
+
+  .bid-tracker-card-title-bottom {
+    float: left;
+    margin-right: .5em;
+    margin-top: .6em;
   }
 
   .bid-tracker-card-title-link {
