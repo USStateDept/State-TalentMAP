@@ -2,7 +2,7 @@
 
 exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
 <div
-  className="current-user-bottom current-user-section-container"
+  className="current-user-section-container"
 >
   <div
     className="section-padded-inner-container"

@@ -95,6 +95,17 @@
         padding-left: 1.5rem;
       }
     }
+
+    .search-title {
+      margin-bottom: 5px;
+      text-decoration: underline;
+
+      .fa {
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-left: 5px;
+      }
+    }
   }
 
   .saved-searches-container {
@@ -171,8 +182,11 @@
   }
 
   .current-user-top {
-    border-bottom: 1px solid $color-gray-light;
     text-align: center;
+  }
+
+  .current-user-section-border {
+    border-bottom: 1px solid $color-gray-light;
   }
 
   .current-user-bid-information {
@@ -575,6 +589,7 @@ $padding-no-border: $total-padding - $border;
 .small-link-container-settings {
   a {
     display: inline-block;
+    float: right;
     padding-top: 5px;
   }
 }
@@ -602,8 +617,6 @@ $padding-no-border: $total-padding - $border;
   }
 
   .bid-list-card-title-status {
-    text-transform: capitalize;
-
     .fa {
       margin-right: 5px;
     }
@@ -662,7 +675,7 @@ $padding-no-border: $total-padding - $border;
 
 .bid-list-container {
   font-size: 1.1em;
-  max-height: 450px;
+  max-height: 420px;
   min-height: 260px;
   overflow-y: auto;
 
@@ -678,10 +691,6 @@ $padding-no-border: $total-padding - $border;
   .button-wrapper {
     display: inline-block;
     text-align: center;
-  }
-
-  a {
-    font-size: .8em;
   }
 }
 
@@ -786,7 +795,9 @@ $padding-no-border: $total-padding - $border;
 
   .link-button {
     float: right;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .saved-search-card {

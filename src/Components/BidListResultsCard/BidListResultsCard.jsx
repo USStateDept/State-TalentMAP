@@ -5,7 +5,7 @@ import { NO_POST } from '../../Constants/SystemMessages';
 import InformationDataPoint from '../ProfileDashboard/InformationDataPoint';
 import BidContent from './BidContent';
 import BidActions from './BidActions';
-import { formatDate } from '../../utilities';
+import { formatDate, getTimeDistanceInWords } from '../../utilities';
 
 class BidListResultsCard extends Component {
   constructor(props) {
@@ -23,7 +23,10 @@ class BidListResultsCard extends Component {
   }
   render() {
     const { bid, condensedView } = this.props;
-    const updatedDate = formatDate(bid.update_date);
+    const createdDate = formatDate(bid.create_date);
+    const timeDistanceInWords = getTimeDistanceInWords(bid.update_date);
+    const contentTitle = timeDistanceInWords && createdDate ?
+    `${timeDistanceInWords} | Added to Bid List: ${createdDate}` : null;
     return (
       <div className="usa-grid-full saved-search-card" key={bid.id}>
         <div className="usa-grid-full">
@@ -32,12 +35,13 @@ class BidListResultsCard extends Component {
               titleOnBottom
               content={
                 <BidContent
+                  positionTitle={bid.position.title}
                   status={bid.status}
                   positionNumber={bid.position.position_number}
                   postName={bid.post || NO_POST}
                 />
               }
-              title={updatedDate ? `Updated on ${updatedDate}` : null}
+              title={contentTitle}
             />
           </div>
         </div>

@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED,
   HAND_SHAKE_OFFERED, IN_PANEL, SUBMITTED, HAND_SHAKE_DECLINED } from '../../../Constants/BidStatuses';
 
-const BidStatus = ({ status }) => {
+const BidStatus = ({ status, positionTitle }) => {
   let icon;
   let text;
   switch (status) {
@@ -50,13 +50,14 @@ const BidStatus = ({ status }) => {
   }
   return (
     <div className="bid-list-card-title-status">
-      <FontAwesome name={icon} /> {text}
+      <FontAwesome name={icon} /> {text} for {positionTitle}
     </div>
   );
 };
 
 BidStatus.propTypes = {
   status: PropTypes.string.isRequired,
+  positionTitle: PropTypes.string.isRequired,
 };
 
 
