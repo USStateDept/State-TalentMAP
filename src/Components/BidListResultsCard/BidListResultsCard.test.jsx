@@ -6,7 +6,30 @@ import { SUBMITTED, DRAFT } from '../../Constants/BidStatuses';
 import BidListResultsCard from './BidListResultsCard';
 
 describe('BidListResultsCardComponent', () => {
-  const bid = { id: 1, status: SUBMITTED.property, post: 'Paris', position: { id: 2, position_number: '05A', title: 'AO' } };
+  const bid = {
+    id: 1,
+    status: SUBMITTED.property,
+    post: 'Paris',
+    position: {
+      id: 2,
+      position_number: '05A',
+      title: 'AO',
+      bid_statistics: [{
+        id: 4,
+        bidcycle: 'Demo BidCycle 2018-01-10 15:52:20.583434',
+        user: 'Jenny Townpost',
+        draft: 3,
+        submitted: 4,
+        handshake_offered: 3,
+        handshake_accepted: 0,
+        handshake_declined: 0,
+        in_panel: 0,
+        approved: 0,
+        declined: 0,
+        closed: 0,
+      }],
+    },
+  };
   it('is defined', () => {
     const wrapper = shallow(
       <BidListResultsCard
@@ -21,7 +44,7 @@ describe('BidListResultsCardComponent', () => {
   it('can receive props', () => {
     const wrapper = shallow(
       <BidListResultsCard
-        bid={bid}
+        bid={{ ...bid, post: null, update_date: '01/02/2000', create_date: '01/01/2000' }}
         toggleBidPosition={() => {}}
         submitBid={() => {}}
       />,

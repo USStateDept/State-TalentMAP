@@ -12,6 +12,7 @@ describe('BidContentComponent', () => {
         positionNumber="055A45"
         postName="Paris"
         positionTitle="Title"
+        bidStatistics={{}}
       />,
     );
     expect(wrapper).toBeDefined();

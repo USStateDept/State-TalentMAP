@@ -607,6 +607,17 @@ $padding-no-border: $total-padding - $border;
 .saved-search-card {
   position: relative;
 
+  .bid-stats {
+    float: right;
+    font-size: 90%;
+    .bid-count-container {
+      .bid-count-label {
+        float: none;
+      }
+
+    }
+  }
+
   .bid-list-card-title-position {
     font-weight: bold;
     text-transform: uppercase;

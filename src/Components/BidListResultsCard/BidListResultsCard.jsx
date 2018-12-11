@@ -34,12 +34,15 @@ class BidListResultsCard extends Component {
             <InformationDataPoint
               titleOnBottom
               content={
-                <BidContent
-                  positionTitle={bid.position.title}
-                  status={bid.status}
-                  positionNumber={bid.position.position_number}
-                  postName={bid.post || NO_POST}
-                />
+                <div>
+                  <BidContent
+                    positionTitle={bid.position.title}
+                    status={bid.status}
+                    positionNumber={bid.position.position_number}
+                    postName={bid.post || NO_POST}
+                    bidStatistics={bid.position.bid_statistics[0]}
+                  />
+                </div>
               }
               title={contentTitle}
             />
