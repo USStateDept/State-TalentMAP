@@ -49,6 +49,23 @@ describe('SaveNewSearchDialogComponent', () => {
     sinon.assert.calledOnce(form.preventDefault);
   });
 
+  it('can call the updateSavedSearch function', () => {
+    const form = { value: null, valueSec: null, preventDefault: sinon.spy() };
+    const savedSearch = { id: 1, name: 'test' };
+    wrapper = shallow(
+      <SaveNewSearchDialog
+        onCancel={() => {}}
+        saveSearch={(e, id) => { form.value = e; form.valueSec = id; }}
+        newSavedSearchHasErrored="error"
+        currentSavedSearch={savedSearch}
+      />,
+    );
+    wrapper.instance().updateSavedSearch(form);
+    expect(form.value).toBe(savedSearch.name);
+    expect(form.valueSec).toBe(savedSearch.id);
+    sinon.assert.calledOnce(form.preventDefault);
+  });
+
   it('can call the changeNewSearchName function', () => {
     const text = 'text';
     wrapper = shallow(

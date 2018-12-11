@@ -10,6 +10,8 @@ class SaveNewSearchDialog extends Component {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.changeNewSearchName = this.changeNewSearchName.bind(this);
+    this.updateSavedSearch = this.updateSavedSearch.bind(this);
+    this.submitSavedSearch = this.submitSavedSearch.bind(this);
     this.state = {
       newSearchName: { value: this.props.currentSavedSearch.name || '' },
     };
@@ -32,6 +34,10 @@ class SaveNewSearchDialog extends Component {
     const { newSearchName } = this.state;
     newSearchName.value = e;
     this.setState({ newSearchName });
+  }
+
+  updateSavedSearch(e) {
+    this.submitSavedSearch(e, this.props.currentSavedSearch.id);
   }
 
   submitSavedSearch(e, id) {
@@ -81,7 +87,7 @@ class SaveNewSearchDialog extends Component {
           <button
             type="button"
             className="saved-search-form-primary-button"
-            onClick={this.onSubmit}
+            onClick={this.submitSavedSearch}
           >
             { this.isExisting ? 'Save As' : 'Save' }
           </button>
@@ -89,7 +95,7 @@ class SaveNewSearchDialog extends Component {
             this.isExisting ?
               <button
                 className="saved-search-form-secondary-button"
-                onClick={this.submitUpdatedSavedSearch}
+                onClick={this.updateSavedSearch}
               >
                 Save
               </button> : null
