@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { APPROVED } from '../../../Constants/BidStatuses';
 import BidContent from './BidContent';
+import bidStatistics from '../../../__mocks__/bidStatistics';
 
 describe('BidContentComponent', () => {
   it('is defined', () => {
@@ -12,7 +13,7 @@ describe('BidContentComponent', () => {
         positionNumber="055A45"
         postName="Paris"
         positionTitle="Title"
-        bidStatistics={{}}
+        bidStatistics={bidStatistics}
       />,
     );
     expect(wrapper).toBeDefined();
