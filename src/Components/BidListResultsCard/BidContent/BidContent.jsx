@@ -8,12 +8,9 @@ import { BID_STATISTICS_OBJECT } from '../../../Constants/PropTypes';
 const BidContent = ({ status, positionNumber, postName, positionTitle, bidStatistics }) => (
   <div className="usa-grid-full bid-content-container">
     <BidStatus status={status} positionTitle={positionTitle} />
-    {
-      bidStatistics &&
-      <span className="bid-stats">
-        <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" />
-      </span>
-    }
+    <span className="bid-stats">
+      <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" />
+    </span>
     <div>
       <span className="bid-list-card-title-position">Position number </span>
       <Link to={`/details/${positionNumber}`}>
