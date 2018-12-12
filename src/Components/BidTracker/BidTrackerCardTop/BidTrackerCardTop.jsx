@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { get } from 'lodash';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ActionsDropdown from '../ActionsDropdown';
@@ -8,10 +9,18 @@ import { getActionPermissions } from '../BidHelpers';
 
 const BidTrackerCardTop = ({ bid, showQuestion }) => {
   const actionPermissions = getActionPermissions(bid.status) || {};
+  const bidStatistics = get(bid, 'position.bid_statistics[0]', {});
+  const post = get(bid, 'position.post', {});
   return (
     <div className="usa-grid-full padded-container-inner bid-tracker-title-container">
       <div className="bid-tracker-title-content-container">
-        <BidTrackerCardTitle title={bid.position.title} id={bid.position.position_number} />
+        <BidTrackerCardTitle
+          title={bid.position.title}
+          id={bid.position.position_number}
+          status={bid.status}
+          bidStatistics={bidStatistics}
+          post={post}
+        />
       </div>
       <div>
         <div className="bid-tracker-card-title-container-right">
