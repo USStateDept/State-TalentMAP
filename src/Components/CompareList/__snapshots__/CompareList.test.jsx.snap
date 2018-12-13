@@ -108,7 +108,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Skill code
+              Skill
             </th>
             <td>
               None listed
@@ -367,7 +367,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Skill code
+              Skill
             </th>
             <td>
               None listed
