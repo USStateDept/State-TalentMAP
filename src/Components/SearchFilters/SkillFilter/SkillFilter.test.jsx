@@ -21,7 +21,7 @@ describe('SkillFilterComponent', () => {
 
   const skillCones = {
     item: {
-      title: 'Skill cones',
+      title: 'Skill',
       description: 'skillCone',
       endpoint: 'skill/cone/',
       selectionRef: 'skillCone',

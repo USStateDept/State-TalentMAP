@@ -7,12 +7,12 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 const items = {
   filters: [
     { item: {
-      title: 'Skill code',
+      title: 'Skill',
       sort: 100,
       description: 'skill',
       endpoint: 'skill/',
       selectionRef: 'skill__code__in',
-      text: 'Choose Skill codes',
+      text: 'Choose Skill',
     },
       data: [
       ],

@@ -28,7 +28,7 @@ export const NO_SAVED_SEARCHES = 'You do not have any saved searches.';
 export const NO_SKILL = DEFAULT_TEXT;
 export const NO_TOUR_OF_DUTY = DEFAULT_TEXT;
 export const NO_USER_LISTED = DEFAULT_TEXT;
-export const NO_USER_SKILL_CODE = 'No Skill codes listed';
+export const NO_USER_SKILL_CODE = 'No Skills listed';
 
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
 

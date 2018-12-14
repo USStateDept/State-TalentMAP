@@ -16,7 +16,7 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     <span
       className="bid-list-card-title-post"
     >
-      Skill code: 
+      Skill: 
     </span>
     OFFICE MANAGEMENT (9017)
   </div>

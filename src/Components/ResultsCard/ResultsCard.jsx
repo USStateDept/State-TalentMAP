@@ -72,7 +72,7 @@ const ResultsCard = (props) => {
     /* eslint-disable quote-props */
     {
       'Bid cycle': getResult(result, 'latest_bidcycle.name', NO_BID_CYCLE),
-      'Skill code': getResult(result, 'skill', NO_SKILL),
+      'Skill': getResult(result, 'skill', NO_SKILL),
       'Grade': getResult(result, 'grade', NO_GRADE),
       'Bureau': getResult(result, 'bureau', NO_BUREAU),
       'Post': post,

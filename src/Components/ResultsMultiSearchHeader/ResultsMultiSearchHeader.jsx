@@ -182,7 +182,7 @@ class ResultsMultiSearchHeader extends Component {
                   </div>
                   <div className="usa-width-one-fourth search-results-inputs search-keyword">
                     <SkillCodeFilter
-                      label="Skill Code"
+                      label="Skill"
                       isLoading={filtersIsLoading}
                       filters={skillCodesData}
                       onFilterSelect={this.onChangeSkills}
@@ -244,7 +244,7 @@ ResultsMultiSearchHeader.defaultProps = {
   filters: [],
   defaultFilters: {},
   filtersIsLoading: false,
-  placeholder: 'Location, Skill cone (code), Grade, Language, Position number',
+  placeholder: 'Location, Skill, Grade, Language, Position number',
   userProfile: {},
   onFilterChange: EMPTY_FUNCTION,
 };
