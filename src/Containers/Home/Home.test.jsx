@@ -48,8 +48,6 @@ describe('mapDispatchToProps', () => {
   const config = {
     fetchData: [{}],
     onNavigateTo: ['/results'],
-    toggleFavorite: [1, true],
-    toggleSearchBarVisibility: [true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });
