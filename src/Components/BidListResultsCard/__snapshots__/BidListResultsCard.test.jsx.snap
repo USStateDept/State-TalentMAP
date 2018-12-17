@@ -31,6 +31,7 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
                   "user": "Jenny Townpost",
                 }
               }
+              id={2}
               positionNumber="05A"
               positionTitle="AO"
               postName="Paris"
