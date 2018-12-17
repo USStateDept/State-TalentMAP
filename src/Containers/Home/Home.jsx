@@ -6,7 +6,7 @@ import { bidListFetchData } from '../../actions/bidList';
 import { homePagePositionsFetchData } from '../../actions/homePagePositions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import HomePage from '../../Containers/HomePage/HomePage';
-import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_LIST } from '../../Constants/PropTypes';
+import { FILTERS_PARENT, EMPTY_FUNCTION, HOME_PAGE_POSITIONS, BID_LIST } from '../../Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 
@@ -20,7 +20,7 @@ class Home extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
@@ -35,7 +35,7 @@ class Home extends Component {
   render() {
     const { onNavigateTo, items, homePagePositions,
       homePagePositionsHasErrored, homePagePositionsIsLoading,
-      userProfile, userProfileIsLoading, bidList, filtersIsLoading } = this.props;
+      userProfileIsLoading, bidList, filtersIsLoading } = this.props;
     return (
       <HomePage
         onNavigateTo={onNavigateTo}
@@ -44,7 +44,6 @@ class Home extends Component {
         homePagePositions={homePagePositions}
         homePagePositionsHasErrored={homePagePositionsHasErrored}
         homePagePositionsIsLoading={homePagePositionsIsLoading}
-        userProfile={userProfile}
         userProfileIsLoading={userProfileIsLoading}
         bidList={bidList.results}
       />
@@ -59,7 +58,6 @@ Home.propTypes = {
   homePagePositions: HOME_PAGE_POSITIONS,
   homePagePositionsHasErrored: PropTypes.bool,
   homePagePositionsIsLoading: PropTypes.bool,
-  userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
@@ -74,7 +72,6 @@ Home.defaultProps = {
   homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
   homePagePositionsHasErrored: false,
   homePagePositionsIsLoading: true,
-  userProfile: {},
   userProfileIsLoading: false,
   bidList: { results: [] },
   filtersIsLoading: false,
@@ -87,7 +84,6 @@ const mapStateToProps = state => ({
   homePagePositions: state.homePagePositions,
   homePagePositionsHasErrored: state.homePagePositionsHasErrored,
   homePagePositionsIsLoading: state.homePagePositionsIsLoading,
-  userProfile: state.userProfile,
   userProfileIsLoading: state.userProfileIsLoading,
   bidList: state.bidListFetchDataSuccess,
 });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
+import { BID_RESULTS } from '../../Constants/PropTypes';
 import HomePagePositionsContainer from '../HomePagePositionsContainer/HomePagePositionsContainer';
 
 class HomePage extends Component {
@@ -13,11 +13,10 @@ class HomePage extends Component {
   }
 
   render() {
-    const { userProfile, userProfileIsLoading, bidList, onNavigateTo } = this.props;
+    const { userProfileIsLoading, bidList, onNavigateTo } = this.props;
     return (
       <div className="home content-container">
         <HomePagePositionsContainer
-          favorites={userProfile.favorite_positions}
           bidList={bidList}
           onNavigateTo={onNavigateTo}
           userProfileIsLoading={userProfileIsLoading}
@@ -29,13 +28,11 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
-  userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
   bidList: BID_RESULTS.isRequired,
 };
 
 HomePage.defaultProps = {
-  userProfile: {},
   userProfileIsLoading: false,
   filtersIsLoading: false,
 };

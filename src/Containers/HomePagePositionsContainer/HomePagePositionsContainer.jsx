@@ -17,7 +17,7 @@ class HomePagePositionsContainer extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     // Don't try to pull positions until we've received the user's profile.
     if (this.props.userProfile.id) {
       this.props.homePagePositionsFetchData(this.props.userProfile.skills,
