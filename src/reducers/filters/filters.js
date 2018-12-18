@@ -18,12 +18,12 @@ const items =
       },
       {
         item: {
-          title: 'Skill Cone (Code)',
+          title: 'Skill',
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
           selectionRef: ENDPOINT_PARAMS.skill,
-          text: 'Choose Skill codes',
+          text: 'Choose Skills',
         },
         data: [
         ],

@@ -9,6 +9,8 @@ exports[`BidStatusComponent matches snapshot for APPROVED 1`] = `
   />
    
   Approved
+   for 
+  Title
 </div>
 `;
 
@@ -21,6 +23,8 @@ exports[`BidStatusComponent matches snapshot for CLOSED 1`] = `
   />
    
   Closed
+   for 
+  Title
 </div>
 `;
 
@@ -32,7 +36,9 @@ exports[`BidStatusComponent matches snapshot for DECLINED 1`] = `
     name="times"
   />
    
-  Bid Unapproved
+  Bid unapproved
+   for 
+  Title
 </div>
 `;
 
@@ -44,7 +50,9 @@ exports[`BidStatusComponent matches snapshot for DRAFT 1`] = `
     name="bookmark"
   />
    
-  Draft Bid
+  Draft bid
+   for 
+  Title
 </div>
 `;
 
@@ -56,7 +64,9 @@ exports[`BidStatusComponent matches snapshot for HAND_SHAKE_ACCEPTED 1`] = `
     name="handshake-o"
   />
    
-  Handshake Accepted
+  Handshake accepted
+   for 
+  Title
 </div>
 `;
 
@@ -68,7 +78,9 @@ exports[`BidStatusComponent matches snapshot for HAND_SHAKE_DECLINED 1`] = `
     name="times"
   />
    
-  Handshake Declined
+  Handshake declined
+   for 
+  Title
 </div>
 `;
 
@@ -80,7 +92,9 @@ exports[`BidStatusComponent matches snapshot for HAND_SHAKE_OFFERED 1`] = `
     name="star"
   />
    
-  Handshake Offered
+  Handshake offered
+   for 
+  Title
 </div>
 `;
 
@@ -92,7 +106,9 @@ exports[`BidStatusComponent matches snapshot for IN_PANEL 1`] = `
     name="clock-o"
   />
    
-  In Panel
+  In panel
+   for 
+  Title
 </div>
 `;
 
@@ -104,7 +120,9 @@ exports[`BidStatusComponent matches snapshot for SUBMITTED 1`] = `
     name="thumbs-o-up"
   />
    
-  Bid Submitted
+  Bid submitted
+   for 
+  Title
 </div>
 `;
 
@@ -117,5 +135,7 @@ exports[`BidStatusComponent matches snapshot for other statuses 1`] = `
   />
    
   Status unknown
+   for 
+  Title
 </div>
 `;

@@ -7,14 +7,11 @@ const propTypes = {
   maxLength: PropTypes.number,
   positions: POSITION_DETAILS_ARRAY,
   favorites: FAVORITE_POSITIONS_ARRAY,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE,
   title: PropTypes.string.isRequired, // should be unique per page, since its used a react key
+  refreshFavorites: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -23,11 +20,11 @@ const defaultProps = {
   favorites: [],
   isLoading: false,
   type: 'default',
+  refreshFavorites: false,
 };
 
-const HomePagePositionsList = ({ maxLength, positions, toggleFavorite, favorites, isLoading,
-    userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored, toggleBid,
-    bidList, type, title }) => {
+const HomePagePositionsList = ({ maxLength, positions, favorites, isLoading,
+    bidList, type, title, refreshFavorites }) => {
   // create an initial array with x groups of 3
   // because our grid is in thirds
   const numberOfRows = maxLength / 3;
@@ -46,13 +43,10 @@ const HomePagePositionsList = ({ maxLength, positions, toggleFavorite, favorites
         <div className="usa-width-one-third condensed-card">
           <ResultsCondensedCard
             favorites={favorites}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             position={p}
-            toggleBid={toggleBid}
             bidList={bidList}
             type={type}
+            refreshFavorites={refreshFavorites}
           />
         </div>
       );

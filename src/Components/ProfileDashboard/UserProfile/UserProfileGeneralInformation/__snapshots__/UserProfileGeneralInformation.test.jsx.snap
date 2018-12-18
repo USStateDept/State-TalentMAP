@@ -2,7 +2,7 @@
 
 exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
 <div
-  className="current-user-top current-user-section-container"
+  className="current-user-top current-user-section-border current-user-section-container"
 >
   <div
     className="section-padded-inner-container"
@@ -66,7 +66,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
 
 exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLink is true 1`] = `
 <div
-  className="current-user-top current-user-section-container"
+  className="current-user-top current-user-section-border current-user-section-container"
 >
   <div
     className="section-padded-inner-container"
@@ -130,7 +130,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
 
 exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup is true 1`] = `
 <div
-  className="current-user-top current-user-section-container"
+  className="current-user-top current-user-section-border current-user-section-container"
 >
   <div
     className="section-padded-inner-container"

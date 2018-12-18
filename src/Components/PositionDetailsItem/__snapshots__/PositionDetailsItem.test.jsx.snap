@@ -60,7 +60,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         <CondensedCardDataPoint
           content="OFFICE MANAGEMENT (9017)"
           hasFixedTitleWidth={false}
-          title="Skill code"
+          title="Skill"
         />
         <CondensedCardDataPoint
           content="05"
@@ -150,7 +150,6 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
-        as="div"
         className=""
         loading={false}
         onChange={[Function]}
@@ -255,7 +254,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         <CondensedCardDataPoint
           content="OFFICE MANAGEMENT (9017)"
           hasFixedTitleWidth={false}
-          title="Skill code"
+          title="Skill"
         />
         <CondensedCardDataPoint
           content="05"
@@ -373,7 +372,6 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
-        as="div"
         className=""
         loading={false}
         onChange={[Function]}
@@ -481,7 +479,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         <CondensedCardDataPoint
           content="None listed"
           hasFixedTitleWidth={false}
-          title="Skill code"
+          title="Skill"
         />
         <CondensedCardDataPoint
           content="None listed"
@@ -574,7 +572,6 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
-        as="div"
         className=""
         loading={false}
         onChange={[Function]}

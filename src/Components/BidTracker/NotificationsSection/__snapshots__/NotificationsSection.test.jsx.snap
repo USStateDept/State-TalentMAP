@@ -35,9 +35,9 @@ exports[`NotificationsSectionComponent matches snapshot when tags contains "decl
     >
       <AlertAlt
         isAriaLive={false}
-        message="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been offered a handshake."
+        message="Your bid for [10035561] POLITICAL/ECONOMIC OFFICER (Curacao) has been approved by panel."
         title="Notification"
-        type="success"
+        type="warning"
       />
     </Dismiss>
   </div>

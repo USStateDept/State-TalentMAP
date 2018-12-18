@@ -20,8 +20,6 @@ describe('Position', () => {
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
       />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
@@ -36,14 +34,11 @@ describe('Position', () => {
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         positionDetails={[{ id: 1, description: { id: 1 } }]}
         editDescriptionContent={descriptionSpy}
         editPocContent={pocSpy}
         editWebsiteContent={websiteSpy}
         match={{ params: { id: '1' } }}
-        toggleFavorite={() => {}}
         resetDescriptionEditMessages={() => {}}
       />,
     );
@@ -61,8 +56,6 @@ describe('Position', () => {
         isAuthorized={() => false}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
       />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
@@ -73,8 +66,6 @@ describe('mapDispatchToProps', () => {
   const config = {
     fetchData: [1],
     onNavigateTo: ['/profile'],
-    toggleFavorite: [1, true],
-    toggleBid: [1, true],
     editDescriptionContent: [1, 'content'],
     editPocContent: [1, 'content'],
     editWebsiteContent: [1, 'content'],

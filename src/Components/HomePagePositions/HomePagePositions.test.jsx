@@ -14,10 +14,6 @@ describe('HomePageComponent', () => {
       [USER_GRADE_RECENT_POSITIONS]: [{ id: 2, grade: '03' }],
       [SERVICE_NEED_POSITIONS]: [{ id: 3 }],
     },
-    toggleFavorite: () => {},
-    userProfileFavoritePositionIsLoading: false,
-    userProfileFavoritePositionHasErrored: false,
-    toggleBid: () => {},
     bidList: bidListObject.results,
     userProfile: { skills: ['1', '2'], grade: '03' },
   };

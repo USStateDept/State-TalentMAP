@@ -9,10 +9,6 @@ describe('HomePagePositionsSection', () => {
   const props = {
     title: 'Title',
     positions: resultsObject.results,
-    toggleFavorite: () => {},
-    userProfileFavoritePositionIsLoading: false,
-    userProfileFavoritePositionHasErrored: false,
-    toggleBid: () => {},
     bidList: bidListObject.results,
   };
 

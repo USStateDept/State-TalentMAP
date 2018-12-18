@@ -557,12 +557,9 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
         },
       ]
     }
+    refreshFavorites={true}
     title="favorites"
-    toggleBid={[Function]}
-    toggleFavorite={[Function]}
     type="default"
-    userProfileFavoritePositionHasErrored={false}
-    userProfileFavoritePositionIsLoading={false}
   />
 </div>
 `;

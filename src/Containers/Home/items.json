@@ -1,8 +1,8 @@
 [
   {
-    "title": "Skill code",
+    "title": "Skill",
     "selectionRef": "skill",
-    "text": "Choose Skill codes",
+    "text": "Choose Skill",
     "choices": [
       { "code": 1, "description": "accounting" },
       { "code": 2, "description": "economics" },

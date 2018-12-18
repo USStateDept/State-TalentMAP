@@ -12,10 +12,6 @@ describe('ResultsCondensedCardComponent', () => {
       <ResultsCondensedCard
         position={resultsObject.results[0]}
         type={type}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
       />,
     );
@@ -27,10 +23,6 @@ describe('ResultsCondensedCardComponent', () => {
       <ResultsCondensedCard
         position={resultsObject.results[0]}
         type={type}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
       />,
     );
@@ -42,10 +34,6 @@ describe('ResultsCondensedCardComponent', () => {
       <ResultsCondensedCard
         position={resultsObject.results[0]}
         type={type}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={bidListObject.results}
       />,
     );

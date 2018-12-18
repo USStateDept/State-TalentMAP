@@ -343,12 +343,9 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
         },
       ]
     }
+    refreshFavorites={false}
     title="Title"
-    toggleBid={[Function]}
-    toggleFavorite={[Function]}
     type="default"
-    userProfileFavoritePositionHasErrored={false}
-    userProfileFavoritePositionIsLoading={false}
   />
 </div>
 `;

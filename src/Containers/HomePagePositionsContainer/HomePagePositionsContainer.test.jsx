@@ -16,10 +16,6 @@ const mockStore = configureStore(middlewares);
 describe('Home', () => {
   const props = {
     userProfile: { id: 1, skills: [], grade: '01' },
-    userProfileFavoritePositionIsLoading: false,
-    userProfileFavoritePositionHasErrored: false,
-    toggleFavorite: () => {},
-    toggleBid: () => {},
     onNavigateTo: () => {},
     bidList: [],
     homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,

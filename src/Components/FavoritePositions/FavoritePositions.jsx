@@ -9,8 +9,7 @@ import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 
 const FavoritePositions = ({ favorites, favoritePositionsIsLoading, favoritePositionsHasErrored,
-toggleFavorite, toggleFavoritePositionIsLoading, toggleFavoritePositionHasErrored,
-toggleBid, bidList, onSortChange }) => (
+bidList, onSortChange }) => (
   <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full favorites-top-section">
       <div className="favorites-title-container">
@@ -37,13 +36,10 @@ toggleBid, bidList, onSortChange }) => (
     <HomePagePositionsList
       positions={favorites.results}
       favorites={favorites.results}
-      toggleFavorite={toggleFavorite}
-      userProfileFavoritePositionIsLoading={toggleFavoritePositionIsLoading}
-      userProfileFavoritePositionHasErrored={toggleFavoritePositionHasErrored}
-      toggleBid={toggleBid}
       bidList={bidList}
       title="favorites"
       maxLength={300}
+      refreshFavorites
     />
   </div>
 );
@@ -52,17 +48,8 @@ FavoritePositions.propTypes = {
   favorites: POSITION_SEARCH_RESULTS.isRequired,
   favoritePositionsIsLoading: PropTypes.bool.isRequired,
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
-  toggleFavoritePositionIsLoading: PropTypes.bool,
-  toggleFavoritePositionHasErrored: PropTypes.bool,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   onSortChange: PropTypes.func.isRequired,
-};
-
-FavoritePositions.defaultProps = {
-  toggleFavoritePositionIsLoading: false,
-  toggleFavoritePositionHasErrored: false,
 };
 
 export default FavoritePositions;

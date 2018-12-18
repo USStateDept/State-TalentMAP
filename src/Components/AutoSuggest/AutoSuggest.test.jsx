@@ -68,6 +68,38 @@ describe('AutoSuggestComponent', () => {
     expect(wrapper.instance().state.value).toBe('test');
   });
 
+  it('can call the onKeyChange with newValue of type string', () => {
+    const wrapper = shallow(
+      <AutoSuggest
+        suggestions={suggestions}
+        getSuggestions={() => {}}
+        onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
+      />,
+    );
+    wrapper.instance().onKeyChange(null, { newValue: 'test' });
+    expect(wrapper.instance().state.value).toBe('test');
+  });
+
+  it('can call the displayProperty function from onKeyChange', () => {
+    const displayProperty = jest.fn(obj => obj.short_name);
+    const wrapper = shallow(
+      <AutoSuggest
+        suggestions={suggestions}
+        getSuggestions={() => {}}
+        onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
+        displayProperty={displayProperty}
+      />,
+    );
+    wrapper.instance().onKeyChange(null, { newValue: { short_name: 'test' } });
+    expect(wrapper.instance().state.value).toBe('test');
+    expect(displayProperty).toHaveBeenCalled();
+  });
+
+
   it('can call the onSuggestionSelected function', () => {
     const spy = sinon.spy();
     const wrapper = shallow(

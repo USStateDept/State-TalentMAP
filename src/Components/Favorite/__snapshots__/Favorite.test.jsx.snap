@@ -152,6 +152,30 @@ exports[`Favorite matches snapshot when useLongText is true - Remove state 1`] =
 </span>
 `;
 
+exports[`Favorite matches snapshot when useSpinnerWhite and useButtonClassSecondary are true 1`] = `
+<span>
+  <InteractiveElement
+    className="favorite-container usa-button-secondary"
+    onClick={[Function]}
+    style={
+      Object {
+        "pointerEvents": "none",
+      }
+    }
+    title="Remove from Favorites"
+    type="div"
+  >
+    <span
+      className="ds-c-spinner spinner-blue"
+    />
+    <MediaQueryWrapper
+      breakpoint="screenMdMax"
+      widthType="max"
+    />
+  </InteractiveElement>
+</span>
+`;
+
 exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
 <span>
   <InteractiveElement
@@ -159,14 +183,14 @@ exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
     onClick={[Function]}
     style={
       Object {
-        "pointerEvents": "inherit",
+        "pointerEvents": "none",
       }
     }
     title="Remove from Favorites"
     type="div"
   >
-    <FontAwesome
-      name="star"
+    <span
+      className="ds-c-spinner spinner-white"
     />
     <MediaQueryWrapper
       breakpoint="screenMdMax"

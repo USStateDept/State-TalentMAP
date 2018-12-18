@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Set environment
+# Set environment.
+# This should not be set to 'production' when installing dependencies,
+# otherwise dev dependencies required by the build process will not install.
 export NODE_ENV=production
 
 # Set authentication mode
@@ -20,6 +22,11 @@ export STATIC_PATH=/var/www/html/talentmap/
 export API_ROOT=http://localhost:8000/
 export API_URL=http://localhost:8000/api/v1
 
+# Port number for the Express web application
+# This is important in shared environments
+# Default - 3000
+export PORT=3000
+
 # Protocol, hostname and port of OBC,
 # which provides post and country details
 # Default - local test value http://localhost:4000/
@@ -27,7 +34,7 @@ export OBC_URL=http://localhost:4000/
 
 # External link to the About page
 # Default - local test value https://github.com/18F/State-TalentMAP
-export ABOUT_PAGE=https://github.com/18F/State-TalentMAP 
+export ABOUT_PAGE=https://github.com/18F/State-TalentMAP
 
 # SAML configuration
 

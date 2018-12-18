@@ -5,8 +5,19 @@ exports[`BidContentComponent matches snapshot 1`] = `
   className="usa-grid-full bid-content-container"
 >
   <BidStatus
+    positionTitle="Title"
     status="approved"
   />
+  <span
+    className="bid-stats"
+  >
+    <BidCount
+      altStyle={true}
+      bidStatistics={null}
+      hideLabel={false}
+      label="Bid Count"
+    />
+  </span>
   <div>
     <span
       className="bid-list-card-title-position"

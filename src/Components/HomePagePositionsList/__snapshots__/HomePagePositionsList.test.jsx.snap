@@ -236,11 +236,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
-        toggleFavorite={[Function]}
+        refreshFavorites={false}
         type="default"
-        userProfileFavoritePositionHasErrored={false}
-        userProfileFavoritePositionIsLoading={false}
       />
     </div>
     <div
@@ -472,11 +469,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
-        toggleFavorite={[Function]}
+        refreshFavorites={false}
         type="default"
-        userProfileFavoritePositionHasErrored={false}
-        userProfileFavoritePositionIsLoading={false}
       />
     </div>
     <div
@@ -708,11 +702,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
-        toggleFavorite={[Function]}
+        refreshFavorites={false}
         type="default"
-        userProfileFavoritePositionHasErrored={false}
-        userProfileFavoritePositionIsLoading={false}
       />
     </div>
   </div>
@@ -948,11 +939,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
-        toggleFavorite={[Function]}
+        refreshFavorites={false}
         type="default"
-        userProfileFavoritePositionHasErrored={false}
-        userProfileFavoritePositionIsLoading={false}
       />
     </div>
     <div
@@ -1184,11 +1172,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
-        toggleFavorite={[Function]}
+        refreshFavorites={false}
         type="default"
-        userProfileFavoritePositionHasErrored={false}
-        userProfileFavoritePositionIsLoading={false}
       />
     </div>
     <div
@@ -1420,11 +1405,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "update_date": "2017-06-08T00:00:00Z",
           }
         }
-        toggleBid={[Function]}
-        toggleFavorite={[Function]}
+        refreshFavorites={false}
         type="default"
-        userProfileFavoritePositionHasErrored={false}
-        userProfileFavoritePositionIsLoading={false}
       />
     </div>
   </div>

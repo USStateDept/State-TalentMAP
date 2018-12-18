@@ -43,6 +43,7 @@ $results-container-width: 100% - $filter-container-width;
   padding: 1.1rem;
 
   .bid-count-container {
+    float: right;
     font-size: .95em;
 
     .bid-count-label {
@@ -238,10 +239,6 @@ $results-container-width: 100% - $filter-container-width;
       font-size: rem(12px);
       line-height: rem(14px);
     }
-  }
-
-  .bid-count-container {
-    float: right;
   }
 
   .section-title {
@@ -495,7 +492,7 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .accordion-checkbox-post,
-  .accordion-checkbox-skill-cone-code {
+  .accordion-checkbox-skill {
     .usa-accordion-button {
       float: left;
       padding-left: 0;
@@ -514,7 +511,7 @@ $results-container-width: 100% - $filter-container-width;
     min-height: 220px;
   }
 
-  .accordion-checkbox-skill-cone-code,
+  .accordion-checkbox-skill,
   .accordion-checkbox-post,
   .accordion-checkbox-bureau {
     padding: 0;

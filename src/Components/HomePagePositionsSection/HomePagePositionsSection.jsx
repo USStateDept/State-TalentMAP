@@ -14,11 +14,7 @@ const propTypes = {
   viewMoreLink: PropTypes.string,
   positions: POSITION_DETAILS_ARRAY,
   favorites: FAVORITE_POSITIONS_ARRAY,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE,
   useSpinner: PropTypes.bool,
@@ -38,9 +34,8 @@ const defaultProps = {
   wrapInLink: true,
 };
 
-const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggleFavorite,
-  favorites, isLoading, hasErrored, bidList, userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored, toggleBid, type, useSpinner, wrapInLink }) => {
+const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
+  favorites, isLoading, hasErrored, bidList, type, useSpinner, wrapInLink }) => {
   const listIsReady = !!(positions && Object.keys(positions).length);
   const shouldShowAlert = !hasErrored && positions && !positions.length;
   const shouldShowErrorAlert = hasErrored && !isLoading;
@@ -75,12 +70,8 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions, toggle
         listIsReady &&
           <HomePagePositionsList
             favorites={favorites}
-            toggleFavorite={toggleFavorite}
-            userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-            userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
             positions={positions}
             isLoading={isLoading}
-            toggleBid={toggleBid}
             bidList={bidList}
             type={type}
             title={title}

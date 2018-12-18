@@ -8,11 +8,18 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
     className="usa-grid-full"
   >
     <div
-      className="usa-width-one-half favorites-card-section"
+      className="usa-width-one-whole favorites-card-section"
     >
-      <div>
+      <InteractiveElement
+        className="search-title"
+        onClick={[Function]}
+        type="div"
+      >
         Test 33
-      </div>
+        <FontAwesome
+          name="angle-right"
+        />
+      </InteractiveElement>
       <SavedSearchPillList
         pills={
           Array [
@@ -23,15 +30,6 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
           ]
         }
       />
-    </div>
-    <div
-      className="usa-width-one-fourth favorites-card-section"
-    >
-      <button
-        onClick={[Function]}
-      >
-        View Search
-      </button>
     </div>
   </div>
 </div>
