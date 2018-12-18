@@ -59,7 +59,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
           }
         }
         hideLabel={false}
-        label="Bid Count:"
+        label="Bid count:"
       />
     </span>
   </div>

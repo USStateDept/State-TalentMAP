@@ -12,6 +12,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
       className="searches-title-container"
     >
       <ProfileSectionTitle
+        icon=""
         title="Saved Searches"
       />
     </div>
