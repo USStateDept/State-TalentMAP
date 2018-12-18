@@ -31,10 +31,6 @@ $results-container-width: 100% - $filter-container-width;
   pointer-events: none;
 }
 
-.results-card-padded-section {
-  padding-right: 20%;
-}
-
 .results-card {
   background-color: $color-white;
   border: 1px solid $results-card-border;
@@ -107,7 +103,7 @@ $results-container-width: 100% - $filter-container-width;
 
         @media screen and (max-width: $screen-sm-min) {
           position: static;
-          width: 100%;
+          width: 50%;
         }
       }
 
@@ -122,8 +118,6 @@ $results-container-width: 100% - $filter-container-width;
       }
 
       .compare-check-box-container {
-        border: 1px solid $color-black;
-        border-radius: 5px;
         font-size: rem(14px);
         line-height: 39px;
         text-align: center;
@@ -138,6 +132,7 @@ $results-container-width: 100% - $filter-container-width;
 
       .fa {
         position: relative;
+        padding-right: 10px;
       }
 
       @media screen and (max-width: $screen-sm-min) {
@@ -157,10 +152,6 @@ $results-container-width: 100% - $filter-container-width;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-
-        @media screen and (max-width: $screen-sm-max) {
-          left: 24px;
-        }
       }
     }
 
@@ -197,7 +188,7 @@ $results-container-width: 100% - $filter-container-width;
     }
 
     .favorite-container {
-      border: 1px solid $color-black;
+      border: 1px solid $primary-blue;
       box-shadow: none;
       float: none;
     }
@@ -423,6 +414,11 @@ $results-container-width: 100% - $filter-container-width;
   .total-results {
     float: left;
     margin-top: 10px;
+  }
+
+  .selections-container,
+  .total-results {
+    font-size: 14px;
   }
 
   .drop-downs {
