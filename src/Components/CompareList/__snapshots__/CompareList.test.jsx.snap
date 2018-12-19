@@ -42,7 +42,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/10034001"
+                  to="/details/6"
                 >
                   View position
                 </Link>
@@ -62,7 +62,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/56082000"
+                  to="/details/60"
                 >
                   View position
                 </Link>
@@ -301,7 +301,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/10034001"
+                  to="/details/6"
                 >
                   View position
                 </Link>
@@ -321,7 +321,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/56082000"
+                  to="/details/60"
                 >
                   View position
                 </Link>

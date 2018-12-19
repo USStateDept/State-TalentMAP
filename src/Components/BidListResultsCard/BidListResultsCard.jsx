@@ -38,6 +38,7 @@ class BidListResultsCard extends Component {
               content={
                 <div>
                   <BidContent
+                    id={bid.position.id}
                     positionTitle={bid.position.title}
                     status={bid.status}
                     positionNumber={bid.position.position_number}

@@ -9,6 +9,7 @@ describe('BidContentComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
       <BidContent
+        id={100}
         status={APPROVED.property}
         positionNumber="055A45"
         postName="Paris"
@@ -22,6 +23,7 @@ describe('BidContentComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(
       <BidContent
+        id={100}
         status={APPROVED.property}
         positionNumber="055A45"
         postName="Paris"

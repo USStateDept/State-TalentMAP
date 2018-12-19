@@ -34,7 +34,7 @@ describe('Position', () => {
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         routerLocations={routerLocations}
-        positionDetails={[{ id: 1, description: { id: 1 } }]}
+        positionDetails={{ id: 1, description: { id: 1 } }}
         editDescriptionContent={descriptionSpy}
         editPocContent={pocSpy}
         editWebsiteContent={websiteSpy}
