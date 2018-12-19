@@ -29,7 +29,7 @@ const BidTrackerCardTitle = ({ title, id, status, bidStatistics, post }) => (
 
 BidTrackerCardTitle.propTypes = {
   title: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   status: PropTypes.string.isRequired,
   bidStatistics: BID_STATISTICS_OBJECT.isRequired,
   post: POST_DETAILS.isRequired,
