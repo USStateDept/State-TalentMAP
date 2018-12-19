@@ -16,7 +16,7 @@ const FavoritesListResultsCard = ({ position }) => (
         />
       </div>
       <div className="usa-width-one-third favorites-card-section">
-        <LinkButton toLink={`/details/${position.position_number}`}>View Position</LinkButton>
+        <LinkButton toLink={`/details/${position.id}`}>View Position</LinkButton>
       </div>
     </div>
   </div>

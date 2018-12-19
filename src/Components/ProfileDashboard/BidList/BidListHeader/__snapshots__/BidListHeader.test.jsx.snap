@@ -10,7 +10,7 @@ exports[`BidListHeaderComponent matches snapshot 1`] = `
     <FontAwesome
       name="clock-o"
     />
-     All bids are due 7.15.18
+     All bids are due 07/15/2019
   </div>
   <div
     className="usa-width-one-third bid-list-header-button-container"
