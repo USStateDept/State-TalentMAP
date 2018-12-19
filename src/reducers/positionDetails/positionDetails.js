@@ -16,7 +16,7 @@ export function positionDetailsIsLoading(state = false, action) {
       return state;
   }
 }
-export function positionDetails(state = [], action) {
+export function positionDetails(state = {}, action) {
   switch (action.type) {
     case 'POSITION_DETAILS_FETCH_DATA_SUCCESS':
       return action.positionDetails;
