@@ -108,7 +108,6 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         refKey={6}
         refresh={false}
         useButtonClass={true}
-        useButtonClassSecondary={true}
         useLongText={true}
       />
     </div>
