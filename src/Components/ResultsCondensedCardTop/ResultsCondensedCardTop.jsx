@@ -30,7 +30,7 @@ const ResultsCondensedCardTop = ({ position, type }) => {
         </div>
       </div>
       <div className="usa-grid-full">
-        <Link to={`/details/${position.position_number}`}>View position</Link>
+        <Link to={`/details/${position.id}`}>View position</Link>
       </div>
     </div>
   );

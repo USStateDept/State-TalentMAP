@@ -8,7 +8,7 @@ import postObject from '../../../__mocks__/postObject';
 
 const props = {
   title: 'Title',
-  id: 'a123',
+  id: 100,
   status: DRAFT_PROP,
   bidStatistics,
   post: postObject,
