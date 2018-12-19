@@ -32,7 +32,7 @@ export function positionDetailsFetchData(id) {
   return (dispatch) => {
     dispatch(positionDetailsIsLoading(true));
     api.get(`/position/${id}/`)
-      .then(response => [response.data])
+      .then(response => response.data)
       .then((positionDetails) => {
         dispatch(positionDetailsFetchDataSuccess(positionDetails));
         dispatch(positionDetailsIsLoading(false));

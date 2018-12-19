@@ -45,7 +45,7 @@ export const POST_DETAILS = POST_MISSION_DATA;
 export const POST_DETAILS_ARRAY = PropTypes.arrayOf(POST_DETAILS);
 
 export const POSITION_DETAILS = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+  id: PropTypes.number,
   grade: PropTypes.string,
   skill: PropTypes.string,
   bureau: PropTypes.string,
