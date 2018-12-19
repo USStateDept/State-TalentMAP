@@ -16,7 +16,7 @@ const BidTrackerCardTop = ({ bid, showQuestion }) => {
       <div className="bid-tracker-title-content-container">
         <BidTrackerCardTitle
           title={bid.position.title}
-          id={bid.position.position_number}
+          id={bid.position.id}
           status={bid.status}
           bidStatistics={bidStatistics}
           post={post}
