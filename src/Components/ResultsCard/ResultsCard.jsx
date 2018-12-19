@@ -120,7 +120,7 @@ const ResultsCard = (props) => {
           <Row className="header" fluid>
             <Column columns="6">
               <h3>{title}</h3>
-              <Link to={`/details/${result.position_number}`}>View position</Link>
+              <Link to={`/details/${result.id}`}>View position</Link>
             </Column>
             <Column columns="6">
               <BidCount bidStatistics={stats} altStyle />

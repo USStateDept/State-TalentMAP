@@ -52,15 +52,15 @@ class Position extends Component {
   }
 
   editDescriptionContent(content) {
-    this.props.editDescriptionContent(this.props.positionDetails[0].description.id, content);
+    this.props.editDescriptionContent(this.props.positionDetails.description.id, content);
   }
 
   editPocContent(content) {
-    this.props.editPocContent(this.props.positionDetails[0].description.id, content);
+    this.props.editPocContent(this.props.positionDetails.description.id, content);
   }
 
   editWebsiteContent(content) {
-    this.props.editWebsiteContent(this.props.positionDetails[0].description.id, content);
+    this.props.editWebsiteContent(this.props.positionDetails.description.id, content);
   }
 
   render() {
@@ -86,7 +86,7 @@ class Position extends Component {
 
     return (
       <PositionDetails
-        details={positionDetails[0]}
+        details={positionDetails}
         isLoading={isLoading}
         hasErrored={hasErrored}
         goBackLink={getLastRouteLink(routerLocations)}
@@ -125,7 +125,7 @@ Position.propTypes = {
   fetchData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
-  positionDetails: PropTypes.arrayOf(POSITION_DETAILS),
+  positionDetails: POSITION_DETAILS,
   isAuthorized: PropTypes.func.isRequired,
   routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
@@ -148,7 +148,7 @@ Position.propTypes = {
 };
 
 Position.defaultProps = {
-  positionDetails: [],
+  positionDetails: {},
   fetchData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
