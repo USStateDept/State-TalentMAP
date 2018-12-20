@@ -16,7 +16,6 @@ const mockStore = configureStore(middlewares);
 describe('Home', () => {
   const props = {
     userProfile: { id: 1, skills: [], grade: '01' },
-    onNavigateTo: () => {},
     bidList: [],
     homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
   };
@@ -29,7 +28,7 @@ describe('Home', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('fetches data on componentWillMount', () => {
+  it('fetches data on componentDidMount', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <HomePagePositionsContainer.WrappedComponent
@@ -37,10 +36,11 @@ describe('Home', () => {
         homePagePositionsFetchData={spy}
       />);
     expect(wrapper).toBeDefined();
+    wrapper.instance().componentDidMount();
     sinon.assert.calledOnce(spy);
   });
 
-  it('fetches data on componentWillReceiveProps', () => {
+  it('fetches data on prop update', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <HomePagePositionsContainer.WrappedComponent
@@ -50,7 +50,20 @@ describe('Home', () => {
     wrapper.instance().setState({ hasFetched: false });
     wrapper.setProps({});
     expect(wrapper.instance().state.hasFetched).toBe(true);
-    sinon.assert.calledTwice(spy);
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('does not fetch data on prop update when hasFetched is true', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <HomePagePositionsContainer.WrappedComponent
+        {...props}
+        homePagePositionsFetchData={spy}
+      />);
+    wrapper.instance().setState({ hasFetched: true });
+    wrapper.setProps({});
+    expect(wrapper.instance().state.hasFetched).toBe(true);
+    sinon.assert.notCalled(spy);
   });
 });
 
