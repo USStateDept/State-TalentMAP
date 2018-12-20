@@ -95,7 +95,6 @@ const ResultsCard = (props) => {
     refKey: result.id,
     hasBorder: true,
     useButtonClass: true,
-    useButtonClassSecondary: true,
     useLongText: true,
   };
 
