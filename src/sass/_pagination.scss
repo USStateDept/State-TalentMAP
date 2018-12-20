@@ -23,7 +23,7 @@
     color: $color-gray;
     display: inline-block;
     font-size: 1.4rem;
-    padding: .4em 1em;
+    padding: .4em 0;
 
     // The second to last element gets a border-right, unlike our general <li>s.
     &:nth-last-child(2) {
@@ -42,8 +42,11 @@
     }
   }
 
+  $pagination-padding: .4em 1em;
+
   a {
     cursor: pointer;
+    padding: $pagination-padding;
     text-decoration: none;
   }
 
@@ -53,5 +56,9 @@
     a {
       color: $color-white;
     }
+  }
+
+  .break {
+    padding: $pagination-padding;
   }
 }
