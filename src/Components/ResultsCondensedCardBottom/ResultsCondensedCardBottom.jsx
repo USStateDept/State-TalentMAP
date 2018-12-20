@@ -15,7 +15,6 @@ const ResultsCondensedCardBottom = ({ position, favorites, refreshFavorites }) =
           refKey={position.id}
           compareArray={favorites}
           useButtonClass
-          useButtonClassSecondary
           refresh={refreshFavorites}
         />
       </div>
