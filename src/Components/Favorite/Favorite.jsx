@@ -29,7 +29,7 @@ const States = {
 const Texts = {
   checked: [
     'Remove',
-    'Remove Favorite',
+    'Remove from Favorites',
     'Remove from Favorites',
   ],
 
