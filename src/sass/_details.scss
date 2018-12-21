@@ -108,6 +108,10 @@
       font-weight: bold;
       min-width: 200px;
     }
+
+    .condensed-card-data-point {
+      margin-bottom: 2px;
+    }
   }
 
   .position-details-description-container:first-of-type.back-container {
@@ -250,7 +254,13 @@
 
 .editable-position-field {
 
+  align-content: flex-start;
+  display: flex;
   margin-bottom: 15px;
+
+  .usa-grid-full {
+    margin: 0;
+  }
 
   .editable-position-field-title {
     float: left;
