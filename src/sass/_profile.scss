@@ -5,6 +5,14 @@
   position: relative;
   width: 100%;
 
+  .notifications-container {
+    .data-point-title {
+      color: $color-gray;
+      font-size: 1.2rem;
+      font-weight: inherit;
+    }
+  }
+
   .saved-search-parent-container {
     min-height: 300px;
   }
@@ -316,7 +324,6 @@
   .edit-profile-link {
     font-size: 13px;
     margin-bottom: 10px;
-    text-transform: uppercase;
 
     a {
       color: $blue-primary;
@@ -340,6 +347,7 @@
   }
 
   .current-user-name {
+    font-size: 1.6rem;
     margin-bottom: 5px;
   }
 }
@@ -411,6 +419,10 @@ $padding-no-border: $total-padding - $border;
 
   .children-ul {
     margin-top: .5em;
+
+    .fa-container {
+      min-width: 20px;
+    }
 
     .list-item-wrapper {
       padding-left: 50px;

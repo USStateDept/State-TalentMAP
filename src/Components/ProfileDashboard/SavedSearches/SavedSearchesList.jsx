@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
@@ -10,7 +11,7 @@ import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filtersIsLoading }) => {
   const savedSearchArray = [];
-  savedSearches.results.slice(0, 3).forEach(savedSearch => (
+  get(savedSearches, 'results', []).slice(0, 3).forEach(savedSearch => (
     savedSearchArray.push(
       <SavedSearchesListResultsCard
         savedSearch={savedSearch}
@@ -29,7 +30,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
         <div className="usa-grid-full">
           <div className="usa-grid-full section-padded-inner-container">
             <div className="usa-width-one-whole">
-              <SectionTitle title="Saved Searches" icon="clock-o" />
+              <SectionTitle title="Saved Searches" icon="clock-o" len={get(savedSearches, 'results.length')} />
             </div>
           </div>
           <div className="saved-search-list-container">
