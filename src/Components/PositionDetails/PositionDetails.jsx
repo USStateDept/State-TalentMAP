@@ -51,7 +51,7 @@ class PositionDetails extends Component {
       onHighlight,
     } = this.props;
 
-    const isReady = details && userProfile.id && !isLoading && !hasErrored;
+    const isReady = details.id && userProfile.id && !isLoading && !hasErrored;
 
     return (
       <div className="content-container position-details-container">

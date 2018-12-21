@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import { get } from 'lodash';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import Favorite from '../../Containers/Favorite';
@@ -19,7 +20,7 @@ const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }
       <Helmet>
         <title>{details.title}</title>
         <meta property="og:title" content={`${details.title} ${details.position_number}`} />
-        <meta property="og:description" content={details.description.content} />
+        <meta property="og:description" content={get(details, 'description.content')} />
         <meta property="og:url" content={window.location.href} />
       </Helmet>
       <div className="position-details-header">
