@@ -34,15 +34,14 @@ class SearchFiltersContainer extends Component {
   }
 
   render() {
-    const { fetchPostAutocomplete,
-    postSearchResults, isCDO } = this.props;
+    const { fetchPostAutocomplete, postSearchResults } = this.props;
 
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
     const sortedBooleanNames = [];
-    // if and only if it's a CDO, we'll show the 'Available' filter
-    if (isCDO) { sortedBooleanNames.push('available'); }
+    // show the 'Available' filter
+    sortedBooleanNames.push('available');
 
     // store filters in Map
     const booleanFiltersMap = new Map();
@@ -212,7 +211,6 @@ SearchFiltersContainer.propTypes = {
   queryParamToggle: PropTypes.func.isRequired,
   fetchPostAutocomplete: PropTypes.func.isRequired,
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
-  isCDO: PropTypes.bool.isRequired,
 };
 
 export default SearchFiltersContainer;
