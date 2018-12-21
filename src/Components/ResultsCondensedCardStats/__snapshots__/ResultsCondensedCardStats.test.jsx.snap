@@ -5,7 +5,7 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
   className="condensed-card-footer condensed-card-statistics"
 >
   <div
-    className="usa-grid-full condensed-card-footer-container"
+    className="usa-grid-full"
   >
     <BidCount
       altStyle={false}
