@@ -6,7 +6,6 @@ import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
 import Favorite from '../../Containers/Favorite';
-import BidListButton from '../../Containers/BidListButton';
 import MediaQueryWrapper from '../MediaQuery';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
@@ -14,7 +13,7 @@ import BidCount from '../BidCount';
 
 import { formatDate, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
 
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
   NO_BUREAU,
   NO_BID_CYCLE,
@@ -55,7 +54,6 @@ const ResultsCard = (props) => {
     result,
     onToggle,
     favorites,
-    bidList,
   } = props;
 
   const title = propOrDefault(result, 'title');
@@ -95,22 +93,15 @@ const ResultsCard = (props) => {
   options.favorite = {
     compareArray: favorites,
     refKey: result.id,
-    hideText: true,
     hasBorder: true,
     useButtonClass: true,
-    useButtonClassSecondary: true,
+    useLongText: true,
   };
 
   options.compare = {
     as: 'div',
     refKey: position,
     onToggle,
-  };
-
-  options.bidlistButton = {
-    className: 'tm-button',
-    id: result.id,
-    compareArray: bidList,
   };
 
   return (
@@ -135,20 +126,17 @@ const ResultsCard = (props) => {
             </Column>
           </Row>
           <Row className="footer results-card-padded-section" fluid>
-            <Column>
-              <Column className="divider" columns="8" as="section">
-                {
-                  !!favorites &&
-                    <Favorite {...options.favorite} />
-                }
-                <BidListButton {...options.bidlistButton} />
-                <CompareCheck {...options.compare} />
-              </Column>
-              <Column columns="4" as="section">
-                <div>
-                  <DefinitionList items={sections[2]} />
-                </div>
-              </Column>
+            <Column columns="6" as="section">
+              {
+                !!favorites &&
+                  <Favorite {...options.favorite} />
+              }
+              <CompareCheck {...options.compare} />
+            </Column>
+            <Column columns="6" as="section">
+              <div>
+                <DefinitionList items={sections[2]} />
+              </div>
             </Column>
           </Row>
         </div>
@@ -163,7 +151,6 @@ ResultsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   onToggle: PropTypes.func.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
-  bidList: BID_RESULTS.isRequired,
 };
 
 ResultsCard.defaultProps = {
