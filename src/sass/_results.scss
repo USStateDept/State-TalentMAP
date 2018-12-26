@@ -38,14 +38,15 @@ $results-container-width: 100% - $filter-container-width;
   margin-bottom: 2rem;
   padding: 1.1rem;
 
-  .bid-count-container {
-    float: right;
-    font-size: .95em;
-
-    .bid-count-label {
-      font-weight: normal;
-      padding-top: .4em;
+  dl {
+    dt,
+    dd {
+      vertical-align: bottom;
     }
+  }
+
+  .bid-count-container {
+    font-size: .8em;
   }
 
   .header {
