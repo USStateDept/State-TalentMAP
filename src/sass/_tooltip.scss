@@ -2,3 +2,14 @@
 .tippy-tooltip--regular {
   font-size: .8em;
 }
+
+.tippy-popper {
+  .tippy-tooltip.light-theme {
+    background-color: $blue-primary;
+    color: $color-white;
+  }
+}
+
+.tippy-popper[x-placement^=bottom] .tippy-tooltip.light-theme [x-arrow] {
+  border-bottom: 7px solid $blue-primary;
+}

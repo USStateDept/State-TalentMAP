@@ -220,13 +220,30 @@
   left: 65%;
   position: absolute;
 
+  .unavailable-tooltip {
+    font-size: 1.3rem;
+    text-decoration: underline;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
   .bid-list-button,
   a {
-    box-shadow: $button-box-shadow;
+    box-shadow: $button-box-shadow !important;
     padding: 1em 3em;
 
     @media screen and (max-width: $screen-xs-max) {
       padding: .5em 2em;
+    }
+  }
+
+  .bid-list-button.usa-button-disabled {
+    color: $color-black;
+
+    .fa {
+      color: $color-black;
     }
   }
 
