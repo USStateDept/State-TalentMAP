@@ -9,12 +9,14 @@ import BidListButton from '../../Containers/BidListButton';
 import Favorite from '../../Containers/Favorite';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
-import { CANNOT_BID, NO_POST } from '../../Constants/SystemMessages';
+import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
 const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }) => {
   const obcId = propOrDefault(details, 'post.obc_id');
+  const availablilityText = get(details, 'availability.reason') ?
+    `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
   return (
     <div className="position-details-header-container">
       <Helmet>
@@ -56,10 +58,10 @@ const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }
       </div>
       <div className="offset-bid-button-container">
         {
-          !get(details, 'availability.is_available', true) &&
+          !get(details, 'availability.availability', true) &&
             <div className="unavailable-tooltip">
               <Tooltip
-                title={get(details, 'availability.reason', CANNOT_BID)}
+                title={availablilityText}
                 arrow
                 position="bottom"
                 tabIndex="0"
@@ -74,7 +76,7 @@ const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }
           compareArray={bidList.results}
           id={details.id}
           isLoading={bidListToggleIsLoading}
-          disabled={!get(details, 'availability.is_available', true)}
+          disabled={!get(details, 'availability.availability', true)}
         />
       </div>
     </div>
