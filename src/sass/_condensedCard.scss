@@ -10,6 +10,14 @@ $condensed-card-data-padding: 15px 20px 9px;
   line-height: 19px;
   margin-bottom: $condensed-card-margin-bottom;
 
+  .bid-count-container {
+    display: flex;
+
+    .bid-count-number {
+      font-size: .9em;
+    }
+  }
+
   .new-flag {
     background-color: $color-white;
     border-radius: 100px;
@@ -142,10 +150,6 @@ $condensed-card-data-padding: 15px 20px 9px;
       background: $blue-primary;
       color: $color-white;
       margin-bottom: 0;
-    }
-
-    .bid-count-number {
-      padding: .2em 1em;
     }
 
     .bid-count-list-item:first-child {
