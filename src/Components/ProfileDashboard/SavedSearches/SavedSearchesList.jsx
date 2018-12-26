@@ -44,7 +44,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
             }
           </div>
           <div className="section-padded-inner-container small-link-container view-more-link-centered">
-            <Link to="/profile/searches/">View More</Link>
+            <Link to="/profile/searches/">View more</Link>
           </div>
         </div>
       }

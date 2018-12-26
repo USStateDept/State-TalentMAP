@@ -36,7 +36,7 @@ const FavoriteList = ({ favorites }) => {
         }
       </div>
       <div className="section-padded-inner-container small-link-container view-more-link-centered">
-        <Link to="/profile/favorites/">View More</Link>
+        <Link to="/profile/favorites/">View more</Link>
       </div>
     </div>
   );

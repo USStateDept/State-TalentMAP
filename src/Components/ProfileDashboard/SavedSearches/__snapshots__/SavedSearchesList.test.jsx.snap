@@ -116,7 +116,7 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
         replace={false}
         to="/profile/searches/"
       >
-        View More
+        View more
       </Link>
     </div>
   </div>
@@ -172,7 +172,7 @@ exports[`SavedSearchesListComponent matches snapshot when there are no saved sea
         replace={false}
         to="/profile/searches/"
       >
-        View More
+        View more
       </Link>
     </div>
   </div>

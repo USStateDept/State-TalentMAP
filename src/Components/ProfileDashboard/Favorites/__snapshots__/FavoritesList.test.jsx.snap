@@ -215,7 +215,7 @@ exports[`FavoritesListComponent matches snapshot 1`] = `
       replace={false}
       to="/profile/favorites/"
     >
-      View More
+      View more
     </Link>
   </div>
 </div>
@@ -256,7 +256,7 @@ exports[`FavoritesListComponent matches snapshot when there are no bids 1`] = `
       replace={false}
       to="/profile/favorites/"
     >
-      View More
+      View more
     </Link>
   </div>
 </div>
