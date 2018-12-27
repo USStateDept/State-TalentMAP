@@ -20,7 +20,7 @@ const Notifications = ({ notifications }) => {
     <div className="usa-grid-full notifications-container">
       <div className="usa-grid-full section-padded-inner-container padded-container-no-bottom">
         <div className="usa-width-three-fourths">
-          <SectionTitle title="Notifications" icon="globe" />
+          <SectionTitle title="Notifications" icon="globe" len={notifications.length} />
         </div>
         <div className="usa-width-one-fourth small-link-container small-link-container-settings">
           <StaticDevContent>

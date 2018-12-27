@@ -1,0 +1,13 @@
+.user-dashboard-main {
+  .data-point-title {
+    color: $color-black;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .dashboard-section-title:not(.current-user-name) {
+    h2 {
+      font-size: 1.9rem;
+    }
+  }
+}

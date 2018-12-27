@@ -22,7 +22,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
         />
       }
       sideBySide={false}
-      title="Start & End of Position"
+      title="Start date to End date"
       titleOnBottom={false}
     />
     <InformationDataPoint
@@ -36,7 +36,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       className=""
       content="PROJECT DIRECTOR"
       sideBySide={false}
-      title="Position Title"
+      title="Position title"
       titleOnBottom={false}
     />
     <InformationDataPoint
