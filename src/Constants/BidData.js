@@ -31,4 +31,6 @@ export const GET_PANEL_TITLE = () => ['Panel'];
 export const GET_APPROVAL_TITLE = () => ['Approval'];
 
 // A bid can be deleted until a handshake is accepted
-export const canDeleteBid = status => status === 'draft' || status === 'submitted';
+export const canDeleteBid = status => (
+  status === DRAFT_PROP || status === SUBMITTED_PROP || status === HAND_SHAKE_OFFERED_PROP
+);
