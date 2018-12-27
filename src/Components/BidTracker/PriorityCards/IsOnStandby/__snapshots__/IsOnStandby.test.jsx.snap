@@ -72,6 +72,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
           "user": "rehmant",
         }
       }
+      deleteBid={[Function]}
       showQuestion={false}
     />
   </div>

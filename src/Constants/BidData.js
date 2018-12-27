@@ -29,3 +29,6 @@ export const GET_HAND_SHAKE_OFFERED_TITLE = () => ['Handshake Offered'];
 export const GET_HAND_SHAKE_ACCEPTED_TITLE = () => ['Handshake Accepted'];
 export const GET_PANEL_TITLE = () => ['Panel'];
 export const GET_APPROVAL_TITLE = () => ['Approval'];
+
+// A bid can be deleted until a handshake is accepted
+export const canDeleteBid = status => status === 'draft' || status === 'submitted';
