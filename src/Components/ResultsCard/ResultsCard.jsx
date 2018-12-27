@@ -69,6 +69,7 @@ const ResultsCard = (props) => {
   const sections = [
     /* eslint-disable quote-props */
     {
+      'Bid Count': <BidCount bidStatistics={stats} hideLabel />,
       'Bid cycle': getResult(result, 'latest_bidcycle.name', NO_BID_CYCLE),
       'Skill': getResult(result, 'skill', NO_SKILL),
       'Grade': getResult(result, 'grade', NO_GRADE),
@@ -109,12 +110,9 @@ const ResultsCard = (props) => {
       {() => (
         <div id={id} className="results-card">
           <Row className="header" fluid>
-            <Column columns="6">
+            <Column columns="12">
               <h3>{title}</h3>
               <Link to={`/details/${result.id}`}>View position</Link>
-            </Column>
-            <Column columns="6">
-              <BidCount bidStatistics={stats} altStyle />
             </Column>
           </Row>
           <Row id={`${id}-inner`} fluid>

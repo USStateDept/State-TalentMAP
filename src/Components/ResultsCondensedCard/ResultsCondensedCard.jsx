@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';
 import ResultsCondensedCardFooter from '../ResultsCondensedCardFooter';
-import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
 const ResultsCondensedCard = ({ position, favorites, bidList, type, refreshFavorites }) => (
@@ -14,7 +13,6 @@ const ResultsCondensedCard = ({ position, favorites, bidList, type, refreshFavor
       position={position}
       type={type}
     />
-    <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />
     <ResultsCondensedCardBottom
       position={position}
       favorites={favorites}
