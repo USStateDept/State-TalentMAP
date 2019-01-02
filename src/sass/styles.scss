@@ -25,6 +25,9 @@
 // react-select
 @import '~react-select/dist/react-select.css';
 
+// react-toastify
+@import '~react-toastify/dist/ReactToastify.min.css';
+
 // Global
 @import 'variables';
 
@@ -77,5 +80,6 @@
 @import 'savedSearches';
 @import 'emptyListAlert';
 @import 'inputs';
+@import 'toast';
 @import 'overrides';
 @import 'accessibility';
