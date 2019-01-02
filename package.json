@@ -41,6 +41,7 @@
     "react-select": "^1.1.0",
     "react-simple-dropdown": "^3.2.0",
     "react-tippy": "^1.2.2",
+    "react-toastify": "^4.5.1",
     "redux": "^3.7.1",
     "redux-form": "^7.2.0",
     "redux-saga": "^0.15.6",
