@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import OBCUrl from '../OBCUrl';
-import BidListButton from '../BidListButton';
-import Favorite from '../Favorite/Favorite';
+import BidListButton from '../../Containers/BidListButton';
+import Favorite from '../../Containers/Favorite';
 import BidCount from '../BidCount';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
@@ -11,8 +11,7 @@ import { NO_POST } from '../../Constants/SystemMessages';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
-const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, userProfile,
-  userProfileFavoritePositionIsLoading, bidListToggleIsLoading }) => {
+const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }) => {
   const obcId = propOrDefault(details, 'post.obc_id');
   const stats = getBidStatisticsObject(details.bid_statistics);
   return (
@@ -38,10 +37,8 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
               </div>
               <div className="usa-width-one-half title-actions-section">
                 <Favorite
-                  onToggle={toggleFavorite}
                   refKey={details.id}
                   compareArray={userProfile.favorite_positions}
-                  isLoading={userProfileFavoritePositionIsLoading}
                   useLongText
                   useSpinnerWhite
                   useButtonClass
@@ -63,7 +60,6 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
       </div>
       <div className="offset-bid-button-container">
         <BidListButton
-          toggleBidPosition={toggleBidPosition}
           compareArray={bidList.results}
           id={details.id}
           isLoading={bidListToggleIsLoading}
@@ -75,18 +71,14 @@ const PositionTitle = ({ details, toggleBidPosition, bidList, toggleFavorite, us
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
-  toggleBidPosition: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListToggleIsLoading: PropTypes.bool,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
 };
 
 PositionTitle.defaultProps = {
   details: null,
   bidListToggleIsLoading: false,
-  userProfileFavoritePositionIsLoading: false,
   userProfile: {},
 };
 

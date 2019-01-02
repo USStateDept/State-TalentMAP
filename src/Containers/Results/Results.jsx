@@ -9,9 +9,8 @@ import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
-import { toggleBidPosition, bidListFetchData } from '../../actions/bidList';
+import { bidListFetchData } from '../../actions/bidList';
 import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
-import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
 import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
@@ -203,14 +202,13 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading, filters, toggleFavorite,
+    const { results, hasErrored, isLoading, filters,
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
-            userProfileFavoritePositionIsLoading, resetSavedSearchAlerts,
-            userProfileFavoritePositionHasErrored, currentSavedSearch,
+            resetSavedSearchAlerts, currentSavedSearch,
             newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
-            postSearchHasErrored, shouldShowSearchBar, toggleBid, bidList } = this.props;
+            postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
     return (
       <ResultsPage
         results={results}
@@ -231,9 +229,6 @@ class Results extends Component {
         setAccordion={setAccordion}
         scrollToTop={scrollToTop}
         userProfile={userProfile}
-        toggleFavorite={toggleFavorite}
-        userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-        userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
         newSavedSearchSuccess={newSavedSearchSuccess}
         newSavedSearchIsSaving={newSavedSearchIsSaving}
         newSavedSearchHasErrored={newSavedSearchHasErrored}
@@ -249,7 +244,6 @@ class Results extends Component {
         postSearchIsLoading={postSearchIsLoading}
         postSearchHasErrored={postSearchHasErrored}
         shouldShowSearchBar={shouldShowSearchBar}
-        toggleBid={toggleBid}
         bidList={bidList.results}
       />
     );
@@ -272,9 +266,6 @@ Results.propTypes = {
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
@@ -291,7 +282,6 @@ Results.propTypes = {
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
   debounceTimeInMs: PropTypes.number,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
 };
@@ -305,8 +295,6 @@ Results.defaultProps = {
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
   userProfile: {},
-  userProfileFavoritePositionIsLoading: false,
-  userProfileFavoritePositionHasErrored: false,
   newSavedSearchSuccess: {},
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
@@ -322,7 +310,6 @@ Results.defaultProps = {
   postSearchHasErrored: false,
   shouldShowSearchBar: true,
   debounceTimeInMs: 50,
-  toggleBid: EMPTY_FUNCTION,
   bidList: { results: [] },
 };
 
@@ -340,8 +327,6 @@ const mapStateToProps = state => ({
   selectedAccordion: state.selectedAccordion,
   routerLocations: state.routerLocations,
   userProfile: state.userProfile,
-  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
-  userProfileFavoritePositionHasErrored: state.userProfileFavoritePositionHasErrored,
   newSavedSearchSuccess: state.newSavedSearchSuccess,
   newSavedSearchIsSaving: state.newSavedSearchIsSaving,
   newSavedSearchHasErrored: state.newSavedSearchHasErrored,
@@ -362,17 +347,11 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(filtersFetchData(items, queryParams, savedFilters, true)),
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
-  toggleFavorite: (id, remove) =>
-    // We don't need to pull the full Favorite Positions route, since
-    // all we want to do is check that they exist in the profile, so
-    // we don't pass the refreshFavorites arg
-    dispatch(userProfileToggleFavoritePosition(id, remove)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
   resetSavedSearchAlerts: () => dispatch(routeChangeResetState()),
   fetchMissionAutocomplete: query => dispatch(missionSearchFetchData(query)),
   fetchPostAutocomplete: query => dispatch(postSearchFetchData(query)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
-  toggleBid: (id, remove) => dispatch(toggleBidPosition(id, remove)),
   bidListFetchData: () => dispatch(bidListFetchData()),
 });
 

@@ -8,39 +8,27 @@ class SaveNewSearchContainer extends Component {
   constructor(props) {
     super(props);
     this.toggleInput = this.toggleInput.bind(this);
-    this.changeNewSearchName = this.changeNewSearchName.bind(this);
-    this.submitSavedSearch = this.submitSavedSearch.bind(this);
     this.state = {
       showInput: { value: false },
-      newSearchName: { value: this.props.currentSavedSearch.name || '' },
     };
   }
 
   toggleInput(e) {
     // preventDefault() to avoid query params getting added in MS Edge
     e.preventDefault();
-    const { showInput, newSearchName } = this.state;
+    const { showInput } = this.state;
     // reset the input field, since the component will re-render and be out of sync with state
     showInput.value = !showInput.value;
-    this.setState({ showInput, newSearchName });
-  }
-
-  changeNewSearchName(e) {
-    const { newSearchName } = this.state;
-    newSearchName.value = e;
-    this.setState({ newSearchName });
-  }
-
-  submitSavedSearch(e, id) {
-    if (e && e.preventDefault) {
-      e.preventDefault();
-    }
-    this.props.saveSearch(this.state.newSearchName.value, id);
+    this.setState({ showInput });
   }
 
   render() {
     const { showInput } = this.state;
-    const { newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving } = this.props;
+    const {
+      newSavedSearchHasErrored,
+      currentSavedSearch,
+      newSavedSearchIsSaving,
+      saveSearch } = this.props;
     return (
       <div className={`usa-grid-full save-new-search-container ${newSavedSearchIsSaving ? 'results-loading' : ''}`}>
         <SaveNewSearchPrompt
@@ -50,8 +38,7 @@ class SaveNewSearchContainer extends Component {
         {
           showInput.value &&
           <SaveNewSearchDialog
-            onFormSubmit={this.submitSavedSearch}
-            onTextChange={this.changeNewSearchName}
+            saveSearch={saveSearch}
             onCancel={this.toggleInput}
             newSavedSearchHasErrored={newSavedSearchHasErrored}
             currentSavedSearch={currentSavedSearch}

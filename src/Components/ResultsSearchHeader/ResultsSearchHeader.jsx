@@ -77,7 +77,7 @@ ResultsSearchHeader.defaultProps = {
   onFilterChange: EMPTY_FUNCTION,
   defaultKeyword: '',
   labelSrOnly: false,
-  placeholder: 'Location, Skill cone (code), Grade, Language, Position number',
+  placeholder: 'Location, Skill, Grade, Language, Position number',
 };
 
 export default ResultsSearchHeader;

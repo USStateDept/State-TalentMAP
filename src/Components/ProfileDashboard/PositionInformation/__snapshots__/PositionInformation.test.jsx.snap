@@ -43,7 +43,7 @@ exports[`PositionInformationComponent matches snapshot 1`] = `
       className=""
       content="CONSTRUCTION ENGINEERING (6218)"
       sideBySide={false}
-      title="Skill code"
+      title="Skill"
       titleOnBottom={false}
     />
   </div>

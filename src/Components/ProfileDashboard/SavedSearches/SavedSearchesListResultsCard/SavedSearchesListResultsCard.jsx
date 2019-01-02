@@ -1,20 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
 import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from '../../../../Constants/PropTypes';
 import { mapSavedSearchToDescriptions } from '../../../../utilities';
 import SavedSearchPillList from '../../../SavedSearchPillList';
+import InteractiveElement from '../../../InteractiveElement';
 
 const SavedSearchListResultsCard = ({ savedSearch, goToSavedSearch, mappedParams }) => {
   const pills = mapSavedSearchToDescriptions(savedSearch.filters, mappedParams).slice(0, 4);
   return (
     <div className="usa-grid-full saved-search-card profile-section-container" key={savedSearch.id}>
       <div className="usa-grid-full">
-        <div className="usa-width-one-half favorites-card-section">
-          <div>{savedSearch.name}</div>
+        <div className="usa-width-one-whole favorites-card-section">
+          <InteractiveElement
+            onClick={() => goToSavedSearch(savedSearch)}
+            className="search-title"
+          >
+            {savedSearch.name}
+            <FontAwesome name="angle-right" />
+          </InteractiveElement>
           <SavedSearchPillList pills={pills} />
-        </div>
-        <div className="usa-width-one-fourth favorites-card-section">
-          <button onClick={() => goToSavedSearch(savedSearch)} >View Search</button>
         </div>
       </div>
     </div>

@@ -22,7 +22,6 @@ describe('Results', () => {
         isAuthorized={() => true}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         resetSavedSearchAlerts={() => {}}
         fetchMissionAutocomplete={() => {}}
@@ -33,7 +32,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -47,7 +45,6 @@ describe('Results', () => {
         isAuthorized={() => false}
         onNavigateTo={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         resetSavedSearchAlerts={() => {}}
         fetchMissionAutocomplete={() => {}}
@@ -58,7 +55,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -75,7 +71,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -85,7 +80,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -109,7 +103,6 @@ describe('Results', () => {
         fetchFilters={spy}
         setAccordion={() => {}}
         filters={{ hasFetched: true }}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -119,7 +112,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -137,7 +129,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={(q, id) => { savedSearch.q = q; savedSearch.id = id; }}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -147,7 +138,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -165,7 +155,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -177,7 +166,6 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -206,7 +194,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -218,7 +205,6 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -247,7 +233,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -259,7 +244,6 @@ describe('Results', () => {
         postSearchHasErrored={false}
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -288,7 +272,6 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        toggleFavorite={() => {}}
         saveSearch={() => {}}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
@@ -298,7 +281,6 @@ describe('Results', () => {
         postSearchResults={[]}
         postSearchIsLoading={false}
         postSearchHasErrored={false}
-        toggleBid={() => {}}
         bidListFetchData={() => {}}
       />,
     );
@@ -318,12 +300,10 @@ describe('mapDispatchToProps', () => {
     fetchFilters: [{}, '?q', '?q'],
     setAccordion: [{}],
     onNavigateTo: ['/details'],
-    toggleFavorite: [1, true],
     saveSearch: [{}, 1],
     fetchMissionAutocomplete: ['?q'],
     fetchPostAutocomplete: ['?q'],
     toggleSearchBarVisibility: ['?q'],
-    toggleBid: [1, true],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });

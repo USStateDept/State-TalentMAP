@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import { isObject } from 'lodash';
 import { GLOSSARY_ERROR_OBJECT } from '../../../../Constants/PropTypes';
 
-const ErrorMessage = ({ showEmptyWarning, error }) => {
-  const showResponseError = isObject(error) ? error.hasErrored : error; // Deprecated prop
-  const isError = (showEmptyWarning || showResponseError);
-
+const getMessage = (showEmptyWarning, error) => {
   let message;
 
   // Handing 3 types of error prop values with 2 default fallback messages
@@ -15,9 +12,15 @@ const ErrorMessage = ({ showEmptyWarning, error }) => {
   } else {
     message = (isObject(error) ? error.message : null) || 'Error updating term.';
   }
+  return message;
+};
+
+const ErrorMessage = ({ showEmptyWarning, error }) => {
+  const showResponseError = isObject(error) ? error.hasErrored : error; // Deprecated prop
+  const isError = (showEmptyWarning || showResponseError);
 
   return (
-    isError ? <span className="usa-input-error-message" role="alert">{message}</span> : null
+    isError ? <span className="usa-input-error-message" role="alert">{getMessage(showEmptyWarning, error)}</span> : null
   );
 };
 

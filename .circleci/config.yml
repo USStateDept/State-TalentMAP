@@ -4,7 +4,7 @@ default-docker-node: &default-docker-node
     - image: circleci/node:6.11.0
       environment:
         TZ: "/usr/share/zoneinfo/America/New_York"
-        CC_TEST_REPORTER_ID: c05c8cb360b66d7b92767ad0ffdeef2c8519f390d700b8bc2d2b7ee6c2760791
+        CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
         COMPOSE_FILE_NAME: circleci-docker-compose.yml
         API_REPO_NAME: state-talentmap-api
         API_REPO_BRANCH: staging
@@ -34,7 +34,8 @@ jobs:
           name: Docker Build
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
-            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            BRANCH=${CIRCLE_BRANCH//\//-}
+            TAG=$BRANCH-$CIRCLE_SHA1
             DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
             docker build -t talentmap/$DOCKER_HUB_REPO:$TAG .
             docker push talentmap/$DOCKER_HUB_REPO:$TAG
@@ -45,7 +46,7 @@ jobs:
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
-      - run: chmod +x ./certs/certs.sh 
+      - run: chmod +x ./certs/certs.sh
       - run: cd certs && ./certs.sh
       - run: cd ..
       - restore_cache:
@@ -145,12 +146,13 @@ jobs:
       - run:
           name: Push Stable Docker Image
           command: |
-            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
+            BRANCH=${CIRCLE_BRANCH//\//-}
+            TAG=$BRANCH-$CIRCLE_SHA1
             DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker pull talentmap/$DOCKER_HUB_REPO:$TAG
-            docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
-            docker push talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
+            docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$BRANCH
+            docker push talentmap/$DOCKER_HUB_REPO:$BRANCH
 workflows:
   version: 2
   build_and_test:

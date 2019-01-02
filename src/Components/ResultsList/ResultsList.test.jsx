@@ -12,10 +12,6 @@ describe('ResultsListComponent', () => {
     results = shallow(
       <ResultsList
         results={resultsObject}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
-        toggleBid={() => {}}
         bidList={[]}
       />,
     );
@@ -28,10 +24,6 @@ describe('ResultsListComponent', () => {
   it('can receive props', () => {
     wrapper = shallow(<ResultsList
       results={resultsObject}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
@@ -40,10 +32,6 @@ describe('ResultsListComponent', () => {
   it('matches a snapshot with results', () => {
     wrapper = shallow(<ResultsList
       results={resultsObject}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -52,10 +40,6 @@ describe('ResultsListComponent', () => {
   it('handles an empty result set', () => {
     wrapper = shallow(<ResultsList
       results={{}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(wrapper.find('div').hasClass('results-loading')).toBe(false);
@@ -64,10 +48,6 @@ describe('ResultsListComponent', () => {
   it('matches a snapshot with an empty result set', () => {
     wrapper = shallow(<ResultsList
       results={{}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();

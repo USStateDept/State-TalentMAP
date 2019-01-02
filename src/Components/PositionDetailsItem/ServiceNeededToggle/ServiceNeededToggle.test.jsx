@@ -30,6 +30,13 @@ describe('ServiceNeededToggle', () => {
     expect(toggle.html()).toBeNull();
   });
 
+  it('can call onClick', () => {
+    props.onChange = jest.fn(() => {});
+    const toggle = shallow(<ServiceNeededToggle {...props} />);
+    toggle.find('InteractiveElement').simulate('click');
+    expect(props.onChange).toHaveBeenCalled();
+  });
+
   it('verifies loading state renders and refreshes', () => {
     let toggle;
 

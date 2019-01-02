@@ -92,5 +92,13 @@
       border-right: solid;
       border-right-width: $border-width;
     }
+
+    .bid-count-list-item:nth-child(odd) {
+      border-radius: 5px 0 0 5px;
+    }
+
+    .bid-count-list-item:nth-child(even) {
+      border-radius: 0 5px 5px 0;
+    }
   }
 }

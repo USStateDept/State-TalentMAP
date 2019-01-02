@@ -17,7 +17,6 @@ describe('Home', () => {
       <Home
         isAuthorized={() => true}
         bidListFetchData={() => {}}
-        toggleFavorite={() => {}}
         onNavigateTo={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -29,7 +28,6 @@ describe('Home', () => {
       <Home
         isAuthorized={() => false}
         bidListFetchData={() => {}}
-        toggleFavorite={() => {}}
         onNavigateTo={() => {}}
       />
     </MemoryRouter></Provider>);
@@ -40,7 +38,6 @@ describe('Home', () => {
     const wrapper = shallow(<Home.WrappedComponent
       isAuthorized={() => true}
       onNavigateTo={() => {}}
-      toggleFavorite={() => {}}
       bidListFetchData={() => {}}
     />);
     wrapper.instance().onChildSubmit();
@@ -52,7 +49,6 @@ describe('mapDispatchToProps', () => {
     fetchData: [{}],
     onNavigateTo: ['/results'],
     toggleFavorite: [1, true],
-    toggleBid: [1, true],
     toggleSearchBarVisibility: [true],
   };
   testDispatchFunctions(mapDispatchToProps, config);

@@ -28,10 +28,8 @@ class ResultsContainer extends Component {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
             defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
-            toggleFavorite, userProfileFavoritePositionIsLoading, newSavedSearchHasErrored,
-            userProfileFavoritePositionHasErrored, saveSearch, newSavedSearchSuccess,
-            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, toggleBid,
-            bidList,
+            newSavedSearchHasErrored, saveSearch, newSavedSearchSuccess,
+            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, bidList,
       } = this.props;
     return (
       <div className="results-container">
@@ -81,10 +79,6 @@ class ResultsContainer extends Component {
               results={results}
               isLoading={!hasLoaded}
               favorites={userProfile.favorite_positions}
-              toggleFavorite={toggleFavorite}
-              userProfileFavoritePositionIsLoading={userProfileFavoritePositionIsLoading}
-              userProfileFavoritePositionHasErrored={userProfileFavoritePositionHasErrored}
-              toggleBid={toggleBid}
               bidList={bidList}
             />
           </div>
@@ -125,9 +119,6 @@ ResultsContainer.propTypes = {
   pillFilters: PILL_ITEM_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
-  toggleFavorite: PropTypes.func.isRequired,
-  userProfileFavoritePositionIsLoading: PropTypes.bool.isRequired,
-  userProfileFavoritePositionHasErrored: PropTypes.bool.isRequired,
   saveSearch: PropTypes.func.isRequired,
   newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
@@ -135,7 +126,6 @@ ResultsContainer.propTypes = {
   currentSavedSearch: SAVED_SEARCH_OBJECT,
   resetSavedSearchAlerts: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
-  toggleBid: PropTypes.func.isRequired,
   bidList: BID_RESULTS.isRequired,
 };
 

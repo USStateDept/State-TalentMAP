@@ -27,4 +27,17 @@ describe('async actions', () => {
     };
     f();
   });
+
+  it('can fetch favorite positions with a sort parameter', (done) => {
+    const store = mockStore({ results: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.favoritePositionsFetchData('asc'));
+        store.dispatch(actions.favoritePositionsIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
 });

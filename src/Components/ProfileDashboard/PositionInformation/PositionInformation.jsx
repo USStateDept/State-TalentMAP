@@ -8,14 +8,9 @@ import StartEnd from './StartEnd';
 
 const PositionInformation = ({ assignment }) => {
   const assignmentStartDate = assignment.start_date ? formatDate(assignment.start_date) : false;
-  const isActive = assignment.status === 'active';
   let assignmentEndDate;
-  if (isActive) {
-    assignmentEndDate = assignment.estimated_end_date ?
-      formatDate(assignment.estimated_end_date) : '';
-  } else {
-    assignmentEndDate = assignment.end_date ? formatDate(assignment.end_date) : '';
-  }
+  assignmentEndDate = (assignment.status === 'active') ? assignment.estimated_end_date : assignment.end_date;
+  assignmentEndDate = assignmentEndDate ? formatDate(assignmentEndDate) : '';
 
   // format our values
   const formattedAssignmentDates = assignment.start_date && assignment.estimated_end_date ?
@@ -45,7 +40,7 @@ const PositionInformation = ({ assignment }) => {
           content={formattedPosition}
         />
         <InformationDataPoint
-          title="Skill code"
+          title="Skill"
           content={formattedSkill}
         />
       </div>

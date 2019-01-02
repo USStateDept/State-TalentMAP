@@ -1,0 +1,54 @@
+[Unit]
+Description=TalentMAP
+# Set dependencies to other services (optional)
+After=httpd.service
+
+[Service]
+# Start the js-file starting the express server
+ExecStart=/usr/bin/node ./src/server.js
+WorkingDirectory=/var/ui/talentmap
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=TalentMAP
+# Change to a non-root user (optional, but recommended)
+#User=<alternate user>
+#Group=<alternate group>
+# Set environment options
+Environment=NODE_ENV=production
+
+# Port number for the Express web application
+Environment=PORT=3000
+
+# Set authentication mode
+Environment=LOGIN_MODE=saml
+
+# The public prefix for the web application
+Environment=PUBLIC_URL=/talentmap/
+
+# The full path location of build artifacts, ie js and css
+Environment=STATIC_PATH=/var/www/html/talentmap/
+
+# Protocol, hostname and port of API
+Environment=API_ROOT=http://localhost:8000/
+Environment=API_URL=http://localhost:8000/api/v1
+
+# Protocol, hostname and port of OBC,
+Environment=OBC_URL=http://localhost:4000/
+
+# External link to the About page
+Environment=ABOUT_PAGE=https://github.com/18F/State-TalentMAP
+
+# SAML configuration
+Environment=ENTITY_ID=http://localhost:3000/talentmap/
+Environment=ASSERT_ENDPOINT=http://localhost:3000/talentmap/
+
+# server certificate
+Environment=CERT_FILE=/path/to/cert_file.crt
+Environment=KEY_FILE=/path/to/key_file.key
+
+# identity provider config
+Environment=SSO_LOGIN_URL=http://localhost:5000/login
+Environment=SSO_LOGOUT_URL=http://localhost:5000/logout
+Environment=SSO_CERT_FILE=/path/to/cert_file.crt

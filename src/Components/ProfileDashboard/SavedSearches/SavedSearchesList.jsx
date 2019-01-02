@@ -24,7 +24,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
   return (
     <div className="usa-grid-full saved-searches-list-profile-container">
       {filtersIsLoading ?
-        <Spinner type="homepage-position-results" size="big" />
+        <Spinner type="saved-searches" size="big" />
         :
         <div className="usa-grid-full">
           <div className="usa-grid-full section-padded-inner-container">

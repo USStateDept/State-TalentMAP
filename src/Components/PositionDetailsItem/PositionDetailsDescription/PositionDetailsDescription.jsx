@@ -24,6 +24,24 @@ class PositionDetailsDescription extends Component {
     this.setState({ shouldDisplayFullDescription: !value });
   }
 
+  // We need to set three variables:
+  // 1. To check if it exists (not null)
+  // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
+  // 3. A formatted version for public viewing
+  get description() {
+    const { details } = this.props;
+    const { newDescriptionContent, shouldDisplayFullDescription } = this.state;
+    const description = propOrDefault(details, 'description.content');
+    const plainTextDescription = newDescriptionContent.value || description || '';
+    let formattedDescription = description || newDescriptionContent.value ?
+      shortenString(plainTextDescription) :
+      NO_POSITION_DESCRIPTION;
+    if (description && shouldDisplayFullDescription) {
+      formattedDescription = plainTextDescription;
+    }
+    return { plainTextDescription, formattedDescription };
+  }
+
   toggleDescriptionEditor() {
     // reset any alert messages
     this.props.resetDescriptionEditMessages();
@@ -42,31 +60,14 @@ class PositionDetailsDescription extends Component {
 
   render() {
     const { details } = this.props;
-    const { shouldShowDescriptionEditor, newDescriptionContent,
-      shouldDisplayFullDescription } = this.state;
+    const { shouldShowDescriptionEditor, shouldDisplayFullDescription } = this.state;
 
-    // We need to set three variables:
-    // 1. To check if it exists (not null)
-    // 2. A plain text version (not encapsulated in html) to pass to the TextEditor component
-    // 3. A formatted version for public viewing
-
-    const description = propOrDefault(details, 'description.content');
-    const plainTextDescription = description ? newDescriptionContent.value || description : newDescriptionContent.value || '';
-    let formattedDescription = description || newDescriptionContent.value ?
-      shortenString(plainTextDescription) :
-      NO_POSITION_DESCRIPTION;
-    if (description && shouldDisplayFullDescription) {
-      formattedDescription = plainTextDescription;
-    }
-
+    const { plainTextDescription, formattedDescription } = this.description;
     // Determine if the ViewMoreLink needs to be rendered based on description length.
     // Example: if shortened string is same length as original, there is no need to display
     // the "View More" link.
-    let hideViewMoreLink = false;
-    if ((shortenString(plainTextDescription).length || 0) >=
-    (plainTextDescription ? plainTextDescription.length : 0)) {
-      hideViewMoreLink = true;
-    }
+    const hideViewMoreLink = (shortenString(plainTextDescription).length || 0) >=
+      (plainTextDescription ? plainTextDescription.length : 0);
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
     return (

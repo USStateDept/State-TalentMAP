@@ -59,4 +59,25 @@ describe('BidStepIconComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when isComplete is false and number is 0', () => {
+    const wrapper = shallow(
+      <BidStepIcon isComplete={false} needsAction isCurrent number={0} />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when isComplete is false and hasPendingTooltip', () => {
+    const wrapper = shallow(
+      <BidStepIcon isComplete={false} needsAction isCurrent number={3} hasPendingTooltip />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when isComplete is false and hasRescheduledTooltip', () => {
+    const wrapper = shallow(
+      <BidStepIcon isComplete={false} needsAction isCurrent number={3} hasRescheduledTooltip />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

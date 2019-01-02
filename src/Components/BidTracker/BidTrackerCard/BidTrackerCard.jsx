@@ -25,7 +25,9 @@ const BidTrackerCard = ({ bid, acceptBid, declineBid, submitBid, deleteBid, user
   return (
     <div className="bid-tracker">
       <div>
-        <BidTrackerCardTop bid={bid} />
+        <BidTrackerCardTop
+          bid={bid}
+        />
         <div className={`usa-grid-full padded-container-inner bid-tracker-bid-steps-container ${draftClass}`}>
           <BidSteps bid={bid} />
           {

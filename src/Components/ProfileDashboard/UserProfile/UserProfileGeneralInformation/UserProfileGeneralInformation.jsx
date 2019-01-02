@@ -10,7 +10,7 @@ import StaticDevContent from '../../../StaticDevContent';
 import SkillCodeList from '../../../SkillCodeList';
 
 const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) => (
-  <div className="current-user-top current-user-section-container">
+  <div className="current-user-top current-user-section-border current-user-section-container">
     <div className="section-padded-inner-container">
       <div className="avatar-group">
         <Status />

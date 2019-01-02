@@ -21,10 +21,6 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={() => {}}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={bidListObject.results}
     />);
     expect(wrapper).toBeDefined();
@@ -35,10 +31,6 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={() => {}}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={bidListObject.results}
     />);
     expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
@@ -50,10 +42,6 @@ describe('HomePageComponent', () => {
       filters={items}
       onNavigateTo={spy}
       homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
-      toggleBid={() => {}}
       bidList={bidListObject.results}
     />);
     wrapper.instance().props.onNavigateTo();

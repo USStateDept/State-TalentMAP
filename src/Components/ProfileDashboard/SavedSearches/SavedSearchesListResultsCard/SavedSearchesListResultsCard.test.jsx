@@ -37,7 +37,7 @@ describe('SavedSearchesListResultsCardComponent', () => {
         goToSavedSearch={spy}
       />,
     );
-    wrapper.find('button').simulate('click');
+    wrapper.find('.search-title').simulate('click');
     sinon.assert.calledOnce(spy);
   });
 

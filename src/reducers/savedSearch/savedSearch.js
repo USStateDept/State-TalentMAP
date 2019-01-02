@@ -1,7 +1,9 @@
+import { get } from 'lodash';
+
 export function newSavedSearchHasErrored(state = false, action) {
   switch (action.type) {
     case 'NEW_SAVED_SEARCH_HAS_ERRORED':
-      return action.hasErrored;
+      return get(action, 'hasErrored.message.name[0]', false);
     default:
       return state;
   }

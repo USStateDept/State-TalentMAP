@@ -35,15 +35,11 @@ describe('ResultsContainerComponent', () => {
         hasLoaded={hasLoaded}
         onToggle={onToggle}
         onQueryParamToggle={() => {}}
-        toggleFavorite={() => {}}
-        userProfileFavoritePositionIsLoading={false}
-        userProfileFavoritePositionHasErrored={false}
         saveSearch={() => {}}
         newSavedSearchSuccess={{}}
         newSavedSearchHasErrored={false}
         newSavedSearchIsSaving={false}
         resetSavedSearchAlerts={() => {}}
-        toggleBid={() => {}}
         bidList={[]}
       />);
     expect(wrapper).toBeDefined();
@@ -61,15 +57,11 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(wrapper.instance().props.pageSizes).toBe(pageSizes);
@@ -87,15 +79,11 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={false}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(wrapper.instance().props.pageSize).toBe(20);
@@ -115,16 +103,12 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={false}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       scrollToTop={scrollSpy}
       resetSavedSearchAlerts={() => {}}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     wrapper.instance().onPageChange(1);
@@ -144,15 +128,11 @@ describe('ResultsContainerComponent', () => {
       hasLoaded={hasLoaded}
       onToggle={onToggle}
       onQueryParamToggle={() => {}}
-      toggleFavorite={() => {}}
-      userProfileFavoritePositionIsLoading={false}
-      userProfileFavoritePositionHasErrored={false}
       saveSearch={() => {}}
       newSavedSearchSuccess={{}}
       newSavedSearchHasErrored={false}
       newSavedSearchIsSaving={false}
       resetSavedSearchAlerts={() => {}}
-      toggleBid={() => {}}
       bidList={[]}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
