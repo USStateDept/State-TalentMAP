@@ -10,6 +10,7 @@ import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
 import checkIndexAuthorization from '../../lib/check-auth';
 import { store, history } from '../../store';
 import PageMeta from '../../Containers/PageMeta';
+import Toast from '../Toast';
 
 const isAuthorized = () => checkIndexAuthorization(store);
 
@@ -27,6 +28,7 @@ const Main = props => (
           <AuthorizedWrapper {...props} isAuthorized={isAuthorized}>
             <Glossary />
           </AuthorizedWrapper>
+          <Toast />
         </div>
       </ScrollContext>
     </ConnectedRouter>
