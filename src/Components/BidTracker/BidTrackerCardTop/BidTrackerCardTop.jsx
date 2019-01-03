@@ -5,7 +5,6 @@ import { get } from 'lodash';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
-import { canDeleteBid } from '../../../Constants/BidData';
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
@@ -45,7 +44,7 @@ class BidTrackerCardTop extends Component {
                 </div>
             }
             <div className="bid-tracker-actions-container">
-              { canDeleteBid(bid.status) &&
+              { bid.can_delete &&
                 <ConfirmLink
                   className="remove-bid-link"
                   defaultText="Remove Bid"

@@ -30,9 +30,9 @@ describe('BidTrackerCardTopComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('shows the remove bid link when status is draft', () => {
+  it('shows the remove bid link when canDelete', () => {
     const newBid = { ...props.bid };
-    newBid.status = 'draft';
+    newBid.can_delete = true;
     const wrapper = shallow(
       <BidTrackerCardTop {...props} bid={newBid} />,
     );
