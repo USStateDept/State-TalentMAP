@@ -51,3 +51,6 @@ export const NEW_SAVED_SEARCH_SUCCESS = name =>
   `New search with the name "${name}" has been saved! You can go to your profile to view all of your saved searches.`;
 export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
   `Your saved search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;
+
+export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
+export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;
