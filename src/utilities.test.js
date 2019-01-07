@@ -216,7 +216,8 @@ describe('formQueryString', () => {
 
 describe('existsInNestedObject', () => {
   it('can return true when something exists in a nested object', () => {
-    expect(existsInNestedObject(1, [{ position: { id: 1 } }])).toBe(true);
+    const arr = [{ position: { id: 1 } }];
+    expect(existsInNestedObject(1, arr)).toEqual(arr[0]);
   });
 
   it('can return false when something does not exist in a nested object', () => {
