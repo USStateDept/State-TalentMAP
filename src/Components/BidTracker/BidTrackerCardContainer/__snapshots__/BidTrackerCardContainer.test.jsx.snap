@@ -169,6 +169,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "user": "rehmant",
       }
     }
+    deleteBid={[Function]}
   />
 </div>
 `;
