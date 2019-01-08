@@ -73,6 +73,32 @@ describe('BidListButtonComponent', () => {
     sinon.assert.notCalled(spy);
   });
 
+  it('displays the spinner when isLoading is true', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <BidListButton
+        id={1}
+        toggleBidPosition={spy}
+        compareArray={bidListFalse}
+        isLoading
+      />,
+    );
+    expect(wrapper.find('.ds-c-spinner').exists()).toBe(true);
+  });
+
+  it('hides the spinner when isLoading is false', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <BidListButton
+        id={1}
+        toggleBidPosition={spy}
+        compareArray={bidListFalse}
+        isLoading={false}
+      />,
+    );
+    expect(wrapper.find('.ds-c-spinner').exists()).toBe(false);
+  });
+
   it('matches snapshot when the user can add the position', () => {
     const wrapper = shallow(
       <BidListButton

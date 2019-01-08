@@ -23,10 +23,10 @@ class BidListButton extends Component {
   }
 
   toggleSaved() {
-    const { disabled, toggleBidPosition, id } = this.props;
+    const { disabled, toggleBidPosition, id, isLoading } = this.props;
     const { isSaved } = this.getBidData();
     // pass the id and the "remove" param
-    if (!disabled) {
+    if (!isLoading && !disabled) {
       toggleBidPosition(id, isSaved);
     }
   }
@@ -40,13 +40,15 @@ class BidListButton extends Component {
     const style = {
       pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
-    const { className, disabled } = this.props;
+    const { className, disabled, isLoading } = this.props;
     const disabled$ = disabled || !canDelete;
     const disabledClass = disabled$ ? 'usa-button-disabled' : '';
     return (
       <button className={`${disabledClass} ${className}`} style={style} onClick={this.toggleSaved} disabled={disabled$}>
         <span className="button-icon">
-          <FontAwesome name={iconClass} />
+          {isLoading ?
+            (<span className="ds-c-spinner spinner-white" />) :
+            (<FontAwesome name={iconClass} />)}
         </span>
         <span>{text}</span>
       </button>
