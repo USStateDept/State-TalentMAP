@@ -52,18 +52,22 @@ export const PROFILE_MENU = MenuConfig([
       {
         text: 'Dashboard',
         route: '/profile/dashboard',
+        icon: 'tachometer',
       },
       {
         text: 'Favorites',
         route: '/profile/favorites/',
+        icon: 'star',
       },
       {
         text: 'Saved Searches',
         route: '/profile/searches/',
+        icon: 'clock-o',
       },
       {
         text: 'Bid Tracker',
         route: '/profile/bidtracker/',
+        icon: 'clipboard',
       },
       {
         text: 'Bid Cycles',

@@ -9,16 +9,16 @@ const UserProfileContactInformation = ({ userProfile }) => (
   <div className="current-user-section-container">
     <div className="section-padded-inner-container">
       <SectionTitle small title="Contact Information" />
-      <InformationDataPoint title="Email Address" content={userProfile.user.email || NO_EMAIL} />
+      <InformationDataPoint title="Email address" content={userProfile.user.email || NO_EMAIL} />
       <StaticDevContent>
-        <InformationDataPoint title="Office Number" content="+301-779-0379 ext. 3" />
+        <InformationDataPoint title="Office number" content="+301-779-0379 ext. 3" />
       </StaticDevContent>
       <StaticDevContent>
-        <InformationDataPoint title="Personal Contact Number" content="+240-331-7189" />
+        <InformationDataPoint title="Personal contact number" content="+240-331-7189" />
       </StaticDevContent>
       <StaticDevContent>
         <InformationDataPoint
-          title="Post/Office Address"
+          title="Post/Office address"
           content="1234 Washington St. NW, Washington, DC 20009"
         />
       </StaticDevContent>

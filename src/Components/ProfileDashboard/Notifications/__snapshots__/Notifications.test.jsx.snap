@@ -13,6 +13,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       <PositionInformation
         className=""
         icon="globe"
+        len={4}
         small={false}
         title="Notifications"
       />
@@ -78,6 +79,7 @@ exports[`NotificationsComponent matches snapshot when there are zero notificatio
       <PositionInformation
         className=""
         icon="globe"
+        len={0}
         small={false}
         title="Notifications"
       />

@@ -34,7 +34,7 @@ import selectedSearchbarFilters from './selectedSearchbarFilters';
 import showFeedback from './showFeedback';
 import feedback from './feedback';
 import features from './features';
-
+import toast from './toast';
 
 export default combineReducers({
   ...results,
@@ -66,6 +66,7 @@ export default combineReducers({
   ...showFeedback,
   ...feedback,
   ...features,
+  ...toast,
   router,
   form,
   client,

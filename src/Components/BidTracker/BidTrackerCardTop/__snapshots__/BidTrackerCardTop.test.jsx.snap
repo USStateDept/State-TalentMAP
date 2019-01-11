@@ -9,7 +9,7 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
   >
     <BidTrackerCardTitle
       bidStatistics={Object {}}
-      id="10035561"
+      id={226}
       post={
         Object {
           "id": 199,
@@ -40,15 +40,7 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
       </div>
       <div
         className="bid-tracker-actions-container"
-      >
-        <Connect(ActionsDropdown)
-          disableDelete={false}
-          disableWithdraw={true}
-          positionId={226}
-          showDelete={false}
-          showWithdraw={true}
-        />
-      </div>
+      />
     </div>
   </div>
 </div>

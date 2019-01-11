@@ -49,16 +49,17 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "username": "woodwardw",
           },
           "scheduled_panel_date": "2017-12-20",
-          "status": "approved",
+          "status": "draft",
           "submitted_date": "2017-12-20",
           "update_date": "2017-12-20",
           "user": "rehmant",
         }
       }
+      deleteBid={[Function]}
       showQuestion={true}
     />
     <div
-      className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container "
+      className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container bid-tracker-bid-steps-container--draft"
     >
       <BidSteps
         bid={
@@ -104,7 +105,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
               "username": "woodwardw",
             },
             "scheduled_panel_date": "2017-12-20",
-            "status": "approved",
+            "status": "draft",
             "submitted_date": "2017-12-20",
             "update_date": "2017-12-20",
             "user": "rehmant",
@@ -156,7 +157,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
               "username": "woodwardw",
             },
             "scheduled_panel_date": "2017-12-20",
-            "status": "approved",
+            "status": "draft",
             "submitted_date": "2017-12-20",
             "update_date": "2017-12-20",
             "user": "rehmant",
@@ -165,80 +166,6 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         declineBid={[Function]}
         deleteBid={[Function]}
         submitBid={[Function]}
-      />
-    </div>
-  </div>
-  <div
-    className="usa-grid-full bid-tracker-card-bottom-container"
-  >
-    <div
-      className="padded-container-inner"
-    >
-      <BidTrackerCardBottom
-        bureau="(AF) BUREAU OF AFRICAN AFFAIRS"
-        reviewer={
-          Object {
-            "email": "woodwardw@state.gov",
-            "first_name": "Wendy",
-            "is_cdo": false,
-            "last_name": "Woodward",
-            "phone_number": "555-555-5555",
-            "username": "woodwardw",
-          }
-        }
-        userProfile={
-          Object {
-            "bid_statistics": Array [
-              Object {
-                "draft": 1,
-                "submitted": 1,
-              },
-            ],
-            "cdo": Object {
-              "email": "shadtrachl@state.gov",
-              "first_name": "Leah",
-              "initials": "LS",
-              "last_name": "Shadtrach",
-              "username": "shadtrachl",
-            },
-            "display_name": "John",
-            "favorite_positions": Array [
-              Object {
-                "id": 1,
-                "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-              },
-              Object {
-                "id": 4,
-                "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-              },
-            ],
-            "grade": "03",
-            "id": 1,
-            "initials": "JD",
-            "is_cdo": false,
-            "skills": Array [
-              Object {
-                "code": "6218",
-                "cone": null,
-                "description": "CONSTRUCTION ENGINEERING",
-                "id": 63,
-              },
-              Object {
-                "code": "6211",
-                "cone": null,
-                "description": "COMPUTER SCIENCE",
-                "id": 40,
-              },
-            ],
-            "user": Object {
-              "email": "doej@state.gov",
-              "first_name": "John",
-              "initials": "JD",
-              "last_name": "Doe",
-              "username": "jdoe",
-            },
-          }
-        }
       />
     </div>
   </div>

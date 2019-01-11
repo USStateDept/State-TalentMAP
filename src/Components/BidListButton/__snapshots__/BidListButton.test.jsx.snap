@@ -2,7 +2,8 @@
 
 exports[`BidListButtonComponent matches snapshot when the user can add the position 1`] = `
 <button
-  className="bid-list-button"
+  className="usa-button-disabled bid-list-button"
+  disabled={true}
   onClick={[Function]}
   style={
     Object {
@@ -25,7 +26,8 @@ exports[`BidListButtonComponent matches snapshot when the user can add the posit
 
 exports[`BidListButtonComponent matches snapshot when the user can remove the position 1`] = `
 <button
-  className="bid-list-button"
+  className="usa-button-disabled bid-list-button"
+  disabled={true}
   onClick={[Function]}
   style={
     Object {

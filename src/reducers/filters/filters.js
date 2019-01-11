@@ -142,7 +142,7 @@ const items =
       },
       {
         item: {
-          title: 'Danger pay',
+          title: 'Danger Pay',
           sort: 700,
           description: 'dangerPay',
           selectionRef: ENDPOINT_PARAMS.danger,

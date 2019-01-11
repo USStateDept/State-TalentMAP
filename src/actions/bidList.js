@@ -1,4 +1,5 @@
 import api from '../api';
+import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
 
 export function bidListHasErrored(bool) {
@@ -224,19 +225,19 @@ export function toggleBidPosition(id, remove) {
 
     api(config)
       .then(() => {
-        dispatch(bidListToggleSuccess(
-          remove ?
-            SystemMessages.DELETE_BID_ITEM_SUCCESS : SystemMessages.ADD_BID_ITEM_SUCCESS,
-        ));
+        const message = remove ?
+          SystemMessages.DELETE_BID_ITEM_SUCCESS : SystemMessages.ADD_BID_ITEM_SUCCESS;
+        dispatch(bidListToggleSuccess(message));
+        dispatch(toastSuccess(message));
         dispatch(bidListToggleIsLoading(false));
         dispatch(bidListToggleHasErrored(false));
         dispatch(bidListFetchData());
       })
       .catch(() => {
-        dispatch(bidListToggleHasErrored(
-          remove ?
-            SystemMessages.DELETE_BID_ITEM_ERROR : SystemMessages.ADD_BID_ITEM_ERROR,
-        ));
+        const message = remove ?
+          SystemMessages.DELETE_BID_ITEM_ERROR : SystemMessages.ADD_BID_ITEM_ERROR;
+        dispatch(bidListToggleHasErrored(message));
+        dispatch(toastError(message));
         dispatch(bidListToggleIsLoading(false));
       });
   };

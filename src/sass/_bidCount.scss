@@ -26,6 +26,7 @@
 
   .bid-count-label {
     float: left;
+    font-size: 16px;
     font-weight: bold;
     margin-right: .5em;
     padding-top: .2em;
@@ -78,7 +79,7 @@
   }
 
   .bid-count-number {
-    padding: .2em .5em;
+    padding: .2em 1em;
   }
 
   @media screen and (max-width: $screen-sm-max) {

@@ -16,6 +16,7 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
         <PositionInformation
           className=""
           icon="clock-o"
+          len={2}
           small={false}
           title="Saved Searches"
         />
@@ -115,7 +116,7 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
         replace={false}
         to="/profile/searches/"
       >
-        View More
+        View more
       </Link>
     </div>
   </div>
@@ -149,6 +150,7 @@ exports[`SavedSearchesListComponent matches snapshot when there are no saved sea
         <PositionInformation
           className=""
           icon="clock-o"
+          len={0}
           small={false}
           title="Saved Searches"
         />
@@ -170,7 +172,7 @@ exports[`SavedSearchesListComponent matches snapshot when there are no saved sea
         replace={false}
         to="/profile/searches/"
       >
-        View More
+        View more
       </Link>
     </div>
   </div>

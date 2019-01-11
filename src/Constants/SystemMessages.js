@@ -18,9 +18,9 @@ export const NO_UPDATE_DATE = 'Unknown';
 export const NO_ORG = DEFAULT_TEXT;
 export const NO_POSITION_DESCRIPTION = 'There is no description for this position.';
 export const NO_POSITION_NUMBER = '';
-export const NO_POSITION_POC = 'None listed.';
+export const NO_POSITION_POC = 'None listed';
 export const NO_POSITION_TITLE = DEFAULT_TEXT;
-export const NO_POSITION_WEB_SITE = 'None listed.';
+export const NO_POSITION_WEB_SITE = 'None listed';
 export const NO_POST = DEFAULT_TEXT;
 export const NO_POST_DIFFERENTIAL = DEFAULT_TEXT;
 export const NO_REST_RELAXATION = DEFAULT_TEXT;
@@ -51,3 +51,6 @@ export const NEW_SAVED_SEARCH_SUCCESS = name =>
   `New search with the name "${name}" has been saved! You can go to your profile to view all of your saved searches.`;
 export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
   `Your saved search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;
+
+export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
+export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;

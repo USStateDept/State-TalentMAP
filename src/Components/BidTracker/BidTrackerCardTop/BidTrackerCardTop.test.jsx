@@ -1,14 +1,17 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import sinon from 'sinon';
 import BidTrackerCardTop from './BidTrackerCardTop';
 import bidListObject from '../../../__mocks__/bidListObject';
 
 describe('BidTrackerCardTopComponent', () => {
   const bid = bidListObject.results[0];
+  const deleteBid = sinon.spy();
 
   const props = {
     bid,
+    deleteBid,
   };
 
   it('is defined', () => {
@@ -25,6 +28,25 @@ describe('BidTrackerCardTopComponent', () => {
       <BidTrackerCardTop {...props} bid={newBid} />,
     );
     expect(wrapper).toBeDefined();
+  });
+
+  it('shows the remove bid link when canDelete', () => {
+    const newBid = { ...props.bid };
+    newBid.can_delete = true;
+    const wrapper = shallow(
+      <BidTrackerCardTop {...props} bid={newBid} />,
+    );
+    expect(wrapper).toBeDefined();
+    expect(wrapper.find('remove-bid-link')).toBeDefined();
+  });
+
+  it('calls deleteBid', () => {
+    const wrapper = shallow(
+      <BidTrackerCardTop {...props} />,
+    );
+    expect(wrapper).toBeDefined();
+    wrapper.instance().onDeleteBid();
+    sinon.assert.calledOnce(props.deleteBid);
   });
 
   it('matches snapshot', () => {

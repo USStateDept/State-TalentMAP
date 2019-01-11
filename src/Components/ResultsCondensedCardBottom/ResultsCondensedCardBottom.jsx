@@ -1,28 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CondensedCardData from '../CondensedCardData';
-import BidListButton from '../../Containers/BidListButton';
-import { POSITION_DETAILS, BID_RESULTS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import Favorite from '../../Containers/Favorite';
+import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
 
-const ResultsCondensedCardBottom = ({ position, bidList, favorites, refreshFavorites }) => (
+const ResultsCondensedCardBottom = ({ position, favorites, refreshFavorites }) => (
   <div className="condensed-card-bottom-container">
     <div className="usa-grid-full condensed-card-bottom">
+      <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />
       <CondensedCardData position={position} />
       <div className="usa-grid-full condensed-card-buttons-section">
         <Favorite
-          hideText
+          useLongText
           hasBorder
           refKey={position.id}
           compareArray={favorites}
           useButtonClass
-          useButtonClassSecondary
           refresh={refreshFavorites}
-        />
-        <BidListButton
-          className="tm-button"
-          id={position.id}
-          compareArray={bidList}
         />
       </div>
     </div>
@@ -31,7 +26,6 @@ const ResultsCondensedCardBottom = ({ position, bidList, favorites, refreshFavor
 
 ResultsCondensedCardBottom.propTypes = {
   position: POSITION_DETAILS.isRequired,
-  bidList: BID_RESULTS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   refreshFavorites: PropTypes.bool,
 };

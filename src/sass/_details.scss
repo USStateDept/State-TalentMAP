@@ -108,6 +108,10 @@
       font-weight: bold;
       min-width: 200px;
     }
+
+    .condensed-card-data-point {
+      margin-bottom: 2px;
+    }
   }
 
   .position-details-description-container:first-of-type.back-container {
@@ -216,9 +220,18 @@
   left: 65%;
   position: absolute;
 
+  .unavailable-tooltip {
+    font-size: 1.3rem;
+    text-decoration: underline;
+
+    .fa {
+      margin-right: 5px;
+    }
+  }
+
   .bid-list-button,
   a {
-    box-shadow: $button-box-shadow;
+    box-shadow: $button-box-shadow !important;
     padding: 1em 3em;
 
     @media screen and (max-width: $screen-xs-max) {
@@ -250,7 +263,13 @@
 
 .editable-position-field {
 
+  align-content: flex-start;
+  display: flex;
   margin-bottom: 15px;
+
+  .usa-grid-full {
+    margin: 0;
+  }
 
   .editable-position-field-title {
     float: left;

@@ -40,7 +40,7 @@ submitBid, deleteBid }) => {
       cardComponent = (<IsPriority>{card}</IsPriority>);
       break;
     case STANDBY:
-      cardComponent = (<IsOnStandby bid={bid} />);
+      cardComponent = (<IsOnStandby bid={bid} deleteBid={deleteBid} />);
       break;
     default:
       cardComponent = card;

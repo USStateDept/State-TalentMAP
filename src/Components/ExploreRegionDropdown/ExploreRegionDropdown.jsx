@@ -41,7 +41,7 @@ class ExploreRegionDropdown extends Component {
             <FieldSet legend="region" legendSrOnly>
               <SelectForm
                 id="explore-region-dropdown"
-                label="Explore by Regional Bureau"
+                label="Explore by Bureau"
                 onSelectOption={this.selectRegion}
                 options={regions}
               />

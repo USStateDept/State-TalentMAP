@@ -6,12 +6,11 @@ import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import Glossary from '../../Containers/Glossary';
-import Feedback from '../../Containers/Feedback';
-import FeedbackButton from '../../Containers/FeedbackButton';
 import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
 import checkIndexAuthorization from '../../lib/check-auth';
 import { store, history } from '../../store';
 import PageMeta from '../../Containers/PageMeta';
+import Toast from '../Toast';
 
 const isAuthorized = () => checkIndexAuthorization(store);
 
@@ -28,9 +27,8 @@ const Main = props => (
           <Footer />
           <AuthorizedWrapper {...props} isAuthorized={isAuthorized}>
             <Glossary />
-            <Feedback />
-            <FeedbackButton />
           </AuthorizedWrapper>
+          <Toast />
         </div>
       </ScrollContext>
     </ConnectedRouter>

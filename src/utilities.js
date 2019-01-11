@@ -128,7 +128,7 @@ export const formExploreRegionDropdown = (filters) => {
     // also add a placeholder to the top
     regions.unshift(
       {
-        text: 'Select a Regional Bureau',
+        text: 'Select a Bureau',
         value: '',
         disabled: true,
       },
@@ -192,10 +192,12 @@ export const existsInArray = (ref, array) => {
 // for checking if a position is in the user's bid list
 export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
   let found = false;
-  array.forEach((i) => {
+  array.some((i) => {
     if (i[prop] && i[prop][nestedProp] === ref) {
-      found = true;
+      found = i;
+      return true;
     }
+    return false;
   });
   return found;
 };

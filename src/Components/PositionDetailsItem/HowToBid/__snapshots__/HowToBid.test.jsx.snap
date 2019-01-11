@@ -7,13 +7,11 @@ exports[`HowToBid matches snapshot 1`] = `
   <div
     className="contact-container"
   >
-    <dt>
-      How to bid
-    </dt>
-    <dd>
-      If you've decided you want to bid for this position,
-        you still need to sign in to the FSBid system.
-    </dd>
+    <strong>
+      How to bid: 
+    </strong>
+    If you've decided you want to bid for this position,
+      you still need to sign in to the FSBid system.
   </div>
 </div>
 `;
