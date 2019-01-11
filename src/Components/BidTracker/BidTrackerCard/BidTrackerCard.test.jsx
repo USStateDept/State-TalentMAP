@@ -24,6 +24,16 @@ describe('BidTrackerCardComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('draft bid has draft class', () => {
+    const newProps = { ...props };
+    newProps.bid.status = 'draft';
+    const wrapper = shallow(
+      <BidTrackerCard {...newProps} />,
+    );
+    expect(wrapper).toBeDefined();
+    expect(wrapper.find('bid-tracker-bid-steps-container--draft')).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <BidTrackerCard {...props} />,

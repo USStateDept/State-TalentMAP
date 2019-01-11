@@ -46,7 +46,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
               <div
                 className="search-sub-text"
               >
-                Example: Abuja, Nigeria, Political Affairs (5505), Russian 3/3...
+                Example: Abuja, Nigeria, Political Affairs (5505), Russian...
               </div>
             </div>
             <div
@@ -112,7 +112,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 emptyOptionText="- Select -"
                 id="bureau-searchbar-filter"
                 includeFirstEmptyOption={true}
-                label="Regional Bureau"
+                label="Bureau"
                 languages={Array []}
                 onSelectOption={[Function]}
                 options={

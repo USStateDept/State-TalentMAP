@@ -5,7 +5,9 @@ exports[`BidListComponent matches snapshot 1`] = `
   className="usa-grid-full"
 >
   <Connect(StaticDevContent)>
-    <BidListHeader />
+    <BidListHeader
+      date="07/15/2019"
+    />
   </Connect(StaticDevContent)>
   <div
     className="usa-grid-full section-padded-inner-container"
@@ -16,8 +18,9 @@ exports[`BidListComponent matches snapshot 1`] = `
       <PositionInformation
         className=""
         icon="clipboard"
+        len={3}
         small={false}
-        title="Bid List (3/10)"
+        title="Bid List"
       />
     </div>
   </div>
@@ -214,7 +217,9 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
   className="usa-grid-full"
 >
   <Connect(StaticDevContent)>
-    <BidListHeader />
+    <BidListHeader
+      date="07/15/2019"
+    />
   </Connect(StaticDevContent)>
   <div
     className="usa-grid-full section-padded-inner-container"
@@ -225,8 +230,9 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
       <PositionInformation
         className=""
         icon="clipboard"
+        len={0}
         small={false}
-        title="Bid List (0/10)"
+        title="Bid List"
       />
     </div>
   </div>

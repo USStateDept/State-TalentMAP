@@ -17,7 +17,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     >
       <Link
         replace={false}
-        to="/details/a123"
+        to="/details/100"
       >
         View position
       </Link>
@@ -59,7 +59,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
           }
         }
         hideLabel={false}
-        label="Bid Count:"
+        label="Bid count:"
       />
     </span>
   </div>
@@ -83,7 +83,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
     >
       <Link
         replace={false}
-        to="/details/a123"
+        to="/details/100"
       >
         View position
       </Link>

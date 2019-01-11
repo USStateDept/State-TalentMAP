@@ -28,7 +28,7 @@ const PositionInformation = ({ assignment }) => {
       <div className="section-padded-inner-container">
         <SectionTitle title="Position Information" icon="flag" />
         <InformationDataPoint
-          title="Start & End of Position"
+          title="Start date to End date"
           content={formattedAssignmentDates}
         />
         <InformationDataPoint
@@ -36,7 +36,7 @@ const PositionInformation = ({ assignment }) => {
           content={formattedBureau}
         />
         <InformationDataPoint
-          title="Position Title"
+          title="Position title"
           content={formattedPosition}
         />
         <InformationDataPoint

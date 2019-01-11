@@ -120,7 +120,7 @@ class PositionDetailsContact extends Component {
           </div>
         </div>
         <div className={`contact-container ${!obcId ? 'no-button' : ''}`}>
-          Updated: {formattedDate}
+          <strong>Updated</strong>: {formattedDate}
         </div>
         <div className="offset-bid-button-container">
           <div className="offset-bid-button-container-button">

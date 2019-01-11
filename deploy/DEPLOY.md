@@ -54,6 +54,14 @@ Add a `VirtualHost` entry in `/etc/httpd/conf/httpd.conf`. The web application u
 </VirtualHost>
 ```
 
+It is recommended to add the following to `/etc/httpd/conf/httpd.conf` to enable the compression of files served by Apache
+
+```http
+<IfModule mod_deflate.c>
+    SetOutputFilter DEFLATE
+</IfModule>
+```
+
 ## Clone repository
 
 Use `git` to clone the web app repository

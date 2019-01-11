@@ -1,0 +1,23 @@
+// We don't control these class names, so we ignore scss-lint SelectorFormat warnings
+
+.Toastify__close-button { // scss-lint:disable SelectorFormat
+  color: $color-black;
+  position: absolute;
+  right: 0;
+}
+
+.Toastify__toast { // scss-lint:disable SelectorFormat
+  padding: 0;
+
+  .usa-alert {
+    margin-top: 0;
+  }
+
+  .usa-alert-body {
+    color: $color-black;
+  }
+}
+
+.Toastify__toast-container { // scss-lint:disable SelectorFormat
+  width: 400px;
+}

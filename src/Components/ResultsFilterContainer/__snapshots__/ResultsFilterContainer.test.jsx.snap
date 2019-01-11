@@ -37,7 +37,6 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
             },
           ]
         }
-        isCDO={false}
         missionSearchHasErrored={false}
         missionSearchIsLoading={false}
         missionSearchResults={Array []}

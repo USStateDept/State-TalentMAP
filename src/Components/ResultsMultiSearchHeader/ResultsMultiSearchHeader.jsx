@@ -152,7 +152,7 @@ class ResultsMultiSearchHeader extends Component {
     const bureaus = filters.find(f => f.item && f.item.description === 'region');
     const mappedBureaus = bureaus && bureaus.data ?
       bureaus.data.slice().map(g => ({ ...g, value: g.code, text: g.custom_description })) : [];
-    // sort the regional bureaus by their calculated label
+    // sort the Bureaus by their calculated label
     const sortedBureuas = orderBy(mappedBureaus, ['text']);
 
     // set the default skills
@@ -178,7 +178,7 @@ class ResultsMultiSearchHeader extends Component {
                       onChangeText={this.onChangeText}
                       defaultValue={q}
                     />
-                    <div className="search-sub-text">Example: Abuja, Nigeria, Political Affairs (5505), Russian 3/3...</div>
+                    <div className="search-sub-text">Example: Abuja, Nigeria, Political Affairs (5505), Russian...</div>
                   </div>
                   <div className="usa-width-one-fourth search-results-inputs search-keyword">
                     <SkillCodeFilter
@@ -204,7 +204,7 @@ class ResultsMultiSearchHeader extends Component {
                   <div className="usa-width-one-sixth search-results-inputs search-keyword">
                     <SelectForm
                       id="bureau-searchbar-filter"
-                      label="Regional Bureau"
+                      label="Bureau"
                       options={sortedBureuas}
                       defaultSort={defaultBureau}
                       includeFirstEmptyOption

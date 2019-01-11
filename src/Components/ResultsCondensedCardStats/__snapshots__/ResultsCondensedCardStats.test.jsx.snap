@@ -5,7 +5,7 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
   className="condensed-card-footer condensed-card-statistics"
 >
   <div
-    className="usa-grid-full condensed-card-footer-container"
+    className="usa-grid-full"
   >
     <BidCount
       altStyle={false}
@@ -18,7 +18,7 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
         }
       }
       hideLabel={false}
-      label="Bid Count:"
+      label="Bid count:"
     />
   </div>
 </div>

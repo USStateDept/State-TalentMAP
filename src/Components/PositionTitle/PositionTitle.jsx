@@ -1,25 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import { get } from 'lodash';
+import FontAwesome from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import Favorite from '../../Containers/Favorite';
-import BidCount from '../BidCount';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
-import { NO_POST } from '../../Constants/SystemMessages';
+import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
+import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
 const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }) => {
   const obcId = propOrDefault(details, 'post.obc_id');
-  const stats = getBidStatisticsObject(details.bid_statistics);
+  const availablilityText = get(details, 'availability.reason') ?
+    `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
   return (
     <div className="position-details-header-container">
       <Helmet>
         <title>{details.title}</title>
         <meta property="og:title" content={`${details.title} ${details.position_number}`} />
-        <meta property="og:description" content={details.description.content} />
+        <meta property="og:description" content={get(details, 'description.content')} />
         <meta property="og:url" content={window.location.href} />
       </Helmet>
       <div className="position-details-header">
@@ -53,16 +56,27 @@ const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }
           src={seal}
         />
       </div>
-      <div className="offset-bid-button-container offset-bid-count-container">
-        <div className="usa-grid-full position-title-bid-count">
-          <BidCount bidStatistics={stats} label="Bid Count" altStyle />
-        </div>
-      </div>
       <div className="offset-bid-button-container">
+        {
+          !get(details, 'availability.availability', true) &&
+            <div className="unavailable-tooltip">
+              <Tooltip
+                title={availablilityText}
+                arrow
+                position="bottom"
+                tabIndex="0"
+                theme="light"
+              >
+                <FontAwesome name="question-circle" />
+                {'Why can\'t I add this position to my bid list?'}
+              </Tooltip>
+            </div>
+        }
         <BidListButton
           compareArray={bidList.results}
           id={details.id}
           isLoading={bidListToggleIsLoading}
+          disabled={!get(details, 'availability.availability', true)}
         />
       </div>
     </div>

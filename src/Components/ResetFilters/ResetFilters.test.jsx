@@ -15,10 +15,6 @@ describe('ResetFilters', () => {
     expect(resetButton).toBeDefined();
   });
 
-  it('can click on the button', () => {
-    const wrapper = shallow(<ResetFilters resetFilters={() => {}} />);
-    wrapper.find('InteractiveElement').simulate('click');
-  });
 
   it('can call resetFilters function', () => {
     const propSpy = sinon.spy();
@@ -30,9 +26,7 @@ describe('ResetFilters', () => {
     instance.resetFilters();
     // the instance resetFilters should be called once
     sinon.assert.calledOnce(handleUpdateSpy);
-    instance.resetFilters();
-    // The prop resetFilters should be called once, since it doesn't get called until the
-    // instance's resetFilters function is called twice.
+    // The prop resetFilters should be called once
     sinon.assert.calledOnce(propSpy);
   });
 });

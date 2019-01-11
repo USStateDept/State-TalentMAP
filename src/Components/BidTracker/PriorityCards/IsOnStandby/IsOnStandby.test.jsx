@@ -6,9 +6,11 @@ import bidListObject from '../../../../__mocks__/bidListObject';
 
 describe('IsOnStandbyComponent', () => {
   const bid = bidListObject.results[0];
+  const deleteBid = () => {};
 
   const props = {
     bid,
+    deleteBid,
   };
 
   it('is defined', () => {

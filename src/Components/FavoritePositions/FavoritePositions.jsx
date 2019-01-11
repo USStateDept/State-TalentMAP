@@ -13,7 +13,7 @@ bidList, onSortChange }) => (
   <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full favorites-top-section">
       <div className="favorites-title-container">
-        <ProfileSectionTitle title="Favorites" />
+        <ProfileSectionTitle title="Favorites" icon="star" />
       </div>
       <div className="results-dropdown results-dropdown-sort">
         <SelectForm

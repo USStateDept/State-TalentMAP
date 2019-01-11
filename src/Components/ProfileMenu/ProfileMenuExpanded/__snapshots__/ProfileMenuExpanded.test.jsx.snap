@@ -38,24 +38,28 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
     >
       <withRouter(NavLink)
         hidden={false}
+        iconName="tachometer"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="star"
         link="/profile/favorites/"
         search=""
         title="Favorites"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clock-o"
         link="/profile/searches/"
         search=""
         title="Saved Searches"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
         title="Bid Tracker"
@@ -129,24 +133,28 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
     >
       <withRouter(NavLink)
         hidden={false}
+        iconName="tachometer"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="star"
         link="/profile/favorites/"
         search=""
         title="Favorites"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clock-o"
         link="/profile/searches/"
         search=""
         title="Saved Searches"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
         title="Bid Tracker"
@@ -220,24 +228,28 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={false}
+        iconName="tachometer"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="star"
         link="/profile/favorites/"
         search=""
         title="Favorites"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clock-o"
         link="/profile/searches/"
         search=""
         title="Saved Searches"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
         title="Bid Tracker"
@@ -311,24 +323,28 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={false}
+        iconName="tachometer"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="star"
         link="/profile/favorites/"
         search=""
         title="Favorites"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clock-o"
         link="/profile/searches/"
         search=""
         title="Saved Searches"
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
         title="Bid Tracker"

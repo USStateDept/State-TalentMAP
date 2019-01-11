@@ -7,6 +7,7 @@ describe('BidListButton', () => {
   const props = {
     toggleBid: () => {},
     id: 1,
+    isLoading: false,
   };
 
   it('is defined', () => {

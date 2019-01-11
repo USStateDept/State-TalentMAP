@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT,
-  MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
+  MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 import ResetFilters from '../ResetFilters/ResetFilters';
@@ -33,7 +33,7 @@ class ResultsFilterContainer extends Component {
   render() {
     const { filters, resetFilters, setAccordion, selectedAccordion,
       fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
-      missionSearchHasErrored, fetchPostAutocomplete, userProfile,
+      missionSearchHasErrored, fetchPostAutocomplete,
       postSearchResults, postSearchIsLoading, postSearchHasErrored } = this.props;
     return (
       <div className="filter-container">
@@ -59,7 +59,6 @@ class ResultsFilterContainer extends Component {
               postSearchResults={postSearchResults}
               postSearchIsLoading={postSearchIsLoading}
               postSearchHasErrored={postSearchHasErrored}
-              isCDO={userProfile.is_cdo || false}
             />
           </div>
         </div>
@@ -84,7 +83,6 @@ ResultsFilterContainer.propTypes = {
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
-  userProfile: USER_PROFILE.isRequired,
 };
 
 ResultsFilterContainer.defaultProps = {

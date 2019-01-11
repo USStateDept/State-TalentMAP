@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { BID_OBJECT } from '../../../../Constants/PropTypes';
 import { getStatusProperty } from '../../../../Constants/BidStatuses';
 import { CLOSED_PROP, DECLINED_PROP } from '../../../../Constants/BidData';
 import BidTrackerCardTop from '../../BidTrackerCardTop';
 
-const IsOnStandby = ({ bid }) => {
+const IsOnStandby = ({ bid, deleteBid }) => {
   const bidStatus = getStatusProperty(bid.status, 'text');
   const statusIsClosed = bidStatus === CLOSED_PROP;
   const statusIsDeclined = bidStatus === DECLINED_PROP;
@@ -23,7 +24,7 @@ const IsOnStandby = ({ bid }) => {
         { !useDisabledClass && <div className="bid-tracker-standby-title-bottom">(on-hold)</div> }
       </div>
       <div className="bid-tracker-standby-content-container">
-        <BidTrackerCardTop showQuestion={false} bid={bid} />
+        <BidTrackerCardTop showQuestion={false} bid={bid} deleteBid={deleteBid} />
       </div>
     </div>
   );
@@ -31,6 +32,7 @@ const IsOnStandby = ({ bid }) => {
 
 IsOnStandby.propTypes = {
   bid: BID_OBJECT.isRequired,
+  deleteBid: PropTypes.func.isRequired,
 };
 
 export default IsOnStandby;
