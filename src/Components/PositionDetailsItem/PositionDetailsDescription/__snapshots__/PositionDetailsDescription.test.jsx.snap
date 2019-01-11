@@ -7,7 +7,17 @@ exports[`PositionDetailsDescription matches snapshot 1`] = `
   <span
     className="usa-grid-full"
   >
-    There is no description for this position.
+    <Linkify
+      className="Linkify"
+      component="a"
+      properties={
+        Object {
+          "target": "_blank",
+        }
+      }
+    >
+      There is no description for this position.
+    </Linkify>
   </span>
 </div>
 `;

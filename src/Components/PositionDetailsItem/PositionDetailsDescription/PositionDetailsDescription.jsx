@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Linkify from 'react-linkify';
 import ViewMoreLink from './ViewMoreLink';
 import TextEditor from '../../TextEditor';
 import EditContentButton from '../../EditContentButton';
@@ -75,7 +76,9 @@ class PositionDetailsDescription extends Component {
         {
           !shouldShowDescriptionEditor.value &&
             <span className="usa-grid-full">
-              {formattedDescription}
+              <Linkify properties={{ target: '_blank' }}>
+                {formattedDescription}
+              </Linkify>
               {
                 isAllowedToEdit &&
                   <EditContentButton
