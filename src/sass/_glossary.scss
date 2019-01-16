@@ -12,7 +12,8 @@
     font-family: 'Roboto';
   }
 
-  h3 {
+  h3,
+  a {
     color: $foreground-color;
   }
 
@@ -74,6 +75,10 @@
     position: absolute;
     right: 0;
     top: 0;
+  }
+
+  .read-more-link {
+    margin-top: .2em;
   }
 
   .usa-accordion {

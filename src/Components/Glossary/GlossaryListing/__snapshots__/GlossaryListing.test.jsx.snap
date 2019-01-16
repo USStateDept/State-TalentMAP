@@ -15,7 +15,11 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     title="6/8"
     useIdClass={false}
   >
-    Definition.
+    <div
+      className="usa-grid-full"
+    >
+      Definition.
+    </div>
   </AccordionItem>
   <AccordionItem
     buttonClass=""
@@ -27,7 +31,11 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     title="Assignments Officer (AO)"
     useIdClass={false}
   >
-    test
+    <div
+      className="usa-grid-full"
+    >
+      test
+    </div>
   </AccordionItem>
   <AccordionItem
     buttonClass=""
@@ -39,7 +47,11 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     title="Bidder"
     useIdClass={false}
   >
-    An employee who is applying for a position.
+    <div
+      className="usa-grid-full"
+    >
+      An employee who is applying for a position.
+    </div>
   </AccordionItem>
   <AccordionItem
     buttonClass=""
@@ -51,7 +63,11 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     title="Bureau"
     useIdClass={false}
   >
-    The organization sponsoring a position.
+    <div
+      className="usa-grid-full"
+    >
+      The organization sponsoring a position.
+    </div>
   </AccordionItem>
   <AccordionItem
     buttonClass=""
@@ -63,7 +79,11 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
     title="C"
     useIdClass={false}
   >
-    Description
+    <div
+      className="usa-grid-full"
+    >
+      Description
+    </div>
   </AccordionItem>
 </Accordion>
 `;
