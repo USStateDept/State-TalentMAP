@@ -14,14 +14,8 @@ const GlossaryComponent = ({ glossaryItems }) => (
           useIdClass={false}
         >
           <div className="usa-grid-full">
-            {item.definition}
+            {item.definition} {item.link && <a href={item.link} rel="noopener noreferrer" target="_blank">Read more here</a>}
           </div>
-          {
-            item.link &&
-              <div className="usa-grid-full read-more-link">
-                <a href={item.link} rel="noopener noreferrer" target="_blank">Read more here</a>
-              </div>
-          }
         </AccordionItem>),
      )
     }

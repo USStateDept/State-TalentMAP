@@ -4,6 +4,7 @@ import { GLOSSARY_OBJECT, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT } from '../../..
 import TextEditor from '../../TextEditor';
 import InteractiveElement from '../../InteractiveElement';
 import GlossaryEditorCardBottom from '../GlossaryEditorCardBottom';
+import { isUrl } from '../../../utilities';
 
 const isEmpty = value => (value || '').length === 0;
 
@@ -14,13 +15,16 @@ class GlossaryEditorCard extends Component {
     this.toggleEditorState = this.toggleEditorState.bind(this);
     this.toggleEmptyAlert = this.toggleEmptyAlert.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.updateLink = this.updateLink.bind(this);
     this.updateDefinition = this.updateDefinition.bind(this);
     this.cancel = this.cancel.bind(this);
     this.submitDefinition = this.submitDefinition.bind(this);
+    this.showInvalidLinkWarning = this.showInvalidLinkWarning.bind(this);
 
     this.state = {
       editorHidden: true,
       newTitle: null,
+      newLink: null,
       newDefinition: null,
       displayZeroLengthAlert: false,
       newIsArchived: this.props.term.is_archived || false,
@@ -32,20 +36,25 @@ class GlossaryEditorCard extends Component {
     return (this.state.newTitle !== null) && (term.title !== this.state.newTitle);
   }
 
+  get hasLinkChanged() {
+    const { term } = this.props;
+    return (this.state.newLink !== null) && (term.Link !== this.state.newLink);
+  }
+
   get hasDefinitionChanged() {
     const { term } = this.props;
     return (this.state.newDefinition !== null) && (term.definition !== this.state.newDefinition);
   }
 
   get hasChanged() {
-    return (this.hasTitleChanged || this.hasDefinitionChanged);
+    return (this.hasTitleChanged || this.hasDefinitionChanged || this.hasLinkChanged);
   }
 
   get valid() {
     const { newTitle, newDefinition } = this.state;
     // Check if there's a title and definition, as well as if either the
     // title or definition are present but not changed via the text editor.
-    return !isEmpty(newTitle) && !isEmpty(newDefinition);
+    return !isEmpty(newTitle) && !this.showInvalidLinkWarning() && !isEmpty(newDefinition);
   }
 
   get editorClasses() {
@@ -72,6 +81,14 @@ class GlossaryEditorCard extends Component {
     return emptyTitleWarning || emptyDefinitionWarning;
   }
 
+  showInvalidLinkWarning() {
+    const { newLink } = this.state;
+    if (isEmpty(newLink)) {
+      return false;
+    }
+    return !isUrl(newLink);
+  }
+
   toggleEditorState() {
     this.setState({ editorHidden: !this.state.editorHidden, displayZeroLengthAlert: false });
   }
@@ -82,6 +99,11 @@ class GlossaryEditorCard extends Component {
 
   updateTitle(newTitle) {
     this.setState({ newTitle });
+    this.toggleEmptyAlert(false);
+  }
+
+  updateLink(newLink) {
+    this.setState({ newLink });
     this.toggleEmptyAlert(false);
   }
 
@@ -102,13 +124,14 @@ class GlossaryEditorCard extends Component {
 
   submitDefinition() {
     const { term, isNewTerm } = this.props;
-    const { newTitle, newDefinition, newIsArchived } = this.state;
+    const { newTitle, newLink, newDefinition, newIsArchived } = this.state;
 
     if (this.valid) {
       if (this.hasChanged) {
         this.props.submitGlossaryTerm({
           id: term.id,
           title: newTitle,
+          link: newLink,
           definition: newDefinition,
           is_archived: newIsArchived,
         }, () => {
@@ -136,10 +159,12 @@ class GlossaryEditorCard extends Component {
     const {
       editorHidden,
       newTitle,
+      newLink,
       newDefinition,
     } = this.state;
 
     const renderedTitle = newTitle || term.title;
+    const renderedLink = newLink || term.link;
     const renderedDefinition = newDefinition || term.definition;
     const shouldHideEditor = editorHidden && !isNewTerm;
     const {
@@ -175,6 +200,22 @@ class GlossaryEditorCard extends Component {
               </div>
           }
         </div>
+        <div className="usa-grid-full glossary-editor-card-top">
+          <div className={`title-container ${editorHiddenClass} ${titleContainerClass}`}>
+            {
+              shouldHideEditor ?
+                <h4>{renderedLink || <i>There is no link for this term</i>}</h4> :
+                <TextEditor
+                  initialText={renderedLink}
+                  onSubmitText={this.submitDefinition}
+                  cancel={this.cancel}
+                  hideButtons
+                  onChangeText={this.updateLink}
+                  draftJsProps={{ placeholder: 'https://www.state.gov' }}
+                />
+            }
+          </div>
+        </div>
         <div className={`usa-grid-full glossary-editor-card-definition ${editorHiddenClass} ${definitionContainerClass}`}>
           {
             shouldHideEditor ?
@@ -193,6 +234,7 @@ class GlossaryEditorCard extends Component {
           isNewTerm={isNewTerm}
           hasErrored={hasErrored}
           showEmptyWarning={this.showEmptyWarning}
+          showInvalidLinkWarning={this.showInvalidLinkWarning()}
           dateUpdated={term.date_updated}
           updatedBy={term.last_editing_user}
           isArchived={term.is_archived}
