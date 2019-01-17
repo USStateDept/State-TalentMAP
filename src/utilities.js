@@ -139,7 +139,7 @@ export const formExploreRegionDropdown = (filters) => {
 
 // see all props at https://github.com/fisshy/react-scroll#propsoptions
 const defaultScrollConfig = {
-  duration: 700,
+  duration: 900,
   delay: 270,
   smooth: 'easeOutQuad',
 };
