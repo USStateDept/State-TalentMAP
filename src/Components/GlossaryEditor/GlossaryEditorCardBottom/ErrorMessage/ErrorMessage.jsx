@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isObject } from 'lodash';
+import { get, isObject } from 'lodash';
 import { GLOSSARY_ERROR_OBJECT } from '../../../../Constants/PropTypes';
 
 const getMessage = (showEmptyWarning, showInvalidLinkWarning, error) => {
@@ -12,7 +12,8 @@ const getMessage = (showEmptyWarning, showInvalidLinkWarning, error) => {
   } else if (showInvalidLinkWarning) {
     message = 'Link should be blank or a valid URL with http/https.';
   } else {
-    message = (isObject(error) ? error.message : null) || 'Error updating term.';
+    const message$ = get(error, 'message', null);
+    message = message$ || 'Error updating term.';
   }
   return message;
 };
