@@ -19,6 +19,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className="usa-grid-full"
     >
       Definition.
+       
     </div>
   </AccordionItem>
   <AccordionItem
@@ -35,6 +36,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className="usa-grid-full"
     >
       test
+       
     </div>
   </AccordionItem>
   <AccordionItem
@@ -51,6 +53,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className="usa-grid-full"
     >
       An employee who is applying for a position.
+       
     </div>
   </AccordionItem>
   <AccordionItem
@@ -67,6 +70,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className="usa-grid-full"
     >
       The organization sponsoring a position.
+       
     </div>
   </AccordionItem>
   <AccordionItem
@@ -83,6 +87,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className="usa-grid-full"
     >
       Description
+       
     </div>
   </AccordionItem>
 </Accordion>

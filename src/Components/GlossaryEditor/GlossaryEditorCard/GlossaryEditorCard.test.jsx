@@ -31,6 +31,13 @@ describe('GlossaryEditorCardComponent', () => {
     expect(instance.state.newTitle).toBe('test');
   });
 
+  it('can call the updateLink function', () => {
+    const wrapper = shallow(<GlossaryEditorCard {...props} />);
+    const instance = wrapper.instance();
+    instance.updateLink('link');
+    expect(instance.state.newLink).toBe('link');
+  });
+
   it('can call the updateDefinition function', () => {
     const wrapper = shallow(<GlossaryEditorCard {...props} />);
     const instance = wrapper.instance();

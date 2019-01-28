@@ -508,3 +508,11 @@ export const difference = (base, object) => transform(object, (result, value, ke
   }
   /* eslint-enable no-param-reassign */
 });
+
+/* returns true/false whether url is a valid url that contains http/https/ftp */
+export const isUrl = (url) => {
+  // eslint-disable-next-line no-useless-escape
+  const expression = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+  const regex = new RegExp(expression);
+  return url.match(regex);
+};

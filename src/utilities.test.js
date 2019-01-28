@@ -37,6 +37,7 @@ import { validStateEmail,
          mapSavedSearchToDescriptions,
          difference,
          redirectToLoginRedirect,
+         isUrl,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -715,5 +716,17 @@ describe('redirectToLoginRedirect', () => {
     window.location.assign = loc => newLocation = loc;
     redirectToLoginRedirect();
     expect(newLocation).toBe('/test/loginRedirect');
+  });
+});
+
+describe('isUrl', () => {
+  it('returns the expected output for different strings', () => {
+    [
+      ['http', false], ['https', false], ['ftp', false], ['https://www', false], ['http.goo', false], ['goog.com', false],
+      ['http://google.com', true], ['https://www.goo.co', true],
+    ].map((u) => {
+      const output = isUrl(u[0]);
+      return u[1] ? expect(output).toBeTruthy() : expect(output).toBeFalsy();
+    });
   });
 });
