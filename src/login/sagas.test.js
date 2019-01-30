@@ -9,7 +9,7 @@ const mocks = {
   },
 };
 
-describe('login functions - basic auth', () => {
+xdescribe('login functions - basic auth', () => {
   beforeEach(() => {
     jest.resetModules();
     delete process.env.LOGIN_MODE;

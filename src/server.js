@@ -19,9 +19,6 @@ const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
 
-// auth mode
-const USE_BASIC_AUTH = process.env.LOGIN_MODE === 'basic';
-
 /* eslint-disable no-unused-vars */
 // Define the SAML login redirect
 let SAML_LOGIN = `${API_ROOT}/saml2/acs/`;
@@ -97,35 +94,23 @@ app.use(loggingMiddleware);
 
 // saml2 acs
 app.post(PUBLIC_URL, (request, response) => {
-  response.redirect(307, `${API_ROOT}/saml2/acs/`);
+  response.redirect(307, SAML_LOGIN);
 });
 
 // saml2 login
-app.get(`${PUBLIC_URL}login`, (request, response, next) => {
+app.get(`${PUBLIC_URL}login`, (request, response) => {
   // check if using SAML auth mode
-  if (!USE_BASIC_AUTH) {
-    // create handler
-    // eslint-disable-next-line no-unused-vars
-    const loginHandler = (err, loginUrl, requestId) => {
-      if (err) {
-        response.sendStatus(500);
-      } else {
-        response.redirect(loginUrl);
-      }
-    };
-
-    login(loginHandler);
-  } else {
-    // render from ROUTES
-    next();
-  }
+  // create handler
+  // eslint-disable-next-line no-unused-vars
+  const loginHandler = (err, loginUrl, requestId) => {
+    if (err) {
+      response.sendStatus(500);
+    } else {
+      response.redirect(loginUrl);
+    }
+  };
+  login(loginHandler);
 });
-
-
-app.get(`${PUBLIC_URL}logout`, (request, response) => {
-  response.redirect(`${API_ROOT}/saml2/logout/`);
-});
-
 
 // saml2 metadata
 app.get(`${PUBLIC_URL}metadata`, (request, response) => {
