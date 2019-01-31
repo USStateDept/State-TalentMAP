@@ -11,6 +11,7 @@ import { Row, Column } from '../Layout';
 import MediaQueryWrapper from '../MediaQuery';
 import Favorites from './Favorites';
 import SavedSearches from './SavedSearches/SavedSearchesWrapper';
+import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, assignment, assignmentIsLoading,
@@ -53,9 +54,11 @@ const ProfileDashboard = ({
                   columns={columns[2]}
                   className="user-dashboard-section-container user-dashboard-column-3"
                 >
-                  <div className="usa-width-one-whole user-dashboard-section bidlist-section">
-                    <BidList bids={bidList} />
-                  </div>
+                  <PermissionsWrapper permissions="bidder">
+                    <div className="usa-width-one-whole user-dashboard-section bidlist-section">
+                      <BidList bids={bidList} />
+                    </div>
+                  </PermissionsWrapper>
                   <div className="usa-width-one-whole user-dashboard-section favorites-section">
                     <Favorites favorites={favoritePositions} />
                   </div>

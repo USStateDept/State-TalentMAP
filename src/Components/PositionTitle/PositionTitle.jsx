@@ -10,6 +10,7 @@ import Favorite from '../../Containers/Favorite';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
+import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
@@ -72,12 +73,14 @@ const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }
               </Tooltip>
             </div>
         }
-        <BidListButton
-          compareArray={bidList.results}
-          id={details.id}
-          isLoading={bidListToggleIsLoading}
-          disabled={!get(details, 'availability.availability', true)}
-        />
+        <PermissionsWrapper permissions="bidder">
+          <BidListButton
+            compareArray={bidList.results}
+            id={details.id}
+            isLoading={bidListToggleIsLoading}
+            disabled={!get(details, 'availability.availability', true)}
+          />
+        </PermissionsWrapper>
       </div>
     </div>
   );
