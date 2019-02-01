@@ -88,5 +88,11 @@ module.exports = function(proxy, allowedHost) {
       // https://github.com/facebookincubator/create-react-app/issues/2272#issuecomment-302832432
       app.use(noopServiceWorkerMiddleware());
     },
+    before:(app) => {
+      const redirectToLogin = (req, res) => res.redirect('/login.html');
+      app.get('/', redirectToLogin);
+      app.get('/login', redirectToLogin);
+      app.get('/logout', redirectToLogin);
+    },
   };
 };
