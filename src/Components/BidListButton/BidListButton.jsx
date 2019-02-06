@@ -18,7 +18,7 @@ class BidListButton extends Component {
     const exists = existsInNestedObject(id, compareArray);
     return {
       isSaved: exists,
-      canDelete: get(exists, 'can_delete', false),
+      canDelete: get(exists, 'can_delete', true),
     };
   }
 
