@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect } from './utilities';
+import { logoutRequest } from './login/actions';
 
 export const config = {
   baseURL: process.env.API_URL || 'http://localhost:8000/api/v1',
@@ -22,7 +23,9 @@ api.interceptors.response.use(response => response, (error) => {
       // Due to timing of import store before history is created, importing store here causes
       // exports of api to be undefined. So this causes an error for `userProfile.js` when
       // attempting to login. Went with the eslint quick re-enable to get around this.
-      redirectToLoginRedirect();
+      /* eslint-disable global-require */
+      require('./store').store.dispatch(logoutRequest());
+      /* eslint-enable global-require */
       break;
     }
 
