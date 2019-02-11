@@ -15,7 +15,7 @@ const keyFile = process.env.KEY_FILE || path.join(__dirname, '../certs', 'talent
 
 // identity provider config
 const SSO_LOGIN_URL = process.env.SSO_LOGIN_URL || `${DEFAULT_URL}login.html`;
-const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL || 'http://localhost:3000/talentmap/';
+const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL || DEFAULT_URL;
 const ssoCertFile = process.env.SSO_CERT_FILE || path.join(__dirname, '../certs', 'talentmap-dev.crt');
 
 let privateKey = null;
