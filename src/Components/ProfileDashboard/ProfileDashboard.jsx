@@ -10,11 +10,13 @@ import ProfileSectionTitle from '../ProfileSectionTitle';
 import { Row, Column } from '../Layout';
 import MediaQueryWrapper from '../MediaQuery';
 import Favorites from './Favorites';
+import Assignments from './Assignments';
 import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
+import BackButton from '../BackButton';
 
 const ProfileDashboard = ({
-  userProfile, isLoading, notifications, assignment, assignmentIsLoading,
+  userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
@@ -24,11 +26,12 @@ const ProfileDashboard = ({
     ) : (
       <div className="usa-grid-full">
         <div className="usa-grid-full dashboard-top-section">
-          <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} />
+          { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
         </div>
         <MediaQueryWrapper breakpoint="screenSmMax" widthType="max">
           {(matches) => {
-            const columns = !matches ? [3, 4, 5] : [12, 12, 12];
+            let columns = !matches ? [3, 4, 5] : [12, 12, 12];
+            if (isPublic) { columns = !matches ? [4, 8] : [12, 12, 12]; }
             return (
               <Row className="usa-grid-full">
                 <Column
@@ -36,33 +39,54 @@ const ProfileDashboard = ({
                   className={'user-dashboard-section-container user-dashboard-column-1'}
                 >
                   <div className="usa-width-one-whole user-dashboard-section current-user-section">
-                    <UserProfile userProfile={userProfile} assignment={assignment} />
+                    <UserProfile
+                      userProfile={userProfile}
+                      assignment={assignment}
+                      showEditLink={!isPublic}
+                    />
                   </div>
                 </Column>
-                <Column
-                  columns={columns[1]}
-                  className={'user-dashboard-section-container user-dashboard-column-2'}
-                >
-                  <div className="usa-width-one-whole user-dashboard-section notifications-section">
-                    <Notifications notifications={notifications} />
+                {isPublic ?
+                  <div>
+                    <Column
+                      columns={columns[1]}
+                      className="user-dashboard-section-container user-dashboard-column-3"
+                    >
+                      <div className="usa-width-one-whole user-dashboard-section assignments-section">
+                        <Assignments assignments={userProfile.assignments} />
+                      </div>
+                      <div className="usa-width-one-whole user-dashboard-section bidlist-section">
+                        <BidList bids={bidList} showMoreLink={!isPublic} />
+                      </div>
+                    </Column>
                   </div>
-                  <div className="usa-width-one-whole user-dashboard-section favorites-section">
-                    <SavedSearches />
-                  </div>
-                </Column>
-                <Column
-                  columns={columns[2]}
-                  className="user-dashboard-section-container user-dashboard-column-3"
-                >
-                  <PermissionsWrapper permissions="bidder">
-                    <div className="usa-width-one-whole user-dashboard-section bidlist-section">
-                      <BidList bids={bidList} />
-                    </div>
-                  </PermissionsWrapper>
-                  <div className="usa-width-one-whole user-dashboard-section favorites-section">
-                    <Favorites favorites={favoritePositions} />
-                  </div>
-                </Column>
+                  :
+                  <div>
+                    <Column
+                      columns={columns[1]}
+                      className={'user-dashboard-section-container user-dashboard-column-2'}
+                    >
+                      <div className="usa-width-one-whole user-dashboard-section notifications-section">
+                        <Notifications notifications={notifications} />
+                      </div>
+                      <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                        <SavedSearches />
+                      </div>
+                    </Column>
+                    <Column
+                      columns={columns[2]}
+                      className="user-dashboard-section-container user-dashboard-column-3"
+                    >
+                      <PermissionsWrapper permissions="bidder">
+                        <div className="usa-width-one-whole user-dashboard-section bidlist-section">
+                          <BidList bids={bidList} showMoreLink={!isPublic} />
+                        </div>
+                      </PermissionsWrapper>
+                      <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                        <Favorites favorites={favoritePositions} />
+                      </div>
+                    </Column>
+                  </div>}
               </Row>
             );
           }}
@@ -75,19 +99,28 @@ const ProfileDashboard = ({
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  assignment: ASSIGNMENT_OBJECT.isRequired,
-  assignmentIsLoading: PropTypes.bool.isRequired,
-  notifications: NOTIFICATION_RESULTS.isRequired,
-  notificationsIsLoading: PropTypes.bool.isRequired,
-  bidList: BID_RESULTS.isRequired,
-  bidListIsLoading: PropTypes.bool.isRequired,
+  assignment: ASSIGNMENT_OBJECT,
+  assignmentIsLoading: PropTypes.bool,
+  notifications: NOTIFICATION_RESULTS,
+  notificationsIsLoading: PropTypes.bool,
+  bidList: BID_RESULTS,
+  bidListIsLoading: PropTypes.bool,
   favoritePositions: FAVORITE_POSITIONS_ARRAY,
   favoritePositionsIsLoading: PropTypes.bool,
+  isPublic: PropTypes.bool,
 };
 
 ProfileDashboard.defaultProps = {
   favoritePositions: [],
+  isLoading: false,
+  assignment: {},
   favoritePositionsIsLoading: false,
+  assignmentIsLoading: false,
+  notifications: [],
+  notificationsIsLoading: false,
+  bidList: [],
+  bidListIsLoading: false,
+  isPublic: false,
 };
 
 export default ProfileDashboard;
