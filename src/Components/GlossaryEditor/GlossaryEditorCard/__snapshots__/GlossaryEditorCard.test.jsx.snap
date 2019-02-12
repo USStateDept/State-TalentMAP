@@ -32,6 +32,19 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
     </div>
   </div>
   <div
+    className="usa-grid-full glossary-editor-card-top"
+  >
+    <div
+      className="title-container link-container editor-hidden editor-hidden--title"
+    >
+      <h4>
+        <i>
+          There is no link for this term
+        </i>
+      </h4>
+    </div>
+  </div>
+  <div
     className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
   >
     Definition.
@@ -43,6 +56,7 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
     isArchived={false}
     isNewTerm={false}
     showEmptyWarning={false}
+    showInvalidLinkWarning={false}
     submitGlossaryTerm={[Function]}
     updatedBy="Leah Shadtrach"
   />
@@ -81,6 +95,19 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
     </div>
   </div>
   <div
+    className="usa-grid-full glossary-editor-card-top"
+  >
+    <div
+      className="title-container link-container editor-hidden editor-hidden--title"
+    >
+      <h4>
+        <i>
+          There is no link for this term
+        </i>
+      </h4>
+    </div>
+  </div>
+  <div
     className="usa-grid-full glossary-editor-card-definition editor-hidden editor-hidden--definition"
   >
     Definition.
@@ -92,6 +119,7 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
     isArchived={false}
     isNewTerm={false}
     showEmptyWarning={true}
+    showInvalidLinkWarning={false}
     submitGlossaryTerm={[Function]}
     updatedBy="Leah Shadtrach"
   />

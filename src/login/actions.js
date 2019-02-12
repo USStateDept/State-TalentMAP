@@ -1,17 +1,14 @@
 import {
-  LOGIN_REQUESTING,
-  LOGOUT_REQUESTING,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   LOGIN_ERROR,
   LOGOUT_ERROR,
+  LOGOUT_REQUESTING,
   TOKEN_VALIDATION_REQUESTING,
 } from './constants';
 
-export const authRequest = (isLogin = true, credentials = { username: null, password: null }) => ({
-  type: isLogin ? LOGIN_REQUESTING : LOGOUT_REQUESTING,
-  username: credentials.username,
-  password: credentials.password,
+export const logoutRequest = () => ({
+  type: LOGOUT_REQUESTING,
 });
 
 export const authSuccess = (isLogin = true) => ({

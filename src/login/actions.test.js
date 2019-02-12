@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { authRequest, tokenValidationRequest, authSuccess, authError } from './actions';
-import { LOGOUT_REQUESTING, TOKEN_VALIDATION_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_ERROR, LOGIN_REQUESTING } from './constants';
+import { logoutRequest, tokenValidationRequest, authSuccess, authError } from './actions';
+import { LOGOUT_REQUESTING, TOKEN_VALIDATION_REQUESTING, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_ERROR } from './constants';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -19,13 +19,8 @@ describe('login actions', () => {
     expect(result.token).toBe(token);
   });
 
-  it('can perform login', () => {
-    const result = store.dispatch(authRequest());
-    expect(result.type).toBe(LOGIN_REQUESTING);
-  });
-
   it('can perform logout', () => {
-    const result = store.dispatch(authRequest(false));
+    const result = store.dispatch(logoutRequest());
     expect(result.type).toBe(LOGOUT_REQUESTING);
   });
 

@@ -21,9 +21,6 @@ Environment=NODE_ENV=production
 # Port number for the Express web application
 Environment=PORT=3000
 
-# Set authentication mode
-Environment=LOGIN_MODE=saml
-
 # The public prefix for the web application
 Environment=PUBLIC_URL=/talentmap/
 

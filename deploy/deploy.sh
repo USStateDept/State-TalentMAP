@@ -37,16 +37,24 @@ export STATIC_PATH=/var/www/html/
 # certs generated from the certs.sh script
 export CERT_FILE=/home/ec2-user/State-TalentMAP-dev/certs/talentmap-dev.crt
 export KEY_FILE=/home/ec2-user/State-TalentMAP-dev/certs/talentmap-dev.key
-export LOGIN_MODE=basic
+# use mock saml
+export USE_MOCK_SAML=1
+# SSO login/out routes
+export SSO_LOGIN_URL=https://dev.talentmap.metaphasedev.com/talentmap/login.html
+export SSO_LOGOUT_URL=https://dev.talentmap.metaphasedev.com/talentmap/login.html
+
+export ENTITY_ID=https://dev.talentmap.metaphasedev.com/talentmap/
 
 # change to dev BEFORE install
 export NODE_ENV=dev
 
+# install dependencies
 yarn install
 
 # set back to production BEFORE build
 export NODE_ENV=production
 
+# build artifact
 yarn build
 
 # backup the html dir if present

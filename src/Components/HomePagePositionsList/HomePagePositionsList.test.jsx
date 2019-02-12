@@ -14,7 +14,6 @@ describe('HomePagePositionsList', () => {
 
   it('is defined', () => {
     const wrapper = shallow(<HomePagePositionsList
-      maxLength={3}
       positions={resultsObject.results}
       {...props}
     />);
@@ -23,7 +22,6 @@ describe('HomePagePositionsList', () => {
 
   it('renders the results-loading class if isLoading is true', () => {
     const wrapper = shallow(<HomePagePositionsList
-      maxLength={3}
       positions={resultsObject.results}
       {...props}
       isLoading
@@ -33,15 +31,13 @@ describe('HomePagePositionsList', () => {
 
   it('displays two rows', () => {
         // test with 7 positions and a max of 6
-    const maxLength = 6;
     const positions = Array(7).fill(resultsObject.results[0]);
 
     const wrapper = shallow(<HomePagePositionsList
-      maxLength={maxLength}
       positions={positions}
       {...props}
     />);
-    expect(wrapper.find('.condensed-card').length).toEqual(maxLength);
+    expect(wrapper.find('.condensed-card').length).toEqual(positions.length);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

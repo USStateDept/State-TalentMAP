@@ -1,7 +1,7 @@
 import { setClient } from '../client/actions';
 import { auth } from '../login/sagas';
 
-function checkAuthorization(dispatch) {
+function checkAuthentication(dispatch) {
   // attempt to grab the token from localstorage
   const token = auth.get();
 
@@ -15,4 +15,4 @@ function checkAuthorization(dispatch) {
   return false;
 }
 
-export default ({ dispatch }) => checkAuthorization(dispatch);
+export default ({ dispatch }) => checkAuthentication(dispatch);

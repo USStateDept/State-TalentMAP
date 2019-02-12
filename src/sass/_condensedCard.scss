@@ -4,6 +4,7 @@ $condensed-card-data-padding: 15px 20px 9px;
 
 .condensed-card {
 
+  background-color: $color-white;
   border: 1px solid $color-gray-light;
   font-family: Roboto;
   font-size: 16px;
@@ -135,6 +136,11 @@ $condensed-card-data-padding: 15px 20px 9px;
     position: relative;
   }
 
+  .condensed-card-inner {
+    height: 100%;
+    position: relative;
+  }
+
   .condensed-card-bottom {
     font-size: 16px;
   }
@@ -145,6 +151,7 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .condensed-card-statistics {
     border-top: 0;
+    position: relative;
 
     .bid-count-list-item {
       background: $blue-primary;
@@ -249,6 +256,10 @@ $condensed-card-data-padding: 15px 20px 9px;
   margin-bottom: $condensed-card-margin-bottom;
 }
 
+.condensed-card-footer-wrapper {
+  position: relative;
+}
+
 .condensed-card-footer {
   background-color: $color-white;
   border-top: 1px solid $color-gray-lighter;
@@ -275,5 +286,23 @@ $condensed-card-data-padding: 15px 20px 9px;
       word-break: break-word;
       word-wrap: break-word;
     }
+  }
+}
+
+.condensed-card-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: $screen-lg-min) and (min-width: $screen-sm-max) {
+  .condensed-card.usa-width-one-fourth {
+    display: block;
+    float: left;
+    margin-right: 2.35765%;
+    width: 30.97857%;
+  }
+
+  .condensed-card.usa-width-one-fourth:nth-child(3n) {
+    margin-right: 0;
   }
 }

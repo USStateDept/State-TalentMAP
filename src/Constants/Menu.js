@@ -68,6 +68,9 @@ export const PROFILE_MENU = MenuConfig([
         text: 'Bid Tracker',
         route: '/profile/bidtracker/',
         icon: 'clipboard',
+        roles: [
+          'bidder',
+        ],
       },
       {
         text: 'Bid Cycles',

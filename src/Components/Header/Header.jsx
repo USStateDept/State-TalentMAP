@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
-import { authRequest } from '../../login/actions';
+import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import StateBanner from './StateBanner/StateBanner';
@@ -221,7 +221,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(userProfileFetchData(url)),
-  logout: () => dispatch(authRequest(false)),
+  logout: () => dispatch(logoutRequest()),
   onNavigateTo: dest => dispatch(push(dest)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
   setSearchFilters: query => dispatch(setSelectedSearchbarFilters(query)),

@@ -5,10 +5,6 @@
 # otherwise dev dependencies required by the build process will not install.
 export NODE_ENV=production
 
-# Set authentication mode
-# Either 'saml' or 'basic'
-export LOGIN_MODE=saml
-
 # The public prefix for the web application
 # Default - /talentmap/
 export PUBLIC_URL=/talentmap/

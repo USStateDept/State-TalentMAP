@@ -68,6 +68,15 @@
     width: 50%;
   }
 
+  .link-container {
+    width: 100%;
+
+    h4 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
   .actions-container {
     float: left;
     width: 30%;

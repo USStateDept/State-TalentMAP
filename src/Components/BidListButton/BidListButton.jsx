@@ -18,7 +18,13 @@ class BidListButton extends Component {
     const exists = existsInNestedObject(id, compareArray);
     return {
       isSaved: exists,
-      canDelete: get(exists, 'can_delete', false),
+      canDelete: get(exists, 'can_delete', true),
+    };
+  }
+
+  get style() {
+    return {
+      pointerEvents: this.props.isLoading ? 'none' : 'inherit',
     };
   }
 
@@ -37,14 +43,12 @@ class BidListButton extends Component {
     const { isSaved, canDelete } = this.getBidData();
     const text = isSaved ? 'Remove from Bid List' : 'Add to Bid List';
     const iconClass = isSaved ? 'minus-circle' : 'plus-circle';
-    const style = {
-      pointerEvents: this.props.isLoading ? 'none' : 'inherit',
-    };
     const { className, disabled, isLoading } = this.props;
+
     const disabled$ = disabled || !canDelete;
     const disabledClass = disabled$ ? 'usa-button-disabled' : '';
     return (
-      <button className={`${disabledClass} ${className}`} style={style} onClick={this.toggleSaved} disabled={disabled$}>
+      <button className={`${disabledClass} ${className}`} style={this.style} onClick={this.toggleSaved} disabled={disabled$}>
         <span className="button-icon">
           {isLoading ?
             (<span className="ds-c-spinner spinner-white" />) :
