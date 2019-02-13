@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TotalResults from '../TotalResults/TotalResults';
 import SelectForm from '../SelectForm/SelectForm';
+import SearchResultsExportLink from '../SearchResultsExportLink';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 
 class ResultsControls extends Component {
@@ -28,11 +29,16 @@ class ResultsControls extends Component {
           {
             // if results have loaded, display the total number of results
             hasLoaded &&
-              <TotalResults
-                total={results.count}
-                pageNumber={defaultPageNumber}
-                pageSize={defaultPageSize}
-              />
+              <div>
+                <TotalResults
+                  total={results.count}
+                  pageNumber={defaultPageNumber}
+                  pageSize={defaultPageSize}
+                />
+                <div>
+                  <SearchResultsExportLink count={results.count} />
+                </div>
+              </div>
           }
         </div>
         <div className="usa-width-two-thirds drop-downs">

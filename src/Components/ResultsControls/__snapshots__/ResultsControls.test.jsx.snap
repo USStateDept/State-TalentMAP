@@ -7,11 +7,19 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
   <div
     className="usa-width-one-third total-results"
   >
-    <TotalResults
-      pageNumber={0}
-      pageSize={10}
-      total={2}
-    />
+    <div>
+      <TotalResults
+        pageNumber={0}
+        pageSize={10}
+        total={2}
+      />
+      <div>
+        <SearchResultsExportLink
+          count={2}
+          filename="TalentMap_search_export.csv"
+        />
+      </div>
+    </div>
   </div>
   <div
     className="usa-width-two-thirds drop-downs"
