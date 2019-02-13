@@ -8,15 +8,17 @@ const ResultsCondensedCardFooter = ({ position }) => {
   const date = position[COMMON_PROPERTIES.posted] ?
     formatDate(position[COMMON_PROPERTIES.posted]) : NO_UPDATE_DATE;
   return (
-    <div className="condensed-card-footer">
-      <div className="usa-grid-full condensed-card-footer-container">
-        <div className="condensed-card-footer-left">
-          <strong>Position number: </strong>
-          {position.position_number}
-        </div>
-        <div className="condensed-card-footer-right">
-          <strong>Posted: </strong>
-          {date}
+    <div className="condensed-card-footer-wrapper">
+      <div className="condensed-card-footer">
+        <div className="usa-grid-full condensed-card-footer-container">
+          <div className="condensed-card-footer-left">
+            <strong>Position number: </strong>
+            {position.position_number}
+          </div>
+          <div className="condensed-card-footer-right">
+            <strong>Posted: </strong>
+            {date}
+          </div>
         </div>
       </div>
     </div>

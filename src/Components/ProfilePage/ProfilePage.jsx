@@ -8,6 +8,7 @@ import GlossaryEditor from '../../Containers/GlossaryEditor';
 import BidTracker from '../../Containers/BidTracker';
 import BidStatistics from '../../Containers/BidStatistics';
 import SavedSearchesWrapper from '../../Components/SavedSearches/SavedSearchesWrapper';
+import ProfilePublic from '../../Containers/ProfilePublic';
 import GLOSSARY_EDITOR_PERM from '../../Constants/Permissions';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { userHasPermissions } from '../../utilities';
@@ -30,6 +31,7 @@ const ProfilePage = ({ user }) => (
         <Route path="/profile/bidtracker" component={BidTracker} />
         <Route path="/profile/statistics" component={BidStatistics} />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
+        <Route path="/profile/public/:id" component={ProfilePublic} />
       </Switch>
     </div>
   </div>

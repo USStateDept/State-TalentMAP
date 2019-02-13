@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-const BidderPortfolioViewMore = ({ className, useLink, onClick, isExpanded }) => {
+const BidderPortfolioViewMore = ({ className, id, useLink, onClick, isExpanded }) => {
   const text = isExpanded ? 'Close' : 'View profile';
-  const link = '/profile/dashboard/';
+  const link = `/profile/public/${id}`;
   return (
     <div>
       {
@@ -34,6 +34,7 @@ BidderPortfolioViewMore.propTypes = {
   useLink: PropTypes.bool,
   onClick: PropTypes.func,
   isExpanded: PropTypes.bool,
+  id: PropTypes.number,
 };
 
 BidderPortfolioViewMore.defaultProps = {
@@ -41,6 +42,7 @@ BidderPortfolioViewMore.defaultProps = {
   useLink: false,
   onClick: EMPTY_FUNCTION,
   isExpanded: false,
+  id: null,
 };
 
 export default BidderPortfolioViewMore;

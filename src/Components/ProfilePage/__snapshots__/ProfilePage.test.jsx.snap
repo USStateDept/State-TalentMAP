@@ -44,6 +44,10 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
         component={[Function]}
         path="/profile/glossaryeditor"
       />
+      <Route
+        component={[Function]}
+        path="/profile/public/:id"
+      />
     </Switch>
   </div>
 </div>

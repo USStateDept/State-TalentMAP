@@ -6,7 +6,7 @@ import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import StartEnd from './StartEnd';
 
-const PositionInformation = ({ assignment }) => {
+const PositionInformation = ({ assignment = {} }) => {
   const assignmentStartDate = assignment.start_date ? formatDate(assignment.start_date) : false;
   let assignmentEndDate;
   assignmentEndDate = (assignment.status === 'active') ? assignment.estimated_end_date : assignment.end_date;
