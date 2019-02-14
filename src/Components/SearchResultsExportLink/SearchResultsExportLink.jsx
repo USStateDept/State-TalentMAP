@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CSVDownload } from 'react-csv';
 import queryString from 'query-string';
+import { POSITION_SEARCH_SORTS } from '../../Constants/Sort.js';
 import { fetchResultData } from '../../actions/results';
 
 // Mapping columns to data fields
@@ -35,7 +36,7 @@ class SearchResultsExportLink extends Component {
     // reset the state to support multiple clicks
     this.setState({ data: '' });
     const query = {
-      ordering: 'current_assignment__estimated_end_date',
+      ordering: POSITION_SEARCH_SORTS,
       ...queryString.parse(this.state.query.value),
       limit: this.props.count,
     };
