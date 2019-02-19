@@ -9,6 +9,7 @@ exports[`BidderPortfolioSearchComponent matches snapshot 1`] = `
   >
     <ResultsSearchHeader
       defaultKeyword=""
+      isHomePage={false}
       labelSrOnly={true}
       onFilterChange={[Function]}
       onUpdate={[Function]}

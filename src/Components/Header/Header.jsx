@@ -11,7 +11,6 @@ import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import StateBanner from './StateBanner/StateBanner';
-import ResultsMultiSearchHeaderContainer from '../ResultsMultiSearchHeader/ResultsMultiSearchContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
@@ -163,18 +162,13 @@ export class Header extends Component {
         {
           shouldRenderSearchBar &&
           <div className="results results-search-bar-header">
-            <MediaQuery widthType="min" breakpoint="screenMdMin">
-              <ResultsMultiSearchHeaderContainer
-                onUpdate={this.submitSearch}
-              />
-            </MediaQuery>
-            <MediaQuery widthType="max" breakpoint="screenSmMax">
-              <ResultsSearchHeader
-                onUpdate={this.submitSearch}
-                onFilterChange={this.onFilterChange}
-                defaultKeyword={searchbarFilters.q}
-              />
-            </MediaQuery>
+            <ResultsSearchHeader
+              onUpdate={this.submitSearch}
+              onFilterChange={this.onFilterChange}
+              defaultKeyword={searchbarFilters.q}
+              labelSrOnly
+              isHomePage
+            />
           </div>
         }
       </div>

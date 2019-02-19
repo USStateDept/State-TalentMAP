@@ -56,7 +56,7 @@ class CompareCheck extends Component {
   }
 
   render() {
-    const { className, as: type } = this.props;
+    const { className, customElement, as: type, interactiveElementProps } = this.props;
     const isChecked = this.getSavedState();
     const text = this.isDisabled() ? 'Limit Reached' : 'Compare';
     const icon = isChecked ? 'check-square-o' : 'square-o';
@@ -64,6 +64,7 @@ class CompareCheck extends Component {
       type,
       className: [className, 'compare-check-box-container'],
       onClick: this.toggleSaved,
+      ...interactiveElementProps,
     };
 
     if (isChecked) {
@@ -79,12 +80,17 @@ class CompareCheck extends Component {
       .trim();
 
     return (
-      <InteractiveElement {...options}>
-        {
+      customElement ?
+        <InteractiveElement {...options}>
+          {customElement}
+        </InteractiveElement>
+        :
+        <InteractiveElement {...options}>
+          {
           !this.isDisabled() &&
             <FontAwesome name={icon} />
         } {text}
-      </InteractiveElement>
+        </InteractiveElement>
     );
   }
 }
@@ -99,6 +105,8 @@ CompareCheck.propTypes = {
   type: PropTypes.string,
   limit: PropTypes.number,
   onToggle: PropTypes.func,
+  customElement: PropTypes.node,
+  interactiveElementProps: PropTypes.shape({}),
 };
 
 CompareCheck.defaultProps = {
@@ -107,6 +115,8 @@ CompareCheck.defaultProps = {
   type: 'compare',
   limit: COMPARE_LIMIT,
   onToggle: EMPTY_FUNCTION,
+  customElement: null,
+  interactiveElementProps: {},
 };
 
 export default CompareCheck;
