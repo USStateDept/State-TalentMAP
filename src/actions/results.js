@@ -60,15 +60,19 @@ export function resultsFetchSimilarPositions(id) {
   };
 }
 
+export function fetchResultData(query) {
+  return api
+  .get(`/position/?${query}`, {
+    cancelToken: new CancelToken((c) => { cancel = c; }),
+  })
+  .then(response => response.data);
+}
+
 export function resultsFetchData(query) {
   return (dispatch) => {
     if (cancel) { cancel(); dispatch(resultsIsLoading(true)); }
     dispatch(resultsIsLoading(true));
-    api
-      .get(`/position/?${query}`, {
-        cancelToken: new CancelToken((c) => { cancel = c; }),
-      })
-      .then(response => response.data)
+    fetchResultData(query)
       .then((results) => {
         dispatch(resultsFetchDataSuccess(results));
         dispatch(resultsIsLoading(false));
