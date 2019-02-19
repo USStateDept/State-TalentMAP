@@ -24,12 +24,17 @@ export function comparisonsFetchDataSuccess(comparisons) {
 export function comparisonsFetchData(query) {
   return (dispatch) => {
     dispatch(comparisonsIsLoading(true));
-    api.get(`/position/?position_number__in=${query}`)
-      .then((response) => {
-        dispatch(comparisonsIsLoading(false));
-        return response.data.results;
-      })
-      .then(comparisons => dispatch(comparisonsFetchDataSuccess(comparisons)))
-      .catch(() => dispatch(comparisonsHasErrored(true)));
+    if (!query) {
+      dispatch(comparisonsFetchDataSuccess([]));
+      dispatch(comparisonsIsLoading(false));
+    } else {
+      api.get(`/position/?position_number__in=${query}`)
+        .then((response) => {
+          dispatch(comparisonsIsLoading(false));
+          return response.data.results;
+        })
+        .then(comparisons => dispatch(comparisonsFetchDataSuccess(comparisons)))
+        .catch(() => dispatch(comparisonsHasErrored(true)));
+    }
   };
 }

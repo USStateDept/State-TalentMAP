@@ -7,7 +7,7 @@ const Routes = props => (
     {
       mappedRoutesArray.map(route => (
         <Route
-          key={route.path}
+          key={route.key || route.path}
           exact={route.exact}
           path={route.path}
           component={() => route.component(props)}

@@ -1,51 +1,76 @@
 $tm-table-blue: $primary-blue-darkest;
 
 .tm-table {
-  $border-visible-height: 500%;
-
   $border-radius: 9px;
+
+  border-collapse: separate;
+  border-spacing: 15px 0;
   color: $primary-base;
-  margin-bottom: 0;
+  margin-top: 2em;
   table-layout: fixed;
   width: 100%;
 
+  .bid-count-container {
+    float: left;
+    font-size: .8em;
+    margin-top: 10px;
+  }
+
+  .column-title-main {
+    color: $color-black;
+    float: left;
+    font-size: 1.1em;
+    font-weight: bold;
+    width: 90%;
+  }
+
+  .close-button-container {
+    float: left;
+    width: 10%;
+
+    .fa {
+      float: right;
+      font-size: .8em;
+      position: relative;
+      right: -7px;
+      top: -6px;
+    }
+  }
+
   .column-title-sub,
   .column-title-link {
-    font-weight: 300;
+    margin-top: .2em;
   }
 
   .column-title-link {
     font-size: 1.6rem;
 
     a {
-      color: $color-white;
+      color: $color-black;
+    }
+  }
+
+  .empty {
+    color: $color-gray;
+  }
+
+  .favorite-container {
+    float: left;
+    width: 100%;
+
+    .fa {
+      margin-right: 5px;
     }
   }
 
   th,
   td {
     border: 0;
+    vertical-align: top;
     word-wrap: break-word;
   }
 
   thead {
-    background: $tm-table-blue;
-    color: $color-white;
-
-    .border-extension {
-      height: 1px;
-    }
-
-    .border-visible {
-      background: $tm-table-blue;
-      height: $border-visible-height;
-      left: -300px;
-      position: absolute;
-      top: 0;
-      width: 2000px;
-      z-index: -100;
-    }
-
     th {
       background: inherit;
       font-size: 1.9rem;
@@ -65,37 +90,22 @@ $tm-table-blue: $primary-blue-darkest;
   tbody {
     position: relative;
 
-    .border-extension-layer-2 {
-      height: 1px;
+    tr:first-of-type,
+    tr:last-of-type {
+      th:first-of-type {
+        visibility: hidden;
+      }
     }
 
-    .border-visible-layer-2 {
-      background: $color-white;
-      height: $border-visible-height + 500%;
-      left: -300px;
-      position: absolute;
-      top: 0;
-      width: 2000px;
-      z-index: -50;
-    }
-
-    .border-extension {
-      height: 1px;
-    }
-
-    .border-visible {
-      background: $tm-table-blue;
-      height: 1px;
-      left: -300px;
-      position: relative;
-      top: 16px;
-      width: 2000px;
-    }
+    $empty-border: 1px dashed $color-gray-light;
 
     tr:first-of-type {
-      th,
       td {
-        padding-top: 1.5em;
+        border-top: 10px solid $primary-blue;
+      }
+
+      .empty {
+        border-top: $empty-border;
       }
     }
 
@@ -110,8 +120,26 @@ $tm-table-blue: $primary-blue-darkest;
       width: 18%;
     }
 
+    $td-border: 1px solid $color-gray-light;
+
     td {
-      border-left: 1px solid $tm-table-blue;
+      border-left: $td-border;
+      border-right: $td-border;
+    }
+
+    .empty {
+      border-left: $empty-border;
+      border-right: $empty-border;
+    }
+
+    tr:last-of-type {
+      td {
+        border-bottom: $td-border;
+      }
+
+      .empty {
+        border-bottom: $empty-border;
+      }
     }
   }
 }

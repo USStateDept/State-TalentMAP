@@ -13,13 +13,11 @@
       text-align: center;
     }
   }
+}
 
-  .border-bottom-extension {
-    background: $primary-blue-darker;
-    height: 1px;
-    left: -300px;
-    position: relative;
-    top: -1px;
-    width: 2000px;
+.comparison-outer-container {
+  .button-back-link {
+    margin-bottom: 0;
+    margin-top: 20px;
   }
 }
