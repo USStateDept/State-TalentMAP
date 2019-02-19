@@ -60,7 +60,7 @@ class SearchResultsExportLink extends Component {
     const { data } = this.state;
     return (
       <div>
-        <button onClick={this.onClick}>Download search results</button>
+        <button className="usa-button-secondary" onClick={this.onClick}>Download</button>
         {
           data && <CSVDownload target="" filename={this.props.filename} data={data} headers={HEADERS} />
         }

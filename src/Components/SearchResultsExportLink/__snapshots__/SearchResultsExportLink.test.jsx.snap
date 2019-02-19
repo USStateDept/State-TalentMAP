@@ -3,9 +3,10 @@
 exports[`SearchResultsExportLink matches snapshot 1`] = `
 <div>
   <button
+    className="usa-button-secondary"
     onClick={[Function]}
   >
-    Download search results
+    Download
   </button>
 </div>
 `;

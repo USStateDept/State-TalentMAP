@@ -25,23 +25,18 @@ class ResultsControls extends Component {
             defaultPageSize, defaultPageNumber, sortBy } = this.props;
     return (
       <div className="usa-grid-full results-controls">
-        <div className="usa-width-one-third total-results">
+        <div className="usa-width-five-twelfths total-results">
           {
             // if results have loaded, display the total number of results
             hasLoaded &&
-              <div>
-                <TotalResults
-                  total={results.count}
-                  pageNumber={defaultPageNumber}
-                  pageSize={defaultPageSize}
-                />
-                <div>
-                  <SearchResultsExportLink count={results.count} />
-                </div>
-              </div>
+              <TotalResults
+                total={results.count}
+                pageNumber={defaultPageNumber}
+                pageSize={defaultPageSize}
+              />
           }
         </div>
-        <div className="usa-width-two-thirds drop-downs">
+        <div className="usa-width-seven-twelfths-thirds drop-downs">
           <div className="dropdowns-container">
             <div className="results-dropdown results-dropdown-sort">
               <SelectForm
@@ -62,6 +57,9 @@ class ResultsControls extends Component {
                 defaultSort={defaultPageSize}
                 className="select-blue select-offset select-small"
               />
+            </div>
+            <div className="results-download">
+              <SearchResultsExportLink count={results.count} />
             </div>
           </div>
         </div>
