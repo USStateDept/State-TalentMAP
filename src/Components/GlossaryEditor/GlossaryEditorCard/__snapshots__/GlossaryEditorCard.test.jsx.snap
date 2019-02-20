@@ -35,7 +35,7 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
     className="usa-grid-full glossary-editor-card-top"
   >
     <div
-      className="title-container link-container editor-hidden editor-hidden--title"
+      className="title-container editor-hidden editor-hidden--title"
     >
       <h4>
         <i>
@@ -98,7 +98,7 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
     className="usa-grid-full glossary-editor-card-top"
   >
     <div
-      className="title-container link-container editor-hidden editor-hidden--title"
+      className="title-container editor-hidden editor-hidden--title"
     >
       <h4>
         <i>

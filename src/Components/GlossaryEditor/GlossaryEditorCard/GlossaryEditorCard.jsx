@@ -8,14 +8,6 @@ import { isUrl } from '../../../utilities';
 
 const isEmpty = value => (value || '').length === 0;
 
-const getEditorText = (shouldHideEditor) => {
-  let text = 'Cancel';
-  if (shouldHideEditor) {
-    text = 'Edit';
-  }
-  return text;
-};
-
 class GlossaryEditorCard extends Component {
   constructor(props) {
     super(props);
@@ -172,10 +164,9 @@ class GlossaryEditorCard extends Component {
     } = this.state;
 
     const renderedTitle = newTitle || term.title;
-    const renderedLink = newLink || term.link || (<i>There is no link for this term</i>);
+    const renderedLink = newLink || term.link;
     const renderedDefinition = newDefinition || term.definition;
     const shouldHideEditor = editorHidden && !isNewTerm;
-    const editorText = getEditorText(shouldHideEditor);
     const {
       editorHiddenClass,
       editorContainerHiddenClass,
@@ -204,16 +195,16 @@ class GlossaryEditorCard extends Component {
             !isNewTerm &&
               <div className="actions-container">
                 <div className="actions-inner-container">
-                  <InteractiveElement role="link" onClick={this.toggleEditorState}>{editorText}</InteractiveElement>
+                  <InteractiveElement role="link" onClick={this.toggleEditorState}>{shouldHideEditor ? 'Edit' : 'Cancel'}</InteractiveElement>
                 </div>
               </div>
           }
         </div>
         <div className="usa-grid-full glossary-editor-card-top">
-          <div className={`title-container link-container ${editorHiddenClass} ${titleContainerClass}`}>
+          <div className={`title-container ${editorHiddenClass} ${titleContainerClass}`}>
             {
               shouldHideEditor ?
-                <h4>{renderedLink}</h4> :
+                <h4>{renderedLink || <i>There is no link for this term</i>}</h4> :
                 <TextEditor
                   initialText={renderedLink}
                   onSubmitText={this.submitDefinition}
