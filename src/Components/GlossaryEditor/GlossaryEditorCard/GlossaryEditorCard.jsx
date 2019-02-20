@@ -201,7 +201,7 @@ class GlossaryEditorCard extends Component {
           }
         </div>
         <div className="usa-grid-full glossary-editor-card-top">
-          <div className={`title-container ${editorHiddenClass} ${titleContainerClass}`}>
+          <div className={`title-container link-container ${editorHiddenClass} ${titleContainerClass}`}>
             {
               shouldHideEditor ?
                 <h4>{renderedLink || <i>There is no link for this term</i>}</h4> :
