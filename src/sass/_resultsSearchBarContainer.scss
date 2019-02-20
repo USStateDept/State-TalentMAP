@@ -195,10 +195,12 @@ $input-height: 40px;
   }
 }
 
-.homepage-offset.results-single-search {
-  padding-top: 2px;
+.results {
+  .homepage-offset.results-single-search {
+    padding-top: 2px;
 
-  .search-submit-button {
-    margin-top: 33px;
+    .search-submit-button {
+      margin-top: 33px;
+    }
   }
 }
