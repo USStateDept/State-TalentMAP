@@ -14,6 +14,7 @@ class Compare extends Component {
     this.scrollListener = this.scrollListener.bind(this);
     this.scrollDistance = 400;
     this.state = {
+      prevComparisons: [],
       comparisons: [],
       isHidden: false,
     };
@@ -49,7 +50,7 @@ class Compare extends Component {
 
   lsListener() {
     const comparisons = JSON.parse(localStorage.getItem('compare') || []);
-    this.setState({ comparisons }, () => {
+    this.setState({ prevComparisons: this.state.comparisons, comparisons }, () => {
       this.getComparisons(this.state.comparisons.toString());
     });
   }
@@ -65,12 +66,19 @@ class Compare extends Component {
   }
 
   render() {
-    const { isHidden, comparisons: comparisonsState } = this.state;
+    const { isHidden, comparisons: comparisonsState, prevComparisons } = this.state;
     const { comparisons, hasErrored } = this.props;
+
+    const comparisonsToUse = comparisonsState.length > prevComparisons.length
+      ? comparisonsState : prevComparisons;
+
+    /* sort based on any prior compare list, so the cards don't get jumbled
+    after one is removed, as it persists until the new request completes */
     const sortedComparisons = comparisons.sort((a, b) =>
-    (comparisonsState.indexOf(a.position_number) >
-        comparisonsState.indexOf(b.position_number) ? 1 : -1),
+    (comparisonsToUse.indexOf(a.position_number) >
+        comparisonsToUse.indexOf(b.position_number) ? 1 : -1),
     );
+
     const isHidden$ = isHidden || !sortedComparisons.length;
     return (
       <CompareDrawer
