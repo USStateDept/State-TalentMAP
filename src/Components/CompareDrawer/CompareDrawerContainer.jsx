@@ -1,0 +1,105 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { isEqual, omit } from 'lodash';
+import { comparisonsFetchData } from '../../actions/comparisons';
+import CompareDrawer from './CompareDrawer';
+import { COMPARE_LIST } from '../../Constants/PropTypes';
+import { getScrollDistanceFromBottom } from '../../utilities';
+
+class Compare extends Component {
+  constructor(props) {
+    super(props);
+    this.lsListener = this.lsListener.bind(this);
+    this.scrollListener = this.scrollListener.bind(this);
+    this.scrollDistance = 400;
+    this.state = {
+      comparisons: [],
+      isHidden: false,
+    };
+  }
+
+  componentWillMount() {
+    // initialize with any existing comparison choices
+    const ls = localStorage.getItem('compare') || '[]';
+    const initialArr = JSON.parse(ls);
+    this.setState({ comparisons: initialArr }, () => {
+      this.getComparisons(this.state.comparisons.toString());
+    });
+
+    // add listener on localStorage 'compare' key
+    window.addEventListener('compare-ls', this.lsListener);
+
+    // add listener for scroll location, to hide the comparison farther down the page
+    window.addEventListener('scroll', this.scrollListener);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    // we ignore comparisons state, since its just tracking the user's choices
+    return !(isEqual(nextProps, this.props)) || !(isEqual(omit(nextState, 'comparisons'), omit(this.state, 'comparisons')));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('compare-ls', this.lsListener);
+  }
+
+  getComparisons(ids) {
+    this.props.fetchData(ids);
+  }
+
+  lsListener() {
+    const comparisons = JSON.parse(localStorage.getItem('compare') || []);
+    this.setState({ comparisons }, () => {
+      this.getComparisons(this.state.comparisons.toString());
+    });
+  }
+
+  scrollListener() {
+    const { isHidden } = this.state;
+
+    // eslint-disable-next-line no-unused-expressions
+    getScrollDistanceFromBottom() < this.scrollDistance ?
+      !isHidden && this.setState({ isHidden: true })
+      :
+      isHidden && this.setState({ isHidden: false });
+  }
+
+  render() {
+    const { isHidden, comparisons: comparisonsState } = this.state;
+    const { comparisons, hasErrored } = this.props;
+    const sortedComparisons = comparisons.sort((a, b) =>
+    (comparisonsState.indexOf(a.position_number) >
+        comparisonsState.indexOf(b.position_number) ? 1 : -1),
+    );
+    const isHidden$ = isHidden || !sortedComparisons.length;
+    return (
+      <CompareDrawer
+        comparisons={sortedComparisons}
+        hasErrored={hasErrored}
+        isHidden={isHidden$}
+      />
+    );
+  }
+}
+
+Compare.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  hasErrored: PropTypes.bool.isRequired,
+  comparisons: COMPARE_LIST,
+};
+
+Compare.defaultProps = {
+  comparisons: [],
+  hasErrored: false,
+};
+
+const mapStateToProps = state => ({
+  comparisons: state.comparisons,
+  hasErrored: state.comparisonsHasErrored,
+});
+
+export const mapDispatchToProps = dispatch => ({
+  fetchData: url => dispatch(comparisonsFetchData(url)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Compare);
