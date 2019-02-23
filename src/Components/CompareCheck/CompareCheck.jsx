@@ -67,11 +67,16 @@ class CompareCheck extends Component {
     this.getSaved();
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  joinClassNames(className) {
+    return className
+    .join(' ')
+    .trim();
+  }
+
   render() {
     const { className, customElement, as: type, interactiveElementProps } = this.props;
     const isChecked = this.getSavedState();
-    const text = this.isDisabled() ? 'Limit Reached' : 'Compare';
-    const icon = isChecked ? 'check-square-o' : 'square-o';
     const options = {
       type,
       className: [className, 'compare-check-box-container'],
@@ -79,17 +84,20 @@ class CompareCheck extends Component {
       ...interactiveElementProps,
     };
 
+    let text = 'Compare';
+    let icon = 'square-o';
+
     if (isChecked) {
       options.className.push('usa-button-active');
+      icon = 'check-square-o';
     }
 
     if (this.isDisabled()) {
       options.disabled = true;
+      text = 'Limit Reached';
     }
 
-    options.className = options.className
-      .join(' ')
-      .trim();
+    options.className = this.joinClassNames(options.className);
 
     return (
       customElement ?
