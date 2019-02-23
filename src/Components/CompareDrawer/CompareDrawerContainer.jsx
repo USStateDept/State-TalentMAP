@@ -12,7 +12,11 @@ class Compare extends Component {
     super(props);
     this.lsListener = this.lsListener.bind(this);
     this.scrollListener = this.scrollListener.bind(this);
-    this.scrollDistance = 400;
+
+    /* set to 0 for now, but could change to the distance in px from the bottom of the screen
+    that you want the drawer to hide at */
+    this.scrollDistance = 0;
+
     this.state = {
       prevComparisons: [],
       comparisons: [],
@@ -92,7 +96,7 @@ class Compare extends Component {
 
 Compare.propTypes = {
   fetchData: PropTypes.func.isRequired,
-  hasErrored: PropTypes.bool.isRequired,
+  hasErrored: PropTypes.bool,
   comparisons: COMPARE_LIST,
 };
 
