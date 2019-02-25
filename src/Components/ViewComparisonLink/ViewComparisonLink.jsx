@@ -17,7 +17,7 @@ class ViewComparisonLink extends Component {
     // else, parse the key's value to use in the Link
     const compareArray = JSON.parse(localStorage.getItem('compare'));
     return (
-      <Link className={'usa-button'} to={`compare/${compareArray.toString()}`}>Compare positions</Link>
+      <Link className={'usa-button'} to={`compare/${compareArray.toString()}`}>Compare</Link>
     );
   }
 }

@@ -16,6 +16,7 @@ import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
+import CompareDrawer from '../../Components/CompareDrawer';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
 USER_PROFILE, SAVED_SEARCH_MESSAGE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
 SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
@@ -210,42 +211,45 @@ class Results extends Component {
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
     return (
-      <ResultsPage
-        results={results}
-        hasErrored={hasErrored}
-        isLoading={isLoading}
-        sortBy={POSITION_SEARCH_SORTS}
-        defaultSort={this.state.defaultSort.value}
-        pageSizes={POSITION_PAGE_SIZES}
-        defaultPageSize={this.state.defaultPageSize.value}
-        defaultPageNumber={this.state.defaultPageNumber.value}
-        onQueryParamUpdate={this.onQueryParamUpdate}
-        defaultKeyword={this.state.defaultKeyword.value}
-        resetFilters={this.resetFilters}
-        pillFilters={filters.mappedParams}
-        filters={filters.filters}
-        onQueryParamToggle={this.onQueryParamToggle}
-        selectedAccordion={selectedAccordion}
-        setAccordion={setAccordion}
-        scrollToTop={scrollToTop}
-        userProfile={userProfile}
-        newSavedSearchSuccess={newSavedSearchSuccess}
-        newSavedSearchIsSaving={newSavedSearchIsSaving}
-        newSavedSearchHasErrored={newSavedSearchHasErrored}
-        saveSearch={this.saveSearch}
-        currentSavedSearch={currentSavedSearch}
-        resetSavedSearchAlerts={resetSavedSearchAlerts}
-        fetchMissionAutocomplete={fetchMissionAutocomplete}
-        missionSearchResults={missionSearchResults}
-        missionSearchIsLoading={missionSearchIsLoading}
-        missionSearchHasErrored={missionSearchHasErrored}
-        fetchPostAutocomplete={fetchPostAutocomplete}
-        postSearchResults={postSearchResults}
-        postSearchIsLoading={postSearchIsLoading}
-        postSearchHasErrored={postSearchHasErrored}
-        shouldShowSearchBar={shouldShowSearchBar}
-        bidList={bidList.results}
-      />
+      <div>
+        <ResultsPage
+          results={results}
+          hasErrored={hasErrored}
+          isLoading={isLoading}
+          sortBy={POSITION_SEARCH_SORTS}
+          defaultSort={this.state.defaultSort.value}
+          pageSizes={POSITION_PAGE_SIZES}
+          defaultPageSize={this.state.defaultPageSize.value}
+          defaultPageNumber={this.state.defaultPageNumber.value}
+          onQueryParamUpdate={this.onQueryParamUpdate}
+          defaultKeyword={this.state.defaultKeyword.value}
+          resetFilters={this.resetFilters}
+          pillFilters={filters.mappedParams}
+          filters={filters.filters}
+          onQueryParamToggle={this.onQueryParamToggle}
+          selectedAccordion={selectedAccordion}
+          setAccordion={setAccordion}
+          scrollToTop={scrollToTop}
+          userProfile={userProfile}
+          newSavedSearchSuccess={newSavedSearchSuccess}
+          newSavedSearchIsSaving={newSavedSearchIsSaving}
+          newSavedSearchHasErrored={newSavedSearchHasErrored}
+          saveSearch={this.saveSearch}
+          currentSavedSearch={currentSavedSearch}
+          resetSavedSearchAlerts={resetSavedSearchAlerts}
+          fetchMissionAutocomplete={fetchMissionAutocomplete}
+          missionSearchResults={missionSearchResults}
+          missionSearchIsLoading={missionSearchIsLoading}
+          missionSearchHasErrored={missionSearchHasErrored}
+          fetchPostAutocomplete={fetchPostAutocomplete}
+          postSearchResults={postSearchResults}
+          postSearchIsLoading={postSearchIsLoading}
+          postSearchHasErrored={postSearchHasErrored}
+          shouldShowSearchBar={shouldShowSearchBar}
+          bidList={bidList.results}
+        />
+        <CompareDrawer />
+      </div>
     );
   }
 }

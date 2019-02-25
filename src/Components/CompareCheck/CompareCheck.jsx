@@ -10,6 +10,7 @@ class CompareCheck extends Component {
   constructor(props) {
     super(props);
     this.toggleSaved = this.toggleSaved.bind(this);
+    this.eventListener = this.eventListener.bind(this);
     this.state = {
       saved: false,
       localStorageKey: null,
@@ -20,10 +21,17 @@ class CompareCheck extends Component {
   componentWillMount() {
     const localStorageKey = this.props.type;
     this.setState({ localStorageKey });
+
+    // add listener on localStorage 'compare' key
+    window.addEventListener('compare-ls', this.eventListener);
   }
 
   componentDidMount() {
     this.getSaved();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('compare-ls', this.eventListener);
   }
 
   onToggle() {
@@ -53,6 +61,10 @@ class CompareCheck extends Component {
       this.setState({ saved: !this.state.saved });
       this.onToggle();
     }
+  }
+
+  eventListener() {
+    this.getSaved();
   }
 
   // eslint-disable-next-line class-methods-use-this
