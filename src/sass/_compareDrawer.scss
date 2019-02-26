@@ -1,0 +1,78 @@
+.drawer-hidden {
+  bottom: -30rem !important;
+}
+
+.compare-drawer {
+  $background: rgba(0, 0, 0, .8);
+  $item-background: rgba(255, 255, 255, .9);
+  $item-empty-background: rgba(0, 0, 0, .4);
+
+  background-color: $background;
+  bottom: 0;
+  left: 0;
+  min-height: 100px;
+  position: fixed;
+  transition: bottom 1s;
+  width: 100%;
+  z-index: 9999;
+
+  .compare-drawer-inner-container {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    max-width: 1200px;
+    padding: 25px;
+  }
+
+  .compare-item {
+    background-color: $item-background;
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    float: left;
+    font-size: .8em;
+    height: 90px;
+    margin-right: 1.5%;
+    padding: 15px;
+    position: relative;
+    width: 0;
+  }
+
+  .compare-item-empty {
+    background-color: $item-empty-background;
+  }
+
+  .button-container {
+    display: flex;
+    flex: 1.5;
+    justify-content: space-around;
+  }
+
+  .reset-link {
+    align-items: center;
+    display: flex;
+  }
+
+  .check-container {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+  }
+
+  .data-point {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .title {
+    width: 90%;
+  }
+
+  a {
+    color: $color-white;
+    cursor: pointer;
+  }
+}

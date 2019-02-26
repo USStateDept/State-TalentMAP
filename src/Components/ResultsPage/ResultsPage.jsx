@@ -5,8 +5,6 @@ ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
 SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY,
 POST_DETAILS_ARRAY, EMPTY_FUNCTION, NEW_SAVED_SEARCH_SUCCESS_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import ViewComparisonLink from '../ViewComparisonLink/ViewComparisonLink';
-import ResetComparisons from '../ResetComparisons/ResetComparisons';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 import ResultsFilterContainer from '../ResultsFilterContainer/ResultsFilterContainer';
@@ -49,14 +47,6 @@ class Results extends Component {
             defaultLocation={defaultLocation}
           />
         }
-        <div className="usa-grid-full top-nav">
-          <div className="usa-width-one-third reset-compare-link">
-            <ResetComparisons onToggle={this.onChildToggle} />
-          </div>
-          <div className="usa-width-one-third comparisons-button">
-            <ViewComparisonLink onToggle={this.onChildToggle} />
-          </div>
-        </div>
         <div className="usa-grid-full results-section-container">
           <ResultsFilterContainer
             filters={filters}
