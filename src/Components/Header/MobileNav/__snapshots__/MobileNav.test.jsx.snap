@@ -65,7 +65,7 @@ exports[`MobileNav matches snapshot when showLogin is false 1`] = `
               replace={false}
               to="/profile/dashboard/"
             >
-              Profile
+              Dashboard
             </Link>
           </li>
           <li>
@@ -150,7 +150,7 @@ exports[`MobileNav matches snapshot when showLogin is true 1`] = `
               replace={false}
               to="/profile/dashboard/"
             >
-              Profile
+              Dashboard
             </Link>
           </li>
           <li>
