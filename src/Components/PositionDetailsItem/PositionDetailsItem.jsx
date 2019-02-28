@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import OBCUrl from '../OBCUrl';
-import HowToBid from './HowToBid';
 import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
@@ -100,7 +99,6 @@ const PositionDetailsItem = (props) => {
             loading={isHighlightLoading}
             onChange={onHighlight}
           />
-          <HowToBid />
         </div>
       </div>
     </div>

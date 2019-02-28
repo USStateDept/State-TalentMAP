@@ -18,7 +18,6 @@ import MobileNav from './MobileNav';
 import DesktopNav from './DesktopNav';
 import { getAssetPath, propOrDefault, focusByFirstOfHeader } from '../../utilities';
 import MediaQuery from '../MediaQuery';
-import BetaHeader from './BetaHeader';
 import InteractiveElement from '../InteractiveElement';
 
 export class Header extends Component {
@@ -134,7 +133,6 @@ export class Header extends Component {
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
           <ToggleContent />
           <StateBanner />
-          <BetaHeader />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">
