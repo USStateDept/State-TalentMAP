@@ -22,6 +22,7 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
           },
         }
       }
+      showBidCount={true}
       status="approved"
       title="POLITICAL/ECONOMIC OFFICER"
     />
