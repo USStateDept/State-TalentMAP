@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -20,7 +19,7 @@ import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 
-const CompareList = ({ bidList, bidListToggleIsLoading, compare, isLoading, favorites,
+const CompareList = ({ bidList, compare, isLoading, favorites,
 onToggle }) => {
   const limit = 5;
   const compareArray = compare.slice(0, COMPARE_LIMIT);
