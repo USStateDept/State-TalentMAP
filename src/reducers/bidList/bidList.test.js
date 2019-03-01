@@ -17,8 +17,12 @@ describe('reducers', () => {
     expect(reducers.bidListToggleHasErrored(false, { type: 'BID_LIST_TOGGLE_HAS_ERRORED', hasErrored: true })).toBe(true);
   });
 
-  it('can set reducer BID_LIST_TOGGLE_IS_LOADING', () => {
-    expect(reducers.bidListToggleIsLoading(false, { type: 'BID_LIST_TOGGLE_IS_LOADING', isLoading: true })).toBe(true);
+  it('can set reducer BID_LIST_TOGGLE_IS_LOADING to add an id', () => {
+    expect(reducers.bidListToggleIsLoading(new Set(), { type: 'BID_LIST_TOGGLE_IS_LOADING', isLoading: { bool: true, id: 1 } })).toEqual(new Set([1]));
+  });
+
+  it('can set reducer BID_LIST_TOGGLE_IS_LOADING to remove an id', () => {
+    expect(reducers.bidListToggleIsLoading(new Set(), { type: 'BID_LIST_TOGGLE_IS_LOADING', isLoading: { bool: false, id: 1 } })).toEqual(new Set());
   });
 
   it('can set reducer BID_LIST_TOGGLE_SUCCESS', () => {

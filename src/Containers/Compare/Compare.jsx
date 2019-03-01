@@ -6,8 +6,9 @@ import { push } from 'react-router-redux';
 import { get } from 'lodash';
 import { comparisonsFetchData } from '../../actions/comparisons';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
+import { bidListFetchData } from '../../actions/bidList';
 import CompareList from '../../Components/CompareList/CompareList';
-import { COMPARE_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { COMPARE_LIST, POSITION_SEARCH_RESULTS, BID_LIST, SetType } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 
@@ -27,6 +28,7 @@ class Compare extends Component {
       const ids = get(this, 'props.match.params.ids');
       if (ids) { this.getComparisons(ids); }
       this.props.fetchFavorites();
+      this.props.fetchBidList();
     }
   }
 
@@ -43,7 +45,8 @@ class Compare extends Component {
   }
 
   render() {
-    const { comparisons, hasErrored, isLoading, favoritePositions } = this.props;
+    const { comparisons, hasErrored, isLoading, favoritePositions, bidList,
+    bidListToggleIsLoading } = this.props;
     return (
       <CompareList
         compare={comparisons}
@@ -51,6 +54,8 @@ class Compare extends Component {
         hasErrored={hasErrored}
         isLoading={isLoading}
         onToggle={this.onToggle}
+        bidList={bidList}
+        bidListToggleIsLoading={bidListToggleIsLoading}
       />
     );
   }
@@ -70,6 +75,9 @@ Compare.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   favoritePositions: POSITION_SEARCH_RESULTS,
   fetchFavorites: PropTypes.func.isRequired,
+  bidList: BID_LIST,
+  bidListToggleIsLoading: SetType,
+  fetchBidList: PropTypes.func.isRequired,
 };
 
 Compare.defaultProps = {
@@ -77,6 +85,8 @@ Compare.defaultProps = {
   hasErrored: false,
   isLoading: true,
   favoritePositions: POSITION_RESULTS_OBJECT,
+  bidList: { results: [] },
+  bidListToggleIsLoading: new Set(),
 };
 
 Compare.contextTypes = {
@@ -88,10 +98,13 @@ const mapStateToProps = state => ({
   hasErrored: state.comparisonsHasErrored,
   isLoading: state.comparisonsIsLoading,
   favoritePositions: state.favoritePositions,
+  bidList: state.bidListFetchDataSuccess,
+  bidListToggleIsLoading: state.bidListToggleIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(comparisonsFetchData(url)),
+  fetchBidList: () => dispatch(bidListFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
   fetchFavorites: () => dispatch(favoritePositionsFetchData()),
 });

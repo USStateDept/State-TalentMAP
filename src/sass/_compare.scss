@@ -1,6 +1,21 @@
 .comparison-container {
   position: relative;
 
+  h1 {
+    font-family: Roboto;
+    font-size: 2.4rem;
+    font-weight: 400;
+  }
+
+  .bid-list-button {
+    min-width: 100%;
+    padding: .75em 1em;
+
+    .button-icon {
+      display: none;
+    }
+  }
+
   .post-data-button {
     color: $color-white;
     font-size: .8em;

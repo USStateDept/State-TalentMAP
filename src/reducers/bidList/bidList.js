@@ -30,14 +30,21 @@ export function bidListToggleHasErrored(state = false, action) {
       return state;
   }
 }
-export function bidListToggleIsLoading(state = false, action) {
+export function bidListToggleIsLoading(state = new Set(), action) {
+  const newSet = new Set(state);
   switch (action.type) {
     case 'BID_LIST_TOGGLE_IS_LOADING':
-      return action.isLoading;
+      if (action.isLoading.bool) {
+        newSet.add(action.isLoading.id);
+        return newSet;
+      }
+      newSet.delete(action.isLoading.id);
+      return newSet;
     default:
       return state;
   }
 }
+
 export function bidListToggleSuccess(state = false, action) {
   switch (action.type) {
     case 'BID_LIST_TOGGLE_SUCCESS':
