@@ -62,7 +62,7 @@ const ResultsCard = (props) => {
 
   const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-  const post = getPostName(result.post, NO_POST);
+  const post = `${getPostName(result.post, NO_POST)}${result.organization ? `: ${result.organization}` : ''}`;
 
   const stats = getBidStatisticsObject(result.bid_statistics);
 
@@ -109,7 +109,7 @@ const ResultsCard = (props) => {
         <div id={id} className="results-card">
           <Row className="header" fluid>
             <Column columns="8">
-              <Column column="12" className="results-card-title-link">
+              <Column columns="12" className="results-card-title-link">
                 <h3>{title}</h3>
                 <Link to={`/details/${result.id}`}>View position</Link>
               </Column>
