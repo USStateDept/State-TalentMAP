@@ -56,6 +56,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         }
       }
       deleteBid={[Function]}
+      showBidCount={true}
       showQuestion={true}
     />
     <div

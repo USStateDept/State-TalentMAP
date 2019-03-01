@@ -52,9 +52,13 @@ const BidTrackerCardBottom = (props) => {
 };
 
 BidTrackerCardBottom.propTypes = {
-  reviewer: BID_REVIEWER_OBJECT.isRequired,
+  reviewer: BID_REVIEWER_OBJECT,
   bureau: PropTypes.string.isRequired,
   userProfile: USER_PROFILE.isRequired,
+};
+
+BidTrackerCardBottom.defaultProps = {
+  reviewer: null,
 };
 
 export default BidTrackerCardBottom;

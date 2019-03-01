@@ -595,10 +595,18 @@ $draft-icon-offset: 120px;
 .bid-tracker-standby-container {
   display: flex;
 
+  .bid-tracker-standby-inner-container {
+    display: flex;
+    flex-direction: column;
+  }
+
   .bid-tracker-standby-title {
     background-color: $tm-navy-dark;
     color: $color-white;
+    display: flex;
+    flex-direction: column;
     float: left;
+    justify-content: space-around;
     padding: 13px 59px;
     text-align: center;
     width: 270px;
