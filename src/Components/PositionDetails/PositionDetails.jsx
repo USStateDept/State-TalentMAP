@@ -43,7 +43,6 @@ class PositionDetails extends Component {
       goBackLink,
       userProfile,
       bidList,
-      bidListToggleIsLoading,
       editPocContent,
       editWebsiteContent,
       resetDescriptionEditMessages,
@@ -64,7 +63,6 @@ class PositionDetails extends Component {
             details={details}
             goBackLink={goBackLink}
             bidList={bidList}
-            bidListToggleIsLoading={bidListToggleIsLoading}
             editDescriptionContent={this.editDescriptionContent}
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}
@@ -99,7 +97,6 @@ PositionDetails.propTypes = {
   goBackLink: GO_BACK_TO_LINK.isRequired,
   userProfile: USER_PROFILE,
   bidList: BID_LIST.isRequired,
-  bidListToggleIsLoading: PropTypes.bool,
   editDescriptionContent: PropTypes.func.isRequired,
   resetDescriptionEditMessages: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
@@ -115,7 +112,6 @@ PositionDetails.defaultProps = {
   userProfile: {},
   bidListToggleIsLoading: false,
   descriptionEditHasErrored: false,
-  descriptionEditIsLoading: false,
   descriptionEditSuccess: false,
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,

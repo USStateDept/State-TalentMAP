@@ -82,7 +82,6 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
         compareArray={Array []}
         disabled={false}
         id={6}
-        isLoading={false}
       />
     </Connect(PermissionsWrapper)>
   </div>
