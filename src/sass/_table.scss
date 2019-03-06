@@ -13,7 +13,6 @@ $tm-table-blue: $primary-blue-darkest;
   .bid-count-container {
     float: left;
     font-size: .8em;
-    margin-top: 10px;
   }
 
   .column-title-main {
@@ -90,10 +89,40 @@ $tm-table-blue: $primary-blue-darkest;
   tbody {
     position: relative;
 
-    tr:first-of-type,
+    tr:nth-of-type(1),
+    tr:nth-of-type(2),
     tr:last-of-type {
       th:first-of-type {
         visibility: hidden;
+      }
+    }
+
+    tr:nth-of-type(2) {
+      th,
+      td {
+        padding-bottom: 5px;
+        padding-top: 0;
+      }
+    }
+
+    tr:nth-of-type(1) {
+      th,
+      td {
+        padding-bottom: 0;
+      }
+    }
+
+    tr:nth-last-child(2) {
+      th,
+      td {
+        padding-bottom: 0;
+      }
+    }
+
+    tr:nth-last-child(1) {
+      th,
+      td {
+        padding-top: 0;
       }
     }
 

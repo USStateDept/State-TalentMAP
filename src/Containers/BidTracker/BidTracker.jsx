@@ -27,7 +27,7 @@ class BidTrackerContainer extends Component {
   render() {
     const { bidList, deleteBid,
       bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
-      bidListToggleIsLoading, bidListToggleSuccess, submitBidPosition,
+      bidListToggleSuccess, submitBidPosition,
       submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
       acceptBidPosition, acceptBidHasErrored, acceptBidIsLoading, acceptBidSuccess,
       declineBidPosition, declineBidHasErrored, declineBidIsLoading,
@@ -40,7 +40,6 @@ class BidTrackerContainer extends Component {
         bidListHasErrored={bidListHasErrored}
         bidListIsLoading={bidListIsLoading}
         bidListToggleHasErrored={bidListToggleHasErrored}
-        bidListToggleIsLoading={bidListToggleIsLoading}
         bidListToggleSuccess={bidListToggleSuccess}
         deleteBid={deleteBid}
         submitBid={submitBidPosition}
@@ -76,7 +75,6 @@ BidTrackerContainer.propTypes = {
   bidListIsLoading: PropTypes.bool,
   bidList: BID_LIST,
   bidListToggleHasErrored: BID_LIST_TOGGLE_HAS_ERRORED,
-  bidListToggleIsLoading: PropTypes.bool,
   bidListToggleSuccess: BID_LIST_TOGGLE_SUCCESS,
   submitBidPosition: PropTypes.func.isRequired,
   submitBidHasErrored: SUBMIT_BID_HAS_ERRORED.isRequired,
@@ -108,7 +106,6 @@ BidTrackerContainer.defaultProps = {
   bidListHasErrored: false,
   bidListIsLoading: false,
   bidListToggleHasErrored: false,
-  bidListToggleIsLoading: false,
   bidListToggleSuccess: false,
   submitBidPosition: EMPTY_FUNCTION,
   submitBidHasErrored: false,
@@ -142,7 +139,6 @@ const mapStateToProps = state => ({
   bidListIsLoading: state.bidListIsLoading,
   bidList: state.bidListFetchDataSuccess,
   bidListToggleHasErrored: state.bidListToggleHasErrored,
-  bidListToggleIsLoading: state.bidListToggleIsLoading,
   bidListToggleSuccess: state.bidListToggleSuccess,
   submitBidHasErrored: state.submitBidHasErrored,
   submitBidIsLoading: state.submitBidIsLoading,

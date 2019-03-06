@@ -30,10 +30,10 @@ export function bidListToggleHasErrored(bool) {
   };
 }
 
-export function bidListToggleIsLoading(bool) {
+export function bidListToggleIsLoading(bool, id) {
   return {
     type: 'BID_LIST_TOGGLE_IS_LOADING',
-    isLoading: bool,
+    isLoading: { bool, id },
   };
 }
 
@@ -214,7 +214,7 @@ export function toggleBidPosition(id, remove) {
   return (dispatch) => {
     // reset the states to ensure only one message can be shown
     dispatch(routeChangeResetState());
-    dispatch(bidListToggleIsLoading(true));
+    dispatch(bidListToggleIsLoading(true, id));
     dispatch(bidListToggleSuccess(false));
     dispatch(bidListToggleHasErrored(false));
 
@@ -229,7 +229,7 @@ export function toggleBidPosition(id, remove) {
           SystemMessages.DELETE_BID_ITEM_SUCCESS : SystemMessages.ADD_BID_ITEM_SUCCESS;
         dispatch(bidListToggleSuccess(message));
         dispatch(toastSuccess(message));
-        dispatch(bidListToggleIsLoading(false));
+        dispatch(bidListToggleIsLoading(false, id));
         dispatch(bidListToggleHasErrored(false));
         dispatch(bidListFetchData());
       })
@@ -238,7 +238,8 @@ export function toggleBidPosition(id, remove) {
           SystemMessages.DELETE_BID_ITEM_ERROR : SystemMessages.ADD_BID_ITEM_ERROR;
         dispatch(bidListToggleHasErrored(message));
         dispatch(toastError(message));
-        dispatch(bidListToggleIsLoading(false));
+        dispatch(bidListToggleIsLoading(false, id));
+        dispatch(bidListFetchData());
       });
   };
 }

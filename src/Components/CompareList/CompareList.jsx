@@ -5,7 +5,7 @@ import shortId from 'shortid';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import BackButton from '../BackButton';
-import { COMPARE_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
+import { BID_LIST, COMPARE_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import COMPARE_LIMIT from '../../Constants/Compare';
 import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from '../../Constants/SystemMessages';
@@ -16,8 +16,11 @@ import OBCUrl from '../OBCUrl';
 import BidCount from '../BidCount';
 import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
+import BidListButton from '../../Containers/BidListButton';
+import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 
-const CompareList = ({ compare, isLoading, favorites, onToggle }) => {
+const CompareList = ({ bidList, compare, isLoading, favorites,
+onToggle }) => {
   const limit = 5;
   const compareArray = compare.slice(0, COMPARE_LIMIT);
   const emptyArray = Array(limit - compareArray.length).fill();
@@ -27,6 +30,7 @@ const CompareList = ({ compare, isLoading, favorites, onToggle }) => {
         <BackButton />
       </div>
       <div className="comparison-container">
+        <h1>Compare Positions</h1>
         {
           isLoading ?
             <Spinner type="homepage-position-results" size="big" />
@@ -59,27 +63,55 @@ const CompareList = ({ compare, isLoading, favorites, onToggle }) => {
                       Position
                     </th>
                     {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          <div className="usa-grid-full">
+                            <div className="column-title-main">{c.title}</div>
+                            <div className="close-button-container">
+                              <CompareCheck
+                                onToggle={() => onToggle(c.position_number)}
+                                refKey={c.position_number}
+                                customElement={<FA name="close" />}
+                                interactiveElementProps={{ title: 'Remove this comparison' }}
+                              />
+                            </div>
+                          </div>
+                          <span aria-labelledby={getAccessiblePositionNumber(c.position_number)}>
+                            {c.position_number}
+                          </span>
+                        </td>
+                      ))
+                    }
+                    {
+                      emptyArray.map(() => (<th className="empty" key={shortId.generate()}>
+                        Return to search results and add more positions to compare.
+                      </th>))
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">Link to details</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          <div className="column-title-link">
+                            <Link to={`/details/${c.id}`}>View position</Link>
+                          </div>
+                        </td>
+                        ))
+                    }
+                    {
+                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">
+                      Bid Count
+                    </th>
+                    {
                       compareArray.map((c) => {
                         const bidStatistics = get(c, 'bid_statistics[0]', {});
                         return (
                           <td key={shortId.generate()}>
-                            <div className="usa-grid-full">
-                              <div className="column-title-main">{c.title}</div>
-                              <div className="close-button-container">
-                                <CompareCheck
-                                  onToggle={() => onToggle(c.position_number)}
-                                  refKey={c.position_number}
-                                  customElement={<FA name="close" />}
-                                  interactiveElementProps={{ title: 'Remove this comparison' }}
-                                />
-                              </div>
-                            </div>
-                            <span aria-labelledby={getAccessiblePositionNumber(c.position_number)}>
-                              {c.position_number}
-                            </span>
-                            <div className="column-title-link">
-                              <Link to={`/details/${c.id}`}>View position</Link>
-                            </div>
                             <span className="bid-stats">
                               <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" hideLabel />
                             </span>
@@ -88,9 +120,7 @@ const CompareList = ({ compare, isLoading, favorites, onToggle }) => {
                       })
                     }
                     {
-                      emptyArray.map(() => (<th className="empty" key={shortId.generate()}>
-                        Return to search results and add more positions to compare.
-                      </th>))
+                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
                     }
                   </tr>
                   <tr>
@@ -210,7 +240,27 @@ const CompareList = ({ compare, isLoading, favorites, onToggle }) => {
                             compareArray={favorites.results}
                             useButtonClass
                             refresh
+                            useButtonClassSecondary
                           />
+                        </td>
+                      ))
+                    }
+                    {
+                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">Add to Bid List</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          <PermissionsWrapper permissions="bidder">
+                            <BidListButton
+                              compareArray={bidList.results}
+                              id={c.id}
+                              disabled={!get(c, 'availability.availability', true)}
+                            />
+                          </PermissionsWrapper>
                         </td>
                       ))
                     }
@@ -232,12 +282,14 @@ CompareList.propTypes = {
   isLoading: PropTypes.bool,
   favorites: POSITION_SEARCH_RESULTS,
   onToggle: PropTypes.func.isRequired,
+  bidList: BID_LIST,
 };
 
 CompareList.defaultProps = {
   compare: [],
   isLoading: false,
   favorites: POSITION_RESULTS_OBJECT,
+  bidList: { results: [] },
 };
 
 export default CompareList;

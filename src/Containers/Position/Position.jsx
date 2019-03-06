@@ -75,7 +75,6 @@ class Position extends Component {
       bidListHasErrored,
       bidListIsLoading,
       bidListToggleHasErrored,
-      bidListToggleIsLoading,
       bidListToggleSuccess,
       descriptionEditHasErrored,
       descriptionEditIsLoading,
@@ -97,7 +96,6 @@ class Position extends Component {
         bidListHasErrored={bidListHasErrored}
         bidListIsLoading={bidListIsLoading}
         bidListToggleHasErrored={bidListToggleHasErrored}
-        bidListToggleIsLoading={bidListToggleIsLoading}
         bidListToggleSuccess={bidListToggleSuccess}
         editDescriptionContent={this.editDescriptionContent}
         editPocContent={this.editPocContent}
@@ -137,7 +135,6 @@ Position.propTypes = {
   bidListIsLoading: PropTypes.bool,
   bidList: BID_LIST,
   bidListToggleHasErrored: BID_LIST_TOGGLE_HAS_ERRORED,
-  bidListToggleIsLoading: PropTypes.bool,
   bidListToggleSuccess: BID_LIST_TOGGLE_SUCCESS,
   editDescriptionContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
@@ -163,7 +160,6 @@ Position.defaultProps = {
   bidListHasErrored: false,
   bidListIsLoading: false,
   bidListToggleHasErrored: false,
-  bidListToggleIsLoading: false,
   bidListToggleSuccess: false,
   editDescriptionContent: EMPTY_FUNCTION,
   editPocContent: EMPTY_FUNCTION,
@@ -187,7 +183,6 @@ const mapStateToProps = (state, ownProps) => ({
   bidListIsLoading: state.bidListIsLoading,
   bidList: state.bidListFetchDataSuccess,
   bidListToggleHasErrored: state.bidListToggleHasErrored,
-  bidListToggleIsLoading: state.bidListToggleIsLoading,
   bidListToggleSuccess: state.bidListToggleSuccess,
   descriptionEditHasErrored: state.descriptionEditHasErrored,
   descriptionEditIsLoading: state.descriptionEditIsLoading,
