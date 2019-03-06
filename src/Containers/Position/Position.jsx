@@ -70,6 +70,7 @@ class Position extends Component {
       hasErrored,
       routerLocations,
       userProfile,
+      userProfileIsLoading,
       bidList,
       bidListHasErrored,
       bidListIsLoading,
@@ -90,6 +91,7 @@ class Position extends Component {
         hasErrored={hasErrored}
         goBackLink={getLastRouteLink(routerLocations)}
         userProfile={userProfile}
+        userProfileIsLoading={userProfileIsLoading}
         bidList={bidList}
         bidListHasErrored={bidListHasErrored}
         bidListIsLoading={bidListIsLoading}
@@ -127,6 +129,7 @@ Position.propTypes = {
   isAuthorized: PropTypes.func.isRequired,
   routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
+  userProfileIsLoading: PropTypes.bool,
   fetchBidList: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
@@ -151,6 +154,7 @@ Position.defaultProps = {
   isLoading: true,
   routerLocations: [],
   userProfile: {},
+  userProfileIsLoading: false,
   fetchBidList: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
@@ -174,6 +178,7 @@ const mapStateToProps = (state, ownProps) => ({
   routerLocations: state.routerLocations,
   id: ownProps,
   userProfile: state.userProfile,
+  userProfileIsLoading: state.userProfileIsLoading,
   bidListHasErrored: state.bidListHasErrored,
   bidListIsLoading: state.bidListIsLoading,
   bidList: state.bidListFetchDataSuccess,
