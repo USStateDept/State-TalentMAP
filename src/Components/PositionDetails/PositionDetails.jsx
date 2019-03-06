@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Row } from '../Layout';
 import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
@@ -49,9 +50,14 @@ class PositionDetails extends Component {
       resetDescriptionEditMessages,
       highlightPosition,
       onHighlight,
+      userProfileIsLoading,
     } = this.props;
 
     const isReady = details.id && userProfile.id && !isLoading && !hasErrored;
+
+    const isLoading$ = isLoading || userProfileIsLoading;
+
+    const isError = hasErrored && !isLoading && !userProfileIsLoading;
 
     return (
       <div className="content-container position-details-container">
@@ -86,7 +92,13 @@ class PositionDetails extends Component {
             <PositionSimilarPositions id={details.id} />
           </Row>
         </div>}
-        {!isReady && <Spinner type="position-details" size="big" />}
+        {isLoading$ && <Spinner type="position-details" size="big" />}
+        {isError &&
+          <div className="usa-grid-full position-error">
+            <h2>There was an error loading this position</h2>
+            <p><Link to="/results">Return to search</Link> and select filters to look for a similar position.</p>
+          </div>
+        }
       </div>
     );
   }
@@ -98,6 +110,7 @@ PositionDetails.propTypes = {
   hasErrored: PropTypes.bool,
   goBackLink: GO_BACK_TO_LINK.isRequired,
   userProfile: USER_PROFILE,
+  userProfileIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
   bidListToggleIsLoading: PropTypes.bool,
   editDescriptionContent: PropTypes.func.isRequired,
@@ -113,6 +126,7 @@ PositionDetails.defaultProps = {
   isLoading: true,
   hasErrored: false,
   userProfile: {},
+  userProfileIsLoading: false,
   bidListToggleIsLoading: false,
   descriptionEditHasErrored: false,
   descriptionEditIsLoading: false,
