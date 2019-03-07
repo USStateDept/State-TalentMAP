@@ -81,25 +81,4 @@
   .bid-count-number {
     padding: .2em 1em;
   }
-
-  @media screen and (max-width: $screen-sm-max) {
-    // Set our borders
-    li {
-      width: 50%;
-    }
-
-    // The last element gets a border-right, unlike our general <li>s.
-    li:nth-last-child(3) {
-      border-right: solid;
-      border-right-width: $border-width;
-    }
-
-    .bid-count-list-item:nth-child(odd) {
-      border-radius: 5px 0 0 5px;
-    }
-
-    .bid-count-list-item:nth-child(even) {
-      border-radius: 0 5px 5px 0;
-    }
-  }
 }

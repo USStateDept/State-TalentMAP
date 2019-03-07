@@ -14,7 +14,8 @@ import {
   DRAFT_PROP,
 } from '../../../Constants/BidData';
 
-const BidTrackerCard = ({ bid, acceptBid, declineBid, submitBid, deleteBid, userProfile }) => {
+const BidTrackerCard = ({ bid, acceptBid, declineBid, submitBid, deleteBid, showBidCount,
+userProfile }) => {
   // determine whether we render an alert on top of the card
   const showAlert = shouldShowAlert(bid);
   // determine whether we should show the contacts section based on the status
@@ -28,6 +29,7 @@ const BidTrackerCard = ({ bid, acceptBid, declineBid, submitBid, deleteBid, user
         <BidTrackerCardTop
           bid={bid}
           deleteBid={deleteBid}
+          showBidCount={showBidCount}
         />
         <div className={`usa-grid-full padded-container-inner bid-tracker-bid-steps-container ${draftClass}`}>
           <BidSteps bid={bid} />
@@ -66,6 +68,12 @@ BidTrackerCard.propTypes = {
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
   userProfile: USER_PROFILE.isRequired,
+  showBidCount: PropTypes.bool,
 };
+
+BidTrackerCard.defaultProps = {
+  showBidCount: true,
+};
+
 
 export default BidTrackerCard;

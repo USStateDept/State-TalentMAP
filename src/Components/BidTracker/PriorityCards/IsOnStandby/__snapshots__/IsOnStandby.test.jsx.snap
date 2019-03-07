@@ -9,14 +9,18 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
     className="padded-container-inner bid-tracker-standby-title"
   >
     <div
-      className="bid-tracker-standby-title-top"
+      className="bid-tracker-standby-inner-container"
     >
-      Approved
-    </div>
-    <div
-      className="bid-tracker-standby-title-bottom"
-    >
-      (on-hold)
+      <div
+        className="bid-tracker-standby-title-top"
+      >
+        Approved
+      </div>
+      <div
+        className="bid-tracker-standby-title-bottom"
+      >
+        (on-hold)
+      </div>
     </div>
   </div>
   <div
@@ -73,6 +77,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
         }
       }
       deleteBid={[Function]}
+      showBidCount={false}
       showQuestion={false}
     />
   </div>

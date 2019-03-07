@@ -152,6 +152,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
     >
       <BidderPortfolioViewMore
         className="tm-button-alt"
+        id={1}
         isExpanded={false}
         onClick={[Function]}
         useLink={false}

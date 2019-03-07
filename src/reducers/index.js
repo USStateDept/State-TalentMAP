@@ -14,6 +14,7 @@ import positionDetails from './positionDetails';
 import comparisons from './comparisons';
 import homePagePositions from './homePagePositions';
 import userProfile from './userProfile';
+import userProfilePublic from './userProfilePublic';
 import favoritePositions from './favoritePositions';
 import bidList from './bidList';
 import descriptionEdit from './descriptionEdit';
@@ -46,6 +47,7 @@ export default combineReducers({
   ...share,
   ...savedSearch,
   ...userProfile,
+  ...userProfilePublic,
   ...selectedAccordion,
   ...routerLocations,
   ...favoritePositions,

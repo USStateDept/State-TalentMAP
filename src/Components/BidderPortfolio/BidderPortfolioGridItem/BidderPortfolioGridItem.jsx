@@ -57,6 +57,7 @@ class BidderPortfolioGridItem extends Component {
               className="tm-button-alt"
               onClick={this.expandSection}
               isExpanded={expanded}
+              id={userProfile.id}
             />
           </div>
         </div>

@@ -38,7 +38,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
       replace={false}
       to="/profile/dashboard"
     >
-      Profile
+      Dashboard
     </Link>
     <Link
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
@@ -96,7 +96,7 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
       replace={false}
       to="/profile/dashboard"
     >
-      Profile
+      Dashboard
     </Link>
     <Link
       className="account-dropdown--identity account-dropdown--segment account-dropdown-link"

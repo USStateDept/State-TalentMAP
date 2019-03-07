@@ -57,6 +57,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
     }
     declineBid={[Function]}
     deleteBid={[Function]}
+    showBidCount={true}
     submitBid={[Function]}
     userProfile={
       Object {
@@ -232,6 +233,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
       }
       declineBid={[Function]}
       deleteBid={[Function]}
+      showBidCount={false}
       submitBid={[Function]}
       userProfile={
         Object {

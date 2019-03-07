@@ -21,7 +21,7 @@ class BidTrackerCardTop extends Component {
   }
 
   render() {
-    const { bid, showQuestion } = this.props;
+    const { bid, showBidCount, showQuestion } = this.props;
     const bidStatistics = get(bid, 'position.bid_statistics[0]', {});
     const post = get(bid, 'position.post', {});
     return (
@@ -33,6 +33,7 @@ class BidTrackerCardTop extends Component {
             status={bid.status}
             bidStatistics={bidStatistics}
             post={post}
+            showBidCount={showBidCount}
           />
         </div>
         <div>
@@ -64,10 +65,12 @@ BidTrackerCardTop.propTypes = {
   bid: BID_OBJECT.isRequired,
   showQuestion: PropTypes.bool, // Determine whether or not to show the question text
   deleteBid: PropTypes.func.isRequired,
+  showBidCount: PropTypes.bool,
 };
 
 BidTrackerCardTop.defaultProps = {
   showQuestion: true,
+  showBidCount: true,
 };
 
 export default BidTrackerCardTop;

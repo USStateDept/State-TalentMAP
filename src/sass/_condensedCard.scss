@@ -10,6 +10,7 @@ $condensed-card-data-padding: 15px 20px 9px;
   font-size: 16px;
   line-height: 19px;
   margin-bottom: $condensed-card-margin-bottom;
+  width: 350px;
 
   .bid-count-container {
     display: flex;
@@ -212,9 +213,25 @@ $condensed-card-data-padding: 15px 20px 9px;
 @media screen and (max-width: $screen-md-min) {
   .usa-width-one-third.condensed-card {
     display: block;
-    float: left;
-    margin-right: initial;
-    width: 100%;
+
+    &:last-child {
+      margin-right: 4.82916%;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-lg-min) {
+  .usa-width-one-third.condensed-card {
+    margin-right: 2.35765%;
+  }
+}
+
+@media screen and (max-width: $screen-sm-min) {
+  .usa-width-one-third.condensed-card,
+  .usa-width-one-third.condensed-card:last-child {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -242,14 +259,6 @@ $condensed-card-data-padding: 15px 20px 9px;
   .condensed-card-bottom {
     min-height: 258px;
   }
-}
-
-.condensed-card-second {
-  float: left;
-}
-
-.condensed-card-third {
-  float: left;
 }
 
 .condensed-card:last-child {
@@ -294,15 +303,3 @@ $condensed-card-data-padding: 15px 20px 9px;
   flex-wrap: wrap;
 }
 
-@media screen and (max-width: $screen-lg-min) and (min-width: $screen-sm-max) {
-  .condensed-card.usa-width-one-fourth {
-    display: block;
-    float: left;
-    margin-right: 2.35765%;
-    width: 30.97857%;
-  }
-
-  .condensed-card.usa-width-one-fourth:nth-child(3n) {
-    margin-right: 0;
-  }
-}

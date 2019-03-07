@@ -2,7 +2,7 @@
 
 exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
 <div
-  className="results-search-bar padded-main-content results-single-search"
+  className="results-search-bar padded-main-content results-single-search homepage-offset"
 >
   <div
     className="usa-grid-full results-search-bar-container"
@@ -37,6 +37,69 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
             submitText="Search"
             type="medium"
           />
+        </div>
+      </fieldset>
+      <div
+        className="usa-width-one-sixth search-submit-button"
+      >
+        <button
+          className="usa-button"
+          type="submit"
+        >
+          <FontAwesome
+            className="label-icon"
+            name="search"
+          />
+          Search
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`ResultsSearchHeaderComponent matches snapshot when isHomePage is true 1`] = `
+<div
+  className="results-search-bar padded-main-content results-single-search "
+>
+  <div
+    className="usa-grid-full results-search-bar-container"
+  >
+    <form
+      className="usa-grid-full"
+      onSubmit={[Function]}
+    >
+      <fieldset
+        className="usa-width-five-sixths"
+      >
+        <div
+          className="usa-width-one-whole search-results-inputs search-keyword"
+        >
+          <legend
+            className="usa-grid-full homepage-search-legend"
+          >
+            Find your next position
+          </legend>
+          <SearchBar
+            alertText="Disabled"
+            defaultValue="keyword"
+            id="search-keyword-field"
+            label="Keywords"
+            labelSrOnly={false}
+            noButton={true}
+            noForm={true}
+            onChangeText={[Function]}
+            onSubmitSearch={[Function]}
+            placeholder="Location, Skill, Grade, Language, Position number"
+            submitDisabled={false}
+            submitText="Search"
+            type="medium"
+          />
+          <div
+            className="search-sub-text"
+          >
+            Example: Abuja, Nigeria, Political Affairs (5505), Russian...
+          </div>
         </div>
       </fieldset>
       <div

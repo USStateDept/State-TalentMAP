@@ -9,7 +9,7 @@ const items =
           title: 'Bid Cycle',
           sort: 100,
           description: 'bidCycle',
-          endpoint: 'bidcycle/',
+          endpoint: 'bidcycle/?ordering=name',
           selectionRef: ENDPOINT_PARAMS.bidCycle,
           text: 'Choose Bid Cycles',
         },
@@ -187,6 +187,26 @@ const items =
           { code: 'true', short_description: 'Yes' },
         ],
       },
+
+      /* Currently we don't display this as a filter, but will appear
+      as a pill if the query param exists (e.g., the user clicked on Service Needs
+      positions from the home page). */
+      {
+        item: {
+          title: 'Service Needs',
+          sort: 1000,
+          bool: true,
+          description: 'service_needs',
+          selectionRef: ENDPOINT_PARAMS.highlighted,
+          text: 'Include only Service Needs positions',
+          choices: [
+          ],
+        },
+        data: [
+          { code: 'true', short_description: 'Service Needs' },
+        ],
+      },
+
       {
         item: {
           title: 'Post',

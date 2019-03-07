@@ -2,7 +2,7 @@
 
 exports[`CompareListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full content-container"
+  className="usa-grid-full content-container comparison-outer-container"
 >
   <div>
     <Connect(withRouter(BackButton)) />
@@ -10,6 +10,9 @@ exports[`CompareListComponent matches snapshot 1`] = `
   <div
     className="comparison-container"
   >
+    <h1>
+      Compare Positions
+    </h1>
     <div
       className="comparison-table-container"
     >
@@ -21,15 +24,14 @@ exports[`CompareListComponent matches snapshot 1`] = `
         >
           Position details comparison:
         </caption>
-        <thead>
+        <thead
+          className="usa-sr-only"
+        >
           <tr>
             <th
               scope="row"
             >
               Position
-              <div
-                className="border-extension border-visible"
-              />
             </th>
             <th>
               <div
@@ -37,6 +39,137 @@ exports[`CompareListComponent matches snapshot 1`] = `
               >
                 OMS (DCM)
               </div>
+            </th>
+            <th>
+              <div
+                className="column-title-main"
+              >
+                SPECIAL AGENT
+              </div>
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th
+              scope="row"
+            >
+              Position
+            </th>
+            <td>
+              <div
+                className="usa-grid-full"
+              >
+                <div
+                  className="column-title-main"
+                >
+                  OMS (DCM)
+                </div>
+                <div
+                  className="close-button-container"
+                >
+                  <CompareCheck
+                    as="div"
+                    className=""
+                    customElement={
+                      <FontAwesome
+                        name="close"
+                      />
+                    }
+                    interactiveElementProps={
+                      Object {
+                        "title": "Remove this comparison",
+                      }
+                    }
+                    limit={5}
+                    onToggle={[Function]}
+                    refKey="10034001"
+                    type="compare"
+                  />
+                </div>
+              </div>
+              <span
+                aria-labelledby="1 0 0 3 4 0 0 1"
+              >
+                10034001
+              </span>
+            </td>
+            <td>
+              <div
+                className="usa-grid-full"
+              >
+                <div
+                  className="column-title-main"
+                >
+                  SPECIAL AGENT
+                </div>
+                <div
+                  className="close-button-container"
+                >
+                  <CompareCheck
+                    as="div"
+                    className=""
+                    customElement={
+                      <FontAwesome
+                        name="close"
+                      />
+                    }
+                    interactiveElementProps={
+                      Object {
+                        "title": "Remove this comparison",
+                      }
+                    }
+                    limit={5}
+                    onToggle={[Function]}
+                    refKey="56082000"
+                    type="compare"
+                  />
+                </div>
+              </div>
+              <span
+                aria-labelledby="5 6 0 8 2 0 0 0"
+              >
+                56082000
+              </span>
+            </td>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Link to details
+            </th>
+            <td>
               <div
                 className="column-title-link"
               >
@@ -47,16 +180,8 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   View position
                 </Link>
               </div>
-              <div
-                className="border-extension"
-              />
-            </th>
-            <th>
-              <div
-                className="column-title-main"
-              >
-                SPECIAL AGENT
-              </div>
+            </td>
+            <td>
               <div
                 className="column-title-link"
               >
@@ -67,42 +192,74 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   View position
                 </Link>
               </div>
-              <div
-                className="border-extension"
-              />
-            </th>
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <th
               scope="row"
             >
-              Position number
-              <div
-                className="border-extension-layer-2 border-visible-layer-2"
-              />
+              Bid Count
             </th>
             <td>
               <span
-                aria-labelledby="1 0 0 3 4 0 0 1"
+                className="bid-stats"
               >
-                10034001
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={
+                    Object {
+                      "at_skill": 0,
+                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+                      "id": 6,
+                      "in_grade": 0,
+                      "in_grade_at_skill": 0,
+                      "total_bids": 2,
+                    }
+                  }
+                  hideLabel={true}
+                  label="Bid Count"
+                />
               </span>
-              <div
-                className="border-extension-layer-2"
-              />
             </td>
             <td>
               <span
-                aria-labelledby="5 6 0 8 2 0 0 0"
+                className="bid-stats"
               >
-                56082000
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={
+                    Object {
+                      "at_skill": 0,
+                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+                      "id": 60,
+                      "in_grade": 0,
+                      "in_grade_at_skill": 0,
+                      "total_bids": 0,
+                    }
+                  }
+                  hideLabel={true}
+                  label="Bid Count"
+                />
               </span>
-              <div
-                className="border-extension-layer-2"
-              />
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -116,6 +273,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td>
               SECURITY (2501)
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -129,6 +295,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td>
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -142,6 +317,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td>
               Chicago, IL
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -155,6 +339,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td>
               2 YRS (2 R & R)
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -191,6 +384,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
                 propToUse="representation"
               />
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -204,6 +406,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td>
               20%
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -217,6 +428,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td>
               15%
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -230,12 +450,92 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td>
               03/13/2020
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Favorite
+            </th>
+            <td>
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={6}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td>
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={60}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Add to Bid List
+            </th>
+            <td>
+              <Connect(PermissionsWrapper)
+                permissions="bidder"
+              >
+                <Connect(BidListButtonContainer)
+                  compareArray={Array []}
+                  disabled={false}
+                  id={6}
+                />
+              </Connect(PermissionsWrapper)>
+            </td>
+            <td>
+              <Connect(PermissionsWrapper)
+                permissions="bidder"
+              >
+                <Connect(BidListButtonContainer)
+                  compareArray={Array []}
+                  disabled={false}
+                  id={60}
+                />
+              </Connect(PermissionsWrapper)>
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
         </tbody>
       </table>
-      <div
-        className="border-bottom-extension"
-      />
     </div>
   </div>
 </div>
@@ -243,7 +543,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
 
 exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 <div
-  className="usa-grid-full content-container"
+  className="usa-grid-full content-container comparison-outer-container"
 >
   <div>
     <Connect(withRouter(BackButton)) />
@@ -251,6 +551,9 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
   <div
     className="comparison-container"
   >
+    <h1>
+      Compare Positions
+    </h1>
     <Spinner
       size="big"
       type="homepage-position-results"
@@ -261,7 +564,7 @@ exports[`CompareListComponent matches snapshot when isLoading is true 1`] = `
 
 exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
 <div
-  className="usa-grid-full content-container"
+  className="usa-grid-full content-container comparison-outer-container"
 >
   <div>
     <Connect(withRouter(BackButton)) />
@@ -269,6 +572,9 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
   <div
     className="comparison-container"
   >
+    <h1>
+      Compare Positions
+    </h1>
     <div
       className="comparison-table-container"
     >
@@ -280,15 +586,14 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
         >
           Position details comparison:
         </caption>
-        <thead>
+        <thead
+          className="usa-sr-only"
+        >
           <tr>
             <th
               scope="row"
             >
               Position
-              <div
-                className="border-extension border-visible"
-              />
             </th>
             <th>
               <div
@@ -296,6 +601,137 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               >
                 OMS (DCM)
               </div>
+            </th>
+            <th>
+              <div
+                className="column-title-main"
+              >
+                SPECIAL AGENT
+              </div>
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th
+              scope="row"
+            >
+              Position
+            </th>
+            <td>
+              <div
+                className="usa-grid-full"
+              >
+                <div
+                  className="column-title-main"
+                >
+                  OMS (DCM)
+                </div>
+                <div
+                  className="close-button-container"
+                >
+                  <CompareCheck
+                    as="div"
+                    className=""
+                    customElement={
+                      <FontAwesome
+                        name="close"
+                      />
+                    }
+                    interactiveElementProps={
+                      Object {
+                        "title": "Remove this comparison",
+                      }
+                    }
+                    limit={5}
+                    onToggle={[Function]}
+                    refKey="10034001"
+                    type="compare"
+                  />
+                </div>
+              </div>
+              <span
+                aria-labelledby="1 0 0 3 4 0 0 1"
+              >
+                10034001
+              </span>
+            </td>
+            <td>
+              <div
+                className="usa-grid-full"
+              >
+                <div
+                  className="column-title-main"
+                >
+                  SPECIAL AGENT
+                </div>
+                <div
+                  className="close-button-container"
+                >
+                  <CompareCheck
+                    as="div"
+                    className=""
+                    customElement={
+                      <FontAwesome
+                        name="close"
+                      />
+                    }
+                    interactiveElementProps={
+                      Object {
+                        "title": "Remove this comparison",
+                      }
+                    }
+                    limit={5}
+                    onToggle={[Function]}
+                    refKey="56082000"
+                    type="compare"
+                  />
+                </div>
+              </div>
+              <span
+                aria-labelledby="5 6 0 8 2 0 0 0"
+              >
+                56082000
+              </span>
+            </td>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+            <th
+              className="empty"
+            >
+              Return to search results and add more positions to compare.
+            </th>
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Link to details
+            </th>
+            <td>
               <div
                 className="column-title-link"
               >
@@ -306,16 +742,8 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                   View position
                 </Link>
               </div>
-              <div
-                className="border-extension"
-              />
-            </th>
-            <th>
-              <div
-                className="column-title-main"
-              >
-                SPECIAL AGENT
-              </div>
+            </td>
+            <td>
               <div
                 className="column-title-link"
               >
@@ -326,42 +754,74 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                   View position
                 </Link>
               </div>
-              <div
-                className="border-extension"
-              />
-            </th>
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
-        </thead>
-        <tbody>
           <tr>
             <th
               scope="row"
             >
-              Position number
-              <div
-                className="border-extension-layer-2 border-visible-layer-2"
-              />
+              Bid Count
             </th>
             <td>
               <span
-                aria-labelledby="1 0 0 3 4 0 0 1"
+                className="bid-stats"
               >
-                10034001
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={
+                    Object {
+                      "at_skill": 0,
+                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+                      "id": 6,
+                      "in_grade": 0,
+                      "in_grade_at_skill": 0,
+                      "total_bids": 2,
+                    }
+                  }
+                  hideLabel={true}
+                  label="Bid Count"
+                />
               </span>
-              <div
-                className="border-extension-layer-2"
-              />
             </td>
             <td>
               <span
-                aria-labelledby="5 6 0 8 2 0 0 0"
+                className="bid-stats"
               >
-                56082000
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={
+                    Object {
+                      "at_skill": 0,
+                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+                      "id": 60,
+                      "in_grade": 0,
+                      "in_grade_at_skill": 0,
+                      "total_bids": 0,
+                    }
+                  }
+                  hideLabel={true}
+                  label="Bid Count"
+                />
               </span>
-              <div
-                className="border-extension-layer-2"
-              />
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -375,6 +835,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td>
               SECURITY (2501)
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -388,6 +857,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td>
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -401,6 +879,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td>
               Chicago, IL
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -414,6 +901,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td>
               2 YRS (2 R & R)
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -450,6 +946,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                 propToUse="representation"
               />
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -473,6 +978,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td>
               20%
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -496,6 +1010,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td>
               15%
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
           <tr>
             <th
@@ -509,12 +1032,92 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td>
               03/13/2020
             </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Favorite
+            </th>
+            <td>
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={6}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td>
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={60}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Add to Bid List
+            </th>
+            <td>
+              <Connect(PermissionsWrapper)
+                permissions="bidder"
+              >
+                <Connect(BidListButtonContainer)
+                  compareArray={Array []}
+                  disabled={false}
+                  id={6}
+                />
+              </Connect(PermissionsWrapper)>
+            </td>
+            <td>
+              <Connect(PermissionsWrapper)
+                permissions="bidder"
+              >
+                <Connect(BidListButtonContainer)
+                  compareArray={Array []}
+                  disabled={false}
+                  id={60}
+                />
+              </Connect(PermissionsWrapper)>
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
           </tr>
         </tbody>
       </table>
-      <div
-        className="border-bottom-extension"
-      />
     </div>
   </div>
 </div>

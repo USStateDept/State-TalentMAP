@@ -14,6 +14,21 @@ $input-height: 40px;
 
   padding: 0 0 15px;
 
+  .homepage-search-legend {
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 5px;
+    text-transform: capitalize;
+  }
+
+  .search-sub-text {
+    font-size: .7em;
+    font-style: italic;
+    margin: 5px 0 0 10px;
+    position: absolute;
+    white-space: nowrap;
+  }
+
   label {
     font-size: .8em;
   }
@@ -53,7 +68,7 @@ $input-height: 40px;
   }
 
   .search-submit-button {
-    margin-top: 35px;
+    margin-top: 37px;
 
     button {
       font-size: .9em;
@@ -177,5 +192,15 @@ $input-height: 40px;
 
   .usa-button {
     margin-top: 3px;
+  }
+}
+
+.results {
+  .homepage-offset.results-single-search {
+    padding-top: 2px;
+
+    .search-submit-button {
+      margin-top: 33px;
+    }
   }
 }
