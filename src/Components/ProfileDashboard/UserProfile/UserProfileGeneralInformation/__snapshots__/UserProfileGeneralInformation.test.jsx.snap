@@ -10,9 +10,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
     <div
       className="avatar-group"
     >
-      <Status
-        hideText={false}
-      />
       <Avatar
         className="dashboard-user-profile-picture"
         display_name="John"
@@ -74,9 +71,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
     <div
       className="avatar-group"
     >
-      <Status
-        hideText={false}
-      />
       <Avatar
         className="dashboard-user-profile-picture"
         display_name="John"
@@ -138,9 +132,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
     <div
       className="avatar-group"
     >
-      <Status
-        hideText={false}
-      />
       <Avatar
         className="dashboard-user-profile-picture"
         display_name="John"
