@@ -12,7 +12,7 @@ exports[`FavoritesListComponent matches snapshot 1`] = `
     >
       <PositionInformation
         className=""
-        icon="star-o"
+        icon="star"
         len={2}
         small={false}
         title="Favorites"
@@ -233,7 +233,7 @@ exports[`FavoritesListComponent matches snapshot when there are no bids 1`] = `
     >
       <PositionInformation
         className=""
-        icon="star-o"
+        icon="star"
         len={0}
         small={false}
         title="Favorites"

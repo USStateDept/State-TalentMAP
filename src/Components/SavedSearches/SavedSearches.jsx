@@ -45,7 +45,7 @@ const SavedSearches = (props) => {
     >
       <div className="usa-grid-full searches-top-section">
         <div className="searches-title-container">
-          <ProfileSectionTitle title="Saved Searches" icon="bookmark" />
+          <ProfileSectionTitle title="Saved Searches" icon="clock-o" />
         </div>
         <div className="results-dropdown results-dropdown-sort">
           <SelectForm

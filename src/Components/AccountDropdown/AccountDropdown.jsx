@@ -38,7 +38,13 @@ export class AccountDropdown extends Component {
 
     return (
       isLoading &&
-      <Dropdown className="account-dropdown" ref={(dropdown) => { this.dropdown = dropdown; }} removeElement>
+      <Dropdown
+        className="account-dropdown"
+        ref={(dropdown) => { this.dropdown = dropdown; }}
+        removeElement
+        onMouseEnter={() => this.dropdown.show()}
+        onMouseLeave={() => this.dropdown.hide()}
+      >
         <DropdownTrigger href="/#">
           <Avatar className="account-dropdown--avatar" {...avatar} />
           {
@@ -46,14 +52,16 @@ export class AccountDropdown extends Component {
               <span className="account-dropdown--name" id="account-username">{displayName}</span>
           }
         </DropdownTrigger>
-        <DropdownContent>
-          <div className="account-dropdown--identity account-dropdown--segment">
-            <div>Signed in as</div>
-            <strong>{displayName}</strong>
-          </div>
-          <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/profile/dashboard" onClick={this.hideDropdown}>Dashboard</Link>
-          <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/logout" onClick={this.logout}>Logout</Link>
-        </DropdownContent>
+        <div className="dropdown-content-outer-container">
+          <DropdownContent onMouseEnter={() => this.dropdown.show()}>
+            <div className="account-dropdown--identity account-dropdown--segment">
+              <div>Signed in as</div>
+              <strong>{displayName}</strong>
+            </div>
+            <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/profile/dashboard" onClick={this.hideDropdown}>Dashboard</Link>
+            <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/logout" onClick={this.logout}>Logout</Link>
+          </DropdownContent>
+        </div>
       </Dropdown>
     );
   }
