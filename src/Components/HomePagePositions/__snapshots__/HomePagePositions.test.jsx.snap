@@ -165,7 +165,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
           },
         ]
       }
-      title="Service Needs Positions"
+      title="Featured Positions"
       type="serviceNeed"
       useSpinner={false}
       viewMoreLink="/results?is_highlighted=true"
@@ -664,7 +664,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       isLoading={false}
       maxLength="3"
       positions={Array []}
-      title="Service Needs Positions"
+      title="Featured Positions"
       type="serviceNeed"
       useSpinner={false}
       viewMoreLink="/results?is_highlighted=true"

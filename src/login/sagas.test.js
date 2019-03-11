@@ -9,11 +9,9 @@ const mocks = {
   },
 };
 
-describe('login functions - basic auth', () => {
+xdescribe('login functions - basic auth', () => {
   beforeEach(() => {
     jest.resetModules();
-    delete process.env.LOGIN_MODE;
-    process.env.LOGIN_MODE = 'basic';
   });
 
   it('can log in and set the client (LocalStorage Auth)', () => {
@@ -81,8 +79,6 @@ describe('login functions - basic auth', () => {
 describe('login for SAML', () => {
   beforeEach(() => {
     jest.resetModules();
-    delete process.env.LOGIN_MODE;
-    process.env.LOGIN_MODE = 'saml';
   });
 
   it('can set the client upon providing a valid token (SAML Auth)', () =>

@@ -22,7 +22,7 @@ const FavoriteList = ({ favorites }) => {
     <div className="usa-grid-full profile-section-container">
       <div className="usa-grid-full section-padded-inner-container">
         <div className="usa-width-one-whole">
-          <SectionTitle title="Favorites" icon="star-o" len={favorites.length} />
+          <SectionTitle title="Favorites" icon="star" len={favorites.length} />
         </div>
       </div>
       <div className="favorites-list-container">

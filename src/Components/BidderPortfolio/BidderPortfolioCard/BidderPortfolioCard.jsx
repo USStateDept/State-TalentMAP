@@ -18,7 +18,7 @@ const BidderPortfolioCard = ({ userProfile }) => (
       draft={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].draft : 0}
       submitted={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].submitted : 0}
     />
-    <BidderPortfolioViewMore useLink />
+    <BidderPortfolioViewMore useLink id={userProfile.id} />
   </div>
 );
 

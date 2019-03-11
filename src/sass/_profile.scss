@@ -5,7 +5,8 @@
   position: relative;
   width: 100%;
 
-  .bid-list-container, .notifications-container {
+  .bid-list-container,
+  .notifications-container {
     .data-point-title {
       color: $color-gray;
       font-size: 1.2rem;
@@ -163,6 +164,21 @@
 
   .user-dashboard-section-container {
     float: left;
+  }
+
+  .assignments-section {
+    .favorites-list-container {
+      max-height: 410px;
+      overflow-y: scroll;
+    }
+
+    .start-end {
+      display: inline;
+
+      .fa {
+        color: $color-green;
+      }
+    }
   }
 
   .user-dashboard-section {

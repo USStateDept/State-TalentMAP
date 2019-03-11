@@ -14,17 +14,19 @@ const GlossaryEditorCardBottom = (props) => {
     hasErrored,
     showEmptyWarning,
     submitGlossaryTerm,
+    showInvalidLinkWarning,
   } = props;
 
   const doErrorIdsMatch = (hasErrored.id === id);
   const showResponseError = hasErrored.hasErrored;
   const showWarningOrError = (
-    showEmptyWarning ||
+    showEmptyWarning || showInvalidLinkWarning ||
     (showResponseError && (doErrorIdsMatch || isNewTerm))
   );
 
   const errorProps = {
     showEmptyWarning,
+    showInvalidLinkWarning,
     error: hasErrored,
   };
 
@@ -57,6 +59,7 @@ GlossaryEditorCardBottom.propTypes = {
   isArchived: PropTypes.bool,
   id: PropTypes.number,
   submitGlossaryTerm: PropTypes.func.isRequired,
+  showInvalidLinkWarning: PropTypes.bool,
 };
 
 GlossaryEditorCardBottom.defaultProps = {
@@ -67,6 +70,7 @@ GlossaryEditorCardBottom.defaultProps = {
   dateUpdated: undefined,
   isArchived: false,
   updatedBy: undefined,
+  showInvalidLinkWarning: false,
 };
 
 export default GlossaryEditorCardBottom;

@@ -7,6 +7,7 @@ import {
   IN_PANEL_PROP,
   DECLINED_PROP,
 } from './BidData';
+import SetType from './SetType';
 
 export const STRING_OR_BOOL = PropTypes.oneOfType([PropTypes.string, PropTypes.bool]);
 
@@ -544,3 +545,5 @@ export const HIGHLIGHT_POSITION = PropTypes.shape({
   success: PropTypes.bool,
   error: PropTypes.bool,
 });
+
+export { SetType };

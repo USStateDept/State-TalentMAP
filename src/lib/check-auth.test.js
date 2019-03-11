@@ -3,7 +3,7 @@ import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import checkIndexAuthorization from './check-auth';
+import checkIndexAuthentication from './check-auth';
 import rootReducer from '../reducers';
 
 describe('check-auth', () => {
@@ -28,14 +28,14 @@ describe('check-auth', () => {
 
   it('can return false when a token is not set in local storage', () => {
     localStorage.clear();
-    expect(checkIndexAuthorization(store)).toBe(false);
+    expect(checkIndexAuthentication(store)).toBe(false);
     localStorage.clear();
   });
 
   it('can return false when a token is not set in local storage', () => {
     localStorage.clear();
     localStorage.setItem('token', '1234');
-    expect(checkIndexAuthorization(store)).toBe(true);
+    expect(checkIndexAuthentication(store)).toBe(true);
     localStorage.clear();
   });
 });

@@ -25,9 +25,11 @@
     "rc-steps": "^3.1.0",
     "react": "^15.6.2",
     "react-autosuggest": "^9.3.2",
+    "react-csv": "^1.1.1",
     "react-dom": "^15.6.2",
     "react-fontawesome": "^1.6.1",
     "react-helmet": "^5.2.0",
+    "react-linkify": "^0.2.2",
     "react-loadable": "^5.3.1",
     "react-paginate": "^4.4.4",
     "react-redux": "^5.0.5",
@@ -64,6 +66,7 @@
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-react-app": "^3.1.0",
     "babel-runtime": "6.26.0",
+    "bundlesize": "^0.17.1",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
     "chalk": "2.3.0",
     "css-loader": "0.28.8",
@@ -120,7 +123,8 @@
     "analyze": "codeclimate analyze -f html > codeclimate.html",
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
     "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html",
-    "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json"
+    "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json",
+    "bundlesize": "bundlesize"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -160,5 +164,11 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "bundlesize": [
+    {
+      "path": "./build/static/js/*.js",
+      "maxSize": "500 kB"
+    }
+  ]
 }

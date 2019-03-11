@@ -7,12 +7,12 @@ import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import Glossary from '../../Containers/Glossary';
 import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
-import checkIndexAuthorization from '../../lib/check-auth';
+import checkIndexAuthentication from '../../lib/check-auth';
 import { store, history } from '../../store';
 import PageMeta from '../../Containers/PageMeta';
 import Toast from '../Toast';
 
-const isAuthorized = () => checkIndexAuthorization(store);
+const isAuthorized = () => checkIndexAuthentication(store);
 
 const Main = props => (
   <Provider store={store} history={history}>

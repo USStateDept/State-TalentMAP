@@ -26,6 +26,10 @@ describe('PropTypes', () => {
     expect(PropTypes.USER_PROFILE).toBeDefined();
   });
 
+  it('Should return SetType', () => {
+    expect(PropTypes.SetType).toBeDefined();
+  });
+
   it('can call PREVENT_DEFAULT', () => {
     const mock = { fn: PropTypes.PREVENT_DEFAULT };
     const spy = sinon.spy(mock, 'fn');

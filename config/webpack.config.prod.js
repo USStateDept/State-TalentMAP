@@ -266,6 +266,11 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.loginHtml,
+      filename: 'login.html'
+    }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV was set to production here.

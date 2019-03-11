@@ -247,6 +247,11 @@ module.exports = {
       inject: true,
       template: paths.appHtml,
     }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.loginHtml,
+      filename: 'login.html'
+    }),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
     new webpack.DefinePlugin(env.stringified),

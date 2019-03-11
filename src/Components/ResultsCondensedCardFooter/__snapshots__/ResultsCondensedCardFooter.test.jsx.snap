@@ -2,26 +2,30 @@
 
 exports[`ResultsCondensedCardFooterComponent matches snapshot 1`] = `
 <div
-  className="condensed-card-footer"
+  className="condensed-card-footer-wrapper"
 >
   <div
-    className="usa-grid-full condensed-card-footer-container"
+    className="condensed-card-footer"
   >
     <div
-      className="condensed-card-footer-left"
+      className="usa-grid-full condensed-card-footer-container"
     >
-      <strong>
-        Position number: 
-      </strong>
-      10034001
-    </div>
-    <div
-      className="condensed-card-footer-right"
-    >
-      <strong>
-        Posted: 
-      </strong>
-      10/21/2012
+      <div
+        className="condensed-card-footer-left"
+      >
+        <strong>
+          Position number: 
+        </strong>
+        10034001
+      </div>
+      <div
+        className="condensed-card-footer-right"
+      >
+        <strong>
+          Posted: 
+        </strong>
+        10/21/2012
+      </div>
     </div>
   </div>
 </div>

@@ -28,6 +28,19 @@ export function localStorageFetchValue(key, value) {
   return saved;
 }
 
+const dispatchLs = (key) => {
+  // create, initialize, and dispatch event
+  const event = document.createEvent('Event');
+  event.initEvent(`${key}-ls`, true, true);
+  document.dispatchEvent(event);
+};
+
+export function localStorageSetKey(key, value) {
+  localStorage.setItem(key, value);
+  dispatchLs(key);
+}
+
+// toggling a specific value in an array
 export function localStorageToggleValue(key, value) {
   const existingArray = JSON.parse(localStorage.getItem(key)) || [];
   const indexOfId = existingArray.indexOf(value);
@@ -35,10 +48,12 @@ export function localStorageToggleValue(key, value) {
     existingArray.splice(indexOfId, 1);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
+    dispatchLs(key);
   } else {
     existingArray.push(value);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
+    dispatchLs(key);
   }
 }
 
@@ -139,7 +154,7 @@ export const formExploreRegionDropdown = (filters) => {
 
 // see all props at https://github.com/fisshy/react-scroll#propsoptions
 const defaultScrollConfig = {
-  duration: 700,
+  duration: 900,
   delay: 270,
   smooth: 'easeOutQuad',
 };
@@ -508,3 +523,18 @@ export const difference = (base, object) => transform(object, (result, value, ke
   }
   /* eslint-enable no-param-reassign */
 });
+
+/* returns true/false whether url is a valid url that contains http/https/ftp */
+export const isUrl = (url) => {
+  // eslint-disable-next-line no-useless-escape
+  const expression = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
+  const regex = new RegExp(expression);
+  return url.match(regex);
+};
+
+export const getScrollDistanceFromBottom = () => {
+  const scrollPosition = window.pageYOffset;
+  const windowSize = window.innerHeight;
+  const bodyHeight = document.body.offsetHeight;
+  return (Math.max(bodyHeight - (scrollPosition + windowSize), 0));
+};

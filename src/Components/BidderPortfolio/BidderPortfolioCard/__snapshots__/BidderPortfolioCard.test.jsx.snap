@@ -123,6 +123,7 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
   />
   <BidderPortfolioViewMore
     className="unstyled-button"
+    id={1}
     isExpanded={false}
     onClick={[Function]}
     useLink={true}

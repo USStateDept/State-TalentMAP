@@ -17,7 +17,15 @@ $results-container-width: 100% - $filter-container-width;
 
   .results-dropdown-sort {
     float: left;
+  }
+
+  .results-download {
+    float: left;
     margin-left: 10px;
+
+    button {
+      margin: 0;
+    }
   }
 
   .no-results {
@@ -41,7 +49,7 @@ $results-container-width: 100% - $filter-container-width;
   dl {
     dt,
     dd {
-      vertical-align: bottom;
+      vertical-align: top;
     }
   }
 
@@ -53,23 +61,47 @@ $results-container-width: 100% - $filter-container-width;
     margin-bottom: 1rem;
     margin-top: .2rem;
 
+    .results-card-title-link {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .bid-count-secondary {
+      display: inline-block;
+      float: right;
+    }
+
+    a {
+      font-size: 1.5rem;
+      margin-top: 2px;
+    }
+
     h3,
     dt,
     dd {
       font-family: 'Roboto';
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       margin-bottom: 0;
+      margin-left: 0;
       margin-top: 0;
+    }
+
+    dd {
+      padding: 0 0 0 .5rem;
     }
 
     h3,
     dt {
       font-weight: 500;
     }
+
+    h3 {
+      font-size: 1.7rem;
+      margin-right: .5em;
+    }
   }
 
   .footer {
-    margin-bottom: rem(14px);
     margin-top: rem(14px);
     padding-top: rem(4px);
 
@@ -438,6 +470,7 @@ $results-container-width: 100% - $filter-container-width;
 }
 
 .results-section-container {
+  margin-top: 21px;
   max-width: 1140px;
 }
 

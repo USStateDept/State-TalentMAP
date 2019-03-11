@@ -15,6 +15,7 @@ export const ENDPOINT_PARAMS = {
   post: 'post__in',
   available: 'is_available_in_current_bidcycle',
   bidCycle: 'is_available_in_bidcycle',
+  highlighted: 'is_highlighted',
 };
 
 // any properties that we want to abstract to a common name

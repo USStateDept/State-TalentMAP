@@ -103,6 +103,23 @@
     font-weight: bold;
   }
 
+  .position-error {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+
+    h2 {
+      flex: 1;
+      margin: auto;
+      margin-bottom: 1em;
+    }
+
+    p {
+      flex: 1;
+      margin: auto;
+    }
+  }
+
   .data-point-section {
     .condensed-card-data-title {
       font-weight: bold;

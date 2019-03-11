@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignmentsContentComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full bid-content-container"
+>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      PROJECT DIRECTOR
+       
+    </span>
+    <Link
+      replace={false}
+      to="/details/undefined"
+    >
+      View Position
+    </Link>
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Position number: 
+    </span>
+    58348065
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Skill: 
+    </span>
+    CONSTRUCTION ENGINEERING (6218)
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Language: 
+    </span>
+    <LanguageList
+      languages={Array []}
+      propToUse="representation"
+    />
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Post: 
+    </span>
+    Washington, DC
+  </div>
+  <div>
+    <span
+      className="bid-list-card-title-post"
+    >
+      Start date and End date: 
+    </span>
+    <StartEnd
+      end="10/10/2018"
+      start="10/10/2016"
+    />
+  </div>
+</div>
+`;

@@ -13,7 +13,9 @@ const GlossaryComponent = ({ glossaryItems }) => (
           id={formatIdSpacing(item.title)}
           useIdClass={false}
         >
-          {item.definition}
+          <div className="usa-grid-full">
+            {item.definition} {item.link && <a href={item.link} rel="noopener noreferrer" target="_blank">Read more here</a>}
+          </div>
         </AccordionItem>),
      )
     }

@@ -58,7 +58,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         title="Saved Searches"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
@@ -72,6 +72,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
         title="Bidder Portfolio"
@@ -153,7 +154,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         title="Saved Searches"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
@@ -167,6 +168,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
         title="Bidder Portfolio"
@@ -248,7 +250,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Saved Searches"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
@@ -262,6 +264,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
         title="Bidder Portfolio"
@@ -343,7 +346,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Saved Searches"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="clipboard"
         link="/profile/bidtracker/"
         search=""
@@ -357,6 +360,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
         title="Bidder Portfolio"

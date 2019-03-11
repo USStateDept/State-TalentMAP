@@ -82,7 +82,7 @@ class Favorite extends Component {
     const { hideText, useLongText } = this.props;
     const checked = this.getSavedState();
     const state = checked ? States.CHECKED : States.UNCHECKED;
-    const type = (useLongText && !enforceShort) ? Types.LONG : Types.SHORT;
+    const type = (useLongText || !enforceShort) ? Types.LONG : Types.SHORT;
 
     return hideText ? null : getText$(state, type);
   }

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
@@ -10,10 +9,11 @@ import Favorite from '../../Containers/Favorite';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
+import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
-const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }) => {
+const PositionTitle = ({ details, bidList, userProfile }) => {
   const obcId = propOrDefault(details, 'post.obc_id');
   const availablilityText = get(details, 'availability.reason') ?
     `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
@@ -72,12 +72,13 @@ const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }
               </Tooltip>
             </div>
         }
-        <BidListButton
-          compareArray={bidList.results}
-          id={details.id}
-          isLoading={bidListToggleIsLoading}
-          disabled={!get(details, 'availability.availability', true)}
-        />
+        <PermissionsWrapper permissions="bidder">
+          <BidListButton
+            compareArray={bidList.results}
+            id={details.id}
+            disabled={!get(details, 'availability.availability', true)}
+          />
+        </PermissionsWrapper>
       </div>
     </div>
   );
@@ -86,13 +87,11 @@ const PositionTitle = ({ details, bidList, userProfile, bidListToggleIsLoading }
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
   bidList: BID_LIST.isRequired,
-  bidListToggleIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
 };
 
 PositionTitle.defaultProps = {
   details: null,
-  bidListToggleIsLoading: false,
   userProfile: {},
 };
 

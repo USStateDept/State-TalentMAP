@@ -4,6 +4,12 @@ import { BID_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidTrackerCard from '../BidTrackerCard';
 import IsPriority from '../PriorityCards/IsPriority';
 import IsOnStandby from '../PriorityCards/IsOnStandby';
+import { DRAFT_PROP } from '../../../Constants/BidData';
+
+// assign values to constants for equality checks later
+const DEFAULT = 'default';
+const PRIORITY = 'priority';
+const STANDBY = 'standby';
 
 // Here we'll figure out which wrapper to use around the BidTrackerCard, if any.
 // We check two things - one, is there even a priority bid in the list (priorityExists).
@@ -12,7 +18,7 @@ import IsOnStandby from '../PriorityCards/IsOnStandby';
 // object to the IsOnStandby component.
 const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, userProfile,
 submitBid, deleteBid }) => {
-  const card = (
+  const getCard = ({ ...props }) => (
     <BidTrackerCard
       bid={bid}
       acceptBid={acceptBid}
@@ -20,13 +26,10 @@ submitBid, deleteBid }) => {
       userProfile={userProfile}
       submitBid={submitBid}
       deleteBid={deleteBid}
+      showBidCount={bid.status !== DRAFT_PROP}
+      {...props}
     />
   );
-
-  // assign values to constants for equality checks later
-  const DEFAULT = 'default';
-  const PRIORITY = 'priority';
-  const STANDBY = 'standby';
 
   // Set a displayType and change it based on priority.
   // This way we can ensure that we only have one output in our return
@@ -37,13 +40,13 @@ submitBid, deleteBid }) => {
   let cardComponent;
   switch (displayType) {
     case PRIORITY:
-      cardComponent = (<IsPriority>{card}</IsPriority>);
+      cardComponent = (<IsPriority>{getCard({ showBidCount: false })}</IsPriority>);
       break;
     case STANDBY:
       cardComponent = (<IsOnStandby bid={bid} deleteBid={deleteBid} />);
       break;
     default:
-      cardComponent = card;
+      cardComponent = getCard();
   }
 
   return (

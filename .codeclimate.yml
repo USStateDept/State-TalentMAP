@@ -26,7 +26,9 @@ plugins:
     enabled: true
 exclude_patterns:
 - node_modules/
-- config/ # build configuration
+- build/ # build artifacts
+- config/ # build configuration	- config/ # build configuration
+- coverage/ # test coverage
 - scripts/ # build & utility scripts
 - src/__mocks__/ # test objects
 - src/Constants/PropTypes.js # shape definitions
