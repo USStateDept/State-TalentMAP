@@ -66,7 +66,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
         className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
       >
         <HomePagePositionsSection
-          title="Service Needs Positions"
+          title="Featured Positions"
           maxLength="3"
           viewMoreLink={serviceNeedsLink}
           icon="bolt"

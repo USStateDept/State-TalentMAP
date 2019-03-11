@@ -189,21 +189,21 @@ const items =
       },
 
       /* Currently we don't display this as a filter, but will appear
-      as a pill if the query param exists (e.g., the user clicked on Service Needs
+      as a pill if the query param exists (e.g., the user clicked on Featured positions
       positions from the home page). */
       {
         item: {
-          title: 'Service Needs',
+          title: 'Featured',
           sort: 1000,
           bool: true,
           description: 'service_needs',
           selectionRef: ENDPOINT_PARAMS.highlighted,
-          text: 'Include only Service Needs positions',
+          text: 'Include only featured positions',
           choices: [
           ],
         },
         data: [
-          { code: 'true', short_description: 'Service Needs' },
+          { code: 'true', short_description: 'Featured' },
         ],
       },
 
