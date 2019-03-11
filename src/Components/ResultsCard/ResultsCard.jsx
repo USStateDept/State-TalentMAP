@@ -62,26 +62,24 @@ const ResultsCard = (props) => {
 
   const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-  const post = getPostName(result.post, NO_POST);
+  const post = `${getPostName(result.post, NO_POST)}${result.organization ? `: ${result.organization}` : ''}`;
 
   const stats = getBidStatisticsObject(result.bid_statistics);
 
   const sections = [
     /* eslint-disable quote-props */
     {
-      'Bid Count': <BidCount bidStatistics={stats} hideLabel />,
+      'TED': getResult(result, 'current_assignment.estimated_end_date', NO_DATE),
       'Bid cycle': getResult(result, 'latest_bidcycle.name', NO_BID_CYCLE),
       'Skill': getResult(result, 'skill', NO_SKILL),
       'Grade': getResult(result, 'grade', NO_GRADE),
       'Bureau': getResult(result, 'bureau', NO_BUREAU),
-      'Post': post,
     },
     {
       'Tour of duty': getResult(result, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
       'Language': language,
       'Post differential': getResult(result, 'post.differential_rate', NO_POST_DIFFERENTIAL, true),
       'Danger pay': getResult(result, 'post.danger_pay', NO_DANGER_PAY, true),
-      'TED': getResult(result, 'current_assignment.estimated_end_date', NO_DATE),
       'Incumbent': getResult(result, 'current_assignment.user', NO_USER_LISTED),
     },
     {
@@ -110,9 +108,17 @@ const ResultsCard = (props) => {
       {() => (
         <div id={id} className="results-card">
           <Row className="header" fluid>
-            <Column columns="12">
-              <h3>{title}</h3>
-              <Link to={`/details/${result.id}`}>View position</Link>
+            <Column columns="8">
+              <Column columns="12" className="results-card-title-link">
+                <h3>{title}</h3>
+                <Link to={`/details/${result.id}`}>View position</Link>
+              </Column>
+              <Column columns="12" className="results-card-title-link">
+                <dt>Post:</dt><dd>{post}</dd>
+              </Column>
+            </Column>
+            <Column columns="4">
+              <BidCount bidStatistics={stats} altStyle />
             </Column>
           </Row>
           <Row id={`${id}-inner`} fluid>

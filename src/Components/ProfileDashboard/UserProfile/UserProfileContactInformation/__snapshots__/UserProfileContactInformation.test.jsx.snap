@@ -9,7 +9,7 @@ exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
   >
     <PositionInformation
       className=""
-      icon=""
+      icon="list-alt"
       small={true}
       title="Contact Information"
     />

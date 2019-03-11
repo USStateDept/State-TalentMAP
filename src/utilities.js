@@ -28,6 +28,19 @@ export function localStorageFetchValue(key, value) {
   return saved;
 }
 
+const dispatchLs = (key) => {
+  // create, initialize, and dispatch event
+  const event = document.createEvent('Event');
+  event.initEvent(`${key}-ls`, true, true);
+  document.dispatchEvent(event);
+};
+
+export function localStorageSetKey(key, value) {
+  localStorage.setItem(key, value);
+  dispatchLs(key);
+}
+
+// toggling a specific value in an array
 export function localStorageToggleValue(key, value) {
   const existingArray = JSON.parse(localStorage.getItem(key)) || [];
   const indexOfId = existingArray.indexOf(value);
@@ -35,10 +48,12 @@ export function localStorageToggleValue(key, value) {
     existingArray.splice(indexOfId, 1);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
+    dispatchLs(key);
   } else {
     existingArray.push(value);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
+    dispatchLs(key);
   }
 }
 
@@ -515,4 +530,11 @@ export const isUrl = (url) => {
   const expression = /(http|ftp|https):\/\/[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:\/~+#-]*[\w@?^=%&amp;\/~+#-])?/;
   const regex = new RegExp(expression);
   return url.match(regex);
+};
+
+export const getScrollDistanceFromBottom = () => {
+  const scrollPosition = window.pageYOffset;
+  const windowSize = window.innerHeight;
+  const bodyHeight = document.body.offsetHeight;
+  return (Math.max(bodyHeight - (scrollPosition + windowSize), 0));
 };

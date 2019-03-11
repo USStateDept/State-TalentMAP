@@ -166,6 +166,21 @@
     float: left;
   }
 
+  .assignments-section {
+    .favorites-list-container {
+      max-height: 410px;
+      overflow-y: scroll;
+    }
+
+    .start-end {
+      display: inline;
+
+      .fa {
+        color: $color-green;
+      }
+    }
+  }
+
   .user-dashboard-section {
     background-color: $color-white;
     border: solid 1px $color-gray-light;

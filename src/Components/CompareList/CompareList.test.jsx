@@ -7,6 +7,7 @@ import resultsObject from '../../__mocks__/resultsObject';
 describe('CompareListComponent', () => {
   const props = {
     goBackLink: { text: 'Go back to search results' },
+    onToggle: () => {},
   };
   it('is defined', () => {
     const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);

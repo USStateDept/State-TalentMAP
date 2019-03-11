@@ -186,7 +186,6 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         }
         userProfile={Object {}}
       />
-      <HowToBid />
     </div>
   </div>
 </div>
@@ -410,7 +409,6 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         }
         userProfile={Object {}}
       />
-      <HowToBid />
     </div>
   </div>
 </div>
@@ -611,7 +609,6 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         }
         userProfile={Object {}}
       />
-      <HowToBid />
     </div>
   </div>
 </div>

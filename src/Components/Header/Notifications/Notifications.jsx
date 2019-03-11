@@ -4,24 +4,17 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { notificationsCountFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
-import isCurrentPath from '../../ProfileMenu/navigation';
 
 class Notifications extends Component {
   componentWillMount() {
-    const { fetchNotificationsCount, history, location } = this.props;
+    const { fetchNotificationsCount, history } = this.props;
 
     // If the user is on the login page, don't try to pull notifications.
     //
     // Define the login route
     const loginRoute = process.env.PUBLIC_ROOT;
 
-    // Check if the user is on the login route
-    const isOnLoginPage = isCurrentPath(loginRoute, location.pathname);
-
-    // If the user is not on the login route, fetch notifications
-    if (!isOnLoginPage) {
-      fetchNotificationsCount();
-    }
+    fetchNotificationsCount();
 
     // Listen for a route change to refresh notifications,
     // unless the login page is the current route.
@@ -49,7 +42,6 @@ Notifications.propTypes = {
   notificationsCount: PropTypes.number.isRequired,
   fetchNotificationsCount: PropTypes.func.isRequired,
   history: PropTypes.shape({}).isRequired,
-  location: PropTypes.shape({}).isRequired,
 };
 
 Notifications.defaultProps = {

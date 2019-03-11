@@ -10,6 +10,7 @@ class CompareCheck extends Component {
   constructor(props) {
     super(props);
     this.toggleSaved = this.toggleSaved.bind(this);
+    this.eventListener = this.eventListener.bind(this);
     this.state = {
       saved: false,
       localStorageKey: null,
@@ -20,10 +21,17 @@ class CompareCheck extends Component {
   componentWillMount() {
     const localStorageKey = this.props.type;
     this.setState({ localStorageKey });
+
+    // add listener on localStorage 'compare' key
+    window.addEventListener('compare-ls', this.eventListener);
   }
 
   componentDidMount() {
     this.getSaved();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('compare-ls', this.eventListener);
   }
 
   onToggle() {
@@ -55,36 +63,54 @@ class CompareCheck extends Component {
     }
   }
 
+  eventListener() {
+    this.getSaved();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  joinClassNames(className) {
+    return className
+    .join(' ')
+    .trim();
+  }
+
   render() {
-    const { className, as: type } = this.props;
+    const { className, customElement, as: type, interactiveElementProps } = this.props;
     const isChecked = this.getSavedState();
-    const text = this.isDisabled() ? 'Limit Reached' : 'Compare';
-    const icon = isChecked ? 'check-square-o' : 'square-o';
     const options = {
       type,
       className: [className, 'compare-check-box-container'],
       onClick: this.toggleSaved,
+      ...interactiveElementProps,
     };
+
+    let text = 'Compare';
+    let icon = 'square-o';
 
     if (isChecked) {
       options.className.push('usa-button-active');
+      icon = 'check-square-o';
     }
 
     if (this.isDisabled()) {
       options.disabled = true;
+      text = 'Limit Reached';
     }
 
-    options.className = options.className
-      .join(' ')
-      .trim();
+    options.className = this.joinClassNames(options.className);
 
     return (
-      <InteractiveElement {...options}>
-        {
+      customElement ?
+        <InteractiveElement {...options}>
+          {customElement}
+        </InteractiveElement>
+        :
+        <InteractiveElement {...options}>
+          {
           !this.isDisabled() &&
             <FontAwesome name={icon} />
         } {text}
-      </InteractiveElement>
+        </InteractiveElement>
     );
   }
 }
@@ -99,6 +125,8 @@ CompareCheck.propTypes = {
   type: PropTypes.string,
   limit: PropTypes.number,
   onToggle: PropTypes.func,
+  customElement: PropTypes.node,
+  interactiveElementProps: PropTypes.shape({}),
 };
 
 CompareCheck.defaultProps = {
@@ -107,6 +135,8 @@ CompareCheck.defaultProps = {
   type: 'compare',
   limit: COMPARE_LIMIT,
   onToggle: EMPTY_FUNCTION,
+  customElement: null,
+  interactiveElementProps: {},
 };
 
 export default CompareCheck;

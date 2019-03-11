@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { localStorageSetKey } from '../../utilities';
 
 class ResetComparisons extends Component {
 
   render() {
+    const { onToggle, ...rest } = this.props;
     const exists = () => {
       let result = false;
       const retrievedKey = localStorage
@@ -16,14 +18,14 @@ class ResetComparisons extends Component {
       return result;
     };
     const remove = () => {
-      localStorage.setItem('compare', '[]');
-      this.props.onToggle();
+      localStorageSetKey('compare', '[]');
+      onToggle();
     };
     const compare = exists() ?
-      <a onClick={remove} role="button" tabIndex={0}>Reset comparison choices</a>
+      <a onClick={remove} role="button" tabIndex={0}>Clear All</a>
       : null;
     return (
-      <div>
+      <div {...rest}>
         {compare}
       </div>
     );

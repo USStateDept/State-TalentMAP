@@ -3,6 +3,8 @@
 exports[`AccountDropdown matches snapshot 1`] = `
 <Dropdown
   className="account-dropdown"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   removeElement={true}
 >
   <DropdownTrigger
@@ -19,42 +21,49 @@ exports[`AccountDropdown matches snapshot 1`] = `
       small={false}
     />
   </DropdownTrigger>
-  <DropdownContent
-    className=""
+  <div
+    className="dropdown-content-outer-container"
   >
-    <div
-      className="account-dropdown--identity account-dropdown--segment"
+    <DropdownContent
+      className=""
+      onMouseEnter={[Function]}
     >
-      <div>
-        Signed in as
+      <div
+        className="account-dropdown--identity account-dropdown--segment"
+      >
+        <div>
+          Signed in as
+        </div>
+        <strong>
+          John Doe
+        </strong>
       </div>
-      <strong>
-        John Doe
-      </strong>
-    </div>
-    <Link
-      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
-      onClick={[Function]}
-      replace={false}
-      to="/profile/dashboard"
-    >
-      Profile
-    </Link>
-    <Link
-      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
-      onClick={[Function]}
-      replace={false}
-      to="/logout"
-    >
-      Logout
-    </Link>
-  </DropdownContent>
+      <Link
+        className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+        onClick={[Function]}
+        replace={false}
+        to="/profile/dashboard"
+      >
+        Dashboard
+      </Link>
+      <Link
+        className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+        onClick={[Function]}
+        replace={false}
+        to="/logout"
+      >
+        Logout
+      </Link>
+    </DropdownContent>
+  </div>
 </Dropdown>
 `;
 
 exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
 <Dropdown
   className="account-dropdown"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   removeElement={true}
 >
   <DropdownTrigger
@@ -77,35 +86,40 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
       John Doe
     </span>
   </DropdownTrigger>
-  <DropdownContent
-    className=""
+  <div
+    className="dropdown-content-outer-container"
   >
-    <div
-      className="account-dropdown--identity account-dropdown--segment"
+    <DropdownContent
+      className=""
+      onMouseEnter={[Function]}
     >
-      <div>
-        Signed in as
+      <div
+        className="account-dropdown--identity account-dropdown--segment"
+      >
+        <div>
+          Signed in as
+        </div>
+        <strong>
+          John Doe
+        </strong>
       </div>
-      <strong>
-        John Doe
-      </strong>
-    </div>
-    <Link
-      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
-      onClick={[Function]}
-      replace={false}
-      to="/profile/dashboard"
-    >
-      Profile
-    </Link>
-    <Link
-      className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
-      onClick={[Function]}
-      replace={false}
-      to="/logout"
-    >
-      Logout
-    </Link>
-  </DropdownContent>
+      <Link
+        className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+        onClick={[Function]}
+        replace={false}
+        to="/profile/dashboard"
+      >
+        Dashboard
+      </Link>
+      <Link
+        className="account-dropdown--identity account-dropdown--segment account-dropdown-link"
+        onClick={[Function]}
+        replace={false}
+        to="/logout"
+      >
+        Logout
+      </Link>
+    </DropdownContent>
+  </div>
 </Dropdown>
 `;

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignmentsListResultsCardComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full saved-search-card favorites-card"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="usa-width-one-whole favorites-card-section"
+    >
+      <InformationDataPoint
+        className=""
+        content={
+          <AssignmentsContent
+            assignment={
+              Object {
+                "end_date": "10-10-2018",
+                "estimated_end_date": "10-10-2018",
+                "position": Object {
+                  "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
+                  "position_number": "58348065",
+                  "post": Object {
+                    "location": Object {
+                      "city": "Washington",
+                      "code": "500",
+                      "country": "United States",
+                      "id": 4,
+                      "state": "DC",
+                    },
+                  },
+                  "skill": "CONSTRUCTION ENGINEERING (6218)",
+                  "title": "PROJECT DIRECTOR",
+                },
+                "start_date": "10-10-2016",
+              }
+            }
+          />
+        }
+        sideBySide={false}
+        title=""
+        titleOnBottom={true}
+      />
+    </div>
+  </div>
+</div>
+`;
