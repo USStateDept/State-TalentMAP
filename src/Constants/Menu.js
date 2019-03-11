@@ -82,6 +82,7 @@ export const PROFILE_MENU = MenuConfig([
       {
         text: 'Bidder Portfolio',
         route: '/profile/bidderportfolio',
+        icon: 'users',
         isCDO: true,
         params: {
           type: 'all',
