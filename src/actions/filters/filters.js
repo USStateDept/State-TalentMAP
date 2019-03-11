@@ -1,3 +1,4 @@
+import { union } from 'lodash';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { removeDuplicates } from '../../utilities';
@@ -218,7 +219,8 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         api.get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
-            itemFilter.data = response.data.results;
+            // We have a mix of server-supplied and hard-coded data, so we combine them with union.
+            itemFilter.data = union(response.data.results, item.initialData);
             return itemFilter;
           })
       ),
