@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { includes, sortBy } from 'lodash';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
@@ -9,7 +10,7 @@ import PostFilter from '../PostFilter';
 import SkillFilter from '../SkillFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
-import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
+import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
 
 class SearchFiltersContainer extends Component {
 
@@ -62,7 +63,9 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'region', 'post', 'tod', 'language', 'postDiff', 'dangerPay'];
+    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'region', 'post', 'tod', 'language',
+      'postDiff', 'dangerPay'];
+    const blackList = []; // don't create accordions for these
 
     // create map
     const multiSelectFilterMap = new Map();
@@ -77,6 +80,10 @@ class SearchFiltersContainer extends Component {
           f.data.sort(sortGrades);
         } else if (f.item.description === 'language' && f.data) {
           f.data.sort(propSort('custom_description'));
+          // Push the "NONE" code choice to the bottom. We're already sorting
+          // data, and this is readable, so the next line is eslint-disabled.
+          // eslint-disable-next-line
+          f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? 1 : 0);
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
@@ -158,6 +165,19 @@ class SearchFiltersContainer extends Component {
                 skillCones={skillCones}
               />
             );
+          case 'language':
+            return (
+              <div className="usa-grid-full">
+                <MultiSelectFilter
+                  key={item.item.title}
+                  item={item}
+                  queryParamToggle={this.props.queryParamToggle}
+                  queryProperty="code"
+                />
+              </div>
+            );
+          case includes(blackList, type) ? type : null:
+            return null;
           default:
             return (
               <div className="usa-grid-full">
@@ -173,7 +193,7 @@ class SearchFiltersContainer extends Component {
         }
       };
 
-      if (item) {
+      if (item && !includes(blackList, n)) {
         sortedFilters.push(
           { content: getFilter(n),
             title: item.item.title,
