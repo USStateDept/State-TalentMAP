@@ -6,7 +6,7 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
     className="usa-button-secondary"
     onClick={[Function]}
   >
-    Download
+    Export
   </button>
 </div>
 `;
