@@ -7,7 +7,7 @@ const ResultsCondensedCardStats = ({ bidStatisticsArray }) => {
   const bidStatistics = getBidStatisticsObject(bidStatisticsArray);
   return (
     <div className="condensed-card-footer condensed-card-statistics">
-      <div className="usa-grid-full">
+      <div className="usa-grid-full condensed-card-statistics-inner">
         <BidCount bidStatistics={bidStatistics} />
       </div>
     </div>

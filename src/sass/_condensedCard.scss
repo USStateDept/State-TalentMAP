@@ -70,6 +70,7 @@ $condensed-card-data-padding: 15px 20px 9px;
     overflow: hidden;
     padding: $condensed-card-padding;
     position: relative;
+    width: 100%;
 
     a {
       color: $color-white;
@@ -132,26 +133,43 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .condensed-card-bottom-container {
     background-color: $color-white;
+    flex-grow: 1;
     padding: $condensed-card-data-padding;
     padding-bottom: 5px;
     position: relative;
   }
 
   .condensed-card-inner {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     position: relative;
   }
 
   .condensed-card-bottom {
+    display: flex;
+    flex-direction: column;
     font-size: 16px;
+    height: 100%;
   }
 
   .condensed-card-buttons-section {
     margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .condensed-card-statistics-inner {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .condensed-card-statistics {
     border-top: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
     position: relative;
 
     .bid-count-list-item {
@@ -182,8 +200,11 @@ $condensed-card-data-padding: 15px 20px 9px;
   }
 
   .condensed-card-data {
+    flex-grow: 1;
     line-height: 1.4em;
     margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0;
 
     a {
       color: $blue-primary;
@@ -302,4 +323,3 @@ $condensed-card-data-padding: 15px 20px 9px;
   display: flex;
   flex-wrap: wrap;
 }
-
