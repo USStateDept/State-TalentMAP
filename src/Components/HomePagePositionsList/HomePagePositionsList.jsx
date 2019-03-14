@@ -11,6 +11,7 @@ const propTypes = {
   type: HOME_PAGE_CARD_TYPE,
   refreshFavorites: PropTypes.bool,
   title: PropTypes.string.isRequired, // should be unique per page, since its used a react key
+  showBidListButton: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -19,10 +20,11 @@ const defaultProps = {
   isLoading: false,
   type: 'default',
   refreshFavorites: false,
+  showBidListButton: false,
 };
 
 const HomePagePositionsList = ({ positions, favorites, isLoading,
-    bidList, type, refreshFavorites, title }) => (
+    bidList, type, refreshFavorites, title, showBidListButton }) => (
       <div className={`condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
         <div className="usa-grid-full condensed-card-grid">
           {positions.map(p => (
@@ -33,6 +35,7 @@ const HomePagePositionsList = ({ positions, favorites, isLoading,
                 bidList={bidList}
                 type={type}
                 refreshFavorites={refreshFavorites}
+                showBidListButton={showBidListButton}
               />
             </div>
           ))}
