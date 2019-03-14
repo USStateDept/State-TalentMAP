@@ -314,6 +314,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
       }
     }
     refreshFavorites={false}
+    showBidListButton={false}
     type="default"
   />
   <ResultsCondensedCardFooter

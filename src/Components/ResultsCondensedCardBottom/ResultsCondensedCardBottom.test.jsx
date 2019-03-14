@@ -41,4 +41,16 @@ describe('ResultsCondensedCardBottomComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot with bidlist button', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardBottom
+        position={resultsObject.results[0]}
+        bidList={bidListObject.results}
+        favorites={favorites}
+        showBidListButton
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

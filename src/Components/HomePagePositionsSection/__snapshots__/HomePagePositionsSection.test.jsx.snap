@@ -343,6 +343,7 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
       ]
     }
     refreshFavorites={false}
+    showBidListButton={false}
     title="Title"
     type="default"
   />
