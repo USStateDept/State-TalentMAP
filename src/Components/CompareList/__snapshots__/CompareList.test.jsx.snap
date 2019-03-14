@@ -265,6 +265,50 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
+              Post
+            </th>
+            <td>
+              Freetown, Sierra Leone
+            </td>
+            <td>
+              Chicago, IL
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              TED
+            </th>
+            <td>
+              None listed
+            </td>
+            <td>
+              03/13/2020
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
               Skill
             </th>
             <td>
@@ -294,28 +338,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td>
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Post
-            </th>
-            <td>
-              Freetown, Sierra Leone
-            </td>
-            <td>
-              Chicago, IL
             </td>
             <td
               className="empty"
@@ -427,28 +449,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td>
               15%
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              TED
-            </th>
-            <td>
-              None listed
-            </td>
-            <td>
-              03/13/2020
             </td>
             <td
               className="empty"
@@ -827,6 +827,50 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
+              Post
+            </th>
+            <td>
+              Freetown, Sierra Leone
+            </td>
+            <td>
+              Chicago, IL
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              TED
+            </th>
+            <td>
+              None listed
+            </td>
+            <td>
+              03/13/2020
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
               Skill
             </th>
             <td>
@@ -856,28 +900,6 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td>
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Post
-            </th>
-            <td>
-              Freetown, Sierra Leone
-            </td>
-            <td>
-              Chicago, IL
             </td>
             <td
               className="empty"
@@ -1009,28 +1031,6 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td>
               15%
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              TED
-            </th>
-            <td>
-              None listed
-            </td>
-            <td>
-              03/13/2020
             </td>
             <td
               className="empty"
