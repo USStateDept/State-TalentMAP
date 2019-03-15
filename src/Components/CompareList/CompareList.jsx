@@ -124,6 +124,34 @@ onToggle }) => {
                     }
                   </tr>
                   <tr>
+                    <th scope="row">
+                      Post
+                    </th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          {getPostName(c.post, NO_POST)}
+                        </td>
+                      ))
+                    }
+                    {
+                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">TED</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          {propOrDefault(c, 'current_assignment.estimated_end_date') ? formatDate(c.current_assignment.estimated_end_date) : NO_DATE }
+                        </td>
+                      ))
+                    }
+                    {
+                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                    }
+                  </tr>
+                  <tr>
                     <th scope="row">Skill</th>
                     {
                       compareArray.map(c => (
@@ -139,21 +167,6 @@ onToggle }) => {
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>{c.bureau || NO_BUREAU}</td>
-                      ))
-                    }
-                    {
-                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Post
-                    </th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {getPostName(c.post, NO_POST)}
-                        </td>
                       ))
                     }
                     {
@@ -209,19 +222,6 @@ onToggle }) => {
                         <td key={shortId.generate()}>
                           {getDifferentialPercentage(propOrDefault(c, 'post.danger_pay'), NO_DANGER_PAY)}
                           {propOrDefault(c, 'post.obc_id') ? <span> | <OBCUrl id={c.post.obc_id} label="View OBC Data" /></span> : null }
-                        </td>
-                      ))
-                    }
-                    {
-                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">TED</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {propOrDefault(c, 'current_assignment.estimated_end_date') ? formatDate(c.current_assignment.estimated_end_date) : NO_DATE }
                         </td>
                       ))
                     }

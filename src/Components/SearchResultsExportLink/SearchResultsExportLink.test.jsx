@@ -24,11 +24,11 @@ describe('SearchResultsExportLink', () => {
     expect(fetchResultDataStub.calledOnce).toBe(true);
   });
 
-  it('shows download component when state has data', () => {
+  it('shows link component when state has data', () => {
     const wrapper = shallow(<SearchResultsExportLink />);
     wrapper.setState({ data: 'test' });
     wrapper.update();
-    expect(wrapper.find('CSVDownload').prop('data')).toBeTruthy();
+    expect(wrapper.find('CSVLink').prop('data')).toBeTruthy();
   });
 
   it('matches snapshot', () => {
