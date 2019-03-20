@@ -6,7 +6,7 @@ import Favorite, { mapDispatchToProps } from './Favorite';
 describe('Favorite', () => {
   const props = {
     onToggle: () => {},
-    isLoading: false,
+    isLoading: new Set(),
     hasErrored: false,
     refKey: 'key',
     compareArray: [],

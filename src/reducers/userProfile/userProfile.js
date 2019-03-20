@@ -32,10 +32,16 @@ export function userProfileFavoritePositionHasErrored(state = false, action) {
       return state;
   }
 }
-export function userProfileFavoritePositionIsLoading(state = false, action) {
+export function userProfileFavoritePositionIsLoading(state = new Set(), action) {
+  const newSet = new Set(state);
   switch (action.type) {
     case 'USER_PROFILE_FAVORITE_POSITION_IS_LOADING':
-      return action.userProfileFavoritePositionIsLoading;
+      if (action.userProfileFavoritePositionIsLoading.bool) {
+        newSet.add(action.userProfileFavoritePositionIsLoading.id);
+        return newSet;
+      }
+      newSet.delete(action.userProfileFavoritePositionIsLoading.id);
+      return newSet;
     default:
       return state;
   }

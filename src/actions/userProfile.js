@@ -26,10 +26,10 @@ export function userProfileFetchDataSuccess(userProfile) {
 }
 
 // when adding or removing a favorite
-export function userProfileFavoritePositionIsLoading(bool) {
+export function userProfileFavoritePositionIsLoading(bool, id) {
   return {
     type: 'USER_PROFILE_FAVORITE_POSITION_IS_LOADING',
-    userProfileFavoritePositionIsLoading: bool,
+    userProfileFavoritePositionIsLoading: { bool, id },
   };
 }
 
@@ -48,10 +48,9 @@ export function unsetUserProfile() {
 }
 
 // include an optional bypass for when we want to silently update the profile
-export function userProfileFetchData(bypass) {
+export function userProfileFetchData(bypass, cb) {
   return (dispatch) => {
     if (!bypass) {
-      dispatch(userProfileIsLoading(true));
       dispatch(userProfileHasErrored(false));
     }
 
@@ -77,16 +76,20 @@ export function userProfileFetchData(bypass) {
         };
 
         // then perform dispatches
+        if (cb) {
+          dispatch(cb());
+        }
         dispatch(userProfileFetchDataSuccess(newProfileObject));
         dispatch(userProfileIsLoading(false));
         dispatch(userProfileHasErrored(false));
         dispatch(userProfileFavoritePositionHasErrored(false));
-        dispatch(userProfileFavoritePositionIsLoading(false));
       }))
       .catch(() => {
+        if (cb) {
+          dispatch(cb());
+        }
         dispatch(userProfileHasErrored(true));
         dispatch(userProfileIsLoading(false));
-        dispatch(userProfileFavoritePositionIsLoading(false));
       });
   };
 }
@@ -107,13 +110,13 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
       url: `/position/${idString}/favorite/`,
     };
 
-    dispatch(userProfileFavoritePositionIsLoading(true));
+    dispatch(userProfileFavoritePositionIsLoading(true, id));
     dispatch(userProfileFavoritePositionHasErrored(false));
 
     api(config)
       .then(() => {
-        dispatch(userProfileFetchData(true));
-        dispatch(userProfileFavoritePositionIsLoading(false));
+        const cb = () => userProfileFavoritePositionIsLoading(false, id);
+        dispatch(userProfileFetchData(true, cb));
         dispatch(userProfileFavoritePositionHasErrored(false));
         if (refreshFavorites) {
           dispatch(favoritePositionsFetchData());
@@ -121,7 +124,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
       })
       .catch(() => {
         dispatch(userProfileFavoritePositionHasErrored(true));
-        dispatch(userProfileFavoritePositionIsLoading(false));
+        dispatch(userProfileFavoritePositionIsLoading(false, id));
       });
   };
 }

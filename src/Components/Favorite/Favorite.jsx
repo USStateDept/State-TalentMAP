@@ -51,25 +51,8 @@ class Favorite extends Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    let isUpdate = true;
-
-    const { compareArray, refKey } = nextProps;
-    const oldState = this.getSavedState();
-    const newState = existsInArray(refKey, compareArray);
-
-    if (this.state.loading && !nextProps.isLoading) {
-      // Only update the loading state if current state.loading
-      // and prop change detected is turning it off
-      this.setState({
-        loading: nextProps.isLoading,
-      });
-    }
-
-    isUpdate = (oldState !== newState) ||
-               (this.state.loading !== nextState.isLoading);
-
-    return isUpdate;
+  componentWillReceiveProps(nextProps) {
+    this.setState({ loading: nextProps.isLoading });
   }
 
   getSavedState() {
@@ -190,7 +173,7 @@ Favorite.propTypes = {
   className: PropTypes.string,
   as: PropTypes.string.isRequired,
   onToggle: PropTypes.func.isRequired,
-  refKey: PropTypes.node.isRequired,
+  refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired]).isRequired,
   hideText: PropTypes.bool,
   compareArray: FAVORITE_POSITIONS_ARRAY.isRequired,
   isLoading: PropTypes.bool,
