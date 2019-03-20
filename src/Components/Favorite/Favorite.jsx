@@ -51,8 +51,26 @@ class Favorite extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ loading: nextProps.isLoading });
+  shouldComponentUpdate(nextProps, nextState) {
+    let isUpdate = true;
+
+    const { compareArray, refKey } = nextProps;
+    const oldState = this.getSavedState();
+    const newState = existsInArray(refKey, compareArray);
+
+    if (this.state.loading && !nextProps.isLoading) {
+      // Only update the loading state if current state.loading
+      // and prop change detected is turning it off
+      this.setState({
+        loading: nextProps.isLoading,
+      });
+    }
+
+    isUpdate = (oldState !== newState) ||
+               (this.state.loading !== nextState.isLoading) ||
+               nextProps.hasErrored;
+
+    return isUpdate;
   }
 
   getSavedState() {
@@ -177,6 +195,7 @@ Favorite.propTypes = {
   hideText: PropTypes.bool,
   compareArray: FAVORITE_POSITIONS_ARRAY.isRequired,
   isLoading: PropTypes.bool,
+  hasErrored: PropTypes.bool,
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
   useButtonClass: PropTypes.bool,
@@ -190,6 +209,7 @@ Favorite.defaultProps = {
   as: 'div',
   hideText: false,
   isLoading: false,
+  hasErrored: false,
   compareArray: [],
   hasBorder: false,
   useLongText: false,

@@ -3,6 +3,8 @@ import { indexOf } from 'lodash';
 
 import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
+import { toastSuccess, toastError } from './toast';
+import * as SystemMessages from '../Constants/SystemMessages';
 
 export function userProfileHasErrored(bool) {
   return {
@@ -110,21 +112,40 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
       url: `/position/${idString}/favorite/`,
     };
 
+    /**
+     * create functions for creating the action and fetching position data to supply to message
+     */
+    // action
+    const getAction = () => api(config);
+
+    // position
+    const getPosition = () => api.get(`/position/${id}/`);
+
     dispatch(userProfileFavoritePositionIsLoading(true, id));
     dispatch(userProfileFavoritePositionHasErrored(false));
 
-    api(config)
-      .then(() => {
+    axios.all([getAction(), getPosition()])
+      .then(axios.spread((action, position) => {
+        const pos = position.data;
+        const message = remove ?
+          SystemMessages.DELETE_FAVORITE_SUCCESS(pos) : SystemMessages.ADD_FAVORITE_SUCCESS(pos);
+        const title = remove ? SystemMessages.DELETE_FAVORITE_TITLE
+          : SystemMessages.ADD_FAVORITE_TITLE;
         const cb = () => userProfileFavoritePositionIsLoading(false, id);
         dispatch(userProfileFetchData(true, cb));
         dispatch(userProfileFavoritePositionHasErrored(false));
+        dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
           dispatch(favoritePositionsFetchData());
         }
-      })
+      }))
       .catch(() => {
-        dispatch(userProfileFavoritePositionHasErrored(true));
+        const message = remove ?
+          SystemMessages.DELETE_FAVORITE_ERROR() : SystemMessages.ADD_FAVORITE_ERROR();
+        const title = SystemMessages.ERROR_FAVORITE_TITLE;
         dispatch(userProfileFavoritePositionIsLoading(false, id));
+        dispatch(userProfileFavoritePositionHasErrored(true));
+        dispatch(toastError(message, title));
       });
   };
 }
