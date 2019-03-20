@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RibbonComponent matches snapshot 1`] = `
+<div
+  className="ribbon-outer-container ribbon-outer-container-cut-left "
+>
+  <div
+    className="ribbon ribbon-primary ribbon-cut-left"
+  >
+    <FontAwesome
+      name=""
+    />
+    <span
+      className="text"
+    />
+  </div>
+</div>
+`;

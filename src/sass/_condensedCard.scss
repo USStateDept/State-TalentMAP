@@ -67,7 +67,6 @@ $condensed-card-data-padding: 15px 20px 9px;
     background-color: $blue-primary;
     border-bottom: 1px solid $color-gray-lightest;
     color: $color-white;
-    overflow: hidden;
     padding: $condensed-card-padding;
     position: relative;
     width: 100%;
@@ -80,6 +79,13 @@ $condensed-card-data-padding: 15px 20px 9px;
     a {
       color: $color-white;
     }
+  }
+
+  .post-ribbon-container {
+    display: flex;
+
+    div:nth-of-type(1) { flex: 3; }
+    div:nth-of-type(2) { flex: 2; }
   }
 
   .card-top-alternate {
