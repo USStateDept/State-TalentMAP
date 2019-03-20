@@ -5,6 +5,7 @@ import BidSteps from '../BidStep';
 import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTop from '../BidTrackerCardTop';
 import OverlayAlert from '../OverlayAlert';
+import BoxShadow from '../../BoxShadow';
 import { shouldShowAlert } from '../BidHelpers';
 import {
   APPROVED_PROP,
@@ -24,7 +25,7 @@ userProfile }) => {
   // add class to container for draft since we need to apply an overflow:hidden for drafts only
   const draftClass = bid.status === DRAFT_PROP ? 'bid-tracker-bid-steps-container--draft' : '';
   return (
-    <div className="bid-tracker">
+    <BoxShadow className="bid-tracker">
       <div>
         <BidTrackerCardTop
           bid={bid}
@@ -57,7 +58,7 @@ userProfile }) => {
             </div>
           </div>
       }
-    </div>
+    </BoxShadow>
   );
 };
 

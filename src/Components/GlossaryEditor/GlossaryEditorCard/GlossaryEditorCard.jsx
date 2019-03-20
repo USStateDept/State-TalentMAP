@@ -4,6 +4,7 @@ import { GLOSSARY_OBJECT, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT } from '../../..
 import TextEditor from '../../TextEditor';
 import InteractiveElement from '../../InteractiveElement';
 import GlossaryEditorCardBottom from '../GlossaryEditorCardBottom';
+import BoxShadow from '../../BoxShadow';
 import { isUrl } from '../../../utilities';
 
 const isEmpty = value => (value || '').length === 0;
@@ -175,7 +176,7 @@ class GlossaryEditorCard extends Component {
     } = this.editorClasses;
 
     return (
-      <div className={`usa-grid-full section-padded-inner-container glossary-editor-card ${editorContainerHiddenClass}`}>
+      <BoxShadow className={`usa-grid-full section-padded-inner-container glossary-editor-card ${editorContainerHiddenClass}`}>
         <div className="usa-grid-full glossary-editor-card-top">
           <div className={`title-container ${editorHiddenClass} ${titleContainerClass}`}>
             {
@@ -241,7 +242,7 @@ class GlossaryEditorCard extends Component {
           id={term.id || null}
           submitGlossaryTerm={submitGlossaryTerm}
         />
-      </div>
+      </BoxShadow>
     );
   }
 }

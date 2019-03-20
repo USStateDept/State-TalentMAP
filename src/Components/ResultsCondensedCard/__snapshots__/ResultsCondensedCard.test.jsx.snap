@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
-<div
+<BoxShadow
+  blurRadius={10}
   className="usa-grid-full condensed-card-inner"
+  color="rgba(0,0,0,.15)"
+  inset={false}
+  is="div"
+  offsetX={3}
+  offsetY={2}
+  spreadRadius={1}
+  style={Object {}}
 >
   <ResultsCondensedCardTop
     favorites={Array []}
@@ -398,5 +406,5 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
       }
     }
   />
-</div>
+</BoxShadow>
 `;

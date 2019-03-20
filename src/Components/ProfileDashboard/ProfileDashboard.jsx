@@ -14,6 +14,7 @@ import Assignments from './Assignments';
 import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BackButton from '../BackButton';
+import BoxShadow from '../BoxShadow';
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
@@ -38,13 +39,13 @@ const ProfileDashboard = ({
                   columns={columns[0]}
                   className={'user-dashboard-section-container user-dashboard-column-1'}
                 >
-                  <div className="usa-width-one-whole user-dashboard-section current-user-section">
+                  <BoxShadow className="usa-width-one-whole user-dashboard-section current-user-section">
                     <UserProfile
                       userProfile={userProfile}
                       assignment={assignment}
                       showEditLink={!isPublic}
                     />
-                  </div>
+                  </BoxShadow>
                 </Column>
                 {isPublic ?
                   <div>
@@ -52,12 +53,12 @@ const ProfileDashboard = ({
                       columns={columns[1]}
                       className="user-dashboard-section-container user-dashboard-column-3"
                     >
-                      <div className="usa-width-one-whole user-dashboard-section assignments-section">
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Assignments assignments={userProfile.assignments} />
-                      </div>
-                      <div className="usa-width-one-whole user-dashboard-section bidlist-section">
+                      </BoxShadow>
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
                         <BidList bids={bidList} showMoreLink={!isPublic} />
-                      </div>
+                      </BoxShadow>
                     </Column>
                   </div>
                   :
@@ -66,25 +67,25 @@ const ProfileDashboard = ({
                       columns={columns[1]}
                       className={'user-dashboard-section-container user-dashboard-column-2'}
                     >
-                      <div className="usa-width-one-whole user-dashboard-section notifications-section">
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
                         <Notifications notifications={notifications} />
-                      </div>
-                      <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                      </BoxShadow>
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                         <SavedSearches />
-                      </div>
+                      </BoxShadow>
                     </Column>
                     <Column
                       columns={columns[2]}
                       className="user-dashboard-section-container user-dashboard-column-3"
                     >
                       <PermissionsWrapper permissions="bidder">
-                        <div className="usa-width-one-whole user-dashboard-section bidlist-section">
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
                           <BidList bids={bidList} showMoreLink={!isPublic} />
-                        </div>
+                        </BoxShadow>
                       </PermissionsWrapper>
-                      <div className="usa-width-one-whole user-dashboard-section favorites-section">
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                         <Favorites favorites={favoritePositions} />
-                      </div>
+                      </BoxShadow>
                     </Column>
                   </div>}
               </Row>
