@@ -31,6 +31,7 @@ const IsOnStandby = ({ bid, deleteBid }) => {
           showQuestion={false}
           bid={bid}
           deleteBid={deleteBid}
+          hideDelete
         />
       </div>
     </div>

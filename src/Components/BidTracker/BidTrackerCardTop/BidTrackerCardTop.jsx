@@ -21,7 +21,7 @@ class BidTrackerCardTop extends Component {
   }
 
   render() {
-    const { bid, showBidCount, showQuestion } = this.props;
+    const { bid, hideDelete, showBidCount, showQuestion } = this.props;
     const bidStatistics = get(bid, 'position.bid_statistics[0]', {});
     const post = get(bid, 'position.post', {});
     return (
@@ -45,7 +45,7 @@ class BidTrackerCardTop extends Component {
                 </div>
             }
             <div className="bid-tracker-actions-container">
-              { bid.can_delete &&
+              { bid.can_delete && !hideDelete &&
                 <ConfirmLink
                   className="remove-bid-link"
                   defaultText="Remove Bid"
@@ -66,11 +66,13 @@ BidTrackerCardTop.propTypes = {
   showQuestion: PropTypes.bool, // Determine whether or not to show the question text
   deleteBid: PropTypes.func.isRequired,
   showBidCount: PropTypes.bool,
+  hideDelete: PropTypes.bool,
 };
 
 BidTrackerCardTop.defaultProps = {
   showQuestion: true,
   showBidCount: true,
+  hideDelete: false,
 };
 
 export default BidTrackerCardTop;
