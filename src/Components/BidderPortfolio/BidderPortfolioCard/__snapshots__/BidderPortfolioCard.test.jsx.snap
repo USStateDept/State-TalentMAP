@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
-<div
+<BoxShadow
+  blurRadius={10}
   className="usa-grid-full current-user bidder-portfolio-card"
+  color="rgba(0,0,0,.15)"
+  inset={false}
+  is="div"
+  offsetX={3}
+  offsetY={2}
+  spreadRadius={1}
+  style={Object {}}
 >
   <UserProfileGeneralInformation
     showEditLink={false}
@@ -128,5 +136,5 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
     onClick={[Function]}
     useLink={true}
   />
-</div>
+</BoxShadow>
 `;

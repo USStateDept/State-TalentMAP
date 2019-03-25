@@ -14,10 +14,14 @@ describe('reducers', () => {
   });
 
   it('can set reducer USER_PROFILE_FAVORITE_POSITION_HAS_ERRORED', () => {
-    expect(reducers.userProfileFavoritePositionHasErrored(false, { type: 'USER_PROFILE_FAVORITE_POSITION_HAS_ERRORED', userProfileFavoritePositionHasErrored: true })).toBe(true);
+    expect(reducers.userProfileFavoritePositionHasErrored(new Set(), { type: 'USER_PROFILE_FAVORITE_POSITION_HAS_ERRORED', userProfileFavoritePositionHasErrored: true })).toBe(true);
   });
 
-  it('can set reducer USER_PROFILE_FAVORITE_POSITION_IS_LOADING', () => {
-    expect(reducers.userProfileFavoritePositionIsLoading(false, { type: 'USER_PROFILE_FAVORITE_POSITION_IS_LOADING', userProfileFavoritePositionIsLoading: true })).toBe(true);
+  it('can set reducer USER_PROFILE_FAVORITE_POSITION_IS_LOADING to add an id', () => {
+    expect(reducers.userProfileFavoritePositionIsLoading(new Set(), { type: 'USER_PROFILE_FAVORITE_POSITION_IS_LOADING', userProfileFavoritePositionIsLoading: { bool: true, id: 1 } })).toEqual(new Set([1]));
+  });
+
+  it('can set reducer USER_PROFILE_FAVORITE_POSITION_IS_LOADING to remove an id', () => {
+    expect(reducers.userProfileFavoritePositionIsLoading(new Set([1]), { type: 'USER_PROFILE_FAVORITE_POSITION_IS_LOADING', userProfileFavoritePositionIsLoading: { bool: false, id: 1 } })).toEqual(new Set());
   });
 });

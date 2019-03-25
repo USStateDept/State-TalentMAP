@@ -67,13 +67,25 @@ $condensed-card-data-padding: 15px 20px 9px;
     background-color: $blue-primary;
     border-bottom: 1px solid $color-gray-lightest;
     color: $color-white;
-    overflow: hidden;
     padding: $condensed-card-padding;
     position: relative;
+    width: 100%;
+
+    a,
+    .data {
+      font-weight: 300;
+    }
 
     a {
       color: $color-white;
     }
+  }
+
+  .post-ribbon-container {
+    display: flex;
+
+    div:nth-of-type(1) { flex: 3; }
+    div:nth-of-type(2) { flex: 2; }
   }
 
   .card-top-alternate {
@@ -96,10 +108,14 @@ $condensed-card-data-padding: 15px 20px 9px;
   .condensed-card-top-header-left {
     float: left;
 
+    a {
+      display: inline-block;
+    }
+
     h3 {
       display: inline;
       font-family: inherit;
-      font-size: inherit;
+      font-size: 1.1em;
       font-weight: inherit;
       line-height: inherit;
       margin-bottom: inherit;
@@ -132,26 +148,48 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .condensed-card-bottom-container {
     background-color: $color-white;
+    flex-grow: 1;
     padding: $condensed-card-data-padding;
     padding-bottom: 5px;
     position: relative;
   }
 
   .condensed-card-inner {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     position: relative;
   }
 
   .condensed-card-bottom {
+    display: flex;
+    flex-direction: column;
     font-size: 16px;
+    height: 100%;
   }
 
   .condensed-card-buttons-section {
     margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 0;
+
+    button {
+      height: 44px;
+      margin-top: 0;
+    }
+  }
+
+  .condensed-card-statistics-inner {
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .condensed-card-statistics {
     border-top: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
     position: relative;
 
     .bid-count-list-item {
@@ -182,8 +220,11 @@ $condensed-card-data-padding: 15px 20px 9px;
   }
 
   .condensed-card-data {
+    flex-grow: 1;
     line-height: 1.4em;
     margin-bottom: 20px;
+    margin-left: 0;
+    margin-right: 0;
 
     a {
       color: $blue-primary;
@@ -302,4 +343,3 @@ $condensed-card-data-padding: 15px 20px 9px;
   display: flex;
   flex-wrap: wrap;
 }
-

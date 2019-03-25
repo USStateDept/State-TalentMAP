@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CSVDownload } from 'react-csv';
+import { CSVLink } from 'react-csv';
 import queryString from 'query-string';
 import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import { fetchResultData } from '../../actions/results';
@@ -52,7 +52,11 @@ class SearchResultsExportLink extends Component {
     };
     fetchResultData(queryString.stringify(query)).then((results) => {
       const data = processData(results.results);
-      this.setState({ data });
+      this.setState({ data }, () => {
+        // click the CSVLink component to trigger the CSV download
+        // This is needed for the download to work in Edge.
+        this.csvLink.link.click();
+      });
     });
   }
 
@@ -60,10 +64,8 @@ class SearchResultsExportLink extends Component {
     const { data } = this.state;
     return (
       <div>
-        <button className="usa-button-secondary" onClick={this.onClick}>Download</button>
-        {
-          data && <CSVDownload target="" filename={this.props.filename} data={data} headers={HEADERS} />
-        }
+        <button className="usa-button-secondary" onClick={this.onClick}>Export</button>
+        <CSVLink ref={(x) => { this.csvLink = x; }} target="_blank" filename={this.props.filename} data={data} headers={HEADERS} />
       </div>
     );
   }

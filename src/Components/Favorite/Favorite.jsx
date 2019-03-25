@@ -67,7 +67,8 @@ class Favorite extends Component {
     }
 
     isUpdate = (oldState !== newState) ||
-               (this.state.loading !== nextState.isLoading);
+               (this.state.loading !== nextState.isLoading) ||
+               nextProps.hasErrored;
 
     return isUpdate;
   }
@@ -190,10 +191,11 @@ Favorite.propTypes = {
   className: PropTypes.string,
   as: PropTypes.string.isRequired,
   onToggle: PropTypes.func.isRequired,
-  refKey: PropTypes.node.isRequired,
+  refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired]).isRequired,
   hideText: PropTypes.bool,
   compareArray: FAVORITE_POSITIONS_ARRAY.isRequired,
   isLoading: PropTypes.bool,
+  hasErrored: PropTypes.bool,
   hasBorder: PropTypes.bool,
   useLongText: PropTypes.bool,
   useButtonClass: PropTypes.bool,
@@ -207,6 +209,7 @@ Favorite.defaultProps = {
   as: 'div',
   hideText: false,
   isLoading: false,
+  hasErrored: false,
   compareArray: [],
   hasBorder: false,
   useLongText: false,

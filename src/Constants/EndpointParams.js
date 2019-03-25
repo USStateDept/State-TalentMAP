@@ -2,7 +2,7 @@
 
 export const ENDPOINT_PARAMS = {
   skill: 'skill__code__in',
-  language: 'languages__language__code__in',
+  language: 'language_codes',
   grade: 'grade__code__in',
   tod: 'post__tour_of_duty__code__in',
   org: 'bureau__code__in',
@@ -21,6 +21,7 @@ export const ENDPOINT_PARAMS = {
 // any properties that we want to abstract to a common name
 export const COMMON_PROPERTIES = {
   posted: 'posted_date',
+  NULL_LANGUAGE: 'NONE',
 };
 
 // Take our custom query param from the Bidder Portfolio navigation and convert them to queries

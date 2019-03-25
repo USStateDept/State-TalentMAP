@@ -6,7 +6,71 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
     className="usa-button-secondary"
     onClick={[Function]}
   >
-    Download
+    Export
   </button>
+  <CSVLink
+    asyncOnClick={false}
+    data=""
+    filename="TalentMap_search_export.csv"
+    headers={
+      Array [
+        Object {
+          "key": "title",
+          "label": "Position",
+        },
+        Object {
+          "key": "position_number",
+          "label": "Position number",
+        },
+        Object {
+          "key": "skill",
+          "label": "Skill",
+        },
+        Object {
+          "key": "grade",
+          "label": "Grade",
+        },
+        Object {
+          "key": "bureau",
+          "label": "Bureau",
+        },
+        Object {
+          "key": "post.location.city",
+          "label": "Post city",
+        },
+        Object {
+          "key": "post.location.country",
+          "label": "Post country",
+        },
+        Object {
+          "key": "post.tour_of_duty",
+          "label": "Tour of duty",
+        },
+        Object {
+          "key": "languages[0].representation",
+          "label": "Language",
+        },
+        Object {
+          "key": "post.differential_rate",
+          "label": "Post differential",
+        },
+        Object {
+          "key": "post.danger_pay",
+          "label": "Danger pay",
+        },
+        Object {
+          "key": "estimated_end_date",
+          "label": "TED",
+        },
+        Object {
+          "key": "current_assignment.user",
+          "label": "Incumbent",
+        },
+      ]
+    }
+    separator=","
+    target="_blank"
+    uFEFF={true}
+  />
 </div>
 `;

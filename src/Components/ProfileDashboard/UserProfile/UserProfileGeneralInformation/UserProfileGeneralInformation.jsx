@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { USER_PROFILE } from '../../../../Constants/PropTypes';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
-import Status from '../Status';
 import EditProfile from '../EditProfile';
 import Avatar from '../../../Avatar';
 import StaticDevContent from '../../../StaticDevContent';
@@ -13,7 +12,6 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
   <div className="current-user-top current-user-section-border current-user-section-container">
     <div className="section-padded-inner-container">
       <div className="avatar-group">
-        <Status />
         <Avatar
           className="dashboard-user-profile-picture"
           initials={userProfile.initials}

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '../../Avatar';
-import Status from '../UserProfile/Status';
 import USER_TYPES from '../../../Constants/UserTypes';
 import MailToButton from '../../MailToButton';
 
@@ -10,9 +9,6 @@ const ExternalUserStatus = ({ initials, firstName, lastName, type, showMail, ema
     <div className="usa-grid-full cdo-container-inner section-padded-inner-container">
       <div className="profile-picture-container">
         <Avatar initials={initials} firstName={firstName} lastName={lastName} small />
-        <div className="picture-status-container">
-          <Status hideText />
-        </div>
       </div>
       <div className="cdo-text-container">
         <div className="usa-grid-full">

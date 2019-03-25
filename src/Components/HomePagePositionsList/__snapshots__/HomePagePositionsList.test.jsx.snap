@@ -237,6 +237,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           }
         }
         refreshFavorites={false}
+        showBidListButton={false}
         type="default"
       />
     </div>
@@ -470,6 +471,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           }
         }
         refreshFavorites={false}
+        showBidListButton={false}
         type="default"
       />
     </div>
@@ -703,6 +705,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           }
         }
         refreshFavorites={false}
+        showBidListButton={false}
         type="default"
       />
     </div>
@@ -936,6 +939,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           }
         }
         refreshFavorites={false}
+        showBidListButton={false}
         type="default"
       />
     </div>
@@ -1169,6 +1173,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           }
         }
         refreshFavorites={false}
+        showBidListButton={false}
         type="default"
       />
     </div>
@@ -1402,6 +1407,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           }
         }
         refreshFavorites={false}
+        showBidListButton={false}
         type="default"
       />
     </div>
@@ -1635,6 +1641,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           }
         }
         refreshFavorites={false}
+        showBidListButton={false}
         type="default"
       />
     </div>

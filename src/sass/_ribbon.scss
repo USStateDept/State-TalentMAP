@@ -1,0 +1,60 @@
+$ribbon-shadow-color: rgba(112, 112, 112, .5);
+
+.ribbon {
+  color: $color-black;
+  display: flex;
+  font-family: 'Merriweather';
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 6px;
+
+  .fa {
+    font-size: 1.8rem;
+    margin-right: .5em;
+  }
+
+  .text {
+    margin-top: .12em;
+  }
+}
+
+.ribbon-primary {
+  background-color: $tertiary-gold-lighter;
+}
+
+.ribbon-secondary {
+  background-color: $blue-primary-darkest;
+  color: $color-white;
+}
+
+.ribbon-outer-container-cut-left {
+  box-shadow: 3px 4px 4px -4px $ribbon-shadow-color;
+}
+
+.ribbon-outer-container-cut-right {
+  box-shadow: -3px 4px 4px -4px $ribbon-shadow-color;
+}
+
+.ribbon-cut-left {
+  clip-path: polygon(9% 0, 100% 0, 100% 100%, 0 100%, 0 100%);
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.ribbon-cut-right {
+  clip-path: polygon(0 0, 100% 0, 91% 100%, 0 100%, 0 100%);
+  padding-left: .5em;
+  padding-right: 1em;
+}
+
+.ribbon-results-card {
+  position: absolute;
+  right: -1px;
+}
+
+.ribbon-condensed-card {
+  position: absolute;
+  right: 0;
+  z-index: $ribbon-z;
+}

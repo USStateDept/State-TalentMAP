@@ -54,10 +54,24 @@ describe('AccountDropdown', () => {
     // define the instance
     const instance = accountDropdown.instance();
     instance.dropdown = { hide: () => {} };
-    // spy the logout function
+    // spy the hideDropdown function
     const spy = sinon.spy(instance, 'hideDropdown');
-    // click to logout
+    // call function
     instance.hideDropdown();
+    // logout function should have been called once
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('can call the showDropdown function', () => {
+    const accountDropdown = shallow(<AccountDropdown />);
+
+    // define the instance
+    const instance = accountDropdown.instance();
+    instance.dropdown = { show: () => {} };
+    // spy the showDropdown function
+    const spy = sinon.spy(instance, 'showDropdown');
+    // click to logout
+    instance.showDropdown();
     // logout function should have been called once
     sinon.assert.calledOnce(spy);
   });

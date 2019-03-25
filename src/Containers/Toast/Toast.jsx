@@ -17,12 +17,13 @@ export class Toast extends Component {
     }
   }
 
-  notify({ type = 'success', message = 'Message' }) { // eslint-disable-line
-    let title;
-    if (type === 'success') { title = 'Success'; }
-    if (type === 'error') { title = 'Error'; }
+  notify({ type = 'success', message = 'Message', title = '' }) { // eslint-disable-line
+    let title$;
+    if (type === 'success') { title$ = 'Success'; }
+    if (type === 'error') { title$ = 'Error'; }
+    if (title) { title$ = title; }
     toast[type](
-      <Alert type={type} title={title} messages={[{ body: message }]} />,
+      <Alert type={type} title={title$} messages={[{ body: message }]} />,
     );
   }
 
@@ -36,7 +37,8 @@ export class Toast extends Component {
 Toast.propTypes = {
   toastData: PropTypes.shape({
     type: PropTypes.string,
-    message: PropTypes.string,
+    message: PropTypes.node,
+    title: PropTypes.string,
   }),
 };
 

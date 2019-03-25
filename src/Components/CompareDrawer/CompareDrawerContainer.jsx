@@ -7,7 +7,7 @@ import CompareDrawer from './CompareDrawer';
 import { COMPARE_LIST } from '../../Constants/PropTypes';
 import { getScrollDistanceFromBottom } from '../../utilities';
 
-class Compare extends Component {
+export class Compare extends Component {
   constructor(props) {
     super(props);
     this.lsListener = this.lsListener.bind(this);

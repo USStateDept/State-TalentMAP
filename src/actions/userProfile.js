@@ -3,6 +3,8 @@ import { indexOf } from 'lodash';
 
 import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
+import { toastSuccess, toastError } from './toast';
+import * as SystemMessages from '../Constants/SystemMessages';
 
 export function userProfileHasErrored(bool) {
   return {
@@ -26,10 +28,10 @@ export function userProfileFetchDataSuccess(userProfile) {
 }
 
 // when adding or removing a favorite
-export function userProfileFavoritePositionIsLoading(bool) {
+export function userProfileFavoritePositionIsLoading(bool, id) {
   return {
     type: 'USER_PROFILE_FAVORITE_POSITION_IS_LOADING',
-    userProfileFavoritePositionIsLoading: bool,
+    userProfileFavoritePositionIsLoading: { bool, id },
   };
 }
 
@@ -48,10 +50,9 @@ export function unsetUserProfile() {
 }
 
 // include an optional bypass for when we want to silently update the profile
-export function userProfileFetchData(bypass) {
+export function userProfileFetchData(bypass, cb) {
   return (dispatch) => {
     if (!bypass) {
-      dispatch(userProfileIsLoading(true));
       dispatch(userProfileHasErrored(false));
     }
 
@@ -77,16 +78,20 @@ export function userProfileFetchData(bypass) {
         };
 
         // then perform dispatches
+        if (cb) {
+          dispatch(cb());
+        }
         dispatch(userProfileFetchDataSuccess(newProfileObject));
         dispatch(userProfileIsLoading(false));
         dispatch(userProfileHasErrored(false));
         dispatch(userProfileFavoritePositionHasErrored(false));
-        dispatch(userProfileFavoritePositionIsLoading(false));
       }))
       .catch(() => {
+        if (cb) {
+          dispatch(cb());
+        }
         dispatch(userProfileHasErrored(true));
         dispatch(userProfileIsLoading(false));
-        dispatch(userProfileFavoritePositionIsLoading(false));
       });
   };
 }
@@ -107,21 +112,40 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
       url: `/position/${idString}/favorite/`,
     };
 
-    dispatch(userProfileFavoritePositionIsLoading(true));
+    /**
+     * create functions for creating the action and fetching position data to supply to message
+     */
+    // action
+    const getAction = () => api(config);
+
+    // position
+    const getPosition = () => api.get(`/position/${id}/`);
+
+    dispatch(userProfileFavoritePositionIsLoading(true, id));
     dispatch(userProfileFavoritePositionHasErrored(false));
 
-    api(config)
-      .then(() => {
-        dispatch(userProfileFetchData(true));
-        dispatch(userProfileFavoritePositionIsLoading(false));
+    axios.all([getAction(), getPosition()])
+      .then(axios.spread((action, position) => {
+        const pos = position.data;
+        const message = remove ?
+          SystemMessages.DELETE_FAVORITE_SUCCESS(pos) : SystemMessages.ADD_FAVORITE_SUCCESS(pos);
+        const title = remove ? SystemMessages.DELETE_FAVORITE_TITLE
+          : SystemMessages.ADD_FAVORITE_TITLE;
+        const cb = () => userProfileFavoritePositionIsLoading(false, id);
+        dispatch(userProfileFetchData(true, cb));
         dispatch(userProfileFavoritePositionHasErrored(false));
+        dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
           dispatch(favoritePositionsFetchData());
         }
-      })
+      }))
       .catch(() => {
+        const message = remove ?
+          SystemMessages.DELETE_FAVORITE_ERROR() : SystemMessages.ADD_FAVORITE_ERROR();
+        const title = SystemMessages.ERROR_FAVORITE_TITLE;
+        dispatch(userProfileFavoritePositionIsLoading(false, id));
         dispatch(userProfileFavoritePositionHasErrored(true));
-        dispatch(userProfileFavoritePositionIsLoading(false));
+        dispatch(toastError(message, title));
       });
   };
 }

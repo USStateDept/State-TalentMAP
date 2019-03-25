@@ -593,7 +593,14 @@ $draft-icon-offset: 120px;
 }
 
 .bid-tracker-standby-container {
+  $link-color: #2B4559;
+
   display: flex;
+  opacity: .75; // lowest opacity without violating 4.5:1 contrast ratio
+
+  a:link {
+    color: $link-color; // opacity lightens normal link color below the required 4.5:1 ratio
+  }
 
   .bid-tracker-standby-inner-container {
     display: flex;

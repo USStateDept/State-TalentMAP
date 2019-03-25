@@ -12,7 +12,7 @@ import { COMPARE_LIST, POSITION_SEARCH_RESULTS, BID_LIST, SetType } from '../../
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 
-class Compare extends Component {
+export class Compare extends Component {
   constructor(props) {
     super(props);
     this.onToggle = this.onToggle.bind(this);

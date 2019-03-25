@@ -40,6 +40,7 @@ bidList, onSortChange }) => (
       title="favorites"
       maxLength={300}
       refreshFavorites
+      showBidListButton
     />
   </div>
 );
