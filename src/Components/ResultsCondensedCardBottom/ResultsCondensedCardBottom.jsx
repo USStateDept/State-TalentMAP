@@ -13,20 +13,22 @@ const ResultsCondensedCardBottom = (
     favorites,
     refreshFavorites,
     showBidListButton,
+    showBidCount,
+    useShortFavButton,
   }) => (
     <div className="condensed-card-bottom-container">
       <div className="usa-grid-full condensed-card-bottom">
-        <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />
+        {showBidCount && <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />}
         <CondensedCardData position={position} />
         <div className="usa-grid-full condensed-card-buttons-section">
           <Favorite
             useLongText
-            hideText={showBidListButton}
+            hideText={useShortFavButton}
             hasBorder
             refKey={position.id}
             compareArray={favorites}
-            useButtonClass={!showBidListButton}
-            useButtonClassSecondary={showBidListButton}
+            useButtonClass={!useShortFavButton}
+            useButtonClassSecondary={useShortFavButton}
             refresh={refreshFavorites}
           />
           {
@@ -48,12 +50,16 @@ ResultsCondensedCardBottom.propTypes = {
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   refreshFavorites: PropTypes.bool,
   showBidListButton: PropTypes.bool,
+  showBidCount: PropTypes.bool,
+  useShortFavButton: PropTypes.bool,
 };
 
 ResultsCondensedCardBottom.defaultProps = {
   type: 'default',
   refreshFavorites: false,
   showBidListButton: false,
+  showBidCount: true,
+  useShortFavButton: false,
 };
 
 export default ResultsCondensedCardBottom;

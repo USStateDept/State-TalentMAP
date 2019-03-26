@@ -1,5 +1,5 @@
 $condensed-card-margin-bottom: 15px;
-$condensed-card-padding: 9px 20px 9px;
+$condensed-card-padding: 9px 20px 7px;
 $condensed-card-data-padding: 15px 20px 9px;
 
 .condensed-card {
@@ -92,6 +92,10 @@ $condensed-card-data-padding: 15px 20px 9px;
     background-color: $tm-navy;
   }
 
+  .card-top-vacancy {
+    background-color: $bg-blue-dark-0;
+  }
+
   .condensed-top-background-image {
     filter: alpha(opacity = 10);
     font-size: 150px;
@@ -103,6 +107,14 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .condensed-card-top-header-container {
     margin-bottom: 5px;
+  }
+
+  .vacancy-text-container {
+    font-size: 1.2rem;
+  }
+
+  .vacancy--projected {
+    color: $tertiary-gold-lighter;
   }
 
   .condensed-card-top-header-left {

@@ -250,11 +250,11 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist butto
           ]
         }
         hasBorder={true}
-        hideText={true}
+        hideText={false}
         refKey={6}
         refresh={false}
-        useButtonClass={false}
-        useButtonClassSecondary={true}
+        useButtonClass={true}
+        useButtonClassSecondary={false}
         useLongText={true}
       />
       <Connect(PermissionsWrapper)

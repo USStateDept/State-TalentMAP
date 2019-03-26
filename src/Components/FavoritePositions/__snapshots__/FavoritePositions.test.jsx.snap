@@ -562,6 +562,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
     showBidListButton={true}
     title="favorites"
     type="default"
+    useShortFavButton={true}
   />
 </div>
 `;

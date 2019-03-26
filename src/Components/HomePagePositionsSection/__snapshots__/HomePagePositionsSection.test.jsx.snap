@@ -346,6 +346,7 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
     showBidListButton={false}
     title="Title"
     type="default"
+    useShortFavButton={false}
   />
 </div>
 `;

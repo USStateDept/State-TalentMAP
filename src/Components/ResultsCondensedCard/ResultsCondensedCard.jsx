@@ -14,19 +14,26 @@ const ResultsCondensedCard = (
     type,
     refreshFavorites,
     showBidListButton,
+    isProjectedVacancy,
+    isRecentlyAvailable,
+    useShortFavButton,
   }) => (
     <BoxShadow className="usa-grid-full condensed-card-inner">
       <ResultsCondensedCardTop
         favorites={favorites}
         position={position}
         type={type}
+        isProjectedVacancy={isProjectedVacancy}
+        isRecentlyAvailable={isRecentlyAvailable}
       />
       <ResultsCondensedCardBottom
         position={position}
         favorites={favorites}
         bidList={bidList}
         refreshFavorites={refreshFavorites}
-        showBidListButton={showBidListButton}
+        showBidListButton={showBidListButton && !isProjectedVacancy}
+        showBidCount={!isProjectedVacancy}
+        useShortFavButton={useShortFavButton}
       />
       <ResultsCondensedCardFooter
         position={position}
@@ -41,12 +48,18 @@ ResultsCondensedCard.propTypes = {
   type: HOME_PAGE_CARD_TYPE.isRequired,
   refreshFavorites: PropTypes.bool,
   showBidListButton: PropTypes.bool,
+  isProjectedVacancy: PropTypes.bool,
+  isRecentlyAvailable: PropTypes.bool,
+  useShortFavButton: PropTypes.bool,
 };
 
 ResultsCondensedCard.defaultProps = {
   favorites: [],
   refreshFavorites: false,
   showBidListButton: false,
+  isProjectedVacancy: false,
+  isRecentlyAvailable: false,
+  useShortFavButton: false,
 };
 
 export default ResultsCondensedCard;
