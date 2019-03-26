@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toggle matches snapshot 1`] = `
+<div
+  className="toggle-container"
+>
+  <button
+    className="toggle-button toggle-button--selected"
+    onClick={[Function]}
+    value={1}
+  >
+    a
+  </button>
+  <button
+    className="toggle-button "
+    onClick={[Function]}
+    value={2}
+  >
+    b
+  </button>
+  <button
+    className="toggle-button "
+    onClick={[Function]}
+    value={3}
+  >
+    c
+  </button>
+</div>
+`;

@@ -1,0 +1,26 @@
+.toggle-container {
+  background-color: $bg-gray-dark-4;
+  display: flex;
+
+  button {
+    background-color: $bg-gray-dark-4;
+    color: $bg-gray-dark-1;
+    display: flex;
+    flex-grow: 1;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 0;
+    padding: .5em .7em;
+  }
+
+  button:not(.toggle-button--selected) {
+    border-radius: 0;
+  }
+
+  .toggle-button--selected {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 1px 0 8px 0 $bg-gray-dark-1;
+    color: $color-white;
+    z-index: $toggle-button-z;
+  }
+}

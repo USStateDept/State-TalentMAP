@@ -348,6 +348,15 @@ $results-container-width: 100% - $filter-container-width;
     margin-top: 1rem;
   }
 
+  .projected-vacancy-filter-container {
+    margin-bottom: .8em;
+    margin-top: .2em;
+
+    button:first-of-type {
+      font-size: 1.5rem;
+    }
+  }
+
   .reset-filters {
     color: $blue-primary;
     cursor: pointer;

@@ -8,6 +8,7 @@ import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import BureauFilter from '../BureauFilter';
 import PostFilter from '../PostFilter';
 import SkillFilter from '../SkillFilter';
+import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
@@ -205,6 +206,7 @@ class SearchFiltersContainer extends Component {
 
     return (
       <div>
+        <ProjectedVacancyFilter />
         <MultiSelectFilterContainer
           multiSelectFilterList={sortedFilters}
           queryParamToggle={this.props.queryParamToggle}
