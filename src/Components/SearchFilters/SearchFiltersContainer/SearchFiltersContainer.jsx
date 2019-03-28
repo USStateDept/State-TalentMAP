@@ -84,7 +84,7 @@ class SearchFiltersContainer extends Component {
           // Push the "NONE" code choice to the bottom. We're already sorting
           // data, and this is readable, so the next line is eslint-disabled.
           // eslint-disable-next-line
-          f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? 1 : 0);
+          f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? -1 : 0);
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
