@@ -1,7 +1,7 @@
 // forked from https://github.com/lachlanjc/react-box-shadow
 import React from 'react';
 import PropTypes from 'prop-types';
-import cssShadow from 'css-box-shadow';
+import cssShadow from './BoxShadowUtility';
 
 const BoxShadow = ({ is, inset, offsetX, offsetY, blurRadius, spreadRadius, color, style,
 ...props }) => {
