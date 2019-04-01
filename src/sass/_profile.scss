@@ -694,19 +694,24 @@ $padding-no-border: $total-padding - $border;
   }
 }
 
-.bid-list-header {
+.section-header {
   background-color: $blue-primary;
   color: $color-white;
+  display: flex;
 
-  .bid-list-header-text {
-    margin-top: 5px;
+  button {
+    margin-right: auto;
   }
 
-  .bid-list-header-button-container {
+  .section-header-text {
+    margin: auto;
+  }
 
+  .section-header-button-container {
+    margin: auto;
     text-align: right;
 
-    .bid-list-header-button {
+    .section-header-button {
       border: 1px solid $color-white;
       font-size: 12px;
       padding: 5px 25px;
@@ -889,6 +894,20 @@ $padding-no-border: $total-padding - $border;
   button {
     float: right;
     font-size: 1.3rem;
+  }
+
+  .section-header {
+    div:first-of-type {
+      flex: 7;
+    }
+
+    div:nth-of-type(2) {
+      flex: 5;
+    }
+
+    .section-header-button {
+      padding: 5px;
+    }
   }
 }
 
