@@ -229,6 +229,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       bidList={Array []}
       favorites={Array []}
       isLoading={false}
+      isProjectedVacancy={false}
       onToggle={[Function]}
       results={
         Object {

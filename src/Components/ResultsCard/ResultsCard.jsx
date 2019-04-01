@@ -56,6 +56,7 @@ const ResultsCard = (props) => {
     result,
     onToggle,
     favorites,
+    isProjectedVacancy,
   } = props;
 
   const title = propOrDefault(result, 'title');
@@ -67,6 +68,9 @@ const ResultsCard = (props) => {
   const post = `${getPostName(result.post, NO_POST)}${result.organization ? `: ${result.organization}` : ''}`;
 
   const stats = getBidStatisticsObject(result.bid_statistics);
+
+  // TODO - update this to a real property once API is updateds
+  const recentlyAvailable = result.recently_available;
 
   const sections = [
     /* eslint-disable quote-props */
@@ -109,20 +113,24 @@ const ResultsCard = (props) => {
     <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
       {() => (
         <BoxShadow>
-          <div id={id} className="results-card">
+          <div id={id} className={`results-card ${isProjectedVacancy ? 'results-card--secondary' : ''}`}>
             <Row className="header" fluid>
               <Column columns="8">
                 <Column columns="12" className="results-card-title-link">
                   <h3>{title}</h3>
                   <Link to={`/details/${result.id}`}>View position</Link>
+                  {recentlyAvailable && <span className="available-alert">Now available!</span>}
                 </Column>
                 <Column columns="12" className="results-card-title-link">
                   <dt>Post:</dt><dd>{post}</dd>
                 </Column>
               </Column>
-              <Column columns="4">
-                <BidCount bidStatistics={stats} altStyle />
-              </Column>
+              {
+                !isProjectedVacancy &&
+                  <Column columns="4">
+                    <BidCount bidStatistics={stats} altStyle />
+                  </Column>
+              }
             </Row>
             <Row id={`${id}-inner`} fluid>
               <Column columns="6">
@@ -164,10 +172,12 @@ ResultsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   onToggle: PropTypes.func.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 ResultsCard.defaultProps = {
   favorites: [],
+  isProjectedVacancy: false,
 };
 
 export default ResultsCard;

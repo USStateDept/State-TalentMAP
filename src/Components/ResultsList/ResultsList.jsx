@@ -4,7 +4,7 @@ import ResultsCard from '../../Components/ResultsCard/ResultsCard';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 import { propOrDefault } from '../../utilities';
 
-const ResultsList = ({ results, onToggle, isLoading, favorites, bidList }) => {
+const ResultsList = ({ results, onToggle, isLoading, favorites, bidList, isProjectedVacancy }) => {
   const mapResults = results.results || [];
   return (
     <div className={isLoading ? 'results-loading' : null}>
@@ -18,6 +18,7 @@ const ResultsList = ({ results, onToggle, isLoading, favorites, bidList }) => {
             result={result}
             onToggle={onToggle}
             bidList={bidList}
+            isProjectedVacancy={isProjectedVacancy}
           />
         );
       })}
@@ -31,6 +32,7 @@ ResultsList.propTypes = {
   isLoading: PropTypes.bool,
   favorites: FAVORITE_POSITIONS_ARRAY,
   bidList: BID_RESULTS.isRequired,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 ResultsList.defaultProps = {
@@ -38,6 +40,7 @@ ResultsList.defaultProps = {
   onToggle: EMPTY_FUNCTION,
   isLoading: false,
   favorites: [],
+  isProjectedVacancy: false,
 };
 
 export default ResultsList;

@@ -10,7 +10,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "value": "open",
         },
         Object {
-          "label": "Projected Vancancies",
+          "label": "Projected Vacancies",
           "value": "projected",
         },
       ]

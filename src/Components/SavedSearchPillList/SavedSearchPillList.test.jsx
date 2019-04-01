@@ -4,7 +4,7 @@ import toJSON from 'enzyme-to-json';
 import SavedSearchPillList from './SavedSearchPillList';
 
 describe('FavoriteContentComponent', () => {
-  const pills = ['1', '0A', 'Los Angeles, CA United States of America (Post)'];
+  const pills = ['1', '0A', 'Projected Vacancy', 'Los Angeles, CA United States of America (Post)'];
   it('is defined', () => {
     const wrapper = shallow(
       <SavedSearchPillList
@@ -21,6 +21,19 @@ describe('FavoriteContentComponent', () => {
       />,
     );
     expect(wrapper).toBeDefined();
+  });
+
+  it('sorts "Projected Vacancy" to the top', () => {
+    const wrapper = shallow(
+      <SavedSearchPillList
+        pills={pills}
+      />,
+    );
+    expect(wrapper).toBeDefined();
+    expect(wrapper.find('div').at(0).children().find('div')
+      .at(0)
+      .text())
+    .toBe('Projected Vacancy');
   });
 
   it('matches snapshot', () => {

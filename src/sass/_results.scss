@@ -1,4 +1,4 @@
-$filter-container-width: 23%;
+$filter-container-width: 24%;
 $results-container-width: 100% - $filter-container-width;
 
 .results {
@@ -53,6 +53,13 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
+  .available-alert {
+    color: $color-green-dark;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 1em;
+  }
+
   .bid-count-container {
     font-size: .8em;
   }
@@ -62,6 +69,7 @@ $results-container-width: 100% - $filter-container-width;
     margin-top: .2rem;
 
     .results-card-title-link {
+      align-items: center;
       display: flex;
       justify-content: flex-start;
     }
@@ -307,6 +315,10 @@ $results-container-width: 100% - $filter-container-width;
       margin: 15px;
     }
   }
+}
+
+.results-card--secondary {
+  border-left-color: $primary-blue-darkest;
 }
 
 .top-nav {

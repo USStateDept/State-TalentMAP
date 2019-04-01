@@ -866,6 +866,14 @@ $padding-no-border: $total-padding - $border;
   padding: 2px .7em 0;
 }
 
+.pill--projected-vacancy {
+  background-color: $primary-blue-darkest;
+}
+
+.pill--highlight {
+  color: $tertiary-gold-lighter;
+}
+
 .saved-searches-list-profile-container {
   min-height: 260px;
   position: relative;

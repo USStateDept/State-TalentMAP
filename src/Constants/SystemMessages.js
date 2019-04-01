@@ -64,3 +64,6 @@ export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
 
 export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
 export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;
+
+export const GET_NOW_AVAILABLE = n => `${n} Now available!`;
+export const GET_POSITIONS_ADDED = n => `${n} Position${n > 1 ? 's' : ''} added`;

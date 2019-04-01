@@ -29,7 +29,7 @@ ProjectedVacancyFilter.defaultProps = {
       value: 'open',
     },
     {
-      label: 'Projected Vancancies',
+      label: 'Projected Vacancies',
       value: 'projected',
     },
   ],
