@@ -9,7 +9,7 @@ const mockStore = configureMockStore(middlewares);
 
 describe('async actions', () => {
   beforeEach(() => {
-    const mockAdapter = new MockAdapter(api);
+    const mockAdapter = new MockAdapter(api());
 
     const results = [
       {

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNumber } from 'lodash';
+import { Flag } from 'flag';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -123,26 +124,43 @@ const ResultsCard = (props) => {
                   <dt>Post:</dt><dd>{post}</dd>
                 </Column>
               </Column>
-              {
-                !isProjectedVacancy &&
+              <Flag
+                name="flags.bidding"
+                render={() => (
                   <Column columns="4">
                     <BidCount bidStatistics={stats} altStyle />
                   </Column>
-              }
+                )}
+              />
             </Row>
-            <Row id={`${id}-inner`} fluid>
-              <Column columns="6">
-                <DefinitionList items={sections[0]} />
-              </Column>
-              <Column columns="4">
-                <DefinitionList items={sections[1]} />
-              </Column>
-              <Column columns="2">
-                {
-                get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
+            <Flag
+              name="flags.bidding"
+              render={() =>
+                (<Row id={`${id}-inner`} fluid>
+                  <Column columns="6">
+                    <DefinitionList items={sections[0]} />
+                  </Column>
+                  <Column columns="4">
+                    <DefinitionList items={sections[1]} />
+                  </Column>
+                  <Column columns="2">
+                    {
+                      get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
+                    }
+                  </Column>
+                </Row>)
               }
-              </Column>
-            </Row>
+              fallbackRender={() =>
+                (<Row id={`${id}-inner`} fluid>
+                  <Column columns="6">
+                    <DefinitionList items={sections[0]} />
+                  </Column>
+                  <Column columns="6">
+                    <DefinitionList items={sections[1]} />
+                  </Column>
+                </Row>)
+              }
+            />
             <Row className="footer results-card-padded-section" fluid>
               <Column columns="6" as="section">
                 {

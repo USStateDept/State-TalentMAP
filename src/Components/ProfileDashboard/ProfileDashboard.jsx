@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Flag } from 'flag';
 import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
   FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import UserProfile from './UserProfile';
@@ -79,17 +80,22 @@ const ProfileDashboard = ({
                       columns={columns[2]}
                       className="user-dashboard-section-container user-dashboard-column-3"
                     >
-                      <PermissionsWrapper permissions="bidder">
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                          <BidList
-                            bids={bidList}
-                            showMoreLink={!isPublic}
-                            submitBidPosition={submitBidPosition}
-                            deleteBid={deleteBid}
-                            isLoading={bidListIsLoading}
-                          />
-                        </BoxShadow>
-                      </PermissionsWrapper>
+                      <Flag
+                        name="flags.bidding"
+                        render={() => (
+                          <PermissionsWrapper permissions="bidder">
+                            <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
+                              <BidList
+                                bids={bidList}
+                                showMoreLink={!isPublic}
+                                submitBidPosition={submitBidPosition}
+                                deleteBid={deleteBid}
+                                isLoading={bidListIsLoading}
+                              />
+                            </BoxShadow>
+                          </PermissionsWrapper>
+                        )}
+                      />
                       <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                         <Favorites favorites={favoritePositions} />
                       </BoxShadow>

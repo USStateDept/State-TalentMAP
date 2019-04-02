@@ -21,7 +21,7 @@ export function assignmentFetchDataSuccess(assignment) {
 
 export function assignmentFetchData(status = 'active') {
   return (dispatch) => {
-    api
+    api()
       .get(`/profile/assignments/?status=${status}`)
       .then(({ data }) => data.results[0] || {})
       .then((assignment) => {

@@ -1,5 +1,5 @@
 import { compact, has, isArray, isBoolean, isNumber, isObject, isString, forOwn, keys, pickBy } from 'lodash';
-import { PROFILE_MENU } from './Menu';
+import { GET_PROFILE_MENU } from './Menu';
 
 /**
  * Utility function that verifies if objects contains
@@ -50,7 +50,7 @@ describe('Menu', () => {
     string: isString,
   };
 
-  it('Verify PROFILE_MENU contains required options', () => {
+  it('Verify GET_PROFILE_MENU contains required options', () => {
     const requiredRules = pickBy(rules, item => item.required);
     const requiredKeys = keys(requiredRules);
     const expectAllToContainRequired = (items) => {
@@ -63,10 +63,10 @@ describe('Menu', () => {
       });
     };
 
-    expectAllToContainRequired(PROFILE_MENU);
+    expectAllToContainRequired(GET_PROFILE_MENU());
   });
 
-  it('Verify PROFILE_MENU contains valid option values', () => {
+  it('Verify GET_PROFILE_MENU contains valid option values', () => {
     /**
      * Iterates through object keys and validates against rule definitions
      * @param  {object} item value
@@ -105,6 +105,6 @@ describe('Menu', () => {
       });
     };
 
-    expectAllToValidate(PROFILE_MENU);
+    expectAllToValidate(GET_PROFILE_MENU());
   });
 });

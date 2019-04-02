@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { difference } from 'lodash';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
-import { PROFILE_MENU } from '../../../Constants/Menu';
+import { GET_PROFILE_MENU } from '../../../Constants/Menu';
 
 const ProfileMenuCollapsed = ({ expand, roles, isCDO, isGlossaryEditor }) => (
   <div className="usa-grid-full profile-menu profile-menu-collapsed">
@@ -15,7 +15,7 @@ const ProfileMenuCollapsed = ({ expand, roles, isCDO, isGlossaryEditor }) => (
     </div>
     <NavLinksContainer>
       {
-        PROFILE_MENU.map((item) => {
+        GET_PROFILE_MENU().map((item) => {
           const missingRoles = difference(item.roles, roles);
           const props = {
             iconName: item.icon,

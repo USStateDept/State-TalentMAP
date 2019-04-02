@@ -48,6 +48,10 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
         component={[Function]}
         path="/profile/public/:id"
       />
+      <Flag
+        name="flags.bidding"
+        render={[Function]}
+      />
     </Switch>
   </div>
 </div>

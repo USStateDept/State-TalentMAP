@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
+import { Flag } from 'flag';
 import Handshake from '../Ribbon/Handshake';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
+import { checkFlag } from '../../flags';
+
+const useProjectedVacancy = () => checkFlag('flags.projected_vacancy');
 
 const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentlyAvailable }) => {
   let icon = '';
@@ -19,11 +23,11 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
     cardTopClass = 'card-top-alternate';
     useType = true;
   }
-  if (isProjectedVacancy) {
+  if (isProjectedVacancy && useProjectedVacancy()) {
     vacancyClass = 'vacancy--projected';
     vacancyText = 'Projected Vacancy';
     cardTopClass = 'card-top-vacancy';
-  } else if (isRecentlyAvailable) {
+  } else if (isRecentlyAvailable && useProjectedVacancy()) {
     vacancyClass = 'vacancy--recent';
     vacancyText = 'Now available';
   }
@@ -52,12 +56,15 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
         <div>
           <span><span className="title">Post:</span> <span className="data">{getPostName(position.post, NO_POST)}</span></span>
         </div>
-        {
-          hasHandshake &&
-            <div>
-              <Handshake className="ribbon-condensed-card" />
-            </div>
-        }
+        <Flag
+          name="flags.bidding"
+          render={() => (
+            hasHandshake &&
+              <div>
+                <Handshake className="ribbon-condensed-card" />
+              </div>
+          )}
+        />
       </div>
     </div>
   );

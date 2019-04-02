@@ -15,7 +15,7 @@ xdescribe('login functions - basic auth', () => {
   });
 
   it('can log in and set the client (LocalStorage Auth)', () => {
-    const mockAdapter = new MockAdapter(api);
+    const mockAdapter = new MockAdapter(api());
 
     mockAdapter
       .onPost('/accounts/token/')
@@ -44,7 +44,7 @@ xdescribe('login functions - basic auth', () => {
       .silentRun());
 
   it('can can catch empty login fields', () => {
-    const mockAdapter = new MockAdapter(api);
+    const mockAdapter = new MockAdapter(api());
 
     mockAdapter
       .onPost('/accounts/token/')

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Flag } from 'flag';
 import Dashboard from '../../Containers/Dashboard/Dashboard';
 import BidderPortfolio from '../../Containers/BidderPortfolio';
 import BidCycles from '../../Containers/BidCycles';
@@ -32,6 +33,12 @@ const ProfilePage = ({ user }) => (
         <Route path="/profile/statistics" component={BidStatistics} />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
         <Route path="/profile/public/:id" component={ProfilePublic} />
+        <Flag
+          name="flags.bidding"
+          render={() => (
+            <Route path="/profile/bidtracker" component={BidTracker} />
+          )}
+        />
       </Switch>
     </div>
   </div>

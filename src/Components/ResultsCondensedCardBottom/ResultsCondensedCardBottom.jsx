@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import { Flag } from 'flag';
 import CondensedCardData from '../CondensedCardData';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import Favorite from '../../Containers/Favorite';
@@ -33,15 +34,18 @@ const ResultsCondensedCardBottom = (
             useButtonClassSecondary={useShortFavButton}
             refresh={refreshFavorites}
           />
-          {
-            showBidListButton &&
-            <PermissionsWrapper permissions="bidder">
-              <BidListButton
-                id={position.id}
-                disabled={!get(position, 'availability.availability', true)}
-              />
-            </PermissionsWrapper>
-          }
+          <Flag
+            name="flags.bidding"
+            render={() => (
+              showBidListButton &&
+              <PermissionsWrapper permissions="bidder">
+                <BidListButton
+                  id={position.id}
+                  disabled={!get(position, 'availability.availability', true)}
+                />
+              </PermissionsWrapper>
+            )}
+          />
           {
             showCompareButton &&
             <CompareCheck as="div" refKey={position.position_number} />

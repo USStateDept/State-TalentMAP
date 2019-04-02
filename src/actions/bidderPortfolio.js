@@ -42,7 +42,7 @@ export function bidderPortfolioCountsFetchData() {
   return (dispatch) => {
     dispatch(bidderPortfolioCountsIsLoading(true));
     dispatch(bidderPortfolioCountsHasErrored(false));
-    api.get('/client/statistics/')
+    api().get('/client/statistics/')
       .then(({ data }) => {
         dispatch(bidderPortfolioCountsHasErrored(false));
         dispatch(bidderPortfolioCountsIsLoading(false));
@@ -59,7 +59,7 @@ export function bidderPortfolioFetchData(query = '') {
   return (dispatch) => {
     dispatch(bidderPortfolioIsLoading(true));
     dispatch(bidderPortfolioHasErrored(false));
-    api.get(`/client/?${query}`)
+    api().get(`/client/?${query}`)
       .then(({ data }) => {
         dispatch(bidderPortfolioHasErrored(false));
         dispatch(bidderPortfolioIsLoading(false));

@@ -86,7 +86,7 @@ export function glossaryFetchData(bypassLoading = false) {
       dispatch(glossaryIsLoading(true));
     }
 
-    api
+    api()
       .get('/glossary/?is_archived=false')
       .then(({ data }) => {
         dispatch(glossaryFetchDataSuccess(data));
@@ -108,7 +108,7 @@ export function glossaryEditorFetchData(bypassLoading = false) {
       dispatch(glossaryEditorIsLoading(true));
     }
 
-    api
+    api()
       .get('/glossary/')
       .then(({ data }) => {
         dispatch(glossaryEditorFetchDataSuccess(data));
@@ -128,7 +128,7 @@ export function glossaryPatch(term = {}, onSuccess = EMPTY_FUNCTION) {
     dispatch(glossaryPatchIsLoading(true));
     dispatch(glossaryPatchHasErrored(false));
 
-    api
+    api()
       .patch(`/glossary/${term.id}/`, term)
       .then(({ data }) => {
         dispatch(glossaryFetchData());
@@ -159,7 +159,7 @@ export function glossaryPost(term = {}, onSuccess = EMPTY_FUNCTION) {
     dispatch(glossaryPostIsLoading(true));
     dispatch(glossaryPostHasErrored(false));
 
-    api
+    api()
       .post('/glossary/', term)
       .then(({ data }) => {
         dispatch(glossaryFetchData());

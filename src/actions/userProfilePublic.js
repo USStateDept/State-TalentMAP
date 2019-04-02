@@ -41,13 +41,13 @@ export function userProfilePublicFetchData(id, bypass) {
      * create functions to fetch user's profile and other data
      */
     // profile
-    const getUserAccount = () => api.get(`/client/${id}/`);
+    const getUserAccount = () => api().get(`/client/${id}/`);
 
     // assignments
-    const getUserAssignments = () => api.get(`/client/${id}/assignments/`);
+    const getUserAssignments = () => api().get(`/client/${id}/assignments/`);
 
     // bids
-    const getUserBids = () => api.get(`/client/${id}/bids/`);
+    const getUserBids = () => api().get(`/client/${id}/bids/`);
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future

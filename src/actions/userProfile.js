@@ -60,9 +60,9 @@ export function userProfileFetchData(bypass, cb) {
      * create functions to fetch user's profile and permissions
      */
     // profile
-    const getUserAccount = () => api.get('/profile/');
+    const getUserAccount = () => api().get('/profile/');
     // permissions
-    const getUserPermissions = () => api.get('/permission/user/');
+    const getUserPermissions = () => api().get('/permission/user/');
 
     // use api' Promise.all to fetch the profile and permissions, and then combine them
     // into one object
@@ -116,10 +116,10 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
      * create functions for creating the action and fetching position data to supply to message
      */
     // action
-    const getAction = () => api(config);
+    const getAction = () => api()(config);
 
     // position
-    const getPosition = () => api.get(`/position/${id}/`);
+    const getPosition = () => api().get(`/position/${id}/`);
 
     dispatch(userProfileFavoritePositionIsLoading(true, id));
     dispatch(userProfileFavoritePositionHasErrored(false));

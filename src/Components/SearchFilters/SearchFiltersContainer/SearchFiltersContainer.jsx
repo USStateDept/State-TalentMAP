@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { includes, sortBy } from 'lodash';
+import { Flag } from 'flag';
+import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
@@ -12,6 +14,8 @@ import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
+
+const useBidding = () => checkFlag('flags.bidding');
 
 class SearchFiltersContainer extends Component {
 
@@ -42,8 +46,11 @@ class SearchFiltersContainer extends Component {
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
     const sortedBooleanNames = [];
-    // show the 'Available' filter
-    sortedBooleanNames.push('available');
+    // show the 'Available' filter,
+    // but only if flags.bidding === true
+    if (useBidding()) {
+      sortedBooleanNames.push('available');
+    }
 
     // store filters in Map
     const booleanFiltersMap = new Map();
@@ -206,7 +213,12 @@ class SearchFiltersContainer extends Component {
 
     return (
       <div>
-        <ProjectedVacancyFilter />
+        <Flag
+          name="flags.projected_vacancy"
+          render={() => (
+            <ProjectedVacancyFilter />
+          )}
+        />
         <MultiSelectFilterContainer
           multiSelectFilterList={sortedFilters}
           queryParamToggle={this.props.queryParamToggle}

@@ -79,7 +79,7 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
     }
 
     // create a promise with all the queries we defined
-    const queryProms = queryTypes.map(type => api.get(`/position/${type.query}`));
+    const queryProms = queryTypes.map(type => api().get(`/position/${type.query}`));
 
     Promise.all(queryProms)
       // Promise.all returns a single array which matches the order of the originating array...

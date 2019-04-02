@@ -126,6 +126,10 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         useButtonClassSecondary={false}
         useLongText={true}
       />
+      <Flag
+        name="flags.bidding"
+        render={[Function]}
+      />
     </div>
   </div>
 </div>
@@ -257,14 +261,10 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist butto
         useButtonClassSecondary={false}
         useLongText={true}
       />
-      <Connect(PermissionsWrapper)
-        permissions="bidder"
-      >
-        <Connect(BidListButtonContainer)
-          disabled={false}
-          id={6}
-        />
-      </Connect(PermissionsWrapper)>
+      <Flag
+        name="flags.bidding"
+        render={[Function]}
+      />
     </div>
   </div>
 </div>

@@ -26,7 +26,7 @@ export function highlightPositionFetchData() {
 
     dispatch(highlightPositionIsLoading(true));
 
-    api
+    api()
       .get(url)
       .then(response => response.data)
       .then((results) => {
@@ -47,7 +47,7 @@ export function getHighlightedPosition(id) {
 
     dispatch(highlightPositionIsLoading(true));
 
-    api
+    api()
       .get(url)
       .then(response => response.data)
       .then(() => {
@@ -67,7 +67,7 @@ export function putHighlightedPosition(id) {
 
     dispatch(highlightPositionIsLoading(true));
 
-    api
+    api()
       .put(url)
       .then(response => response.data)
       .then(() => {
@@ -92,7 +92,7 @@ export function deleteHighlightPosition(id) {
     dispatch(highlightPositionIsLoading(true));
     dispatch(highlightPositionHasErrored(false));
 
-    api
+    api()
       .delete(url)
       .then(response => response.data)
       .then(() => {

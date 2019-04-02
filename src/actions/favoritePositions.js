@@ -28,7 +28,7 @@ export function favoritePositionsFetchData(sortType) {
     let url = '/position/favorites/';
     if (sortType) { url += `?ordering=${sortType}`; }
 
-    api.get(url)
+    api().get(url)
       .then(response => response.data)
       .then((results) => {
         dispatch(favoritePositionsFetchDataSuccess(results));
