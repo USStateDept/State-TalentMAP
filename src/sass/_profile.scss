@@ -283,6 +283,10 @@
 
   .bidlist-section {
     min-height: 300px;
+
+    .tm-spinner-saved-searches {
+      top: 40%;
+    }
   }
 
   .inbox-section {
@@ -726,7 +730,7 @@ $padding-no-border: $total-padding - $border;
 .bid-list-container {
   font-size: 1.1em;
   max-height: 420px;
-  min-height: 260px;
+  min-height: 420px;
   overflow-y: auto;
 
   .primary-text {

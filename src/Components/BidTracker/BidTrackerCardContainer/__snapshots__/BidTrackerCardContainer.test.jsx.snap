@@ -55,8 +55,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "user": "rehmant",
       }
     }
+    condensedView={false}
     declineBid={[Function]}
     deleteBid={[Function]}
+    priorityExists={false}
     showBidCount={true}
     submitBid={[Function]}
     userProfile={
@@ -231,8 +233,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "user": "rehmant",
         }
       }
+      condensedView={false}
       declineBid={[Function]}
       deleteBid={[Function]}
+      priorityExists={false}
       showBidCount={false}
       submitBid={[Function]}
       userProfile={

@@ -28,7 +28,7 @@ const ProfilePage = ({ user }) => (
         <Route path="/profile/cycles" component={BidCycles} />
         <Route path="/profile/favorites" component={FavoritePositionsContainer} />
         <Route path="/profile/searches" component={SavedSearchesWrapper} />
-        <Route path="/profile/bidtracker" component={BidTracker} />
+        <Route path="/profile/bidtracker/:id?" component={BidTracker} />
         <Route path="/profile/statistics" component={BidStatistics} />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
         <Route path="/profile/public/:id" component={ProfilePublic} />

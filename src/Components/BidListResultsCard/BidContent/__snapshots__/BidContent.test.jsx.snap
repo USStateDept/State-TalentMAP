@@ -15,6 +15,7 @@ exports[`BidContentComponent matches snapshot 1`] = `
       altStyle={true}
       bidStatistics={null}
       hideLabel={false}
+      isCondensed={false}
       label="Bid Count"
     />
   </span>

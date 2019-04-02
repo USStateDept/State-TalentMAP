@@ -6,9 +6,19 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
 >
   <div
     className="usa-grid-full"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
   >
     <div
-      className="usa-width-one-half draft-submission-container"
+      className="draft-submission-container"
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
     >
       <div
         className="sub-submission-text"
@@ -38,7 +48,12 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
       </div>
     </div>
     <div
-      className="usa-width-one-half draft-position-details"
+      className="draft-position-details"
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
     >
       <div>
         POLITICAL/ECONOMIC OFFICER

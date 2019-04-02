@@ -18,10 +18,32 @@ class BidTrackerContainer extends Component {
     // reset the alert messages
     this.props.bidListRouteChangeResetState();
     this.props.fetchNotifications();
+    this.state = {
+      hasScrolled: false,
+    };
+  }
+
+  componentDidUpdate() {
+    const { match: { params } } = this.props;
+    if (params.id) {
+      this.scrollToId(params.id);
+    }
   }
 
   getBidList() {
     this.props.fetchBidList();
+  }
+
+  // Scroll to the bid provided by route id.
+  // Only perform once.
+  scrollToId(id) {
+    const el = document.querySelector(`#bid-${id}`);
+    if (el && !this.state.hasScrolled) {
+      el.scrollIntoView({ block: 'start', inline: 'nearest', behavior: 'smooth' });
+      if (!this.state.hasScrolled) {
+        this.setState({ hasScrolled: true });
+      }
+    }
   }
 
   render() {
@@ -97,6 +119,7 @@ BidTrackerContainer.propTypes = {
   markBidTrackerNotification: PropTypes.func.isRequired,
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
+  match: PropTypes.shape({ params: PropTypes.shape({}) }),
 };
 
 BidTrackerContainer.defaultProps = {
@@ -128,6 +151,7 @@ BidTrackerContainer.defaultProps = {
   markBidTrackerNotification: EMPTY_FUNCTION,
   userProfile: DEFAULT_USER_PROFILE,
   userProfileIsLoading: false,
+  match: { params: {} },
 };
 
 BidTrackerContainer.contextTypes = {

@@ -16,7 +16,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       />
     </div>
     <MediaQueryWrapper
-      breakpoint="screenSmMax"
+      breakpoint="screenLgMin"
       widthType="max"
     />
   </div>

@@ -13,7 +13,7 @@ import PanelRescheduledAlert from './PanelRescheduledAlert';
 import DraftAlert from './DraftAlert';
 
 // Alert rendering based on status is handled here.
-const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }) => {
+const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { condensedView }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -25,8 +25,10 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }) => {
   let overlayContent = '';
   switch (bid.status) {
     case APPROVED_PROP:
-      overlayClass = CLASS_SUCCESS;
-      overlayContent = <ApprovedAlert userName={bid.user} />;
+      if (!condensedView) {
+        overlayClass = CLASS_SUCCESS;
+        overlayContent = <ApprovedAlert userName={bid.user} />;
+      }
       break;
     case HAND_SHAKE_OFFERED_PROP:
       overlayClass = CLASS_PENDING;
@@ -40,21 +42,29 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }) => {
       );
       break;
     case IN_PANEL_PROP:
-      overlayClass = CLASS_PENDING;
-      overlayContent =
-        <InPanelAlert title={BID_TITLE} date={bid.in_panel_date} />;
+      if (!condensedView) {
+        overlayClass = CLASS_PENDING;
+        overlayContent =
+          <InPanelAlert title={BID_TITLE} date={bid.in_panel_date} />;
+      }
       break;
     case HAND_SHAKE_DECLINED_PROP:
       overlayClass = CLASS_CLOSED;
-      overlayContent = <HandshakeDeclinedAlert userName={bid.user} bureau={bid.position.bureau} />;
+      overlayContent = (
+        <HandshakeDeclinedAlert
+          userName={bid.user}
+          bureau={bid.position.bureau}
+          id={bid.id}
+        />
+      );
       break;
     case DECLINED_PROP:
       overlayClass = CLASS_CLOSED;
-      overlayContent = <DeclinedAlert bureau={bid.position.bureau} />;
+      overlayContent = <DeclinedAlert bureau={bid.position.bureau} id={bid.id} />;
       break;
     case CLOSED_PROP:
       overlayClass = CLASS_CLOSED;
-      overlayContent = <ClosedAlert title={BID_TITLE} date={bid.closed_date} />;
+      overlayContent = <ClosedAlert title={BID_TITLE} date={bid.closed_date} id={bid.id} />;
       break;
     case PANEL_RESCHEDULED_PROP:
       overlayClass = CLASS_PENDING;
@@ -90,6 +100,10 @@ OverlayAlert.propTypes = {
   declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
+};
+
+OverlayAlert.contextTypes = {
+  condensedView: PropTypes.bool,
 };
 
 export default OverlayAlert;

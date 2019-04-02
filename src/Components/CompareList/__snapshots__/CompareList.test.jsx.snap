@@ -226,6 +226,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                     }
                   }
                   hideLabel={true}
+                  isCondensed={false}
                   label="Bid Count"
                 />
               </span>
@@ -247,6 +248,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                     }
                   }
                   hideLabel={true}
+                  isCondensed={false}
                   label="Bid Count"
                 />
               </span>
@@ -788,6 +790,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                     }
                   }
                   hideLabel={true}
+                  isCondensed={false}
                   label="Bid Count"
                 />
               </span>
@@ -809,6 +812,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                     }
                   }
                   hideLabel={true}
+                  isCondensed={false}
                   label="Bid Count"
                 />
               </span>

@@ -27,9 +27,17 @@ import {
 } from '../../Constants/BidData';
 
 // determine whether to show an alert on the bid tracker based on the status
-export function shouldShowAlert(bid) {
+export function shouldShowAlert(bid, { condensedView = false }) {
   const alertStatusArray = [DRAFT_PROP, HAND_SHAKE_OFFERED_PROP, APPROVED_PROP, CLOSED_PROP,
     HAND_SHAKE_DECLINED_PROP, DECLINED_PROP];
+
+  // alerts we hide in the condensed view
+  const hiddenInCondensedView = [APPROVED_PROP, IN_PANEL_PROP];
+
+  // don't show overlay for APPROVED if condensedView === true
+  if (condensedView && hiddenInCondensedView.includes(bid.status)) {
+    return false;
+  }
 
   // status is in the array OR paneling is today
   if (alertStatusArray.includes(bid.status) || bid.is_paneling_today) {
@@ -164,7 +172,6 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         title: HAND_SHAKE_EVALUATING_TITLE,
         needsAction: false,
         isCurrent: true,
-        hasPendingTooltip: true,
         number: HAND_SHAKE_OFFERED_NUMBER };
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
@@ -212,7 +219,7 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
         date: IN_PANEL_DATE,
-        title: PANEL_TITLE,
+        title: 'Panel Pending',
         hasRescheduledTooltip: !!bid.panel_reschedule_count,
         number: IN_PANEL_NUMBER };
       bidClassObject.stages[APPROVED_PROP] = {
@@ -222,10 +229,8 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         number: APPROVED_NUMBER };
       return bidClassObject;
 
-    // When the bid is approved, we display an overlay alert, so we can render
-    // the tracker the same as the in-panel phase.
+    // In-panel and Declined
     case IN_PANEL_PROP:
-    case APPROVED_PROP:
     case DECLINED_PROP:
       bidClassObject.stages[DRAFT_PROP] = Object.assign(
         DEFAULT_COMPLETE_OBJECT,
@@ -263,6 +268,47 @@ export function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         title: APPROVAL_TITLE,
         number: APPROVED_NUMBER };
       return bidClassObject;
+
+    // When the bid is approved, we display an overlay alert.
+    case APPROVED_PROP:
+      bidClassObject.stages[DRAFT_PROP] = Object.assign(
+        DEFAULT_COMPLETE_OBJECT,
+        { number: DRAFT_NUMBER, date: DRAFT_DATE, title: DRAFT_TITLE },
+      );
+      bidClassObject.stages[SUBMITTED_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: SUBMITTED_DATE,
+        title: SUBMIT_BID_COMPLETE_TITLE,
+        number: SUBMITTED_NUMBER };
+      bidClassObject.stages[HAND_SHAKE_OFFERED_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: HAND_SHAKE_OFFERED_DATE,
+        title: HAND_SHAKE_OFFERED_TITLE,
+        number: SUBMITTED_NUMBER };
+      bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: HAND_SHAKE_ACCEPTED_DATE,
+        title: HAND_SHAKE_ACCEPTED_TITLE,
+        number: HAND_SHAKE_ACCEPTED_NUMBER };
+      bidClassObject.stages[IN_PANEL_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: IN_PANEL_DATE,
+        title: PANEL_TITLE,
+        needsAction: false,
+        // Only show the rescheduled tooltip if it has a
+        // panel_reschedule_count > 0 and is not paneling today and status is IN_PANEL_PROP.
+        hasRescheduledTooltip:
+          !!bid.panel_reschedule_count && !bid.is_paneling_today && bid.status === IN_PANEL_PROP,
+        number: IN_PANEL_NUMBER };
+      bidClassObject.stages[APPROVED_PROP] = {
+        ...DEFAULT_INCOMPLETE_OBJECT,
+        date: APPROVED_DATE,
+        title: 'Approved',
+        number: APPROVED_NUMBER,
+        isCurrent: true,
+      };
+      return bidClassObject;
+
     default:
       return false;
   }

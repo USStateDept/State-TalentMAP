@@ -16,23 +16,6 @@ exports[`BidStepIconComponent matches snapshot when isComplete is false 1`] = `
 </span>
 `;
 
-exports[`BidStepIconComponent matches snapshot when isComplete is false and hasPendingTooltip 1`] = `
-<span
-  className="icon-incomplete"
->
-  <div
-    className="icon-container"
-  >
-    <span
-      className="number-icon number-icon-needs-action"
-    >
-      3
-    </span>
-    <PendingIcon />
-  </div>
-</span>
-`;
-
 exports[`BidStepIconComponent matches snapshot when isComplete is false and hasRescheduledTooltip 1`] = `
 <span
   className="icon-incomplete"
