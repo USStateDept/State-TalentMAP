@@ -560,6 +560,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
     }
     refreshFavorites={true}
     showBidListButton={true}
+    showCompareButton={true}
     title="favorites"
     type="default"
     useShortFavButton={true}

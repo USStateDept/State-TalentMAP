@@ -326,6 +326,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     refreshFavorites={false}
     showBidCount={true}
     showBidListButton={false}
+    showCompareButton={false}
     type="default"
     useShortFavButton={false}
   />

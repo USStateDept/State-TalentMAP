@@ -120,37 +120,4 @@ describe('ResultsPageComponent', () => {
     />);
     expect(wrapper).toBeDefined();
   });
-
-  it('can call the onChildToggle function', () => {
-    wrapper = shallow(<ResultsPage
-      results={resultsObject}
-      sortBy={POSITION_SEARCH_SORTS}
-      defaultSort={defaultSort}
-      pageSizes={POSITION_PAGE_SIZES}
-      defaultPageSize={defaultPageSize}
-      onQueryParamUpdate={() => {}}
-      resetFilters={() => {}}
-      onQueryParamToggle={() => {}}
-      setAccordion={() => {}}
-      filters={items}
-      onUpdate={() => {}}
-      saveSearch={() => {}}
-      newSavedSearchSuccess={{}}
-      newSavedSearchHasErrored={false}
-      newSavedSearchIsSaving={false}
-      resetSavedSearchAlerts={() => {}}
-      fetchMissionAutocomplete={() => {}}
-      missionSearchResults={[]}
-      missionSearchIsLoading={false}
-      missionSearchHasErrored={false}
-      fetchPostAutocomplete={() => {}}
-      postSearchResults={[]}
-      postSearchIsLoading={false}
-      postSearchHasErrored={false}
-      shouldShowSearchBar
-      bidList={[]}
-    />);
-    wrapper.instance().onChildToggle();
-    expect(wrapper).toBeDefined();
-  });
 });

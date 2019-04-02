@@ -181,6 +181,8 @@ $condensed-card-data-padding: 15px 20px 9px;
   }
 
   .condensed-card-buttons-section {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 10px;
     margin-left: 0;
     margin-right: 0;
@@ -188,6 +190,29 @@ $condensed-card-data-padding: 15px 20px 9px;
     button {
       height: 44px;
       margin-top: 0;
+    }
+
+    .bid-list-button {
+      flex-grow: 1;
+      font-size: .9em;
+      padding-left: .75em;
+      padding-right: .75em;
+    }
+
+    .button-icon {
+      display: none;
+    }
+
+    .compare-check-box-container {
+      align-items: center;
+      display: flex;
+      flex-grow: 1;
+      font-size: .8em;
+      justify-content: center;
+
+      .fa {
+        margin-right: 5px;
+      }
     }
   }
 

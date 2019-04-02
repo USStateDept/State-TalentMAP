@@ -12,16 +12,9 @@ import ResultsFilterContainer from '../ResultsFilterContainer/ResultsFilterConta
 class Results extends Component {
   constructor(props) {
     super(props);
-    this.onChildToggle = this.onChildToggle.bind(this);
     this.state = {
-      key: 0,
       currentPage: { value: 0 },
     };
-  }
-
-  onChildToggle() {
-    const key = Math.random();
-    this.setState({ key });
   }
 
   render() {
@@ -79,7 +72,6 @@ class Results extends Component {
             defaultPageNumber={defaultPageNumber}
             queryParamUpdate={onQueryParamUpdate}
             refreshKey={this.state.key}
-            onToggle={this.onChildToggle}
             pillFilters={pillFilters}
             onQueryParamToggle={onQueryParamToggle}
             scrollToTop={scrollToTop}

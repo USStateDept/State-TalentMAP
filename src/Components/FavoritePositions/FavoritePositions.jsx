@@ -42,6 +42,7 @@ bidList, onSortChange }) => (
       refreshFavorites
       showBidListButton
       useShortFavButton
+      showCompareButton
     />
   </div>
 );

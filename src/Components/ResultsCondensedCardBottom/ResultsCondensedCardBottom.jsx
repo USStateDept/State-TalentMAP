@@ -7,6 +7,7 @@ import Favorite from '../../Containers/Favorite';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
+import CompareCheck from '../CompareCheck';
 
 const ResultsCondensedCardBottom = (
   { position,
@@ -15,6 +16,7 @@ const ResultsCondensedCardBottom = (
     showBidListButton,
     showBidCount,
     useShortFavButton,
+    showCompareButton,
   }) => (
     <div className="condensed-card-bottom-container">
       <div className="usa-grid-full condensed-card-bottom">
@@ -40,6 +42,10 @@ const ResultsCondensedCardBottom = (
               />
             </PermissionsWrapper>
           }
+          {
+            showCompareButton &&
+            <CompareCheck as="div" refKey={position.position_number} />
+          }
         </div>
       </div>
     </div>
@@ -52,6 +58,7 @@ ResultsCondensedCardBottom.propTypes = {
   showBidListButton: PropTypes.bool,
   showBidCount: PropTypes.bool,
   useShortFavButton: PropTypes.bool,
+  showCompareButton: PropTypes.bool,
 };
 
 ResultsCondensedCardBottom.defaultProps = {
@@ -60,6 +67,7 @@ ResultsCondensedCardBottom.defaultProps = {
   showBidListButton: false,
   showBidCount: true,
   useShortFavButton: false,
+  showCompareButton: false,
 };
 
 export default ResultsCondensedCardBottom;

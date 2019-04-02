@@ -17,6 +17,7 @@ const ResultsCondensedCard = (
     isProjectedVacancy,
     isRecentlyAvailable,
     useShortFavButton,
+    showCompareButton,
   }) => (
     <BoxShadow className="usa-grid-full condensed-card-inner">
       <ResultsCondensedCardTop
@@ -34,6 +35,7 @@ const ResultsCondensedCard = (
         showBidListButton={showBidListButton && !isProjectedVacancy}
         showBidCount={!isProjectedVacancy}
         useShortFavButton={useShortFavButton}
+        showCompareButton={showCompareButton}
       />
       <ResultsCondensedCardFooter
         position={position}
@@ -51,6 +53,7 @@ ResultsCondensedCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   isRecentlyAvailable: PropTypes.bool,
   useShortFavButton: PropTypes.bool,
+  showCompareButton: PropTypes.bool,
 };
 
 ResultsCondensedCard.defaultProps = {
@@ -60,6 +63,7 @@ ResultsCondensedCard.defaultProps = {
   isProjectedVacancy: false,
   isRecentlyAvailable: false,
   useShortFavButton: false,
+  showCompareButton: false,
 };
 
 export default ResultsCondensedCard;

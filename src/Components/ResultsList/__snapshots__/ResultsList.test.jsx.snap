@@ -15,7 +15,6 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
     favorites={Array []}
     id="6-1"
     isProjectedVacancy={false}
-    onToggle={[Function]}
     result={
       Object {
         "bid_statistics": Array [
@@ -101,7 +100,6 @@ exports[`ResultsListComponent matches a snapshot with results 1`] = `
     favorites={Array []}
     id="60-1"
     isProjectedVacancy={false}
-    onToggle={[Function]}
     result={
       Object {
         "bid_statistics": Array [
