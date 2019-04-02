@@ -1,5 +1,3 @@
-#! /bin/bash
-
 # "Automation" of the front end app deployment.
 # * Gets code from the `dev` branch
 # * generates certs
@@ -9,10 +7,10 @@
 # * copies static build dir to apache dir
 # * restarts apache and pm2
 
-curr_date=`date "+%Y-%m-%d_%H-%M-%S"`
-
+# delete backup if exists
+[ -d State-TalentMAP-dev-BACKUP ] && rm -rf State-TalentMAP-dev-BACKUP
 # backup current version if it exists
-[ -d State-TalentMAP-dev ] && mv State-TalentMAP-dev State-TalentMAP-dev-$curr_date
+[ -d State-TalentMAP-dev ] && cp -r  State-TalentMAP-dev State-TalentMAP-dev-BACKUP
 
 # get code
 wget -O dev.zip https://github.com/MetaPhase-Consulting/State-TalentMAP/archive/dev.zip
@@ -58,11 +56,11 @@ export NODE_ENV=production
 yarn build
 
 # backup the html dir if present
-[ -d /var/www/html ] && sudo mv /var/www/html /var/www/html-$curr_date
+[ -d /var/www/html ] && sudo mv /var/www/html /var/www/html-BACKUP
 # move build to html
 sudo cp -R build /var/www/html
 # restart apache
 sudo apachectl restart
 
 # restart the pm2 process
-pm2 restart all
+pm2 restart all --update-env
