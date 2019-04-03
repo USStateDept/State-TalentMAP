@@ -129,7 +129,7 @@ export function bidListFetchData(ordering = 'draft_date') {
   return (dispatch) => {
     dispatch(bidListIsLoading(true));
     dispatch(bidListHasErrored(false));
-    api.get(`/bidlist/?ordering=${ordering}`)
+    api().get(`/bidlist/?ordering=${ordering}`)
       .then(response => response.data)
       .then((results) => {
         dispatch(bidListHasErrored(false));
@@ -150,7 +150,7 @@ export function submitBid(id) {
     dispatch(routeChangeResetState());
     dispatch(submitBidIsLoading(true));
     dispatch(submitBidHasErrored(false));
-    api.get(`/bid/${idString}/submit/`)
+    api().get(`/bid/${idString}/submit/`)
       .then(response => response.data)
       .then(() => {
         dispatch(submitBidHasErrored(false));
@@ -172,7 +172,7 @@ export function acceptBid(id) {
     dispatch(routeChangeResetState());
     dispatch(acceptBidIsLoading(true));
     dispatch(acceptBidHasErrored(false));
-    api.get(`/bid/${idString}/accept_handshake/`)
+    api().get(`/bid/${idString}/accept_handshake/`)
       .then(response => response.data)
       .then(() => {
         dispatch(acceptBidHasErrored(false));
@@ -194,7 +194,7 @@ export function declineBid(id) {
     dispatch(routeChangeResetState());
     dispatch(declineBidIsLoading(true));
     dispatch(declineBidHasErrored(false));
-    api.get(`/bid/${idString}/decline_handshake/`)
+    api().get(`/bid/${idString}/decline_handshake/`)
       .then(response => response.data)
       .then(() => {
         dispatch(declineBidHasErrored(false));
@@ -223,7 +223,7 @@ export function toggleBidPosition(id, remove) {
       url: `/bidlist/position/${idString}/`,
     };
 
-    api(config)
+    api()(config)
       .then(() => {
         const message = remove ?
           SystemMessages.DELETE_BID_ITEM_SUCCESS : SystemMessages.ADD_BID_ITEM_SUCCESS;

@@ -7,7 +7,7 @@ import NavLink from '../NavLink';
 
 import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../../Constants/DefaultProps';
 import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
-import { PROFILE_MENU } from '../../../Constants/Menu';
+import { GET_PROFILE_MENU } from '../../../Constants/Menu';
 
 function isHidden(options, roles, params) {
   const hasMissingRoles = difference(options.roles, roles).length > 0;
@@ -63,12 +63,12 @@ const ProfileMenuExpanded = (props) => {
       </div>
       <NavLinksContainer>
         {
-          PROFILE_MENU.map((item) => {
+          GET_PROFILE_MENU().map((item) => {
             const subitems = (item.children || []);
             return subitems.length ? (
               <NavLink key={item.text} {...getProps(item, roles, props$)}>
                 {
-                  subitems.map(subitem => (
+                  subitems.filter(f => f.route).map(subitem => (
                     <NavLink key={subitem.text} {...getProps(subitem, roles, props$)} />
                   ))
                 }

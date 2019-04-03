@@ -27,7 +27,7 @@ class ResultsContainer extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-            defaultPageNumber, queryParamUpdate, onToggle, onQueryParamToggle,
+            defaultPageNumber, queryParamUpdate, onQueryParamToggle,
             newSavedSearchHasErrored, saveSearch, newSavedSearchSuccess,
             currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, bidList,
       } = this.props;
@@ -75,7 +75,6 @@ class ResultsContainer extends Component {
             }
             <ResultsList
               key={refreshKey}
-              onToggle={onToggle}
               results={results}
               isLoading={!hasLoaded}
               favorites={userProfile.favorite_positions}
@@ -114,7 +113,6 @@ ResultsContainer.propTypes = {
   defaultPageNumber: PropTypes.number,
   pageSize: PropTypes.number.isRequired,
   hasLoaded: PropTypes.bool.isRequired,
-  onToggle: PropTypes.func.isRequired,
   refreshKey: PropTypes.number, // refresh components that rely on local storage
   pillFilters: PILL_ITEM_ARRAY,
   scrollToTop: PropTypes.func,

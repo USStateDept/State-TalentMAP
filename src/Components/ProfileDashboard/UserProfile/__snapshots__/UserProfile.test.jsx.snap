@@ -64,21 +64,10 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   <div
     className="current-user-bottom"
   >
-    <div
-      className="current-user-section-border cdo-section"
-    >
-      <Connect(StaticDevContent)>
-        <ExternalUserStatus
-          email=""
-          firstName="Leah"
-          initials="LS"
-          lastName="Shadtrach"
-          showMail={false}
-          small={true}
-          type="cdo"
-        />
-      </Connect(StaticDevContent)>
-    </div>
+    <Flag
+      name="flags.static_content"
+      render={[Function]}
+    />
     <div
       className="current-user-section-border"
     >

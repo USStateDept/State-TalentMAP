@@ -1,22 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
 import sinon from 'sinon';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+import MockTestProvider from '../../testUtilities/MockProvider';
 import Results, { mapDispatchToProps } from './Results';
 import resultsObject from '../../__mocks__/resultsObject';
-
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
 
 describe('Results', () => {
   const debounceTimeInMs = 500;
   it('is defined', () => {
-    const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+    const results = TestUtils.renderIntoDocument(<MockTestProvider>
       <Results
         results={resultsObject}
         isAuthorized={() => true}
@@ -34,12 +28,12 @@ describe('Results', () => {
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
       />
-    </MemoryRouter></Provider>);
+    </MockTestProvider>);
     expect(results).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
-    const results = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
+    const results = TestUtils.renderIntoDocument(<MockTestProvider>
       <Results
         results={resultsObject}
         isAuthorized={() => false}
@@ -57,7 +51,7 @@ describe('Results', () => {
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
       />
-    </MemoryRouter></Provider>);
+    </MockTestProvider>);
     expect(results).toBeDefined();
   });
 

@@ -118,7 +118,7 @@ export function savedSearchesFetchData(sortType) {
     dispatch(savedSearchesHasErrored(false));
     let url = '/searches/';
     if (sortType) { url += `?ordering=${sortType}`; }
-    api.get(url)
+    api().get(url)
       .then(response => response.data)
       .then((results) => {
         dispatch(savedSearchesSuccess(results));
@@ -136,7 +136,7 @@ export function deleteSavedSearch(id) {
   return (dispatch) => {
     dispatch(deleteSavedSearchIsLoading(true));
     dispatch(routeChangeResetState());
-    api.delete(`/searches/${id}/`)
+    api().delete(`/searches/${id}/`)
       .then(() => {
         dispatch(deleteSavedSearchIsLoading(false));
         dispatch(deleteSavedSearchHasErrored(false));
@@ -163,7 +163,7 @@ export function cloneSavedSearch(id) {
       dispatch(cloneSavedSearchSuccess(false));
     };
     // get the original saved search
-    api.get(`/searches/${id}/`)
+    api().get(`/searches/${id}/`)
       .then((response) => {
         const responseObject = response.data;
         // copy the object, but only with the properties we need
@@ -175,7 +175,7 @@ export function cloneSavedSearch(id) {
 
         // append a timestamp to the end of the name
         clonedResponse.name += ` - Copy - ${new Date()}`;
-        api.post('/searches/', clonedResponse)
+        api().post('/searches/', clonedResponse)
           .then((postResponse) => {
             dispatch(cloneSavedSearchIsLoading(false));
             dispatch(cloneSavedSearchHasErrored(false));
@@ -207,7 +207,7 @@ export function saveSearch(data, id) {
     dispatch(newSavedSearchSuccess(false));
     dispatch(newSavedSearchHasErrored(false));
 
-    api(config)
+    api()(config)
       .then((response) => {
         dispatch(newSavedSearchIsSaving(false));
         dispatch(newSavedSearchHasErrored(false));

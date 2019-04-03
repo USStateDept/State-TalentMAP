@@ -20,7 +20,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         small={false}
       />
     </div>
-    <EditProfile />
+    <Connect(StaticDevContent)>
+      <EditProfile />
+    </Connect(StaticDevContent)>
     <div
       className="name-group"
     >
@@ -81,7 +83,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         small={false}
       />
     </div>
-    <EditProfile />
+    <Connect(StaticDevContent)>
+      <EditProfile />
+    </Connect(StaticDevContent)>
     <div
       className="name-group"
     >
@@ -142,7 +146,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         small={false}
       />
     </div>
-    <EditProfile />
+    <Connect(StaticDevContent)>
+      <EditProfile />
+    </Connect(StaticDevContent)>
     <div
       className="name-group"
     >

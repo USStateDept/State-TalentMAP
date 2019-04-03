@@ -26,7 +26,7 @@ export function shareSendData(data) {
     dispatch(shareIsSending(true));
     dispatch(shareSuccess(false));
     dispatch(shareHasErrored(false));
-    api.post('/share/', data)
+    api().post('/share/', data)
       .then((response) => {
         dispatch(shareIsSending(false));
         dispatch(shareHasErrored(false));

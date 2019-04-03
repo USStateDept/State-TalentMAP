@@ -7,12 +7,6 @@ import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/Sear
 import ResetFilters from '../ResetFilters/ResetFilters';
 
 class ResultsFilterContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
-    this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
-  }
-
   shouldComponentUpdate(nextProps) {
     if (this.props !== nextProps) {
       return true;
@@ -20,20 +14,10 @@ class ResultsFilterContainer extends Component {
     return false;
   }
 
-  onQueryParamUpdate(e) {
-    this.props.onQueryParamUpdate(e);
-    this.props.onChildToggle();
-  }
-
-  onQueryParamToggle(param, value, remove) {
-    this.props.onQueryParamToggle(param, value, remove);
-    this.props.onChildToggle();
-  }
-
   render() {
     const { filters, resetFilters, setAccordion, selectedAccordion,
       fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
-      missionSearchHasErrored, fetchPostAutocomplete,
+      missionSearchHasErrored, fetchPostAutocomplete, onQueryParamUpdate, onQueryParamToggle,
       postSearchResults, postSearchIsLoading, postSearchHasErrored } = this.props;
     return (
       <div className="filter-container">
@@ -47,8 +31,8 @@ class ResultsFilterContainer extends Component {
           <div className="usa-grid-full search-filters-container">
             <SearchFiltersContainer
               filters={filters}
-              queryParamUpdate={this.onQueryParamUpdate}
-              queryParamToggle={this.onQueryParamToggle}
+              queryParamUpdate={onQueryParamUpdate}
+              queryParamToggle={onQueryParamToggle}
               selectedAccordion={selectedAccordion}
               setAccordion={setAccordion}
               fetchMissionAutocomplete={fetchMissionAutocomplete}
@@ -70,7 +54,6 @@ class ResultsFilterContainer extends Component {
 ResultsFilterContainer.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,
   onQueryParamUpdate: PropTypes.func.isRequired,
-  onChildToggle: PropTypes.func.isRequired,
   onQueryParamToggle: PropTypes.func.isRequired,
   resetFilters: PropTypes.func.isRequired,
   setAccordion: PropTypes.func.isRequired,

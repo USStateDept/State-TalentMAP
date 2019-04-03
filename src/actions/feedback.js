@@ -27,7 +27,7 @@ export function feedbackSubmitData(comments, isInterestedInHelping = false) {
     dispatch(feedbackIsSending(true));
     dispatch(feedbackSuccess(false));
     dispatch(feedbackHasErrored(false));
-    api.post('/feedback/', { comments, is_interested_in_helping: isInterestedInHelping })
+    api().post('/feedback/', { comments, is_interested_in_helping: isInterestedInHelping })
       .then((response) => {
         dispatch(feedbackIsSending(false));
         dispatch(feedbackHasErrored(false));

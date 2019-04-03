@@ -157,6 +157,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        isProjectedVacancy={false}
+        isRecentlyAvailable={false}
         position={
           Object {
             "bid_statistics": Array [
@@ -238,7 +240,9 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         refreshFavorites={false}
         showBidListButton={false}
+        showCompareButton={false}
         type="default"
+        useShortFavButton={false}
       />
     </div>
     <div
@@ -391,6 +395,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        isProjectedVacancy={false}
+        isRecentlyAvailable={false}
         position={
           Object {
             "bid_statistics": Array [
@@ -472,7 +478,9 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         refreshFavorites={false}
         showBidListButton={false}
+        showCompareButton={false}
         type="default"
+        useShortFavButton={false}
       />
     </div>
     <div
@@ -625,6 +633,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        isProjectedVacancy={false}
+        isRecentlyAvailable={false}
         position={
           Object {
             "bid_statistics": Array [
@@ -706,7 +716,9 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         refreshFavorites={false}
         showBidListButton={false}
+        showCompareButton={false}
         type="default"
+        useShortFavButton={false}
       />
     </div>
     <div
@@ -859,6 +871,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        isProjectedVacancy={false}
+        isRecentlyAvailable={false}
         position={
           Object {
             "bid_statistics": Array [
@@ -940,7 +954,9 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         refreshFavorites={false}
         showBidListButton={false}
+        showCompareButton={false}
         type="default"
+        useShortFavButton={false}
       />
     </div>
     <div
@@ -1093,6 +1109,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        isProjectedVacancy={false}
+        isRecentlyAvailable={false}
         position={
           Object {
             "bid_statistics": Array [
@@ -1174,7 +1192,9 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         refreshFavorites={false}
         showBidListButton={false}
+        showCompareButton={false}
         type="default"
+        useShortFavButton={false}
       />
     </div>
     <div
@@ -1327,6 +1347,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        isProjectedVacancy={false}
+        isRecentlyAvailable={false}
         position={
           Object {
             "bid_statistics": Array [
@@ -1408,7 +1430,9 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         refreshFavorites={false}
         showBidListButton={false}
+        showCompareButton={false}
         type="default"
+        useShortFavButton={false}
       />
     </div>
     <div
@@ -1561,6 +1585,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        isProjectedVacancy={false}
+        isRecentlyAvailable={false}
         position={
           Object {
             "bid_statistics": Array [
@@ -1642,7 +1668,9 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         refreshFavorites={false}
         showBidListButton={false}
+        showCompareButton={false}
         type="default"
+        useShortFavButton={false}
       />
     </div>
   </div>

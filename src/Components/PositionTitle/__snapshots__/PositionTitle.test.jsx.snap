@@ -75,15 +75,10 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   <div
     className="offset-bid-button-container"
   >
-    <Connect(PermissionsWrapper)
-      permissions="bidder"
-    >
-      <Connect(BidListButtonContainer)
-        compareArray={Array []}
-        disabled={false}
-        id={6}
-      />
-    </Connect(PermissionsWrapper)>
+    <Flag
+      name="flags.bidding"
+      render={[Function]}
+    />
   </div>
 </div>
 `;

@@ -29,8 +29,8 @@ class DraftAlert extends Component {
     const grade = position.grade ? position.grade : NO_GRADE;
     return (
       <div className="bid-tracker-alert-container bid-tracker-alert-container--draft">
-        <div className="usa-grid-full">
-          <div className="usa-width-one-half draft-submission-container">
+        <div className="usa-grid-full" style={{ display: 'flex' }}>
+          <div className="draft-submission-container" style={{ flex: 1 }}>
             <div className="sub-submission-text">
               Would you like to submit your bid?
             </div>
@@ -50,7 +50,7 @@ class DraftAlert extends Component {
               </InteractiveElement>
             </div>
           </div>
-          <div className="usa-width-one-half draft-position-details">
+          <div className="draft-position-details" style={{ flex: 1 }}>
             <div>
               {positionTitle}
             </div>

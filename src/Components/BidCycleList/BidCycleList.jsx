@@ -4,9 +4,9 @@ import BidCycleCard from './BidCycleCard';
 import { Row, Column } from '../Layout';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import { BID_CYCLES } from '../../Constants/PropTypes';
-import Menu from '../../Constants/Menu';
+import GET_PROFILE_MENU from '../../Constants/Menu';
 
-const title = find(Menu[0].children, { route: '/profile/cycles/' }).text;
+const title = find(GET_PROFILE_MENU()[0].children, { route: '/profile/cycles/' }).text;
 
 const BidCycleList = ({ cycles }) => (
   <Row fluid>

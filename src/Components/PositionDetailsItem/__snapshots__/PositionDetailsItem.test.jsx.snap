@@ -4,8 +4,9 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
 <div
   className="usa-grid-full padded-main-content position-details-outer-container"
 >
-  <div
-    className="handshake-offset-container"
+  <Flag
+    name="flags.bidding"
+    render={[Function]}
   />
   <div
     className="usa-grid-full position-details-description-container positions-details-about-position"
@@ -198,8 +199,9 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
 <div
   className="usa-grid-full padded-main-content position-details-outer-container"
 >
-  <div
-    className="handshake-offset-container"
+  <Flag
+    name="flags.bidding"
+    render={[Function]}
   />
   <div
     className="usa-grid-full position-details-description-container positions-details-about-position"
@@ -424,8 +426,9 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
 <div
   className="usa-grid-full padded-main-content position-details-outer-container"
 >
-  <div
-    className="handshake-offset-container"
+  <Flag
+    name="flags.bidding"
+    render={[Function]}
   />
   <div
     className="usa-grid-full position-details-description-container positions-details-about-position"

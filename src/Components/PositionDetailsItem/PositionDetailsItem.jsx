@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import { Flag } from 'flag';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import OBCUrl from '../OBCUrl';
@@ -70,11 +71,16 @@ const PositionDetailsItem = (props) => {
   const stats = getBidStatisticsObject(details.bid_statistics);
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
-      <div className="handshake-offset-container">
-        {
-          get(stats, 'has_handshake_offered', false) && <Handshake cutSide="right" className="ribbon-position-details" />
-        }
-      </div>
+      <Flag
+        name="flags.bidding"
+        render={() => (
+          <div className="handshake-offset-container">
+            {
+              get(stats, 'has_handshake_offered', false) && <Handshake cutSide="right" className="ribbon-position-details" />
+            }
+          </div>
+        )}
+      />
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className="usa-width-two-thirds about-section-left">
           <h2>About the Position</h2>

@@ -17,7 +17,10 @@ exports[`Header matches snapshot when logged in 1`] = `
     id="header"
     role="banner"
   >
-    <Connect(Component) />
+    <Flag
+      name="flags.static_content"
+      render={[Function]}
+    />
     <StateBanner />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"
@@ -98,7 +101,10 @@ exports[`Header matches snapshot when logged out 1`] = `
     id="header"
     role="banner"
   >
-    <Connect(Component) />
+    <Flag
+      name="flags.static_content"
+      render={[Function]}
+    />
     <StateBanner />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"

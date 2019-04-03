@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { assignmentFetchData } from '../../actions/assignment';
 import { notificationsFetchData } from '../../actions/notifications';
-import { bidListFetchData } from '../../actions/bidList';
+import { bidListFetchData, toggleBidPosition, submitBid } from '../../actions/bidList';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
 import { USER_PROFILE, NOTIFICATION_LIST, ASSIGNMENT_OBJECT, BID_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -21,7 +21,8 @@ class DashboardContainer extends Component {
   render() {
     const { userProfile, userProfileIsLoading, assignment, assignmentIsLoading,
       notifications, notificationsIsLoading, bidList, bidListIsLoading, favoritePositions,
-      favoritePositionsIsLoading, favoritePositionsHasErrored } = this.props;
+      favoritePositionsIsLoading, favoritePositionsHasErrored, submitBidPosition,
+      deleteBid } = this.props;
     return (
       <ProfileDashboard
         userProfile={userProfile}
@@ -35,6 +36,8 @@ class DashboardContainer extends Component {
         favoritePositions={favoritePositions.results}
         favoritePositionsIsLoading={favoritePositionsIsLoading}
         favoritePositionsHasErrored={favoritePositionsHasErrored}
+        submitBidPosition={submitBidPosition}
+        deleteBid={deleteBid}
       />
     );
   }
@@ -56,6 +59,8 @@ DashboardContainer.propTypes = {
   favoritePositions: POSITION_SEARCH_RESULTS,
   favoritePositionsIsLoading: PropTypes.bool,
   favoritePositionsHasErrored: PropTypes.bool,
+  submitBidPosition: PropTypes.func.isRequired,
+  deleteBid: PropTypes.func.isRequired,
 };
 
 DashboardContainer.defaultProps = {
@@ -91,6 +96,8 @@ export const mapDispatchToProps = dispatch => ({
   fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchBidList: () => dispatch(bidListFetchData()),
   fetchFavorites: () => dispatch(favoritePositionsFetchData()),
+  submitBidPosition: id => dispatch(submitBid(id, true)),
+  deleteBid: id => dispatch(toggleBidPosition(id, true)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

@@ -1,7 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import sinon from 'sinon';
 import ResultsFilterContainer from './ResultsFilterContainer';
 import { bidderUserObject } from '../../__mocks__/userObject';
 
@@ -13,7 +12,6 @@ describe('ResultsFilterContainerComponent', () => {
   const props = {
     filters: items,
     onQueryParamUpdate: () => {},
-    onChildToggle: () => {},
     onQueryParamToggle: () => {},
     resetFilters: () => {},
     setAccordion: () => {},
@@ -49,34 +47,6 @@ describe('ResultsFilterContainerComponent', () => {
     />);
     wrapper.setProps({ newProp: 'abz' });
     expect(wrapper).toBeDefined();
-  });
-
-  it('can call the onQueryParamUpdate function', () => {
-    const value = 1;
-    const queryUpdateSpy = sinon.spy();
-    const toggleSpy = sinon.spy();
-    const wrapper = shallow(<ResultsFilterContainer
-      {...props}
-      onQueryParamUpdate={queryUpdateSpy}
-      onChildToggle={toggleSpy}
-    />);
-    wrapper.instance().onQueryParamUpdate(value);
-    sinon.assert.calledOnce(queryUpdateSpy);
-    sinon.assert.calledOnce(toggleSpy);
-  });
-
-  it('can call the onQueryParamToggle function', () => {
-    const value = 1;
-    const queryToggleSpy = sinon.spy();
-    const toggleSpy = sinon.spy();
-    const wrapper = shallow(<ResultsFilterContainer
-      {...props}
-      onChildToggle={toggleSpy}
-      onQueryParamToggle={queryToggleSpy}
-    />);
-    wrapper.instance().onQueryParamToggle(value, value, value);
-    sinon.assert.calledOnce(queryToggleSpy);
-    sinon.assert.calledOnce(toggleSpy);
   });
 
   it('matches snapshot', () => {

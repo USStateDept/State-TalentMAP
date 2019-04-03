@@ -42,7 +42,7 @@ export function testDispatchFunctions(mapDispatchToProps, config = {}) {
 export function setupAsyncMocks() {
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
-  const mockAdapter = new MockAdapter(api);
+  const mockAdapter = new MockAdapter(api());
 
   return { mockStore, mockAdapter };
 }

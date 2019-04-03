@@ -25,7 +25,7 @@ export function bidStatisticsFetchData(queryString = '?ordering=-cycle_start_dat
   return (dispatch) => {
     dispatch(bidStatisticsIsLoading(true));
     dispatch(bidStatisticsHasErrored(false));
-    api.get(`/bidcycle/statistics/${queryString}`)
+    api().get(`/bidcycle/statistics/${queryString}`)
       .then(({ data }) => {
         if (data.results.length) {
           dispatch(bidStatisticsFetchDataSuccess(data.results[0]));

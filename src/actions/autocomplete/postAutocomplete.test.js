@@ -6,7 +6,7 @@ import * as actions from './postAutocomplete';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-const mockAdapter = new MockAdapter(api);
+const mockAdapter = new MockAdapter(api());
 
 const results = [
   {

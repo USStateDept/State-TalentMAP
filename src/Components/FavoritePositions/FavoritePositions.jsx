@@ -41,6 +41,8 @@ bidList, onSortChange }) => (
       maxLength={300}
       refreshFavorites
       showBidListButton
+      useShortFavButton
+      showCompareButton
     />
   </div>
 );

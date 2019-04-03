@@ -24,7 +24,7 @@ export function postFetchDataSuccess(post) {
 export function postFetchData(query) {
   return (dispatch) => {
     dispatch(postIsLoading(true));
-    api.get(`/orgpost/${query}/`)
+    api().get(`/orgpost/${query}/`)
       .then((response) => {
         dispatch(postIsLoading(false));
         return response.data;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { includes, sortBy } from 'lodash';
+import { Flag } from 'flag';
+import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
@@ -8,9 +10,12 @@ import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import BureauFilter from '../BureauFilter';
 import PostFilter from '../PostFilter';
 import SkillFilter from '../SkillFilter';
+import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
+
+const useBidding = () => checkFlag('flags.bidding');
 
 class SearchFiltersContainer extends Component {
 
@@ -41,8 +46,11 @@ class SearchFiltersContainer extends Component {
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
     const sortedBooleanNames = [];
-    // show the 'Available' filter
-    sortedBooleanNames.push('available');
+    // show the 'Available' filter,
+    // but only if flags.bidding === true
+    if (useBidding()) {
+      sortedBooleanNames.push('available');
+    }
 
     // store filters in Map
     const booleanFiltersMap = new Map();
@@ -83,7 +91,7 @@ class SearchFiltersContainer extends Component {
           // Push the "NONE" code choice to the bottom. We're already sorting
           // data, and this is readable, so the next line is eslint-disabled.
           // eslint-disable-next-line
-          f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? 1 : 0);
+          f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? -1 : 0);
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
@@ -205,6 +213,12 @@ class SearchFiltersContainer extends Component {
 
     return (
       <div>
+        <Flag
+          name="flags.projected_vacancy"
+          render={() => (
+            <ProjectedVacancyFilter />
+          )}
+        />
         <MultiSelectFilterContainer
           multiSelectFilterList={sortedFilters}
           queryParamToggle={this.props.queryParamToggle}

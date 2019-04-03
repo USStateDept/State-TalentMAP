@@ -47,7 +47,7 @@ export function editDescription(id, content, pointOfContact, website) {
       patchObject.website = website;
     }
 
-    api.patch(`/capsule_description/${id}/`, patchObject)
+    api().patch(`/capsule_description/${id}/`, patchObject)
       .then((response) => {
         dispatch(descriptionEditIsSending(false));
         dispatch(descriptionEditHasErrored(false));

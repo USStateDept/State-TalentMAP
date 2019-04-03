@@ -1,5 +1,6 @@
 import { merge } from 'lodash';
 import queryString from 'query-string';
+import { checkFlag } from '../flags';
 
 /**
  * Interface for Profile Menu Configuration
@@ -40,8 +41,8 @@ function MenuConfig(config) {
   });
 }
 
-
-export const PROFILE_MENU = MenuConfig([
+// this is a function so that flags aren't checked until render
+export const GET_PROFILE_MENU = () => MenuConfig([
   {
     text: 'Profile',
     route: '/profile/dashboard/',
@@ -64,14 +65,14 @@ export const PROFILE_MENU = MenuConfig([
         route: '/profile/searches/',
         icon: 'clock-o',
       },
-      {
+      checkFlag('flags.bidding') ? {
         text: 'Bid Tracker',
         route: '/profile/bidtracker/',
         icon: 'clipboard',
         roles: [
           'bidder',
         ],
-      },
+      } : null,
       {
         text: 'Bid Cycles',
         route: '/profile/cycles/',
@@ -104,4 +105,4 @@ export const PROFILE_MENU = MenuConfig([
   },
 ]);
 
-export default PROFILE_MENU;
+export default GET_PROFILE_MENU;

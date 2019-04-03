@@ -72,7 +72,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         }
         if (item.selectionRef === ENDPOINT_PARAMS.post) {
           dispatch(filtersIsLoading(true));
-          return api.get(`/orgpost/${item.codeRef}/`)
+          return api().get(`/orgpost/${item.codeRef}/`)
           .then((response) => {
             const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
@@ -216,7 +216,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       // our dynamic filters
       const dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
       const queryProms = dynamicFilters.map(item => (
-        api.get(`/${item.item.endpoint}`)
+        api().get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
             // We have a mix of server-supplied and hard-coded data, so we combine them with union.

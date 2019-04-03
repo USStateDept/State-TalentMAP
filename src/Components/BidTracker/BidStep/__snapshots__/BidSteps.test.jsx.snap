@@ -20,7 +20,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        hasPendingTooltip={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -53,7 +52,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        hasPendingTooltip={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -86,7 +84,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        hasPendingTooltip={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -119,7 +116,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        hasPendingTooltip={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -146,16 +142,15 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   <Step
     className="
             step-in-panel
-            step-current
             
-            step-incomplete
+            
+            step-complete
           "
     icon={
       <BidStepIcon
-        hasPendingTooltip={false}
         hasRescheduledTooltip={false}
-        isComplete={false}
-        isCurrent={true}
+        isComplete={true}
+        isCurrent={false}
         needsAction={false}
         number={5}
       />
@@ -179,16 +174,15 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   <Step
     className="
             step-approval
-            
+            step-current
             
             step-incomplete
           "
     icon={
       <BidStepIcon
-        hasPendingTooltip={false}
         hasRescheduledTooltip={false}
         isComplete={false}
-        isCurrent={false}
+        isCurrent={true}
         needsAction={false}
         number={6}
       />
@@ -199,7 +193,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-main-text"
         >
-          Approval
+          Approved
         </div>
         <div
           className="step-title-sub-text"

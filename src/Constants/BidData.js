@@ -24,7 +24,7 @@ export const GET_DRAFT_TITLE = () => ['Draft'];
 export const GET_SUBMIT_BID_ACTION_TITLE = () => ['Submit Bid'];
 export const GET_SUBMIT_BID_COMPLETE_TITLE = () => ['Bid Submitted'];
 export const GET_HAND_SHAKE_EVALUATE_TITLE = () => ['Evaluate Bid'];
-export const GET_HAND_SHAKE_EVALUATING_TITLE = () => ['Bid being evaluated'];
+export const GET_HAND_SHAKE_EVALUATING_TITLE = () => ['Pending Review'];
 export const GET_HAND_SHAKE_OFFERED_TITLE = () => ['Handshake Offered'];
 export const GET_HAND_SHAKE_ACCEPTED_TITLE = () => ['Handshake Accepted'];
 export const GET_PANEL_TITLE = () => ['Panel'];

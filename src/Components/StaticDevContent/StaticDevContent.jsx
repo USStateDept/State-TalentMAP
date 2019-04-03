@@ -7,14 +7,20 @@ can be easily detected during demos or user testing.
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Flag } from 'flag';
 
 const StaticDevContent = ({ children, showStaticContent }) => (
-  showStaticContent ?
-    <div style={{ boxShadow: '0px 0px 0px 2px red' }}>
-      { children }
-    </div>
-    :
-    <span>{ children }</span>
+  <Flag
+    name="flags.static_content"
+    render={() => (
+      showStaticContent ?
+        <div style={{ boxShadow: '0px 0px 0px 2px red' }}>
+          { children }
+        </div>
+        :
+        <span>{ children }</span>
+    )}
+  />
 );
 
 StaticDevContent.propTypes = {

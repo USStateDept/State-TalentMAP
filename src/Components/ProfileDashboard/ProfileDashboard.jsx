@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Flag } from 'flag';
 import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
-  FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -19,19 +20,20 @@ import BoxShadow from '../BoxShadow';
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
+  submitBidPosition, deleteBid,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading || assignmentIsLoading ||
-      notificationsIsLoading || bidListIsLoading ? (
+      notificationsIsLoading ? (
         <Spinner type="homepage-position-results" size="big" />
     ) : (
       <div className="usa-grid-full">
         <div className="usa-grid-full dashboard-top-section">
           { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
         </div>
-        <MediaQueryWrapper breakpoint="screenSmMax" widthType="max">
+        <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
           {(matches) => {
-            let columns = !matches ? [3, 4, 5] : [12, 12, 12];
+            let columns = !matches ? [3, 4, 5] : [6, 6, 12];
             if (isPublic) { columns = !matches ? [4, 8] : [12, 12, 12]; }
             return (
               <Row className="usa-grid-full">
@@ -78,11 +80,22 @@ const ProfileDashboard = ({
                       columns={columns[2]}
                       className="user-dashboard-section-container user-dashboard-column-3"
                     >
-                      <PermissionsWrapper permissions="bidder">
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                          <BidList bids={bidList} showMoreLink={!isPublic} />
-                        </BoxShadow>
-                      </PermissionsWrapper>
+                      <Flag
+                        name="flags.bidding"
+                        render={() => (
+                          <PermissionsWrapper permissions="bidder">
+                            <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
+                              <BidList
+                                bids={bidList}
+                                showMoreLink={!isPublic}
+                                submitBidPosition={submitBidPosition}
+                                deleteBid={deleteBid}
+                                isLoading={bidListIsLoading}
+                              />
+                            </BoxShadow>
+                          </PermissionsWrapper>
+                        )}
+                      />
                       <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                         <Favorites favorites={favoritePositions} />
                       </BoxShadow>
@@ -109,6 +122,8 @@ ProfileDashboard.propTypes = {
   favoritePositions: FAVORITE_POSITIONS_ARRAY,
   favoritePositionsIsLoading: PropTypes.bool,
   isPublic: PropTypes.bool,
+  submitBidPosition: PropTypes.func,
+  deleteBid: PropTypes.func,
 };
 
 ProfileDashboard.defaultProps = {
@@ -122,6 +137,8 @@ ProfileDashboard.defaultProps = {
   bidList: [],
   bidListIsLoading: false,
   isPublic: false,
+  submitBidPosition: EMPTY_FUNCTION,
+  deleteBid: EMPTY_FUNCTION,
 };
 
 export default ProfileDashboard;

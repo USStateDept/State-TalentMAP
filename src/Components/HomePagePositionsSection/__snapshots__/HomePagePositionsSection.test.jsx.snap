@@ -344,8 +344,10 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
     }
     refreshFavorites={false}
     showBidListButton={false}
+    showCompareButton={false}
     title="Title"
     type="default"
+    useShortFavButton={false}
   />
 </div>
 `;

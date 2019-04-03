@@ -75,4 +75,15 @@ describe('SavedSearchesListResultsCardComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when availableCount and addedCount are truthy', () => {
+    const wrapper = shallow(
+      <SavedSearchesListResultsCard
+        {...props}
+        availableCount={3}
+        addedCount={2}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

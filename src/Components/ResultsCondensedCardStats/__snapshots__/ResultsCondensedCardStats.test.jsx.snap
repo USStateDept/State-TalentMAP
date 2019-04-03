@@ -18,6 +18,7 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
         }
       }
       hideLabel={false}
+      isCondensed={false}
       label="Bid count:"
     />
   </div>

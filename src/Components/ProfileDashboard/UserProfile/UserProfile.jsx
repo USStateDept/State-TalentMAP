@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Flag } from 'flag';
 import { USER_PROFILE, ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
 import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 import UserProfileContactInformation from './UserProfileContactInformation';
@@ -21,11 +22,16 @@ showContactInformation, useGroup, assignment }) => (
     {
       showContactInformation &&
       <div className="current-user-bottom">
-        <div className="current-user-section-border cdo-section">
-          <StaticDevContent>
-            <ExternalUserStatus type="cdo" initials="LS" firstName="Leah" lastName="Shadtrach" small />
-          </StaticDevContent>
-        </div>
+        <Flag
+          name="flags.static_content"
+          render={() => (
+            <div className="current-user-section-border cdo-section">
+              <StaticDevContent>
+                <ExternalUserStatus type="cdo" initials="LS" firstName="Leah" lastName="Shadtrach" small />
+              </StaticDevContent>
+            </div>
+          )}
+        />
         <div className="current-user-section-border">
           <PositionInformation assignment={assignment} />
         </div>

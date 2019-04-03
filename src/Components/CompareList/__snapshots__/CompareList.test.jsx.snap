@@ -203,64 +203,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               className="empty"
             />
           </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Bid Count
-            </th>
-            <td>
-              <span
-                className="bid-stats"
-              >
-                <BidCount
-                  altStyle={true}
-                  bidStatistics={
-                    Object {
-                      "at_skill": 0,
-                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                      "id": 6,
-                      "in_grade": 0,
-                      "in_grade_at_skill": 0,
-                      "total_bids": 2,
-                    }
-                  }
-                  hideLabel={true}
-                  label="Bid Count"
-                />
-              </span>
-            </td>
-            <td>
-              <span
-                className="bid-stats"
-              >
-                <BidCount
-                  altStyle={true}
-                  bidStatistics={
-                    Object {
-                      "at_skill": 0,
-                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                      "id": 60,
-                      "in_grade": 0,
-                      "in_grade_at_skill": 0,
-                      "total_bids": 0,
-                    }
-                  }
-                  hideLabel={true}
-                  label="Bid Count"
-                />
-              </span>
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
+          <Flag
+            name="flags.static_content"
+            render={[Function]}
+          />
           <tr>
             <th
               scope="row"
@@ -496,44 +442,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
               className="empty"
             />
           </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Add to Bid List
-            </th>
-            <td>
-              <Connect(PermissionsWrapper)
-                permissions="bidder"
-              >
-                <Connect(BidListButtonContainer)
-                  compareArray={Array []}
-                  disabled={false}
-                  id={6}
-                />
-              </Connect(PermissionsWrapper)>
-            </td>
-            <td>
-              <Connect(PermissionsWrapper)
-                permissions="bidder"
-              >
-                <Connect(BidListButtonContainer)
-                  compareArray={Array []}
-                  disabled={false}
-                  id={60}
-                />
-              </Connect(PermissionsWrapper)>
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
+          <Flag
+            name="flags.static_content"
+            render={[Function]}
+          />
         </tbody>
       </table>
     </div>
@@ -765,64 +677,10 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               className="empty"
             />
           </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Bid Count
-            </th>
-            <td>
-              <span
-                className="bid-stats"
-              >
-                <BidCount
-                  altStyle={true}
-                  bidStatistics={
-                    Object {
-                      "at_skill": 0,
-                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                      "id": 6,
-                      "in_grade": 0,
-                      "in_grade_at_skill": 0,
-                      "total_bids": 2,
-                    }
-                  }
-                  hideLabel={true}
-                  label="Bid Count"
-                />
-              </span>
-            </td>
-            <td>
-              <span
-                className="bid-stats"
-              >
-                <BidCount
-                  altStyle={true}
-                  bidStatistics={
-                    Object {
-                      "at_skill": 0,
-                      "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                      "id": 60,
-                      "in_grade": 0,
-                      "in_grade_at_skill": 0,
-                      "total_bids": 0,
-                    }
-                  }
-                  hideLabel={true}
-                  label="Bid Count"
-                />
-              </span>
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
+          <Flag
+            name="flags.static_content"
+            render={[Function]}
+          />
           <tr>
             <th
               scope="row"
@@ -1078,44 +936,10 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               className="empty"
             />
           </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Add to Bid List
-            </th>
-            <td>
-              <Connect(PermissionsWrapper)
-                permissions="bidder"
-              >
-                <Connect(BidListButtonContainer)
-                  compareArray={Array []}
-                  disabled={false}
-                  id={6}
-                />
-              </Connect(PermissionsWrapper)>
-            </td>
-            <td>
-              <Connect(PermissionsWrapper)
-                permissions="bidder"
-              >
-                <Connect(BidListButtonContainer)
-                  compareArray={Array []}
-                  disabled={false}
-                  id={60}
-                />
-              </Connect(PermissionsWrapper)>
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
+          <Flag
+            name="flags.static_content"
+            render={[Function]}
+          />
         </tbody>
       </table>
     </div>

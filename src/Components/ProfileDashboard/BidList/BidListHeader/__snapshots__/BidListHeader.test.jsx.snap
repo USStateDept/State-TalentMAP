@@ -1,25 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidListHeaderComponent matches snapshot 1`] = `
-<div
-  className="usa-grid-full bid-list-header section-padded-inner-container-narrow"
->
-  <div
-    className="usa-width-two-thirds bid-list-header-text"
-  >
-    <FontAwesome
-      name="clock-o"
-    />
-     All bids are due 07/15/2019
-  </div>
-  <div
-    className="usa-width-one-third bid-list-header-button-container"
-  >
-    <button
-      className="bid-list-header-button"
-    >
-      More Info
-    </button>
-  </div>
-</div>
+<SectionHeader
+  buttonText="More Info"
+  icon="clock-o"
+  onButtonClick={[Function]}
+  title=" All bids are due 07/15/2019"
+/>
 `;

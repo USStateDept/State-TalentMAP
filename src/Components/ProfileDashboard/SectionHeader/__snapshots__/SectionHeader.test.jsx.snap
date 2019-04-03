@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SectionHeaderComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full section-header section-padded-inner-container-narrow"
+>
+  <div
+    className="usa-width-two-thirds section-header-text"
+  >
+    <FontAwesome
+      name="clock-o"
+    />
+    Title
+  </div>
+  <div
+    className="usa-width-one-third section-header-button-container"
+  >
+    <button
+      className="section-header-button"
+      onClick={[Function]}
+    >
+      click me
+    </button>
+  </div>
+</div>
+`;

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
+import { Flag } from 'flag';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
@@ -131,7 +132,12 @@ export class Header extends Component {
           Skip to main content
         </InteractiveElement>
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
-          <ToggleContent />
+          <Flag
+            name="flags.static_content"
+            render={() => (
+              <ToggleContent />
+            )}
+          />
           <StateBanner />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>

@@ -46,7 +46,7 @@ export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
     if (cancel) { cancel(); }
     dispatch(resultsSimilarPositionsIsLoading(true));
-    api.get(`/position/${id}/similar/?limit=3`)
+    api().get(`/position/${id}/similar/?limit=3`)
       .then(response => response.data)
       .then((results) => {
         dispatch(resultsSimilarPositionsFetchDataSuccess(results));
@@ -61,7 +61,7 @@ export function resultsFetchSimilarPositions(id) {
 }
 
 export function fetchResultData(query) {
-  return api
+  return api()
   .get(`/position/?${query}`, {
     cancelToken: new CancelToken((c) => { cancel = c; }),
   })

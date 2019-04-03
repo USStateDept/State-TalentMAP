@@ -3,8 +3,9 @@
 exports[`BidTrackerCardComponent matches snapshot 1`] = `
 <BoxShadow
   blurRadius={10}
-  className="bid-tracker"
+  className="bid-tracker  bid-tracker--is-not-priority "
   color="rgba(0,0,0,.15)"
+  id="bid-3"
   inset={false}
   is="div"
   offsetX={3}
@@ -12,7 +13,9 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
   spreadRadius={1}
   style={Object {}}
 >
-  <div>
+  <div
+    className="bid-tracker-inner-container"
+  >
     <BidTrackerCardTop
       bid={
         Object {
