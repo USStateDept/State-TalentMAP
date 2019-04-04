@@ -56,6 +56,7 @@ export NODE_ENV=production
 yarn build
 
 # backup the html dir if present
+[ -d /var/www/html-BACKUP ] && sudo rm -rf /var/www/html-BACKUP
 [ -d /var/www/html ] && sudo mv /var/www/html /var/www/html-BACKUP
 # move build to html
 sudo cp -R build /var/www/html
