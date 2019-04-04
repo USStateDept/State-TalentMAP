@@ -29,7 +29,7 @@ export function missionSearchFetchData(query) {
     if (cancel) { cancel(); }
     dispatch(missionSearchHasErrored(false));
     dispatch(missionSearchIsLoading(true));
-    api.get(`/country/?q=${query}&limit=3`, {
+    api().get(`/country/?q=${query}&limit=3`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),

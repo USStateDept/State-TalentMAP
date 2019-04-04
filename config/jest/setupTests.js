@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import config from '../../public/config/config.json';
 
 // Override console.error() for invalid or failed propTypes by throwing an Error
 // when either is met, allowing us to be alerted of and fail for any proptype issues.
@@ -22,3 +23,8 @@ Object.values = (obj) => Object.keys(obj).map(key => obj[key])
 
 // Avoid jest error: "Error: Not implemented: navigation (except hash changes)"
 global.window.location.assign = () => {};
+
+// mock sessionStorage - feature flags config
+beforeEach(() => {
+  sessionStorage.setItem('config', JSON.stringify(config));
+});

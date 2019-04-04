@@ -7,11 +7,11 @@ const IsPriority = ({ children }) => (
     <div className="usa-grid-full bid-tracker-priority-wrapper">
       <div className="usa-grid-full padded-container-inner priority-banner">
         <div className="usa-width-one-half priority-banner-container-left">
-          Priority Assignment
+          Pending Assignment
         </div>
         <div className="usa-width-one-half priority-banner-container-right">
           <div className="priority-banner-question-text">
-            <FontAwesome name="question-circle" /> What is a priority Assignment?
+            <FontAwesome name="question-circle" /> What is a Pending Assignment?
           </div>
         </div>
       </div>

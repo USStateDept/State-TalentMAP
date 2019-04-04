@@ -1,3 +1,5 @@
+import FavoriteSuccess from '../Components/FavoriteMessages/Success';
+
 export const DEFAULT_TEXT = 'None listed';
 
 export const NO_ASSIGNMENT_DATE = DEFAULT_TEXT;
@@ -37,6 +39,14 @@ export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
 export const ADD_BID_ITEM_SUCCESS = 'Bid successfully added.';
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
 
+export const ADD_FAVORITE_TITLE = 'Favorite Added';
+export const DELETE_FAVORITE_TITLE = 'Favorite Removed';
+export const ERROR_FAVORITE_TITLE = 'Favorite Error';
+export const DELETE_FAVORITE_SUCCESS = pos => `${pos.title} (${pos.position_number}) has been successfully removed from favorites.`;
+export const DELETE_FAVORITE_ERROR = () => "We're experiencing an error attemtping to remove this position to your Favorites. Please try again.";
+export const ADD_FAVORITE_SUCCESS = pos => FavoriteSuccess({ pos });
+export const ADD_FAVORITE_ERROR = () => "We're experiencing an error attemtping to add this position to your Favorites. Please try again.";
+
 export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
 export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';
 export const DECLINE_BID_SUCCESS = 'Bid successfully declined.';
@@ -54,3 +64,6 @@ export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
 
 export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
 export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;
+
+export const GET_NOW_AVAILABLE = n => `${n} Now available!`;
+export const GET_POSITIONS_ADDED = n => `${n} Position${n > 1 ? 's' : ''} added`;

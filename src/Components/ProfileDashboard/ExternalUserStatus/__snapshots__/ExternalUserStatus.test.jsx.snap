@@ -18,13 +18,6 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
         onClick={[Function]}
         small={true}
       />
-      <div
-        className="picture-status-container"
-      >
-        <Status
-          hideText={true}
-        />
-      </div>
     </div>
     <div
       className="cdo-text-container"
@@ -70,13 +63,6 @@ exports[`ExternalUserStatusComponent matches snapshot when showMail is true 1`] 
         onClick={[Function]}
         small={true}
       />
-      <div
-        className="picture-status-container"
-      >
-        <Status
-          hideText={true}
-        />
-      </div>
     </div>
     <div
       className="cdo-text-container"

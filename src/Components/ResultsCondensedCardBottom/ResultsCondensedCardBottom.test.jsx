@@ -31,12 +31,36 @@ describe('ResultsCondensedCardBottomComponent', () => {
     expect(wrapper.instance().props.type).toBe(type);
   });
 
+  it('does not render the bid stats when showBidCount === false', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardBottom
+        position={resultsObject.results[0]}
+        bidList={bidListObject.results}
+        favorites={favorites}
+        showBidCount={false}
+      />,
+    );
+    expect(wrapper.find('ResultsCondensedCardStats').exists()).toBe(false);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+      />,
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot with bidlist button', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardBottom
+        position={resultsObject.results[0]}
+        bidList={bidListObject.results}
+        favorites={favorites}
+        showBidListButton
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

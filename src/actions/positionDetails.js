@@ -31,7 +31,7 @@ export function positionDetailsPatchState(positionDetails) {
 export function positionDetailsFetchData(id) {
   return (dispatch) => {
     dispatch(positionDetailsIsLoading(true));
-    api.get(`/position/${id}/`)
+    api().get(`/position/${id}/`)
       .then(response => response.data)
       .then((positionDetails) => {
         dispatch(positionDetailsFetchDataSuccess(positionDetails));

@@ -21,6 +21,8 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
         />
       </InteractiveElement>
       <SavedSearchPillList
+        highlightedString="Projected Vacancy"
+        isProjectedVacancy={false}
         pills={
           Array [
             "german",

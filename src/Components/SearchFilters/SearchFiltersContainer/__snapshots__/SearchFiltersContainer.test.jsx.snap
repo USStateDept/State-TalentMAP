@@ -1,7 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
+exports['SearchFiltersContainerComponent matches snapshot 1'] = `
 <div>
+  <Flag
+    name="flags.projected_vacancy"
+    render={[Function]}
+  />
   <MultiSelectFilterContainer
     multiSelectFilterList={
       Array [

@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
+import { Flag } from 'flag';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import OBCUrl from '../OBCUrl';
 import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
+import Handshake from '../Ribbon/Handshake';
 import {
   formatDate,
   propOrDefault,
   getAccessiblePositionNumber,
   getDifferentialPercentage,
+  getBidStatisticsObject,
 } from '../../utilities';
 
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
@@ -63,8 +67,20 @@ const PositionDetailsItem = (props) => {
   };
 
   const incumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
+
+  const stats = getBidStatisticsObject(details.bid_statistics);
   return (
-    <div className="usa-grid-full padded-main-content">
+    <div className="usa-grid-full padded-main-content position-details-outer-container">
+      <Flag
+        name="flags.bidding"
+        render={() => (
+          <div className="handshake-offset-container">
+            {
+              get(stats, 'has_handshake_offered', false) && <Handshake cutSide="right" className="ribbon-position-details" />
+            }
+          </div>
+        )}
+      />
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className="usa-width-two-thirds about-section-left">
           <h2>About the Position</h2>

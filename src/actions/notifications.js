@@ -67,7 +67,7 @@ export function unsetNotificationsCount() {
 export function notificationsCountFetchData() {
   return (dispatch) => {
     if (hasValidToken()) {
-      api.get('/notification/?limit=1&is_read=false')
+      api().get('/notification/?limit=1&is_read=false')
         .then(({ data }) => {
           dispatch(notificationsCountFetchDataSuccess(data.count));
           dispatch(notificationsCountIsLoading(false));
@@ -86,7 +86,7 @@ export function notificationsCountFetchData() {
 
 export function notificationsFetchData(limit = 3, ordering = '-date_updated', tags = undefined, isRead = undefined) {
   return (dispatch) => {
-    api.get(`/notification/?limit=${limit}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
+    api().get(`/notification/?limit=${limit}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
       .then(({ data }) => {
         dispatch(notificationsFetchDataSuccess(data));
         dispatch(notificationsIsLoading(false));
@@ -107,7 +107,7 @@ export function bidTrackerNotificationsFetchData() {
 
 export function markNotification(id, isRead = true) {
   return (dispatch) => {
-    api.patch(`/notification/${id}/`, { is_read: isRead })
+    api().patch(`/notification/${id}/`, { is_read: isRead })
       .then(({ data }) => {
         dispatch(markNotificationSuccess(data));
         dispatch(markNotificationIsLoading(false));

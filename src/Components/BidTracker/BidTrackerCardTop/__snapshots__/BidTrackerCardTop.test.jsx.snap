@@ -27,7 +27,9 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
       title="POLITICAL/ECONOMIC OFFICER"
     />
   </div>
-  <div>
+  <div
+    className="bid-tracker-card-title-outer-container-right"
+  >
     <div
       className="bid-tracker-card-title-container-right"
     >

@@ -29,7 +29,7 @@ export function postSearchFetchData(query) {
     if (cancel) { cancel(); }
     dispatch(postSearchHasErrored(false));
     dispatch(postSearchIsLoading(true));
-    api.get(`/orgpost/?q=${query}&limit=3`, {
+    api().get(`/orgpost/?q=${query}&limit=3`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),

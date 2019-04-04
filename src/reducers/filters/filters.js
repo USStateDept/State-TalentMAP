@@ -1,4 +1,4 @@
-import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
+import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 // Set what filters we want to fetch
 const items =
@@ -49,6 +49,15 @@ const items =
           text: 'Choose languages',
         },
         data: [
+        ],
+        // Allow users to include languages with no code. This option is not supplied from
+        // the endpoint, so we define it here.
+        initialData: [
+          {
+            code: COMMON_PROPERTIES.NULL_LANGUAGE,
+            short_description: 'No language requirement',
+            custom_description: 'No language requirement',
+          },
         ],
       },
       {

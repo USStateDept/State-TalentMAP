@@ -4,9 +4,10 @@ import UserProfileGeneralInformation from '../../ProfileDashboard/UserProfile/Us
 import UserProfilePersonalInformation from '../../ProfileDashboard/UserProfile/UserProfilePersonalInformation';
 import UserProfileBidInformation from '../../ProfileDashboard/UserProfile/UserProfileBidInformation';
 import BidderPortfolioViewMore from '../BidderPortfolioViewMore';
+import BoxShadow from '../../BoxShadow';
 
 const BidderPortfolioCard = ({ userProfile }) => (
-  <div className="usa-grid-full current-user bidder-portfolio-card">
+  <BoxShadow className="usa-grid-full current-user bidder-portfolio-card">
     <UserProfileGeneralInformation
       userProfile={userProfile}
       showEditLink={false}
@@ -19,7 +20,7 @@ const BidderPortfolioCard = ({ userProfile }) => (
       submitted={userProfile.bid_statistics[0] ? userProfile.bid_statistics[0].submitted : 0}
     />
     <BidderPortfolioViewMore useLink id={userProfile.id} />
-  </div>
+  </BoxShadow>
 );
 
 BidderPortfolioCard.propTypes = {

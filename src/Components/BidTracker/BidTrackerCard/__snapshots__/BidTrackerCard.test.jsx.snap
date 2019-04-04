@@ -1,10 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidTrackerCardComponent matches snapshot 1`] = `
-<div
-  className="bid-tracker"
+<BoxShadow
+  blurRadius={10}
+  className="bid-tracker  bid-tracker--is-not-priority "
+  color="rgba(0,0,0,.15)"
+  id="bid-3"
+  inset={false}
+  is="div"
+  offsetX={3}
+  offsetY={2}
+  spreadRadius={1}
+  style={Object {}}
 >
-  <div>
+  <div
+    className="bid-tracker-inner-container"
+  >
     <BidTrackerCardTop
       bid={
         Object {
@@ -56,6 +67,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         }
       }
       deleteBid={[Function]}
+      hideDelete={false}
       showBidCount={true}
       showQuestion={true}
     />
@@ -170,5 +182,5 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
       />
     </div>
   </div>
-</div>
+</BoxShadow>
 `;

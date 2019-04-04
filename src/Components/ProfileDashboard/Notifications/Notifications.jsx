@@ -35,9 +35,11 @@ const Notifications = ({ notifications }) => {
           </div> :
           <BorderedList contentArray={notificationArray} />
       }
-      <div className="section-padded-inner-container small-link-container view-more-link-centered">
-        <Link to="/profile/dashboard/">See all</Link>
-      </div>
+      <StaticDevContent>
+        <div className="section-padded-inner-container small-link-container view-more-link-centered">
+          <Link to="/profile/dashboard/">See all</Link>
+        </div>
+      </StaticDevContent>
     </div>
   );
 };

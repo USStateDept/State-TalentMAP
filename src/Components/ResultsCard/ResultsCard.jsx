@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNumber } from 'lodash';
+import { Flag } from 'flag';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -10,6 +11,8 @@ import MediaQueryWrapper from '../MediaQuery';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
+import BoxShadow from '../BoxShadow';
+import Handshake from '../Ribbon/Handshake';
 
 import { formatDate, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
 
@@ -52,8 +55,8 @@ const ResultsCard = (props) => {
   const {
     id,
     result,
-    onToggle,
     favorites,
+    isProjectedVacancy,
   } = props;
 
   const title = propOrDefault(result, 'title');
@@ -65,6 +68,9 @@ const ResultsCard = (props) => {
   const post = `${getPostName(result.post, NO_POST)}${result.organization ? `: ${result.organization}` : ''}`;
 
   const stats = getBidStatisticsObject(result.bid_statistics);
+
+  // TODO - update this to a real property once API is updateds
+  const recentlyAvailable = result.recently_available;
 
   const sections = [
     /* eslint-disable quote-props */
@@ -100,50 +106,77 @@ const ResultsCard = (props) => {
   options.compare = {
     as: 'div',
     refKey: position,
-    onToggle,
   };
 
   return (
     <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
       {() => (
-        <div id={id} className="results-card">
-          <Row className="header" fluid>
-            <Column columns="8">
-              <Column columns="12" className="results-card-title-link">
-                <h3>{title}</h3>
-                <Link to={`/details/${result.id}`}>View position</Link>
+        <BoxShadow>
+          <div id={id} className={`results-card ${isProjectedVacancy ? 'results-card--secondary' : ''}`}>
+            <Row className="header" fluid>
+              <Column columns="8">
+                <Column columns="12" className="results-card-title-link">
+                  <h3>{title}</h3>
+                  <Link to={`/details/${result.id}`}>View position</Link>
+                  {recentlyAvailable && <span className="available-alert">Now available!</span>}
+                </Column>
+                <Column columns="12" className="results-card-title-link">
+                  <dt>Post:</dt><dd>{post}</dd>
+                </Column>
               </Column>
-              <Column columns="12" className="results-card-title-link">
-                <dt>Post:</dt><dd>{post}</dd>
-              </Column>
-            </Column>
-            <Column columns="4">
-              <BidCount bidStatistics={stats} altStyle />
-            </Column>
-          </Row>
-          <Row id={`${id}-inner`} fluid>
-            <Column columns="6">
-              <DefinitionList items={sections[0]} />
-            </Column>
-            <Column columns="6">
-              <DefinitionList items={sections[1]} />
-            </Column>
-          </Row>
-          <Row className="footer results-card-padded-section" fluid>
-            <Column columns="6" as="section">
-              {
+              <Flag
+                name="flags.bidding"
+                render={() => (
+                  <Column columns="4">
+                    <BidCount bidStatistics={stats} altStyle />
+                  </Column>
+                )}
+              />
+            </Row>
+            <Flag
+              name="flags.bidding"
+              render={() =>
+                (<Row id={`${id}-inner`} fluid>
+                  <Column columns="6">
+                    <DefinitionList items={sections[0]} />
+                  </Column>
+                  <Column columns="4">
+                    <DefinitionList items={sections[1]} />
+                  </Column>
+                  <Column columns="2">
+                    {
+                      get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
+                    }
+                  </Column>
+                </Row>)
+              }
+              fallbackRender={() =>
+                (<Row id={`${id}-inner`} fluid>
+                  <Column columns="6">
+                    <DefinitionList items={sections[0]} />
+                  </Column>
+                  <Column columns="6">
+                    <DefinitionList items={sections[1]} />
+                  </Column>
+                </Row>)
+              }
+            />
+            <Row className="footer results-card-padded-section" fluid>
+              <Column columns="6" as="section">
+                {
                 !!favorites &&
                   <Favorite {...options.favorite} />
               }
-              <CompareCheck {...options.compare} />
-            </Column>
-            <Column columns="6" as="section">
-              <div>
-                <DefinitionList items={sections[2]} />
-              </div>
-            </Column>
-          </Row>
-        </div>
+                <CompareCheck {...options.compare} />
+              </Column>
+              <Column columns="6" as="section">
+                <div>
+                  <DefinitionList items={sections[2]} />
+                </div>
+              </Column>
+            </Row>
+          </div>
+        </BoxShadow>
       )}
     </MediaQueryWrapper>
   );
@@ -153,12 +186,13 @@ const ResultsCard = (props) => {
 ResultsCard.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   result: POSITION_DETAILS.isRequired,
-  onToggle: PropTypes.func.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 ResultsCard.defaultProps = {
   favorites: [],
+  isProjectedVacancy: false,
 };
 
 export default ResultsCard;

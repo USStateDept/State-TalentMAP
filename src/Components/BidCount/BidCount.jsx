@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import BidCountNumber from './BidCountNumber';
 import { BID_STATISTICS_OBJECT } from '../../Constants/PropTypes';
 
-const BidCount = ({ bidStatistics, hideLabel, label, altStyle }) => {
+const BidCount = ({ bidStatistics, hideLabel, label, altStyle, isCondensed }) => {
   let labelClass = 'bid-count-label';
   if (hideLabel) { labelClass = `${labelClass} usa-sr-only`; }
   return (
-    <div className={`usa-grid-full bid-count-container ${altStyle ? 'bid-count-secondary' : ''}`}>
+    <div className={`usa-grid-full bid-count-container ${altStyle ? 'bid-count-secondary' : ''} ${isCondensed ? 'bid-count-condensed' : ''}`}>
       <div className={labelClass} id="bid-counts">{label}</div>
       {/* set an aria-labelledby so that screen readers understand the purpose of the list */}
       <ul className="bid-count-list" aria-labelledby="bid-counts">
@@ -25,6 +25,7 @@ BidCount.propTypes = {
   hideLabel: PropTypes.bool,
   label: PropTypes.string,
   altStyle: PropTypes.bool,
+  isCondensed: PropTypes.bool,
 };
 
 BidCount.defaultProps = {
@@ -32,6 +33,7 @@ BidCount.defaultProps = {
   hideLabel: false,
   label: 'Bid count:',
   altStyle: false,
+  isCondensed: false,
 };
 
 export default BidCount;

@@ -1,4 +1,5 @@
 import { getPostName } from '../../utilities';
+import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 
 // Attempt to map the non-numeric grade codes to a full description.
 // If no match is found, return the unmodified code.
@@ -29,7 +30,11 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     case 'bidCycle':
       return filterItemObject.name;
     case 'language':
-      return `${filterItemObject.formal_description} (${filterItemObject.code})`;
+      // language code NONE gets displayed differently
+      return filterItemObject.code === COMMON_PROPERTIES.NULL_LANGUAGE ?
+        filterItemObject.customDescription
+        :
+        `${filterItemObject.formal_description} (${filterItemObject.code})`;
     case 'grade':
       return getCustomGradeDescription(filterItemObject.code);
     case 'postDiff':

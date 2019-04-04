@@ -8,33 +8,42 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
     className="usa-grid-full condensed-card-top-header-container"
   >
     <div
-      className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
+      className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
     >
       <h3>
         OMS (DCM)
       </h3>
-    </div>
-    <div
-      className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
-    >
-      <dt>
-        Grade:
-      </dt>
        
-      <dd>
-        06
-      </dd>
+      <Link
+        replace={false}
+        to="/details/6"
+      >
+        View position
+      </Link>
     </div>
   </div>
   <div
-    className="usa-grid-full"
+    className="usa-grid-full post-ribbon-container"
   >
-    <Link
-      replace={false}
-      to="/details/6"
-    >
-      View position
-    </Link>
+    <div>
+      <span>
+        <span
+          className="title"
+        >
+          Post:
+        </span>
+         
+        <span
+          className="data"
+        >
+          Freetown, Sierra Leone
+        </span>
+      </span>
+    </div>
+    <Flag
+      name="flags.bidding"
+      render={[Function]}
+    />
   </div>
 </div>
 `;
@@ -47,7 +56,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
     className="usa-grid-full condensed-card-top-header-container"
   >
     <div
-      className="usa-width-two-thirds condensed-card-top-header condensed-card-top-header-left"
+      className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
     >
       <span>
         <FontAwesome
@@ -58,28 +67,37 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
       <h3>
         OMS (DCM)
       </h3>
-    </div>
-    <div
-      className="usa-width-one-third condensed-card-top-header condensed-card-top-header-right"
-    >
-      <dt>
-        Grade:
-      </dt>
        
-      <dd>
-        06
-      </dd>
+      <Link
+        replace={false}
+        to="/details/6"
+      >
+        View position
+      </Link>
     </div>
   </div>
   <div
-    className="usa-grid-full"
+    className="usa-grid-full post-ribbon-container"
   >
-    <Link
-      replace={false}
-      to="/details/6"
-    >
-      View position
-    </Link>
+    <div>
+      <span>
+        <span
+          className="title"
+        >
+          Post:
+        </span>
+         
+        <span
+          className="data"
+        >
+          Freetown, Sierra Leone
+        </span>
+      </span>
+    </div>
+    <Flag
+      name="flags.bidding"
+      render={[Function]}
+    />
   </div>
 </div>
 `;

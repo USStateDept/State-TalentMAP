@@ -48,6 +48,25 @@
       line-height: 1.8;
     }
   }
+
+  &.bid-count-condensed {
+    li {
+      border-width: 1px;
+      line-height: 1.3;
+    }
+
+    li:nth-last-child(1) {
+      border-right-width: 1px;
+    }
+
+    .bid-count-list-item:first-child {
+      border-radius: 3px 0 0 3px;
+    }
+
+    .bid-count-list-item:last-child {
+      border-radius: 0 3px 3px 0;
+    }
+  }
 }
 
 .bid-count-list {

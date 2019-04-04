@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
-<div
+<BoxShadow
+  blurRadius={10}
   className="usa-grid-full section-padded-inner-container glossary-editor-card editor-container-hidden"
+  color="rgba(0,0,0,.15)"
+  inset={false}
+  is="div"
+  offsetX={3}
+  offsetY={2}
+  spreadRadius={1}
+  style={Object {}}
 >
   <div
     className="usa-grid-full glossary-editor-card-top"
@@ -60,12 +68,20 @@ exports[`GlossaryEditorCardComponent matches snapshot 1`] = `
     submitGlossaryTerm={[Function]}
     updatedBy="Leah Shadtrach"
   />
-</div>
+</BoxShadow>
 `;
 
 exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAlert is true 1`] = `
-<div
+<BoxShadow
+  blurRadius={10}
   className="usa-grid-full section-padded-inner-container glossary-editor-card editor-container-hidden"
+  color="rgba(0,0,0,.15)"
+  inset={false}
+  is="div"
+  offsetX={3}
+  offsetY={2}
+  spreadRadius={1}
+  style={Object {}}
 >
   <div
     className="usa-grid-full glossary-editor-card-top"
@@ -123,5 +139,5 @@ exports[`GlossaryEditorCardComponent matches snapshot when displayZeroLengthAler
     submitGlossaryTerm={[Function]}
     updatedBy="Leah Shadtrach"
   />
-</div>
+</BoxShadow>
 `;

@@ -283,6 +283,10 @@
 
   .bidlist-section {
     min-height: 300px;
+
+    .tm-spinner-saved-searches {
+      top: 40%;
+    }
   }
 
   .inbox-section {
@@ -694,19 +698,24 @@ $padding-no-border: $total-padding - $border;
   }
 }
 
-.bid-list-header {
+.section-header {
   background-color: $blue-primary;
   color: $color-white;
+  display: flex;
 
-  .bid-list-header-text {
-    margin-top: 5px;
+  button {
+    margin-right: auto;
   }
 
-  .bid-list-header-button-container {
+  .section-header-text {
+    margin: auto;
+  }
 
+  .section-header-button-container {
+    margin: auto;
     text-align: right;
 
-    .bid-list-header-button {
+    .section-header-button {
       border: 1px solid $color-white;
       font-size: 12px;
       padding: 5px 25px;
@@ -721,7 +730,7 @@ $padding-no-border: $total-padding - $border;
 .bid-list-container {
   font-size: 1.1em;
   max-height: 420px;
-  min-height: 260px;
+  min-height: 420px;
   overflow-y: auto;
 
   .primary-text {
@@ -866,6 +875,14 @@ $padding-no-border: $total-padding - $border;
   padding: 2px .7em 0;
 }
 
+.pill--projected-vacancy {
+  background-color: $primary-blue-darkest;
+}
+
+.pill--highlight {
+  color: $tertiary-gold-lighter;
+}
+
 .saved-searches-list-profile-container {
   min-height: 260px;
   position: relative;
@@ -881,6 +898,20 @@ $padding-no-border: $total-padding - $border;
   button {
     float: right;
     font-size: 1.3rem;
+  }
+
+  .section-header {
+    div:first-of-type {
+      flex: 7;
+    }
+
+    div:nth-of-type(2) {
+      flex: 5;
+    }
+
+    .section-header-button {
+      padding: 5px;
+    }
   }
 }
 

@@ -11,6 +11,7 @@ export class AccountDropdown extends Component {
   constructor(props) {
     super(props);
     this.hideDropdown = this.hideDropdown.bind(this);
+    this.showDropdown = this.showDropdown.bind(this);
     this.logout = this.logout.bind(this);
   }
 
@@ -21,6 +22,11 @@ export class AccountDropdown extends Component {
   hideDropdown() {
     // Explicitly hide the dropdown using the built-in hide() function from react-simple-dropdown
     this.dropdown.hide();
+  }
+
+  showDropdown() {
+    // Explicitly show the dropdown using the built-in hide() function from react-simple-dropdown
+    this.dropdown.show();
   }
 
   render() {
@@ -42,8 +48,8 @@ export class AccountDropdown extends Component {
         className="account-dropdown"
         ref={(dropdown) => { this.dropdown = dropdown; }}
         removeElement
-        onMouseEnter={() => this.dropdown.show()}
-        onMouseLeave={() => this.dropdown.hide()}
+        onMouseEnter={this.showDropdown}
+        onMouseLeave={this.hideDropdown}
       >
         <DropdownTrigger href="/#">
           <Avatar className="account-dropdown--avatar" {...avatar} />
@@ -53,7 +59,7 @@ export class AccountDropdown extends Component {
           }
         </DropdownTrigger>
         <div className="dropdown-content-outer-container">
-          <DropdownContent onMouseEnter={() => this.dropdown.show()}>
+          <DropdownContent onMouseEnter={this.showDropdown}>
             <div className="account-dropdown--identity account-dropdown--segment">
               <div>Signed in as</div>
               <strong>{displayName}</strong>

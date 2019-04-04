@@ -8,6 +8,7 @@ import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import { POSITION_SEARCH_RESULTS, BID_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import FavoritePositions from '../../Components/FavoritePositions';
+import CompareDrawer from '../../Components/CompareDrawer';
 
 class FavoritePositionsContainer extends Component {
   constructor(props) {
@@ -39,14 +40,17 @@ class FavoritePositionsContainer extends Component {
     const { favoritePositions, favoritePositionsIsLoading,
       favoritePositionsHasErrored, bidList } = this.props;
     return (
-      <FavoritePositions
-        favorites={favoritePositions}
-        favoritePositionsIsLoading={favoritePositionsIsLoading}
-        favoritePositionsHasErrored={favoritePositionsHasErrored}
-        toggleFavorite={this.onToggleFavorite}
-        bidList={bidList.results}
-        onSortChange={this.getSortedFavorites}
-      />
+      <div>
+        <FavoritePositions
+          favorites={favoritePositions}
+          favoritePositionsIsLoading={favoritePositionsIsLoading}
+          favoritePositionsHasErrored={favoritePositionsHasErrored}
+          toggleFavorite={this.onToggleFavorite}
+          bidList={bidList.results}
+          onSortChange={this.getSortedFavorites}
+        />
+        <CompareDrawer />
+      </div>
     );
   }
 }

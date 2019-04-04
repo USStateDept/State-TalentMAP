@@ -8,7 +8,7 @@ const receiveBidCycles = data => ({
 });
 
 export const fetchBidCycles = () => dispatch => (
-  api.get('/bidcycle/').then((response) => {
+  api().get('/bidcycle/').then((response) => {
     const items = response.data.results || [];
     dispatch(receiveBidCycles(items));
   })

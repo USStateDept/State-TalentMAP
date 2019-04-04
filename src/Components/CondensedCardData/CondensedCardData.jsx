@@ -1,9 +1,9 @@
 import React from 'react';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
-import { NO_DATE, NO_POST, NO_SKILL } from '../../Constants/SystemMessages';
+import { NO_DATE, NO_GRADE, NO_SKILL } from '../../Constants/SystemMessages';
 import LanguageList from '../LanguageList';
 import CondensedCardDataPoint from './CondensedCardDataPoint';
-import { formatDate, getPostName, propOrDefault } from '../../utilities';
+import { formatDate, propOrDefault } from '../../utilities';
 
 const CondensedCardData = ({ position }) => {
   const estimatedEndDate = propOrDefault(position, 'current_assignment.estimated_end_date') ?
@@ -11,18 +11,18 @@ const CondensedCardData = ({ position }) => {
   return (
     <div className="usa-grid-full condensed-card-data">
       <CondensedCardDataPoint
+        title="TED"
+        content={estimatedEndDate}
+        hasFixedTitleWidth
+      />
+      <CondensedCardDataPoint
         title="Skill"
         content={position.skill || NO_SKILL}
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint
-        title="Post"
-        content={getPostName(position.post, NO_POST)}
-        hasFixedTitleWidth
-      />
-      <CondensedCardDataPoint
-        title="TED"
-        content={estimatedEndDate}
+        title="Grade"
+        content={position.grade || NO_GRADE}
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint

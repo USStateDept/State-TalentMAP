@@ -1,52 +1,61 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { BID_RESULTS } from '../../../Constants/PropTypes';
+import { BID_RESULTS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
-import BorderedList from '../../BorderedList';
-import BidListResultsCard from '../../BidListResultsCard/';
+import BidTrackerCard from '../../BidTracker/BidTrackerCard';
 import BidListHeader from './BidListHeader';
-import { getStatusProperty } from '../../../Constants/BidStatuses';
 import StaticDevContent from '../../StaticDevContent';
+import { DRAFT_PROP } from '../../../Constants/BidData';
+import Spinner from '../../Spinner';
 
-const BidList = ({ bids, showMoreLink }) => {
-  const bidArray = [];
-  bids.slice().forEach(bid => (
-    bidArray.push(
-      <BidListResultsCard
-        bid={bid}
-        condensedView
-        /* pass a parentClassName that we can use from the BorderedList component */
-        parentClassName={`parent-container-bid-status-${getStatusProperty(bid.status)}`}
-      />,
-    )
+const BidList = ({ bids, showMoreLink, submitBidPosition, deleteBid, isLoading }) => {
+  // Push the priority bid to the top. There should only be one priority bid.
+  // eslint rules seem to step over themselves here between using "return" and a ternary
+  // eslint-disable-next-line no-confusing-arrow
+  const sortedBids = bids.slice().sort(x => x.is_priority ? -1 : 1);
+  // Then we check if the first object of the array is priority. We need this to define
+  // whether or not to pass priorityExists.
+  const doesPriorityExist = sortedBids.length && sortedBids[0] && sortedBids[0].is_priority;
+  const bids$ = sortedBids.map(bid => (
+    <BidTrackerCard
+      key={bid.id}
+      bid={bid}
+      condensedView
+      showBidCount={bid.status !== DRAFT_PROP}
+      submitBid={submitBidPosition}
+      deleteBid={deleteBid}
+      priorityExists={doesPriorityExist}
+    />
   ));
   return (
-    <div className="usa-grid-full">
-      <StaticDevContent>
-        <BidListHeader />
-      </StaticDevContent>
-      <div className="usa-grid-full section-padded-inner-container">
-        <div className="usa-width-one-whole">
-          <SectionTitle title="Bid List" len={bids.length} icon="clipboard" />
+    <div className="usa-grid-full" style={{ position: 'relative' }}>
+      <div>
+        <StaticDevContent>
+          <BidListHeader />
+        </StaticDevContent>
+        <div className="usa-grid-full section-padded-inner-container">
+          <div className="usa-width-one-whole">
+            <SectionTitle title="Bid List" len={bids.length} icon="clipboard" />
+          </div>
         </div>
-      </div>
-      <div className="bid-list-container">
+        <div className="bid-list-container">
+          {isLoading && <Spinner type="saved-searches" size="big" />}
+          {
+            bids$.length === 0 && !isLoading &&
+              <div className="usa-grid-full section-padded-inner-container">
+                You have not added any bids to your bid list.
+              </div>
+          }
+          {bids$.length && !isLoading && bids$}
+        </div>
         {
-          bidArray.length === 0 ?
-            <div className="usa-grid-full section-padded-inner-container">
-              You have not added any bids to your bid list.
+          showMoreLink && !isLoading &&
+            <div className="section-padded-inner-container small-link-container view-more-link-centered">
+              <Link to="/profile/bidtracker/">Go to Bid Tracker</Link>
             </div>
-          :
-            <BorderedList contentArray={bidArray} />
         }
       </div>
-      {
-        showMoreLink &&
-          <div className="section-padded-inner-container small-link-container view-more-link-centered">
-            <Link to="/profile/bidtracker/">Go to Bid Tracker</Link>
-          </div>
-      }
     </div>
   );
 };
@@ -54,11 +63,17 @@ const BidList = ({ bids, showMoreLink }) => {
 BidList.propTypes = {
   bids: BID_RESULTS.isRequired,
   showMoreLink: PropTypes.bool,
+  submitBidPosition: PropTypes.func,
+  deleteBid: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 BidList.defaultProps = {
   bids: [],
   showMoreLink: true,
+  submitBidPosition: EMPTY_FUNCTION,
+  deleteBid: EMPTY_FUNCTION,
+  isLoading: false,
 };
 
 export default BidList;

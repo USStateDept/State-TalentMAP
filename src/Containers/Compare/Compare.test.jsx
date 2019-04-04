@@ -1,11 +1,13 @@
 import React from 'react';
+import sinon from 'sinon';
+import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
-import Compare, { mapDispatchToProps } from './Compare';
+import Compare, { Compare as CompareComponent, mapDispatchToProps } from './Compare';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -19,6 +21,27 @@ describe('Main', () => {
       />
     </MemoryRouter></Provider>);
     expect(compare).toBeDefined();
+  });
+
+  it('passes the correct value to getComparisons when onToggle is called', () => {
+    const compare = shallow(
+      <CompareComponent
+        isAuthorized={() => true}
+        onNavigateTo={() => {}}
+        match={{ params: { ids: '1,2,3' } }}
+        fetchData={() => {}}
+        hasErrored={false}
+        isLoading={false}
+        fetchFavorites={() => {}}
+        fetchBidList={() => {}}
+      />,
+    );
+    const instance = compare.instance();
+    const input = '1';
+    const getComparisonsSpy = sinon.spy(instance, 'getComparisons');
+    instance.onToggle(input);
+    const exp = '2,3';
+    expect(getComparisonsSpy.getCall(0).args[0]).toBe(exp);
   });
 
   it('can handle authentication redirects', () => {

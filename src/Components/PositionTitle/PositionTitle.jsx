@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
+import { Flag } from 'flag';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import Favorite from '../../Containers/Favorite';
@@ -72,13 +73,18 @@ const PositionTitle = ({ details, bidList, userProfile }) => {
               </Tooltip>
             </div>
         }
-        <PermissionsWrapper permissions="bidder">
-          <BidListButton
-            compareArray={bidList.results}
-            id={details.id}
-            disabled={!get(details, 'availability.availability', true)}
-          />
-        </PermissionsWrapper>
+        <Flag
+          name="flags.bidding"
+          render={() => (
+            <PermissionsWrapper permissions="bidder">
+              <BidListButton
+                compareArray={bidList.results}
+                id={details.id}
+                disabled={!get(details, 'availability.availability', true)}
+              />
+            </PermissionsWrapper>
+          )}
+        />
       </div>
     </div>
   );

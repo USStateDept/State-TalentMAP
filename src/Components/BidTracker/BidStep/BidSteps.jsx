@@ -43,7 +43,6 @@ const BidSteps = ({ bid }) => {
               needsAction={bidData[status.prop].needsAction}
               isCurrent={bidData[status.prop].isCurrent}
               number={bidData[status.prop].number}
-              hasPendingTooltip={bidData[status.prop].hasPendingTooltip}
               hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
             />}
         />

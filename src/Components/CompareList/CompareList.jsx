@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import shortId from 'shortid';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
+import { Flag } from 'flag';
 import BackButton from '../BackButton';
 import { BID_LIST, COMPARE_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -103,21 +104,54 @@ onToggle }) => {
                       emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
                     }
                   </tr>
+                  <Flag
+                    name="flags.static_content"
+                    render={() => (
+                      <tr>
+                        <th scope="row">
+                          Bid Count
+                        </th>
+                        {
+                          compareArray.map((c) => {
+                            const bidStatistics = get(c, 'bid_statistics[0]', {});
+                            return (
+                              <td key={shortId.generate()}>
+                                <span className="bid-stats">
+                                  <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" hideLabel />
+                                </span>
+                              </td>
+                            );
+                          })
+                        }
+                        {
+                          emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                        }
+                      </tr>
+                    )}
+                  />
                   <tr>
                     <th scope="row">
-                      Bid Count
+                      Post
                     </th>
                     {
-                      compareArray.map((c) => {
-                        const bidStatistics = get(c, 'bid_statistics[0]', {});
-                        return (
-                          <td key={shortId.generate()}>
-                            <span className="bid-stats">
-                              <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" hideLabel />
-                            </span>
-                          </td>
-                        );
-                      })
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          {getPostName(c.post, NO_POST)}
+                        </td>
+                      ))
+                    }
+                    {
+                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                    }
+                  </tr>
+                  <tr>
+                    <th scope="row">TED</th>
+                    {
+                      compareArray.map(c => (
+                        <td key={shortId.generate()}>
+                          {propOrDefault(c, 'current_assignment.estimated_end_date') ? formatDate(c.current_assignment.estimated_end_date) : NO_DATE }
+                        </td>
+                      ))
                     }
                     {
                       emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
@@ -139,21 +173,6 @@ onToggle }) => {
                     {
                       compareArray.map(c => (
                         <td key={shortId.generate()}>{c.bureau || NO_BUREAU}</td>
-                      ))
-                    }
-                    {
-                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
-                    }
-                  </tr>
-                  <tr>
-                    <th scope="row">
-                      Post
-                    </th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {getPostName(c.post, NO_POST)}
-                        </td>
                       ))
                     }
                     {
@@ -217,19 +236,6 @@ onToggle }) => {
                     }
                   </tr>
                   <tr>
-                    <th scope="row">TED</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          {propOrDefault(c, 'current_assignment.estimated_end_date') ? formatDate(c.current_assignment.estimated_end_date) : NO_DATE }
-                        </td>
-                      ))
-                    }
-                    {
-                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
-                    }
-                  </tr>
-                  <tr>
                     <th scope="row">Favorite</th>
                     {
                       compareArray.map(c => (
@@ -249,25 +255,30 @@ onToggle }) => {
                       emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
                     }
                   </tr>
-                  <tr>
-                    <th scope="row">Add to Bid List</th>
-                    {
-                      compareArray.map(c => (
-                        <td key={shortId.generate()}>
-                          <PermissionsWrapper permissions="bidder">
-                            <BidListButton
-                              compareArray={bidList.results}
-                              id={c.id}
-                              disabled={!get(c, 'availability.availability', true)}
-                            />
-                          </PermissionsWrapper>
-                        </td>
-                      ))
-                    }
-                    {
-                      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
-                    }
-                  </tr>
+                  <Flag
+                    name="flags.static_content"
+                    render={() => (
+                      <tr>
+                        <th scope="row">Add to Bid List</th>
+                        {
+                          compareArray.map(c => (
+                            <td key={shortId.generate()}>
+                              <PermissionsWrapper permissions="bidder">
+                                <BidListButton
+                                  compareArray={bidList.results}
+                                  id={c.id}
+                                  disabled={!get(c, 'availability.availability', true)}
+                                />
+                              </PermissionsWrapper>
+                            </td>
+                          ))
+                        }
+                        {
+                          emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                        }
+                      </tr>
+                    )}
+                  />
                 </tbody>
               </table>
             </div>

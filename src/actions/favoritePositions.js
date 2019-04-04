@@ -28,12 +28,12 @@ export function favoritePositionsFetchData(sortType) {
     let url = '/position/favorites/';
     if (sortType) { url += `?ordering=${sortType}`; }
 
-    api.get(url)
+    api().get(url)
       .then(response => response.data)
       .then((results) => {
+        dispatch(favoritePositionsFetchDataSuccess(results));
         dispatch(favoritePositionsHasErrored(false));
         dispatch(favoritePositionsIsLoading(false));
-        dispatch(favoritePositionsFetchDataSuccess(results));
       })
       .catch(() => {
         dispatch(favoritePositionsHasErrored(true));

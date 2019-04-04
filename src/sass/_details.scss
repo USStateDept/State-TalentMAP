@@ -1,3 +1,13 @@
+.position-details-outer-container {
+  position: relative;
+
+  .handshake-offset-container {
+    left: -3px;
+    position: absolute;
+    top: -37px;
+  }
+}
+
 .position-details-header-container {
   color: $color-white;
   position: relative;
