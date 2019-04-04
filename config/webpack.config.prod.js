@@ -350,4 +350,7 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
   },
+  performance: {
+    hints: "warning",
+  },
 };
