@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['IsPriorityComponent matches snapshot 1'] = `
+exports[`IsPriorityComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full bid-tracker-priority-wrapper-container"
+  className="usa-grid-full bid-tracker-priority-wrapper-container "
 >
   <div
     className="usa-grid-full bid-tracker-priority-wrapper"
@@ -21,10 +21,12 @@ exports['IsPriorityComponent matches snapshot 1'] = `
         <div
           className="priority-banner-question-text"
         >
-          <FontAwesome
-            name="question-circle"
-          />
-           What is a Pending Assignment?
+          <span>
+            <FontAwesome
+              name="question-circle"
+            />
+             What is a Pending Assignment?
+          </span>
         </div>
       </div>
     </div>

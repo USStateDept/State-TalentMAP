@@ -5,6 +5,7 @@ import { BID_STATISTICS_OBJECT, POST_DETAILS } from '../../../Constants/PropType
 import BidCount from '../../BidCount';
 import { getPostName } from '../../../utilities';
 import { getStatusProperty } from '../../../Constants/BidStatuses';
+import { APPROVED_PROP } from '../../../Constants/BidData';
 
 const BidTrackerCardTitle = ({ title, id, bidStatistics, post, showBidCount, status },
 { condensedView, priorityExists, isPriority }) => {
@@ -15,7 +16,11 @@ const BidTrackerCardTitle = ({ title, id, bidStatistics, post, showBidCount, sta
   );
   let title$ = title;
   if (condensedView && priorityExists && isPriority) {
-    title$ = `Pending Assignment: ${title}`;
+    if (status === APPROVED_PROP) {
+      title$ = `Assignment: ${title}`;
+    } else {
+      title$ = `Pending Assignment: ${title}`;
+    }
   }
   if (condensedView && priorityExists && !isPriority) {
     const status$ = getStatusProperty(status, 'text');

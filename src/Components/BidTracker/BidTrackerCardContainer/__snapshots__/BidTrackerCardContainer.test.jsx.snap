@@ -181,7 +181,9 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
 <div
   className="bid-tracker-container"
 >
-  <IsPriority>
+  <IsPriority
+    isApproved={true}
+  >
     <BidTrackerCard
       acceptBid={[Function]}
       bid={

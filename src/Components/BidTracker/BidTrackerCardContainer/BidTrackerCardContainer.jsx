@@ -4,7 +4,7 @@ import { BID_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidTrackerCard from '../BidTrackerCard';
 import IsPriority from '../PriorityCards/IsPriority';
 import IsOnStandby from '../PriorityCards/IsOnStandby';
-import { DRAFT_PROP } from '../../../Constants/BidData';
+import { DRAFT_PROP, APPROVED_PROP } from '../../../Constants/BidData';
 
 // assign values to constants for equality checks later
 const DEFAULT = 'default';
@@ -40,7 +40,11 @@ submitBid, deleteBid }) => {
   let cardComponent;
   switch (displayType) {
     case PRIORITY:
-      cardComponent = (<IsPriority>{getCard({ showBidCount: false })}</IsPriority>);
+      cardComponent = (
+        <IsPriority isApproved={bid.status === APPROVED_PROP}>
+          {getCard({ showBidCount: false })}
+        </IsPriority>
+      );
       break;
     case STANDBY:
       cardComponent = (<IsOnStandby bid={bid} deleteBid={deleteBid} />);
