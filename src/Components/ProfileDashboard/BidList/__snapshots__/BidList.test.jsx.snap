@@ -263,7 +263,6 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
       >
         You have not added any bids to your bid list.
       </div>
-      0
     </div>
     <div
       className="section-padded-inner-container small-link-container view-more-link-centered"
