@@ -1,9 +1,9 @@
 {
   "api_config": {
-    "baseURL": "http://localhost:8000/api/v1"
+    "baseURL": "https://dev.talentmap.api.metaphasedev.com/api/v1"
   },
   "flags": {
-    "bidding": true,
+    "bidding": false,
     "projected_vacancy": true,
     "static_content": true
   }

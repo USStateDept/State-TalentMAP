@@ -60,6 +60,12 @@ yarn build
 [ -d /var/www/html ] && sudo mv /var/www/html /var/www/html-BACKUP
 # move build to html
 sudo cp -R build /var/www/html
+
+# remove default config.json
+sudo rm /var/www/html/build/config/config.json
+# rename config_dev.json to config.json so that it gets used instead
+sudo mv /var/www/html/build/config/config_dev.json /var/www/html/build/config/config.json
+
 # restart apache
 sudo apachectl restart
 
