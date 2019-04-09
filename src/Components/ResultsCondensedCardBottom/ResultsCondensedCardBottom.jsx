@@ -21,7 +21,13 @@ const ResultsCondensedCardBottom = (
   }) => (
     <div className="condensed-card-bottom-container">
       <div className="usa-grid-full condensed-card-bottom">
-        {showBidCount && <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />}
+        <Flag
+          name="flags.bidding"
+          render={() => (
+            showBidCount &&
+              <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />
+          )}
+        />
         <CondensedCardData position={position} />
         <div className="usa-grid-full condensed-card-buttons-section">
           <Favorite
