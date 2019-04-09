@@ -20,6 +20,7 @@ import DesktopNav from './DesktopNav';
 import { getAssetPath, propOrDefault, focusByFirstOfHeader } from '../../utilities';
 import MediaQuery from '../MediaQuery';
 import InteractiveElement from '../InteractiveElement';
+import BetaHeader from './BetaHeader';
 
 export class Header extends Component {
   constructor(props) {
@@ -139,6 +140,7 @@ export class Header extends Component {
             )}
           />
           <StateBanner />
+          <BetaHeader />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">
