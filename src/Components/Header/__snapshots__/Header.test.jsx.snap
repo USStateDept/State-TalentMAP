@@ -22,6 +22,7 @@ exports[`Header matches snapshot when logged in 1`] = `
       render={[Function]}
     />
     <StateBanner />
+    <BetaHeader />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"
     >
@@ -106,6 +107,7 @@ exports[`Header matches snapshot when logged out 1`] = `
       render={[Function]}
     />
     <StateBanner />
+    <BetaHeader />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"
     >
