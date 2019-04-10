@@ -42,11 +42,18 @@ class SearchResultsExportLink extends Component {
     };
   }
 
+  componentWillReceiveProps() {
+    const query = window.location.search.replace('?', '') || '';
+    if (this.state.query.value !== query) {
+      this.setState({ query: { value: query } });
+    }
+  }
+
   onClick() {
     // reset the state to support multiple clicks
     this.setState({ data: '' });
     const query = {
-      ordering: POSITION_SEARCH_SORTS,
+      ordering: POSITION_SEARCH_SORTS.defaultSort,
       ...queryString.parse(this.state.query.value),
       limit: this.props.count,
     };
