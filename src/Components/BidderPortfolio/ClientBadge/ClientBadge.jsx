@@ -26,20 +26,23 @@ const icons = {
 
 const status$ = ['none', 'warning', 'success'];
 
-const ClientBadge = ({ type, status }) => (
-  <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${status$[status]}`}>
-    <div className="client-badge">
-      {
-        icons[type].isIcon ?
-          <FA name={icons[type].name} /> :
-          <span>{icons[type].name}</span>
-      }
+const ClientBadge = ({ type, status }) => {
+  const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
+  return (
+    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${status$[status]}`}>
+      <div className="client-badge">
+        {
+          icons[type].isIcon ?
+            <FA aria-label={ariaLabel} name={icons[type].name} /> :
+            <span aria-label={ariaLabel}>{icons[type].name}</span>
+        }
+      </div>
+      <div className="client-badge-text">
+        <span>{icons[type].text}</span>
+      </div>
     </div>
-    <div className="client-badge-text">
-      <span>{icons[type].text}</span>
-    </div>
-  </div>
-);
+  );
+};
 
 ClientBadge.propTypes = {
   type: PropTypes.oneOf(['handshake', 'sixeight', 'fairshare', 'retirement']).isRequired,

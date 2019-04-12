@@ -8,6 +8,7 @@ exports[`ClientBadge matches snapshot 1`] = `
     className="client-badge"
   >
     <FontAwesome
+      aria-label="type of \\"handshake\\" with status of \\"warning\\""
       name="handshake-o"
     />
   </div>
