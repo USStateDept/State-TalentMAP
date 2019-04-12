@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClientBadge matches snapshot 1`] = `
+<div
+  className="usa-grid-full client-badge-container client-badge-container--icon client-badge-container--warning"
+>
+  <div
+    className="client-badge"
+  >
+    <FontAwesome
+      name="handshake-o"
+    />
+  </div>
+  <div
+    className="client-badge-text"
+  >
+    <span>
+      Handshake
+    </span>
+  </div>
+</div>
+`;
