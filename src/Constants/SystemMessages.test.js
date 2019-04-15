@@ -63,4 +63,24 @@ describe('SystemMessages', () => {
       expect(SystemMessages[message](textToCheck).indexOf(textToCheck)).toBeDefined();
     });
   });
+
+  it('returns a defined value for DELETE_FAVORITE_SUCCESS()', () => {
+    expect(SystemMessages.DELETE_FAVORITE_SUCCESS({ title: 'a', position_number: '1' })).toBeDefined();
+  });
+
+  it('returns a defined value for ADD_FAVORITE_SUCCESS()', () => {
+    expect(SystemMessages.ADD_FAVORITE_SUCCESS({ position_number: '1' })).toBeDefined();
+  });
+
+  it('returns a defined value for ADD_FAVORITE_SUCCESS()', () => {
+    expect(SystemMessages.GET_NOW_AVAILABLE(3)).toBeDefined();
+  });
+
+  it('returns a defined value for ADD_FAVORITE_SUCCESS() when value > 1', () => {
+    expect(SystemMessages.GET_POSITIONS_ADDED(3)).toBeDefined();
+  });
+
+  it('returns a defined value for ADD_FAVORITE_SUCCESS() when value <= 1', () => {
+    expect(SystemMessages.GET_POSITIONS_ADDED(1)).toBeDefined();
+  });
 });

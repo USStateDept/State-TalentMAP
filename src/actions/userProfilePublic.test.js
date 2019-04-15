@@ -45,7 +45,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.userProfilePublicFetchData());
+        store.dispatch(actions.userProfilePublicFetchData(1));
         done();
       }, 0);
     };
@@ -71,7 +71,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.userProfilePublicFetchData());
+        store.dispatch(actions.userProfilePublicFetchData(1));
         done();
       }, 0);
     };

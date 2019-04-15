@@ -21,6 +21,13 @@ describe('BidderPortfolioPageComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('sets state when changeEditType() is called', () => {
+    const wrapper = shallow(<BidderPortfolioPage {...props} />);
+    const setTo = 3;
+    wrapper.instance().changeEditType(setTo);
+    expect(wrapper.instance().state.editType).toBe(setTo);
+  });
+
   it('can set state by calling the changeViewType function', () => {
     const wrapper = shallow(<BidderPortfolioPage {...props} />);
     expect(wrapper.instance().state.viewType.value).toBe('card');

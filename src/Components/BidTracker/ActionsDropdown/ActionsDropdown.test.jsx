@@ -20,6 +20,13 @@ describe('ActionsDropdown', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('sets this.dropdown', () => {
+    const wrapper = shallow(<ActionsDropdown {...props} />);
+    const setTo = 2;
+    wrapper.instance().setDropdown(setTo);
+    expect(wrapper.instance().dropdown).toBe(setTo);
+  });
+
   it('can call the hideDropdown function', () => {
     const wrapper = shallow(<ActionsDropdown {...props} />);
 

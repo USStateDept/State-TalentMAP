@@ -19,7 +19,7 @@ describe('async actions', () => {
         languages: [],
       }] };
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number=00011111').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/00011111/').reply(200,
       details,
     );
   });

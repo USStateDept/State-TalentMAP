@@ -5,6 +5,7 @@ import {
   getPostOrMissionDescription,
   doesCodeOrIdMatch,
   isBooleanFilter,
+  isPercentageFilter,
 } from './helpers';
 
 describe('filter helpers', () => {
@@ -75,5 +76,12 @@ describe('filter helpers', () => {
     expect(isBooleanFilter('COLA')).toBe(true);
     expect(isBooleanFilter('available')).toBe(true);
     expect(isBooleanFilter('invalud')).toBe(false);
+  });
+
+  it('returns true when isPercentageFilter() is called with a valid description', () => {
+    // all valid properties should return true
+    expect(isPercentageFilter('dangerPay')).toBe(true);
+    expect(isPercentageFilter('postDiff')).toBe(true);
+    expect(isPercentageFilter('invalidProp')).toBe(false);
   });
 });
