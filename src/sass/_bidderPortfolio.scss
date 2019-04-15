@@ -236,7 +236,43 @@
   }
 }
 
+$cdo-search-container-width: 270px;
+$cdo-search-container-padding: 10px;
+
 .bidder-portfolio-page {
+
+  .results-single-search {
+    padding-left: 0 !important;
+  }
+
+  h2 {
+    color: $color-white;
+    font-family: inherit;
+    font-size: 2.4rem;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  .dropdown-trigger-container {
+    align-items: center;
+    color: $color-white;
+    display: flex;
+    margin-top: 10px;
+
+    > span {
+      margin-right: 10px;
+    }
+  }
+
+  .account-dropdown--name {
+    border: 1px solid $color-white;
+    color: $color-white;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0;
+    min-width: $cdo-search-container-width + ($cdo-search-container-padding * 2);
+    padding: 8px 11px;
+  }
 
   .tm-avatar {
     font-size: 2rem;
@@ -270,8 +306,8 @@
   }
 
   .bidder-portfolio-search-container {
-    background-color: $color-gray-lighter;
-    padding-bottom: 3px;
+    background-color: $bg-blue-dark-1;
+    padding: 12px 31px;
   }
 
   .portfolio-sort-container {
@@ -296,7 +332,7 @@
 
   .results-search-bar-container {
     max-width: unset;
-    padding: 0 5px 0 15px;
+    padding: 0;
   }
 
   .search-submit-button {
@@ -579,3 +615,60 @@
     margin-bottom: .5em;
   }
 }
+
+// scss-lint:disable SelectorFormat
+.portfolio-account-dropdown {
+  $highlighted-color: #D9E3EB;
+  $unhighlighted-color: #F1F1F1;
+
+  input {
+    position: relative;
+    top: -2px;
+  }
+
+  .dropdown__content {
+    position: relative;
+  }
+
+  .react-autosuggest__suggestions-container {
+    border: 1px solid $color-black;
+    border-top: 0;
+    max-height: 200px;
+    overflow-y: scroll;
+    width: $cdo-search-container-width;
+  }
+
+  li {
+    background-color: $unhighlighted-color;
+    border: 0;
+  }
+
+  .react-autosuggest__suggestion--highlighted {
+    background-color: $highlighted-color;
+  }
+
+  .react-autosuggest__container {
+    background-color: $unhighlighted-color;
+    border: 1px solid $color-black;
+    border-top: 0;
+    left: 74px;
+    padding: $cdo-search-container-padding $cdo-search-container-padding 0;
+    top: -11px;
+  }
+
+  .dropdown-content-outer-container {
+    position: absolute;
+  }
+
+  .autosuggest-container {
+    padding: 5px;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    border: 0;
+    position: relative;
+    right: 0;
+    top: 0;
+  }
+}
+// scss-lint:enable SelectorFormat

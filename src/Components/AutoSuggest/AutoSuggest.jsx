@@ -61,14 +61,15 @@ export default class AutoSuggest extends Component {
 
   // Use your imagination to render suggestions.
   renderSuggestion(suggestion) {
+    const { templateProps } = this.props;
     const Template = this.props.suggestionTemplate;
-    return <Template suggestion={suggestion} />;
+    return <Template suggestion={suggestion} {...templateProps} />;
   }
 
   render() {
     const { value } = this.state;
     const { placeholder, suggestions, onSuggestionsClearRequested, id,
-      customInputProps, inputId, label, labelSrOnly, className } = this.props;
+      customInputProps, inputId, label, labelSrOnly, className, autoSuggestProps } = this.props;
 
     // Autosuggest will pass through all these props to the input.
     const inputProps = {
@@ -92,6 +93,7 @@ export default class AutoSuggest extends Component {
           renderSuggestion={this.renderSuggestion}
           inputProps={inputProps}
           id={id}
+          {...autoSuggestProps}
         />
       </div>
     );
@@ -123,9 +125,9 @@ AutoSuggest.propTypes = {
   // ...but we can make that label srOnly if we want. It will default to true.
   labelSrOnly: PropTypes.bool,
 
-  getSuggestions: PropTypes.func.isRequired,
+  getSuggestions: PropTypes.func,
   debounceMillis: PropTypes.number, // Number in milliseconds to debounce typing.
-  onSuggestionSelected: PropTypes.func.isRequired,
+  onSuggestionSelected: PropTypes.func,
 
   // This is required by the AutoSuggest component, but is not necessary for our use.
   onSuggestionsClearRequested: PropTypes.func,
@@ -142,6 +144,12 @@ AutoSuggest.propTypes = {
   suggestionTemplate: PropTypes.func,
 
   className: PropTypes.string,
+
+  // other autosuggest props
+  autoSuggestProps: PropTypes.shape({}),
+
+  // props to pass to template
+  templateProps: PropTypes.shape({}),
 };
 
 AutoSuggest.defaultProps = {
@@ -150,10 +158,14 @@ AutoSuggest.defaultProps = {
   suggestions: [],
   placeholder: '',
   labelSrOnly: true,
+  getSuggestions: EMPTY_FUNCTION,
   debounceMillis: 350,
+  onSuggestionSelected: EMPTY_FUNCTION,
   onSuggestionsClearRequested: EMPTY_FUNCTION,
   displayProperty: 'short_name',
   queryProperty: '',
   suggestionTemplate: SuggestionChoice,
   className: undefined,
+  autoSuggestProps: {},
+  templateProps: {},
 };

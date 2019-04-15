@@ -5,6 +5,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
   className="usa-grid-full"
 >
   <AutoSuggest
+    autoSuggestProps={Object {}}
     className="post-auto-suggest-container"
     customInputProps={
       Object {
@@ -24,6 +25,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
     queryProperty="id"
     suggestionTemplate={[Function]}
     suggestions={Array []}
+    templateProps={Object {}}
   />
   <div
     className="usa-grid-full tm-nested-accordions"

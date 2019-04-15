@@ -31,10 +31,12 @@ a {
   }
 }
 
-.bidder-portfolio-search-container {
-  .results-search-bar {
-    *:focus {
-      outline-color: $tm-focus-outline-color;
+.portfolio-account-dropdown {
+  .label-input-wrapper > input,
+  .usa-button,
+  .account-dropdown--name {
+    &:focus {
+      outline-color: $tm-focus-outline-color-alt;
     }
   }
 }
