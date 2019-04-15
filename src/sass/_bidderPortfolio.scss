@@ -69,24 +69,44 @@
   // setup flex values
   > div:nth-child(1) {
     flex: 3;
+    margin-right: 50px;
   }
 
   > div:nth-child(2) {
-    flex: 10 1 220px;
+    flex: 3 1 280px;
   }
 
   > div:nth-child(3) {
     display: flex;
-    flex: 8;
+    flex: 8 0 225px;
     justify-content: flex-end;
   }
 
   > div:nth-child(4) {
-    flex: 8;
+    flex: 8 0 225px;
 
     > span {
       display: flex;
       justify-content: flex-end;
+    }
+  }
+
+  > div.client-checkbox-list {
+    display: flex;
+    flex: 16 1 450px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .tm-checkbox {
+      margin: 0 auto;
+      margin-left: 0;
+      margin-right: 2rem;
+      min-width: 10rem;
+
+      label {
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+      }
     }
   }
 
@@ -289,15 +309,20 @@ $cdo-search-container-padding: 10px;
     width: 50px;
   }
 
-  .export-button-container {
-    margin-left: 10px;
+  .export-button-container,
+  .edit-buttons-container {
+    display: flex;
 
     button {
       align-items: center;
       display: flex;
       justify-content: center;
+      margin-left: 10px;
       min-width: 100px;
     }
+  }
+
+  .export-button-container {
 
     .ds-c-spinner {
       height: 11px;
@@ -340,10 +365,6 @@ $cdo-search-container-padding: 10px;
     align-items: center;
     display: flex;
     float: right;
-
-    button {
-      margin: 0;
-    }
   }
 
   .results-search-bar {
