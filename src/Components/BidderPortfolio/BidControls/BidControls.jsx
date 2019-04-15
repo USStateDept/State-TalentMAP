@@ -5,6 +5,7 @@ import SelectForm from '../../SelectForm';
 import { BID_PORTFOLIO_SORTS } from '../../../Constants/Sort';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ExportLink from '../ExportLink';
+import BidCyclePicker from './BidCyclePicker';
 
 class BidControls extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class BidControls extends Component {
         </div>
         <div className="usa-width-three-fourths portfolio-sort-container results-dropdown">
           <div className="portfolio-sort-container-contents">
+            <BidCyclePicker />
             <SelectForm
               id="porfolio-sort"
               options={BID_PORTFOLIO_SORTS.options}

@@ -241,6 +241,8 @@ $cdo-search-container-padding: 10px;
 
 .bidder-portfolio-page {
 
+  border-top: 1px solid $color-white;
+
   .results-single-search {
     padding-left: 0 !important;
   }
@@ -251,6 +253,12 @@ $cdo-search-container-padding: 10px;
     font-size: 2.4rem;
     font-weight: normal;
     margin: 0;
+  }
+
+  .bid-cycle-picker-container {
+    > div {
+      font-size: .8em;
+    }
   }
 
   .dropdown-trigger-container {
@@ -311,8 +319,20 @@ $cdo-search-container-padding: 10px;
   }
 
   .portfolio-sort-container {
+    .bid-cycle-picker-container,
     .usa-form {
+      align-items: center;
+      display: flex;
       margin-right: 10px;
+
+      .label {
+        margin-right: 10px;
+      }
+
+      label,
+      .label {
+        margin-top: 0;
+      }
     }
   }
 
@@ -618,7 +638,7 @@ $cdo-search-container-padding: 10px;
 
 // scss-lint:disable SelectorFormat
 .portfolio-account-dropdown {
-  $highlighted-color: #D9E3EB;
+  $highlighted-color: $color-botticelli-blue;
   $unhighlighted-color: #F1F1F1;
 
   input {

@@ -42,6 +42,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
         id="domestic-post-sub-accordion"
         preContent={
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="select-all-domestic"
@@ -62,6 +63,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
           className="usa-grid-full"
         >
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="checkboxName-domestic-post-post"
@@ -84,6 +86,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
         id="overseas-post-sub-accordion"
         preContent={
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="select-all-overseas"
@@ -104,6 +107,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
           className="usa-grid-full"
         >
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="checkboxName-overseas-post-post"

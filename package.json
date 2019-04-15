@@ -35,6 +35,7 @@
     "react-linkify": "^0.2.2",
     "react-loadable": "^5.3.1",
     "react-paginate": "^4.4.4",
+    "react-picky": "^4.2.1",
     "react-redux": "^5.0.5",
     "react-responsive": "^4.0.3",
     "react-router": "^4.2.0",

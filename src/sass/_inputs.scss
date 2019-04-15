@@ -1,9 +1,9 @@
 .select-blue {
-  background-image: url('#{$asset-path}assets/img/angle-down-blue.svg');
+  background-image: $angle-down-blue;
 }
 
 .select-black {
-  background-image: url('#{$asset-path}assets/img/angle-down-black.svg');
+  background-image: $angle-down-black;
 }
 
 .select-offset {
