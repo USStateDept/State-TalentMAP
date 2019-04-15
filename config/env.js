@@ -56,7 +56,6 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 const ENV = NODE_ENV || 'development';
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
-const ABOUT_URL = `${process.env.PUBLIC_URL}about`;
 const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
 
 function getClientEnvironment(publicUrl) {
@@ -69,7 +68,6 @@ function getClientEnvironment(publicUrl) {
     // This should only be used as an escape hatch. Normally you would put
     // images into the `src` and `import` them in code to get their paths.
     PUBLIC_URL: publicUrl,
-    ABOUT_URL,
     API_URL,
   };
 
