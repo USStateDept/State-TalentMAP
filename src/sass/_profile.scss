@@ -42,6 +42,69 @@
     max-width: none;
   }
 
+  .updates-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 362px;
+
+    > div:nth-child(1) {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      div:nth-child(2) {
+        display: flex;
+        flex-grow: 1;
+      }
+    }
+
+    .unstyled-button {
+      color: $blue-primary;
+      font-size: 1.2em;
+    }
+
+    .small-link-container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 60px;
+      padding: 10px 15px;
+    }
+
+    .edit-buttons-container {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+    }
+
+    button {
+      margin-bottom: 0;
+      margin-top: 0;
+
+      .fa {
+        margin-right: 5px;
+      }
+    }
+
+    .client-checkbox-list {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .tm-checkbox {
+      margin: 0 auto;
+      margin-left: 0;
+      margin-right: 2%;
+      min-width: 48%;
+    }
+
+    label {
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+    }
+  }
+
   .favorite-positions-container,
   .saved-searches-container {
     position: relative;

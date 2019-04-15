@@ -16,6 +16,7 @@ import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
+import Updates from './Updates';
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
@@ -34,7 +35,7 @@ const ProfileDashboard = ({
         <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
           {(matches) => {
             let columns = !matches ? [3, 4, 5] : [6, 6, 12];
-            if (isPublic) { columns = !matches ? [4, 8] : [12, 12, 12]; }
+            if (isPublic) { columns = !matches ? [3, 4, 5] : [12, 12, 12]; }
             return (
               <Row className="usa-grid-full">
                 <Column
@@ -49,58 +50,71 @@ const ProfileDashboard = ({
                     />
                   </BoxShadow>
                 </Column>
-                {isPublic ?
-                  <div>
+                {
+                  !isPublic &&
+                    <div>
+                      <Column
+                        columns={columns[1]}
+                        className={'user-dashboard-section-container user-dashboard-column-2'}
+                      >
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
+                          <Notifications notifications={notifications} />
+                        </BoxShadow>
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                          <SavedSearches />
+                        </BoxShadow>
+                      </Column>
+                      <Column
+                        columns={columns[2]}
+                        className="user-dashboard-section-container user-dashboard-column-3"
+                      >
+                        <Flag
+                          name="flags.bidding"
+                          render={() => (
+                            <PermissionsWrapper permissions="bidder">
+                              <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
+                                <BidList
+                                  bids={bidList}
+                                  showMoreLink={!isPublic}
+                                  submitBidPosition={submitBidPosition}
+                                  deleteBid={deleteBid}
+                                  isLoading={bidListIsLoading}
+                                />
+                              </BoxShadow>
+                            </PermissionsWrapper>
+                          )}
+                        />
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                          <Favorites favorites={favoritePositions} />
+                        </BoxShadow>
+                      </Column>
+                    </div>
+                }
+                {
+                  isPublic &&
                     <Column
                       columns={columns[1]}
-                      className="user-dashboard-section-container user-dashboard-column-3"
+                      className="user-dashboard-section-container user-dashboard-column-2"
                     >
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments assignments={userProfile.assignments} />
-                      </BoxShadow>
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                        <BidList bids={bidList} showMoreLink={!isPublic} />
+                        <Updates />
                       </BoxShadow>
                     </Column>
-                  </div>
-                  :
-                  <div>
-                    <Column
-                      columns={columns[1]}
-                      className={'user-dashboard-section-container user-dashboard-column-2'}
-                    >
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
-                        <Notifications notifications={notifications} />
-                      </BoxShadow>
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                        <SavedSearches />
-                      </BoxShadow>
-                    </Column>
+                }
+                {
+                  isPublic &&
                     <Column
                       columns={columns[2]}
                       className="user-dashboard-section-container user-dashboard-column-3"
                     >
-                      <Flag
-                        name="flags.bidding"
-                        render={() => (
-                          <PermissionsWrapper permissions="bidder">
-                            <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                              <BidList
-                                bids={bidList}
-                                showMoreLink={!isPublic}
-                                submitBidPosition={submitBidPosition}
-                                deleteBid={deleteBid}
-                                isLoading={bidListIsLoading}
-                              />
-                            </BoxShadow>
-                          </PermissionsWrapper>
-                        )}
-                      />
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                        <Favorites favorites={favoritePositions} />
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
+                        <BidList bids={bidList} showMoreLink={!isPublic} />
+                      </BoxShadow>
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                        <Assignments assignments={userProfile.assignments} />
                       </BoxShadow>
                     </Column>
-                  </div>}
+                }
               </Row>
             );
           }}

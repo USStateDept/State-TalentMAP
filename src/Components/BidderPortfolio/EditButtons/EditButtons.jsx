@@ -9,7 +9,7 @@ class EditButtons extends Component {
     this.onCancel = this.onCancel.bind(this);
     this.onSave = this.onSave.bind(this);
     this.state = {
-      showSave: false,
+      showSave: this.props.initialShowSave,
     };
   }
   onShow() {
@@ -29,7 +29,7 @@ class EditButtons extends Component {
     return (
       <div className="edit-buttons-container">
         {!showSave && <button onClick={this.onShow}>Edit</button>}
-        {showSave && <button onClick={this.onCancel} className="usa-button-secondary">{'Don\'t save'}</button>}
+        {showSave && <button onClick={this.onCancel} className="usa-button-secondary">{'Don\'t Save'}</button>}
         {showSave && <button onClick={this.onSave}>Save</button>}
       </div>
     );
@@ -38,10 +38,12 @@ class EditButtons extends Component {
 
 EditButtons.propTypes = {
   onChange: PropTypes.func,
+  initialShowSave: PropTypes.bool,
 };
 
 EditButtons.defaultProps = {
   onChange: EMPTY_FUNCTION,
+  initialShowSave: false,
 };
 
 export default EditButtons;
