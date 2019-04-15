@@ -17,13 +17,13 @@ class BidderPortfolioContainer extends Component {
     this.props.queryParamUpdate(q);
   }
   render() {
-    const { bidderPortfolio, pageSize, pageNumber, showListView } = this.props;
+    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit } = this.props;
     const noResults = bidderPortfolio.results.length === 0;
     return (
       <div className="usa-grid-full user-dashboard">
         {
           showListView ?
-            <BidderPortfolioGridList results={bidderPortfolio.results} />
+            <BidderPortfolioGridList showEdit={showEdit} results={bidderPortfolio.results} />
             :
             <BidderPortfolioCardList results={bidderPortfolio.results} />
         }
@@ -57,10 +57,12 @@ BidderPortfolioContainer.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
   showListView: PropTypes.bool,
+  showEdit: PropTypes.bool,
 };
 
 BidderPortfolioContainer.defaultProps = {
   showListView: false,
+  showEdit: false,
 };
 
 export default BidderPortfolioContainer;

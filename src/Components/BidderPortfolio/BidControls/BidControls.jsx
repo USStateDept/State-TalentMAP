@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import TotalResults from './TotalResults';
 import SelectForm from '../../SelectForm';
 import { BID_PORTFOLIO_SORTS } from '../../../Constants/Sort';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ExportLink from '../ExportLink';
+import EditButtons from '../EditButtons';
 
 class BidControls extends Component {
   constructor(props) {
@@ -17,7 +19,7 @@ class BidControls extends Component {
   }
   render() {
     const { biddersNumerator, biddersDenominator, isLoading, viewType,
-      changeViewType } = this.props;
+      changeViewType, onEditChange, showEditButtons } = this.props;
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-fourth total-results-container">
@@ -37,6 +39,7 @@ class BidControls extends Component {
               onSelectOption={this.onSortChange}
             />
             <ResultsViewBy initial={viewType} onClick={changeViewType} />
+            {showEditButtons && <EditButtons onChange={onEditChange} />}
             <ExportLink />
           </div>
         </div>
@@ -52,6 +55,13 @@ BidControls.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   viewType: PropTypes.string.isRequired,
   changeViewType: PropTypes.func.isRequired,
+  onEditChange: PropTypes.func.isRequired,
+  showEditButtons: PropTypes.bool,
+};
+
+BidControls.defaultProps = {
+  onEditChange: EMPTY_FUNCTION,
+  showEditButtons: false,
 };
 
 export default BidControls;

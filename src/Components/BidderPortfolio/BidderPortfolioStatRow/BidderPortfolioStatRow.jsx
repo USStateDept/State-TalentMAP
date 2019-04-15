@@ -1,5 +1,6 @@
 import React from 'react';
 import { get, orderBy } from 'lodash';
+import PropTypes from 'prop-types';
 import { BIDDER_OBJECT } from '../../../Constants/PropTypes';
 import SkillCodeList from '../../SkillCodeList';
 import { getPostName } from '../../../utilities';
@@ -8,8 +9,9 @@ import ClientBadgeList from '../ClientBadgeList';
 import StaticDevContent from '../../StaticDevContent';
 import LinkButton from '../../LinkButton';
 import Avatar from '../../Avatar';
+import CheckboxList from '../CheckboxList';
 
-const BidderPortfolioStatRow = ({ userProfile }) => {
+const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
   const sortedAssignments = orderBy(userProfile.assignments, 'start_date', 'desc');
   const currentAssignment = get(sortedAssignments, '[0].position.post');
   const currentAssignmentText = getPostName(currentAssignment, NO_POST);
@@ -38,29 +40,42 @@ const BidderPortfolioStatRow = ({ userProfile }) => {
           <dt>Post:</dt><dd>{currentAssignmentText}</dd>
         </div>
       </div>
-
-      <div className="bidder-portfolio-stat-row-updates">
-        <StaticDevContent>
-          <ClientBadgeList
-            statuses={{
-              handshake: 1,
-              sixeight: 0,
-              fairshare: 1,
-              retirement: 2,
-            }}
-          />
-        </StaticDevContent>
-      </div>
-
-      <div>
-        <LinkButton className="usa-button-secondary" toLink={`/profile/public/${userProfile.id}`}>View Details</LinkButton>
-      </div>
+      {
+        !showEdit &&
+        <div className="bidder-portfolio-stat-row-updates">
+          <StaticDevContent>
+            <ClientBadgeList
+              statuses={{
+                handshake: 1,
+                sixeight: 0,
+                fairshare: 1,
+                retirement: 2,
+              }}
+            />
+          </StaticDevContent>
+        </div>
+      }
+      {
+        !showEdit &&
+        <div>
+          <LinkButton className="usa-button-secondary" toLink={`/profile/public/${userProfile.id}`}>View Details</LinkButton>
+        </div>
+      }
+      {
+        showEdit &&
+        <CheckboxList id={userProfile.id} />
+      }
     </div>
   );
 };
 
 BidderPortfolioStatRow.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
+  showEdit: PropTypes.bool,
+};
+
+BidderPortfolioStatRow.defaultProps = {
+  showEdit: false,
 };
 
 export default BidderPortfolioStatRow;
