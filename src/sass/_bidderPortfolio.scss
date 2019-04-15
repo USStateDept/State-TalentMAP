@@ -245,6 +245,30 @@
     width: 50px;
   }
 
+  .export-button-container {
+    margin-left: 10px;
+
+    button {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      min-width: 100px;
+    }
+
+    .ds-c-spinner {
+      height: 11px;
+      margin-right: 5px;
+      width: 11px;
+
+      &::before,
+      &::after {
+        border-width: 2px;
+        height: 11px;
+        width: 11px;
+      }
+    }
+  }
+
   .bidder-portfolio-search-container {
     background-color: $color-gray-lighter;
     padding-bottom: 3px;
@@ -257,14 +281,12 @@
   }
 
   .portfolio-sort-container-contents {
+    align-items: center;
+    display: flex;
     float: right;
 
-    .usa-form {
-      float: left;
-    }
-
-    .results-viewby-container {
-      float: left;
+    button {
+      margin: 0;
     }
   }
 

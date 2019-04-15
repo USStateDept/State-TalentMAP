@@ -4,6 +4,7 @@ import TotalResults from './TotalResults';
 import SelectForm from '../../SelectForm';
 import { BID_PORTFOLIO_SORTS } from '../../../Constants/Sort';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
+import ExportLink from '../ExportLink';
 
 class BidControls extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class BidControls extends Component {
               onSelectOption={this.onSortChange}
             />
             <ResultsViewBy initial={viewType} onClick={changeViewType} />
+            <ExportLink />
           </div>
         </div>
       </div>

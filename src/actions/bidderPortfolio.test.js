@@ -33,6 +33,36 @@ describe('bidderPortfolio async actions', () => {
     f();
   });
 
+  it('can fetch data from the last query', (done) => {
+    const store = mockStore({ results: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.bidderPortfolioFetchDataFromLastQuery());
+        store.dispatch(actions.lastBidderPortfolioIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle failures when fetching data from the last query', (done) => {
+    const store = mockStore({ results: [] });
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/client/?').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.bidderPortfolioFetchData('q=failure'));
+        store.dispatch(actions.bidderPortfolioIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it("can handle failures when fetching a CDO's client/bidder list", (done) => {
     const store = mockStore({ results: [] });
 

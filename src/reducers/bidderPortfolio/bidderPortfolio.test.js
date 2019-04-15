@@ -29,3 +29,23 @@ describe('bidderPortfolioCounts reducers', () => {
       {}, { type: 'BIDDER_PORTFOLIO_COUNTS_FETCH_DATA_SUCCESS', counts: {} })).toBeDefined();
   });
 });
+
+describe('lastBidderPortfolio reducers', () => {
+  it('can set reducer LAST_BIDDER_PORTFOLIO_HAS_ERRORED', () => {
+    expect(reducers.lastBidderPortfolioHasErrored(false, { type: 'LAST_BIDDER_PORTFOLIO_HAS_ERRORED', hasErrored: true })).toBe(true);
+  });
+
+  it('can set reducer LAST_BIDDER_PORTFOLIO_IS_LOADING', () => {
+    expect(reducers.lastBidderPortfolioIsLoading(false, { type: 'LAST_BIDDER_PORTFOLIO_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
+  it('can set reducer LAST_BIDDER_PORTFOLIO_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.lastBidderPortfolio(
+      {}, { type: 'LAST_BIDDER_PORTFOLIO_FETCH_DATA_SUCCESS', results: {} })).toBeDefined();
+  });
+
+  it('can set reducer SET_BIDDER_PORTFOLIO_LAST_QUERY', () => {
+    expect(reducers.bidderPortfolioLastQuery(
+      {}, { type: 'SET_BIDDER_PORTFOLIO_LAST_QUERY', query: '&ordering=id', count: 5 })).toBe('/client/?limit=5&ordering=id');
+  });
+});
