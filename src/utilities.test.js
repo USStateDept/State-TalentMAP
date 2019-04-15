@@ -287,8 +287,9 @@ describe('formatDate', () => {
 });
 
 describe('focusById', () => {
-  const focusSpy = sinon.spy();
+  let focusSpy;
   it('can focus by ID', () => {
+    focusSpy = sinon.spy();
     const elements = {
       test: {
         focus: focusSpy,
@@ -297,6 +298,22 @@ describe('focusById', () => {
     global.document.getElementById = id => elements[id];
     focusById('test');
     sinon.assert.calledOnce(focusSpy);
+  });
+
+  it('can focus by ID when there is a timeout', (done) => {
+    focusSpy = sinon.spy();
+    const elements = {
+      test: {
+        focus: focusSpy,
+      },
+    };
+    global.document.getElementById = id => elements[id];
+    const timeout = 10;
+    focusById('test', timeout);
+    setTimeout(() => {
+      sinon.assert.calledOnce(focusSpy);
+      done();
+    }, timeout);
   });
 });
 
@@ -549,6 +566,12 @@ describe('getAccessiblePositionNumber', () => {
     const positionNumber = 'S7001';
 
     expect(getAccessiblePositionNumber(positionNumber)).toBe('S 7 0 0 1');
+  });
+
+  it('returns null if positionNumber is undefined', () => {
+    const positionNumber = undefined;
+
+    expect(getAccessiblePositionNumber(positionNumber)).toBe(null);
   });
 });
 
