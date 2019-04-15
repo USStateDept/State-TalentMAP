@@ -26,6 +26,98 @@
   flex-grow: 100;
 }
 
+.portfolio-row-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.portfolio-row {
+  background-color: $color-white;
+  border: 1px solid $color-gray-light;
+  border-bottom: 0;
+  margin-bottom: 0;
+
+  &:last-of-type {
+    border-bottom: 1px solid $color-gray-light;
+  }
+}
+
+.bidder-portfolio-stat-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 27px 20px 25px 32px;
+
+  > div {
+    margin-right: 1em;
+
+    > .tm-avatar {
+      font-size: 3rem;
+      height: 65px;
+      line-height: 6.5rem;
+      width: 65px;
+    }
+  }
+
+  > div:last-child {
+    margin-right: 0;
+  }
+
+  // setup flex values
+  > div:nth-child(1) {
+    flex: 3;
+  }
+
+  > div:nth-child(2) {
+    flex: 10 1 220px;
+  }
+
+  > div:nth-child(3) {
+    display: flex;
+    flex: 8;
+    justify-content: flex-end;
+  }
+
+  > div:nth-child(4) {
+    flex: 8;
+
+    > span {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  .stat-card-data-point--name {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .client-badge-list {
+    display: flex;
+
+    .client-badge-container {
+      margin-right: 1em;
+    }
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 5px;
+  }
+
+  .stat-card-data-point {
+    display: flex;
+    flex-direction: row;
+    line-height: 1.3em;
+  }
+}
+
 .bidder-portfolio-stat-card {
   display: flex;
   flex-direction: column;

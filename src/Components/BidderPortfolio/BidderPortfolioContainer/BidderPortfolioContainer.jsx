@@ -6,7 +6,6 @@ import BidderPortfolioCardList from '../BidderPortfolioCardList';
 import BidderPortfolioGridList from '../BidderPortfolioGridList';
 import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
 import Alert from '../../Alert/Alert';
-import BidderPortfolioGridListHeader from '../BidderPortfolioGridListHeader';
 
 class BidderPortfolioContainer extends Component {
   constructor(props) {
@@ -24,10 +23,7 @@ class BidderPortfolioContainer extends Component {
       <div className="usa-grid-full user-dashboard">
         {
           showListView ?
-            <div>
-              <BidderPortfolioGridListHeader />
-              <BidderPortfolioGridList results={bidderPortfolio.results} />
-            </div>
+            <BidderPortfolioGridList results={bidderPortfolio.results} />
             :
             <BidderPortfolioCardList results={bidderPortfolio.results} />
         }

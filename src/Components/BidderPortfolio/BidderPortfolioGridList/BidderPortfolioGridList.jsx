@@ -1,20 +1,17 @@
 import React from 'react';
 import { BIDDER_RESULTS } from '../../../Constants/PropTypes';
-import BidderPortfolioGridItem from '../BidderPortfolioGridItem';
+import BidderPortfolioStatRow from '../BidderPortfolioStatRow';
 
 const BidderPortfolioGridList = ({ results }) => (
-  <ul className="usa-grid-full user-dashboard portfolio-grid-list">
+  <ul className="usa-grid-full user-dashboard portfolio-row-list">
     {
       results.map(result => (
         <li
-          className="user-dashboard-section portfolio-grid-list-item"
+          className="portfolio-row"
           key={result.id}
         >
-          <BidderPortfolioGridItem
+          <BidderPortfolioStatRow
             userProfile={result}
-            showEditLink={false}
-            showBirthday
-            showBids
           />
         </li>
       ))

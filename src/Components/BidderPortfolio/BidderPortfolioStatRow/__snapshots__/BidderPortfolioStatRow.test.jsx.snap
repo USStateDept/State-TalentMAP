@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioStatRow matches snapshot 1`] = `
+<div
+  className="usa-grid-full bidder-portfolio-stat-row"
+>
+  <div>
+    <Avatar
+      className=""
+      firstName="Kara"
+      initials=""
+      lastName="Batisak"
+      onClick={[Function]}
+      small={false}
+    />
+  </div>
+  <div>
+    <div
+      className="stat-card-data-point stat-card-data-point--name"
+    >
+      Kara Batisak
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
+        Skill:
+      </dt>
+      <dd>
+        <SkillCodeList
+          skillCodes={
+            Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+            ]
+          }
+        />
+      </dd>
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
+        Grade:
+      </dt>
+      <dd>
+        01
+      </dd>
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
+        Post:
+      </dt>
+      <dd>
+        Freetown, Sierra Leone
+      </dd>
+    </div>
+  </div>
+  <div
+    className="bidder-portfolio-stat-row-updates"
+  >
+    <Connect(StaticDevContent)>
+      <ClientBadgeList
+        statuses={
+          Object {
+            "fairshare": 1,
+            "handshake": 1,
+            "retirement": 2,
+            "sixeight": 0,
+          }
+        }
+      />
+    </Connect(StaticDevContent)>
+  </div>
+  <div>
+    <LinkButton
+      className="usa-button-secondary"
+      isExternal={false}
+      toLink="/profile/public/5"
+      useDefaultClass={true}
+    >
+      View Details
+    </LinkButton>
+  </div>
+</div>
+`;
