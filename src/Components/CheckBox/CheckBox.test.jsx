@@ -85,6 +85,23 @@ describe('CheckBoxComponent', () => {
     expect(wrapper.instance().state.checked.value).toBe(false);
   });
 
+  it('sets state when a new value prop is provided', () => {
+    const wrapper = shallow(
+      <CheckBox
+        id="id"
+        label="label"
+        title="title"
+        name="name"
+        value="value"
+        onCheckBoxClick={() => {}}
+      />,
+    );
+
+    const newValue = 'newValue';
+    wrapper.instance().componentWillReceiveProps({ value: newValue });
+    expect(wrapper.instance().state.checked.value).toBe(newValue);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <CheckBox

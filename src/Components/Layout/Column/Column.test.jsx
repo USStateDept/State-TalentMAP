@@ -39,6 +39,10 @@ describe('Column', () => {
     });
   });
 
+  it('throws an error if the columns prop is not valid', () => {
+    expect(() => shallow(<Column columns="a" />)).toThrowErrorMatchingSnapshot();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <Column id="Column-1" className="tm-grid">

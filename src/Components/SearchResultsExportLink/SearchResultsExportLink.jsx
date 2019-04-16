@@ -24,7 +24,7 @@ const HEADERS = [
 ];
 
 // Processes results before sending to the download component to allow for custom formatting.
-const processData = data => (
+export const processData = data => (
   data.map(entry => ({
     ...entry,
     estimated_end_date: formatDate(entry.current_assignment.estimated_end_date),
@@ -62,7 +62,7 @@ class SearchResultsExportLink extends Component {
       this.setState({ data }, () => {
         // click the CSVLink component to trigger the CSV download
         // This is needed for the download to work in Edge.
-        this.csvLink.link.click();
+        if (this.csvLink) { this.csvLink.link.click(); }
       });
     });
   }

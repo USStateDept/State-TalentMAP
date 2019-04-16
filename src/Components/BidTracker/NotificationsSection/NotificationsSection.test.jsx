@@ -59,6 +59,19 @@ describe('NotificationsSectionComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('can call the markNotification function', () => {
+    const wrapper = shallow(
+      <NotificationsSection
+        notifications={{ results: [{ is_read: false, tags: ['bidding'], id: 1 }] }}
+        notificationsIsLoading={false}
+        markBidTrackerNotification={() => {}}
+      />,
+    );
+    const spy = sinon.spy(wrapper.instance(), 'markNotification');
+    wrapper.find('Dismiss').props().onDismiss();
+    sinon.assert.calledOnce(spy);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <NotificationsSection

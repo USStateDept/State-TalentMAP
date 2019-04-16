@@ -10,6 +10,8 @@ import InteractiveElement from '../../InteractiveElement';
 // we'll reference this to return focus after making a selection
 const dropdownID = 'cdo-portfolio-dropdown-trigger';
 
+export const getDisplayProperty = o => `${o.first_name} ${o.last_name}`;
+
 class CDOAutoSuggest extends Component {
   constructor(props) {
     super(props);
@@ -37,13 +39,13 @@ class CDOAutoSuggest extends Component {
 
   hideDropdown() {
     // Explicitly hide the dropdown using the built-in hide() function from react-simple-dropdown
-    if (this.dropdown.hide) { this.dropdown.hide(); }
+    if (this.dropdown && this.dropdown.hide) { this.dropdown.hide(); }
     this.setState({ isActive: false });
   }
 
   showDropdown() {
     // Explicitly show the dropdown using the built-in show() function from react-simple-dropdown
-    if (this.dropdown.show) { this.dropdown.show(); }
+    if (this.dropdown && this.dropdown.show) { this.dropdown.show(); }
     this.setState({ isActive: true });
   }
 
@@ -97,7 +99,7 @@ class CDOAutoSuggest extends Component {
                   debounceMillis={0}
                   suggestions={suggestions}
                   getSuggestions={this.getFilteredUsers}
-                  displayProperty={o => `${o.first_name} ${o.last_name}`}
+                  displayProperty={getDisplayProperty}
                   suggestionTemplate={SuggestionChoiceCDOName}
                   onSuggestionSelected={this.onSuggestionSelected}
                   placeholder="Start typing CDO name"

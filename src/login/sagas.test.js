@@ -9,6 +9,23 @@ const mocks = {
   },
 };
 
+it('can change the error message', () => {
+  const error = getError('error');
+  expect(error.message).toBe('error');
+});
+
+it('can change the error message when the parameter is an object', () => {
+  const error = getError({ message: 'error' });
+  expect(error.message).toBe('error');
+});
+
+it('returns an error callback when calling the saml api function and there is no token', () => {
+  const request = requests.saml();
+  expect.assertions(1);
+  return request.catch(error =>
+    expect(error.message).toBe('Token cannot be blank'));
+});
+
 xdescribe('login functions - basic auth', () => {
   beforeEach(() => {
     jest.resetModules();
@@ -61,18 +78,6 @@ xdescribe('login functions - basic auth', () => {
       })
       // Start the test. Returns a Promise. [silent warnings]
       .silentRun();
-  });
-
-  it('returns an error callback when calling the saml api function and there is no token', () => {
-    const request = requests.saml();
-    expect.assertions(1);
-    return request.catch(error =>
-      expect(error.message).toBe('Token cannot be blank'));
-  });
-
-  it('can change the error message', () => {
-    const error = getError('error');
-    expect(error.message).toBe('error');
   });
 });
 

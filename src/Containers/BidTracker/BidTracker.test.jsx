@@ -44,6 +44,17 @@ describe('BidTracker', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('calls scrollIntoView when scrollToId is called', () => {
+    const wrapper = shallow(<BidTracker.WrappedComponent
+      {...props}
+    />);
+    const spy = sinon.spy();
+    global.document.querySelector = () => ({ scrollIntoView: spy });
+    wrapper.instance().scrollToId();
+    sinon.assert.calledOnce(spy);
+    expect(wrapper.instance().state.hasScrolled).toBe(true);
+  });
+
   it('can call the getBidList function', () => {
     const spy = sinon.spy();
     const wrapper = shallow(

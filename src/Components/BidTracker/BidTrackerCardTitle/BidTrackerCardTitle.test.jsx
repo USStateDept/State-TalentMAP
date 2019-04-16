@@ -29,6 +29,30 @@ describe('BidTrackerCardTitleComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when status is "approved" and context values are true', () => {
+    const wrapper = shallow(
+      <BidTrackerCardTitle {...props} status={APPROVED_PROP} />,
+      { context: { condensedView: true, priorityExists: true, isPriority: true } },
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined when status is not "approved" and context values are true', () => {
+    const wrapper = shallow(
+      <BidTrackerCardTitle {...props} status={SUBMITTED_PROP} />,
+      { context: { condensedView: true, priorityExists: true, isPriority: true } },
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined when condensedView && priorityExists && !isPriority', () => {
+    const wrapper = shallow(
+      <BidTrackerCardTitle {...props} status={SUBMITTED_PROP} />,
+      { context: { condensedView: true, priorityExists: true, isPriority: false } },
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('it renders extra content when status is "submitted"', () => {
     const wrapper = shallow(
       <BidTrackerCardTitle {...props} status={SUBMITTED_PROP} />,

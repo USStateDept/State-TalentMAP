@@ -23,7 +23,6 @@ exports[`UpdatesComponent matches snapshot 1`] = `
       <CheckboxList
         id="updates"
         isDisabled={true}
-        statuses={Object {}}
       />
     </div>
   </div>

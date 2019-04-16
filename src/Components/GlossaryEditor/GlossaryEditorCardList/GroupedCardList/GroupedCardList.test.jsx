@@ -14,6 +14,16 @@ describe('GroupedCardListComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when a term id matches the id in the error object', () => {
+    const wrapper = shallow(<GroupedCardList
+      terms={groupedGlossaryItems}
+      submitGlossaryTerm={() => {}}
+      groups={groupedTerms}
+      glossaryPatchHasErrored={{ id: 3 }}
+    />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(<GroupedCardList
       terms={groupedGlossaryItems}

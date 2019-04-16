@@ -26,7 +26,6 @@ CheckboxList.propTypes = {
 };
 
 CheckboxList.defaultProps = {
-  statuses: {},
   isDisabled: false,
 };
 
