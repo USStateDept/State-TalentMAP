@@ -17,6 +17,7 @@ exports[`BidderPortfolioGridListHeaderComponent matches snapshot 1`] = `
           className="usa-width-one-sixth"
         >
           <CheckBox
+            checkboxProps={Object {}}
             className=""
             disabled={false}
             id="grid-header-select-all"

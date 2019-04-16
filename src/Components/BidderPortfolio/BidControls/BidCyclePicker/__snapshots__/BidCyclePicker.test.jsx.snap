@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidControlsComponent matches snapshot 1`] = `
+<div
+  className="bid-cycle-picker-container"
+>
+  <div
+    className="label"
+  >
+    Bid cycle:
+  </div>
+  <r
+    dropdownHeight={600}
+    filterDebounce={150}
+    keepOpen={true}
+    multiple={true}
+    numberDisplayed={1}
+    onChange={[Function]}
+    options={
+      Array [
+        "2020 PSP",
+        "Long-term training and details Summer 2020",
+        "Summer 2020",
+      ]
+    }
+    placeholder="Select cycle"
+    renderList={[Function]}
+    selectAllText="Select all"
+    tabIndex={0}
+    value={Array []}
+  />
+</div>
+`;

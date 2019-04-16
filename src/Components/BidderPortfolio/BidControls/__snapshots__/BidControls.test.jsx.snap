@@ -5,19 +5,12 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
   className="usa-grid-full portfolio-controls"
 >
   <div
-    className="usa-width-one-fourth total-results-container"
-  >
-    <TotalResults
-      denominator={10}
-      numerator={5}
-    />
-  </div>
-  <div
-    className="usa-width-three-fourths portfolio-sort-container results-dropdown"
+    className="usa-width-one-whole portfolio-sort-container results-dropdown"
   >
     <div
       className="portfolio-sort-container-contents"
     >
+      <BidCyclePicker />
       <SelectForm
         className="select-offset select-black"
         defaultSort=""
@@ -60,19 +53,12 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
   className="usa-grid-full portfolio-controls"
 >
   <div
-    className="usa-width-one-fourth total-results-container"
-  >
-    <TotalResults
-      denominator={10}
-      numerator={5}
-    />
-  </div>
-  <div
-    className="usa-width-three-fourths portfolio-sort-container results-dropdown"
+    className="usa-width-one-whole portfolio-sort-container results-dropdown"
   >
     <div
       className="portfolio-sort-container-contents"
     >
+      <BidCyclePicker />
       <SelectForm
         className="select-offset select-black"
         defaultSort=""
