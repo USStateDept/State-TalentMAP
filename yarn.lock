@@ -8663,6 +8663,11 @@ react-paginate@^4.4.4:
     prop-types "^15.5.7"
     react-addons-create-fragment "^15.0.0"
 
+react-picky@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/react-picky/-/react-picky-4.2.1.tgz#cb8d8e33d195a24ca57b2a4264fdf223abe5a190"
+  integrity sha512-euaQj7jE7mMg3D2xA/ZIXI7qvrYWZrBQBg1993/zwL99hHJWooC/hRpekQ1v7uAxqNtLvEws66mZOXw7J56lLg==
+
 react-redux@^5.0.5:
   version "5.0.7"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"

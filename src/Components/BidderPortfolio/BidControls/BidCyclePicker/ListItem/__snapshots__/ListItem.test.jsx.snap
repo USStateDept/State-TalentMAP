@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidControlsComponent matches snapshot 1`] = `
+<InteractiveElement
+  aria-selected={false}
+  className=""
+  data-selected=""
+  onClick={[Function]}
+  type="li"
+>
+  <CheckBox
+    checkboxProps={
+      Object {
+        "readOnly": true,
+        "tabIndex": "-1",
+      }
+    }
+    className=""
+    disabled={false}
+    id="label 1"
+    label="label 1"
+    labelSrOnly={false}
+    name=""
+    onCheckBoxClick={[Function]}
+    onClick={[Function]}
+    small={true}
+    title=""
+    value={false}
+  />
+</InteractiveElement>
+`;

@@ -48,9 +48,6 @@ class BidderPortfolioPage extends Component {
     let loadingClass = '';
     if (isLoading) { loadingClass = 'results-loading'; }
 
-    // pass zero if waiting on value
-    const biddersNumerator = bidderPortfolio.count || 0;
-
     const showEdit = editType.show;
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
@@ -62,9 +59,6 @@ class BidderPortfolioPage extends Component {
               <TopNav bidderPortfolioCounts={bidderPortfolioCounts} />
               <BidControls
                 queryParamUpdate={queryParamUpdate}
-                biddersNumerator={biddersNumerator}
-                biddersDenominator={bidderPortfolioCounts.all_clients}
-                isLoading={isLoading}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
                 showEditButtons={isListView}
