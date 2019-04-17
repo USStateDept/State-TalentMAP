@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import ListItem from './ListItem';
+import ListItem, { stopProp } from './ListItem';
 
 describe('BidControlsComponent', () => {
   const props = {
@@ -43,6 +43,13 @@ describe('BidControlsComponent', () => {
     );
     expect(wrapper.find('InteractiveElement').props()['data-selected']).toBe('');
     expect(wrapper.find('InteractiveElement').props()['aria-selected']).toBe(false);
+  });
+
+  it('calls stopPropagation on stopProp()', () => {
+    const spy = sinon.spy();
+    const mock = { stopPropagation: spy };
+    stopProp(mock);
+    sinon.assert.calledOnce(spy);
   });
 
   it('matches snapshot', () => {

@@ -47,6 +47,18 @@ describe('CompareDrawerContainer', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('sets state after calling scrollListener()', () => {
+    const wrapper = shallow(
+      <CompareDrawerContainer.WrappedComponent
+        fetchData={() => {}}
+        comparisons={resultsObject.results}
+      />,
+    );
+    wrapper.setState({ isHidden: true });
+    wrapper.instance().scrollListener();
+    expect(wrapper.instance().state.isHidden).toBe(false);
+  });
+
   it('returns correct values for shouldComponentUpdate', () => {
     const props = {
       fetchData: () => {},

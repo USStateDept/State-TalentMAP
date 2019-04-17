@@ -51,13 +51,13 @@ describe('saved search async actions', () => {
   it('can fetch saved searches', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/searches/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/searches/?ordering=someSortType').reply(200,
       searchObjectParent,
     );
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.savedSearchesFetchData());
+        store.dispatch(actions.savedSearchesFetchData('someSortType'));
         done();
       }, 0);
     };

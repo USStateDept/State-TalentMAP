@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import PositionDetailsItem from './PositionDetailsItem';
+import PositionDetailsItem, { renderHandshake } from './PositionDetailsItem';
 import detailsObject from '../../__mocks__/detailsObject';
 
 describe('PositionDetailsItem', () => {
@@ -18,6 +18,10 @@ describe('PositionDetailsItem', () => {
       <PositionDetailsItem {...props} />,
     );
     expect(wrapper.instance().props.details.id).toBe(6);
+  });
+
+  it('renders handshake', () => {
+    expect(renderHandshake({ has_handshake_offered: true })).toBeDefined();
   });
 
   it('handles different props and different position objects', () => {

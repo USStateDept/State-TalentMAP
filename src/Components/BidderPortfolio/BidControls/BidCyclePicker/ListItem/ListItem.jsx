@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import CheckBox from '../../../../CheckBox';
 import InteractiveElement from '../../../../InteractiveElement';
 
+export const stopProp = e => e.stopPropagation();
+
 const ListItem = ({ item, selectValue, getIsSelected }) => {
   const isSelected = getIsSelected(item);
   return (
@@ -19,7 +21,7 @@ const ListItem = ({ item, selectValue, getIsSelected }) => {
         small
         id={item}
         label={item}
-        onClick={e => e.stopPropagation()}
+        onClick={stopProp}
         value={getIsSelected(item)}
         checkboxProps={{ readOnly: true, tabIndex: '-1' }}
       />

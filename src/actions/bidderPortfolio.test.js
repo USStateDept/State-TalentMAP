@@ -11,6 +11,10 @@ describe('bidderPortfolio async actions', () => {
       bidderListObject,
     );
 
+    mockAdapter.onGet('http://localhost:8000/api/v1/client/?test=true').reply(200,
+      bidderListObject,
+    );
+
     mockAdapter.onGet('http://localhost:8000/api/v1/client/statistics/').reply(200,
       bidderPortfolioCountsObject,
     );
@@ -34,7 +38,20 @@ describe('bidderPortfolio async actions', () => {
   });
 
   it('can fetch data from the last query', (done) => {
-    const store = mockStore({ results: [] });
+    const store = mockStore({ results: [], bidderPortfolioLastQuery: '/client/?test=true' });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.bidderPortfolioFetchDataFromLastQuery());
+        store.dispatch(actions.lastBidderPortfolioIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching data from the last query', (done) => {
+    const store = mockStore({ results: [], bidderPortfolioLastQuery: undefined });
 
     const f = () => {
       setTimeout(() => {

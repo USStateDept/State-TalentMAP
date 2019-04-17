@@ -43,6 +43,30 @@ describe('ResultsCondensedCardBottomComponent', () => {
     expect(wrapper.find('ResultsCondensedCardStats').exists()).toBe(false);
   });
 
+  it('renders stats if showBidCount is true', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardBottom
+        position={resultsObject.results[0]}
+        bidList={bidListObject.results}
+        favorites={favorites}
+        showBidCount
+      />,
+    );
+    expect(wrapper.instance().renderStats()).toBeDefined();
+  });
+
+  it('renders bid list button if showBidListButton is true', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardBottom
+        position={resultsObject.results[0]}
+        bidList={bidListObject.results}
+        favorites={favorites}
+        showBidListButton
+      />,
+    );
+    expect(wrapper.instance().renderBidListButton()).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom

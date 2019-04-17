@@ -2,7 +2,7 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import CompareList from './CompareList';
+import CompareList, { renderBidCounts } from './CompareList';
 import resultsObject from '../../__mocks__/resultsObject';
 
 describe('CompareListComponent', () => {
@@ -52,6 +52,19 @@ describe('CompareListComponent', () => {
     />);
     wrapper.find('CompareCheck').at(0).props().onToggle();
     sinon.assert.calledOnce(spy);
+  });
+
+  it('renders bid list buttons', () => {
+    const wrapper = shallow(<CompareList
+      {...props}
+      bidList={{ results: [] }}
+      compare={resultsObject.results}
+    />);
+    expect(wrapper.instance().renderBidListButtons([{}], [{}])).toBeDefined();
+  });
+
+  it('renders bid counts', () => {
+    expect(renderBidCounts([{}], [{}])).toBeDefined();
   });
 
   it('matches snapshot', () => {

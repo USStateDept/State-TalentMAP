@@ -20,6 +20,32 @@ describe('ResultsCondensedCardTopComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when isProjectedVacancy is true', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardTop
+        position={resultsObject.results[0]}
+        type={type}
+        favorites={favorites}
+        bidList={bidListObject.results}
+        isProjectedVacancy
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined when isRecentlyAvailable is true', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardTop
+        position={resultsObject.results[0]}
+        type={type}
+        favorites={favorites}
+        bidList={bidListObject.results}
+        isRecentlyAvailable
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('can receive props', () => {
     const wrapper = shallow(
       <ResultsCondensedCardTop

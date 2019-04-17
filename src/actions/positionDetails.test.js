@@ -22,6 +22,10 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/position/00011111/').reply(200,
       details,
     );
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/00011112/').reply(404,
+      null,
+    );
   });
 
   it('can fetch a position', (done) => {
@@ -30,6 +34,19 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.positionDetailsFetchData('00011111'));
+        store.dispatch(actions.positionDetailsIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching a position', (done) => {
+    const store = mockStore({ position: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.positionDetailsFetchData('00011112'));
         store.dispatch(actions.positionDetailsIsLoading());
         done();
       }, 0);

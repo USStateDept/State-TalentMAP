@@ -31,6 +31,7 @@ export class ExportLink extends Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
+    this.setCsvRef = this.setCsvRef.bind(this);
     this.state = {
       data: '',
       isLoading: false,
@@ -63,6 +64,10 @@ export class ExportLink extends Component {
     }
   }
 
+  setCsvRef(ref) {
+    this.csvLink = ref;
+  }
+
   render() {
     const { data, isLoading } = this.state;
     return (
@@ -70,7 +75,7 @@ export class ExportLink extends Component {
         <button className="usa-button-secondary" onClick={this.onClick}>
           {isLoading && <span className="ds-c-spinner spinner-blue" />}<span>Export</span>
         </button>
-        <CSVLink ref={(x) => { this.csvLink = x; }} target="_blank" filename={this.props.filename} data={data} headers={HEADERS} />
+        <CSVLink ref={this.setCsvRef} target="_blank" filename={this.props.filename} data={data} headers={HEADERS} />
       </div>
     );
   }

@@ -14,7 +14,6 @@ describe('PropTypes', () => {
     h: 'h',
     i: <div />,
     j: 0,
-    k: { method: 1 /* some non-function */ },
   };
 
   const shouldReturnNull = ['a', 'f', 'g'];
