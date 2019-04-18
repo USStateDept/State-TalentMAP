@@ -2,15 +2,13 @@
 
 exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
 <ul
-  className="usa-grid-full user-dashboard portfolio-grid-list"
+  className="usa-grid-full user-dashboard portfolio-row-list"
 >
   <li
-    className="user-dashboard-section portfolio-grid-list-item"
+    className="portfolio-row"
   >
-    <BidderPortfolioGridItem
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatRow
+      showEdit={false}
       userProfile={
         Object {
           "bid_statistics": Array [
@@ -55,12 +53,10 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
     />
   </li>
   <li
-    className="user-dashboard-section portfolio-grid-list-item"
+    className="portfolio-row"
   >
-    <BidderPortfolioGridItem
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatRow
+      showEdit={false}
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -90,12 +86,10 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
     />
   </li>
   <li
-    className="user-dashboard-section portfolio-grid-list-item"
+    className="portfolio-row"
   >
-    <BidderPortfolioGridItem
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatRow
+      showEdit={false}
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -125,12 +119,10 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
     />
   </li>
   <li
-    className="user-dashboard-section portfolio-grid-list-item"
+    className="portfolio-row"
   >
-    <BidderPortfolioGridItem
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatRow
+      showEdit={false}
       userProfile={
         Object {
           "bid_statistics": Array [
@@ -175,12 +167,10 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
     />
   </li>
   <li
-    className="user-dashboard-section portfolio-grid-list-item"
+    className="portfolio-row"
   >
-    <BidderPortfolioGridItem
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatRow
+      showEdit={false}
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -210,12 +200,10 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
     />
   </li>
   <li
-    className="user-dashboard-section portfolio-grid-list-item"
+    className="portfolio-row"
   >
-    <BidderPortfolioGridItem
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatRow
+      showEdit={false}
       userProfile={
         Object {
           "bid_statistics": Array [

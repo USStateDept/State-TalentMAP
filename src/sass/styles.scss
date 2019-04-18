@@ -28,6 +28,9 @@
 // react-toastify
 @import '~react-toastify/dist/ReactToastify.min.css';
 
+// react-picky
+@import '~react-picky/dist/picky.css';
+
 // Global
 @import 'variables';
 
@@ -84,5 +87,6 @@
 @import 'toast';
 @import 'ribbon';
 @import 'toggle';
+@import 'picker';
 @import 'overrides';
 @import 'accessibility';

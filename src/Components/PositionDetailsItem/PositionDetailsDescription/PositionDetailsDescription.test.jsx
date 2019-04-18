@@ -19,6 +19,14 @@ describe('PositionDetailsDescription', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('sets state on onDescriptionLengthToggle()', () => {
+    const wrapper = shallow(
+      <PositionDetailsDescription {...props} />,
+    );
+    wrapper.instance().onDescriptionLengthToggle(true);
+    expect(wrapper.instance().state.shouldDisplayFullDescription).toBe(false);
+  });
+
   it('toggles the editor', () => {
     const wrapper = shallow(
       <PositionDetailsDescription {...props} />,

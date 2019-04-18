@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import sinon from 'sinon';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import CompareDrawerContainer, { Compare, mapDispatchToProps } from './CompareDrawerContainer';
 import resultsObject from '../../__mocks__/resultsObject';
@@ -21,6 +22,41 @@ describe('CompareDrawerContainer', () => {
       />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
+  });
+
+  it('calls getComparisons() when lsListener() is called', () => {
+    const wrapper = shallow(
+      <CompareDrawerContainer.WrappedComponent
+        fetchData={() => {}}
+        comparisons={resultsObject.results}
+      />,
+    );
+    const spy = sinon.spy(wrapper.instance(), 'getComparisons');
+    wrapper.instance().lsListener();
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('is defined after calling componentWillUnmount()', () => {
+    const wrapper = shallow(
+      <CompareDrawerContainer.WrappedComponent
+        fetchData={() => {}}
+        comparisons={resultsObject.results}
+      />,
+    );
+    wrapper.instance().componentWillUnmount();
+    expect(wrapper).toBeDefined();
+  });
+
+  it('sets state after calling scrollListener()', () => {
+    const wrapper = shallow(
+      <CompareDrawerContainer.WrappedComponent
+        fetchData={() => {}}
+        comparisons={resultsObject.results}
+      />,
+    );
+    wrapper.setState({ isHidden: true });
+    wrapper.instance().scrollListener();
+    expect(wrapper.instance().state.isHidden).toBe(false);
   });
 
   it('returns correct values for shouldComponentUpdate', () => {

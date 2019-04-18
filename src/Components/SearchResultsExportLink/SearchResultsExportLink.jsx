@@ -24,7 +24,7 @@ const HEADERS = [
 ];
 
 // Processes results before sending to the download component to allow for custom formatting.
-const processData = data => (
+export const processData = data => (
   data.map(entry => ({
     ...entry,
     estimated_end_date: formatDate(entry.current_assignment.estimated_end_date),
@@ -42,11 +42,18 @@ class SearchResultsExportLink extends Component {
     };
   }
 
+  componentWillReceiveProps() {
+    const query = window.location.search.replace('?', '') || '';
+    if (this.state.query.value !== query) {
+      this.setState({ query: { value: query } });
+    }
+  }
+
   onClick() {
     // reset the state to support multiple clicks
     this.setState({ data: '' });
     const query = {
-      ordering: POSITION_SEARCH_SORTS,
+      ordering: POSITION_SEARCH_SORTS.defaultSort,
       ...queryString.parse(this.state.query.value),
       limit: this.props.count,
     };
@@ -55,7 +62,7 @@ class SearchResultsExportLink extends Component {
       this.setState({ data }, () => {
         // click the CSVLink component to trigger the CSV download
         // This is needed for the download to work in Edge.
-        this.csvLink.link.click();
+        if (this.csvLink) { this.csvLink.link.click(); }
       });
     });
   }

@@ -14,7 +14,293 @@
   }
 }
 
+.bidder-portfolio-stat-card-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bidder-portfolio-stat-card-container:last-child {
+  flex-grow: 100;
+}
+
+.portfolio-row-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  list-style-type: none;
+}
+
+.portfolio-row {
+  background-color: $color-white;
+  border: 1px solid $color-gray-light;
+  border-bottom: 0;
+  margin-bottom: 0;
+
+  &:last-of-type {
+    border-bottom: 1px solid $color-gray-light;
+  }
+}
+
+.bidder-portfolio-stat-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 27px 20px 25px 32px;
+
+  > div {
+    margin-right: 1em;
+
+    > .tm-avatar {
+      font-size: 3rem;
+      height: 65px;
+      line-height: 6.5rem;
+      width: 65px;
+    }
+  }
+
+  > div:last-child {
+    margin-right: 0;
+  }
+
+  // setup flex values
+  > div:nth-child(1) {
+    flex: 3;
+    margin-right: 50px;
+  }
+
+  > div:nth-child(2) {
+    flex: 3 1 280px;
+  }
+
+  > div:nth-child(3) {
+    display: flex;
+    flex: 8 0 225px;
+    justify-content: flex-end;
+  }
+
+  > div:nth-child(4) {
+    flex: 8 0 225px;
+
+    > span {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+
+  > div.client-checkbox-list {
+    display: flex;
+    flex: 16 1 450px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .tm-checkbox {
+      margin: 0 auto;
+      margin-left: 0;
+      margin-right: 2rem;
+      min-width: 10rem;
+
+      label {
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+      }
+    }
+  }
+
+  .stat-card-data-point--name {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+
+  .client-badge-list {
+    display: flex;
+
+    .client-badge-container {
+      margin-right: 1em;
+    }
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 5px;
+  }
+
+  .stat-card-data-point {
+    display: flex;
+    flex-direction: row;
+    line-height: 1.3em;
+  }
+}
+
+.bidder-portfolio-stat-card {
+  display: flex;
+  flex-direction: column;
+  height: 299px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: auto;
+  width: 270px;
+
+  h3 {
+    font-family: inherit;
+    font-size: inherit;
+    margin: 0;
+
+    a {
+      align-items: center;
+      display: flex;
+      font-size: 1.8rem;
+      text-decoration: none;
+    }
+
+    .fa {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+  }
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    margin-left: 5px;
+  }
+
+  .bidder-portfolio-stat-card-top {
+    display: flex;
+    flex: 5;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 16px 16px;
+  }
+
+  .bidder-portfolio-stat-card-bottom {
+    border-top: 1px solid $color-gray-lighter;
+    display: flex;
+    flex: 4;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px 16px 20px;
+      width: 100%;
+
+      > span {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .stat-card-data-point {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.client-badge-list {
+  display: flex;
+  margin: 0;
+}
+
+.client-badge-container {
+  flex: 1;
+  text-align: center;
+
+  .client-badge {
+    min-width: 1em;
+
+    span {
+      align-items: center;
+      background-color: $bg-gray-medium-1;
+      color: $bg-gray-dark-0;
+      display: flex;
+      height: 30px;
+      justify-content: center;
+      margin: auto;
+      padding: .3em;
+      width: 30px;
+    }
+  }
+
+  &.client-badge-container--success > .client-badge > span {
+    background-color: $color-green-dark;
+    color: $color-white;
+  }
+
+  &.client-badge-container--warning > .client-badge > span {
+    background-color: $color-gold-lighter;
+    color: $color-black;
+  }
+
+  .client-badge-text {
+    font-size: 1rem;
+    font-weight: normal;
+    margin-top: 10px;
+  }
+
+  &.client-badge-container--text {
+    .client-badge {
+      span {
+        font-size: .8em;
+      }
+    }
+  }
+}
+
+$cdo-search-container-width: 270px;
+$cdo-search-container-padding: 10px;
+
 .bidder-portfolio-page {
+
+  border-top: 1px solid $color-white;
+
+  .results-single-search {
+    padding-left: 0 !important;
+  }
+
+  h2 {
+    color: $color-white;
+    font-family: inherit;
+    font-size: 2.4rem;
+    font-weight: normal;
+    margin: 0;
+  }
+
+  .bid-cycle-picker-container {
+    > div {
+      font-size: .8em;
+    }
+  }
+
+  .dropdown-trigger-container {
+    align-items: center;
+    color: $color-white;
+    display: flex;
+    margin-top: 10px;
+
+    > span {
+      margin-right: 10px;
+    }
+  }
+
+  .account-dropdown--name {
+    border: 1px solid $color-white;
+    color: $color-white;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 0;
+    min-width: $cdo-search-container-width + ($cdo-search-container-padding * 2);
+    padding: 8px 11px;
+  }
 
   .tm-avatar {
     font-size: 2rem;
@@ -23,27 +309,62 @@
     width: 50px;
   }
 
+  .export-button-container,
+  .edit-buttons-container {
+    display: flex;
+
+    button {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-left: 10px;
+      min-width: 100px;
+    }
+  }
+
+  .export-button-container {
+
+    .ds-c-spinner {
+      height: 11px;
+      margin-right: 5px;
+      width: 11px;
+
+      &::before,
+      &::after {
+        border-width: 2px;
+        height: 11px;
+        width: 11px;
+      }
+    }
+  }
+
   .bidder-portfolio-search-container {
-    background-color: $color-gray-lighter;
-    padding-bottom: 3px;
+    background-color: $bg-blue-dark-1;
+    padding: 12px 31px;
   }
 
   .portfolio-sort-container {
+    .bid-cycle-picker-container,
     .usa-form {
+      align-items: center;
+      display: flex;
       margin-right: 10px;
+
+      .label {
+        margin-right: 10px;
+      }
+
+      label,
+      .label {
+        margin-top: 0;
+      }
     }
   }
 
   .portfolio-sort-container-contents {
+    align-items: center;
+    display: flex;
     float: right;
-
-    .usa-form {
-      float: left;
-    }
-
-    .results-viewby-container {
-      float: left;
-    }
   }
 
   .results-search-bar {
@@ -52,7 +373,7 @@
 
   .results-search-bar-container {
     max-width: unset;
-    padding: 0 5px 0 15px;
+    padding: 0;
   }
 
   .search-submit-button {
@@ -177,6 +498,12 @@
 
 .bidder-portfolio-grid-item {
   padding: 10px;
+}
+
+.card-view {
+  .bidder-portfolio-listing {
+    left: -15px;
+  }
 }
 
 .list-view {
@@ -329,3 +656,60 @@
     margin-bottom: .5em;
   }
 }
+
+// scss-lint:disable SelectorFormat
+.portfolio-account-dropdown {
+  $highlighted-color: $color-botticelli-blue;
+  $unhighlighted-color: #F1F1F1;
+
+  input {
+    position: relative;
+    top: -2px;
+  }
+
+  .dropdown__content {
+    position: relative;
+  }
+
+  .react-autosuggest__suggestions-container {
+    border: 1px solid $color-black;
+    border-top: 0;
+    max-height: 200px;
+    overflow-y: scroll;
+    width: $cdo-search-container-width;
+  }
+
+  li {
+    background-color: $unhighlighted-color;
+    border: 0;
+  }
+
+  .react-autosuggest__suggestion--highlighted {
+    background-color: $highlighted-color;
+  }
+
+  .react-autosuggest__container {
+    background-color: $unhighlighted-color;
+    border: 1px solid $color-black;
+    border-top: 0;
+    left: 74px;
+    padding: $cdo-search-container-padding $cdo-search-container-padding 0;
+    top: -11px;
+  }
+
+  .dropdown-content-outer-container {
+    position: absolute;
+  }
+
+  .autosuggest-container {
+    padding: 5px;
+  }
+
+  .react-autosuggest__suggestions-container--open {
+    border: 0;
+    position: relative;
+    right: 0;
+    top: 0;
+  }
+}
+// scss-lint:enable SelectorFormat

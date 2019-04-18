@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TotalResults from './TotalResults';
 import SelectForm from '../../SelectForm';
 import { BID_PORTFOLIO_SORTS } from '../../../Constants/Sort';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
+import ExportLink from '../ExportLink';
+import EditButtons from '../EditButtons';
+import BidCyclePicker from './BidCyclePicker';
 
 class BidControls extends Component {
   constructor(props) {
@@ -15,20 +18,12 @@ class BidControls extends Component {
     this.props.queryParamUpdate(orderingObject);
   }
   render() {
-    const { biddersNumerator, biddersDenominator, isLoading, viewType,
-      changeViewType } = this.props;
+    const { viewType, changeViewType, onEditChange, showEditButtons } = this.props;
     return (
       <div className="usa-grid-full portfolio-controls">
-        <div className="usa-width-one-fourth total-results-container">
-          {
-            // We only want total results to rerender when loading,
-            // so that SelectForm's state is maintained between loads.
-            !isLoading &&
-            <TotalResults numerator={biddersNumerator} denominator={biddersDenominator} />
-          }
-        </div>
-        <div className="usa-width-three-fourths portfolio-sort-container results-dropdown">
+        <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <div className="portfolio-sort-container-contents">
+            <BidCyclePicker />
             <SelectForm
               id="porfolio-sort"
               options={BID_PORTFOLIO_SORTS.options}
@@ -36,6 +31,8 @@ class BidControls extends Component {
               onSelectOption={this.onSortChange}
             />
             <ResultsViewBy initial={viewType} onClick={changeViewType} />
+            {showEditButtons && <EditButtons onChange={onEditChange} />}
+            <ExportLink />
           </div>
         </div>
       </div>
@@ -45,11 +42,15 @@ class BidControls extends Component {
 
 BidControls.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
-  biddersNumerator: PropTypes.number.isRequired,
-  biddersDenominator: PropTypes.number.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   viewType: PropTypes.string.isRequired,
   changeViewType: PropTypes.func.isRequired,
+  onEditChange: PropTypes.func.isRequired,
+  showEditButtons: PropTypes.bool,
+};
+
+BidControls.defaultProps = {
+  onEditChange: EMPTY_FUNCTION,
+  showEditButtons: false,
 };
 
 export default BidControls;

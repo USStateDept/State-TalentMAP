@@ -37,6 +37,7 @@ class BidTrackerCard extends Component {
     const containerClass = [
       'bid-tracker',
       condensedView ? 'bid-tracker--condensed' : '',
+      bid.status === APPROVED_PROP ? 'bid-tracker--is-priority--approved' : '',
       bid.is_priority ? 'bid-tracker--is-priority' : 'bid-tracker--is-not-priority',
       priorityExists ? 'bid-tracker--priority-exists' : '',
     ].join(' ');

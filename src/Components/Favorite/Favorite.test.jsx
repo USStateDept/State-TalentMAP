@@ -52,6 +52,14 @@ describe('Favorite', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('sets state on shouldComponentUpdate() when this.state.loading && !nextProps.isLoading', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<Favorite onToggle={spy} compareArray={[]} refKey={refKey} />);
+    wrapper.setState({ loading: true });
+    wrapper.instance().shouldComponentUpdate({ isLoading: false, compareArray: [] }, {});
+    expect(wrapper.instance().state.loading).toBe(false);
+  });
+
   it('matches snapshot - Add state', () => {
     const wrapper = shallow(<Favorite onToggle={() => {}} compareArray={[]} refKey={refKey} />);
     expect(toJSON(wrapper)).toMatchSnapshot();

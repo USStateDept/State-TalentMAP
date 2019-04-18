@@ -148,6 +148,17 @@ describe('Header', () => {
     expect(wrapper.find('.is-on-results-page').exists()).toBe(false);
   });
 
+  it('is defined after clicking the "skip to main content" element', () => {
+    const wrapper = shallow(
+      <Header
+        {...props}
+        location={{ pathname: '/profile' }}
+      />,
+    );
+    wrapper.find('InteractiveElement').simulate('click');
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot when logged in', () => {
     const wrapper = shallow(
       <Header

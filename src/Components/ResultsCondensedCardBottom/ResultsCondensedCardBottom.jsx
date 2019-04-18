@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Flag } from 'flag';
@@ -10,50 +10,71 @@ import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
 import CompareCheck from '../CompareCheck';
 
-const ResultsCondensedCardBottom = (
-  { position,
-    favorites,
-    refreshFavorites,
-    showBidListButton,
-    showBidCount,
-    useShortFavButton,
-    showCompareButton,
-  }) => (
-    <div className="condensed-card-bottom-container">
-      <div className="usa-grid-full condensed-card-bottom">
-        {showBidCount && <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />}
-        <CondensedCardData position={position} />
-        <div className="usa-grid-full condensed-card-buttons-section">
-          <Favorite
-            useLongText
-            hideText={useShortFavButton}
-            hasBorder
-            refKey={position.id}
-            compareArray={favorites}
-            useButtonClass={!useShortFavButton}
-            useButtonClassSecondary={useShortFavButton}
-            refresh={refreshFavorites}
-          />
+class ResultsCondensedCardBottom extends Component {
+  constructor(props) {
+    super(props);
+    this.renderStats = this.renderStats.bind(this);
+    this.renderBidListButton = this.renderBidListButton.bind(this);
+  }
+  renderStats() {
+    const { showBidCount, position } = this.props;
+    return showBidCount ?
+      <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />
+    :
+    null;
+  }
+  renderBidListButton() {
+    const { showBidListButton, position } = this.props;
+    return showBidListButton ?
+      <PermissionsWrapper permissions="bidder">
+        <BidListButton
+          id={position.id}
+          disabled={!get(position, 'availability.availability', true)}
+        />
+      </PermissionsWrapper>
+    :
+    null;
+  }
+  render() {
+    const { position,
+        favorites,
+        refreshFavorites,
+        useShortFavButton,
+        showCompareButton,
+      } = this.props;
+    return (
+      <div className="condensed-card-bottom-container">
+        <div className="usa-grid-full condensed-card-bottom">
           <Flag
             name="flags.bidding"
-            render={() => (
-              showBidListButton &&
-              <PermissionsWrapper permissions="bidder">
-                <BidListButton
-                  id={position.id}
-                  disabled={!get(position, 'availability.availability', true)}
-                />
-              </PermissionsWrapper>
-            )}
+            render={this.renderStats}
           />
-          {
-            showCompareButton &&
-            <CompareCheck as="div" refKey={position.position_number} />
-          }
+          <CondensedCardData position={position} />
+          <div className="usa-grid-full condensed-card-buttons-section">
+            <Favorite
+              useLongText
+              hideText={useShortFavButton}
+              hasBorder
+              refKey={position.id}
+              compareArray={favorites}
+              useButtonClass={!useShortFavButton}
+              useButtonClassSecondary={useShortFavButton}
+              refresh={refreshFavorites}
+            />
+            <Flag
+              name="flags.bidding"
+              render={this.renderBidListButton}
+            />
+            {
+              showCompareButton &&
+              <CompareCheck as="div" refKey={position.position_number} />
+            }
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+}
 
 ResultsCondensedCardBottom.propTypes = {
   position: POSITION_DETAILS.isRequired,

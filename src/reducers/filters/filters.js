@@ -9,7 +9,7 @@ const items =
           title: 'Bid Cycle',
           sort: 100,
           description: 'bidCycle',
-          endpoint: 'bidcycle/?ordering=name',
+          endpoint: 'bidcycle/?active=true&ordering=name',
           selectionRef: ENDPOINT_PARAMS.bidCycle,
           text: 'Choose Bid Cycles',
         },

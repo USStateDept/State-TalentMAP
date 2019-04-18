@@ -2,6 +2,7 @@
 
 exports[`BooleanFilterComponent matches snapshot 1`] = `
 <CheckBox
+  checkboxProps={Object {}}
   className=""
   disabled={false}
   id="checkbox-title"

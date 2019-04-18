@@ -11,7 +11,7 @@ import { getAssetPath } from './utilities';
 import '../node_modules/uswds/dist/js/uswds.min';
 
 // function to initialize app, capture feature flags in localStorage
-const init = (config) => {
+export const init = (config) => {
   sessionStorage.setItem('config', JSON.stringify(config));
   ReactDOM.render((
     <App />
@@ -19,7 +19,7 @@ const init = (config) => {
 };
 
 // retrieve static config file, pass to app init
-const getConfig = () => {
+export const getConfig = () => {
   sessionStorage.removeItem('config');
 
   axios

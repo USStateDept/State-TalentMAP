@@ -5,6 +5,11 @@ exports[`BidderPortfolioSearchComponent matches snapshot 1`] = `
   className="bidder-portfolio-search-container"
 >
   <div
+    className="usa-grid-full"
+  >
+    <CDOAutoSuggest />
+  </div>
+  <div
     className="results-search-bar-container"
   >
     <ResultsSearchHeader

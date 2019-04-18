@@ -54,6 +54,7 @@ exports[`FeedbackFormComponent matches snapshot 1`] = `
           legendSrOnly={true}
         >
           <CheckBox
+            checkboxProps={Object {}}
             className=""
             disabled={false}
             id="additional-feedback-checkbox"
@@ -135,6 +136,7 @@ exports[`FeedbackFormComponent matches snapshot when visible is false 1`] = `
           legendSrOnly={true}
         >
           <CheckBox
+            checkboxProps={Object {}}
             className=""
             disabled={false}
             id="additional-feedback-checkbox"

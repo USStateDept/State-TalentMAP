@@ -33,6 +33,41 @@ export const clientObject = {
       },
     },
   },
+  assignments: [
+    {
+      id: 5,
+      user: 'Kara Batisak',
+      tour_of_duty: '1 YR (3 R & R)',
+      status: 'active',
+      curtailment_reason: null,
+      create_date: '2018-01-12T15:11:37.521934Z',
+      start_date: '2018-01-12T00:00:00Z',
+      estimated_end_date: '2019-01-12T00:00:00Z',
+      end_date: null,
+      bid_approval_date: '1975-01-01T00:00:00Z',
+      arrival_date: null,
+      service_duration: null,
+      update_date: '2018-01-12T15:12:01.013500Z',
+      is_domestic: false,
+      combined_differential: 0,
+      standard_tod_months: 0,
+      position: {
+        skill: 'CONSTRUCTION ENGINEERING (6218)',
+        bureau: '(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS',
+        position_number: '58312265',
+        title: 'PROJECT DIRECTOR',
+        post: {
+          location: {
+            id: 103,
+            country: 'Sierra Leone',
+            code: '00A',
+            city: 'Freetown',
+            state: '',
+          },
+        },
+      },
+    },
+  ],
   skills: [
     {
       id: 63,

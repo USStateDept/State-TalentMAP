@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidListComponent matches snapshot 1`] = `
+exports['BidListComponent matches snapshot 1'] = `
 <div
   className="usa-grid-full"
   style={
@@ -225,7 +225,7 @@ exports[`BidListComponent matches snapshot 1`] = `
 </div>
 `;
 
-exports[`BidListComponent matches snapshot when there are no bids 1`] = `
+exports['BidListComponent matches snapshot when there are no bids 1'] = `
 <div
   className="usa-grid-full"
   style={
@@ -263,7 +263,6 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
       >
         You have not added any bids to your bid list.
       </div>
-      0
     </div>
     <div
       className="section-padded-inner-container small-link-container view-more-link-centered"

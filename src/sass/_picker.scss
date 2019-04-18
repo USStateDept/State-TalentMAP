@@ -1,0 +1,77 @@
+// scss-lint:disable SelectorFormat
+// The react-picky module uses two underscores in its class names.
+.picky {
+
+  width: 135px;
+
+  * {
+    font-size: 1.3rem;
+  }
+
+  li {
+    border-bottom: 0;
+    display: inline-block;
+    margin-bottom: 3px;
+    width: 100%;
+  }
+
+  .picky__input {
+    border: 1px solid $bg-gray-dark-2;
+    border-radius: 0;
+    color: $color-black;
+    display: flex;
+    height: 28px;
+    padding: 0 1.5em 0 .7em;
+
+    &::after {
+      background-image: $angle-down-black;
+      background-repeat: no-repeat;
+      background-size: 1rem;
+      border: 0;
+      height: 15px;
+      margin-bottom: 0;
+      right: 7px;
+      top: 5px;
+      width: 11px;
+    }
+
+    &:hover,
+    &:active {
+      background-color: $color-white;
+      border-bottom: 1px solid $bg-gray-dark-2;
+    }
+  }
+
+  .picky__dropdown {
+    border-color: $bg-gray-dark-2;
+    padding: 6px 6px 0;
+    top: 27px;
+
+    li:hover {
+      background-color: $color-botticelli-blue;
+    }
+  }
+
+  .picky__placeholder {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80%;
+  }
+
+  .tm-checkbox {
+    float: left;
+    margin: 0;
+    pointer-events: none;
+
+    label {
+      margin: 0;
+
+      > span {
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+}

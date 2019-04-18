@@ -23,11 +23,10 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         }
       />
       <BidControls
-        biddersDenominator={100}
-        biddersNumerator={6}
         changeViewType={[Function]}
-        isLoading={false}
+        onEditChange={[Function]}
         queryParamUpdate={[Function]}
+        showEditButtons={false}
         viewType="card"
       />
     </div>
@@ -236,6 +235,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         pageNumber={1}
         pageSize={8}
         queryParamUpdate={[Function]}
+        showEdit={false}
         showListView={false}
       />
     </div>

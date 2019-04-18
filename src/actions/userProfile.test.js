@@ -68,6 +68,10 @@ describe('async actions', () => {
   it('can add a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
+    mockAdapter.onGet('http://localhost:8000/api/v1/position/1/').reply(200,
+      {},
+    );
+
     mockAdapter.onPut('http://localhost:8000/api/v1/position/1/favorite/').reply(204,
       null,
     );
@@ -113,6 +117,17 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.userProfileFetchData());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can unsetUserProfile', (done) => {
+    const store = mockStore({ profile: {} });
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.unsetUserProfile());
         done();
       }, 0);
     };

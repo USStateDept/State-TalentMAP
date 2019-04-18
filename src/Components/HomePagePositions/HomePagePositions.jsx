@@ -65,17 +65,21 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
       <div
         className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
       >
-        <HomePagePositionsSection
-          title="Featured Positions"
-          maxLength="3"
-          viewMoreLink={serviceNeedsLink}
-          icon="bolt"
-          favorites={userProfile.favorite_positions}
-          positions={serviceNeedPositions}
-          isLoading={homePagePositionsIsLoading}
-          bidList={bidList}
-          type="serviceNeed"
-        />
+        {
+          // don't display this section if there are none
+          serviceNeedPositions && !!serviceNeedPositions.length &&
+            <HomePagePositionsSection
+              title="Featured Positions"
+              maxLength="3"
+              viewMoreLink={serviceNeedsLink}
+              icon="bolt"
+              favorites={userProfile.favorite_positions}
+              positions={serviceNeedPositions}
+              isLoading={homePagePositionsIsLoading}
+              bidList={bidList}
+              type="serviceNeed"
+            />
+        }
         <HomePagePositionsSection
           title={rowTwoTitle}
           maxLength="3"

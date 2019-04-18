@@ -50,7 +50,11 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
       className="usa-width-one-half glossary-editor-card-container "
     >
       <GlossaryEditorCard
-        hasErrored={Object {}}
+        hasErrored={
+          Object {
+            "id": 3,
+          }
+        }
         isNewTerm={false}
         onCancel={[Function]}
         onSuccess={Object {}}

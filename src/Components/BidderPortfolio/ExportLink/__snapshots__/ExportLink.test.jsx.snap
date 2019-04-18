@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchResultsExportLink matches snapshot 1`] = `
+<div
+  className="export-button-container"
+>
+  <button
+    className="usa-button-secondary"
+    onClick={[Function]}
+  >
+    <span>
+      Export
+    </span>
+  </button>
+  <CSVLink
+    asyncOnClick={false}
+    data=""
+    filename="TalentMap_bidder_portfolio_export.csv"
+    headers={
+      Array [
+        Object {
+          "key": "user.last_name",
+          "label": "Last Name",
+        },
+        Object {
+          "key": "user.first_name",
+          "label": "First Name",
+        },
+        Object {
+          "key": "user.email",
+          "label": "Email",
+        },
+        Object {
+          "key": "user.username",
+          "label": "Username",
+        },
+        Object {
+          "key": "grade",
+          "label": "Grade",
+        },
+        Object {
+          "key": "primary_nationality",
+          "label": "Primary Nationality",
+        },
+        Object {
+          "key": "secondary_nationality",
+          "label": "Secondary Nationality",
+        },
+        Object {
+          "key": "current_assignment",
+          "label": "Current Assignment",
+        },
+        Object {
+          "key": "language_qualifications[0].representation",
+          "label": "Language",
+        },
+      ]
+    }
+    separator=","
+    target="_blank"
+    uFEFF={true}
+  />
+</div>
+`;

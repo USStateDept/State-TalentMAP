@@ -12,9 +12,11 @@ a {
 }
 
 *:focus,
-.usa-focus {
-  outline: $tm-focus-outline-default;
-  outline-offset: $tm-focus-outline-offset-default;
+.usa-focus,
+.picky__dropdown > div > .option:focus,
+.picky__dropdown li:focus {
+  outline: $tm-focus-outline-default !important;
+  outline-offset: $tm-focus-outline-offset-default !important;
 }
 
 .Select.is-focused,
@@ -27,14 +29,16 @@ a {
 .results-search-bar,
 .header-nav-link-container.is-highlighted {
   *:focus {
-    outline-color: $tm-focus-outline-color-alt;
+    outline-color: $tm-focus-outline-color-alt !important;
   }
 }
 
-.bidder-portfolio-search-container {
-  .results-search-bar {
-    *:focus {
-      outline-color: $tm-focus-outline-color;
+.portfolio-account-dropdown {
+  .label-input-wrapper > input,
+  .usa-button,
+  .account-dropdown--name {
+    &:focus {
+      outline-color: $tm-focus-outline-color-alt !important;
     }
   }
 }

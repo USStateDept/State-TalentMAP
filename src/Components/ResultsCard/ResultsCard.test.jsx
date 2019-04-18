@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import ResultsCard from './ResultsCard';
+import ResultsCard, { renderBidCount } from './ResultsCard';
 import resultsObject from '../../__mocks__/resultsObject';
 
 describe('ResultsCardComponent', () => {
@@ -27,6 +27,10 @@ describe('ResultsCardComponent', () => {
         bidList={[]}
       />);
     expect(wrapper.instance().props.result.id).toBe(60);
+  });
+
+  it('renders bid count', () => {
+    expect(renderBidCount({})).toBeDefined();
   });
 
   it('matches snapshot', () => {

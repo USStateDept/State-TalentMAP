@@ -38,6 +38,11 @@
     padding: 15px;
     position: relative;
     width: 0;
+
+    // fix card width in IE11
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      min-width: 15%;
+    }
   }
 
   .compare-item-empty {

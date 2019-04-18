@@ -1,20 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BIDDER_RESULTS } from '../../../Constants/PropTypes';
-import BidderPortfolioGridItem from '../BidderPortfolioGridItem';
+import BidderPortfolioStatRow from '../BidderPortfolioStatRow';
 
-const BidderPortfolioGridList = ({ results }) => (
-  <ul className="usa-grid-full user-dashboard portfolio-grid-list">
+const BidderPortfolioGridList = ({ results, showEdit }) => (
+  <ul className="usa-grid-full user-dashboard portfolio-row-list">
     {
       results.map(result => (
         <li
-          className="user-dashboard-section portfolio-grid-list-item"
+          className="portfolio-row"
           key={result.id}
         >
-          <BidderPortfolioGridItem
+          <BidderPortfolioStatRow
             userProfile={result}
-            showEditLink={false}
-            showBirthday
-            showBids
+            showEdit={showEdit}
           />
         </li>
       ))
@@ -24,6 +23,11 @@ const BidderPortfolioGridList = ({ results }) => (
 
 BidderPortfolioGridList.propTypes = {
   results: BIDDER_RESULTS.isRequired,
+  showEdit: PropTypes.bool,
+};
+
+BidderPortfolioGridList.defaultProps = {
+  showEdit: false,
 };
 
 export default BidderPortfolioGridList;
