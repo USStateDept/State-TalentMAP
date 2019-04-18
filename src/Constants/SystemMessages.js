@@ -67,3 +67,4 @@ export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CAN
 
 export const GET_NOW_AVAILABLE = n => `${n} Now available!`;
 export const GET_POSITIONS_ADDED = n => `${n} Position${n !== 1 ? 's' : ''} added`;
+
