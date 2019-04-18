@@ -22,6 +22,15 @@ describe('PositionTitleComponent', () => {
     expect(wrapper.instance().props.details.id).toBe(6);
   });
 
+  it('renders the bid list button', () => {
+    const wrapper = shallow(
+      <PositionTitle
+        {...props}
+      />,
+    );
+    expect(wrapper.instance().renderBidListButton()).toBeDefined();
+  });
+
   it('displays the OBC link if obc_id exists', () => {
     const newDetailsObject = { ...detailsObject };
     newDetailsObject.post.obc_id = 1;

@@ -26,7 +26,8 @@ class CheckBox extends Component {
   }
 
   render() {
-    const { id, label, title, name, labelSrOnly, small, className, disabled } = this.props;
+    const { id, label, title, name, labelSrOnly, small, className, disabled,
+      checkboxProps } = this.props;
     const { checked } = this.state;
     const formattedId = formatIdSpacing(id);
     return (
@@ -40,6 +41,7 @@ class CheckBox extends Component {
           onChange={() => this.onCheck()}
           checked={checked.value}
           disabled={disabled}
+          {...checkboxProps}
         />
         <label htmlFor={formattedId}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
       </div>
@@ -58,6 +60,7 @@ CheckBox.propTypes = {
   small: PropTypes.bool,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  checkboxProps: PropTypes.shape({}),
 };
 
 CheckBox.defaultProps = {
@@ -68,6 +71,7 @@ CheckBox.defaultProps = {
   small: false,
   className: '',
   disabled: false,
+  checkboxProps: {},
 };
 
 export default CheckBox;

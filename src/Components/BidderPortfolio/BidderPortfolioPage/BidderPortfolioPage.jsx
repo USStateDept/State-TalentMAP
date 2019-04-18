@@ -12,8 +12,10 @@ class BidderPortfolioPage extends Component {
   constructor(props) {
     super(props);
     this.changeViewType = this.changeViewType.bind(this);
+    this.changeEditType = this.changeEditType.bind(this);
     this.state = {
       viewType: { value: 'card' },
+      editType: { show: false },
     };
   }
   changeViewType(value) {
@@ -21,7 +23,11 @@ class BidderPortfolioPage extends Component {
     viewType.value = value;
     this.setState({ viewType });
   }
+  changeEditType(value) {
+    this.setState({ editType: value });
+  }
   render() {
+    const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
     bidderPortfolioCounts } = this.props;
@@ -42,8 +48,7 @@ class BidderPortfolioPage extends Component {
     let loadingClass = '';
     if (isLoading) { loadingClass = 'results-loading'; }
 
-    // pass zero if waiting on value
-    const biddersNumerator = bidderPortfolio.count || 0;
+    const showEdit = editType.show;
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
@@ -54,11 +59,10 @@ class BidderPortfolioPage extends Component {
               <TopNav bidderPortfolioCounts={bidderPortfolioCounts} />
               <BidControls
                 queryParamUpdate={queryParamUpdate}
-                biddersNumerator={biddersNumerator}
-                biddersDenominator={bidderPortfolioCounts.all_clients}
-                isLoading={isLoading}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
+                showEditButtons={isListView}
+                onEditChange={this.changeEditType}
               />
             </div>
           }
@@ -75,6 +79,7 @@ class BidderPortfolioPage extends Component {
                   queryParamUpdate={queryParamUpdate}
                   pageNumber={pageNumber}
                   showListView={isListView}
+                  showEdit={showEdit}
                 />
             }
           </div>

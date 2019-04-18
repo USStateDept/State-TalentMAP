@@ -846,6 +846,15 @@ $draft-icon-offset: 120px;
     }
   }
 
+  &.bid-tracker--priority-exists.bid-tracker--is-priority.bid-tracker--is-priority--approved {
+    border-color: $color-green-dark;
+
+    .bid-tracker-card-title-container {
+      background: $color-green-dark;
+      color: $color-white;
+    }
+  }
+
   &.bid-tracker--priority-exists.bid-tracker--is-not-priority {
     border: 2px solid $blue-primary-darkest;
 
@@ -985,6 +994,18 @@ $draft-icon-offset: 120px;
 
   .bid-tracker-priority-wrapper {
     background-color: $color-gold;
+  }
+
+  &.bid-tracker-priority-wraper--aproved {
+    border-color: $color-green-dark;
+
+    .priority-banner {
+      color: $color-white;
+    }
+
+    .bid-tracker-priority-wrapper {
+      background-color: $color-green-dark;
+    }
   }
 }
 

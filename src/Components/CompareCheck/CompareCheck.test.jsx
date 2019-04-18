@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import sinon from 'sinon';
 import CompareCheck from './CompareCheck';
 import COMPARE_LIMIT from '../../Constants/Compare';
 
@@ -53,5 +54,21 @@ describe('CompareCheck', () => {
     wrapper.instance().state.saved = true;
     wrapper.find('InteractiveElement').simulate('click');
     expect(wrapper.instance().state.saved).toBe(false);
+  });
+
+  it('calls removeEventListener() on componentWillUnmount', () => {
+    const wrapper = shallow(<CompareCheck refKey="0038" />);
+    const spy = sinon.spy();
+    window.removeEventListener = spy;
+    wrapper.instance().componentWillUnmount();
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('applies props when isDisabled() returns true', () => {
+    const wrapper = shallow(<CompareCheck refKey="0038" />);
+    wrapper.setState({ saved: false, count: 500000 });
+    wrapper.update();
+    expect(wrapper.instance().isDisabled()).toBe(true);
+    expect(wrapper.find('InteractiveElement').props().disabled).toBe(true);
   });
 });

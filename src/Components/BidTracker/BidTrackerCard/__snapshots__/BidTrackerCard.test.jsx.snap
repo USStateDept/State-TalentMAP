@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidTrackerCardComponent matches snapshot 1`] = `
+exports['BidTrackerCardComponent matches snapshot 1'] = `
 <BoxShadow
   blurRadius={10}
-  className="bid-tracker  bid-tracker--is-not-priority "
+  className="bid-tracker   bid-tracker--is-not-priority "
   color="rgba(0,0,0,.15)"
   id="bid-3"
   inset={false}

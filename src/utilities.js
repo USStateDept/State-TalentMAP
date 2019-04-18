@@ -275,18 +275,23 @@ export const filterByProps = (keyword, props = [], array = []) => {
   if (keyword.length) {
     // filter the array and return its value
     return array.filter((data) => {
-      let doesMatch;
+      let doesMatch = true;
       // iterate through props and see if keyword is found in their values
-      props.forEach((prop) => {
-        // if so, doesMatch = true
-        if (data[prop].toString().toLowerCase().indexOf(keyword.toString().toLowerCase()) !== -1) {
-          doesMatch = true;
-        }
+      keyword.split(' ').filter(f => f.length).forEach((k) => {
+        let doesMatch$ = false;
+        props.forEach((prop) => {
+          if (doesMatch) {
+            // if so, doesMatch = true
+            if (data[prop].toString().toLowerCase().indexOf(k.toString().toLowerCase()) !== -1) {
+              doesMatch$ = true;
+            }
+          }
+        });
+        doesMatch = doesMatch$;
       });
       // if keyword was found in at least one of the props, doesMatch should be true
       return doesMatch;
-    },
-    );
+    });
   }
   // if keyword length === 0, return the unfiltered array
   return array;

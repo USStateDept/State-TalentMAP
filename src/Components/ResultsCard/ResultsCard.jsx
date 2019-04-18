@@ -50,6 +50,12 @@ const getResult = (result, path, defaultValue, isRate = false) => {
   return value;
 };
 
+export const renderBidCount = stats => (
+  <Column columns="4">
+    <BidCount bidStatistics={stats} altStyle />
+  </Column>
+);
+
 const ResultsCard = (props) => {
   const options = {};
   const {
@@ -126,11 +132,7 @@ const ResultsCard = (props) => {
               </Column>
               <Flag
                 name="flags.bidding"
-                render={() => (
-                  <Column columns="4">
-                    <BidCount bidStatistics={stats} altStyle />
-                  </Column>
-                )}
+                render={() => renderBidCount(stats)}
               />
             </Row>
             <Flag

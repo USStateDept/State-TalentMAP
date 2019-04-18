@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { includes, sortBy } from 'lodash';
+import { get, includes, sortBy } from 'lodash';
 import { Flag } from 'flag';
 import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
@@ -228,7 +228,7 @@ class SearchFiltersContainer extends Component {
             legendTitle="Select filters"
             filters={booleanFilters}
             onBooleanFilterClick={(e, code, ref, iterator, value) => {
-              booleanFilters[iterator].data[0].isSelected = !value;
+              get(booleanFilters, `[${iterator}].data[0]`, {}).isSelected = !value;
               this.onBooleanFilterClick(e, code, ref);
             }
             }

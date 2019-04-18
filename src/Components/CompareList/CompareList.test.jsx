@@ -1,7 +1,8 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
-import CompareList from './CompareList';
+import sinon from 'sinon';
+import CompareList, { renderBidCounts } from './CompareList';
 import resultsObject from '../../__mocks__/resultsObject';
 
 describe('CompareListComponent', () => {
@@ -40,6 +41,30 @@ describe('CompareListComponent', () => {
     const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} isLoading />);
     expect(wrapper.find('.comparison-table-container').exists()).toBe(false);
     expect(wrapper.find('Spinner').exists()).toBe(true);
+  });
+
+  it('calls the onToggle prop when a CompareCheck is toggled', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<CompareList
+      {...props}
+      compare={resultsObject.results}
+      onToggle={spy}
+    />);
+    wrapper.find('CompareCheck').at(0).props().onToggle();
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('renders bid list buttons', () => {
+    const wrapper = shallow(<CompareList
+      {...props}
+      bidList={{ results: [] }}
+      compare={resultsObject.results}
+    />);
+    expect(wrapper.instance().renderBidListButtons([{}], [{}])).toBeDefined();
+  });
+
+  it('renders bid counts', () => {
+    expect(renderBidCounts([{}], [{}])).toBeDefined();
   });
 
   it('matches snapshot', () => {

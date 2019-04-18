@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuggestionChoiceCDONameComponent matches snapshot 1`] = `
+<div
+  className="render-suggestion"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  Bob Smith
+</div>
+`;
+
+exports[`SuggestionChoiceCDONameComponent matches snapshot when isCurrentUser === true 1`] = `
+<div
+  className="render-suggestion"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <FontAwesome
+    name="check"
+    style={
+      Object {
+        "left": "-20px",
+        "position": "absolute",
+        "top": "2px",
+      }
+    }
+  />
+  Bob Smith (me)
+</div>
+`;

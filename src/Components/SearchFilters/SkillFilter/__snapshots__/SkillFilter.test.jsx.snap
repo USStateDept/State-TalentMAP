@@ -16,6 +16,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
       id="skill-cone-accordion-1"
       preContent={
         <CheckBox
+          checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           cone={
             Object {
@@ -43,6 +44,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
       >
         <CheckBox
           _id={1}
+          checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           disabled={false}
           id="checkboxName1-skill-1"
@@ -65,6 +67,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
       id="skill-cone-accordion-2"
       preContent={
         <CheckBox
+          checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           cone={
             Object {
@@ -92,6 +95,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
       >
         <CheckBox
           _id={2}
+          checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           disabled={false}
           id="checkboxName2-skill-2"
@@ -106,6 +110,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
         />
         <CheckBox
           _id={3}
+          checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           disabled={false}
           id="checkboxName2-skill-2"

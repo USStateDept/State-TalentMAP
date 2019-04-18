@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidderPortfolioStatCard matches snapshot 1`] = `
+<BoxShadow
+  blurRadius={10}
+  className="usa-grid-full bidder-portfolio-stat-card"
+  color="rgba(0,0,0,.15)"
+  inset={false}
+  is="div"
+  offsetX={3}
+  offsetY={2}
+  spreadRadius={1}
+  style={Object {}}
+>
+  <div
+    className="bidder-portfolio-stat-card-top"
+  >
+    <div>
+      <h3>
+        <Link
+          replace={false}
+          to="/profile/public/5"
+        >
+          Kara Batisak
+          <FontAwesome
+            name="angle-right"
+          />
+        </Link>
+      </h3>
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
+        Skill:
+      </dt>
+      <dd>
+        <SkillCodeList
+          skillCodes={
+            Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+            ]
+          }
+        />
+      </dd>
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
+        Grade:
+      </dt>
+      <dd>
+        01
+      </dd>
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
+        Post:
+      </dt>
+      <dd>
+        Freetown, Sierra Leone
+      </dd>
+    </div>
+  </div>
+  <div
+    className="bidder-portfolio-stat-card-bottom"
+  >
+    <div>
+      <span>
+        Updates
+      </span>
+      <Connect(StaticDevContent)>
+        <ClientBadgeList
+          statuses={
+            Object {
+              "fairshare": 1,
+              "handshake": 1,
+              "retirement": 2,
+              "sixeight": 0,
+            }
+          }
+        />
+      </Connect(StaticDevContent)>
+    </div>
+  </div>
+</BoxShadow>
+`;

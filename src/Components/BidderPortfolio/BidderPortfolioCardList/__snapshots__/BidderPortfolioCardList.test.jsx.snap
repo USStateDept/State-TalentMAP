@@ -2,15 +2,12 @@
 
 exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full user-dashboard"
+  className="usa-grid-full user-dashboard bidder-portfolio-stat-card-list"
 >
   <div
-    className="usa-width-one-fourth user-dashboard-section"
+    className="bidder-portfolio-stat-card-container"
   >
-    <BidderPortfolioCard
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatCard
       userProfile={
         Object {
           "bid_statistics": Array [
@@ -55,12 +52,9 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="usa-width-one-fourth user-dashboard-section"
+    className="bidder-portfolio-stat-card-container"
   >
-    <BidderPortfolioCard
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatCard
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -90,12 +84,9 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="usa-width-one-fourth user-dashboard-section"
+    className="bidder-portfolio-stat-card-container"
   >
-    <BidderPortfolioCard
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatCard
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -125,12 +116,9 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="usa-width-one-fourth user-dashboard-section"
+    className="bidder-portfolio-stat-card-container"
   >
-    <BidderPortfolioCard
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatCard
       userProfile={
         Object {
           "bid_statistics": Array [
@@ -175,12 +163,9 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="usa-width-one-fourth user-dashboard-section"
+    className="bidder-portfolio-stat-card-container"
   >
-    <BidderPortfolioCard
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatCard
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -210,12 +195,9 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     />
   </div>
   <div
-    className="usa-width-one-fourth user-dashboard-section"
+    className="bidder-portfolio-stat-card-container"
   >
-    <BidderPortfolioCard
-      showBids={true}
-      showBirthday={true}
-      showEditLink={false}
+    <BidderPortfolioStatCard
       userProfile={
         Object {
           "bid_statistics": Array [

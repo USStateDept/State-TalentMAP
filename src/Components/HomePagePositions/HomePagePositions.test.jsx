@@ -41,6 +41,16 @@ describe('HomePageComponent', () => {
     expect(wrapper.find('HomePagePositionsSection').at(2).prop('positions').length).toBeGreaterThan(0);
   });
 
+  it('does not display the Featured positions section when there are no featured positions', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePagePositions={{ ...props.homePagePositions, [SERVICE_NEED_POSITIONS]: [] }}
+    />);
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Positions in skill 1');
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Recently Posted Positions in Grade 03');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(2);
+  });
+
   it('sets fallback positions', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}

@@ -84,4 +84,20 @@ describe('async actions', () => {
     };
     f();
   });
+
+  it('can handle a failed edit when there is no error message', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.editWebsiteContent(1, {}));
+        done();
+      }, 0);
+    };
+    f();
+  });
 });

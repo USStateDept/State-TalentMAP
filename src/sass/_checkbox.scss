@@ -20,3 +20,32 @@
     background-size: 2em;
   }
 }
+
+.tm-checkbox-disabled-alternate {
+  * {
+    cursor: initial;
+  }
+
+  label {
+    cursor: initial;
+
+    > span {
+      color: initial;
+    }
+  }
+
+  [type=checkbox]:disabled + label::before,
+  [type=radio]:disabled + label::before {
+    background: transparent;
+    box-shadow: initial;
+  }
+
+  [disabled]:checked + label::before {
+    background-color: $color-white;
+    background-image: url('#{$asset-path}assets/img/check-black.svg');
+    background-size: 1em;
+    border-color: initial;
+    box-shadow: initial;
+    cursor: initial;
+  }
+}

@@ -35,6 +35,14 @@ import {
   NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
+export const renderHandshake = stats => (
+  <div className="handshake-offset-container">
+    {
+      get(stats, 'has_handshake_offered', false) && <Handshake cutSide="right" className="ribbon-position-details" />
+    }
+  </div>
+);
+
 const PositionDetailsItem = (props) => {
   const {
     details,
@@ -73,13 +81,7 @@ const PositionDetailsItem = (props) => {
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <Flag
         name="flags.bidding"
-        render={() => (
-          <div className="handshake-offset-container">
-            {
-              get(stats, 'has_handshake_offered', false) && <Handshake cutSide="right" className="ribbon-position-details" />
-            }
-          </div>
-        )}
+        render={() => renderHandshake(stats)}
       />
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className="usa-width-two-thirds about-section-left">

@@ -47,7 +47,7 @@ const BidList = ({ bids, showMoreLink, submitBidPosition, deleteBid, isLoading }
                 You have not added any bids to your bid list.
               </div>
           }
-          {bids$.length && !isLoading && bids$}
+          {!!bids$.length && !isLoading && bids$}
         </div>
         {
           showMoreLink && !isLoading &&

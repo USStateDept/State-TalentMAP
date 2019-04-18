@@ -38,6 +38,8 @@ import { validStateEmail,
          difference,
          redirectToLoginRedirect,
          isUrl,
+         hasValidToken,
+         getScrollDistanceFromBottom,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -287,8 +289,9 @@ describe('formatDate', () => {
 });
 
 describe('focusById', () => {
-  const focusSpy = sinon.spy();
+  let focusSpy;
   it('can focus by ID', () => {
+    focusSpy = sinon.spy();
     const elements = {
       test: {
         focus: focusSpy,
@@ -297,6 +300,22 @@ describe('focusById', () => {
     global.document.getElementById = id => elements[id];
     focusById('test');
     sinon.assert.calledOnce(focusSpy);
+  });
+
+  it('can focus by ID when there is a timeout', (done) => {
+    focusSpy = sinon.spy();
+    const elements = {
+      test: {
+        focus: focusSpy,
+      },
+    };
+    global.document.getElementById = id => elements[id];
+    const timeout = 10;
+    focusById('test', timeout);
+    setTimeout(() => {
+      sinon.assert.calledOnce(focusSpy);
+      done();
+    }, timeout);
   });
 });
 
@@ -550,6 +569,12 @@ describe('getAccessiblePositionNumber', () => {
 
     expect(getAccessiblePositionNumber(positionNumber)).toBe('S 7 0 0 1');
   });
+
+  it('returns null if positionNumber is undefined', () => {
+    const positionNumber = undefined;
+
+    expect(getAccessiblePositionNumber(positionNumber)).toBe(null);
+  });
 });
 
 describe('getPostName', () => {
@@ -728,5 +753,24 @@ describe('isUrl', () => {
       const output = isUrl(u[0]);
       return u[1] ? expect(output).toBeTruthy() : expect(output).toBeFalsy();
     });
+  });
+});
+
+describe('hasValidToken', () => {
+  it('removes the localStorage token if it is invalid', () => {
+    localStorage.setItem('token', '{');
+    expect(hasValidToken()).toBe(false);
+    expect(localStorage.getItem('token')).toBe(null);
+  });
+});
+
+describe('getScrollDistanceFromBottom', () => {
+  it('returns the scroll distance from the bottom of the page', () => {
+    window.pageYOffset = 100;
+    window.innerHeight = 800;
+    const z = document.createElement('body');
+    Object.setPrototypeOf(z, { offsetHeight: 3000 });
+    document.body = z;
+    expect(getScrollDistanceFromBottom()).toBe(2100);
   });
 });

@@ -5,6 +5,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
   className="usa-grid-full"
 >
   <AutoSuggest
+    autoSuggestProps={Object {}}
     className="post-auto-suggest-container"
     customInputProps={
       Object {
@@ -24,6 +25,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
     queryProperty="id"
     suggestionTemplate={[Function]}
     suggestions={Array []}
+    templateProps={Object {}}
   />
   <div
     className="usa-grid-full tm-nested-accordions"
@@ -40,6 +42,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
         id="domestic-post-sub-accordion"
         preContent={
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="select-all-domestic"
@@ -60,6 +63,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
           className="usa-grid-full"
         >
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="checkboxName-domestic-post-post"
@@ -82,6 +86,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
         id="overseas-post-sub-accordion"
         preContent={
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="select-all-overseas"
@@ -102,6 +107,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
           className="usa-grid-full"
         >
           <CheckBox
+            checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
             id="checkboxName-overseas-post-post"

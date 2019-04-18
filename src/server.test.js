@@ -5,10 +5,12 @@ describe('proxy server routes', () => {
   let server;
 
   beforeEach(() => {
+    process.env.USE_MOCK_SAML = '1';
     server = proxyServer;
   });
 
   afterEach(() => {
+    process.env.USE_MOCK_SAML = false;
     // close the server after each test so that jest exits
     server.close();
   });

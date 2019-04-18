@@ -61,6 +61,10 @@ describe('shouldShowAlert function', () => {
     const result = shouldShowAlert({ status: SUBMITTED_PROP }, {});
     expect(result).toBe(false);
   });
+
+  it('returns false for specific statuses when condensedView is true', () => {
+    expect(shouldShowAlert({ status: APPROVED_PROP }, { condensedView: true })).toBe(false);
+  });
 });
 
 describe('getActionPermissions function', () => {

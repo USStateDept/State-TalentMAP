@@ -176,4 +176,15 @@ describe('SearchFiltersContainerComponent', () => {
       expect(orderedFilters[i].title).toBe(title);
     });
   });
+
+  it('orders the filters in the correct order', () => {
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        {...props}
+      />,
+    );
+    const spy = sinon.spy(wrapper.instance(), 'onBooleanFilterClick');
+    wrapper.find('BooleanFilterContainer').props().onBooleanFilterClick();
+    sinon.assert.calledOnce(spy);
+  });
 });
