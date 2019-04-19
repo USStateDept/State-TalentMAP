@@ -322,22 +322,6 @@ $cdo-search-container-padding: 10px;
     }
   }
 
-  .export-button-container {
-
-    .ds-c-spinner {
-      height: 11px;
-      margin-right: 5px;
-      width: 11px;
-
-      &::before,
-      &::after {
-        border-width: 2px;
-        height: 11px;
-        width: 11px;
-      }
-    }
-  }
-
   .bidder-portfolio-search-container {
     background-color: $bg-blue-dark-1;
     padding: 12px 31px;

@@ -19,8 +19,7 @@ describe('SearchResultsExportLink', () => {
   it('gets data when button is clicked', (done) => {
     const wrapper = shallow(<SearchResultsExportLink />);
     expect(wrapper.state().data).toBeFalsy();
-    const button = wrapper.find('button');
-    button.simulate('click');
+    wrapper.find('ExportButton').props().onClick();
     expect(fetchResultDataStub.calledOnce).toBe(true);
     const f = () => setTimeout(() => {
       expect(wrapper.instance().state.data).toEqual([]);

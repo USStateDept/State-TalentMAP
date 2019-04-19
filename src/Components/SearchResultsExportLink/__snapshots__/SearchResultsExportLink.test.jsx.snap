@@ -1,13 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResultsExportLink matches snapshot 1`] = `
-<div>
-  <button
-    className="usa-button-secondary"
+<div
+  className="export-button-container"
+>
+  <ExportButton
+    className=""
+    isLoading={false}
     onClick={[Function]}
-  >
-    Export
-  </button>
+    text="Export"
+  />
   <CSVLink
     asyncOnClick={false}
     data=""
