@@ -309,7 +309,6 @@ $cdo-search-container-padding: 10px;
     width: 50px;
   }
 
-  .export-button-container,
   .edit-buttons-container {
     display: flex;
 
@@ -319,22 +318,6 @@ $cdo-search-container-padding: 10px;
       justify-content: center;
       margin-left: 10px;
       min-width: 100px;
-    }
-  }
-
-  .export-button-container {
-
-    .ds-c-spinner {
-      height: 11px;
-      margin-right: 5px;
-      width: 11px;
-
-      &::before,
-      &::after {
-        border-width: 2px;
-        height: 11px;
-        width: 11px;
-      }
     }
   }
 

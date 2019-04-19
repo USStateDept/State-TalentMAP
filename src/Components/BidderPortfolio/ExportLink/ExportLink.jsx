@@ -5,6 +5,7 @@ import { CSVLink } from 'react-csv';
 import { get } from 'lodash';
 import { bidderPortfolioFetchDataFromLastQuery } from '../../../actions/bidderPortfolio';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import ExportButton from '../../ExportButton';
 
 // Mapping columns to data fields
 const HEADERS = [
@@ -72,9 +73,7 @@ export class ExportLink extends Component {
     const { data, isLoading } = this.state;
     return (
       <div className="export-button-container">
-        <button className="usa-button-secondary" onClick={this.onClick}>
-          {isLoading && <span className="ds-c-spinner spinner-blue" />}<span>Export</span>
-        </button>
+        <ExportButton onClick={this.onClick} isLoading={isLoading} />
         <CSVLink ref={this.setCsvRef} target="_blank" filename={this.props.filename} data={data} headers={HEADERS} />
       </div>
     );

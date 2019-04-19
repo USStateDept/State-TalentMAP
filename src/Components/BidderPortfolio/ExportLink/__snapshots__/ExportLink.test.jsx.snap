@@ -4,14 +4,12 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
 <div
   className="export-button-container"
 >
-  <button
-    className="usa-button-secondary"
+  <ExportButton
+    className=""
+    isLoading={false}
     onClick={[Function]}
-  >
-    <span>
-      Export
-    </span>
-  </button>
+    text="Export"
+  />
   <CSVLink
     asyncOnClick={false}
     data=""

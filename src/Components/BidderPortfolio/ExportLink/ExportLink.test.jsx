@@ -29,7 +29,7 @@ describe('SearchResultsExportLink', () => {
   it('calls onClick on button click', () => {
     const wrapper = shallow(<ExportLink />);
     expect(wrapper.instance().state.isLoading).toBe(false);
-    wrapper.find('button').simulate('click');
+    wrapper.find('ExportButton').props().onClick();
     expect(wrapper.instance().state.isLoading).toBe(true);
   });
 
