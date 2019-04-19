@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { CSVLink } from 'react-csv';
 import queryString from 'query-string';
 import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
@@ -26,10 +27,14 @@ const HEADERS = [
 
 // Processes results before sending to the download component to allow for custom formatting.
 export const processData = data => (
-  data.map(entry => ({
-    ...entry,
-    estimated_end_date: formatDate(entry.current_assignment.estimated_end_date),
-  }))
+  data.map((entry) => {
+    const endDate = get(entry, 'current_assignment.estimated_end_date');
+    const formattedEndDate = endDate ? formatDate(endDate) : null;
+    return {
+      ...entry,
+      estimated_end_date: formattedEndDate,
+    };
+  })
 );
 
 
