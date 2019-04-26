@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
@@ -93,6 +94,7 @@ class ResultsContainer extends Component {
              onPageChange={this.onPageChange}
              forcePage={defaultPageNumber}
            />
+           <ScrollUpButton />
          </div>
         }
       </div>
