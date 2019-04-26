@@ -80,7 +80,7 @@ class CompareList extends Component {
     return (
       <div className="usa-grid-full content-container comparison-outer-container">
         <div>
-          <BackButton />
+          <BackButton blacklistMatcher="/compare" ignoreCurrentPath />
         </div>
         <div className="comparison-container">
           <h1>Compare Positions</h1>

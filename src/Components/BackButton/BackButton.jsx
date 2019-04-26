@@ -1,22 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { getLastRouteLink } from '../../actions/routerLocations';
 import { ROUTER_LOCATIONS } from '../../Constants/PropTypes';
 
-const BackButton = ({ routerLocations }) => {
-  const goBackLink = getLastRouteLink(routerLocations);
+export const BackButton = ({ routerLocations, location, ignoreCurrentPath }) => {
+  const { text, distance } = getLastRouteLink(routerLocations, location, ignoreCurrentPath);
   return (
-    goBackLink.text ?
+    text ?
       <button
         className="button-back-link usa-button-secondary"
         tabIndex="0"
         role="link"
-        onClick={() => window.history.back()}
+        onClick={() => window.history.go(-(distance))}
       >
         <FontAwesome name="arrow-left" />
-        {goBackLink.text}
+        {text}
       </button>
       :
       null
@@ -25,10 +26,14 @@ const BackButton = ({ routerLocations }) => {
 
 BackButton.propTypes = {
   routerLocations: ROUTER_LOCATIONS,
+  location: PropTypes.shape({}),
+  ignoreCurrentPath: PropTypes.bool,
 };
 
 BackButton.defaultProps = {
   routerLocations: [],
+  location: {},
+  ignoreCurrentPath: false,
 };
 
 const mapStateToProps = state => ({
