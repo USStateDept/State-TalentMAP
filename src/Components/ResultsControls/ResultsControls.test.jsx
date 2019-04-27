@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { MemoryRouter } from 'react-router-dom';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
 import ResultsControls from './ResultsControls';
+import MockTestProvider from '../../testUtilities/MockProvider';
 import resultsObject from '../../__mocks__/resultsObject';
 
 describe('ResultsControlsComponent', () => {
@@ -24,7 +24,7 @@ describe('ResultsControlsComponent', () => {
     sortBy, pageSizes, pageCount, hasLoaded, onToggle } = config;
 
   it('is defined', () => {
-    wrapper = TestUtils.renderIntoDocument(<MemoryRouter>
+    wrapper = TestUtils.renderIntoDocument(<MockTestProvider>
       <ResultsControls
         results={resultsObject}
         isLoading={isLoading}
@@ -35,7 +35,7 @@ describe('ResultsControlsComponent', () => {
         hasLoaded={hasLoaded}
         onToggle={onToggle}
       />
-    </MemoryRouter>);
+    </MockTestProvider>);
     expect(wrapper).toBeDefined();
   });
 

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import debounce from 'lodash/debounce';
+import { debounce, get } from 'lodash';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
@@ -23,7 +23,7 @@ SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION, BID_LIST } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
 
 const DEFAULT_PAGE_NUMBER = 1;
 
@@ -38,7 +38,7 @@ class Results extends Component {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
       defaultSort: { value: POSITION_SEARCH_SORTS.defaultSort },
-      defaultPageSize: { value: 0 },
+      defaultPageSize: { value: props.defaultPageSize },
       defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
     };
@@ -129,7 +129,7 @@ class Results extends Component {
       ordering || POSITION_SEARCH_SORTS.defaultSort;
     // set our default page size
     defaultPageSize.value =
-      parseInt(limit, 10) || POSITION_PAGE_SIZES.defaultSort;
+      parseInt(limit, 10) || this.props.defaultPageSize;
     // set our default page number
     defaultPageNumber.value =
       parseInt(page, 10) || DEFAULT_PAGE_NUMBER;
@@ -288,6 +288,7 @@ Results.propTypes = {
   debounceTimeInMs: PropTypes.number,
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
+  defaultPageSize: PropTypes.number.isRequired,
 };
 
 Results.defaultProps = {
@@ -343,6 +344,7 @@ const mapStateToProps = state => ({
   postSearchHasErrored: state.postSearchHasErrored,
   shouldShowSearchBar: state.shouldShowSearchBar,
   bidList: state.bidListFetchDataSuccess,
+  defaultPageSize: get(state, `sortPreferences.${POSITION_PAGE_SIZES_TYPE}.defaultSort`, POSITION_PAGE_SIZES.defaultSort),
 });
 
 export const mapDispatchToProps = dispatch => ({

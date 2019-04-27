@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import TotalResults from '../TotalResults/TotalResults';
 import SelectForm from '../SelectForm/SelectForm';
 import SearchResultsExportLink from '../SearchResultsExportLink';
+import PreferenceWrapper from '../../Containers/PreferenceWrapper';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
+import { POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
 
 class ResultsControls extends Component {
   constructor(props) {
@@ -49,14 +51,16 @@ class ResultsControls extends Component {
               />
             </div>
             <div className="results-dropdown results-dropdown-page-size">
-              <SelectForm
-                id="pageSize"
-                label="Results:"
-                onSelectOption={this.onSelectLimit}
-                options={pageSizes.options}
-                defaultSort={defaultPageSize}
-                className="select-blue select-offset select-small"
-              />
+              <PreferenceWrapper onSelect={this.onSelectLimit} keyRef={POSITION_PAGE_SIZES_TYPE}>
+                <SelectForm
+                  id="pageSize"
+                  label="Results:"
+                  options={pageSizes.options}
+                  defaultSort={defaultPageSize}
+                  transformValue={n => parseInt(n, 10)}
+                  className="select-blue select-offset select-small"
+                />
+              </PreferenceWrapper>
             </div>
             <div className="results-download">
               <SearchResultsExportLink count={results.count} />
@@ -73,7 +77,7 @@ ResultsControls.propTypes = {
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
-  defaultPageSize: PropTypes.node,
+  defaultPageSize: PropTypes.number,
   hasLoaded: PropTypes.bool,
   defaultPageNumber: PropTypes.number,
   queryParamUpdate: PropTypes.func.isRequired,

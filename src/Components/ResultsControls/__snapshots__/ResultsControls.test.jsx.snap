@@ -40,30 +40,37 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
               },
             ]
           }
+          transformValue={[Function]}
         />
       </div>
       <div
         className="results-dropdown results-dropdown-page-size"
       >
-        <SelectForm
-          className="select-blue select-offset select-small"
-          defaultSort={10}
-          disabled={false}
-          emptyOptionText="- Select -"
-          id="pageSize"
-          includeFirstEmptyOption={false}
-          label="Results:"
-          languages={Array []}
-          onSelectOption={[Function]}
-          options={
-            Array [
-              Object {
-                "text": "10",
-                "value": 10,
-              },
-            ]
-          }
-        />
+        <Connect(PreferenceWrapper)
+          keyRef="POSITION_PAGE_SIZES"
+          onSelect={[Function]}
+        >
+          <SelectForm
+            className="select-blue select-offset select-small"
+            defaultSort={10}
+            disabled={false}
+            emptyOptionText="- Select -"
+            id="pageSize"
+            includeFirstEmptyOption={false}
+            label="Results:"
+            languages={Array []}
+            onSelectOption={[Function]}
+            options={
+              Array [
+                Object {
+                  "text": "10",
+                  "value": 10,
+                },
+              ]
+            }
+            transformValue={[Function]}
+          />
+        </Connect(PreferenceWrapper)>
       </div>
       <div
         className="results-download"

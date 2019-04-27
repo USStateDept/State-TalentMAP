@@ -111,7 +111,7 @@ ResultsContainer.propTypes = {
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
-  defaultPageSize: PropTypes.node,
+  defaultPageSize: PropTypes.number,
   defaultPageNumber: PropTypes.number,
   pageSize: PropTypes.number.isRequired,
   hasLoaded: PropTypes.bool.isRequired,
