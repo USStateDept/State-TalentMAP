@@ -11,6 +11,11 @@ a {
   }
 }
 
+// scss-lint:disable SelectorFormat
+// The react-picky module uses two underscores in its class names.
+// Instead of modifying the source css, the SelectorFormat rule
+// has been disabled for this file in order to override styles on the
+// default classes.
 *:focus,
 .usa-focus,
 .picky__dropdown > div > .option:focus,
