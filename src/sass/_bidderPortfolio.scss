@@ -91,7 +91,12 @@
     }
   }
 
+  // Disable to override the >div:nth-child() styles
+  // scss-lint:disable MergeableSelector
+  // scss-lint:disable QualifyingElement
   > div.client-checkbox-list {
+  // scss-lint:enable MergeableSelector
+  // scss-lint:enable QualifyingElement
     display: flex;
     flex: 16 1 450px;
     flex-wrap: wrap;

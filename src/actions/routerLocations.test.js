@@ -1,4 +1,4 @@
-import { first, last } from 'lodash';
+import { last } from 'lodash';
 import * as actions from './routerLocations';
 import routerLocations from '../__mocks__/routerLocations';
 
