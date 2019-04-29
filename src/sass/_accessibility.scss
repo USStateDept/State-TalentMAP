@@ -42,3 +42,10 @@ a {
     }
   }
 }
+
+// need a color that is accessible when the Compare drawer is either open or closed
+.tm-scroll-up-container {
+  &:focus {
+    outline-color: $blue-primary !important;
+  }
+}

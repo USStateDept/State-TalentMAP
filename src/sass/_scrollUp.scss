@@ -1,6 +1,7 @@
 .tm-scroll-up-container {
   // the background-color in inline-style doesn't render in some browsers (IE11, Edge), so we also set it here
   background-color: $blue-primary;
+  z-index: $back-to-top-z !important;
 
   path {
     fill: $color-white;
