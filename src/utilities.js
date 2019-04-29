@@ -185,7 +185,7 @@ export const shortenString = (string, shortenTo = 250, suffix = '...') => {
   if (shortenTo < newSuffix.length) {
     return suffix;
   }
-  if (string.length > shortenTo) {
+  if (string && string.length > shortenTo) {
     // shorten to the shortenTo param, less the length of our suffix
     newString = string.slice(0, shortenTo - newSuffix.length);
     // in case the last character(s) was whitespace

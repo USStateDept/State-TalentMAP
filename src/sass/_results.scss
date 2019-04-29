@@ -44,7 +44,7 @@ $results-container-width: 100% - $filter-container-width;
   border: 1px solid $results-card-border;
   border-left: 8px solid $results-card-accent;
   margin-bottom: 2rem;
-  padding: 1.1rem;
+  padding: 1.1rem 1.1rem 3.3rem;
 
   dl {
     dt,
@@ -110,6 +110,7 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .footer {
+    margin-bottom: rem(10px);
     margin-top: rem(14px);
     padding-top: rem(4px);
 
