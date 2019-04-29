@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HoverDescriptionComponent matches snapshot 1`] = `
+<e
+  config={
+    Object {
+      "friction": 21,
+      "tension": 175,
+    }
+  }
+  from={Object {}}
+  immediate={false}
+  native={false}
+  reset={false}
+  to={
+    Object {
+      "height": "29px",
+    }
+  }
+/>
+`;
+
+exports[`HoverDescriptionComponent matches snapshot when expanded === true 1`] = `
+<e
+  config={
+    Object {
+      "friction": 21,
+      "tension": 175,
+    }
+  }
+  from={Object {}}
+  immediate={false}
+  native={false}
+  reset={false}
+  to={
+    Object {
+      "height": "5px",
+    }
+  }
+/>
+`;
