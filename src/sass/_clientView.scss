@@ -1,0 +1,45 @@
+.client-header {
+  background-color: $tertiary-cool-blue-lightest;
+
+  a {
+    color: $color-black;
+  }
+
+  .fa {
+    margin-right: 5px;
+  }
+
+  > div {
+    display: flex;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  .usa-banner-inner {
+    display: flex;
+    padding: 1.6rem 0;
+
+    > div:nth-child(1) {
+      flex: 1;
+      font-size: 1.6rem;
+    }
+
+    > div:nth-child(2) {
+      display: flex;
+      flex: 1;
+      font-size: 1.8rem;
+      justify-content: center;
+    }
+
+    > div:nth-child(3) {
+      display: flex;
+      flex: 1;
+      flex-direction: row-reverse;
+      font-size: 1.4rem;
+      font-weight: bold;
+      justify-content: right;
+    }
+  }
+}

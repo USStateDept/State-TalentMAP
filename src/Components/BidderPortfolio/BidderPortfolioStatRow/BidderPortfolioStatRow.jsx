@@ -10,6 +10,7 @@ import StaticDevContent from '../../StaticDevContent';
 import LinkButton from '../../LinkButton';
 import Avatar from '../../Avatar';
 import CheckboxList from '../CheckboxList';
+import SearchAsClientButton from '../SearchAsClientButton';
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
   const sortedAssignments = orderBy(userProfile.assignments, 'start_date', 'desc');
@@ -57,8 +58,9 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
       }
       {
         !showEdit &&
-        <div>
+        <div className="button-container">
           <LinkButton className="usa-button-secondary" toLink={`/profile/public/${userProfile.id}`}>View Details</LinkButton>
+          <SearchAsClientButton id={userProfile.id} />
         </div>
       }
       {

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchAsClientButton matches snapshot 1`] = `
+<button
+  className="usa-button-primary "
+  onClick={[Function]}
+>
+  Search as Client
+</button>
+`;

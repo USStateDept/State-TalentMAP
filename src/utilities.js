@@ -159,8 +159,12 @@ const defaultScrollConfig = {
   smooth: 'easeOutQuad',
 };
 
-export const scrollToTop = (config = defaultScrollConfig) => {
-  scroll.scrollToTop(config);
+export const scrollTo = (num, config = {}) => {
+  scroll.scrollTo(num, { ...defaultScrollConfig, ...config });
+};
+
+export const scrollToTop = (config = {}) => {
+  scroll.scrollToTop({ ...defaultScrollConfig, ...config });
 };
 
 // When we want to grab a label, but aren't sure which one exists.

@@ -68,3 +68,9 @@ export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CAN
 
 export const GET_NOW_AVAILABLE = n => `${n} Now available!`;
 export const GET_POSITIONS_ADDED = n => `${n} Position${n !== 1 ? 's' : ''} added`;
+
+export const SET_CLIENT_SUCCESS = 'Success';
+export const SET_CLIENT_ERROR = 'Error setting client';
+export const GET_CLIENT_SUCCESS_MESSAGE = user => `You are now searching as ${user.first_name} ${user.last_name}.`;
+export const UNSET_CLIENT_SUCCESS = SET_CLIENT_SUCCESS;
+export const UNSET_CLIENT_SUCCESS_MESSAGE = 'You have exited client view.';
