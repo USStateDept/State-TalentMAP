@@ -36,6 +36,7 @@ import showFeedback from './showFeedback';
 import feedback from './feedback';
 import features from './features';
 import toast from './toast';
+import clientView from './clientView';
 import sortPreferences from './sortPreferences';
 
 export default combineReducers({
@@ -70,6 +71,7 @@ export default combineReducers({
   ...feedback,
   ...features,
   ...toast,
+  ...clientView,
   ...sortPreferences,
   router,
   form,

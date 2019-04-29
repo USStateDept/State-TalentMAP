@@ -280,6 +280,28 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
+              Grade
+            </th>
+            <td>
+              06
+            </td>
+            <td>
+              04
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
               Bureau
             </th>
             <td>
@@ -745,6 +767,28 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td>
               SECURITY (2501)
+            </td>
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+            <td
+              className="empty"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Grade
+            </th>
+            <td>
+              06
+            </td>
+            <td>
+              04
             </td>
             <td
               className="empty"
