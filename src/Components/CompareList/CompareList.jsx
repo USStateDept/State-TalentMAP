@@ -9,7 +9,8 @@ import BackButton from '../BackButton';
 import { BID_LIST, COMPARE_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import COMPARE_LIMIT from '../../Constants/Compare';
-import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_POST_DIFFERENTIAL, NO_DANGER_PAY } from '../../Constants/SystemMessages';
+import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE,
+  NO_POST_DIFFERENTIAL, NO_DANGER_PAY, NO_GRADE } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
 import { propOrDefault, formatDate, getPostName, getDifferentialPercentage, getAccessiblePositionNumber } from '../../utilities';
@@ -193,6 +194,17 @@ class CompareList extends Component {
                       {
                         compareArray.map(c => (
                           <td key={shortId.generate()}>{c.skill || NO_SKILL}</td>
+                        ))
+                      }
+                      {
+                        emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                      }
+                    </tr>
+                    <tr>
+                      <th scope="row">Grade</th>
+                      {
+                        compareArray.map(c => (
+                          <td key={shortId.generate()}>{c.grade || NO_GRADE}</td>
                         ))
                       }
                       {
