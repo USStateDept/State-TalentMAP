@@ -72,6 +72,21 @@ const items = {
       data: [
       ],
     },
+    {
+      item: {
+        title: 'Danger Pay',
+        sort: 700,
+        description: 'dangerPay',
+        selectionRef: ENDPOINT_PARAMS.danger,
+        text: 'Include only positions with danger pay',
+        choices: [
+        ],
+      },
+      data: [
+        { id: 100, code: '0', description: 'No danger pay' },
+        { id: 150, code: '15', description: '15%' },
+      ],
+    },
   ],
 };
 
@@ -220,6 +235,21 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.filtersFetchData(items, queryParams, filters));
+        store.dispatch(actions.filtersIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle when fromResultsPage param is true', (done) => {
+    const store = mockStore({ filters: [] });
+
+    const fromResultsPage = true;
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.filtersFetchData(items, queryParams, filters, fromResultsPage));
         store.dispatch(actions.filtersIsLoading());
         done();
       }, 0);

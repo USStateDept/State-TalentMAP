@@ -19,6 +19,8 @@ exports[`BidderPortfolioSearchComponent matches snapshot 1`] = `
       onFilterChange={[Function]}
       onUpdate={[Function]}
       placeholder="Search Bidder Last Name, Skill"
+      searchBarDisabled={false}
+      searchBarDisabledPlaceholder="Free text search is unavailable when searching Projected Vacancies"
     />
   </div>
 </div>

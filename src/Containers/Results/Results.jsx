@@ -247,6 +247,7 @@ class Results extends Component {
           postSearchHasErrored={postSearchHasErrored}
           shouldShowSearchBar={shouldShowSearchBar}
           bidList={bidList.results}
+          isProjectedVacancy={results.isProjectedVacancy}
         />
         <CompareDrawer />
       </div>

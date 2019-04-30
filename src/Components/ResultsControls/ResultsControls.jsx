@@ -25,6 +25,7 @@ class ResultsControls extends Component {
   render() {
     const { results, hasLoaded, defaultSort, pageSizes,
             defaultPageSize, defaultPageNumber, sortBy } = this.props;
+    const { isProjectedVacancy } = this.context;
     return (
       <div className="usa-grid-full results-controls">
         <div className="usa-width-five-twelfths total-results">
@@ -50,18 +51,21 @@ class ResultsControls extends Component {
                 className="select-blue select-offset select-small"
               />
             </div>
-            <div className="results-dropdown results-dropdown-page-size">
-              <PreferenceWrapper onSelect={this.onSelectLimit} keyRef={POSITION_PAGE_SIZES_TYPE}>
-                <SelectForm
-                  id="pageSize"
-                  label="Results:"
-                  options={pageSizes.options}
-                  defaultSort={defaultPageSize}
-                  transformValue={n => parseInt(n, 10)}
-                  className="select-blue select-offset select-small"
-                />
-              </PreferenceWrapper>
-            </div>
+            {
+              !isProjectedVacancy &&
+              <div className="results-dropdown results-dropdown-page-size">
+                <PreferenceWrapper onSelect={this.onSelectLimit} keyRef={POSITION_PAGE_SIZES_TYPE}>
+                  <SelectForm
+                    id="pageSize"
+                    label="Results:"
+                    options={pageSizes.options}
+                    defaultSort={defaultPageSize}
+                    transformValue={n => parseInt(n, 10)}
+                    className="select-blue select-offset select-small"
+                  />
+                </PreferenceWrapper>
+              </div>
+            }
             <div className="results-download">
               <SearchResultsExportLink count={results.count} />
             </div>
@@ -71,6 +75,10 @@ class ResultsControls extends Component {
     );
   }
 }
+
+ResultsControls.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 ResultsControls.propTypes = {
   results: POSITION_SEARCH_RESULTS,

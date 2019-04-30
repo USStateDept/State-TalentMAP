@@ -29,7 +29,8 @@ class ResultsSearchHeader extends Component {
     this.props.onFilterChange({ q: q.value });
   }
   render() {
-    const { defaultKeyword, isHomePage, labelSrOnly, placeholder } = this.props;
+    const { defaultKeyword, isHomePage, labelSrOnly, placeholder, searchBarDisabled,
+    searchBarDisabledPlaceholder } = this.props;
     return (
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
         <div className="usa-grid-full results-search-bar-container">
@@ -51,9 +52,10 @@ class ResultsSearchHeader extends Component {
                   labelSrOnly={labelSrOnly}
                   noForm
                   noButton
-                  placeholder={placeholder}
+                  placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
                   onChangeText={this.onChangeQueryText}
                   defaultValue={defaultKeyword}
+                  inputDisabled={searchBarDisabled}
                 />
                 {
                   isHomePage && <div className="search-sub-text">Example: Abuja, Nigeria, Political Affairs (5505), Russian...</div>
@@ -61,7 +63,7 @@ class ResultsSearchHeader extends Component {
               </div>
             </fieldset>
             <div className="usa-width-one-sixth search-submit-button">
-              <button className="usa-button" type="submit">
+              <button className="usa-button" type="submit" disabled={searchBarDisabled}>
                 <FontAwesome name="search" className="label-icon" />
                 Search
               </button>
@@ -80,6 +82,8 @@ ResultsSearchHeader.propTypes = {
   placeholder: PropTypes.string,
   onFilterChange: PropTypes.func.isRequired,
   isHomePage: PropTypes.bool,
+  searchBarDisabled: PropTypes.bool,
+  searchBarDisabledPlaceholder: PropTypes.string,
 };
 
 ResultsSearchHeader.defaultProps = {
@@ -89,6 +93,8 @@ ResultsSearchHeader.defaultProps = {
   labelSrOnly: false,
   placeholder: 'Location, Skill, Grade, Language, Position number',
   isHomePage: false,
+  searchBarDisabled: false,
+  searchBarDisabledPlaceholder: 'Free text search is unavailable when searching Projected Vacancies',
 };
 
 export default ResultsSearchHeader;

@@ -6,12 +6,40 @@ const items =
     filters: [
       {
         item: {
+          title: 'Projected Vacancy',
+          sort: 50,
+          isToggle: true,
+          description: 'projectedVacancy',
+          selectionRef: ENDPOINT_PARAMS.projectedVacancy,
+          text: 'Toggle between available and projected vacancy positions',
+          choices: [
+          ],
+        },
+        data: [
+          { code: 'open', short_description: 'Open Positions' },
+          { code: 'projected', short_description: 'Projected Vacancies' },
+        ],
+      },
+      {
+        item: {
           title: 'Bid Cycle',
           sort: 100,
           description: 'bidCycle',
           endpoint: 'bidcycle/?active=true&ordering=name',
           selectionRef: ENDPOINT_PARAMS.bidCycle,
           text: 'Choose Bid Cycles',
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Bid Season',
+          sort: 150,
+          description: 'bidSeason',
+          endpoint: 'fsbid/bid_seasons',
+          selectionRef: ENDPOINT_PARAMS.bidSeason,
+          text: 'Choose Bid Seasons',
         },
         data: [
         ],

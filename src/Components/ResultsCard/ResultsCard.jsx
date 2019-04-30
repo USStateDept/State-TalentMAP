@@ -76,8 +76,8 @@ class ResultsCard extends Component {
       id,
       result,
       favorites,
-      isProjectedVacancy,
     } = this.props;
+    const { isProjectedVacancy } = this.context;
 
     const title = propOrDefault(result, 'title');
     const position = getResult(result, 'position_number', NO_POSITION_NUMBER);
@@ -147,17 +147,20 @@ class ResultsCard extends Component {
                 <Column columns="8">
                   <Column columns="12" className="results-card-title-link">
                     <h3>{title}</h3>
-                    <Link to={`/details/${result.id}`}>View position</Link>
+                    { !isProjectedVacancy && <Link to={`/details/${result.id}`}>View position</Link> }
                     {recentlyAvailable && <span className="available-alert">Now available!</span>}
                   </Column>
                   <Column columns="12" className="results-card-title-link">
                     <dt>Post:</dt><dd>{post}</dd>
                   </Column>
                 </Column>
-                <Flag
-                  name="flags.bidding"
-                  render={() => renderBidCount(stats)}
-                />
+                {
+                  !isProjectedVacancy &&
+                  <Flag
+                    name="flags.bidding"
+                    render={() => renderBidCount(stats)}
+                  />
+                }
               </Row>
               <Flag
                 name="flags.bidding"
@@ -188,13 +191,16 @@ class ResultsCard extends Component {
               }
               />
               <Row className="footer results-card-padded-section" fluid>
+                {
+                !isProjectedVacancy &&
                 <Column columns="6" as="section">
                   {
-                !!favorites &&
-                  <Favorite {...options.favorite} />
-              }
+                    !!favorites &&
+                      <Favorite {...options.favorite} />
+                  }
                   <CompareCheck {...options.compare} />
                 </Column>
+              }
                 <Column columns="6" as="section">
                   <div>
                     <DefinitionList items={sections[2]} />
@@ -215,17 +221,18 @@ class ResultsCard extends Component {
   }
 }
 
+ResultsCard.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 ResultsCard.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   result: POSITION_DETAILS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
-  isProjectedVacancy: PropTypes.bool,
 };
 
 ResultsCard.defaultProps = {
   favorites: [],
-  isProjectedVacancy: false,
 };
 
 export default ResultsCard;

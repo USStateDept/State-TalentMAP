@@ -21,6 +21,7 @@ exports[`SearchBarComponent big matches snapshot 1`] = `
           Label
         </label>
         <input
+          disabled={false}
           id="search-2"
           name="search"
           onChange={[Function]}
@@ -104,6 +105,7 @@ exports[`SearchBarComponent medium matches snapshot 1`] = `
           Label
         </label>
         <input
+          disabled={false}
           id="search-2"
           name="search"
           onChange={[Function]}
@@ -187,6 +189,7 @@ exports[`SearchBarComponent small matches snapshot 1`] = `
           Label
         </label>
         <input
+          disabled={false}
           id="search-2"
           name="search"
           onChange={[Function]}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, includes, sortBy } from 'lodash';
-import { Flag } from 'flag';
+import { get, includes, indexOf, sortBy } from 'lodash';
 import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
@@ -16,6 +15,7 @@ import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utili
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
 
 const useBidding = () => checkFlag('flags.bidding');
+const usePV = () => checkFlag('flags.projected_vacancy');
 
 class SearchFiltersContainer extends Component {
 
@@ -23,6 +23,7 @@ class SearchFiltersContainer extends Component {
     super(props);
     this.onMissionSuggestionSelected = this.onMissionSuggestionSelected.bind(this);
     this.onPostSuggestionSelected = this.onPostSuggestionSelected.bind(this);
+    this.onProjectedVacancyFilterClick = this.onProjectedVacancyFilterClick.bind(this);
   }
 
   onMissionSuggestionSelected(value) {
@@ -39,7 +40,31 @@ class SearchFiltersContainer extends Component {
     this.props.queryParamUpdate(object);
   }
 
+  // Some filters aren't compatible with projected vs non-projected,
+  // so we reset any of those here.
+  onProjectedVacancyFilterClick(value) {
+    let config = {};
+    if (value === 'open') {
+      config = {
+        ...config,
+        is_available_in_bidseason: null,
+        projectedVacancy: null,
+      };
+    } else {
+      config = {
+        ...config,
+        is_available_in_bidcycle: null,
+        is_available_in_current_bidcycle: null,
+        is_domestic: null,
+        post__in: null,
+        projectedVacancy: value,
+      };
+    }
+    this.props.queryParamUpdate(config);
+  }
+
   render() {
+    const { isProjectedVacancy } = this.context;
     const { fetchPostAutocomplete, postSearchResults } = this.props;
 
     // Get our boolean filter names.
@@ -48,7 +73,7 @@ class SearchFiltersContainer extends Component {
     const sortedBooleanNames = [];
     // show the 'Available' filter,
     // but only if flags.bidding === true
-    if (useBidding()) {
+    if (useBidding() && !isProjectedVacancy) {
       sortedBooleanNames.push('available');
     }
 
@@ -71,9 +96,50 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['bidCycle', 'skill', 'grade', 'region', 'post', 'tod', 'language',
+    const multiSelectFilterNames = ['skill', 'grade', 'region', 'tod', 'language',
       'postDiff', 'dangerPay'];
     const blackList = []; // don't create accordions for these
+
+    // START TOGGLE FILTERS
+    // Get our boolean filter names.
+    // We use the "description" property because these are less likely
+    // to change (they're not UI elements).
+    const sortedToggleNames = [];
+    // show the 'Available' filter,
+    // but only if flags.bidding === true
+    if (usePV()) {
+      sortedToggleNames.push('projectedVacancy');
+    }
+
+    // store filters in Map
+    const toggleFiltersMap = new Map();
+    this.props.filters.forEach((searchFilter) => {
+      if (searchFilter.item.isToggle) {
+        toggleFiltersMap.set(searchFilter.item.description, searchFilter);
+      }
+    });
+
+    // sort boolean filters by sortedBooleanNames
+    // pull from Map
+    const toggleFilters = [];
+    sortedToggleNames.forEach((b) => {
+      const filter = toggleFiltersMap.get(b);
+      if (filter) {
+        toggleFilters.push(filter);
+      }
+    });
+
+    const projectedVacancyFilter = sortedToggleNames.length ?
+      get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
+
+    if (isProjectedVacancy) {
+      multiSelectFilterNames.unshift('bidSeason');
+    } else {
+      multiSelectFilterNames.unshift('bidCycle');
+      // post should come before TOD
+      multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
+    }
+    // END TOGGLE FILTERS
 
     // create map
     const multiSelectFilterMap = new Map();
@@ -186,18 +252,26 @@ class SearchFiltersContainer extends Component {
             );
           case includes(blackList, type) ? type : null:
             return null;
-          default:
+          default: {
+            const getQueryProperty = () => {
+              if (type === 'post' || type === 'bidCycle' || type === 'bidSeason') {
+                return '_id';
+              }
+              return 'code';
+            };
+            const queryProperty = getQueryProperty();
             return (
               <div className="usa-grid-full">
                 <MultiSelectFilter
                   key={item.item.title}
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
-                  queryProperty={(type === 'post' || type === 'bidCycle') ? '_id' : 'code'}
+                  queryProperty={queryProperty}
                   groupAlpha={type === 'skill'}
                 />
               </div>
             );
+          }
         }
       };
 
@@ -213,12 +287,13 @@ class SearchFiltersContainer extends Component {
 
     return (
       <div>
-        <Flag
-          name="flags.projected_vacancy"
-          render={() => (
-            <ProjectedVacancyFilter />
-          )}
-        />
+        {
+          projectedVacancyFilter &&
+          <ProjectedVacancyFilter
+            items={projectedVacancyFilter}
+            onChange={this.onProjectedVacancyFilterClick}
+          />
+        }
         <MultiSelectFilterContainer
           multiSelectFilterList={sortedFilters}
           queryParamToggle={this.props.queryParamToggle}
@@ -238,6 +313,10 @@ class SearchFiltersContainer extends Component {
     );
   }
 }
+
+SearchFiltersContainer.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 SearchFiltersContainer.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,
