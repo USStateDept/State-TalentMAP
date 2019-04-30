@@ -47,6 +47,7 @@ class HoverDescription extends Component {
   }
 
   render() {
+    const { isProjectedVacancy } = this.context;
     const { getOffsetPx, text, id } = this.props;
     const { expanded, cardHovered } = this.state;
 
@@ -80,7 +81,7 @@ class HoverDescription extends Component {
                           { expanded &&
                             <Linkify properties={{ target: '_blank' }}>
                               {text}
-                              <Link className="position-link" to={`/details/${id}`}>View position</Link>
+                              { !isProjectedVacancy && <Link className="position-link" to={`/details/${id}`}>View position</Link> }
                             </Linkify>
                           }
                         </p>
@@ -96,6 +97,9 @@ class HoverDescription extends Component {
   }
 }
 
+HoverDescription.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 HoverDescription.propTypes = {
   getOffsetPx: PropTypes.func.isRequired,

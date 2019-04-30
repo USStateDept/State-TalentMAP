@@ -96,11 +96,13 @@ class ResultsCard extends Component {
   // TODO - update this to a real property once API is updateds
     const recentlyAvailable = result.recently_available;
 
+    const bidTypeTitle = isProjectedVacancy ? 'Bid season' : 'Bid cycle';
+
     const sections = [
     /* eslint-disable quote-props */
       {
         'TED': getResult(result, 'current_assignment.estimated_end_date', NO_DATE),
-        'Bid cycle': getResult(result, 'latest_bidcycle.name', NO_BID_CYCLE),
+        [bidTypeTitle]: getResult(result, 'latest_bidcycle.name', NO_BID_CYCLE),
         'Skill': getResult(result, 'skill', NO_SKILL),
         'Grade': getResult(result, 'grade', NO_GRADE),
         'Bureau': getResult(result, 'bureau', NO_BUREAU),
