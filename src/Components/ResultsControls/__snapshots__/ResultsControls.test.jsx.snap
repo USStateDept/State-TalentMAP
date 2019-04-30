@@ -75,10 +75,22 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
       <div
         className="results-download"
       >
-        <SearchResultsExportLink
-          count={2}
-          filename="TalentMap_search_export.csv"
-        />
+        <Connect(PermissionsWrapper)
+          fallback={
+            <span>
+              <SearchResultsExportLink
+                count={2}
+                filename="TalentMap_search_export.csv"
+              />
+            </span>
+          }
+          permissions="superuser"
+        >
+          <SearchResultsExportLink
+            count={2}
+            filename="TalentMap_search_export.csv"
+          />
+        </Connect(PermissionsWrapper)>
       </div>
     </div>
   </div>

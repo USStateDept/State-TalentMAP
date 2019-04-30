@@ -6,6 +6,7 @@ import SearchResultsExportLink from '../SearchResultsExportLink';
 import PreferenceWrapper from '../../Containers/PreferenceWrapper';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 import { POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
+import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 
 class ResultsControls extends Component {
   constructor(props) {
@@ -67,7 +68,19 @@ class ResultsControls extends Component {
               </div>
             }
             <div className="results-download">
-              <SearchResultsExportLink count={results.count} />
+              <PermissionsWrapper
+                permissions="superuser"
+                fallback={
+                  <span>
+                    {
+                      !isProjectedVacancy &&
+                      <SearchResultsExportLink count={results.count} />
+                    }
+                  </span>
+                }
+              >
+                <SearchResultsExportLink count={results.count} />
+              </PermissionsWrapper>
             </div>
           </div>
         </div>
