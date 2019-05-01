@@ -17,12 +17,31 @@ describe('SearchAsClientButton', () => {
   const props = {
     id: 1,
     set: () => {},
-    history: {},
+    history: { push: () => {} },
   };
 
   it('is defined', () => {
     const wrapper = shallow(<SearchAsClientButton {...props} />);
     expect(wrapper).toBeDefined();
+  });
+
+  it('sets state and pushes to history when newProps client.id matches id', (done) => {
+    const spy = sinon.spy();
+    global.document.getElementById = () => ({ offsetTop: '50px' });
+    const wrapper = shallow(<SearchAsClientButton {...props} />);
+    wrapper.setProps({
+      ...props,
+      id: 1,
+      history: { push: spy },
+      client: { id: 1 },
+      isLoading: false,
+      hasErrored: false,
+    });
+    setTimeout(() => {
+      expect(wrapper.instance().state.hasPushed).toBe(true);
+      sinon.assert.calledOnce(spy);
+      done();
+    }, 1);
   });
 
   it('calls set() on click', () => {

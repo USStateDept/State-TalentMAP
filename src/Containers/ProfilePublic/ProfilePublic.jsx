@@ -16,10 +16,6 @@ class ProfilePublic extends Component {
     this.props.fetchData(get(this.props, 'match.params.id'));
   }
 
-  getDetails(id) {
-    this.props.fetchData(id);
-  }
-
   render() {
     const { isLoading, hasErrored, userProfile } = this.props;
     const { assignments, bidList } = userProfile;

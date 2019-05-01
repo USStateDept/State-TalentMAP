@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { setSortPreference } from '../../actions/sortPreferences';
 
-class PreferenceWrapper extends Component {
+export class PreferenceWrapper extends Component {
   constructor(props) {
     super(props);
     this.cb = this.cb.bind(this);
