@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import TotalResults from '../TotalResults/TotalResults';
 import SelectForm from '../SelectForm/SelectForm';
 import SearchResultsExportLink from '../SearchResultsExportLink';
+import PreferenceWrapper from '../../Containers/PreferenceWrapper';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
+import { POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
+import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 
 class ResultsControls extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class ResultsControls extends Component {
   render() {
     const { results, hasLoaded, defaultSort, pageSizes,
             defaultPageSize, defaultPageNumber, sortBy } = this.props;
+    const { isProjectedVacancy } = this.context;
     return (
       <div className="usa-grid-full results-controls">
         <div className="usa-width-five-twelfths total-results">
@@ -48,18 +52,35 @@ class ResultsControls extends Component {
                 className="select-blue select-offset select-small"
               />
             </div>
-            <div className="results-dropdown results-dropdown-page-size">
-              <SelectForm
-                id="pageSize"
-                label="Results:"
-                onSelectOption={this.onSelectLimit}
-                options={pageSizes.options}
-                defaultSort={defaultPageSize}
-                className="select-blue select-offset select-small"
-              />
-            </div>
+            {
+              !isProjectedVacancy &&
+              <div className="results-dropdown results-dropdown-page-size">
+                <PreferenceWrapper onSelect={this.onSelectLimit} keyRef={POSITION_PAGE_SIZES_TYPE}>
+                  <SelectForm
+                    id="pageSize"
+                    label="Results:"
+                    options={pageSizes.options}
+                    defaultSort={defaultPageSize}
+                    transformValue={n => parseInt(n, 10)}
+                    className="select-blue select-offset select-small"
+                  />
+                </PreferenceWrapper>
+              </div>
+            }
             <div className="results-download">
-              <SearchResultsExportLink count={results.count} />
+              <PermissionsWrapper
+                permissions="superuser"
+                fallback={
+                  <span>
+                    {
+                      !isProjectedVacancy &&
+                      <SearchResultsExportLink count={results.count} />
+                    }
+                  </span>
+                }
+              >
+                <SearchResultsExportLink count={results.count} />
+              </PermissionsWrapper>
             </div>
           </div>
         </div>
@@ -68,12 +89,16 @@ class ResultsControls extends Component {
   }
 }
 
+ResultsControls.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
+
 ResultsControls.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
-  defaultPageSize: PropTypes.node,
+  defaultPageSize: PropTypes.number,
   hasLoaded: PropTypes.bool,
   defaultPageNumber: PropTypes.number,
   queryParamUpdate: PropTypes.func.isRequired,

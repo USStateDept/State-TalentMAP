@@ -46,6 +46,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
             },
           ]
         }
+        transformValue={[Function]}
       />
     </div>
   </div>

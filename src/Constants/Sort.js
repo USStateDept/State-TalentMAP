@@ -9,7 +9,7 @@ export const POSITION_SEARCH_SORTS = {
     { value: `-${COMMON_PROPERTIES.posted}`, text: 'Posted date: Most recent' }, // sort by soonest posted_date
     { value: 'current_assignment__estimated_end_date', text: 'TED: Soonest' },
     { value: 'position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
-    { value: '-post__has_service_needs_differential', text: 'Service need' }, // sort by service needs first
+    { value: '-post__has_service_needs_differential', text: 'Featured positions' }, // sort by service needs first
   ],
 };
 
@@ -48,3 +48,23 @@ export const SAVED_SEARCH_SORTS = {
 };
 
 SAVED_SEARCH_SORTS.defaultSort = SAVED_SEARCH_SORTS.options[0].value;
+
+export const POSITION_SEARCH_SORTS_TYPE = 'POSITION_SEARCH_SORTS';
+export const POSITION_PAGE_SIZES_TYPE = 'POSITION_PAGE_SIZES';
+export const BID_PORTFOLIO_SORTS_TYPE = 'BID_PORTFOLIO_SORTS';
+export const SAVED_SEARCH_SORTS_TYPE = 'SAVED_SEARCH_SORTS';
+
+const SORT_OPTIONS = [
+  [POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_TYPE],
+  [POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE],
+  [BID_PORTFOLIO_SORTS, BID_PORTFOLIO_SORTS_TYPE],
+  [SAVED_SEARCH_SORTS, SAVED_SEARCH_SORTS_TYPE],
+];
+
+// sort config based on SORT_OPTIONS
+export default Object.assign(
+  {},
+  ...SORT_OPTIONS.map(p => (
+    { [p[1]]: { key: p[1], defaultSort: p[0].defaultSort, options: p[0].options } }
+  )),
+);

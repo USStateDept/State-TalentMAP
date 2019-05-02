@@ -14,6 +14,8 @@ exports[`GlossaryEditorSearchComponent matches snapshot 1`] = `
       onFilterChange={[Function]}
       onUpdate={[Function]}
       placeholder="Search for Glossary terms"
+      searchBarDisabled={false}
+      searchBarDisabledPlaceholder="Free text search is unavailable when searching Projected Vacancies"
     />
   </div>
 </div>

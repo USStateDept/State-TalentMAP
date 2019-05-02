@@ -29,6 +29,22 @@ describe('ResultsCardComponent', () => {
     expect(wrapper.instance().props.result.id).toBe(60);
   });
 
+  it('returns the offset px', () => {
+    global.document.getElementById = () => ({ offsetTop: 50, offsetHeight: 80 });
+
+    wrapper = shallow(
+      <ResultsCard
+        id={1}
+        result={resultsObject.results[1]}
+        onToggle={() => {}}
+        bidList={[]}
+      />);
+    const output = wrapper.instance().getOffsetPx();
+
+    // should be offsetTop minus offsetHeight
+    expect(output).toBe('30px');
+  });
+
   it('renders bid count', () => {
     expect(renderBidCount({})).toBeDefined();
   });

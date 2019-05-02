@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
@@ -31,6 +32,7 @@ class ResultsContainer extends Component {
             newSavedSearchHasErrored, saveSearch, newSavedSearchSuccess,
             currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, bidList,
       } = this.props;
+    const { isProjectedVacancy } = this.context;
     return (
       <div className="results-container">
         {
@@ -53,13 +55,18 @@ class ResultsContainer extends Component {
           defaultPageNumber={defaultPageNumber}
           queryParamUpdate={queryParamUpdate}
         />
-        <SaveNewSearchContainer
-          saveSearch={saveSearch}
-          newSavedSearchSuccess={newSavedSearchSuccess}
-          newSavedSearchHasErrored={newSavedSearchHasErrored}
-          currentSavedSearch={currentSavedSearch}
-          newSavedSearchIsSaving={newSavedSearchIsSaving}
-        />
+        {
+          !isProjectedVacancy ?
+            <SaveNewSearchContainer
+              saveSearch={saveSearch}
+              newSavedSearchSuccess={newSavedSearchSuccess}
+              newSavedSearchHasErrored={newSavedSearchHasErrored}
+              currentSavedSearch={currentSavedSearch}
+              newSavedSearchIsSaving={newSavedSearchIsSaving}
+            />
+            :
+            <div style={{ marginBottom: 10 }} />
+        }
         {
           // is not loading, results array exists, but is empty
           !isLoading && results.results && !results.results.length &&
@@ -93,12 +100,17 @@ class ResultsContainer extends Component {
              onPageChange={this.onPageChange}
              forcePage={defaultPageNumber}
            />
+           <ScrollUpButton />
          </div>
         }
       </div>
     );
   }
 }
+
+ResultsContainer.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 ResultsContainer.propTypes = {
   hasErrored: PropTypes.bool,
@@ -109,7 +121,7 @@ ResultsContainer.propTypes = {
   sortBy: SORT_BY_PARENT_OBJECT.isRequired,
   defaultSort: PropTypes.node,
   pageSizes: SORT_BY_PARENT_OBJECT.isRequired,
-  defaultPageSize: PropTypes.node,
+  defaultPageSize: PropTypes.number,
   defaultPageNumber: PropTypes.number,
   pageSize: PropTypes.number.isRequired,
   hasLoaded: PropTypes.bool.isRequired,

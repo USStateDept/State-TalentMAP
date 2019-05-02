@@ -86,7 +86,14 @@ class SearchResultsExportLink extends Component {
     return (
       <div className="export-button-container">
         <ExportButton onClick={this.onClick} isLoading={isLoading} />
-        <CSVLink ref={(x) => { this.csvLink = x; }} target="_blank" filename={this.props.filename} data={data} headers={HEADERS} />
+        <CSVLink
+          tabIndex="-1"
+          ref={(x) => { this.csvLink = x; }}
+          target="_blank"
+          filename={this.props.filename}
+          data={data}
+          headers={HEADERS}
+        />
       </div>
     );
   }

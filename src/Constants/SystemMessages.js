@@ -1,4 +1,5 @@
 import FavoriteSuccess from '../Components/FavoriteMessages/Success';
+import BidAddSuccess from '../Components/BidListMessages/Success';
 
 export const DEFAULT_TEXT = 'None listed';
 
@@ -36,7 +37,7 @@ export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this
 
 export const DELETE_BID_ITEM_SUCCESS = 'Bid successfully removed.';
 export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
-export const ADD_BID_ITEM_SUCCESS = 'Bid successfully added.';
+export const ADD_BID_ITEM_SUCCESS = BidAddSuccess();
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
 
 export const ADD_FAVORITE_TITLE = 'Favorite Added';
@@ -68,3 +69,8 @@ export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CAN
 export const GET_NOW_AVAILABLE = n => `${n} Now available!`;
 export const GET_POSITIONS_ADDED = n => `${n} Position${n !== 1 ? 's' : ''} added`;
 
+export const SET_CLIENT_SUCCESS = 'Success';
+export const SET_CLIENT_ERROR = 'Error setting client';
+export const GET_CLIENT_SUCCESS_MESSAGE = user => `You are now searching as ${user.first_name} ${user.last_name}.`;
+export const UNSET_CLIENT_SUCCESS = SET_CLIENT_SUCCESS;
+export const UNSET_CLIENT_SUCCESS_MESSAGE = 'You have exited client view.';

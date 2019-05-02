@@ -78,7 +78,7 @@
 
   > div:nth-child(3) {
     display: flex;
-    flex: 8 0 225px;
+    flex: 6 0 100px;
     justify-content: flex-end;
   }
 
@@ -91,7 +91,12 @@
     }
   }
 
+  // Disable to override the >div:nth-child() styles
+  // scss-lint:disable MergeableSelector
+  // scss-lint:disable QualifyingElement
   > div.client-checkbox-list {
+  // scss-lint:enable MergeableSelector
+  // scss-lint:enable QualifyingElement
     display: flex;
     flex: 16 1 450px;
     flex-wrap: wrap;
@@ -136,12 +141,33 @@
     flex-direction: row;
     line-height: 1.3em;
   }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0;
+
+    > span {
+      margin-right: 10px;
+    }
+
+    span,
+    a,
+    button {
+      margin: 0;
+      margin-bottom: 0;
+    }
+
+    .link-button-wrapper {
+      margin-right: 10px;
+    }
+  }
 }
 
 .bidder-portfolio-stat-card {
   display: flex;
   flex-direction: column;
-  height: 299px;
+  height: 331px;
   margin-bottom: 15px;
   margin-left: 15px;
   margin-right: auto;
@@ -186,23 +212,52 @@
     border-top: 1px solid $color-gray-lighter;
     display: flex;
     flex: 4;
+    flex-direction: column;
+    padding-bottom: 20px;
 
     > div {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 10px 16px 20px;
+      padding: 10px 16px 0;
       width: 100%;
 
-      > span {
+      .updates {
         font-weight: bold;
+        margin-bottom: 5px;
       }
+    }
+
+    > div:nth-child(2) {
+      padding-bottom: 0;
     }
   }
 
   .stat-card-data-point {
     display: flex;
     flex-direction: row;
+  }
+
+  .button-container {
+    margin-top: 10px;
+
+    span,
+    a,
+    button {
+      margin: 0;
+      margin-bottom: 0;
+    }
+
+    > span,
+    > button {
+      width: 48%;
+    }
+
+    a,
+    button {
+      font-size: .9em;
+      padding: 10px 5px;
+    }
   }
 }
 
@@ -319,6 +374,17 @@ $cdo-search-container-padding: 10px;
       justify-content: center;
       margin-left: 10px;
       min-width: 100px;
+    }
+  }
+
+  .client-as-button-container {
+    display: inherit;
+
+    button {
+      margin: 0;
+      margin-left: 0;
+      min-width: 120px;
+      padding: 10px 5px;
     }
   }
 

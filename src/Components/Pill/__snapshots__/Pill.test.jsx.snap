@@ -2,7 +2,7 @@
 
 exports[`PillComponent matches snapshot 1`] = `
 <button
-  className="pill"
+  className="pill "
   onClick={[Function]}
   title="Remove test filter"
 >

@@ -40,6 +40,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     case 'postDiff':
     case 'dangerPay':
     case 'functionalRegion':
+    case 'bidSeason':
       return filterItemObject.description;
     default:
       return false;

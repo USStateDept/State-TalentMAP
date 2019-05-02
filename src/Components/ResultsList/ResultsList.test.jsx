@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import toJSON from 'enzyme-to-json';
 import React from 'react';
 import ResultsList from './ResultsList';
 import resultsObject from '../../__mocks__/resultsObject';
@@ -29,27 +28,11 @@ describe('ResultsListComponent', () => {
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
 
-  it('matches a snapshot with results', () => {
-    wrapper = shallow(<ResultsList
-      results={resultsObject}
-      bidList={[]}
-    />);
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
   it('handles an empty result set', () => {
     wrapper = shallow(<ResultsList
       results={{}}
       bidList={[]}
     />);
     expect(wrapper.find('div').hasClass('results-loading')).toBe(false);
-  });
-
-  it('matches a snapshot with an empty result set', () => {
-    wrapper = shallow(<ResultsList
-      results={{}}
-      bidList={[]}
-    />);
-    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

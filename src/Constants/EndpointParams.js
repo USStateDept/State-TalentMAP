@@ -15,7 +15,9 @@ export const ENDPOINT_PARAMS = {
   post: 'post__in',
   available: 'is_available_in_current_bidcycle',
   bidCycle: 'is_available_in_bidcycle',
+  bidSeason: 'is_available_in_bidseason',
   highlighted: 'is_highlighted',
+  projectedVacancy: 'projectedVacancy', // this isn't a real query param, but we'll use it to transform the request
 };
 
 // any properties that we want to abstract to a common name
