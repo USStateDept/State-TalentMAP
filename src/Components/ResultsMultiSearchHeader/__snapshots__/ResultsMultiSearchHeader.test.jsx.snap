@@ -32,6 +32,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 alertText="Disabled"
                 defaultValue=""
                 id="multi-search-keyword-field"
+                inputDisabled={false}
                 label="Keywords"
                 labelSrOnly={true}
                 noButton={true}
@@ -100,6 +101,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                     },
                   ]
                 }
+                transformValue={[Function]}
               />
             </div>
             <div
@@ -125,6 +127,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                     },
                   ]
                 }
+                transformValue={[Function]}
               />
             </div>
             <div

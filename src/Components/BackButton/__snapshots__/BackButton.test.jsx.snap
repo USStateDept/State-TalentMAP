@@ -10,6 +10,6 @@ exports[`BackButton matches snapshot 1`] = `
   <FontAwesome
     name="arrow-left"
   />
-  Back to Home Page
+  Back to Search Results
 </button>
 `;

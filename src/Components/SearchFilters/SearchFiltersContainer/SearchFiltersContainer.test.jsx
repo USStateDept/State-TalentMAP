@@ -107,6 +107,31 @@ describe('SearchFiltersContainerComponent', () => {
     expect(toggleValue.value.skill).toBe('');
   });
 
+  it('calls queryParamUpdate() when onProjectedVacancyFilterClick() is called', () => {
+    const toggleValue = { value: null };
+    const wrapper = shallow(
+      <SearchFiltersContainer
+        {...props}
+        queryParamUpdate={(e) => { toggleValue.value = e; }}
+      />,
+    );
+
+    // check when value === 'open'
+    wrapper.instance().onProjectedVacancyFilterClick('open');
+    expect(toggleValue.value).toEqual({ is_available_in_bidseason: null, projectedVacancy: null });
+
+    // check when value !== 'open'
+    wrapper.instance().onProjectedVacancyFilterClick('pv');
+    expect(toggleValue.value).toEqual({
+      is_available_in_bidcycle: null,
+      is_available_in_current_bidcycle: null,
+      is_domestic: null,
+      post__in: null,
+      projectedVacancy: 'pv',
+    });
+  });
+
+
   it('can call the on[x]SuggestionSelected functions', () => {
     const spy = sinon.spy();
     const wrapper = shallow(

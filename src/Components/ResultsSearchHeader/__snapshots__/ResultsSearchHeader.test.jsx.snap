@@ -26,6 +26,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
             alertText="Disabled"
             defaultValue="keyword"
             id="search-keyword-field"
+            inputDisabled={false}
             label="Keywords"
             labelSrOnly={false}
             noButton={true}
@@ -44,6 +45,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
       >
         <button
           className="usa-button"
+          disabled={false}
           type="submit"
         >
           <FontAwesome
@@ -84,6 +86,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot when isHomePage is true 1
             alertText="Disabled"
             defaultValue="keyword"
             id="search-keyword-field"
+            inputDisabled={false}
             label="Keywords"
             labelSrOnly={false}
             noButton={true}
@@ -107,6 +110,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot when isHomePage is true 1
       >
         <button
           className="usa-button"
+          disabled={false}
           type="submit"
         >
           <FontAwesome

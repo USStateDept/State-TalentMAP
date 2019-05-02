@@ -27,6 +27,7 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />
     </MockTestProvider>);
     expect(results).toBeDefined();
@@ -50,6 +51,7 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />
     </MockTestProvider>);
     expect(results).toBeDefined();
@@ -75,6 +77,7 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />,
     );
     // define the instance
@@ -107,6 +110,7 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
@@ -133,6 +137,7 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />,
     );
     wrapper.instance().saveSearch('test', 1);
@@ -161,6 +166,7 @@ describe('Results', () => {
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />,
     );
     // define the instance
@@ -200,6 +206,7 @@ describe('Results', () => {
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />,
     );
     // define the instance
@@ -239,6 +246,7 @@ describe('Results', () => {
         pageTitle="Results"
         debounceTimeInMs={debounceTimeInMs}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />,
     );
     // define the instance
@@ -276,6 +284,7 @@ describe('Results', () => {
         postSearchIsLoading={false}
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
+        defaultPageSize={5}
       />,
     );
     const history = { value: { search: null } };

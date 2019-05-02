@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExportButton matches snapshot 1`] = `
+<button
+  className="usa-button-secondary "
+  onClick={[Function]}
+>
+  <span>
+    Export
+  </span>
+</button>
+`;
+
+exports[`ExportButton matches snapshot when isLoading === true 1`] = `
+<button
+  className="usa-button-secondary "
+  onClick={[Function]}
+>
+  <span>
+    Export
+  </span>
+</button>
+`;

@@ -37,6 +37,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
             },
           ]
         }
+        transformValue={[Function]}
       />
       <ResultsViewBy
         initial="card"
@@ -85,6 +86,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
             },
           ]
         }
+        transformValue={[Function]}
       />
       <ResultsViewBy
         initial="card"

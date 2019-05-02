@@ -23,9 +23,11 @@ class SelectForm extends Component {
   }
 
   selectOption(e) {
+    const { transformValue } = this.props;
+
     const selection = e.target.value;
     this.setState({ selection });
-    this.props.onSelectOption(e);
+    this.props.onSelectOption({ target: { value: transformValue(selection) } });
   }
   render() {
     const { id, label, options, includeFirstEmptyOption, emptyOptionText,
@@ -76,11 +78,12 @@ SelectForm.propTypes = {
   label: PropTypes.node.isRequired,
   defaultSort: PropTypes.node,
   options: SORT_BY_ARRAY.isRequired,
-  onSelectOption: PropTypes.func.isRequired,
+  onSelectOption: PropTypes.func,
   includeFirstEmptyOption: PropTypes.bool,
   emptyOptionText: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
+  transformValue: PropTypes.func,
 };
 
 SelectForm.defaultProps = {
@@ -91,6 +94,7 @@ SelectForm.defaultProps = {
   emptyOptionText: '- Select -',
   disabled: false,
   className: 'select-offset select-black',
+  transformValue: n => n,
 };
 
 export default SelectForm;

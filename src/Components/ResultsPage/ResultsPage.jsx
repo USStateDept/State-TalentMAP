@@ -17,6 +17,10 @@ class Results extends Component {
     };
   }
 
+  getChildContext() {
+    return { isProjectedVacancy: this.props.isProjectedVacancy };
+  }
+
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
@@ -26,7 +30,7 @@ class Results extends Component {
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            bidList }
+            bidList, isProjectedVacancy }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
@@ -38,6 +42,7 @@ class Results extends Component {
             onUpdate={onQueryParamUpdate}
             defaultKeyword={defaultKeyword}
             defaultLocation={defaultLocation}
+            searchBarDisabled={isProjectedVacancy}
           />
         }
         <div className="usa-grid-full results-section-container">
@@ -126,6 +131,7 @@ Results.propTypes = {
   postSearchHasErrored: PropTypes.bool.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 Results.defaultProps = {
@@ -144,10 +150,15 @@ Results.defaultProps = {
   scrollToTop: EMPTY_FUNCTION,
   userProfile: {},
   currentSavedSearch: {},
+  isProjectedVacancy: false,
 };
 
 Results.contextTypes = {
   router: PropTypes.object,
+};
+
+Results.childContextTypes = {
+  isProjectedVacancy: PropTypes.bool,
 };
 
 export default Results;

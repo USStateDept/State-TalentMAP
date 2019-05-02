@@ -23,6 +23,10 @@ class Toggle extends Component {
     }
   }
 
+  updateVal(val) {
+    this.setState({ val });
+  }
+
   isSelected(v) {
     const { val } = this.state;
     return v === val;

@@ -11,6 +11,11 @@ a {
   }
 }
 
+// scss-lint:disable SelectorFormat
+// The react-picky module uses two underscores in its class names.
+// Instead of modifying the source css, the SelectorFormat rule
+// has been disabled for this file in order to override styles on the
+// default classes.
 *:focus,
 .usa-focus,
 .picky__dropdown > div > .option:focus,
@@ -40,5 +45,12 @@ a {
     &:focus {
       outline-color: $tm-focus-outline-color-alt !important;
     }
+  }
+}
+
+// need a color that is accessible when the Compare drawer is either open or closed
+.tm-scroll-up-container {
+  &:focus {
+    outline-color: $blue-primary !important;
   }
 }

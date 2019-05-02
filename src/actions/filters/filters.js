@@ -1,4 +1,5 @@
-import { union } from 'lodash';
+import { get, isArray, union } from 'lodash';
+import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { removeDuplicates } from '../../utilities';
@@ -220,24 +221,32 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           .then((response) => {
             const itemFilter = Object.assign({}, item);
             // We have a mix of server-supplied and hard-coded data, so we combine them with union.
-            itemFilter.data = union(response.data.results, item.initialData);
+            // Also determine whether the results array exists,
+            // or if the array is passed at the top-level.
+            if (response.data.results) {
+              itemFilter.data = union(response.data.results, item.initialData);
+            } else if (isArray(response.data)) {
+              itemFilter.data = union(response.data, item.initialData);
+            }
             return itemFilter;
           })
-      ),
-      );
+      ));
 
-      Promise.all(queryProms)
-        // Promise.all returns a single array which matches the order of the originating array
-        .then((results) => {
-          results.forEach((result) => {
-            responses.filters.push({ data: result.data, item: result.item });
-          });
+      Q.allSettled(queryProms)
+      .then((results) => {
+        results.forEach((result) => {
+          if (result.state === 'fulfilled') {
+            // if fulfilled, return the formatted data
+            responses.filters.push({ data: get(result, 'value.data', []), item: get(result, 'value.item', {}) });
+          } else {
+            // Else, return the correct structure, but with no data. Include hasErrored prop.
+            responses.filters.push({ data: [], item: {}, hasErrored: true });
+          }
           dispatchSuccess();
-        })
-        .catch(() => {
-          dispatch(filtersHasErrored(true));
+          dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
         });
+      });
     }
   };
 }

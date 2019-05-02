@@ -34,7 +34,7 @@ describe('filter helpers', () => {
     expect(getFilterCustomDescription(
       { item: { description: 'language' } }, { formal_description: 'test', code: '1' }),
     ).toBe('test (1)');
-    ['postDiff', 'dangerPay', 'functionalRegion'].forEach((f) => {
+    ['postDiff', 'dangerPay', 'functionalRegion', 'bidSeason'].forEach((f) => {
       expect(getFilterCustomDescription(
         { item: { description: f } }, { description: 'test' }),
       ).toBe('test');

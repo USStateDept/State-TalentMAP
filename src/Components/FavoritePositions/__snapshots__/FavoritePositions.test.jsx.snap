@@ -60,11 +60,12 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "position_number",
             },
             Object {
-              "text": "Service need",
+              "text": "Featured positions",
               "value": "-post__has_service_needs_differential",
             },
           ]
         }
+        transformValue={[Function]}
       />
     </div>
   </div>

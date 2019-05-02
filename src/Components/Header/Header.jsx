@@ -21,6 +21,7 @@ import { getAssetPath, propOrDefault, focusByFirstOfHeader } from '../../utiliti
 import MediaQuery from '../MediaQuery';
 import InteractiveElement from '../InteractiveElement';
 import BetaHeader from './BetaHeader';
+import ClientHeader from '../ClientHeader';
 
 export class Header extends Component {
   constructor(props) {
@@ -141,6 +142,7 @@ export class Header extends Component {
           />
           <StateBanner />
           <BetaHeader />
+          <ClientHeader />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">

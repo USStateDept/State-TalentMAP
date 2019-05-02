@@ -19,7 +19,7 @@ class SearchBar extends Component {
     const hidden = {
       display: 'none',
     };
-    const { id, type, submitDisabled, submitText, placeholder,
+    const { id, type, submitDisabled, submitText, placeholder, inputDisabled,
       alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton }
       = this.props;
     const { searchText } = this.state;
@@ -47,11 +47,12 @@ class SearchBar extends Component {
         </label>
         <input
           id={id}
-          value={searchText.value}
+          value={inputDisabled ? '' : searchText.value}
           onChange={this.changeText}
           type="search"
           name="search"
           placeholder={placeholder}
+          disabled={inputDisabled}
         />
         <div id={`enabled-search-${id}`}>
           { !noButton &&
@@ -118,6 +119,7 @@ SearchBar.propTypes = {
   noButton: PropTypes.bool,
   placeholder: PropTypes.string,
   defaultValue: PropTypes.string,
+  inputDisabled: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
@@ -132,6 +134,7 @@ SearchBar.defaultProps = {
   defaultValue: null,
   onSubmitSearch: PREVENT_DEFAULT,
   onChangeText: EMPTY_FUNCTION,
+  inputDisabled: false,
 };
 
 export default SearchBar;

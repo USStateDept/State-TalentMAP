@@ -24,6 +24,7 @@
     "memoize-one": "^5.0.2",
     "numeral": "^2.0.6",
     "prop-types": "^15.6.0",
+    "q": "^1.5.1",
     "query-string": "^5.0.1",
     "rc-steps": "^3.1.0",
     "react": "^15.6.2",
@@ -43,13 +44,16 @@
     "react-router-redux": "^5.0.0-alpha.9",
     "react-router-scroll-4": "^1.0.0-beta.1",
     "react-scroll": "^1.7.5",
+    "react-scroll-up-button": "^1.6.4",
     "react-scrollbar": "^0.5.4",
     "react-select": "^1.1.0",
     "react-simple-dropdown": "^3.2.0",
+    "react-spring": "4.0.0",
     "react-tippy": "^1.2.2",
     "react-toastify": "^4.5.1",
     "redux": "^3.7.1",
     "redux-form": "^7.2.0",
+    "redux-persist": "^5.10.0",
     "redux-saga": "^0.15.6",
     "redux-thunk": "^2.2.0",
     "saml2-js": "2.0.2",
@@ -148,7 +152,9 @@
       "jest-localstorage-mock",
       "mock-local-storage"
     ],
-    "setupFilesAfterEnv": ["<rootDir>/config/jest/setupTests.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/jest/setupTests.js"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.js?(x)",
       "<rootDir>/src/**/?(*.)(spec|test).js?(x)"

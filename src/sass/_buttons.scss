@@ -236,3 +236,28 @@
     margin-right: 5px;
   }
 }
+
+.export-button-container {
+  display: flex;
+
+  button {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    min-width: 100px;
+  }
+
+  .ds-c-spinner {
+    height: 11px;
+    margin-right: 5px;
+    width: 11px;
+
+    &::before,
+    &::after {
+      border-width: 2px;
+      height: 11px;
+      width: 11px;
+    }
+  }
+}

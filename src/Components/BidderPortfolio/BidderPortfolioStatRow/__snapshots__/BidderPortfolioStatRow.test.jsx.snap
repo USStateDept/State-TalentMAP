@@ -78,7 +78,9 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
       />
     </Connect(StaticDevContent)>
   </div>
-  <div>
+  <div
+    className="button-container"
+  >
     <LinkButton
       className="usa-button-secondary"
       isExternal={false}
@@ -87,6 +89,9 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
     >
       View Details
     </LinkButton>
+    <Connect(withRouter(SearchAsClientButton))
+      id={5}
+    />
   </div>
 </div>
 `;

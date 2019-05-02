@@ -2,15 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 
-const Pill = ({ description, codeRef, selectionRef, onPillClick }) => (
+const Pill = ({ description, codeRef, selectionRef, onPillClick }, { isProjectedVacancy }) => (
   <button
-    className="pill"
+    className={`pill ${isProjectedVacancy ? 'pill--projected-vacancy' : ''}`}
     title={`Remove ${description} filter`}
     onClick={() => onPillClick(selectionRef, codeRef, true)}
   >
     {description} <FontAwesome name="times" />
   </button>
-  );
+);
+
+Pill.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 Pill.propTypes = {
   description: PropTypes.string.isRequired,
