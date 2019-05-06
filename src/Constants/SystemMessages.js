@@ -1,5 +1,6 @@
 import FavoriteSuccess from '../Components/FavoriteMessages/Success';
 import BidAddSuccess from '../Components/BidListMessages/Success';
+import SavedSearchSuccess from '../Components/SavedSearchMessages/Success';
 
 export const DEFAULT_TEXT = 'None listed';
 
@@ -58,10 +59,8 @@ export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
 export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';
 
-export const NEW_SAVED_SEARCH_SUCCESS = name =>
-  `New search with the name "${name}" has been saved! You can go to your profile to view all of your saved searches.`;
-export const UPDATED_SAVED_SEARCH_SUCCESS = name =>
-  `Your saved search with the name "${name}" has been updated! You can go to your profile to view all of your saved searches.`;
+export const NEW_SAVED_SEARCH_SUCCESS = name => SavedSearchSuccess({ name });
+export const UPDATED_SAVED_SEARCH_SUCCESS = name => SavedSearchSuccess({ name, isUpdated: true });
 
 export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
 export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;
