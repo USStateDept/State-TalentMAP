@@ -87,7 +87,7 @@ export function glossaryFetchData(bypassLoading = false) {
     }
 
     api()
-      .get('/glossary/?is_archived=false')
+      .get('/glossary/?is_archived=false&limit=500')
       .then(({ data }) => {
         dispatch(glossaryFetchDataSuccess(data));
         dispatch(glossaryIsLoading(false));
@@ -109,7 +109,7 @@ export function glossaryEditorFetchData(bypassLoading = false) {
     }
 
     api()
-      .get('/glossary/')
+      .get('/glossary/?limit=500')
       .then(({ data }) => {
         dispatch(glossaryEditorFetchDataSuccess(data));
         dispatch(glossaryEditorIsLoading(false));
