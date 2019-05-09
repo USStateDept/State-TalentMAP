@@ -74,7 +74,15 @@ export class ExportLink extends Component {
     return (
       <div className="export-button-container">
         <ExportButton onClick={this.onClick} isLoading={isLoading} />
-        <CSVLink tabIndex="-1" ref={this.setCsvRef} target="_blank" filename={this.props.filename} data={data} headers={HEADERS} />
+        <CSVLink
+          tabIndex="-1"
+          ref={this.setCsvRef}
+          target="_blank"
+          filename={this.props.filename}
+          data={data}
+          headers={HEADERS}
+          uFEFF={false}
+        />
       </div>
     );
   }

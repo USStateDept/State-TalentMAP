@@ -73,7 +73,7 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
     separator=","
     tabIndex="-1"
     target="_blank"
-    uFEFF={true}
+    uFEFF={false}
   />
 </div>
 `;
