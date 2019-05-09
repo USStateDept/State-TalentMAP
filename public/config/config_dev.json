@@ -5,6 +5,7 @@
   "flags": {
     "bidding": false,
     "projected_vacancy": true,
-    "static_content": true
+    "static_content": true,
+    "notifications": true
   }
 }
