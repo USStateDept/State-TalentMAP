@@ -111,6 +111,11 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           hasFixedTitleWidth={false}
           title="Incumbent"
         />
+        <CondensedCardDataPoint
+          content="Unknown"
+          hasFixedTitleWidth={false}
+          title="Posted"
+        />
       </div>
     </div>
     <div
@@ -334,6 +339,11 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
           hasFixedTitleWidth={false}
           title="Incumbent"
         />
+        <CondensedCardDataPoint
+          content="Unknown"
+          hasFixedTitleWidth={false}
+          title="Posted"
+        />
       </div>
     </div>
     <div
@@ -535,6 +545,11 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
           content="None listed"
           hasFixedTitleWidth={false}
           title="Incumbent"
+        />
+        <CondensedCardDataPoint
+          content="Unknown"
+          hasFixedTitleWidth={false}
+          title="Posted"
         />
       </div>
     </div>
