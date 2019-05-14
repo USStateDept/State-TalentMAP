@@ -6,6 +6,6 @@
     "bidding": true,
     "projected_vacancy": true,
     "static_content": true,
-    "notifications": false
+    "notifications": true
   }
 }
