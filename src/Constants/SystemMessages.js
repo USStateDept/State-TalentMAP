@@ -58,9 +58,14 @@ export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
 export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';
+export const DELETE_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
+export const DELETE_SAVED_SEARCH_ERROR_TITLE = 'Saved search error';
+
 
 export const NEW_SAVED_SEARCH_SUCCESS = name => SavedSearchSuccess({ name });
 export const UPDATED_SAVED_SEARCH_SUCCESS = name => SavedSearchSuccess({ name, isUpdated: true });
+export const DELETE_SAVED_SEARCH_SUCCESS = 'Successfully deleted the selected search';
+export const DELETE_SAVED_SEARCH_ERROR = 'An error occurred trying to delete this search.';
 
 export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
 export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;

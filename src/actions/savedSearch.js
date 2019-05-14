@@ -1,6 +1,7 @@
 import api from '../api';
 import * as SystemMessages from '../Constants/SystemMessages';
 import { propOrDefault } from '../utilities';
+import { toastSuccess, toastError } from './toast';
 
 export function newSavedSearchHasErrored(bool) {
   return {
@@ -141,11 +142,19 @@ export function deleteSavedSearch(id) {
         dispatch(deleteSavedSearchIsLoading(false));
         dispatch(deleteSavedSearchHasErrored(false));
         dispatch(deleteSavedSearchSuccess('Successfully deleted the selected search.'));
+        dispatch(toastSuccess(
+          SystemMessages.DELETE_SAVED_SEARCH_SUCCESS,
+          SystemMessages.DELETE_SAVED_SEARCH_SUCCESS_TITLE,
+        ));
         dispatch(currentSavedSearch(false));
         dispatch(savedSearchesFetchData());
       })
       .catch((err) => {
-        dispatch(deleteSavedSearchHasErrored(JSON.stringify(err.response.data) || 'An error occurred trying to delete this search.'));
+        dispatch(deleteSavedSearchHasErrored(JSON.stringify(propOrDefault(err, 'response.data', 'An error occurred trying to delete this search.'))));
+        dispatch(toastError(
+          SystemMessages.DELETE_SAVED_SEARCH_ERROR,
+          SystemMessages.DELETE_SAVED_SEARCH_ERROR_TITLE,
+        ));
         dispatch(deleteSavedSearchIsLoading(false));
         dispatch(deleteSavedSearchSuccess(false));
       });
@@ -219,11 +228,26 @@ export function saveSearch(data, id) {
           { title: SystemMessages.NEW_SAVED_SEARCH_SUCCESS_TITLE,
             message: SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name) },
         ));
+        // eslint-disable-next-line
+        const success = id => id ?
+          dispatch(toastSuccess(
+            SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name),
+            SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS_TITLE,
+          )) :
+          dispatch(toastSuccess(
+            SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name),
+            SystemMessages.NEW_SAVED_SEARCH_SUCCESS_TITLE,
+          ));
+        success(id);
         dispatch(setCurrentSavedSearch(response.data));
       })
       .catch((err) => {
         dispatch(newSavedSearchHasErrored(
           { title: 'Error', message: propOrDefault(err, 'response.data', 'An error occurred trying to save this search.') },
+        ));
+        dispatch(toastError(
+          'An error occurred trying to save this search.',
+          'Error',
         ));
         dispatch(newSavedSearchIsSaving(false));
         dispatch(newSavedSearchSuccess(false));
