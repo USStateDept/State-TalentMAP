@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
-import { CSVLink } from 'react-csv';
+import { get, mapValues } from 'lodash';
 import queryString from 'query-string';
+import { CSVLink } from '../CSV';
 import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import { fetchResultData } from '../../actions/results';
-import { formatDate } from '../../utilities';
+import { formatDate, getFormattedNumCSV, spliceStringForCSV } from '../../utilities';
 import ExportButton from '../ExportButton';
 
 // Mapping columns to data fields
@@ -31,7 +31,9 @@ export const processData = data => (
     const endDate = get(entry, 'current_assignment.estimated_end_date');
     const formattedEndDate = endDate ? formatDate(endDate) : null;
     return {
-      ...entry,
+      ...mapValues(entry, x => !x ? '' : x), // eslint-disable-line no-confusing-arrow
+      position_number: getFormattedNumCSV(entry.position_number),
+      grade: getFormattedNumCSV(entry.grade),
       estimated_end_date: formattedEndDate,
     };
   })
@@ -88,6 +90,7 @@ class SearchResultsExportLink extends Component {
         <ExportButton onClick={this.onClick} isLoading={isLoading} />
         <CSVLink
           tabIndex="-1"
+          transform={spliceStringForCSV}
           ref={(x) => { this.csvLink = x; }}
           target="_blank"
           filename={this.props.filename}

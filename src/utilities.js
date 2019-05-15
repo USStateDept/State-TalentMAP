@@ -565,3 +565,19 @@ export const getScrollDistanceFromBottom = () => {
   const bodyHeight = document.body.offsetHeight;
   return (Math.max(bodyHeight - (scrollPosition + windowSize), 0));
 };
+
+// eslint-disable-next-line no-confusing-arrow
+export const getFormattedNumCSV = (v) => {
+  if (v === null || v === undefined) {
+    return '';
+  }
+  // else
+  return !isNaN(v) ? `=${v}` : v;
+};
+
+export const spliceStringForCSV = (v) => {
+  if (v[1] === '=') {
+    return `=${v.slice(0, 1)}${v.slice(2)}`;
+  }
+  return v;
+};

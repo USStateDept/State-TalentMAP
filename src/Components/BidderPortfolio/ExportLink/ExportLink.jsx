@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { CSVLink } from 'react-csv';
-import { get } from 'lodash';
+import { get, mapValues } from 'lodash';
+import { CSVLink } from '../../CSV';
 import { bidderPortfolioFetchDataFromLastQuery } from '../../../actions/bidderPortfolio';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import ExportButton from '../../ExportButton';
+import { getFormattedNumCSV, spliceStringForCSV } from '../../../utilities';
 
 // Mapping columns to data fields
 const HEADERS = [
@@ -23,7 +24,8 @@ const HEADERS = [
 // Processes results before sending to the download component to allow for custom formatting.
 const processData = data => (
   data.map(entry => ({
-    ...entry,
+    ...mapValues(entry, x => !x ? '' : x), // eslint-disable-line no-confusing-arrow
+    grade: getFormattedNumCSV(entry.grade),
     // any other processing we may want to do here
   }))
 );
@@ -75,6 +77,7 @@ export class ExportLink extends Component {
       <div className="export-button-container">
         <ExportButton onClick={this.onClick} isLoading={isLoading} />
         <CSVLink
+          transform={spliceStringForCSV}
           tabIndex="-1"
           ref={this.setCsvRef}
           target="_blank"
