@@ -41,7 +41,8 @@ describe('BidTracker', () => {
     />);
     const spy = sinon.spy(wrapper.instance(), 'scrollToId');
     wrapper.instance().componentDidUpdate();
-    sinon.assert.calledOnce(spy);
+    // called once on mount, once after didUpdate()
+    sinon.assert.calledTwice(spy);
   });
 
   it('calls scrollIntoView when scrollToId is called', () => {

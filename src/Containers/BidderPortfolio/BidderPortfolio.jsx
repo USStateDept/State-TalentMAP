@@ -16,7 +16,7 @@ class BidderPortfolio extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      defaultPageSize: { value: 8 },
+      defaultPageSize: { value: 24 },
       defaultPageNumber: { value: 1 },
       defaultKeyword: { value: '' },
     };
