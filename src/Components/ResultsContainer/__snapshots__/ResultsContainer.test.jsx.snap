@@ -227,6 +227,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     <ResultsList
       bidList={Array []}
       favorites={Array []}
+      favoritesPV={Array []}
       isLoading={false}
       results={
         Object {

@@ -86,6 +86,14 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
             "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
           },
         ],
+        "favorite_positions_pv": Array [
+          Object {
+            "id": 10,
+          },
+          Object {
+            "id": 20,
+          },
+        ],
         "grade": "03",
         "id": 1,
         "initials": "JD",
@@ -196,6 +204,14 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
             "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
           },
         ],
+        "favorite_positions_pv": Array [
+          Object {
+            "id": 10,
+          },
+          Object {
+            "id": 20,
+          },
+        ],
         "grade": "03",
         "id": 1,
         "initials": "JD",
@@ -304,6 +320,14 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
           Object {
             "id": 4,
             "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+          },
+        ],
+        "favorite_positions_pv": Array [
+          Object {
+            "id": 10,
+          },
+          Object {
+            "id": 20,
           },
         ],
         "grade": "03",

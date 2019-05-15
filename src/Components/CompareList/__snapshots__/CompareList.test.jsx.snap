@@ -439,7 +439,11 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               <Connect(FavoriteContainer)
-                compareArray={Array []}
+                compareArray={
+                  Object {
+                    "results": Array [],
+                  }
+                }
                 hasBorder={true}
                 refKey={6}
                 refresh={true}
@@ -449,7 +453,11 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td>
               <Connect(FavoriteContainer)
-                compareArray={Array []}
+                compareArray={
+                  Object {
+                    "results": Array [],
+                  }
+                }
                 hasBorder={true}
                 refKey={60}
                 refresh={true}
@@ -961,7 +969,11 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </th>
             <td>
               <Connect(FavoriteContainer)
-                compareArray={Array []}
+                compareArray={
+                  Object {
+                    "results": Array [],
+                  }
+                }
                 hasBorder={true}
                 refKey={6}
                 refresh={true}
@@ -971,7 +983,11 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td>
               <Connect(FavoriteContainer)
-                compareArray={Array []}
+                compareArray={
+                  Object {
+                    "results": Array [],
+                  }
+                }
                 hasBorder={true}
                 refKey={60}
                 refresh={true}

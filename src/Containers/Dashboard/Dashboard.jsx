@@ -33,7 +33,7 @@ class DashboardContainer extends Component {
         notificationsIsLoading={notificationsIsLoading}
         bidList={bidList.results}
         bidListIsLoading={bidListIsLoading}
-        favoritePositions={favoritePositions.results}
+        favoritePositions={favoritePositions.favorites}
         favoritePositionsIsLoading={favoritePositionsIsLoading}
         favoritePositionsHasErrored={favoritePositionsHasErrored}
         submitBidPosition={submitBidPosition}

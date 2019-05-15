@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { get } from 'lodash';
 import { userProfileToggleFavoritePosition } from '../../actions/userProfile';
 import Favorite from '../../Components/Favorite';
 import { SetType } from '../../Constants/PropTypes';
@@ -25,10 +26,12 @@ FavoriteContainer.propTypes = {
   isLoading: SetType,
   hasErrored: PropTypes.bool.isRequired,
   refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired]).isRequired,
+  isPV: PropTypes.bool,
 };
 
 FavoriteContainer.defaultProps = {
   isLoading: new Set(),
+  isPV: false,
 };
 
 export const mapStateToProps = state => ({
@@ -36,9 +39,10 @@ export const mapStateToProps = state => ({
   hasErrored: state.userProfileFavoritePositionHasErrored || false,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  onToggle: (id, remove, refresh = false) =>
-    dispatch(userProfileToggleFavoritePosition(id, remove, refresh)),
+export const mapDispatchToProps = (dispatch, ownProps) => ({
+  onToggle: (id, remove, refresh = false) => {
+    dispatch(userProfileToggleFavoritePosition(id, remove, refresh, get(ownProps, 'isPV')));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteContainer);

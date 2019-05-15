@@ -76,6 +76,7 @@ class ResultsContainer extends Component {
               results={results}
               isLoading={!hasLoaded}
               favorites={userProfile.favorite_positions}
+              favoritesPV={userProfile.favorite_positions_pv}
               bidList={bidList}
             />
           </div>

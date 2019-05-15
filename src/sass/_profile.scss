@@ -577,16 +577,16 @@ $padding-no-border: $total-padding - $border;
 .portfolio-top-nav-container {
   border-bottom: 1px solid $color-black;
   margin-bottom: 30px;
+}
 
-  .is-underlined {
-    border-bottom: 8px solid $color-black;
-    border-spacing: 6px;
-  }
+.is-underlined {
+  border-bottom: 8px solid $color-black;
+  border-spacing: 6px;
+}
 
-  .is-not-underlined {
-    border-bottom: 8px solid transparent;
-    border-spacing: 6px;
-  }
+.is-not-underlined {
+  border-bottom: 8px solid transparent;
+  border-spacing: 6px;
 }
 
 .portfolio-total-results {

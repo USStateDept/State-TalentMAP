@@ -76,6 +76,7 @@ class ResultsCard extends Component {
       id,
       result,
       favorites,
+      favoritesPV,
     } = this.props;
     const { isProjectedVacancy } = this.context;
 
@@ -122,11 +123,12 @@ class ResultsCard extends Component {
     ];
 
     options.favorite = {
-      compareArray: favorites,
+      compareArray: isProjectedVacancy ? favoritesPV : favorites,
       refKey: result.id,
       hasBorder: true,
       useButtonClass: true,
       useLongText: true,
+      isPV: isProjectedVacancy,
     };
 
     options.compare = {
@@ -193,16 +195,13 @@ class ResultsCard extends Component {
               }
               />
               <Row className="footer results-card-padded-section" fluid>
-                {
-                !isProjectedVacancy &&
                 <Column columns="6" as="section">
                   {
                     !!favorites &&
                       <Favorite {...options.favorite} />
                   }
-                  <CompareCheck {...options.compare} />
+                  {!isProjectedVacancy && <CompareCheck {...options.compare} />}
                 </Column>
-              }
                 <Column columns="6" as="section">
                   <div>
                     <DefinitionList items={sections[2]} />
@@ -231,10 +230,12 @@ ResultsCard.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   result: POSITION_DETAILS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
+  favoritesPV: FAVORITE_POSITIONS_ARRAY,
 };
 
 ResultsCard.defaultProps = {
   favorites: [],
+  favoritesPV: [],
 };
 
 export default ResultsCard;

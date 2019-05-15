@@ -42,7 +42,8 @@ class FavoritePositionsContainer extends Component {
     return (
       <div>
         <FavoritePositions
-          favorites={favoritePositions}
+          favorites={favoritePositions.favorites}
+          favoritesPV={favoritePositions.favoritesPV}
           favoritePositionsIsLoading={favoritePositionsIsLoading}
           favoritePositionsHasErrored={favoritePositionsHasErrored}
           toggleFavorite={this.onToggleFavorite}
