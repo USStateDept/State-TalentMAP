@@ -167,6 +167,24 @@ export const scrollToTop = (config = {}) => {
   scroll.scrollToTop({ ...defaultScrollConfig, ...config });
 };
 
+export const scrollToId = ({ el, config = {} }) => {
+  // Get an element's distance from the top of the page
+  const getElemDistance = (elem) => {
+    let location = 0;
+    if (elem.offsetParent) {
+      do {
+        location += elem.offsetTop;
+        elem = elem.offsetParent; // eslint-disable-line
+      } while (elem);
+    }
+    return location >= 0 ? location : 0;
+  };
+  const elem = document.querySelector(el);
+  const location = getElemDistance(elem);
+
+  scrollTo(location, config);
+};
+
 // When we want to grab a label, but aren't sure which one exists.
 // We set custom ones first in the list.
 export const getItemLabel = itemData =>
@@ -546,4 +564,20 @@ export const getScrollDistanceFromBottom = () => {
   const windowSize = window.innerHeight;
   const bodyHeight = document.body.offsetHeight;
   return (Math.max(bodyHeight - (scrollPosition + windowSize), 0));
+};
+
+// eslint-disable-next-line no-confusing-arrow
+export const getFormattedNumCSV = (v) => {
+  if (v === null || v === undefined) {
+    return '';
+  }
+  // else
+  return !isNaN(v) ? `=${v}` : v;
+};
+
+export const spliceStringForCSV = (v) => {
+  if (v[1] === '=') {
+    return `=${v.slice(0, 1)}${v.slice(2)}`;
+  }
+  return v;
 };

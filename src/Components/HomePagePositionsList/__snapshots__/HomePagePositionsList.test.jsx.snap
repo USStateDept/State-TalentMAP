@@ -157,6 +157,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         position={
@@ -395,6 +396,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         position={
@@ -633,6 +635,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         position={
@@ -871,6 +874,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         position={
@@ -1109,6 +1113,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         position={
@@ -1347,6 +1352,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         position={
@@ -1585,6 +1591,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           ]
         }
         favorites={Array []}
+        favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         position={

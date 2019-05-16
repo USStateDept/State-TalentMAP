@@ -3,6 +3,7 @@
 exports[`BidderPortfolioContainerComponent matches snapshot when the all property is greater than zero 1`] = `
 <div
   className="usa-grid-full user-dashboard"
+  id="bidder-portfolio-container"
 >
   <BidderPortfolioCardList
     results={
@@ -223,6 +224,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
 exports[`BidderPortfolioContainerComponent matches snapshot when the all property is zero 1`] = `
 <div
   className="usa-grid-full user-dashboard"
+  id="bidder-portfolio-container"
 >
   <BidderPortfolioCardList
     results={Array []}

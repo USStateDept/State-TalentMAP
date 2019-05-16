@@ -53,14 +53,13 @@ describe('SystemMessages', () => {
   });
 
   it('should have all expected messages that accept parameters defined', () => {
-    const textToCheck = 'test_word';
     const messages = [
       'UPDATED_SAVED_SEARCH_SUCCESS',
       'NEW_SAVED_SEARCH_SUCCESS',
     ];
 
     messages.forEach((message) => {
-      expect(SystemMessages[message](textToCheck).indexOf(textToCheck)).toBeDefined();
+      expect(SystemMessages[message]('name')).toBeDefined();
     });
   });
 

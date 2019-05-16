@@ -10,7 +10,6 @@ describe('SavedSearchesListComponent', () => {
     goToSavedSearch: () => {},
     deleteSavedSearch: () => {},
     deleteSearch: () => {},
-    cloneSavedSearch: () => {},
     mappedParams: [],
   };
 

@@ -24,7 +24,10 @@ Object.values = (obj) => Object.keys(obj).map(key => obj[key])
 // Avoid jest error: "Error: Not implemented: navigation (except hash changes)"
 global.window.location.assign = () => {};
 
-// mock sessionStorage - feature flags config
 beforeEach(() => {
+  // mock sessionStorage - feature flags config
   sessionStorage.setItem('config', JSON.stringify(config));
+
+  // mock querySelector
+  global.document.querySelector = () => ({ offsetParent: '50px', scrollIntoView: () => {} });
 });

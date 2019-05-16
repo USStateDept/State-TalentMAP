@@ -9,12 +9,14 @@ import { bidderUserObject } from '../../__mocks__/userObject';
 describe('ResultsCondensedCardBottomComponent', () => {
   const type = 'default';
   const favorites = bidderUserObject.favorite_positions;
+  const favoritesPV = bidderUserObject.favorite_positions_pv;
   it('is defined', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+        favoritesPV={favoritesPV}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -26,6 +28,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+        favoritesPV={favoritesPV}
       />,
     );
     expect(wrapper.instance().props.type).toBe(type);
@@ -37,6 +40,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+        favoritesPV={favoritesPV}
         showBidCount={false}
       />,
     );
@@ -49,6 +53,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+        favoritesPV={favoritesPV}
         showBidCount
       />,
     );
@@ -61,6 +66,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+        favoritesPV={favoritesPV}
         showBidListButton
       />,
     );
@@ -73,6 +79,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+        favoritesPV={favoritesPV}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -84,6 +91,7 @@ describe('ResultsCondensedCardBottomComponent', () => {
         position={resultsObject.results[0]}
         bidList={bidListObject.results}
         favorites={favorites}
+        favoritesPV={favoritesPV}
         showBidListButton
       />,
     );

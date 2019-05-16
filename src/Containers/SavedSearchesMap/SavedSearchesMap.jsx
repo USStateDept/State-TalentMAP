@@ -7,10 +7,6 @@ import { mapSavedSearchesToSingleQuery } from '../../utilities';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import {
   SAVED_SEARCH_PARENT_OBJECT,
-  DELETE_SAVED_SEARCH_HAS_ERRORED,
-  DELETE_SAVED_SEARCH_SUCCESS,
-  CLONE_SAVED_SEARCH_HAS_ERRORED,
-  CLONE_SAVED_SEARCH_SUCCESS,
   EMPTY_FUNCTION,
   FILTERS_PARENT,
 } from '../../Constants/PropTypes';
@@ -35,7 +31,6 @@ class SavedSearchesMap extends Component {
       fetchFilters,
       savedSearches,
       savedSearchesIsLoading,
-      cloneSavedSearchIsLoading,
       deleteSavedSearchIsLoading,
     } = props;
 
@@ -44,7 +39,6 @@ class SavedSearchesMap extends Component {
     // is anything loading from the parent? if so, don't try to fetch filters
     const isLoading = (
       savedSearchesIsLoading ||
-      cloneSavedSearchIsLoading ||
       deleteSavedSearchIsLoading
     );
 
@@ -68,10 +62,8 @@ class SavedSearchesMap extends Component {
   }
 
   render() {
-    const { savedSearches, deleteSearch, filters, ChildElement, cloneSavedSearch,
-      savedSearchesHasErrored, savedSearchesIsLoading, deleteSavedSearchHasErrored,
-      deleteSavedSearchIsLoading, deleteSavedSearchSuccess, cloneSavedSearchIsLoading,
-      cloneSavedSearchHasErrored, cloneSavedSearchSuccess, goToSavedSearch,
+    const { savedSearches, deleteSearch, filters, ChildElement,
+      savedSearchesHasErrored, savedSearchesIsLoading, goToSavedSearch,
       filtersIsLoading, onSortChange } = this.props;
     const props = {
       savedSearches,
@@ -79,14 +71,7 @@ class SavedSearchesMap extends Component {
       filters,
       savedSearchesHasErrored,
       savedSearchesIsLoading,
-      deleteSavedSearchHasErrored,
-      deleteSavedSearchIsLoading,
-      deleteSavedSearchSuccess,
-      cloneSavedSearchIsLoading,
-      cloneSavedSearchHasErrored,
-      cloneSavedSearchSuccess,
       goToSavedSearch,
-      cloneSavedSearch,
       filtersIsLoading,
       onSortChange,
       mappedParams: filters.mappedParams || [],
@@ -103,13 +88,6 @@ SavedSearchesMap.propTypes = {
   savedSearchesIsLoading: PropTypes.bool.isRequired,
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   deleteSearch: PropTypes.func.isRequired,
-  deleteSavedSearchIsLoading: PropTypes.bool.isRequired,
-  deleteSavedSearchHasErrored: DELETE_SAVED_SEARCH_HAS_ERRORED.isRequired,
-  deleteSavedSearchSuccess: DELETE_SAVED_SEARCH_SUCCESS.isRequired,
-  cloneSavedSearch: PropTypes.func.isRequired,
-  cloneSavedSearchIsLoading: PropTypes.bool.isRequired,
-  cloneSavedSearchHasErrored: CLONE_SAVED_SEARCH_HAS_ERRORED.isRequired,
-  cloneSavedSearchSuccess: CLONE_SAVED_SEARCH_SUCCESS.isRequired,
   filters: FILTERS_PARENT,
   goToSavedSearch: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
@@ -124,14 +102,7 @@ SavedSearchesMap.defaultProps = {
   savedSearches: POSITION_RESULTS_OBJECT,
   savedSearchesIsLoading: false,
   savedSearchesHasErrored: false,
-  deleteSavedSearchIsLoading: false,
-  deleteSavedSearchHasErrored: false,
-  deleteSavedSearchSuccess: false,
   routeChangeResetState: EMPTY_FUNCTION,
-  cloneSavedSearch: EMPTY_FUNCTION,
-  cloneSavedSearchIsLoading: false,
-  cloneSavedSearchHasErrored: false,
-  cloneSavedSearchSuccess: false,
   filters: { filters: [] },
   goToSavedSearch: EMPTY_FUNCTION,
   fetchFilters: EMPTY_FUNCTION,

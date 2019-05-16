@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
 SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY,
-POST_DETAILS_ARRAY, EMPTY_FUNCTION, NEW_SAVED_SEARCH_SUCCESS_OBJECT } from '../../Constants/PropTypes';
+POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
@@ -25,10 +25,10 @@ class Results extends Component {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
             defaultPageNumber, onQueryParamUpdate, filters, userProfile,
-            selectedAccordion, setAccordion, scrollToTop, saveSearch, newSavedSearchSuccess,
+            selectedAccordion, setAccordion, scrollToTop, saveSearch,
             newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
-            missionSearchHasErrored, resetSavedSearchAlerts, fetchPostAutocomplete,
+            missionSearchHasErrored, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
             bidList, isProjectedVacancy }
       = this.props;
@@ -82,11 +82,9 @@ class Results extends Component {
             scrollToTop={scrollToTop}
             userProfile={userProfile}
             saveSearch={saveSearch}
-            newSavedSearchSuccess={newSavedSearchSuccess}
             newSavedSearchHasErrored={newSavedSearchHasErrored}
             newSavedSearchIsSaving={newSavedSearchIsSaving}
             currentSavedSearch={currentSavedSearch}
-            resetSavedSearchAlerts={resetSavedSearchAlerts}
             bidList={bidList}
           />
         </div>
@@ -116,11 +114,9 @@ Results.propTypes = {
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
   saveSearch: PropTypes.func.isRequired,
-  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
-  resetSavedSearchAlerts: PropTypes.func.isRequired,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
   missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   missionSearchIsLoading: PropTypes.bool.isRequired,

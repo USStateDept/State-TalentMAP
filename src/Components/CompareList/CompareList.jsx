@@ -286,7 +286,7 @@ class CompareList extends Component {
                             <Favorite
                               hasBorder
                               refKey={c.id}
-                              compareArray={favorites.results}
+                              compareArray={favorites}
                               useButtonClass
                               refresh
                               useButtonClassSecondary

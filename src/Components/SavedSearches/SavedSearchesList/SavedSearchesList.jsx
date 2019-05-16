@@ -69,7 +69,6 @@ class SavedSearchesList extends Component {
       savedSearches,
       goToSavedSearch,
       deleteSearch,
-      cloneSavedSearch,
       mappedParams,
     } = this.props;
 
@@ -80,7 +79,6 @@ class SavedSearchesList extends Component {
           goToSavedSearch={goToSavedSearch}
           deleteSearch={deleteSearch}
           key={savedSearch.id}
-          cloneSavedSearch={cloneSavedSearch}
           mappedParams={mappedParams}
           /* pass a parentClassName that we can use from the BorderedList component */
           parentClassName="parent-list-container list-transparent"
@@ -111,7 +109,6 @@ SavedSearchesList.propTypes = {
   savedSearches: SAVED_SEARCH_PARENT_OBJECT.isRequired,
   goToSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
-  cloneSavedSearch: PropTypes.func.isRequired,
   mappedParams: MAPPED_PARAM_ARRAY.isRequired,
 };
 

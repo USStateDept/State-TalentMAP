@@ -6,11 +6,11 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?limit=500').reply(200,
       { results: glossaryItems },
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?is_archived=false').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?is_archived=false&limit=500').reply(200,
       { results: glossaryItems },
     );
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { Flag } from 'flag';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
 import Notifications from '../Notifications';
 import GlossaryIcon from '../GlossaryIcon';
@@ -55,7 +56,9 @@ const DesktopNav = ({
           {
             isLoggedIn &&
               <span>
-                <Notifications />
+                <Flag name="flags.notifications">
+                  <Notifications />
+                </Flag>
                 <GlossaryIcon />
               </span>
           }

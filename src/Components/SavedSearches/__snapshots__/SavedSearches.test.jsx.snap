@@ -51,7 +51,6 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
     </div>
   </div>
   <SavedSearchesList
-    cloneSavedSearch={[Function]}
     deleteSearch={[Function]}
     goToSavedSearch={[Function]}
     mappedParams={Array []}

@@ -48,6 +48,14 @@ export const bidderUserObject = {
       representation: '[00180000] OMS (DCM) (Addis Ababa, Ethiopia)',
     },
   ],
+  favorite_positions_pv: [
+    {
+      id: 10,
+    },
+    {
+      id: 20,
+    },
+  ],
 };
 
 export const cdoUserObject = Object.assign({}, bidderUserObject, { cdo: null, is_cdo: true });
