@@ -333,6 +333,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     useShortFavButton={false}
   />
   <ResultsCondensedCardFooter
+    isProjectedVacancy={false}
     position={
       Object {
         "bid_statistics": Array [
