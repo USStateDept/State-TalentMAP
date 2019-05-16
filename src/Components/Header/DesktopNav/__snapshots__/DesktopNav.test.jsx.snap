@@ -78,6 +78,14 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
                   "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
                 },
               ],
+              "favorite_positions_pv": Array [
+                Object {
+                  "id": 10,
+                },
+                Object {
+                  "id": 20,
+                },
+              ],
               "grade": "03",
               "id": 1,
               "initials": "JD",
@@ -119,7 +127,11 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         className="header-nav-link"
       >
         <span>
-          <Connect(withRouter(Notifications)) />
+          <Flag
+            name="flags.notifications"
+          >
+            <Connect(withRouter(Notifications)) />
+          </Flag>
           <Connect(GlossaryIcon) />
         </span>
       </div>

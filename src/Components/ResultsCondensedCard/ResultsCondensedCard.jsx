@@ -10,6 +10,7 @@ const ResultsCondensedCard = (
   {
     position,
     favorites,
+    favoritesPV,
     bidList,
     type,
     refreshFavorites,
@@ -30,12 +31,14 @@ const ResultsCondensedCard = (
       <ResultsCondensedCardBottom
         position={position}
         favorites={favorites}
+        favoritesPV={favoritesPV}
         bidList={bidList}
         refreshFavorites={refreshFavorites}
         showBidListButton={showBidListButton && !isProjectedVacancy}
         showBidCount={!isProjectedVacancy}
         useShortFavButton={useShortFavButton}
         showCompareButton={showCompareButton}
+        isProjectedVacancy={isProjectedVacancy}
       />
       <ResultsCondensedCardFooter
         position={position}
@@ -46,6 +49,7 @@ const ResultsCondensedCard = (
 ResultsCondensedCard.propTypes = {
   position: POSITION_DETAILS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
+  favoritesPV: FAVORITE_POSITIONS_ARRAY,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE.isRequired,
   refreshFavorites: PropTypes.bool,
@@ -58,6 +62,7 @@ ResultsCondensedCard.propTypes = {
 
 ResultsCondensedCard.defaultProps = {
   favorites: [],
+  favoritesPV: [],
   refreshFavorites: false,
   showBidListButton: false,
   isProjectedVacancy: false,

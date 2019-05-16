@@ -57,9 +57,11 @@ const ProfileDashboard = ({
                         columns={columns[1]}
                         className={'user-dashboard-section-container user-dashboard-column-2'}
                       >
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
-                          <Notifications notifications={notifications} />
-                        </BoxShadow>
+                        <Flag name="flags.notifications">
+                          <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
+                            <Notifications notifications={notifications} />
+                          </BoxShadow>
+                        </Flag>
                         <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                           <SavedSearches />
                         </BoxShadow>

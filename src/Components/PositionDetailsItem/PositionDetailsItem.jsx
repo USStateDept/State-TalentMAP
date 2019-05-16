@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Flag } from 'flag';
+import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
 import OBCUrl from '../OBCUrl';
@@ -33,6 +34,7 @@ import {
   NO_POST_DIFFERENTIAL,
   NO_DANGER_PAY,
   NO_USER_LISTED,
+  NO_UPDATE_DATE,
 } from '../../Constants/SystemMessages';
 
 export const renderHandshake = stats => (
@@ -76,6 +78,15 @@ const PositionDetailsItem = (props) => {
 
   const incumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
 
+  const getPostedDate = () => {
+    const posted = get(details, COMMON_PROPERTIES.posted);
+    if (posted) {
+      return formatDate(posted);
+    }
+    return NO_UPDATE_DATE;
+  };
+  const postedDate = getPostedDate();
+
   const stats = getBidStatisticsObject(details.bid_statistics);
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
@@ -102,6 +113,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
+            <CondensedCardDataPoint title="Posted" content={postedDate} />
           </div>
         </div>
         <div className="usa-width-one-third position-details-contact-container">

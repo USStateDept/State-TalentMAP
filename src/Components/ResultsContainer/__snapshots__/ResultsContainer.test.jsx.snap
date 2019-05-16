@@ -215,7 +215,6 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     currentSavedSearch={Object {}}
     newSavedSearchHasErrored={false}
     newSavedSearchIsSaving={false}
-    newSavedSearchSuccess={Object {}}
     saveSearch={[Function]}
   />
   <div
@@ -228,6 +227,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     <ResultsList
       bidList={Array []}
       favorites={Array []}
+      favoritesPV={Array []}
       isLoading={false}
       results={
         Object {

@@ -16,7 +16,7 @@ describe('BidderPortfolioContainerComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can call the onPageChange function', () => {
+  it('can call the onPageChange function', (done) => {
     const spy = sinon.spy();
     const wrapper = shallow(<BidderPortfolioContainer
       bidderPortfolio={bidderListObject}
@@ -25,7 +25,10 @@ describe('BidderPortfolioContainerComponent', () => {
       queryParamUpdate={spy}
     />);
     wrapper.instance().onPageChange({});
-    sinon.assert.calledOnce(spy);
+    setTimeout(() => {
+      sinon.assert.calledOnce(spy);
+      done();
+    }, 700);
   });
 
   it('matches snapshot when the all property is greater than zero', () => {

@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full portfolio-top-nav-container"
+>
+  <Component
+    denominator={5}
+    isActive={false}
+    numerator={2}
+    onClick={[Function]}
+    title="Test"
+    value="1"
+  />
+  <Component
+    denominator={5}
+    isActive={false}
+    numerator={3}
+    onClick={[Function]}
+    title="Test 2"
+    value="2"
+  />
+</div>
+`;

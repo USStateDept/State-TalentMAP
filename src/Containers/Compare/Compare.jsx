@@ -50,7 +50,7 @@ export class Compare extends Component {
     return (
       <CompareList
         compare={comparisons}
-        favorites={favoritePositions}
+        favorites={favoritePositions.favorites}
         hasErrored={hasErrored}
         isLoading={isLoading}
         onToggle={this.onToggle}

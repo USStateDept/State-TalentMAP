@@ -49,7 +49,7 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
           }
         >
           {useType && <span><FontAwesome name={icon} /> </span>}
-          <h3>{position.title}</h3> <Link to={`/details/${position.id}`}>View position</Link>
+          <h3>{position.title}</h3> {!isProjectedVacancy && <Link to={`/details/${position.id}`}>View position</Link>}
         </div>
       </div>
       <div className="usa-grid-full post-ribbon-container">

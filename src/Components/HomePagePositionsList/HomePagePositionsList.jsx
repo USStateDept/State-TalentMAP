@@ -6,6 +6,7 @@ import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAG
 const propTypes = {
   positions: POSITION_DETAILS_ARRAY,
   favorites: FAVORITE_POSITIONS_ARRAY,
+  favoritesPV: FAVORITE_POSITIONS_ARRAY,
   isLoading: PropTypes.bool,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE,
@@ -19,6 +20,7 @@ const propTypes = {
 const defaultProps = {
   positions: [],
   favorites: [],
+  favoritesPV: [],
   isLoading: false,
   type: 'default',
   refreshFavorites: false,
@@ -27,14 +29,15 @@ const defaultProps = {
   showCompareButton: false,
 };
 
-const HomePagePositionsList = ({ positions, favorites, isLoading, bidList, type,
+const HomePagePositionsList = ({ positions, favorites, favoritesPV, isLoading, bidList, type,
 refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton }) => (
   <div className={`condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full condensed-card-grid">
       {positions.map(p => (
-        <div key={`${title}-row-${p.id}`} className="usa-width-one-third condensed-card">
+        <div key={`${title}-row-${p.id}-${p.isPV}`} className="usa-width-one-third condensed-card">
           <ResultsCondensedCard
             favorites={favorites}
+            favoritesPV={favoritesPV}
             position={p}
             bidList={bidList}
             type={type}
@@ -42,6 +45,7 @@ refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton
             showBidListButton={showBidListButton}
             useShortFavButton={useShortFavButton}
             showCompareButton={showCompareButton}
+            isProjectedVacancy={p.isPV}
           />
         </div>
       ))}

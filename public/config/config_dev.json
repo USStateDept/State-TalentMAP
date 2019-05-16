@@ -3,8 +3,9 @@
     "baseURL": "https://dev.talentmap.api.metaphasedev.com/api/v1"
   },
   "flags": {
-    "bidding": false,
+    "bidding": true,
     "projected_vacancy": true,
-    "static_content": true
+    "static_content": true,
+    "notifications": true
   }
 }

@@ -38,9 +38,11 @@ class ResultsCondensedCardBottom extends Component {
   render() {
     const { position,
         favorites,
+        favoritesPV,
         refreshFavorites,
         useShortFavButton,
         showCompareButton,
+        isProjectedVacancy,
       } = this.props;
     return (
       <div className="condensed-card-bottom-container">
@@ -56,7 +58,8 @@ class ResultsCondensedCardBottom extends Component {
               hideText={useShortFavButton}
               hasBorder
               refKey={position.id}
-              compareArray={favorites}
+              isPV={position.isPV}
+              compareArray={position.isPV ? favoritesPV : favorites}
               useButtonClass={!useShortFavButton}
               useButtonClassSecondary={useShortFavButton}
               refresh={refreshFavorites}
@@ -66,7 +69,7 @@ class ResultsCondensedCardBottom extends Component {
               render={this.renderBidListButton}
             />
             {
-              showCompareButton &&
+              showCompareButton && !isProjectedVacancy &&
               <CompareCheck as="div" refKey={position.position_number} />
             }
           </div>
@@ -79,11 +82,13 @@ class ResultsCondensedCardBottom extends Component {
 ResultsCondensedCardBottom.propTypes = {
   position: POSITION_DETAILS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
+  favoritesPV: FAVORITE_POSITIONS_ARRAY.isRequired,
   refreshFavorites: PropTypes.bool,
   showBidListButton: PropTypes.bool,
   showBidCount: PropTypes.bool,
   useShortFavButton: PropTypes.bool,
   showCompareButton: PropTypes.bool,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 ResultsCondensedCardBottom.defaultProps = {
@@ -93,6 +98,7 @@ ResultsCondensedCardBottom.defaultProps = {
   showBidCount: true,
   useShortFavButton: false,
   showCompareButton: false,
+  isProjectedVacancy: false,
 };
 
 export default ResultsCondensedCardBottom;

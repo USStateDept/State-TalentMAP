@@ -10,7 +10,7 @@ import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
-import { saveSearch, routeChangeResetState } from '../../actions/savedSearch';
+import { saveSearch } from '../../actions/savedSearch';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
 import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
@@ -18,8 +18,7 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import CompareDrawer from '../../Components/CompareDrawer';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-USER_PROFILE, SAVED_SEARCH_MESSAGE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
-SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
+USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION, BID_LIST } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
@@ -48,9 +47,7 @@ class Results extends Component {
   }
 
   componentWillMount() {
-    const { resetSavedSearchAlerts, isAuthorized, onNavigateTo } = this.props;
-    // clear out old alert messages
-    resetSavedSearchAlerts();
+    const { isAuthorized, onNavigateTo } = this.props;
     // check auth
     if (!isAuthorized()) {
       onNavigateTo(LOGIN_REDIRECT);
@@ -206,9 +203,8 @@ class Results extends Component {
     const { results, hasErrored, isLoading, filters,
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
-            resetSavedSearchAlerts, currentSavedSearch,
-            newSavedSearchSuccess, newSavedSearchIsSaving, newSavedSearchHasErrored,
-            fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
+            currentSavedSearch, newSavedSearchIsSaving,
+            newSavedSearchHasErrored, fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
     return (
       <div>
@@ -231,12 +227,10 @@ class Results extends Component {
           setAccordion={setAccordion}
           scrollToTop={scrollToTop}
           userProfile={userProfile}
-          newSavedSearchSuccess={newSavedSearchSuccess}
           newSavedSearchIsSaving={newSavedSearchIsSaving}
           newSavedSearchHasErrored={newSavedSearchHasErrored}
           saveSearch={this.saveSearch}
           currentSavedSearch={currentSavedSearch}
-          resetSavedSearchAlerts={resetSavedSearchAlerts}
           fetchMissionAutocomplete={fetchMissionAutocomplete}
           missionSearchResults={missionSearchResults}
           missionSearchIsLoading={missionSearchIsLoading}
@@ -271,12 +265,10 @@ Results.propTypes = {
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
-  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
   saveSearch: PropTypes.func.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
-  resetSavedSearchAlerts: PropTypes.func.isRequired,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
   missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   missionSearchIsLoading: PropTypes.bool.isRequired,
@@ -301,11 +293,9 @@ Results.defaultProps = {
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
   userProfile: {},
-  newSavedSearchSuccess: {},
   newSavedSearchHasErrored: false,
   newSavedSearchIsSaving: false,
   currentSavedSearch: {},
-  resetSavedSearchAlerts: EMPTY_FUNCTION,
   fetchMissionAutocomplete: EMPTY_FUNCTION,
   missionSearchResults: [],
   missionSearchIsLoading: false,
@@ -333,7 +323,6 @@ const mapStateToProps = state => ({
   selectedAccordion: state.selectedAccordion,
   routerLocations: state.routerLocations,
   userProfile: state.userProfile,
-  newSavedSearchSuccess: state.newSavedSearchSuccess,
   newSavedSearchIsSaving: state.newSavedSearchIsSaving,
   newSavedSearchHasErrored: state.newSavedSearchHasErrored,
   currentSavedSearch: state.currentSavedSearch,
@@ -355,7 +344,6 @@ export const mapDispatchToProps = dispatch => ({
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
   saveSearch: (object, id) => dispatch(saveSearch(object, id)),
-  resetSavedSearchAlerts: () => dispatch(routeChangeResetState()),
   fetchMissionAutocomplete: query => dispatch(missionSearchFetchData(query)),
   fetchPostAutocomplete: query => dispatch(postSearchFetchData(query)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),

@@ -4,15 +4,13 @@ import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
-         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE, NEW_SAVED_SEARCH_SUCCESS_OBJECT,
+         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
          BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
 import SaveNewSearchContainer from '../SaveNewSearchContainer';
-import SaveNewSearchAlert from '../SaveNewSearchAlert';
-import Dismiss from '../Dismiss';
 
 class ResultsContainer extends Component {
   constructor(props) {
@@ -29,18 +27,12 @@ class ResultsContainer extends Component {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
             defaultPageNumber, queryParamUpdate, onQueryParamToggle,
-            newSavedSearchHasErrored, saveSearch, newSavedSearchSuccess,
-            currentSavedSearch, newSavedSearchIsSaving, resetSavedSearchAlerts, bidList,
+            newSavedSearchHasErrored, saveSearch,
+            currentSavedSearch, newSavedSearchIsSaving, bidList,
       } = this.props;
     const { isProjectedVacancy } = this.context;
     return (
       <div className="results-container">
-        {
-          newSavedSearchSuccess.title &&
-          <Dismiss onDismiss={resetSavedSearchAlerts}>
-            <SaveNewSearchAlert newSavedSearchSuccess={newSavedSearchSuccess} />
-          </Dismiss>
-        }
         <ResultsPillContainer
           items={pillFilters}
           onPillClick={onQueryParamToggle}
@@ -59,7 +51,6 @@ class ResultsContainer extends Component {
           !isProjectedVacancy ?
             <SaveNewSearchContainer
               saveSearch={saveSearch}
-              newSavedSearchSuccess={newSavedSearchSuccess}
               newSavedSearchHasErrored={newSavedSearchHasErrored}
               currentSavedSearch={currentSavedSearch}
               newSavedSearchIsSaving={newSavedSearchIsSaving}
@@ -85,6 +76,7 @@ class ResultsContainer extends Component {
               results={results}
               isLoading={!hasLoaded}
               favorites={userProfile.favorite_positions}
+              favoritesPV={userProfile.favorite_positions_pv}
               bidList={bidList}
             />
           </div>
@@ -130,11 +122,9 @@ ResultsContainer.propTypes = {
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
   saveSearch: PropTypes.func.isRequired,
-  newSavedSearchSuccess: NEW_SAVED_SEARCH_SUCCESS_OBJECT.isRequired,
   newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
   newSavedSearchIsSaving: PropTypes.bool.isRequired,
   currentSavedSearch: SAVED_SEARCH_OBJECT,
-  resetSavedSearchAlerts: PropTypes.func.isRequired,
   totalResults: PropTypes.number,
   bidList: BID_RESULTS.isRequired,
 };

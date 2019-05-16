@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BIDDER_LIST } from '../../../Constants/PropTypes';
-import { scrollToTop } from '../../../utilities';
+import { scrollToId } from '../../../utilities';
 import BidderPortfolioCardList from '../BidderPortfolioCardList';
 import BidderPortfolioGridList from '../BidderPortfolioGridList';
 import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
 import Alert from '../../Alert/Alert';
+
+const ID = 'bidder-portfolio-container';
 
 class BidderPortfolioContainer extends Component {
   constructor(props) {
@@ -13,14 +15,16 @@ class BidderPortfolioContainer extends Component {
     this.onPageChange = this.onPageChange.bind(this);
   }
   onPageChange(q) {
-    scrollToTop();
-    this.props.queryParamUpdate(q);
+    scrollToId({ el: '.bidder-portfolio-container', config: { duration: 400 } });
+    setTimeout(() => {
+      this.props.queryParamUpdate(q);
+    }, 600);
   }
   render() {
     const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit } = this.props;
     const noResults = bidderPortfolio.results.length === 0;
     return (
-      <div className="usa-grid-full user-dashboard">
+      <div className="usa-grid-full user-dashboard" id={ID}>
         {
           showListView ?
             <BidderPortfolioGridList showEdit={showEdit} results={bidderPortfolio.results} />

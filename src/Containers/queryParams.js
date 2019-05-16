@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { toString } from 'lodash';
+import { get } from 'lodash';
 
 // when we need to update an existing query string with properties from an object
 function queryParamUpdate(newQueryObject, oldQueryString, returnAsObject = false) {
@@ -16,7 +16,8 @@ function queryParamUpdate(newQueryObject, oldQueryString, returnAsObject = false
   const newQuery = Object.assign({}, parsedQuery, newQueryObject);
   // remove any params with no value
   Object.keys(newQuery).forEach((key) => {
-    if (!(toString(newQuery[key]) && toString(newQuery[key]).length)) {
+    const newQuery$ = get(newQuery, key) || '';
+    if (!(newQuery$.toString().length)) {
       delete newQuery[key];
     }
   });
