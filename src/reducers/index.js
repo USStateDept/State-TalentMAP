@@ -38,6 +38,7 @@ import features from './features';
 import toast from './toast';
 import clientView from './clientView';
 import sortPreferences from './sortPreferences';
+import aboutContent from './aboutContent';
 
 export default combineReducers({
   ...results,
@@ -73,6 +74,7 @@ export default combineReducers({
   ...toast,
   ...clientView,
   ...sortPreferences,
+  ...aboutContent,
   router,
   form,
   client,
