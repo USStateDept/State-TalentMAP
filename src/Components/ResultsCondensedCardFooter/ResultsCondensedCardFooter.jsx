@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_UPDATE_DATE } from '../../Constants/SystemMessages';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { formatDate } from '../../utilities';
 
-const ResultsCondensedCardFooter = ({ position }) => {
+const ResultsCondensedCardFooter = ({ position, isProjectedVacancy }) => {
   const date = position[COMMON_PROPERTIES.posted] ?
     formatDate(position[COMMON_PROPERTIES.posted]) : NO_UPDATE_DATE;
   return (
@@ -15,10 +16,12 @@ const ResultsCondensedCardFooter = ({ position }) => {
             <strong>Position number: </strong>
             {position.position_number}
           </div>
-          <div className="condensed-card-footer-right">
-            <strong>Posted: </strong>
-            {date}
-          </div>
+          {!isProjectedVacancy &&
+            <div className="condensed-card-footer-right">
+              <strong>Posted: </strong>
+              {date}
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -27,6 +30,11 @@ const ResultsCondensedCardFooter = ({ position }) => {
 
 ResultsCondensedCardFooter.propTypes = {
   position: POSITION_DETAILS.isRequired,
+  isProjectedVacancy: PropTypes.bool,
+};
+
+ResultsCondensedCardFooter.defaultProps = {
+  isProjectedVacancy: false,
 };
 
 export default ResultsCondensedCardFooter;

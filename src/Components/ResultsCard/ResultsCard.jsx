@@ -122,6 +122,8 @@ class ResultsCard extends Component {
     /* eslint-enable quote-props */
     ];
 
+    if (isProjectedVacancy) { delete sections[2].Posted; }
+
     options.favorite = {
       compareArray: isProjectedVacancy ? favoritesPV : favorites,
       refKey: result.id,
