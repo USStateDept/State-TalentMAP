@@ -13,19 +13,17 @@ exports[`BetaHeader matches snapshot 1`] = `
       <FontAwesome
         name="gears"
       />
-      <t
+      <SkeletonTheme
         color="#FAD980"
         highlightColor="#FDEFCC"
       >
-        <t
-          circle={false}
+        <Skeleton
           count={1}
           duration={1.8}
-          height={null}
           width="50%"
           wrapper={null}
         />
-      </t>
+      </SkeletonTheme>
     </div>
     <Connect(PermissionsWrapper)
       permissions="bidder"
