@@ -6,14 +6,14 @@ import BetaHeader from './BetaHeader';
 describe('BetaHeader', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <BetaHeader />,
+      <BetaHeader.WrappedComponent />,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <BetaHeader />,
+      <BetaHeader.WrappedComponent />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

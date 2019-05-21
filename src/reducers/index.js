@@ -39,6 +39,7 @@ import toast from './toast';
 import clientView from './clientView';
 import sortPreferences from './sortPreferences';
 import aboutContent from './aboutContent';
+import homeBannerContent from './homeBannerContent';
 
 export default combineReducers({
   ...results,
@@ -75,6 +76,7 @@ export default combineReducers({
   ...clientView,
   ...sortPreferences,
   ...aboutContent,
+  ...homeBannerContent,
   router,
   form,
   client,
