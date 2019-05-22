@@ -30,7 +30,7 @@ class Results extends Component {
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            bidList, isProjectedVacancy }
+            bidList, isProjectedVacancy, filtersIsLoading }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
@@ -48,6 +48,7 @@ class Results extends Component {
         <div className="usa-grid-full results-section-container">
           <ResultsFilterContainer
             filters={filters}
+            isLoading={filtersIsLoading}
             onQueryParamUpdate={onQueryParamUpdate}
             onChildToggle={this.onChildToggle}
             onQueryParamToggle={onQueryParamToggle}
@@ -95,6 +96,7 @@ class Results extends Component {
 
 Results.propTypes = {
   hasErrored: PropTypes.bool.isRequired,
+  filtersIsLoading: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   onQueryParamUpdate: PropTypes.func.isRequired,
