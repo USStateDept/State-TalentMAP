@@ -16,4 +16,54 @@
     min-height: 500px;
     padding: 25px;
   }
+
+  .total-results {
+    margin-top: 2em;
+  }
+
+  .log-list-row {
+    background-color: $color-white;
+    border: 1px solid $color-gray;
+    border-bottom: 0;
+    display: flex;
+    height: 89px;
+    padding: 22px 34px;
+
+    button {
+      min-width: 115px;
+      width: 80%;
+    }
+
+    > div {
+      margin: auto 0;
+    }
+
+    &.log-list-row--selected {
+      background-color: $primary-alt-lightest;
+    }
+
+    &:first-of-type {
+      margin-top: 2em;
+    }
+
+    &:last-of-type {
+      border-bottom: 1px solid $color-gray;
+      margin-bottom: 1em;
+    }
+
+    &:hover {
+      background-color: $primary-alt-lightest;
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: darken($primary-alt-lightest, 7%);
+    }
+  }
+
+  .log-list-row--download {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
 }

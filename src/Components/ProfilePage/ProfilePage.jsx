@@ -34,7 +34,7 @@ const ProfilePage = ({ user }) => (
         <Route path="/profile/statistics" component={BidStatistics} />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
         <Route path="/profile/public/:id" component={ProfilePublic} />
-        <Route path="/profile/administrator/" component={Administrator} />
+        <Route path="/profile/administrator" component={Administrator} />
         <Flag
           name="flags.bidding"
           render={() => (

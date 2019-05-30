@@ -1,6 +1,8 @@
 import Q from 'q';
-import { get } from 'lodash';
+import { get, takeRight } from 'lodash';
 import api from '../api';
+
+export const replaceSuffix = log => log.replace(/.log/g, '');
 
 export function logsHasErrored(message) {
   return {
@@ -23,6 +25,48 @@ export function logsSuccess(data) {
   };
 }
 
+export function logsListHasErrored(message) {
+  return {
+    type: 'LOGS_LIST_HAS_ERRORED',
+    hasErrored: message,
+  };
+}
+
+export function logsListIsLoading(bool) {
+  return {
+    type: 'LOGS_LIST_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function logsListSuccess(data) {
+  return {
+    type: 'LOGS_LIST_SUCCESS',
+    success: data,
+  };
+}
+
+export function logHasErrored(message) {
+  return {
+    type: 'LOG_HAS_ERRORED',
+    hasErrored: message,
+  };
+}
+
+export function logIsLoading(bool) {
+  return {
+    type: 'LOG_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function logSuccess(data) {
+  return {
+    type: 'LOG_SUCCESS',
+    success: data,
+  };
+}
+
 export function getLogs() {
   return (dispatch) => {
     dispatch(logsIsLoading(true));
@@ -37,7 +81,7 @@ export function getLogs() {
         // create promise array to retrieve individual logs
         const queryProms = data.map((log) => {
           // remove the .log suffix
-          const log$ = log.replace(/.log/g, '');
+          const log$ = replaceSuffix(log);
           // get each log
           return api().get(`/logs/${log$}/`)
             .then(response => ({ log, data: response.data }));
@@ -65,6 +109,53 @@ export function getLogs() {
         logsSuccess('');
         dispatch(logsHasErrored(true));
         dispatch(logsIsLoading(false));
+      });
+  };
+}
+
+export function getLogsList() {
+  return (dispatch) => {
+    dispatch(logsListIsLoading(true));
+    dispatch(logsListHasErrored(false));
+    // get list of logs
+    api().get('/logs/')
+      .then((logList) => {
+        const data = get(logList, 'data.data', []);
+        dispatch(logsListSuccess(data));
+        dispatch(logsListHasErrored(false));
+        dispatch(logsListIsLoading(false));
+      })
+      .catch(() => {
+        logsSuccess('');
+        dispatch(logsListHasErrored(true));
+        dispatch(logsListIsLoading(false));
+      });
+  };
+}
+
+export function getLog(id) {
+  return (dispatch) => {
+    dispatch(logIsLoading(true));
+    dispatch(logHasErrored(false));
+    // remove .log suffix from id, if exists
+    const id$ = replaceSuffix(id);
+    // get log by id
+    api().get(`/logs/${id$}/`)
+      .then((logList) => {
+        let data = get(logList, 'data.data', []);
+        data = data.split('\n');
+        data = takeRight(data, 500);
+        if (data.length === 1 && !data[0]) {
+          data = [];
+        }
+        dispatch(logSuccess(data));
+        dispatch(logHasErrored(false));
+        dispatch(logIsLoading(false));
+      })
+      .catch(() => {
+        logSuccess([]);
+        dispatch(logHasErrored(true));
+        dispatch(logIsLoading(false));
       });
   };
 }

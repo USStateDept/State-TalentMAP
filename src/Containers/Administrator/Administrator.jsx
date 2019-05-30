@@ -2,14 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AdministratorPage from '../../Components/AdministratorPage';
-import { getLogs } from '../../actions/logs';
+import { getLogs, getLogsList, getLog } from '../../actions/logs';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class AdministratorContainer extends Component {
   constructor(props) {
     super(props);
     this.onDownloadClick = this.onDownloadClick.bind(this);
+    this.getLogById = this.getLogById.bind(this);
     this.state = {};
+  }
+
+  componentWillMount() {
+    this.props.getLogsList();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,9 +41,27 @@ class AdministratorContainer extends Component {
     }
   }
 
+  getLogById(id) {
+    this.props.getLog(id);
+  }
+
   render() {
-    const { logs, logsIsLoading, logsHasErrored } = this.props;
-    const props = { logs, logsIsLoading, logsHasErrored, onDownloadClick: this.onDownloadClick };
+    const { logs, logsIsLoading, logsHasErrored,
+    logsList, logsListIsLoading, logsListHasErrored,
+    log, logIsLoading, logHasErrored } = this.props;
+    const props = {
+      logs,
+      logsIsLoading,
+      logsHasErrored,
+      onDownloadClick: this.onDownloadClick,
+      logsList,
+      logsListIsLoading,
+      logsListHasErrored,
+      log,
+      logIsLoading,
+      logHasErrored,
+      getLog: this.getLogById,
+    };
     return (
       <AdministratorPage {...props} />
     );
@@ -47,28 +70,52 @@ class AdministratorContainer extends Component {
 
 AdministratorContainer.propTypes = {
   getLogs: PropTypes.func,
+  getLogsList: PropTypes.func,
   isLoading: PropTypes.bool,
   logs: PropTypes.string,
   logsIsLoading: PropTypes.bool,
   logsHasErrored: PropTypes.bool,
+  logsList: PropTypes.arrayOf(PropTypes.string),
+  logsListIsLoading: PropTypes.bool,
+  logsListHasErrored: PropTypes.bool,
+  log: PropTypes.string,
+  logIsLoading: PropTypes.bool,
+  logHasErrored: PropTypes.bool,
+  getLog: PropTypes.func,
 };
 
 AdministratorContainer.defaultProps = {
   getLogs: EMPTY_FUNCTION,
+  getLogsList: EMPTY_FUNCTION,
   isLoading: false,
   logs: '',
   logsIsLoading: false,
   logsHasErrored: false,
+  logsList: [],
+  logsListIsLoading: false,
+  logsListHasErrored: false,
+  log: '',
+  logIsLoading: false,
+  logHasErrored: false,
+  getLog: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
   logs: state.logsSuccess,
   logsIsLoading: state.logsIsLoading,
   logsHasErrored: state.logsHasErrored,
+  logsList: state.logsListSuccess,
+  logsListIsLoading: state.logsListIsLoading,
+  logsListHasErrored: state.logsListHasErrored,
+  log: state.logSuccess,
+  logIsLoading: state.logIsLoading,
+  logHasErrored: state.logHasErrored,
 });
 
 export const mapDispatchToProps = dispatch => ({
   getLogs: () => dispatch(getLogs()),
+  getLogsList: () => dispatch(getLogsList()),
+  getLog: id => dispatch(getLog(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((AdministratorContainer));

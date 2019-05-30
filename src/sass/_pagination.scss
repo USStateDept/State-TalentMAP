@@ -17,6 +17,7 @@
   // Set our borders, keeping in mind that the first and last children
   // may be disabled depending on what page the user is on.
   li {
+    background-color: $color-white;
     border-color: $bg-gray-dark-2;
     border-style: solid;
     border-width: 1px 0 1px 1px;
