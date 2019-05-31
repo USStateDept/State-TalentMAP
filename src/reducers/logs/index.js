@@ -1,6 +1,7 @@
 import { logsIsLoading, logsHasErrored, logsSuccess,
   logsListIsLoading, logsListHasErrored, logsListSuccess,
-  logIsLoading, logHasErrored, logSuccess } from './logs';
+  logIsLoading, logHasErrored, logSuccess,
+  logToDownloadIsLoading, logToDownloadHasErrored, logToDownloadSuccess } from './logs';
 
 export default {
   logsIsLoading,
@@ -12,4 +13,7 @@ export default {
   logIsLoading,
   logHasErrored,
   logSuccess,
+  logToDownloadIsLoading,
+  logToDownloadHasErrored,
+  logToDownloadSuccess,
 };

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import shortid from 'shortid';
+import { isEqual } from 'lodash';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import LogRow from './LogRow';
@@ -23,7 +25,7 @@ class LogsPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.log !== this.props.log) {
+    if (!isEqual(nextProps.log, this.props.log)) {
       setTimeout(() => {
         const objDiv = document.getElementById(LOG_CONTAINER);
         objDiv.scrollTop = objDiv.scrollHeight;
@@ -45,15 +47,17 @@ class LogsPage extends Component {
     const {
       logsList,
       logsListIsLoading,
-      logsListHasErrored, // eslint-disable-line
+      logsListHasErrored,
       log,
-      logIsLoading, // eslint-disable-line
-      logHasErrored, // eslint-disable-line
-      getLog, // eslint-disable-line
+      logIsLoading,
+      logHasErrored,
+      onDownloadOne,
     } = this.props;
     const { page, range, selected } = this.state;
 
     const logsLen = logsList.length;
+
+    const logSuccess = selected && !logIsLoading && !logHasErrored && !!log.length;
 
     return (
       <div
@@ -76,7 +80,15 @@ class LogsPage extends Component {
             <div className="usa-grid-full">
               {paginate(logsList, range, page).map((m) => {
                 const isSelected = m === selected;
-                return <LogRow key={m} name={m} onClick={this.selectLog} isSelected={isSelected} />;
+                return (
+                  <LogRow
+                    key={m}
+                    name={m}
+                    onClick={this.selectLog}
+                    onDownloadClick={onDownloadOne}
+                    isSelected={isSelected}
+                  />
+                );
               })}
             </div>
             <div className="usa-grid-full react-paginate">
@@ -87,24 +99,12 @@ class LogsPage extends Component {
                 forcePage={page}
               />
             </div>
-            <div className="usa-grid-full">
+            <div className="usa-grid-full log-contents-container">
               <h3>Log Contents</h3>
-              <div
-                id={LOG_CONTAINER}
-                style={{
-                  minHeight: '80px',
-                  maxHeight: '486px',
-                  overflowY: 'scroll',
-                  maxWidth: '100%',
-                  padding: '16px',
-                  backgroundColor: 'white',
-                  fontSize: '.8em',
-                  border: '1px solid gray',
-                }}
-              >
+              <div id={LOG_CONTAINER} className="log-container">
                 {
-                  selected && !logIsLoading && !logHasErrored && !!log.length &&
-                  (log || []).map(m => <div style={{ margin: '.3em 0' }}><code>{m}</code></div>)
+                  logSuccess &&
+                  (log || []).map(m => <div key={shortid.generate()} className="log-line-item"><code>{m}</code></div>)
                 }
                 {
                   selected && !logIsLoading && !logHasErrored && log.length <= 1 && !log[0] && 'This log file is empty.'
@@ -119,6 +119,10 @@ class LogsPage extends Component {
                   !selected && 'Please choose a log file above.'
                 }
               </div>
+              {
+                logSuccess &&
+                <button onClick={() => onDownloadOne(this.state.selected)} className="usa-button">Download</button>
+              }
             </div>
           </div>
         }
@@ -131,20 +135,22 @@ LogsPage.propTypes = {
   logsList: PropTypes.arrayOf(PropTypes.string),
   logsListIsLoading: PropTypes.bool,
   logsListHasErrored: PropTypes.bool,
-  log: PropTypes.string,
+  log: PropTypes.arrayOf(PropTypes.string),
   logIsLoading: PropTypes.bool,
   logHasErrored: PropTypes.bool,
   getLog: PropTypes.func,
+  onDownloadOne: PropTypes.func,
 };
 
 LogsPage.defaultProps = {
   logsList: [],
   logsListIsLoading: false,
   logsListHasErrored: false,
-  log: '',
+  log: [],
   logIsLoading: false,
   logHasErrored: false,
   getLog: EMPTY_FUNCTION,
+  onDownloadOne: EMPTY_FUNCTION,
 };
 
 export default LogsPage;

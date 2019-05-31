@@ -64,9 +64,34 @@ export function logIsLoading(state = false, action) {
       return state;
   }
 }
-export function logSuccess(state = '', action) {
+export function logSuccess(state = [], action) {
   switch (action.type) {
     case 'LOG_SUCCESS':
+      return action.success;
+    default:
+      return state;
+  }
+}
+
+export function logToDownloadHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'LOG_TO_DOWNLOAD_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function logToDownloadIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'LOG_TO_DOWNLOAD_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function logToDownloadSuccess(state = '', action) {
+  switch (action.type) {
+    case 'LOG_TO_DOWNLOAD_SUCCESS':
       return action.success;
     default:
       return state;

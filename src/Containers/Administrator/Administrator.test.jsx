@@ -20,7 +20,7 @@ describe('Administrator', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can call the onDownloadClick function', () => {
+  it('calls the onDownloadClick function', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Administrator.WrappedComponent getLogs={spy} />,
@@ -28,8 +28,38 @@ describe('Administrator', () => {
     wrapper.instance().onDownloadClick();
     sinon.assert.calledOnce(spy);
   });
+
+  it('calls the onDownloadOne function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Administrator.WrappedComponent getLogToDownload={spy} />,
+    );
+    wrapper.instance().onDownloadOne('access.log');
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('calls the getLogById function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Administrator.WrappedComponent getLog={spy} />,
+    );
+    wrapper.instance().getLogById('access.log');
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('is defined when receiving new props that trigger a download', () => {
+    const wrapper = shallow(
+      <Administrator.WrappedComponent logsIsLoading logToDownloadIsLoading />,
+    );
+    wrapper.setProps({ logsIsLoading: false, logs: 'data', logToDownloadIsLoading: false, logToDownload: 'data' });
+    expect(wrapper).toBeDefined();
+  });
 });
 
 describe('mapDispatchToProps', () => {
-  testDispatchFunctions(mapDispatchToProps);
+  const config = {
+    getLog: ['test'],
+    getLogToDownload: ['test'],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

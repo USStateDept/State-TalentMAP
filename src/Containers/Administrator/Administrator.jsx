@@ -2,14 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AdministratorPage from '../../Components/AdministratorPage';
-import { getLogs, getLogsList, getLog } from '../../actions/logs';
+import { getLogs, getLogsList, getLog, getLogToDownload } from '../../actions/logs';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+
+export const downloadFile = (text) => {
+  const filename = `logs-${Date.now()}.txt`;
+  const data = text;
+  const blob = new Blob([data], { type: 'text/csv' });
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveBlob(blob, filename);
+  } else {
+    const elem = window.document.createElement('a');
+    elem.href = window.URL.createObjectURL(blob);
+    elem.download = filename;
+    document.body.appendChild(elem);
+    elem.click();
+    document.body.removeChild(elem);
+  }
+};
 
 class AdministratorContainer extends Component {
   constructor(props) {
     super(props);
     this.onDownloadClick = this.onDownloadClick.bind(this);
     this.getLogById = this.getLogById.bind(this);
+    this.onDownloadOne = this.onDownloadOne.bind(this);
     this.state = {};
   }
 
@@ -19,25 +36,23 @@ class AdministratorContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.logsIsLoading && !nextProps.logsIsLoading && nextProps.logs) {
-      const filename = `logs-${Date.now()}.txt`;
-      const data = nextProps.logs;
-      const blob = new Blob([data], { type: 'text/csv' });
-      if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveBlob(blob, filename);
-      } else {
-        const elem = window.document.createElement('a');
-        elem.href = window.URL.createObjectURL(blob);
-        elem.download = filename;
-        document.body.appendChild(elem);
-        elem.click();
-        document.body.removeChild(elem);
-      }
+      downloadFile(nextProps.log);
+    }
+    if (this.props.logToDownloadIsLoading && !nextProps.logToDownloadIsLoading
+      && nextProps.logToDownload) {
+      downloadFile(nextProps.logToDownload);
     }
   }
 
   onDownloadClick() {
     if (!this.props.isLoading) {
       this.props.getLogs();
+    }
+  }
+
+  onDownloadOne(id) {
+    if (!this.props.logToDownloadIsLoading) {
+      this.props.getLogToDownload(id);
     }
   }
 
@@ -61,6 +76,7 @@ class AdministratorContainer extends Component {
       logIsLoading,
       logHasErrored,
       getLog: this.getLogById,
+      onDownloadOne: this.onDownloadOne,
     };
     return (
       <AdministratorPage {...props} />
@@ -78,10 +94,14 @@ AdministratorContainer.propTypes = {
   logsList: PropTypes.arrayOf(PropTypes.string),
   logsListIsLoading: PropTypes.bool,
   logsListHasErrored: PropTypes.bool,
-  log: PropTypes.string,
+  log: PropTypes.arrayOf(PropTypes.string),
   logIsLoading: PropTypes.bool,
   logHasErrored: PropTypes.bool,
+  logToDownload: PropTypes.string,
+  logToDownloadIsLoading: PropTypes.bool,
+  logToDownloadHasErrored: PropTypes.bool,
   getLog: PropTypes.func,
+  getLogToDownload: PropTypes.func,
 };
 
 AdministratorContainer.defaultProps = {
@@ -94,10 +114,14 @@ AdministratorContainer.defaultProps = {
   logsList: [],
   logsListIsLoading: false,
   logsListHasErrored: false,
-  log: '',
+  log: [],
   logIsLoading: false,
   logHasErrored: false,
+  logToDownload: '',
+  logToDownloadIsLoading: false,
+  logToDownloadHasErrored: false,
   getLog: EMPTY_FUNCTION,
+  getLogToDownload: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -110,12 +134,16 @@ const mapStateToProps = state => ({
   log: state.logSuccess,
   logIsLoading: state.logIsLoading,
   logHasErrored: state.logHasErrored,
+  logToDownload: state.logToDownloadSuccess,
+  logToDownloadIsLoading: state.logToDownloadIsLoading,
+  logToDownloadHasErrored: state.logToDownloadHasErrored,
 });
 
 export const mapDispatchToProps = dispatch => ({
   getLogs: () => dispatch(getLogs()),
   getLogsList: () => dispatch(getLogsList()),
   getLog: id => dispatch(getLog(id)),
+  getLogToDownload: id => dispatch(getLogToDownload(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((AdministratorContainer));

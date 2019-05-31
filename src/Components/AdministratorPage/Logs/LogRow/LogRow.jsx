@@ -6,7 +6,7 @@ import { Row, Column } from '../../../Layout';
 import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
 import InteractiveElement from '../../../InteractiveElement';
 
-export const stopProp = e => e.stopPropagation();
+export const stopProp = (e) => { if (e && e.stopPropagation) { e.stopPropagation(); } };
 
 const LogsPage = (props) => {
   const {
@@ -15,7 +15,7 @@ const LogsPage = (props) => {
 
   const onDownloadClick$ = (e) => {
     stopProp(e);
-    props.onDownloadClick();
+    props.onDownloadClick(props.name);
   };
 
   const onClick$ = (e) => {

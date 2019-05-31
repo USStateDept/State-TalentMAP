@@ -17,6 +17,7 @@ const AdministratorPage = (props) => {
     logIsLoading,
     logHasErrored,
     getLog,
+    onDownloadOne,
   } = props;
 
   const dashboardProps = {
@@ -33,6 +34,7 @@ const AdministratorPage = (props) => {
     logIsLoading,
     logHasErrored,
     getLog,
+    onDownloadOne,
   };
 
   return (
@@ -52,10 +54,11 @@ AdministratorPage.propTypes = {
   logsList: PropTypes.arrayOf(PropTypes.string),
   logsListIsLoading: PropTypes.bool,
   logsListHasErrored: PropTypes.bool,
-  log: PropTypes.string,
+  log: PropTypes.arrayOf(PropTypes.string),
   logIsLoading: PropTypes.bool,
   logHasErrored: PropTypes.bool,
   getLog: PropTypes.func,
+  onDownloadOne: PropTypes.func,
 };
 
 AdministratorPage.defaultProps = {
@@ -65,10 +68,11 @@ AdministratorPage.defaultProps = {
   logsList: [],
   logsListIsLoading: false,
   logsListHasErrored: false,
-  log: '',
+  log: [],
   logIsLoading: false,
   logHasErrored: false,
   getLog: EMPTY_FUNCTION,
+  onDownloadOne: EMPTY_FUNCTION,
 };
 
 export default AdministratorPage;

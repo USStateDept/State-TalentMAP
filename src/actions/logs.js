@@ -67,6 +67,27 @@ export function logSuccess(data) {
   };
 }
 
+export function logToDownloadHasErrored(message) {
+  return {
+    type: 'LOG_TO_DOWNLOAD_HAS_ERRORED',
+    hasErrored: message,
+  };
+}
+
+export function logToDownloadIsLoading(bool) {
+  return {
+    type: 'LOG_TO_DOWNLOAD_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function logToDownloadSuccess(data) {
+  return {
+    type: 'LOG_TO_DOWNLOAD_SUCCESS',
+    success: data,
+  };
+}
+
 export function getLogs() {
   return (dispatch) => {
     dispatch(logsIsLoading(true));
@@ -156,6 +177,36 @@ export function getLog(id) {
         logSuccess([]);
         dispatch(logHasErrored(true));
         dispatch(logIsLoading(false));
+      });
+  };
+}
+
+export function getLogToDownload(id) {
+  return (dispatch) => {
+    dispatch(logToDownloadIsLoading(true));
+    dispatch(logToDownloadHasErrored(false));
+    // remove .log suffix from id, if exists
+    const id$ = replaceSuffix(id);
+
+    let text = '';
+
+    // get log by id
+    api().get(`/logs/${id$}/`)
+      .then((response) => {
+        const logText = get(response, 'data.data', '');
+        const logName = id;
+        const lb = '\n'; // line-break
+
+        // add individual log text to running list, wrapped in a START/END with its name
+        text = `${text + lb}-- START ${logName} --${lb}${logText}${lb}-- END ${logName} --${lb}`;
+        dispatch(logToDownloadSuccess(text));
+        dispatch(logToDownloadHasErrored(false));
+        dispatch(logToDownloadIsLoading(false));
+      })
+      .catch(() => {
+        logSuccess([]);
+        dispatch(logToDownloadHasErrored(true));
+        dispatch(logToDownloadIsLoading(false));
       });
   };
 }
