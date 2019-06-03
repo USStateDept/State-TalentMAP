@@ -33,7 +33,7 @@ class BidTrackerCard extends Component {
     // add class to container for draft since we need to apply an overflow:hidden for drafts only
     const bidStatus = get(bid, 'status', '');
     const statusClass = `bid-tracker-bid-steps-container--${formatIdSpacing(bidStatus)}`;
-    const bidStatistics = get(bid, 'position.bid_statistics[0]', {});
+    const bidStatistics = get(bid, 'position.position.bid_statistics[0]', {});
     const containerClass = [
       'bid-tracker',
       condensedView ? 'bid-tracker--condensed' : '',
@@ -71,7 +71,7 @@ class BidTrackerCard extends Component {
               <div className="padded-container-inner">
                 <BidTrackerCardBottom
                   reviewer={bid.reviewer}
-                  bureau={bid.position.bureau}
+                  bureau={bid.position.position.bureau}
                   userProfile={userProfile}
                 />
               </div>

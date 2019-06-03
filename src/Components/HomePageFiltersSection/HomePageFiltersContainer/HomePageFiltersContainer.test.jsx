@@ -39,7 +39,7 @@ describe('HomePageFiltersContainerComponent', () => {
     const wrapper = shallow(
       <HomePageFiltersContainer.WrappedComponent {...props} />,
     );
-    expect(wrapper.instance().state.filterValues.skill__code__in).toBeDefined();
+    expect(wrapper.instance().state.filterValues.position__skill__code__in).toBeDefined();
   });
 
   it('is defined when no filters are available', () => {
@@ -57,7 +57,7 @@ describe('HomePageFiltersContainerComponent', () => {
     );
     wrapper.instance().onSkillSelect([{ code: '1' }]);
     wrapper.instance().submitSearch({ preventDefault: () => {} });
-    expect(qString).toBe('/results?skill__code__in=1');
+    expect(qString).toBe('/results?position__skill__code__in=1');
   });
 
   it('matches snapshot', () => {

@@ -81,6 +81,7 @@ export function bidderPortfolioLastQuery(state = '/client/', action) {
       const base = '/client/';
       const q = queryString.parse(action.query);
       q.limit = action.count;
+      q.page = 1;
       const stringified = queryString.stringify(q);
       const newState = `${base}?${stringified}`;
       return newState;

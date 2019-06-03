@@ -85,7 +85,7 @@ describe('ResultsPageComponent', () => {
       shouldShowSearchBar
       bidList={[]}
     />);
-    expect(wrapper.instance().props.results.results[0].id).toBe(6);
+    expect(wrapper.instance().props.results.results[0].position.id).toBe(6);
   });
 
   it('can receive props', () => {

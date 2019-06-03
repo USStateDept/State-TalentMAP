@@ -10,7 +10,7 @@ class ResultsSearchHeader extends Component {
     this.onChangeQueryText = this.onChangeQueryText.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.state = {
-      q: { value: this.props.defaultKeyword || '' },
+      position__q: { value: this.props.defaultKeyword || '' },
     };
   }
   onChangeQueryText(e) {
@@ -19,14 +19,14 @@ class ResultsSearchHeader extends Component {
   submitSearch(e) {
     // resolves “Form submission canceled because the form is not connected” warning
     e.preventDefault();
-    const { q } = this.state;
+    const { position__q } = this.state;
     // send any updates to q and location back to the Results container, and reset our page number
-    this.props.onUpdate({ q: q.value });
+    this.props.onUpdate({ position__q: position__q.value });
   }
   changeText(type, e) {
-    const { q } = this.state;
+    const { position__q } = this.state;
     this.setState({ [type]: { value: e.target.value } });
-    this.props.onFilterChange({ q: q.value });
+    this.props.onFilterChange({ position__q: position__q.value });
   }
   render() {
     const { defaultKeyword, isHomePage, labelSrOnly, placeholder, searchBarDisabled,

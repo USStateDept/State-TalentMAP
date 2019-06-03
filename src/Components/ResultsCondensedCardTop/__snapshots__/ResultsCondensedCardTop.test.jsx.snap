@@ -16,7 +16,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
        
       <Link
         replace={false}
-        to="/details/6"
+        to="/details/1"
       >
         View position
       </Link>
@@ -70,7 +70,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
        
       <Link
         replace={false}
-        to="/details/6"
+        to="/details/1"
       >
         View position
       </Link>

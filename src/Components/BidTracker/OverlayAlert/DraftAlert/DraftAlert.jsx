@@ -22,7 +22,7 @@ class DraftAlert extends Component {
   }
   render() {
     const { bid } = this.props;
-    const position = bid.position;
+    const { position } = bid.position;
     const positionTitle = position.title;
     const post = getPostName(position.post, NO_POST);
     const skillCode = position.skill ? position.skill : NO_SKILL;

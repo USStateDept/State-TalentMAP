@@ -196,10 +196,10 @@ describe('shortenString function', () => {
 });
 
 describe('cleanQueryParams', () => {
-  const query = { q: 'test', fake: 'test' };
+  const query = { position__q: 'test', fake: 'test' };
   it('retain only real query params', () => {
     expect(cleanQueryParams(query).fake).toBe(undefined);
-    expect(cleanQueryParams(query).q).toBe(query.q);
+    expect(cleanQueryParams(query).position__q).toBe(query.position__q);
     expect(Object.keys(cleanQueryParams(query)).length).toBe(1);
   });
 });
@@ -213,7 +213,7 @@ describe('ifEnter', () => {
 
 describe('formQueryString', () => {
   it('can return a string', () => {
-    expect(formQueryString({ q: 'test' })).toBe('q=test');
+    expect(formQueryString({ position__q: 'test' })).toBe('position__q=test');
   });
 });
 
@@ -626,19 +626,23 @@ describe('mapSavedSearchesToSingleQuery', () => {
   const searches = searchObjectParent;
   it('maps multiple saved searches to a single query', () => {
     const mappedSearch = mapSavedSearchesToSingleQuery(searches);
-    const expected = { grade__code__in: '02', post__tour_of_duty__code__in: 'O', q: 'german', skill__code__in: '6080' };
+    const expected = {
+      position__grade__code__in: '02',
+      position__post__tour_of_duty__code__in: 'O',
+      position__q: 'german',
+      position__skill__code__in: '6080',
+    };
     expect(isEqual(mappedSearch, expected)).toBe(true);
   });
 });
 
 describe('mapSavedSearchToDescriptions', () => {
   const searches = searchObjectParent;
-  const mappedFilters = [{ selectionRef: 'skill__code__in', description: 'test A', codeRef: '6080' }];
+  const mappedFilters = [{ selectionRef: 'position__skill__code__in', description: 'test A', codeRef: '6080' }];
   it('maps saved searches to descriptions', () => {
     const mappedDescriptions = mapSavedSearchToDescriptions(
-      searches.results[0].filters, mappedFilters,
-    );
-    const expected = ['german', 'test A'];
+      searches.results[0].filters, mappedFilters);
+    const expected = ['test A'];
     expect(isEqual(mappedDescriptions, expected)).toBe(true);
   });
 });

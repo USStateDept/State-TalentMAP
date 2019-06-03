@@ -10,18 +10,18 @@ import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 describe('HomePageComponent', () => {
   const props = {
     homePagePositions: {
-      [USER_SKILL_CODE_POSITIONS]: [{ id: 1, skill: 'skill 1' }],
-      [USER_GRADE_RECENT_POSITIONS]: [{ id: 2, grade: '03' }],
-      [SERVICE_NEED_POSITIONS]: [{ id: 3 }],
+      [USER_SKILL_CODE_POSITIONS]: [{ position: { id: 1, skill: 'skill 1' } }],
+      [USER_GRADE_RECENT_POSITIONS]: [{ position: { id: 2, grade: '03' } }],
+      [SERVICE_NEED_POSITIONS]: [{ position: { id: 3 } }],
     },
     bidList: bidListObject.results,
     userProfile: { skills: ['1', '2'], grade: '03' },
   };
 
   const fallBackPositions = {
-    [SERVICE_NEED_POSITIONS]: [{ id: 3 }],
-    [FAVORITED_POSITIONS]: [{ id: 101 }],
-    [RECENTLY_POSTED_POSITIONS]: [{ id: 202 }],
+    [SERVICE_NEED_POSITIONS]: [{ position: { id: 3 } }],
+    [FAVORITED_POSITIONS]: [{ position: { id: 101 } }],
+    [RECENTLY_POSTED_POSITIONS]: [{ position: { id: 202 } }],
   };
 
   it('is defined', () => {
@@ -56,8 +56,8 @@ describe('HomePageComponent', () => {
       {...props}
       homePagePositions={fallBackPositions}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions')[0].id).toBe(101);
-    expect(wrapper.find('HomePagePositionsSection').at(2).prop('positions')[0].id).toBe(202);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions')[0].position.id).toBe(101);
+    expect(wrapper.find('HomePagePositionsSection').at(2).prop('positions')[0].position.id).toBe(202);
   });
 
   it('sets titles correctly for fallback positions', () => {

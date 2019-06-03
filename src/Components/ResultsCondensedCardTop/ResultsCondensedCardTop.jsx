@@ -31,7 +31,8 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
     vacancyClass = 'vacancy--recent';
     vacancyText = 'Now available';
   }
-  const stats = getBidStatisticsObject(position.bid_statistics);
+  const p = position.position || position;
+  const stats = getBidStatisticsObject(p.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
 
   return (
@@ -49,12 +50,12 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
           }
         >
           {useType && <span><FontAwesome name={icon} /> </span>}
-          <h3>{position.title}</h3> {!isProjectedVacancy && <Link to={`/details/${position.id}`}>View position</Link>}
+          <h3>{p.title}</h3> {!isProjectedVacancy && <Link to={`/details/${position.id}`}>View position</Link>}
         </div>
       </div>
       <div className="usa-grid-full post-ribbon-container">
         <div>
-          <span><span className="title">Post:</span> <span className="data">{getPostName(position.post, NO_POST)}</span></span>
+          <span><span className="title">Post:</span> <span className="data">{getPostName(p.post, NO_POST)}</span></span>
         </div>
         <Flag
           name="flags.bidding"
@@ -71,7 +72,9 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
 };
 
 ResultsCondensedCardTop.propTypes = {
-  position: POSITION_DETAILS.isRequired,
+  position: PropTypes.shape({
+    position: POSITION_DETAILS.isRequired,
+  }).isRequired,
   type: HOME_PAGE_CARD_TYPE.isRequired,
   isProjectedVacancy: PropTypes.bool,
   isRecentlyAvailable: PropTypes.bool,

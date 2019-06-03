@@ -37,7 +37,7 @@ class PostFilter extends Component {
     this.setState({ allDomesticSelected: !value },
       queryParamUpdate({
         [item.item.selectionRef]: '',
-        is_domestic: [value ? 'true' : '', allOverseasSelected ? 'false' : ''].filter(n => n).join(),
+        position__is_domestic: [value ? 'true' : '', allOverseasSelected ? 'false' : ''].filter(n => n).join(),
       }),
     );
   }
@@ -48,7 +48,7 @@ class PostFilter extends Component {
     this.setState({ allOverseasSelected: !value },
       queryParamUpdate({
         [item.item.selectionRef]: '',
-        is_domestic: [allDomesticSelected ? 'true' : '', value ? 'false' : ''].filter(n => n).join(),
+        position__is_domestic: [allDomesticSelected ? 'true' : '', value ? 'false' : ''].filter(n => n).join(),
       }),
     );
   }

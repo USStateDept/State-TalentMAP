@@ -58,6 +58,8 @@ class PositionDetails extends Component {
 
     const isError = hasErrored && !isLoading && !userProfileIsLoading;
 
+    const { position } = details;
+
     return (
       <div className="content-container position-details-container">
         <Row className="position-details-description-container positions-details-about-position back-container padded-main-content" fluid>
@@ -66,7 +68,7 @@ class PositionDetails extends Component {
         { isReady &&
         <div>
           <PositionTitle
-            details={details}
+            details={position}
             goBackLink={goBackLink}
             bidList={bidList}
             editDescriptionContent={this.editDescriptionContent}
@@ -76,7 +78,7 @@ class PositionDetails extends Component {
             userProfile={userProfile}
           />
           <PositionDetailsItem
-            details={details}
+            details={position}
             editDescriptionContent={this.editDescriptionContent}
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}
