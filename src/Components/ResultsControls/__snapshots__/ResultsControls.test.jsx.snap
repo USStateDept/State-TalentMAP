@@ -10,6 +10,7 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
     <TotalResults
       pageNumber={0}
       pageSize={10}
+      suffix="Results"
       total={2}
     />
   </div>

@@ -1,9 +1,15 @@
 import { notificationsHasErrored, notificationsIsLoading, notifications,
-  notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount } from './notifications';
+  notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount,
+  markNotificationHasErrored,
+  markNotificationIsLoading,
+  markNotificationSuccess } from './notifications';
 
 export default { notificationsHasErrored,
   notificationsIsLoading,
   notifications,
   notificationsCountHasErrored,
   notificationsCountIsLoading,
-  notificationsCount };
+  notificationsCount,
+  markNotificationHasErrored,
+  markNotificationIsLoading,
+  markNotificationSuccess };

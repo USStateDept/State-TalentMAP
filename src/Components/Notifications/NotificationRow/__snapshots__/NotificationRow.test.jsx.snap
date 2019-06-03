@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationRowComponent matches snapshot 1`] = `
+<Row
+  as="div"
+  className="usa-grid-full notification-row"
+  fluid={false}
+>
+  <Column
+    as="div"
+    className=""
+    columns={9}
+  >
+    <NotificationItem
+      content={
+        <div>
+          <div>
+            <FontAwesome
+              name="clipboard"
+            />
+             
+            You have received a handshake
+          </div>
+        </div>
+      }
+      notificationTime="2019-03-05T20:15:09.587724Z"
+    />
+  </Column>
+  <Column
+    as="div"
+    className="notification-button"
+    columns={3}
+  >
+    <LinkButton
+      className="usa-button"
+      isExternal={false}
+      toLink="/profile/bidtracker"
+      useDefaultClass={true}
+    >
+      Go to Bid Tracker
+    </LinkButton>
+    <button
+      className="usa-button-secondary delete-button"
+      id="delete-notification-button"
+      onClick={[Function]}
+      title="Delete this notification"
+    >
+      <FontAwesome
+        name="trash-o"
+      />
+    </button>
+  </Column>
+</Row>
+`;

@@ -84,9 +84,11 @@ export function notificationsCountFetchData() {
   };
 }
 
-export function notificationsFetchData(limit = 3, ordering = '-date_updated', tags = undefined, isRead = undefined) {
+export function notificationsFetchData(limit = 3, page = 1, ordering = '-date_updated', tags = undefined, isRead = undefined) {
   return (dispatch) => {
-    api().get(`/notification/?limit=${limit}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
+    dispatch(notificationsIsLoading(true));
+    dispatch(notificationsHasErrored(false));
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
       .then(({ data }) => {
         dispatch(notificationsFetchDataSuccess(data));
         dispatch(notificationsIsLoading(false));
@@ -101,18 +103,25 @@ export function notificationsFetchData(limit = 3, ordering = '-date_updated', ta
 
 export function bidTrackerNotificationsFetchData() {
   return (dispatch) => {
-    dispatch(notificationsFetchData(1, '-date_created', 'bidding'));
+    dispatch(notificationsFetchData(1, 1, '-date_created', 'bidding'));
   };
 }
 
-export function markNotification(id, isRead = true) {
+export function markNotification(id, isRead = true, shouldDelete = false,
+  bypassTrackerUpdate = false) {
   return (dispatch) => {
-    api().patch(`/notification/${id}/`, { is_read: isRead })
+    dispatch(markNotificationIsLoading(true));
+    dispatch(markNotificationHasErrored(false));
+    const method = shouldDelete ? 'delete' : 'patch';
+    const body = shouldDelete ? {} : { is_read: isRead };
+    api()[method](`/notification/${id}/`, body)
       .then(({ data }) => {
         dispatch(markNotificationSuccess(data));
         dispatch(markNotificationIsLoading(false));
         dispatch(markNotificationHasErrored(false));
-        dispatch(bidTrackerNotificationsFetchData());
+        if (!bypassTrackerUpdate) {
+          dispatch(bidTrackerNotificationsFetchData());
+        }
       })
       .catch(() => {
         dispatch(markNotificationHasErrored(true));

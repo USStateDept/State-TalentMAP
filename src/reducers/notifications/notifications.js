@@ -56,7 +56,7 @@ export function markNotificationHasErrored(state = false, action) {
       return state;
   }
 }
-export function markNotificationIsLoading(state = true, action) {
+export function markNotificationIsLoading(state = false, action) {
   switch (action.type) {
     case 'MARK_NOTIFICATION_IS_LOADING':
       return action.isLoading;

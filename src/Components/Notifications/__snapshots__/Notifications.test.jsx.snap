@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationsComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full favorite-positions-container notifications-page profile-content-inner-container "
+>
+  <div
+    className="usa-grid-full favorites-top-section"
+  >
+    <div
+      className="favorites-title-container"
+    >
+      <ProfileSectionTitle
+        icon="globe"
+        title="Notifications"
+      />
+    </div>
+  </div>
+  <div>
+    <Column
+      as="div"
+      className="total-results-container"
+      columns={12}
+    >
+      <TotalResults
+        pageNumber={1}
+        pageSize={10}
+        suffix="notifications"
+        total={1}
+      />
+    </Column>
+    <Column
+      as="div"
+      className=""
+      columns={12}
+    >
+      <NotificationRow
+        date=""
+        deleteOne={[Function]}
+        id={1}
+        message="message"
+        tags={Array []}
+      />
+    </Column>
+    <Column
+      as="div"
+      className=""
+      columns={12}
+    >
+      <div
+        className="usa-grid-full react-paginate"
+      >
+        <PaginationWrapper
+          activeClassName="active"
+          containerClassName="pagination"
+          forcePage={1}
+          marginPagesDisplayed={0}
+          nextLabel="Next"
+          onPageChange={[Function]}
+          pageRangeDisplayed={4}
+          pageSize={10}
+          paginationStyle="pagination"
+          previousLabel="Previous"
+          subContainerClassName="pages pagination"
+          totalResults={1}
+        />
+      </div>
+    </Column>
+  </div>
+</div>
+`;
