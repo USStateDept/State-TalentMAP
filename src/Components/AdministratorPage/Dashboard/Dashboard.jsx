@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { Link } from 'react-router-dom';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import { Row, Column } from '../../Layout';
@@ -13,6 +14,12 @@ const AdministratorPage = (props) => {
     logsIsLoading,
     onDownloadClick,
   } = props;
+
+  const getLink = (link, title) => (
+    <Row className="usa-grid-full content-link-row">
+      <Link to={link}>{title} <FA name="external-link" /></Link>
+    </Row>
+  );
 
   return (
     <div
@@ -29,7 +36,7 @@ const AdministratorPage = (props) => {
       <div className="usa-grid-full">
         <Row className="usa-grid-full">
           <Column
-            columns={3}
+            columns={4}
           >
             <div className="usa-width-one-whole section">
               <h3>TalentMAP Data Sync</h3>
@@ -41,6 +48,19 @@ const AdministratorPage = (props) => {
                   text={<span>Download Logs <FA name="download" /></span>}
                 />
               </div>
+            </div>
+          </Column>
+          <Column
+            columns={4}
+          >
+            <div className="usa-width-one-whole section">
+              <h3>Editable Content Areas</h3>
+              <Column className="content-link-container">
+                {getLink('/', 'Header')}
+                {getLink('/about', 'About')}
+                {getLink('/', 'Featured Positions')}
+                {getLink('/profile/glossaryeditor/', 'Glossary')}
+              </Column>
             </div>
           </Column>
         </Row>
