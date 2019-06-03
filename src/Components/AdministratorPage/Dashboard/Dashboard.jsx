@@ -58,7 +58,7 @@ const AdministratorPage = (props) => {
               <Column className="content-link-container">
                 {getLink('/', 'Header')}
                 {getLink('/about', 'About')}
-                {getLink('/', 'Featured Positions')}
+                {getLink('/results', 'Featured Positions')}
                 {getLink('/profile/glossaryeditor/', 'Glossary')}
               </Column>
             </div>
