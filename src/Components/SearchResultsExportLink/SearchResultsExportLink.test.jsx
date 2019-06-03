@@ -48,7 +48,7 @@ describe('SearchResultsExportLink', () => {
     expect(output[0]).toMatchObject(
       { a: 1,
         b: 2,
-        current_assignment: { estimated_end_date: '2019-01-08T00:00:00Z' },
+        current_assignment__estimated_end_date: '2019-01-08T00:00:00Z',
         estimated_end_date: '01/07/2019' },
     );
   });
