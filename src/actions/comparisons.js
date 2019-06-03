@@ -32,7 +32,7 @@ export function comparisonsFetchData(query) {
       dispatch(comparisonsFetchDataSuccess([]));
       dispatch(comparisonsIsLoading(false));
     } else {
-      api().get(`/position/?position_number__in=${query}`, {
+      api().get(`/cycleposition/?has_id=${query}`, {
         cancelToken: new CancelToken((c) => { cancel = c; }),
       })
         .then((response) => {

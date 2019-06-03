@@ -39,16 +39,12 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th>
               <div
                 className="column-title-main"
-              >
-                OMS (DCM)
-              </div>
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
-              >
-                SPECIAL AGENT
-              </div>
+              />
             </th>
             <th
               className="empty"
@@ -178,7 +174,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/6"
+                  to="/details/1"
                 >
                   View position
                 </Link>
@@ -190,7 +186,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/60"
+                  to="/details/2"
                 >
                   View position
                 </Link>
@@ -549,16 +545,12 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th>
               <div
                 className="column-title-main"
-              >
-                OMS (DCM)
-              </div>
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
-              >
-                SPECIAL AGENT
-              </div>
+              />
             </th>
             <th
               className="empty"
@@ -688,7 +680,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/6"
+                  to="/details/1"
                 >
                   View position
                 </Link>
@@ -700,7 +692,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/60"
+                  to="/details/2"
                 >
                   View position
                 </Link>

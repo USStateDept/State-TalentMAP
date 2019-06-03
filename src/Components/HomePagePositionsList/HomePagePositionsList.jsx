@@ -33,22 +33,25 @@ const HomePagePositionsList = ({ positions, favorites, favoritesPV, isLoading, b
 refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton }) => (
   <div className={`condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full condensed-card-grid">
-      {positions.map(p => (
-        <div key={`${title}-row-${p.id}-${p.isPV}`} className="usa-width-one-third condensed-card">
-          <ResultsCondensedCard
-            favorites={favorites}
-            favoritesPV={favoritesPV}
-            position={p}
-            bidList={bidList}
-            type={type}
-            refreshFavorites={refreshFavorites}
-            showBidListButton={showBidListButton}
-            useShortFavButton={useShortFavButton}
-            showCompareButton={showCompareButton}
-            isProjectedVacancy={p.isPV}
-          />
-        </div>
-      ))}
+      {positions.map((p) => {
+        const position = p.position || p;
+        return (
+          <div key={`${title}-row-${p.id}-${position.isPV}`} className="usa-width-one-third condensed-card">
+            <ResultsCondensedCard
+              favorites={favorites}
+              favoritesPV={favoritesPV}
+              position={p}
+              bidList={bidList}
+              type={type}
+              refreshFavorites={refreshFavorites}
+              showBidListButton={showBidListButton}
+              useShortFavButton={useShortFavButton}
+              showCompareButton={showCompareButton}
+              isProjectedVacancy={position.isPV}
+            />
+          </div>
+        );
+      })}
     </div>
   </div>
 );

@@ -24,17 +24,17 @@ exports[`SelectForm matches snapshot 1`] = `
       Sort option
     </option>
     <option
-      value="title"
+      value="position__title"
     >
       Position title: A-Z
     </option>
     <option
-      value="-grade"
+      value="-position__grade"
     >
       Grade: Low to high
     </option>
     <option
-      value="-bureau"
+      value="-position__bureau"
     >
       Bureau: A-Z
     </option>
@@ -44,17 +44,17 @@ exports[`SelectForm matches snapshot 1`] = `
       Posted date: Most recent
     </option>
     <option
-      value="current_assignment__estimated_end_date"
+      value="position__current_assignment__estimated_end_date"
     >
       TED: Soonest
     </option>
     <option
-      value="position_number"
+      value="position__position_number"
     >
       Position number: Low to high
     </option>
     <option
-      value="-post__has_service_needs_differential"
+      value="-position__post__has_service_needs_differential"
     >
       Featured positions
     </option>
@@ -86,17 +86,17 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       Sort option
     </option>
     <option
-      value="title"
+      value="position__title"
     >
       Position title: A-Z
     </option>
     <option
-      value="-grade"
+      value="-position__grade"
     >
       Grade: Low to high
     </option>
     <option
-      value="-bureau"
+      value="-position__bureau"
     >
       Bureau: A-Z
     </option>
@@ -106,17 +106,17 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       Posted date: Most recent
     </option>
     <option
-      value="current_assignment__estimated_end_date"
+      value="position__current_assignment__estimated_end_date"
     >
       TED: Soonest
     </option>
     <option
-      value="position_number"
+      value="position__position_number"
     >
       Position number: Low to high
     </option>
     <option
-      value="-post__has_service_needs_differential"
+      value="-position__post__has_service_needs_differential"
     >
       Featured positions
     </option>

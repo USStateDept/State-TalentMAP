@@ -30,9 +30,9 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   if (rowTwoPositions && rowTwoPositions.length) {
     // form a link to view positions with the user's skills
     const ids = userProfile.skills.map(s => s.code);
-    rowTwoLink = `/results?skill__code__in=${ids.join(',')}`;
+    rowTwoLink = `/results?position__skill__code__in=${ids.join(',')}`;
     // update the title based on the related skills
-    rowTwoTitle = `Positions in ${homePagePositions[USER_SKILL_CODE_POSITIONS][0].skill}`;
+    rowTwoTitle = `Positions in ${homePagePositions[USER_SKILL_CODE_POSITIONS][0].position.skill}`;
   } else if (favoritedPositions) {
     // update everything to denote that these are favorited positions
     rowTwoPositions = favoritedPositions;
@@ -51,7 +51,7 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   let rowThreeLink = '/results';
   if (userGradeRecentPositions) {
     // update the link to view positions with the user's grade
-    rowThreeLink = `/results?grade__code__in=${userProfile.grade}&ordering=-${COMMON_PROPERTIES.posted}`;
+    rowThreeLink = `/results?position__grade__code__in=${userProfile.grade}&ordering=-${COMMON_PROPERTIES.posted}`;
     // update the title based on the user's grade
     rowThreeTitle = `${rowThreeTitle} ${userProfile.grade}`;
   } else if (recentPositions) {

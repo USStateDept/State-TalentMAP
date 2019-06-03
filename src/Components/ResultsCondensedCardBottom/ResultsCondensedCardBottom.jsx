@@ -18,18 +18,20 @@ class ResultsCondensedCardBottom extends Component {
   }
   renderStats() {
     const { showBidCount, position } = this.props;
+    const pos = position.position || position;
     return showBidCount ?
-      <ResultsCondensedCardStats bidStatisticsArray={position.bid_statistics} />
+      <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />
     :
     null;
   }
   renderBidListButton() {
     const { showBidListButton, position } = this.props;
+    const pos = position.position || position;
     return showBidListButton ?
       <PermissionsWrapper permissions="bidder">
         <BidListButton
-          id={position.id}
-          disabled={!get(position, 'availability.availability', true)}
+          id={pos.id}
+          disabled={!get(pos, 'availability.availability', true)}
         />
       </PermissionsWrapper>
     :
@@ -44,6 +46,7 @@ class ResultsCondensedCardBottom extends Component {
         showCompareButton,
         isProjectedVacancy,
       } = this.props;
+    const pos = position.position || position;
     return (
       <div className="condensed-card-bottom-container">
         <div className="usa-grid-full condensed-card-bottom">
@@ -51,15 +54,15 @@ class ResultsCondensedCardBottom extends Component {
             name="flags.bidding"
             render={this.renderStats}
           />
-          <CondensedCardData position={position} />
+          <CondensedCardData position={pos} />
           <div className="usa-grid-full condensed-card-buttons-section">
             <Favorite
               useLongText
               hideText={useShortFavButton}
               hasBorder
-              refKey={position.id}
-              isPV={position.isPV}
-              compareArray={position.isPV ? favoritesPV : favorites}
+              refKey={pos.id}
+              isPV={pos.isPV}
+              compareArray={pos.isPV ? favoritesPV : favorites}
               useButtonClass={!useShortFavButton}
               useButtonClassSecondary={useShortFavButton}
               refresh={refreshFavorites}
@@ -70,7 +73,7 @@ class ResultsCondensedCardBottom extends Component {
             />
             {
               showCompareButton && !isProjectedVacancy &&
-              <CompareCheck as="div" refKey={position.position_number} />
+              <CompareCheck as="div" refKey={pos.position_number} />
             }
           </div>
         </div>
@@ -80,7 +83,9 @@ class ResultsCondensedCardBottom extends Component {
 }
 
 ResultsCondensedCardBottom.propTypes = {
-  position: POSITION_DETAILS.isRequired,
+  position: PropTypes.shape({
+    position: POSITION_DETAILS.isRequired,
+  }).isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   favoritesPV: FAVORITE_POSITIONS_ARRAY.isRequired,
   refreshFavorites: PropTypes.bool,

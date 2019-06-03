@@ -25,7 +25,6 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
         isProjectedVacancy={false}
         pills={
           Array [
-            "german",
             "two",
             "ADMINISTRATIVE SUPPORT",
             "United States",

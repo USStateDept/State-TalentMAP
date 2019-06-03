@@ -74,7 +74,7 @@ export class Header extends Component {
   }
 
   submitSearch(q) {
-    this.props.onNavigateTo(`/results?q=${q.q}`);
+    this.props.onNavigateTo(`/results?position__q=${q.positon__q || ''}`);
   }
 
   // The results page uses its own search bar, so we don't

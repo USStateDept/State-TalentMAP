@@ -47,7 +47,9 @@ const ResultsCondensedCard = (
 );
 
 ResultsCondensedCard.propTypes = {
-  position: POSITION_DETAILS.isRequired,
+  position: PropTypes.shape({
+    position: POSITION_DETAILS.isRequired,
+  }).isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
   favoritesPV: FAVORITE_POSITIONS_ARRAY,
   bidList: BID_RESULTS.isRequired,

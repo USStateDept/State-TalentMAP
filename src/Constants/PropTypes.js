@@ -46,32 +46,34 @@ export const POST_DETAILS = POST_MISSION_DATA;
 export const POST_DETAILS_ARRAY = PropTypes.arrayOf(POST_DETAILS);
 
 export const POSITION_DETAILS = PropTypes.shape({
-  id: PropTypes.number,
-  grade: PropTypes.string,
-  skill: PropTypes.string,
-  bureau: PropTypes.string,
-  organization: PropTypes.string,
-  representation: PropTypes.string,
-  classifications: PropTypes.arrayOf(PropTypes.string),
-  position_number: PropTypes.string,
-  title: PropTypes.string,
-  is_overseas: PropTypes.bool,
-  create_date: PropTypes.string,
-  update_date: PropTypes.string,
-  posted_date: PropTypes.string,
-  description: PropTypes.shape({
+  position: PropTypes.shape({
     id: PropTypes.number,
-    last_editing_user: PropTypes.string,
-    date_created: PropTypes.string,
-    date_updated: PropTypes.string,
-    content: PropTypes.string,
-    point_of_contact: PropTypes.string,
-    website: PropTypes.string,
-  }),
-  post: POST_MISSION_DATA,
-  languages: LANGUAGES,
-  current_assignment: PropTypes.shape({
-    estimated_end_date: PropTypes.string,
+    grade: PropTypes.string,
+    skill: PropTypes.string,
+    bureau: PropTypes.string,
+    organization: PropTypes.string,
+    representation: PropTypes.string,
+    classifications: PropTypes.arrayOf(PropTypes.string),
+    position_number: PropTypes.string,
+    title: PropTypes.string,
+    is_overseas: PropTypes.bool,
+    create_date: PropTypes.string,
+    update_date: PropTypes.string,
+    posted_date: PropTypes.string,
+    description: PropTypes.shape({
+      id: PropTypes.number,
+      last_editing_user: PropTypes.string,
+      date_created: PropTypes.string,
+      date_updated: PropTypes.string,
+      content: PropTypes.string,
+      point_of_contact: PropTypes.string,
+      website: PropTypes.string,
+    }),
+    post: POST_MISSION_DATA,
+    languages: LANGUAGES,
+    current_assignment: PropTypes.shape({
+      estimated_end_date: PropTypes.string,
+    }),
   }),
 });
 
@@ -290,7 +292,9 @@ export const POSITION_POST_NESTED_LOCATION = PropTypes.shape({
 
 export const BID_OBJECT = PropTypes.shape({
   id: PropTypes.number,
-  bidcycle: PropTypes.string,
+  bidcycle: PropTypes.shape({
+    name: PropTypes.string,
+  }),
   user: PropTypes.string,
   position: PropTypes.shape({
     id: PropTypes.number,
