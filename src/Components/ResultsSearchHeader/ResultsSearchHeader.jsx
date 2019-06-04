@@ -91,7 +91,7 @@ ResultsSearchHeader.defaultProps = {
   onFilterChange: EMPTY_FUNCTION,
   defaultKeyword: '',
   labelSrOnly: false,
-  placeholder: 'Location, Skill, Grade, Language, Position number',
+  placeholder: 'Enter keywords...',
   isHomePage: false,
   searchBarDisabled: false,
   searchBarDisabledPlaceholder: 'Free text search is unavailable when searching Projected Vacancies',

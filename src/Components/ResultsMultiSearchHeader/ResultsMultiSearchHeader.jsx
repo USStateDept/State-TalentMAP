@@ -244,7 +244,7 @@ ResultsMultiSearchHeader.defaultProps = {
   filters: [],
   defaultFilters: {},
   filtersIsLoading: false,
-  placeholder: 'Location, Skill, Grade, Language, Position number',
+  placeholder: 'Enter keywords...',
   userProfile: {},
   onFilterChange: EMPTY_FUNCTION,
 };
