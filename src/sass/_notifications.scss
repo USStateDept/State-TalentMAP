@@ -21,6 +21,11 @@
       color: $color-gray;
       font-size: .9em;
     }
+
+    &.notification-row--read {
+      border-left: 1px solid $color-gray;
+      padding-left: 31px; // need to add difference in border-width to padding-left
+    }
   }
 
   .link-button-wrapper {
@@ -38,10 +43,19 @@
     }
   }
 
+  // fix in IE11
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .delete-button {
+      max-height: 41px;
+      top: 28%;
+    }
+  }
+
   .notification-card {
     display: flex;
     height: 100%;
     justify-content: flex-start;
+    margin-left: 0;
 
     .data-point-container {
       display: flex;
@@ -52,9 +66,60 @@
       line-height: 1.5em;
       width: 100%;
     }
+
+    // fix in IE11
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      .data-point-container {
+        min-width: 500px;
+        width: initial;
+      }
+    }
   }
 
   .total-results-container {
+    display: flex;
     margin-bottom: 1em;
+
+    button {
+      padding: .75rem 2rem;
+
+      > .fa {
+        margin-right: 5px;
+      }
+    }
+
+    > span {
+      display: block;
+      flex-grow: 1;
+      margin: auto 0;
+    }
+
+    .usa-form {
+      display: flex;
+      height: 100%;
+
+      label,
+      select {
+        margin: auto 0;
+      }
+
+      label {
+        font-size: .8em;
+        margin-right: 10px;
+      }
+
+      // fix in IE11
+      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        label {
+          position: relative;
+          top: 14px;
+        }
+      }
+    }
+  }
+
+  .tm-checkbox {
+    margin-left: 0;
+    margin-right: 0;
   }
 }

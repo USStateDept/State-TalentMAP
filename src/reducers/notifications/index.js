@@ -2,7 +2,10 @@ import { notificationsHasErrored, notificationsIsLoading, notifications,
   notificationsCountHasErrored, notificationsCountIsLoading, notificationsCount,
   markNotificationHasErrored,
   markNotificationIsLoading,
-  markNotificationSuccess } from './notifications';
+  markNotificationSuccess,
+  markNotificationsHasErrored,
+  markNotificationsIsLoading,
+  markNotificationsSuccess } from './notifications';
 
 export default { notificationsHasErrored,
   notificationsIsLoading,
@@ -12,4 +15,7 @@ export default { notificationsHasErrored,
   notificationsCount,
   markNotificationHasErrored,
   markNotificationIsLoading,
-  markNotificationSuccess };
+  markNotificationSuccess,
+  markNotificationsHasErrored,
+  markNotificationsIsLoading,
+  markNotificationsSuccess };

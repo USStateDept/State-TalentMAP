@@ -5,8 +5,9 @@ import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import { Column, Row } from '../../Layout';
 import NotificationItem from '../../ProfileDashboard/Notifications/NotificationItem';
 import LinkButton from '../../LinkButton';
+import CheckBox from '../../CheckBox';
 
-const NotificationRow = ({ id, message, tags, deleteOne, date }) => {
+const NotificationRow = ({ id, message, tags, deleteOne, date, isRead, onCheck, checked }) => {
   let link;
   let buttonTitle;
   let icon = 'globe';
@@ -28,8 +29,16 @@ const NotificationRow = ({ id, message, tags, deleteOne, date }) => {
   );
   const renderButton = () => !!link && !!title && <LinkButton toLink={link} className="usa-button">{buttonTitle}</LinkButton>;
   return (
-    <Row className="usa-grid-full notification-row">
-      <Column columns={9}>
+    <Row className={`usa-grid-full notification-row ${isRead ? 'notification-row--read' : ''}`}>
+      <Column columns={9} style={{ display: 'flex' }}>
+        <CheckBox
+          _id={id}
+          id={`notification-checkbox-${id}`}
+          label="Mark notification"
+          value={checked}
+          labelSrOnly
+          onCheckBoxClick={onCheck}
+        />
         <NotificationItem content={title} notificationTime={date} />
       </Column>
       <Column columns={3} className="notification-button">
@@ -46,12 +55,18 @@ NotificationRow.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string),
   deleteOne: PropTypes.func,
   date: PropTypes.string,
+  isRead: PropTypes.bool,
+  onCheck: PropTypes.func,
+  checked: PropTypes.bool,
 };
 
 NotificationRow.defaultProps = {
   tags: [],
   deleteOne: EMPTY_FUNCTION,
   date: '',
+  isRead: false,
+  onCheck: EMPTY_FUNCTION,
+  checked: false,
 };
 
 export default NotificationRow;

@@ -148,4 +148,28 @@ describe('async actions', () => {
     };
     f();
   });
+
+  it('can call the markNotifications function', (done) => {
+    const store = mockStore({});
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.markNotifications({ ids: new Set([1]) }));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when calling the markNotifications function', (done) => {
+    const store = mockStore({});
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.markNotifications({ ids: new Set([2]) }));
+        done();
+      }, 0);
+    };
+    f();
+  });
 });

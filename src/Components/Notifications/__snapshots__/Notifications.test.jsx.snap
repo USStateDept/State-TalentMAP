@@ -28,6 +28,52 @@ exports[`NotificationsComponent matches snapshot 1`] = `
         suffix="notifications"
         total={1}
       />
+      <div>
+        <button
+          onClick={[Function]}
+        >
+          <FontAwesome
+            name="check-square-o"
+          />
+          Select all
+        </button>
+      </div>
+      <div
+        className="results-dropdown results-dropdown-sort"
+      >
+        <SelectForm
+          className="select-offset select-black"
+          defaultSort=""
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="mark-notification-dropdown"
+          includeFirstEmptyOption={false}
+          label="Bulk Actions:"
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "disabled": true,
+                "text": "Actions",
+                "value": "",
+              },
+              Object {
+                "text": "Mark as read",
+                "value": "read",
+              },
+              Object {
+                "text": "Mark as unread",
+                "value": "unread",
+              },
+              Object {
+                "text": "Delete",
+                "value": "delete",
+              },
+            ]
+          }
+          transformValue={[Function]}
+        />
+      </div>
     </Column>
     <Column
       as="div"
@@ -35,10 +81,13 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       columns={12}
     >
       <NotificationRow
+        checked={false}
         date=""
         deleteOne={[Function]}
         id={1}
+        isRead={false}
         message="message"
+        onCheck={[Function]}
         tags={Array []}
       />
     </Column>

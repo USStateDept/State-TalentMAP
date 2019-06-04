@@ -1,3 +1,4 @@
+import Q from 'q';
 import api from '../api';
 import { hasValidToken } from '../utilities';
 
@@ -58,6 +59,25 @@ export function markNotificationSuccess(response) {
   };
 }
 
+export function markNotificationsHasErrored(bool) {
+  return {
+    type: 'MARK_NOTIFICATIONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function markNotificationsIsLoading(bool) {
+  return {
+    type: 'MARK_NOTIFICATIONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function markNotificationsSuccess(response) {
+  return {
+    type: 'MARK_NOTIFICATIONS_SUCCESS',
+    response,
+  };
+}
+
 export function unsetNotificationsCount() {
   return (dispatch) => {
     dispatch(notificationsCountFetchDataSuccess(0));
@@ -84,15 +104,15 @@ export function notificationsCountFetchData() {
   };
 }
 
-export function notificationsFetchData(limit = 3, page = 1, ordering = '-date_updated', tags = undefined, isRead = undefined) {
+export function notificationsFetchData(limit = 3, page = 1, ordering = '-date_created', tags = undefined, isRead = undefined) {
   return (dispatch) => {
     dispatch(notificationsIsLoading(true));
     dispatch(notificationsHasErrored(false));
     api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
       .then(({ data }) => {
         dispatch(notificationsFetchDataSuccess(data));
-        dispatch(notificationsIsLoading(false));
         dispatch(notificationsHasErrored(false));
+        dispatch(notificationsIsLoading(false));
       })
       .catch(() => {
         dispatch(notificationsHasErrored(true));
@@ -108,7 +128,7 @@ export function bidTrackerNotificationsFetchData() {
 }
 
 export function markNotification(id, isRead = true, shouldDelete = false,
-  bypassTrackerUpdate = false) {
+  bypassTrackerUpdate = false, cb = () => {}) {
   return (dispatch) => {
     dispatch(markNotificationIsLoading(true));
     dispatch(markNotificationHasErrored(false));
@@ -116,16 +136,48 @@ export function markNotification(id, isRead = true, shouldDelete = false,
     const body = shouldDelete ? {} : { is_read: isRead };
     api()[method](`/notification/${id}/`, body)
       .then(({ data }) => {
-        dispatch(markNotificationSuccess(data));
-        dispatch(markNotificationIsLoading(false));
-        dispatch(markNotificationHasErrored(false));
-        if (!bypassTrackerUpdate) {
-          dispatch(bidTrackerNotificationsFetchData());
-        }
+        cb();
+        setTimeout(() => {
+          dispatch(notificationsCountFetchData());
+          dispatch(markNotificationSuccess(data));
+          dispatch(markNotificationHasErrored(false));
+          dispatch(markNotificationIsLoading(false));
+          if (!bypassTrackerUpdate) {
+            dispatch(bidTrackerNotificationsFetchData());
+          }
+        }, 0);
       })
       .catch(() => {
         dispatch(markNotificationHasErrored(true));
         dispatch(markNotificationIsLoading(false));
       });
+  };
+}
+
+export function markNotifications({ ids = new Set(), markAsRead = false, shouldDelete = false,
+  cb = () => {} }) {
+  return (dispatch) => {
+    dispatch(markNotificationsIsLoading(true));
+    dispatch(markNotificationsHasErrored(false));
+    dispatch(markNotificationsSuccess(false));
+    const method = shouldDelete ? 'delete' : 'patch';
+    const body = shouldDelete ? {} : { is_read: markAsRead };
+
+    const queryProms = [...ids].map(id => (
+      api()[method](`/notification/${id}/`, body)
+        .then(() => ({ success: true, id }))
+        .catch(() => ({ success: false, id }))
+    ));
+
+    Q.allSettled(queryProms)
+    .then(() => {
+      cb();
+      setTimeout(() => {
+        dispatch(notificationsCountFetchData());
+        dispatch(markNotificationsSuccess(true));
+        dispatch(markNotificationsHasErrored(false));
+        dispatch(markNotificationsIsLoading(false));
+      }, 0);
+    });
   };
 }

@@ -3,14 +3,33 @@
 exports[`NotificationRowComponent matches snapshot 1`] = `
 <Row
   as="div"
-  className="usa-grid-full notification-row"
+  className="usa-grid-full notification-row "
   fluid={false}
 >
   <Column
     as="div"
     className=""
     columns={9}
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
   >
+    <CheckBox
+      _id={1}
+      checkboxProps={Object {}}
+      className=""
+      disabled={false}
+      id="notification-checkbox-1"
+      label="Mark notification"
+      labelSrOnly={true}
+      name=""
+      onCheckBoxClick={[Function]}
+      small={false}
+      title=""
+      value={false}
+    />
     <NotificationItem
       content={
         <div>

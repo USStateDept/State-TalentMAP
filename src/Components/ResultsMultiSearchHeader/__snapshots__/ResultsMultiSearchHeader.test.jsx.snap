@@ -89,7 +89,6 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 id="grade-searchbar-filter"
                 includeFirstEmptyOption={true}
                 label="Grade"
-                languages={Array []}
                 onSelectOption={[Function]}
                 options={
                   Array [
@@ -115,7 +114,6 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 id="bureau-searchbar-filter"
                 includeFirstEmptyOption={true}
                 label="Bureau"
-                languages={Array []}
                 onSelectOption={[Function]}
                 options={
                   Array [
