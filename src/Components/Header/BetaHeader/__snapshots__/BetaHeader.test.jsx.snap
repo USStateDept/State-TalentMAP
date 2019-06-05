@@ -1,38 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BetaHeader matches snapshot 1`] = `
-<div
-  className="usa-banner tm-beta-header"
->
-  <div
-    className="usa-grid usa-banner-inner padded-main-content"
-  >
-    <div
-      className="loader"
-    >
-      <FontAwesome
-        name="gears"
-      />
-      <SkeletonTheme
-        color="#FAD980"
-        highlightColor="#FDEFCC"
-      >
-        <Skeleton
-          count={1}
-          duration={1.8}
-          width="50%"
-          wrapper={null}
-        />
-      </SkeletonTheme>
-    </div>
-    <Connect(PermissionsWrapper)
-      permissions="bidder"
-    >
-      <EditContentButton
-        id="edit-home-content"
-        onToggle={[Function]}
-      />
-    </Connect(PermissionsWrapper)>
-  </div>
-</div>
-`;
+exports[`BetaHeader matches snapshot 1`] = `null`;

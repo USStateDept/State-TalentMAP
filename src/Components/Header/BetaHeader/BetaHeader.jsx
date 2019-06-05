@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { get } from 'lodash';
 import PermissionsWrapper from '../../../Containers/PermissionsWrapper';
 import EditContentButton from '../../EditContentButton';
 import TextEditor from '../../TextEditor';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import { homeBannerContentFetchData, homeBannerContentPatchData } from '../../../actions/homeBannerContent';
-import { focusById } from '../../../utilities';
+import { focusById, userHasPermissions } from '../../../utilities';
 
 const EDIT_BUTTON_ID = 'edit-home-content';
 const SUBMIT_BUTTON_ID = 'submit-home-content';
@@ -55,9 +56,15 @@ class BetaHeader extends Component {
   }
 
   render() {
-    const { data, isLoading } = this.props;
+    const { data, isLoading, userProfile } = this.props;
     const { editorVisible } = this.state;
-    return (
+    const permissionsNeeded = ['superuser'];
+    const userPermissions = get(userProfile, 'permission_groups', []);
+    const hasPermissions = userHasPermissions(permissionsNeeded, userPermissions);
+
+    const shouldDisplayHeader = data || hasPermissions;
+
+    const header = (
       <div className="usa-banner tm-beta-header">
         <div className="usa-grid usa-banner-inner padded-main-content">
           {
@@ -65,13 +72,13 @@ class BetaHeader extends Component {
               <div className="loader">
                 <FontAwesome name="gears" />
                 <SkeletonTheme color="#FAD980" highlightColor="#FDEFCC">
-                  {data || <Skeleton width="50%" duration={1.8} />}
+                  {!isLoading ? data : <Skeleton width="50%" duration={1.8} />}
                 </SkeletonTheme>
               </div>
           }
           {
             !isLoading && !editorVisible &&
-              <PermissionsWrapper permissions="bidder">
+              <PermissionsWrapper permissions="superuser">
                 <EditContentButton onToggle={this.toggleEditor} id={EDIT_BUTTON_ID} />
               </PermissionsWrapper>
           }
@@ -87,6 +94,9 @@ class BetaHeader extends Component {
         </div>
       </div>
     );
+    return (
+      shouldDisplayHeader ? header : null
+    );
   }
 }
 
@@ -95,6 +105,7 @@ BetaHeader.propTypes = {
   isLoading: PropTypes.bool,
   fetchData: PropTypes.func,
   patchData: PropTypes.func,
+  userProfile: PropTypes.shape({}),
 };
 
 BetaHeader.defaultProps = {
@@ -103,12 +114,14 @@ BetaHeader.defaultProps = {
   isLoading: false,
   fetchData: EMPTY_FUNCTION,
   patchData: EMPTY_FUNCTION,
+  userProfile: {},
 };
 
 const mapStateToProps = state => ({
   data: state.homeBannerContent,
   hasErrored: state.homeBannerContentHasErrored,
   isLoading: state.homeBannerContentIsLoading,
+  userProfile: state.userProfile,
 });
 
 export const mapDispatchToProps = dispatch => ({

@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import { toastSuccess, toastError } from './toast';
 import api from '../api';
 
@@ -46,14 +47,15 @@ export function homeBannerContentPatchSuccess(success) {
 export function homeBannerContentFetchData() {
   return (dispatch) => {
     dispatch(homeBannerContentIsLoading(true));
-    api().get('/position/1/')
-      .then(() => {
+    api().get('/homepage/banner/')
+      .then((response) => {
+        let text = get(response, 'data.text', '');
+        if (!get(response, 'data.is_visible')) { text = ''; }
         dispatch(homeBannerContentHasErrored(false));
         dispatch(homeBannerContentIsLoading(false));
-        dispatch(homeBannerContentFetchDataSuccess(CONTENT)); // eslint-disable-line
+        dispatch(homeBannerContentFetchDataSuccess(text));
       })
       .catch(() => {
-        // TODO update
         dispatch(homeBannerContentHasErrored(true));
         dispatch(homeBannerContentIsLoading(false));
       });
@@ -63,7 +65,7 @@ export function homeBannerContentFetchData() {
 export function homeBannerContentPatchData(data) {
   return (dispatch) => {
     dispatch(homeBannerContentPatchIsLoading(false));
-    api().get('/position/1/', { data })
+    api().patch('/homepage/banner/', { text: data || 'No content', is_visible: !!data })
       .then(() => {
         dispatch(homeBannerContentPatchHasErrored(false));
         dispatch(homeBannerContentPatchIsLoading(false));
@@ -80,5 +82,3 @@ export function homeBannerContentPatchData(data) {
       });
   };
 }
-
-const CONTENT = 'Welcome to TalentMAP! Use this site to research positions and continue to bid using FSBid. New features are coming soon.';

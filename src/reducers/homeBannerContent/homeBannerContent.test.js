@@ -10,7 +10,7 @@ describe('GET reducers', () => {
   });
 
   it('can set reducer HOME_BANNER_CONTENT_FETCH_DATA_SUCCESS', () => {
-    expect(reducers.homeBannerContent('t', { type: 'HOME_BANNER_CONTENT_FETCH_DATA_SUCCESS', data: '' })).toBe('t');
+    expect(reducers.homeBannerContent('t', { type: 'HOME_BANNER_CONTENT_SUCCESS', data: '' })).toBe('');
   });
 });
 
