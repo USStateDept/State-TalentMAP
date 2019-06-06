@@ -42,7 +42,7 @@ describe('SavedSearchesContainer', () => {
         mappedParams={[]}
       />,
     );
-    wrapper.instance().goToSavedSearch({ filters: { position__q: 'test' } });
+    wrapper.instance().goToSavedSearch({ filters: { q: 'test' } });
     sinon.assert.calledOnce(spy);
   });
 

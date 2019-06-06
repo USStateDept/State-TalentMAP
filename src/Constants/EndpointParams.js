@@ -37,7 +37,7 @@ export const BIDDER_PORTFOLIO_PARAM_OBJECTS = {
 
 export const VALID_PARAMS = [
   ...Object.values(ENDPOINT_PARAMS),
-  'position__q',
+  'q',
 ];
 
 export const ASYNC_PARAMS = [
