@@ -4,7 +4,7 @@ export const searchObject = {
   name: 'Test 33',
   endpoint: '/api/v1/position/',
   filters: {
-    position__q: 'german',
+    q: 'german',
     position__post__in: '151',
     position__is_domestic: 'true',
     position__grade__code__in: '02',
@@ -28,7 +28,7 @@ export const searchObjectParent = {
       name: 'Test 33',
       endpoint: '/api/v1/position/',
       filters: {
-        position__q: 'german',
+        q: 'german',
         position__skill__code__in: '6080',
         position__post__tour_of_duty__code__in: 'O',
       },

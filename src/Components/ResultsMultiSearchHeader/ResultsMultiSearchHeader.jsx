@@ -25,7 +25,7 @@ class ResultsMultiSearchHeader extends Component {
     this.onChangeSkills = this.onChangeSkills.bind(this);
     this.filterChange = this.filterChange.bind(this);
     this.state = {
-      q: this.props.defaultFilters.position__q || '',
+      q: this.props.defaultFilters.q || '',
       defaultGrade: null,
       defaultBureau: null,
       skillsWasUpdated: false,
@@ -85,7 +85,7 @@ class ResultsMultiSearchHeader extends Component {
     // set default values for our filters
     const defaultGrade = defaultFilters[GRADE_PARAM] || grade;
     const defaultBureau = defaultFilters[BUREAU_PARAM] || bureau;
-    const defaultQuery = defaultFilters.position__q;
+    const defaultQuery = defaultFilters.q;
 
     // set keyword to correct state
     if (!qWasUpdated && defaultQuery) {
@@ -231,7 +231,7 @@ class ResultsMultiSearchHeader extends Component {
 ResultsMultiSearchHeader.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   defaultFilters: PropTypes.shape({
-    position__q: PropTypes.string,
+    q: PropTypes.string,
   }),
   placeholder: PropTypes.string,
   filters: FILTER_ITEMS_ARRAY.isRequired,

@@ -22,7 +22,7 @@ describe('ResultsMultiSearchHeaderComponent', () => {
     defaultFilters: {
       position__grade__code__in: '03',
       position__bureau__code__in: '04',
-      position__q: 'german',
+      q: 'german',
       // test that it can accept codes as a string or an object
       position__skill__code__in: [{ code: '05' }, '06'],
     },
@@ -116,7 +116,7 @@ describe('ResultsMultiSearchHeaderComponent', () => {
     expect(instance.state.defaultGrade).toBe(updatedProps.defaultFilters.position__grade__code__in);
     expect(instance.state.defaultBureau).toBe(
       updatedProps.defaultFilters.position__bureau__code__in);
-    expect(instance.state.q).toBe(updatedProps.defaultFilters.position__q);
+    expect(instance.state.q).toBe(updatedProps.defaultFilters.q);
   });
 
   it('can perform actions upon componentWillReceiveProps', () => {
