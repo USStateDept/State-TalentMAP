@@ -39,6 +39,7 @@ import toast from './toast';
 import clientView from './clientView';
 import sortPreferences from './sortPreferences';
 import logs from './logs';
+import synchronizations from './synchronizations';
 
 export default combineReducers({
   ...results,
@@ -75,6 +76,7 @@ export default combineReducers({
   ...clientView,
   ...sortPreferences,
   ...logs,
+  ...synchronizations,
   router,
   form,
   client,

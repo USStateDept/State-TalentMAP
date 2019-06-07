@@ -12,6 +12,8 @@ import MediaQueryWrapper from '../../MediaQuery';
 const AdministratorPage = (props) => {
   const {
     isLoading,
+    syncJobs,
+    syncJobsIsLoading,
   } = props;
 
   const getLink = (link, title) => (
@@ -45,7 +47,7 @@ const AdministratorPage = (props) => {
                       columns={columns[0]}
                     >
                       <div className="usa-width-one-whole section no-padding">
-                        <DataSync />
+                        <DataSync syncJobs={syncJobs} isLoading={syncJobsIsLoading} />
                         <div className="usa-grid-full padding-section button-container">
                           <LinkButton className="unstyled-button" toLink="/profile/administrator/logs">Review Logs</LinkButton>
                         </div>
@@ -77,10 +79,14 @@ const AdministratorPage = (props) => {
 
 AdministratorPage.propTypes = {
   isLoading: PropTypes.bool,
+  syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
+  syncJobsIsLoading: PropTypes.bool,
 };
 
 AdministratorPage.defaultProps = {
   isLoading: false,
+  syncJobs: [],
+  syncJobsIsLoading: false,
 };
 
 export default AdministratorPage;

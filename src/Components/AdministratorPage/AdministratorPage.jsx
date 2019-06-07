@@ -18,12 +18,16 @@ const AdministratorPage = (props) => {
     logHasErrored,
     getLog,
     onDownloadOne,
+    syncJobs,
+    syncJobsIsLoading,
   } = props;
 
   const dashboardProps = {
     isLoading,
     logsIsLoading,
     onDownloadClick,
+    syncJobs,
+    syncJobsIsLoading,
   };
 
   const logsProps = {
@@ -40,8 +44,8 @@ const AdministratorPage = (props) => {
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
-        <Route path="/profile/administrator/dashboard/" render={() => <Dashboard {...dashboardProps} />} />
-        <Route path="/profile/administrator/logs/" render={() => <Logs {...logsProps} />} />
+        <Route path="/profile/administrator/dashboard" render={() => <Dashboard {...dashboardProps} />} />
+        <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
       </Switch>
     </div>
   );
@@ -59,6 +63,8 @@ AdministratorPage.propTypes = {
   logHasErrored: PropTypes.bool,
   getLog: PropTypes.func,
   onDownloadOne: PropTypes.func,
+  syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
+  syncJobsIsLoading: PropTypes.bool,
 };
 
 AdministratorPage.defaultProps = {
@@ -73,6 +79,8 @@ AdministratorPage.defaultProps = {
   logHasErrored: false,
   getLog: EMPTY_FUNCTION,
   onDownloadOne: EMPTY_FUNCTION,
+  syncJobs: [],
+  syncJobsIsLoading: false,
 };
 
 export default AdministratorPage;
