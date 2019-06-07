@@ -4,6 +4,11 @@
     font-size: 1.8rem;
   }
 
+  h4 {
+    font-family: Roboto;
+    font-size: 1.1em;
+  }
+
   .usa-button-primary {
     margin-left: 0;
     margin-right: 0;
@@ -13,8 +18,19 @@
   .section {
     background-color: $color-white;
     border: 1px solid $color-gray;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
     min-height: 500px;
     padding: 25px;
+  }
+
+  .padded-section {
+    padding: 25px;
+  }
+
+  .no-padding {
+    padding: 0;
   }
 
   .total-results {
@@ -97,6 +113,211 @@
 
     a {
       text-decoration: none;
+    }
+  }
+
+  .link-button-wrapper {
+    display: flex;
+    margin: auto;
+
+    a {
+      color: $blue-primary;
+      margin: auto;
+    }
+  }
+
+  .data-sync-section {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .top-section {
+    padding-top: 1em;
+    width: 100%;
+  }
+
+  .sync-job-container {
+    border: 1px solid $color-gray;
+    margin-top: 1em;
+    max-height: 138px;
+    overflow: scroll;
+    padding: 0 24px 0 8px;
+  }
+
+  .sync-job-item {
+    border-bottom: 1px solid $color-gray-light;
+    display: flex;
+    font-size: .8em;
+    justify-content: space-between;
+    padding: 1em 0;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    > div {
+      flex: 8;
+    }
+
+    .fa {
+      color: $blue-primary;
+      display: flex;
+      flex: 1;
+      font-size: 1.25em;
+      justify-content: flex-end;
+    }
+
+    .fa-trash-o {
+      color: $alert-red;
+    }
+  }
+
+  .button-container {
+    border-top: 1px solid $color-gray;
+    display: flex;
+    justify-content: center;
+    min-height: 50px;
+    width: 100%;
+  }
+
+  .sync-complete {
+    color: $tertiary-success;
+  }
+
+  .new-sync-container {
+    display: flex;
+    font-size: .8em;
+    font-weight: bold;
+    justify-content: center;
+    padding: 1.5em;
+  }
+
+  .status-container {
+    border-top: 2px solid $color-gray-light;
+    margin-left: 0;
+    padding-top: 1em;
+    width: 100%;
+  }
+
+  .status-container--inner {
+    font-size: 1.1em;
+    line-height: 1.5em;
+    padding-bottom: 1em;
+  }
+
+  .new-sync-form {
+    margin: 0;
+    padding: 1.5em;
+    position: relative;
+    width: 100%;
+
+    label {
+      display: inline-block;
+      margin-top: .5em;
+    }
+
+    li {
+      margin-left: .5em;
+      margin-right: 1em;
+      width: auto;
+    }
+
+    legend {
+      font-size: 1em;
+    }
+
+    label::before {
+      height: .8rem;
+      position: relative;
+      top: 2px;
+      width: .8rem;
+    }
+
+    fieldset:nth-of-type(2) > ul {
+      flex-direction: column;
+
+      label {
+        margin: .5em 0;
+      }
+    }
+
+    .feedback-close {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      width: 12px;
+    }
+
+    .usa-unstyled-list {
+      display: flex;
+    }
+  }
+
+  .new-sync-container--form {
+    background-color: $color-gray-lightest;
+    margin: 1em 0;
+    padding: 0;
+
+    button {
+      margin-bottom: 0;
+    }
+
+    fieldset:nth-of-type(2) {
+      margin: 1em 0;
+
+      legend {
+        margin-bottom: .5em;
+      }
+    }
+
+    input {
+      font-size: 1.3rem;
+      height: 2rem;
+    }
+
+    .usa-input-error {
+      margin-top: 0;
+      padding-bottom: 0;
+      padding-top: 0;
+    }
+
+    .DayPicker-Month {
+      font-size: 1.3rem;
+    }
+
+    .date-time-forms {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .date-time-form {
+      align-items: center;
+      display: flex;
+      font-size: .9em;
+      margin-right: 2%;
+
+      .label {
+        font-weight: normal;
+        margin-right: .5em;
+        margin-top: 0;
+      }
+    }
+  }
+
+  // IE11 fix for input text not displaying
+  @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    input:not([type="select"]),
+    input:not([type="submit"]),
+    input:not([type="radio"]) {
+      box-sizing: content-box;
+      width: 68%;
+    }
+
+    .link-button-wrapper {
+      margin-right: 50%;
+      margin-top: 14px;
     }
   }
 }
