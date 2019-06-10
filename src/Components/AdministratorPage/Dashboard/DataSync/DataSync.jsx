@@ -11,6 +11,7 @@ import Form from '../../../Form';
 import FieldSet from '../../../FieldSet';
 import RadioList from '../../../RadioList';
 import Spinner from '../../../Spinner';
+import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
 
 export const FORMAT = 'MM-DD-YY HH:MM';
 
@@ -110,7 +111,7 @@ class DataSync extends Component {
 
   render() {
     const { showForm, formValues } = this.state;
-    const { syncJobs, isLoading } = this.props; // eslint-disable-line
+    const { syncJobs, isLoading, runAllJobs } = this.props; // eslint-disable-line
     const formIsValid = this.formIsValid();
     const dateIsValid = this.dateIsValid();
     const nextScheduled = getScheduledJob(syncJobs);
@@ -197,7 +198,7 @@ class DataSync extends Component {
                         </div>
                       </FieldSet>
                       {
-                        formValues.recurring &&
+                        formValues.recurring === 'recurring' &&
                         <FieldSet legend="Frequency">
                           <RadioList
                             options={[
@@ -231,7 +232,7 @@ class DataSync extends Component {
                   <span>{nextScheduled.talentmap_model}: {nextScheduled.next_sync}</span>
                 </div> }
               </div>
-              <button className="usa-button-secondary">Run sync now</button>
+              <button className="usa-button-secondary" onClick={runAllJobs}>Run sync now</button>
             </div>
           </div>
         }
@@ -243,11 +244,13 @@ class DataSync extends Component {
 DataSync.propTypes = {
   syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
   isLoading: PropTypes.bool,
+  runAllJobs: PropTypes.func,
 };
 
 DataSync.defaultProps = {
   syncJobs: [],
   isLoading: false,
+  runAllJobs: EMPTY_FUNCTION,
 };
 
 export default DataSync;

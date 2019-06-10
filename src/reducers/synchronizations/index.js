@@ -1,3 +1,11 @@
-import { syncs, syncsHasErrored, syncsIsLoading } from './synchronizations';
+import { syncs, syncsHasErrored, syncsIsLoading,
+  putAllSyncsSuccess, putAllSyncsHasErrored, putAllSyncsIsLoading } from './synchronizations';
 
-export default { syncs, syncsHasErrored, syncsIsLoading };
+export default {
+  syncs,
+  syncsHasErrored,
+  syncsIsLoading,
+  putAllSyncsSuccess,
+  putAllSyncsHasErrored,
+  putAllSyncsIsLoading,
+};

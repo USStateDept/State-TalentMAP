@@ -24,3 +24,30 @@ export function syncs(state = [], action) {
       return state;
   }
 }
+
+export function putAllSyncsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'PUT_ALL_SYNCS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function putAllSyncsIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'PUT_ALL_SYNCS_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function putAllSyncsSuccess(state = false, action) {
+  switch (action.type) {
+    case 'PUT_ALL_SYNCS_SUCCESS':
+      return action.success;
+    default:
+      return state;
+  }
+}

@@ -8,12 +8,14 @@ import { Row, Column } from '../../Layout';
 import DataSync from './DataSync';
 import LinkButton from '../../LinkButton';
 import MediaQueryWrapper from '../../MediaQuery';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 const AdministratorPage = (props) => {
   const {
     isLoading,
     syncJobs,
     syncJobsIsLoading,
+    runAllJobs,
   } = props;
 
   const getLink = (link, title) => (
@@ -47,7 +49,11 @@ const AdministratorPage = (props) => {
                       columns={columns[0]}
                     >
                       <div className="usa-width-one-whole section no-padding">
-                        <DataSync syncJobs={syncJobs} isLoading={syncJobsIsLoading} />
+                        <DataSync
+                          syncJobs={syncJobs}
+                          isLoading={syncJobsIsLoading}
+                          runAllJobs={runAllJobs}
+                        />
                         <div className="usa-grid-full padding-section button-container">
                           <LinkButton className="unstyled-button" toLink="/profile/administrator/logs">Review Logs</LinkButton>
                         </div>
@@ -81,12 +87,14 @@ AdministratorPage.propTypes = {
   isLoading: PropTypes.bool,
   syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
   syncJobsIsLoading: PropTypes.bool,
+  runAllJobs: PropTypes.func,
 };
 
 AdministratorPage.defaultProps = {
   isLoading: false,
   syncJobs: [],
   syncJobsIsLoading: false,
+  runAllJobs: EMPTY_FUNCTION,
 };
 
 export default AdministratorPage;

@@ -20,6 +20,7 @@ const AdministratorPage = (props) => {
     onDownloadOne,
     syncJobs,
     syncJobsIsLoading,
+    runAllJobs,
   } = props;
 
   const dashboardProps = {
@@ -28,6 +29,7 @@ const AdministratorPage = (props) => {
     onDownloadClick,
     syncJobs,
     syncJobsIsLoading,
+    runAllJobs,
   };
 
   const logsProps = {
@@ -65,6 +67,7 @@ AdministratorPage.propTypes = {
   onDownloadOne: PropTypes.func,
   syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
   syncJobsIsLoading: PropTypes.bool,
+  runAllJobs: PropTypes.func,
 };
 
 AdministratorPage.defaultProps = {
@@ -81,6 +84,7 @@ AdministratorPage.defaultProps = {
   onDownloadOne: EMPTY_FUNCTION,
   syncJobs: [],
   syncJobsIsLoading: false,
+  runAllJobs: EMPTY_FUNCTION,
 };
 
 export default AdministratorPage;
