@@ -26,7 +26,7 @@ import {
 const getResult = (result, path, defaultValue, isRate = false) => {
   let value = get(result, path, defaultValue);
 
-  if ((/_date|date_/i).test(path) && value !== defaultValue) {
+  if ((/_date|date_|ted/i).test(path) && value !== defaultValue) {
     value = formatDate(value);
   }
 
@@ -104,7 +104,7 @@ class ResultsCard extends Component {
     const sections = [
     /* eslint-disable quote-props */
       {
-        'TED': getResult(pos, 'current_assignment.estimated_end_date', NO_DATE),
+        'TED': getResult(result, 'ted', NO_DATE),
         [bidTypeTitle]: getResult(result, 'bidcycle.name', NO_BID_CYCLE),
         'Skill': getResult(pos, 'skill', NO_SKILL),
         'Grade': getResult(pos, 'grade', NO_GRADE),
@@ -118,7 +118,7 @@ class ResultsCard extends Component {
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
       },
       {
-        'Posted': getResult(pos, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
+        'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
         'Position number': position,
       },
     /* eslint-enable quote-props */
