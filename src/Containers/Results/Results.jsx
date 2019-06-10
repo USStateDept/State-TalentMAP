@@ -192,7 +192,7 @@ class Results extends Component {
     // form our object for the API
     const queryObject = Object.assign({}, {
       name: e,
-      endpoint: '/api/v1/position/',
+      endpoint: '/api/v1/cycleposition/',
       filters: cleanedQuery,
     });
     // send formed object to our redux action

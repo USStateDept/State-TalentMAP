@@ -6,7 +6,7 @@ export const searchObject = {
   filters: {
     q: 'german',
     position__post__in: '151',
-    position__is_domestic: 'true',
+    is_domestic: 'true',
     position__grade__code__in: '02',
     position__skill__code__in: '6080,2080',
     position__post__tour_of_duty__code__in: 'O,Q',
