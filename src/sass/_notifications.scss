@@ -121,5 +121,9 @@
   .tm-checkbox {
     margin-left: 0;
     margin-right: 0;
+
+    label {
+      margin-top: 50%;
+    }
   }
 }

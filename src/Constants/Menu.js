@@ -51,14 +51,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     expandedSection: true,
     children: [
       {
-        text: 'Notifications',
-        route: '/profile/notifications',
-        icon: 'globe',
-      },
-      {
         text: 'Dashboard',
         route: '/profile/dashboard',
         icon: 'tachometer',
+      },
+      {
+        text: 'Notifications',
+        route: '/profile/notifications',
+        icon: 'globe',
       },
       {
         text: 'Favorites',
