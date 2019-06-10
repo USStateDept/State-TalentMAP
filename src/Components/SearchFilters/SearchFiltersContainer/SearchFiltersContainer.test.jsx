@@ -125,7 +125,7 @@ describe('SearchFiltersContainerComponent', () => {
     expect(toggleValue.value).toEqual({
       is_available_in_bidcycle: null,
       is_available_in_current_bidcycle: null,
-      position__is_domestic: null,
+      is_domestic: null,
       position__post__in: null,
       projectedVacancy: 'pv',
     });
