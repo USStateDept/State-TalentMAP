@@ -8,6 +8,9 @@ import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
+import { checkFlag } from '../../flags';
+
+const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 class FavoritePositions extends Component {
   constructor(props) {
@@ -32,6 +35,14 @@ class FavoritePositions extends Component {
     const { favorites, favoritesPV, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList, onSortChange } = this.props;
     const positions = this.getPositions();
+    let options = [{ title: 'All Favorites', value: 'all', numerator: favorites.length + favoritesPV.length }];
+    if (getUsePV()) {
+      options = [
+        ...options,
+        { title: 'Open Positions', value: 'open', numerator: favorites.length },
+        { title: 'Projected Vacancies', value: 'pv', numerator: favoritesPV.length },
+      ];
+    }
     return (
       <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
         <div className="usa-grid-full favorites-top-section">
@@ -40,11 +51,7 @@ class FavoritePositions extends Component {
           </div>
         </div>
         <Nav
-          options={[
-            { title: 'All Favorites', value: 'all', numerator: favorites.length + favoritesPV.length },
-            { title: 'Open Positions', value: 'open', numerator: favorites.length },
-            { title: 'Projected Vacancies', value: 'pv', numerator: favoritesPV.length },
-          ]}
+          options={options}
           onClick={selected => this.setState({ selected })}
           selected={this.state.selected}
           denominator={favorites.length + favoritesPV.length}
