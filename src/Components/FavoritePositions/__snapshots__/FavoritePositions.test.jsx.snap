@@ -69,19 +69,19 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
             },
             Object {
               "text": "Grade: Low to high",
-              "value": "-position__grade",
+              "value": "position__grade",
             },
             Object {
               "text": "Bureau: A-Z",
-              "value": "-position__bureau",
+              "value": "position__bureau",
             },
             Object {
               "text": "Posted date: Most recent",
-              "value": "-posted_date",
+              "value": "posted_date",
             },
             Object {
               "text": "TED: Soonest",
-              "value": "position__current_assignment__estimated_end_date",
+              "value": "ted",
             },
             Object {
               "text": "Position number: Low to high",

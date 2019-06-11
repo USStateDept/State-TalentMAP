@@ -29,22 +29,22 @@ exports[`SelectForm matches snapshot 1`] = `
       Position title: A-Z
     </option>
     <option
-      value="-position__grade"
+      value="position__grade"
     >
       Grade: Low to high
     </option>
     <option
-      value="-position__bureau"
+      value="position__bureau"
     >
       Bureau: A-Z
     </option>
     <option
-      value="-posted_date"
+      value="posted_date"
     >
       Posted date: Most recent
     </option>
     <option
-      value="position__current_assignment__estimated_end_date"
+      value="ted"
     >
       TED: Soonest
     </option>
@@ -91,22 +91,22 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       Position title: A-Z
     </option>
     <option
-      value="-position__grade"
+      value="position__grade"
     >
       Grade: Low to high
     </option>
     <option
-      value="-position__bureau"
+      value="position__bureau"
     >
       Bureau: A-Z
     </option>
     <option
-      value="-posted_date"
+      value="posted_date"
     >
       Posted date: Most recent
     </option>
     <option
-      value="position__current_assignment__estimated_end_date"
+      value="ted"
     >
       TED: Soonest
     </option>
