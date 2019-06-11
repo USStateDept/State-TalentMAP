@@ -56,6 +56,11 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'tachometer',
       },
       {
+        text: 'Notifications',
+        route: '/profile/notifications',
+        icon: 'globe',
+      },
+      {
         text: 'Favorites',
         route: '/profile/favorites/',
         icon: 'star',
