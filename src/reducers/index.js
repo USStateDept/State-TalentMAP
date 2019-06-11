@@ -40,6 +40,7 @@ import clientView from './clientView';
 import sortPreferences from './sortPreferences';
 import aboutContent from './aboutContent';
 import homeBannerContent from './homeBannerContent';
+import logs from './logs';
 
 export default combineReducers({
   ...results,
@@ -77,6 +78,7 @@ export default combineReducers({
   ...sortPreferences,
   ...aboutContent,
   ...homeBannerContent,
+  ...logs,
   router,
   form,
   client,

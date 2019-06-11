@@ -50,6 +50,7 @@ describe('ResultsPageComponent', () => {
       postSearchHasErrored={false}
       shouldShowSearchBar
       bidList={[]}
+      filtersIsLoading={false}
     />);
     expect(wrapper).toBeDefined();
   });
@@ -84,6 +85,7 @@ describe('ResultsPageComponent', () => {
       postSearchHasErrored={false}
       shouldShowSearchBar
       bidList={[]}
+      filtersIsLoading={false}
     />);
     expect(wrapper.instance().props.results.results[0].id).toBe(6);
   });
@@ -117,6 +119,7 @@ describe('ResultsPageComponent', () => {
       postSearchHasErrored={false}
       shouldShowSearchBar
       bidList={[]}
+      filtersIsLoading={false}
     />);
     expect(wrapper).toBeDefined();
   });

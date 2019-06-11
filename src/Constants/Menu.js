@@ -56,6 +56,11 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'tachometer',
       },
       {
+        text: 'Notifications',
+        route: '/profile/notifications',
+        icon: 'globe',
+      },
+      {
         text: 'Favorites',
         route: '/profile/favorites/',
         icon: 'star',
@@ -102,6 +107,28 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     icon: 'book',
     route: '/profile/glossaryeditor/',
     isGlossaryEditor: true,
+  },
+  {
+    text: 'Administrator',
+    route: '/profile/administrator/',
+    icon: 'sitemap',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+    ],
+    children: [
+      {
+        text: 'Dashboard',
+        route: '/profile/administrator/dashboard/',
+        icon: 'tachometer',
+      },
+      {
+        text: 'Logs',
+        route: '/profile/administrator/logs/',
+        icon: 'sitemap',
+      },
+    ],
   },
 ]);
 

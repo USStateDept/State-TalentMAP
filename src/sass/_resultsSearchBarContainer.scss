@@ -211,10 +211,15 @@ $input-height: 40px;
 
 .results {
   .homepage-offset.results-single-search {
-    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-top: 0;
+
+    .search-results-inputs {
+      padding-top: 14px;
+    }
 
     .search-submit-button {
-      margin-top: 33px;
+      margin-top: 36px;
     }
   }
 }

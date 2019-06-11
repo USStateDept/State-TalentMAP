@@ -38,14 +38,26 @@ describe('notifications reducers', () => {
   });
 
   it('can call default state reducer MARK_NOTIFICATION_HAS_ERRORED', () => {
-    expect(reducers.markNotificationHasErrored(false, { type: 'OTHER', hasErrored: true })).toBe(false);
+    expect(reducers.markNotificationHasErrored(false, { type: 'MARK_NOTIFICATION_HAS_ERRORED', hasErrored: true })).toBe(true);
   });
 
   it('can call default state reducer MARK_NOTIFICATION_IS_LOADING', () => {
-    expect(reducers.markNotificationIsLoading(false, { type: 'OTHER', isLoading: true })).toBe(false);
+    expect(reducers.markNotificationIsLoading(false, { type: 'MARK_NOTIFICATION_IS_LOADING', isLoading: true })).toBe(true);
   });
 
   it('can call default state reducer MARK_NOTIFICATION_FETCH_DATA_SUCCESS', () => {
-    expect(reducers.markNotificationSuccess(false, { type: 'OTHER', response: true })).toBe(false);
+    expect(reducers.markNotificationSuccess(false, { type: 'MARK_NOTIFICATION_SUCCESS', response: true })).toBe(true);
+  });
+
+  it('can call default state reducer MARK_NOTIFICATIONS_HAS_ERRORED', () => {
+    expect(reducers.markNotificationsHasErrored(false, { type: 'MARK_NOTIFICATIONS_HAS_ERRORED', hasErrored: true })).toBe(true);
+  });
+
+  it('can call default state reducer MARK_NOTIFICATIONS_IS_LOADING', () => {
+    expect(reducers.markNotificationsIsLoading(false, { type: 'MARK_NOTIFICATIONS_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
+  it('can call default state reducer MARK_NOTIFICATIONS_FETCH_DATA_SUCCESS', () => {
+    expect(reducers.markNotificationsSuccess(false, { type: 'MARK_NOTIFICATIONS_SUCCESS', response: true })).toBe(true);
   });
 });

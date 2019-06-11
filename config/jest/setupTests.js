@@ -24,6 +24,9 @@ Object.values = (obj) => Object.keys(obj).map(key => obj[key])
 // Avoid jest error: "Error: Not implemented: navigation (except hash changes)"
 global.window.location.assign = () => {};
 
+// Stub URL.createObjectURL
+global.window.URL.createObjectURL = () => {};
+
 beforeEach(() => {
   // mock sessionStorage - feature flags config
   sessionStorage.setItem('config', JSON.stringify(config));
