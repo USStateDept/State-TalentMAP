@@ -31,7 +31,7 @@ export function favoritePositionsFetchData(sortType) {
     dispatch(favoritePositionsIsLoading(true));
     dispatch(favoritePositionsHasErrored(false));
     const data$ = { favorites: [], favoritesPV: [] };
-    let url = '/position/favorites/';
+    let url = '/cycleposition/favorites/';
     let urlPV = '/projected_vacancy/favorites/';
     if (sortType) {
       const append = `?ordering=${sortType}`;

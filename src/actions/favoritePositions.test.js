@@ -6,11 +6,11 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/favorites/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/favorites/').reply(200,
       resultsObject,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/favorites/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/favorites/').reply(200,
       resultsObject,
     );
   });

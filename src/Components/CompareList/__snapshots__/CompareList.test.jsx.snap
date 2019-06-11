@@ -441,7 +441,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={6}
+                refKey={1}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}
@@ -455,7 +455,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={60}
+                refKey={2}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}
@@ -967,7 +967,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={6}
+                refKey={1}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}
@@ -981,7 +981,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={60}
+                refKey={2}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}
