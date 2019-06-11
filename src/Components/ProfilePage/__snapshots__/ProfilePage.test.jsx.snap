@@ -54,7 +54,7 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
       />
       <Route
         component={[Function]}
-        path="/profile/administrator/"
+        path="/profile/administrator"
       />
       <Flag
         name="flags.bidding"

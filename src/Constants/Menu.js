@@ -110,10 +110,24 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Administrator',
-    icon: 'sitemap',
     route: '/profile/administrator/',
+    icon: 'sitemap',
+    toggleMenuSection: true,
+    expandedSection: true,
     roles: [
       'superuser',
+    ],
+    children: [
+      {
+        text: 'Dashboard',
+        route: '/profile/administrator/dashboard/',
+        icon: 'tachometer',
+      },
+      {
+        text: 'Logs',
+        route: '/profile/administrator/logs/',
+        icon: 'sitemap',
+      },
     ],
   },
 ]);
