@@ -29,27 +29,21 @@ class ResultsSearchHeader extends Component {
     this.props.onFilterChange({ q: q.value });
   }
   render() {
-    const { defaultKeyword, isHomePage, labelSrOnly, placeholder, searchBarDisabled,
+    const { defaultKeyword, isHomePage, placeholder, searchBarDisabled,
     searchBarDisabledPlaceholder } = this.props;
     return (
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
         <div className="usa-grid-full results-search-bar-container">
           <form className="usa-grid-full" onSubmit={this.submitSearch} >
             <fieldset className="usa-width-five-sixths">
-              {
-                !isHomePage &&
-                  <legend className="usa-grid-full usa-sr-only">Search keyword and location</legend>
-              }
               <div className="usa-width-one-whole search-results-inputs search-keyword">
-                {
-                  isHomePage && <legend className="usa-grid-full homepage-search-legend">Find your next position</legend>
-                }
+                <legend className="usa-grid-full homepage-search-legend">Find your next position</legend>
                 <SearchBar
                   id="search-keyword-field"
                   label="Keywords"
                   type="medium"
                   submitText="Search"
-                  labelSrOnly={labelSrOnly}
+                  labelSrOnly
                   noForm
                   noButton
                   placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
@@ -57,9 +51,6 @@ class ResultsSearchHeader extends Component {
                   defaultValue={defaultKeyword}
                   inputDisabled={searchBarDisabled}
                 />
-                {
-                  isHomePage && <div className="search-sub-text">Example: Abuja, Nigeria, Political Affairs (5505), Russian...</div>
-                }
               </div>
             </fieldset>
             <div className="usa-width-one-sixth search-submit-button">
@@ -78,7 +69,6 @@ class ResultsSearchHeader extends Component {
 ResultsSearchHeader.propTypes = {
   onUpdate: PropTypes.func.isRequired,
   defaultKeyword: PropTypes.string,
-  labelSrOnly: PropTypes.bool,
   placeholder: PropTypes.string,
   onFilterChange: PropTypes.func.isRequired,
   isHomePage: PropTypes.bool,
