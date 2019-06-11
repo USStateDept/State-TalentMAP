@@ -37,7 +37,7 @@ const Notifications = ({ notifications }) => {
       }
       <StaticDevContent>
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
-          <Link to="/profile/dashboard/">See all</Link>
+          <Link to="/profile/notifications">See all</Link>
         </div>
       </StaticDevContent>
     </div>

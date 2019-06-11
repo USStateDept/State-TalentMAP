@@ -59,7 +59,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
     >
       <Link
         replace={false}
-        to="/profile/dashboard/"
+        to="/profile/notifications"
       >
         See all
       </Link>
@@ -110,7 +110,7 @@ exports[`NotificationsComponent matches snapshot when there are zero notificatio
     >
       <Link
         replace={false}
-        to="/profile/dashboard/"
+        to="/profile/notifications"
       >
         See all
       </Link>
