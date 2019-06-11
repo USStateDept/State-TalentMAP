@@ -46,7 +46,8 @@ export function aboutContentPatchSuccess(success) {
 export function aboutContentFetchData() {
   return (dispatch) => {
     dispatch(aboutContentIsLoading(true));
-    api().get('/position/1/')
+    // TODO - Using an endpoint that returns success until About editing functionality it created
+    api().get('/country/?limit=1')
       .then(() => {
         dispatch(aboutContentHasErrored(false));
         dispatch(aboutContentIsLoading(false));
@@ -63,7 +64,8 @@ export function aboutContentFetchData() {
 export function aboutContentPatchData(data) {
   return (dispatch) => {
     dispatch(aboutContentPatchIsLoading(false));
-    api().get('/position/1/', { data })
+    // TODO - Using an endpoint that returns success until About editing functionality it created
+    api().get('/country/?limit=1', { data })
       .then(() => {
         dispatch(aboutContentPatchHasErrored(false));
         dispatch(aboutContentPatchIsLoading(false));
