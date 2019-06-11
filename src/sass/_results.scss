@@ -361,6 +361,11 @@ $results-container-width: 100% - $filter-container-width;
     margin-top: 1rem;
   }
 
+  &.is-loading {
+    opacity: .5;
+    pointer-events: none;
+  }
+
   .projected-vacancy-filter-container {
     margin-bottom: .8em;
     margin-top: .2em;
