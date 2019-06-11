@@ -24,6 +24,7 @@ describe('ResultsFilterContainerComponent', () => {
     postSearchIsLoading: false,
     postSearchHasErrored: false,
     userProfile: bidderUserObject,
+    isLoading: false,
   };
 
   it('is defined', () => {
@@ -52,6 +53,14 @@ describe('ResultsFilterContainerComponent', () => {
   it('matches snapshot', () => {
     const wrapper = shallow(<ResultsFilterContainer
       {...props}
+    />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when isLoading === true', () => {
+    const wrapper = shallow(<ResultsFilterContainer
+      {...props}
+      isLoading
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

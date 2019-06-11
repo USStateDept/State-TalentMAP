@@ -1,0 +1,19 @@
+.administrator-page {
+  h3 {
+    font-family: Roboto;
+    font-size: 1.8rem;
+  }
+
+  .usa-button-primary {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+
+  .section {
+    background-color: $color-white;
+    border: 1px solid $color-gray;
+    min-height: 500px;
+    padding: 25px;
+  }
+}

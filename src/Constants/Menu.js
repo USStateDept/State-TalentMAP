@@ -108,6 +108,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     route: '/profile/glossaryeditor/',
     isGlossaryEditor: true,
   },
+  {
+    text: 'Administrator',
+    icon: 'sitemap',
+    route: '/profile/administrator/',
+    roles: [
+      'superuser',
+    ],
+  },
 ]);
 
 export default GET_PROFILE_MENU;

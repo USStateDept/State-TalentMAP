@@ -1,5 +1,8 @@
 import { get } from 'lodash';
 import api from '../api';
+import { checkFlag } from '../flags';
+
+const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 export function favoritePositionsHasErrored(bool) {
   return {
@@ -23,6 +26,7 @@ export function favoritePositionsFetchDataSuccess(results) {
 }
 
 export function favoritePositionsFetchData(sortType) {
+  const usePV = getUsePV();
   return (dispatch) => {
     dispatch(favoritePositionsIsLoading(true));
     dispatch(favoritePositionsHasErrored(false));
@@ -45,7 +49,11 @@ export function favoritePositionsFetchData(sortType) {
         .then(({ data }) => data)
         .catch(error => error);
 
-    const queryProms = [fetchFavorites(), fetchPVFavorites()];
+    const queryProms = [fetchFavorites()];
+
+    if (usePV) {
+      queryProms.push(fetchPVFavorites());
+    }
 
     Promise.all(queryProms)
     .then((results) => {

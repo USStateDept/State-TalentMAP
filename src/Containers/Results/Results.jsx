@@ -40,6 +40,7 @@ class Results extends Component {
       defaultPageSize: { value: props.defaultPageSize },
       defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
+      filtersIsLoading: true,
     };
 
     // Create an instance attribute for storing a reference to debounced requests
@@ -54,6 +55,12 @@ class Results extends Component {
     } else {
       this.createQueryParams();
       this.props.bidListFetchData();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.filtersIsLoading === false) {
+      this.setState({ filtersIsLoading: false });
     }
   }
 
@@ -206,12 +213,14 @@ class Results extends Component {
             currentSavedSearch, newSavedSearchIsSaving,
             newSavedSearchHasErrored, fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
+    const { filtersIsLoading } = this.state;
     return (
       <div>
         <ResultsPage
           results={results}
           hasErrored={hasErrored}
           isLoading={isLoading}
+          filtersIsLoading={filtersIsLoading}
           sortBy={POSITION_SEARCH_SORTS}
           defaultSort={this.state.defaultSort.value}
           pageSizes={POSITION_PAGE_SIZES}
@@ -261,6 +270,7 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
+  filtersIsLoading: PropTypes.bool,
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
