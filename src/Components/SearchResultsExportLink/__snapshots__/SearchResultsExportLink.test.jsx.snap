@@ -8,6 +8,7 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
     className=""
     isLoading={false}
     onClick={[Function]}
+    primaryClass="usa-button-secondary"
     text="Export"
   />
   <CSVLink
