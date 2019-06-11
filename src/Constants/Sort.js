@@ -2,9 +2,9 @@ export const POSITION_SEARCH_SORTS = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
     { value: 'position__title', text: 'Position title: A-Z' },
-    { value: 'position__grade', text: 'Grade: Low to high' }, // sort by grade "ranking"
-    { value: 'position__bureau', text: 'Bureau: A-Z' }, // numbers first, then A-Z
-    { value: 'posted_date', text: 'Posted date: Most recent' }, // sort by soonest posted_date
+    { value: '-position__grade', text: 'Grade: Low to high' }, // sort by grade "ranking"
+    { value: '-position__bureau', text: 'Bureau: A-Z' }, // numbers first, then A-Z
+    { value: '-posted_date', text: 'Posted date: Most recent' }, // sort by soonest posted_date
     { value: 'ted', text: 'TED: Soonest' },
     { value: 'position__position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
     { value: '-position__post__has_service_needs_differential', text: 'Featured positions' }, // sort by service needs first
