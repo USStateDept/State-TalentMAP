@@ -19,7 +19,7 @@ const NotificationRow = ({ id, message, tags, deleteOne, date, isRead, onCheck, 
   }
   if (tags$.has('saved_search')) {
     link = '/profile/searches';
-    buttonTitle = 'Go to Saved Search';
+    buttonTitle = 'Go to Saved Searches';
     icon = 'clock-o';
   }
   const title = (
