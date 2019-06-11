@@ -5,6 +5,9 @@ import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
+import { checkFlag } from '../flags';
+
+const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 export function userProfileHasErrored(bool) {
   return {
@@ -51,6 +54,7 @@ export function unsetUserProfile() {
 
 // include an optional bypass for when we want to silently update the profile
 export function userProfileFetchData(bypass, cb) {
+  const usePV = getUsePV();
   return (dispatch) => {
     if (!bypass) {
       dispatch(userProfileHasErrored(false));
@@ -66,9 +70,15 @@ export function userProfileFetchData(bypass, cb) {
     // PV favorites
     const getPVFavorites = () => api().get('/projected_vacancy/favorites/');
 
+    const promises = [getUserAccount(), getUserPermissions()];
+
+    if (usePV) {
+      promises.push(getPVFavorites());
+    }
+
     // use api' Promise.all to fetch the profile and permissions, and then combine them
     // into one object
-    axios.all([getUserAccount(), getUserPermissions(), getPVFavorites()])
+    axios.all(promises)
       .then(axios.spread((acct, perms, pvFavs) => {
         // form the userProfile object
         const account = acct.data;

@@ -30,7 +30,7 @@ class Notifications extends Component {
       <IconAlert
         type="globe"
         number={notificationsCount}
-        link="/profile/dashboard/"
+        link="/profile/notifications/"
         alt="Notifications"
         title="View your notifications"
       />

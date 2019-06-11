@@ -1,6 +1,9 @@
 import Q from 'q';
 import { get, takeRight } from 'lodash';
+import { CancelToken } from 'axios';
 import api from '../api';
+
+let cancel;
 
 export const replaceSuffix = log => log.replace(/.log/g, '');
 
@@ -155,29 +158,36 @@ export function getLogsList() {
 }
 
 export function getLog(id) {
+  if (cancel) { cancel('cancel'); }
   return (dispatch) => {
     dispatch(logIsLoading(true));
     dispatch(logHasErrored(false));
     // remove .log suffix from id, if exists
     const id$ = replaceSuffix(id);
     // get log by id
-    api().get(`/logs/${id$}/`)
-      .then((logList) => {
-        let data = get(logList, 'data.data', []);
-        data = data.split('\n');
-        data = takeRight(data, 500);
-        if (data.length === 1 && !data[0]) {
-          data = [];
-        }
-        dispatch(logSuccess(data));
-        dispatch(logHasErrored(false));
-        dispatch(logIsLoading(false));
-      })
-      .catch(() => {
+    api().get(`/logs/${id$}/`, {
+      cancelToken: new CancelToken((c) => {
+        cancel = c;
+      }),
+    })
+    .then((logList) => {
+      let data = get(logList, 'data.data', []);
+      data = data.split('\n');
+      data = takeRight(data, 500);
+      if (data.length === 1 && !data[0]) {
+        data = [];
+      }
+      dispatch(logSuccess(data));
+      dispatch(logHasErrored(false));
+      dispatch(logIsLoading(false));
+    })
+    .catch((m) => {
+      if (get(m, 'message') !== 'cancel') {
         logSuccess([]);
         dispatch(logHasErrored(true));
         dispatch(logIsLoading(false));
-      });
+      }
+    });
   };
 }
 

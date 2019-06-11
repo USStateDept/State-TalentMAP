@@ -91,12 +91,4 @@ describe('ResultsSearchHeaderComponent', () => {
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
-
-  it('matches snapshot when isHomePage is true', () => {
-    wrapper = shallow(<ResultsSearchHeader
-      {...props}
-      isHomePage
-    />);
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
 });

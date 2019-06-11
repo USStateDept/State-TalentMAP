@@ -45,6 +45,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
+      />
+      <withRouter(NavLink)
+        hidden={false}
         iconName="star"
         link="/profile/favorites/"
         search=""
@@ -166,6 +173,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         link="/profile/dashboard"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
       />
       <withRouter(NavLink)
         hidden={false}
@@ -293,6 +307,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
+      />
+      <withRouter(NavLink)
+        hidden={false}
         iconName="star"
         link="/profile/favorites/"
         search=""
@@ -414,6 +435,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/dashboard"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
       />
       <withRouter(NavLink)
         hidden={false}
