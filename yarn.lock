@@ -8465,6 +8465,13 @@ react-autowhatever@^10.1.0:
     react-themeable "^1.1.0"
     section-iterator "^2.0.0"
 
+react-day-picker@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.3.0.tgz#59b6d4e19d274650c79dcf49fbcce2637313467d"
+  integrity sha512-t2kz0Zy4P5U4qwU5YhsBq2QGmypP8L/u+89TSnuD0h4dYKSEDQArFPWfin9gv8erV1ciR1Wzr485TMaYnI7FTw==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-dev-utils@^3.1.0, react-dev-utils@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-3.1.1.tgz#09ae7209a81384248db56547e718e65bd3b20eb5"
@@ -10406,6 +10413,11 @@ through2@^2.0.0:
 thunky@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.0.2.tgz#a862e018e3fb1ea2ec3fce5d55605cf57f247371"
+
+time-input@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/time-input/-/time-input-1.6.1.tgz#20a538aaae47a15bf955dc26e0f28ac93f0b19e7"
+  integrity sha512-AzmmcJ+XdvaOG7Go9JKEcUaH8q1ewAafj84zjE/0XIe/B36o65/Gko2h08cDKTEf0fvyLxP0kxCQN9AfYMpstw==
 
 time-stamp@^2.0.0:
   version "2.0.0"

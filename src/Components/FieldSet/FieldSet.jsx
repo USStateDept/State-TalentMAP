@@ -6,7 +6,7 @@ const FieldSet = ({ legend, children, legendSrOnly, className }) => (
     <legend className={legendSrOnly ? 'usa-sr-only' : null}>{legend}</legend>
     {children}
   </fieldset>
-  );
+);
 
 FieldSet.propTypes = {
   legend: PropTypes.string.isRequired,

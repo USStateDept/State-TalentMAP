@@ -13,3 +13,11 @@ export function toastError(toast, title) {
     title,
   };
 }
+
+export function toastWarning(toast, title) {
+  return {
+    type: 'TOAST_NOTIFICATION_WARNING',
+    toast,
+    title,
+  };
+}

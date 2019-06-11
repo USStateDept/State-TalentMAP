@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
 import Dashboard from './Dashboard';
 
 describe('Dashboard', () => {
@@ -18,12 +17,5 @@ describe('Dashboard', () => {
   it('is defined when loading states are true', () => {
     const wrapper = shallow(<Dashboard {...props} isLoading logsIsLoading />);
     expect(wrapper).toBeDefined();
-  });
-
-  it('responds to ExportButton onClick', () => {
-    const spy = sinon.spy();
-    const wrapper = shallow(<Dashboard {...props} onDownloadClick={spy} />);
-    wrapper.find('ExportButton').props().onClick();
-    sinon.assert.calledOnce(spy);
   });
 });
