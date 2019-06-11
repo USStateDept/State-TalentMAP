@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AdministratorPage from '../../Components/AdministratorPage';
 import { getLogs, getLogsList, getLog, getLogToDownload } from '../../actions/logs';
+import { syncsFetchData, putAllSyncs } from '../../actions/synchronizations';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 export const downloadFile = (text) => {
@@ -27,11 +28,13 @@ class AdministratorContainer extends Component {
     this.onDownloadClick = this.onDownloadClick.bind(this);
     this.getLogById = this.getLogById.bind(this);
     this.onDownloadOne = this.onDownloadOne.bind(this);
+    this.runAllJobs = this.runAllJobs.bind(this);
     this.state = {};
   }
 
   componentWillMount() {
     this.props.getLogsList();
+    this.props.getSyncJobs();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,10 +63,17 @@ class AdministratorContainer extends Component {
     this.props.getLog(id);
   }
 
+  runAllJobs() {
+    const { putAllSyncJobs, putAllSyncsIsLoading } = this.props;
+    if (!putAllSyncsIsLoading) {
+      putAllSyncJobs();
+    }
+  }
+
   render() {
     const { logs, logsIsLoading, logsHasErrored,
     logsList, logsListIsLoading, logsListHasErrored,
-    log, logIsLoading, logHasErrored } = this.props;
+    log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading } = this.props;
     const props = {
       logs,
       logsIsLoading,
@@ -77,6 +87,9 @@ class AdministratorContainer extends Component {
       logHasErrored,
       getLog: this.getLogById,
       onDownloadOne: this.onDownloadOne,
+      syncJobs,
+      syncJobsIsLoading,
+      runAllJobs: this.runAllJobs,
     };
     return (
       <AdministratorPage {...props} />
@@ -102,6 +115,12 @@ AdministratorContainer.propTypes = {
   logToDownloadHasErrored: PropTypes.bool,
   getLog: PropTypes.func,
   getLogToDownload: PropTypes.func,
+  getSyncJobs: PropTypes.func,
+  syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
+  syncJobsIsLoading: PropTypes.bool,
+  syncsJobsHasErrored: PropTypes.bool,
+  putAllSyncJobs: PropTypes.func,
+  putAllSyncsIsLoading: PropTypes.bool,
 };
 
 AdministratorContainer.defaultProps = {
@@ -122,6 +141,12 @@ AdministratorContainer.defaultProps = {
   logToDownloadHasErrored: false,
   getLog: EMPTY_FUNCTION,
   getLogToDownload: EMPTY_FUNCTION,
+  getSyncJobs: EMPTY_FUNCTION,
+  syncJobs: [],
+  syncJobsIsLoading: false,
+  syncsJobsHasErrored: false,
+  putAllSyncsIsLoading: false,
+  putAllSyncJobs: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -137,6 +162,10 @@ const mapStateToProps = state => ({
   logToDownload: state.logToDownloadSuccess,
   logToDownloadIsLoading: state.logToDownloadIsLoading,
   logToDownloadHasErrored: state.logToDownloadHasErrored,
+  syncJobs: state.syncs,
+  syncJobsIsLoading: state.syncsIsLoading,
+  syncsJobsHasErrored: state.syncsHasErrored,
+  putAllSyncsIsLoading: state.putAllSyncsIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -144,6 +173,8 @@ export const mapDispatchToProps = dispatch => ({
   getLogsList: () => dispatch(getLogsList()),
   getLog: id => dispatch(getLog(id)),
   getLogToDownload: id => dispatch(getLogToDownload(id)),
+  getSyncJobs: () => dispatch(syncsFetchData()),
+  putAllSyncJobs: () => dispatch(putAllSyncs()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((AdministratorContainer));

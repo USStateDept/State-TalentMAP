@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioListComponent matches snapshot 1`] = `
+<ul
+  className="usa-unstyled-list"
+>
+  <li>
+    <input
+      checked={false}
+      id="a"
+      name="a-name"
+      onChange={[Function]}
+      type="radio"
+      value="a-value"
+    />
+    <label
+      htmlFor="a"
+    >
+      a-label
+    </label>
+  </li>
+  <li>
+    <input
+      checked={true}
+      id="b"
+      name="b-name"
+      onChange={[Function]}
+      type="radio"
+      value="b-value"
+    />
+    <label
+      htmlFor="b"
+    >
+      b-label
+    </label>
+  </li>
+</ul>
+`;

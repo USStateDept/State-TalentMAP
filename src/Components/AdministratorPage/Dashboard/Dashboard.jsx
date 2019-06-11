@@ -5,14 +5,17 @@ import { Link } from 'react-router-dom';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import { Row, Column } from '../../Layout';
-import ExportButton from '../../ExportButton';
+import DataSync from './DataSync';
+import LinkButton from '../../LinkButton';
+import MediaQueryWrapper from '../../MediaQuery';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 const AdministratorPage = (props) => {
   const {
     isLoading,
-    logsIsLoading,
-    onDownloadClick,
+    syncJobs,
+    syncJobsIsLoading,
+    runAllJobs,
   } = props;
 
   const getLink = (link, title) => (
@@ -35,34 +38,45 @@ const AdministratorPage = (props) => {
       </div>
       <div className="usa-grid-full">
         <Row className="usa-grid-full">
-          <Column
-            columns={4}
-          >
-            <div className="usa-width-one-whole section">
-              <h3>TalentMAP Data Sync</h3>
-              <div className="export-button-container">
-                <ExportButton
-                  onClick={onDownloadClick}
-                  isLoading={logsIsLoading}
-                  primaryClass="usa-button-primary"
-                  text={<span>Download Logs <FA name="download" /></span>}
-                />
-              </div>
-            </div>
-          </Column>
-          <Column
-            columns={4}
-          >
-            <div className="usa-width-one-whole section">
-              <h3>Editable Content Areas</h3>
-              <Column className="content-link-container">
-                {getLink('/', 'Header')}
-                {getLink('/about', 'About')}
-                {getLink('/results', 'Featured Positions')}
-                {getLink('/profile/glossaryeditor/', 'Glossary')}
-              </Column>
-            </div>
-          </Column>
+          <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
+            {
+              (matches) => {
+                let columns = [12, 12, 12];
+                if (!matches) { columns = [5, 4, 3]; }
+                return (
+                  <div>
+                    <Column
+                      columns={columns[0]}
+                    >
+                      <div className="usa-width-one-whole section no-padding">
+                        <DataSync
+                          syncJobs={syncJobs}
+                          isLoading={syncJobsIsLoading}
+                          runAllJobs={runAllJobs}
+                        />
+                        <div className="usa-grid-full padding-section button-container">
+                          <LinkButton className="unstyled-button" toLink="/profile/administrator/logs">Review Logs</LinkButton>
+                        </div>
+                      </div>
+                    </Column>
+                    <Column
+                      columns={columns[1]}
+                    >
+                      <div className="usa-width-one-whole section">
+                        <h3>Editable Content Areas</h3>
+                        <Column className="content-link-container">
+                          {getLink('/', 'Header')}
+                          {getLink('/about', 'About')}
+                          {getLink('/results', 'Featured Positions')}
+                          {getLink('/profile/glossaryeditor/', 'Glossary')}
+                        </Column>
+                      </div>
+                    </Column>
+                  </div>
+                );
+              }
+            }
+          </MediaQueryWrapper>
         </Row>
       </div>
     </div>
@@ -71,14 +85,16 @@ const AdministratorPage = (props) => {
 
 AdministratorPage.propTypes = {
   isLoading: PropTypes.bool,
-  logsIsLoading: PropTypes.bool,
-  onDownloadClick: PropTypes.func,
+  syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
+  syncJobsIsLoading: PropTypes.bool,
+  runAllJobs: PropTypes.func,
 };
 
 AdministratorPage.defaultProps = {
   isLoading: false,
-  logsIsLoading: false,
-  onDownloadClick: EMPTY_FUNCTION,
+  syncJobs: [],
+  syncJobsIsLoading: false,
+  runAllJobs: EMPTY_FUNCTION,
 };
 
 export default AdministratorPage;
