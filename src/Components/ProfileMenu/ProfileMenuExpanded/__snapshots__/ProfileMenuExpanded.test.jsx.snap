@@ -92,6 +92,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       search=""
       title="Glossary Editor"
     />
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="sitemap"
+      link="/profile/administrator/"
+      search=""
+      title="Administrator"
+    />
   </NavLinksContainer>
 </div>
 `;
@@ -187,6 +194,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       link="/profile/glossaryeditor/"
       search=""
       title="Glossary Editor"
+    />
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="sitemap"
+      link="/profile/administrator/"
+      search=""
+      title="Administrator"
     />
   </NavLinksContainer>
 </div>
@@ -284,6 +298,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       search=""
       title="Glossary Editor"
     />
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="sitemap"
+      link="/profile/administrator/"
+      search=""
+      title="Administrator"
+    />
   </NavLinksContainer>
 </div>
 `;
@@ -379,6 +400,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       link="/profile/glossaryeditor/"
       search=""
       title="Glossary Editor"
+    />
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="sitemap"
+      link="/profile/administrator/"
+      search=""
+      title="Administrator"
     />
   </NavLinksContainer>
 </div>
