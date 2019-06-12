@@ -112,7 +112,7 @@ exports[`FavoritesListResultsCardComponent matches snapshot 1`] = `
       <LinkButton
         className=""
         isExternal={false}
-        toLink="/details/1"
+        toLink="/details/undefined"
         useDefaultClass={true}
       >
         View Position

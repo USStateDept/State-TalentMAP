@@ -50,6 +50,7 @@ exports[`FavoritesListComponent matches snapshot 1`] = `
                 ],
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "classifications": Array [],
+                "cpId": 1,
                 "create_date": "2006-09-20T00:00:00Z",
                 "current_assignment": Object {
                   "estimated_end_date": "2020-03-13T15:51:11.478084Z",
@@ -133,6 +134,7 @@ exports[`FavoritesListComponent matches snapshot 1`] = `
                 ],
                 "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
                 "classifications": Array [],
+                "cpId": 2,
                 "create_date": "2006-09-20T00:00:00Z",
                 "current_assignment": Object {
                   "estimated_end_date": "2020-03-13T15:51:13.126727Z",

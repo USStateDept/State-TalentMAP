@@ -126,7 +126,7 @@ class ResultsCard extends Component {
 
     options.favorite = {
       compareArray: isProjectedVacancy ? favoritesPV : favorites,
-      refKey: result.position.id,
+      refKey: result.id,
       hasBorder: true,
       useButtonClass: true,
       useLongText: true,
