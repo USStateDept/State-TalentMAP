@@ -66,8 +66,8 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
                   "endpoint": "/api/v1/position/",
                   "filters": Object {
                     "position__post__tour_of_duty__code__in": "O",
-                    "position__q": "german",
                     "position__skill__code__in": "6080",
+                    "q": "german",
                   },
                   "id": 7,
                   "name": "Test 33",

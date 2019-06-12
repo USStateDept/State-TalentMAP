@@ -296,7 +296,7 @@ class CompareList extends Component {
                           <td key={shortId.generate()}>
                             <Favorite
                               hasBorder
-                              refKey={c.position.id}
+                              refKey={c.id}
                               compareArray={favorites}
                               useButtonClass
                               refresh

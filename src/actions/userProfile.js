@@ -5,6 +5,9 @@ import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
+import { checkFlag } from '../flags';
+
+const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 export function userProfileHasErrored(bool) {
   return {
@@ -51,6 +54,7 @@ export function unsetUserProfile() {
 
 // include an optional bypass for when we want to silently update the profile
 export function userProfileFetchData(bypass, cb) {
+  const usePV = getUsePV();
   return (dispatch) => {
     if (!bypass) {
       dispatch(userProfileHasErrored(false));
@@ -66,9 +70,15 @@ export function userProfileFetchData(bypass, cb) {
     // PV favorites
     const getPVFavorites = () => api().get('/projected_vacancy/favorites/');
 
+    const promises = [getUserAccount(), getUserPermissions()];
+
+    if (usePV) {
+      promises.push(getPVFavorites());
+    }
+
     // use api' Promise.all to fetch the profile and permissions, and then combine them
     // into one object
-    axios.all([getUserAccount(), getUserPermissions(), getPVFavorites()])
+    axios.all(promises)
       .then(axios.spread((acct, perms, pvFavs) => {
         // form the userProfile object
         const account = acct.data;
@@ -114,7 +124,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
   return (dispatch) => {
     const config = {
       method: remove ? 'delete' : 'put',
-      url: isPV ? `/projected_vacancy/${idString}/favorite/` : `/position/${idString}/favorite/`,
+      url: isPV ? `/projected_vacancy/${idString}/favorite/` : `/cycleposition/${idString}/favorite/`,
     };
 
     /**
@@ -124,7 +134,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     const getAction = () => api()(config);
 
     // position
-    const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/position_number__in=${id}/` : `/position/${id}/`);
+    const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/position_number__in=${id}/` : `/cycleposition/${id}/`);
 
     dispatch(userProfileFavoritePositionIsLoading(true, id));
     dispatch(userProfileFavoritePositionHasErrored(false));
@@ -133,7 +143,8 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
       .then(axios.spread((action, position) => {
         const pos = isPV ? get(position, 'data.results[0]', {}) : position.data;
         const message = remove ?
-          SystemMessages.DELETE_FAVORITE_SUCCESS(pos) : SystemMessages.ADD_FAVORITE_SUCCESS(pos);
+          SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position) :
+          SystemMessages.ADD_FAVORITE_SUCCESS(pos.position);
         const title = remove ? SystemMessages.DELETE_FAVORITE_TITLE
           : SystemMessages.ADD_FAVORITE_TITLE;
         const cb = () => userProfileFavoritePositionIsLoading(false, id);

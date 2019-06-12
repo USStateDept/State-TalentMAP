@@ -10,7 +10,7 @@ class ResultsSearchHeader extends Component {
     this.onChangeQueryText = this.onChangeQueryText.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.state = {
-      position__q: { value: this.props.defaultKeyword || '' },
+      q: { value: this.props.defaultKeyword || '' },
     };
   }
   onChangeQueryText(e) {
@@ -19,14 +19,14 @@ class ResultsSearchHeader extends Component {
   submitSearch(e) {
     // resolves “Form submission canceled because the form is not connected” warning
     e.preventDefault();
-    const { position__q } = this.state;
+    const { q } = this.state;
     // send any updates to q and location back to the Results container, and reset our page number
-    this.props.onUpdate({ position__q: position__q.value });
+    this.props.onUpdate({ q: q.value });
   }
   changeText(type, e) {
-    const { position__q } = this.state;
+    const { q } = this.state;
     this.setState({ [type]: { value: e.target.value } });
-    this.props.onFilterChange({ position__q: position__q.value });
+    this.props.onFilterChange({ q: q.value });
   }
   render() {
     const { defaultKeyword, isHomePage, labelSrOnly, placeholder, searchBarDisabled,
@@ -91,7 +91,7 @@ ResultsSearchHeader.defaultProps = {
   onFilterChange: EMPTY_FUNCTION,
   defaultKeyword: '',
   labelSrOnly: false,
-  placeholder: 'Location, Skill, Grade, Language, Position number',
+  placeholder: 'Enter keywords...',
   isHomePage: false,
   searchBarDisabled: false,
   searchBarDisabledPlaceholder: 'Free text search is unavailable when searching Projected Vacancies',

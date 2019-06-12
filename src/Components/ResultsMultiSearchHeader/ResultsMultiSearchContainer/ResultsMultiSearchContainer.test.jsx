@@ -52,8 +52,8 @@ describe('ResultsMultiSearchContainer', () => {
         onNavigateTo={navigateTo}
       />,
     );
-    wrapper.instance().onSubmit({ position__q: 'german', otherFilters: ['1', '2'], emptyFilters: [] });
-    expect(url.value).toBe('/results?otherFilters=1%2C2&position__q=german');
+    wrapper.instance().onSubmit({ q: 'german', otherFilters: ['1', '2'], emptyFilters: [] });
+    expect(url.value).toBe('/results?otherFilters=1%2C2&q=german');
   });
 
   it('can perform actions upon componentWillMount', () => {
