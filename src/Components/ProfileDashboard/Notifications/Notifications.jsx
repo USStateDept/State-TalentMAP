@@ -12,7 +12,7 @@ const Notifications = ({ notifications }) => {
     notificationArray.push(
       <NotificationItem
         content={notification.message}
-        notificationTime={notification.date_updated}
+        notificationTime={notification.date_created}
       />,
     )
   ));
