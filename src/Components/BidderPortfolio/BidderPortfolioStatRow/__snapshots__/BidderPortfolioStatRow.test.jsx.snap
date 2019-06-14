@@ -55,7 +55,7 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
       className="stat-card-data-point"
     >
       <dt>
-        Post:
+        Location:
       </dt>
       <dd>
         Freetown, Sierra Leone

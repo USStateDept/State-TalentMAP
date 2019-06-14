@@ -49,7 +49,7 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     <span
       className="bid-list-card-title-post"
     >
-      Post: 
+      Location: 
     </span>
     Washington, DC
   </div>

@@ -34,7 +34,7 @@ const BidTrackerCardTitle = ({ title, id, bidStatistics, post, showBidCount, sta
       </div>
       <div className="usa-grid-full bid-tracker-bottom-link-container">
         <div className="bid-tracker-card-title-bottom">
-          <strong>Post:</strong> {getPostName(post)}
+          <strong>Location:</strong> {getPostName(post)}
         </div>
         {condensedView && viewPosition}
         {
