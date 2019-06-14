@@ -16,6 +16,9 @@ class ResultsSearchHeader extends Component {
   onChangeQueryText(e) {
     this.changeText('q', e);
   }
+  getValue() {
+    return this.state.q.value;
+  }
   submitSearch(e) {
     // resolves “Form submission canceled because the form is not connected” warning
     e.preventDefault();
