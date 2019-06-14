@@ -30,7 +30,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
         <span
           className="title"
         >
-          Post:
+          Location:
         </span>
          
         <span
@@ -84,7 +84,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
         <span
           className="title"
         >
-          Post:
+          Location:
         </span>
          
         <span

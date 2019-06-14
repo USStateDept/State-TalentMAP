@@ -191,7 +191,7 @@ class SearchFiltersContainer extends Component {
       if (n === 'post') {
         getSuggestions = fetchPostAutocomplete;
         suggestions = postSearchResults;
-        placeholder = 'Start typing a post';
+        placeholder = 'Start typing a location';
         onSuggestionSelected = this.onPostSuggestionSelected;
         displayProperty = getPostName;
         suggestionTemplate = SuggestionChoicePost; // special template for posts
@@ -225,7 +225,7 @@ class SearchFiltersContainer extends Component {
                   suggestionTemplate,
                   id: `${type}-autosuggest-container`,
                   inputId: `${type}-autosuggest-input`,
-                  label: 'Search posts',
+                  label: 'Search locations',
                   labelSrOnly: false,
                 }}
               />
@@ -278,8 +278,9 @@ class SearchFiltersContainer extends Component {
       if (item && !includes(blackList, n)) {
         sortedFilters.push(
           { content: getFilter(n),
-            title: item.item.title,
-            id: `accordion-${item.item.title}`,
+            title: get(item, 'item.title'),
+            altTitle: get(item, 'item.altTitle'),
+            id: `accordion-${get(item, 'item.title', '')}`,
           },
         );
       }

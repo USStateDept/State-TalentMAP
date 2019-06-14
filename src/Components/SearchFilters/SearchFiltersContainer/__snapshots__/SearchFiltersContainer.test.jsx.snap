@@ -6,6 +6,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     multiSelectFilterList={
       Array [
         Object {
+          "altTitle": undefined,
           "content": <BureauFilter
             item={
               Object {
@@ -35,6 +36,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "title": "skill",
         },
         Object {
+          "altTitle": undefined,
           "content": <div
             className="usa-grid-full"
           >
@@ -62,6 +64,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "title": "grade",
         },
         Object {
+          "altTitle": undefined,
           "content": <BureauFilter
             functionalBureaus={
               Object {
@@ -91,6 +94,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "title": "region",
         },
         Object {
+          "altTitle": undefined,
           "content": <PostFilter
             autoSuggestProps={
               Object {
@@ -98,10 +102,10 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                 "getSuggestions": [Function],
                 "id": "post-autosuggest-container",
                 "inputId": "post-autosuggest-input",
-                "label": "Search posts",
+                "label": "Search locations",
                 "labelSrOnly": false,
                 "onSuggestionSelected": [Function],
-                "placeholder": "Start typing a post",
+                "placeholder": "Start typing a location",
                 "queryProperty": "id",
                 "suggestionTemplate": [Function],
                 "suggestions": Array [],
@@ -131,6 +135,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "title": "post",
         },
         Object {
+          "altTitle": undefined,
           "content": <div
             className="usa-grid-full"
           >
@@ -158,6 +163,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           "title": "tod",
         },
         Object {
+          "altTitle": undefined,
           "content": <div
             className="usa-grid-full"
           >

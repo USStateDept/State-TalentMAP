@@ -26,7 +26,7 @@ const AssignmentsContent = ({ assignment }) => (
       <LanguageList languages={get(assignment, 'position.languages')} propToUse="representation" />
     </div>
     <div>
-      <span className="bid-list-card-title-post">Post: </span>
+      <span className="bid-list-card-title-post">Location: </span>
       {getPostName(get(assignment, 'position.post', NO_POST))}
     </div>
     <div>

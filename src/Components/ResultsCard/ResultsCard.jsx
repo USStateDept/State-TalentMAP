@@ -170,7 +170,7 @@ class ResultsCard extends Component {
                     {recentlyAvailable && <span className="available-alert">Now available!</span>}
                   </Column>
                   <Column columns="12" className="results-card-title-link">
-                    <dt>Post:</dt><dd>{post}</dd>
+                    <dt>Location:</dt><dd>{post}</dd>
                   </Column>
                 </Column>
                 {

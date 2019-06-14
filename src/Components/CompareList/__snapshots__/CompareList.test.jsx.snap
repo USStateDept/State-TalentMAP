@@ -214,7 +214,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post
+              Location
             </th>
             <td>
               Freetown, Sierra Leone
@@ -724,7 +724,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Post
+              Location
             </th>
             <td>
               Freetown, Sierra Leone
