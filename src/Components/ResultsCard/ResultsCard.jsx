@@ -14,8 +14,10 @@ import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
 import Handshake from '../Ribbon/Handshake';
 import HoverDescription from './HoverDescription';
+import OBCUrl from '../OBCUrl';
 
-import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString } from '../../utilities';
+import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString,
+getDifferentialPercentage } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
@@ -28,6 +30,17 @@ const getResult = (result, path, defaultValue, isRate = false) => {
 
   if ((/_date|date_/i).test(path) && value !== defaultValue) {
     value = formatDate(value);
+  }
+
+  if (path === 'post.differential_rate' || path === 'post.danger_pay') {
+    const value$ = getDifferentialPercentage(value);
+
+    const OBCId = get(result, 'post.obc_id');
+    if (OBCId) {
+      return (<span> {value$} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    }
+
+    return value$;
   }
 
   if (isRate && isNumber(value)) {
