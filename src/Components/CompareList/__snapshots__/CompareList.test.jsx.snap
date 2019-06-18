@@ -97,7 +97,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="10034001"
+                    refKey={1}
                     type="compare"
                   />
                 </div>
@@ -135,7 +135,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="56082000"
+                    refKey={2}
                     type="compare"
                   />
                 </div>
@@ -603,7 +603,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="10034001"
+                    refKey={1}
                     type="compare"
                   />
                 </div>
@@ -641,7 +641,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="56082000"
+                    refKey={2}
                     type="compare"
                   />
                 </div>
