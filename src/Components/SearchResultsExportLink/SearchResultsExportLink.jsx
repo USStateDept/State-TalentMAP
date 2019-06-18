@@ -12,36 +12,35 @@ import ExportButton from '../ExportButton';
 // Mapping columns to data fields
 // Use custom delimiter of flattened data
 const HEADERS = [
-  { label: 'Position', key: 'title' },
+  { label: 'Position', key: 'position__title' },
   { label: 'Position number', key: 'position_number' },
-  { label: 'Skill', key: 'skill' },
+  { label: 'Skill', key: 'position__skill' },
   { label: 'Grade', key: 'grade' },
-  { label: 'Bureau', key: 'bureau' },
-  { label: 'Post city', key: 'post__location.city' },
-  { label: 'Post country', key: 'post__location__country' },
-  { label: 'Tour of duty', key: 'post__tour_of_duty' },
-  { label: 'Language', key: 'languages__0__representation' },
-  { label: 'Post differential', key: 'post__differential_rate' },
-  { label: 'Danger pay', key: 'post__danger_pay' },
+  { label: 'Bureau', key: 'position__bureau' },
+  { label: 'Post city', key: 'position__post__location__city' },
+  { label: 'Post country', key: 'position__post__location__country' },
+  { label: 'Tour of duty', key: 'position__post__tour_of_duty' },
+  { label: 'Language', key: 'position__languages__0__representation' },
+  { label: 'Post differential', key: 'position__post__differential_rate' },
+  { label: 'Danger pay', key: 'position__post__danger_pay' },
   { label: 'TED', key: 'estimated_end_date' },
-  { label: 'Incumbent', key: 'current_assignment__user' },
+  { label: 'Incumbent', key: 'position__current_assignment__user' },
 ];
 
 // Processes results before sending to the download component to allow for custom formatting.
 // Flatten data with custom delimiter.
-export const processData = data => (
+export const processData = data =>
   data.map((entry) => {
     const entry$ = flatten({ ...entry }, { delimiter: '__' });
-    const endDate = get(entry$, 'current_assignment__estimated_end_date');
+    const endDate = get(entry$, 'ted');
     const formattedEndDate = endDate ? formatDate(endDate) : null;
     return {
       ...mapValues(entry$, x => !x ? '' : x), // eslint-disable-line no-confusing-arrow
-      position_number: getFormattedNumCSV(entry.position_number),
-      grade: getFormattedNumCSV(entry.grade),
+      position_number: getFormattedNumCSV(entry.position.position_number),
+      grade: getFormattedNumCSV(get(entry, 'position.grade')),
       estimated_end_date: formattedEndDate,
     };
-  })
-);
+  });
 
 
 class SearchResultsExportLink extends Component {
