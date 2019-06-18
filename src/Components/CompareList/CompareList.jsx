@@ -119,15 +119,15 @@ class CompareList extends Component {
                       </th>
                       {
                         compareArray.map((c) => {
-                          const { position } = c;
+                          const { id, position } = c;
                           return (
                             <td key={shortId.generate()}>
                               <div className="usa-grid-full">
                                 <div className="column-title-main">{position.title}</div>
                                 <div className="close-button-container">
                                   <CompareCheck
-                                    onToggle={() => onToggle(position.position_number)}
-                                    refKey={position.position_number}
+                                    onToggle={() => onToggle(id)}
+                                    refKey={id}
                                     customElement={<FA name="close" />}
                                     interactiveElementProps={{ title: 'Remove this comparison' }}
                                   />

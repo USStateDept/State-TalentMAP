@@ -51,13 +51,7 @@ class Favorite extends Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    let isUpdate = true;
-
-    const { compareArray, refKey } = nextProps;
-    const oldState = this.getSavedState();
-    const newState = existsInArray(refKey, compareArray);
-
+  componentWillReceiveProps(nextProps) {
     if (this.state.loading && !nextProps.isLoading) {
       // Only update the loading state if current state.loading
       // and prop change detected is turning it off
@@ -65,6 +59,14 @@ class Favorite extends Component {
         loading: nextProps.isLoading,
       });
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    let isUpdate = true;
+
+    const { compareArray, refKey } = nextProps;
+    const oldState = this.getSavedState();
+    const newState = existsInArray(refKey, compareArray);
 
     isUpdate = (oldState !== newState) ||
                (this.state.loading !== nextState.isLoading) ||
