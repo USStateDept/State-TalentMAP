@@ -177,6 +177,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "bidcycle": Object {
               "name": "Bid Cycle 1",
             },
+            "cpId": 1,
             "id": 1,
             "position": Object {
               "bid_statistics": Array [
@@ -434,6 +435,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "bidcycle": Object {
               "name": "Bid Cycle 1",
             },
+            "cpId": 1,
             "id": 1,
             "position": Object {
               "bid_statistics": Array [
@@ -691,6 +693,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "bidcycle": Object {
               "name": "Bid Cycle 1",
             },
+            "cpId": 1,
             "id": 1,
             "position": Object {
               "bid_statistics": Array [
@@ -948,6 +951,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "bidcycle": Object {
               "name": "Bid Cycle 1",
             },
+            "cpId": 1,
             "id": 1,
             "position": Object {
               "bid_statistics": Array [
@@ -1205,6 +1209,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "bidcycle": Object {
               "name": "Bid Cycle 1",
             },
+            "cpId": 1,
             "id": 1,
             "position": Object {
               "bid_statistics": Array [
@@ -1462,6 +1467,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "bidcycle": Object {
               "name": "Bid Cycle 1",
             },
+            "cpId": 1,
             "id": 1,
             "position": Object {
               "bid_statistics": Array [
@@ -1719,6 +1725,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             "bidcycle": Object {
               "name": "Bid Cycle 1",
             },
+            "cpId": 1,
             "id": 1,
             "position": Object {
               "bid_statistics": Array [

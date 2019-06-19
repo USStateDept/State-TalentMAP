@@ -40,7 +40,7 @@ refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton
             <ResultsCondensedCard
               favorites={favorites}
               favoritesPV={favoritesPV}
-              position={p}
+              position={{ ...p, cpId: p.id }}
               bidList={bidList}
               type={type}
               refreshFavorites={refreshFavorites}
