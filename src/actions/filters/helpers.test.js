@@ -60,7 +60,7 @@ describe('filter helpers', () => {
 
   it('can return correct values for the getPostOrMissionDescription function', () => {
     // all valid properties should return a templated value
-    expect(getPostOrMissionDescription({ type: 'post', location: { city: 'Paris', country: 'France' }, short_name: 'PAR' })).toBe('Paris, France (Post)');
+    expect(getPostOrMissionDescription({ type: 'post', location: { city: 'Paris', country: 'France' }, short_name: 'PAR' })).toBe('Paris, France');
     // but unmapped descriptions will return false
     expect(getPostOrMissionDescription({ type: 'invalid', location: { city: 'Paris', country: 'France' }, short_name: 'PAR' })).toBe(false);
   });
