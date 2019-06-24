@@ -42,6 +42,7 @@ import aboutContent from './aboutContent';
 import homeBannerContent from './homeBannerContent';
 import logs from './logs';
 import synchronizations from './synchronizations';
+import positionCount from './positionCount';
 
 export default combineReducers({
   ...results,
@@ -81,6 +82,7 @@ export default combineReducers({
   ...homeBannerContent,
   ...logs,
   ...synchronizations,
+  ...positionCount,
   router,
   form,
   client,

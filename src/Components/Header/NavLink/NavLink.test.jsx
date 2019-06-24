@@ -23,7 +23,7 @@ describe('NavLink', () => {
         location={{ pathname: '/' }}
       />,
     );
-    expect(wrapper.find('.is-active').exists()).toBe(true);
+    expect(wrapper.find('.is-highlighted').exists()).toBe(true);
     expect(wrapper.find('.is-not-active').exists()).toBe(false);
   });
 
@@ -46,7 +46,7 @@ describe('NavLink', () => {
         location={{ pathname: '/profile' }}
       />,
     );
-    expect(wrapper.find('.is-active').exists()).toBe(false);
+    expect(wrapper.find('.is-highlighted').exists()).toBe(false);
     expect(wrapper.find('.is-not-active').exists()).toBe(true);
   });
 

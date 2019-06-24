@@ -32,7 +32,8 @@ a {
 .condensed-card-top,
 .position-details-header-container,
 .results-search-bar,
-.header-nav-link-container.is-highlighted {
+.header-nav-link-container.is-highlighted,
+.homepage-search-banner {
   *:focus {
     outline-color: $tm-focus-outline-color-alt !important;
   }

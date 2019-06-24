@@ -1,0 +1,44 @@
+.homepage-search-banner {
+  background-color: #1D395A;
+  background-image: url('#{$asset-path}assets/img/map-blue.png');
+  background-position-y: -310px;
+
+  h2 {
+    font-family: Roboto;
+    font-size: 2.2rem;
+    font-weight: 500;
+  }
+
+  div {
+    font-weight: 300;
+
+    &:last-of-type {
+      margin-bottom: 1em;
+    }
+
+    > * {
+      margin-top: .5em;
+    }
+
+    * {
+      display: block;
+    }
+
+    .stats-text {
+      * {
+        display: inline-block;
+      }
+    }
+
+    .react-loading-skeleton {
+      display: inline-block;
+    }
+  }
+
+  .link-button {
+    font-size: 1.2em;
+    margin: auto;
+    padding: 1em;
+    width: 305px;
+  }
+}

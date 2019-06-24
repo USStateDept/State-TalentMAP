@@ -87,26 +87,6 @@ describe('Header', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('does not render the search bar if it is on a hidden route', () => {
-    const wrapper = shallow(
-      <Header
-        {...props}
-        location={{ pathname: '/results' }}
-      />,
-    );
-    expect(wrapper.find('.results-search-bar-header').exists()).toBe(false);
-  });
-
-  it('renders the search bar if it is not on a hidden route', () => {
-    const wrapper = shallow(
-      <Header
-        {...props}
-        location={{ pathname: '/profile' }}
-      />,
-    );
-    expect(wrapper.find('.results-search-bar-header').exists()).toBe(true);
-  });
-
   it('applies a visibility class when it is on a route that should not hide the search bar by default', () => {
     const wrapper = shallow(
       <Header

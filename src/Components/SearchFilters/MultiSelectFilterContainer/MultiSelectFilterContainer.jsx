@@ -14,7 +14,6 @@ const MultiSelectFilterContainer = ({ multiSelectFilterList }) => (
           id={`checkbox-${formatIdSpacing(item.title)}`}
           title={item.altTitle || item.title}
         >
-          {console.log(item)}
           {item.content}
         </AccordionItem>))
     }

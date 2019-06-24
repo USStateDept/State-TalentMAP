@@ -12,7 +12,6 @@ import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import StateBanner from './StateBanner/StateBanner';
-import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
@@ -98,7 +97,7 @@ export class Header extends Component {
       client: {
         token,
       },
-      shouldShowSearchBar, logout, userProfile, searchbarFilters,
+      shouldShowSearchBar, logout, userProfile,
     } = this.props;
 
     const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
@@ -120,9 +119,6 @@ export class Header extends Component {
     const showResultsSearchHeaderClass =
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
     const searchBarVisibilityClass = showResultsSearchHeaderClass ? 'search-bar-visible' : 'search-bar-hidden';
-
-    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute()
-      && showResultsSearchHeaderClass;
 
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
@@ -167,18 +163,6 @@ export class Header extends Component {
           </MediaQuery>
           <div className="usa-overlay" />
         </header>
-        {
-          shouldRenderSearchBar &&
-          <div className="results results-search-bar-header">
-            <ResultsSearchHeader
-              onUpdate={this.submitSearch}
-              onFilterChange={this.onFilterChange}
-              defaultKeyword={searchbarFilters.q}
-              labelSrOnly
-              isHomePage
-            />
-          </div>
-        }
       </div>
     );
   }

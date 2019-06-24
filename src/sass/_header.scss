@@ -83,27 +83,38 @@
   }
 
   .header-nav-link-text {
-    border-right: 1px solid $color-black;
     padding-right: $header-link-padding;
-  }
-
-  .is-highlighted {
-    background-color: $tm-dark-blue;
-    color: $color-white;
   }
 
   .is-active {
     a {
       color: $color-blue-active;
-      font-weight: bold;
     }
   }
 
   .header-nav-link-text:hover {
-    font-weight: bold;
-
     a {
       color: $color-blue-hover;
+    }
+  }
+
+  .is-highlighted {
+    background-color: $tm-dark-blue;
+
+    .header-nav-link-text:hover {
+      a {
+        color: $color-white;
+      }
+    }
+
+    a,
+    .fa {
+      color: $color-white;
+
+      &:active,
+      &:hover {
+        color: $color-white;
+      }
     }
   }
 

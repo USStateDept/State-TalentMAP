@@ -7,28 +7,18 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
   <div
     className="nav-link-container header-nav-desktop desktop-nav-only"
   >
-    <div
-      className="header-nav-link-container is-highlighted"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text search-text"
-        >
-          <InteractiveElement
-            className=""
-            onClick={[Function]}
-            type="span"
-          >
-            <FontAwesome
-              name="search"
-            />
-             Search
-          </InteractiveElement>
-        </div>
-      </div>
-    </div>
+    <withRouter()
+      link="/results"
+      navLinkClass="home-text"
+      title={
+        <span>
+          <FontAwesome
+            name="search"
+          />
+           Search
+        </span>
+      }
+    />
     <withRouter()
       link="/"
       navLinkClass="home-text"
@@ -147,6 +137,18 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
   <div
     className="nav-link-container header-nav-desktop desktop-nav-only"
   >
+    <withRouter()
+      link="/results"
+      navLinkClass="home-text"
+      title={
+        <span>
+          <FontAwesome
+            name="search"
+          />
+           Search
+        </span>
+      }
+    />
     <withRouter()
       link="/"
       navLinkClass="home-text"

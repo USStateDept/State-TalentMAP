@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePageBanner Component matches snapshot 1`] = `
+<div
+  className="usa-grid-full homepage-search-banner"
+  style={
+    Object {
+      "color": "white",
+      "maxWidth": "none",
+      "padding": "49px 49px 39px 49px",
+      "textAlign": "center",
+    }
+  }
+>
+  <div
+    className="usa-grid-full"
+  >
+    <h2>
+      TalentMAP Position Search
+    </h2>
+    <div>
+      
+              TalentMAP is an enhanced research and bidding tool you can
+              use to find your next position or plan for a future cycle.
+            
+    </div>
+    <div>
+      <SkeletonTheme
+        color="#00293F"
+        highlightColor="#fff"
+      >
+        <span
+          className="stats-text"
+        >
+          <span>
+            There are no positions available for bidding
+          </span>
+          <span>
+            <span>
+              There are more than 
+            </span>
+            <CountUp
+              decimal="."
+              decimals={0}
+              duration={1.4}
+              easingFn={null}
+              end={0}
+              formattingFn={[Function]}
+              prefix=""
+              redraw={false}
+              separator=""
+              start={0}
+              suffix=""
+              useEasing={true}
+            />
+            <span>
+               positions available for bidding.
+            </span>
+          </span>
+        </span>
+      </SkeletonTheme>
+    </div>
+    <LinkButton
+      className=""
+      isExternal={false}
+      toLink="/results"
+      useDefaultClass={true}
+    >
+      Find Your Next Position
+    </LinkButton>
+  </div>
+</div>
+`;

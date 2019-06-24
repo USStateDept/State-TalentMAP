@@ -7,32 +7,15 @@ import Notifications from '../Notifications';
 import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
-import InteractiveElement from '../../InteractiveElement';
 
 const DesktopNav = ({
   isLoggedIn,
-  shouldShowSearchBar,
   userProfile,
   logout,
-  toggleSearchVisibility,
 }) => (
   <div className="navigation-container">
     <div className="nav-link-container header-nav-desktop desktop-nav-only">
-      {
-        isLoggedIn &&
-        <div className={`header-nav-link-container ${shouldShowSearchBar ? 'is-highlighted' : 'is-not-highlighted'}`}>
-          <div className="header-nav-link">
-            <div className="header-nav-link-text search-text">
-              <InteractiveElement
-                type="span"
-                onClick={toggleSearchVisibility}
-              >
-                <FontAwesome name="search" /> Search
-              </InteractiveElement>
-            </div>
-          </div>
-        </div>
-      }
+      <NavLink link="/results" title={<span><FontAwesome name="search" /> Search</span>} navLinkClass="home-text" />
       <NavLink link="/" title="Home" navLinkClass="home-text" />
       <NavLink link="/about" title="About" navLinkClass="about-text" />
     </div>
@@ -70,10 +53,8 @@ const DesktopNav = ({
 
 DesktopNav.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  shouldShowSearchBar: PropTypes.bool.isRequired,
   userProfile: USER_PROFILE,
   logout: PropTypes.func.isRequired,
-  toggleSearchVisibility: PropTypes.func.isRequired,
 };
 
 DesktopNav.defaultProps = {
