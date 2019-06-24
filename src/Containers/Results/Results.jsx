@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import { debounce, get } from 'lodash';
+import { debounce, get, isString } from 'lodash';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
@@ -168,8 +168,20 @@ class Results extends Component {
 
   // updates the history by passing a string of query params
   updateHistory(q) {
-    this.setState({ query: { value: q } }, () => {
-      window.history.pushState('', '', getAssetPath(`/results?${q}`));
+    let q$ = q;
+
+    // check if the keyword changed
+    if (this.resultsPageRef) {
+      const keyword = this.resultsPageRef.getKeywordValue();
+      if (isString(keyword)) {
+        const parsed$ = queryString.parse(q);
+        parsed$.q = keyword;
+        q$ = queryString.stringify(parsed$);
+      }
+    }
+
+    this.setState({ query: { value: q$ } }, () => {
+      window.history.pushState('', '', getAssetPath(`/results?${q$}`));
       this.debounced.cancel();
       // add debounce so that quickly selecting multiple filters is smooth
       this.debounced = debounce(() => this.createQueryParams(), this.props.debounceTimeInMs);
@@ -217,6 +229,7 @@ class Results extends Component {
     return (
       <div>
         <ResultsPage
+          ref={(ref) => { this.resultsPageRef = ref; }}
           results={results}
           hasErrored={hasErrored}
           isLoading={isLoading}
