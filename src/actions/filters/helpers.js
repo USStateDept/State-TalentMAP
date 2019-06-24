@@ -70,7 +70,7 @@ export function getPillDescription(filterItemObject, customType) {
 // when getting pill descriptions for posts or missions, perform alternate method
 export function getPostOrMissionDescription(data) {
   if (data.type === 'post') {
-    return `${getPostName(data)} (Post)`;
+    return `${getPostName(data)}`;
   }
   return false;
 }
