@@ -73,7 +73,7 @@ class ResultsCondensedCardBottom extends Component {
             />
             {
               showCompareButton && !isProjectedVacancy &&
-              <CompareCheck as="div" refKey={pos.position_number} />
+              <CompareCheck as="div" refKey={position.cpId} />
             }
           </div>
         </div>
