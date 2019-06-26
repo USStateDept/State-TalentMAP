@@ -121,8 +121,8 @@ describe('Results', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('can call the saveSearch function', () => {
-    const savedSearch = { q: null, id: null };
+  it('can call the storeSearch function', () => {
+    const value = { newValue: null };
     const wrapper = shallow(
       <Results.WrappedComponent
         results={resultsObject}
@@ -131,7 +131,7 @@ describe('Results', () => {
         onNavigateTo={() => {}}
         fetchFilters={() => {}}
         setAccordion={() => {}}
-        saveSearch={(q, id) => { savedSearch.q = q; savedSearch.id = id; }}
+        storeSearch={(v) => { value.newValue = v; }}
         fetchMissionAutocomplete={() => {}}
         missionSearchResults={[]}
         missionSearchIsLoading={false}
@@ -145,9 +145,8 @@ describe('Results', () => {
         filtersIsLoading={false}
       />,
     );
-    wrapper.instance().saveSearch('test', 1);
-    expect(savedSearch.q.name).toBe('test');
-    expect(savedSearch.id).toBe(1);
+    wrapper.instance().storeSearch();
+    expect(value.newValue).toEqual({ q: 'German' });
   });
 
   it('can call the onQueryParamToggle function when removing a param', (done) => {

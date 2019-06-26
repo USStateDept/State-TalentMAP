@@ -7,6 +7,7 @@ import PreferenceWrapper from '../../Containers/PreferenceWrapper';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 import { POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
+import { Trigger } from '../SaveNewSearch';
 
 class ResultsControls extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ class ResultsControls extends Component {
     const { isProjectedVacancy } = this.context;
     return (
       <div className="usa-grid-full results-controls">
-        <div className="usa-width-five-twelfths total-results">
+        <div className="usa-width-one-fifth total-results">
           {
             // if results have loaded, display the total number of results
             hasLoaded &&
@@ -40,7 +41,7 @@ class ResultsControls extends Component {
               />
           }
         </div>
-        <div className="usa-width-seven-twelfths-thirds drop-downs">
+        <div className="usa-width-four-fifths drop-downs">
           <div className="dropdowns-container">
             <div className="results-dropdown results-dropdown-sort">
               <SelectForm
@@ -82,6 +83,12 @@ class ResultsControls extends Component {
                 <SearchResultsExportLink count={results.count} />
               </PermissionsWrapper>
             </div>
+            {
+              !isProjectedVacancy &&
+                <Trigger isPrimary>
+                  <button className="usa-button">Save Search</button>
+                </Trigger>
+            }
           </div>
         </div>
       </div>

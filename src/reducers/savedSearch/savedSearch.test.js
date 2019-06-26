@@ -57,4 +57,12 @@ describe('savedSearch reducers', () => {
   it('can set reducer SAVED_SEARCHES_HAS_ERRORED', () => {
     expect(reducers.savedSearchesHasErrored(false, { type: 'SAVED_SEARCHES_HAS_ERRORED', hasErrored: true })).toBe(true);
   });
+
+  it('can set reducer TOGGLE_VIEW_SAVED_SEARCH_DIALOG', () => {
+    expect(reducers.viewSavedSearchDialog(false, { type: 'TOGGLE_VIEW_SAVED_SEARCH_DIALOG', value: true })).toBe(true);
+  });
+
+  it('can set reducer STORE_CURRENT_SEARCH', () => {
+    expect(reducers.currentSearch(false, { type: 'STORE_CURRENT_SEARCH', value: true })).toBe(true);
+  });
 });

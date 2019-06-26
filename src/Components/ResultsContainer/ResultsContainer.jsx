@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
-         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
-         BID_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT,
+PILL_ITEM_ARRAY, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
-import SaveNewSearchContainer from '../SaveNewSearchContainer';
+import { SaveNewSearchDialog } from '../SaveNewSearch';
 
 class ResultsContainer extends Component {
   constructor(props) {
@@ -26,9 +25,7 @@ class ResultsContainer extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-            defaultPageNumber, queryParamUpdate, onQueryParamToggle,
-            newSavedSearchHasErrored, saveSearch,
-            currentSavedSearch, newSavedSearchIsSaving, bidList,
+            defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList,
       } = this.props;
     const { isProjectedVacancy } = this.context;
     return (
@@ -49,12 +46,7 @@ class ResultsContainer extends Component {
         />
         {
           !isProjectedVacancy ?
-            <SaveNewSearchContainer
-              saveSearch={saveSearch}
-              newSavedSearchHasErrored={newSavedSearchHasErrored}
-              currentSavedSearch={currentSavedSearch}
-              newSavedSearchIsSaving={newSavedSearchIsSaving}
-            />
+            <SaveNewSearchDialog />
             :
             <div style={{ marginBottom: 10 }} />
         }
@@ -121,10 +113,6 @@ ResultsContainer.propTypes = {
   pillFilters: PILL_ITEM_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
-  saveSearch: PropTypes.func.isRequired,
-  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
-  newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  currentSavedSearch: SAVED_SEARCH_OBJECT,
   totalResults: PropTypes.number,
   bidList: BID_RESULTS.isRequired,
 };

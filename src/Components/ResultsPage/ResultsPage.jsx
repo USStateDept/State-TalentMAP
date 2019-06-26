@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
-SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY,
-POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
@@ -29,8 +28,7 @@ class Results extends Component {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
             defaultPageNumber, onQueryParamUpdate, filters, userProfile,
-            selectedAccordion, setAccordion, scrollToTop, saveSearch,
-            newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
+            selectedAccordion, setAccordion, scrollToTop,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
@@ -87,10 +85,6 @@ class Results extends Component {
             onQueryParamToggle={onQueryParamToggle}
             scrollToTop={scrollToTop}
             userProfile={userProfile}
-            saveSearch={saveSearch}
-            newSavedSearchHasErrored={newSavedSearchHasErrored}
-            newSavedSearchIsSaving={newSavedSearchIsSaving}
-            currentSavedSearch={currentSavedSearch}
             bidList={bidList}
           />
         </div>
@@ -120,10 +114,6 @@ Results.propTypes = {
   filters: FILTER_ITEMS_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
-  saveSearch: PropTypes.func.isRequired,
-  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
-  newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  currentSavedSearch: SAVED_SEARCH_OBJECT,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
   missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   missionSearchIsLoading: PropTypes.bool.isRequired,

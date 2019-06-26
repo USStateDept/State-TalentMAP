@@ -469,6 +469,10 @@ $results-container-width: 100% - $filter-container-width;
     @media screen and (max-width: $screen-md-min) {
       padding: 0 15px;
     }
+
+    .usa-button {
+      margin: 0 0 0 .5em;
+    }
   }
 
   .total-results {
@@ -637,10 +641,6 @@ $results-container-width: 100% - $filter-container-width;
     }
    }
 
-  .saved-search-form {
-    margin-top: 10px;
-  }
-
   .saved-search-form-buttons {
     float: left;
     margin-top: 5px;
@@ -658,7 +658,7 @@ $results-container-width: 100% - $filter-container-width;
   .saved-search-form-secondary-button {
     box-shadow: inset 0 0 0 1px $primary-blue;
     float: left;
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
 
     // Overrides for box-shadow length
     &:hover {

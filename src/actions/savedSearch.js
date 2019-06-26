@@ -94,6 +94,32 @@ export function savedSearchesHasErrored(bool) {
   };
 }
 
+export function viewSavedSearchDialog(bool) {
+  return {
+    type: 'TOGGLE_VIEW_SAVED_SEARCH_DIALOG',
+    value: bool,
+  };
+}
+
+export function currentSearch(obj) {
+  return {
+    type: 'STORE_CURRENT_SEARCH',
+    value: obj,
+  };
+}
+
+export function storeCurrentSearch(obj = {}) {
+  return (dispatch) => {
+    dispatch(currentSearch(obj));
+  };
+}
+
+export function toggleViewSavedSearchDialog(bool = false) {
+  return (dispatch) => {
+    dispatch(viewSavedSearchDialog(bool));
+  };
+}
+
 // When we want to reset alert messages after the user navigates away and comes back later,
 // or when we want the user to be able to clear the current alert message.
 export function routeChangeResetState() {

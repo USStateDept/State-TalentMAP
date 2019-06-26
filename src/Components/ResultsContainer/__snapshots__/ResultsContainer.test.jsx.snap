@@ -211,12 +211,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       }
     }
   />
-  <SaveNewSearchContainer
-    currentSavedSearch={Object {}}
-    newSavedSearchHasErrored={false}
-    newSavedSearchIsSaving={false}
-    saveSearch={[Function]}
-  />
+  <Connect(SaveNewSearchDialog) />
   <div
     className="results-list-container"
   >

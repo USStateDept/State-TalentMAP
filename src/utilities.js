@@ -323,7 +323,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
 // execute the focus within a timeout.
 export const focusById = (id, timeout) => {
   let element = document.getElementById(id);
-  if (!timeout) {
+  if (!isNumber(timeout)) {
     if (element) { element.focus(); }
   } else {
     setTimeout(() => {
