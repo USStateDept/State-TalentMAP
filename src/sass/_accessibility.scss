@@ -39,6 +39,12 @@ a {
   }
 }
 
+.static-content-toggle {
+  &:focus {
+    outline-color: $tm-focus-outline-color-alt !important;
+  }
+}
+
 .portfolio-account-dropdown {
   .label-input-wrapper > input,
   .usa-button,

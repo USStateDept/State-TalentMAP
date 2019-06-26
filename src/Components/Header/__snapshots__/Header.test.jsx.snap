@@ -21,9 +21,6 @@ exports[`Header matches snapshot when logged in 1`] = `
       name="flags.static_content"
       render={[Function]}
     />
-    <StateBanner />
-    <Connect(BetaHeader) />
-    <Connect(withRouter(ClientHeader)) />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"
     >
@@ -89,6 +86,8 @@ exports[`Header matches snapshot when logged in 1`] = `
       className="usa-overlay"
     />
   </header>
+  <Connect(BetaHeader) />
+  <Connect(withRouter(ClientHeader)) />
 </div>
 `;
 
@@ -113,9 +112,6 @@ exports[`Header matches snapshot when logged out 1`] = `
       name="flags.static_content"
       render={[Function]}
     />
-    <StateBanner />
-    <Connect(BetaHeader) />
-    <Connect(withRouter(ClientHeader)) />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"
     >
@@ -175,5 +171,7 @@ exports[`Header matches snapshot when logged out 1`] = `
       className="usa-overlay"
     />
   </header>
+  <Connect(BetaHeader) />
+  <Connect(withRouter(ClientHeader)) />
 </div>
 `;

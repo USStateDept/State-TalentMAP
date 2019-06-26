@@ -11,7 +11,6 @@ import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilt
 import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
-import StateBanner from './StateBanner/StateBanner';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
@@ -137,9 +136,6 @@ export class Header extends Component {
               <ToggleContent />
             )}
           />
-          <StateBanner />
-          <BetaHeader />
-          <ClientHeader />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">
@@ -165,6 +161,8 @@ export class Header extends Component {
           </MediaQuery>
           <div className="usa-overlay" />
         </header>
+        <BetaHeader />
+        <ClientHeader />
       </div>
     );
   }
