@@ -3,6 +3,7 @@
 
 .tm-glossary {
   $foreground-color: $color-white;
+  $padding: 3rem;
 
   * {
     box-sizing: border-box;
@@ -12,21 +13,34 @@
     font-family: 'Roboto';
   }
 
+  h3 {
+    font-size: 2.75rem;
+    font-weight: normal;
+    margin-bottom: 0;
+    margin-top: .5em;
+  }
+
   h3,
   a {
     color: $foreground-color;
   }
 
+  .usa-grid-full > h4 {
+    border-bottom: 1px solid $color-white;
+    margin-top: 1em;
+    padding-bottom: 5px;
+  }
+
   fieldset {
     color: $foreground-color;
+    padding: 0 $padding $padding;
   }
 
   .glossary {
-    background: $color-gray-darkest;
+    background: $primary-blue-darker;
     border-left: 1px solid $tm-navy-dark;
     bottom: 0;
     overflow-y: scroll;
-    padding: 5rem 3rem;
     position: fixed;
     right: 0;
     top: 0;
@@ -56,16 +70,28 @@
 
   button {
     appearance: none;
-    padding: 1.5rem .5rem;
+    padding: .75rem .5rem .75rem 0;
     text-align: left;
   }
 
+  .glossary-padding {
+    padding: $padding;
+  }
+
+  .glossary-top,
+  .glossary-fieldset {
+    background-color: $primary-blue-darkest;
+  }
+
   .glossary-content {
-    padding: 4rem 0;
+    background-color: $primary-blue-darker;
+    padding: 1rem $padding;
   }
 
   .glossary-search-sub {
+    font-size: .85em;
     font-style: italic;
+    margin-top: .25em;
   }
 
   .glossary-close {
@@ -75,6 +101,7 @@
     position: absolute;
     right: 0;
     top: 0;
+    z-index: $glossary-close-z;
   }
 
   .read-more-link {
@@ -90,8 +117,8 @@
 
     .usa-accordion-button {
       background-color: transparent;
+      background-size: 11px;
       border: 0;
-      border-bottom: 1px solid $foreground-color;
       color: $foreground-color;
     }
 
@@ -103,7 +130,7 @@
     .usa-accordion-content {
       background-color: transparent;
       font-size: .8em;
-      padding: 1rem;
+      padding: 1rem 1rem 1rem 0;
     }
   }
 }

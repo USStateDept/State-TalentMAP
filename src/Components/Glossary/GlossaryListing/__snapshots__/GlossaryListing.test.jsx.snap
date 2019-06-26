@@ -5,90 +5,118 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
   className="accordion-inverse"
   isMultiselectable={true}
 >
-  <AccordionItem
-    buttonClass=""
-    childClass=""
-    className=""
-    expanded={false}
-    id="68"
-    setAccordion={[Function]}
-    title="6/8"
-    useIdClass={false}
+  <div
+    className="usa-grid-full"
   >
-    <div
-      className="usa-grid-full"
+    <h4>
+      #
+    </h4>
+    <AccordionItem
+      buttonClass=""
+      childClass=""
+      className=""
+      expanded={false}
+      id="68"
+      setAccordion={[Function]}
+      title="6/8"
+      useIdClass={false}
     >
-      Definition.
-       
-    </div>
-  </AccordionItem>
-  <AccordionItem
-    buttonClass=""
-    childClass=""
-    className=""
-    expanded={false}
-    id="Assignments-Officer-AO"
-    setAccordion={[Function]}
-    title="Assignments Officer (AO)"
-    useIdClass={false}
+      <div
+        className="usa-grid-full"
+      >
+        Definition.
+         
+      </div>
+    </AccordionItem>
+  </div>
+  <div
+    className="usa-grid-full"
   >
-    <div
-      className="usa-grid-full"
+    <h4>
+      A
+    </h4>
+    <AccordionItem
+      buttonClass=""
+      childClass=""
+      className=""
+      expanded={false}
+      id="Assignments-Officer-AO"
+      setAccordion={[Function]}
+      title="Assignments Officer (AO)"
+      useIdClass={false}
     >
-      test
-       
-    </div>
-  </AccordionItem>
-  <AccordionItem
-    buttonClass=""
-    childClass=""
-    className=""
-    expanded={false}
-    id="Bidder"
-    setAccordion={[Function]}
-    title="Bidder"
-    useIdClass={false}
+      <div
+        className="usa-grid-full"
+      >
+        test
+         
+      </div>
+    </AccordionItem>
+  </div>
+  <div
+    className="usa-grid-full"
   >
-    <div
-      className="usa-grid-full"
+    <h4>
+      B
+    </h4>
+    <AccordionItem
+      buttonClass=""
+      childClass=""
+      className=""
+      expanded={false}
+      id="Bidder"
+      setAccordion={[Function]}
+      title="Bidder"
+      useIdClass={false}
     >
-      An employee who is applying for a position.
-       
-    </div>
-  </AccordionItem>
-  <AccordionItem
-    buttonClass=""
-    childClass=""
-    className=""
-    expanded={false}
-    id="Bureau"
-    setAccordion={[Function]}
-    title="Bureau"
-    useIdClass={false}
+      <div
+        className="usa-grid-full"
+      >
+        An employee who is applying for a position.
+         
+      </div>
+    </AccordionItem>
+    <AccordionItem
+      buttonClass=""
+      childClass=""
+      className=""
+      expanded={false}
+      id="Bureau"
+      setAccordion={[Function]}
+      title="Bureau"
+      useIdClass={false}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        The organization sponsoring a position.
+         
+      </div>
+    </AccordionItem>
+  </div>
+  <div
+    className="usa-grid-full"
   >
-    <div
-      className="usa-grid-full"
+    <h4>
+      C
+    </h4>
+    <AccordionItem
+      buttonClass=""
+      childClass=""
+      className=""
+      expanded={false}
+      id="C"
+      setAccordion={[Function]}
+      title="C"
+      useIdClass={false}
     >
-      The organization sponsoring a position.
-       
-    </div>
-  </AccordionItem>
-  <AccordionItem
-    buttonClass=""
-    childClass=""
-    className=""
-    expanded={false}
-    id="C"
-    setAccordion={[Function]}
-    title="C"
-    useIdClass={false}
-  >
-    <div
-      className="usa-grid-full"
-    >
-      Description
-       
-    </div>
-  </AccordionItem>
+      <div
+        className="usa-grid-full"
+      >
+        Description
+         
+      </div>
+    </AccordionItem>
+  </div>
 </Accordion>
 `;

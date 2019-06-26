@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import GlossarySearch from './GlossarySearch';
 import GlossaryListing from './GlossaryListing';
 import Spinner from '../Spinner';
+import BoxShadow from '../BoxShadow';
 import { GLOSSARY_ARRAY } from '../../Constants/PropTypes';
 import { filterByProps } from '../../utilities';
 
@@ -35,7 +36,11 @@ class GlossaryComponent extends Component {
     const filteredGlossary = this.filteredGlossary();
     return (
       <div className="tm-glossary">
-        <div
+        <BoxShadow
+          offsetX={-4}
+          offsetY={0}
+          blurRadius={4}
+          spreadRadius={0}
           id="glossary"
           className={`glossary ${visible ? 'glossary-visible' : 'glossary-hidden'}`}
           aria-describedby="glossary-title"
@@ -50,7 +55,9 @@ class GlossaryComponent extends Component {
             <span className="usa-sr-only">Close Glossary</span>
           </button>
           <div className="glossary-content-container">
-            <h3 id="glossary-title">Glossary</h3>
+            <div className="glossary-top glossary-padding">
+              <h3 id="glossary-title">Glossary</h3>
+            </div>
             {
               glossaryIsLoading &&
                 <Spinner type="glossary tm-spinner-color-inverted" size="big" />
@@ -68,7 +75,7 @@ class GlossaryComponent extends Component {
               </div>
             }
           </div>
-        </div>
+        </BoxShadow>
       </div>
     );
   }

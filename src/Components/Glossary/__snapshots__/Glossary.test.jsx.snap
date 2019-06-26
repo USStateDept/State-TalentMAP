@@ -4,11 +4,19 @@ exports[`GlossaryComponent matches snapshot 1`] = `
 <div
   className="tm-glossary"
 >
-  <div
+  <BoxShadow
     aria-describedby="glossary-title"
     aria-hidden={false}
+    blurRadius={4}
     className="glossary glossary-visible"
+    color="rgba(0,0,0,.15)"
     id="glossary"
+    inset={false}
+    is="div"
+    offsetX={-4}
+    offsetY={0}
+    spreadRadius={0}
+    style={Object {}}
   >
     <button
       className="glossary-close"
@@ -27,11 +35,15 @@ exports[`GlossaryComponent matches snapshot 1`] = `
     <div
       className="glossary-content-container"
     >
-      <h3
-        id="glossary-title"
+      <div
+        className="glossary-top glossary-padding"
       >
-        Glossary
-      </h3>
+        <h3
+          id="glossary-title"
+        >
+          Glossary
+        </h3>
+      </div>
       <div>
         <GlossarySearch
           changeText={[Function]}
@@ -94,7 +106,7 @@ exports[`GlossaryComponent matches snapshot 1`] = `
         </div>
       </div>
     </div>
-  </div>
+  </BoxShadow>
 </div>
 `;
 
@@ -102,11 +114,19 @@ exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
 <div
   className="tm-glossary"
 >
-  <div
+  <BoxShadow
     aria-describedby="glossary-title"
     aria-hidden={true}
+    blurRadius={4}
     className="glossary glossary-hidden"
+    color="rgba(0,0,0,.15)"
     id="glossary"
+    inset={false}
+    is="div"
+    offsetX={-4}
+    offsetY={0}
+    spreadRadius={0}
+    style={Object {}}
   >
     <button
       className="glossary-close"
@@ -125,11 +145,15 @@ exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
     <div
       className="glossary-content-container"
     >
-      <h3
-        id="glossary-title"
+      <div
+        className="glossary-top glossary-padding"
       >
-        Glossary
-      </h3>
+        <h3
+          id="glossary-title"
+        >
+          Glossary
+        </h3>
+      </div>
       <div>
         <GlossarySearch
           changeText={[Function]}
@@ -192,6 +216,6 @@ exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
         </div>
       </div>
     </div>
-  </div>
+  </BoxShadow>
 </div>
 `;
