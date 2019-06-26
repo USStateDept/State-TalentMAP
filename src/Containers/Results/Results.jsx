@@ -304,10 +304,6 @@ Results.defaultProps = {
   storeSearch: EMPTY_FUNCTION,
 };
 
-Results.contextTypes = {
-  router: PropTypes.object,
-};
-
 const mapStateToProps = state => ({
   results: state.results,
   hasErrored: state.resultsHasErrored,

@@ -26,7 +26,7 @@ class About extends Component {
     const { editorVisible } = this.state;
     this.setState({ editorVisible: !editorVisible }, () => {
       const elToFocus = this.state.editorVisible ? SUBMIT_BUTTON_ID : EDIT_BUTTON_ID;
-      focusById(elToFocus, 0);
+      focusById(elToFocus, 1);
     });
   }
   submit(data) {

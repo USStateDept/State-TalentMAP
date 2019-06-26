@@ -10,9 +10,14 @@ class Editor extends Component {
   constructor(props) {
     super(props);
     this.submit = this.submit.bind(this);
+    this.onContentChange = this.onContentChange.bind(this);
     this.state = {
       data: props.data,
     };
+  }
+
+  onContentChange(e) {
+    this.setState({ data: e });
   }
 
   submit() {
@@ -31,7 +36,7 @@ class Editor extends Component {
         />
         <div className="usa-grid-full markdown-editor">
           <MarkdownEditor
-            onContentChange={s => this.setState({ data: s })}
+            onContentChange={this.onContentChange}
             styles={{
               styleMarkdownPreviewArea: { overflow: 'auto' },
               styleMarkdownTextArea: { paddingTop: '10px' },

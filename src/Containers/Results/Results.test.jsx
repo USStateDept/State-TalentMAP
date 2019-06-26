@@ -9,26 +9,33 @@ import resultsObject from '../../__mocks__/resultsObject';
 
 describe('Results', () => {
   const debounceTimeInMs = 500;
+
+  const props = {
+    results: resultsObject,
+    isAuthorized: () => true,
+    onNavigateTo: () => {},
+    setAccordion: () => {},
+    storeSearch: () => {},
+    resetSavedSearchAlerts: () => {},
+    fetchMissionAutocomplete: () => {},
+    missionSearchResults: [],
+    missionSearchIsLoading: false,
+    missionSearchHasErrored: false,
+    fetchPostAutocomplete: () => {},
+    postSearchResults: [],
+    postSearchIsLoading: false,
+    postSearchHasErrored: false,
+    bidListFetchData: () => {},
+    defaultPageSize: 5,
+    filtersIsLoading: false,
+    fetchData: () => {},
+    fetchFilters: () => {},
+  };
+
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<MockTestProvider>
       <Results
-        results={resultsObject}
-        isAuthorized={() => true}
-        onNavigateTo={() => {}}
-        setAccordion={() => {}}
-        saveSearch={() => {}}
-        resetSavedSearchAlerts={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
-        filtersIsLoading={false}
+        {...props}
       />
     </MockTestProvider>);
     expect(results).toBeDefined();
@@ -37,23 +44,7 @@ describe('Results', () => {
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<MockTestProvider>
       <Results
-        results={resultsObject}
-        isAuthorized={() => false}
-        onNavigateTo={() => {}}
-        setAccordion={() => {}}
-        saveSearch={() => {}}
-        resetSavedSearchAlerts={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
-        filtersIsLoading={false}
+        {...props}
       />
     </MockTestProvider>);
     expect(results).toBeDefined();
@@ -63,24 +54,7 @@ describe('Results', () => {
     const query = { ordering: 'bureau', q: 'German' };
     const wrapper = shallow(
       <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
-        saveSearch={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
-        filtersIsLoading={false}
+        {...props}
       />,
     );
     // define the instance
@@ -96,25 +70,9 @@ describe('Results', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={spy}
-        setAccordion={() => {}}
+        {...props}
         filters={{ hasFetched: true }}
-        saveSearch={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
-        filtersIsLoading={false}
+        fetchFilters={spy}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
@@ -125,24 +83,8 @@ describe('Results', () => {
     const value = { newValue: null };
     const wrapper = shallow(
       <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
+        {...props}
         storeSearch={(v) => { value.newValue = v; }}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
-        filtersIsLoading={false}
       />,
     );
     wrapper.instance().storeSearch();

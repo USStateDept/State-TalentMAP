@@ -12,6 +12,7 @@ import FieldSet from '../../../FieldSet';
 import RadioList from '../../../RadioList';
 import Spinner from '../../../Spinner';
 import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
+import { focusById } from '../../../../utilities';
 
 export const FORMAT = 'MM-DD-YY HH:MM';
 
@@ -63,16 +64,12 @@ class DataSync extends Component {
 
   showForm() {
     this.setState({ showForm: true });
-    setTimeout(() => {
-      document.getElementById('once').focus();
-    }, 0);
+    focusById('once', 1);
   }
 
   closeForm() {
     this.setState({ showForm: false });
-    setTimeout(() => {
-      document.getElementById('new-sync-button').focus();
-    }, 0);
+    focusById('new-sync-button', 1);
   }
 
   updateOccurrence(recurring) {
