@@ -8,9 +8,6 @@ exports[`IconComponent matches snapshot 1`] = `
   title="View the glossary"
   type="div"
 >
-  <FontAwesome
-    name="book"
-  />
   <span>
     Glossary
   </span>

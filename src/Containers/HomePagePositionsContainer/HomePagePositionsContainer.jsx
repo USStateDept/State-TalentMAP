@@ -43,7 +43,9 @@ class HomePagePositionsContainer extends Component {
         {
           (userProfileIsLoading || homePagePositionsIsLoading)
           ?
-            <Spinner type="homepage-position-results" size="big" />
+            <div className="usa-grid-full homepage-positions-section-container">
+              <Spinner type="homepage-position-results" size="big" />
+            </div>
           :
             <HomePagePositions
               homePagePositions={homePagePositions}

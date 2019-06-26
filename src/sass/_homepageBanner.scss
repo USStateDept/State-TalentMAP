@@ -1,7 +1,7 @@
 .homepage-search-banner {
-  background-color: #1D395A;
-  background-image: url('#{$asset-path}assets/img/map-blue.png');
-  background-position-y: -310px;
+  max-width: none;
+  padding: 49px 49px 34px;
+  text-align: center;
 
   h2 {
     font-family: Roboto;
@@ -10,7 +10,7 @@
   }
 
   div {
-    font-weight: 300;
+    font-weight: 400;
 
     &:last-of-type {
       margin-bottom: 1em;
@@ -35,10 +35,21 @@
     }
   }
 
+  img {
+    margin: 0 auto;
+    width: 350px;
+  }
+
   .link-button {
     font-size: 1.2em;
     margin: auto;
     padding: 1em;
     width: 305px;
+  }
+
+  .stats-text--position {
+    span:nth-of-type(2) {
+      font-weight: 500;
+    }
   }
 }

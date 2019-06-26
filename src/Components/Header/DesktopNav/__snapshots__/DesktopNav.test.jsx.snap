@@ -8,26 +8,13 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
     className="nav-link-container header-nav-desktop desktop-nav-only"
   >
     <withRouter()
-      link="/results"
-      navLinkClass="home-text"
-      title={
-        <span>
-          <FontAwesome
-            name="search"
-          />
-           Search
-        </span>
-      }
-    />
-    <withRouter()
       link="/"
-      navLinkClass="home-text"
+      routeToRight="/results"
       title="Home"
     />
     <withRouter()
-      link="/about"
-      navLinkClass="about-text"
-      title="About"
+      link="/results"
+      title="Search"
     />
   </div>
   <div
@@ -120,9 +107,15 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
           <Flag
             name="flags.notifications"
           >
-            <Connect(withRouter(Notifications)) />
+            <Connect(withRouter(Notifications))
+              className="notifications-icon"
+            />
           </Flag>
-          <Connect(GlossaryIcon) />
+          <div
+            className="icon-alert-container glossary-link-container"
+          >
+            <Connect(GlossaryIcon) />
+          </div>
         </span>
       </div>
     </div>
@@ -138,26 +131,13 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
     className="nav-link-container header-nav-desktop desktop-nav-only"
   >
     <withRouter()
-      link="/results"
-      navLinkClass="home-text"
-      title={
-        <span>
-          <FontAwesome
-            name="search"
-          />
-           Search
-        </span>
-      }
-    />
-    <withRouter()
       link="/"
-      navLinkClass="home-text"
+      routeToRight="/results"
       title="Home"
     />
     <withRouter()
-      link="/about"
-      navLinkClass="about-text"
-      title="About"
+      link="/results"
+      title="Search"
     />
   </div>
   <div

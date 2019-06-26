@@ -7,6 +7,9 @@ import { round } from 'lodash';
 import CountUp from 'react-countup';
 import LinkButton from '../LinkButton';
 import { positionCountFetchData } from '../../actions/positionCount';
+import { getAssetPath } from '../../utilities';
+
+const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
 
 class HomePageBanner extends Component {
   constructor(props) {
@@ -27,9 +30,9 @@ class HomePageBanner extends Component {
     const shouldRound = positionCount > 50;
     const roundedCount = shouldRound ? round(positionCount - 6, -1) : positionCount;
     return (
-      <div className="usa-grid-full homepage-search-banner" style={{ color: 'white', maxWidth: 'none', padding: '49px 49px 39px 49px', textAlign: 'center' }}>
+      <div className="usa-grid-full homepage-search-banner">
         <div className="usa-grid-full">
-          <h2>TalentMAP Position Search</h2>
+          <img src={logo} alt="TalentMAP logo" />
           <div>
             {`
               TalentMAP is an enhanced research and bidding tool you can
@@ -37,26 +40,30 @@ class HomePageBanner extends Component {
             `}
           </div>
           <div>
-            <SkeletonTheme color="#00293F" highlightColor="#fff">
+            <SkeletonTheme color="#0071BB" highlightColor="#fff">
               <span className="stats-text">
                 {
                   !roundedCount && !isLoading &&
                   <span>There are no positions available for bidding</span>
                 }
-                <span>
-                  <span>There are more than&nbsp;</span>
-                  {
-                    isLoading ?
-                      <Skeleton width="25px" duration={1.1} />
-                      :
-                      <CountUp end={roundedCount} duration={1.4} formattingFn={n => numeral(n).format('0,0')}>
-                        {({ countUpRef }) => (
-                          <span ref={countUpRef} />
-                      )}
-                      </CountUp>
-                  }
-                  <span>&nbsp;positions available for bidding.</span>
-                </span>
+                {
+                  !roundedCount && !isLoading ?
+                  null :
+                  <span className="stats-text--position">
+                    <span>There are more than&nbsp;</span>
+                    {
+                      isLoading ?
+                        <Skeleton width="25px" duration={1.1} />
+                        :
+                        <CountUp end={roundedCount} duration={1.4} formattingFn={n => numeral(n).format('0,0')}>
+                          {({ countUpRef }) => (
+                            <span ref={countUpRef} />
+                        )}
+                        </CountUp>
+                    }
+                    <span>&nbsp;positions available for bidding.</span>
+                  </span>
+                }
               </span>
             </SkeletonTheme>
           </div>

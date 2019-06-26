@@ -25,7 +25,7 @@ class Notifications extends Component {
     });
   }
   render() {
-    const { notificationsCount } = this.props;
+    const { notificationsCount, ...rest } = this.props;
     return (
       <IconAlert
         type="globe"
@@ -33,6 +33,7 @@ class Notifications extends Component {
         link="/profile/notifications/"
         alt="Notifications"
         title="View your notifications"
+        {...rest}
       />
     );
   }

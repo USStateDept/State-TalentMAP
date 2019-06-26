@@ -1,6 +1,13 @@
 .home {
 
-  background-color: $color-gray-lightest-alt;
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.94),
+      rgba(255, 255, 255, 0.94)
+    ),
+    url('#{$asset-path}assets/img/map-blue-cut.png');
+  background-position-x: center;
+  background-repeat: no-repeat;
 
   .hidden {
     display: none;

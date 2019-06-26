@@ -22,6 +22,9 @@ import InteractiveElement from '../InteractiveElement';
 import BetaHeader from './BetaHeader';
 import ClientHeader from '../ClientHeader';
 
+const logo = getAssetPath('/assets/logos/png/horizontal_white_thin.png');
+const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white.png');
+
 export class Header extends Component {
   constructor(props) {
     super(props);
@@ -100,8 +103,6 @@ export class Header extends Component {
       shouldShowSearchBar, logout, userProfile,
     } = this.props;
 
-    const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
-
     let isLoggedIn = false;
     let signedInAs = null;
     const userFirstName = propOrDefault(userProfile, 'user.first_name');
@@ -144,7 +145,8 @@ export class Header extends Component {
             <div className="usa-logo" id="logo">
               <div className="usa-logo-text">
                 <Link to="/">
-                  <img src={logo} alt="TalentMAP logo" />
+                  <img src={hrFooterLogo} alt="Bureau of Human Resources logo" className="logo-img-hr" />
+                  <img src={logo} alt="TalentMAP logo" className="logo-img-tm" />
                 </Link>
               </div>
             </div>

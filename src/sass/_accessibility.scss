@@ -33,7 +33,7 @@ a {
 .position-details-header-container,
 .results-search-bar,
 .header-nav-link-container.is-highlighted,
-.homepage-search-banner {
+.padded-main-content--header {
   *:focus {
     outline-color: $tm-focus-outline-color-alt !important;
   }
@@ -50,7 +50,8 @@ a {
 }
 
 // need a color that is accessible when the Compare drawer is either open or closed
-.tm-scroll-up-container {
+.tm-scroll-up-container,
+.account-dropdown-link {
   &:focus {
     outline-color: $blue-primary !important;
   }
