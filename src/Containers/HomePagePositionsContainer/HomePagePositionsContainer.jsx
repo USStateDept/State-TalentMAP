@@ -29,19 +29,25 @@ class HomePagePositionsContainer extends Component {
     // Once we have a valid user profile, fetch the positions, but only
     // once. We'll set hasFetched to true to keep track.
     if (nextProps.userProfile.id && !this.state.hasFetched) {
-      this.setState({ hasFetched: true });
-      nextProps.homePagePositionsFetchData(nextProps.userProfile.skills,
+      this.props.homePagePositionsFetchData(nextProps.userProfile.skills,
         nextProps.userProfile.grade);
+    }
+
+    if (this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
+      setTimeout(() => {
+        this.setState({ hasFetched: true });
+      }, 0); // account for delay
     }
   }
 
   render() {
     const { homePagePositions, userProfileIsLoading, homePagePositionsIsLoading,
       userProfile, bidList } = this.props;
+    const { hasFetched } = this.state;
     return (
       <div className="content-container">
         {
-          (userProfileIsLoading || homePagePositionsIsLoading)
+          (userProfileIsLoading || homePagePositionsIsLoading || !hasFetched)
           ?
             <div className="usa-grid-full homepage-positions-section-container">
               <Spinner type="homepage-position-results" size="big" />
