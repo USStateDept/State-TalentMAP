@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import sinon from 'sinon';
+import q from 'query-string';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import MockTestProvider from '../../testUtilities/MockProvider';
 import Results, { mapDispatchToProps } from './Results';
@@ -90,6 +91,26 @@ describe('Results', () => {
     wrapper.instance().storeSearch();
     expect(value.newValue).toEqual({ q: 'German' });
   });
+
+  [
+    [{ q: '', ordering: 'order' }, false],
+    [{ q: 'a' }, true],
+    [{ ordering: 'order' }, false],
+    [{ other: true, ordering: 'order' }, true],
+    [{ other: 0 }, true],
+  ].map((d, i) => (
+    it(`returns the correct value for this.getQueryExists() at index ${i}`, () => {
+      const wrapper = shallow(
+        <Results.WrappedComponent
+          {...props}
+        />,
+      );
+      const q$ = q.stringify(d[0]);
+      wrapper.instance().setState({ query: { value: q$ } });
+      const exp = wrapper.instance().getQueryExists();
+      expect(exp).toBe(d[1]);
+    })
+  ));
 
   it('can call the onQueryParamToggle function when removing a param', (done) => {
     const wrapper = shallow(

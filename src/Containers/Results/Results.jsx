@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import { debounce, get, isString } from 'lodash';
+import { debounce, get, keys, isString, omit, pickBy } from 'lodash';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
@@ -32,6 +32,7 @@ class Results extends Component {
     this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
     this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
+    this.getQueryExists = this.getQueryExists.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -121,6 +122,18 @@ class Results extends Component {
     if (newQueryString !== this.state.query.value) {
       this.updateHistory(newQueryString);
     }
+  }
+
+  // check if there are filters selected so that the clear filters button can be displayed or hidden
+  getQueryExists() {
+    const { query: { value } } = this.state;
+    let query = queryString.parse(value);
+    // omit page size and ordering
+    query = omit(query, ['limit', 'ordering']);
+    // remove any falsy props, unless it's a 0
+    query = pickBy(query, v => v || v === 0);
+    // query exists if it has keys
+    return !!keys(query).length;
   }
 
   createQueryParams() {
@@ -219,6 +232,7 @@ class Results extends Component {
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
     const { filtersIsLoading } = this.state;
+    const showClear = this.getQueryExists();
     return (
       <div>
         <ResultsPage
@@ -253,6 +267,7 @@ class Results extends Component {
           shouldShowSearchBar={shouldShowSearchBar}
           bidList={bidList.results}
           isProjectedVacancy={results.isProjectedVacancy}
+          showClear={showClear}
         />
         <CompareDrawer />
       </div>

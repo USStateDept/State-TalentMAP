@@ -25,6 +25,7 @@ describe('ResultsFilterContainerComponent', () => {
     postSearchHasErrored: false,
     userProfile: bidderUserObject,
     isLoading: false,
+    showClear: true,
   };
 
   it('is defined', () => {

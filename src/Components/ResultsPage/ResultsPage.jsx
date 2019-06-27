@@ -32,7 +32,7 @@ class Results extends Component {
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            bidList, isProjectedVacancy, filtersIsLoading }
+            bidList, isProjectedVacancy, filtersIsLoading, showClear }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
@@ -66,6 +66,7 @@ class Results extends Component {
             postSearchResults={postSearchResults}
             postSearchIsLoading={postSearchIsLoading}
             postSearchHasErrored={postSearchHasErrored}
+            showClear={showClear}
           />
           <ResultsContainer
             results={results}
@@ -125,6 +126,7 @@ Results.propTypes = {
   shouldShowSearchBar: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  showClear: PropTypes.bool,
 };
 
 Results.defaultProps = {
@@ -144,6 +146,7 @@ Results.defaultProps = {
   userProfile: {},
   currentSavedSearch: {},
   isProjectedVacancy: false,
+  showClear: false,
 };
 
 Results.contextTypes = {
