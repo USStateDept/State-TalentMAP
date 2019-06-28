@@ -83,12 +83,9 @@ class ResultsControls extends Component {
                 <SearchResultsExportLink count={results.count} />
               </PermissionsWrapper>
             </div>
-            {
-              !isProjectedVacancy &&
-                <Trigger isPrimary>
-                  <button className="usa-button">Save Search</button>
-                </Trigger>
-            }
+            <Trigger isPrimary>
+              <button className="usa-button">Save Search</button>
+            </Trigger>
           </div>
         </div>
       </div>

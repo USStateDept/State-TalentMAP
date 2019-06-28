@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { connect } from 'react-redux';
+import { get, omit } from 'lodash';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import Form from '../../Form';
 import FieldSet from '../../FieldSet/FieldSet';
@@ -33,10 +34,15 @@ export class SaveNewSearchDialog extends Component {
 
   onSubmit(e) {
     if (e && e.preventDefault) { e.preventDefault(); }
+    const { currentSearch } = this.props;
+    const hasPV = get(currentSearch, 'projectedVacancy') === 'projected';
+    const endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/' : '/api/v1/position/';
+    let filters = omit(currentSearch, ['projectedVacancy']);
+    if (hasPV) { filters = omit(filters, ['q']); } // q does not exist on PV
     this.props.saveSearch({
       name: this.state.newSearchName,
-      endpoint: '/api/v1/position/',
-      filters: this.props.currentSearch,
+      endpoint,
+      filters,
     });
   }
 

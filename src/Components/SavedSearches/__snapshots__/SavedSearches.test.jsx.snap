@@ -3,7 +3,7 @@
 exports[`SavedSearchesComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full profile-content-inner-container saved-searches-container saved-searches-page
-      "
+        "
 >
   <div
     className="usa-grid-full searches-top-section"
@@ -49,6 +49,30 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
       />
     </div>
   </div>
+  <Nav
+    denominator={1}
+    onClick={[Function]}
+    options={
+      Array [
+        Object {
+          "numerator": 1,
+          "title": "All Saved Searches",
+          "value": "all",
+        },
+        Object {
+          "numerator": 1,
+          "title": "Open Positions",
+          "value": "open",
+        },
+        Object {
+          "numerator": 0,
+          "title": "Projected Vacancies",
+          "value": "pv",
+        },
+      ]
+    }
+    selected="all"
+  />
   <SavedSearchesList
     deleteSearch={[Function]}
     goToSavedSearch={[Function]}
