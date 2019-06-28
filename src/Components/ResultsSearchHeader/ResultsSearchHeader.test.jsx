@@ -85,6 +85,18 @@ describe('ResultsSearchHeaderComponent', () => {
     expect(spy.calledOnce).toBe(true);
   });
 
+  it('sets state and submits the search on this.onClear()', () => {
+    const spy = sinon.spy();
+    wrapper = shallow(<ResultsSearchHeader
+      {...props}
+      onUpdate={spy}
+    />);
+    wrapper.instance().setState({ q: { value: 'abc' } });
+    wrapper.instance().onClear();
+    expect(wrapper.instance().state.q.value).toBe('');
+    sinon.assert.calledOnce(spy);
+  });
+
   it('matches snapshot', () => {
     wrapper = shallow(<ResultsSearchHeader
       {...props}

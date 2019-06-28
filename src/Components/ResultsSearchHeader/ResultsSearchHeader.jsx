@@ -9,28 +9,40 @@ class ResultsSearchHeader extends Component {
     super(props);
     this.onChangeQueryText = this.onChangeQueryText.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
+    this.onClear = this.onClear.bind(this);
     this.state = {
       q: { value: this.props.defaultKeyword || '' },
     };
   }
+
   onChangeQueryText(e) {
     this.changeText('q', e);
   }
+
+  onClear() {
+    this.changeText('q', { target: { value: '' } }, () => this.submitSearch());
+  }
+
   getValue() {
     return this.state.q.value;
   }
+
   submitSearch(e) {
     // resolves “Form submission canceled because the form is not connected” warning
-    e.preventDefault();
+    if (e && e.preventDefault) { e.preventDefault(); }
     const { q } = this.state;
     // send any updates to q and location back to the Results container, and reset our page number
     this.props.onUpdate({ q: q.value });
   }
-  changeText(type, e) {
+
+  changeText(type, e, cb = EMPTY_FUNCTION) {
     const { q } = this.state;
-    this.setState({ [type]: { value: e.target.value } });
-    this.props.onFilterChange({ q: q.value });
+    this.setState({ [type]: { value: e.target.value } }, () => {
+      this.props.onFilterChange({ q: q.value });
+      cb();
+    });
   }
+
   render() {
     const { defaultKeyword, isHomePage, placeholder, searchBarDisabled,
     searchBarDisabledPlaceholder } = this.props;
@@ -53,6 +65,8 @@ class ResultsSearchHeader extends Component {
                   onChangeText={this.onChangeQueryText}
                   defaultValue={defaultKeyword}
                   inputDisabled={searchBarDisabled}
+                  showClear
+                  onClear={this.onClear}
                 />
               </div>
             </fieldset>

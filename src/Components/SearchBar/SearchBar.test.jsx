@@ -73,6 +73,25 @@ import SearchBar from './SearchBar';
       expect(spy.calledOnce).toBe(true);
     });
 
+    it('sets state and calls props.onClear() on this.onClear()', () => {
+      const spy = sinon.spy();
+      wrapper = shallow(<SearchBar
+        id="search-2"
+        type={size}
+        submitDisabled={false}
+        submitText="Submit 2"
+        alertText="Search is disabled"
+        onChangeText={() => {}}
+        onSubmitSearch={() => {}}
+        showClear
+        onClear={spy}
+      />);
+      wrapper.instance().setState({ searchText: { value: 'abc' } });
+      wrapper.find('InteractiveElement').simulate('click');
+      expect(wrapper.instance().state.searchText.value).toBe('');
+      sinon.assert.calledOnce(spy);
+    });
+
     it('matches snapshot', () => {
       wrapper = shallow(
         <SearchBar
@@ -84,6 +103,23 @@ import SearchBar from './SearchBar';
           alertText="Search is disabled"
           onChangeText={() => {}}
           onSubmitSearch={() => {}}
+        />,
+      );
+      expect(toJSON(wrapper)).toMatchSnapshot();
+    });
+
+    it('matches snapshot when showClear === true', () => {
+      wrapper = shallow(
+        <SearchBar
+          id="search-2"
+          label="Label"
+          type={size}
+          submitDisabled={false}
+          submitText="Submit 2"
+          alertText="Search is disabled"
+          onChangeText={() => {}}
+          onSubmitSearch={() => {}}
+          showClear
         />,
       );
       expect(toJSON(wrapper)).toMatchSnapshot();
