@@ -40,7 +40,7 @@ import {
 export const renderHandshake = stats => (
   <div className="handshake-offset-container">
     {
-      get(stats, 'has_handshake_offered', false) && <Handshake cutSide="right" className="ribbon-position-details" />
+      get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
     }
   </div>
 );

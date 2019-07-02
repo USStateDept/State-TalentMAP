@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { get, indexOf } from 'lodash';
+import Q from 'q';
 
 import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
@@ -78,12 +79,12 @@ export function userProfileFetchData(bypass, cb) {
 
     // use api' Promise.all to fetch the profile and permissions, and then combine them
     // into one object
-    axios.all(promises)
-      .then(axios.spread((acct, perms, pvFavs) => {
+    Q.allSettled(promises)
+      .then((results) => {
         // form the userProfile object
-        const account = acct.data;
-        const permissions = perms.data;
-        const pvFavorites = get(pvFavs, 'data.results', []).map(m => ({ id: m.id }));
+        const account = get(results, '[0].value.data', {});
+        const permissions = get(results, '[1].value.data', {});
+        const pvFavorites = get(results[2], 'value.data.results', []).map(m => ({ id: m.id }));
         const newProfileObject = {
           ...account,
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
@@ -99,7 +100,7 @@ export function userProfileFetchData(bypass, cb) {
         dispatch(userProfileIsLoading(false));
         dispatch(userProfileHasErrored(false));
         dispatch(userProfileFavoritePositionHasErrored(false));
-      }))
+      })
       .catch(() => {
         if (cb) {
           dispatch(cb());
