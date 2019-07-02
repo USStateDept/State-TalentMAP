@@ -6,12 +6,14 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   font-family: 'Merriweather';
   font-size: 1.3rem;
   font-weight: bold;
+  justify-content: center;
   padding-bottom: 5px;
   padding-top: 6px;
 
   .fa {
-    font-size: 1.8rem;
-    margin-right: .5em;
+    font-size: 1.6rem;
+    margin-right: .25em;
+    margin-top: 1px;
   }
 
   .text {
@@ -28,6 +30,10 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   color: $color-white;
 }
 
+.ribbon-tertiary {
+  background-color: $primary-alt-lightest;
+}
+
 .ribbon-outer-container-cut-left {
   box-shadow: 3px 4px 4px -4px $ribbon-shadow-color;
 }
@@ -36,10 +42,14 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   box-shadow: -3px 4px 4px -4px $ribbon-shadow-color;
 }
 
+.ribbon-outer-container-cut-both {
+  box-shadow: 0 4px 4px -4px $ribbon-shadow-color;
+}
+
 .ribbon-cut-left {
   clip-path: polygon(9% 0, 100% 0, 100% 100%, 0 100%, 0 100%);
   padding-left: 1em;
-  padding-right: 1em;
+  padding-right: .35em;
 }
 
 .ribbon-cut-right {
@@ -48,14 +58,33 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   padding-right: 1em;
 }
 
-.ribbon-results-card {
+.ribbon-cut-both {
+  clip-path: polygon(9% 0, 100% 0, 91% 100%, 0 100%, 0 100%);
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+
+.ribbon-container {
   position: absolute;
   right: -1px;
 }
 
+.ribbon-results-card {
+  margin-bottom: 10px;
+}
+
 .ribbon-condensed-card {
-  bottom: 0;
-  position: absolute;
-  right: 0;
-  z-index: $ribbon-z;
+  margin-bottom: 10px;
+}
+
+.ribbon-wide {
+  min-width: 165px;
+
+  .ribbon-cut-left {
+    padding-left: 2em;
+  }
+
+  .ribbon-cut-right {
+    padding-left: 1.5em;
+  }
 }

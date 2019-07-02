@@ -25,7 +25,9 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full post-ribbon-container"
   >
-    <div>
+    <div
+      className="post-container"
+    >
       <span>
         <span
           className="title"
@@ -79,7 +81,9 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
   <div
     className="usa-grid-full post-ribbon-container"
   >
-    <div>
+    <div
+      className="post-container"
+    >
       <span>
         <span
           className="title"

@@ -12,7 +12,7 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import Handshake from '../Ribbon/Handshake';
+import { Handshake } from '../Ribbon';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
 
@@ -192,9 +192,11 @@ class ResultsCard extends Component {
                     <DefinitionList items={sections[1]} />
                   </Column>
                   <Column columns="2">
-                    {
-                      get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
-                    }
+                    <div className="ribbon-container">
+                      {
+                        get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                      }
+                    </div>
                   </Column>
                 </Row>)
               }

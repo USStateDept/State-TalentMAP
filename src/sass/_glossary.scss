@@ -46,6 +46,7 @@
     top: 0;
     transition: right .2s;
     width: 30rem;
+    z-index: $glossary-z;
 
     .glossary-hidden {
       display: none !important;
