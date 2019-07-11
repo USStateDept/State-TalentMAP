@@ -1,9 +1,11 @@
 .home {
 
   background:
+    // NOTE - this gradient gets washed out on State monitors.
+    // If using a Macbook, increase by 0.04 to determine what it will look like on State monitors.
     linear-gradient(
-      rgba(255, 255, 255, 0.94),
-      rgba(255, 255, 255, 0.94)
+      rgba(255, 255, 255, 0.91),
+      rgba(255, 255, 255, 0.91)
     ),
     url('#{$asset-path}assets/img/map-blue-cut.png');
   background-position-x: center;
