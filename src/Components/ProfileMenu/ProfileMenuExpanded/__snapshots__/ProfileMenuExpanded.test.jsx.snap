@@ -82,7 +82,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -213,7 +213,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -344,7 +344,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -475,7 +475,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
