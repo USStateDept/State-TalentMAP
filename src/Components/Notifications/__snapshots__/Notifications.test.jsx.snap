@@ -28,6 +28,12 @@ exports[`NotificationsComponent matches snapshot 1`] = `
         suffix="notifications"
         total={1}
       />
+    </Column>
+    <Column
+      as="div"
+      className="total-results-container notifications-controls-container"
+      columns={12}
+    >
       <div>
         <button
           onClick={[Function]}
