@@ -17,17 +17,17 @@ describe('CompareListComponent', () => {
 
   it('is defined when data is missing', () => {
     const newResults = [...resultsObject.results];
-    newResults[0].bureau = null;
-    newResults[0].skill = null;
-    newResults[0].post.tour_of_duty = null;
-    newResults[0].current_assignment.estimated_end_date = null;
+    newResults[0].position.bureau = null;
+    newResults[0].position.skill = null;
+    newResults[0].position.post.tour_of_duty = null;
+    newResults[0].position.current_assignment.estimated_end_date = null;
     const wrapper = shallow(<CompareList {...props} compare={newResults} />);
     expect(wrapper).toBeDefined();
   });
 
   it('can receive props', () => {
     const wrapper = shallow(<CompareList {...props} compare={resultsObject.results} />);
-    expect(wrapper.instance().props.compare[0].id).toBe(6);
+    expect(wrapper.instance().props.compare[0].position.id).toBe(6);
   });
 
   it('displays the comparison list when isLoading is false', () => {
@@ -74,7 +74,7 @@ describe('CompareListComponent', () => {
 
   it('matches snapshot when there is an obc id', () => {
     const resultsWithObc = { ...resultsObject };
-    resultsWithObc.results[0].post.obc_id = 1;
+    resultsWithObc.results[0].position.post.obc_id = 1;
     const wrapper = shallow(<CompareList {...props} compare={resultsWithObc.results} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

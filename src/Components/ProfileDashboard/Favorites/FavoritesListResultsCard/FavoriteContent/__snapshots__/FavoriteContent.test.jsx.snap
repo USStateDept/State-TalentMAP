@@ -10,7 +10,6 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Position title: 
     </span>
-    OMS (DCM)
   </div>
   <div>
     <span
@@ -18,7 +17,7 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Skill: 
     </span>
-    OFFICE MANAGEMENT (9017)
+    None listed
   </div>
   <div>
     <span
@@ -26,7 +25,7 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Grade: 
     </span>
-    06
+    None listed
   </div>
   <div>
     <span
@@ -34,7 +33,7 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
     >
       Location: 
     </span>
-    Freetown, Sierra Leone
+    None listed
   </div>
 </div>
 `;

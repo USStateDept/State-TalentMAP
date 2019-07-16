@@ -84,7 +84,7 @@ describe('Results', () => {
   });
 
   it('can call the onQueryParamUpdate function', () => {
-    const query = { ordering: 'bureau', q: 'German' };
+    const query = { ordering: 'position__bureau', q: 'German' };
     const wrapper = shallow(
       <Results.WrappedComponent
         {...props}

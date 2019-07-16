@@ -35,7 +35,7 @@ export class SaveNewSearchDialog extends Component {
     if (e && e.preventDefault) { e.preventDefault(); }
     this.props.saveSearch({
       name: this.state.newSearchName,
-      endpoint: '/api/v1/position/',
+      endpoint: '/api/v1/cycleposition/',
       filters: this.props.currentSearch,
     });
   }

@@ -15,7 +15,7 @@ describe('ResultsCardComponent', () => {
         onToggle={() => {}}
         bidList={[]}
       />);
-    expect(wrapper.instance().props.result.id).toBe(6);
+    expect(wrapper.instance().props.result.position.id).toBe(6);
   });
 
   it('is defined when isProjectedVacancy === true', () => {
@@ -37,7 +37,7 @@ describe('ResultsCardComponent', () => {
         onToggle={() => {}}
         bidList={[]}
       />);
-    expect(wrapper.instance().props.result.id).toBe(60);
+    expect(wrapper.instance().props.result.position.id).toBe(60);
   });
 
   it('returns the offset px', () => {
@@ -75,7 +75,7 @@ describe('ResultsCardComponent', () => {
     wrapper = shallow(
       <ResultsCard
         id={1}
-        result={{ id: 1 }}
+        result={{ position: { id: 1 } }}
         onToggle={() => {}}
         bidList={[]}
       />);

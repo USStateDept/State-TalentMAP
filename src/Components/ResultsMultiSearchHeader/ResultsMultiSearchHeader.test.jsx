@@ -20,11 +20,11 @@ describe('ResultsMultiSearchHeaderComponent', () => {
   const updatedProps = {
     userProfile: bidderUserObject,
     defaultFilters: {
-      grade__code__in: '03',
-      bureau__code__in: '04',
+      position__grade__code__in: '03',
+      position__bureau__code__in: '04',
       q: 'german',
       // test that it can accept codes as a string or an object
-      skill__code__in: [{ code: '05' }, '06'],
+      position__skill__code__in: [{ code: '05' }, '06'],
     },
   };
 
@@ -65,7 +65,7 @@ describe('ResultsMultiSearchHeaderComponent', () => {
       {...props}
     />);
     wrapper.instance().onChangeBureau({ target: { value: 'bureau' } });
-    expect(wrapper.instance().state.bureau__code__in).toBe('bureau');
+    expect(wrapper.instance().state.position__bureau__code__in).toBe('bureau');
   });
 
   it('can call the onChangeGrade function', () => {
@@ -73,7 +73,7 @@ describe('ResultsMultiSearchHeaderComponent', () => {
       {...props}
     />);
     wrapper.instance().onChangeGrade({ target: { value: 'grade' } });
-    expect(wrapper.instance().state.grade__code__in).toBe('grade');
+    expect(wrapper.instance().state.position__grade__code__in).toBe('grade');
   });
 
   it('can submit a search', () => {
@@ -113,8 +113,9 @@ describe('ResultsMultiSearchHeaderComponent', () => {
     const instance = wrapper.instance();
     instance.setupDefaultValues(updatedProps);
     // values from defaultFilters should be used
-    expect(instance.state.defaultGrade).toBe(updatedProps.defaultFilters.grade__code__in);
-    expect(instance.state.defaultBureau).toBe(updatedProps.defaultFilters.bureau__code__in);
+    expect(instance.state.defaultGrade).toBe(updatedProps.defaultFilters.position__grade__code__in);
+    expect(instance.state.defaultBureau).toBe(
+      updatedProps.defaultFilters.position__bureau__code__in);
     expect(instance.state.q).toBe(updatedProps.defaultFilters.q);
   });
 

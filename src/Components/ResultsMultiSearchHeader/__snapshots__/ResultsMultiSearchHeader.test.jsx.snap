@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
+exports['ResultsMultiSearchHeaderComponent matches snapshot 1'] = `
 <div
   className="results-search-bar padded-main-content results-multi-search"
 >

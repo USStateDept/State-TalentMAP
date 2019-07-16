@@ -5,7 +5,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-top  condensed-card-top--clickable"
   replace={false}
   title="View details for this position"
-  to="/details/6"
+  to="/details/1"
 >
   <div>
     <div
@@ -14,9 +14,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
       <div
         className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
       >
-        <h3>
-          OMS (DCM)
-        </h3>
+        <h3 />
       </div>
     </div>
     <div
@@ -53,7 +51,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
   className="usa-grid-full condensed-card-top  condensed-card-top--clickable"
   replace={false}
   title="View details for this position"
-  to="/details/6"
+  to="/details/1"
 >
   <div>
     <div
@@ -68,9 +66,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
           />
            
         </span>
-        <h3>
-          OMS (DCM)
-        </h3>
+        <h3 />
       </div>
     </div>
     <div
