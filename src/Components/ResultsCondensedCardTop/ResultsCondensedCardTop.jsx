@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Flag } from 'flag';
+import { Link } from 'react-router-dom';
 import Handshake from '../Ribbon/Handshake';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
@@ -20,7 +20,6 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
   let vacancyText;
   if (type === 'serviceNeed') {
     icon = 'bolt';
-    cardTopClass = 'card-top-alternate';
     useType = true;
   }
   if (isProjectedVacancy && useProjectedVacancy()) {
@@ -34,8 +33,12 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
   const stats = getBidStatisticsObject(position.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
 
-  return (
-    <div className={`usa-grid-full condensed-card-top ${cardTopClass}`}>
+  const titleHeader = <h3>{position.title}</h3>;
+
+  const link = `/details/${position.id}`;
+
+  const innerContent = (
+    <div>
       {
         vacancyText &&
         <div className={`usa-grid-full condensed-card-top-header-container vacancy-text-container ${vacancyClass}`}>
@@ -49,7 +52,7 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
           }
         >
           {useType && <span><FontAwesome name={icon} /> </span>}
-          <h3>{position.title}</h3> {!isProjectedVacancy && <Link to={`/details/${position.id}`}>View position</Link>}
+          { titleHeader }
         </div>
       </div>
       <div className="usa-grid-full post-ribbon-container">
@@ -68,11 +71,26 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
       </div>
     </div>
   );
+
+  const containerProps = {
+    className: `usa-grid-full condensed-card-top ${cardTopClass} ${isProjectedVacancy ? '' : 'condensed-card-top--clickable'}`,
+  };
+
+  return (
+    isProjectedVacancy ?
+      <div {...containerProps} >
+        {innerContent}
+      </div>
+    :
+      <Link to={link} {...containerProps} title="View details for this position">
+        {innerContent}
+      </Link>
+  );
 };
 
 ResultsCondensedCardTop.propTypes = {
   position: POSITION_DETAILS.isRequired,
-  type: HOME_PAGE_CARD_TYPE.isRequired,
+  type: HOME_PAGE_CARD_TYPE,
   isProjectedVacancy: PropTypes.bool,
   isRecentlyAvailable: PropTypes.bool,
 };
