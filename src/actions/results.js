@@ -90,19 +90,21 @@ export function resultsFetchData(query) {
   return (dispatch) => {
     if (cancel) { cancel(); dispatch(resultsIsLoading(true)); }
     dispatch(resultsIsLoading(true));
+    dispatch(resultsHasErrored(false));
     fetchResultData(query)
       .then((results) => {
         dispatch(resultsFetchDataSuccess(results));
-        dispatch(resultsIsLoading(false));
         dispatch(resultsHasErrored(false));
+        dispatch(resultsIsLoading(false));
       })
       .catch((err) => {
         if (propOrDefault(err, 'constructor.name') === 'Cancel') {
-          dispatch(resultsIsLoading(true));
           dispatch(resultsHasErrored(false));
+          dispatch(resultsIsLoading(true));
         } else {
-          dispatch(resultsIsLoading(false));
+          dispatch(resultsFetchDataSuccess({ results: [] }));
           dispatch(resultsHasErrored(true));
+          dispatch(resultsIsLoading(false));
         }
       });
   };

@@ -34,6 +34,8 @@ const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, 
         <div>
           <Column className="total-results-container">
             <TotalResults total={notifications.count} pageNumber={page} pageSize={pageSize} suffix="notifications" />
+          </Column>
+          <Column className="total-results-container notifications-controls-container">
             <div><button onClick={selectAll}><FA name="check-square-o" />Select all</button></div>
             <div className="results-dropdown results-dropdown-sort">
               <SelectForm

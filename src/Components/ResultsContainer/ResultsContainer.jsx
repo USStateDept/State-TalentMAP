@@ -46,9 +46,16 @@ class ResultsContainer extends Component {
         <SaveNewSearchDialog />
         {
           // is not loading, results array exists, but is empty
-          !isLoading && results.results && !results.results.length &&
+          !isLoading && results.results && !results.results.length && !hasErrored &&
             <div className="usa-grid-full no-results">
               <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
+            </div>
+        }
+        {
+          // is not loading and has errored
+          !isLoading && hasErrored &&
+            <div className="usa-grid-full no-results">
+              <Alert type="error" title="An error has occurred" messages={[{ body: 'Try performing another search' }]} />
             </div>
         }
         {

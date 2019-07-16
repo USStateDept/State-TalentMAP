@@ -28,6 +28,14 @@
     }
   }
 
+  .notifications-controls-container {
+    padding-left: 16px;
+
+    > div:first-of-type {
+      flex: 1;
+    }
+  }
+
   .link-button-wrapper {
     margin-right: 1em;
   }

@@ -86,7 +86,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       {
-        text: 'Bidder Portfolio',
+        text: 'Client Profiles', // aka Bidder Portfolio
         route: '/profile/bidderportfolio',
         icon: 'users',
         isCDO: true,
