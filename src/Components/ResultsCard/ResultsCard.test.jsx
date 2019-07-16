@@ -25,7 +25,7 @@ describe('ResultsCardComponent', () => {
         result={resultsObject.results[0]}
         onToggle={() => {}}
         bidList={[]}
-      />, { isProjectedVacancy: true });
+      />, { context: { isProjectedVacancy: true } });
     expect(wrapper).toBeDefined();
   });
 

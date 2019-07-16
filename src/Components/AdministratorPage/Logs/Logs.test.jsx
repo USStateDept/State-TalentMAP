@@ -37,6 +37,17 @@ describe('Logs', () => {
   it('defined when it receives new props that affect a nested scroll location', () => {
     const wrapper = shallow(<Logs {...props} />);
     wrapper.setProps({ log: ['a'] });
+    expect(wrapper).toBeDefined();
+  });
+
+  it('defined when it receives new props that match the old props', (done) => {
+    global.document.getElementById = () => ({ scrollHeight: 50 });
+    const wrapper = shallow(<Logs {...props} />);
+    wrapper.setProps(props);
+    setTimeout(() => {
+      expect(wrapper).toBeDefined();
+      done();
+    }, 0);
   });
 
   it('updates state onPageChange', () => {

@@ -54,6 +54,23 @@ describe('Administrator', () => {
     wrapper.setProps({ logsIsLoading: false, logs: 'data', logToDownloadIsLoading: false, logToDownload: 'data' });
     expect(wrapper).toBeDefined();
   });
+
+  it('calls putAllSyncJobs on runAllJobs() if putAllSyncsIsLoading === false', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Administrator.WrappedComponent putAllSyncJobs={spy} putAllSyncsIsLoading={false} />,
+    );
+    // should call spy since isloading === false
+    wrapper.instance().runAllJobs();
+    sinon.assert.calledOnce(spy);
+
+    // set isloading to true
+    wrapper.setProps({ putAllSyncsIsLoading: true });
+
+    // should not call spy since isloading === true
+    wrapper.instance().runAllJobs();
+    sinon.assert.calledOnce(spy);
+  });
 });
 
 describe('mapDispatchToProps', () => {

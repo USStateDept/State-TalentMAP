@@ -14,7 +14,13 @@ describe('ProjectedVacancyFilter', () => {
     const wrapper = shallow(
       <ProjectedVacancyFilter />,
     );
+    wrapper.instance().toggleRef = { updateVal: () => {} };
+    wrapper.update();
+    // matches first componentWillReceiveProps if statement
     wrapper.setProps({ items: [{ isSelected: true, code: 1 }] });
+    expect(wrapper).toBeDefined();
+    // matches second componentWillReceiveProps if statement
+    wrapper.setProps({ items: [{ isSelected: false, code: 1 }] });
     expect(wrapper).toBeDefined();
   });
 
