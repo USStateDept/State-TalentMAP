@@ -185,4 +185,36 @@ describe('AutoSuggestComponent', () => {
     };
     f();
   });
+
+  it('clears the input onSuggestionSelected if shouldClearOnSelect === true', () => {
+    const wrapper = shallow(
+      <AutoSuggest
+        suggestions={suggestions}
+        getSuggestions={() => {}}
+        onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
+        shouldClearOnSelect
+      />,
+    );
+    wrapper.instance().setState({ value: 'text' });
+    wrapper.instance().onSuggestionSelected(null, { suggestion: suggestions[0] });
+    expect(wrapper.instance().state.value).toBe('');
+  });
+
+  it('does not clear the input onSuggestionSelected if shouldClearOnSelect === false', () => {
+    const wrapper = shallow(
+      <AutoSuggest
+        suggestions={suggestions}
+        getSuggestions={() => {}}
+        onSuggestionSelected={() => {}}
+        inputId="input"
+        label="label"
+        shouldClearOnSelect={false}
+      />,
+    );
+    wrapper.instance().setState({ value: 'text' });
+    wrapper.instance().onSuggestionSelected(null, { suggestion: suggestions[0] });
+    expect(wrapper.instance().state.value).not.toBe('');
+  });
 });

@@ -90,6 +90,7 @@ class PostFilter extends Component {
           customInputProps={{
             disabled: postSelectionDisabled,
           }}
+          shouldClearOnSelect
         />
         <div className="usa-grid-full tm-nested-accordions">
           <Accordion>
