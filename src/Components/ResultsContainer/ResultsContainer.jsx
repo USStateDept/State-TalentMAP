@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
@@ -16,6 +17,10 @@ class ResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.onPageChange = this.onPageChange.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(nextProps, this.props);
   }
 
   onPageChange(q) {
