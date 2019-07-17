@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
 MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
@@ -18,6 +19,10 @@ class Results extends Component {
 
   getChildContext() {
     return { isProjectedVacancy: this.props.isProjectedVacancy };
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(nextProps, this.props);
   }
 
   getKeywordValue() {

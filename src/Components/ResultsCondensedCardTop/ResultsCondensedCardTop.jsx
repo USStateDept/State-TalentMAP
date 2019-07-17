@@ -34,7 +34,9 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
   const stats = getBidStatisticsObject(p.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
 
-  const titleHeader = <h3>{position.title}</h3>;
+  const title = get(position, 'position.title', '');
+
+  const titleHeader = <h3>{title}</h3>;
 
   const link = `/details/${position.id}`;
 
