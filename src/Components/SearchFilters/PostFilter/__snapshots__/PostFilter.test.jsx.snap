@@ -23,6 +23,7 @@ exports[`PostFilterComponent matches snapshot 1`] = `
     onSuggestionsClearRequested={[Function]}
     placeholder="Remove regional filters"
     queryProperty="id"
+    shouldClearOnSelect={true}
     suggestionTemplate={[Function]}
     suggestions={Array []}
     templateProps={Object {}}
