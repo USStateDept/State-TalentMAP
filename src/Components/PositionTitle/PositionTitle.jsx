@@ -25,7 +25,7 @@ class PositionTitle extends Component {
       <PermissionsWrapper permissions="bidder">
         <BidListButton
           compareArray={bidList.results}
-          id={details.id}
+          id={details.cpId}
           disabled={!get(details, 'availability.availability', true)}
         />
       </PermissionsWrapper>
@@ -59,7 +59,7 @@ class PositionTitle extends Component {
                 </div>
                 <div className="usa-width-one-half title-actions-section">
                   <Favorite
-                    refKey={details.id}
+                    refKey={details.cpId}
                     compareArray={userProfile.favorite_positions}
                     useLongText
                     useSpinnerWhite

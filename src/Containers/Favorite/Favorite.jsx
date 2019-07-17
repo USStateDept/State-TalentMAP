@@ -14,7 +14,7 @@ const FavoriteContainer = ({
   ...rest }) => (
     <Favorite
       onToggle={onToggle}
-      isLoading={isLoading.has(refKey)}
+      isLoading={!!isLoading.has(refKey)}
       hasErrored={hasErrored}
       refKey={refKey}
       {...rest}

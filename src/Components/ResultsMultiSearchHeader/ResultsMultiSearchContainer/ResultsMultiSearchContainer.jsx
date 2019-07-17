@@ -18,7 +18,7 @@ class ResultsMultiSearchHeaderContainer extends Component {
     this.onFilterChange = this.onFilterChange.bind(this);
     this.state = {
       query: {
-        q: '',
+        position_q: '',
       },
     };
   }

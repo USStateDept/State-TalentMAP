@@ -5,17 +5,17 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
-    content="03/13/2020"
+    content="None listed"
     hasFixedTitleWidth={true}
     title="TED"
   />
   <CondensedCardDataPoint
-    content="OFFICE MANAGEMENT (9017)"
+    content="None listed"
     hasFixedTitleWidth={true}
     title="Skill"
   />
   <CondensedCardDataPoint
-    content="06"
+    content="None listed"
     hasFixedTitleWidth={true}
     title="Grade"
   />
@@ -47,7 +47,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
     title="Skill"
   />
   <CondensedCardDataPoint
-    content="06"
+    content="None listed"
     hasFixedTitleWidth={true}
     title="Grade"
   />
@@ -69,7 +69,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
   className="usa-grid-full condensed-card-data"
 >
   <CondensedCardDataPoint
-    content="03/13/2020"
+    content="None listed"
     hasFixedTitleWidth={true}
     title="TED"
   />
@@ -79,7 +79,7 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
     title="Skill"
   />
   <CondensedCardDataPoint
-    content="06"
+    content="None listed"
     hasFixedTitleWidth={true}
     title="Grade"
   />

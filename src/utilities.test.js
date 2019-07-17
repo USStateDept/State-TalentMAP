@@ -626,18 +626,22 @@ describe('mapSavedSearchesToSingleQuery', () => {
   const searches = searchObjectParent;
   it('maps multiple saved searches to a single query', () => {
     const mappedSearch = mapSavedSearchesToSingleQuery(searches);
-    const expected = { grade__code__in: '02', post__tour_of_duty__code__in: 'O', q: 'german', skill__code__in: '6080' };
+    const expected = {
+      position__grade__code__in: '02',
+      position__post__tour_of_duty__code__in: 'O',
+      q: 'german',
+      position__skill__code__in: '6080',
+    };
     expect(isEqual(mappedSearch, expected)).toBe(true);
   });
 });
 
 describe('mapSavedSearchToDescriptions', () => {
   const searches = searchObjectParent;
-  const mappedFilters = [{ selectionRef: 'skill__code__in', description: 'test A', codeRef: '6080' }];
+  const mappedFilters = [{ selectionRef: 'position__skill__code__in', description: 'test A', codeRef: '6080' }];
   it('maps saved searches to descriptions', () => {
     const mappedDescriptions = mapSavedSearchToDescriptions(
-      searches.results[0].filters, mappedFilters,
-    );
+      searches.results[0].filters, mappedFilters);
     const expected = ['german', 'test A'];
     expect(isEqual(mappedDescriptions, expected)).toBe(true);
   });

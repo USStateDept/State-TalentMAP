@@ -25,22 +25,22 @@ const CompareDrawer = ({ comparisons, isHidden }) => {
             <div key={c.id} className="compare-item">
               <div className="check-container">
                 <CompareCheck
-                  refKey={c.position_number}
+                  refKey={c.id}
                   customElement={<FA name="close" />}
                   interactiveElementProps={{ title: 'Remove this comparison' }}
                 />
               </div>
               <span className="data-point title">
-                <strong>{c.title}</strong>
+                <strong>{c.position.title}</strong>
               </span>
               <span className="data-point">
-                <strong>Grade:</strong> {c.grade || NO_GRADE}
+                <strong>Grade:</strong> {c.position.grade || NO_GRADE}
               </span>
               <span className="data-point">
-                <strong>Location:</strong> {getPostName(c.post, NO_POST)}
+                <strong>Location:</strong> {getPostName(c.position.post, NO_POST)}
               </span>
             </div>
-          ))
+        ))
         }
         {
           emptyArray.map(() => (

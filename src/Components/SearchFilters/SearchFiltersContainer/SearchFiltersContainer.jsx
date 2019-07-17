@@ -56,7 +56,7 @@ class SearchFiltersContainer extends Component {
         is_available_in_bidcycle: null,
         is_available_in_current_bidcycle: null,
         is_domestic: null,
-        post__in: null,
+        position__post__in: null,
         projectedVacancy: value,
       };
     }

@@ -4,8 +4,9 @@ import { isEqual } from 'lodash';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT,
-PILL_ITEM_ARRAY, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
+         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
+         BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';

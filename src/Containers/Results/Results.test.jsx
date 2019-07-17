@@ -42,6 +42,16 @@ describe('Results', () => {
     expect(results).toBeDefined();
   });
 
+  it('is defined when isAuthorized returns false', () => {
+    const results = TestUtils.renderIntoDocument(<MockTestProvider>
+      <Results
+        {...props}
+        isAuthorized={() => false}
+      />
+    </MockTestProvider>);
+    expect(results).toBeDefined();
+  });
+
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<MockTestProvider>
       <Results
@@ -51,13 +61,38 @@ describe('Results', () => {
     expect(results).toBeDefined();
   });
 
-  it('can call the onQueryParamUpdate function', () => {
-    const query = { ordering: 'bureau', q: 'German' };
+  it('sets filtersIsLoading state when it receives new props', () => {
     const wrapper = shallow(
       <Results.WrappedComponent
         {...props}
       />,
     );
+    expect(wrapper.instance().state.filtersIsLoading).toBe(true);
+    wrapper.setProps({ ...props, filtersIsLoading: false });
+    expect(wrapper.instance().state.filtersIsLoading).toBe(false);
+  });
+
+  it('returns a value for getStringifiedQuery()', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        {...props}
+      />,
+    );
+    wrapper.instance().resultsPageRef = { getKeywordValue: () => 'test' };
+    wrapper.update();
+    expect(wrapper.instance().getStringifiedQuery()).toBeDefined();
+  });
+
+  it('can call the onQueryParamUpdate function', () => {
+    const query = { ordering: 'position__bureau', q: 'German' };
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        {...props}
+      />,
+    );
+    wrapper.instance().resultsPageRef = { getKeywordValue: () => 'German' };
+    wrapper.update();
+
     // define the instance
     const instance = wrapper.instance();
     // spy the onQueryParamUpdate function

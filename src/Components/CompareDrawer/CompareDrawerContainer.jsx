@@ -79,8 +79,8 @@ export class Compare extends Component {
     /* sort based on any prior compare list, so the cards don't get jumbled
     after one is removed, as it persists until the new request completes */
     const sortedComparisons = comparisons.sort((a, b) =>
-    (comparisonsToUse.indexOf(a.position_number) >
-        comparisonsToUse.indexOf(b.position_number) ? 1 : -1),
+    (comparisonsToUse.indexOf(a.id) >
+        comparisonsToUse.indexOf(b.id) ? 1 : -1),
     );
 
     const isHidden$ = isHidden || !sortedComparisons.length;

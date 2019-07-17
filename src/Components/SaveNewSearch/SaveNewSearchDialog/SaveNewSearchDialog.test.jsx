@@ -26,6 +26,16 @@ describe('SaveNewSearchDialogComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when hasErrored is truthy', () => {
+    wrapper = shallow(
+      <SaveNewSearchDialog
+        {...props}
+        hasErrored="some error"
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('can call the onSubmit function', () => {
     const form = { value: null, preventDefault: sinon.spy() };
     wrapper = shallow(
@@ -40,19 +50,52 @@ describe('SaveNewSearchDialogComponent', () => {
   });
 
   it('can call functions', () => {
-    const cancelSpy = sinon.spy();
     const formSubmitSpy = sinon.spy();
     wrapper = shallow(
       <SaveNewSearchDialog
         {...props}
-        onCancel={cancelSpy}
         saveSearch={formSubmitSpy}
       />,
     );
-    wrapper.instance().props.onCancel();
     wrapper.instance().onSubmit();
-    sinon.assert.calledOnce(cancelSpy);
     sinon.assert.calledOnce(formSubmitSpy);
+  });
+
+  it('performs logic on componentWillReceiveProps()', () => {
+    const toggleSpy = sinon.spy();
+
+    const props$ = {
+      ...props,
+      toggle: toggleSpy,
+      isLoading: true,
+    };
+
+    wrapper = shallow(
+      <SaveNewSearchDialog
+        {...props$}
+      />,
+    );
+    const changeNewSearchNameSpy = sinon.spy(wrapper.instance(), 'changeNewSearchName');
+    wrapper.setProps({ ...props$, isLoading: false, hasErrored: false });
+    sinon.assert.calledOnce(toggleSpy);
+    sinon.assert.calledOnce(changeNewSearchNameSpy);
+  });
+
+  it('performs logic on onCancel()', () => {
+    const toggleSpy = sinon.spy();
+
+    const props$ = {
+      ...props,
+      toggle: toggleSpy,
+    };
+
+    wrapper = shallow(
+      <SaveNewSearchDialog
+        {...props$}
+      />,
+    );
+    wrapper.instance().onCancel();
+    sinon.assert.calledOnce(toggleSpy);
   });
 
   it('matches snapshot', () => {

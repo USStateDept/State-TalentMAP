@@ -19,7 +19,8 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { co
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
 
-  const BID_TITLE = `${bid.position.title} (${bid.position.position_number})`;
+  const { position } = bid.position;
+  const BID_TITLE = `${position.title} (${position.position_number})`;
 
   let overlayClass = '';
   let overlayContent = '';
@@ -53,14 +54,14 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { co
       overlayContent = (
         <HandshakeDeclinedAlert
           userName={bid.user}
-          bureau={bid.position.bureau}
+          bureau={position.bureau}
           id={bid.id}
         />
       );
       break;
     case DECLINED_PROP:
       overlayClass = CLASS_CLOSED;
-      overlayContent = <DeclinedAlert bureau={bid.position.bureau} id={bid.id} />;
+      overlayContent = <DeclinedAlert bureau={position.bureau} id={bid.id} />;
       break;
     case CLOSED_PROP:
       overlayClass = CLASS_CLOSED;

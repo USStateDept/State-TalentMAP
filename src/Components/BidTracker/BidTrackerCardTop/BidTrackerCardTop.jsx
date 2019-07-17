@@ -22,14 +22,15 @@ class BidTrackerCardTop extends Component {
 
   render() {
     const { bid, hideDelete, showBidCount, showQuestion } = this.props;
-    const bidStatistics = get(bid, 'position.bid_statistics[0]', {});
-    const post = get(bid, 'position.post', {});
+    const { position } = bid.position;
+    const bidStatistics = get(position, 'bid_statistics[0]', {});
+    const post = get(position, 'post', {});
     return (
       <div className="usa-grid-full padded-container-inner bid-tracker-title-container">
         <div className="bid-tracker-title-content-container">
           <BidTrackerCardTitle
-            title={bid.position.title}
-            id={bid.position.id}
+            title={position.title}
+            id={position.id}
             status={bid.status}
             bidStatistics={bidStatistics}
             post={post}

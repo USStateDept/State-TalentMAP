@@ -5,12 +5,12 @@ export const searchObject = {
   endpoint: '/api/v1/position/',
   filters: {
     q: 'german',
-    post__in: '151',
+    position__post__in: '151',
     is_domestic: 'true',
-    grade__code__in: '02',
-    skill__code__in: '6080,2080',
-    post__tour_of_duty__code__in: 'O,Q',
-    post__cost_of_living_adjustment__gt: '0',
+    position__grade__code__in: '02',
+    position__skill__code__in: '6080,2080',
+    position__post__tour_of_duty__code__in: 'O,Q',
+    position__post__cost_of_living_adjustment__gt: '0',
   },
   count: 0,
   date_created: '2018-03-09T17:47:07.133624Z',
@@ -29,8 +29,8 @@ export const searchObjectParent = {
       endpoint: '/api/v1/position/',
       filters: {
         q: 'german',
-        skill__code__in: '6080',
-        post__tour_of_duty__code__in: 'O',
+        position__skill__code__in: '6080',
+        position__post__tour_of_duty__code__in: 'O',
       },
       count: 0,
       date_created: '2018-03-09T17:47:07.133624Z',
@@ -42,8 +42,8 @@ export const searchObjectParent = {
       name: 'test 3',
       endpoint: '/api/v1/position/',
       filters: {
-        grade__code__in: '02',
-        skill__code__in: '6080',
+        position__grade__code__in: '02',
+        position__skill__code__in: '6080',
       },
       count: 0,
       date_created: '2018-02-21T16:29:20.905425Z',
@@ -53,9 +53,9 @@ export const searchObjectParent = {
 };
 
 export const mappedParams = [
-{ selectionRef: 'skill__code__in', codeRef: '6080', description: 'ADMINISTRATIVE SUPPORT' },
-{ selectionRef: 'post__tour_of_duty__code__in', codeRef: 'O', description: 'United States' },
-{ selectionRef: 'grade__code__in', codeRef: '02', description: 'two' },
+{ selectionRef: 'position__skill__code__in', codeRef: '6080', description: 'ADMINISTRATIVE SUPPORT' },
+{ selectionRef: 'position__post__tour_of_duty__code__in', codeRef: 'O', description: 'United States' },
+{ selectionRef: 'position__grade__code__in', codeRef: '02', description: 'two' },
 ];
 
 export default searchObject;

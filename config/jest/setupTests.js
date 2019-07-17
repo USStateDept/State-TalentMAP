@@ -27,6 +27,9 @@ global.window.location.assign = () => {};
 // Stub URL.createObjectURL
 global.window.URL.createObjectURL = () => {};
 
+// Stub msSaveBlob
+global.window.navigator.msSaveBlob = () => {};
+
 beforeEach(() => {
   // mock sessionStorage - feature flags config
   sessionStorage.setItem('config', JSON.stringify(config));
