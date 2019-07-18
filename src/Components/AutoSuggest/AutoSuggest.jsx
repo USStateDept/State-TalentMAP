@@ -54,9 +54,13 @@ export default class AutoSuggest extends Component {
 
   // when a suggestion is actually selected
   onSuggestionSelected(event, { suggestion }) {
+    const { shouldClearOnSelect } = this.props;
     this.props.onSuggestionSelected(
       this.props.queryProperty.length ? suggestion[this.props.queryProperty] : suggestion,
     );
+    if (shouldClearOnSelect) {
+      this.setState({ value: '' });
+    }
   }
 
   // Use your imagination to render suggestions.
@@ -150,6 +154,9 @@ AutoSuggest.propTypes = {
 
   // props to pass to template
   templateProps: PropTypes.shape({}),
+
+  // should the input be cleared upon selection
+  shouldClearOnSelect: PropTypes.bool,
 };
 
 AutoSuggest.defaultProps = {
@@ -168,4 +175,5 @@ AutoSuggest.defaultProps = {
   className: undefined,
   autoSuggestProps: {},
   templateProps: {},
+  shouldClearOnSelect: false,
 };
