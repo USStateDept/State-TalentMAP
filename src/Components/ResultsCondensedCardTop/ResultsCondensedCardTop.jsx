@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Flag } from 'flag';
 import { Link } from 'react-router-dom';
-import Handshake from '../Ribbon/Handshake';
+import { Featured, Handshake } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
@@ -62,15 +62,17 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
         <div className="post-container">
           <span><span className="title">Location:</span> <span className="data">{getPostName(p.post, NO_POST)}</span></span>
         </div>
-        <Flag
-          name="flags.bidding"
-          render={() => (
-            hasHandshake &&
-              <div className="ribbon-container">
-                <Handshake className="ribbon-condensed-card" />
-              </div>
-          )}
-        />
+        <div className="ribbon-container">
+          <Flag
+            name="flags.bidding"
+            render={() => (
+              hasHandshake && <Handshake className="ribbon-condensed-card" />
+            )}
+          />
+          {
+            get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
+          }
+        </div>
       </div>
     </div>
   );
