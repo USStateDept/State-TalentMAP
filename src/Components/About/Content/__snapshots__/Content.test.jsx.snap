@@ -46,7 +46,6 @@ exports[`Content matches snapshot 1`] = `
             For more information, visit 
             <a
               href="/about/more"
-              rel="noopener noreferrer"
               target="_blank"
             >
               HR Systems Online Resources
