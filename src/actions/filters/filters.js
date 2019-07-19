@@ -2,7 +2,7 @@ import { get, isArray, union } from 'lodash';
 import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
-import { removeDuplicates } from '../../utilities';
+import { mapDuplicates, removeDuplicates } from '../../utilities';
 import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
   doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
 
@@ -102,21 +102,42 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           asyncFilters.forEach((item, i) => {
             asyncData.forEach((data) => {
               // Do some formatting for post and mission data
-              // for when they get put inside Pills/
+              // for when they get put inside Pills
               if (item.codeRef === data.codeRef) {
                 const description = getPostOrMissionDescription(data);
+                const code = data.code;
                 if (description) {
                   asyncFilters[i].description = description;
+                  asyncFilters[i].code = code;
                 }
               }
             });
           });
           // Add our async params to the original mappedParams
           // and remove and any duplicates by the 'description' prop.
-          responses.mappedParams.push(...responses.asyncParams);
-          responses.mappedParams = removeDuplicates(responses.mappedParams, 'description');
+          const responses$ = { ...responses };
+          responses$.mappedParams.push(...responses$.asyncParams);
+          // Get a unique identifier that won't be de-duplicated, by combining description and code.
+          // This is most relevant for the duplicate "New York" post.
+          responses$.mappedParams = responses$.mappedParams.map(m => ({ ...m, descCode: `${m.description}-${m.code}` }));
+          // Remove duplicates by this new property
+          responses$.mappedParams = removeDuplicates(
+            responses$.mappedParams,
+            'descCode',
+          );
+          // Determine which objects duplicates by description,
+          // and give them with a new prop to identify them
+          responses$.mappedParams = mapDuplicates(responses$.mappedParams, 'description');
+          // Add the code in parenetheses any duplicate descriptions.
+          responses$.mappedParams = responses$.mappedParams.map((m) => {
+            const m$ = { ...m };
+            if (m.hasDuplicateDescription && m.code) {
+              m$.description = `${m.description} (${m.code})`;
+            }
+            return m$;
+          });
           // Finally, dispatch a success
-          dispatch(filtersFetchDataSuccess(responses));
+          dispatch(filtersFetchDataSuccess(responses$));
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
         })
