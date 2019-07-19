@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
-import { getItemLabel, formatIdSpacing, propSort } from '../../../utilities';
+import { getItemLabel, formatIdSpacing, mapDuplicates, propSort } from '../../../utilities';
 import AutoSuggest from '../../AutoSuggest';
 
 /* eslint-disable react/no-unused-prop-types */
@@ -72,7 +72,9 @@ class PostFilter extends Component {
     const { item, autoSuggestProps } = this.props;
     const { allOverseasSelected, allDomesticSelected } = this.state;
 
-    const domesticPosts = this.getAllDomesticCodes();
+    let domesticPosts = this.getAllDomesticCodes() || [];
+    domesticPosts = mapDuplicates(domesticPosts);
+
     const overseasPosts = this.getAllOverseasCodes();
 
     domesticPosts.sort(propSort('location', 'city'));
@@ -112,18 +114,22 @@ class PostFilter extends Component {
               <div className="usa-grid-full">
                 {
                   domesticPosts.map((itemData) => {
-                    const itemLabel = getItemLabel(itemData);
+                    const itemData$ = { ...itemData };
+                    if (itemData$.hasDuplicateDescription) {
+                      itemData$.custom_description = `${itemData$.custom_description} (${itemData.code})`;
+                    }
+                    const itemLabel = getItemLabel(itemData$);
                     const itemLabelNoSpaces = formatIdSpacing(itemLabel);
                     return (
                       <CheckBox
                         _id={itemData.id} /* when we need the original id */
-                        id={`checkbox${itemLabelNoSpaces}-domestic-post-${item.item.description}`}
-                        key={`checkbox${itemLabel}-domestic-post-${item.item.description}`}
+                        id={`checkbox${itemLabelNoSpaces}-domestic-post-${item.item.description}-${itemData$.code}`}
+                        key={`checkbox${itemLabel}-domestic-post-${item.item.description}-${itemData$.code}`}
                         label={itemLabel}
                         title={itemLabel}
                         name={itemLabel}
-                        value={allDomesticSelected ? true : itemData.isSelected || false}
-                        code={itemData.code}
+                        value={allDomesticSelected ? true : itemData$.isSelected || false}
+                        code={itemData$.code}
                         selectionRef={item.item.selectionRef}
                         onCheckBoxClick={this.onCheckBoxClick}
                         className="tm-checkbox-transparent"
