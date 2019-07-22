@@ -61,8 +61,8 @@ class ResultsCondensedCardBottom extends Component {
               hideText={useShortFavButton}
               hasBorder
               refKey={position.id}
-              isPV={pos.isPV}
-              compareArray={pos.isPV ? favoritesPV : favorites}
+              isPV={pos.isPV || position.isPV}
+              compareArray={pos.isPV || position.isPV ? favoritesPV : favorites}
               useButtonClass={!useShortFavButton}
               useButtonClassSecondary={useShortFavButton}
               refresh={refreshFavorites}
