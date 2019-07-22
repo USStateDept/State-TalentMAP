@@ -136,9 +136,9 @@ class SearchFiltersContainer extends Component {
       multiSelectFilterNames.unshift('bidSeason');
     } else {
       multiSelectFilterNames.unshift('bidCycle');
-      // post should come before TOD
-      multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
     }
+    // post should come before TOD
+    multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
     // END TOGGLE FILTERS
 
     // create map
