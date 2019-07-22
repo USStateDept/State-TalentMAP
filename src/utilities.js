@@ -588,3 +588,16 @@ export const paginate = (array, pageSize, pageNumber) => {
   const pageNumber$ = pageNumber - 1;
   return array.slice(pageNumber$ * pageSize, (pageNumber$ + 1) * pageSize);
 };
+
+// Looks for duplicates in a data set by property, and adds a "hasDuplicateDescription" property
+// to any objects that are duplicates.
+export const mapDuplicates = (data = [], propToCheck = 'custom_description') => data.slice().map((p) => {
+  const p$ = { ...p };
+  const matching = data.filter(f =>
+    f[propToCheck] === p$[propToCheck],
+  ) || [];
+  if (matching.length >= 2) {
+    p$.hasDuplicateDescription = true;
+  }
+  return p$;
+});
