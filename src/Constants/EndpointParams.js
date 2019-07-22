@@ -15,7 +15,7 @@ export const ENDPOINT_PARAMS = {
   post: 'position__post__in',
   available: 'is_available_in_current_bidcycle',
   bidCycle: 'is_available_in_bidcycle',
-  bidSeason: 'position__is_available_in_bidseason',
+  bidSeason: 'is_available_in_bidseason',
   highlighted: 'position__is_highlighted',
   projectedVacancy: 'projectedVacancy', // this isn't a real query param, but we'll use it to transform the request
 };
