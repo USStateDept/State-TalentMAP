@@ -31,7 +31,7 @@ class ResultsCondensedCardBottom extends Component {
       <PermissionsWrapper permissions="bidder">
         <BidListButton
           id={pos.id}
-          disabled={!get(pos, 'availability.availability', true)}
+          disabled={!get(position, 'availability.availability', true)}
         />
       </PermissionsWrapper>
     :
