@@ -37,6 +37,7 @@ jobs:
       - run: cd ..
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
+      - run: yarn
       - run:
           name: Jest Test Coverage
           command: yarn test
