@@ -15,6 +15,7 @@ default-docker-node: &default-docker-node
 jobs:
   build:
     <<: *default-docker-node
+    working_directory: ~/talentmap
     steps:
       - checkout
       - restore_cache:
@@ -25,8 +26,13 @@ jobs:
           paths:
             - ./node_modules
             - ~/.cache/yarn
+      - persist_to_workspace:
+          root: ~/talentmap
+          paths:
+            - node_modules
   jest:
     <<: *default-docker-node
+    working_directory: ~/talentmap
     steps:
       - checkout
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
