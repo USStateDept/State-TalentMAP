@@ -9,7 +9,7 @@ import OBCUrl from '../OBCUrl';
 import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
-import Handshake from '../Ribbon/Handshake';
+import { Featured, Handshake } from '../Ribbon';
 import {
   formatDate,
   propOrDefault,
@@ -38,11 +38,7 @@ import {
 } from '../../Constants/SystemMessages';
 
 export const renderHandshake = stats => (
-  <div className="handshake-offset-container">
-    {
-      get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
-    }
-  </div>
+  get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
 );
 
 const PositionDetailsItem = (props) => {
@@ -90,10 +86,15 @@ const PositionDetailsItem = (props) => {
   const stats = getBidStatisticsObject(details.bid_statistics);
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
-      <Flag
-        name="flags.bidding"
-        render={() => renderHandshake(stats)}
-      />
+      <div className="handshake-offset-container">
+        <Flag
+          name="flags.bidding"
+          render={() => renderHandshake(stats, details)}
+        />
+        {
+          get(details, 'is_highlighted') && <Featured cutSide="both" className="ribbon-position-details" />
+        }
+      </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className="usa-width-two-thirds about-section-left">
           <h2>About the Position</h2>
