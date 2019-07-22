@@ -25,19 +25,6 @@ jobs:
           paths:
             - ./node_modules
             - ~/.cache/yarn
-  docker-build:
-    <<: *default-docker-node
-    steps:
-      - setup_remote_docker
-      - checkout
-      - run:
-          name: Docker Build
-          command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
-            DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
-            docker build -t talentmap/$DOCKER_HUB_REPO:$TAG .
-            docker push talentmap/$DOCKER_HUB_REPO:$TAG
   yarn:
     <<: *default-docker-node
     steps:
@@ -138,27 +125,11 @@ jobs:
                 -t http://web:3000/ \
                 -w "zap_results.md" \
                 -z "-Xmx4g"
-  push-stable:
-    <<: *default-docker-node
-    steps:
-      - setup_remote_docker
-      - run:
-          name: Push Stable Docker Image
-          command: |
-            TAG=$CIRCLE_BRANCH-$CIRCLE_SHA1
-            DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker pull talentmap/$DOCKER_HUB_REPO:$TAG
-            docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
-            docker push talentmap/$DOCKER_HUB_REPO:$CIRCLE_BRANCH
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - docker-build:
-          requires:
-            - build
       - yarn:
           requires:
             - build
@@ -173,7 +144,3 @@ workflows:
               only: /^zap.*/
             branches:
               ignore: /.*/
-      - push-stable:
-          requires:
-            - yarn
-            # Disabled see 1368 - pa11y
