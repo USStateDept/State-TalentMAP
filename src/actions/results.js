@@ -47,7 +47,7 @@ export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
     if (cancel) { cancel(); }
     dispatch(resultsSimilarPositionsIsLoading(true));
-    api().get(`/position/${id}/similar/?limit=3`)
+    api().get(`/cycleposition/${id}/similar/?limit=3`)
       .then(response => response.data)
       .then((results) => {
         dispatch(resultsSimilarPositionsFetchDataSuccess(results));
@@ -62,7 +62,7 @@ export function resultsFetchSimilarPositions(id) {
 }
 
 export function fetchResultData(query) {
-  let prefix = '/position';
+  let prefix = '/cycleposition';
   const parsed = queryString.parse(query);
   const isPV = parsed.projectedVacancy;
 

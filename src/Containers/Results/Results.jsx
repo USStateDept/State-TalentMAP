@@ -136,6 +136,16 @@ class Results extends Component {
     return !!keys(query).length;
   }
 
+  getStringifiedQuery(q) {
+    const keyword = this.resultsPageRef.getKeywordValue();
+    if (isString(keyword)) {
+      const parsed$ = queryString.parse(q);
+      parsed$.q = keyword;
+      return queryString.stringify(parsed$);
+    }
+    return false;
+  }
+
   createQueryParams() {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword } = this.state;
     const { filters, fetchFilters } = this.props;
@@ -186,11 +196,9 @@ class Results extends Component {
 
     // check if the keyword changed
     if (this.resultsPageRef) {
-      const keyword = this.resultsPageRef.getKeywordValue();
-      if (isString(keyword)) {
-        const parsed$ = queryString.parse(q);
-        parsed$.q = keyword;
-        q$ = queryString.stringify(parsed$);
+      const q$$ = this.getStringifiedQuery(q);
+      if (q$$) {
+        q$ = q$$;
       }
     }
 

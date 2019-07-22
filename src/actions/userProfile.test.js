@@ -52,7 +52,7 @@ describe('async actions', () => {
   it('can remove a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onDelete('http://localhost:8000/api/v1/position/1/favorite/').reply(204,
+    mockAdapter.onDelete('http://localhost:8000/api/v1/cycleposition/1/favorite/').reply(204,
       null,
     );
 
@@ -68,11 +68,11 @@ describe('async actions', () => {
   it('can add a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/1/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/1/').reply(200,
       {},
     );
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/position/1/favorite/').reply(204,
+    mockAdapter.onPut('http://localhost:8000/api/v1/cycleposition/1/favorite/').reply(204,
       null,
     );
 
@@ -88,7 +88,7 @@ describe('async actions', () => {
   it('can handle favoriting errors when favoriting fails', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/position/1/favorite/').reply(404,
+    mockAdapter.onPut('http://localhost:8000/api/v1/cycleposition/1/favorite/').reply(404,
       null,
     );
 

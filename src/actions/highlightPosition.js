@@ -22,7 +22,7 @@ export const highlightPositionFetchDataSuccess = results => ({
 
 export function highlightPositionFetchData() {
   return (dispatch) => {
-    const url = '/position/highlighted/';
+    const url = '/cycleposition/highlighted/';
 
     dispatch(highlightPositionIsLoading(true));
 
@@ -43,7 +43,7 @@ export function highlightPositionFetchData() {
 
 export function getHighlightedPosition(id) {
   return (dispatch) => {
-    const url = `/position/${id}/highlight/`;
+    const url = `/cycleposition/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
 
@@ -63,7 +63,7 @@ export function getHighlightedPosition(id) {
 
 export function putHighlightedPosition(id) {
   return (dispatch) => {
-    const url = `/position/${id}/highlight/`;
+    const url = `/cycleposition/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
 
@@ -87,7 +87,7 @@ export function putHighlightedPosition(id) {
 
 export function deleteHighlightPosition(id) {
   return (dispatch) => {
-    const url = `/position/${id}/highlight/`;
+    const url = `/cycleposition/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
     dispatch(highlightPositionHasErrored(false));

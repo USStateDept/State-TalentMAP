@@ -11,7 +11,7 @@ import PostFilter from '../PostFilter';
 import SkillFilter from '../SkillFilter';
 import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
-import { propSort, sortGrades, getPostName, propOrDefault } from '../../../utilities';
+import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault } from '../../../utilities';
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
 
 const useBidding = () => checkFlag('flags.bidding');
@@ -56,7 +56,7 @@ class SearchFiltersContainer extends Component {
         is_available_in_bidcycle: null,
         is_available_in_current_bidcycle: null,
         is_domestic: null,
-        post__in: null,
+        position__post__in: null,
         projectedVacancy: value,
       };
     }
@@ -190,7 +190,9 @@ class SearchFiltersContainer extends Component {
       let suggestionTemplate; // AutoSuggest will use default template if this stays undefined
       if (n === 'post') {
         getSuggestions = fetchPostAutocomplete;
-        suggestions = postSearchResults;
+        suggestions = mapDuplicates(postSearchResults.map(m => (
+          { ...m, location$: `${m.location.country}-${m.location.city}-${m.location.state}` }
+        )), 'location$');
         placeholder = 'Start typing a location';
         onSuggestionSelected = this.onPostSuggestionSelected;
         displayProperty = getPostName;

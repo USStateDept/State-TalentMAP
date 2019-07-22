@@ -25,7 +25,7 @@ describe('ResultsListComponent', () => {
       results={resultsObject}
       bidList={[]}
     />);
-    expect(wrapper.instance().props.results.results[0].id).toBe(6);
+    expect(wrapper.instance().props.results.results[0].position.id).toBe(6);
   });
 
   it('handles an empty result set', () => {

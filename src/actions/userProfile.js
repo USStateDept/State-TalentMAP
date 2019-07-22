@@ -125,7 +125,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
   return (dispatch) => {
     const config = {
       method: remove ? 'delete' : 'put',
-      url: isPV ? `/projected_vacancy/${idString}/favorite/` : `/position/${idString}/favorite/`,
+      url: isPV ? `/projected_vacancy/${idString}/favorite/` : `/cycleposition/${idString}/favorite/`,
     };
 
     /**
@@ -135,7 +135,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     const getAction = () => api()(config);
 
     // position
-    const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/position_number__in=${id}/` : `/position/${id}/`);
+    const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/position_number__in=${id}/` : `/cycleposition/${id}/`);
 
     dispatch(userProfileFavoritePositionIsLoading(true, id));
     dispatch(userProfileFavoritePositionHasErrored(false));
@@ -144,7 +144,8 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
       .then(axios.spread((action, position) => {
         const pos = isPV ? get(position, 'data.results[0]', {}) : position.data;
         const message = remove ?
-          SystemMessages.DELETE_FAVORITE_SUCCESS(pos) : SystemMessages.ADD_FAVORITE_SUCCESS(pos);
+          SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position) :
+          SystemMessages.ADD_FAVORITE_SUCCESS(pos.position);
         const title = remove ? SystemMessages.DELETE_FAVORITE_TITLE
           : SystemMessages.ADD_FAVORITE_TITLE;
         const cb = () => userProfileFavoritePositionIsLoading(false, id);

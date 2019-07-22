@@ -24,6 +24,7 @@ class BidListResultsCard extends Component {
   }
   render() {
     const { bid, condensedView } = this.props;
+    const { position } = bid.position;
     const createdDate = formatDate(bid.create_date);
     const timeDistanceInWords = getTimeDistanceInWords(bid.update_date);
     const contentTitle = timeDistanceInWords && createdDate ?
@@ -38,10 +39,10 @@ class BidListResultsCard extends Component {
               content={
                 <div>
                   <BidContent
-                    id={bid.position.id}
-                    positionTitle={bid.position.title}
+                    id={position.id}
+                    positionTitle={position.title}
                     status={bid.status}
-                    positionNumber={bid.position.position_number}
+                    positionNumber={position.position_number}
                     postName={bid.post || NO_POST}
                     bidStatistics={bidStatistics}
                   />

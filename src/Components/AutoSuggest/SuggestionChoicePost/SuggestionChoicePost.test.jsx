@@ -5,7 +5,7 @@ import SuggestionChoicePost from './SuggestionChoicePost';
 import resultsObject from '../../../__mocks__/resultsObject';
 
 describe('SuggestionChoicePostComponent', () => {
-  const suggestion = resultsObject.results[0].post;
+  const suggestion = resultsObject.results[0].position.post;
   it('is defined', () => {
     const wrapper = shallow(
       <SuggestionChoicePost

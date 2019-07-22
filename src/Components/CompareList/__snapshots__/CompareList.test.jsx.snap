@@ -39,16 +39,12 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th>
               <div
                 className="column-title-main"
-              >
-                OMS (DCM)
-              </div>
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
-              >
-                SPECIAL AGENT
-              </div>
+              />
             </th>
             <th
               className="empty"
@@ -101,7 +97,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="10034001"
+                    refKey={1}
                     type="compare"
                   />
                 </div>
@@ -139,7 +135,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="56082000"
+                    refKey={2}
                     type="compare"
                   />
                 </div>
@@ -178,7 +174,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/6"
+                  to="/details/1"
                 >
                   View position
                 </Link>
@@ -190,7 +186,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/60"
+                  to="/details/2"
                 >
                   View position
                 </Link>
@@ -445,7 +441,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={6}
+                refKey={1}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}
@@ -459,7 +455,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={60}
+                refKey={2}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}
@@ -549,16 +545,12 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th>
               <div
                 className="column-title-main"
-              >
-                OMS (DCM)
-              </div>
+              />
             </th>
             <th>
               <div
                 className="column-title-main"
-              >
-                SPECIAL AGENT
-              </div>
+              />
             </th>
             <th
               className="empty"
@@ -611,7 +603,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="10034001"
+                    refKey={1}
                     type="compare"
                   />
                 </div>
@@ -649,7 +641,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                     }
                     limit={5}
                     onToggle={[Function]}
-                    refKey="56082000"
+                    refKey={2}
                     type="compare"
                   />
                 </div>
@@ -688,7 +680,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/6"
+                  to="/details/1"
                 >
                   View position
                 </Link>
@@ -700,7 +692,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               >
                 <Link
                   replace={false}
-                  to="/details/60"
+                  to="/details/2"
                 >
                   View position
                 </Link>
@@ -975,7 +967,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={6}
+                refKey={1}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}
@@ -989,7 +981,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
                   }
                 }
                 hasBorder={true}
-                refKey={60}
+                refKey={2}
                 refresh={true}
                 useButtonClass={true}
                 useButtonClassSecondary={true}

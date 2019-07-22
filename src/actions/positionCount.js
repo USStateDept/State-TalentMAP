@@ -26,7 +26,7 @@ export function positionCountFetchData() {
     dispatch(positionCountIsLoading(true));
     dispatch(positionCountHasErrored(false));
     // TODO - update to cycleposition
-    api().get('/position/?limit=1')
+    api().get('/cycleposition/?limit=1')
       .then((response) => {
         const { count } = response.data;
         dispatch(positionCountHasErrored(false));

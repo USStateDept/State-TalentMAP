@@ -9,16 +9,16 @@ import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 describe('HomePageComponent', () => {
   const props = {
     homePagePositions: {
-      [USER_SKILL_CODE_POSITIONS]: [{ id: 1, skill: 'skill 1' }],
-      [SERVICE_NEED_POSITIONS]: [{ id: 3 }],
+      [USER_SKILL_CODE_POSITIONS]: [{ position: { id: 1, skill: 'skill 1' } }],
+      [SERVICE_NEED_POSITIONS]: [{ position: { id: 2, grade: '03' } }],
     },
     bidList: bidListObject.results,
     userProfile: { skills: ['1', '2'], grade: '03' },
   };
 
   const fallBackPositions = {
-    [SERVICE_NEED_POSITIONS]: [{ id: 3 }],
-    [FAVORITED_POSITIONS]: [{ id: 101 }],
+    [SERVICE_NEED_POSITIONS]: [{ position: { id: 3 } }],
+    [FAVORITED_POSITIONS]: [{ position: { id: 101 } }],
   };
 
   it('is defined', () => {
@@ -51,7 +51,7 @@ describe('HomePageComponent', () => {
       {...props}
       homePagePositions={fallBackPositions}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions')[0].id).toBe(101);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions')[0].position.id).toBe(101);
   });
 
   it('sets titles correctly for fallback positions', () => {

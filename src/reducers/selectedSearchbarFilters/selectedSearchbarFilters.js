@@ -4,7 +4,7 @@ export default function selectedSearchbarFilters(state = {}, action) {
       return action.filters;
     // reset on route change
     case '@@router/LOCATION_CHANGE':
-      return { q: '' };
+      return { position_q: '' };
     default:
       return state;
   }

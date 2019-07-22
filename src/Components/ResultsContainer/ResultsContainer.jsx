@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SORT_BY_PARENT_OBJECT,
-PILL_ITEM_ARRAY, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
+         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
+         BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
@@ -15,6 +17,10 @@ class ResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.onPageChange = this.onPageChange.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(nextProps, this.props);
   }
 
   onPageChange(q) {
