@@ -35,7 +35,7 @@ const OBCUrl = ({ id, type, label, isButton, altStyle }) => {
     isButton ?
       <LinkButton isExternal className={`post-data-button ${altStyle ? 'usa-button-secondary' : ''}`} toLink={url} >{text}</LinkButton>
       :
-      <a href={url} rel="noopener noreferrer" target="_blank">{text}</a>
+      <a href={url} rel="noopener" target="_blank">{text}</a>
   );
 };
 
