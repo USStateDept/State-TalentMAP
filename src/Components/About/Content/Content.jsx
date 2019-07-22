@@ -24,7 +24,7 @@ const AboutContent = () => (
     <Alert
       type="info"
       title="TalentMAP Progress is Ongoing"
-      messages={[{ body: <span>For more information, visit <a rel="noopener noreferrer" target="_blank" href={getAssetPath('/about/more')}>HR Systems Online Resources</a>.</span> }]}
+      messages={[{ body: <span>For more information, visit <a rel="noopener" target="_blank" href={getAssetPath('/about/more')}>HR Systems Online Resources</a>.</span> }]}
     />
     <h2>How TalentMAP Works</h2>
     <p>
