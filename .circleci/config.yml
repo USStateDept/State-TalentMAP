@@ -25,7 +25,7 @@ jobs:
           paths:
             - ./node_modules
             - ~/.cache/yarn
-  yarn:
+  jest:
     <<: *default-docker-node
     steps:
       - checkout
@@ -129,7 +129,7 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - yarn:
+      - jest:
           requires:
             - build
       # Disabled see 1368 - pa11y:
