@@ -18,10 +18,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn
       - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
             - ~/.cache/yarn
@@ -36,7 +36,7 @@ jobs:
       - run: cd certs && ./certs.sh
       - run: cd ..
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn
       - run:
           name: Jest Test Coverage
