@@ -137,8 +137,6 @@ workflows:
       #    requires:
       #      - docker-build
       - zap:
-          requires:
-            - docker-build
           filters:
             tags:
               only: /^zap.*/
