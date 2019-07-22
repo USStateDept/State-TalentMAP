@@ -108,6 +108,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     route: '/profile/glossaryeditor/',
     isGlossaryEditor: true,
   },
+  checkFlag('flags.data_sync_admin') ?
   {
     text: 'Administrator',
     route: '/profile/administrator/',
@@ -129,7 +130,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'sitemap',
       },
     ],
-  },
+  } : null,
 ]);
 
 export default GET_PROFILE_MENU;
