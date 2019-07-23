@@ -133,9 +133,6 @@
     "coverageReporters": [
       "lcov"
     ],
-    "reporters": [
-      "jest-junit"
-    ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
       "jest-localstorage-mock",
