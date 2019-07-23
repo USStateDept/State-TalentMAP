@@ -49,12 +49,13 @@ jobs:
           command: yarn add --dev jest-junit
       - run:
           name: Jest Test Coverage
-          command: yarn test --ci --runInBand --reporters=default --reporters=jest-junit
+          command: yarn test -- --ci --reporters=default --reporters=jest-junit
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
       - run: ./cc-test-reporter after-build --exit-code $? < coverage/lcov.info
       - store_test_results:
           path: reports/junit/js-test-results.xml
+          destination: reports/junit/js-test-results.xml
       - store_artifacts:
           path: coverage/lcov.info
           destination: coverage/lcov.info
