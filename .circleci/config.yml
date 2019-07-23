@@ -21,8 +21,6 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn
-      - run: chmod +x ./certs/certs.sh 
-      - run: cd certs && ./certs.sh
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
@@ -32,7 +30,6 @@ jobs:
           root: ~/talentmap
           paths:
             - node_modules
-            - certs
   jest:
     <<: *default-docker-node
     working_directory: ~/talentmap
@@ -41,6 +38,9 @@ jobs:
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
+      - run: chmod +x ./certs/certs.sh 
+      - run: cd certs && ./certs.sh
+      - run: cd ..
       - restore_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn
