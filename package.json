@@ -131,7 +131,9 @@
       "!src/reducers/showStaticContent.js"
     ],
     "coverageReporters": [
-      "lcov",
+      "lcov"
+    ],
+    "reporters": [
       "jest-junit"
     ],
     "setupFiles": [
