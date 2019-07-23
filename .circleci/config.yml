@@ -57,6 +57,7 @@ jobs:
           path: reports
       - store_artifacts:
           path: coverage/lcov.info
+          destination: coverage/lcov.info
  # Disabled see 1368 pa11y:
  #   <<: *default-docker-node
  #   steps:
