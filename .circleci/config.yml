@@ -13,7 +13,7 @@ default-docker-node: &default-docker-node
         API_ROOT: http://app:8000/
         OBC_URL: http://obc:4000/
 jobs:
-  build:
+  setup:
     <<: *default-docker-node
     working_directory: ~/talentmap
     steps:
@@ -142,10 +142,10 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
+      - setup
       - jest:
           requires:
-            - build
+            - setup
       # Disabled see 1368 - pa11y:
       #    requires:
       #      - docker-build
