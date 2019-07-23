@@ -51,14 +51,12 @@ jobs:
           name: Jest Test Coverage
           command: yarn test -- --ci --reporters=default --reporters=jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: "reports/junit/js-test-results.xml"
+            JEST_JUNIT_OUTPUT: "reports/jest/test-results.xml"
       - run: ./cc-test-reporter after-build --exit-code $? < coverage/lcov.info
       - store_test_results:
-          path: reports/junit/js-test-results.xml
-          destination: reports/junit/js-test-results.xml
+          path: reports
       - store_artifacts:
           path: coverage/lcov.info
-          destination: coverage/lcov.info
  # Disabled see 1368 pa11y:
  #   <<: *default-docker-node
  #   steps:
