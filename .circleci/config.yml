@@ -58,6 +58,19 @@ jobs:
       - store_artifacts:
           path: coverage/lcov.info
           destination: coverage/lcov.info
+  site:
+    <<: *default-docker-node
+    working_directory: ~/talentmap
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run: yarn
+      - run:
+          name: Build site
+          command: yarn build
+      - store_artifacts:
+          path: build
  # Disabled see 1368 pa11y:
  #   <<: *default-docker-node
  #   steps:
@@ -144,6 +157,9 @@ workflows:
     jobs:
       - setup
       - jest:
+          requires:
+            - setup
+      - site:
           requires:
             - setup
       # Disabled see 1368 - pa11y:
