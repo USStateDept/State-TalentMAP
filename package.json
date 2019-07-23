@@ -131,7 +131,8 @@
       "!src/reducers/showStaticContent.js"
     ],
     "coverageReporters": [
-      "lcov"
+      "lcov",
+      "jest-junit"
     ],
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
