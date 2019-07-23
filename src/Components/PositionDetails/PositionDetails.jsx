@@ -68,7 +68,7 @@ class PositionDetails extends Component {
         { isReady &&
         <div>
           <PositionTitle
-            details={{ ...position, cpId: details.id }}
+            details={{ ...position, cpId: details.id, availability: details.availability }}
             goBackLink={goBackLink}
             bidList={bidList}
             editDescriptionContent={this.editDescriptionContent}

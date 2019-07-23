@@ -62,7 +62,7 @@ class CompareList extends Component {
                 <BidListButton
                   compareArray={bidList.results}
                   id={c.id}
-                  disabled={!get(c.position, 'availability.availability', true)}
+                  disabled={!get(c, 'availability.availability', true)}
                 />
               </PermissionsWrapper>
             </td>
