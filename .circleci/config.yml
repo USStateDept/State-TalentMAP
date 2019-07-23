@@ -69,8 +69,12 @@ jobs:
       - run:
           name: Build site
           command: yarn build
+      - run:
+          name: Zip artifact
+          command: zip talentmap.zip -r build/*
       - store_artifacts:
-          path: build
+          path: talentmap.zip
+          destination: talentmap.zip
  # Disabled see 1368 pa11y:
  #   <<: *default-docker-node
  #   steps:
