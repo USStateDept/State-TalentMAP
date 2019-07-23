@@ -24,7 +24,7 @@ jobs:
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
-            - ./node_modules
+            - node_modules
             - ~/.cache/yarn
       - persist_to_workspace:
           root: ~/talentmap
