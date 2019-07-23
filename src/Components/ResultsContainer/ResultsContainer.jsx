@@ -33,7 +33,6 @@ class ResultsContainer extends Component {
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
             defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList,
       } = this.props;
-    const { isProjectedVacancy } = this.context;
     return (
       <div className="results-container">
         <ResultsPillContainer
@@ -50,12 +49,7 @@ class ResultsContainer extends Component {
           defaultPageNumber={defaultPageNumber}
           queryParamUpdate={queryParamUpdate}
         />
-        {
-          !isProjectedVacancy ?
-            <SaveNewSearchDialog />
-            :
-            <div style={{ marginBottom: 10 }} />
-        }
+        <SaveNewSearchDialog />
         {
           // is not loading, results array exists, but is empty
           !isLoading && results.results && !results.results.length && !hasErrored &&
@@ -104,10 +98,6 @@ class ResultsContainer extends Component {
     );
   }
 }
-
-ResultsContainer.contextTypes = {
-  isProjectedVacancy: PropTypes.bool,
-};
 
 ResultsContainer.propTypes = {
   hasErrored: PropTypes.bool,
