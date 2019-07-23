@@ -32,6 +32,7 @@ jobs:
           root: ~/talentmap
           paths:
             - node_modules
+            - certs
   jest:
     <<: *default-docker-node
     working_directory: ~/talentmap
