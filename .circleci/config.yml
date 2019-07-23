@@ -9,7 +9,7 @@ default-docker-node: &default-docker-node
         API_REPO_NAME: state-talentmap-api
         API_REPO_BRANCH: staging
         PUBLIC_URL: /talentmap/
-        STATIC_PATH: /home/circleci/project/public
+        STATIC_PATH: /home/circleci/talentmap/public
         API_ROOT: http://app:8000/
         OBC_URL: http://obc:4000/
 jobs:
