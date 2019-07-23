@@ -16,6 +16,8 @@ const AdministratorPage = (props) => {
     syncJobs,
     syncJobsIsLoading,
     runAllJobs,
+    patchSyncJob,
+    patchSyncIsLoading,
   } = props;
 
   const getLink = (link, title) => (
@@ -53,6 +55,8 @@ const AdministratorPage = (props) => {
                           syncJobs={syncJobs}
                           isLoading={syncJobsIsLoading}
                           runAllJobs={runAllJobs}
+                          patchSyncJob={patchSyncJob}
+                          patchSyncIsLoading={patchSyncIsLoading}
                         />
                         <div className="usa-grid-full padding-section button-container">
                           <LinkButton className="unstyled-button" toLink="/profile/administrator/logs">Review Logs</LinkButton>
@@ -88,6 +92,8 @@ AdministratorPage.propTypes = {
   syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
   syncJobsIsLoading: PropTypes.bool,
   runAllJobs: PropTypes.func,
+  patchSyncIsLoading: PropTypes.bool,
+  patchSyncJob: PropTypes.func,
 };
 
 AdministratorPage.defaultProps = {
@@ -95,6 +101,8 @@ AdministratorPage.defaultProps = {
   syncJobs: [],
   syncJobsIsLoading: false,
   runAllJobs: EMPTY_FUNCTION,
+  patchSyncIsLoading: false,
+  patchSyncJob: EMPTY_FUNCTION,
 };
 
 export default AdministratorPage;

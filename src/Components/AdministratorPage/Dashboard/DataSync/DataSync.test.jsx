@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { get } from 'lodash';
 import DataSync, { parseDate } from './DataSync';
 
 describe('DataSync', () => {
@@ -7,11 +8,11 @@ describe('DataSync', () => {
     syncJobs: [
       {
         id: 7,
-        last_sync: '2019-05-29T19:10:43.131897Z',
+        last_synchronization: '2019-05-29T19:10:43.131897Z',
         delta_sync: 604800,
         running: false,
         talentmap_model: 'organization.Country',
-        next_sync: '2019-06-05T19:10:43.131897Z',
+        next_synchronization: '2019-06-05T19:10:43.131897Z',
         priority: 0,
         use_last_date_updated: false,
       },
@@ -44,11 +45,23 @@ describe('DataSync', () => {
     }),
   );
 
-  [['updateOccurrence', 'recurring'], ['updateFrequency', 'frequency'], ['updateTime', 'time'], ['updateDate', 'date']].map(m =>
+  [['updateTime', 'next_synchronization_time'], ['updateDate', 'next_synchronization']].map(m =>
     it(`updates formValues.${m[1]} on ${m[0]}()`, () => {
       const wrapper = shallow(<DataSync {...props} />);
       wrapper.instance()[m[0]]('a');
-      expect(wrapper.instance().state.formValues[m[1]]).toBe('a');
+      expect(get(wrapper.instance().state.formValues, [m[1]])).toBe('a');
     }),
   );
+
+  it('updates state with updateBool()', () => {
+    const wrapper = shallow(<DataSync {...props} />);
+    wrapper.instance().updateBool('a', 'fieldA');
+    expect(wrapper.instance().state.formValues.fieldA).toBe('a');
+  });
+
+  it('updates state with updateVal()', () => {
+    const wrapper = shallow(<DataSync {...props} />);
+    wrapper.instance().updateVal({ target: { value: 'a' } }, 'fieldA');
+    expect(wrapper.instance().state.formValues.fieldA).toBe('a');
+  });
 });

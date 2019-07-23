@@ -1,4 +1,5 @@
 import Q from 'q';
+import { omit } from 'lodash';
 import api from '../api';
 import { toastSuccess, toastError, toastWarning } from './toast';
 
@@ -44,6 +45,20 @@ export function putAllSyncsSuccess(bool) {
   };
 }
 
+export function patchSyncIsLoading(bool) {
+  return {
+    type: 'PATCH_SYNC_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function patchSyncHasErrored(bool) {
+  return {
+    type: 'PATCH_SYNC_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
 export function syncsFetchData() {
   return (dispatch) => {
     dispatch(syncsIsLoading(true));
@@ -58,6 +73,27 @@ export function syncsFetchData() {
         dispatch(syncsHasErrored(true));
         dispatch(syncsIsLoading(false));
       });
+  };
+}
+
+export function patchSync(data = {}) {
+  const { id } = data;
+  const data$ = omit(data, 'id');
+  return (dispatch) => {
+    if (id) {
+      dispatch(patchSyncIsLoading(true));
+      api().patch(`/data_sync/schedule/${id}/`, data$)
+        .then(() => {
+          dispatch(toastSuccess('Synchronization job has been updated', 'Success'));
+          dispatch(patchSyncHasErrored(false));
+          dispatch(patchSyncIsLoading(false));
+        })
+        .catch(() => {
+          dispatch(toastError('There was an error updating this synchronization job. Please try again.', 'Error'));
+          dispatch(patchSyncHasErrored(true));
+          dispatch(patchSyncIsLoading(false));
+        });
+    }
   };
 }
 
