@@ -2,13 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from '../../utilities';
 
+const withPV = (pills, isProjectedVacancy) => {
+  if (isProjectedVacancy) {
+    return ['Projected Vacancy', ...pills];
+  }
+  return pills;
+};
+
 const SavedSearchPillList = ({ pills, isProjectedVacancy, highlightedString }) => (
   pills.length ?
     <div>
       {
         // sort highlighted string to beginning
         // eslint-disable-next-line
-        pills.sort((x, y) => x === highlightedString ? -1 : y === highlightedString ? 1 : 0).map(p => (
+        withPV(pills, isProjectedVacancy).sort((x, y) => x === highlightedString ? -1 : y === highlightedString ? 1 : 0).map(p => (
           <div
             className={`saved-search-pill ${isProjectedVacancy ? 'pill--projected-vacancy' : ''} ${p === highlightedString ? 'pill--highlight' : ''}`}
             key={p}
