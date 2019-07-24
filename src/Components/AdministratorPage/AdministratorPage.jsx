@@ -21,6 +21,8 @@ const AdministratorPage = (props) => {
     syncJobs,
     syncJobsIsLoading,
     runAllJobs,
+    patchSyncJob,
+    patchSyncIsLoading,
   } = props;
 
   const dashboardProps = {
@@ -30,6 +32,8 @@ const AdministratorPage = (props) => {
     syncJobs,
     syncJobsIsLoading,
     runAllJobs,
+    patchSyncJob,
+    patchSyncIsLoading,
   };
 
   const logsProps = {
@@ -68,6 +72,8 @@ AdministratorPage.propTypes = {
   syncJobs: PropTypes.arrayOf(PropTypes.shape({})),
   syncJobsIsLoading: PropTypes.bool,
   runAllJobs: PropTypes.func,
+  patchSyncIsLoading: PropTypes.bool,
+  patchSyncJob: PropTypes.func,
 };
 
 AdministratorPage.defaultProps = {
@@ -85,6 +91,8 @@ AdministratorPage.defaultProps = {
   syncJobs: [],
   syncJobsIsLoading: false,
   runAllJobs: EMPTY_FUNCTION,
+  patchSyncIsLoading: false,
+  patchSyncJob: EMPTY_FUNCTION,
 };
 
 export default AdministratorPage;

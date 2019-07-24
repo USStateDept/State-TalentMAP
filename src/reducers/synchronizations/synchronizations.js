@@ -51,3 +51,21 @@ export function putAllSyncsSuccess(state = false, action) {
       return state;
   }
 }
+
+export function patchSyncIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'PATCH_SYNC_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function patchSyncHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'PATCH_SYNC_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
