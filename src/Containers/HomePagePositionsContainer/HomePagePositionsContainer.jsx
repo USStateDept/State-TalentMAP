@@ -28,7 +28,8 @@ class HomePagePositionsContainer extends Component {
   componentWillReceiveProps(nextProps) {
     // Once we have a valid user profile, fetch the positions, but only
     // once. We'll set hasFetched to true to keep track.
-    if (nextProps.userProfile.id && !this.state.hasFetched) {
+    if (nextProps.userProfile.id && !this.state.hasFetched && !this.props.homePagePositionsIsLoading
+      && !nextProps.homePagePositionsIsLoading) {
       this.props.homePagePositionsFetchData(nextProps.userProfile.skills,
         nextProps.userProfile.grade);
     }
@@ -77,7 +78,7 @@ HomePagePositionsContainer.propTypes = {
 HomePagePositionsContainer.defaultProps = {
   homePagePositionsFetchData: EMPTY_FUNCTION,
   homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
-  homePagePositionsIsLoading: true,
+  homePagePositionsIsLoading: false,
   userProfile: {},
   userProfileIsLoading: false,
 };
