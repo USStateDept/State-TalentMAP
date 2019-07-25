@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import FontAwesome from 'react-fontawesome';
 import { Flag } from 'flag';
 import { Link } from 'react-router-dom';
 import { Featured, Handshake } from '../Ribbon';
@@ -12,16 +11,10 @@ import { checkFlag } from '../../flags';
 
 const useProjectedVacancy = () => checkFlag('flags.projected_vacancy');
 
-const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentlyAvailable }) => {
-  let icon = '';
+const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvailable }) => {
   let cardTopClass = '';
-  let useType = false;
   let vacancyClass;
   let vacancyText;
-  if (type === 'serviceNeed') {
-    icon = 'bolt';
-    useType = true;
-  }
   if (isProjectedVacancy && useProjectedVacancy()) {
     vacancyClass = 'vacancy--projected';
     vacancyText = 'Projected Vacancy';
@@ -54,7 +47,6 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
             'usa-width-one-whole condensed-card-top-header condensed-card-top-header-left'
           }
         >
-          {useType && <span><FontAwesome name={icon} /> </span>}
           { titleHeader }
         </div>
       </div>
