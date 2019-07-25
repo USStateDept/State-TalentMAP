@@ -1,0 +1,55 @@
+.homepage-search-banner {
+  max-width: none;
+  padding: 49px 49px 34px;
+  text-align: center;
+
+  h2 {
+    font-family: Roboto;
+    font-size: 2.2rem;
+    font-weight: 500;
+  }
+
+  div {
+    font-weight: 400;
+
+    &:last-of-type {
+      margin-bottom: 1em;
+    }
+
+    > * {
+      margin-top: .5em;
+    }
+
+    * {
+      display: block;
+    }
+
+    .stats-text {
+      * {
+        display: inline-block;
+      }
+    }
+
+    .react-loading-skeleton {
+      display: inline-block;
+    }
+  }
+
+  img {
+    margin: 0 auto;
+    width: 350px;
+  }
+
+  .link-button {
+    font-size: 1.2em;
+    margin: auto;
+    padding: 1em;
+    width: 305px;
+  }
+
+  .stats-text--position {
+    span:nth-of-type(2) {
+      font-weight: 500;
+    }
+  }
+}

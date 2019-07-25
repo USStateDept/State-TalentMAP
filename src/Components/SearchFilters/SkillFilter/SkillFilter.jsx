@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
@@ -30,6 +31,18 @@ class BureauFilter extends Component {
   // skills, if new value is true. Otherwise, only set the currently
   // selected skills, excluding the selected cone's skills.
   onConeCheckBoxClick(value, props) {
+    // expand the accordion if the user selects that cone
+    const coneId = get(props, 'cone.id');
+    if (value && coneId) {
+      const el = document.getElementById(`skill-cone-accordion-${coneId}-button`);
+      if (el) {
+        const isOpen = el.getAttribute('aria-expanded') === 'true';
+        if (!isOpen) {
+          el.click();
+        }
+      }
+    }
+
     const { item, queryParamUpdate } = this.props;
     const { cone } = props;
     const shouldRemoveChildren = !value;

@@ -49,7 +49,6 @@ describe('Home', () => {
       />);
     wrapper.instance().setState({ hasFetched: false });
     wrapper.setProps({});
-    expect(wrapper.instance().state.hasFetched).toBe(true);
     sinon.assert.calledOnce(spy);
   });
 

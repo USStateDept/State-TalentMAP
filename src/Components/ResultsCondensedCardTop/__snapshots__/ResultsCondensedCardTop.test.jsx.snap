@@ -1,103 +1,111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
-<div
-  className="usa-grid-full condensed-card-top "
+<Link
+  className="usa-grid-full condensed-card-top  condensed-card-top--clickable"
+  replace={false}
+  title="View details for this position"
+  to="/details/1"
 >
-  <div
-    className="usa-grid-full condensed-card-top-header-container"
-  >
+  <div>
     <div
-      className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
+      className="usa-grid-full condensed-card-top-header-container"
     >
-      <h3>
-        OMS (DCM)
-      </h3>
-       
-      <Link
-        replace={false}
-        to="/details/1"
+      <div
+        className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
       >
-        View position
-      </Link>
+        <h3>
+          OMS (DCM)
+        </h3>
+      </div>
+    </div>
+    <div
+      className="usa-grid-full post-ribbon-container"
+    >
+      <div
+        className="post-container"
+      >
+        <span>
+          <span
+            className="title"
+          >
+            Location:
+          </span>
+           
+          <span
+            className="data"
+          >
+            Freetown, Sierra Leone
+          </span>
+        </span>
+      </div>
+      <div
+        className="ribbon-container"
+      >
+        <Flag
+          name="flags.bidding"
+          render={[Function]}
+        />
+      </div>
     </div>
   </div>
-  <div
-    className="usa-grid-full post-ribbon-container"
-  >
-    <div>
-      <span>
-        <span
-          className="title"
-        >
-          Post:
-        </span>
-         
-        <span
-          className="data"
-        >
-          Freetown, Sierra Leone
-        </span>
-      </span>
-    </div>
-    <Flag
-      name="flags.bidding"
-      render={[Function]}
-    />
-  </div>
-</div>
+</Link>
 `;
 
 exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceNeed 1`] = `
-<div
-  className="usa-grid-full condensed-card-top card-top-alternate"
+<Link
+  className="usa-grid-full condensed-card-top  condensed-card-top--clickable"
+  replace={false}
+  title="View details for this position"
+  to="/details/1"
 >
-  <div
-    className="usa-grid-full condensed-card-top-header-container"
-  >
+  <div>
     <div
-      className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
+      className="usa-grid-full condensed-card-top-header-container"
     >
-      <span>
-        <FontAwesome
-          name="bolt"
-        />
-         
-      </span>
-      <h3>
-        OMS (DCM)
-      </h3>
-       
-      <Link
-        replace={false}
-        to="/details/1"
+      <div
+        className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
       >
-        View position
-      </Link>
+        <span>
+          <FontAwesome
+            name="bolt"
+          />
+           
+        </span>
+        <h3>
+          OMS (DCM)
+        </h3>
+      </div>
+    </div>
+    <div
+      className="usa-grid-full post-ribbon-container"
+    >
+      <div
+        className="post-container"
+      >
+        <span>
+          <span
+            className="title"
+          >
+            Location:
+          </span>
+           
+          <span
+            className="data"
+          >
+            Freetown, Sierra Leone
+          </span>
+        </span>
+      </div>
+      <div
+        className="ribbon-container"
+      >
+        <Flag
+          name="flags.bidding"
+          render={[Function]}
+        />
+      </div>
     </div>
   </div>
-  <div
-    className="usa-grid-full post-ribbon-container"
-  >
-    <div>
-      <span>
-        <span
-          className="title"
-        >
-          Post:
-        </span>
-         
-        <span
-          className="data"
-        >
-          Freetown, Sierra Leone
-        </span>
-      </span>
-    </div>
-    <Flag
-      name="flags.bidding"
-      render={[Function]}
-    />
-  </div>
-</div>
+</Link>
 `;

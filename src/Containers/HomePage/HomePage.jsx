@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BID_RESULTS } from '../../Constants/PropTypes';
 import HomePagePositionsContainer from '../HomePagePositionsContainer/HomePagePositionsContainer';
+import HomePageBanner from '../../Components/HomePageBanner';
 
 class HomePage extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ class HomePage extends Component {
     const { userProfileIsLoading, bidList, onNavigateTo } = this.props;
     return (
       <div className="home content-container">
+        <HomePageBanner />
         <HomePagePositionsContainer
           bidList={bidList}
           onNavigateTo={onNavigateTo}

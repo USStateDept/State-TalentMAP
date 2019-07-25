@@ -62,13 +62,13 @@ yarn build
 sudo cp -R build /var/www/html
 
 # remove default config.json
-sudo rm /var/www/html/config/config.json 2>/dev/null
-
+sudo rm /var/www/html/config/config.json
 # rename config_dev.json to config.json so that it gets used instead
-sudo mv /var/www/html/config/config_dev.json /var/www/html/config/config.json
+sudo cp ../config.json /var/www/html/config/config.json
 
 # restart apache
 sudo apachectl restart
 
 # restart the pm2 process
 pm2 restart all --update-env
+

@@ -4,6 +4,8 @@ export default function toast(state = { type: 'success', message: '', title: '' 
       return { type: 'success', message: action.toast, title: action.title };
     case 'TOAST_NOTIFICATION_ERROR':
       return { type: 'error', message: action.toast, title: action.title };
+    case 'TOAST_NOTIFICATION_WARNING':
+      return { type: 'warning', message: action.toast, title: action.title };
     default:
       return state;
   }

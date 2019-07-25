@@ -94,6 +94,32 @@ describe('SkillFilterComponent', () => {
     expect(wrapper.find('AccordionItem').length).toBe(2);
   });
 
+  it('clicks the accordion onConeCheckBoxClick() if getAttribute returns !== "true"', () => {
+    const clickSpy = sinon.spy();
+    global.document.getElementById = () => ({ getAttribute: () => 'false', click: clickSpy });
+    const wrapper = shallow(
+      <SkillFilter
+        {...props}
+      />,
+    );
+
+    wrapper.instance().onConeCheckBoxClick(true, { cone: { id: 1 } });
+    sinon.assert.calledOnce(clickSpy);
+  });
+
+  it('does not click the accordion onConeCheckBoxClick() if getAttribute returns === "true"', () => {
+    const clickSpy = sinon.spy();
+    global.document.getElementById = () => ({ getAttribute: () => 'true', click: clickSpy });
+    const wrapper = shallow(
+      <SkillFilter
+        {...props}
+      />,
+    );
+
+    wrapper.instance().onConeCheckBoxClick(true, { cone: { id: 1 } });
+    sinon.assert.notCalled(clickSpy);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <SkillFilter

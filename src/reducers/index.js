@@ -38,6 +38,11 @@ import features from './features';
 import toast from './toast';
 import clientView from './clientView';
 import sortPreferences from './sortPreferences';
+import aboutContent from './aboutContent';
+import homeBannerContent from './homeBannerContent';
+import logs from './logs';
+import synchronizations from './synchronizations';
+import positionCount from './positionCount';
 
 export default combineReducers({
   ...results,
@@ -73,6 +78,11 @@ export default combineReducers({
   ...toast,
   ...clientView,
   ...sortPreferences,
+  ...aboutContent,
+  ...homeBannerContent,
+  ...logs,
+  ...synchronizations,
+  ...positionCount,
   router,
   form,
   client,

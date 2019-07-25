@@ -62,7 +62,7 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         <span
           className="title"
         >
-          Post: 
+          Location: 
         </span>
         Freetown, Sierra Leone
       </div>

@@ -323,7 +323,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
 // execute the focus within a timeout.
 export const focusById = (id, timeout) => {
   let element = document.getElementById(id);
-  if (!timeout) {
+  if (!isNumber(timeout)) {
     if (element) { element.focus(); }
   } else {
     setTimeout(() => {
@@ -580,6 +580,13 @@ export const spliceStringForCSV = (v) => {
     return `=${v.slice(0, 1)}${v.slice(2)}`;
   }
   return v;
+};
+
+// Returns a paginated array based on page size and the desired page number
+export const paginate = (array, pageSize, pageNumber) => {
+  // because pages logically start with 1, but technically with 0
+  const pageNumber$ = pageNumber - 1;
+  return array.slice(pageNumber$ * pageSize, (pageNumber$ + 1) * pageSize);
 };
 
 // Looks for duplicates in a data set by property, and adds a "hasDuplicateDescription" property

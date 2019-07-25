@@ -16,8 +16,9 @@ import InteractiveElement from '../InteractiveElement';
 export const StaticDevContent = ({ toggle, showStaticContent }) => (
   <InteractiveElement
     type="span"
-    style={{ position: 'absolute', right: '0px', cursor: 'pointer', fontSize: '10px' }}
+    style={{ color: 'white', position: 'absolute', right: '0px', cursor: 'pointer', fontSize: '10px' }}
     onClick={() => toggle(!showStaticContent)}
+    className="static-content-toggle"
   >
     Toggle static content
   </InteractiveElement>

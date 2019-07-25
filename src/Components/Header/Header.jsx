@@ -11,8 +11,6 @@ import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilt
 import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
-import StateBanner from './StateBanner/StateBanner';
-import ResultsSearchHeader from '../ResultsSearchHeader';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
@@ -22,6 +20,9 @@ import MediaQuery from '../MediaQuery';
 import InteractiveElement from '../InteractiveElement';
 import BetaHeader from './BetaHeader';
 import ClientHeader from '../ClientHeader';
+
+const logo = getAssetPath('/assets/logos/png/horizontal_white_thin.png');
+const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white.png');
 
 export class Header extends Component {
   constructor(props) {
@@ -98,10 +99,8 @@ export class Header extends Component {
       client: {
         token,
       },
-      shouldShowSearchBar, logout, userProfile, searchbarFilters,
+      shouldShowSearchBar, logout, userProfile,
     } = this.props;
-
-    const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
 
     let isLoggedIn = false;
     let signedInAs = null;
@@ -121,9 +120,6 @@ export class Header extends Component {
       shouldShowSearchBar && !isOnHasOwnSearchRoute && !isOnForceHideSearchRoute;
     const searchBarVisibilityClass = showResultsSearchHeaderClass ? 'search-bar-visible' : 'search-bar-hidden';
 
-    const shouldRenderSearchBar = !this.isOnHasOwnSearchRoute() && !this.isOnForceHideSearchRoute()
-      && showResultsSearchHeaderClass;
-
     return (
       <div className={`${searchBarVisibilityClass} ${resultsPageClass}`}>
         <InteractiveElement
@@ -140,15 +136,13 @@ export class Header extends Component {
               <ToggleContent />
             )}
           />
-          <StateBanner />
-          <BetaHeader />
-          <ClientHeader />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn">Menu</button>
             <div className="usa-logo" id="logo">
               <div className="usa-logo-text">
                 <Link to="/">
-                  <img src={logo} alt="TalentMAP logo" />
+                  <img src={hrFooterLogo} alt="Bureau of Human Resources logo" className="logo-img-hr" />
+                  <img src={logo} alt="TalentMAP logo" className="logo-img-tm" />
                 </Link>
               </div>
             </div>
@@ -167,18 +161,8 @@ export class Header extends Component {
           </MediaQuery>
           <div className="usa-overlay" />
         </header>
-        {
-          shouldRenderSearchBar &&
-          <div className="results results-search-bar-header">
-            <ResultsSearchHeader
-              onUpdate={this.submitSearch}
-              onFilterChange={this.onFilterChange}
-              defaultKeyword={searchbarFilters.q}
-              labelSrOnly
-              isHomePage
-            />
-          </div>
-        }
+        <BetaHeader />
+        <ClientHeader />
       </div>
     );
   }

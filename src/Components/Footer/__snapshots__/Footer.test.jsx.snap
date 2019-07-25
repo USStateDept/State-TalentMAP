@@ -74,18 +74,13 @@ exports[`Footer Component matches snapshot 1`] = `
       <div
         className="usa-footer-logo usa-width-one-half"
       >
-        <img
-          alt="DOS Seal"
-          className="usa-footer-logo-img logo-img-seal"
-          src="/assets/img/rsz_dos-seal.png"
-        />
         <div
           className="usa-footer-logo-img-tm-container container--hr"
         >
           <img
             alt="Bureau of Human Resources logo"
             className="usa-footer-logo-img logo-img-hr"
-            src="/assets/img/hr-logo.png"
+            src="/assets/logos/png/hr-logo-white.png"
           />
         </div>
         <div
@@ -94,7 +89,7 @@ exports[`Footer Component matches snapshot 1`] = `
           <img
             alt="TalentMAP logo"
             className="usa-footer-logo-img-tm logo-img-tm"
-            src="/assets/logos/png/horizontal_color_thin.png"
+            src="/assets/logos/png/horizontal_white_thin.png"
           />
         </div>
       </div>

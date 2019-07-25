@@ -70,6 +70,7 @@ $condensed-card-data-padding: 15px 20px 9px;
     padding: $condensed-card-padding;
     position: relative;
     width: 100%;
+    z-index: $condensed-card-top-z;
 
     a,
     .data {
@@ -81,11 +82,47 @@ $condensed-card-data-padding: 15px 20px 9px;
     }
   }
 
+  .condensed-card-top--clickable {
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      background-color: $blue-primary-darker;
+
+      h3 {
+        text-decoration: underline;
+      }
+    }
+
+    &:active {
+      background-color: $blue-primary-darkest;
+    }
+  }
+
   .post-ribbon-container {
     display: flex;
 
     div:nth-of-type(1) { flex: 3; }
     div:nth-of-type(2) { flex: 2; }
+
+    // set max-width to fit the ribbon
+    .post-container {
+      max-width: 70%;
+    }
+
+    // if .post-container is the only child, increase the max-width
+    div:last-child {
+      &.post-container {
+        max-width: 100%;
+      }
+    }
+
+    .ribbon-container {
+      position: absolute;
+      right: -1px;
+      top: calc(100% - 26px);
+      z-index: $ribbon-condensed-card-z;
+    }
   }
 
   .card-top-alternate {
@@ -128,7 +165,7 @@ $condensed-card-data-padding: 15px 20px 9px;
       display: inline;
       font-family: inherit;
       font-size: 1.1em;
-      font-weight: inherit;
+      font-weight: 400;
       line-height: inherit;
       margin-bottom: inherit;
       margin-top: 0;
@@ -323,6 +360,8 @@ $condensed-card-data-padding: 15px 20px 9px;
 
   .condensed-card-top {
     min-height: 279px;
+
+    text-decoration: none;
   }
 
   .condensed-card-last-updated {

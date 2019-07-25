@@ -4,7 +4,7 @@ import toJSON from 'enzyme-to-json';
 import SavedSearchPillList from './SavedSearchPillList';
 
 describe('FavoriteContentComponent', () => {
-  const pills = ['1', '0A', 'Projected Vacancy', 'Los Angeles, CA United States of America (Post)'];
+  const pills = ['1', '0A', 'Projected Vacancy', 'Los Angeles, CA United States of America'];
   it('is defined', () => {
     const wrapper = shallow(
       <SavedSearchPillList

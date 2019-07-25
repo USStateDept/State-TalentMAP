@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import ConfirmLink from '../ConfirmLink';
+import InteractiveElement from '../InteractiveElement';
 
 class ResetFilters extends Component {
   constructor(props) {
@@ -16,13 +16,14 @@ class ResetFilters extends Component {
   render() {
     return (
       <div className="reset-filters-container">
-        <ConfirmLink
+        <InteractiveElement
           type="span"
-          className="reset-filters"
           role="link"
-          defaultText={<span><FontAwesome name="times" />Clear Filters</span>}
+          className="reset-filters"
           onClick={this.resetFilters}
-        />
+        >
+          <span><FontAwesome name="times" />Clear Filters</span>
+        </InteractiveElement>
       </div>
     );
   }

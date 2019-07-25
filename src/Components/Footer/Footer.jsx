@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import { getAssetPath } from '../../utilities';
 import logo from '../../assets/logos/png/horizontal_color.png';
 
-const dosFooterLogo = getAssetPath('/assets/img/rsz_dos-seal.png');
-const hrFooterLogo = getAssetPath('/assets/img/hr-logo.png');
-const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
+const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white.png');
+const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_white_thin.png');
 
 const Footer = () => (
   <footer className="usa-footer usa-footer-medium tm-footer" role="contentinfo">
@@ -37,11 +36,6 @@ const Footer = () => (
     <div className="usa-footer-secondary_section tm-footer-body">
       <div className="usa-grid-full tm-footer-body-inner-container padded-main-content">
         <div className="usa-footer-logo usa-width-one-half">
-          <img
-            className="usa-footer-logo-img logo-img-seal"
-            src={dosFooterLogo}
-            alt="DOS Seal"
-          />
           <div className="usa-footer-logo-img-tm-container container--hr">
             <img
               className="usa-footer-logo-img logo-img-hr"

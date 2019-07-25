@@ -21,9 +21,6 @@ exports[`Header matches snapshot when logged in 1`] = `
       name="flags.static_content"
       render={[Function]}
     />
-    <StateBanner />
-    <BetaHeader />
-    <Connect(withRouter(ClientHeader)) />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"
     >
@@ -44,8 +41,14 @@ exports[`Header matches snapshot when logged in 1`] = `
             to="/"
           >
             <img
+              alt="Bureau of Human Resources logo"
+              className="logo-img-hr"
+              src="/assets/logos/png/hr-logo-white.png"
+            />
+            <img
               alt="TalentMAP logo"
-              src="/assets/logos/png/horizontal_color_thin.png"
+              className="logo-img-tm"
+              src="/assets/logos/png/horizontal_white_thin.png"
             />
           </Link>
         </div>
@@ -83,6 +86,8 @@ exports[`Header matches snapshot when logged in 1`] = `
       className="usa-overlay"
     />
   </header>
+  <Connect(BetaHeader) />
+  <Connect(withRouter(ClientHeader)) />
 </div>
 `;
 
@@ -107,9 +112,6 @@ exports[`Header matches snapshot when logged out 1`] = `
       name="flags.static_content"
       render={[Function]}
     />
-    <StateBanner />
-    <BetaHeader />
-    <Connect(withRouter(ClientHeader)) />
     <div
       className="usa-navbar padded-main-content padded-main-content--header"
     >
@@ -130,8 +132,14 @@ exports[`Header matches snapshot when logged out 1`] = `
             to="/"
           >
             <img
+              alt="Bureau of Human Resources logo"
+              className="logo-img-hr"
+              src="/assets/logos/png/hr-logo-white.png"
+            />
+            <img
               alt="TalentMAP logo"
-              src="/assets/logos/png/horizontal_color_thin.png"
+              className="logo-img-tm"
+              src="/assets/logos/png/horizontal_white_thin.png"
             />
           </Link>
         </div>
@@ -163,5 +171,7 @@ exports[`Header matches snapshot when logged out 1`] = `
       className="usa-overlay"
     />
   </header>
+  <Connect(BetaHeader) />
+  <Connect(withRouter(ClientHeader)) />
 </div>
 `;

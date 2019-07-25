@@ -1,6 +1,5 @@
 import api from '../api';
-import { USER_SKILL_CODE_POSITIONS, USER_GRADE_RECENT_POSITIONS, SERVICE_NEED_POSITIONS,
-RECENTLY_POSTED_POSITIONS, FAVORITED_POSITIONS } from '../Constants/PropTypes';
+import { USER_SKILL_CODE_POSITIONS, SERVICE_NEED_POSITIONS, FAVORITED_POSITIONS } from '../Constants/PropTypes';
 import { COMMON_PROPERTIES } from '../Constants/EndpointParams';
 
 // Export our queries so that we can consistently test them.
@@ -32,7 +31,7 @@ export function homePagePositionsFetchDataSuccess(results) {
 }
 
 // general positions search results
-export function homePagePositionsFetchData(skills = [], grade = null) {
+export function homePagePositionsFetchData(skills = []) {
   return (dispatch) => {
     dispatch(homePagePositionsIsLoading(true));
     dispatch(homePagePositionsHasErrored(false));
@@ -41,7 +40,6 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
     const resultsTypes = {
       [SERVICE_NEED_POSITIONS]: [],
       [USER_SKILL_CODE_POSITIONS]: [],
-      [USER_GRADE_RECENT_POSITIONS]: [],
     };
 
     // configure queries that match with properties in resultsTypes
@@ -63,19 +61,6 @@ export function homePagePositionsFetchData(skills = [], grade = null) {
       queryTypes = queryTypes.filter(obj => obj.name !== USER_SKILL_CODE_POSITIONS);
       // return a generic query
       queryTypes.push({ name: FAVORITED_POSITIONS, query: FAVORITE_POSITIONS_QUERY });
-    }
-
-    // Do the same thing for grades. Set grade 3 to the default if the user does not have a grade.
-    if (grade != null) {
-      queryTypes.push(
-        { name: USER_GRADE_RECENT_POSITIONS, query: GET_GRADE_POSITIONS_QUERY(grade) },
-      );
-    } else {
-      // delete the property we're falling back against
-      delete resultsTypes[USER_GRADE_RECENT_POSITIONS];
-      queryTypes = queryTypes.filter(obj => obj.name !== USER_GRADE_RECENT_POSITIONS);
-      // return a generic query
-      queryTypes.push({ name: RECENTLY_POSTED_POSITIONS, query: RECENTLY_POSTED_POSITIONS_QUERY });
     }
 
     // create a promise with all the queries we defined

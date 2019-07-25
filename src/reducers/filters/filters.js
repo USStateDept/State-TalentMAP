@@ -247,6 +247,7 @@ const items =
       {
         item: {
           title: 'Post',
+          altTitle: 'Location',
           sort: 1100,
           bool: false,
           description: 'post',

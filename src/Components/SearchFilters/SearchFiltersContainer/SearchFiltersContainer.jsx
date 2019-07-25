@@ -136,9 +136,9 @@ class SearchFiltersContainer extends Component {
       multiSelectFilterNames.unshift('bidSeason');
     } else {
       multiSelectFilterNames.unshift('bidCycle');
-      // post should come before TOD
-      multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
     }
+    // post should come before TOD
+    multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
     // END TOGGLE FILTERS
 
     // create map
@@ -193,7 +193,7 @@ class SearchFiltersContainer extends Component {
         suggestions = mapDuplicates(postSearchResults.map(m => (
           { ...m, location$: `${m.location.country}-${m.location.city}-${m.location.state}` }
         )), 'location$');
-        placeholder = 'Start typing a post';
+        placeholder = 'Start typing a location';
         onSuggestionSelected = this.onPostSuggestionSelected;
         displayProperty = getPostName;
         suggestionTemplate = SuggestionChoicePost; // special template for posts
@@ -227,7 +227,7 @@ class SearchFiltersContainer extends Component {
                   suggestionTemplate,
                   id: `${type}-autosuggest-container`,
                   inputId: `${type}-autosuggest-input`,
-                  label: 'Search posts',
+                  label: 'Search locations',
                   labelSrOnly: false,
                 }}
               />
@@ -280,8 +280,9 @@ class SearchFiltersContainer extends Component {
       if (item && !includes(blackList, n)) {
         sortedFilters.push(
           { content: getFilter(n),
-            title: item.item.title,
-            id: `accordion-${item.item.title}`,
+            title: get(item, 'item.title'),
+            altTitle: get(item, 'item.altTitle'),
+            id: `accordion-${get(item, 'item.title', '')}`,
           },
         );
       }

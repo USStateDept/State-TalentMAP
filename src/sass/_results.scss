@@ -361,6 +361,11 @@ $results-container-width: 100% - $filter-container-width;
     margin-top: 1rem;
   }
 
+  &.is-loading {
+    opacity: .5;
+    pointer-events: none;
+  }
+
   .projected-vacancy-filter-container {
     margin-bottom: .8em;
     margin-top: .2em;
@@ -378,7 +383,7 @@ $results-container-width: 100% - $filter-container-width;
     .fa {
       color: $color-red;
       float: left;
-      margin: 2px 5px 0 0;
+      margin: 1px 5px 0 0;
     }
   }
 
@@ -463,6 +468,10 @@ $results-container-width: 100% - $filter-container-width;
   .results-controls {
     @media screen and (max-width: $screen-md-min) {
       padding: 0 15px;
+    }
+
+    .usa-button {
+      margin: 0 0 0 .5em;
     }
   }
 
@@ -632,10 +641,6 @@ $results-container-width: 100% - $filter-container-width;
     }
    }
 
-  .saved-search-form {
-    margin-top: 10px;
-  }
-
   .saved-search-form-buttons {
     float: left;
     margin-top: 5px;
@@ -653,7 +658,7 @@ $results-container-width: 100% - $filter-container-width;
   .saved-search-form-secondary-button {
     box-shadow: inset 0 0 0 1px $primary-blue;
     float: left;
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
 
     // Overrides for box-shadow length
     &:hover {

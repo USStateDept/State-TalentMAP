@@ -1,26 +1,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import FA from 'react-fontawesome';
+import InteractiveElement from '../InteractiveElement';
 import { EMPTY_FUNCTION, PREVENT_DEFAULT } from '../../Constants/PropTypes';
+import { focusById } from '../../utilities';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.changeText = this.changeText.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
     this.state = {
       searchText: { value: this.props.defaultValue || '' },
     };
   }
+
   changeText(e) {
     const { searchText } = this.state;
     searchText.value = e.target.value;
     this.setState({ searchText }, this.props.onChangeText(e));
   }
+
+  clearSearch() {
+    const { id } = this.props;
+    this.changeText({ target: { value: '' } });
+    this.props.onClear();
+    focusById(id, 1);
+  }
+
   render() {
     const hidden = {
       display: 'none',
     };
     const { id, type, submitDisabled, submitText, placeholder, inputDisabled,
-      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton }
+      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton, showClear }
       = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
@@ -40,20 +53,40 @@ class SearchBar extends Component {
     if (submitDisabled) {
       submitDisabledClass = 'usa-button-disabled';
     }
+
+    const hasValue = !!searchText.value;
+
+    const input = (
+      <input
+        id={id}
+        value={inputDisabled ? '' : searchText.value}
+        onChange={this.changeText}
+        type="search"
+        name="search"
+        placeholder={placeholder}
+        disabled={inputDisabled}
+      />
+    );
     const child = (
       <div className="usa-grid-full label-input-wrapper">
         <label className={labelClass} htmlFor={id}>
           {label}
         </label>
-        <input
-          id={id}
-          value={inputDisabled ? '' : searchText.value}
-          onChange={this.changeText}
-          type="search"
-          name="search"
-          placeholder={placeholder}
-          disabled={inputDisabled}
-        />
+        {
+          showClear ?
+            <span className="text-input-wrapper">
+              {input}
+              {
+                hasValue ? (
+                  <InteractiveElement onClick={this.clearSearch} type="span" role="button" title="Clear keyword">
+                    <FA name="times-circle" />
+                  </InteractiveElement>
+                ) : <FA name="search" />
+              }
+            </span>
+          :
+            input
+        }
         <div id={`enabled-search-${id}`}>
           { !noButton &&
           <button
@@ -88,7 +121,7 @@ class SearchBar extends Component {
       </div>
     );
     return (
-      <div className={`usa-search usa-search-${type}`}>
+      <div className={`usa-search usa-search-${type} searchbar`}>
         <div role="search" className="usa-grid-full">
           { !noForm &&
             <form onSubmit={onSubmitSearch}>
@@ -120,6 +153,8 @@ SearchBar.propTypes = {
   placeholder: PropTypes.string,
   defaultValue: PropTypes.string,
   inputDisabled: PropTypes.bool,
+  showClear: PropTypes.bool,
+  onClear: PropTypes.func,
 };
 
 SearchBar.defaultProps = {
@@ -135,6 +170,8 @@ SearchBar.defaultProps = {
   onSubmitSearch: PREVENT_DEFAULT,
   onChangeText: EMPTY_FUNCTION,
   inputDisabled: false,
+  showClear: false,
+  onClear: EMPTY_FUNCTION,
 };
 
 export default SearchBar;

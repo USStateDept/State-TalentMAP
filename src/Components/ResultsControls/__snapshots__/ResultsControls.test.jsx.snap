@@ -5,16 +5,17 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
   className="usa-grid-full results-controls"
 >
   <div
-    className="usa-width-five-twelfths total-results"
+    className="usa-width-one-fifth total-results"
   >
     <TotalResults
       pageNumber={0}
       pageSize={10}
+      suffix="Results"
       total={2}
     />
   </div>
   <div
-    className="usa-width-seven-twelfths-thirds drop-downs"
+    className="usa-width-four-fifths drop-downs"
   >
     <div
       className="dropdowns-container"
@@ -30,7 +31,6 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
           id="sort"
           includeFirstEmptyOption={false}
           label="Sort by:"
-          languages={Array []}
           onSelectOption={[Function]}
           options={
             Array [
@@ -58,7 +58,6 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
             id="pageSize"
             includeFirstEmptyOption={false}
             label="Results:"
-            languages={Array []}
             onSelectOption={[Function]}
             options={
               Array [
@@ -92,6 +91,15 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
           />
         </Connect(PermissionsWrapper)>
       </div>
+      <Connect(Trigger)
+        isPrimary={true}
+      >
+        <button
+          className="usa-button"
+        >
+          Save Search
+        </button>
+      </Connect(Trigger)>
     </div>
   </div>
 </div>

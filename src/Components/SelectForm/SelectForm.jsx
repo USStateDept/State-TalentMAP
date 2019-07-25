@@ -87,7 +87,6 @@ SelectForm.propTypes = {
 };
 
 SelectForm.defaultProps = {
-  languages: [],
   defaultSort: '',
   onSelectOption: EMPTY_FUNCTION,
   includeFirstEmptyOption: false,

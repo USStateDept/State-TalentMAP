@@ -37,11 +37,11 @@ describe('async actions', () => {
       ],
     };
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number__in=6,60').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/?has_id=6,60').reply(200,
       comparisons,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/?position_number__in=5,20').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/?has_id=5,20').reply(404,
       null,
     );
   });

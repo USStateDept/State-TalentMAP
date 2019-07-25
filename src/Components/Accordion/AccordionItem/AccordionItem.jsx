@@ -11,6 +11,7 @@ buttonClass, childClass, preContent }) => {
     <li className={className}>
       {preContent}
       <button
+        id={`${id}-button`}
         className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''}`}
         aria-expanded={expanded}
         aria-controls={formattedId}

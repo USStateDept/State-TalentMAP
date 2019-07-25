@@ -18,7 +18,7 @@ const FavoriteContent = ({ position }) => (
       {propOrDefault(position, 'grade', NO_GRADE)}
     </div>
     <div>
-      <span className="bid-list-card-title-post">Post: </span>
+      <span className="bid-list-card-title-post">Location: </span>
       {getPostName(position.post, NO_POST)}
     </div>
   </div>

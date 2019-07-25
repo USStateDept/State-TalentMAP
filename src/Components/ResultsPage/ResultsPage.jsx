@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
-SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY,
-POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
@@ -21,16 +21,23 @@ class Results extends Component {
     return { isProjectedVacancy: this.props.isProjectedVacancy };
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(nextProps, this.props);
+  }
+
+  getKeywordValue() {
+    return this.keywordRef ? this.keywordRef.getValue() : null;
+  }
+
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
             pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
             defaultPageNumber, onQueryParamUpdate, filters, userProfile,
-            selectedAccordion, setAccordion, scrollToTop, saveSearch,
-            newSavedSearchHasErrored, currentSavedSearch, newSavedSearchIsSaving,
+            selectedAccordion, setAccordion, scrollToTop,
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            bidList, isProjectedVacancy }
+            bidList, isProjectedVacancy, filtersIsLoading, showClear }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     return (
@@ -39,6 +46,7 @@ class Results extends Component {
         {
           shouldShowSearchBar &&
           <ResultsSearchHeader
+            ref={(ref) => { this.keywordRef = ref; }}
             onUpdate={onQueryParamUpdate}
             defaultKeyword={defaultKeyword}
             defaultLocation={defaultLocation}
@@ -48,6 +56,7 @@ class Results extends Component {
         <div className="usa-grid-full results-section-container">
           <ResultsFilterContainer
             filters={filters}
+            isLoading={filtersIsLoading}
             onQueryParamUpdate={onQueryParamUpdate}
             onChildToggle={this.onChildToggle}
             onQueryParamToggle={onQueryParamToggle}
@@ -62,6 +71,7 @@ class Results extends Component {
             postSearchResults={postSearchResults}
             postSearchIsLoading={postSearchIsLoading}
             postSearchHasErrored={postSearchHasErrored}
+            showClear={showClear}
           />
           <ResultsContainer
             results={results}
@@ -81,10 +91,6 @@ class Results extends Component {
             onQueryParamToggle={onQueryParamToggle}
             scrollToTop={scrollToTop}
             userProfile={userProfile}
-            saveSearch={saveSearch}
-            newSavedSearchHasErrored={newSavedSearchHasErrored}
-            newSavedSearchIsSaving={newSavedSearchIsSaving}
-            currentSavedSearch={currentSavedSearch}
             bidList={bidList}
           />
         </div>
@@ -95,6 +101,7 @@ class Results extends Component {
 
 Results.propTypes = {
   hasErrored: PropTypes.bool.isRequired,
+  filtersIsLoading: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   results: POSITION_SEARCH_RESULTS,
   onQueryParamUpdate: PropTypes.func.isRequired,
@@ -113,10 +120,6 @@ Results.propTypes = {
   filters: FILTER_ITEMS_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
-  saveSearch: PropTypes.func.isRequired,
-  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
-  newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  currentSavedSearch: SAVED_SEARCH_OBJECT,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
   missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   missionSearchIsLoading: PropTypes.bool.isRequired,
@@ -128,6 +131,7 @@ Results.propTypes = {
   shouldShowSearchBar: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  showClear: PropTypes.bool,
 };
 
 Results.defaultProps = {
@@ -147,6 +151,7 @@ Results.defaultProps = {
   userProfile: {},
   currentSavedSearch: {},
   isProjectedVacancy: false,
+  showClear: false,
 };
 
 Results.contextTypes = {

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Flag } from 'flag';
-import Handshake from '../Ribbon/Handshake';
+import { Link } from 'react-router-dom';
+import { Featured, Handshake } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
@@ -20,7 +20,6 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
   let vacancyText;
   if (type === 'serviceNeed') {
     icon = 'bolt';
-    cardTopClass = 'card-top-alternate';
     useType = true;
   }
   if (isProjectedVacancy && useProjectedVacancy()) {
@@ -35,8 +34,14 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
   const stats = getBidStatisticsObject(p.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
 
-  return (
-    <div className={`usa-grid-full condensed-card-top ${cardTopClass}`}>
+  const title = get(position, 'position.title', '');
+
+  const titleHeader = <h3>{title}</h3>;
+
+  const link = `/details/${position.id}`;
+
+  const innerContent = (
+    <div>
       {
         vacancyText &&
         <div className={`usa-grid-full condensed-card-top-header-container vacancy-text-container ${vacancyClass}`}>
@@ -50,32 +55,47 @@ const ResultsCondensedCardTop = ({ position, type, isProjectedVacancy, isRecentl
           }
         >
           {useType && <span><FontAwesome name={icon} /> </span>}
-          <h3>{p.title}</h3> {!isProjectedVacancy && <Link to={`/details/${position.id}`}>View position</Link>}
+          { titleHeader }
         </div>
       </div>
       <div className="usa-grid-full post-ribbon-container">
-        <div>
-          <span><span className="title">Post:</span> <span className="data">{getPostName(p.post, NO_POST)}</span></span>
+        <div className="post-container">
+          <span><span className="title">Location:</span> <span className="data">{getPostName(p.post, NO_POST)}</span></span>
         </div>
-        <Flag
-          name="flags.bidding"
-          render={() => (
-            hasHandshake &&
-              <div>
-                <Handshake className="ribbon-condensed-card" />
-              </div>
-          )}
-        />
+        <div className="ribbon-container">
+          <Flag
+            name="flags.bidding"
+            render={() => (
+              hasHandshake && <Handshake className="ribbon-condensed-card" />
+            )}
+          />
+          {
+            get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
+          }
+        </div>
       </div>
     </div>
+  );
+
+  const containerProps = {
+    className: `usa-grid-full condensed-card-top ${cardTopClass} ${isProjectedVacancy ? '' : 'condensed-card-top--clickable'}`,
+  };
+
+  return (
+    isProjectedVacancy ?
+      <div {...containerProps} >
+        {innerContent}
+      </div>
+    :
+      <Link to={link} {...containerProps} title="View details for this position">
+        {innerContent}
+      </Link>
   );
 };
 
 ResultsCondensedCardTop.propTypes = {
-  position: PropTypes.shape({
-    position: POSITION_DETAILS.isRequired,
-  }).isRequired,
-  type: HOME_PAGE_CARD_TYPE.isRequired,
+  position: POSITION_DETAILS.isRequired,
+  type: HOME_PAGE_CARD_TYPE,
   isProjectedVacancy: PropTypes.bool,
   isRecentlyAvailable: PropTypes.bool,
 };

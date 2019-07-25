@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT,
+import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
          SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
          BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
-import SaveNewSearchContainer from '../SaveNewSearchContainer';
+import { SaveNewSearchDialog } from '../SaveNewSearch';
 
 class ResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.onPageChange = this.onPageChange.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(nextProps, this.props);
   }
 
   onPageChange(q) {
@@ -26,11 +31,8 @@ class ResultsContainer extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-            defaultPageNumber, queryParamUpdate, onQueryParamToggle,
-            newSavedSearchHasErrored, saveSearch,
-            currentSavedSearch, newSavedSearchIsSaving, bidList,
+            defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList,
       } = this.props;
-    const { isProjectedVacancy } = this.context;
     return (
       <div className="results-container">
         <ResultsPillContainer
@@ -47,22 +49,19 @@ class ResultsContainer extends Component {
           defaultPageNumber={defaultPageNumber}
           queryParamUpdate={queryParamUpdate}
         />
-        {
-          !isProjectedVacancy ?
-            <SaveNewSearchContainer
-              saveSearch={saveSearch}
-              newSavedSearchHasErrored={newSavedSearchHasErrored}
-              currentSavedSearch={currentSavedSearch}
-              newSavedSearchIsSaving={newSavedSearchIsSaving}
-            />
-            :
-            <div style={{ marginBottom: 10 }} />
-        }
+        <SaveNewSearchDialog />
         {
           // is not loading, results array exists, but is empty
-          !isLoading && results.results && !results.results.length &&
+          !isLoading && results.results && !results.results.length && !hasErrored &&
             <div className="usa-grid-full no-results">
               <Alert title="No results found" messages={[{ body: 'Try broadening your search criteria' }]} />
+            </div>
+        }
+        {
+          // is not loading and has errored
+          !isLoading && hasErrored &&
+            <div className="usa-grid-full no-results">
+              <Alert type="error" title="An error has occurred" messages={[{ body: 'Try performing another search' }]} />
             </div>
         }
         {
@@ -100,10 +99,6 @@ class ResultsContainer extends Component {
   }
 }
 
-ResultsContainer.contextTypes = {
-  isProjectedVacancy: PropTypes.bool,
-};
-
 ResultsContainer.propTypes = {
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool.isRequired,
@@ -121,10 +116,6 @@ ResultsContainer.propTypes = {
   pillFilters: PILL_ITEM_ARRAY,
   scrollToTop: PropTypes.func,
   userProfile: USER_PROFILE,
-  saveSearch: PropTypes.func.isRequired,
-  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE.isRequired,
-  newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  currentSavedSearch: SAVED_SEARCH_OBJECT,
   totalResults: PropTypes.number,
   bidList: BID_RESULTS.isRequired,
 };

@@ -37,7 +37,7 @@ const CompareDrawer = ({ comparisons, isHidden }) => {
                 <strong>Grade:</strong> {c.position.grade || NO_GRADE}
               </span>
               <span className="data-point">
-                <strong>Post:</strong> {getPostName(c.position.post, NO_POST)}
+                <strong>Location:</strong> {getPostName(c.position.post, NO_POST)}
               </span>
             </div>
         ))

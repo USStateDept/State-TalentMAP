@@ -56,6 +56,11 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'tachometer',
       },
       {
+        text: 'Notifications',
+        route: '/profile/notifications',
+        icon: 'globe',
+      },
+      {
         text: 'Favorites',
         route: '/profile/favorites/',
         icon: 'star',
@@ -81,7 +86,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       {
-        text: 'Bidder Portfolio',
+        text: 'Client Profiles', // aka Bidder Portfolio
         route: '/profile/bidderportfolio',
         icon: 'users',
         isCDO: true,
@@ -98,10 +103,43 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     isCDO: true,
   },
   {
-    text: 'Glossary Editor',
-    icon: 'book',
-    route: '/profile/glossaryeditor/',
-    isGlossaryEditor: true,
+    text: 'Administrator',
+    route: '/profile/administrator/',
+    icon: 'sitemap',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+      'glossary_editors',
+    ],
+    children: [
+      checkFlag('flags.data_sync_admin') ?
+      {
+        text: 'Dashboard',
+        route: '/profile/administrator/dashboard/',
+        icon: 'tachometer',
+        roles: [
+          'superuser',
+        ],
+      } : null,
+      checkFlag('flags.data_sync_admin') ?
+      {
+        text: 'Logs',
+        route: '/profile/administrator/logs/',
+        icon: 'sitemap',
+        roles: [
+          'superuser',
+        ],
+      } : null,
+      {
+        text: 'Glossary Editor',
+        route: '/profile/glossaryeditor/',
+        icon: 'book',
+        roles: [
+          'glossary_editors',
+        ],
+      },
+    ],
   },
 ]);
 
