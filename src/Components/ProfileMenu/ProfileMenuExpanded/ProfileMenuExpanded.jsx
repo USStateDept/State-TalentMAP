@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { difference } from 'lodash';
+import { get, intersection } from 'lodash';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
 
@@ -10,9 +10,11 @@ import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import { GET_PROFILE_MENU } from '../../../Constants/Menu';
 
 function isHidden(options, roles, params) {
-  const hasMissingRoles = difference(options.roles, roles).length > 0;
-  return (options.isCDO && !params.isCDO) ||
-    (options.isGlossaryEditor && !params.isGlossaryEditor) || hasMissingRoles;
+  let doesNotHaveRoles = false;
+  if (get(options, 'roles', []).length) {
+    doesNotHaveRoles = intersection(options.roles, roles).length === 0;
+  }
+  return (options.isCDO && !params.isCDO) || doesNotHaveRoles;
 }
 
 function getParamValueIfOption(option, param) {

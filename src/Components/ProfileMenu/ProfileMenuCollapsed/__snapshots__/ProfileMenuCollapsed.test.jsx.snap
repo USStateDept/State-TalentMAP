@@ -31,12 +31,6 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
       search=""
     />
     <withRouter(NavLink)
-      hidden={false}
-      iconName="book"
-      link="/profile/glossaryeditor/"
-      search=""
-    />
-    <withRouter(NavLink)
       hidden={true}
       iconName="sitemap"
       link="/profile/administrator/"
@@ -74,12 +68,6 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
       hidden={true}
       iconName="pie-chart"
       link="/profile/statistics"
-      search=""
-    />
-    <withRouter(NavLink)
-      hidden={true}
-      iconName="book"
-      link="/profile/glossaryeditor/"
       search=""
     />
     <withRouter(NavLink)

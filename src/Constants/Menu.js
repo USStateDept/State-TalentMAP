@@ -103,13 +103,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     isCDO: true,
   },
   {
-    text: 'Glossary Editor',
-    icon: 'book',
-    route: '/profile/glossaryeditor/',
-    isGlossaryEditor: true,
-  },
-  checkFlag('flags.data_sync_admin') ?
-  {
     text: 'Administrator',
     route: '/profile/administrator/',
     icon: 'sitemap',
@@ -117,20 +110,37 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     expandedSection: true,
     roles: [
       'superuser',
+      'glossary_editors',
     ],
     children: [
+      checkFlag('flags.data_sync_admin') ?
       {
         text: 'Dashboard',
         route: '/profile/administrator/dashboard/',
         icon: 'tachometer',
-      },
+        roles: [
+          'superuser',
+        ],
+      } : null,
+      checkFlag('flags.data_sync_admin') ?
       {
         text: 'Logs',
         route: '/profile/administrator/logs/',
         icon: 'sitemap',
+        roles: [
+          'superuser',
+        ],
+      } : null,
+      {
+        text: 'Glossary Editor',
+        route: '/profile/glossaryeditor/',
+        icon: 'book',
+        roles: [
+          'glossary_editors',
+        ],
       },
     ],
-  } : null,
+  },
 ]);
 
 export default GET_PROFILE_MENU;

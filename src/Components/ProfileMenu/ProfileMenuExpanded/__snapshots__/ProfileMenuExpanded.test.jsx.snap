@@ -93,13 +93,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       title="Statistics"
     />
     <withRouter(NavLink)
-      hidden={false}
-      iconName="book"
-      link="/profile/glossaryeditor/"
-      search=""
-      title="Glossary Editor"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -113,18 +106,25 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="tachometer"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="sitemap"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
@@ -224,13 +224,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       title="Statistics"
     />
     <withRouter(NavLink)
-      hidden={false}
-      iconName="book"
-      link="/profile/glossaryeditor/"
-      search=""
-      title="Glossary Editor"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -244,18 +237,25 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="tachometer"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="sitemap"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
@@ -355,13 +355,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       title="Statistics"
     />
     <withRouter(NavLink)
-      hidden={true}
-      iconName="book"
-      link="/profile/glossaryeditor/"
-      search=""
-      title="Glossary Editor"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -375,18 +368,25 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="tachometer"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="sitemap"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
@@ -486,13 +486,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       title="Statistics"
     />
     <withRouter(NavLink)
-      hidden={false}
-      iconName="book"
-      link="/profile/glossaryeditor/"
-      search=""
-      title="Glossary Editor"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -506,18 +499,25 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="tachometer"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="sitemap"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
