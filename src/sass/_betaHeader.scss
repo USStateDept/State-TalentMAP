@@ -5,4 +5,25 @@
   .fa {
     margin-right: 1em;
   }
+
+  .loader {
+    display: inline;
+
+    > div {
+      display: inline;
+    }
+  }
+
+  .editor {
+    height: 80px;
+  }
+
+  .public-DraftEditor-content {
+    height: 62px;
+    min-height: 62px;
+  }
+
+  .description-edit {
+    margin-left: 5px;
+  }
 }

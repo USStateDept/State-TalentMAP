@@ -45,6 +45,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
+      />
+      <withRouter(NavLink)
+        hidden={false}
         iconName="star"
         link="/profile/favorites/"
         search=""
@@ -75,7 +82,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -86,12 +93,40 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       title="Statistics"
     />
     <withRouter(NavLink)
-      hidden={false}
-      iconName="book"
-      link="/profile/glossaryeditor/"
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="sitemap"
       search=""
-      title="Glossary Editor"
-    />
+      title="Administrator"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        link="/profile/administrator/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="sitemap"
+        link="/profile/administrator/logs/"
+        search=""
+        title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
+      />
+    </withRouter(NavLink)>
   </NavLinksContainer>
 </div>
 `;
@@ -141,6 +176,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
+      />
+      <withRouter(NavLink)
+        hidden={false}
         iconName="star"
         link="/profile/favorites/"
         search=""
@@ -171,7 +213,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -182,12 +224,40 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       title="Statistics"
     />
     <withRouter(NavLink)
-      hidden={false}
-      iconName="book"
-      link="/profile/glossaryeditor/"
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="sitemap"
       search=""
-      title="Glossary Editor"
-    />
+      title="Administrator"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        link="/profile/administrator/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="sitemap"
+        link="/profile/administrator/logs/"
+        search=""
+        title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
+      />
+    </withRouter(NavLink)>
   </NavLinksContainer>
 </div>
 `;
@@ -237,6 +307,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
+      />
+      <withRouter(NavLink)
+        hidden={false}
         iconName="star"
         link="/profile/favorites/"
         search=""
@@ -267,7 +344,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -278,12 +355,40 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       title="Statistics"
     />
     <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
       hidden={true}
-      iconName="book"
-      link="/profile/glossaryeditor/"
+      iconName="sitemap"
       search=""
-      title="Glossary Editor"
-    />
+      title="Administrator"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        link="/profile/administrator/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="sitemap"
+        link="/profile/administrator/logs/"
+        search=""
+        title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
+      />
+    </withRouter(NavLink)>
   </NavLinksContainer>
 </div>
 `;
@@ -333,6 +438,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={false}
+        iconName="globe"
+        link="/profile/notifications"
+        search=""
+        title="Notifications"
+      />
+      <withRouter(NavLink)
+        hidden={false}
         iconName="star"
         link="/profile/favorites/"
         search=""
@@ -363,7 +475,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         iconName="users"
         link="/profile/bidderportfolio"
         search="?type=all"
-        title="Bidder Portfolio"
+        title="Client Profiles"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -374,12 +486,40 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       title="Statistics"
     />
     <withRouter(NavLink)
-      hidden={false}
-      iconName="book"
-      link="/profile/glossaryeditor/"
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="sitemap"
       search=""
-      title="Glossary Editor"
-    />
+      title="Administrator"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        link="/profile/administrator/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="sitemap"
+        link="/profile/administrator/logs/"
+        search=""
+        title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="book"
+        link="/profile/glossaryeditor/"
+        search=""
+        title="Glossary Editor"
+      />
+    </withRouter(NavLink)>
   </NavLinksContainer>
 </div>
 `;

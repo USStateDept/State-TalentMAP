@@ -55,7 +55,7 @@ class DraftAlert extends Component {
               {positionTitle}
             </div>
             <div>
-              <span className="title">Post: </span>
+              <span className="title">Location: </span>
               {post}
             </div>
             <div>

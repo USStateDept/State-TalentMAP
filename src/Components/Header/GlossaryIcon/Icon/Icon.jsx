@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
 import InteractiveElement from '../../../InteractiveElement';
 import { GLOSSARY_OPEN_ICON_ID } from '../../../../Constants/HtmlAttributes';
@@ -13,7 +12,6 @@ const Icon = ({ onClick }) => (
     title="View the glossary"
     onClick={onClick}
   >
-    <FontAwesome name="book" />
     <span>Glossary</span>
   </InteractiveElement>
 );

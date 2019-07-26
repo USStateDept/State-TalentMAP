@@ -1,40 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import { Flag } from 'flag';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
 import Notifications from '../Notifications';
 import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
-import InteractiveElement from '../../InteractiveElement';
 
 const DesktopNav = ({
   isLoggedIn,
-  shouldShowSearchBar,
   userProfile,
   logout,
-  toggleSearchVisibility,
 }) => (
   <div className="navigation-container">
     <div className="nav-link-container header-nav-desktop desktop-nav-only">
-      {
-        isLoggedIn &&
-        <div className={`header-nav-link-container ${shouldShowSearchBar ? 'is-highlighted' : 'is-not-highlighted'}`}>
-          <div className="header-nav-link">
-            <div className="header-nav-link-text search-text">
-              <InteractiveElement
-                type="span"
-                onClick={toggleSearchVisibility}
-              >
-                <FontAwesome name="search" /> Search
-              </InteractiveElement>
-            </div>
-          </div>
-        </div>
-      }
-      <NavLink link="/" title="Home" navLinkClass="home-text" />
-      <NavLink link="/about" title="About" navLinkClass="about-text" />
+      <NavLink link="/" title="Home" routeToRight="/results" />
+      <NavLink link="/results" title="Search" />
     </div>
     <div className="header-nav-desktop desktop-nav-only account-notification-container">
       <div className="header-nav-link-container account-container">
@@ -57,9 +38,11 @@ const DesktopNav = ({
             isLoggedIn &&
               <span>
                 <Flag name="flags.notifications">
-                  <Notifications />
+                  <Notifications className="notifications-icon" />
                 </Flag>
-                <GlossaryIcon />
+                <div className="icon-alert-container glossary-link-container">
+                  <GlossaryIcon />
+                </div>
               </span>
           }
         </div>
@@ -70,10 +53,8 @@ const DesktopNav = ({
 
 DesktopNav.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  shouldShowSearchBar: PropTypes.bool.isRequired,
   userProfile: USER_PROFILE,
   logout: PropTypes.func.isRequired,
-  toggleSearchVisibility: PropTypes.func.isRequired,
 };
 
 DesktopNav.defaultProps = {

@@ -3,8 +3,20 @@ const bodyParser = require('body-parser');
 const bunyan = require('bunyan');
 const helmet = require('helmet');
 const path = require('path');
+const url = require('url');
 const routesArray = require('./routes.js');
 const { metadata, login } = require('./saml2-config');
+
+// middleware to override helmet.noCache
+const removeCacheControl = (req, res, next) => {
+  res.set({
+    'Cache-Control': 'public',
+  });
+  res.removeHeader('Surrogate-Control');
+  res.removeHeader('Pragma');
+  res.removeHeader('Expires');
+  next();
+};
 
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
@@ -81,6 +93,17 @@ app.disable('x-powered-by');
 // middleware for HTTP headers
 app.use(helmet());
 app.use(helmet.noCache());
+
+// cache certain extensions (images and fonts)
+app.use(PUBLIC_URL, (req, res, next) => {
+  const urlObj = url.parse(req.originalUrl);
+  const matches = urlObj.pathname.match(/\.(jpe?g|png|gif|svg|woff2)$/i);
+  if (matches) {
+    removeCacheControl(req, res, next);
+  } else {
+    next();
+  }
+});
 
 // middleware for static assets
 app.use(PUBLIC_URL, express.static(STATIC_PATH));

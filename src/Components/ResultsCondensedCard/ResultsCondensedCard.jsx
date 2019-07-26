@@ -42,6 +42,7 @@ const ResultsCondensedCard = (
       />
       <ResultsCondensedCardFooter
         position={position}
+        isProjectedVacancy={isProjectedVacancy}
       />
     </BoxShadow>
 );

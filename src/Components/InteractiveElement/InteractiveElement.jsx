@@ -49,7 +49,7 @@ const InteractiveElement = ({ children, type, className, ...rest }) => {
 InteractiveElement.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.oneOfType([PropTypes.string, PropTypes.func]), // string or react element
 };
 
 InteractiveElement.defaultProps = {

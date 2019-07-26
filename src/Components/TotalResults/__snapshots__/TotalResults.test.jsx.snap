@@ -14,7 +14,8 @@ exports[`TotalResults displays page numbers and total results correctly when on 
   <strong>
     103
   </strong>
-   Results
+   
+  Results
 </span>
 `;
 
@@ -32,7 +33,8 @@ exports[`TotalResults displays page numbers and total results correctly when on 
   <strong>
     103
   </strong>
-   Results
+   
+  Results
 </span>
 `;
 
@@ -50,7 +52,8 @@ exports[`TotalResults displays page numbers and total results correctly when on 
   <strong>
     103
   </strong>
-   Results
+   
+  Results
 </span>
 `;
 
@@ -68,7 +71,8 @@ exports[`TotalResults displays page numbers and total results correctly when rea
   <strong>
     103
   </strong>
-   Results
+   
+  Results
 </span>
 `;
 
@@ -86,7 +90,8 @@ exports[`TotalResults displays page numbers and total results correctly when rea
   <strong>
     103
   </strong>
-   Results
+   
+  Results
 </span>
 `;
 
@@ -104,6 +109,7 @@ exports[`TotalResults matches snapshot 1`] = `
   <strong>
     103
   </strong>
-   Results
+   
+  Results
 </span>
 `;

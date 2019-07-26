@@ -31,11 +31,15 @@
 // react-picky
 @import '~react-picky/dist/picky.css';
 
+// react-day-picker
+@import '~react-day-picker/lib/style.css';
+
 // Global
 @import 'variables';
 
 // Components
 @import 'containers';
+@import 'searchBar';
 @import 'autosuggest';
 @import 'avatar';
 @import 'interactiveElement';
@@ -91,5 +95,9 @@
 @import 'clientView';
 @import 'scrollUp';
 @import 'hoverDescription';
+@import 'markdownEditor';
+@import 'notifications';
+@import 'administrator';
+@import 'homepageBanner';
 @import 'overrides';
 @import 'accessibility';

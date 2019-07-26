@@ -37,18 +37,6 @@ describe('NotificationsComponent', () => {
     wrapper.setProps({ location: { pathname: '/home' } });
     sinon.assert.calledTwice(spy);
   });
-
-  it('matches snapshot', () => {
-    const wrapper = shallow(
-      <Notifications.WrappedComponent
-        history={history}
-        notificationsCount={4}
-        fetchNotificationsCount={() => {}}
-        location={{ pathname: '/results' }}
-      />,
-    );
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
 });
 
 describe('mapDispatchToProps', () => {

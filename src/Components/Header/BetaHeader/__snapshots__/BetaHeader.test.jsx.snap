@@ -1,16 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BetaHeader matches snapshot 1`] = `
-<div
-  className="usa-banner tm-beta-header"
->
-  <div
-    className="usa-grid usa-banner-inner padded-main-content"
-  >
-    <FontAwesome
-      name="gears"
-    />
-    Welcome to TalentMAP!  Use this site to research positions and continue to bid using FSBid. New features are coming soon.
-  </div>
-</div>
-`;
+exports[`BetaHeader matches snapshot 1`] = `null`;

@@ -30,7 +30,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
       className="bid-tracker-card-title-bottom"
     >
       <strong>
-        Post:
+        Location:
       </strong>
        
       Maseru, Lesotho
@@ -97,7 +97,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
       className="bid-tracker-card-title-bottom"
     >
       <strong>
-        Post:
+        Location:
       </strong>
        
       Maseru, Lesotho
@@ -164,7 +164,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
       className="bid-tracker-card-title-bottom"
     >
       <strong>
-        Post:
+        Location:
       </strong>
        
       Maseru, Lesotho
@@ -231,7 +231,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
       className="bid-tracker-card-title-bottom"
     >
       <strong>
-        Post:
+        Location:
       </strong>
        
       Maseru, Lesotho
@@ -298,7 +298,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
       className="bid-tracker-card-title-bottom"
     >
       <strong>
-        Post:
+        Location:
       </strong>
        
       Maseru, Lesotho

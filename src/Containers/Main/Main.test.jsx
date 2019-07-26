@@ -88,6 +88,30 @@ describe('Main', () => {
     </MemoryRouter>);
     expect(main).toBeDefined();
   });
+  it('handles a profile/administrator route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/administrator']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles a profile/administrator route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/administrator']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles a profile/administrator/dashboard/ route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/administrator/dashboard']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
+  it('handles a profile/administrator/logs/ route', () => {
+    const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/profile/administrator/logs']}>
+      <Main />
+    </MemoryRouter>);
+    expect(main).toBeDefined();
+  });
   it('handles an about route', () => {
     const main = TestUtils.renderIntoDocument(<MemoryRouter initialEntries={['/about']}>
       <Main />

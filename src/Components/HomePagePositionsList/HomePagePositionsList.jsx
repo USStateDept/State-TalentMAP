@@ -47,7 +47,7 @@ refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton
               showBidListButton={showBidListButton}
               useShortFavButton={useShortFavButton}
               showCompareButton={showCompareButton}
-              isProjectedVacancy={position.isPV}
+              isProjectedVacancy={position.isPV || p.isPV}
             />
           </div>
         );

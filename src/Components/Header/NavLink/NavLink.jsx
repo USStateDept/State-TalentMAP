@@ -5,14 +5,17 @@ import { Link } from 'react-router-dom';
 import { ROUTER_LOCATION_OBJECT } from '../../../Constants/PropTypes';
 import { isCurrentPath } from '../../ProfileMenu/navigation';
 
-export const NavLink = ({ title, link, location, navLinkClass }) => {
+export const NavLink = ({ title, link, location, navLinkClass, routeToRight }) => {
   const isActive = isCurrentPath(location.pathname, link);
+  const toRightIsActive = isCurrentPath(location.pathname, routeToRight);
   return (
-    <div className={`header-nav-link-container ${isActive ? 'is-active' : 'is-not-active'}`}>
+    <div
+      className={`header-nav-link-container ${isActive ? 'is-highlighted' : 'is-not-active'} ${toRightIsActive ? 'link-right-active' : ''}`}
+    >
       <div className="header-nav-link">
         <div className={`header-nav-link-text ${navLinkClass}`}>
           <Link to={link}>
-            {title}
+            <span>{title}</span>
           </Link>
         </div>
       </div>
@@ -21,14 +24,16 @@ export const NavLink = ({ title, link, location, navLinkClass }) => {
 };
 
 NavLink.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.node.isRequired,
   link: PropTypes.string.isRequired,
   location: ROUTER_LOCATION_OBJECT.isRequired,
   navLinkClass: PropTypes.string,
+  routeToRight: PropTypes.string,
 };
 
 NavLink.defaultProps = {
   navLinkClass: '',
+  routeToRight: '!!!',
 };
 
 export default withRouter(NavLink);

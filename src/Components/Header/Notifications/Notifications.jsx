@@ -25,14 +25,15 @@ class Notifications extends Component {
     });
   }
   render() {
-    const { notificationsCount } = this.props;
+    const { notificationsCount, ...rest } = this.props;
     return (
       <IconAlert
         type="globe"
         number={notificationsCount}
-        link="/profile/dashboard/"
+        link="/profile/notifications/"
         alt="Notifications"
         title="View your notifications"
+        {...rest}
       />
     );
   }

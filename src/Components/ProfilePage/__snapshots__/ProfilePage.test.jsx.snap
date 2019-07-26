@@ -48,6 +48,14 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
         component={[Function]}
         path="/profile/public/:id"
       />
+      <Route
+        component={[Function]}
+        path="/profile/notifications"
+      />
+      <Route
+        component={[Function]}
+        path="/profile/administrator"
+      />
       <Flag
         name="flags.bidding"
         render={[Function]}

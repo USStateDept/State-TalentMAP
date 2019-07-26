@@ -2,7 +2,8 @@ import { newSavedSearchIsSaving, newSavedSearchHasErrored,
   newSavedSearchSuccess, currentSavedSearch, savedSearchesSuccess,
   savedSearchesIsLoading, savedSearchesHasErrored,
   deleteSavedSearchIsLoading, deleteSavedSearchHasErrored, deleteSavedSearchSuccess,
-  cloneSavedSearchIsLoading, cloneSavedSearchHasErrored, cloneSavedSearchSuccess } from './savedSearch';
+  cloneSavedSearchIsLoading, cloneSavedSearchHasErrored, cloneSavedSearchSuccess,
+  viewSavedSearchDialog, currentSearch } from './savedSearch';
 
 export default { newSavedSearchIsSaving,
   newSavedSearchHasErrored,
@@ -16,4 +17,6 @@ export default { newSavedSearchIsSaving,
   deleteSavedSearchSuccess,
   cloneSavedSearchIsLoading,
   cloneSavedSearchHasErrored,
-  cloneSavedSearchSuccess };
+  cloneSavedSearchSuccess,
+  viewSavedSearchDialog,
+  currentSearch };

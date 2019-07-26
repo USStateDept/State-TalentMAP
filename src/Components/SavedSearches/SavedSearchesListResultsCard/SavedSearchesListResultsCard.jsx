@@ -28,7 +28,7 @@ const SavedSearchListResultsCard = (props) => {
       {(matches) => {
         const columns = !matches ? [3, 6, 3] : [12, 12, 12];
         return (
-          <Column className={`saved-search-card-outer-container ${isProjectedVacancy && 'search-card--projected-vacancy'}`}>
+          <Column className={`saved-search-card-outer-container ${isProjectedVacancy ? 'search-card--projected-vacancy' : ''}`}>
             <Row className="saved-search-card profile-section-container" key={savedSearch.id} fluid>
               <Column columns={columns[0]} className="saved-search-data-points">
                 <DefinitionList>

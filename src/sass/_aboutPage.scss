@@ -1,5 +1,9 @@
 .about-page {
 
+  h1 {
+    margin-top: 0;
+  }
+
   h2 {
     font-family: Roboto;
   }
@@ -7,14 +11,6 @@
   p:first-of-type {
     font-family: Merriweather;
     font-size: 1.8rem;
-  }
-
-  ul {
-    color: $color-blue-hover;
-
-    span {
-      color: $color-black;
-    }
   }
 
   .about-content {

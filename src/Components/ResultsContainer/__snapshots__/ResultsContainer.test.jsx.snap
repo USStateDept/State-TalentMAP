@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsContainerComponent matches snapshot 1`] = `
+exports['ResultsContainerComponent matches snapshot 1'] = `
 <div
   className="results-container"
 >
@@ -223,12 +223,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       }
     }
   />
-  <SaveNewSearchContainer
-    currentSavedSearch={Object {}}
-    newSavedSearchHasErrored={false}
-    newSavedSearchIsSaving={false}
-    saveSearch={[Function]}
-  />
+  <Connect(SaveNewSearchDialog) />
   <div
     className="results-list-container"
   >

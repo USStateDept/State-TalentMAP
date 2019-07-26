@@ -17,8 +17,11 @@ const GlossarySearch = ({ changeText, searchTextValue }) => (
       value={searchTextValue}
       labelSrOnly={false}
       placeholder="Search for terms"
+      inputProps={{
+        autoComplete: 'off',
+      }}
     />
-    <div className="glossary-search-sub">Examples: Tandem, Tour of duty</div>
+    <div className="glossary-search-sub">Example: Tandem</div>
   </FieldSet>
 );
 

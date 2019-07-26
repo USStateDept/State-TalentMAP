@@ -15,17 +15,17 @@ class ResultsFilterContainer extends Component {
   }
 
   render() {
-    const { filters, resetFilters, setAccordion, selectedAccordion,
+    const { filters, resetFilters, setAccordion, selectedAccordion, isLoading,
       fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
       missionSearchHasErrored, fetchPostAutocomplete, onQueryParamUpdate, onQueryParamToggle,
-      postSearchResults, postSearchIsLoading, postSearchHasErrored } = this.props;
+      postSearchResults, postSearchIsLoading, postSearchHasErrored, showClear } = this.props;
     return (
-      <div className="filter-container">
+      <div className={`filter-container ${isLoading ? 'is-loading' : ''}`}>
         <div className="filter-container-bottom">
           <div className="usa-grid-full filter-control-container">
             <div className="filter-control-left">Select Filter:</div>
             <div className="filter-control-right">
-              <ResetFilters resetFilters={resetFilters} />
+              { showClear && <ResetFilters resetFilters={resetFilters} /> }
             </div>
           </div>
           <div className="usa-grid-full search-filters-container">
@@ -53,6 +53,7 @@ class ResultsFilterContainer extends Component {
 
 ResultsFilterContainer.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   onQueryParamUpdate: PropTypes.func.isRequired,
   onQueryParamToggle: PropTypes.func.isRequired,
   resetFilters: PropTypes.func.isRequired,
@@ -66,10 +67,12 @@ ResultsFilterContainer.propTypes = {
   postSearchResults: POST_DETAILS_ARRAY.isRequired,
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
+  showClear: PropTypes.bool,
 };
 
 ResultsFilterContainer.defaultProps = {
   selectedAccordion: ACCORDION_SELECTION,
+  showClear: false,
 };
 
 export default ResultsFilterContainer;

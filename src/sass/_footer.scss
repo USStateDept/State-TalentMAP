@@ -17,7 +17,7 @@
 
   // scss-lint:disable SelectorFormat
   .usa-footer-secondary_section a {
-    color: $blue-primary;
+    color: $color-white;
     text-decoration: none;
   }
   // scss-lint:enable SelectorFormat
@@ -40,27 +40,25 @@
   }
 
   .logo-img-tm {
-    width: 250px;
+    width: 200px;
   }
 
   .usa-footer-logo-img-tm {
-    margin-top: 10px;
-    padding-left: 20px;
+    margin-top: 12px;
+    padding-left: 10px;
   }
 
   .usa-footer-logo-img-tm-container {
     float: left;
-    margin-left: 20px;
-    margin-top: 15px;
-    min-height: 70px;
+    min-height: 55px;
   }
 
   .container--hr {
-    border-left: 1px solid;
+    border-left: 0;
     border-right: 1px solid;
     margin-top: 0;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 10px;
   }
 
   .container--logo {
@@ -74,7 +72,8 @@
 
 // footer nav
 .tm-footer-nav {
-  background-color: $tm-dark-blue;
+  background-color: $dos-blue;
+  border-bottom: 3px solid $dos-red;
   font-size: 16px;
   padding-bottom: 1rem;
   padding-top: 1rem;
@@ -109,9 +108,14 @@
 
 // footer main body
 .tm-footer-body {
-  background-color: $color-white;
+  background-color: $dos-blue;
+  color: $color-white;
   padding-bottom: 3rem;
   padding-top: 3rem;
+
+  a {
+    color: $color-white;
+  }
 
   .tm-footer-body-contact {
 

@@ -9,6 +9,11 @@ exports[`GlossaryComponent matches snapshot 1`] = `
   <TextInput
     changeText={[Function]}
     id="glossary-search"
+    inputProps={
+      Object {
+        "autoComplete": "off",
+      }
+    }
     label="Search terms"
     labelMessage=""
     labelSrOnly={false}
@@ -18,7 +23,7 @@ exports[`GlossaryComponent matches snapshot 1`] = `
   <div
     className="glossary-search-sub"
   >
-    Examples: Tandem, Tour of duty
+    Example: Tandem
   </div>
 </FieldSet>
 `;

@@ -29,7 +29,7 @@ const BidderPortfolioStatCard = ({ userProfile }) => {
           <dt>Grade:</dt><dd>{userProfile.grade || NO_GRADE}</dd>
         </div>
         <div className="stat-card-data-point">
-          <dt>Post:</dt><dd>{currentAssignmentText}</dd>
+          <dt>Location:</dt><dd>{currentAssignmentText}</dd>
         </div>
       </div>
       <div className="bidder-portfolio-stat-card-bottom">

@@ -29,7 +29,7 @@ describe('PostFilterComponent', () => {
       displayProperty: 'prop',
       id: 'id',
       inputId: 'id',
-      label: 'Search posts',
+      label: 'Search locations',
     },
     queryParamUpdate: () => {},
   };

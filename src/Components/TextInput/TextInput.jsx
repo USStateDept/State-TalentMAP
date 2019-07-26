@@ -15,7 +15,7 @@ class TextInput extends Component {
     this.setState({ input }, this.props.changeText(e.target.value));
   }
   render() {
-    const { id, labelSrOnly, type, label, labelMessage, placeholder } = this.props;
+    const { id, labelSrOnly, type, label, labelMessage, placeholder, inputProps } = this.props;
     const { input } = this.state;
     let labelClass;
     // set the input class based on "type" prop
@@ -58,6 +58,7 @@ class TextInput extends Component {
           onChange={this.changeText}
           className={inputClass}
           placeholder={placeholder}
+          {...inputProps}
         />
         {message}
       </div>
@@ -74,6 +75,7 @@ TextInput.propTypes = {
   labelMessage: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
+  inputProps: PropTypes.shape({}),
 };
 
 TextInput.defaultProps = {
@@ -83,6 +85,7 @@ TextInput.defaultProps = {
   labelMessage: '',
   value: null,
   placeholder: '',
+  inputProps: {},
 };
 
 export default TextInput;

@@ -12,10 +12,12 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import Handshake from '../Ribbon/Handshake';
+import { Featured, Handshake } from '../Ribbon';
 import HoverDescription from './HoverDescription';
+import OBCUrl from '../OBCUrl';
 
-import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString } from '../../utilities';
+import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString,
+getDifferentialPercentage } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
@@ -28,6 +30,17 @@ const getResult = (result, path, defaultValue, isRate = false) => {
 
   if ((/_date|date_|ted/i).test(path) && value !== defaultValue) {
     value = formatDate(value);
+  }
+
+  if (path === 'post.differential_rate' || path === 'post.danger_pay') {
+    const value$ = getDifferentialPercentage(value);
+
+    const OBCId = get(result, 'post.obc_id');
+    if (OBCId) {
+      return (<span> {value$} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    }
+
+    return value$;
   }
 
   if (isRate && isNumber(value)) {
@@ -124,6 +137,8 @@ class ResultsCard extends Component {
     /* eslint-enable quote-props */
     ];
 
+    if (isProjectedVacancy) { delete sections[2].Posted; }
+
     options.favorite = {
       compareArray: isProjectedVacancy ? favoritesPV : favorites,
       refKey: result.id,
@@ -157,7 +172,7 @@ class ResultsCard extends Component {
                     {recentlyAvailable && <span className="available-alert">Now available!</span>}
                   </Column>
                   <Column columns="12" className="results-card-title-link">
-                    <dt>Post:</dt><dd>{post}</dd>
+                    <dt>Location:</dt><dd>{post}</dd>
                   </Column>
                 </Column>
                 {
@@ -179,9 +194,14 @@ class ResultsCard extends Component {
                     <DefinitionList items={sections[1]} />
                   </Column>
                   <Column columns="2">
-                    {
-                      get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
-                    }
+                    <div className="ribbon-container">
+                      {
+                        get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                      }
+                      {
+                        get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
+                      }
+                    </div>
                   </Column>
                 </Row>)
               }

@@ -10,6 +10,8 @@ import BidTracker from '../../Containers/BidTracker';
 import BidStatistics from '../../Containers/BidStatistics';
 import SavedSearchesWrapper from '../../Components/SavedSearches/SavedSearchesWrapper';
 import ProfilePublic from '../../Containers/ProfilePublic';
+import Notifications from '../../Containers/Notifications';
+import Administrator from '../../Containers/Administrator';
 import GLOSSARY_EDITOR_PERM from '../../Constants/Permissions';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { userHasPermissions } from '../../utilities';
@@ -33,6 +35,8 @@ const ProfilePage = ({ user }) => (
         <Route path="/profile/statistics" component={BidStatistics} />
         <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
         <Route path="/profile/public/:id" component={ProfilePublic} />
+        <Route path="/profile/notifications" component={Notifications} />
+        <Route path="/profile/administrator" component={Administrator} />
         <Flag
           name="flags.bidding"
           render={() => (

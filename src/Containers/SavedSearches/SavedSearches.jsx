@@ -35,7 +35,11 @@ class SavedSearchesContainer extends Component {
   }
 
   goToSavedSearch(savedSearchObject) {
-    const stringifiedQuery = formQueryString(savedSearchObject.filters);
+    const q = { ...savedSearchObject.filters };
+    if (savedSearchObject.endpoint === '/api/v1/fsbid/projected_vacancies/') {
+      q.projectedVacancy = 'projected';
+    }
+    const stringifiedQuery = formQueryString(q);
     this.props.setCurrentSavedSearch(savedSearchObject);
     this.props.onNavigateTo(`/results?${stringifiedQuery}`);
   }

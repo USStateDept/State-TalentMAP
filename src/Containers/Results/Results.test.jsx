@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import sinon from 'sinon';
+import q from 'query-string';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import MockTestProvider from '../../testUtilities/MockProvider';
 import Results, { mapDispatchToProps } from './Results';
@@ -9,25 +10,43 @@ import resultsObject from '../../__mocks__/resultsObject';
 
 describe('Results', () => {
   const debounceTimeInMs = 500;
+
+  const props = {
+    results: resultsObject,
+    isAuthorized: () => true,
+    onNavigateTo: () => {},
+    setAccordion: () => {},
+    storeSearch: () => {},
+    resetSavedSearchAlerts: () => {},
+    fetchMissionAutocomplete: () => {},
+    missionSearchResults: [],
+    missionSearchIsLoading: false,
+    missionSearchHasErrored: false,
+    fetchPostAutocomplete: () => {},
+    postSearchResults: [],
+    postSearchIsLoading: false,
+    postSearchHasErrored: false,
+    bidListFetchData: () => {},
+    defaultPageSize: 5,
+    filtersIsLoading: false,
+    fetchData: () => {},
+    fetchFilters: () => {},
+  };
+
   it('is defined', () => {
     const results = TestUtils.renderIntoDocument(<MockTestProvider>
       <Results
-        results={resultsObject}
-        isAuthorized={() => true}
-        onNavigateTo={() => {}}
-        setAccordion={() => {}}
-        saveSearch={() => {}}
-        resetSavedSearchAlerts={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
+        {...props}
+      />
+    </MockTestProvider>);
+    expect(results).toBeDefined();
+  });
+
+  it('is defined when isAuthorized returns false', () => {
+    const results = TestUtils.renderIntoDocument(<MockTestProvider>
+      <Results
+        {...props}
+        isAuthorized={() => false}
       />
     </MockTestProvider>);
     expect(results).toBeDefined();
@@ -36,50 +55,44 @@ describe('Results', () => {
   it('can handle authentication redirects', () => {
     const results = TestUtils.renderIntoDocument(<MockTestProvider>
       <Results
-        results={resultsObject}
-        isAuthorized={() => false}
-        onNavigateTo={() => {}}
-        setAccordion={() => {}}
-        saveSearch={() => {}}
-        resetSavedSearchAlerts={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
+        {...props}
       />
     </MockTestProvider>);
     expect(results).toBeDefined();
+  });
+
+  it('sets filtersIsLoading state when it receives new props', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        {...props}
+      />,
+    );
+    expect(wrapper.instance().state.filtersIsLoading).toBe(true);
+    wrapper.setProps({ ...props, filtersIsLoading: false });
+    expect(wrapper.instance().state.filtersIsLoading).toBe(false);
+  });
+
+  it('returns a value for getStringifiedQuery()', () => {
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        {...props}
+      />,
+    );
+    wrapper.instance().resultsPageRef = { getKeywordValue: () => 'test' };
+    wrapper.update();
+    expect(wrapper.instance().getStringifiedQuery()).toBeDefined();
   });
 
   it('can call the onQueryParamUpdate function', () => {
     const query = { ordering: 'position__bureau', q: 'German' };
     const wrapper = shallow(
       <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
-        saveSearch={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
+        {...props}
       />,
     );
+    wrapper.instance().resultsPageRef = { getKeywordValue: () => 'German' };
+    wrapper.update();
+
     // define the instance
     const instance = wrapper.instance();
     // spy the onQueryParamUpdate function
@@ -93,57 +106,46 @@ describe('Results', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={spy}
-        setAccordion={() => {}}
+        {...props}
         filters={{ hasFetched: true }}
-        saveSearch={() => {}}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
+        fetchFilters={spy}
       />,
     );
     expect(wrapper.instance().props.filters.hasFetched).toBe(true);
     sinon.assert.calledOnce(spy);
   });
 
-  it('can call the saveSearch function', () => {
-    const savedSearch = { q: null, id: null };
+  it('can call the storeSearch function', () => {
+    const value = { newValue: null };
     const wrapper = shallow(
       <Results.WrappedComponent
-        results={resultsObject}
-        isAuthorized={() => true}
-        fetchData={() => {}}
-        onNavigateTo={() => {}}
-        fetchFilters={() => {}}
-        setAccordion={() => {}}
-        saveSearch={(q, id) => { savedSearch.q = q; savedSearch.id = id; }}
-        fetchMissionAutocomplete={() => {}}
-        missionSearchResults={[]}
-        missionSearchIsLoading={false}
-        missionSearchHasErrored={false}
-        fetchPostAutocomplete={() => {}}
-        postSearchResults={[]}
-        postSearchIsLoading={false}
-        postSearchHasErrored={false}
-        bidListFetchData={() => {}}
-        defaultPageSize={5}
+        {...props}
+        storeSearch={(v) => { value.newValue = v; }}
       />,
     );
-    wrapper.instance().saveSearch('test', 1);
-    expect(savedSearch.q.name).toBe('test');
-    expect(savedSearch.id).toBe(1);
+    wrapper.instance().storeSearch();
+    expect(value.newValue).toEqual({ q: 'German' });
   });
+
+  [
+    [{ q: '', ordering: 'order' }, false],
+    [{ q: 'a' }, true],
+    [{ ordering: 'order' }, false],
+    [{ other: true, ordering: 'order' }, true],
+    [{ other: 0 }, true],
+  ].map((d, i) => (
+    it(`returns the correct value for this.getQueryExists() at index ${i}`, () => {
+      const wrapper = shallow(
+        <Results.WrappedComponent
+          {...props}
+        />,
+      );
+      const q$ = q.stringify(d[0]);
+      wrapper.instance().setState({ query: { value: q$ } });
+      const exp = wrapper.instance().getQueryExists();
+      expect(exp).toBe(d[1]);
+    })
+  ));
 
   it('can call the onQueryParamToggle function when removing a param', (done) => {
     const wrapper = shallow(
@@ -167,6 +169,7 @@ describe('Results', () => {
         debounceTimeInMs={debounceTimeInMs}
         bidListFetchData={() => {}}
         defaultPageSize={5}
+        filtersIsLoading={false}
       />,
     );
     // define the instance
@@ -207,6 +210,7 @@ describe('Results', () => {
         debounceTimeInMs={debounceTimeInMs}
         bidListFetchData={() => {}}
         defaultPageSize={5}
+        filtersIsLoading={false}
       />,
     );
     // define the instance
@@ -247,6 +251,7 @@ describe('Results', () => {
         debounceTimeInMs={debounceTimeInMs}
         bidListFetchData={() => {}}
         defaultPageSize={5}
+        filtersIsLoading={false}
       />,
     );
     // define the instance
@@ -285,6 +290,7 @@ describe('Results', () => {
         postSearchHasErrored={false}
         bidListFetchData={() => {}}
         defaultPageSize={5}
+        filtersIsLoading={false}
       />,
     );
     const history = { value: { search: null } };

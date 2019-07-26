@@ -1,43 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`DesktopNav matches snapshot when logged in 1`] = `
+exports['DesktopNav matches snapshot when logged in 1'] = `
 <div
   className="navigation-container"
 >
   <div
     className="nav-link-container header-nav-desktop desktop-nav-only"
   >
-    <div
-      className="header-nav-link-container is-highlighted"
-    >
-      <div
-        className="header-nav-link"
-      >
-        <div
-          className="header-nav-link-text search-text"
-        >
-          <InteractiveElement
-            className=""
-            onClick={[Function]}
-            type="span"
-          >
-            <FontAwesome
-              name="search"
-            />
-             Search
-          </InteractiveElement>
-        </div>
-      </div>
-    </div>
     <withRouter()
       link="/"
-      navLinkClass="home-text"
+      routeToRight="/results"
       title="Home"
     />
     <withRouter()
-      link="/about"
-      navLinkClass="about-text"
-      title="About"
+      link="/results"
+      title="Search"
     />
   </div>
   <div
@@ -130,9 +107,15 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
           <Flag
             name="flags.notifications"
           >
-            <Connect(withRouter(Notifications)) />
+            <Connect(withRouter(Notifications))
+              className="notifications-icon"
+            />
           </Flag>
-          <Connect(GlossaryIcon) />
+          <div
+            className="icon-alert-container glossary-link-container"
+          >
+            <Connect(GlossaryIcon) />
+          </div>
         </span>
       </div>
     </div>
@@ -140,7 +123,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
 </div>
 `;
 
-exports[`DesktopNav matches snapshot when logged out 1`] = `
+exports['DesktopNav matches snapshot when logged out 1'] = `
 <div
   className="navigation-container"
 >
@@ -149,13 +132,12 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
   >
     <withRouter()
       link="/"
-      navLinkClass="home-text"
+      routeToRight="/results"
       title="Home"
     />
     <withRouter()
-      link="/about"
-      navLinkClass="about-text"
-      title="About"
+      link="/results"
+      title="Search"
     />
   </div>
   <div

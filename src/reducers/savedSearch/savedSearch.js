@@ -108,3 +108,23 @@ export function savedSearchesHasErrored(state = false, action) {
       return state;
   }
 }
+
+export function viewSavedSearchDialog(state = false, action) {
+  switch (action.type) {
+    case 'TOGGLE_VIEW_SAVED_SEARCH_DIALOG':
+      return action.value;
+    case '@@router/LOCATION_CHANGE':
+      return false;
+    default:
+      return state;
+  }
+}
+
+export function currentSearch(state = {}, action) {
+  switch (action.type) {
+    case 'STORE_CURRENT_SEARCH':
+      return action.value;
+    default:
+      return state;
+  }
+}

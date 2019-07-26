@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import { debounce, get } from 'lodash';
+import { debounce, get, keys, isString, omit, pickBy } from 'lodash';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
-import { saveSearch } from '../../actions/savedSearch';
+import { storeCurrentSearch } from '../../actions/savedSearch';
 import { missionSearchFetchData } from '../../actions/autocomplete/missionAutocomplete';
 import { postSearchFetchData } from '../../actions/autocomplete/postAutocomplete';
 import { setSelectedAccordion } from '../../actions/selectedAccordion';
@@ -18,7 +18,7 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import CompareDrawer from '../../Components/CompareDrawer';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-USER_PROFILE, SAVED_SEARCH_MESSAGE, SAVED_SEARCH_OBJECT, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
+USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION, BID_LIST } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
@@ -32,7 +32,7 @@ class Results extends Component {
     this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
     this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
-    this.saveSearch = this.saveSearch.bind(this);
+    this.getQueryExists = this.getQueryExists.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -40,6 +40,7 @@ class Results extends Component {
       defaultPageSize: { value: props.defaultPageSize },
       defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
+      filtersIsLoading: true,
     };
 
     // Create an instance attribute for storing a reference to debounced requests
@@ -48,12 +49,20 @@ class Results extends Component {
 
   componentWillMount() {
     const { isAuthorized, onNavigateTo } = this.props;
+    // store default search
+    this.storeSearch();
     // check auth
     if (!isAuthorized()) {
       onNavigateTo(LOGIN_REDIRECT);
     } else {
       this.createQueryParams();
       this.props.bidListFetchData();
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.filtersIsLoading === false) {
+      this.setState({ filtersIsLoading: false });
     }
   }
 
@@ -115,6 +124,28 @@ class Results extends Component {
     }
   }
 
+  // check if there are filters selected so that the clear filters button can be displayed or hidden
+  getQueryExists() {
+    const { query: { value } } = this.state;
+    let query = queryString.parse(value);
+    // omit page size and ordering
+    query = omit(query, ['limit', 'ordering']);
+    // remove any falsy props, unless it's a 0
+    query = pickBy(query, v => v || v === 0);
+    // query exists if it has keys
+    return !!keys(query).length;
+  }
+
+  getStringifiedQuery(q) {
+    const keyword = this.resultsPageRef.getKeywordValue();
+    if (isString(keyword)) {
+      const parsed$ = queryString.parse(q);
+      parsed$.q = keyword;
+      return queryString.stringify(parsed$);
+    }
+    return false;
+  }
+
   createQueryParams() {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword } = this.state;
     const { filters, fetchFilters } = this.props;
@@ -161,8 +192,19 @@ class Results extends Component {
 
   // updates the history by passing a string of query params
   updateHistory(q) {
-    this.setState({ query: { value: q } }, () => {
-      window.history.pushState('', '', getAssetPath(`/results?${q}`));
+    let q$ = q;
+
+    // check if the keyword changed
+    if (this.resultsPageRef) {
+      const q$$ = this.getStringifiedQuery(q);
+      if (q$$) {
+        q$ = q$$;
+      }
+    }
+
+    this.setState({ query: { value: q$ } }, () => {
+      this.storeSearch();
+      window.history.pushState('', '', getAssetPath(`/results?${q$}`));
       this.debounced.cancel();
       // add debounce so that quickly selecting multiple filters is smooth
       this.debounced = debounce(() => this.createQueryParams(), this.props.debounceTimeInMs);
@@ -181,37 +223,32 @@ class Results extends Component {
     this.props.fetchData(q);
   }
 
-  // When we want to save a search, the child component passes a string for the name (e)
-  // We'll handle the actual "filters" object here
-  // An optional "id" can be passed if we want to patch an existing saved search
-  saveSearch(e, id) {
+  // Store the last search for use in creating a new saved search
+  storeSearch() {
     // parse the string to an object
     const parsedQuery = queryString.parse(this.state.query.value);
     // remove any invalid filters
     const cleanedQuery = cleanQueryParams(parsedQuery);
-    // form our object for the API
-    const queryObject = Object.assign({}, {
-      name: e,
-      endpoint: '/api/v1/cycleposition/',
-      filters: cleanedQuery,
-    });
-    // send formed object to our redux action
-    this.props.saveSearch(queryObject, id);
+    // store formed object in redux
+    this.props.storeSearch(cleanedQuery);
   }
 
   render() {
     const { results, hasErrored, isLoading, filters,
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
-            currentSavedSearch, newSavedSearchIsSaving,
-            newSavedSearchHasErrored, fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
+            fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
+    const { filtersIsLoading } = this.state;
+    const showClear = this.getQueryExists();
     return (
       <div>
         <ResultsPage
+          ref={(ref) => { this.resultsPageRef = ref; }}
           results={results}
           hasErrored={hasErrored}
           isLoading={isLoading}
+          filtersIsLoading={filtersIsLoading}
           sortBy={POSITION_SEARCH_SORTS}
           defaultSort={this.state.defaultSort.value}
           pageSizes={POSITION_PAGE_SIZES}
@@ -227,10 +264,6 @@ class Results extends Component {
           setAccordion={setAccordion}
           scrollToTop={scrollToTop}
           userProfile={userProfile}
-          newSavedSearchIsSaving={newSavedSearchIsSaving}
-          newSavedSearchHasErrored={newSavedSearchHasErrored}
-          saveSearch={this.saveSearch}
-          currentSavedSearch={currentSavedSearch}
           fetchMissionAutocomplete={fetchMissionAutocomplete}
           missionSearchResults={missionSearchResults}
           missionSearchIsLoading={missionSearchIsLoading}
@@ -242,6 +275,7 @@ class Results extends Component {
           shouldShowSearchBar={shouldShowSearchBar}
           bidList={bidList.results}
           isProjectedVacancy={results.isProjectedVacancy}
+          showClear={showClear}
         />
         <CompareDrawer />
       </div>
@@ -261,14 +295,11 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
+  filtersIsLoading: PropTypes.bool,
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
   setAccordion: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
-  newSavedSearchIsSaving: PropTypes.bool.isRequired,
-  newSavedSearchHasErrored: SAVED_SEARCH_MESSAGE,
-  saveSearch: PropTypes.func.isRequired,
-  currentSavedSearch: SAVED_SEARCH_OBJECT,
   fetchMissionAutocomplete: PropTypes.func.isRequired,
   missionSearchResults: MISSION_DETAILS_ARRAY.isRequired,
   missionSearchIsLoading: PropTypes.bool.isRequired,
@@ -282,6 +313,7 @@ Results.propTypes = {
   bidList: BID_LIST.isRequired,
   bidListFetchData: PropTypes.func.isRequired,
   defaultPageSize: PropTypes.number.isRequired,
+  storeSearch: PropTypes.func,
 };
 
 Results.defaultProps = {
@@ -293,9 +325,6 @@ Results.defaultProps = {
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
   userProfile: {},
-  newSavedSearchHasErrored: false,
-  newSavedSearchIsSaving: false,
-  currentSavedSearch: {},
   fetchMissionAutocomplete: EMPTY_FUNCTION,
   missionSearchResults: [],
   missionSearchIsLoading: false,
@@ -307,10 +336,7 @@ Results.defaultProps = {
   shouldShowSearchBar: true,
   debounceTimeInMs: 50,
   bidList: { results: [] },
-};
-
-Results.contextTypes = {
-  router: PropTypes.object,
+  storeSearch: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -323,9 +349,6 @@ const mapStateToProps = state => ({
   selectedAccordion: state.selectedAccordion,
   routerLocations: state.routerLocations,
   userProfile: state.userProfile,
-  newSavedSearchIsSaving: state.newSavedSearchIsSaving,
-  newSavedSearchHasErrored: state.newSavedSearchHasErrored,
-  currentSavedSearch: state.currentSavedSearch,
   missionSearchResults: state.missionSearchSuccess,
   missionSearchIsLoading: state.missionSearchIsLoading,
   missionSearchHasErrored: state.missionSearchHasErrored,
@@ -343,11 +366,11 @@ export const mapDispatchToProps = dispatch => ({
     dispatch(filtersFetchData(items, queryParams, savedFilters, true)),
   setAccordion: accordion => dispatch(setSelectedAccordion(accordion)),
   onNavigateTo: dest => dispatch(push(dest)),
-  saveSearch: (object, id) => dispatch(saveSearch(object, id)),
   fetchMissionAutocomplete: query => dispatch(missionSearchFetchData(query)),
   fetchPostAutocomplete: query => dispatch(postSearchFetchData(query)),
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
   bidListFetchData: () => dispatch(bidListFetchData()),
+  storeSearch: obj => dispatch(storeCurrentSearch(obj)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

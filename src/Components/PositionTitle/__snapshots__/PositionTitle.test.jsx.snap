@@ -49,7 +49,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             <div
               className="post-title"
             >
-              Post: 
+              Location: 
               Freetown, Sierra Leone
             </div>
           </div>

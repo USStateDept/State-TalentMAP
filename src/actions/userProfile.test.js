@@ -68,7 +68,7 @@ describe('async actions', () => {
   it('can add a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/position/1/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/1/').reply(200,
       {},
     );
 

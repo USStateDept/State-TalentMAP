@@ -1,6 +1,23 @@
 // header container
 .tm-header {
-  border-bottom: 0;
+  background-color: $dos-blue;
+  border-bottom: 3px solid $dos-red;
+
+  .usa-navbar {
+    border-bottom: 0;
+  }
+
+  .logo-img-hr {
+    border-right: 1px solid $color-white;
+    padding-right: 10px;
+    width: 90px;
+  }
+
+  .logo-img-tm {
+    height: auto;
+    padding-left: 10px;
+    width: 165px;
+  }
 
   // We have to set x-text classes so that sibling divs aren't pushed when hovered over
   .home-text {
@@ -22,7 +39,7 @@
 
   .navigation-container {
     float: right;
-    font-size: 16px;
+    font-size: 14px;
     height: 100%;
   }
 
@@ -50,7 +67,7 @@
 
   .header-nav-desktop {
     a {
-      color: $color-black;
+      color: $color-white;
       text-decoration: none;
     }
   }
@@ -66,8 +83,23 @@
   .header-nav-link {
     height: 100%;
     padding-left: $header-link-padding;
+  }
+
+  .header-nav-link-text,
+  .icon-alert-container {
     position: relative;
-    top: 35%;
+    top: 37%;
+  }
+
+  .glossary-link-container,
+  .icon-alert-container {
+    border-left: 1px solid $color-white;
+    margin-left: 15px;
+    padding-left: 15px;
+  }
+
+  .account-dropdown {
+    top: inherit;
   }
 
   .account-container {
@@ -83,27 +115,82 @@
   }
 
   .header-nav-link-text {
-    border-right: 1px solid $color-black;
+    border-right: 1px solid $color-white;
     padding-right: $header-link-padding;
   }
 
-  .is-highlighted {
-    background-color: $tm-dark-blue;
-    color: $color-white;
+  .notifications-icon {
+    height: 16px;
+  }
+
+  .glossary-link-container {
+    .icon-alert-container {
+      border-left: 0;
+      margin-left: 0;
+      padding-left: 0;
+    }
   }
 
   .is-active {
     a {
-      color: $color-blue-active;
-      font-weight: bold;
+      color: $color-white;
     }
   }
 
   .header-nav-link-text:hover {
-    font-weight: bold;
-
     a {
-      color: $color-blue-hover;
+      color: $color-white;
+    }
+  }
+
+  .link-right-active {
+    .header-nav-link-text {
+      border-right: 1px solid transparent;
+    }
+  }
+
+  .is-highlighted {
+    background-color: $tm-dark-blue;
+    font-weight: 500;
+
+    .header-nav-link-text {
+      border-right: 1px solid transparent;
+    }
+
+    .header-nav-link-text:hover {
+      a {
+        color: $color-white;
+      }
+    }
+
+    a,
+    .fa {
+      color: $color-white;
+
+      &:active,
+      &:hover {
+        color: $color-white;
+      }
+    }
+  }
+
+  .is-highlighted {
+    background-color: $tm-dark-blue;
+
+    .header-nav-link-text:hover {
+      a {
+        color: $color-white;
+      }
+    }
+
+    a,
+    .fa {
+      color: $color-white;
+
+      &:active,
+      &:hover {
+        color: $color-white;
+      }
     }
   }
 
@@ -111,15 +198,23 @@
     .usa-logo {
       line-height: 5.5rem;
       margin-bottom: 0;
-      margin-top: 1rem;
+      margin-top: 0;
 
       a {
         font-size: 3.6rem;
+        position: relative;
+        top: 3px;
       }
 
-      img {
+      .logo-img-hr {
         height: auto;
-        width: 200px;
+        position: relative;
+        top: 11px;
+      }
+
+      .logo-img-tm {
+        height: auto;
+        width: 185px;
       }
     }
 
@@ -146,12 +241,32 @@
 
   @media screen and (max-width: $screen-sm-max) {
 
+    a {
+      position: relative;
+      top: 3px;
+    }
+
     .usa-logo {
-      img {
+      .logo-img-tm {
         max-height: 50px;
         max-width: 200px;
         padding-top: 5px;
       }
+    }
+
+    .logo-img-hr {
+      height: auto;
+      position: relative;
+      top: 3px;
+      width: 55px;
+    }
+
+    .logo-img-tm {
+      height: auto;
+      padding-bottom: 1px;
+      position: relative;
+      top: 2px;
+      width: 165px;
     }
 
     .usa-nav-secondary {
@@ -172,8 +287,6 @@
 
 @media screen and (min-width: $screen-md-min) {
   .search-bar-hidden {
-    border-bottom: 1px solid $color-gray-light;
-
     .usa-nav {
       border-top: 1px solid $color-gray-light;
     }

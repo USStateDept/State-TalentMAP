@@ -18,6 +18,17 @@ describe('ResultsCardComponent', () => {
     expect(wrapper.instance().props.result.position.id).toBe(6);
   });
 
+  it('is defined when isProjectedVacancy === true', () => {
+    wrapper = shallow(
+      <ResultsCard
+        id={1}
+        result={resultsObject.results[0]}
+        onToggle={() => {}}
+        bidList={[]}
+      />, { context: { isProjectedVacancy: true } });
+    expect(wrapper).toBeDefined();
+  });
+
   it('can receive different types of results', () => {
     wrapper = shallow(
       <ResultsCard

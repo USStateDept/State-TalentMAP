@@ -170,7 +170,7 @@ class CompareList extends Component {
                     />
                     <tr>
                       <th scope="row">
-                        Post
+                        Location
                       </th>
                       {
                         compareArray.map(c => (
