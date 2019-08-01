@@ -23,6 +23,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "in_panel_date": "2017-12-20",
         "is_priority": false,
         "position": Object {
+          "id": 11,
           "position": Object {
             "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
             "create_date": "2015-08-05",
@@ -152,6 +153,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
         "in_panel_date": "2017-12-20",
         "is_priority": false,
         "position": Object {
+          "id": 11,
           "position": Object {
             "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
             "create_date": "2015-08-05",
@@ -219,6 +221,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "in_panel_date": "2017-12-20",
           "is_priority": true,
           "position": Object {
+            "id": 11,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2015-08-05",
