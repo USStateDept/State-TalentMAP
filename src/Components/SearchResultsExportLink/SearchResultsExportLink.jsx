@@ -25,6 +25,8 @@ const HEADERS = [
   { label: 'Danger pay', key: 'position__post__danger_pay' },
   { label: 'TED', key: 'estimated_end_date' },
   { label: 'Incumbent', key: 'position__current_assignment__user' },
+  { label: 'Bid Cycle/Season', key: 'bidcycle__name' },
+  { label: 'Posted date', key: 'posted_date' },
 ];
 
 // Processes results before sending to the download component to allow for custom formatting.
@@ -33,13 +35,17 @@ export const processData = data =>
   data.map((entry) => {
     const entry$ = flatten({ ...entry }, { delimiter: '__' });
     const endDate = get(entry$, 'ted');
+    const postedDate = get(entry$, 'posted_date');
     const formattedEndDate = endDate ? formatDate(endDate) : null;
-    return {
+    const formattedPostedDate = postedDate ? formatDate(postedDate) : null;
+    const val = {
       ...mapValues(entry$, x => !x ? '' : x), // eslint-disable-line no-confusing-arrow
       position_number: getFormattedNumCSV(entry.position.position_number),
       grade: getFormattedNumCSV(get(entry, 'position.grade')),
       estimated_end_date: formattedEndDate,
+      posted_date: formattedPostedDate,
     };
+    return val;
   });
 
 

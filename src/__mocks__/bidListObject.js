@@ -10,6 +10,7 @@ const bidListObject = {
       },
       user: 'rehmant',
       position: {
+        id: 11,
         position: {
           id: 226,
           grade: '03',
@@ -61,6 +62,7 @@ const bidListObject = {
       },
       user: 'rehmant',
       position: {
+        id: 1,
         position: {
           id: 1,
           grade: '05',
@@ -112,6 +114,7 @@ const bidListObject = {
       },
       user: 'rehmant',
       position: {
+        id: 79,
         position: {
           id: 84,
           grade: '04',
