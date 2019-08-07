@@ -30,7 +30,7 @@ class BidTrackerCardTop extends Component {
         <div className="bid-tracker-title-content-container">
           <BidTrackerCardTitle
             title={position.title}
-            id={position.id}
+            id={bid.position.id}
             status={bid.status}
             bidStatistics={bidStatistics}
             post={post}
