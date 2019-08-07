@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomePageComponent matches snapshot when position arrays are filled 1`] = `
+exports['HomePageComponent matches snapshot when position arrays are filled 1'] = `
 <div
   className="homepage-positions-section-container"
 >
@@ -375,7 +375,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
 </div>
 `;
 
-exports[`HomePageComponent matches snapshot when the positions arrays are empty 1`] = `
+exports['HomePageComponent matches snapshot when the positions arrays are empty 1'] = `
 <div
   className="homepage-positions-section-container"
 >
