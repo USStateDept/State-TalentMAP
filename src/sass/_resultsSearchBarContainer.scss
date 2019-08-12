@@ -200,6 +200,27 @@ $input-height: 40px;
     padding-top: 3px;
   }
 
+  @media screen and (max-width: $screen-md-max) {
+    .results-search-bar-container {
+      form {
+        display: flex;
+      }
+
+      fieldset {
+        flex: 2;
+        margin: 0;
+      }
+
+      .search-submit-button {
+        flex: 1;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+
   .search-results-inputs {
     width: 100%;
   }

@@ -4,6 +4,10 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
 <div
   className="results-container"
 >
+  <MediaQueryWrapper
+    breakpoint="screenSmMax"
+    widthType="max"
+  />
   <ResultsPillContainer
     items={Array []}
     onPillClick={[Function]}

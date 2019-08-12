@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import { connect } from 'react-redux';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
@@ -11,12 +12,17 @@ import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
 import ResultsPillContainer from '../ResultsPillContainer/ResultsPillContainer';
-import { SaveNewSearchDialog } from '../SaveNewSearch';
+import { SaveNewSearchDialog, Trigger } from '../SaveNewSearch';
+import MediaQuery from '../MediaQuery';
+import SelectForm from '../SelectForm/SelectForm';
+import InteractiveElement from '../InteractiveElement';
+import { toggleMobileFilter } from '../../actions/showMobileFilter';
 
 class ResultsContainer extends Component {
   constructor(props) {
     super(props);
     this.onPageChange = this.onPageChange.bind(this);
+    this.onSelectOrdering = this.onSelectOrdering.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -28,13 +34,42 @@ class ResultsContainer extends Component {
     this.props.scrollToTop();
   }
 
+  onSelectOrdering(e) {
+    this.props.queryParamUpdate({ ordering: e.target.value });
+  }
+
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
             defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-            defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList,
+            defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
       } = this.props;
     return (
       <div className="results-container">
+        <MediaQuery breakpoint="screenSmMax" widthType="max">
+          {
+            matches => (matches &&
+              (
+                <div className="usa-width-one-whole mobile-controls">
+                  <Trigger isPrimary>
+                    <button className="usa-button-secondary">Save Search</button>
+                  </Trigger>
+                  <InteractiveElement onClick={toggle} className="filter-button">Filter</InteractiveElement>
+                  <div className="results-dropdown results-dropdown-sort">
+                    <SelectForm
+                      id="sort"
+                      label="Sort by:"
+                      labelSrOnly
+                      onSelectOption={this.onSelectOrdering}
+                      options={sortBy.options}
+                      defaultSort={defaultSort}
+                      className="select-blue select-offset select-small"
+                    />
+                  </div>
+                </div>
+              )
+            )
+          }
+        </MediaQuery>
         <ResultsPillContainer
           items={pillFilters}
           onPillClick={onQueryParamToggle}
@@ -118,6 +153,7 @@ ResultsContainer.propTypes = {
   userProfile: USER_PROFILE,
   totalResults: PropTypes.number,
   bidList: BID_RESULTS.isRequired,
+  toggle: PropTypes.func,
 };
 
 ResultsContainer.defaultProps = {
@@ -134,6 +170,11 @@ ResultsContainer.defaultProps = {
   userProfile: {},
   currentSavedSearch: {},
   totalResults: 0,
+  toggle: EMPTY_FUNCTION,
 };
 
-export default ResultsContainer;
+export const mapDispatchToProps = dispatch => ({
+  toggle: () => dispatch(toggleMobileFilter(true)),
+});
+
+export default connect(null, mapDispatchToProps)(ResultsContainer);

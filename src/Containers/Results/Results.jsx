@@ -137,7 +137,10 @@ class Results extends Component {
   }
 
   getStringifiedQuery(q) {
-    const keyword = this.resultsPageRef.getKeywordValue();
+    // ResultsPage is connected so we access the ref's functions slightly differently
+    // https://github.com/reduxjs/react-redux/issues/475#issuecomment-242976693
+    const keyword = get(this, 'resultsPageRef.getWrappedInstance')
+      ? this.resultsPageRef.getWrappedInstance().keywordRef.getValue() : '';
     if (isString(keyword)) {
       const parsed$ = queryString.parse(q);
       parsed$.q = keyword;

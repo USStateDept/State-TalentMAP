@@ -14,93 +14,9 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
       total={2}
     />
   </div>
-  <div
-    className="usa-width-four-fifths drop-downs"
-  >
-    <div
-      className="dropdowns-container"
-    >
-      <div
-        className="results-dropdown results-dropdown-sort"
-      >
-        <SelectForm
-          className="select-blue select-offset select-small"
-          defaultSort=""
-          disabled={false}
-          emptyOptionText="- Select -"
-          id="sort"
-          includeFirstEmptyOption={false}
-          label="Sort by:"
-          onSelectOption={[Function]}
-          options={
-            Array [
-              Object {
-                "text": "sort",
-                "value": "sort",
-              },
-            ]
-          }
-          transformValue={[Function]}
-        />
-      </div>
-      <div
-        className="results-dropdown results-dropdown-page-size"
-      >
-        <Connect(PreferenceWrapper)
-          keyRef="POSITION_PAGE_SIZES"
-          onSelect={[Function]}
-        >
-          <SelectForm
-            className="select-blue select-offset select-small"
-            defaultSort={10}
-            disabled={false}
-            emptyOptionText="- Select -"
-            id="pageSize"
-            includeFirstEmptyOption={false}
-            label="Results:"
-            onSelectOption={[Function]}
-            options={
-              Array [
-                Object {
-                  "text": "10",
-                  "value": 10,
-                },
-              ]
-            }
-            transformValue={[Function]}
-          />
-        </Connect(PreferenceWrapper)>
-      </div>
-      <div
-        className="results-download"
-      >
-        <Connect(PermissionsWrapper)
-          fallback={
-            <span>
-              <SearchResultsExportLink
-                count={2}
-                filename="TalentMap_search_export.csv"
-              />
-            </span>
-          }
-          permissions="superuser"
-        >
-          <SearchResultsExportLink
-            count={2}
-            filename="TalentMap_search_export.csv"
-          />
-        </Connect(PermissionsWrapper)>
-      </div>
-      <Connect(Trigger)
-        isPrimary={true}
-      >
-        <button
-          className="usa-button"
-        >
-          Save Search
-        </button>
-      </Connect(Trigger)>
-    </div>
-  </div>
+  <MediaQueryWrapper
+    breakpoint="screenMdMin"
+    widthType="min"
+  />
 </div>
 `;

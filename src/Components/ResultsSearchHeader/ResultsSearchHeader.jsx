@@ -10,6 +10,7 @@ class ResultsSearchHeader extends Component {
     this.onChangeQueryText = this.onChangeQueryText.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
     this.onClear = this.onClear.bind(this);
+    this.getValue = this.getValue.bind(this);
     this.state = {
       q: { value: this.props.defaultKeyword || '' },
     };

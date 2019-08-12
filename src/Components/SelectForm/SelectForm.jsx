@@ -31,7 +31,7 @@ class SelectForm extends Component {
   }
   render() {
     const { id, label, options, includeFirstEmptyOption, emptyOptionText,
-    disabled, className } = this.props;
+    disabled, className, labelSrOnly } = this.props;
     const optionList = options.map(option =>
       (
         <option
@@ -45,7 +45,7 @@ class SelectForm extends Component {
     );
     return (
       <div className="usa-form">
-        <label htmlFor={id}>{label}</label>
+        <label className={labelSrOnly ? 'usa-sr-only' : ''} htmlFor={id}>{label}</label>
         <select
           name={id}
           id={id}
@@ -84,6 +84,7 @@ SelectForm.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   transformValue: PropTypes.func,
+  labelSrOnly: PropTypes.bool,
 };
 
 SelectForm.defaultProps = {
@@ -94,6 +95,7 @@ SelectForm.defaultProps = {
   disabled: false,
   className: 'select-offset select-black',
   transformValue: n => n,
+  labelSrOnly: false,
 };
 
 export default SelectForm;
