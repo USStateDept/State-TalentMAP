@@ -13,3 +13,7 @@
 .tippy-popper[x-placement^=bottom] .tippy-tooltip.light-theme [x-arrow] {
   border-bottom: 7px solid $blue-primary;
 }
+
+.tooltip-link {
+  text-decoration: underline;
+}

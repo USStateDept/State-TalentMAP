@@ -42,7 +42,7 @@ class BidTrackerCardTop extends Component {
     const getQuestionElement = () => (
       <span>
         <span>{questionText.text} </span>
-        <InteractiveElement style={{ textDecoration: 'underline' }} type="span" onClick={this.onClickLink}>
+        <InteractiveElement className="tooltip-link" type="span" onClick={this.onClickLink}>
           {questionText.link}
         </InteractiveElement>
       </span>
