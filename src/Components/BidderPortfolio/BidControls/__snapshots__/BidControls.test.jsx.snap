@@ -19,6 +19,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
         id="porfolio-sort"
         includeFirstEmptyOption={false}
         label="Sort by:"
+        labelSrOnly={false}
         onSelectOption={[Function]}
         options={
           Array [
@@ -67,6 +68,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
         id="porfolio-sort"
         includeFirstEmptyOption={false}
         label="Sort by:"
+        labelSrOnly={false}
         onSelectOption={[Function]}
         options={
           Array [

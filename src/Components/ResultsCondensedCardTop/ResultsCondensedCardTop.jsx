@@ -15,6 +15,7 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
   let cardTopClass = '';
   let vacancyClass;
   let vacancyText;
+
   if (isProjectedVacancy && useProjectedVacancy()) {
     vacancyClass = 'vacancy--projected';
     vacancyText = 'Projected Vacancy';

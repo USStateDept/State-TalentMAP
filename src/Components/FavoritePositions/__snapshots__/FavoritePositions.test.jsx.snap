@@ -54,6 +54,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
         id="sort"
         includeFirstEmptyOption={false}
         label="Sort by:"
+        labelSrOnly={false}
         onSelectOption={[Function]}
         options={
           Array [
@@ -115,6 +116,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "in_panel_date": "2017-12-20",
           "is_priority": false,
           "position": Object {
+            "id": 11,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2015-08-05",
@@ -166,6 +168,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "in_panel_date": "2017-12-20",
           "is_priority": true,
           "position": Object {
+            "id": 1,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2006-09-20",
@@ -217,6 +220,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "in_panel_date": "2017-12-20",
           "is_priority": false,
           "position": Object {
+            "id": 79,
             "position": Object {
               "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
               "create_date": "2006-09-20",

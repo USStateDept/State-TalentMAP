@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HomePageComponent matches snapshot when position arrays are filled 1`] = `
+exports['HomePageComponent matches snapshot when position arrays are filled 1'] = `
 <div
   className="homepage-positions-section-container"
 >
@@ -26,6 +26,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position": Object {
+              "id": 11,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2015-08-05",
@@ -77,6 +78,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
             "in_panel_date": "2017-12-20",
             "is_priority": true,
             "position": Object {
+              "id": 1,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2006-09-20",
@@ -128,6 +130,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position": Object {
+              "id": 79,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2006-09-20",
@@ -205,6 +208,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position": Object {
+              "id": 11,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2015-08-05",
@@ -256,6 +260,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
             "in_panel_date": "2017-12-20",
             "is_priority": true,
             "position": Object {
+              "id": 1,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2006-09-20",
@@ -307,6 +312,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position": Object {
+              "id": 79,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2006-09-20",
@@ -369,7 +375,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
 </div>
 `;
 
-exports[`HomePageComponent matches snapshot when the positions arrays are empty 1`] = `
+exports['HomePageComponent matches snapshot when the positions arrays are empty 1'] = `
 <div
   className="homepage-positions-section-container"
 >
@@ -395,6 +401,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position": Object {
+              "id": 11,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2015-08-05",
@@ -446,6 +453,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
             "in_panel_date": "2017-12-20",
             "is_priority": true,
             "position": Object {
+              "id": 1,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2006-09-20",
@@ -497,6 +505,7 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position": Object {
+              "id": 79,
               "position": Object {
                 "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                 "create_date": "2006-09-20",

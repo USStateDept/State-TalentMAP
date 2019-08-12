@@ -55,6 +55,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
           id="mark-notification-dropdown"
           includeFirstEmptyOption={false}
           label="Bulk Actions:"
+          labelSrOnly={false}
           onSelectOption={[Function]}
           options={
             Array [

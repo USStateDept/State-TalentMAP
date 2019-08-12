@@ -26,11 +26,12 @@ class ResultsCondensedCardBottom extends Component {
   }
   renderBidListButton() {
     const { showBidListButton, position } = this.props;
+    const pos = position.position || position;
     return showBidListButton ?
       <PermissionsWrapper permissions="bidder">
         <BidListButton
-          id={position.id}
-          disabled={!get(position, 'availability.availability', true)}
+          id={pos.id}
+          disabled={!get(pos, 'availability.availability', true)}
         />
       </PermissionsWrapper>
     :
