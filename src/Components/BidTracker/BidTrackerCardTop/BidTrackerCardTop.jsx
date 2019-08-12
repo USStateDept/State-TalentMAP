@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
+import { Tooltip } from 'react-tippy';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
+import InteractiveElement from '../../InteractiveElement';
+import { toggleGlossary } from '../../../actions/showGlossary';
+import { scrollToGlossaryTerm } from '../../../utilities';
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
     super(props);
     this.onDeleteBid = this.onDeleteBid.bind(this);
+    this.onClickLink = this.onClickLink.bind(this);
     this.state = {
       confirm: false,
     };
@@ -20,11 +26,27 @@ class BidTrackerCardTop extends Component {
     deleteBid(bid.position.id);
   }
 
+  onClickLink() {
+    const { toggle, questionText: { term } } = this.props;
+    toggle();
+    scrollToGlossaryTerm(term);
+  }
+
   render() {
-    const { bid, hideDelete, showBidCount, showQuestion } = this.props;
+    const { bid, hideDelete, showBidCount, questionText } = this.props;
     const { position } = bid.position;
     const bidStatistics = get(position, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
+    const showQuestion = !!(questionText && questionText.text);
+
+    const getQuestionElement = () => (
+      <span>
+        <span>{questionText.text} </span>
+        <InteractiveElement style={{ textDecoration: 'underline' }} type="span" onClick={this.onClickLink}>
+          {questionText.link}
+        </InteractiveElement>
+      </span>
+    );
     return (
       <div className="usa-grid-full padded-container-inner bid-tracker-title-container">
         <div className="bid-tracker-title-content-container">
@@ -42,7 +64,17 @@ class BidTrackerCardTop extends Component {
             {
               showQuestion &&
                 <div className="bid-tracker-question-text-container">
-                  <FontAwesome name="question-circle" /> Why is it taking so long?
+                  <Tooltip
+                    html={getQuestionElement()}
+                    arrow
+                    tabIndex="0"
+                    interactive
+                    interactiveBorder={5}
+                  >
+                    <span>
+                      <FontAwesome name="question-circle" /> Why is it taking so long?
+                    </span>
+                  </Tooltip>
                 </div>
             }
             <div className="bid-tracker-actions-container">
@@ -64,16 +96,26 @@ class BidTrackerCardTop extends Component {
 
 BidTrackerCardTop.propTypes = {
   bid: BID_OBJECT.isRequired,
-  showQuestion: PropTypes.bool, // Determine whether or not to show the question text
+  questionText: PropTypes.shape({
+    text: PropTypes.string,
+    link: PropTypes.string,
+    term: PropTypes.string,
+  }),
   deleteBid: PropTypes.func.isRequired,
   showBidCount: PropTypes.bool,
   hideDelete: PropTypes.bool,
+  toggle: PropTypes.func.isRequired,
 };
 
 BidTrackerCardTop.defaultProps = {
+  questionText: {},
   showQuestion: true,
   showBidCount: true,
   hideDelete: false,
 };
 
-export default BidTrackerCardTop;
+export const mapDispatchToProps = dispatch => ({
+  toggle: () => dispatch(toggleGlossary(true)),
+});
+
+export default connect(null, mapDispatchToProps)(BidTrackerCardTop);
