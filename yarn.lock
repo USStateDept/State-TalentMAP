@@ -10714,9 +10714,10 @@ typeface-merriweather@^0.0.54:
   version "0.0.54"
   resolved "https://registry.yarnpkg.com/typeface-merriweather/-/typeface-merriweather-0.0.54.tgz#a6b694d93c7ac432e26e8d7797a19afe83844186"
 
-typeface-roboto@^0.0.50:
-  version "0.0.50"
-  resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.50.tgz#cc8e2ad00a24a4d0efce60731ccf722c29185fa4"
+typeface-roboto@^0.0.75:
+  version "0.0.75"
+  resolved "https://registry.yarnpkg.com/typeface-roboto/-/typeface-roboto-0.0.75.tgz#98d5ba35ec234bbc7172374c8297277099cc712b"
+  integrity sha512-VrR/IiH00Z1tFP4vDGfwZ1esNqTiDMchBEXYY9kilT6wRGgFoCAlgkEUMHb1E3mB0FsfZhv756IF0+R+SFPfdg==
 
 typescript@^2.4.1:
   version "2.7.2"

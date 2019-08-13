@@ -65,7 +65,7 @@
     "shortid": "^2.2.8",
     "time-input": "^1.6.1",
     "typeface-merriweather": "^0.0.54",
-    "typeface-roboto": "^0.0.50",
+    "typeface-roboto": "^0.0.75",
     "uswds": "~1.6.0"
   },
   "devDependencies": {
