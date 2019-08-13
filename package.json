@@ -71,7 +71,7 @@
   "devDependencies": {
     "@epegzz/sass-vars-loader": "^3.2.0",
     "autoprefixer": "7.2.5",
-    "axios-mock-adapter": "^1.10.0",
+    "axios-mock-adapter": "^1.17.0",
     "babel-core": "6.26.3",
     "babel-eslint": "7.2.3",
     "babel-jest": "23.6.0",
