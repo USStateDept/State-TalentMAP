@@ -16,7 +16,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-inner-container"
   >
-    <Connect(BidTrackerCardTop)
+    <BidTrackerCardTop
       bid={
         Object {
           "approved_date": "2017-12-20",
@@ -73,7 +73,9 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
       }
       deleteBid={[Function]}
       hideDelete={false}
+      questionText={Object {}}
       showBidCount={true}
+      showQuestion={true}
     />
     <div
       className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container bid-tracker-bid-steps-container--draft"

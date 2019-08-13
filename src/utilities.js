@@ -321,15 +321,19 @@ export const filterByProps = (keyword, props = [], array = []) => {
 
 // Focus an element on the page based on its ID. Pass an optional, positive timeout number to
 // execute the focus within a timeout.
-export const focusById = (id, timeout) => {
+export const focusById = (id, timeout, config = {}) => {
+  const config$ = {
+    preventScroll: true,
+    ...config,
+  };
   let element = document.getElementById(id);
   if (!isNumber(timeout)) {
-    if (element) { element.focus(); }
+    if (element) { element.focus(config$); }
   } else {
     setTimeout(() => {
       element = document.getElementById(id);
       if (element) {
-        element.focus();
+        element.focus(config$);
       }
     }, timeout);
   }
@@ -611,7 +615,7 @@ export const scrollToGlossaryTerm = (term) => {
   if (el) {
     setTimeout(() => {
       el.scrollIntoView();
-      focusById(id);
+      focusById(id, 0, { preventScroll: false });
 
       if (el.getAttribute('aria-expanded') !== 'true') {
         el.click();

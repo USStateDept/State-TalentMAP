@@ -9,6 +9,7 @@ import OBCUrl from '../OBCUrl';
 import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
+import GlossaryTermTrigger from '../GlossaryTermTrigger';
 import { Featured, Handshake } from '../Ribbon';
 import {
   formatDate,
@@ -84,6 +85,8 @@ const PositionDetailsItem = (props) => {
   const postedDate = getPostedDate();
 
   const stats = getBidStatisticsObject(details.bid_statistics);
+
+  const isHighlighted = get(details, 'is_highlighted');
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
@@ -92,7 +95,7 @@ const PositionDetailsItem = (props) => {
           render={() => renderHandshake(stats, details)}
         />
         {
-          get(details, 'is_highlighted') && <Featured cutSide="both" className="ribbon-position-details" />
+          isHighlighted && <Featured cutSide="both" className="ribbon-position-details" />
         }
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
@@ -103,6 +106,21 @@ const PositionDetailsItem = (props) => {
             editDescriptionContent={editDescriptionContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
+          {
+            isHighlighted &&
+            <div className="featured-description-container">
+              {`
+                Contrary to popular belief, Lorem Ipsum is not simply random text.
+                It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
+                Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
+                looked up one of the more obscure Latin words, consectetur,
+                from a Lorem Ipsum passage, and going through the cites of the word in classical literature,
+                discovered the undoubtable source. Read more about
+              `}
+              <GlossaryTermTrigger className="featured-description--link" term="SND - Service Need Differential" />
+              {'.'}
+            </div>
+          }
           <div className="usa-grid-full data-point-section">
             <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position number" content={details.position_number} />
             <CondensedCardDataPoint title="Skill" content={details.skill || NO_SKILL} />
