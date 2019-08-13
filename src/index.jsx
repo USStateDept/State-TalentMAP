@@ -9,6 +9,7 @@ import App from './Components/App/App';
 import { getAssetPath } from './utilities';
 
 import '../node_modules/uswds/dist/js/uswds.min';
+import './polyfills';
 
 // function to initialize app, capture feature flags in localStorage
 export const init = (config) => {
