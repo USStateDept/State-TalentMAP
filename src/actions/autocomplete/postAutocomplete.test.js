@@ -23,11 +23,11 @@ const results = [
   },
 ];
 
-mockAdapter.onGet('/orgpost/?q=Dubai&limit=3').reply(200,
+mockAdapter.onGet('/orgpost/?q=Dubai&limit=3&is_available=true').reply(200,
   { results },
 );
 
-mockAdapter.onGet('/v1/orgpost/?q=fake&limit=3').reply(404,
+mockAdapter.onGet('/v1/orgpost/?q=fake&limit=3&is_available=true').reply(404,
   null,
 );
 
@@ -48,7 +48,7 @@ describe('async actions', () => {
   it('can handle responses with null locations', (done) => {
     const store = mockStore({ posts: [] });
 
-    mockAdapter.onGet('/api/v1/orgpost/?q=Dubai&limit=3').reply(200,
+    mockAdapter.onGet('/api/v1/orgpost/?q=Dubai&limit=3&is_available=true').reply(200,
       { results: [
         Object.assign({}, results[0]),
         Object.assign(results[0], { location: null }),

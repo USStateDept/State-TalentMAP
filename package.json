@@ -148,7 +148,8 @@
       "!src/Components/StaticDevContent/*",
       "!src/actions/showStaticContent.js",
       "!src/reducers/showStaticContent.js",
-      "!src/Components/CSV/**/*.{js,jsx}"
+      "!src/Components/CSV/**/*.{js,jsx}",
+      "!src/polyfills/**/*.{js,jsx}"
     ],
     "coverageReporters": [
       "text-summary",
