@@ -8825,9 +8825,10 @@ react-scroll@^1.7.12:
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
 
-react-scrollbar@^0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/react-scrollbar/-/react-scrollbar-0.5.4.tgz#270576a28d0f7783b2304b284dbd38d82b36b0e0"
+react-scrollbar@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/react-scrollbar/-/react-scrollbar-0.5.6.tgz#bd57b45714f8d70e56813fe299d7fb3a2e42a27b"
+  integrity sha512-TsSLsuovOlxmfTxY9bRjRUfQjycvfs73L4gz7yE+2D8Qs7U3zhwbGS0lj0JScCDipcyn7EX66LsaI00cU3aRSQ==
   dependencies:
     config "^1.24.0"
     line-height "^0.1.1"
