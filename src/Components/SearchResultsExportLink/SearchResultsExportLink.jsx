@@ -27,6 +27,7 @@ const HEADERS = [
   { label: 'Incumbent', key: 'position__current_assignment__user' },
   { label: 'Bid Cycle/Season', key: 'bidcycle__name' },
   { label: 'Posted date', key: 'posted_date' },
+  { label: 'Status code', key: 'status_code' },
 ];
 
 // Processes results before sending to the download component to allow for custom formatting.
