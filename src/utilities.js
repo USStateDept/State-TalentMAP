@@ -1,6 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, isEqual, isNumber, isObject, keys, merge as merge$, transform } from 'lodash';
+import { cloneDeep, get, isEqual, isNumber, isObject, keys, lowerCase,
+  merge as merge$, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -85,8 +86,8 @@ export function fetchUserToken() {
 }
 
 export const pillSort = (a, b) => {
-  const A = (a.description || a.code).toString().toLowerCase();
-  const B = (b.description || b.code).toString().toLowerCase();
+  const A = lowerCase(toString((a.description || a.code)));
+  const B = lowerCase(toString((b.description || b.code)));
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -96,9 +97,9 @@ export const pillSort = (a, b) => {
 
 export const propSort = (propName, nestedPropName) => (a, b) => {
   let A = a[propName][nestedPropName] || a[propName];
-  A = A.toString().toLowerCase();
+  A = lowerCase(toString(A));
   let B = b[propName][nestedPropName] || b[propName];
-  B = B.toString().toLowerCase();
+  B = lowerCase(toString(B));
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -304,7 +305,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
         props.forEach((prop) => {
           if (doesMatch) {
             // if so, doesMatch = true
-            if (data[prop].toString().toLowerCase().indexOf(k.toString().toLowerCase()) !== -1) {
+            if (lowerCase(toString(data[prop])).indexOf(lowerCase(toString(k))) !== -1) {
               doesMatch$ = true;
             }
           }
@@ -394,7 +395,7 @@ export const getBidStatisticsObject = (bidStatisticsArray) => {
 // replace spaces with hyphens so that id attributes are valid
 export const formatIdSpacing = (id) => {
   if (id) {
-    let idString = id.toString();
+    let idString = toString(id);
     idString = idString.split(' ').join('-');
     // remove any non-alphanumeric character, excluding hyphen
     idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
