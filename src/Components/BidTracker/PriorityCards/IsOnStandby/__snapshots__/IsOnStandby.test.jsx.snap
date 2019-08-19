@@ -26,7 +26,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-standby-content-container"
   >
-    <BidTrackerCardTop
+    <Connect(BidTrackerCardTop)
       bid={
         Object {
           "approved_date": "2017-12-20",

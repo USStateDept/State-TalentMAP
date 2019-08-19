@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { get, groupBy } from 'lodash';
+import { get, groupBy, trim } from 'lodash';
 import Accordion, { AccordionItem } from '../../Accordion';
 import { GLOSSARY_ARRAY } from '../../../Constants/PropTypes';
 import { formatIdSpacing } from '../../../utilities';
@@ -39,7 +39,7 @@ class GlossaryComponent extends Component {
                   (<AccordionItem
                     key={item.id}
                     title={item.title}
-                    id={formatIdSpacing(item.title)}
+                    id={formatIdSpacing(trim(item.title))}
                     useIdClass={false}
                   >
                     <div className="usa-grid-full">
