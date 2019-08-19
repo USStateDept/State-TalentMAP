@@ -602,3 +602,21 @@ export const mapDuplicates = (data = [], propToCheck = 'custom_description') => 
   }
   return p$;
 });
+
+// scroll to a specific glossary term
+export const scrollToGlossaryTerm = (term) => {
+  // id formatting used for glossary accordion buttons
+  const id = `${formatIdSpacing(term)}-button`;
+
+  const el = document.getElementById(id);
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView();
+      focusById(id);
+
+      if (el.getAttribute('aria-expanded') !== 'true') {
+        el.click();
+      }
+    }, 300);
+  }
+};
