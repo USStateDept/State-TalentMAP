@@ -23,15 +23,15 @@ const api = () => {
     return requestWithAuth;
   });
 
-  // add JWT
+  // Add JWT
   api$.interceptors.request.use((request) => {
-    const requestWithAuth = request;
+    const requestWithJwt = request;
     const jwt = fetchJWT();
     if (jwt) {
-      requestWithAuth.headers.JWT = jwt;
+      requestWithJwt.headers.jwt = jwt;
     }
 
-    return requestWithAuth;
+    return requestWithJwt;
   });
 
   api$.interceptors.response.use(response => response, (error) => {
