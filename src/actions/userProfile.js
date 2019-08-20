@@ -166,3 +166,9 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
       });
   };
 }
+
+// The use of this endpoint has no implications on the user experience of the site,
+// so we don't use our typical dispatch/loading/error/success state management paradigm.
+export function trackLogin() {
+  api().post('/stats/login/');
+}

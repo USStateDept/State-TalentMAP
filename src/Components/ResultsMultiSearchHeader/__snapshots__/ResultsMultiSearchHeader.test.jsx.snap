@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['ResultsMultiSearchHeaderComponent matches snapshot 1'] = `
+exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
 <div
   className="results-search-bar padded-main-content results-multi-search"
 >
@@ -91,6 +91,7 @@ exports['ResultsMultiSearchHeaderComponent matches snapshot 1'] = `
                 id="grade-searchbar-filter"
                 includeFirstEmptyOption={true}
                 label="Grade"
+                labelSrOnly={false}
                 onSelectOption={[Function]}
                 options={
                   Array [
@@ -116,6 +117,7 @@ exports['ResultsMultiSearchHeaderComponent matches snapshot 1'] = `
                 id="bureau-searchbar-filter"
                 includeFirstEmptyOption={true}
                 label="Bureau"
+                labelSrOnly={false}
                 onSelectOption={[Function]}
                 options={
                   Array [

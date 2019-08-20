@@ -21,7 +21,7 @@ describe('ResultsPageComponent', () => {
   ];
 
   it('is defined', () => {
-    wrapper = shallow(<ResultsPage
+    wrapper = shallow(<ResultsPage.WrappedComponent
       results={resultsObject}
       hasErrored
       isLoading={false}
@@ -56,7 +56,7 @@ describe('ResultsPageComponent', () => {
   });
 
   it('can receive props', () => {
-    wrapper = shallow(<ResultsPage
+    wrapper = shallow(<ResultsPage.WrappedComponent
       results={resultsObject}
       hasErrored
       isLoading={false}
@@ -91,7 +91,7 @@ describe('ResultsPageComponent', () => {
   });
 
   it('can receive props', () => {
-    wrapper = shallow(<ResultsPage
+    wrapper = shallow(<ResultsPage.WrappedComponent
       hasErrored={false}
       isLoading={false}
       sortBy={POSITION_SEARCH_SORTS}
