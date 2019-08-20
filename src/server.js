@@ -185,4 +185,4 @@ app.get('*', (request, response) => {
 const server = app.listen(port);
 
 // export the the app and server separately
-module.exports = { app, server };
+module.exports = { app, server, removeCacheControl };

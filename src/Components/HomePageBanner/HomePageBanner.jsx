@@ -11,6 +11,8 @@ import { getAssetPath } from '../../utilities';
 
 const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
 
+export const formatNum = n => numeral(n).format('0,0');
+
 class HomePageBanner extends Component {
   constructor(props) {
     super(props);
@@ -55,7 +57,7 @@ class HomePageBanner extends Component {
                       isLoading ?
                         <Skeleton width="25px" duration={1.1} />
                         :
-                        <CountUp end={roundedCount} duration={1.4} formattingFn={n => numeral(n).format('0,0')}>
+                        <CountUp end={roundedCount} duration={1.4} formattingFn={formatNum}>
                           {({ countUpRef }) => (
                             <span ref={countUpRef} />
                         )}
