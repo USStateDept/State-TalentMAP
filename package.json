@@ -82,7 +82,7 @@
     "babel-runtime": "6.26.0",
     "bundlesize": "^0.17.1",
     "case-sensitive-paths-webpack-plugin": "2.1.1",
-    "chalk": "2.3.0",
+    "chalk": "2.4.2",
     "css-loader": "0.28.8",
     "dotenv": "4.0.0",
     "enzyme": "^2.9.1",
