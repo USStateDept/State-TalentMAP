@@ -92,12 +92,14 @@ const items = {
 
 describe('async actions', () => {
   const filters = {
+    asyncParams: [{ codeRef: 1, selectionRef: ENDPOINT_PARAMS.post }],
     filters: [
       {
         item: { title: 'COLA', description: 'COLA', selectionRef: 'post__cost_of_living_adjustment__gt' },
         data: [{ code: '0', short_description: 'Yes', isSelected: false }],
       },
     ],
+    asyncFilterCache: [],
   };
 
   beforeEach(() => {

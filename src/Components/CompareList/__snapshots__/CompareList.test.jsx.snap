@@ -391,6 +391,16 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               30%
+              <span>
+                 | 
+                <OBCUrl
+                  altStyle={false}
+                  id={1}
+                  isButton={false}
+                  label="View OBC Data"
+                  type="post-data"
+                />
+              </span>
             </td>
             <td>
               20%
@@ -413,6 +423,16 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <td>
               0%
+              <span>
+                 | 
+                <OBCUrl
+                  altStyle={false}
+                  id={1}
+                  isButton={false}
+                  label="View OBC Data"
+                  type="post"
+                />
+              </span>
             </td>
             <td>
               15%
