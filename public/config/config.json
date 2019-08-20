@@ -2,6 +2,7 @@
   "api_config": {
     "baseURL": "http://localhost:8000/api/v1"
   },
+  "hrAuthUrl": "/jwt.test.txt",
   "flags": {
     "bidding": true,
     "projected_vacancy": true,

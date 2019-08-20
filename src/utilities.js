@@ -85,6 +85,14 @@ export function fetchUserToken() {
   return null;
 }
 
+export function fetchJWT() {
+  const key = sessionStorage.getItem('jwt');
+  if (key) {
+    return key;
+  }
+  return null;
+}
+
 export const pillSort = (a, b) => {
   const A = lowerCase(toString((a.description || a.code)));
   const B = lowerCase(toString((b.description || b.code)));

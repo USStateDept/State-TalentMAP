@@ -1,6 +1,6 @@
 import axios from 'axios';
 import memoize from 'memoize-one';
-import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect } from './utilities';
+import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from './utilities';
 import { logoutRequest } from './login/actions';
 import { checkFlag } from './flags';
 
@@ -18,6 +18,17 @@ const api = () => {
     const requestWithAuth = request;
     if (hasValidToken()) {
       requestWithAuth.headers.Authorization = fetchUserToken();
+    }
+
+    return requestWithAuth;
+  });
+
+  // add JWT
+  api$.interceptors.request.use((request) => {
+    const requestWithAuth = request;
+    const jwt = fetchJWT();
+    if (jwt) {
+      requestWithAuth.headers.JWT = jwt;
     }
 
     return requestWithAuth;

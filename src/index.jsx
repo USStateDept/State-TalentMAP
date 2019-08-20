@@ -11,12 +11,37 @@ import { getAssetPath } from './utilities';
 import '../node_modules/uswds/dist/js/uswds.min';
 import './polyfills';
 
-// function to initialize app, capture feature flags in localStorage
-export const init = (config) => {
-  sessionStorage.setItem('config', JSON.stringify(config));
+const render = () => {
   ReactDOM.render((
     <App />
   ), document.getElementById('root') || document.createElement('div'));
+};
+
+// Because the JWT request could be slow.
+const renderLoading = () => {
+  ReactDOM.render((
+    <div>Loading...</div>
+  ), document.getElementById('root') || document.createElement('div'));
+};
+
+// function to initialize app, capture feature flags in localStorage
+export const init = (config) => {
+  sessionStorage.setItem('config', JSON.stringify(config));
+
+  const auth = get(config, 'hrAuthUrl');
+
+  if (auth) {
+    renderLoading();
+    axios
+    .get(auth, { headers: { Accept: 'application/json' } })
+    .then((response) => {
+      sessionStorage.setItem('jwt', response.data);
+      render();
+    })
+    .catch(() => render());
+  } else {
+    render();
+  }
 };
 
 // retrieve static config file, pass to app init
