@@ -3,6 +3,11 @@
   background-color: $dos-blue;
   border-bottom: 3px solid $dos-red;
 
+  .usa-menu-btn {
+    background-color: transparent;
+    font-size: 1.4em;
+  }
+
   .usa-navbar {
     border-bottom: 0;
   }
