@@ -2,7 +2,7 @@
   "api_config": {
     "baseURL": "http://localhost:8000/api/v1"
   },
-  "hrAuthUrl": "/jwt.test.txt",
+  "hrAuthUrl": "http://localhost:3333/Authorize?sAppCircuitID=32",
   "flags": {
     "bidding": true,
     "projected_vacancy": true,
