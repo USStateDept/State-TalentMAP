@@ -64,7 +64,7 @@
     "saml2-js": "2.0.2",
     "shortid": "^2.2.14",
     "time-input": "^1.6.1",
-    "typeface-merriweather": "^0.0.54",
+    "typeface-merriweather": "^0.0.72",
     "typeface-roboto": "^0.0.75",
     "uswds": "~1.6.0"
   },
