@@ -18,10 +18,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run: yarn
+          keys: 
+          - dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - dependency-cache-
+      - run: yarn --frozen-lockfile
       - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
             - ~/.cache/yarn
@@ -50,15 +53,38 @@ jobs:
       - run: cd certs && ./certs.sh
       - run: cd ..
       - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run: yarn
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run: yarn --frozen-lockfile
+      - run:
+          name: Install JUnit coverage reporter
+          command: yarn add --dev jest-junit
       - run:
           name: Jest Test Coverage
-          command: yarn test
+          command: yarn test -- --ci --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT: "reports/jest/test-results.xml"
       - run: ./cc-test-reporter after-build --exit-code $? < coverage/lcov.info
+      - store_test_results:
+          path: reports
       - store_artifacts:
           path: coverage/lcov.info
           destination: coverage/lcov.info
+  site:
+    <<: *default-docker-node
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run: yarn --frozen-lockfile
+      - run:
+          name: Build site
+          command: yarn build
+      - run:
+          name: Zip artifact
+          command: zip talentmap.zip -r build/*
+      - store_artifacts:
+          path: talentmap.zip
+          destination: talentmap.zip
  # Disabled see 1368 pa11y:
  #   <<: *default-docker-node
  #   steps:
@@ -167,7 +193,16 @@ workflows:
       - docker-build:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - dev
+                - staging
+                - master
       - yarn:
+          requires:
+            - build
+      - site:
           requires:
             - build
       # Disabled see 1368 - pa11y:
@@ -191,3 +226,9 @@ workflows:
           requires:
             - yarn
             # Disabled see 1368 - pa11y
+          filters:
+            branches:
+              only:
+                - dev
+                - staging
+                - master
