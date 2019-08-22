@@ -1,28 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LinkButton from '../LinkButton';
-import { OBC_COUNTRY_URL_PREFIX, OBC_POST_URL_PREFIX, OBC_POST_DATA_URL_PREFIX } from '../../Constants/OBC';
-import { getAssetPath } from '../../utilities';
 
-const OBCUrl = ({ id, type, label, isButton, altStyle }) => {
-  let url;
+const OBCUrl = ({ type, label, isButton, altStyle, url }) => {
   let text; // link text value
 
   // define the URL according to the type
   switch (type) {
     case 'country':
-      url = getAssetPath(`${OBC_COUNTRY_URL_PREFIX}${id}`);
       text = 'Country';
       break;
 
     case 'post-data':
-      url = getAssetPath(`${OBC_POST_DATA_URL_PREFIX}${id}`);
       text = 'Post';
       break;
 
     default:
     case 'post':
-      url = getAssetPath(`${OBC_POST_URL_PREFIX}${id}`);
       text = 'Post';
   }
 
@@ -35,12 +29,14 @@ const OBCUrl = ({ id, type, label, isButton, altStyle }) => {
     isButton ?
       <LinkButton isExternal className={`post-data-button ${altStyle ? 'usa-button-secondary' : ''}`} toLink={url} >{text}</LinkButton>
       :
+      // This always directs to an internal resource, so there is no security risk.
+      // eslint-disable-next-line react/jsx-no-target-blank
       <a href={url} rel="noopener" target="_blank">{text}</a>
   );
 };
 
 OBCUrl.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  url: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['post', 'post-data', 'country']),
   label: PropTypes.node,
   isButton: PropTypes.bool,

@@ -265,7 +265,7 @@ class CompareList extends Component {
                         compareArray.map(c => (
                           <td key={shortId.generate()}>
                             {getDifferentialPercentage(propOrDefault(c.position, 'post.differential_rate'), NO_POST_DIFFERENTIAL)}
-                            {propOrDefault(c.position, 'post.obc_id') ? <span> | <OBCUrl type="post-data" id={c.position.post.obc_id} label="View OBC Data" /></span> : null }
+                            {propOrDefault(c.position, 'post.post_bidding_considerations_url') ? <span> | <OBCUrl type="post-data" url={c.position.post.post_bidding_considerations_url} label="View OBC Data" /></span> : null }
                           </td>
                         ))
                       }
@@ -281,7 +281,7 @@ class CompareList extends Component {
                         compareArray.map(c => (
                           <td key={shortId.generate()}>
                             {getDifferentialPercentage(propOrDefault(c.position, 'post.danger_pay'), NO_DANGER_PAY)}
-                            {propOrDefault(c.position, 'post.obc_id') ? <span> | <OBCUrl id={c.position.post.obc_id} label="View OBC Data" /></span> : null }
+                            {propOrDefault(c.position, 'post.post_bidding_considerations_url') ? <span> | <OBCUrl type="post-data" url={c.position.post.post_bidding_considerations_url} label="View OBC Data" /></span> : null }
                           </td>
                         ))
                       }

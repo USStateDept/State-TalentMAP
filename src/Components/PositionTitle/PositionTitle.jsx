@@ -33,7 +33,7 @@ class PositionTitle extends Component {
   }
   render() {
     const { details, userProfile } = this.props;
-    const obcId = propOrDefault(details, 'post.obc_id');
+    const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
     return (
@@ -54,7 +54,7 @@ class PositionTitle extends Component {
                   </div>
                   <div className="post-title">
                     Location: {getPostName(details.post, NO_POST)}
-                    { obcId && <span> (<OBCUrl id={obcId} />)</span> }
+                    { !!OBCUrl$ && <span> (<OBCUrl url={OBCUrl$} />)</span> }
                   </div>
                 </div>
                 <div className="usa-width-one-half title-actions-section">
