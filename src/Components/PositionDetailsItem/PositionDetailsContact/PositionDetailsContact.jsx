@@ -91,7 +91,7 @@ class PositionDetailsContact extends Component {
 
     const formattedDate = formatDate(details.update_date);
 
-    const obcId = propOrDefault(details, 'post.obc_id');
+    const OBCUrl = propOrDefault(details, 'post.post_overview_url');
 
     return (
       <div className="position-details-contact" style={{ position: 'relative' }}>
@@ -119,12 +119,12 @@ class PositionDetailsContact extends Component {
             />
           </div>
         </div>
-        <div className={`contact-container ${!obcId ? 'no-button' : ''}`}>
+        <div className={`contact-container ${!OBCUrl ? 'no-button' : ''}`}>
           <strong>Updated</strong>: {formattedDate}
         </div>
         <div className="offset-bid-button-container">
           <div className="offset-bid-button-container-button">
-            { !!obcId && <ViewPostDataButton id={obcId} altStyle /> }
+            { !!OBCUrl && <ViewPostDataButton url={OBCUrl} altStyle /> }
           </div>
         </div>
       </div>

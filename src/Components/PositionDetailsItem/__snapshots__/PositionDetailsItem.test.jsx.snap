@@ -302,38 +302,12 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
           title="Language"
         />
         <CondensedCardDataPoint
-          content={
-            <span>
-               
-              None listed
-               | 
-              <OBCUrl
-                altStyle={false}
-                id={1}
-                isButton={false}
-                label="View OBC Data"
-                type="post-data"
-              />
-            </span>
-          }
+          content="None listed"
           hasFixedTitleWidth={false}
           title="Post differential"
         />
         <CondensedCardDataPoint
-          content={
-            <span>
-               
-              None listed
-               | 
-              <OBCUrl
-                altStyle={false}
-                id={1}
-                isButton={false}
-                label="View OBC Data"
-                type="post-data"
-              />
-            </span>
-          }
+          content="None listed"
           hasFixedTitleWidth={false}
           title="Danger pay"
         />

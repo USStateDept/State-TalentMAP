@@ -63,10 +63,10 @@ const PositionDetailsItem = (props) => {
   const postDifferential = getDifferentialPercentage(propOrDefault(details, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
   const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.danger_pay'), NO_DANGER_PAY);
 
-  const OBCId = propOrDefault(details, 'post.obc_id');
+  const OBCUrl$ = propOrDefault(details, 'post.post_bidding_considerations_url');
   const getFormattedObcData = (prefix) => {
-    if (OBCId) {
-      return (<span> {prefix} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    if (OBCUrl$) {
+      return (<span> {prefix} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
     }
 
     return prefix;
