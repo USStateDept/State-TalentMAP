@@ -35,9 +35,9 @@ const getResult = (result, path, defaultValue, isRate = false) => {
   if (path === 'post.differential_rate' || path === 'post.danger_pay') {
     const value$ = getDifferentialPercentage(value);
 
-    const OBCId = get(result, 'post.obc_id');
-    if (OBCId) {
-      return (<span> {value$} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    const OBCUrl$ = get(result, 'post.post_bidding_considerations_url');
+    if (OBCUrl$) {
+      return (<span> {value$} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
     }
 
     return value$;

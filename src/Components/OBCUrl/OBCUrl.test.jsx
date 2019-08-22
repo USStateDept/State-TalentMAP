@@ -8,45 +8,39 @@ describe('OBCUrlComponent', () => {
     process.env.PUBLIC_URL = '/talentmap/';
   });
 
+  const url = 'https://google.com/1';
+
   it('is defined', () => {
     const wrapper = shallow(<OBCUrl
-      id={5}
+      url={url}
     />);
     expect(wrapper).toBeDefined();
   });
 
   it('forms the url', () => {
     const wrapper = shallow(<OBCUrl
-      id={5}
+      url={url}
     />);
-    expect(wrapper.find('a').props().href).toBe('/talentmap/obc/post/5');
-  });
-
-  it('forms the url when type is "country"', () => {
-    const wrapper = shallow(<OBCUrl
-      id={5}
-      type="country"
-    />);
-    expect(wrapper.find('a').props().href).toBe('/talentmap/obc/country/5');
+    expect(wrapper.find('a').props().href).toBe(url);
   });
 
   it('is defined when id is a string', () => {
     const wrapper = shallow(<OBCUrl
-      id="5A"
+      url={url}
     />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(<OBCUrl
-      id={5}
+      url={url}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot when type is "post-data"', () => {
     const wrapper = shallow(<OBCUrl
-      id={5}
+      url={url}
       type="post-data"
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -54,7 +48,7 @@ describe('OBCUrlComponent', () => {
 
   it('matches snapshot when type is "country"', () => {
     const wrapper = shallow(<OBCUrl
-      id={5}
+      url={url}
       type="country"
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -62,14 +56,14 @@ describe('OBCUrlComponent', () => {
 
   it('matches snapshot when id is a string', () => {
     const wrapper = shallow(<OBCUrl
-      id="5A"
+      url={url}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot when isButton is true', () => {
     const wrapper = shallow(<OBCUrl
-      id="5A"
+      url={url}
       isButton
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
