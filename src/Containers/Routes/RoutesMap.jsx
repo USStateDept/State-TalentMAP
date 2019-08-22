@@ -8,8 +8,19 @@ import LoginRedirect from '../../Containers/LoginRedirect';
 import Compare from '../../Containers/Compare/Compare';
 import About from '../../Containers/About';
 import RoutesArray from '../../routes';
+import TokenValidation from '../../login/Components/TokenValidation';
 
-const Components = { Home, Profile, Results, Position, Login, LoginRedirect, About, Compare };
+const Components = {
+  Home,
+  Profile,
+  Results,
+  Position,
+  Login,
+  LoginRedirect,
+  About,
+  Compare,
+  TokenValidation,
+};
 
 const mappedRoutesArray = RoutesArray.map((Route) => {
   const Component = Components[Route.componentName];
