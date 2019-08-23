@@ -65,19 +65,6 @@ describe('proxy server routes', () => {
     request(server).get('/talentmap/compare').expect(200, done);
   });
 
-  // OBC
-  it('redirects on GET /talentmap/obc/country/42', (done) => {
-    request(server).get('/talentmap/obc/country/42').expect(302, done);
-  });
-
-  it('redirects on GET /talentmap/obc/post/data/42', (done) => {
-    request(server).get('/talentmap/obc/post/42').expect(302, done);
-  });
-
-  it('redirects on GET /talentmap/obc/post/42', (done) => {
-    request(server).get('/talentmap/obc/post/42').expect(302, done);
-  });
-
   it('redirects on /talentmap/about/more', (done) => {
     request(server).get('/talentmap/about/more').expect(302, done);
   });
