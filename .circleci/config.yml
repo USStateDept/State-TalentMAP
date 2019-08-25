@@ -1,49 +1,59 @@
-version: 2.0
+version: 2.1
 default-docker-node: &default-docker-node
   docker:
     - image: circleci/node:6.11.0
       environment:
         TZ: "/usr/share/zoneinfo/America/New_York"
-        CC_TEST_REPORTER_ID: c05c8cb360b66d7b92767ad0ffdeef2c8519f390d700b8bc2d2b7ee6c2760791
+        CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
         COMPOSE_FILE_NAME: circleci-docker-compose.yml
         API_REPO_NAME: state-talentmap-api
         API_REPO_BRANCH: staging
         PUBLIC_URL: /talentmap/
-        STATIC_PATH: /home/circleci/talentmap/public
+        STATIC_PATH: /home/circleci/project/public
         API_ROOT: http://app:8000/
-        OBC_URL: http://obc:4000/
 jobs:
   build:
     <<: *default-docker-node
-    working_directory: ~/talentmap
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: yarn
+          keys: 
+          - dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - dependency-cache-
+      - run: yarn install --pure-lockfile
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
             - ~/.cache/yarn
-      - persist_to_workspace:
-          root: ~/talentmap
-          paths:
-            - node_modules
-  jest:
+  docker-build:
     <<: *default-docker-node
-    working_directory: ~/talentmap
+    steps:
+      - setup_remote_docker
+      - checkout
+      - run:
+          name: Docker Build
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            BRANCH=${CIRCLE_BRANCH//\//-}
+            TAG=$BRANCH-$CIRCLE_SHA1
+            DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
+            docker build -t talentmap/$DOCKER_HUB_REPO:$TAG .
+            docker push talentmap/$DOCKER_HUB_REPO:$TAG
+  yarn:
+    <<: *default-docker-node
     steps:
       - checkout
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
       - run: chmod +x ./cc-test-reporter
       - run: ./cc-test-reporter before-build
-      - run: chmod +x ./certs/certs.sh 
+      - run: chmod +x ./certs/certs.sh
       - run: cd certs && ./certs.sh
       - run: cd ..
       - restore_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: yarn
+      - run: yarn install --pure-lockfile
       - run:
           name: Install JUnit coverage reporter
           command: yarn add --dev jest-junit
@@ -58,6 +68,25 @@ jobs:
       - store_artifacts:
           path: coverage/lcov.info
           destination: coverage/lcov.info
+  site:
+    <<: *default-docker-node
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run: yarn install --pure-lockfile
+      - run:
+          name: Rebuild node-sass
+          command: npm rebuild node-sass
+      - run:
+          name: Build site
+          command: yarn build
+      - run:
+          name: Zip artifact
+          command: zip talentmap.zip -r build/*
+      - store_artifacts:
+          path: talentmap.zip
+          destination: talentmap.zip
  # Disabled see 1368 pa11y:
  #   <<: *default-docker-node
  #   steps:
@@ -138,20 +167,70 @@ jobs:
                 -t http://web:3000/ \
                 -w "zap_results.md" \
                 -z "-Xmx4g"
+  push-stable:
+    <<: *default-docker-node
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Push Stable Docker Image
+          command: |
+            BRANCH=${CIRCLE_BRANCH//\//-}
+            TAG=$BRANCH-$CIRCLE_SHA1
+            DOCKER_HUB_REPO=${CIRCLE_PROJECT_REPONAME,,}
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker pull talentmap/$DOCKER_HUB_REPO:$TAG
+            docker tag talentmap/$DOCKER_HUB_REPO:$TAG talentmap/$DOCKER_HUB_REPO:$BRANCH
+            docker push talentmap/$DOCKER_HUB_REPO:$BRANCH
+  deploy:
+    <<: *default-docker-node
+    steps:
+      - add_ssh_keys
+      - run:
+          command: ssh -o StrictHostKeyChecking=no ec2-user@ec2-52-204-49-159.compute-1.amazonaws.com ./deploy.sh
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - jest:
+      - docker-build:
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - dev
+                - staging
+                - master
+      - yarn:
+          requires:
+            - build
+      - site:
           requires:
             - build
       # Disabled see 1368 - pa11y:
       #    requires:
       #      - docker-build
+      - deploy:
+          requires:
+            - yarn
+          filters:
+            branches:
+              only: dev
       - zap:
+          requires:
+            - docker-build
           filters:
             tags:
               only: /^zap.*/
             branches:
               ignore: /.*/
+      - push-stable:
+          requires:
+            - yarn
+            # Disabled see 1368 - pa11y
+          filters:
+            branches:
+              only:
+                - dev
+                - staging
+                - master
