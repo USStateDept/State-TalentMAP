@@ -10,7 +10,6 @@ services:
       - PUBLIC_URL=/talentmap/
       - STATIC_PATH=/app/build/
       - API_ROOT=http://api:8000/
-      - OBC_URL=http://obc:4000/
     volumes:
       - .:/app:delegated
       - node-modules:/app/node_modules/

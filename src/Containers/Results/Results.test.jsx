@@ -123,6 +123,8 @@ describe('Results', () => {
         storeSearch={(v) => { value.newValue = v; }}
       />,
     );
+    wrapper.instance().setState({ query: { value: 'q=German' } });
+    wrapper.update();
     wrapper.instance().storeSearch();
     expect(value.newValue).toEqual({ q: 'German' });
   });

@@ -31,9 +31,6 @@ Environment=STATIC_PATH=/var/www/html/talentmap/
 Environment=API_ROOT=http://localhost:8000/
 Environment=API_URL=http://localhost:8000/api/v1
 
-# Protocol, hostname and port of OBC,
-Environment=OBC_URL=http://localhost:4000/
-
 # External link to the About page
 Environment=ABOUT_PAGE=https://github.com/18F/State-TalentMAP
 

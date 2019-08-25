@@ -1,10 +1,31 @@
 const request = require('supertest');
+const httpMocks = require('node-mocks-http');
 const proxyServer = require('./server').server;
+const removeCacheControl = require('./server').removeCacheControl;
 
 describe('proxy server routes', () => {
   let server;
+  let req;
+  let res;
 
   beforeEach(() => {
+    req = httpMocks.createRequest({
+      method: 'GET',
+      url: '/mock/endpoint/',
+      params: {
+        id: 42,
+      },
+    });
+
+    res = httpMocks.createResponse();
+
+    res.set({
+      test: '1',
+      'Surrogate-Control': true,
+      Pragma: true,
+      Expires: true,
+    });
+
     process.env.USE_MOCK_SAML = '1';
     server = proxyServer;
   });
@@ -39,20 +60,26 @@ describe('proxy server routes', () => {
     request(server).post('/talentmap/').expect(307, done);
   });
 
-  // OBC
-  it('redirects on GET /talentmap/obc/country/42', (done) => {
-    request(server).get('/talentmap/obc/country/42').expect(302, done);
-  });
-
-  it('redirects on GET /talentmap/obc/post/data/42', (done) => {
-    request(server).get('/talentmap/obc/post/42').expect(302, done);
-  });
-
-  it('redirects on GET /talentmap/obc/post/42', (done) => {
-    request(server).get('/talentmap/obc/post/42').expect(302, done);
+  // a route from routes.js
+  it('responds to GET /talentmap/compare', (done) => {
+    request(server).get('/talentmap/compare').expect(200, done);
   });
 
   it('redirects on /talentmap/about/more', (done) => {
     request(server).get('/talentmap/about/more').expect(302, done);
+  });
+
+  // middleware
+  it('should set and remove cache headers correctly', (done) => {
+    const callback = () => {
+      const headers = res._headers; // eslint-disable-line no-underscore-dangle
+      expect(headers.test).toBe('1'); // manually added, should not be removed
+      expect(headers['cache-control']).toBe('public'); // added by middleware
+      expect(headers['Surrogate-Control']).toBeUndefined(); // removed by middleware
+      expect(headers.Pragma).toBeUndefined(); // removed by middleware
+      expect(headers.Expires).toBeUndefined(); // removed by middleware
+      done();
+    };
+    removeCacheControl(req, res, callback);
   });
 });

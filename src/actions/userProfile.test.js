@@ -40,6 +40,10 @@ describe('async actions', () => {
       permission,
     );
 
+    mockAdapter.onPost('http://localhost:8000/api/v1/stats/login/').reply(200,
+      null,
+    );
+
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.userProfileFetchData());
@@ -128,6 +132,16 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.unsetUserProfile());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('calls trackLogin', (done) => {
+    const f = () => {
+      setTimeout(() => {
+        actions.trackLogin();
         done();
       }, 0);
     };

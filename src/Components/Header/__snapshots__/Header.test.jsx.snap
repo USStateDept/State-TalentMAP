@@ -27,7 +27,9 @@ exports[`Header matches snapshot when logged in 1`] = `
       <button
         className="usa-menu-btn"
       >
-        Menu
+        <FontAwesome
+          name="bars"
+        />
       </button>
       <div
         className="usa-logo"
@@ -118,7 +120,9 @@ exports[`Header matches snapshot when logged out 1`] = `
       <button
         className="usa-menu-btn"
       >
-        Menu
+        <FontAwesome
+          name="bars"
+        />
       </button>
       <div
         className="usa-logo"

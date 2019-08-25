@@ -64,4 +64,18 @@ describe('DataSync', () => {
     wrapper.instance().updateVal({ target: { value: 'a' } }, 'fieldA');
     expect(wrapper.instance().state.formValues.fieldA).toBe('a');
   });
+
+  it('updates state with setJob()', () => {
+    const wrapper = shallow(<DataSync {...props} />);
+    wrapper.instance().setJob(props.syncJobs[0]);
+    expect(wrapper.instance().state.formValues.id).toBeDefined();
+  });
+
+  it('submits a job with submitSync()', () => {
+    const job = {};
+    const wrapper = shallow(<DataSync {...props} patchSyncJob={(e) => { job.value = e; }} />);
+    wrapper.instance().setJob(props.syncJobs[0]);
+    wrapper.instance().submitSync();
+    expect(job.value).toBeDefined();
+  });
 });

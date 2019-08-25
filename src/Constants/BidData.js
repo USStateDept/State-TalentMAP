@@ -11,6 +11,39 @@ export const IN_PANEL_PROP = 'in_panel';
 export const SUBMITTED_PROP = 'submitted';
 export const PANEL_RESCHEDULED_PROP = 'panel_rescheduled';
 
+export const BID_EXPLANATION_TEXT = {
+  [SUBMITTED_PROP]: {
+    text: "The Bureau is reviewing candidates' qualifications.",
+    link: "Learn more about the Bureau's role.",
+    term: 'Regional and Functional Bureaus',
+  },
+  [HAND_SHAKE_ACCEPTED_PROP]: {
+    text: 'Handshakes are reviewed and registered by CDOs.',
+    link: "Learn more about the CDO's role.",
+    term: 'CDO - Career Development Officer',
+  },
+  [PRE_PANEL_PROP]: {
+    text: 'CDOs represent clients at the HR/CDA Assignments Panel.',
+    link: "Learn more about the CDO's role.",
+    term: 'CDO - Career Development Officer',
+  },
+  [IN_PANEL_PROP]: {
+    text: 'CDOs represent clients at the HR/CDA Assignments Panel.',
+    link: "Learn more about the CDO's role.",
+    term: 'CDO - Career Development Officer',
+  },
+  [PANEL_RESCHEDULED_PROP]: {
+    text: 'CDOs represent clients at the HR/CDA Assignments Panel.',
+    link: "Learn more about the CDO's role.",
+    term: 'CDO - Career Development Officer',
+  },
+  [APPROVED_PROP]: {
+    text: 'AOs may be preparing your assignment, or an HR Tech is writing your orders.',
+    link: "Learn more about AO and HR Tech's roles.",
+    term: 'AO - Assignments Officer',
+  },
+};
+
 // Numbers on the Bid Tracker for given statuses
 export const DRAFT_NUMBER = 1;
 export const SUBMITTED_NUMBER = 2;

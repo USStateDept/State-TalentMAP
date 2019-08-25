@@ -3,7 +3,7 @@ import { take, call, put, cancelled, race } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import api from '../api';
 import { unsetNotificationsCount } from '../actions/notifications';
-import { userProfileFetchData, unsetUserProfile } from '../actions/userProfile';
+import { userProfileFetchData, unsetUserProfile, trackLogin } from '../actions/userProfile';
 import { setClient, unsetClient } from '../client/actions';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
 import { redirectToLogout, redirectToLogin } from '../utilities';
@@ -30,10 +30,20 @@ export function getError(e) {
   };
 }
 
+// Track whether we've made a request in this session to the login tracking endpoint.
+let loginHasBeenTracked = false;
+
 export const auth = {
   get: () => {
     try {
       const token = JSON.parse(localStorage.getItem('token'));
+
+      // Track login. Don't attempt without a token, or endless redirect will occur.
+      if (!loginHasBeenTracked && token) {
+        trackLogin();
+        loginHasBeenTracked = true;
+      }
+
       return token;
     } catch (error) {
       // If token exists and is bad (maybe user injected)

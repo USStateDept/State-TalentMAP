@@ -56,7 +56,7 @@ const resultsObject = {
           rest_relaxation_point: 'Paris',
           has_consumable_allowance: true,
           has_service_needs_differential: true,
-          obc_id: null,
+          obc_id: 1,
         },
         languages: [],
         bid_statistics: [

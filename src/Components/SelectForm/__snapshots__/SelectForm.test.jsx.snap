@@ -5,6 +5,7 @@ exports[`SelectForm matches snapshot 1`] = `
   className="usa-form"
 >
   <label
+    className=""
     htmlFor={1}
   >
     Some label
@@ -67,6 +68,7 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
   className="usa-form"
 >
   <label
+    className=""
     htmlFor={1}
   >
     Some label

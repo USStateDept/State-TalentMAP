@@ -59,6 +59,10 @@ class NotificationsContainer extends Component {
     return get(this.props.notifications, 'results', []);
   }
 
+  getCallback() {
+    return () => this.getNotifications();
+  }
+
   selectAll() {
     const { selectedNotifications } = this.state;
     const results = this.getCurrentResults();
@@ -80,7 +84,7 @@ class NotificationsContainer extends Component {
 
     const ids = intersection(results.map(r => r.id), [...selectedNotifications]);
 
-    const cb = () => this.getNotifications();
+    const cb = this.getCallback();
 
     const config = { ids, markAsRead: false, shouldDelete: false, cb };
 
@@ -97,7 +101,7 @@ class NotificationsContainer extends Component {
   }
 
   delete(id) {
-    const cb = () => this.getNotifications();
+    const cb = this.getCallback();
     this.props.delete(id, cb);
     this.onPageChange({ page: 1 });
   }
