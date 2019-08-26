@@ -2,6 +2,8 @@ $filter-container-width: 24%;
 $results-container-width: 100% - $filter-container-width;
 
 .results {
+  position: relative;
+
   label {
     font-size: .9em;
   }
@@ -316,6 +318,35 @@ $results-container-width: 100% - $filter-container-width;
       margin: 15px;
     }
   }
+
+  @media screen and (max-width: $screen-sm-max) {
+    .header > h3 {
+      display: inline;
+      margin-right: 0;
+    }
+
+    a {
+      margin-left: 5px;
+    }
+
+    tm-button,
+    .usa-button,
+    .compare-check-box-container {
+      &:not(last-child) {
+        margin-right: 0 !important;
+      }
+    }
+
+    .footer > section {
+      display: block !important;
+    }
+  }
+
+  @media screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+    .footer > section:nth-child(1) {
+      border-right: 1px solid $color-black;
+    }
+  }
 }
 
 .results-card--secondary {
@@ -364,6 +395,10 @@ $results-container-width: 100% - $filter-container-width;
   &.is-loading {
     opacity: .5;
     pointer-events: none;
+
+    @media screen and (max-width: $screen-sm-max) {
+      opacity: 1;
+    }
   }
 
   .projected-vacancy-filter-container {
@@ -400,9 +435,76 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
+  @media screen and (max-width: $screen-sm-max) {
+    background: $color-white;
+    border: 0;
+    height: 100%;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    z-index: 10000000;
+
+    .filter-container-bottom {
+      padding: 1.5em;
+    }
+
+    .toggle-button {
+      justify-content: center;
+      padding: 1em;
+    }
+
+    .search-filters-container {
+      .usa-accordion-button {
+        padding: 1em;
+      }
+    }
+
+    [type=checkbox] {
+      margin-top: 1em;
+    }
+
+    [type=checkbox] + label::before {
+      margin-right: 1.6em;
+    }
+
+    .filter-control-left {
+      display: none;
+    }
+
+    .filter-control-container > .filter-control-right {
+      display: table;
+      float: initial;
+      margin: 0 auto;
+      padding-bottom: 1em;
+      width: initial;
+    }
+  }
+
   .filter-container-top {
-    color: $color-gray-darkest;
-    margin-bottom: .5em;
+    border-bottom: 1px solid $color-gray-light;
+    display: flex;
+    justify-content: space-around;
+    padding: .25em 1.5em;
+
+    > * {
+      flex: 1;
+      flex-grow: 1;
+      margin: auto 0;
+    }
+
+    > :nth-child(2) {
+      text-align: center;
+    }
+
+    > :nth-child(3) {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    button {
+      font-size: 1.2rem;
+      margin: 0;
+    }
   }
 
   .filter-container-bottom {
@@ -455,9 +557,30 @@ $results-container-width: 100% - $filter-container-width;
     margin-right: .7em;
   }
 
+  .mobile-controls {
+    display: flex;
+    justify-content: space-between;
+    padding: .5em 0;
+
+    > * {
+      flex: 1;
+      margin: auto 0;
+    }
+
+    .filter-button {
+      display: flex;
+      justify-content: center;
+      text-decoration: underline;
+    }
+  }
+
   @media screen and (max-width: $screen-md-min) {
     padding-left: 0;
     width: 100%;
+  }
+
+  @media screen and (max-width: $screen-sm-max) {
+    padding: 0 1.5em;
   }
 
   .favorite-container {
@@ -467,7 +590,7 @@ $results-container-width: 100% - $filter-container-width;
 
   .results-controls {
     @media screen and (max-width: $screen-md-min) {
-      padding: 0 15px;
+      padding: 0;
     }
 
     .usa-button {
@@ -503,6 +626,7 @@ $results-container-width: 100% - $filter-container-width;
 .results-section-container {
   margin-top: 21px;
   max-width: 1140px;
+  min-height: 500px;
 }
 
 .search-filters-container {
@@ -724,6 +848,10 @@ $results-container-width: 100% - $filter-container-width;
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 130px;
+
+    @media screen and (max-width: $screen-sm-max) {
+      float: right;
+    }
   }
 }
 

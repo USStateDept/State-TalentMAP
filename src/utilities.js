@@ -1,6 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, isEqual, isNumber, isObject, keys, merge as merge$, transform } from 'lodash';
+import { cloneDeep, get, isEqual, isNumber, isObject, keys, lowerCase,
+  merge as merge$, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -84,9 +85,17 @@ export function fetchUserToken() {
   return null;
 }
 
+export function fetchJWT() {
+  const key = sessionStorage.getItem('jwt');
+  if (key) {
+    return key;
+  }
+  return null;
+}
+
 export const pillSort = (a, b) => {
-  const A = (a.description || a.code).toString().toLowerCase();
-  const B = (b.description || b.code).toString().toLowerCase();
+  const A = lowerCase(toString((a.description || a.code)));
+  const B = lowerCase(toString((b.description || b.code)));
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -96,9 +105,9 @@ export const pillSort = (a, b) => {
 
 export const propSort = (propName, nestedPropName) => (a, b) => {
   let A = a[propName][nestedPropName] || a[propName];
-  A = A.toString().toLowerCase();
+  A = lowerCase(toString(A));
   let B = b[propName][nestedPropName] || b[propName];
-  B = B.toString().toLowerCase();
+  B = lowerCase(toString(B));
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -304,7 +313,7 @@ export const filterByProps = (keyword, props = [], array = []) => {
         props.forEach((prop) => {
           if (doesMatch) {
             // if so, doesMatch = true
-            if (data[prop].toString().toLowerCase().indexOf(k.toString().toLowerCase()) !== -1) {
+            if (lowerCase(toString(data[prop])).indexOf(lowerCase(toString(k))) !== -1) {
               doesMatch$ = true;
             }
           }
@@ -321,15 +330,19 @@ export const filterByProps = (keyword, props = [], array = []) => {
 
 // Focus an element on the page based on its ID. Pass an optional, positive timeout number to
 // execute the focus within a timeout.
-export const focusById = (id, timeout) => {
+export const focusById = (id, timeout, config = {}) => {
+  const config$ = {
+    preventScroll: true,
+    ...config,
+  };
   let element = document.getElementById(id);
   if (!isNumber(timeout)) {
-    if (element) { element.focus(); }
+    if (element) { element.focus(config$); }
   } else {
     setTimeout(() => {
       element = document.getElementById(id);
       if (element) {
-        element.focus();
+        element.focus(config$);
       }
     }, timeout);
   }
@@ -394,7 +407,7 @@ export const getBidStatisticsObject = (bidStatisticsArray) => {
 // replace spaces with hyphens so that id attributes are valid
 export const formatIdSpacing = (id) => {
   if (id) {
-    let idString = id.toString();
+    let idString = toString(id);
     idString = idString.split(' ').join('-');
     // remove any non-alphanumeric character, excluding hyphen
     idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
@@ -601,3 +614,21 @@ export const mapDuplicates = (data = [], propToCheck = 'custom_description') => 
   }
   return p$;
 });
+
+// scroll to a specific glossary term
+export const scrollToGlossaryTerm = (term) => {
+  // id formatting used for glossary accordion buttons
+  const id = `${formatIdSpacing(term)}-button`;
+
+  const el = document.getElementById(id);
+  if (el) {
+    setTimeout(() => {
+      el.scrollIntoView();
+      focusById(id);
+
+      if (el.getAttribute('aria-expanded') !== 'true') {
+        el.click();
+      }
+    }, 300);
+  }
+};

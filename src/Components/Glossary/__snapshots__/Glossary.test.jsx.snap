@@ -3,6 +3,7 @@
 exports[`GlossaryComponent matches snapshot 1`] = `
 <div
   className="tm-glossary"
+  id="glossary-click-container"
 >
   <BoxShadow
     aria-describedby="glossary-title"
@@ -113,6 +114,7 @@ exports[`GlossaryComponent matches snapshot 1`] = `
 exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
 <div
   className="tm-glossary"
+  id="glossary-click-container"
 >
   <BoxShadow
     aria-describedby="glossary-title"

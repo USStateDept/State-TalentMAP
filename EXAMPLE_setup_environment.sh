@@ -23,11 +23,6 @@ export API_URL=http://localhost:8000/api/v1
 # Default - 3000
 export PORT=3000
 
-# Protocol, hostname and port of OBC,
-# which provides post and country details
-# Default - local test value http://localhost:4000/
-export OBC_URL=http://localhost:4000/
-
 # External link to the About page
 # Default - local test value https://github.com/18F/State-TalentMAP
 export ABOUT_PAGE=https://github.com/18F/State-TalentMAP

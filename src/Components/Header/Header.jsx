@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { Flag } from 'flag';
+import FA from 'react-fontawesome';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
@@ -137,7 +138,7 @@ export class Header extends Component {
             )}
           />
           <div className="usa-navbar padded-main-content padded-main-content--header">
-            <button className="usa-menu-btn">Menu</button>
+            <button className="usa-menu-btn"><FA name="bars" /></button>
             <div className="usa-logo" id="logo">
               <div className="usa-logo-text">
                 <Link to="/">

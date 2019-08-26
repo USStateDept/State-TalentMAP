@@ -39,6 +39,7 @@ a {
   }
 }
 
+.tooltip-link,
 .static-content-toggle {
   &:focus {
     outline-color: $tm-focus-outline-color-alt !important;

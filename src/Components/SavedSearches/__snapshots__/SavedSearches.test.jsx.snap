@@ -27,6 +27,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
         id="sort"
         includeFirstEmptyOption={false}
         label="Sort by:"
+        labelSrOnly={false}
         onSelectOption={[Function]}
         options={
           Array [

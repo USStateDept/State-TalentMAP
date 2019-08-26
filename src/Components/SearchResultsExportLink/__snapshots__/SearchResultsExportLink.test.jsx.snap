@@ -18,7 +18,7 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
     headers={
       Array [
         Object {
-          "key": "title",
+          "key": "position__title",
           "label": "Position",
         },
         Object {
@@ -26,7 +26,7 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
           "label": "Position number",
         },
         Object {
-          "key": "skill",
+          "key": "position__skill",
           "label": "Skill",
         },
         Object {
@@ -34,31 +34,31 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
           "label": "Grade",
         },
         Object {
-          "key": "bureau",
+          "key": "position__bureau",
           "label": "Bureau",
         },
         Object {
-          "key": "post__location.city",
+          "key": "position__post__location__city",
           "label": "Post city",
         },
         Object {
-          "key": "post__location__country",
+          "key": "position__post__location__country",
           "label": "Post country",
         },
         Object {
-          "key": "post__tour_of_duty",
+          "key": "position__post__tour_of_duty",
           "label": "Tour of duty",
         },
         Object {
-          "key": "languages__0__representation",
+          "key": "position__languages__0__representation",
           "label": "Language",
         },
         Object {
-          "key": "post__differential_rate",
+          "key": "position__post__differential_rate",
           "label": "Post differential",
         },
         Object {
-          "key": "post__danger_pay",
+          "key": "position__post__danger_pay",
           "label": "Danger pay",
         },
         Object {
@@ -66,8 +66,20 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
           "label": "TED",
         },
         Object {
-          "key": "current_assignment__user",
+          "key": "position__current_assignment__user",
           "label": "Incumbent",
+        },
+        Object {
+          "key": "bidcycle__name",
+          "label": "Bid Cycle/Season",
+        },
+        Object {
+          "key": "posted_date",
+          "label": "Posted date",
+        },
+        Object {
+          "key": "status_code",
+          "label": "Status code",
         },
       ]
     }

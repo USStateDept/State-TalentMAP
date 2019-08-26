@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['OBCUrlComponent matches snapshot 1'] = `
+exports[`OBCUrlComponent matches snapshot 1`] = `
 <a
-  href="/talentmap/obc/post/5"
+  href="https://google.com/1"
   rel="noopener"
   target="_blank"
 >
@@ -10,9 +10,9 @@ exports['OBCUrlComponent matches snapshot 1'] = `
 </a>
 `;
 
-exports['OBCUrlComponent matches snapshot when id is a string 1'] = `
+exports[`OBCUrlComponent matches snapshot when id is a string 1`] = `
 <a
-  href="/talentmap/obc/post/5A"
+  href="https://google.com/1"
   rel="noopener"
   target="_blank"
 >
@@ -20,20 +20,20 @@ exports['OBCUrlComponent matches snapshot when id is a string 1'] = `
 </a>
 `;
 
-exports['OBCUrlComponent matches snapshot when isButton is true 1'] = `
+exports[`OBCUrlComponent matches snapshot when isButton is true 1`] = `
 <LinkButton
   className="post-data-button "
   isExternal={true}
-  toLink="/talentmap/obc/post/5A"
+  toLink="https://google.com/1"
   useDefaultClass={true}
 >
   Post details
 </LinkButton>
 `;
 
-exports['OBCUrlComponent matches snapshot when type is "country" 1'] = `
+exports[`OBCUrlComponent matches snapshot when type is "country" 1`] = `
 <a
-  href="/talentmap/obc/country/5"
+  href="https://google.com/1"
   rel="noopener"
   target="_blank"
 >
@@ -41,9 +41,9 @@ exports['OBCUrlComponent matches snapshot when type is "country" 1'] = `
 </a>
 `;
 
-exports['OBCUrlComponent matches snapshot when type is "post-data" 1'] = `
+exports[`OBCUrlComponent matches snapshot when type is "post-data" 1`] = `
 <a
-  href="/talentmap/obc/post/data/5"
+  href="https://google.com/1"
   rel="noopener"
   target="_blank"
 >

@@ -3,7 +3,6 @@
 exports[`ViewPostDataButtonComponent matches snapshot 1`] = `
 <OBCUrl
   altStyle={false}
-  id={1}
   isButton={true}
   label={
     <span>
@@ -14,5 +13,6 @@ exports[`ViewPostDataButtonComponent matches snapshot 1`] = `
     </span>
   }
   type="post"
+  url="https://google.com/1"
 />
 `;

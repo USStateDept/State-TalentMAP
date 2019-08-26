@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
+import { connect } from 'react-redux';
 
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Alert from '../../Components/Alert/Alert';
 import { auth } from '../sagas';
+import { tokenValidationRequest } from '../../login/actions';
 
 import { initialState } from '../reducer';
 
@@ -76,4 +78,14 @@ TokenValidation.defaultProps = {
   login: initialState,
 };
 
-export default TokenValidation;
+const mapStateToProps = state => ({
+  login: state.login,
+});
+
+export const mapDispatchToProps = dispatch => ({
+  tokenValidationRequest: token => dispatch(tokenValidationRequest(token)),
+});
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(TokenValidation);
+
+export default connected;

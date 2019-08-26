@@ -31,9 +31,9 @@ describe('PositionTitleComponent', () => {
     expect(wrapper.instance().renderBidListButton()).toBeDefined();
   });
 
-  it('displays the OBC link if obc_id exists', () => {
+  it('displays the OBC link if post_overview_url exists', () => {
     const newDetailsObject = { ...detailsObject };
-    newDetailsObject.post.obc_id = 1;
+    newDetailsObject.post.post_overview_url = 'url';
     const wrapper = shallow(
       <PositionTitle
         {...props}
@@ -45,7 +45,7 @@ describe('PositionTitleComponent', () => {
 
   it('hides the OBC link if obc_id does not exist', () => {
     const newDetailsObject = { ...detailsObject };
-    newDetailsObject.post.obc_id = null;
+    newDetailsObject.post.post_overview_url = null;
     const wrapper = shallow(
       <PositionTitle
         {...props}

@@ -1,12 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import numeral from 'numeral';
+
+const format = n => numeral(n).format('0,0');
 
 const TotalResults = ({ total, pageNumber, pageSize, suffix }) => {
-  const beginning = ((pageNumber - 1) * pageSize) + 1;
-  const through = Math.min((pageSize * (pageNumber)), total);
+  let beginning = ((pageNumber - 1) * pageSize) + 1;
+  let through = Math.min((pageSize * (pageNumber)), total);
+
+  beginning = format(beginning);
+  through = format(through);
+  const total$ = format(total);
   return (
     <span id="total-results">
-      Viewing <strong>{beginning}-{through}</strong> of <strong>{total}</strong> {suffix}
+      Viewing <strong>{beginning}-{through}</strong> of <strong>{total$}</strong> {suffix}
     </span>
   );
 };
