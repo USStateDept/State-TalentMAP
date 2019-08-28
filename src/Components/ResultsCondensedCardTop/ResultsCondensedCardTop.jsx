@@ -53,7 +53,12 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
       </div>
       <div className="usa-grid-full post-ribbon-container">
         <div className="post-container">
-          <span><span className="title">Location:</span> <span className="data">{getPostName(p.post, NO_POST)}</span></span>
+          <span><span className="title">Location:</span> <span className="data">
+            {
+              isProjectedVacancy ?
+                (p.organization || NO_POST) : getPostName(p.post, NO_POST)
+            }
+          </span></span>
         </div>
         <div className="ribbon-container">
           <Flag
