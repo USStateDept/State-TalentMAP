@@ -21,6 +21,7 @@ const HEADERS = [
   { label: 'Post country', key: 'position__post__location__country' },
   { label: 'Tour of duty', key: 'position__post__tour_of_duty' },
   { label: 'Language', key: 'position__languages__0__representation' },
+  { label: 'Service needs differential', key: 'position__post__has_service_needs_differential' },
   { label: 'Post differential', key: 'position__post__differential_rate' },
   { label: 'Danger pay', key: 'position__post__danger_pay' },
   { label: 'TED', key: 'estimated_end_date' },
