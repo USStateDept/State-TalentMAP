@@ -5,7 +5,6 @@ import { Flag } from 'flag';
 import { Link } from 'react-router-dom';
 import { Featured, Handshake } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
-import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
 import { checkFlag } from '../../flags';
 
@@ -53,7 +52,7 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
       </div>
       <div className="usa-grid-full post-ribbon-container">
         <div className="post-container">
-          <span><span className="title">Location:</span> <span className="data">{getPostName(p.post, NO_POST)}</span></span>
+          <span><span className="title">Location:</span> <span className="data">{getPostName(p.post, p.organization)}</span></span>
         </div>
         <div className="ribbon-container">
           <Flag
