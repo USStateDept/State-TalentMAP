@@ -54,6 +54,10 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
           "label": "Language",
         },
         Object {
+          "key": "position__post__has_service_needs_differential",
+          "label": "Service needs differential",
+        },
+        Object {
           "key": "position__post__differential_rate",
           "label": "Post differential",
         },
