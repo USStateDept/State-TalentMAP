@@ -76,6 +76,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "-position__bureau",
             },
             Object {
+              "availableOnly": true,
               "text": "Posted date: Most recent",
               "value": "-posted_date",
             },
@@ -88,6 +89,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "position__position_number",
             },
             Object {
+              "availableOnly": true,
               "text": "Featured positions",
               "value": "-position__post__has_service_needs_differential",
             },
