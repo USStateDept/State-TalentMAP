@@ -61,7 +61,7 @@ jobs:
           name: Jest Test Coverage
           command: yarn test -- --ci --reporters=default --reporters=jest-junit
           environment:
-            JEST_JUNIT_OUTPUT: "reports/jest/test-results.xml"
+            JEST_JUNIT_OUTPUT_NAME: "reports/jest/test-results.xml"
       - run: ./cc-test-reporter after-build --exit-code $? < coverage/lcov.info
       - store_test_results:
           path: reports
