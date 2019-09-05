@@ -692,6 +692,10 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
+  .accordion-checkbox-post {
+    min-height: 220px;
+  }
+
   .accordion-checkbox-skill,
   .accordion-checkbox-post,
   .accordion-checkbox-bureau {
