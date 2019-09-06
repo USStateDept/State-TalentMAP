@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
 MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { filterPVSorts } from '../../Constants/Sort';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
@@ -42,6 +43,8 @@ class Results extends Component {
             bidList, isProjectedVacancy, filtersIsLoading, showClear, shouldShowMobileFilter }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
+
+    const sortBy$ = isProjectedVacancy ? filterPVSorts(sortBy) : sortBy;
 
     const filterContainer = (
       <ResultsFilterContainer
@@ -87,7 +90,7 @@ class Results extends Component {
             results={results}
             isLoading={isLoading}
             hasErrored={hasErrored}
-            sortBy={sortBy}
+            sortBy={sortBy$}
             pageSize={defaultPageSize}
             totalResults={results.count}
             hasLoaded={hasLoaded || false}
