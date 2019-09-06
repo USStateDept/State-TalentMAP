@@ -126,6 +126,7 @@ describe('SearchFiltersContainerComponent', () => {
       is_available_in_bidcycle: null,
       is_available_in_current_bidcycle: null,
       is_domestic: null,
+      ordering: 'ted',
       position__post__in: null,
       projectedVacancy: 'pv',
     });

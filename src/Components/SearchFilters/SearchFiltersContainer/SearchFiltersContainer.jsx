@@ -58,6 +58,7 @@ class SearchFiltersContainer extends Component {
         is_domestic: null,
         position__post__in: null,
         projectedVacancy: value,
+        ordering: 'ted',
       };
     }
     this.props.queryParamUpdate(config);
