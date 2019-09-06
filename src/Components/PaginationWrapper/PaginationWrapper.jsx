@@ -75,8 +75,8 @@ PaginationWrapper.propTypes = {
 PaginationWrapper.defaultProps = {
   previousLabel: 'Previous',
   nextLabel: 'Next',
-  marginPagesDisplayed: 0,
-  pageRangeDisplayed: 4,
+  marginPagesDisplayed: 1,
+  pageRangeDisplayed: 2,
   containerClassName: 'pagination',
   subContainerClassName: 'pages pagination',
   activeClassName: 'active',
