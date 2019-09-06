@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 default-docker-node: &default-docker-node
   docker:
     - image: circleci/node:6.11.0
