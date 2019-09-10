@@ -35,9 +35,9 @@ const getResult = (result, path, defaultValue, isRate = false) => {
   if (path === 'post.differential_rate' || path === 'post.danger_pay') {
     const value$ = getDifferentialPercentage(value);
 
-    const OBCId = get(result, 'post.obc_id');
-    if (OBCId) {
-      return (<span> {value$} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    const OBCUrl$ = get(result, 'post.post_bidding_considerations_url');
+    if (OBCUrl$) {
+      return (<span> {value$} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
     }
 
     return value$;
@@ -58,6 +58,10 @@ export const renderBidCount = stats => (
   <Column columns="4">
     <BidCount bidStatistics={stats} altStyle />
   </Column>
+);
+
+export const renderBidCountMobile = stats => (
+  <BidCount bidStatistics={stats} altStyle />
 );
 
 class ResultsCard extends Component {
@@ -106,6 +110,7 @@ class ResultsCard extends Component {
     const stats = getBidStatisticsObject(pos.bid_statistics);
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 750);
+    const descriptionMobile = shortenString(get(pos, 'description.content') || 'No description.', 500);
 
     const innerId = this.getInnerId();
 
@@ -154,8 +159,8 @@ class ResultsCard extends Component {
     };
 
     return (
-      <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
-        {() => (
+      <MediaQueryWrapper breakpoint="screenSmMax" widthType="max">
+        {matches => (
           <BoxShadow>
             <div
               id={id}
@@ -164,25 +169,40 @@ class ResultsCard extends Component {
               onMouseOver={() => this.hover.toggleCardHovered(true)}
               onMouseLeave={() => this.hover.toggleCardHovered(false)}
             >
-              <Row className="header" fluid>
-                <Column columns="8">
-                  <Column columns="12" className="results-card-title-link">
-                    <h3>{title}</h3>
+              {
+                matches ?
+                  <Row className="header" fluid>
+                    <h3>{title}</h3>: {post}
                     { !isProjectedVacancy && <Link to={`/details/${result.id}`}>View position</Link> }
-                    {recentlyAvailable && <span className="available-alert">Now available!</span>}
-                  </Column>
-                  <Column columns="12" className="results-card-title-link">
-                    <dt>Location:</dt><dd>{post}</dd>
-                  </Column>
-                </Column>
-                {
-                  !isProjectedVacancy &&
-                  <Flag
-                    name="flags.bidding"
-                    render={() => renderBidCount(stats)}
-                  />
-                }
-              </Row>
+                    {
+                      !isProjectedVacancy &&
+                      <Flag
+                        name="flags.bidding"
+                        render={() => renderBidCountMobile(stats)}
+                      />
+                    }
+                  </Row>
+                  :
+                  <Row className="header" fluid>
+                    <Column columns="8">
+                      <Column columns="12" className="results-card-title-link">
+                        <h3>{title}</h3>
+                        { !isProjectedVacancy && <Link to={`/details/${result.id}`}>View position</Link> }
+                        {recentlyAvailable && <span className="available-alert">Now available!</span>}
+                      </Column>
+                      <Column columns="12" className="results-card-title-link">
+                        <dt>Location:</dt><dd>{post}</dd>
+                      </Column>
+                    </Column>
+                    {
+                      !isProjectedVacancy &&
+                      <Flag
+                        name="flags.bidding"
+                        render={() => renderBidCount(stats)}
+                      />
+                    }
+                  </Row>
+              }
               <Flag
                 name="flags.bidding"
                 render={() =>
@@ -190,9 +210,12 @@ class ResultsCard extends Component {
                   <Column columns="6">
                     <DefinitionList items={sections[0]} />
                   </Column>
-                  <Column columns="4">
-                    <DefinitionList items={sections[1]} />
-                  </Column>
+                  {
+                    !matches &&
+                    <Column columns="4">
+                      <DefinitionList items={sections[1]} />
+                    </Column>
+                  }
                   <Column columns="2">
                     <div className="ribbon-container">
                       {
@@ -217,14 +240,14 @@ class ResultsCard extends Component {
               }
               />
               <Row className="footer results-card-padded-section" fluid>
-                <Column columns="6" as="section">
+                <Column columns={matches ? 8 : 6} as="section">
                   {
                     !!favorites &&
                       <Favorite {...options.favorite} />
                   }
                   {!isProjectedVacancy && <CompareCheck {...options.compare} />}
                 </Column>
-                <Column columns="6" as="section">
+                <Column columns={matches ? 4 : 6} as="section">
                   <div>
                     <DefinitionList items={sections[2]} />
                   </div>
@@ -232,7 +255,7 @@ class ResultsCard extends Component {
               </Row>
               <HoverDescription
                 ref={(x) => { this.hover = x; }}
-                text={description}
+                text={matches ? descriptionMobile : description}
                 getOffsetPx={this.getOffsetPx}
                 id={result.id}
               />

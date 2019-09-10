@@ -54,6 +54,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
         id="sort"
         includeFirstEmptyOption={false}
         label="Sort by:"
+        labelSrOnly={false}
         onSelectOption={[Function]}
         options={
           Array [
@@ -75,6 +76,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "-position__bureau",
             },
             Object {
+              "availableOnly": true,
               "text": "Posted date: Most recent",
               "value": "-posted_date",
             },
@@ -87,6 +89,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "position__position_number",
             },
             Object {
+              "availableOnly": true,
               "text": "Featured positions",
               "value": "-position__post__has_service_needs_differential",
             },
@@ -328,7 +331,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
                 "id": 103,
                 "state": "",
               },
-              "obc_id": null,
+              "obc_id": 1,
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
@@ -511,7 +514,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
                 "id": 103,
                 "state": "",
               },
-              "obc_id": null,
+              "obc_id": 1,
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
@@ -696,7 +699,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
                 "id": 103,
                 "state": "",
               },
-              "obc_id": null,
+              "obc_id": 1,
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
@@ -875,7 +878,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
                 "id": 103,
                 "state": "",
               },
-              "obc_id": null,
+              "obc_id": 1,
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },

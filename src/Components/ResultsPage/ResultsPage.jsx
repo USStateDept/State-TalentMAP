@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import { connect } from 'react-redux';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
 ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
 MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { filterPVSorts } from '../../Constants/Sort';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 import ResultsFilterContainer from '../ResultsFilterContainer/ResultsFilterContainer';
+import MediaQuery from '../MediaQuery';
 
 class Results extends Component {
   constructor(props) {
@@ -37,9 +40,33 @@ class Results extends Component {
             fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
             missionSearchHasErrored, fetchPostAutocomplete,
             postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            bidList, isProjectedVacancy, filtersIsLoading, showClear }
+            bidList, isProjectedVacancy, filtersIsLoading, showClear, shouldShowMobileFilter }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
+
+    const sortBy$ = isProjectedVacancy ? filterPVSorts(sortBy) : sortBy;
+
+    const filterContainer = (
+      <ResultsFilterContainer
+        filters={filters}
+        isLoading={filtersIsLoading}
+        onQueryParamUpdate={onQueryParamUpdate}
+        onChildToggle={this.onChildToggle}
+        onQueryParamToggle={onQueryParamToggle}
+        resetFilters={resetFilters}
+        setAccordion={setAccordion}
+        selectedAccordion={selectedAccordion}
+        fetchMissionAutocomplete={fetchMissionAutocomplete}
+        missionSearchResults={missionSearchResults}
+        missionSearchIsLoading={missionSearchIsLoading}
+        missionSearchHasErrored={missionSearchHasErrored}
+        fetchPostAutocomplete={fetchPostAutocomplete}
+        postSearchResults={postSearchResults}
+        postSearchIsLoading={postSearchIsLoading}
+        postSearchHasErrored={postSearchHasErrored}
+        showClear={showClear}
+      />
+    );
     return (
       <div className="results content-container">
         <h2 className="sr-only">Search results</h2>
@@ -54,30 +81,16 @@ class Results extends Component {
           />
         }
         <div className="usa-grid-full results-section-container">
-          <ResultsFilterContainer
-            filters={filters}
-            isLoading={filtersIsLoading}
-            onQueryParamUpdate={onQueryParamUpdate}
-            onChildToggle={this.onChildToggle}
-            onQueryParamToggle={onQueryParamToggle}
-            resetFilters={resetFilters}
-            setAccordion={setAccordion}
-            selectedAccordion={selectedAccordion}
-            fetchMissionAutocomplete={fetchMissionAutocomplete}
-            missionSearchResults={missionSearchResults}
-            missionSearchIsLoading={missionSearchIsLoading}
-            missionSearchHasErrored={missionSearchHasErrored}
-            fetchPostAutocomplete={fetchPostAutocomplete}
-            postSearchResults={postSearchResults}
-            postSearchIsLoading={postSearchIsLoading}
-            postSearchHasErrored={postSearchHasErrored}
-            showClear={showClear}
-          />
+          <MediaQuery breakpoint="screenMdMin" widthType="min">
+            {/* eslint-disable */}
+            {matches => matches ? filterContainer : shouldShowMobileFilter && filterContainer}
+            {/* eslint-enable */}
+          </MediaQuery>
           <ResultsContainer
             results={results}
             isLoading={isLoading}
             hasErrored={hasErrored}
-            sortBy={sortBy}
+            sortBy={sortBy$}
             pageSize={defaultPageSize}
             totalResults={results.count}
             hasLoaded={hasLoaded || false}
@@ -132,6 +145,7 @@ Results.propTypes = {
   bidList: BID_RESULTS.isRequired,
   isProjectedVacancy: PropTypes.bool,
   showClear: PropTypes.bool,
+  shouldShowMobileFilter: PropTypes.bool,
 };
 
 Results.defaultProps = {
@@ -152,6 +166,7 @@ Results.defaultProps = {
   currentSavedSearch: {},
   isProjectedVacancy: false,
   showClear: false,
+  shouldShowMobileFilter: false,
 };
 
 Results.contextTypes = {
@@ -162,4 +177,8 @@ Results.childContextTypes = {
   isProjectedVacancy: PropTypes.bool,
 };
 
-export default Results;
+export const mapStateToProps = state => ({
+  shouldShowMobileFilter: state.shouldShowMobileFilter,
+});
+
+export default connect(mapStateToProps, null, null, { withRef: true })(Results);

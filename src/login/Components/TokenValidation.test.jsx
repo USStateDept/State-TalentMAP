@@ -1,6 +1,15 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import { TokenValidation } from './TokenValidation';
+import configureStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import TestUtils from 'react-dom/test-utils';
+import thunk from 'redux-thunk';
+import TokenValidation, { mapDispatchToProps } from './TokenValidation';
+import { testDispatchFunctions } from '../../testUtilities/testUtilities';
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares)({});
 
 describe('TokenValidation', () => {
   const loginObject = {
@@ -18,16 +27,37 @@ describe('TokenValidation', () => {
   ];
 
   it('can render', () => {
-    const wrapper = shallow(<TokenValidation login={loginObject} />);
+    const wrapper = TestUtils.renderIntoDocument(
+      <Provider store={mockStore}>
+        <MemoryRouter>
+          <TokenValidation login={loginObject} />
+        </MemoryRouter>
+      </Provider>,
+    );
+
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined', () => {
+    const wrapper = shallow(
+      <TokenValidation.WrappedComponent login={loginObject} />,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('can handle other props', () => {
     const wrapper = shallow(
-      <TokenValidation
+      <TokenValidation.WrappedComponent
         login={{ ...loginObject, requesting: false, errors, messages: errors }}
       />,
     );
     expect(wrapper).toBeDefined();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  const config = {
+    tokenValidationRequest: ['token'],
+  };
+  testDispatchFunctions(mapDispatchToProps, config);
 });

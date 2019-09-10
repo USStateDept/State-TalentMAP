@@ -5,6 +5,7 @@ import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT,
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 import ResetFilters from '../ResetFilters/ResetFilters';
+import MobileControls from './MobileControls';
 
 class ResultsFilterContainer extends Component {
   shouldComponentUpdate(nextProps) {
@@ -21,6 +22,7 @@ class ResultsFilterContainer extends Component {
       postSearchResults, postSearchIsLoading, postSearchHasErrored, showClear } = this.props;
     return (
       <div className={`filter-container ${isLoading ? 'is-loading' : ''}`}>
+        <MobileControls />
         <div className="filter-container-bottom">
           <div className="usa-grid-full filter-control-container">
             <div className="filter-control-left">Select Filter:</div>

@@ -30,6 +30,14 @@ describe('BidTrackerCardTopComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined with questionText', () => {
+    const questionText = { text: 'text', link: 'link', term: 'term' };
+    const wrapper = shallow(
+      <BidTrackerCardTop {...props} questionText={questionText} />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('is defined with an invalid bid status', () => {
     const newBid = { ...props.bid };
     newBid.status = 'fake status';

@@ -42,6 +42,13 @@
     max-width: none;
   }
 
+  // fix container width in IE11
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .condensed-card-highlighted > .usa-grid-full {
+      max-width: 1200px;
+    }
+  }
+
   .updates-container {
     display: flex;
     flex-direction: column;

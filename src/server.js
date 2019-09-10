@@ -48,10 +48,6 @@ if (USE_MOCK_SAML) {
 // Routes from React, with wildcard added to the end if the route is not exact
 const ROUTES = routesArray.map(route => `${PUBLIC_URL}${route.path}${route.exact ? '' : '*'}`.replace('//', '/'));
 
-// define the OBC root url
-// example: https://www.obcurl.gov
-const OBC_URL = process.env.OBC_URL;
-
 // path to external about page
 const ABOUT_PAGE = process.env.ABOUT_PAGE || 'https://github.com/18F/State-TalentMAP';
 
@@ -141,32 +137,8 @@ app.get(`${PUBLIC_URL}metadata`, (request, response) => {
   response.send(metadata);
 });
 
-// OBC redirect - post data detail
-// endpoint for post-specific data points
-app.get(`${PUBLIC_URL}obc/post/data/:id`, (request, response) => {
-  // set the id passed in the route and pass it to the redirect
-  const id = request.params.id;
-  response.redirect(`${OBC_URL}/post/postdatadetails/${id}`);
-});
-
 app.get(`${PUBLIC_URL}logout`, (request, response) => {
   response.redirect(SAML_LOGOUT);
-});
-
-// OBC redirect - posts
-// endpoint for post, ie landing page
-app.get(`${PUBLIC_URL}obc/post/:id`, (request, response) => {
-  // set the id passed in the route and pass it to the redirect
-  const id = request.params.id;
-  response.redirect(`${OBC_URL}/post/detail/${id}`);
-});
-
-// OBC redirect - countries
-// endpoint for country, ie landing page
-app.get(`${PUBLIC_URL}obc/country/:id`, (request, response) => {
-  // set the id passed in the route and pass it to the redirect
-  const id = request.params.id;
-  response.redirect(`${OBC_URL}/country/detail/${id}`);
 });
 
 app.get(`${PUBLIC_URL}about/more`, (request, response) => {
@@ -185,4 +157,4 @@ app.get('*', (request, response) => {
 const server = app.listen(port);
 
 // export the the app and server separately
-module.exports = { app, server };
+module.exports = { app, server, removeCacheControl };

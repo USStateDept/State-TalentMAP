@@ -8,13 +8,37 @@ import BoxShadow from '../BoxShadow';
 import { GLOSSARY_ARRAY } from '../../Constants/PropTypes';
 import { filterByProps } from '../../utilities';
 
+const ID = 'glossary-click-container';
+
 class GlossaryComponent extends Component {
   constructor(props) {
     super(props);
     this.changeText = this.changeText.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.state = {
       searchText: { value: '' },
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // The listener only needs to exist if the Glossary is visible.
+    if (nextProps.visible) {
+      /* This needs to be in a timeout, otherwise the glossary will immediately
+      close the first time it is opened, since the Glossary link is "outside"
+      of the Glossary div, and that click event will have been registered. */
+      setTimeout(() => {
+        window.addEventListener('click', this.handleOutsideClick);
+      }, 0);
+    } else { // If the Glossary is not visible, remove the event listener.
+      window.removeEventListener('click', this.handleOutsideClick);
+    }
+  }
+
+  handleOutsideClick(e) {
+    const { toggleVisibility, visible } = this.props;
+    if (visible && !document.getElementById(ID).contains(e.target)) {
+      toggleVisibility();
+    }
   }
 
   changeText(text) {
@@ -35,7 +59,7 @@ class GlossaryComponent extends Component {
     const { searchText } = this.state;
     const filteredGlossary = this.filteredGlossary();
     return (
-      <div className="tm-glossary">
+      <div id={ID} className="tm-glossary">
         <BoxShadow
           offsetX={-4}
           offsetY={0}

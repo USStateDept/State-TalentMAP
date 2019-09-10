@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import HomePageBanner, { mapDispatchToProps } from './HomePageBanner';
+import HomePageBanner, { formatNum, mapDispatchToProps } from './HomePageBanner';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 
 describe('HomePageBanner Component', () => {
@@ -26,6 +26,11 @@ describe('HomePageBanner Component', () => {
   it('is defined when positionCount > 0', () => {
     const wrapper = shallow(<HomePageBanner.WrappedComponent {...props} positionCount={100} />);
     expect(wrapper).toBeDefined();
+  });
+
+  it('formats numbers', () => {
+    const output = formatNum(1000);
+    expect(output).toBe('1,000');
   });
 
   it('matches snapshot', () => {

@@ -207,10 +207,10 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
       activeClassName="active"
       containerClassName="pagination"
       forcePage={1}
-      marginPagesDisplayed={0}
+      marginPagesDisplayed={1}
       nextLabel="Next"
       onPageChange={[Function]}
-      pageRangeDisplayed={4}
+      pageRangeDisplayed={2}
       pageSize={8}
       paginationStyle="pagination"
       previousLabel="Previous"

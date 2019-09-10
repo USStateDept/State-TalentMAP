@@ -8,6 +8,7 @@ import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/
 import { POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import { Trigger } from '../SaveNewSearch';
+import MediaQuery from '../MediaQuery';
 
 class ResultsControls extends Component {
   constructor(props) {
@@ -41,53 +42,64 @@ class ResultsControls extends Component {
               />
           }
         </div>
-        <div className="usa-width-four-fifths drop-downs">
-          <div className="dropdowns-container">
-            <div className="results-dropdown results-dropdown-sort">
-              <SelectForm
-                id="sort"
-                label="Sort by:"
-                onSelectOption={this.onSelectOrdering}
-                options={sortBy.options}
-                defaultSort={defaultSort}
-                className="select-blue select-offset select-small"
-              />
-            </div>
-            {
-              !isProjectedVacancy &&
-              <div className="results-dropdown results-dropdown-page-size">
-                <PreferenceWrapper onSelect={this.onSelectLimit} keyRef={POSITION_PAGE_SIZES_TYPE}>
-                  <SelectForm
-                    id="pageSize"
-                    label="Results:"
-                    options={pageSizes.options}
-                    defaultSort={defaultPageSize}
-                    transformValue={n => parseInt(n, 10)}
-                    className="select-blue select-offset select-small"
-                  />
-                </PreferenceWrapper>
-              </div>
-            }
-            <div className="results-download">
-              <PermissionsWrapper
-                permissions="superuser"
-                fallback={
-                  <span>
+        <MediaQuery breakpoint="screenMdMin" widthType="min">
+          {
+            matches => (matches &&
+              (
+                <div className="usa-width-four-fifths drop-downs">
+                  <div className="dropdowns-container">
+                    <div className="results-dropdown results-dropdown-sort">
+                      <SelectForm
+                        id="sort"
+                        label="Sort by:"
+                        onSelectOption={this.onSelectOrdering}
+                        options={sortBy.options}
+                        defaultSort={defaultSort}
+                        className="select-blue select-offset select-small"
+                      />
+                    </div>
                     {
                       !isProjectedVacancy &&
-                      <SearchResultsExportLink count={results.count} />
+                      <div className="results-dropdown results-dropdown-page-size">
+                        <PreferenceWrapper
+                          onSelect={this.onSelectLimit}
+                          keyRef={POSITION_PAGE_SIZES_TYPE}
+                        >
+                          <SelectForm
+                            id="pageSize"
+                            label="Results:"
+                            options={pageSizes.options}
+                            defaultSort={defaultPageSize}
+                            transformValue={n => parseInt(n, 10)}
+                            className="select-blue select-offset select-small"
+                          />
+                        </PreferenceWrapper>
+                      </div>
                     }
-                  </span>
-                }
-              >
-                <SearchResultsExportLink count={results.count} />
-              </PermissionsWrapper>
-            </div>
-            <Trigger isPrimary>
-              <button className="usa-button">Save Search</button>
-            </Trigger>
-          </div>
-        </div>
+                    <div className="results-download">
+                      <PermissionsWrapper
+                        permissions="superuser"
+                        fallback={
+                          <span>
+                            {
+                              !isProjectedVacancy &&
+                              <SearchResultsExportLink count={results.count} />
+                            }
+                          </span>
+                        }
+                      >
+                        <SearchResultsExportLink count={results.count} />
+                      </PermissionsWrapper>
+                    </div>
+                    <Trigger isPrimary>
+                      <button className="usa-button">Save Search</button>
+                    </Trigger>
+                  </div>
+                </div>
+              )
+            )
+          }
+        </MediaQuery>
       </div>
     );
   }

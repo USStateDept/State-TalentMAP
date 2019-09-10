@@ -1,9 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['ResultsContainerComponent matches snapshot 1'] = `
+exports[`ResultsContainerComponent matches snapshot 1`] = `
 <div
   className="results-container"
 >
+  <MediaQueryWrapper
+    breakpoint="screenSmMax"
+    widthType="max"
+  />
   <ResultsPillContainer
     items={Array []}
     onPillClick={[Function]}
@@ -99,7 +103,7 @@ exports['ResultsContainerComponent matches snapshot 1'] = `
                   "id": 103,
                   "state": "",
                 },
-                "obc_id": null,
+                "obc_id": 1,
                 "rest_relaxation_point": "Paris",
                 "tour_of_duty": "2 YRS (2 R & R)",
               },
@@ -309,7 +313,7 @@ exports['ResultsContainerComponent matches snapshot 1'] = `
                     "id": 103,
                     "state": "",
                   },
-                  "obc_id": null,
+                  "obc_id": 1,
                   "rest_relaxation_point": "Paris",
                   "tour_of_duty": "2 YRS (2 R & R)",
                 },
@@ -431,10 +435,10 @@ exports['ResultsContainerComponent matches snapshot 1'] = `
       activeClassName="active"
       containerClassName="pagination"
       forcePage={0}
-      marginPagesDisplayed={0}
+      marginPagesDisplayed={1}
       nextLabel="Next"
       onPageChange={[Function]}
-      pageRangeDisplayed={4}
+      pageRangeDisplayed={2}
       pageSize={10}
       paginationStyle="pagination"
       previousLabel="Previous"

@@ -16,6 +16,10 @@ describe('async actions', () => {
     mockAdapter.onPut('http://localhost:8000/api/v1/data_sync/run/2/').reply(404,
       null,
     );
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/data_sync/schedule/1/').reply(200,
+      null,
+    );
   });
 
   it('fetches sync jobs', (done) => {
@@ -120,6 +124,34 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.putAllSyncs());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('patches sync jobs', (done) => {
+    const store = mockStore({ comparisons: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.patchSync({ id: 1 }));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('handles errors when patching sync jobs', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onPatch('http://localhost:8000/api/v1/data_sync/schedule/1/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.patchSync({ id: 1 }));
         done();
       }, 0);
     };

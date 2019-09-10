@@ -64,10 +64,10 @@ const PositionDetailsItem = (props) => {
   const postDifferential = getDifferentialPercentage(propOrDefault(details, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
   const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.danger_pay'), NO_DANGER_PAY);
 
-  const OBCId = propOrDefault(details, 'post.obc_id');
+  const OBCUrl$ = propOrDefault(details, 'post.post_bidding_considerations_url');
   const getFormattedObcData = (prefix) => {
-    if (OBCId) {
-      return (<span> {prefix} | <OBCUrl id={OBCId} type="post-data" label="View OBC Data" /></span>);
+    if (OBCUrl$) {
+      return (<span> {prefix} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
     }
 
     return prefix;
@@ -110,14 +110,13 @@ const PositionDetailsItem = (props) => {
             isHighlighted &&
             <div className="featured-description-container">
               {`
-                Contrary to popular belief, Lorem Ipsum is not simply random text.
-                It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
-                Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,
-                looked up one of the more obscure Latin words, consectetur,
-                from a Lorem Ipsum passage, and going through the cites of the word in classical literature,
-                discovered the undoubtable source. Read more about
+                This is a featured position. To learn more about the benefits of filling a featured position, click on each term:
               `}
-              <GlossaryTermTrigger className="featured-description--link" term="SND - Service Need Differential" />
+              <GlossaryTermTrigger className="featured-description--link" text="volunteer" term="Vol Cable - Volunteer Cable" />
+              {', '}
+              <GlossaryTermTrigger className="featured-description--link" text="hard-to-fill" term="HDS - Historically Difficult to Staff" />
+              {', or '}
+              <GlossaryTermTrigger className="featured-description--link" text="urgent vacancies" term="UV - Urgent Vacancy" />
               {'.'}
             </div>
           }
