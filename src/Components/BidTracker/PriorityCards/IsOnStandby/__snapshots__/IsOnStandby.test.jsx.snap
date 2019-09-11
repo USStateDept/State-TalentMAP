@@ -26,7 +26,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-standby-content-container"
   >
-    <Connect(BidTrackerCardTop)
+    <BidTrackerCardTop
       bid={
         Object {
           "approved_date": "2017-12-20",
@@ -83,6 +83,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
       }
       deleteBid={[Function]}
       hideDelete={true}
+      questionText={Object {}}
       showBidCount={false}
       showQuestion={false}
     />

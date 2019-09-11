@@ -624,7 +624,7 @@ export const scrollToGlossaryTerm = (term) => {
   if (el) {
     setTimeout(() => {
       el.scrollIntoView();
-      focusById(id);
+      focusById(id, 0, { preventScroll: false });
 
       if (el.getAttribute('aria-expanded') !== 'true') {
         el.click();
