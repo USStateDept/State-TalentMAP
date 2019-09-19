@@ -77,7 +77,6 @@ class Results extends Component {
             onUpdate={onQueryParamUpdate}
             defaultKeyword={defaultKeyword}
             defaultLocation={defaultLocation}
-            searchBarDisabled={isProjectedVacancy}
           />
         }
         <div className="usa-grid-full results-section-container">

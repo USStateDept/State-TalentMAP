@@ -37,7 +37,7 @@ const items =
           title: 'Bid Season',
           sort: 150,
           description: 'bidSeason',
-          endpoint: 'fsbid/bid_seasons',
+          endpoint: 'fsbid/bid_seasons/',
           selectionRef: ENDPOINT_PARAMS.bidSeason,
           text: 'Choose Bid Seasons',
         },

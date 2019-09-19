@@ -45,6 +45,11 @@ exports[`SelectForm matches snapshot 1`] = `
       Posted date: Most recent
     </option>
     <option
+      value="posted_date"
+    >
+      Posted date: Oldest
+    </option>
+    <option
       value="ted"
     >
       TED: Soonest
@@ -106,6 +111,11 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       value="-posted_date"
     >
       Posted date: Most recent
+    </option>
+    <option
+      value="posted_date"
+    >
+      Posted date: Oldest
     </option>
     <option
       value="ted"

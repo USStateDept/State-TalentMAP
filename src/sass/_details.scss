@@ -446,3 +446,12 @@
 .service-needed-toggle + .how-to-bid {
   margin-top: 0;
 }
+
+.featured-description-container {
+  margin-bottom: 15px;
+
+  .featured-description--link {
+    color: $primary-blue;
+    text-decoration: underline;
+  }
+}

@@ -59,7 +59,6 @@ class ResultsControls extends Component {
                       />
                     </div>
                     {
-                      !isProjectedVacancy &&
                       <div className="results-dropdown results-dropdown-page-size">
                         <PreferenceWrapper
                           onSelect={this.onSelectLimit}

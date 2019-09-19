@@ -5,7 +5,7 @@ import center from '../../assets/spinner/center.svg';
 import middle from '../../assets/spinner/middle.svg';
 import outer from '../../assets/spinner/outer.svg';
 
-const Spinner = ({ type, size }) => {
+const Spinner = ({ type, size, style }) => {
   let sizeClass = '';
   switch (size) {
     case ('small'):
@@ -15,7 +15,7 @@ const Spinner = ({ type, size }) => {
       break;
   }
   return (
-    <div className={`tm-spinner tm-spinner-${type} ${sizeClass}`}>
+    <div className={`tm-spinner tm-spinner-${type} ${sizeClass}`} style={style}>
       <img className="center" alt="center" src={center} />
       <img className="middle" alt="middle" src={middle} />
       <img className="outer" alt="outer" src={outer} />
@@ -26,11 +26,13 @@ const Spinner = ({ type, size }) => {
 Spinner.propTypes = {
   type: PropTypes.string, // user defined classes stored elsewhere using "tm-spinner-" as a prefix
   size: PropTypes.oneOf(['big', 'small']),
+  style: PropTypes.shape({}),
 };
 
 Spinner.defaultProps = {
   type: '',
   size: 'big',
+  style: {},
 };
 
 export default Spinner;
