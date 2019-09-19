@@ -119,6 +119,7 @@ exports[`GlossaryEditorPageComponent matches snapshot when glossaryIsLoading is 
     >
       <Spinner
         size="big"
+        style={Object {}}
         type="homepage-position-results"
       />
     </div>

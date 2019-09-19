@@ -137,6 +137,7 @@ exports[`SavedSearchesListComponent matches snapshot when filtersIsLoading is tr
 >
   <Spinner
     size="big"
+    style={Object {}}
     type="saved-searches"
   />
 </div>

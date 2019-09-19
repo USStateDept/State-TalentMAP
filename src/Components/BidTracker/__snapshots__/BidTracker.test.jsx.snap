@@ -415,6 +415,7 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
   >
     <Spinner
       size="big"
+      style={Object {}}
       type="homepage-position-results"
     />
   </div>

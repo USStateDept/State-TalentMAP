@@ -104,6 +104,7 @@ exports[`AdditionalViewComponent matches snapshot when isLoading is true 1`] = `
   <Spinner
     inverse={true}
     size="big"
+    style={Object {}}
     type="portfolio-additional"
   />
 </div>
