@@ -6,6 +6,7 @@ import axios from 'axios';
 import { get } from 'lodash';
 import './sass/styles.scss';
 import App from './Components/App/App';
+import Splash from './Components/Splash';
 import { getAssetPath } from './utilities';
 
 import '../node_modules/uswds/dist/js/uswds.min';
@@ -20,7 +21,7 @@ const render = () => {
 // Because the JWT request could be slow.
 const renderLoading = () => {
   ReactDOM.render((
-    <div>Loading...</div>
+    <Splash />
   ), document.getElementById('root') || document.createElement('div'));
 };
 

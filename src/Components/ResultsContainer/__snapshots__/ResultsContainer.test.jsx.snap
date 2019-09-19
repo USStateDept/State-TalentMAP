@@ -233,6 +233,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
   >
     <Spinner
       size="big"
+      style={Object {}}
       type="position-results"
     />
     <ResultsList

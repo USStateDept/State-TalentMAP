@@ -33,6 +33,7 @@ exports[`BidStatisticsComponent matches snapshot when isLoading is true 1`] = `
 >
   <Spinner
     size="big"
+    style={Object {}}
     type="homepage-position-results"
   />
 </div>
