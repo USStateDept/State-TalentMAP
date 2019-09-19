@@ -69,7 +69,6 @@ export function fetchResultData(query) {
   if (isPV) {
     prefix = '/fsbid/projected_vacancies';
     delete parsed.projectedVacancy;
-    delete parsed.q; // TODO remove this once we have PV free text search
   }
 
   const query$ = queryString.stringify(parsed);
