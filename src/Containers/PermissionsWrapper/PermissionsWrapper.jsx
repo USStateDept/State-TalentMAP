@@ -16,7 +16,8 @@ export class PermissionsWrapper extends Component {
     const isEmpty = !permissions.length;
     const permissions$ = typeof permissions === 'string' ? [permissions] : permissions;
     const doesUserHavePermissions =
-      isEmpty || userHasPermissions(permissions$, userProfile.permission_groups || []);
+      isEmpty || userHasPermissions(permissions$, userProfile.permission_groups || []) ||
+      userHasPermissions(permissions$, userProfile.permissions || []);
     if (!isLoading) {
       return doesUserHavePermissions;
     }
