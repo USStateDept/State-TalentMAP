@@ -3,6 +3,7 @@
 exports[`Spinner can accept the type prop 1`] = `
 <div
   className="tm-spinner tm-spinner-results "
+  style={Object {}}
 >
   <img
     alt="center"

@@ -233,6 +233,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
   >
     <Spinner
       size="big"
+      style={Object {}}
       type="position-results"
     />
     <ResultsList
@@ -435,10 +436,10 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
       activeClassName="active"
       containerClassName="pagination"
       forcePage={0}
-      marginPagesDisplayed={0}
+      marginPagesDisplayed={1}
       nextLabel="Next"
       onPageChange={[Function]}
-      pageRangeDisplayed={4}
+      pageRangeDisplayed={2}
       pageSize={10}
       paginationStyle="pagination"
       previousLabel="Previous"

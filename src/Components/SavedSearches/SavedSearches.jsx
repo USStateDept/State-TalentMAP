@@ -24,7 +24,7 @@ class SavedSearches extends Component {
   }
 
   getSearches(useType) {
-    const cycle = '/api/v1/cycleposition/';
+    const cycle = '/api/v1/fsbid/available_positions/';
     const pos = '/api/v1/position/';
     const pv = '/api/v1/fsbid/projected_vacancies/';
     const { savedSearches } = this.props;

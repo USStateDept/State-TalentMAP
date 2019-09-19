@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
 import { Tooltip } from 'react-tippy';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
-import InteractiveElement from '../../InteractiveElement';
-import { toggleGlossary } from '../../../actions/showGlossary';
-import { scrollToGlossaryTerm } from '../../../utilities';
+import GlossaryTermTrigger from '../../GlossaryTermTrigger';
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
     super(props);
     this.onDeleteBid = this.onDeleteBid.bind(this);
-    this.onClickLink = this.onClickLink.bind(this);
     this.state = {
       confirm: false,
     };
@@ -24,12 +20,6 @@ class BidTrackerCardTop extends Component {
   onDeleteBid() {
     const { deleteBid, bid } = this.props;
     deleteBid(bid.position.id);
-  }
-
-  onClickLink() {
-    const { toggle, questionText: { term } } = this.props;
-    toggle();
-    scrollToGlossaryTerm(term);
   }
 
   render() {
@@ -42,9 +32,7 @@ class BidTrackerCardTop extends Component {
     const getQuestionElement = () => (
       <span>
         <span>{questionText.text} </span>
-        <InteractiveElement className="tooltip-link" type="span" onClick={this.onClickLink}>
-          {questionText.link}
-        </InteractiveElement>
+        <GlossaryTermTrigger className="tooltip-link" text={questionText.link} term={questionText.term} />
       </span>
     );
     return (
@@ -70,6 +58,7 @@ class BidTrackerCardTop extends Component {
                     tabIndex="0"
                     interactive
                     interactiveBorder={5}
+                    useContext
                   >
                     <span>
                       <FontAwesome name="question-circle" /> Why is it taking so long?
@@ -104,7 +93,6 @@ BidTrackerCardTop.propTypes = {
   deleteBid: PropTypes.func.isRequired,
   showBidCount: PropTypes.bool,
   hideDelete: PropTypes.bool,
-  toggle: PropTypes.func.isRequired,
 };
 
 BidTrackerCardTop.defaultProps = {
@@ -114,8 +102,4 @@ BidTrackerCardTop.defaultProps = {
   hideDelete: false,
 };
 
-export const mapDispatchToProps = dispatch => ({
-  toggle: () => dispatch(toggleGlossary(true)),
-});
-
-export default connect(null, mapDispatchToProps)(BidTrackerCardTop);
+export default BidTrackerCardTop;

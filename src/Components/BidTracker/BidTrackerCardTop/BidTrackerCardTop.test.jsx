@@ -17,7 +17,7 @@ describe('BidTrackerCardTopComponent', () => {
 
   it('is defined', () => {
     const wrapper = shallow(
-      <BidTrackerCardTop.WrappedComponent {...props} />,
+      <BidTrackerCardTop {...props} />,
     );
     expect(wrapper).toBeDefined();
   });
@@ -25,7 +25,15 @@ describe('BidTrackerCardTopComponent', () => {
   it('is defined with questionText', () => {
     const questionText = { text: 'text', link: 'link', term: 'term' };
     const wrapper = shallow(
-      <BidTrackerCardTop.WrappedComponent {...props} questionText={questionText} />,
+      <BidTrackerCardTop {...props} questionText={questionText} />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined with questionText', () => {
+    const questionText = { text: 'text', link: 'link', term: 'term' };
+    const wrapper = shallow(
+      <BidTrackerCardTop {...props} questionText={questionText} />,
     );
     expect(wrapper).toBeDefined();
   });
@@ -34,7 +42,7 @@ describe('BidTrackerCardTopComponent', () => {
     const newBid = { ...props.bid };
     newBid.status = 'fake status';
     const wrapper = shallow(
-      <BidTrackerCardTop.WrappedComponent {...props} bid={newBid} />,
+      <BidTrackerCardTop {...props} bid={newBid} />,
     );
     expect(wrapper).toBeDefined();
   });
@@ -43,7 +51,7 @@ describe('BidTrackerCardTopComponent', () => {
     const newBid = { ...props.bid };
     newBid.can_delete = true;
     const wrapper = shallow(
-      <BidTrackerCardTop.WrappedComponent {...props} bid={newBid} />,
+      <BidTrackerCardTop {...props} bid={newBid} />,
     );
     expect(wrapper).toBeDefined();
     expect(wrapper.find('remove-bid-link')).toBeDefined();
@@ -51,7 +59,7 @@ describe('BidTrackerCardTopComponent', () => {
 
   it('calls deleteBid', () => {
     const wrapper = shallow(
-      <BidTrackerCardTop.WrappedComponent {...props} />,
+      <BidTrackerCardTop {...props} />,
     );
     expect(wrapper).toBeDefined();
     wrapper.instance().onDeleteBid();
@@ -60,7 +68,7 @@ describe('BidTrackerCardTopComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <BidTrackerCardTop.WrappedComponent {...props} />,
+      <BidTrackerCardTop {...props} />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
