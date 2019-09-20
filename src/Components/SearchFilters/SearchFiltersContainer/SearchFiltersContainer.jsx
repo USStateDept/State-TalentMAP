@@ -9,6 +9,7 @@ import SuggestionChoicePost from '../../AutoSuggest/SuggestionChoicePost';
 import BureauFilter from '../BureauFilter';
 import PostFilter from '../PostFilter';
 import SkillFilter from '../SkillFilter';
+import LanguageFilter from '../LanguageFilter';
 import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault } from '../../../utilities';
@@ -178,6 +179,9 @@ class SearchFiltersContainer extends Component {
     // get skill cones
     const skillCones = (this.props.filters || []).find(f => f.item.description === 'skillCone');
 
+    // get language groups
+    const languageGroups = (this.props.filters || []).find(f => f.item.description === 'languageGroup');
+
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
     multiSelectFilterNames.forEach((n) => {
@@ -244,14 +248,12 @@ class SearchFiltersContainer extends Component {
             );
           case 'language':
             return (
-              <div className="usa-grid-full">
-                <MultiSelectFilter
-                  key={item.item.title}
-                  item={item}
-                  queryParamToggle={this.props.queryParamToggle}
-                  queryProperty="code"
-                />
-              </div>
+              <LanguageFilter
+                item={item}
+                queryParamToggle={this.props.queryParamToggle}
+                queryParamUpdate={this.props.queryParamUpdate}
+                languageGroups={languageGroups}
+              />
             );
           case includes(blackList, type) ? type : null:
             return null;

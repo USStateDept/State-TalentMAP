@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguageFilterComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full tm-nested-accordions"
+>
+  <Accordion
+    className=""
+    isMultiselectable={false}
+  >
+    <AccordionItem
+      buttonClass="tm-nested-accordion-button"
+      childClass=""
+      className="accordion-content-small"
+      expanded={true}
+      id="language-group-accordion-1"
+      preContent={
+        <CheckBox
+          checkboxProps={Object {}}
+          className="tm-checkbox-transparent"
+          cone={
+            Object {
+              "id": 1,
+              "languages": Array [
+                undefined,
+                undefined,
+                undefined,
+              ],
+              "name": "Group1",
+              "useAll": true,
+            }
+          }
+          disabled={false}
+          id="select-all-group-1"
+          label="Toggle filter by all positions with group name Group1"
+          labelSrOnly={true}
+          name=""
+          onCheckBoxClick={[Function]}
+          small={false}
+          title=""
+          value={false}
+        />
+      }
+      setAccordion={[Function]}
+      title="Group1"
+      useIdClass={true}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <CheckBox
+          _id={1}
+          checkboxProps={Object {}}
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName1-language-1"
+          label="Name1"
+          labelSrOnly={false}
+          name="Name1"
+          onCheckBoxClick={[Function]}
+          selectionRef="skill"
+          small={false}
+          title="Name1"
+          value={false}
+        />
+        <CheckBox
+          _id={2}
+          checkboxProps={Object {}}
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName2-language-1"
+          label="Name2"
+          labelSrOnly={false}
+          name="Name2"
+          onCheckBoxClick={[Function]}
+          selectionRef="skill"
+          small={false}
+          title="Name2"
+          value={true}
+        />
+        <CheckBox
+          _id={3}
+          checkboxProps={Object {}}
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName2-language-1"
+          label="Name2"
+          labelSrOnly={false}
+          name="Name2"
+          onCheckBoxClick={[Function]}
+          selectionRef="skill"
+          small={false}
+          title="Name2"
+          value={false}
+        />
+      </div>
+    </AccordionItem>
+  </Accordion>
+</div>
+`;
