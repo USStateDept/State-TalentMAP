@@ -89,6 +89,20 @@ const items =
         ],
       },
       {
+        // This is primarily to allow the user to "select all" languages,
+        // but could also be extended to group the languages, like we do
+        // with skills/cones.
+        item: {
+          title: 'Language Group',
+          altTitle: 'Language',
+          description: 'languageGroup',
+        },
+        data: [
+          // useAll means that we don't need to explicitly list the languages here.
+          { id: 1, name: 'Languages', isSelected: false, useAll: true },
+        ],
+      },
+      {
         item: {
           title: 'Grade',
           sort: 300,
