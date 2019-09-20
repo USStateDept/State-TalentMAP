@@ -247,7 +247,6 @@ class SearchFiltersContainer extends Component {
               />
             );
           case 'language':
-            console.log(languageGroups, item);
             return (
               <LanguageFilter
                 item={item}
@@ -255,14 +254,6 @@ class SearchFiltersContainer extends Component {
                 queryParamUpdate={this.props.queryParamUpdate}
                 languageGroups={languageGroups}
               />
-              /* <div className="usa-grid-full">
-                <MultiSelectFilter
-                  key={item.item.title}
-                  item={item}
-                  queryParamToggle={this.props.queryParamToggle}
-                  queryProperty="code"
-                />
-              </div> */
             );
           case includes(blackList, type) ? type : null:
             return null;
