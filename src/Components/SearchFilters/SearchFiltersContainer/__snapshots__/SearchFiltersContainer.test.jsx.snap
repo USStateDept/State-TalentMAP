@@ -164,30 +164,31 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
         },
         Object {
           "altTitle": undefined,
-          "content": <div
-            className="usa-grid-full"
-          >
-            <MultiSelectFilter
-              groupAlpha={false}
-              item={
-                Object {
-                  "data": Array [
-                    Object {
-                      "isSelected": true,
-                    },
-                  ],
-                  "item": Object {
-                    "custom_description": "language 1",
-                    "description": "language",
-                    "selectionRef": "refLan",
-                    "title": "skill",
+          "content": <LanguageFilter
+            item={
+              Object {
+                "data": Array [
+                  Object {
+                    "isSelected": true,
                   },
-                }
+                ],
+                "item": Object {
+                  "custom_description": "language 1",
+                  "description": "language",
+                  "selectionRef": "refLan",
+                  "title": "skill",
+                },
               }
-              queryParamToggle={[Function]}
-              queryProperty="code"
-            />
-          </div>,
+            }
+            languageGroups={
+              Object {
+                "data": Array [],
+              }
+            }
+            queryParamToggle={[Function]}
+            queryParamUpdate={[Function]}
+            queryProperty="code"
+          />,
           "id": "accordion-skill",
           "title": "skill",
         },
