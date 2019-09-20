@@ -172,3 +172,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
 export function trackLogin() {
   api().post('/stats/login/');
 }
+
+export function updateSavedSearches() {
+  api().put('/searches/listcount/');
+}
