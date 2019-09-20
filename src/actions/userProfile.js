@@ -89,6 +89,7 @@ export function userProfileFetchData(bypass, cb) {
           ...account,
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
+          permissions: permissions.permissions,
           favorite_positions_pv: pvFavorites,
         };
 
