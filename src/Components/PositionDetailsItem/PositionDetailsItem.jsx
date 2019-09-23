@@ -54,17 +54,19 @@ const PositionDetailsItem = (props) => {
     onHighlight,
   } = props;
 
+  const { position } = details;
+
   const isHighlightLoading = highlightPosition.loading;
-  const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
+  const tourEndDate = propOrDefault(position, 'current_assignment.estimated_end_date');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
-  const formattedBureau = details.bureau || NO_BUREAU;
-  const formattedTOD = propOrDefault(details, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
+  const formattedBureau = position.bureau || NO_BUREAU;
+  const formattedTOD = propOrDefault(position, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
 
-  const postDifferential = getDifferentialPercentage(propOrDefault(details, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
-  const dangerPay = getDifferentialPercentage(propOrDefault(details, 'post.danger_pay'), NO_DANGER_PAY);
+  const postDifferential = getDifferentialPercentage(propOrDefault(position, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
+  const dangerPay = getDifferentialPercentage(propOrDefault(position, 'post.danger_pay'), NO_DANGER_PAY);
 
-  const OBCUrl$ = propOrDefault(details, 'post.post_bidding_considerations_url');
+  const OBCUrl$ = propOrDefault(position, 'post.post_bidding_considerations_url');
   const getFormattedObcData = (prefix) => {
     if (OBCUrl$) {
       return (<span> {prefix} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
@@ -73,10 +75,10 @@ const PositionDetailsItem = (props) => {
     return prefix;
   };
 
-  const incumbent = propOrDefault(details, 'current_assignment.user', NO_USER_LISTED);
+  const incumbent = propOrDefault(position, 'current_assignment.user', NO_USER_LISTED);
 
   const getPostedDate = () => {
-    const posted = get(details, COMMON_PROPERTIES.posted);
+    const posted = get(position, COMMON_PROPERTIES.posted);
     if (posted) {
       return formatDate(posted);
     }
@@ -84,15 +86,15 @@ const PositionDetailsItem = (props) => {
   };
   const postedDate = getPostedDate();
 
-  const stats = getBidStatisticsObject(details.bid_statistics);
+  const stats = getBidStatisticsObject(position.bid_statistics);
 
-  const isHighlighted = get(details, 'is_highlighted');
+  const isHighlighted = get(position, 'is_highlighted');
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
         <Flag
           name="flags.bidding"
-          render={() => renderHandshake(stats, details)}
+          render={() => renderHandshake(stats, position)}
         />
         {
           isHighlighted && <Featured cutSide="both" className="ribbon-position-details" />
@@ -102,7 +104,7 @@ const PositionDetailsItem = (props) => {
         <div className="usa-width-two-thirds about-section-left">
           <h2>About the Position</h2>
           <PositionDetailsDescription
-            details={details}
+            details={position}
             editDescriptionContent={editDescriptionContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
@@ -121,12 +123,12 @@ const PositionDetailsItem = (props) => {
             </div>
           }
           <div className="usa-grid-full data-point-section">
-            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(details.position_number)} title="Position number" content={details.position_number} />
-            <CondensedCardDataPoint title="Skill" content={details.skill || NO_SKILL} />
-            <CondensedCardDataPoint title="Grade" content={details.grade || NO_GRADE} />
+            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(position.position_number)} title="Position number" content={details.position_number} />
+            <CondensedCardDataPoint title="Skill" content={position.skill || NO_SKILL} />
+            <CondensedCardDataPoint title="Grade" content={position.grade || NO_GRADE} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
             <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
-            <CondensedCardDataPoint title="Language" content={<LanguageList languages={details.languages} propToUse="representation" />} />
+            <CondensedCardDataPoint title="Language" content={<LanguageList languages={position.languages} propToUse="representation" />} />
             <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
             <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
@@ -136,7 +138,7 @@ const PositionDetailsItem = (props) => {
         </div>
         <div className="usa-width-one-third position-details-contact-container">
           <PositionDetailsContact
-            details={details}
+            details={position}
             editWebsiteContent={editWebsiteContent}
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}

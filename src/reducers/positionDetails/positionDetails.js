@@ -1,3 +1,7 @@
+import { checkFlag } from '../../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
+
 export function positionDetailsHasErrored(state = false, action) {
   switch (action.type) {
     case 'POSITION_DETAILS_HAS_ERRORED':
@@ -23,7 +27,8 @@ export function positionDetails(state = {}, action) {
       // Pushes specifically to the "position" substate since this is
       // only currently being used for updating highlighted status.
       const state$ = { ...state };
-      if (state.position.id === action.positionDetails.id) {
+      const objectToCheck = getUseAP() ? state.id : state.position.id;
+      if (objectToCheck === action.positionDetails.id) {
         state$.position = { ...state$.position, ...action.positionDetails };
       }
       return state$;

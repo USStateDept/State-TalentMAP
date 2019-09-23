@@ -1,4 +1,7 @@
 import api from '../api';
+import { checkFlag } from '../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
 
 export function positionDetailsHasErrored(bool) {
   return {
@@ -31,7 +34,9 @@ export function positionDetailsPatchState(positionDetails) {
 export function positionDetailsFetchData(id) {
   return (dispatch) => {
     dispatch(positionDetailsIsLoading(true));
-    api().get(`/cycleposition/${id}/`)
+    const useAP = getUseAP();
+    const prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+    api().get(`${prefix}/${id}/`)
       .then(response => response.data)
       .then((positionDetails) => {
         dispatch(positionDetailsFetchDataSuccess(positionDetails));
