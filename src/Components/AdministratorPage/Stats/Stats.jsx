@@ -28,12 +28,9 @@ class Stats extends Component {
       stats,
       statsIsLoading,
       statsHasErrored,
-      getStats,
     } = this.props;
 
     const statsSuccess = !statsIsLoading && !statsHasErrored;
-
-    console.log(stats, statsSuccess, getStats);
 
     return (
       <div

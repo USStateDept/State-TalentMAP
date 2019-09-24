@@ -65,7 +65,6 @@ export function getLoginStats() {
       .then((results) => {
         let proms$ = [...promTypes];
         proms$ = proms$.map((m, i) => ({ ...m, count: results[i].count }));
-        console.log(proms$);
         dispatch(statsSuccess(proms$));
         dispatch(statsHasErrored(false));
         dispatch(statsIsLoading(false));
