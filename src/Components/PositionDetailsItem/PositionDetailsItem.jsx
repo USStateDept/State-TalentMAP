@@ -57,10 +57,10 @@ const PositionDetailsItem = (props) => {
   const { position } = details;
 
   const isHighlightLoading = highlightPosition.loading;
-  const tourEndDate = propOrDefault(position, 'current_assignment.estimated_end_date');
+  const tourEndDate = propOrDefault(details, 'ted');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
-  const formattedBureau = position.bureau || NO_BUREAU;
+  const formattedBureau = get(position, 'bureau', NO_BUREAU);
   const formattedTOD = propOrDefault(position, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
 
   const postDifferential = getDifferentialPercentage(propOrDefault(position, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
@@ -86,7 +86,7 @@ const PositionDetailsItem = (props) => {
   };
   const postedDate = getPostedDate();
 
-  const stats = getBidStatisticsObject(position.bid_statistics);
+  const stats = getBidStatisticsObject(get(position, 'bid_statistics'));
 
   const isHighlighted = get(position, 'is_highlighted');
   return (
@@ -123,7 +123,7 @@ const PositionDetailsItem = (props) => {
             </div>
           }
           <div className="usa-grid-full data-point-section">
-            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(position.position_number)} title="Position number" content={details.position_number} />
+            <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(position.position_number)} title="Position number" content={position.position_number} />
             <CondensedCardDataPoint title="Skill" content={position.skill || NO_SKILL} />
             <CondensedCardDataPoint title="Grade" content={position.grade || NO_GRADE} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />

@@ -10,6 +10,6 @@
     "notifications": true,
     "complete_bidding": true,
     "data_sync_admin": true,
-    "available_positions": true
+    "available_positions": false
   }
 }

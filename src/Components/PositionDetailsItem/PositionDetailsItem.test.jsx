@@ -2,7 +2,9 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import PositionDetailsItem, { renderHandshake } from './PositionDetailsItem';
-import detailsObject from '../../__mocks__/detailsObject';
+import resultsObject from '../../__mocks__/resultsObject';
+
+const detailsObject = resultsObject.results[0];
 
 describe('PositionDetailsItem', () => {
   const props = {
@@ -17,7 +19,7 @@ describe('PositionDetailsItem', () => {
     const wrapper = shallow(
       <PositionDetailsItem {...props} />,
     );
-    expect(wrapper.instance().props.details.id).toBe(6);
+    expect(wrapper.instance().props.details.id).toBe(1);
   });
 
   it('renders handshake', () => {

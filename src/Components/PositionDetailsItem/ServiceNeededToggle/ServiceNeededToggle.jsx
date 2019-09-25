@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { checkFlag } from '../../../flags';
 import InteractiveElement from '../../InteractiveElement';
 
@@ -20,13 +21,13 @@ export default class ServiceNeededToggle extends Component {
 
   onClick() {
     const { position, onChange } = this.props;
-    const id = getUseAP() ? position.id : position.position.id;
+    const id = getUseAP() ? position.id : get(position, 'position.id');
     onChange(id, !this.checked);
   }
 
   get checked() {
     const { position } = this.props;
-    return (position.position.is_highlighted || false);
+    return get(position, 'position.is_highlighted', false);
   }
 
   get text() {
