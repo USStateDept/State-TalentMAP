@@ -31,11 +31,12 @@ export function positionDetailsPatchState(positionDetails) {
   };
 }
 
-export function positionDetailsFetchData(id) {
+export function positionDetailsFetchData(id, isPV = false) {
   return (dispatch) => {
     dispatch(positionDetailsIsLoading(true));
     const useAP = getUseAP();
-    const prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+    let prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+    if (isPV) { prefix = '/fsbid/projected_vacancies'; }
     api().get(`${prefix}/${id}/`)
       .then(response => response.data)
       .then((positionDetails) => {

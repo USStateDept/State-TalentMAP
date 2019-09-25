@@ -52,6 +52,7 @@ const PositionDetailsItem = (props) => {
     userProfile,
     highlightPosition,
     onHighlight,
+    isProjectedVacancy,
   } = props;
 
   const { position } = details;
@@ -143,12 +144,15 @@ const PositionDetailsItem = (props) => {
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
           />
-          <ServiceNeededToggle
-            userProfile={userProfile}
-            position={details}
-            loading={isHighlightLoading}
-            onChange={onHighlight}
-          />
+          {
+            !isProjectedVacancy &&
+            <ServiceNeededToggle
+              userProfile={userProfile}
+              position={details}
+              loading={isHighlightLoading}
+              onChange={onHighlight}
+            />
+          }
         </div>
       </div>
     </div>
@@ -164,6 +168,7 @@ PositionDetailsItem.propTypes = {
   userProfile: USER_PROFILE,
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 PositionDetailsItem.defaultProps = {
@@ -171,6 +176,7 @@ PositionDetailsItem.defaultProps = {
   userProfile: {},
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
+  isProjectedVacancy: false,
 };
 
 export default PositionDetailsItem;
