@@ -89,7 +89,7 @@ class PositionDetailsContact extends Component {
 
     const isAllowedToEdit = !!(propOrDefault(details, 'description.is_editable_by_user'));
 
-    const formattedDate = formatDate(details.update_date);
+    const formattedDate = formatDate(details.description.date_updated);
 
     const OBCUrl = propOrDefault(details, 'post.post_overview_url');
 
@@ -120,7 +120,7 @@ class PositionDetailsContact extends Component {
           </div>
         </div>
         <div className={`contact-container ${!OBCUrl ? 'no-button' : ''}`}>
-          <strong>Updated</strong>: {formattedDate}
+          <strong>Capsule Last Updated</strong>: {formattedDate}
         </div>
         <div className="offset-bid-button-container">
           <div className="offset-bid-button-container-button">
