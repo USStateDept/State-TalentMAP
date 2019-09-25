@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Dashboard from './Dashboard';
 import Logs from './Logs';
+import Stats from './Stats';
 
 const AdministratorPage = (props) => {
   const {
@@ -52,6 +53,7 @@ const AdministratorPage = (props) => {
       <Switch>
         <Route path="/profile/administrator/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
+        <Route path="/profile/administrator/stats" render={() => <Stats />} />
       </Switch>
     </div>
   );
