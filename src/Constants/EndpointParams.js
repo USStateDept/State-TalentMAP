@@ -23,7 +23,7 @@ export const ENDPOINT_PARAMS = {
 // any properties that we want to abstract to a common name
 export const COMMON_PROPERTIES = {
   posted: 'posted_date',
-  NULL_LANGUAGE: 'NONE',
+  NULL_LANGUAGE: 'NLR',
 };
 
 // Take our custom query param from the Bidder Portfolio navigation and convert them to queries
