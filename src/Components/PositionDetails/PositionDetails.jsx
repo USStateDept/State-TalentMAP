@@ -78,7 +78,7 @@ class PositionDetails extends Component {
             userProfile={userProfile}
           />
           <PositionDetailsItem
-            details={position}
+            details={{ ...position, ted: details.ted }}
             editDescriptionContent={this.editDescriptionContent}
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}

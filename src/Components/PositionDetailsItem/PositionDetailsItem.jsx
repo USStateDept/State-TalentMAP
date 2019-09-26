@@ -55,7 +55,7 @@ const PositionDetailsItem = (props) => {
   } = props;
 
   const isHighlightLoading = highlightPosition.loading;
-  const tourEndDate = propOrDefault(details, 'current_assignment.estimated_end_date');
+  const tourEndDate = propOrDefault(details, 'ted');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
 
   const formattedBureau = details.bureau || NO_BUREAU;

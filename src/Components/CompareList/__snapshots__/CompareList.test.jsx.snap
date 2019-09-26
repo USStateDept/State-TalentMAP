@@ -238,7 +238,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               None listed
             </td>
             <td>
-              03/13/2020
+              None listed
             </td>
             <td
               className="empty"
@@ -745,7 +745,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               None listed
             </td>
             <td>
-              03/13/2020
+              None listed
             </td>
             <td
               className="empty"

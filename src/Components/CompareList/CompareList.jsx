@@ -188,7 +188,7 @@ class CompareList extends Component {
                       {
                         compareArray.map(c => (
                           <td key={shortId.generate()}>
-                            {propOrDefault(c.position, 'current_assignment.estimated_end_date') ? formatDate(c.position.current_assignment.estimated_end_date) : NO_DATE }
+                            {propOrDefault(c, 'ted') ? formatDate(c.ted) : NO_DATE }
                           </td>
                         ))
                       }
