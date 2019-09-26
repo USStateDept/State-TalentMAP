@@ -3,6 +3,7 @@ import api from '../api';
 import { checkFlag } from '../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
+const getUseAP = () => checkFlag('flags.available_positions');
 
 export function favoritePositionsHasErrored(bool) {
   return {
@@ -31,7 +32,8 @@ export function favoritePositionsFetchData(sortType) {
     dispatch(favoritePositionsIsLoading(true));
     dispatch(favoritePositionsHasErrored(false));
     const data$ = { favorites: [], favoritesPV: [] };
-    let url = '/cycleposition/favorites/';
+    const useAP = getUseAP();
+    let url = useAP ? '/available_position/favorites/' : '/cycleposition/favorites/';
     let urlPV = '/projected_vacancy/favorites/';
     if (sortType) {
       const append = `?ordering=${sortType}`;

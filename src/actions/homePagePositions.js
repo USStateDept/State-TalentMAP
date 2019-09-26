@@ -1,13 +1,28 @@
 import api from '../api';
 import { USER_SKILL_CODE_POSITIONS, SERVICE_NEED_POSITIONS, FAVORITED_POSITIONS } from '../Constants/PropTypes';
 import { COMMON_PROPERTIES } from '../Constants/EndpointParams';
+import { checkFlag } from '../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
 
 // Export our queries so that we can consistently test them.
-export const HIGHLIGHTED_POSITIONS_QUERY = 'highlighted/?limit=3';
-export const GET_SKILL_CODE_POSITIONS_QUERY = skillCodes => `?position__skill__in=${skillCodes}&limit=3`;
-export const FAVORITE_POSITIONS_QUERY = 'favorites/?limit=3';
-export const GET_GRADE_POSITIONS_QUERY = grade => `?position__grade__code__in=${grade}&limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
-export const RECENTLY_POSTED_POSITIONS_QUERY = `?limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
+/* eslint-disable arrow-body-style */
+export const HIGHLIGHTED_POSITIONS_QUERY = () => {
+  return getUseAP() ? '/available_position/highlight/?limit=3' : '/cycleposition/highlighted/?limit=3';
+};
+export const GET_SKILL_CODE_POSITIONS_QUERY = (skillCodes) => {
+  return getUseAP() ? `/fsbid/available_positions/?position__skill__in=${skillCodes}&limit=3` : `/cycleposition/?position__skill__in=${skillCodes}&limit=3`;
+};
+export const FAVORITE_POSITIONS_QUERY = () => {
+  return getUseAP() ? '/available_position/favorites/?limit=3' : '/cycleposition/favorites/?limit=3';
+};
+export const GET_GRADE_POSITIONS_QUERY = (grade) => {
+  return getUseAP() ? `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3&ordering=-${COMMON_PROPERTIES.posted}` : `/cycleposition/?position__grade__code__in=${grade}&limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
+};
+export const RECENTLY_POSTED_POSITIONS_QUERY = () => {
+  return getUseAP() ? `/fsbid/available_positions/?limit=3&ordering=-${COMMON_PROPERTIES.posted}` : `/cycleposition/?limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
+};
+/* eslint-enable arrow-body-style */
 
 export function homePagePositionsHasErrored(bool) {
   return {
@@ -44,7 +59,7 @@ export function homePagePositionsFetchData(skills = []) {
 
     // configure queries that match with properties in resultsTypes
     let queryTypes = [
-      { name: SERVICE_NEED_POSITIONS, query: HIGHLIGHTED_POSITIONS_QUERY },
+      { name: SERVICE_NEED_POSITIONS, query: HIGHLIGHTED_POSITIONS_QUERY() },
     ];
 
     // Search for positions that match the user's skill, if it exists.
@@ -60,11 +75,11 @@ export function homePagePositionsFetchData(skills = []) {
       delete resultsTypes[USER_SKILL_CODE_POSITIONS];
       queryTypes = queryTypes.filter(obj => obj.name !== USER_SKILL_CODE_POSITIONS);
       // return a generic query
-      queryTypes.push({ name: FAVORITED_POSITIONS, query: FAVORITE_POSITIONS_QUERY });
+      queryTypes.push({ name: FAVORITED_POSITIONS, query: FAVORITE_POSITIONS_QUERY() });
     }
 
     // create a promise with all the queries we defined
-    const queryProms = queryTypes.map(type => api().get(`/cycleposition/${type.query}`));
+    const queryProms = queryTypes.map(type => api().get(type.query));
 
     Promise.all(queryProms)
       // Promise.all returns a single array which matches the order of the originating array...

@@ -81,7 +81,12 @@ class HoverDescription extends Component {
                           { expanded &&
                             <Linkify properties={{ target: '_blank' }}>
                               {text}
-                              { !isProjectedVacancy && <Link className="position-link" to={`/details/${id}`}>View position</Link> }
+                              <Link
+                                className="position-link"
+                                to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${id}`}
+                              >
+                                View position
+                              </Link>
                             </Linkify>
                           }
                         </p>

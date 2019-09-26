@@ -50,6 +50,7 @@ class PositionDetails extends Component {
       highlightPosition,
       onHighlight,
       userProfileIsLoading,
+      isProjectedVacancy,
     } = this.props;
 
     const isReady = details.id && userProfile.id && !isLoading && !hasErrored;
@@ -76,9 +77,10 @@ class PositionDetails extends Component {
             editWebsiteContent={editWebsiteContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
             userProfile={userProfile}
+            isProjectedVacancy={isProjectedVacancy}
           />
           <PositionDetailsItem
-            details={{ ...position, ted: details.ted }}
+            details={details}
             editDescriptionContent={this.editDescriptionContent}
             editPocContent={editPocContent}
             editWebsiteContent={editWebsiteContent}
@@ -86,10 +88,11 @@ class PositionDetails extends Component {
             userProfile={userProfile}
             highlightPosition={highlightPosition}
             onHighlight={onHighlight}
+            isProjectedVacancy={isProjectedVacancy}
           />
           <hr />
           <Row className="position-details-description-container padded-main-content" fluid>
-            <PositionSimilarPositions id={details.id} />
+            { !isProjectedVacancy && <PositionSimilarPositions id={details.id} /> }
           </Row>
         </div>}
         {isLoading$ && <Spinner type="position-details" size="big" />}
@@ -118,6 +121,7 @@ PositionDetails.propTypes = {
   editWebsiteContent: PropTypes.func.isRequired,
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 PositionDetails.defaultProps = {
@@ -131,6 +135,7 @@ PositionDetails.defaultProps = {
   descriptionEditSuccess: false,
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
+  isProjectedVacancy: false,
 };
 
 export default PositionDetails;

@@ -1,6 +1,6 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, isEqual, isNumber, isObject, keys, lowerCase,
+import { cloneDeep, get, intersection, isEqual, isNumber, isObject, keys, lowerCase,
   merge as merge$, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
@@ -420,6 +420,10 @@ export const formatIdSpacing = (id) => {
 // provide an array of permissions to check if they all exist in an array of user permissions
 export const userHasPermissions = (permissionsToCheck = [], userPermissions = []) =>
   permissionsToCheck.every(val => userPermissions.indexOf(val) >= 0);
+
+// provide an array of permissions to check if at least one exists in an array of user permissions
+export const userHasSomePermissions = (permissionsToCheck = [], userPermissions = []) =>
+  !!intersection(permissionsToCheck, userPermissions).length;
 
 // Takes multiple saved search objects and combines them into one object,
 // where the value for each property is an array of all individual values

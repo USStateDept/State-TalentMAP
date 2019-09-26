@@ -132,6 +132,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       } : null,
       {
+        text: 'Statistics',
+        route: '/profile/administrator/stats/',
+        icon: 'bar-chart',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
         text: 'Glossary Editor',
         route: '/profile/glossaryeditor/',
         icon: 'book',
