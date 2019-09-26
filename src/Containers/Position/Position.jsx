@@ -39,16 +39,23 @@ class Position extends Component {
   }
 
   componentWillMount() {
+    const { isProjectedVacancy } = this.props;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
-    } else {
+    } else if (!isProjectedVacancy) {
       this.getDetails(this.props.match.params.id);
       this.props.fetchBidList();
+    } else {
+      this.getPVDetails(this.props.match.params.id);
     }
   }
 
   getDetails(id) {
     this.props.fetchData(id);
+  }
+
+  getPVDetails(id) {
+    this.props.fetchPVData(id);
   }
 
   editDescriptionContent(content) {
@@ -82,6 +89,7 @@ class Position extends Component {
       resetDescriptionEditMessages,
       highlightPosition,
       onHighlight,
+      isProjectedVacancy,
     } = this.props;
 
     return (
@@ -106,6 +114,7 @@ class Position extends Component {
         resetDescriptionEditMessages={resetDescriptionEditMessages}
         highlightPosition={highlightPosition}
         onHighlight={onHighlight}
+        isProjectedVacancy={isProjectedVacancy}
       />
     );
   }
@@ -123,6 +132,7 @@ Position.propTypes = {
     }),
   }).isRequired,
   fetchData: PropTypes.func,
+  fetchPVData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   positionDetails: POSITION_DETAILS,
@@ -145,11 +155,13 @@ Position.propTypes = {
   resetDescriptionEditMessages: PropTypes.func.isRequired,
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 Position.defaultProps = {
   positionDetails: {},
   fetchData: EMPTY_FUNCTION,
+  fetchPVData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
   routerLocations: [],
@@ -169,6 +181,7 @@ Position.defaultProps = {
   descriptionEditSuccess: false,
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
+  isProjectedVacancy: false,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -192,6 +205,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(positionDetailsFetchData(id)),
+  fetchPVData: id => dispatch(positionDetailsFetchData(id, true)),
   onNavigateTo: dest => dispatch(push(dest)),
   fetchBidList: () => dispatch(bidListFetchData()),
   editDescriptionContent: (id, content) => dispatch(editDescriptionContent(id, content)),
