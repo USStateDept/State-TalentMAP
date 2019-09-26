@@ -57,6 +57,7 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
             className="usa-width-one-half title-actions-section"
           >
             <Connect(FavoriteContainer)
+              isPV={false}
               useButtonClass={true}
               useLongText={true}
               useSpinnerWhite={true}

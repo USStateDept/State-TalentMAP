@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
@@ -32,7 +33,7 @@ class PositionTitle extends Component {
     );
   }
   render() {
-    const { details, userProfile } = this.props;
+    const { details, isProjectedVacancy, userProfile } = this.props;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
@@ -50,6 +51,7 @@ class PositionTitle extends Component {
               <div className="usa-grid-full">
                 <div className="usa-width-one-half header-title-container">
                   <div className="position-details-header-title">
+                    {isProjectedVacancy && <span>Projected Vacancy</span>}
                     <h1>{details.title}</h1>
                   </div>
                   <div className="post-title">
@@ -60,10 +62,11 @@ class PositionTitle extends Component {
                 <div className="usa-width-one-half title-actions-section">
                   <Favorite
                     refKey={details.cpId}
-                    compareArray={userProfile.favorite_positions}
+                    compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
                     useLongText
                     useSpinnerWhite
                     useButtonClass
+                    isPV={isProjectedVacancy}
                   />
                 </div>
               </div>
@@ -91,10 +94,13 @@ class PositionTitle extends Component {
                 </Tooltip>
               </div>
           }
-          <Flag
-            name="flags.bidding"
-            render={this.renderBidListButton}
-          />
+          {
+            !isProjectedVacancy &&
+            <Flag
+              name="flags.bidding"
+              render={this.renderBidListButton}
+            />
+          }
         </div>
       </div>
     );
@@ -105,11 +111,13 @@ PositionTitle.propTypes = {
   details: POSITION_DETAILS,
   bidList: BID_LIST.isRequired,
   userProfile: USER_PROFILE,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 PositionTitle.defaultProps = {
   details: null,
   userProfile: {},
+  isProjectedVacancy: false,
 };
 
 
