@@ -24,9 +24,10 @@ const Components = {
 
 const mappedRoutesArray = RoutesArray.map((Route) => {
   const Component = Components[Route.componentName];
+  const props$ = Route.props || {};
   return { ...Route,
     component: props =>
-      <Component {...props} />,
+      <Component {...props} {...props$} />,
   };
 });
 

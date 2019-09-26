@@ -32,7 +32,7 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
 
   const titleHeader = <h3>{title}</h3>;
 
-  const link = `/details/${position.id}`;
+  const link = `/${isProjectedVacancy ? 'vacancy' : 'details'}/${position.id}`;
 
   const innerContent = (
     <div>
@@ -76,18 +76,13 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
   );
 
   const containerProps = {
-    className: `usa-grid-full condensed-card-top ${cardTopClass} ${isProjectedVacancy ? '' : 'condensed-card-top--clickable'}`,
+    className: `usa-grid-full condensed-card-top ${cardTopClass} condensed-card-top--clickable`,
   };
 
   return (
-    isProjectedVacancy ?
-      <div {...containerProps} >
-        {innerContent}
-      </div>
-    :
-      <Link to={link} {...containerProps} title="View details for this position">
-        {innerContent}
-      </Link>
+    <Link to={link} {...containerProps} title="View details for this position">
+      {innerContent}
+    </Link>
   );
 };
 

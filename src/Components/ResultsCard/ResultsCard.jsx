@@ -158,6 +158,8 @@ class ResultsCard extends Component {
       refKey: result.id,
     };
 
+    const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}`}>View position</Link>;
+
     return (
       <MediaQueryWrapper breakpoint="screenSmMax" widthType="max">
         {matches => (
@@ -173,7 +175,7 @@ class ResultsCard extends Component {
                 matches ?
                   <Row className="header" fluid>
                     <h3>{title}</h3>: {post}
-                    { !isProjectedVacancy && <Link to={`/details/${result.id}`}>View position</Link> }
+                    {detailsLink}
                     {
                       !isProjectedVacancy &&
                       <Flag
@@ -187,7 +189,7 @@ class ResultsCard extends Component {
                     <Column columns="8">
                       <Column columns="12" className="results-card-title-link">
                         <h3>{title}</h3>
-                        { !isProjectedVacancy && <Link to={`/details/${result.id}`}>View position</Link> }
+                        {detailsLink}
                         {recentlyAvailable && <span className="available-alert">Now available!</span>}
                       </Column>
                       <Column columns="12" className="results-card-title-link">
