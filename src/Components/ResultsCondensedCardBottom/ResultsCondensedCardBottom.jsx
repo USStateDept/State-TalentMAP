@@ -54,7 +54,7 @@ class ResultsCondensedCardBottom extends Component {
             name="flags.bidding"
             render={this.renderStats}
           />
-          <CondensedCardData position={pos} />
+          <CondensedCardData position={position} />
           <div className="usa-grid-full condensed-card-buttons-section">
             <Favorite
               useLongText

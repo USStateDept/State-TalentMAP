@@ -90,6 +90,15 @@
     font-weight: 400;
     margin-bottom: .2em;
     margin-top: 1em;
+    position: relative;
+
+    > span {
+      color: $tertiary-gold-lighter;
+      font-size: 1.2rem;
+      font-weight: 500;
+      position: absolute;
+      top: -20px;
+    }
   }
 
   .position-details-header-body {

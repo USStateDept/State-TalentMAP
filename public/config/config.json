@@ -9,6 +9,7 @@
     "static_content": true,
     "notifications": true,
     "complete_bidding": true,
-    "data_sync_admin": true
+    "data_sync_admin": true,
+    "available_positions": false
   }
 }

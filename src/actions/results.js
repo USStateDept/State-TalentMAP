@@ -2,6 +2,9 @@ import { CancelToken } from 'axios';
 import queryString from 'query-string';
 import { get } from 'lodash';
 import api from '../api';
+import { checkFlag } from '../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
 
 let cancel;
 
@@ -46,8 +49,11 @@ export function resultsSimilarPositionsFetchDataSuccess(results) {
 export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
     if (cancel) { cancel(); }
+    const useAP = getUseAP();
+    const prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+
     dispatch(resultsSimilarPositionsIsLoading(true));
-    api().get(`/cycleposition/${id}/similar/?limit=3`)
+    api().get(`${prefix}/${id}/similar/?limit=3`)
       .then(response => response.data)
       .then((results) => {
         dispatch(resultsSimilarPositionsFetchDataSuccess(results));
@@ -62,7 +68,9 @@ export function resultsFetchSimilarPositions(id) {
 }
 
 export function fetchResultData(query) {
-  let prefix = '/cycleposition';
+  const useAP = getUseAP();
+
+  let prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
   const parsed = queryString.parse(query);
   const isPV = parsed.projectedVacancy;
 

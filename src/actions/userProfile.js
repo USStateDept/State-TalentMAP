@@ -9,6 +9,7 @@ import * as SystemMessages from '../Constants/SystemMessages';
 import { checkFlag } from '../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
+const getUseAP = () => checkFlag('flags.available_positions');
 
 export function userProfileHasErrored(bool) {
   return {
@@ -124,9 +125,10 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
   isPV = false) {
   const idString = id.toString();
   return (dispatch) => {
+    const APUrl = getUseAP() ? `/available_position/${idString}/favorite/` : `/cycleposition/${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
-      url: isPV ? `/projected_vacancy/${idString}/favorite/` : `/cycleposition/${idString}/favorite/`,
+      url: isPV ? `/projected_vacancy/${idString}/favorite/` : APUrl,
     };
 
     /**
@@ -136,14 +138,15 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     const getAction = () => api()(config);
 
     // position
-    const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/position_number__in=${id}/` : `/cycleposition/${id}/`);
+    const posURL = getUseAP() ? `/fsbid/available_positions/${id}/` : `/cycleposition/${id}/`;
+    const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/${id}/` : posURL);
 
     dispatch(userProfileFavoritePositionIsLoading(true, id));
     dispatch(userProfileFavoritePositionHasErrored(false));
 
     axios.all([getAction(), getPosition()])
       .then(axios.spread((action, position) => {
-        const pos = isPV ? get(position, 'data.results[0]', {}) : position.data;
+        const pos = position.data;
         const message = remove ?
           SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position) :
           SystemMessages.ADD_FAVORITE_SUCCESS(pos.position);
