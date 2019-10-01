@@ -12,7 +12,7 @@ import SkillFilter from '../SkillFilter';
 import LanguageFilter from '../LanguageFilter';
 import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
-import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault } from '../../../utilities';
+import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault, sortTods } from '../../../utilities';
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
 
 const useBidding = () => checkFlag('flags.bidding');
@@ -160,6 +160,9 @@ class SearchFiltersContainer extends Component {
           // data, and this is readable, so the next line is eslint-disabled.
           // eslint-disable-next-line
           f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? -1 : 0);
+        } else if (f.item.description === 'tod' && f.data) {
+          // eslint-disable-next-line no-param-reassign
+          f.data = sortTods(f.data);
         }
         // add to Map
         multiSelectFilterMap.set(f.item.description, f);
