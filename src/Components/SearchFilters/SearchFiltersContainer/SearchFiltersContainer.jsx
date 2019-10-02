@@ -67,7 +67,15 @@ class SearchFiltersContainer extends Component {
 
   render() {
     const { isProjectedVacancy } = this.context;
-    const { fetchPostAutocomplete, postSearchResults } = this.props;
+    const { fetchPostAutocomplete, postSearchResults, filters } = this.props;
+
+    const filters$ = filters
+    .filter((f) => {
+      if (isProjectedVacancy) {
+        return f.item.onlyProjectedVacancy || !f.item.onlyAvailablePositions;
+      }
+      return f.item.onlyAvailablePositions || !f.item.onlyProjectedVacancy;
+    });
 
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
@@ -81,7 +89,8 @@ class SearchFiltersContainer extends Component {
 
     // store filters in Map
     const booleanFiltersMap = new Map();
-    this.props.filters.forEach((searchFilter) => {
+    filters$
+    .forEach((searchFilter) => {
       if (searchFilter.item.bool) {
         booleanFiltersMap.set(searchFilter.item.description, searchFilter);
       }
@@ -98,7 +107,7 @@ class SearchFiltersContainer extends Component {
     });
 
     // get our normal multi-select filters
-    const multiSelectFilterNames = ['skill', 'grade', 'region', 'tod', 'language',
+    const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
       'postDiff', 'dangerPay'];
     const blackList = []; // don't create accordions for these
 
@@ -115,7 +124,7 @@ class SearchFiltersContainer extends Component {
 
     // store filters in Map
     const toggleFiltersMap = new Map();
-    this.props.filters.forEach((searchFilter) => {
+    filters$.forEach((searchFilter) => {
       if (searchFilter.item.isToggle) {
         toggleFiltersMap.set(searchFilter.item.description, searchFilter);
       }
@@ -134,11 +143,6 @@ class SearchFiltersContainer extends Component {
     const projectedVacancyFilter = sortedToggleNames.length ?
       get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
 
-    if (isProjectedVacancy) {
-      multiSelectFilterNames.unshift('bidSeason');
-    } else {
-      multiSelectFilterNames.unshift('bidCycle');
-    }
     // post should come before TOD
     multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
     // END TOGGLE FILTERS
@@ -147,7 +151,7 @@ class SearchFiltersContainer extends Component {
     const multiSelectFilterMap = new Map();
 
     // pull filters from props and add to Map
-    this.props.filters.slice().forEach((f) => {
+    filters$.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill' && f.data) {
@@ -167,20 +171,22 @@ class SearchFiltersContainer extends Component {
     });
 
     // special handling for functional bureau
-    const functionalBureaus = this.props.filters.slice().find(f => f.item.description === 'functionalRegion');
+    const functionalBureaus = filters$.slice().find(f => f.item.description === 'functionalRegion');
 
     // special handling for is_domestic filter
-    const domesticFilter = (this.props.filters || []).find(f => f.item.description === 'domestic');
+    const domesticFilter = (filters$ || []).find(f => f.item.description === 'domestic');
     const overseasFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'false');
     const domesticFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'true');
     const overseasIsSelected = propOrDefault(overseasFilterData, 'isSelected', false);
     const domesticIsSelected = propOrDefault(domesticFilterData, 'isSelected', false);
 
     // get skill cones
-    const skillCones = (this.props.filters || []).find(f => f.item.description === 'skillCone');
+    const skillCones = (filters$ || []).find(f => f.item.description === 'skillCone');
 
     // get language groups
-    const languageGroups = (this.props.filters || []).find(f => f.item.description === 'languageGroup');
+    const languageGroups = (filters$ || []).find(f => f.item.description === 'languageGroup');
+
+    console.log(multiSelectFilterNames);
 
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
