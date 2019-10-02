@@ -5,9 +5,12 @@ import queryString from 'query-string';
 import flatten from 'flat';
 import { CSVLink } from '../CSV';
 import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
-import { fetchResultData } from '../../actions/results';
+import { fetchResultData, downloadAvailablePositionData } from '../../actions/results';
 import { formatDate, getFormattedNumCSV, spliceStringForCSV } from '../../utilities';
 import ExportButton from '../ExportButton';
+import { checkFlag } from '../../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
 
 // Mapping columns to data fields
 // Use custom delimiter of flattened data
@@ -80,18 +83,28 @@ class SearchResultsExportLink extends Component {
         limit: this.props.count,
         page: 1,
       };
-      fetchResultData(queryString.stringify(query))
-      .then((results) => {
-        const data = processData(results.results);
-        this.setState({ data, isLoading: false }, () => {
-          // click the CSVLink component to trigger the CSV download
-          // This is needed for the download to work in Edge.
-          if (this.csvLink) { this.csvLink.link.click(); }
+      if (getUseAP()) {
+        downloadAvailablePositionData(queryString.stringify(query))
+        .then(() => {
+          this.setState({ isLoading: false });
+        })
+        .catch(() => {
+          this.setState({ isLoading: false });
         });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
-      });
+      } else {
+        fetchResultData(queryString.stringify(query))
+        .then((results) => {
+          const data = processData(results.results);
+          this.setState({ data, isLoading: false }, () => {
+            // click the CSVLink component to trigger the CSV download
+            // This is needed for the download to work in Edge.
+            if (this.csvLink) { this.csvLink.link.click(); }
+          });
+        })
+        .catch(() => {
+          this.setState({ isLoading: false });
+        });
+      }
     }
   }
 
