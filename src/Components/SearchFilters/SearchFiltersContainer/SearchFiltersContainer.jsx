@@ -56,8 +56,6 @@ class SearchFiltersContainer extends Component {
         ...config,
         is_available_in_bidcycle: null,
         is_available_in_current_bidcycle: null,
-        is_domestic: null,
-        position__post__in: null,
         projectedVacancy: value,
         ordering: 'ted',
       };
