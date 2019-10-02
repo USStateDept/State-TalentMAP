@@ -186,8 +186,6 @@ class SearchFiltersContainer extends Component {
     // get language groups
     const languageGroups = (filters$ || []).find(f => f.item.description === 'languageGroup');
 
-    console.log(multiSelectFilterNames);
-
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
     multiSelectFilterNames.forEach((n) => {
