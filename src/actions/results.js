@@ -67,6 +67,25 @@ export function resultsFetchSimilarPositions(id) {
   };
 }
 
+export function downloadAvailablePositionData(query) {
+  const prefix = 'fsbid/available_positions/export';
+  return api()
+  .get(`${prefix}/?${query}`, {
+    cancelToken: new CancelToken((c) => { cancel = c; }),
+    responseType: 'stream',
+  })
+  .then((response) => {
+    const cd = get(response, 'headers.content-disposition');
+    const filename = cd.replace('attachment; filename=', '') || 'TalentMap_search_export';
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('download', filename);
+    document.body.appendChild(a);
+    a.click();
+  });
+}
+
 export function fetchResultData(query) {
   const useAP = getUseAP();
 
