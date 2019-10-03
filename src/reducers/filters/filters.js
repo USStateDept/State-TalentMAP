@@ -27,6 +27,7 @@ const items =
           description: 'bidCycle',
           endpoint: 'bidcycle/?active=true&ordering=name',
           selectionRef: ENDPOINT_PARAMS.bidCycle,
+          onlyAvailablePositions: true,
           text: 'Choose Bid Cycles',
         },
         data: [
@@ -40,6 +41,7 @@ const items =
           endpoint: 'fsbid/bid_seasons/',
           selectionRef: ENDPOINT_PARAMS.bidSeason,
           text: 'Choose Bid Seasons',
+          onlyProjectedVacancy: true,
         },
         data: [
         ],
@@ -75,6 +77,29 @@ const items =
           endpoint: 'language/?is_available=true',
           selectionRef: ENDPOINT_PARAMS.language,
           text: 'Choose languages',
+          onlyAvailablePositions: true,
+        },
+        data: [
+        ],
+        // Allow users to include languages with no code. This option is not supplied from
+        // the endpoint, so we define it here.
+        initialData: [
+          {
+            code: COMMON_PROPERTIES.NULL_LANGUAGE,
+            short_description: 'No language requirement',
+            custom_description: 'No language requirement',
+          },
+        ],
+      },
+      {
+        item: {
+          title: 'Language',
+          sort: 500,
+          description: 'language',
+          endpoint: 'language/',
+          selectionRef: ENDPOINT_PARAMS.language,
+          text: 'Choose languages',
+          onlyProjectedVacancy: true,
         },
         data: [
         ],
@@ -110,6 +135,20 @@ const items =
           endpoint: 'grade/?is_available=true',
           selectionRef: ENDPOINT_PARAMS.grade,
           text: 'Choose grades',
+          onlyAvailablePositions: true,
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Grade',
+          sort: 300,
+          description: 'grade',
+          endpoint: 'grade/',
+          selectionRef: ENDPOINT_PARAMS.grade,
+          text: 'Choose grades',
+          onlyProjectedVacancy: true,
         },
         data: [
         ],
@@ -122,6 +161,22 @@ const items =
           endpoint: 'tour_of_duty/?is_available=true&ordering=months',
           selectionRef: ENDPOINT_PARAMS.tod,
           text: 'Choose Tour of Duty length',
+          onlyAvailablePositions: true,
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Tour of Duty',
+          sort: 400,
+          description: 'tod',
+          endpoint: 'tour_of_duty/?ordering=months',
+          selectionRef: ENDPOINT_PARAMS.tod,
+          text: 'Choose Tour of Duty length',
+          onlyProjectedVacancy: true,
           choices: [
           ],
         },
@@ -204,6 +259,7 @@ const items =
         data: [
           { id: 100, code: '0', description: 'No danger pay' },
           { id: 150, code: '15', description: '15%' },
+          { id: 200, code: '20', description: '20%' },
           { id: 250, code: '25', description: '25%' },
           { id: 350, code: '35', description: '35%' },
         ],
@@ -267,6 +323,23 @@ const items =
           description: 'post',
           endpoint: 'orgpost/?limit=500&is_available=true',
           selectionRef: ENDPOINT_PARAMS.post,
+          onlyAvailablePositions: true,
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Post',
+          altTitle: 'Location',
+          sort: 1100,
+          bool: false,
+          description: 'post',
+          endpoint: 'orgpost/?limit=500',
+          selectionRef: ENDPOINT_PARAMS.post,
+          onlyProjectedVacancy: true,
           choices: [
           ],
         },
