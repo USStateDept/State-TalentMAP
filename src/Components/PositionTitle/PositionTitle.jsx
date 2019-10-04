@@ -102,6 +102,12 @@ class PositionTitle extends Component {
             />
           }
         </div>
+        <div>
+          <Flag
+            name={['flags.bidding', 'flags.available_positions']}
+            render={this.renderBidCount}
+          />
+        </div>
       </div>
     );
   }
