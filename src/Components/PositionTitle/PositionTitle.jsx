@@ -19,6 +19,7 @@ class PositionTitle extends Component {
   constructor(props) {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
+    this.renderBidCount = this.renderBidCount.bind(this);
   }
   renderBidListButton() {
     const { details, bidList } = this.props;
@@ -32,6 +33,11 @@ class PositionTitle extends Component {
       </PermissionsWrapper>
     );
   }
+
+  renderBidCount() {
+
+  }
+
   render() {
     const { details, isProjectedVacancy, userProfile } = this.props;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
