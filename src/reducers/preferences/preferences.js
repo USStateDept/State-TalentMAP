@@ -12,6 +12,7 @@ const SORT_PREFERENCES_WITHOUT_OPTIONS = Object.assign(
 export default function sortPreferences(state = SORT_PREFERENCES_WITHOUT_OPTIONS, action) {
   switch (action.type) {
     case 'SET_SORT_PREFERENCE': {
+      console.log(state);
       const { key, value } = action;
       if (key && SORT_PREFERENCES[key] &&
         findIndex(SORT_PREFERENCES[key].options, (f) => {
@@ -22,6 +23,16 @@ export default function sortPreferences(state = SORT_PREFERENCES_WITHOUT_OPTIONS
         return { ...state, [key]: { ...SORT_PREFERENCES[key], defaultSort: value } };
       }
       return state;
+    }
+    default:
+      return state;
+  }
+}
+
+export function darkModePreference(state = false, action) {
+  switch (action.type) {
+    case 'SET_DARK_MODE_PREFERENCE': {
+      return action.value;
     }
     default:
       return state;

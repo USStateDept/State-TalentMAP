@@ -37,7 +37,7 @@ import feedback from './feedback';
 import features from './features';
 import toast from './toast';
 import clientView from './clientView';
-import sortPreferences from './sortPreferences';
+import preferences from './preferences';
 import aboutContent from './aboutContent';
 import homeBannerContent from './homeBannerContent';
 import logs from './logs';
@@ -79,7 +79,7 @@ export default combineReducers({
   ...features,
   ...toast,
   ...clientView,
-  ...sortPreferences,
+  ...preferences,
   ...aboutContent,
   ...homeBannerContent,
   ...logs,
