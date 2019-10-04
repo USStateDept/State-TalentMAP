@@ -5,9 +5,12 @@ import {
     enable as enableDarkMode,
     disable as disableDarkMode,
 } from 'darkreader';
+import { checkFlag } from '../../flags';
+
+const getUseDarkMode = () => checkFlag('flags.personalization');
 
 const setMode = (value) => {
-  if (!value) {
+  if (!value || !getUseDarkMode()) {
     disableDarkMode();
   } else {
     enableDarkMode({
