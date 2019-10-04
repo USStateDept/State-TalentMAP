@@ -149,9 +149,10 @@ app.get(ROUTES, (request, response) => {
   response.sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 
-// this is our wildcard, 404 route
+// This is our wildcard, 404 route.
+// It will redirect to an internal React Route with an error message.
 app.get('*', (request, response) => {
-  response.sendStatus(404).end();
+  response.status(404).sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 
 const server = app.listen(port);
