@@ -14,7 +14,7 @@ describe('Routes', () => {
   ['/', '/results', '/details/00011111', '/compare/00011111,00011112',
     '/profile/favorites', '/profile/searches', '/profile/dashboard',
     '/profile/bidderportfolio', '/profile/glossaryeditor', '/profile/bidtracker',
-    '/about'].map(r => (
+    '/about', '/fakeroute'].map(r => (
     it(`handles ${r} route`, () => {
       const routes = TestUtils.renderIntoDocument(
         <MockTestProvider memoryProps={{ initialEntries: [r] }}>
