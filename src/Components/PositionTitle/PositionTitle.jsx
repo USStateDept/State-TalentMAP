@@ -12,6 +12,7 @@ import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTy
 import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
+import BidCount from '../BidCount';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
@@ -35,7 +36,10 @@ class PositionTitle extends Component {
   }
 
   renderBidCount() {
-
+    const { bidStatistics } = this.props;
+    return (
+      <BidCount bidStatistics={bidStatistics} />
+    );
   }
 
   render() {
