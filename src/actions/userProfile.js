@@ -180,3 +180,7 @@ export function trackLogin() {
 export function updateSavedSearches() {
   api().put('/searches/listcount/');
 }
+
+export function setUserEmpId() {
+  api().put('/fsbid/employee/perdet_seq_num/');
+}
