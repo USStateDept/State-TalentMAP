@@ -1,1 +1,1 @@
-export { default } from './BidderPortfolioPage';
+export { default } from './BidderPortfolioLoader';
