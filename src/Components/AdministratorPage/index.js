@@ -1,1 +1,1 @@
-export { default } from './AdministratorPage';
+export { default } from './AdministratorPageLoadable';

@@ -1,1 +1,1 @@
-export { default } from './BidTracker';
+export { default } from './BidTrackerLoadable';
