@@ -37,14 +37,9 @@ import {
   NO_USER_LISTED,
   NO_UPDATE_DATE,
 } from '../../Constants/SystemMessages';
-import BidCount from '../BidCount';
 
 export const renderHandshake = stats => (
   get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
-);
-
-export const renderBidCount = stats => (
-  <BidCount bidStatistics={stats} />
 );
 
 const PositionDetailsItem = (props) => {
@@ -158,12 +153,6 @@ const PositionDetailsItem = (props) => {
               onChange={onHighlight}
             />
           }
-        </div>
-        <div>
-          <Flag
-            name={['flags.bidding', 'flags.available_positions']}
-            render={() => renderBidCount(stats)}
-          />
         </div>
       </div>
     </div>
