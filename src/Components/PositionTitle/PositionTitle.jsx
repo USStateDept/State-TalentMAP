@@ -12,7 +12,6 @@ import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTy
 import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
-import BidCount from '../BidCount';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
@@ -20,7 +19,6 @@ class PositionTitle extends Component {
   constructor(props) {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
-    this.renderBidCount = this.renderBidCount.bind(this);
   }
   renderBidListButton() {
     const { details, bidList } = this.props;
@@ -32,13 +30,6 @@ class PositionTitle extends Component {
           disabled={!get(details, 'availability.availability', true)}
         />
       </PermissionsWrapper>
-    );
-  }
-
-  renderBidCount() {
-    const { details } = this.props;
-    return (
-      <BidCount bidStatistics={details.bidStatistics} />
     );
   }
 
@@ -111,12 +102,6 @@ class PositionTitle extends Component {
               render={this.renderBidListButton}
             />
           }
-        </div>
-        <div>
-          <Flag
-            name={['flags.bidding', 'flags.available_positions']}
-            render={this.renderBidCount}
-          />
         </div>
       </div>
     );
