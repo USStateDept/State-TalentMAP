@@ -8,10 +8,12 @@ import { Flag } from 'flag';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import Favorite from '../../Containers/Favorite';
-import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
+import { POSITION_DETAILS, BID_LIST, USER_PROFILE, BID_STATISTICS_OBJECT } from '../../Constants/PropTypes';
+import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
+import BidCount from '../BidCount';
+
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
@@ -19,7 +21,9 @@ class PositionTitle extends Component {
   constructor(props) {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
+    this.renderBidCount = this.renderBidCount.bind(this);
   }
+
   renderBidListButton() {
     const { details, bidList } = this.props;
     return (
@@ -30,6 +34,14 @@ class PositionTitle extends Component {
           disabled={!get(details, 'availability.availability', true)}
         />
       </PermissionsWrapper>
+    );
+  }
+
+  renderBidCount() {
+    const { bidStatistics } = this.props;
+    const stats = getBidStatisticsObject(bidStatistics);
+    return (
+      <BidCount bidStatistics={stats} />
     );
   }
 
@@ -103,6 +115,12 @@ class PositionTitle extends Component {
             />
           }
         </div>
+        <div>
+          <Flag
+            name="flags.bidding"
+            render={this.renderBidCount}
+          />
+        </div>
       </div>
     );
   }
@@ -113,12 +131,14 @@ PositionTitle.propTypes = {
   bidList: BID_LIST.isRequired,
   userProfile: USER_PROFILE,
   isProjectedVacancy: PropTypes.bool,
+  bidStatistics: BID_STATISTICS_OBJECT,
 };
 
 PositionTitle.defaultProps = {
   details: null,
   userProfile: {},
   isProjectedVacancy: false,
+  bidStatistics: {},
 };
 
 
