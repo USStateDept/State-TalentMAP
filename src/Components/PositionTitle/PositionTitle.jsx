@@ -36,9 +36,9 @@ class PositionTitle extends Component {
   }
 
   renderBidCount() {
-    const { bidStatistics } = this.props;
+    const { details } = this.props;
     return (
-      <BidCount bidStatistics={bidStatistics} />
+      <BidCount bidStatistics={details.bidStatistics} />
     );
   }
 
