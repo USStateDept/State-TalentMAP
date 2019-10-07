@@ -8,8 +8,8 @@ import { Flag } from 'flag';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import Favorite from '../../Containers/Favorite';
-import { POSITION_DETAILS, BID_LIST, USER_PROFILE, BID_STATISTICS_OBJECT } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
+import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
+import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BidCount from '../BidCount';
@@ -38,8 +38,8 @@ class PositionTitle extends Component {
   }
 
   renderBidCount() {
-    const { bidStatistics } = this.props;
-    const stats = getBidStatisticsObject(bidStatistics);
+    const { details } = this.props;
+    const stats = details.bidStatistics;
     return (
       <BidCount bidStatistics={stats} />
     );
@@ -131,14 +131,12 @@ PositionTitle.propTypes = {
   bidList: BID_LIST.isRequired,
   userProfile: USER_PROFILE,
   isProjectedVacancy: PropTypes.bool,
-  bidStatistics: BID_STATISTICS_OBJECT,
 };
 
 PositionTitle.defaultProps = {
   details: null,
   userProfile: {},
   isProjectedVacancy: false,
-  bidStatistics: {},
 };
 
 
