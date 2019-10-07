@@ -73,7 +73,7 @@ class PositionDetails extends Component {
               ...position,
               cpId: details.id,
               availability: details.availability,
-              bidStatistics: details.bidStatistics,
+              bid_statistics: details.bid_statistics,
             }}
             goBackLink={goBackLink}
             bidList={bidList}
