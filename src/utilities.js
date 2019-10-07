@@ -42,19 +42,32 @@ export function localStorageSetKey(key, value) {
 }
 
 // toggling a specific value in an array
-export function localStorageToggleValue(key, value) {
+// useDispatch: only dispatch an event if true.
+// onlyDelete: don't add, only delete from the array
+export function localStorageToggleValue(key, value, useDispatch = true, onlyDelete = false) {
   const existingArray = JSON.parse(localStorage.getItem(key)) || [];
-  const indexOfId = existingArray.indexOf(value);
+  // check if the value matches, either as a string or as a number
+  let indexOfId = existingArray.indexOf(value);
+  if (indexOfId <= -1) {
+    indexOfId = existingArray.indexOf(Number(value));
+  }
+  if (indexOfId <= -1) {
+    indexOfId = existingArray.indexOf(toString(value));
+  }
   if (indexOfId !== -1) {
     existingArray.splice(indexOfId, 1);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
-    dispatchLs(key);
-  } else {
+    if (useDispatch) {
+      dispatchLs(key);
+    }
+  } else if (!onlyDelete) {
     existingArray.push(value);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
-    dispatchLs(key);
+    if (useDispatch) {
+      dispatchLs(key);
+    }
   }
 }
 
