@@ -38,7 +38,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -58,9 +58,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -105,7 +102,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -125,9 +122,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -172,7 +166,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -192,9 +186,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -239,7 +230,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -259,9 +250,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -306,7 +294,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -326,9 +314,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
