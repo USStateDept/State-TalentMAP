@@ -61,7 +61,7 @@
     "redux-saga": "^0.16.2",
     "redux-thunk": "^2.2.0",
     "saml2-js": "2.0.2",
-    "shortid": "^2.2.14",
+    "shortid": "^2.2.15",
     "time-input": "^1.6.1",
     "typeface-merriweather": "^0.0.72",
     "typeface-roboto": "^0.0.75",
