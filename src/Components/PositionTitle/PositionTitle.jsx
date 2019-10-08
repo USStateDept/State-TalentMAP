@@ -107,6 +107,10 @@ class PositionTitle extends Component {
                 </Tooltip>
               </div>
           }
+          <Flag
+            name="flags.bidding"
+            render={this.renderBidCount}
+          />
           {
             !isProjectedVacancy &&
             <Flag
@@ -114,12 +118,6 @@ class PositionTitle extends Component {
               render={this.renderBidListButton}
             />
           }
-        </div>
-        <div>
-          <Flag
-            name="flags.bidding"
-            render={this.renderBidCount}
-          />
         </div>
       </div>
     );
