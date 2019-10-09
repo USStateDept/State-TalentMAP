@@ -45,7 +45,7 @@ const mapStateToProps = state => ({
   isDarkMode: state.darkModePreference,
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   set: bool => dispatch(setDarkModePreference(bool)),
 });
 
