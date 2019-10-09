@@ -1,8 +1,17 @@
 import axios from 'axios';
 import memoize from 'memoize-one';
+import { throttle } from 'lodash';
 import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from './utilities';
 import { logoutRequest } from './login/actions';
 import { checkFlag } from './flags';
+
+// Make sure the user isn't spammed with redirects
+const debouncedLogout = throttle(
+  /* eslint-disable global-require */
+  () => require('./store').store.dispatch(logoutRequest()),
+  2000,
+  { leading: true, trailing: false },
+);
 
 export const config = () => ({
   // use API_URL by default, but can be overriden from within api_config flag if exists
@@ -41,7 +50,7 @@ const api = () => {
         // exports of api to be undefined. So this causes an error for `userProfile.js` when
         // attempting to login. Went with the eslint quick re-enable to get around this.
         /* eslint-disable global-require */
-        require('./store').store.dispatch(logoutRequest());
+        debouncedLogout();
         /* eslint-enable global-require */
         break;
       }
