@@ -79,6 +79,10 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
       name="flags.bidding"
       render={[Function]}
     />
+    <Flag
+      name="flags.bidding"
+      render={[Function]}
+    />
   </div>
 </div>
 `;
