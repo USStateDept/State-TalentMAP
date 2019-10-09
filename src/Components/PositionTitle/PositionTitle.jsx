@@ -41,7 +41,7 @@ class PositionTitle extends Component {
     const { details } = this.props;
     const stats = details.bidStatistics;
     return (
-      <BidCount bidStatistics={stats} hideLabel altStyle />
+      <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
     );
   }
 
