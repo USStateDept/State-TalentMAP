@@ -78,3 +78,5 @@ export const SET_CLIENT_ERROR = 'Error setting client';
 export const GET_CLIENT_SUCCESS_MESSAGE = user => `You are now searching as ${user.first_name} ${user.last_name}.`;
 export const UNSET_CLIENT_SUCCESS = SET_CLIENT_SUCCESS;
 export const UNSET_CLIENT_SUCCESS_MESSAGE = 'You have exited client view.';
+
+export const COMING_SOON = 'Coming Soon!';
