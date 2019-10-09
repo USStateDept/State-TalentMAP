@@ -31,10 +31,15 @@ export const init = (config) => {
 
   const auth = get(config, 'hrAuthUrl');
 
+  const headers = {
+    Accept: 'application/json',
+    tm_usrname: sessionStorage.getItem('tm_usrname'),
+  };
+
   if (auth) {
     renderLoading();
     axios
-    .get(auth, { headers: { Accept: 'application/json' } })
+    .get(auth, { headers })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
       render();
