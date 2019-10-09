@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import mappedRoutesArray from './RoutesMap';
+import NotFound from '../../Components/NotFound404';
 
 const Routes = props => (
   <Switch {...props}>
@@ -14,6 +15,7 @@ const Routes = props => (
         />
       ))
     }
+    <Route component={NotFound} />
   </Switch>
 );
 

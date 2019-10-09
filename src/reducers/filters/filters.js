@@ -259,6 +259,7 @@ const items =
         data: [
           { id: 100, code: '0', description: 'No danger pay' },
           { id: 150, code: '15', description: '15%' },
+          { id: 200, code: '20', description: '20%' },
           { id: 250, code: '25', description: '25%' },
           { id: 350, code: '35', description: '35%' },
         ],
