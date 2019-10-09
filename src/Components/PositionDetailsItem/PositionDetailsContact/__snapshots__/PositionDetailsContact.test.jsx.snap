@@ -16,7 +16,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
       className="usa-grid-full contact-section website-section"
     >
       <PositionTitleSubDescription
-        formattedContent="Coming Soon!"
+        formattedContent="Coming Soon"
         isAllowedToEdit={false}
         onSubmitText={[Function]}
         plainContent=""
@@ -29,7 +29,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
       className="usa-grid-full contact-section poc-section"
     >
       <PositionTitleSubDescription
-        formattedContent="Coming Soon!"
+        formattedContent="Coming Soon"
         isAllowedToEdit={false}
         onSubmitText={[Function]}
         plainContent=""
