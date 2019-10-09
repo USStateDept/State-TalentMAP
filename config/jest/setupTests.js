@@ -31,6 +31,12 @@ global.window.URL.createObjectURL = () => {};
 // Stub msSaveBlob
 global.window.navigator.msSaveBlob = () => {};
 
+global.MutationObserver = class {
+  constructor(callback) {}
+  disconnect() {}
+  observe(element, initObject) {}
+}
+
 beforeEach(() => {
   // mock sessionStorage - feature flags config
   sessionStorage.setItem('config', JSON.stringify(config));
