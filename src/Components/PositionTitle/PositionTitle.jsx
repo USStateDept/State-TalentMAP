@@ -93,6 +93,13 @@ class PositionTitle extends Component {
         </div>
         <div className="offset-bid-button-container">
           {
+            !isProjectedVacancy &&
+            <Flag
+              name="flags.bidding"
+              render={this.renderBidCount}
+            />
+          }
+          {
             !get(details, 'availability.availability', true) &&
               <div className="unavailable-tooltip">
                 <Tooltip
@@ -107,10 +114,6 @@ class PositionTitle extends Component {
                 </Tooltip>
               </div>
           }
-          <Flag
-            name="flags.bidding"
-            render={this.renderBidCount}
-          />
           {
             !isProjectedVacancy &&
             <Flag
