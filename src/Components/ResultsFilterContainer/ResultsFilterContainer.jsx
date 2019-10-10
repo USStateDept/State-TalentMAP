@@ -6,6 +6,7 @@ import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
 import ResetFilters from '../ResetFilters/ResetFilters';
 import MobileControls from './MobileControls';
+import Spinner from '../Spinner';
 
 class ResultsFilterContainer extends Component {
   shouldComponentUpdate(nextProps) {
@@ -22,6 +23,7 @@ class ResultsFilterContainer extends Component {
       postSearchResults, postSearchIsLoading, postSearchHasErrored, showClear } = this.props;
     return (
       <div className={`filter-container ${isLoading ? 'is-loading' : ''}`}>
+        {isLoading && <Spinner type="results-filter" size="small" />}
         <MobileControls />
         <div className="filter-container-bottom">
           <div className="usa-grid-full filter-control-container">
