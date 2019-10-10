@@ -4,7 +4,7 @@
   },
   "hrAuthUrl": "http://localhost:3333/Authorize?sAppCircuitID=32",
   "flags": {
-    "bidding": true,
+    "bidding": false,
     "projected_vacancy": true,
     "static_content": true,
     "notifications": true,

@@ -94,25 +94,27 @@ class PositionTitle extends Component {
         <div className="offset-bid-button-container">
           {
             !isProjectedVacancy &&
-            <Flag
-              name="flags.bidding"
-              render={this.renderBidCount}
-            />
+              this.renderBidCount()
           }
           {
             !get(details, 'availability.availability', true) &&
-              <div className="unavailable-tooltip">
-                <Tooltip
-                  title={availablilityText}
-                  arrow
-                  position="bottom"
-                  tabIndex="0"
-                  theme="light"
-                >
-                  <FontAwesome name="question-circle" />
-                  {'Why can\'t I add this position to my bid list?'}
-                </Tooltip>
-              </div>
+            <Flag
+              name="flags.bidding"
+              render={() => (
+                <div className="unavailable-tooltip">
+                  <Tooltip
+                    title={availablilityText}
+                    arrow
+                    position="bottom"
+                    tabIndex="0"
+                    theme="light"
+                  >
+                    <FontAwesome name="question-circle" />
+                    {'Why can\'t I add this position to my bid list?'}
+                  </Tooltip>
+                </div>
+              )}
+            />
           }
           {
             !isProjectedVacancy &&
