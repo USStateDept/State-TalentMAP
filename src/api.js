@@ -7,7 +7,7 @@ import { checkFlag } from './flags';
 
 // Make sure the user isn't spammed with redirects
 const debouncedLogout = throttle(
-  /* eslint-disable global-require */
+  // eslint-disable-next-line global-require
   () => require('./store').store.dispatch(logoutRequest()),
   2000,
   { leading: true, trailing: false },
@@ -49,9 +49,7 @@ const api = () => {
         // Due to timing of import store before history is created, importing store here causes
         // exports of api to be undefined. So this causes an error for `userProfile.js` when
         // attempting to login. Went with the eslint quick re-enable to get around this.
-        /* eslint-disable global-require */
         debouncedLogout();
-        /* eslint-enable global-require */
         break;
       }
 
