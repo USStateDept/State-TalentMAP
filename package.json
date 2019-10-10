@@ -29,7 +29,7 @@
     "query-string": "^5.0.1",
     "rc-steps": "^3.1.0",
     "react": "^15.6.2",
-    "react-autosuggest": "^9.3.2",
+    "react-autosuggest": "^9.4.3",
     "react-countup": "3.0.3",
     "react-day-picker": "^7.3.2",
     "react-dom": "^15.6.2",
