@@ -291,6 +291,21 @@
   }
 }
 
+.offset-bid-button-container-no-button {
+  bottom: 17%;
+  left: 65%;
+  position: absolute;
+  min-width: 381px;
+
+  @media screen and (max-width: $screen-md-max) {
+    min-width: 220px;
+  }
+
+  @media screen and (max-width: $screen-xs-max) {
+    min-width: 0px;
+  }
+}
+
 .offset-bid-count-container {
   bottom: 29%;
 }
