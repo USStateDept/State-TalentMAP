@@ -63,6 +63,11 @@ exports[`ResultsFilterContainerComponent matches snapshot when isLoading === tru
 <div
   className="filter-container is-loading"
 >
+  <Spinner
+    size="small"
+    style={Object {}}
+    type="results-filter"
+  />
   <Connect(MobileControls) />
   <div
     className="filter-container-bottom"

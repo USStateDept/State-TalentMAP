@@ -376,6 +376,7 @@ $results-container-width: 100% - $filter-container-width;
   height: auto;
   margin-right: 0;
   padding: 0 10px 15px;
+  position: relative;
   width: $filter-container-width;
 
   [type=checkbox],
