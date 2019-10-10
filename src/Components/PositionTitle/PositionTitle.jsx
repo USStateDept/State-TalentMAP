@@ -13,9 +13,11 @@ import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BidCount from '../BidCount';
+import { checkFlag } from '../../flags';
 
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
+const useBidding = () => checkFlag('flags.bidding');
 
 class PositionTitle extends Component {
   constructor(props) {
@@ -91,7 +93,7 @@ class PositionTitle extends Component {
             src={seal}
           />
         </div>
-        <div className="offset-bid-button-container">
+        <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
           {
             !isProjectedVacancy &&
               this.renderBidCount()
