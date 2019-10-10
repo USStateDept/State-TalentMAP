@@ -69,10 +69,15 @@ export function userProfileFetchData(bypass, cb) {
     const getUserAccount = () => api().get('/profile/');
     // permissions
     const getUserPermissions = () => api().get('/permission/user/');
+    // AP favorites
+    const getAPFavorites = () => api().get(getUseAP() ?
+      '/available_position/favorites/?limit=500' : 'cycleposition/favorites/?include=id&limit=500',
+    );
+
     // PV favorites
     const getPVFavorites = () => api().get('/projected_vacancy/favorites/');
 
-    const promises = [getUserAccount(), getUserPermissions()];
+    const promises = [getUserAccount(), getUserPermissions(), getAPFavorites()];
 
     if (usePV) {
       promises.push(getPVFavorites());
@@ -85,13 +90,15 @@ export function userProfileFetchData(bypass, cb) {
         // form the userProfile object
         const account = get(results, '[0].value.data', {});
         const permissions = get(results, '[1].value.data', {});
-        const pvFavorites = get(results[2], 'value.data.results', []).map(m => ({ id: m.id }));
+        const apFavorites = get(results[2], 'value.data.results', []).map(m => ({ id: m.id }));
+        const pvFavorites = get(results[3], 'value.data.results', []).map(m => ({ id: m.id }));
         const newProfileObject = {
           ...account,
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
           permissions: permissions.permissions,
           favorite_positions_pv: pvFavorites,
+          favorite_positions: apFavorites,
         };
 
         // then perform dispatches
@@ -179,4 +186,8 @@ export function trackLogin() {
 
 export function updateSavedSearches() {
   api().put('/searches/listcount/');
+}
+
+export function setUserEmpId() {
+  api().put('/fsbid/employee/perdet_seq_num/');
 }
