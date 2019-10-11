@@ -289,20 +289,20 @@
       white-space: nowrap;
     }
   }
+  
+  .bid-count-container {
+    margin-right: 7.5px;
+  }
 }
 
 .offset-bid-button-container-no-button {
   bottom: 17%;
-  left: 65%;
+  left: 71%;
   position: absolute;
-  min-width: 381px;
-
-  @media screen and (max-width: $screen-md-max) {
-    min-width: 220px;
-  }
 
   @media screen and (max-width: $screen-xs-max) {
     min-width: 0px;
+    left: 63%;
   }
 }
 
