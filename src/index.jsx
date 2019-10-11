@@ -33,7 +33,7 @@ export const init = (config) => {
 
   const headers = {
     Accept: 'application/json',
-    tm_usrname: sessionStorage.getItem('tm_usrname'),
+    tmusrname: sessionStorage.getItem('tmusrname'),
   };
 
   if (auth) {
