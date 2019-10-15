@@ -17,10 +17,14 @@ describe("formatNum", () => {
 
 describe("Stats", () => {
   const props = {
-    stats: [],
+    stats: [
+      { type: "total", title: "total", count: 1000 },
+      { type: "unique", title: "unique", count: 1000 },
+    ],
     statsIsLoading: false,
     statsHasErrored: false,
-    getStats: () => {},
+    statsSuccess: true,
+    getStats: () => []
   };
 
   it("mounts", () => {
