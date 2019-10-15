@@ -11,6 +11,7 @@
     "complete_bidding": true,
     "data_sync_admin": true,
     "available_positions": false,
+    "personalization": true,
     "persona_auth": true
   }
 }
