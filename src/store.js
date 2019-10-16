@@ -17,7 +17,7 @@ import IndexSagas from './index-sagas';
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['sortPreferences'], // only persist sortPreferences reducer
+  whitelist: ['preferences', 'darkModePreference'], // only persist some reducers
 };
 
 // Setup the middleware to watch between the Reducers and the Actions

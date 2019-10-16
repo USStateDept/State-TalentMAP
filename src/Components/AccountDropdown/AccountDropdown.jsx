@@ -4,7 +4,11 @@ import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdow
 import PropTypes from 'prop-types';
 import { get, compact, values } from 'lodash';
 import Avatar from '../Avatar';
+import DarkModeToggle from './DarkModeToggle';
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
+import { checkFlag } from '../../flags';
+
+const getUseDarkMode = () => checkFlag('flags.personalization');
 
 export class AccountDropdown extends Component {
 
@@ -65,6 +69,10 @@ export class AccountDropdown extends Component {
               <strong>{displayName}</strong>
             </div>
             <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/profile/dashboard" onClick={this.hideDropdown}>Dashboard</Link>
+            {
+              getUseDarkMode() &&
+              <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />
+            }
             <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/logout" onClick={this.logout}>Logout</Link>
           </DropdownContent>
         </div>
