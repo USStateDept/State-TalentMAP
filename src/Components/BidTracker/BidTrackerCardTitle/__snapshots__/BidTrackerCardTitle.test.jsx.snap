@@ -10,7 +10,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
     <div
       className="bid-tracker-card-title-text"
     >
-      Title (undefined)
+      Title (12345)
     </div>
     <div
       className="bid-tracker-card-title-link"
@@ -77,7 +77,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
     <div
       className="bid-tracker-card-title-text"
     >
-      Title (undefined)
+      Title (12345)
     </div>
     <div
       className="bid-tracker-card-title-link"
@@ -144,7 +144,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     <div
       className="bid-tracker-card-title-text"
     >
-      Title (undefined)
+      Title (12345)
     </div>
     <div
       className="bid-tracker-card-title-link"
@@ -211,7 +211,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     <div
       className="bid-tracker-card-title-text"
     >
-      Title (undefined)
+      Title (12345)
     </div>
     <div
       className="bid-tracker-card-title-link"
@@ -278,7 +278,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
     <div
       className="bid-tracker-card-title-text"
     >
-      Title (undefined)
+      Title (12345)
     </div>
     <div
       className="bid-tracker-card-title-link"
