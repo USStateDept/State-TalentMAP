@@ -1,5 +1,5 @@
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
-import * as actions from './sortPreferences';
+import * as actions from './preferences';
 
 const { mockStore } = setupAsyncMocks();
 

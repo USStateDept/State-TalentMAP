@@ -63,7 +63,7 @@
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         // used to simulate the windows auth identification and token assignment
-        sessionStorage.setItem("tm_usrname", username);
+        sessionStorage.setItem("tmusrname", username);
         window.location.href = '%PUBLIC_URL%/tokenValidation?tmApiToken=' + JSON.parse(xhr.response).token
       }
     };
