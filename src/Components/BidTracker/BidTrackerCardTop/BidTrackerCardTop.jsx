@@ -28,7 +28,7 @@ class BidTrackerCardTop extends Component {
     const bidStatistics = get(position, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
     const showQuestion = !!(questionText && questionText.text);
-    const positionNumber = get(position, 'position_number');
+    const positionNumber = get(position, 'position_number', 'Not Available');
 
     const getQuestionElement = () => (
       <span>
