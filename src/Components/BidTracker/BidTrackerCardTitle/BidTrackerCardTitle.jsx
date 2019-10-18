@@ -7,14 +7,22 @@ import { getPostName } from '../../../utilities';
 import { getStatusProperty } from '../../../Constants/BidStatuses';
 import { APPROVED_PROP } from '../../../Constants/BidData';
 
-const BidTrackerCardTitle = ({ title, id, bidStatistics, post, showBidCount, status },
+const BidTrackerCardTitle = ({
+  title,
+  positionNumber,
+  id,
+  bidStatistics,
+  post,
+  showBidCount,
+  status,
+},
 { condensedView, priorityExists, isPriority }) => {
   const viewPosition = (
     <div className="bid-tracker-card-title-link">
       <Link to={`/details/${id}`}>View position</Link>
     </div>
   );
-  let title$ = title;
+  let title$ = `${title}${positionNumber ? ` (${positionNumber})` : ''}`;
   if (condensedView && priorityExists && isPriority) {
     if (status === APPROVED_PROP) {
       title$ = `Assignment: ${title}`;
@@ -50,6 +58,7 @@ const BidTrackerCardTitle = ({ title, id, bidStatistics, post, showBidCount, sta
 
 BidTrackerCardTitle.propTypes = {
   title: PropTypes.string.isRequired,
+  positionNumber: PropTypes.string,
   id: PropTypes.number.isRequired,
   bidStatistics: BID_STATISTICS_OBJECT.isRequired,
   post: POST_DETAILS.isRequired,
@@ -58,6 +67,7 @@ BidTrackerCardTitle.propTypes = {
 };
 
 BidTrackerCardTitle.defaultProps = {
+  positionNumber: '',
   showBidCount: true,
 };
 
