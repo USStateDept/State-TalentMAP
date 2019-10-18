@@ -19,7 +19,6 @@ describe('bidClassesFromCurrentStatus function', () => {
     CLOSED_PROP,
     DRAFT_PROP,
     HAND_SHAKE_ACCEPTED_PROP,
-    HAND_SHAKE_OFFERED_PROP,
     HAND_SHAKE_DECLINED_PROP,
     PRE_PANEL_PROP,
     IN_PANEL_PROP,
@@ -45,16 +44,16 @@ describe('bidClassesFromCurrentStatus function', () => {
 
 describe('shouldShowAlert function', () => {
   it('returns true for a valid status', () => {
-    const result = shouldShowAlert({ status: HAND_SHAKE_OFFERED_PROP }, {});
+    const result = shouldShowAlert({ status: DRAFT_PROP }, {});
     expect(result).toBe(true);
   });
 
-  it('returns true for an invalid status but when is_paneling_today === true', () => {
+  it('returns false for an invalid status but when is_paneling_today === true', () => {
     const result = shouldShowAlert(
       { status: HAND_SHAKE_OFFERED_PROP, is_paneling_today: true },
       {},
     );
-    expect(result).toBe(true);
+    expect(result).toBe(false);
   });
 
   it('returns false for an invalid status', () => {

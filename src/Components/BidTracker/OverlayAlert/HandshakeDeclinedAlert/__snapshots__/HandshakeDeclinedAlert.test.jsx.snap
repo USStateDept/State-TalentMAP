@@ -7,7 +7,9 @@ exports[`HandshakeDeclinedAlertComponent matches snapshot 1`] = `
   <div
     className="top-text"
   >
-    test user, you've declined test bureau's handshake
+    <span>
+      test user, you've declined test bureau's handshake
+    </span>
   </div>
 </div>
 `;

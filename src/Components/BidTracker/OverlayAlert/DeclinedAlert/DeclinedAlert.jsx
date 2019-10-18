@@ -5,7 +5,7 @@ import LinkButton from '../../../LinkButton';
 const DeclinedAlert = ({ bureau, id }, { condensedView }) => (
   <div className="bid-tracker-alert-container bid-tracker-alert-container--declined">
     <div className="top-text">
-      {bureau} has <strong>declined</strong> the bid
+      {bureau || 'The bureau'} has <strong>declined</strong> the bid
     </div>
     {
       condensedView &&
