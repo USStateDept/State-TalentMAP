@@ -22,7 +22,7 @@ const BidTrackerCardTitle = ({
       <Link to={`/details/${id}`}>View position</Link>
     </div>
   );
-  let title$ = `${title}${!!positionNumber && ` (${positionNumber})`}`;
+  let title$ = `${title}${positionNumber ? ` (${positionNumber})` : ''}`;
   if (condensedView && priorityExists && isPriority) {
     if (status === APPROVED_PROP) {
       title$ = `Assignment: ${title}`;
@@ -58,7 +58,7 @@ const BidTrackerCardTitle = ({
 
 BidTrackerCardTitle.propTypes = {
   title: PropTypes.string.isRequired,
-  positionNumber: PropTypes.string.isRequired,
+  positionNumber: PropTypes.string,
   id: PropTypes.number.isRequired,
   bidStatistics: BID_STATISTICS_OBJECT.isRequired,
   post: POST_DETAILS.isRequired,
@@ -67,6 +67,7 @@ BidTrackerCardTitle.propTypes = {
 };
 
 BidTrackerCardTitle.defaultProps = {
+  positionNumber: '',
   showBidCount: true,
 };
 
