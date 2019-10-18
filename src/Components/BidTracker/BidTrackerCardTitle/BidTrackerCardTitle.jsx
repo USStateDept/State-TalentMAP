@@ -22,7 +22,7 @@ const BidTrackerCardTitle = ({
       <Link to={`/details/${id}`}>View position</Link>
     </div>
   );
-  let title$ = `${title} (${positionNumber})`;
+  let title$ = `${title}${!!positionNumber && ` (${positionNumber})`}`;
   if (condensedView && priorityExists && isPriority) {
     if (status === APPROVED_PROP) {
       title$ = `Assignment: ${title}`;
