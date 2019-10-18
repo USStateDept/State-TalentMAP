@@ -38,7 +38,7 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
     type="div"
   >
     <FontAwesome
-      name="star"
+      name="trash"
     />
     <MediaQueryWrapper
       breakpoint="screenMdMax"
@@ -142,7 +142,7 @@ exports[`Favorite matches snapshot when useLongText is true - Remove state 1`] =
     type="div"
   >
     <FontAwesome
-      name="star"
+      name="trash"
     />
     <MediaQueryWrapper
       breakpoint="screenMdMax"
