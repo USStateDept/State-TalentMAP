@@ -1,6 +1,6 @@
 {
   "api_config": {
-    "baseURL": "https://dev.talentmap.api.metaphasedev.com/api/v1"
+    "baseURL": "http://localhost:8000/api/v1"
   },
   "hrAuthUrl": "http://localhost:3333/Authorize?sAppCircuitID=32",
   "flags": {
@@ -8,7 +8,6 @@
     "projected_vacancy": true,
     "static_content": true,
     "notifications": true,
-    "complete_bidding": false,
     "data_sync_admin": true,
     "available_positions": false,
     "personalization": true,
