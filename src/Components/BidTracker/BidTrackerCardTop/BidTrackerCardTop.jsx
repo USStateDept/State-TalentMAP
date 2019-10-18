@@ -28,6 +28,7 @@ class BidTrackerCardTop extends Component {
     const bidStatistics = get(bid, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
     const showQuestion = !!(questionText && questionText.text);
+    const positionNumber = get(position, 'position_number');
 
     const getQuestionElement = () => (
       <span>
@@ -40,6 +41,7 @@ class BidTrackerCardTop extends Component {
         <div className="bid-tracker-title-content-container">
           <BidTrackerCardTitle
             title={position.title}
+            positionNumber={positionNumber}
             id={bid.position.id}
             status={bid.status}
             bidStatistics={bidStatistics}
