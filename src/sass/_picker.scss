@@ -23,6 +23,14 @@
     height: 28px;
     padding: 0 1.5em 0 .7em;
 
+    > span {
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 80%;
+    }
+
     &::after {
       background-image: $angle-down-black;
       background-repeat: no-repeat;
@@ -50,14 +58,6 @@
     li:hover {
       background-color: $color-botticelli-blue;
     }
-  }
-
-  .picky__placeholder {
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 80%;
   }
 
   .tm-checkbox {
