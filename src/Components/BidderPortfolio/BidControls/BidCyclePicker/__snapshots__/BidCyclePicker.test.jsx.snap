@@ -12,6 +12,7 @@ exports[`BidControlsComponent matches snapshot 1`] = `
   <r
     dropdownHeight={600}
     filterDebounce={150}
+    id="picky"
     keepOpen={true}
     multiple={true}
     numberDisplayed={1}
@@ -25,6 +26,7 @@ exports[`BidControlsComponent matches snapshot 1`] = `
     }
     placeholder="Select cycle"
     renderList={[Function]}
+    selectAllMode="default"
     selectAllText="Select all"
     tabIndex={0}
     value={Array []}
