@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import StaticDevContent from '../../../StaticDevContent';
 
 // TODO - need to add PCS Travel link
-const ApprovedAlert = ({ userName }) => (
+const ApprovedAlert = () => (
   <div className="bid-tracker-alert-container bid-tracker-alert-container--approved">
     <div className="top-text">
-      {`${userName}, you've been `}<strong>approved</strong> for this position!
+      {"You've been"} <strong>approved</strong> for this position!
     </div>
     <div>
       <StaticDevContent>
@@ -18,9 +17,5 @@ const ApprovedAlert = ({ userName }) => (
     </div>
   </div>
 );
-
-ApprovedAlert.propTypes = {
-  userName: PropTypes.string.isRequired,
-};
 
 export default ApprovedAlert;
