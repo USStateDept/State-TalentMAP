@@ -5,6 +5,7 @@ import { cloneDeep, get, intersection, isEqual, isNumber, isObject, keys, lowerC
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
+import Bowser from 'bowser';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
@@ -655,3 +656,5 @@ export const scrollToGlossaryTerm = (term) => {
     }, 300);
   }
 };
+
+export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();

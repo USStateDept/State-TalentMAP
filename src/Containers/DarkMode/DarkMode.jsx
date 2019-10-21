@@ -6,6 +6,7 @@ import {
     disable as disableDarkMode,
 } from 'darkreader';
 import { checkFlag } from '../../flags';
+import { getBrowserName } from '../../utilities';
 
 const getUseDarkMode = () => checkFlag('flags.personalization');
 
@@ -33,9 +34,23 @@ class DarkMode extends Component {
     setMode(isDarkMode);
   }
 
+  browserHandler() {
+    switch (getBrowserName()) {
+      // Dark mode breaks in IE11.
+      // Attempt to disable dark mode if for some reason it is set to true.
+      case 'Internet Explorer': {
+        return <div>{this.props.isDarkMode && setMode(false)}</div>;
+      }
+      default: {
+        return <div />;
+      }
+    }
+  }
+
   render() {
+    const content = this.browserHandler();
     return (
-      <div />
+      content
     );
   }
 }
