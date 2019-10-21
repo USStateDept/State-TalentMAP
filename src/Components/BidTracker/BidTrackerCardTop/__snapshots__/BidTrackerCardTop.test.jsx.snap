@@ -10,6 +10,7 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
     <BidTrackerCardTitle
       bidStatistics={Object {}}
       id={11}
+      positionNumber="10035561"
       post={
         Object {
           "id": 199,
