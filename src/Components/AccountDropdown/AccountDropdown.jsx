@@ -7,8 +7,22 @@ import Avatar from '../Avatar';
 import DarkModeToggle from './DarkModeToggle';
 import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
 import { checkFlag } from '../../flags';
+import { getBrowserName } from '../../utilities';
 
 const getUseDarkMode = () => checkFlag('flags.personalization');
+
+const browserHandler = () => {
+  switch (getBrowserName()) {
+    // Dark mode breaks in IE11.
+    // Attempt to disable dark mode if for some reason it is set to true.
+    case 'Internet Explorer': {
+      return null;
+    }
+    default: {
+      return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
+    }
+  }
+};
 
 export class AccountDropdown extends Component {
 
@@ -70,8 +84,8 @@ export class AccountDropdown extends Component {
             </div>
             <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/profile/dashboard" onClick={this.hideDropdown}>Dashboard</Link>
             {
-              getUseDarkMode() &&
-              <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />
+              getUseDarkMode() ?
+                browserHandler() : null
             }
             <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/logout" onClick={this.logout}>Logout</Link>
           </DropdownContent>

@@ -1658,7 +1658,7 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
-bowser@^2.6.1:
+bowser@^2.6.1, bowser@^2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.7.0.tgz#96eab1fa07fab08c1ec4c75977a7c8ddf8e0fe1f"
 
