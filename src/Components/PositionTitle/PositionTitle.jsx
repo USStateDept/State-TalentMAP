@@ -12,6 +12,8 @@ import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTy
 import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
+import BidCount from '../BidCount';
+
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 
@@ -19,7 +21,9 @@ class PositionTitle extends Component {
   constructor(props) {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
+    this.renderBidCount = this.renderBidCount.bind(this);
   }
+
   renderBidListButton() {
     const { details, bidList } = this.props;
     return (
@@ -32,6 +36,15 @@ class PositionTitle extends Component {
       </PermissionsWrapper>
     );
   }
+
+  renderBidCount() {
+    const { details } = this.props;
+    const stats = details.bidStatistics;
+    return (
+      <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
+    );
+  }
+
   render() {
     const { details, isProjectedVacancy, userProfile } = this.props;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
@@ -79,6 +92,13 @@ class PositionTitle extends Component {
           />
         </div>
         <div className="offset-bid-button-container">
+          {
+            !isProjectedVacancy &&
+            <Flag
+              name="flags.bidding"
+              render={this.renderBidCount}
+            />
+          }
           {
             !get(details, 'availability.availability', true) &&
               <div className="unavailable-tooltip">

@@ -8,9 +8,12 @@ import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
 import { getAssetPath } from './utilities';
+import { checkFlag } from './flags';
 
 import '../node_modules/uswds/dist/js/uswds.min';
 import './polyfills';
+
+const isPersonaAuth = () => checkFlag('flags.persona_auth');
 
 const render = () => {
   ReactDOM.render((
@@ -31,10 +34,17 @@ export const init = (config) => {
 
   const auth = get(config, 'hrAuthUrl');
 
+  const headers = {
+    Accept: 'application/json',
+  };
+
+  // Only needed for local development
+  if (isPersonaAuth()) { headers.tmusrname = sessionStorage.getItem('tmusrname'); }
+
   if (auth) {
     renderLoading();
     axios
-    .get(auth, { headers: { Accept: 'application/json' } })
+    .get(auth, { headers })
     .then((response) => {
       sessionStorage.setItem('jwt', response.data);
       render();

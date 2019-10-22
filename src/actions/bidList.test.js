@@ -36,7 +36,7 @@ describe('async actions', () => {
   it('can fetch a bid list', (done) => {
     const store = mockStore({ });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/?ordering=draft_date').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/bidlist/?ordering=draft_date').reply(200,
       bidList,
     );
 
@@ -52,7 +52,7 @@ describe('async actions', () => {
   it('can handle errors when fetching a bid list', (done) => {
     const store = mockStore({ });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bidlist/?ordering=draft_date').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/bidlist/?ordering=draft_date').reply(404,
       null,
     );
 
@@ -68,7 +68,7 @@ describe('async actions', () => {
   it('can remove a position from the bid list', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onDelete('http://localhost:8000/api/v1/bidlist/position/1/').reply(204,
+    mockAdapter.onDelete('http://localhost:8000/api/v1/fsbid/bidlist/position/1/').reply(204,
       null,
     );
 
@@ -84,7 +84,7 @@ describe('async actions', () => {
   it('can add a position to the bid list', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/position/1/').reply(204,
+    mockAdapter.onPut('http://localhost:8000/api/v1/fsbid/bidlist/position/1/').reply(204,
       null,
     );
 
@@ -100,7 +100,7 @@ describe('async actions', () => {
   it('can submit a bid', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/submit/').reply(204,
+    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/bidlist/position/1/submit/').reply(204,
       null,
     );
 
@@ -116,7 +116,7 @@ describe('async actions', () => {
   it('can handle errors when submitting a bid', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/submit/').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/bidlist/position/1/submit/').reply(404,
       null,
     );
 
@@ -132,7 +132,7 @@ describe('async actions', () => {
   it('can handle errors when adding a position to the bid list', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/bidlist/position/1/').reply(404,
+    mockAdapter.onPut('http://localhost:8000/api/v1/fsbid/bidlist/position/1/').reply(404,
       null,
     );
 

@@ -1,1 +1,1 @@
-export { default } from './GlossaryEditorPage';
+export { default } from './GlossaryEditorLoadable';
