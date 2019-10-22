@@ -1,5 +1,7 @@
 import { CancelToken } from 'axios';
+import { toNumber } from 'lodash';
 import api from '../api';
+import { localStorageToggleValue } from '../utilities';
 import { checkFlag } from '../flags';
 
 const getUseAP = () => checkFlag('flags.available_positions');
@@ -28,6 +30,7 @@ export function comparisonsFetchDataSuccess(comparisons) {
 }
 
 export function comparisonsFetchData(query) {
+  const idArr = query.split(',');
   return (dispatch) => {
     if (cancel) { cancel(); }
 
@@ -44,6 +47,14 @@ export function comparisonsFetchData(query) {
       })
         .then((response) => {
           dispatch(comparisonsIsLoading(false));
+          // Try removing any compare IDs that no longer exist
+          try {
+            const responseIds = response.data.results.map(m => `${m.id}`);
+            const noMatches = idArr.filter(f => responseIds.indexOf(f) <= -1);
+            noMatches.forEach((f) => {
+              localStorageToggleValue('compare', toNumber(f), true, true);
+            });
+          } catch (e) {} // eslint-disable-line no-empty
           return response.data.results;
         })
         .then(comparisons => dispatch(comparisonsFetchDataSuccess(comparisons)))

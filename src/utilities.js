@@ -1,10 +1,11 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, intersection, isEqual, isNumber, isObject, keys, lowerCase,
-  merge as merge$, toString, transform } from 'lodash';
+  merge as merge$, orderBy, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
+import Bowser from 'bowser';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
@@ -42,19 +43,32 @@ export function localStorageSetKey(key, value) {
 }
 
 // toggling a specific value in an array
-export function localStorageToggleValue(key, value) {
+// useDispatch: only dispatch an event if true.
+// onlyDelete: don't add, only delete from the array
+export function localStorageToggleValue(key, value, useDispatch = true, onlyDelete = false) {
   const existingArray = JSON.parse(localStorage.getItem(key)) || [];
-  const indexOfId = existingArray.indexOf(value);
+  // check if the value matches, either as a string or as a number
+  let indexOfId = existingArray.indexOf(value);
+  if (indexOfId <= -1) {
+    indexOfId = existingArray.indexOf(Number(value));
+  }
+  if (indexOfId <= -1) {
+    indexOfId = existingArray.indexOf(toString(value));
+  }
   if (indexOfId !== -1) {
     existingArray.splice(indexOfId, 1);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
-    dispatchLs(key);
-  } else {
+    if (useDispatch) {
+      dispatchLs(key);
+    }
+  } else if (!onlyDelete) {
     existingArray.push(value);
     localStorage.setItem(key,
         JSON.stringify(existingArray));
-    dispatchLs(key);
+    if (useDispatch) {
+      dispatchLs(key);
+    }
   }
 }
 
@@ -101,6 +115,12 @@ export const pillSort = (a, b) => {
   }
   if (A > B) { return 1; }
   return 0; // default return value (no sorting)
+};
+
+export const sortTods = (data) => {
+  const sortingArray = ['T', 'C', 'H', 'O', 'V', '1', '2', 'U', 'A', 'B', 'E', 'N', 'S', 'G', 'D', 'F', 'R', 'Q', 'J', 'I', 'P', 'W', 'L', 'K', 'M', 'Y', 'Z', 'X'];
+  // eslint-disable-next-line no-confusing-arrow
+  return orderBy(data, o => o ? sortingArray.indexOf(o.code) : sortingArray.length);
 };
 
 export const propSort = (propName, nestedPropName) => (a, b) => {
@@ -636,3 +656,5 @@ export const scrollToGlossaryTerm = (term) => {
     }, 300);
   }
 };
+
+export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();

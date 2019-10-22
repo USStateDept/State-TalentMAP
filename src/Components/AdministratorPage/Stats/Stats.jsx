@@ -67,7 +67,7 @@ class Stats extends Component {
 }
 
 Stats.propTypes = {
-  stats: PropTypes.shape({}),
+  stats: PropTypes.arrayOf(PropTypes.shape({})),
   statsIsLoading: PropTypes.bool,
   statsHasErrored: PropTypes.bool,
   getStats: PropTypes.func,

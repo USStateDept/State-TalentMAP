@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PositionTitleSubDescription from '../../PositionTitleSubDescription';
 import ViewPostDataButton from '../../ViewPostDataButton';
 import { POSITION_DETAILS } from '../../../Constants/PropTypes';
-import { NO_POSITION_WEB_SITE, NO_POSITION_POC } from '../../../Constants/SystemMessages';
+import { COMING_SOON } from '../../../Constants/SystemMessages';
 import { propOrDefault, formatDate } from '../../../utilities';
 
 class PositionDetailsContact extends Component {
@@ -33,7 +33,7 @@ class PositionDetailsContact extends Component {
     const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : newWebsiteContent.value || '';
     const formattedPostWebsite = postWebsite || newWebsiteContent.value ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
-    NO_POSITION_WEB_SITE;
+    COMING_SOON;
 
     return { plainTextPostWebsite, formattedPostWebsite };
   }
@@ -44,7 +44,7 @@ class PositionDetailsContact extends Component {
     const pointOfContact = propOrDefault(details, 'description.point_of_contact');
     const plainTextPointOfContact = pointOfContact ? newPocContent.value || pointOfContact : newPocContent.value || '';
     const formattedPointOfContact = pointOfContact || newPocContent.value ?
-      plainTextPointOfContact : NO_POSITION_POC;
+      plainTextPointOfContact : COMING_SOON;
     return { plainTextPointOfContact, formattedPointOfContact };
   }
 

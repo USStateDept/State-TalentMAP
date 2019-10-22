@@ -7,6 +7,7 @@ import { checkFlag } from '../flags';
 const getUseAP = () => checkFlag('flags.available_positions');
 
 let cancel;
+let cancelSimilar;
 
 export function resultsHasErrored(bool) {
   return {
@@ -48,23 +49,47 @@ export function resultsSimilarPositionsFetchDataSuccess(results) {
 
 export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
-    if (cancel) { cancel(); }
+    if (cancelSimilar) { cancelSimilar(); }
     const useAP = getUseAP();
     const prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
 
     dispatch(resultsSimilarPositionsIsLoading(true));
-    api().get(`${prefix}/${id}/similar/?limit=3`)
+    api().get(`${prefix}/${id}/similar/?limit=3`, {
+      cancelToken: new CancelToken((c) => {
+        cancelSimilar = c;
+      }),
+    })
       .then(response => response.data)
       .then((results) => {
         dispatch(resultsSimilarPositionsFetchDataSuccess(results));
-        dispatch(resultsSimilarPositionsIsLoading(false));
         dispatch(resultsSimilarPositionsHasErrored(false));
+        dispatch(resultsSimilarPositionsIsLoading(false));
       })
       .catch(() => {
-        dispatch(resultsSimilarPositionsIsLoading(false));
+        dispatch(resultsSimilarPositionsFetchDataSuccess({}));
         dispatch(resultsSimilarPositionsHasErrored(true));
+        dispatch(resultsSimilarPositionsIsLoading(false));
       });
   };
+}
+
+export function downloadAvailablePositionData(query) {
+  const prefix = 'fsbid/available_positions/export';
+  return api()
+  .get(`${prefix}/?${query}`, {
+    cancelToken: new CancelToken((c) => { cancel = c; }),
+    responseType: 'stream',
+  })
+  .then((response) => {
+    const cd = get(response, 'headers.content-disposition');
+    const filename = cd.replace('attachment; filename=', '') || 'TalentMap_search_export';
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const a = document.createElement('a');
+    a.href = url;
+    a.setAttribute('download', filename);
+    document.body.appendChild(a);
+    a.click();
+  });
 }
 
 export function fetchResultData(query) {

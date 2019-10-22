@@ -7,7 +7,12 @@ const HandshakeDeclinedAlert = ({ userName, bureau, id }, { condensedView }) => 
     className="bid-tracker-alert-container bid-tracker-alert-container--handshake-declined"
   >
     <div className="top-text">
-      {`${userName}, you've declined ${bureau}'s handshake`}
+      {
+        userName && bureau ?
+          <span>{`${userName}, you've declined ${bureau}'s handshake`}</span>
+          :
+          <span>{'You\'ve declined the handshake'}</span>
+      }
     </div>
     {
       condensedView &&

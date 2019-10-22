@@ -91,7 +91,7 @@ class Favorite extends Component {
   }
 
   get icon() {
-    return this.getSavedState() ? 'star' : 'star-o';
+    return this.getSavedState() ? 'trash' : 'star-o';
   }
 
   get title() {

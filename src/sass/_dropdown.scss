@@ -21,6 +21,10 @@
     width: 100%;
   }
 
+  .account-dropdown-link--button {
+    font-weight: bold;
+  }
+
   .account-dropdown-link:hover,
   .account-dropdown-link:focus {
     background: $blue-primary;
