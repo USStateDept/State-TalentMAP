@@ -13,8 +13,8 @@ class DraftAlert extends Component {
     this.onDeleteBid = this.onDeleteBid.bind(this);
   }
   onSubmitBid() {
-    const { submitBid, id } = this.props;
-    submitBid(id);
+    const { submitBid, bid } = this.props;
+    submitBid(bid.position.id);
   }
   onDeleteBid() {
     const { deleteBid, bid } = this.props;
@@ -22,7 +22,7 @@ class DraftAlert extends Component {
   }
   render() {
     const { bid } = this.props;
-    const { position } = bid.position;
+    const { position } = bid;
     const positionTitle = position.title;
     const post = getPostName(position.post, NO_POST);
     const skillCode = position.skill ? position.skill : NO_SKILL;
@@ -74,7 +74,6 @@ class DraftAlert extends Component {
 }
 
 DraftAlert.propTypes = {
-  id: PropTypes.number.isRequired,
   bid: BID_OBJECT.isRequired,
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,

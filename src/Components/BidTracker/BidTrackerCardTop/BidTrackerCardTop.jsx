@@ -24,8 +24,8 @@ class BidTrackerCardTop extends Component {
 
   render() {
     const { bid, hideDelete, showBidCount, questionText } = this.props;
-    const { position } = bid.position;
-    const bidStatistics = get(position, 'bid_statistics[0]', {});
+    const { position } = bid;
+    const bidStatistics = get(bid, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
     const showQuestion = !!(questionText && questionText.text);
     const positionNumber = get(position, 'position_number');

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
@@ -34,7 +35,7 @@ class BidTrackerCard extends Component {
     // add class to container for draft since we need to apply an overflow:hidden for drafts only
     const bidStatus = get(bid, 'status', '');
     const statusClass = `bid-tracker-bid-steps-container--${formatIdSpacing(bidStatus)}`;
-    const bidStatistics = get(bid, 'position.position.bid_statistics[0]', {});
+    const bidStatistics = get(bid, 'bid_statistics[0]', {});
     const containerClass = [
       'bid-tracker',
       condensedView ? 'bid-tracker--condensed' : '',
@@ -74,7 +75,7 @@ class BidTrackerCard extends Component {
               <div className="padded-container-inner">
                 <BidTrackerCardBottom
                   reviewer={bid.reviewer}
-                  bureau={bid.position.position.bureau}
+                  bureau={bid.position.bureau}
                   userProfile={userProfile}
                 />
               </div>
@@ -83,7 +84,7 @@ class BidTrackerCard extends Component {
         {
           condensedView &&
             <div className="usa-grid-full bid-tracker-stats">
-              <span>{getTimeDistanceInWords(bid.update_date)}</span>
+              <span>{!!bid.update_date && getTimeDistanceInWords(bid.update_date)}</span>
               <span>Added to Bid List: {formatDate(bid.create_date)}</span>
               {showBidCount$ && <BidCount altStyle isCondensed bidStatistics={bidStatistics} />}
             </div>
