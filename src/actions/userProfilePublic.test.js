@@ -1,6 +1,5 @@
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import * as actions from './userProfilePublic';
-import assignmentObject from '../__mocks__/assignmentObject';
 import bidListObject from '../__mocks__/bidListObject';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
@@ -19,8 +18,6 @@ describe('async actions', () => {
     received_shares: [],
   };
 
-  const assignments = [assignmentObject];
-
   const bids = bidListObject;
 
   // reset the mockAdapter since we repeat specific requests
@@ -33,10 +30,6 @@ describe('async actions', () => {
 
     mockAdapter.onGet('http://localhost:8000/api/v1/client/1/').reply(200,
       profile,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/assignments/').reply(200,
-      { results: assignments },
     );
 
     mockAdapter.onGet('http://localhost:8000/api/v1/client/1/bids/').reply(200,
@@ -59,10 +52,6 @@ describe('async actions', () => {
       { ...profile, id: null },
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/assignments/').reply(200,
-      { results: assignments },
-    );
-
     mockAdapter.onGet('http://localhost:8000/api/v1/client/1/bids/').reply(200,
       { results: bids },
     );
@@ -82,10 +71,6 @@ describe('async actions', () => {
     mockAdapter.reset();
 
     mockAdapter.onGet('http://localhost:8000/api/v1/client/1/').reply(404,
-      {},
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/assignments/').reply(404,
       {},
     );
 
