@@ -12,7 +12,7 @@ import FA from 'react-fontawesome';
 import { addHours, format, parse, subHours } from 'date-fns';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { DateUtils } from 'react-day-picker';
-import TimeInput from 'time-input';
+// import TimeInput from 'time-input';
 import InteractiveElement from '../../../InteractiveElement';
 import Form from '../../../Form';
 import FieldSet from '../../../FieldSet';
@@ -254,11 +254,13 @@ class DataSync extends Component {
                           </div>
                           <div className="date-time-form date-time-form--time">
                             <label htmlFor="time-input" className="label">Time:</label>
+                            {/*
                             <TimeInput
                               id="time-input"
                               value={formValues.last_synchronization_time}
                               onChange={e => this.updateTime(e, 'last_synchronization_time')}
                             />
+                            */}
                           </div>
                         </div>
                       </FieldSet>
