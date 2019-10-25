@@ -11,5 +11,6 @@ describe('reducers', () => {
 
   it('can set reducer FILTERS_FETCH_DATA_SUCCESS', () => {
     expect(reducers.filters([], { type: 'FILTERS_FETCH_DATA_SUCCESS', filters: true })).toBe(true);
+    expect(reducers.filtersAP([], { type: 'FILTERS_FETCH_DATA_SUCCESS', filters: true })).toBe(true);
   });
 });

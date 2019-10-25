@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import { debounce, get, keys, isString, omit, pickBy } from 'lodash';
 import queryParamUpdate from '../queryParams';
-import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
+import { scrollToTop, cleanQueryParams, getAssetPath, shouldUseAPFilters } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
@@ -151,7 +151,8 @@ class Results extends Component {
 
   createQueryParams() {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword } = this.state;
-    const { filters, fetchFilters } = this.props;
+    const { filters, filtersAP, fetchFilters } = this.props;
+    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
     // set our current query
     const parsedQuery = queryString.parse(query.value);
     const { ordering, limit, page, q } = parsedQuery;
@@ -184,10 +185,10 @@ class Results extends Component {
     // as a param, which tells our filters action
     // to not perform AJAX, and simply compare
     // the query params against the filters
-    if (filters.hasFetched) {
-      fetchFilters(filters, newQuery, filters);
+    if (filters$.hasFetched) {
+      fetchFilters(filters$, newQuery, filters$);
     } else { // if not, we'll perform AJAX
-      fetchFilters(filters, newQuery);
+      fetchFilters(filters$, newQuery);
     }
     // fetch new results
     this.callFetchData(newQueryString);
@@ -237,12 +238,13 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading, filters,
+    const { results, hasErrored, isLoading, filters, filtersAP,
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
     const { filtersIsLoading } = this.state;
+    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
     const showClear = this.getQueryExists();
     return (
       <div>
@@ -261,7 +263,7 @@ class Results extends Component {
           defaultKeyword={this.state.defaultKeyword.value}
           resetFilters={this.resetFilters}
           pillFilters={filters.mappedParams}
-          filters={filters.filters}
+          filters={filters$.filters}
           onQueryParamToggle={this.onQueryParamToggle}
           selectedAccordion={selectedAccordion}
           setAccordion={setAccordion}
@@ -298,6 +300,7 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
+  filtersAP: FILTERS_PARENT,
   filtersIsLoading: PropTypes.bool,
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
@@ -324,6 +327,7 @@ Results.defaultProps = {
   hasErrored: false,
   isLoading: true,
   filters: { filters: [] },
+  filtersAP: { filters: [] },
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
@@ -347,6 +351,7 @@ const mapStateToProps = state => ({
   hasErrored: state.resultsHasErrored,
   isLoading: state.resultsIsLoading,
   filters: state.filters,
+  filtersAP: state.filtersAP,
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
   selectedAccordion: state.selectedAccordion,

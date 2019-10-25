@@ -43,16 +43,13 @@ export function userProfilePublicFetchData(id, bypass) {
     // profile
     const getUserAccount = () => api().get(`/client/${id}/`);
 
-    // assignments
-    const getUserAssignments = () => api().get(`/client/${id}/assignments/`);
-
     // bids
     const getUserBids = () => api().get(`/client/${id}/bids/`);
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
-    axios.all([getUserAccount(), getUserAssignments(), getUserBids()])
-      .then(axios.spread((acct, assignments, bids) => {
+    axios.all([getUserAccount(), getUserBids()])
+      .then(axios.spread((acct, bids) => {
         // form the userProfile object
         if (!get(acct, 'data.id')) {
           dispatch(userProfilePublicHasErrored(true));
@@ -61,7 +58,7 @@ export function userProfilePublicFetchData(id, bypass) {
           const account = acct.data;
           const newProfileObject = {
             ...account,
-            assignments: get(assignments, 'data.results', []),
+            assignments: [],
             bidList: get(bids, 'data.results', []),
             // any other profile info we want to add in the future
           };
