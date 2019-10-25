@@ -29,6 +29,7 @@ export function postSearchFetchData(query) {
     if (cancel) { cancel(); }
     dispatch(postSearchHasErrored(false));
     dispatch(postSearchIsLoading(true));
+    /* TODO USE AVAILABLE POSITIONS FEATURE FLAG */
     api().get(`/orgpost/?q=${query}&limit=3&is_available=true`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;

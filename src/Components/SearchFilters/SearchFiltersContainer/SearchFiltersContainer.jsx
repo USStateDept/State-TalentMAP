@@ -157,7 +157,6 @@ class SearchFiltersContainer extends Component {
         } else if (f.item.description === 'grade' && f.data) {
           f.data.sort(sortGrades);
         } else if (f.item.description === 'language' && f.data) {
-          f.data.sort(propSort('custom_description'));
           // Push the "NONE" code choice to the bottom. We're already sorting
           // data, and this is readable, so the next line is eslint-disabled.
           // eslint-disable-next-line
