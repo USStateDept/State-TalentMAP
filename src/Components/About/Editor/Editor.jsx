@@ -26,7 +26,8 @@ class Editor extends Component {
   }
 
   render() {
-    const { cancel, data } = this.props;
+    // const { data } = this.props;
+    const { cancel } = this.props;
     return (
       <div className="usa-grid-full">
         <TextEditorSubmit
