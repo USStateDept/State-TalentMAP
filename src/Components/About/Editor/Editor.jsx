@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MarkdownEditor } from 'react-markdown-editor';
+// import { MarkdownEditor } from 'react-markdown-editor';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import TextEditorSubmit from '../../TextEditorSubmit';
 
@@ -35,6 +35,8 @@ class Editor extends Component {
           submitProps={{ id: SUBMIT_BUTTON_ID }}
         />
         <div className="usa-grid-full markdown-editor">
+          {
+          /*
           <MarkdownEditor
             onContentChange={this.onContentChange}
             styles={{
@@ -44,6 +46,8 @@ class Editor extends Component {
             initialContent={data}
             iconsSet="font-awesome"
           />
+          */
+          }
         </div>
       </div>
     );
