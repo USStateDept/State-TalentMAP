@@ -3,6 +3,7 @@
 exports[`MultiSelectFilterComponent matches snapshot 1`] = `
 <FieldSet
   className=""
+  key="title"
   legend="title"
   legendSrOnly={true}
 >
@@ -11,6 +12,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
     className="tm-checkbox-transparent"
     disabled={false}
     id="checkboxdescription-filterType"
+    key="checkboxdescription-filterType"
     label="description"
     labelSrOnly={false}
     name="description"
@@ -25,6 +27,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
     className="tm-checkbox-transparent"
     disabled={false}
     id="checkboxdescription-filterType"
+    key="checkboxdescription-filterType"
     label="description"
     labelSrOnly={false}
     name="description"
@@ -39,6 +42,7 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
     className="tm-checkbox-transparent"
     disabled={false}
     id="checkboxdescription 2-filterType"
+    key="checkboxdescription 2-filterType"
     label="description 2"
     labelSrOnly={false}
     name="description 2"
@@ -54,11 +58,13 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
 exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`] = `
 <FieldSet
   className=""
+  key="title"
   legend="title"
   legendSrOnly={true}
 >
   <div
     className="usa-grid-full term-group term-group-first"
+    key="D"
   >
     <div
       className="term-title"
@@ -70,6 +76,7 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
       className="tm-checkbox-transparent"
       disabled={false}
       id="checkboxdescription-filterType"
+      key="checkboxdescription-filterType"
       label="description"
       labelSrOnly={false}
       name="description"
@@ -82,6 +89,7 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
   </div>
   <div
     className="usa-grid-full term-group "
+    key="A"
   >
     <div
       className="term-title"
@@ -93,6 +101,7 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
       className="tm-checkbox-transparent"
       disabled={false}
       id="checkboxdescription-filterType"
+      key="checkboxdescription-filterType"
       label="description"
       labelSrOnly={false}
       name="description"
@@ -105,6 +114,7 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
   </div>
   <div
     className="usa-grid-full term-group "
+    key="#"
   >
     <div
       className="term-title"
@@ -116,6 +126,7 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
       className="tm-checkbox-transparent"
       disabled={false}
       id="checkboxdescription 2-filterType"
+      key="checkboxdescription 2-filterType"
       label="description 2"
       labelSrOnly={false}
       name="description 2"

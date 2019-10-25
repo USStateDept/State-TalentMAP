@@ -4,5 +4,7 @@ exports[`BidCycleCard Component matches snapshot 1`] = `
 <MediaQuery
   maxWidth="760px"
   values={Object {}}
-/>
+>
+  <Component />
+</MediaQuery>
 `;

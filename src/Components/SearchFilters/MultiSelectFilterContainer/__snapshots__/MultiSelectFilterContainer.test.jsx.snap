@@ -11,6 +11,7 @@ exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
     className=""
     expanded={false}
     id="checkbox-title"
+    key="title"
     setAccordion={[Function]}
     title="title"
     useIdClass={true}

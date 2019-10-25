@@ -16,22 +16,6 @@ exports[`About matches snapshot 1`] = `
   />
   <div
     className="usa-grid-full markdown-editor"
-  >
-    <MarkdownEditor
-      iconsSet="font-awesome"
-      initialContent=""
-      onContentChange={[Function]}
-      styles={
-        Object {
-          "styleMarkdownPreviewArea": Object {
-            "overflow": "auto",
-          },
-          "styleMarkdownTextArea": Object {
-            "paddingTop": "10px",
-          },
-        }
-      }
-    />
-  </div>
+  />
 </div>
 `;

@@ -6,6 +6,7 @@ exports[`LetterListComponent matches snapshot 1`] = `
 >
   <InteractiveElement
     className="letter-link"
+    key="#"
     onClick={[Function]}
     role="link"
     title="View terms that begin with #"
@@ -15,6 +16,7 @@ exports[`LetterListComponent matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="letter-link"
+    key="A"
     onClick={[Function]}
     role="link"
     title="View terms that begin with A"
@@ -24,6 +26,7 @@ exports[`LetterListComponent matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="letter-link"
+    key="B"
     onClick={[Function]}
     role="link"
     title="View terms that begin with B"

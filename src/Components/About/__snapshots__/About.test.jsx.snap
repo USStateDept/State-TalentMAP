@@ -10,7 +10,9 @@ exports[`About matches snapshot 1`] = `
     <MediaQueryWrapper
       breakpoint="screenSmMax"
       widthType="min"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </div>
 </div>
 `;

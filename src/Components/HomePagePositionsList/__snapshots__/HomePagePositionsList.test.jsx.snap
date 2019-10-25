@@ -9,6 +9,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
   >
     <div
       className="usa-width-one-third condensed-card"
+      key="title-row-1-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -267,6 +268,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
+      key="title-row-1-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -525,6 +527,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
+      key="title-row-1-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -783,6 +786,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
+      key="title-row-1-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -1041,6 +1045,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
+      key="title-row-1-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -1299,6 +1304,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
+      key="title-row-1-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -1557,6 +1563,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
+      key="title-row-1-undefined"
     >
       <ResultsCondensedCard
         bidList={

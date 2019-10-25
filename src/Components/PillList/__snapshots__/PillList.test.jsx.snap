@@ -7,30 +7,35 @@ exports[`PillListComponent matches snapshot 1`] = `
   <Pill
     codeRef="code"
     description="a"
+    key="code-a"
     onPillClick={[Function]}
     selectionRef="selection"
   />
   <Pill
     codeRef="code2"
     description="b"
+    key="code2-b"
     onPillClick={[Function]}
     selectionRef="selection2"
   />
   <Pill
     codeRef="code2"
     description="c"
+    key="code2-c"
     onPillClick={[Function]}
     selectionRef="selection2"
   />
   <Pill
     codeRef="code3"
     description="c"
+    key="code3-c"
     onPillClick={[Function]}
     selectionRef="selection3"
   />
   <Pill
     codeRef="code4"
     description="d"
+    key="code4-d"
     onPillClick={[Function]}
     selectionRef="selection3"
   />

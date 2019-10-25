@@ -6,6 +6,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
 >
   <li
     className="portfolio-row"
+    key="5"
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -54,6 +55,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
   </li>
   <li
     className="portfolio-row"
+    key="3"
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -87,6 +89,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
   </li>
   <li
     className="portfolio-row"
+    key="1"
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -120,6 +123,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
   </li>
   <li
     className="portfolio-row"
+    key="6"
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -168,6 +172,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
   </li>
   <li
     className="portfolio-row"
+    key="2"
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -201,6 +206,7 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
   </li>
   <li
     className="portfolio-row"
+    key="4"
   >
     <BidderPortfolioStatRow
       showEdit={false}

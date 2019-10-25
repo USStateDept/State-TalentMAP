@@ -5,11 +5,13 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   current={0}
   direction="horizontal"
   iconPrefix="rc"
+  initial={0}
   labelPlacement="vertical"
   prefixCls="rc-steps"
   progressDot={false}
   size=""
   status="process"
+  type="default"
 >
   <Step
     className="
@@ -27,6 +29,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={1}
       />
     }
+    key="-S4GKlGIF"
     tailContent={null}
     title={
       <div>
@@ -59,6 +62,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    key="xDAyWzXoy"
     tailContent={null}
     title={
       <div>
@@ -91,6 +95,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    key="79gk3y2uU"
     tailContent={null}
     title={
       <div>
@@ -121,6 +126,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={4}
       />
     }
+    key="iSawdpPIl"
     tailContent={null}
     title={
       <div>
@@ -151,6 +157,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={5}
       />
     }
+    key="YuXHTfc4m"
     tailContent={null}
     title={
       <div>
@@ -181,6 +188,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={6}
       />
     }
+    key="1dwO93Zit"
     tailContent={null}
     title={
       <div>

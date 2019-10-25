@@ -7,6 +7,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
 >
   <div
     className="usa-grid-full"
+    key="#"
   >
     <h4>
       #
@@ -17,6 +18,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className=""
       expanded={false}
       id="68"
+      key="3"
       setAccordion={[Function]}
       title="6/8"
       useIdClass={false}
@@ -31,6 +33,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
   </div>
   <div
     className="usa-grid-full"
+    key="A"
   >
     <h4>
       A
@@ -41,6 +44,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className=""
       expanded={false}
       id="Assignments-Officer-AO"
+      key="4"
       setAccordion={[Function]}
       title="Assignments Officer (AO)"
       useIdClass={false}
@@ -55,6 +59,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
   </div>
   <div
     className="usa-grid-full"
+    key="B"
   >
     <h4>
       B
@@ -65,6 +70,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className=""
       expanded={false}
       id="Bidder"
+      key="5"
       setAccordion={[Function]}
       title="Bidder"
       useIdClass={false}
@@ -82,6 +88,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className=""
       expanded={false}
       id="Bureau"
+      key="7"
       setAccordion={[Function]}
       title="Bureau"
       useIdClass={false}
@@ -96,6 +103,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
   </div>
   <div
     className="usa-grid-full"
+    key="C"
   >
     <h4>
       C
@@ -106,6 +114,7 @@ exports[`GlossaryListingComponent matches snapshot 1`] = `
       className=""
       expanded={false}
       id="C"
+      key="6"
       setAccordion={[Function]}
       title="C"
       useIdClass={false}

@@ -7,6 +7,7 @@ exports[`NavComponent matches snapshot 1`] = `
   <Component
     denominator={5}
     isActive={false}
+    key="Test"
     numerator={2}
     onClick={[Function]}
     title="Test"
@@ -15,6 +16,7 @@ exports[`NavComponent matches snapshot 1`] = `
   <Component
     denominator={5}
     isActive={false}
+    key="Test 2"
     numerator={3}
     onClick={[Function]}
     title="Test 2"

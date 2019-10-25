@@ -19,7 +19,9 @@ exports[`Favorite matches snapshot - Add state 1`] = `
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;
@@ -43,7 +45,9 @@ exports[`Favorite matches snapshot - Remove state 1`] = `
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;
@@ -75,7 +79,9 @@ exports[`Favorite matches snapshot after clicking 1`] = `
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;
@@ -99,7 +105,9 @@ exports[`Favorite matches snapshot when useButtonClass is true 1`] = `
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;
@@ -123,7 +131,9 @@ exports[`Favorite matches snapshot when useLongText is true - Add state 1`] = `
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;
@@ -147,7 +157,9 @@ exports[`Favorite matches snapshot when useLongText is true - Remove state 1`] =
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;
@@ -171,7 +183,9 @@ exports[`Favorite matches snapshot when useSpinnerWhite and useButtonClassSecond
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;
@@ -195,7 +209,9 @@ exports[`Favorite matches snapshot when useSpinnerWhite is true 1`] = `
     <MediaQueryWrapper
       breakpoint="screenMdMax"
       widthType="max"
-    />
+    >
+      <Component />
+    </MediaQueryWrapper>
   </InteractiveElement>
 </span>
 `;

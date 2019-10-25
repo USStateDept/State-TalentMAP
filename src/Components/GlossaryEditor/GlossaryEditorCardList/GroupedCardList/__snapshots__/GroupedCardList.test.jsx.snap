@@ -6,6 +6,7 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
 >
   <div
     className="usa-grid-full term-group"
+    key="A"
   >
     <h3
       aria-label="Terms beginning with the character A"
@@ -15,6 +16,7 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
     </h3>
     <div
       className="usa-width-one-half glossary-editor-card-container "
+      key="Assignment Officer (AO)"
     >
       <GlossaryEditorCard
         hasErrored={Object {}}
@@ -39,6 +41,7 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
   </div>
   <div
     className="usa-grid-full term-group"
+    key="B"
   >
     <h3
       aria-label="Terms beginning with the character B"
@@ -48,6 +51,7 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
     </h3>
     <div
       className="usa-width-one-half glossary-editor-card-container "
+      key="Bidder"
     >
       <GlossaryEditorCard
         hasErrored={
@@ -75,6 +79,7 @@ exports[`GroupedCardListComponent matches snapshot 1`] = `
     </div>
     <div
       className="usa-width-one-half glossary-editor-card-container usa-end-row"
+      key="Bureau"
     >
       <GlossaryEditorCard
         hasErrored={Object {}}

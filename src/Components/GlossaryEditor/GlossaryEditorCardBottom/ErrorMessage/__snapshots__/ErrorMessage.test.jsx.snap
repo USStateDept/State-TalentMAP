@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ErrorMessageComponent matches snapshot 1`] = `null`;
+exports[`ErrorMessageComponent matches snapshot 1`] = `""`;
 
 exports[`ErrorMessageComponent matches snapshot when error is not an object 1`] = `
 <span

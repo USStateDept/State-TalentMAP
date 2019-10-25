@@ -1,6 +1,10 @@
 import chalk from 'chalk';
 Object.entries = require('object.entries'); // because jest doesn't import babel
 import config from '../../public/config/config.json';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 
 // Override console.error() for invalid or failed propTypes by throwing an Error
 // when either is met, allowing us to be alerted of and fail for any proptype issues.

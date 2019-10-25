@@ -17,7 +17,9 @@ exports[`HoverDescriptionComponent matches snapshot 1`] = `
       "height": "29px",
     }
   }
-/>
+>
+  <Component />
+</e>
 `;
 
 exports[`HoverDescriptionComponent matches snapshot when expanded === true 1`] = `
@@ -37,5 +39,7 @@ exports[`HoverDescriptionComponent matches snapshot when expanded === true 1`] =
       "height": "5px",
     }
   }
-/>
+>
+  <Component />
+</e>
 `;

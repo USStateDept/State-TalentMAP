@@ -4,21 +4,25 @@ exports[`FavoriteContentComponent matches snapshot 1`] = `
 <div>
   <div
     className="saved-search-pill  pill--highlight"
+    key="Projected Vacancy"
   >
     Projected Vacancy
   </div>
   <div
     className="saved-search-pill  "
+    key="1"
   >
     1
   </div>
   <div
     className="saved-search-pill  "
+    key="0A"
   >
     0A
   </div>
   <div
     className="saved-search-pill  "
+    key="Los Angeles, CA United States of America"
   >
     Los Angeles, CA Un...
   </div>

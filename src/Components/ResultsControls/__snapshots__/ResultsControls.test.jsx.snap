@@ -17,6 +17,8 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
   <MediaQueryWrapper
     breakpoint="screenMdMin"
     widthType="min"
-  />
+  >
+    <Component />
+  </MediaQueryWrapper>
 </div>
 `;
