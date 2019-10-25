@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
 import { filtersFetchData } from '../../actions/filters/filters';
-import { mapSavedSearchesToSingleQuery } from '../../utilities';
+import { mapSavedSearchesToSingleQuery, shouldUseAPFilters } from '../../utilities';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import {
   SAVED_SEARCH_PARENT_OBJECT,
@@ -28,11 +28,14 @@ class SavedSearchesMap extends Component {
   setupValues(props) {
     const {
       filters,
+      filtersAP,
       fetchFilters,
       savedSearches,
       savedSearchesIsLoading,
       deleteSavedSearchIsLoading,
     } = props;
+
+    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
 
     const { hasSetupValues } = this.state;
 
@@ -52,23 +55,23 @@ class SavedSearchesMap extends Component {
     // Don't try to fetch filters if filtersIsLoading is true.
     // We'll only perform this once after component mount, so we
     // set hasSetupValues to true after completing setup.
-    if (filters.hasFetched && !isLoading && !hasSetupValues) {
+    if (filters$.hasFetched && !isLoading && !hasSetupValues) {
       this.setState({ hasSetupValues: true });
-      fetchFilters(filters, mappedSearchQuery, filters);
+      fetchFilters(filters$, mappedSearchQuery, filters$);
     } else if (!isLoading && !hasSetupValues) { // if not, we'll perform AJAX
       this.setState({ hasSetupValues: true });
-      fetchFilters(filters, mappedSearchQuery);
+      fetchFilters(filters$, mappedSearchQuery);
     }
   }
 
   render() {
-    const { savedSearches, deleteSearch, filters, ChildElement,
+    const { savedSearches, deleteSearch, filters, filtersAP, ChildElement,
       savedSearchesHasErrored, savedSearchesIsLoading, goToSavedSearch,
       filtersIsLoading, onSortChange } = this.props;
     const props = {
       savedSearches,
       deleteSearch,
-      filters,
+      filters: shouldUseAPFilters() ? filtersAP : filters,
       savedSearchesHasErrored,
       savedSearchesIsLoading,
       goToSavedSearch,
@@ -89,6 +92,7 @@ SavedSearchesMap.propTypes = {
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
+  filtersAP: FILTERS_PARENT,
   goToSavedSearch: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
   ChildElement: PropTypes.func.isRequired,
@@ -104,6 +108,7 @@ SavedSearchesMap.defaultProps = {
   savedSearchesHasErrored: false,
   routeChangeResetState: EMPTY_FUNCTION,
   filters: { filters: [] },
+  filtersAP: { filters: [] },
   goToSavedSearch: EMPTY_FUNCTION,
   fetchFilters: EMPTY_FUNCTION,
   filtersIsLoading: true,
@@ -116,6 +121,7 @@ SavedSearchesMap.contextTypes = {
 
 const mapStateToProps = state => ({
   filters: state.filters,
+  filtersAP: state.filters,
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
 });
