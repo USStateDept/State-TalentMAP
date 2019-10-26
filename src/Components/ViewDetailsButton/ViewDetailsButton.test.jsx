@@ -15,7 +15,7 @@ describe('ViewDetailsButtonComponent', () => {
     const wrapper = shallow(
       <ViewDetailsButton id="1" />,
     );
-    expect(wrapper.instance().props.id).toBe('1');
+    expect(wrapper.props().toLink).toBe('/details/1');
   });
 
   it('matches snapshot', () => {
