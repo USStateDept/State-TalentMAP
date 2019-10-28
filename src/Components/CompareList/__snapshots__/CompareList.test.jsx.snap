@@ -37,14 +37,14 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Position
             </th>
             <th
-              key="kONdbY1z7lo"
+              key="1"
             >
               <div
                 className="column-title-main"
               />
             </th>
             <th
-              key="YNTUBFnwKN-"
+              key="2"
             >
               <div
                 className="column-title-main"
@@ -52,19 +52,19 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </th>
             <th
               className="empty"
-              key="c6JzNIJ70Gs"
+              key="3"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="JXLmRNsMGqy"
+              key="4"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="UsPEo40dbp5"
+              key="5"
             >
               Return to search results and add more positions to compare.
             </th>
@@ -78,7 +78,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Position
             </th>
             <td
-              key="VdmtkwR0yjn"
+              key="6"
             >
               <div
                 className="usa-grid-full"
@@ -118,7 +118,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               </span>
             </td>
             <td
-              key="BmF97zuxZwc"
+              key="7"
             >
               <div
                 className="usa-grid-full"
@@ -159,19 +159,19 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <th
               className="empty"
-              key="tEbb-1qMssU"
+              key="8"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="8yRF4761StA"
+              key="9"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="9rDsMyd_Kxd"
+              key="10"
             >
               Return to search results and add more positions to compare.
             </th>
@@ -183,7 +183,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Link to details
             </th>
             <td
-              key="c7FW5n5wo4s"
+              key="11"
             >
               <div
                 className="column-title-link"
@@ -197,7 +197,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               </div>
             </td>
             <td
-              key="ohH-pxc1wQ1"
+              key="12"
             >
               <div
                 className="column-title-link"
@@ -212,15 +212,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td
               className="empty"
-              key="4dMuOPHGmpp"
+              key="13"
             />
             <td
               className="empty"
-              key="fK4ZH3I44cc"
+              key="14"
             />
             <td
               className="empty"
-              key="MHv8rJjE_nT"
+              key="15"
             />
           </tr>
           <Flag
@@ -234,26 +234,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Location
             </th>
             <td
-              key="fRz0ugyYHqB"
+              key="16"
             >
               Freetown, Sierra Leone
             </td>
             <td
-              key="QpJUWS_KFAI"
+              key="17"
             >
               Chicago, IL
             </td>
             <td
               className="empty"
-              key="zn8fxQQU1nP"
+              key="18"
             />
             <td
               className="empty"
-              key="d8-Rf5FgAxb"
+              key="19"
             />
             <td
               className="empty"
-              key="ONLEmhWa4GR"
+              key="20"
             />
           </tr>
           <tr>
@@ -263,26 +263,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               TED
             </th>
             <td
-              key="FcHtByalw31"
+              key="21"
             >
               None listed
             </td>
             <td
-              key="GB-E_yX4d3W"
+              key="22"
             >
               None listed
             </td>
             <td
               className="empty"
-              key="tjFuqWOQJWA"
+              key="23"
             />
             <td
               className="empty"
-              key="LShDc728glx"
+              key="24"
             />
             <td
               className="empty"
-              key="5FPHfgUdTb4"
+              key="25"
             />
           </tr>
           <tr>
@@ -292,26 +292,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Skill
             </th>
             <td
-              key="l6gWUFzxUzU"
+              key="26"
             >
               None listed
             </td>
             <td
-              key="8Kon0B9Dldj"
+              key="27"
             >
               SECURITY (2501)
             </td>
             <td
               className="empty"
-              key="0DEnhawjc8s"
+              key="28"
             />
             <td
               className="empty"
-              key="asxw5yW3kk8"
+              key="29"
             />
             <td
               className="empty"
-              key="X0-MRGh95ne"
+              key="30"
             />
           </tr>
           <tr>
@@ -321,26 +321,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Grade
             </th>
             <td
-              key="Ll9rR2RRRPI"
+              key="31"
             >
               06
             </td>
             <td
-              key="HLAkuhBp-X9"
+              key="32"
             >
               04
             </td>
             <td
               className="empty"
-              key="_Wd4z6FlW0u"
+              key="33"
             />
             <td
               className="empty"
-              key="QptoLUFBzDJ"
+              key="34"
             />
             <td
               className="empty"
-              key="uZwDylUkbrj"
+              key="35"
             />
           </tr>
           <tr>
@@ -350,26 +350,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Bureau
             </th>
             <td
-              key="8qHk0r-kEgz"
+              key="36"
             >
               None listed
             </td>
             <td
-              key="1aO2PPSxMxx"
+              key="37"
             >
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
             <td
               className="empty"
-              key="JOfdtaaVKMe"
+              key="38"
             />
             <td
               className="empty"
-              key="peqSlXw2ykU"
+              key="39"
             />
             <td
               className="empty"
-              key="jVBGKJ0ERC5"
+              key="40"
             />
           </tr>
           <tr>
@@ -379,26 +379,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Tour of duty
             </th>
             <td
-              key="FKzt2uZDfd7"
+              key="41"
             >
               None listed
             </td>
             <td
-              key="4tErDAHUIC5"
+              key="42"
             >
               2 YRS (2 R & R)
             </td>
             <td
               className="empty"
-              key="6Hs_SN5UAuM"
+              key="43"
             />
             <td
               className="empty"
-              key="axE-QhnOHVz"
+              key="44"
             />
             <td
               className="empty"
-              key="3U8_LQrTX8B"
+              key="45"
             />
           </tr>
           <tr>
@@ -408,7 +408,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Language
             </th>
             <td
-              key="p9VxAXas-Fd"
+              key="46"
             >
               <LanguageList
                 languages={Array []}
@@ -416,7 +416,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </td>
             <td
-              key="gTBaRl8AgB-"
+              key="47"
             >
               <LanguageList
                 languages={
@@ -442,15 +442,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td
               className="empty"
-              key="X26OrbOusna"
+              key="48"
             />
             <td
               className="empty"
-              key="xAZSnyDeBF5"
+              key="49"
             />
             <td
               className="empty"
-              key="UhvZXVbIVCm"
+              key="50"
             />
           </tr>
           <tr>
@@ -460,26 +460,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Post differential
             </th>
             <td
-              key="nSIeVZhPgcE"
+              key="51"
             >
               30%
             </td>
             <td
-              key="_bpJl5StlNJ"
+              key="52"
             >
               20%
             </td>
             <td
               className="empty"
-              key="-9E_vMobjk9"
+              key="53"
             />
             <td
               className="empty"
-              key="XGDuXkOYz4H"
+              key="54"
             />
             <td
               className="empty"
-              key="gmssgHJ4r5-"
+              key="55"
             />
           </tr>
           <tr>
@@ -489,26 +489,26 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Danger pay
             </th>
             <td
-              key="ym7YcTbm8Qj"
+              key="56"
             >
               0%
             </td>
             <td
-              key="pqO6pB-Lo9_"
+              key="57"
             >
               15%
             </td>
             <td
               className="empty"
-              key="QbGfQYAELJ7"
+              key="58"
             />
             <td
               className="empty"
-              key="iOAp-k2Gatk"
+              key="59"
             />
             <td
               className="empty"
-              key="UmeS0E2VLRJ"
+              key="60"
             />
           </tr>
           <tr>
@@ -518,7 +518,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               Favorite
             </th>
             <td
-              key="AlG6xfxiCsH"
+              key="61"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -534,7 +534,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </td>
             <td
-              key="BjGpY-yHTkg"
+              key="62"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -551,15 +551,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td
               className="empty"
-              key="_VvAkJ-rWo9"
+              key="63"
             />
             <td
               className="empty"
-              key="43OZuqx_Qx-"
+              key="64"
             />
             <td
               className="empty"
-              key="-y4u986ur-e"
+              key="65"
             />
           </tr>
           <Flag
@@ -635,14 +635,14 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Position
             </th>
             <th
-              key="C0RiPA0qJx6"
+              key="1"
             >
               <div
                 className="column-title-main"
               />
             </th>
             <th
-              key="jt_kJUvqGrZ"
+              key="2"
             >
               <div
                 className="column-title-main"
@@ -650,19 +650,19 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </th>
             <th
               className="empty"
-              key="Ua5n_ruvxt6"
+              key="3"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="eezO8ws5HY1"
+              key="4"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="sXvz9PSE6_a"
+              key="5"
             >
               Return to search results and add more positions to compare.
             </th>
@@ -676,7 +676,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Position
             </th>
             <td
-              key="tTjqPbr-HyN"
+              key="6"
             >
               <div
                 className="usa-grid-full"
@@ -716,7 +716,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               </span>
             </td>
             <td
-              key="36fOAdC4rCy"
+              key="7"
             >
               <div
                 className="usa-grid-full"
@@ -757,19 +757,19 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <th
               className="empty"
-              key="8OFA-g8i6HH"
+              key="8"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="MT86mXzA5_X"
+              key="9"
             >
               Return to search results and add more positions to compare.
             </th>
             <th
               className="empty"
-              key="QdcDXoZ0F_P"
+              key="10"
             >
               Return to search results and add more positions to compare.
             </th>
@@ -781,7 +781,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Link to details
             </th>
             <td
-              key="3EeOt-bUIHP"
+              key="11"
             >
               <div
                 className="column-title-link"
@@ -795,7 +795,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               </div>
             </td>
             <td
-              key="OnXhy_vo8DR"
+              key="12"
             >
               <div
                 className="column-title-link"
@@ -810,15 +810,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td
               className="empty"
-              key="SZaf-X3ZV6p"
+              key="13"
             />
             <td
               className="empty"
-              key="EojmpoCnLDK"
+              key="14"
             />
             <td
               className="empty"
-              key="M99hwqo2vde"
+              key="15"
             />
           </tr>
           <Flag
@@ -832,26 +832,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Location
             </th>
             <td
-              key="URNJdSmVAXj"
+              key="16"
             >
               Freetown, Sierra Leone
             </td>
             <td
-              key="yn2yc51serB"
+              key="17"
             >
               Chicago, IL
             </td>
             <td
               className="empty"
-              key="EzrlMzCZIrw"
+              key="18"
             />
             <td
               className="empty"
-              key="SyxHLl36gdv"
+              key="19"
             />
             <td
               className="empty"
-              key="coIsi9xLAJ9"
+              key="20"
             />
           </tr>
           <tr>
@@ -861,26 +861,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               TED
             </th>
             <td
-              key="S7qy1BhNxl8"
+              key="21"
             >
               None listed
             </td>
             <td
-              key="r3hYArUTQWi"
+              key="22"
             >
               None listed
             </td>
             <td
               className="empty"
-              key="4le1Wg3vox7"
+              key="23"
             />
             <td
               className="empty"
-              key="rS09v6OvgGz"
+              key="24"
             />
             <td
               className="empty"
-              key="6mp0CG3T_y4"
+              key="25"
             />
           </tr>
           <tr>
@@ -890,26 +890,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Skill
             </th>
             <td
-              key="z17J_COYGCx"
+              key="26"
             >
               None listed
             </td>
             <td
-              key="eMQmGszvQvH"
+              key="27"
             >
               SECURITY (2501)
             </td>
             <td
               className="empty"
-              key="Qgo1Xger_Io"
+              key="28"
             />
             <td
               className="empty"
-              key="6Jcu74XPl3L"
+              key="29"
             />
             <td
               className="empty"
-              key="30nJf6PwLoi"
+              key="30"
             />
           </tr>
           <tr>
@@ -919,26 +919,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Grade
             </th>
             <td
-              key="onyKwhtlamf"
+              key="31"
             >
               06
             </td>
             <td
-              key="hv3eJW8YWXY"
+              key="32"
             >
               04
             </td>
             <td
               className="empty"
-              key="jbWY3z7c94W"
+              key="33"
             />
             <td
               className="empty"
-              key="IWX2v5PieRQ"
+              key="34"
             />
             <td
               className="empty"
-              key="X8UKfWZp3pH"
+              key="35"
             />
           </tr>
           <tr>
@@ -948,26 +948,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Bureau
             </th>
             <td
-              key="Xt6EH1hEuhr"
+              key="36"
             >
               None listed
             </td>
             <td
-              key="sevtT1Tcd9j"
+              key="37"
             >
               (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
             <td
               className="empty"
-              key="bVdRTDUjOo8"
+              key="38"
             />
             <td
               className="empty"
-              key="vWgT6kRAnXv"
+              key="39"
             />
             <td
               className="empty"
-              key="waA5viTUU5f"
+              key="40"
             />
           </tr>
           <tr>
@@ -977,26 +977,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Tour of duty
             </th>
             <td
-              key="UlycogxA5Xs"
+              key="41"
             >
               None listed
             </td>
             <td
-              key="QROYC4617rB"
+              key="42"
             >
               2 YRS (2 R & R)
             </td>
             <td
               className="empty"
-              key="QFQMbT5zD21"
+              key="43"
             />
             <td
               className="empty"
-              key="ohfyTsYKuO7"
+              key="44"
             />
             <td
               className="empty"
-              key="ERdrmRBU_AE"
+              key="45"
             />
           </tr>
           <tr>
@@ -1006,7 +1006,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Language
             </th>
             <td
-              key="70Yf8jazOi8"
+              key="46"
             >
               <LanguageList
                 languages={Array []}
@@ -1014,7 +1014,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               />
             </td>
             <td
-              key="Zyec5V9zAau"
+              key="47"
             >
               <LanguageList
                 languages={
@@ -1040,15 +1040,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td
               className="empty"
-              key="k1akl_xuPKD"
+              key="48"
             />
             <td
               className="empty"
-              key="csRtMGD1w5f"
+              key="49"
             />
             <td
               className="empty"
-              key="Ftw8R8iAVrU"
+              key="50"
             />
           </tr>
           <tr>
@@ -1058,26 +1058,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Post differential
             </th>
             <td
-              key="2rUp6cMLpCb"
+              key="51"
             >
               30%
             </td>
             <td
-              key="n8zbeu-MsXM"
+              key="52"
             >
               20%
             </td>
             <td
               className="empty"
-              key="rN_exMPIRL5"
+              key="53"
             />
             <td
               className="empty"
-              key="97AVp2eUyAJ"
+              key="54"
             />
             <td
               className="empty"
-              key="UBhwzMfnt0D"
+              key="55"
             />
           </tr>
           <tr>
@@ -1087,26 +1087,26 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Danger pay
             </th>
             <td
-              key="2-wWuekmoQ8"
+              key="56"
             >
               0%
             </td>
             <td
-              key="9MqurKGGyJB"
+              key="57"
             >
               15%
             </td>
             <td
               className="empty"
-              key="EwW7mltBa4m"
+              key="58"
             />
             <td
               className="empty"
-              key="7swHv29hVqi"
+              key="59"
             />
             <td
               className="empty"
-              key="ibDpqie_FRB"
+              key="60"
             />
           </tr>
           <tr>
@@ -1116,7 +1116,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               Favorite
             </th>
             <td
-              key="m1tMe1QK-GK"
+              key="61"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -1132,7 +1132,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               />
             </td>
             <td
-              key="8cZp15uEcox"
+              key="62"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -1149,15 +1149,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td
               className="empty"
-              key="7T87f0XMYYj"
+              key="63"
             />
             <td
               className="empty"
-              key="M2xoYcr4ss9"
+              key="64"
             />
             <td
               className="empty"
-              key="avNR5xBTWTw"
+              key="65"
             />
           </tr>
           <Flag

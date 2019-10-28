@@ -6,7 +6,7 @@ exports[`BorderedListComponent matches snapshot 1`] = `
 >
   <ul>
     <li
-      key="76TbSZ-G0"
+      key="1"
     >
       <div
         className="bordered-list-content"
@@ -17,7 +17,7 @@ exports[`BorderedListComponent matches snapshot 1`] = `
       </div>
     </li>
     <li
-      key="ItpOjQmyX"
+      key="2"
     >
       <div
         className="bordered-list-content"
@@ -30,7 +30,7 @@ exports[`BorderedListComponent matches snapshot 1`] = `
       </div>
     </li>
     <li
-      key="asd-NjY6O"
+      key="3"
     >
       <div
         className="bordered-list-content"

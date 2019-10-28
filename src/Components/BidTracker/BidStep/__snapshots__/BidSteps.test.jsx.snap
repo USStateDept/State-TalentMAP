@@ -29,7 +29,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={1}
       />
     }
-    key="-S4GKlGIF"
+    key="1"
     tailContent={null}
     title={
       <div>
@@ -62,7 +62,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
-    key="xDAyWzXoy"
+    key="2"
     tailContent={null}
     title={
       <div>
@@ -95,7 +95,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
-    key="79gk3y2uU"
+    key="3"
     tailContent={null}
     title={
       <div>
@@ -126,7 +126,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={4}
       />
     }
-    key="iSawdpPIl"
+    key="4"
     tailContent={null}
     title={
       <div>
@@ -157,7 +157,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={5}
       />
     }
-    key="YuXHTfc4m"
+    key="5"
     tailContent={null}
     title={
       <div>
@@ -188,7 +188,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={6}
       />
     }
-    key="1dwO93Zit"
+    key="6"
     tailContent={null}
     title={
       <div>

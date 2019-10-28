@@ -46,7 +46,23 @@ global.MutationObserver = class {
   observe(element, initObject) {}
 }
 
+// Set initial mockShortIdValue value.
+// This variable must be prefixed with "mock".
+let mockShortIdValue = 0;
+
+jest.mock('shortid', () => {
+  return {
+    generate: jest.fn(() => {
+      mockShortIdValue += 1;
+      return mockShortIdValue;
+    })
+  };
+});
+
 beforeEach(() => {
+  // reset to 0 before each test
+  mockShortIdValue = 0;
+
   // mock sessionStorage - feature flags config
   sessionStorage.setItem('config', JSON.stringify(config));
 

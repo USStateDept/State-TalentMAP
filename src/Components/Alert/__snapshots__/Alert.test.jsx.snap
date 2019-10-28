@@ -15,13 +15,13 @@ exports[`Alert displays error alert with multiple messages 1`] = `
     </h3>
     <p
       className="usa-alert-text"
-      key="ZG9_0yeXR"
+      key="1"
     >
       Error 1
     </p>
     <p
       className="usa-alert-text"
-      key="TKqy_YSMO"
+      key="2"
     >
       Error 2
     </p>
@@ -44,7 +44,7 @@ exports[`Alert displays info alert 1`] = `
     </h3>
     <p
       className="usa-alert-text"
-      key="p5QPrEbNt"
+      key="1"
     >
       Alert body
     </p>
@@ -67,7 +67,7 @@ exports[`Alert displays success alert 1`] = `
     </h3>
     <p
       className="usa-alert-text"
-      key="TTzXXoihk"
+      key="1"
     >
       Alert body
     </p>
@@ -90,7 +90,7 @@ exports[`Alert displays warning alert 1`] = `
     </h3>
     <p
       className="usa-alert-text"
-      key="I6S_jiHWY"
+      key="1"
     >
       Alert body
     </p>
@@ -115,7 +115,7 @@ exports[`Alert matches snapshot when isAriaLive is true 1`] = `
     </h3>
     <p
       className="usa-alert-text"
-      key="20pwOMc5d"
+      key="1"
     >
       Alert body
     </p>
