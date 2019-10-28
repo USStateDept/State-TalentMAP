@@ -14,6 +14,18 @@ export const POSITION_SEARCH_SORTS = {
   ],
 };
 
+export const POSITION_SEARCH_SORTS_DYNAMIC = {
+  options: [
+    ...POSITION_SEARCH_SORTS.options.map((m) => {
+      const obj = { ...m };
+      if (obj.value === '-position__bureau') {
+        obj.value = 'position__bureau';
+      }
+      return obj;
+    }),
+  ],
+};
+
 export const filterPVSorts = (sorts) => {
   const v = { ...sorts };
   v.options = filter(v.options, f => !f.availableOnly);
