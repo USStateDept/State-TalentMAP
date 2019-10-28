@@ -10,6 +10,10 @@ import InteractiveElement from '../../InteractiveElement';
 // we'll reference this to return focus after making a selection
 const dropdownID = 'cdo-portfolio-dropdown-trigger';
 
+// we'll check for outside clicks and close the dropdown
+const dropdownContentID = 'cdo-portfolio-dropdown-content';
+const dropdownTriggerID = 'cdo-portfolio-dropdown-trigger';
+
 export const getDisplayProperty = o => `${o.first_name} ${o.last_name}`;
 
 class CDOAutoSuggest extends Component {
@@ -18,12 +22,21 @@ class CDOAutoSuggest extends Component {
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
     this.getFilteredUsers = this.getFilteredUsers.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
+    this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.dropdown = {};
     this.state = {
       suggestions: filterUsers(''),
       selection: getCurrentUser(),
       isActive: false,
     };
+  }
+
+  componentWillMount() {
+    window.addEventListener('click', this.handleOutsideClick);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleOutsideClick);
   }
 
   onSuggestionSelected(selection) {
@@ -58,6 +71,16 @@ class CDOAutoSuggest extends Component {
     }
   }
 
+  handleOutsideClick(e) {
+    const { isActive } = this.state;
+    if (isActive &&
+      !document.getElementById(dropdownContentID).contains(e.target)
+      && !document.getElementById(dropdownTriggerID).contains(e.target)
+    ) {
+      this.hideDropdown();
+    }
+  }
+
   render() {
     const { isActive, selection, suggestions } = this.state;
     let triggerLabel = `${selection.first_name} ${selection.last_name}`;
@@ -77,7 +100,7 @@ class CDOAutoSuggest extends Component {
         active={isActive}
       >
         <h2>Client Profiles</h2>
-        <div className="usa-grid-full dropdown-trigger-container">
+        <div className="usa-grid-full dropdown-trigger-container" id={dropdownTriggerID}>
           <span>Client list:</span>
           <InteractiveElement
             onClick={this.toggleDropdown}
@@ -90,7 +113,7 @@ class CDOAutoSuggest extends Component {
           </InteractiveElement>
         </div>
         <BoxShadow>
-          <div className="dropdown-content-outer-container">
+          <div className="dropdown-content-outer-container" id={dropdownContentID}>
             <DropdownContent>
               <div className="autosuggest-container">
                 <AutoSuggest

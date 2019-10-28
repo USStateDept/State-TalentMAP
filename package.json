@@ -67,7 +67,7 @@
     "time-input": "^1.6.1",
     "typeface-merriweather": "^0.0.72",
     "typeface-roboto": "^0.0.75",
-    "uswds": "~1.6.0"
+    "uswds": "~1.6.12"
   },
   "devDependencies": {
     "@epegzz/sass-vars-loader": "^3.2.0",
