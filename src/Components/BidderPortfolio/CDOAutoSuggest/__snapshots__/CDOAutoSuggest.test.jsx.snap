@@ -11,6 +11,7 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
   </h2>
   <div
     className="usa-grid-full dropdown-trigger-container"
+    id="cdo-portfolio-dropdown-trigger"
   >
     <span>
       Client list:
@@ -40,6 +41,7 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
   >
     <div
       className="dropdown-content-outer-container"
+      id="cdo-portfolio-dropdown-content"
     >
       <DropdownContent
         className=""
@@ -156,6 +158,7 @@ exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
   </h2>
   <div
     className="usa-grid-full dropdown-trigger-container"
+    id="cdo-portfolio-dropdown-trigger"
   >
     <span>
       Client list:
@@ -185,6 +188,7 @@ exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
   >
     <div
       className="dropdown-content-outer-container"
+      id="cdo-portfolio-dropdown-content"
     >
       <DropdownContent
         className=""
