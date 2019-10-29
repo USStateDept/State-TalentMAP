@@ -46,7 +46,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.userProfileFetchData());
+        store.dispatch(actions.userProfileFetchData(false, () => {}));
         done();
       }, 0);
     };
