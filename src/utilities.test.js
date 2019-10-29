@@ -40,6 +40,7 @@ import { validStateEmail,
          isUrl,
          hasValidToken,
          getScrollDistanceFromBottom,
+         getAriaValue,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -777,4 +778,13 @@ describe('getScrollDistanceFromBottom', () => {
     document.body = z;
     expect(getScrollDistanceFromBottom()).toBe(2100);
   });
+});
+
+describe('getAriaValue', () => {
+  [[true, 'true'], [false, 'false'], ['true', 'true'], ['false', 'false'], [null, 'false'], [1, 'true']]
+  .map(m => (
+    it(`returns ${m[1]} for ${m[0]}`, () => {
+      expect(getAriaValue(m[0])).toBe(m[1]);
+    })
+  ));
 });

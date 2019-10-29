@@ -661,3 +661,17 @@ export const scrollToGlossaryTerm = (term) => {
 export const shouldUseAPFilters = () => checkFlag('flags.available_positions');
 
 export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
+
+// Convert values used in aria-* attributes to 'true'/'false' string.
+// Perform a string check, if for some reason the value was already a string.
+// https://github.com/cerner/terra-core/wiki/React-16-Migration-Guide#noted-changes
+export const getAriaValue = (e) => {
+  if (e === 'true') {
+    return e;
+  } else if (e === 'false') {
+    return e;
+  } else if (e) {
+    return 'true';
+  }
+  return 'false';
+};
