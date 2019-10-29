@@ -97,13 +97,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-main-text"
         >
-          Handshake Offered
+          Pending Review
         </div>
         <div
           className="step-title-sub-text"
-        >
-          12/20/2017
-        </div>
+        />
       </div>
     }
   />
@@ -133,9 +131,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        >
-          12/20/2017
-        </div>
+        />
       </div>
     }
   />
@@ -165,9 +161,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        >
-          12/20/2017
-        </div>
+        />
       </div>
     }
   />
@@ -197,9 +191,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         </div>
         <div
           className="step-title-sub-text"
-        >
-          12/20/2017
-        </div>
+        />
       </div>
     }
   />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setSortPreference } from '../../actions/sortPreferences';
+import { setSortPreference } from '../../actions/preferences';
 
 export class PreferenceWrapper extends Component {
   constructor(props) {

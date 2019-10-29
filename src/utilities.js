@@ -1,10 +1,12 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, intersection, isEqual, isNumber, isObject, keys, lowerCase,
-  merge as merge$, toString, transform } from 'lodash';
+  merge as merge$, orderBy, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
+import Bowser from 'bowser';
+import { checkFlag } from './flags';
 import { VALID_PARAMS } from './Constants/EndpointParams';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
@@ -114,6 +116,12 @@ export const pillSort = (a, b) => {
   }
   if (A > B) { return 1; }
   return 0; // default return value (no sorting)
+};
+
+export const sortTods = (data) => {
+  const sortingArray = ['T', 'C', 'H', 'O', 'V', '1', '2', 'U', 'A', 'B', 'E', 'N', 'S', 'G', 'D', 'F', 'R', 'Q', 'J', 'I', 'P', 'W', 'L', 'K', 'M', 'Y', 'Z', 'X'];
+  // eslint-disable-next-line no-confusing-arrow
+  return orderBy(data, o => o ? sortingArray.indexOf(o.code) : sortingArray.length);
 };
 
 export const propSort = (propName, nestedPropName) => (a, b) => {
@@ -649,3 +657,7 @@ export const scrollToGlossaryTerm = (term) => {
     }, 300);
   }
 };
+
+export const shouldUseAPFilters = () => checkFlag('flags.available_positions');
+
+export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();

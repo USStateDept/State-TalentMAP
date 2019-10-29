@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+Object.entries = require('object.entries'); // because jest doesn't import babel
 import config from '../../public/config/config.json';
 
 // Override console.error() for invalid or failed propTypes by throwing an Error
@@ -29,6 +30,12 @@ global.window.URL.createObjectURL = () => {};
 
 // Stub msSaveBlob
 global.window.navigator.msSaveBlob = () => {};
+
+global.MutationObserver = class {
+  constructor(callback) {}
+  disconnect() {}
+  observe(element, initObject) {}
+}
 
 beforeEach(() => {
   // mock sessionStorage - feature flags config

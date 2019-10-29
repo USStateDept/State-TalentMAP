@@ -19,8 +19,8 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { co
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
 
-  const { position } = bid.position;
-  const BID_TITLE = `${position.title} (${position.position_number})`;
+  const { position } = bid;
+  const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
 
   let overlayClass = '';
   let overlayContent = '';
@@ -28,7 +28,7 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { co
     case APPROVED_PROP:
       if (!condensedView) {
         overlayClass = CLASS_SUCCESS;
-        overlayContent = <ApprovedAlert userName={bid.user} />;
+        overlayContent = <ApprovedAlert />;
       }
       break;
     case HAND_SHAKE_OFFERED_PROP:

@@ -4,7 +4,7 @@ import { get, mapValues } from 'lodash';
 import queryString from 'query-string';
 import flatten from 'flat';
 import { CSVLink } from '../CSV';
-import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
 import { fetchResultData, downloadAvailablePositionData } from '../../actions/results';
 import { formatDate, getFormattedNumCSV, spliceStringForCSV } from '../../utilities';
 import ExportButton from '../ExportButton';
@@ -78,7 +78,8 @@ class SearchResultsExportLink extends Component {
       // reset the state to support multiple clicks
       this.setState({ data: '', isLoading: true });
       const query = {
-        ordering: POSITION_SEARCH_SORTS.defaultSort,
+        ordering: getUseAP() ?
+          POSITION_SEARCH_SORTS_DYNAMIC.defaultSort : POSITION_SEARCH_SORTS.defaultSort,
         ...queryString.parse(this.state.query.value),
         limit: this.props.count,
         page: 1,

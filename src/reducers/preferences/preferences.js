@@ -27,3 +27,13 @@ export default function sortPreferences(state = SORT_PREFERENCES_WITHOUT_OPTIONS
       return state;
   }
 }
+
+export function darkModePreference(state = false, action) {
+  switch (action.type) {
+    case 'SET_DARK_MODE_PREFERENCE': {
+      return action.value;
+    }
+    default:
+      return state;
+  }
+}

@@ -8,6 +8,7 @@ import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 import Glossary from '../../Containers/Glossary';
 import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
+import DarkMode from '../../Containers/DarkMode';
 import checkIndexAuthentication from '../../lib/check-auth';
 import { store, history } from '../../store';
 import PageMeta from '../../Containers/PageMeta';
@@ -24,6 +25,7 @@ const Main = props => (
       <ConnectedRouter history={history}>
         <ScrollContext>
           <div>
+            <DarkMode />
             <PageMeta history={history} />
             <Header {...props} isAuthorized={isAuthorized} />
             <main id="main-content">

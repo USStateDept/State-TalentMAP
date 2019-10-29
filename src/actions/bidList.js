@@ -129,12 +129,12 @@ export function bidListFetchData(ordering = 'draft_date') {
   return (dispatch) => {
     dispatch(bidListIsLoading(true));
     dispatch(bidListHasErrored(false));
-    api().get(`/bidlist/?ordering=${ordering}`)
+    api().get(`/fsbid/bidlist/?ordering=${ordering}`)
       .then(response => response.data)
       .then((results) => {
+        dispatch(bidListFetchDataSuccess({ results }));
         dispatch(bidListHasErrored(false));
         dispatch(bidListIsLoading(false));
-        dispatch(bidListFetchDataSuccess(results));
       })
       .catch(() => {
         dispatch(bidListHasErrored(true));
@@ -150,7 +150,7 @@ export function submitBid(id) {
     dispatch(routeChangeResetState());
     dispatch(submitBidIsLoading(true));
     dispatch(submitBidHasErrored(false));
-    api().get(`/bid/${idString}/submit/`)
+    api().put(`/fsbid/bidlist/position/${idString}/submit/`)
       .then(response => response.data)
       .then(() => {
         dispatch(submitBidHasErrored(false));
@@ -220,7 +220,7 @@ export function toggleBidPosition(id, remove) {
 
     const config = {
       method: remove ? 'delete' : 'put',
-      url: `/bidlist/position/${idString}/`,
+      url: `/fsbid/bidlist/position/${idString}/`,
     };
 
     api()(config)

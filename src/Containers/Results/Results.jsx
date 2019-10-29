@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import { debounce, get, keys, isString, omit, pickBy } from 'lodash';
 import queryParamUpdate from '../queryParams';
-import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
+import { scrollToTop, cleanQueryParams, getAssetPath, shouldUseAPFilters } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
@@ -22,9 +22,17 @@ USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION, BID_LIST } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
+  POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
+import { checkFlag } from '../../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
 
 const DEFAULT_PAGE_NUMBER = 1;
+
+// eslint-disable-next-line no-confusing-arrow
+const POSITION_SEARCH_SORT$ = () =>
+  getUseAP() ? POSITION_SEARCH_SORTS_DYNAMIC : POSITION_SEARCH_SORTS;
 
 class Results extends Component {
   constructor(props) {
@@ -36,7 +44,7 @@ class Results extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      defaultSort: { value: POSITION_SEARCH_SORTS.defaultSort },
+      defaultSort: { value: POSITION_SEARCH_SORT$().defaultSort },
       defaultPageSize: { value: props.defaultPageSize },
       defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
@@ -151,13 +159,14 @@ class Results extends Component {
 
   createQueryParams() {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword } = this.state;
-    const { filters, fetchFilters } = this.props;
+    const { filters, filtersAP, fetchFilters } = this.props;
+    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
     // set our current query
     const parsedQuery = queryString.parse(query.value);
     const { ordering, limit, page, q } = parsedQuery;
     // set our default ordering
     defaultSort.value =
-      ordering || POSITION_SEARCH_SORTS.defaultSort;
+      ordering || POSITION_SEARCH_SORT$().defaultSort;
     // set our default page size
     defaultPageSize.value =
       parseInt(limit, 10) || this.props.defaultPageSize;
@@ -184,10 +193,10 @@ class Results extends Component {
     // as a param, which tells our filters action
     // to not perform AJAX, and simply compare
     // the query params against the filters
-    if (filters.hasFetched) {
-      fetchFilters(filters, newQuery, filters);
+    if (filters$.hasFetched) {
+      fetchFilters(filters$, newQuery, filters$);
     } else { // if not, we'll perform AJAX
-      fetchFilters(filters, newQuery);
+      fetchFilters(filters$, newQuery);
     }
     // fetch new results
     this.callFetchData(newQueryString);
@@ -237,12 +246,13 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading, filters,
+    const { results, hasErrored, isLoading, filters, filtersAP,
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
     const { filtersIsLoading } = this.state;
+    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
     const showClear = this.getQueryExists();
     return (
       <div>
@@ -252,7 +262,7 @@ class Results extends Component {
           hasErrored={hasErrored}
           isLoading={isLoading}
           filtersIsLoading={filtersIsLoading}
-          sortBy={POSITION_SEARCH_SORTS}
+          sortBy={POSITION_SEARCH_SORT$()}
           defaultSort={this.state.defaultSort.value}
           pageSizes={POSITION_PAGE_SIZES}
           defaultPageSize={this.state.defaultPageSize.value}
@@ -261,7 +271,7 @@ class Results extends Component {
           defaultKeyword={this.state.defaultKeyword.value}
           resetFilters={this.resetFilters}
           pillFilters={filters.mappedParams}
-          filters={filters.filters}
+          filters={filters$.filters}
           onQueryParamToggle={this.onQueryParamToggle}
           selectedAccordion={selectedAccordion}
           setAccordion={setAccordion}
@@ -298,6 +308,7 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
+  filtersAP: FILTERS_PARENT,
   filtersIsLoading: PropTypes.bool,
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
@@ -324,6 +335,7 @@ Results.defaultProps = {
   hasErrored: false,
   isLoading: true,
   filters: { filters: [] },
+  filtersAP: { filters: [] },
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
@@ -347,6 +359,7 @@ const mapStateToProps = state => ({
   hasErrored: state.resultsHasErrored,
   isLoading: state.resultsIsLoading,
   filters: state.filters,
+  filtersAP: state.filtersAP,
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
   selectedAccordion: state.selectedAccordion,

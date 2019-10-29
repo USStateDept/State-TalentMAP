@@ -8,6 +8,7 @@ import postObject from '../../../__mocks__/postObject';
 
 const props = {
   title: 'Title',
+  positionNumber: "12345",
   id: 100,
   status: DRAFT_PROP,
   bidStatistics,
@@ -66,6 +67,20 @@ describe('BidTrackerCardTitleComponent', () => {
     );
     expect(wrapper.find('bid-tracker-card-title-bottom').exists()).toBe(false);
   });
+
+  it('displays the title correctly if positionNumber is not truthy', () => {
+    const wrapper = shallow(
+      <BidTrackerCardTitle {...props} positionNumber={undefined} />
+    );
+    expect(wrapper.find('.bid-tracker-card-title-text').text()).toBe('Title');
+  });
+
+  it('displays the title correctly if positionNumber is truthy', () => {
+    const wrapper = shallow(
+      <BidTrackerCardTitle {...props} />
+    );
+    expect(wrapper.find('.bid-tracker-card-title-text').text()).toBe('Title (12345)');
+  })
 
   it('matches snapshot when status is not "submitted"', () => {
     const wrapper = shallow(

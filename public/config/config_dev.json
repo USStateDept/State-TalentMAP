@@ -8,8 +8,9 @@
     "projected_vacancy": true,
     "static_content": true,
     "notifications": true,
-    "complete_bidding": true,
     "data_sync_admin": true,
-    "available_positions": false
+    "available_positions": false,
+    "personalization": true,
+    "persona_auth": true
   }
 }

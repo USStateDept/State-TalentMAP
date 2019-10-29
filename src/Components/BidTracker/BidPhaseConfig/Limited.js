@@ -1,3 +1,4 @@
+import { keys } from 'lodash';
 import {
   APPROVED_PROP,
   HAND_SHAKE_ACCEPTED_PROP,
@@ -13,6 +14,10 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   // This is the base object we'll return. The stages prop will be filled with prop names
   // that correspond to each stage of the bid tracker.
   const bidClassObject$ = Object.assign({}, { stages: {} }, bidClassObject);
+
+  if (!keys(bidClassObject$.stages).length) {
+    return false;
+  }
 
   const HAND_SHAKE_EVALUATING_TITLE = GET_HAND_SHAKE_EVALUATING_TITLE();
 

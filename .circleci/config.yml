@@ -1,7 +1,7 @@
 version: 2
 default-docker-node: &default-docker-node
   docker:
-    - image: circleci/node:6.11.0
+    - image: circleci/node:6.12.0
       environment:
         TZ: "/usr/share/zoneinfo/America/New_York"
         CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: 
+          keys:
           - dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           # fallback to using the latest cache if no exact match is found
           - dependency-cache-
@@ -56,7 +56,7 @@ jobs:
       - run: yarn install --pure-lockfile
       - run:
           name: Install JUnit coverage reporter
-          command: yarn add --dev jest-junit
+          command: yarn add --dev jest-junit@8.0.0
       - run:
           name: Jest Test Coverage
           command: yarn test -- --ci --reporters=default --reporters=jest-junit
