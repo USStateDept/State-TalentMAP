@@ -18,6 +18,13 @@ export function getCustomGradeDescription(gradeCode) {
   }
 }
 
+function getLanguageNameByIfNull(filterItemObject = {}) {
+  return filterItemObject.code === COMMON_PROPERTIES.NULL_LANGUAGE ?
+    filterItemObject.customDescription
+    :
+    `${filterItemObject.formal_description} (${filterItemObject.code})`;
+}
+
 // create a custom description based on the filter type
 export function getFilterCustomDescription(filterItem, filterItemObject) {
   switch (filterItem.item.description) {
@@ -31,10 +38,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
       return filterItemObject.name;
     case 'language':
       // language code NONE gets displayed differently
-      return filterItemObject.code === COMMON_PROPERTIES.NULL_LANGUAGE ?
-        filterItemObject.customDescription
-        :
-        `${filterItemObject.formal_description} (${filterItemObject.code})`;
+      return getLanguageNameByIfNull(filterItemObject);
     case 'grade':
       return getCustomGradeDescription(filterItemObject.code);
     case 'postDiff':

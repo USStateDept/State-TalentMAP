@@ -24,12 +24,25 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { co
 
   let overlayClass = '';
   let overlayContent = '';
+
+  const setInPanelPending = () => {
+    if (!condensedView) {
+      overlayClass = CLASS_PENDING;
+      overlayContent =
+        <InPanelAlert title={BID_TITLE} date={bid.in_panel_date} />;
+    }
+  };
+
+  const setApproved = () => {
+    if (!condensedView) {
+      overlayClass = CLASS_SUCCESS;
+      overlayContent = <ApprovedAlert />;
+    }
+  };
+
   switch (bid.status) {
     case APPROVED_PROP:
-      if (!condensedView) {
-        overlayClass = CLASS_SUCCESS;
-        overlayContent = <ApprovedAlert />;
-      }
+      setApproved();
       break;
     case HAND_SHAKE_OFFERED_PROP:
       overlayClass = CLASS_PENDING;
@@ -43,11 +56,7 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { co
       );
       break;
     case IN_PANEL_PROP:
-      if (!condensedView) {
-        overlayClass = CLASS_PENDING;
-        overlayContent =
-          <InPanelAlert title={BID_TITLE} date={bid.in_panel_date} />;
-      }
+      setInPanelPending();
       break;
     case HAND_SHAKE_DECLINED_PROP:
       overlayClass = CLASS_CLOSED;
