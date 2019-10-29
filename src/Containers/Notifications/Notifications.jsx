@@ -151,7 +151,6 @@ NotificationsContainer.propTypes = {
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   markNotificationIsLoading: PropTypes.bool,
-  markNotificationHasErrored: PropTypes.bool,
   markNotificationsIsLoading: PropTypes.bool,
   markNotifications: PropTypes.func,
 };
@@ -163,7 +162,6 @@ NotificationsContainer.defaultProps = {
   isLoading: false,
   hasErrored: false,
   markNotificationIsLoading: false,
-  markNotificationHasErrored: false,
   markNotificationsIsLoading: false,
   markNotifications: EMPTY_FUNCTION,
 };
@@ -173,7 +171,6 @@ const mapStateToProps = state => ({
   hasErrored: state.notificationsHasErrored,
   isLoading: state.notificationsIsLoading,
   markNotificationIsLoading: state.markNotificationIsLoading,
-  markNotificationHasErrored: state.markNotificationHasErrored,
   markNotificationsIsLoading: state.markNotificationsIsLoading,
 });
 
