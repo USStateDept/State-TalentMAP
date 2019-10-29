@@ -50,13 +50,13 @@ class Stats extends Component {
             <div className="usa-grid-full">
               <h3>Total Logins</h3>
               {stats.filter(f => f.type === 'total').map(m => (
-                <BidStatCard title={m.title} number={formatNum(m.count)} />
+                <BidStatCard key={m.title} title={m.title} number={formatNum(m.count)} />
               ))}
             </div>
             <div className="usa-grid-full">
               <h3>Unique Logins</h3>
               {stats.filter(f => f.type === 'unique').map(m => (
-                <BidStatCard title={m.title} number={formatNum(m.count)} />
+                <BidStatCard key={m.title} title={m.title} number={formatNum(m.count)} />
               ))}
             </div>
           </div>
@@ -87,7 +87,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  getStats: (options = {}) => dispatch(getLoginStats({ options })),
+  getStats: () => dispatch(getLoginStats()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stats);
