@@ -46,7 +46,7 @@
     "react-picky": "^4.7.2",
     "react-redux": "^5.0.5",
     "react-responsive": "^4.0.3",
-    "react-router": "^4.2.0",
+    "react-router": "^4.3.1",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-router-scroll-4": "^1.0.0-beta.2",
