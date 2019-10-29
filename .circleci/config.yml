@@ -1,7 +1,7 @@
 version: 2
 default-docker-node: &default-docker-node
   docker:
-    - image: circleci/node:6.11.0
+    - image: circleci/node:6.12.0
       environment:
         TZ: "/usr/share/zoneinfo/America/New_York"
         CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
