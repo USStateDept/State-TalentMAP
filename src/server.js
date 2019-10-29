@@ -18,6 +18,16 @@ const removeCacheControl = (req, res, next) => {
   next();
 };
 
+// middleware to force cache control
+const forceCacheControl = (req, res, next) => {
+  res.set({
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Pragma: 'no-cache',
+    Expires: 0,
+  });
+  next();
+};
+
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
 
@@ -93,9 +103,12 @@ app.use(helmet.noCache());
 // cache certain extensions (images and fonts)
 app.use(PUBLIC_URL, (req, res, next) => {
   const urlObj = url.parse(req.originalUrl);
-  const matches = urlObj.pathname.match(/\.(jpe?g|png|gif|svg|woff2)$/i);
-  if (matches) {
+  const cacheMatches = urlObj.pathname.match(/\.(jpe?g|png|gif|svg|woff2|ico)$/i);
+  const noCacheMatches = urlObj.pathname.match(/\.(js|css)$/i);
+  if (cacheMatches) {
     removeCacheControl(req, res, next);
+  } else if (noCacheMatches) {
+    forceCacheControl(req, res, next);
   } else {
     next();
   }
