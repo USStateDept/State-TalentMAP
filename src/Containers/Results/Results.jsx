@@ -22,9 +22,17 @@ USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION, BID_LIST } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
+  POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
+import { checkFlag } from '../../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
 
 const DEFAULT_PAGE_NUMBER = 1;
+
+// eslint-disable-next-line no-confusing-arrow
+const POSITION_SEARCH_SORT$ = () =>
+  getUseAP() ? POSITION_SEARCH_SORTS_DYNAMIC : POSITION_SEARCH_SORTS;
 
 class Results extends Component {
   constructor(props) {
@@ -36,7 +44,7 @@ class Results extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      defaultSort: { value: POSITION_SEARCH_SORTS.defaultSort },
+      defaultSort: { value: POSITION_SEARCH_SORT$().defaultSort },
       defaultPageSize: { value: props.defaultPageSize },
       defaultPageNumber: { value: DEFAULT_PAGE_NUMBER },
       defaultKeyword: { value: '' },
@@ -158,7 +166,7 @@ class Results extends Component {
     const { ordering, limit, page, q } = parsedQuery;
     // set our default ordering
     defaultSort.value =
-      ordering || POSITION_SEARCH_SORTS.defaultSort;
+      ordering || POSITION_SEARCH_SORT$().defaultSort;
     // set our default page size
     defaultPageSize.value =
       parseInt(limit, 10) || this.props.defaultPageSize;
@@ -254,7 +262,7 @@ class Results extends Component {
           hasErrored={hasErrored}
           isLoading={isLoading}
           filtersIsLoading={filtersIsLoading}
-          sortBy={POSITION_SEARCH_SORTS}
+          sortBy={POSITION_SEARCH_SORT$()}
           defaultSort={this.state.defaultSort.value}
           pageSizes={POSITION_PAGE_SIZES}
           defaultPageSize={this.state.defaultPageSize.value}
