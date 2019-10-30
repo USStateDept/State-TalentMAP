@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { MarkdownEditor } from 'react-markdown-editor';
+import { MarkdownEditor } from 'react-markdown-editor';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import TextEditorSubmit from '../../TextEditorSubmit';
 
@@ -26,7 +26,7 @@ class Editor extends Component {
   }
 
   render() {
-    // const { data } = this.props;
+    const { data } = this.props;
     const { cancel } = this.props;
     return (
       <div className="usa-grid-full">
@@ -37,17 +37,18 @@ class Editor extends Component {
         />
         <div className="usa-grid-full markdown-editor">
           {
-          /*
-          <MarkdownEditor
-            onContentChange={this.onContentChange}
-            styles={{
-              styleMarkdownPreviewArea: { overflow: 'auto' },
-              styleMarkdownTextArea: { paddingTop: '10px' },
-            }}
-            initialContent={data}
-            iconsSet="font-awesome"
-          />
-          */
+
+            <MarkdownEditor
+              onContentChange={this.onContentChange}
+              styles={{
+                /*
+                  Do not add styles - they break starting with React 16
+                */
+              }}
+              initialContent={data}
+              iconsSet="font-awesome"
+            />
+
           }
         </div>
       </div>

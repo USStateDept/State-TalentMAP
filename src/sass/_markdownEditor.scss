@@ -1,6 +1,10 @@
 .markdown-editor {
   > div {
     height: 500px;
+
+    > div {
+      overflow: auto;
+    }
   }
 
   textarea {

@@ -16,6 +16,13 @@ exports[`About matches snapshot 1`] = `
   />
   <div
     className="usa-grid-full markdown-editor"
-  />
+  >
+    <Component
+      iconsSet="font-awesome"
+      initialContent=""
+      onContentChange={[Function]}
+      styles={Object {}}
+    />
+  </div>
 </div>
 `;

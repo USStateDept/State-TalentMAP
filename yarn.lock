@@ -2536,6 +2536,14 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+create-react-class@^15.6.3:
+  version "15.6.3"
+  resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 cross-spawn@5.1.0, cross-spawn@^5.0.1:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
@@ -3878,7 +3886,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.1, fbjs@^0.8.15:
+fbjs@^0.8.1, fbjs@^0.8.15, fbjs@^0.8.9:
   version "0.8.17"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.17.tgz#c4d598ead6949112653d6588b01a5cdcd9f90fdd"
   dependencies:
@@ -8299,13 +8307,15 @@ react-loading-skeleton@0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/react-loading-skeleton/-/react-loading-skeleton-0.5.0.tgz#bbbb9db7255ac4712a81d1f6a6dadd47ee1ea5ab"
 
-react-markdown-editor@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/react-markdown-editor/-/react-markdown-editor-0.6.2.tgz#0df705c59f583c480df92448ead6ff163948d90e"
+react-markdown-editor@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-markdown-editor/-/react-markdown-editor-1.0.0.tgz#228df1270398805e472879b90e6235d25b869217"
   dependencies:
+    create-react-class "^15.6.3"
     markdown "^0.5.0"
     object-assign "^4.1.0"
-    reflux "^0.4.1"
+    prop-types "^15.6.1"
+    reflux "^6.4.0"
 
 react-markdown@^4.2.2:
   version "4.2.2"
@@ -8723,18 +8733,18 @@ reflect.ownkeys@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/reflect.ownkeys/-/reflect.ownkeys-0.2.0.tgz#749aceec7f3fdf8b63f927a04809e90c5c0b3460"
 
-reflux-core@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/reflux-core/-/reflux-core-0.3.0.tgz#c9aa78984555296237069613f9d6b11e2dbbc74c"
+reflux-core@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/reflux-core/-/reflux-core-1.0.0.tgz#eb9baae2d50871324adb9312583c12e070cd61d3"
   dependencies:
     eventemitter3 "^1.1.1"
 
-reflux@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/reflux/-/reflux-0.4.1.tgz#3d2c5610f045df059383f05ca3bc374e6cb0957d"
+reflux@^6.4.0:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/reflux/-/reflux-6.4.1.tgz#8bbbabaff54cf1b82233d67dd2542fdad2a8d678"
   dependencies:
     eventemitter3 "^1.1.1"
-    reflux-core "^0.3.0"
+    reflux-core "^1.0.0"
 
 regenerate@^1.2.1:
   version "1.4.0"
