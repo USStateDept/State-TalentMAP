@@ -13,6 +13,7 @@ import PanelRescheduledAlert from './PanelRescheduledAlert';
 import DraftAlert from './DraftAlert';
 
 // Alert rendering based on status is handled here.
+// eslint-disable-next-line complexity
 const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { condensedView }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
