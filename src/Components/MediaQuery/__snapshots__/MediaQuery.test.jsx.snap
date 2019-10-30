@@ -3,7 +3,6 @@
 exports[`MediaQueryComponent matches snapshot 1`] = `
 <MediaQuery
   maxWidth={600}
-  values={Object {}}
 >
   <div />
 </MediaQuery>
