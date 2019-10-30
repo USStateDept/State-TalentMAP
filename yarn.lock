@@ -8285,6 +8285,10 @@ react-is@^16.10.2, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-i
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
 
+react-keyboard-time-input@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-keyboard-time-input/-/react-keyboard-time-input-2.1.1.tgz#c67a9496e69f6fac7a4d9de4e84714671cd1bec5"
+
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -10029,10 +10033,6 @@ through2@^2.0.0:
 thunky@^1.0.2:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.1.0.tgz#5abaf714a9405db0504732bbccd2cedd9ef9537d"
-
-time-input@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/time-input/-/time-input-1.6.1.tgz#20a538aaae47a15bf955dc26e0f28ac93f0b19e7"
 
 time-stamp@^2.0.0:
   version "2.2.0"
