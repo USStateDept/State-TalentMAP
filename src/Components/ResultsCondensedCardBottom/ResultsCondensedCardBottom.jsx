@@ -20,7 +20,10 @@ class ResultsCondensedCardBottom extends Component {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
     return showBidCount ?
-      <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />
+      <Flag
+        name="flags.bid_count"
+        render={() => <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />}
+      />
     :
     null;
   }

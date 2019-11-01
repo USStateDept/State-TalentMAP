@@ -11,11 +11,9 @@ exports[`BidContentComponent matches snapshot 1`] = `
   <span
     className="bid-stats"
   >
-    <BidCount
+    <BidCountFeatureFlagWrapper
       altStyle={true}
       bidStatistics={null}
-      hideLabel={false}
-      isCondensed={false}
       label="Bid Count"
     />
   </span>
