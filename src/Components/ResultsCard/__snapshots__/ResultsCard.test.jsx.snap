@@ -7,6 +7,13 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
 />
 `;
 
+exports[`ResultsCardComponent matches snapshot when context.isClient === true 1`] = `
+<MediaQueryWrapper
+  breakpoint="screenSmMax"
+  widthType="max"
+/>
+`;
+
 exports[`ResultsCardComponent matches snapshot with empty result 1`] = `
 <MediaQueryWrapper
   breakpoint="screenSmMax"
