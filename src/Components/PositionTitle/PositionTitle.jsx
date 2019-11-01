@@ -13,9 +13,11 @@ import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BidCount from '../BidCount';
+import { checkFlag } from '../../flags';
 
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
+const useBidding = () => checkFlag('flags.bidding');
 
 class PositionTitle extends Component {
   constructor(props) {
@@ -91,28 +93,30 @@ class PositionTitle extends Component {
             src={seal}
           />
         </div>
-        <div className="offset-bid-button-container">
+        <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
           {
             !isProjectedVacancy &&
-            <Flag
-              name="flags.bidding"
-              render={this.renderBidCount}
-            />
+              this.renderBidCount()
           }
           {
             !get(details, 'availability.availability', true) &&
-              <div className="unavailable-tooltip">
-                <Tooltip
-                  title={availablilityText}
-                  arrow
-                  position="bottom"
-                  tabIndex="0"
-                  theme="light"
-                >
-                  <FontAwesome name="question-circle" />
-                  {'Why can\'t I add this position to my bid list?'}
-                </Tooltip>
-              </div>
+            <Flag
+              name="flags.bidding"
+              render={() => (
+                <div className="unavailable-tooltip">
+                  <Tooltip
+                    title={availablilityText}
+                    arrow
+                    position="bottom"
+                    tabIndex="0"
+                    theme="light"
+                  >
+                    <FontAwesome name="question-circle" />
+                    {'Why can\'t I add this position to my bid list?'}
+                  </Tooltip>
+                </div>
+              )}
+            />
           }
           {
             !isProjectedVacancy &&

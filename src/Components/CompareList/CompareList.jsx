@@ -165,7 +165,7 @@ class CompareList extends Component {
                       }
                     </tr>
                     <Flag
-                      name="flags.static_content"
+                      name="flags.bid_count"
                       render={() => renderBidCounts(compareArray, emptyArray)}
                     />
                     <tr>

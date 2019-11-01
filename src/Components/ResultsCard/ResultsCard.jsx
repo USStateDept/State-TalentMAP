@@ -179,7 +179,7 @@ class ResultsCard extends Component {
                     {
                       !isProjectedVacancy &&
                       <Flag
-                        name="flags.bidding"
+                        name="flags.bid_count"
                         render={() => renderBidCountMobile(stats)}
                       />
                     }
@@ -199,7 +199,7 @@ class ResultsCard extends Component {
                     {
                       !isProjectedVacancy &&
                       <Flag
-                        name="flags.bidding"
+                        name="flags.bid_count"
                         render={() => renderBidCount(stats)}
                       />
                     }
