@@ -156,9 +156,10 @@ exports[`PositionTitleComponent matches snapshot when context.client === true 1`
   <div
     className="offset-bid-button-container"
   >
-    <Flag
-      name="flags.bidding"
-      render={[Function]}
+    <BidCountFeatureFlagWrapper
+      altStyle={true}
+      hideLabel={true}
+      isCondensed={true}
     />
     <Flag
       name="flags.bidding"
