@@ -1,5 +1,5 @@
 import { has } from 'lodash';
-import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const filterAPFilters = (data, useAP) => {
   const filters$ = data.filters.map((m) => {
@@ -115,15 +115,6 @@ const items =
           onlyProjectedVacancy: true,
         },
         data: [
-        ],
-        // Allow users to include languages with no code. This option is not supplied from
-        // the endpoint, so we define it here.
-        initialData: [
-          {
-            code: COMMON_PROPERTIES.NULL_LANGUAGE,
-            short_description: 'No language requirement',
-            custom_description: 'No language requirement',
-          },
         ],
       },
       {
