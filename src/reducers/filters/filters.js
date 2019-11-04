@@ -102,15 +102,6 @@ const items =
         },
         data: [
         ],
-        // Allow users to include languages with no code. This option is not supplied from
-        // the endpoint, so we define it here.
-        initialData: [
-          {
-            code: COMMON_PROPERTIES.NULL_LANGUAGE,
-            short_description: 'No language requirement',
-            custom_description: 'No language requirement',
-          },
-        ],
       },
       {
         item: {
