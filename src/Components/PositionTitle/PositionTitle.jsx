@@ -28,8 +28,9 @@ class PositionTitle extends Component {
 
   renderBidListButton() {
     const { details, bidList } = this.props;
+    const { isClient } = this.context;
     return (
-      <PermissionsWrapper permissions="bidder">
+      <PermissionsWrapper permissions={isClient ? [] : 'bidder'}>
         <BidListButton
           compareArray={bidList.results}
           id={details.cpId}
@@ -49,6 +50,7 @@ class PositionTitle extends Component {
 
   render() {
     const { details, isProjectedVacancy, userProfile } = this.props;
+    const { isClient } = this.context;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
@@ -75,14 +77,17 @@ class PositionTitle extends Component {
                   </div>
                 </div>
                 <div className="usa-width-one-half title-actions-section">
-                  <Favorite
-                    refKey={details.cpId}
-                    compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
-                    useLongText
-                    useSpinnerWhite
-                    useButtonClass
-                    isPV={isProjectedVacancy}
-                  />
+                  {
+                  !isClient &&
+                    <Favorite
+                      refKey={details.cpId}
+                      compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
+                      useLongText
+                      useSpinnerWhite
+                      useButtonClass
+                      isPV={isProjectedVacancy}
+                    />
+                }
                 </div>
               </div>
             </div>
@@ -130,6 +135,10 @@ class PositionTitle extends Component {
     );
   }
 }
+
+PositionTitle.contextTypes = {
+  isClient: PropTypes.bool,
+};
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,
