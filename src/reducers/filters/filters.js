@@ -1,10 +1,11 @@
 import { has } from 'lodash';
-import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
+import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const filterAPFilters = (data, useAP) => {
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
+    const hasInitDataAP = has(m, 'item.initialDataAP');
     return {
       ...m,
       item: {
@@ -12,6 +13,7 @@ const filterAPFilters = (data, useAP) => {
         endpoint: useAP && hasAPEndpoint ? m.item.endpointAP : m.item.endpoint,
       },
       data: useAP && hasAltData ? m.dataAP : m.data,
+      initialData: useAP && hasInitDataAP ? m.initialDataAP : m.initialData,
     };
   });
   const output = { ...data, filters: filters$ };
@@ -102,6 +104,17 @@ const items =
         },
         data: [
         ],
+        // Allow users to include languages with no code. This option is not supplied from
+        // the endpoint, so we define it here.
+        initialData: [
+          {
+            code: COMMON_PROPERTIES.NULL_LANGUAGE,
+            short_description: 'No language requirement',
+            custom_description: 'No language requirement',
+          },
+        ],
+        initialDataAP: [
+        ],
       },
       {
         item: {
@@ -115,6 +128,15 @@ const items =
           onlyProjectedVacancy: true,
         },
         data: [
+        ],
+        // Allow users to include languages with no code. This option is not supplied from
+        // the endpoint, so we define it here.
+        initialData: [
+          {
+            code: COMMON_PROPERTIES.NULL_LANGUAGE,
+            short_description: 'No language requirement',
+            custom_description: 'No language requirement',
+          },
         ],
       },
       {
