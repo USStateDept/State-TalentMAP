@@ -5,7 +5,6 @@ const filterAPFilters = (data, useAP) => {
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
-    const hasInitDataAP = has(m, 'item.initialDataAP');
     return {
       ...m,
       item: {
@@ -13,7 +12,6 @@ const filterAPFilters = (data, useAP) => {
         endpoint: useAP && hasAPEndpoint ? m.item.endpointAP : m.item.endpoint,
       },
       data: useAP && hasAltData ? m.dataAP : m.data,
-      initialData: useAP && hasInitDataAP ? m.initialDataAP : m.initialData,
     };
   });
   const output = { ...data, filters: filters$ };
