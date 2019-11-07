@@ -353,24 +353,8 @@ const items =
           bool: false,
           description: 'post',
           endpoint: 'orgpost/?limit=500&is_available=true',
+          endpointAP: 'fsbid/reference/locations/',
           selectionRef: ENDPOINT_PARAMS.post,
-          onlyAvailablePositions: true,
-          choices: [
-          ],
-        },
-        data: [
-        ],
-      },
-      {
-        item: {
-          title: 'Post',
-          altTitle: 'Location',
-          sort: 1100,
-          bool: false,
-          description: 'post',
-          endpoint: 'orgpost/?limit=500',
-          selectionRef: ENDPOINT_PARAMS.post,
-          onlyProjectedVacancy: true,
           choices: [
           ],
         },
