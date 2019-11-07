@@ -22,6 +22,30 @@ export function bidListFetchDataSuccess(state = { results: [] }, action) {
       return state;
   }
 }
+export function clientBidListHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'CLIENT_BID_LIST_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function clientBidListIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'CLIENT_BID_LIST_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function clientBidListFetchDataSuccess(state = { results: [] }, action) {
+  switch (action.type) {
+    case 'CLIENT_BID_LIST_FETCH_DATA_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
 export function bidListToggleHasErrored(state = false, action) {
   switch (action.type) {
     case 'BID_LIST_TOGGLE_HAS_ERRORED':
