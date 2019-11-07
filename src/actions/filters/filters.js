@@ -8,6 +8,7 @@ import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescrip
   doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
+const getUseAP = () => checkFlag('flags.available_positions');
 
 export function filtersHasErrored(bool) {
   return {
@@ -247,13 +248,14 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         api().get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
+            const data$ = getUseAP() ? item.initialDataAP : item.initialData;
             // We have a mix of server-supplied and hard-coded data, so we combine them with union.
             // Also determine whether the results array exists,
             // or if the array is passed at the top-level.
             if (response.data.results) {
-              itemFilter.data = union(response.data.results, item.initialData);
+              itemFilter.data = union(response.data.results, data$);
             } else if (isArray(response.data)) {
-              itemFilter.data = union(response.data, item.initialData);
+              itemFilter.data = union(response.data, data$);
             }
             return itemFilter;
           })
