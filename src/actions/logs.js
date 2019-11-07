@@ -5,8 +5,6 @@ import api from '../api';
 
 let cancel;
 
-export const replaceSuffix = log => log.replace(/.log/g, '');
-
 export function logsHasErrored(message) {
   return {
     type: 'LOGS_HAS_ERRORED',
@@ -103,13 +101,10 @@ export function getLogs() {
         let text = '';
 
         // create promise array to retrieve individual logs
-        const queryProms = data.map((log) => {
-          // remove the .log suffix
-          const log$ = replaceSuffix(log);
+        const queryProms = data.map(log =>
           // get each log
-          return api().get(`/logs/${log$}/`)
-            .then(response => ({ log, data: response.data }));
-        });
+           api().get(`/logs/${log}/`)
+            .then(response => ({ log, data: response.data })));
 
         // execute queries
         Q.allSettled(queryProms)
@@ -162,10 +157,8 @@ export function getLog(id) {
   return (dispatch) => {
     dispatch(logIsLoading(true));
     dispatch(logHasErrored(false));
-    // remove .log suffix from id, if exists
-    const id$ = replaceSuffix(id);
     // get log by id
-    api().get(`/logs/${id$}/`, {
+    api().get(`/logs/${id}/`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),
@@ -195,13 +188,11 @@ export function getLogToDownload(id) {
   return (dispatch) => {
     dispatch(logToDownloadIsLoading(true));
     dispatch(logToDownloadHasErrored(false));
-    // remove .log suffix from id, if exists
-    const id$ = replaceSuffix(id);
 
     let text = '';
 
     // get log by id
-    api().get(`/logs/${id$}/`)
+    api().get(`/logs/${id}/`)
       .then((response) => {
         const logText = get(response, 'data.data', '');
         const logName = id;
