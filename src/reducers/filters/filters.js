@@ -73,7 +73,7 @@ const items =
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
-          // endpointAP: 'fsbid/reference/codes/',
+          endpointAP: 'fsbid/reference/codes/',
           selectionRef: ENDPOINT_PARAMS.skill,
           text: 'Choose Skills',
         },

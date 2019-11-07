@@ -20,3 +20,24 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
   />
 </div>
 `;
+
+exports[`ResultsControlsComponent matches snapshot when context.isClient === true 1`] = `
+<div
+  className="usa-grid-full results-controls"
+>
+  <div
+    className="usa-width-one-fifth total-results"
+  >
+    <TotalResults
+      pageNumber={0}
+      pageSize={10}
+      suffix="Results"
+      total={2}
+    />
+  </div>
+  <MediaQueryWrapper
+    breakpoint="screenMdMin"
+    widthType="min"
+  />
+</div>
+`;

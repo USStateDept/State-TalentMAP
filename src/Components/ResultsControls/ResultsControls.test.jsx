@@ -112,4 +112,18 @@ describe('ResultsControlsComponent', () => {
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when context.isClient === true', () => {
+    wrapper = shallow(<ResultsControls
+      results={resultsObject}
+      isLoading={isLoading}
+      queryParamUpdate={onQueryParamUpdate}
+      sortBy={sortBy}
+      pageSizes={pageSizes}
+      pageCount={pageCount}
+      hasLoaded={hasLoaded}
+      onToggle={onToggle}
+    />, { context: { isClient: true } });
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

@@ -1,6 +1,6 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, intersection, isEqual, isNumber, isObject, keys, lowerCase,
+import { cloneDeep, get, intersection, isArray, isEqual, isNumber, isObject, keys, lowerCase,
   merge as merge$, orderBy, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
@@ -258,8 +258,9 @@ export const existsInArray = (ref, array) => {
 
 // for checking if a position is in the user's bid list
 export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
+  const array$ = isArray(array) ? array : [];
   let found = false;
-  array.some((i) => {
+  array$.some((i) => {
     if (i[prop] && i[prop][nestedProp] === ref) {
       found = i;
       return true;
