@@ -1,3 +1,4 @@
+import { isArray } from 'lodash';
 import * as SystemMessages from './SystemMessages';
 
 const expectedMessages = [
@@ -33,7 +34,7 @@ const expectedMessages = [
 
   'DELETE_BID_ITEM_SUCCESS',
   'DELETE_BID_ITEM_ERROR',
-  'ADD_BID_ITEM_SUCCESS',
+  ['ADD_BID_ITEM_SUCCESS'], // array denotes that it is a function
   'ADD_BID_ITEM_ERROR',
 
   'ACCEPT_BID_SUCCESS',
@@ -48,7 +49,7 @@ const expectedMessages = [
 describe('SystemMessages', () => {
   it('should have all expected messages defined', () => {
     expectedMessages.forEach((msg) => {
-      expect(SystemMessages[msg]).toBeDefined();
+      expect(isArray(msg) ? SystemMessages[msg]() : SystemMessages[msg]).toBeDefined();
     });
   });
 

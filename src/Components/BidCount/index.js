@@ -1,1 +1,1 @@
-export { default } from './BidCount';
+export { default } from './FeatureFlagWrapper';

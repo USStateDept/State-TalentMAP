@@ -71,6 +71,17 @@ describe('ResultsCardComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when context.isClient === true', () => {
+    wrapper = shallow(
+      <ResultsCard
+        id={1}
+        result={resultsObject.results[0]}
+        onToggle={() => {}}
+        bidList={[]}
+      />, { context: { isClient: true } });
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('matches snapshot with empty result', () => {
     wrapper = shallow(
       <ResultsCard

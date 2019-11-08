@@ -4,13 +4,14 @@ import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import SelectForm from '../SelectForm';
-import { POSITION_SEARCH_SORTS } from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
 import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
 import { checkFlag } from '../../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
+const getUseAP = () => checkFlag('flags.available_positions');
 
 class FavoritePositions extends Component {
   constructor(props) {
@@ -43,6 +44,10 @@ class FavoritePositions extends Component {
         { title: 'Projected Vacancies', value: 'pv', numerator: favoritesPV.length },
       ];
     }
+    let selectOptions$ = POSITION_SEARCH_SORTS.options;
+    if (getUseAP()) {
+      selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC.options;
+    }
     return (
       <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
         <div className="usa-grid-full favorites-top-section">
@@ -62,7 +67,7 @@ class FavoritePositions extends Component {
               id="sort"
               label="Sort by:"
               onSelectOption={onSortChange}
-              options={POSITION_SEARCH_SORTS.options}
+              options={selectOptions$}
               disabled={favoritePositionsIsLoading}
             />
           </div>

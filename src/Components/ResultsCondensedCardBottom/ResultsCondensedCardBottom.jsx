@@ -20,7 +20,10 @@ class ResultsCondensedCardBottom extends Component {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
     return showBidCount ?
-      <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />
+      <Flag
+        name="flags.bid_count"
+        render={() => <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />}
+      />
     :
     null;
   }
@@ -46,6 +49,7 @@ class ResultsCondensedCardBottom extends Component {
         showCompareButton,
         isProjectedVacancy,
       } = this.props;
+    const { isClient } = this.context;
     const pos = position.position || position;
     return (
       <div className="condensed-card-bottom-container">
@@ -56,17 +60,20 @@ class ResultsCondensedCardBottom extends Component {
           />
           <CondensedCardData position={position} />
           <div className="usa-grid-full condensed-card-buttons-section">
-            <Favorite
-              useLongText
-              hideText={useShortFavButton}
-              hasBorder
-              refKey={position.id}
-              isPV={pos.isPV || position.isPV}
-              compareArray={pos.isPV || position.isPV ? favoritesPV : favorites}
-              useButtonClass={!useShortFavButton}
-              useButtonClassSecondary={useShortFavButton}
-              refresh={refreshFavorites}
-            />
+            {
+              !isClient &&
+              <Favorite
+                useLongText
+                hideText={useShortFavButton}
+                hasBorder
+                refKey={position.id}
+                isPV={pos.isPV || position.isPV}
+                compareArray={pos.isPV || position.isPV ? favoritesPV : favorites}
+                useButtonClass={!useShortFavButton}
+                useButtonClassSecondary={useShortFavButton}
+                refresh={refreshFavorites}
+              />
+            }
             <Flag
               name="flags.bidding"
               render={this.renderBidListButton}
@@ -81,6 +88,10 @@ class ResultsCondensedCardBottom extends Component {
     );
   }
 }
+
+ResultsCondensedCardBottom.contextTypes = {
+  isClient: PropTypes.bool,
+};
 
 ResultsCondensedCardBottom.propTypes = {
   position: PropTypes.shape({

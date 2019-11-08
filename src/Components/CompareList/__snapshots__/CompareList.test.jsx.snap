@@ -203,7 +203,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             />
           </tr>
           <Flag
-            name="flags.static_content"
+            name="flags.bid_count"
             render={[Function]}
           />
           <tr>
@@ -710,7 +710,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             />
           </tr>
           <Flag
-            name="flags.static_content"
+            name="flags.bid_count"
             render={[Function]}
           />
           <tr>
