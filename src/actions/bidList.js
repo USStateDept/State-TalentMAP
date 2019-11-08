@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import api from '../api';
 import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
@@ -19,6 +20,27 @@ export function bidListIsLoading(bool) {
 export function bidListFetchDataSuccess(results) {
   return {
     type: 'BID_LIST_FETCH_DATA_SUCCESS',
+    results,
+  };
+}
+
+export function clientBidListHasErrored(bool) {
+  return {
+    type: 'CLIENT_BID_LIST_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function clientBidListIsLoading(bool) {
+  return {
+    type: 'CLIENT_BID_LIST_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function clientBidListFetchDataSuccess(results) {
+  return {
+    type: 'CLIENT_BID_LIST_FETCH_DATA_SUCCESS',
     results,
   };
 }
@@ -125,12 +147,19 @@ export function routeChangeResetState() {
   };
 }
 
+export function shouldUseClient(getState = () => {}) {
+  return !!get(getState(), 'clientView.client.id');
+}
+
 export function bidListFetchData(ordering = 'draft_date') {
   return (dispatch) => {
     dispatch(bidListIsLoading(true));
     dispatch(bidListHasErrored(false));
-    api().get(`/fsbid/bidlist/?ordering=${ordering}`)
-      .then(response => response.data)
+
+    const endpoint = `/fsbid/bidlist/?ordering=${ordering}`;
+
+    api().get(endpoint)
+      .then(response => response.data.results)
       .then((results) => {
         dispatch(bidListFetchDataSuccess({ results }));
         dispatch(bidListHasErrored(false));
@@ -140,6 +169,30 @@ export function bidListFetchData(ordering = 'draft_date') {
         dispatch(bidListHasErrored(true));
         dispatch(bidListIsLoading(false));
       });
+  };
+}
+
+export function clientBidListFetchData(ordering = 'draft_date') {
+  return (dispatch, getState) => {
+    if (shouldUseClient(getState)) {
+      const { id } = getState().clientView.client;
+      const endpoint = `/client/${id}/bids/?ordering=${ordering}`;
+
+      dispatch(clientBidListIsLoading(true));
+      dispatch(clientBidListHasErrored(false));
+
+      api().get(endpoint)
+        .then(response => response.data.results)
+        .then((results) => {
+          dispatch(clientBidListFetchDataSuccess({ results }));
+          dispatch(clientBidListHasErrored(false));
+          dispatch(clientBidListIsLoading(false));
+        })
+        .catch(() => {
+          dispatch(clientBidListHasErrored(true));
+          dispatch(clientBidListIsLoading(false));
+        });
+    }
   };
 }
 
@@ -209,9 +262,9 @@ export function declineBid(id) {
   };
 }
 
-export function toggleBidPosition(id, remove) {
+export function toggleBidPosition(id, remove, isClient) {
   const idString = id.toString();
-  return (dispatch) => {
+  return (dispatch, getState) => {
     // reset the states to ensure only one message can be shown
     dispatch(routeChangeResetState());
     dispatch(bidListToggleIsLoading(true, id));
@@ -223,15 +276,28 @@ export function toggleBidPosition(id, remove) {
       url: `/fsbid/bidlist/position/${idString}/`,
     };
 
+    let client;
+
+    if (isClient) {
+      const { client: client$ } = getState().clientView;
+      client = client$;
+      config.url = `/fsbid/bidlist/position/${client.id}/${idString}`; /* TODO - use bid as client endpoint */
+    }
+
     api()(config)
       .then(() => {
         const message = remove ?
-          SystemMessages.DELETE_BID_ITEM_SUCCESS : SystemMessages.ADD_BID_ITEM_SUCCESS;
+          SystemMessages.DELETE_BID_ITEM_SUCCESS :
+          SystemMessages.ADD_BID_ITEM_SUCCESS({ client });
         dispatch(bidListToggleSuccess(message));
         dispatch(toastSuccess(message));
         dispatch(bidListToggleIsLoading(false, id));
         dispatch(bidListToggleHasErrored(false));
-        dispatch(bidListFetchData());
+        if (isClient) {
+          dispatch(clientBidListFetchData());
+        } else {
+          dispatch(bidListFetchData());
+        }
       })
       .catch(() => {
         const message = remove ?
@@ -239,7 +305,17 @@ export function toggleBidPosition(id, remove) {
         dispatch(bidListToggleHasErrored(message));
         dispatch(toastError(message));
         dispatch(bidListToggleIsLoading(false, id));
-        dispatch(bidListFetchData());
+        if (isClient) {
+          dispatch(clientBidListFetchData());
+        } else {
+          dispatch(bidListFetchData());
+        }
       });
+  };
+}
+
+export function toggleClientBidPosition(id, remove) {
+  return (dispatch) => {
+    dispatch(toggleBidPosition(id, remove, true));
   };
 }

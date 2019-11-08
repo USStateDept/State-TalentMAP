@@ -13,9 +13,11 @@ import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BidCount from '../BidCount';
+import { checkFlag } from '../../flags';
 
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
+const useBidding = () => checkFlag('flags.bidding');
 
 class PositionTitle extends Component {
   constructor(props) {
@@ -26,8 +28,9 @@ class PositionTitle extends Component {
 
   renderBidListButton() {
     const { details, bidList } = this.props;
+    const { isClient } = this.context;
     return (
-      <PermissionsWrapper permissions="bidder">
+      <PermissionsWrapper permissions={isClient ? [] : 'bidder'}>
         <BidListButton
           compareArray={bidList.results}
           id={details.cpId}
@@ -47,6 +50,7 @@ class PositionTitle extends Component {
 
   render() {
     const { details, isProjectedVacancy, userProfile } = this.props;
+    const { isClient } = this.context;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
@@ -73,14 +77,17 @@ class PositionTitle extends Component {
                   </div>
                 </div>
                 <div className="usa-width-one-half title-actions-section">
-                  <Favorite
-                    refKey={details.cpId}
-                    compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
-                    useLongText
-                    useSpinnerWhite
-                    useButtonClass
-                    isPV={isProjectedVacancy}
-                  />
+                  {
+                  !isClient &&
+                    <Favorite
+                      refKey={details.cpId}
+                      compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
+                      useLongText
+                      useSpinnerWhite
+                      useButtonClass
+                      isPV={isProjectedVacancy}
+                    />
+                }
                 </div>
               </div>
             </div>
@@ -91,28 +98,30 @@ class PositionTitle extends Component {
             src={seal}
           />
         </div>
-        <div className="offset-bid-button-container">
+        <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
           {
             !isProjectedVacancy &&
-            <Flag
-              name="flags.bidding"
-              render={this.renderBidCount}
-            />
+              this.renderBidCount()
           }
           {
             !get(details, 'availability.availability', true) &&
-              <div className="unavailable-tooltip">
-                <Tooltip
-                  title={availablilityText}
-                  arrow
-                  position="bottom"
-                  tabIndex="0"
-                  theme="light"
-                >
-                  <FontAwesome name="question-circle" />
-                  {'Why can\'t I add this position to my bid list?'}
-                </Tooltip>
-              </div>
+            <Flag
+              name="flags.bidding"
+              render={() => (
+                <div className="unavailable-tooltip">
+                  <Tooltip
+                    title={availablilityText}
+                    arrow
+                    position="bottom"
+                    tabIndex="0"
+                    theme="light"
+                  >
+                    <FontAwesome name="question-circle" />
+                    {'Why can\'t I add this position to my bid list?'}
+                  </Tooltip>
+                </div>
+              )}
+            />
           }
           {
             !isProjectedVacancy &&
@@ -126,6 +135,10 @@ class PositionTitle extends Component {
     );
   }
 }
+
+PositionTitle.contextTypes = {
+  isClient: PropTypes.bool,
+};
 
 PositionTitle.propTypes = {
   details: POSITION_DETAILS,

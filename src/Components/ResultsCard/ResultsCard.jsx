@@ -15,6 +15,7 @@ import BoxShadow from '../BoxShadow';
 import { Featured, Handshake } from '../Ribbon';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
+import BidListButton from '../../Containers/BidListButton';
 
 import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString,
 getDifferentialPercentage } from '../../utilities';
@@ -95,7 +96,7 @@ class ResultsCard extends Component {
       favorites,
       favoritesPV,
     } = this.props;
-    const { isProjectedVacancy } = this.context;
+    const { isProjectedVacancy, isClient } = this.context;
 
     const pos = result.position || result;
 
@@ -160,6 +161,13 @@ class ResultsCard extends Component {
 
     const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}`}>View position</Link>;
 
+    const renderBidListButton = () => (
+      <BidListButton
+        id={result.id}
+        disabled={!get(result, 'availability.availability', true)}
+      />
+    );
+
     return (
       <MediaQueryWrapper breakpoint="screenSmMax" widthType="max">
         {matches => (
@@ -179,7 +187,7 @@ class ResultsCard extends Component {
                     {
                       !isProjectedVacancy &&
                       <Flag
-                        name="flags.bidding"
+                        name="flags.bid_count"
                         render={() => renderBidCountMobile(stats)}
                       />
                     }
@@ -199,7 +207,7 @@ class ResultsCard extends Component {
                     {
                       !isProjectedVacancy &&
                       <Flag
-                        name="flags.bidding"
+                        name="flags.bid_count"
                         render={() => renderBidCount(stats)}
                       />
                     }
@@ -244,10 +252,17 @@ class ResultsCard extends Component {
               <Row className="footer results-card-padded-section" fluid>
                 <Column columns={matches ? 8 : 6} as="section">
                   {
-                    !!favorites &&
+                    !!favorites && !isClient &&
                       <Favorite {...options.favorite} />
                   }
-                  {!isProjectedVacancy && <CompareCheck {...options.compare} />}
+                  {
+                    isClient && !isProjectedVacancy &&
+                      <Flag
+                        name="flags.bidding"
+                        render={renderBidListButton}
+                      />
+                  }
+                  {!isProjectedVacancy && !isClient && <CompareCheck {...options.compare} />}
                 </Column>
                 <Column columns={matches ? 4 : 6} as="section">
                   <div>
@@ -271,6 +286,7 @@ class ResultsCard extends Component {
 
 ResultsCard.contextTypes = {
   isProjectedVacancy: PropTypes.bool,
+  isClient: PropTypes.bool,
 };
 
 ResultsCard.propTypes = {
