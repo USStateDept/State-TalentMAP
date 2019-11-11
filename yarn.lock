@@ -9457,9 +9457,9 @@ safe-regex@^1.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-saml2-js@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/saml2-js/-/saml2-js-2.0.2.tgz#5429171e429ef3e82c9b9af9f49ce81c0a163729"
+saml2-js@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/saml2-js/-/saml2-js-2.0.5.tgz#28aa2f4772bd2453a3bb933649c6580c799a098a"
   dependencies:
     async "^2.5.0"
     debug "^2.6.0"
