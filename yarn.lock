@@ -6855,9 +6855,9 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-mock-local-storage@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.0.5.tgz#899ff300027cefed47816e6dc539bb059fcce489"
+mock-local-storage@^1.1.10:
+  version "1.1.10"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.10.tgz#09894cbc492ab3403a23f2744fbed3a81c6e1158"
   dependencies:
     core-js "^0.8.3"
     global "^4.3.2"
@@ -8538,9 +8538,9 @@ react-fast-compare@^2.0.2:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
 
-react-fontawesome@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.6.1.tgz#eddce17e7dc731aa09fd4a186688a61793a16c5c"
+react-fontawesome@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.7.1.tgz#f74f5a338fef3ee3b379820109c1cba47290f035"
   dependencies:
     prop-types "^15.5.6"
 
@@ -9457,9 +9457,9 @@ safe-regex@^1.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-saml2-js@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/saml2-js/-/saml2-js-2.0.2.tgz#5429171e429ef3e82c9b9af9f49ce81c0a163729"
+saml2-js@2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/saml2-js/-/saml2-js-2.0.5.tgz#28aa2f4772bd2453a3bb933649c6580c799a098a"
   dependencies:
     async "^2.5.0"
     debug "^2.6.0"
