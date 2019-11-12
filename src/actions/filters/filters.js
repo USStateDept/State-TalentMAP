@@ -75,7 +75,8 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         // Else, we'll want to retrieve it.
         // We'll do this for posts and missions.
         }
-        if (item.selectionRef === ENDPOINT_PARAMS.post) {
+        if (item.selectionRef === ENDPOINT_PARAMS.post
+          || item.selectionRef === ENDPOINT_PARAMS.postAP) {
           dispatch(filtersIsLoading(true));
           const endpoint = getUseAP() ?
             '/fsbid/reference/locations/' : `/orgpost/${item.codeRef}/`;

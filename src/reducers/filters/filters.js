@@ -5,11 +5,13 @@ const filterAPFilters = (data, useAP) => {
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
+    const hasAPRef = has(m, 'item.selectionRefAP');
     return {
       ...m,
       item: {
         ...m.item,
         endpoint: useAP && hasAPEndpoint ? m.item.endpointAP : m.item.endpoint,
+        selectionRef: useAP && hasAPRef ? m.item.selectionRefAP : m.item.selectionRef,
       },
       data: useAP && hasAltData ? m.dataAP : m.data,
     };
@@ -355,6 +357,7 @@ const items =
           endpoint: 'orgpost/?limit=500&is_available=true',
           endpointAP: 'fsbid/reference/locations/',
           selectionRef: ENDPOINT_PARAMS.post,
+          selectionRefAP: ENDPOINT_PARAMS.postAP,
           choices: [
           ],
         },
