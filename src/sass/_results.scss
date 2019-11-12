@@ -729,6 +729,12 @@ $results-container-width: 100% - $filter-container-width;
   }
 }
 
+.ap-container {
+  .accordion-checkbox-post {
+    min-height: inherit;
+  }
+}
+
 .language-view-all {
   font-size: .8em;
   padding: .4em;
