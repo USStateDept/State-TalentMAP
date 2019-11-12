@@ -23,7 +23,7 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
       onClick={[Function]}
       type="div"
     >
-      Leah Shadtrach
+      undefined undefined
       <FontAwesome
         name="chevron-down"
       />
@@ -69,74 +69,10 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
             queryProperty=""
             shouldClearOnSelect={false}
             suggestionTemplate={[Function]}
-            suggestions={
-              Array [
-                Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
-                Object {
-                  "first_name": "Mary",
-                  "id": 4,
-                  "last_name": "Brown",
-                },
-                Object {
-                  "first_name": "John",
-                  "id": 3,
-                  "last_name": "Daniels",
-                },
-                Object {
-                  "first_name": "Daniel",
-                  "id": 7,
-                  "last_name": "Garcia",
-                },
-                Object {
-                  "first_name": "Marcus",
-                  "id": 8,
-                  "last_name": "Johnson",
-                },
-                Object {
-                  "first_name": "Mike",
-                  "id": 2,
-                  "last_name": "Jones",
-                },
-                Object {
-                  "first_name": "Madeline",
-                  "id": 10,
-                  "last_name": "Lee",
-                },
-                Object {
-                  "first_name": "Jennifer",
-                  "id": 9,
-                  "last_name": "McAndrew",
-                },
-                Object {
-                  "first_name": "Bob",
-                  "id": 1,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Maria",
-                  "id": 6,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Elizabeth",
-                  "id": 5,
-                  "last_name": "Walters",
-                },
-              ]
-            }
+            suggestions={Array []}
             templateProps={
               Object {
-                "value": Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
+                "value": Object {},
               }
             }
           />
@@ -216,74 +152,10 @@ exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
             queryProperty=""
             shouldClearOnSelect={false}
             suggestionTemplate={[Function]}
-            suggestions={
-              Array [
-                Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
-                Object {
-                  "first_name": "Mary",
-                  "id": 4,
-                  "last_name": "Brown",
-                },
-                Object {
-                  "first_name": "John",
-                  "id": 3,
-                  "last_name": "Daniels",
-                },
-                Object {
-                  "first_name": "Daniel",
-                  "id": 7,
-                  "last_name": "Garcia",
-                },
-                Object {
-                  "first_name": "Marcus",
-                  "id": 8,
-                  "last_name": "Johnson",
-                },
-                Object {
-                  "first_name": "Mike",
-                  "id": 2,
-                  "last_name": "Jones",
-                },
-                Object {
-                  "first_name": "Madeline",
-                  "id": 10,
-                  "last_name": "Lee",
-                },
-                Object {
-                  "first_name": "Jennifer",
-                  "id": 9,
-                  "last_name": "McAndrew",
-                },
-                Object {
-                  "first_name": "Bob",
-                  "id": 1,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Maria",
-                  "id": 6,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Elizabeth",
-                  "id": 5,
-                  "last_name": "Walters",
-                },
-              ]
-            }
+            suggestions={Array []}
             templateProps={
               Object {
-                "value": Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
+                "value": Object {},
               }
             }
           />

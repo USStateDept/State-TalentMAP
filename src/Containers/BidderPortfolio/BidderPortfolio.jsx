@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData } from '../../actions/bidderPortfolio';
+import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData,
+  bidderPortfolioCDOsFetchData } from '../../actions/bidderPortfolio';
 import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS } from '../../Constants/PropTypes';
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from '../../Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
@@ -26,6 +28,14 @@ class BidderPortfolio extends Component {
   componentWillMount() {
     this.getBidderPortfolio();
     this.props.fetchBidderPortfolioCounts();
+    this.props.fetchBidderPortfolioCDOs();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(nextProps.cdo, this.props.cdo)) {
+      this.getBidderPortfolio();
+      this.props.fetchBidderPortfolioCounts();
+    }
   }
 
   // For when we need to UPDATE the ENTIRE value of a filter.
@@ -73,8 +83,8 @@ class BidderPortfolio extends Component {
       limit: this.state.defaultPageSize.value,
     };
     const queryState = queryString.parse(this.state.query.value);
-    const newQueryString = queryString.stringify(Object.assign(query, queryState));
-    return newQueryString;
+    const newQuery = { ...query, ...queryState };
+    return newQuery;
   }
 
   render() {
@@ -107,6 +117,8 @@ BidderPortfolio.propTypes = {
   bidderPortfolioCountsIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioCountsHasErrored: PropTypes.bool.isRequired,
   fetchBidderPortfolioCounts: PropTypes.func.isRequired,
+  fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
+  cdo: PropTypes.shape({}),
 };
 
 BidderPortfolio.defaultProps = {
@@ -117,6 +129,8 @@ BidderPortfolio.defaultProps = {
   bidderPortfolioCounts: {},
   bidderPortfolioCountsIsLoading: false,
   bidderPortfolioCountsHasErrored: false,
+  fetchBidderPortfolioCDOs: EMPTY_FUNCTION,
+  cdo: {},
 };
 
 const mapStateToProps = state => ({
@@ -126,11 +140,16 @@ const mapStateToProps = state => ({
   bidderPortfolioCounts: state.bidderPortfolioCounts,
   bidderPortfolioCountsIsLoading: state.bidderPortfolioCountsIsLoading,
   bidderPortfolioCountsHasErrored: state.bidderPortfolioCountsHasErrored,
+  bidderPortfolioCDOs: state.bidderPortfolioCDOs,
+  bidderPortfolioCDOsIsLoading: state.bidderPortfolioCDOsIsLoading,
+  bidderPortfolioCDOsHasErrored: state.bidderPortfolioCDOsHasErrored,
+  cdo: state.bidderPortfolioSelectedCDO,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: query => dispatch(bidderPortfolioFetchData(query)),
   fetchBidderPortfolioCounts: () => dispatch(bidderPortfolioCountsFetchData()),
+  fetchBidderPortfolioCDOs: () => dispatch(bidderPortfolioCDOsFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidderPortfolio));

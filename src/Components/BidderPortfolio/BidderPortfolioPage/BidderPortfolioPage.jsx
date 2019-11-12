@@ -6,7 +6,6 @@ import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
 import BidControls from '../BidControls';
 import BidderPortfolioSearch from '../BidderPortfolioSearch';
-import { propOrDefault } from '../../../utilities';
 
 class BidderPortfolioPage extends Component {
   constructor(props) {
@@ -30,11 +29,11 @@ class BidderPortfolioPage extends Component {
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
-    bidderPortfolioCounts } = this.props;
+    bidderPortfolioCounts, bidderPortfolioCountsIsLoading } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.
-    const navDataIsLoading = !propOrDefault(bidderPortfolioCounts, 'all_clients', false);
+    const navDataIsLoading = bidderPortfolioCountsIsLoading && !bidderPortfolioCounts.all_clients;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = bidderPortfolioIsLoading &&
       !bidderPortfolioHasErrored;
@@ -97,6 +96,11 @@ BidderPortfolioPage.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
   bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
+  bidderPortfolioCountsIsLoading: PropTypes.bool.isRequired,
+};
+
+BidderPortfolioPage.defaultProps = {
+  bidderPortfolioCountsIsLoading: false,
 };
 
 export default BidderPortfolioPage;
