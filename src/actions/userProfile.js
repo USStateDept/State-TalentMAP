@@ -154,8 +154,11 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     axios.all([getAction(), getPosition()])
       .then(axios.spread((action, position) => {
         const pos = position.data;
+        const undo = () => dispatch(userProfileToggleFavoritePosition(
+          id, false, refreshFavorites, isPV,
+        ));
         const message = remove ?
-          SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position) :
+          SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position, undo) :
           SystemMessages.ADD_FAVORITE_SUCCESS(pos.position);
         const title = remove ? SystemMessages.DELETE_FAVORITE_TITLE
           : SystemMessages.ADD_FAVORITE_TITLE;
