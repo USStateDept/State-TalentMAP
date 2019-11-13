@@ -93,8 +93,10 @@ exports[`BidListComponent matches snapshot 1`] = `
         declineBid={[Function]}
         deleteBid={[Function]}
         priorityExists={true}
+        readOnly={false}
         showBidCount={true}
         submitBid={[Function]}
+        useCDOView={false}
         userProfile={Object {}}
       />
       <BidTrackerCard
@@ -157,8 +159,10 @@ exports[`BidListComponent matches snapshot 1`] = `
         declineBid={[Function]}
         deleteBid={[Function]}
         priorityExists={true}
+        readOnly={false}
         showBidCount={true}
         submitBid={[Function]}
+        useCDOView={false}
         userProfile={Object {}}
       />
       <BidTrackerCard
@@ -218,8 +222,10 @@ exports[`BidListComponent matches snapshot 1`] = `
         declineBid={[Function]}
         deleteBid={[Function]}
         priorityExists={true}
+        readOnly={false}
         showBidCount={true}
         submitBid={[Function]}
+        useCDOView={false}
         userProfile={Object {}}
       />
     </div>

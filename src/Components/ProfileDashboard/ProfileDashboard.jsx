@@ -110,7 +110,11 @@ const ProfileDashboard = ({
                       className="user-dashboard-section-container user-dashboard-column-3"
                     >
                       <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                        <BidList bids={bidList} showMoreLink={!isPublic} />
+                        <BidList
+                          bids={bidList}
+                          isPublic={isPublic}
+                          userId={userProfile.id}
+                        />
                       </BoxShadow>
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Assignments assignments={userProfile.assignments} />

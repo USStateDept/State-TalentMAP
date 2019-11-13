@@ -196,14 +196,21 @@ export function clientBidListFetchData(ordering = 'draft_date') {
   };
 }
 
-export function submitBid(id) {
+export function submitBid(id, clientId) {
   return (dispatch) => {
     const idString = id.toString();
     // reset the states to ensure only one message can be shown
     dispatch(routeChangeResetState());
     dispatch(submitBidIsLoading(true));
     dispatch(submitBidHasErrored(false));
-    api().put(`/fsbid/bidlist/position/${idString}/submit/`)
+
+    let url = `/fsbid/bidlist/position/${idString}/submit/`;
+
+    if (clientId) {
+      url = `/fsbid/bidlist/position/${clientId}/${idString}/submit/`; /* TODO - use bid as client endpoint */
+    }
+
+    api().put(url)
       .then(response => response.data)
       .then(() => {
         dispatch(submitBidHasErrored(false));
@@ -218,14 +225,21 @@ export function submitBid(id) {
   };
 }
 
-export function acceptBid(id) {
+export function acceptBid(id, clientId) {
   return (dispatch) => {
     const idString = id.toString();
     // reset the states to ensure only one message can be shown
     dispatch(routeChangeResetState());
     dispatch(acceptBidIsLoading(true));
     dispatch(acceptBidHasErrored(false));
-    api().get(`/bid/${idString}/accept_handshake/`)
+
+    let url = `/bid/${idString}/accept_handshake/`;
+
+    if (clientId) {
+      url = `/fsbid/bidlist/position/${clientId}/${idString}/accept_handshake/`; /* TODO - use bid as client endpoint */
+    }
+
+    api().get(url)
       .then(response => response.data)
       .then(() => {
         dispatch(acceptBidHasErrored(false));
@@ -240,14 +254,21 @@ export function acceptBid(id) {
   };
 }
 
-export function declineBid(id) {
+export function declineBid(id, clientId) {
   return (dispatch) => {
     const idString = id.toString();
     // reset the states to ensure only one message can be shown
     dispatch(routeChangeResetState());
     dispatch(declineBidIsLoading(true));
     dispatch(declineBidHasErrored(false));
-    api().get(`/bid/${idString}/decline_handshake/`)
+
+    let url = `/bid/${idString}/decline_handshake/`;
+
+    if (clientId) {
+      url = `/fsbid/bidlist/position/${clientId}/${idString}/decline_handshake/`; /* TODO - use bid as client endpoint */
+    }
+
+    api().get(url)
       .then(response => response.data)
       .then(() => {
         dispatch(declineBidHasErrored(false));
@@ -262,7 +283,7 @@ export function declineBid(id) {
   };
 }
 
-export function toggleBidPosition(id, remove, isClient) {
+export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
   const idString = id.toString();
   return (dispatch, getState) => {
     // reset the states to ensure only one message can be shown
@@ -278,17 +299,23 @@ export function toggleBidPosition(id, remove, isClient) {
 
     let client;
 
+    // using the client context
     if (isClient) {
       const { client: client$ } = getState().clientView;
       client = client$;
-      config.url = `/fsbid/bidlist/position/${client.id}/${idString}`; /* TODO - use bid as client endpoint */
+      config.url = `/fsbid/bidlist/position/${client.id}/${idString}/`; /* TODO - use bid as client endpoint */
+    }
+
+    // explicitly using a clientId
+    if (clientId) {
+      config.url = `/fsbid/bidlist/position/${clientId}/${idString}/`; /* TODO - use bid as client endpoint */
     }
 
     api()(config)
       .then(() => {
         const message = remove ?
           SystemMessages.DELETE_BID_ITEM_SUCCESS :
-          SystemMessages.ADD_BID_ITEM_SUCCESS({ client });
+          SystemMessages.ADD_BID_ITEM_SUCCESS({ client, hideLink: !!fromTracker });
         dispatch(bidListToggleSuccess(message));
         dispatch(toastSuccess(message));
         dispatch(bidListToggleIsLoading(false, id));
