@@ -28,23 +28,25 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
       <div
         className="usa-grid-full draft-submission-buttons-container"
       >
-        <button
-          className="tm-button-transparent tm-button-submit-bid"
-          onClick={[Function]}
-        >
-          <FontAwesome
-            name="paper-plane-o"
-          />
-           Submit Bid
-        </button>
-        <InteractiveElement
-          className="remove-bid-link"
-          onClick={[Function]}
-          role="link"
-          type="div"
-        >
-          Remove Bid
-        </InteractiveElement>
+        <div>
+          <button
+            className="tm-button-transparent tm-button-submit-bid"
+            onClick={[Function]}
+          >
+            <FontAwesome
+              name="paper-plane-o"
+            />
+             Submit Bid
+          </button>
+          <InteractiveElement
+            className="remove-bid-link"
+            onClick={[Function]}
+            role="link"
+            type="div"
+          >
+            Remove Bid
+          </InteractiveElement>
+        </div>
       </div>
     </div>
     <div
