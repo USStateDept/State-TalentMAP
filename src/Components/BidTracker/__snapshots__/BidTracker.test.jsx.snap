@@ -254,6 +254,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         declineBid={[Function]}
         deleteBid={[Function]}
         submitBid={[Function]}
+        useCDOView={false}
         userProfile={
           Object {
             "bid_statistics": Array [
