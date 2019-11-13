@@ -266,6 +266,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         api().get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
+            const data$ = getUseAP() ? item.initialDataAP : item.initialData;
             let results$ = response.data.results;
             if (item.item.description === 'post') {
               results$ = !getUseAP() ? get(response, 'data.results', []) :
@@ -282,9 +283,9 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             // Also determine whether the results array exists,
             // or if the array is passed at the top-level.
             if (results$) {
-              itemFilter.data = union(results$, item.initialData);
+              itemFilter.data = union(results$, data$);
             } else if (isArray(response.data)) {
-              itemFilter.data = union(response.data, item.initialData);
+              itemFilter.data = union(response.data, data$);
             }
             return itemFilter;
           })
