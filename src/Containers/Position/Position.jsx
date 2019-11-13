@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import { withRouter } from 'react-router';
+import { get } from 'lodash';
 import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 // Actions
 import { positionDetailsFetchData } from '../../actions/positionDetails';
@@ -28,6 +29,7 @@ import {
   DESCRIPTION_EDIT_HAS_ERRORED,
   EMPTY_FUNCTION,
   HIGHLIGHT_POSITION,
+  BIDDER_OBJECT,
 } from '../../Constants/PropTypes';
 
 class Position extends Component {
@@ -90,7 +92,12 @@ class Position extends Component {
       highlightPosition,
       onHighlight,
       isProjectedVacancy,
+      client,
+      clientIsLoading,
+      clientHasErrored,
     } = this.props;
+
+    const isClient = client && !!client.id && !clientIsLoading && !clientHasErrored;
 
     return (
       <PositionDetails
@@ -115,6 +122,7 @@ class Position extends Component {
         highlightPosition={highlightPosition}
         onHighlight={onHighlight}
         isProjectedVacancy={isProjectedVacancy}
+        isClient={isClient}
       />
     );
   }
@@ -156,6 +164,9 @@ Position.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  client: BIDDER_OBJECT,
+  clientIsLoading: PropTypes.bool,
+  clientHasErrored: PropTypes.bool,
 };
 
 Position.defaultProps = {
@@ -182,6 +193,9 @@ Position.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
+  client: {},
+  clientIsLoading: false,
+  clientHasErrored: false,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -201,6 +215,9 @@ const mapStateToProps = (state, ownProps) => ({
   descriptionEditIsLoading: state.descriptionEditIsLoading,
   descriptionEditSuccess: state.descriptionEditSuccess,
   highlightPosition: state.highlightPosition,
+  client: get(state, 'clientView.client'),
+  clientIsLoading: get(state, 'clientView.isLoading'),
+  clientHasErrored: get(state, 'clientView.hasErrored'),
 });
 
 export const mapDispatchToProps = dispatch => ({

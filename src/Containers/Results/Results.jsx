@@ -19,7 +19,7 @@ import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import CompareDrawer from '../../Components/CompareDrawer';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
 USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
-EMPTY_FUNCTION, BID_LIST } from '../../Constants/PropTypes';
+EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
@@ -250,10 +250,12 @@ class Results extends Component {
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
-            postSearchHasErrored, shouldShowSearchBar, bidList } = this.props;
+            postSearchHasErrored, shouldShowSearchBar, bidList,
+            client, clientIsLoading, clientHasErrored } = this.props;
     const { filtersIsLoading } = this.state;
     const filters$ = shouldUseAPFilters() ? filtersAP : filters;
     const showClear = this.getQueryExists();
+    const isClient = client && !!client.id && !clientIsLoading && !clientHasErrored;
     return (
       <div>
         <ResultsPage
@@ -289,6 +291,7 @@ class Results extends Component {
           bidList={bidList.results}
           isProjectedVacancy={results.isProjectedVacancy}
           showClear={showClear}
+          isClient={isClient}
         />
         <CompareDrawer />
       </div>
@@ -328,6 +331,9 @@ Results.propTypes = {
   bidListFetchData: PropTypes.func.isRequired,
   defaultPageSize: PropTypes.number.isRequired,
   storeSearch: PropTypes.func,
+  client: BIDDER_OBJECT,
+  clientIsLoading: PropTypes.bool,
+  clientHasErrored: PropTypes.bool,
 };
 
 Results.defaultProps = {
@@ -352,6 +358,9 @@ Results.defaultProps = {
   debounceTimeInMs: 50,
   bidList: { results: [] },
   storeSearch: EMPTY_FUNCTION,
+  client: {},
+  clientIsLoading: false,
+  clientHasErrored: false,
 };
 
 const mapStateToProps = state => ({
@@ -374,6 +383,9 @@ const mapStateToProps = state => ({
   shouldShowSearchBar: state.shouldShowSearchBar,
   bidList: state.bidListFetchDataSuccess,
   defaultPageSize: get(state, `sortPreferences.${POSITION_PAGE_SIZES_TYPE}.defaultSort`, POSITION_PAGE_SIZES.defaultSort),
+  client: get(state, 'clientView.client'),
+  clientIsLoading: get(state, 'clientView.isLoading'),
+  clientHasErrored: get(state, 'clientView.hasErrored'),
 });
 
 export const mapDispatchToProps = dispatch => ({

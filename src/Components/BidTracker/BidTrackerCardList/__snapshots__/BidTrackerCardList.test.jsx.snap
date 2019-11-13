@@ -65,6 +65,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     isPriority={false}
     priorityExists={true}
     submitBid={[Function]}
+    useCDOView={false}
     userProfile={
       Object {
         "bid_statistics": Array [
@@ -188,6 +189,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     isPriority={false}
     priorityExists={true}
     submitBid={[Function]}
+    useCDOView={false}
     userProfile={
       Object {
         "bid_statistics": Array [
@@ -308,6 +310,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     isPriority={false}
     priorityExists={true}
     submitBid={[Function]}
+    useCDOView={false}
     userProfile={
       Object {
         "bid_statistics": Array [

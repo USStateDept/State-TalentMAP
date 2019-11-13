@@ -122,4 +122,16 @@ describe('BidListButtonComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+
+  it('matches snapshot when context.client === true', () => {
+    const wrapper = shallow(
+      <BidListButton
+        id={1}
+        toggleBidPosition={() => {}}
+        compareArray={bidList}
+        isLoading={false}
+      />, { context: { isClient: true } },
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
 });

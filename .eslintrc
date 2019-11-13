@@ -37,6 +37,7 @@
   // overrides to the Airbnb style follow
   "rules": {
     "complexity": ["error", { "max": 9 }],
+    "no-confusing-arrow": [0],
     // allow names to be the same as the default for Redux container testing
     "import/no-named-as-default": [0],
     // allow test files to import packages in devDependencies

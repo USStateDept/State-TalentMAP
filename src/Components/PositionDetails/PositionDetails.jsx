@@ -27,6 +27,10 @@ class PositionDetails extends Component {
     };
   }
 
+  getChildContext() {
+    return { isClient: this.props.isClient };
+  }
+
   // The additional details section should match after edits are made,
   // so we set the content to a value in local state when ever any edits are made.
   editDescriptionContent(content) {
@@ -112,6 +116,10 @@ class PositionDetails extends Component {
   }
 }
 
+PositionDetails.childContextTypes = {
+  isClient: PropTypes.bool,
+};
+
 PositionDetails.propTypes = {
   details: POSITION_DETAILS,
   isLoading: PropTypes.bool,
@@ -127,6 +135,7 @@ PositionDetails.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isClient: PropTypes.bool,
 };
 
 PositionDetails.defaultProps = {
@@ -141,6 +150,7 @@ PositionDetails.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
+  isClient: false,
 };
 
 export default PositionDetails;
