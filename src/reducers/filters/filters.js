@@ -239,6 +239,20 @@ const items =
       },
       {
         item: {
+          title: 'Functional Bureaus',
+          sort: 105,
+          description: 'functionalRegion',
+          endpoint: 'fsbid/reference/bureaus/?is_bureau=true&is_regional=false',
+          selectionRef: ENDPOINT_PARAMS.org,
+          text: 'Choose functional bureau',
+          onlyAvailablePositions: true,
+          choices: [
+          ],
+        },
+        data: [],
+      },
+      {
+        item: {
           title: 'COLA',
           sort: 800,
           bool: true, // use bool: true to share a common HTML template
