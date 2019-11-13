@@ -662,4 +662,4 @@ export const scrollToGlossaryTerm = (term) => {
 
 export const shouldUseAPFilters = () => checkFlag('flags.available_positions');
 
-export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
+export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName;
