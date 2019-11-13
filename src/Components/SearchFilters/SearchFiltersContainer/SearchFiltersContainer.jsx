@@ -17,6 +17,7 @@ import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointP
 
 const useBidding = () => checkFlag('flags.bidding');
 const usePV = () => checkFlag('flags.projected_vacancy');
+const useAP = () => checkFlag('flags.available_positions');
 
 class SearchFiltersContainer extends Component {
 
@@ -295,8 +296,10 @@ class SearchFiltersContainer extends Component {
       }
     });
 
+    const apContainerClass = useAP() ? 'ap-container' : '';
+
     return (
-      <div>
+      <div className={apContainerClass}>
         {
           projectedVacancyFilter &&
           <ProjectedVacancyFilter
