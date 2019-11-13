@@ -23,7 +23,7 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
       onClick={[Function]}
       type="div"
     >
-      undefined undefined
+      Mary Brown
       <FontAwesome
         name="chevron-down"
       />
@@ -69,10 +69,27 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
             queryProperty=""
             shouldClearOnSelect={false}
             suggestionTemplate={[Function]}
-            suggestions={Array []}
+            suggestions={
+              Array [
+                Object {
+                  "first_name": "Mary",
+                  "id": 4,
+                  "last_name": "Brown",
+                },
+                Object {
+                  "first_name": "John",
+                  "id": 3,
+                  "last_name": "Daniels",
+                },
+              ]
+            }
             templateProps={
               Object {
-                "value": Object {},
+                "value": Object {
+                  "first_name": "Mary",
+                  "id": 4,
+                  "last_name": "Brown",
+                },
               }
             }
           />
@@ -152,10 +169,27 @@ exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
             queryProperty=""
             shouldClearOnSelect={false}
             suggestionTemplate={[Function]}
-            suggestions={Array []}
+            suggestions={
+              Array [
+                Object {
+                  "first_name": "Mary",
+                  "id": 4,
+                  "last_name": "Brown",
+                },
+                Object {
+                  "first_name": "John",
+                  "id": 3,
+                  "last_name": "Daniels",
+                },
+              ]
+            }
             templateProps={
               Object {
-                "value": Object {},
+                "value": Object {
+                  "first_name": "Mary",
+                  "id": 4,
+                  "last_name": "Brown",
+                },
               }
             }
           />

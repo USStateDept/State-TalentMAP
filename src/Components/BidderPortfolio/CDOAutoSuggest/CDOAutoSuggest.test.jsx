@@ -5,25 +5,29 @@ import sinon from 'sinon';
 import CDOAutoSuggest, { getDisplayProperty } from './CDOAutoSuggest';
 
 describe('CDOAutoSuggest', () => {
+  const props = {
+    cdos: [
+      { first_name: 'John', last_name: 'Daniels', id: 3 },
+      { first_name: 'Mary', last_name: 'Brown', id: 4 },
+    ],
+    selection: { first_name: 'Mary', last_name: 'Brown', id: 4 },
+  };
+
   it('is defined', () => {
-    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     expect(wrapper).toBeDefined();
   });
 
   it('sets calls the prop on onSuggestionSelected()', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent setCDO={spy} />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} setCDO={spy} />);
     global.document.getElementById = () => ({ focus: () => {} });
     wrapper.instance().onSuggestionSelected({ id: 1 });
     sinon.assert.calledOnce(spy);
   });
 
   it('sets state on getFilteredUsers()', () => {
-    const cdos = [
-      { first_name: 'John', last_name: 'Daniels', id: 3 },
-      { first_name: 'Mary', last_name: 'Brown', id: 4 },
-    ];
-    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent cdos={cdos} />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     wrapper.instance().getFilteredUsers('daniels');
     expect(wrapper.instance().state.suggestions.length).toBe(1);
   });
@@ -35,13 +39,13 @@ describe('CDOAutoSuggest', () => {
   });
 
   it('sets state on showDropdown()', () => {
-    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     wrapper.instance().showDropdown();
     expect(wrapper.instance().state.isActive).toBe(true);
   });
 
   it('toggles state on toggleDropdown()', () => {
-    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     wrapper.instance().toggleDropdown();
     expect(wrapper.instance().state.isActive).toBe(true);
     wrapper.instance().toggleDropdown();
@@ -56,12 +60,12 @@ describe('CDOAutoSuggest', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot after toggling', () => {
-    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     wrapper.find('InteractiveElement').simulate('click');
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
