@@ -154,8 +154,11 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     axios.all([getAction(), getPosition()])
       .then(axios.spread((action, position) => {
         const pos = position.data;
+        // The undo action. Take the props that were already passed in,
+        // except declare the second argument (remove) to the opposite of what was
+        // originally provided.
         const undo = () => dispatch(userProfileToggleFavoritePosition(
-          id, false, refreshFavorites, isPV,
+          id, !remove, refreshFavorites, isPV,
         ));
         const message = remove ?
           SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position, undo) :

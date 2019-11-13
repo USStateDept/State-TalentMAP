@@ -12,7 +12,7 @@ const RemoveSuccess = ({ pos, onToggle }) => (
       onClick={onToggle}
     >
         Undo
-    </InteractiveElement>
+    </InteractiveElement>.
   </span>
 );
 
