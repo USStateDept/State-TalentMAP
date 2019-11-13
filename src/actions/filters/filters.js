@@ -8,6 +8,7 @@ import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescrip
   doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
+const getUseAP = () => checkFlag('flags.available_positions');
 
 export function filtersHasErrored(bool) {
   return {
@@ -74,11 +75,29 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         // Else, we'll want to retrieve it.
         // We'll do this for posts and missions.
         }
-        if (item.selectionRef === ENDPOINT_PARAMS.post) {
+        if (item.selectionRef === ENDPOINT_PARAMS.post
+          || item.selectionRef === ENDPOINT_PARAMS.postAP) {
           dispatch(filtersIsLoading(true));
-          return api().get(`/orgpost/${item.codeRef}/`)
+          const endpoint = getUseAP() ?
+            '/fsbid/reference/locations/' : `/orgpost/${item.codeRef}/`;
+          return api().get(endpoint)
           .then((response) => {
-            const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
+            // TODO - this is dummy logic to get a single location,
+            // since there is no fsbid endpoint to do so. Once that exists,
+            // we can update this.
+            const getAPLocation = () => {
+              const obj = get(response, 'data', [])
+                .find(f => f.code === item.codeRef) || {};
+              return {
+                id: obj.code,
+                location: {
+                  ...obj,
+                },
+              };
+            };
+
+            const results$ = !getUseAP() ? get(response, 'data', {}) : getAPLocation();
+            const obj = Object.assign(results$, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
             // and return the object
@@ -247,11 +266,23 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         api().get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
+            let results$ = response.data.results;
+            if (item.item.description === 'post') {
+              results$ = !getUseAP() ? get(response, 'data.results', []) :
+                get(response, 'data', [])
+                  .map(m => ({
+                    ...m,
+                    id: m.code,
+                    location: {
+                      ...m,
+                    },
+                  }));
+            }
             // We have a mix of server-supplied and hard-coded data, so we combine them with union.
             // Also determine whether the results array exists,
             // or if the array is passed at the top-level.
-            if (response.data.results) {
-              itemFilter.data = union(response.data.results, item.initialData);
+            if (results$) {
+              itemFilter.data = union(results$, item.initialData);
             } else if (isArray(response.data)) {
               itemFilter.data = union(response.data, item.initialData);
             }
