@@ -21,12 +21,12 @@ import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../ut
 
 class BidTrackerCard extends Component {
   getChildContext() {
-    const { bid, condensedView, priorityExists } = this.props;
-    return { condensedView, priorityExists, isPriority: bid.is_priority };
+    const { bid, condensedView, priorityExists, readOnly } = this.props;
+    return { condensedView, priorityExists, isPriority: bid.is_priority, readOnly };
   }
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
-      showBidCount, userProfile } = this.props;
+      showBidCount, userProfile, useCDOView } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
     // determine whether we should show the contacts section based on the status
@@ -54,6 +54,7 @@ class BidTrackerCard extends Component {
             showBidCount={showBidCount$}
             hideDelete={priorityExists}
             questionText={questionText}
+            useCDOView={useCDOView}
           />
           <div className={`usa-grid-full padded-container-inner bid-tracker-bid-steps-container ${statusClass}`}>
             <BidSteps bid={bid} />
@@ -104,6 +105,7 @@ BidTrackerCard.propTypes = {
   showBidCount: PropTypes.bool,
   condensedView: PropTypes.bool,
   priorityExists: PropTypes.bool,
+  useCDOView: PropTypes.bool,
 };
 
 BidTrackerCard.defaultProps = {
@@ -113,12 +115,14 @@ BidTrackerCard.defaultProps = {
   showBidCount: true,
   condensedView: false,
   priorityExists: false,
+  useCDOView: false,
 };
 
 BidTrackerCard.childContextTypes = {
   condensedView: PropTypes.bool,
   priorityExists: PropTypes.bool,
   isPriority: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };
 
 export default BidTrackerCard;

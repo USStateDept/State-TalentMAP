@@ -23,7 +23,8 @@ class BidTrackerCardTop extends Component {
   }
 
   render() {
-    const { bid, hideDelete, showBidCount, questionText } = this.props;
+    const { bid, hideDelete, showBidCount, questionText, useCDOView } = this.props;
+    const { readOnly } = this.context;
     const { position } = bid;
     const bidStatistics = get(bid, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
@@ -69,14 +70,13 @@ class BidTrackerCardTop extends Component {
                 </div>
             }
             <div className="bid-tracker-actions-container">
-              { bid.can_delete && !hideDelete &&
+              { bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
                 <ConfirmLink
                   className="remove-bid-link"
                   defaultText={<span><FontAwesome name="close" />Remove bid</span>}
                   role="link"
                   onClick={this.onDeleteBid}
-                />
-              }
+                /> }
             </div>
           </div>
         </div>
@@ -84,6 +84,10 @@ class BidTrackerCardTop extends Component {
     );
   }
 }
+
+BidTrackerCardTop.contextTypes = {
+  readOnly: PropTypes.bool,
+};
 
 BidTrackerCardTop.propTypes = {
   bid: BID_OBJECT.isRequired,
@@ -95,6 +99,7 @@ BidTrackerCardTop.propTypes = {
   deleteBid: PropTypes.func.isRequired,
   showBidCount: PropTypes.bool,
   hideDelete: PropTypes.bool,
+  useCDOView: PropTypes.bool,
 };
 
 BidTrackerCardTop.defaultProps = {
@@ -102,6 +107,7 @@ BidTrackerCardTop.defaultProps = {
   showQuestion: true,
   showBidCount: true,
   hideDelete: false,
+  useCDOView: false,
 };
 
 export default BidTrackerCardTop;
