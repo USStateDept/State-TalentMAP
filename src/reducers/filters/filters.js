@@ -73,7 +73,7 @@ const items =
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
-          endpointAP: 'fsbid/reference/codes/',
+          endpointAP: null, // because we check for 'has' in filterAPFilters()
           selectionRef: ENDPOINT_PARAMS.skill,
           text: 'Choose Skills',
         },
@@ -87,6 +87,7 @@ const items =
           title: 'Skill Cone',
           description: 'skillCone',
           endpoint: 'skill/cone/',
+          endpointAP: 'fsbid/reference/cones/',
         },
         data: [
         ],
