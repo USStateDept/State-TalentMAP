@@ -521,7 +521,8 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 
 export const getPostName = (post, defaultValue = null) => {
   let valueToReturn = defaultValue;
-  if (propOrDefault(post, 'location.city') && propOrDefault(post, 'location.country') === 'United States') {
+  if (propOrDefault(post, 'location.city') &&
+    (propOrDefault(post, 'location.country') === 'United States' || propOrDefault(post, 'location.country') === 'USA')) {
     valueToReturn = `${post.location.city}, ${post.location.state}`;
   } else if (propOrDefault(post, 'location.city')) {
     valueToReturn = `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
@@ -661,4 +662,4 @@ export const scrollToGlossaryTerm = (term) => {
 
 export const shouldUseAPFilters = () => checkFlag('flags.available_positions');
 
-export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
+export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName;
