@@ -1,6 +1,8 @@
 import { getPostName } from '../../utilities';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
+import { checkFlag } from '../../flags';
 
+const getUseAP = () => checkFlag('flags.available_positions');
 // Attempt to map the non-numeric grade codes to a full description.
 // If no match is found, return the unmodified code.
 export function getCustomGradeDescription(gradeCode) {
@@ -24,7 +26,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     case 'region':
       return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
     case 'functionalRegion':
-      return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
+      return (getUseAP() ? `(${filterItemObject.short_description}) ${filterItemObject.long_description}` : false);
     case 'skill':
       return `${filterItemObject.description} (${filterItemObject.code})`;
     case 'post':
