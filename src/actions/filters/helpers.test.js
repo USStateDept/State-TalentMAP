@@ -24,7 +24,7 @@ describe('filter helpers', () => {
     ).toBe('(t) test');
     expect(getFilterCustomDescription(
       { item: { description: 'functionalRegion' } }, { short_description: 't', long_description: 'test' }),
-    ).toBe('(t) test');
+    ).toBeFalsy();
     expect(getFilterCustomDescription(
       { item: { description: 'skill' } }, { description: 'test', code: 't' }),
     ).toBe('test (t)');
