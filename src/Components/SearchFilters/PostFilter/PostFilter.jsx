@@ -64,11 +64,18 @@ class PostFilter extends Component {
   }
 
   getAllDomesticCodes(props = this.props) {
-    return props.item.data.slice().filter(b => (b.location && b.location.country === 'United States'));
+    return props.item.data.slice().filter(b => (
+      b.location &&
+      (b.location.country === 'United States' || b.location.country === 'USA')
+    ));
   }
 
   getAllOverseasCodes(props = this.props) {
-    return props.item.data.slice().filter(b => (b.location && b.location.country !== 'United States'));
+    return props.item.data.slice().filter(b => (
+      b.location &&
+      b.location.country !== 'United States' &&
+      b.location.country !== 'USA'
+    ));
   }
 
   render() {
