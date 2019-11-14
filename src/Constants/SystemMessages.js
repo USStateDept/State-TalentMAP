@@ -1,4 +1,5 @@
 import FavoriteSuccess from '../Components/FavoriteMessages/Success';
+import RemoveSuccess from '../Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from '../Components/BidListMessages/Success';
 import SavedSearchSuccess from '../Components/SavedSearchMessages/Success';
 
@@ -38,13 +39,13 @@ export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this
 
 export const DELETE_BID_ITEM_SUCCESS = 'Bid successfully removed.';
 export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
-export const ADD_BID_ITEM_SUCCESS = BidAddSuccess();
+export const ADD_BID_ITEM_SUCCESS = (props = {}) => BidAddSuccess(props);
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
 
 export const ADD_FAVORITE_TITLE = 'Favorite Added';
 export const DELETE_FAVORITE_TITLE = 'Favorite Removed';
 export const ERROR_FAVORITE_TITLE = 'Favorite Error';
-export const DELETE_FAVORITE_SUCCESS = pos => `${pos.title} (${pos.position_number}) has been successfully removed from favorites.`;
+export const DELETE_FAVORITE_SUCCESS = (pos, onToggle) => RemoveSuccess({ pos, onToggle });
 export const DELETE_FAVORITE_ERROR = () => "We're experiencing an error attemtping to remove this position to your Favorites. Please try again.";
 export const ADD_FAVORITE_SUCCESS = pos => FavoriteSuccess({ pos });
 export const ADD_FAVORITE_ERROR = () => "We're experiencing an error attemtping to add this position to your Favorites. Please try again.";

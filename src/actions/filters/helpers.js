@@ -34,7 +34,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     case 'language':
       // language code NONE gets displayed differently
       return filterItemObject.code === COMMON_PROPERTIES.NULL_LANGUAGE ?
-        filterItemObject.customDescription
+        filterItemObject.customDescription || filterItemObject.formal_description
         :
         `${filterItemObject.formal_description} (${filterItemObject.code})`;
     case 'grade':
