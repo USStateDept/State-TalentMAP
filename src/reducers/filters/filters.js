@@ -5,11 +5,13 @@ const filterAPFilters = (data, useAP) => {
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
+    const hasAPSelectRef = has(m, 'item.selectionRefAP');
     return {
       ...m,
       item: {
         ...m.item,
         endpoint: useAP && hasAPEndpoint ? m.item.endpointAP : m.item.endpoint,
+        selectionRef: hasAPSelectRef ? m.item.selectionRefAP : m.item.selectionRef,
       },
       data: useAP && hasAltData ? m.dataAP : m.data,
     };
@@ -230,22 +232,10 @@ const items =
           sort: 105,
           description: 'functionalRegion',
           endpoint: 'organization/group/',
+          endpointAP: 'fsbid/reference/bureaus/?is_bureau=true&is_regional=true',
           selectionRef: ENDPOINT_PARAMS.functionalOrg,
+          selectionRefAP: ENDPOINT_PARAMS.org,
           text: 'Choose functional bureau',
-          choices: [
-          ],
-        },
-        data: [],
-      },
-      {
-        item: {
-          title: 'Functional Bureaus',
-          sort: 105,
-          description: 'functionalRegion',
-          endpoint: 'fsbid/reference/bureaus/?is_bureau=true&is_regional=false',
-          selectionRef: ENDPOINT_PARAMS.org,
-          text: 'Choose functional bureau',
-          onlyAvailablePositions: true,
           choices: [
           ],
         },
