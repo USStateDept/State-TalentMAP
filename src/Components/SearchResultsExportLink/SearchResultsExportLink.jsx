@@ -32,6 +32,7 @@ const HEADERS = [
   { label: 'Bid Cycle/Season', key: 'bidcycle__name' },
   { label: 'Posted date', key: 'posted_date' },
   { label: 'Status code', key: 'status_code' },
+  { label: 'Capsule Description', key: 'position__description__content' },
 ];
 
 // Processes results before sending to the download component to allow for custom formatting.
