@@ -25,6 +25,7 @@ class BureauFilter extends Component {
   render() {
     const { item, functionalBureaus } = this.props;
     const regionalBureaus = item.data.slice().filter(b => b.is_regional);
+    const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
     // sort the regional bureaus by their calculated label
     const sortedRegionalBureuas = orderBy(regionalBureaus, e => getItemLabel(e));
     return (
@@ -54,7 +55,7 @@ class BureauFilter extends Component {
           </AccordionItem>
           <AccordionItem className="accordion-content-small" id="functional-bureau-sub-accordion" title="Functional Bureaus" buttonClass="tm-nested-accordion-button">
             {
-              functionalBureaus.data.filter(b => !b.isRegional).map((itemData) => {
+              functionalBureaus$.map((itemData) => {
                 const itemLabel = getItemLabel(itemData);
                 return (
                   <CheckBox
