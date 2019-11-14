@@ -219,7 +219,7 @@ const items =
           sort: 100,
           description: 'region',
           endpoint: 'organization/?is_bureau=true&is_regional=true',
-          endpointAP: 'fsbid/reference/bureaus/?is_bureau=true&is_regional=true',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=true',
           selectionRef: ENDPOINT_PARAMS.org,
           text: 'Choose bureau',
           choices: [
@@ -234,7 +234,7 @@ const items =
           sort: 105,
           description: 'functionalRegion',
           endpoint: 'organization/group/',
-          endpointAP: 'fsbid/reference/bureaus/?is_bureau=true&is_regional=true',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=false',
           selectionRef: ENDPOINT_PARAMS.functionalOrg,
           selectionRefAP: ENDPOINT_PARAMS.org,
           text: 'Choose functional bureau',
