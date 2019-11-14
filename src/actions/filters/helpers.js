@@ -23,6 +23,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
   switch (filterItem.item.description) {
     case 'region':
       return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
+    case 'functionalRegion':
+      return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
     case 'skill':
       return `${filterItemObject.description} (${filterItemObject.code})`;
     case 'post':
@@ -39,7 +41,6 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
       return getCustomGradeDescription(filterItemObject.code);
     case 'postDiff':
     case 'dangerPay':
-    case 'functionalRegion':
     case 'bidSeason':
       return filterItemObject.description;
     default:
