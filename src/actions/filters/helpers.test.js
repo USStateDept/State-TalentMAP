@@ -23,6 +23,9 @@ describe('filter helpers', () => {
       { item: { description: 'region' } }, { short_description: 't', long_description: 'test' }),
     ).toBe('(t) test');
     expect(getFilterCustomDescription(
+      { item: { description: 'functionalRegion' } }, { short_description: 't', long_description: 'test' }),
+    ).toBe('(t) test');
+    expect(getFilterCustomDescription(
       { item: { description: 'skill' } }, { description: 'test', code: 't' }),
     ).toBe('test (t)');
     expect(getFilterCustomDescription(
@@ -34,7 +37,7 @@ describe('filter helpers', () => {
     expect(getFilterCustomDescription(
       { item: { description: 'language' } }, { formal_description: 'test', code: '1' }),
     ).toBe('test (1)');
-    ['postDiff', 'dangerPay', 'functionalRegion', 'bidSeason'].forEach((f) => {
+    ['postDiff', 'dangerPay', 'bidSeason'].forEach((f) => {
       expect(getFilterCustomDescription(
         { item: { description: f } }, { description: 'test' }),
       ).toBe('test');
