@@ -5,11 +5,13 @@ const filterAPFilters = (data, useAP) => {
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
+    const hasAPRef = has(m, 'item.selectionRefAP');
     return {
       ...m,
       item: {
         ...m.item,
         endpoint: useAP && hasAPEndpoint ? m.item.endpointAP : m.item.endpoint,
+        selectionRef: useAP && hasAPRef ? m.item.selectionRefAP : m.item.selectionRef,
       },
       data: useAP && hasAltData ? m.dataAP : m.data,
     };
@@ -71,7 +73,7 @@ const items =
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
-          endpointAP: 'fsbid/reference/codes/',
+          endpointAP: null, // because we check for 'has' in filterAPFilters()
           selectionRef: ENDPOINT_PARAMS.skill,
           text: 'Choose Skills',
         },
@@ -85,6 +87,7 @@ const items =
           title: 'Skill Cone',
           description: 'skillCone',
           endpoint: 'skill/cone/',
+          endpointAP: 'fsbid/reference/cones/',
         },
         data: [
         ],
@@ -110,6 +113,8 @@ const items =
             short_description: 'No language requirement',
             custom_description: 'No language requirement',
           },
+        ],
+        initialDataAP: [
         ],
       },
       {
@@ -215,7 +220,7 @@ const items =
           sort: 100,
           description: 'region',
           endpoint: 'organization/?is_bureau=true&is_regional=true',
-          endpointAP: 'fsbid/reference/bureaus/?is_bureau=true&is_regional=true',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=true',
           selectionRef: ENDPOINT_PARAMS.org,
           text: 'Choose bureau',
           choices: [
@@ -230,7 +235,9 @@ const items =
           sort: 105,
           description: 'functionalRegion',
           endpoint: 'organization/group/',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=false',
           selectionRef: ENDPOINT_PARAMS.functionalOrg,
+          selectionRefAP: ENDPOINT_PARAMS.org,
           text: 'Choose functional bureau',
           choices: [
           ],
@@ -353,24 +360,9 @@ const items =
           bool: false,
           description: 'post',
           endpoint: 'orgpost/?limit=500&is_available=true',
+          endpointAP: 'fsbid/reference/locations/',
           selectionRef: ENDPOINT_PARAMS.post,
-          onlyAvailablePositions: true,
-          choices: [
-          ],
-        },
-        data: [
-        ],
-      },
-      {
-        item: {
-          title: 'Post',
-          altTitle: 'Location',
-          sort: 1100,
-          bool: false,
-          description: 'post',
-          endpoint: 'orgpost/?limit=500',
-          selectionRef: ENDPOINT_PARAMS.post,
-          onlyProjectedVacancy: true,
+          selectionRefAP: ENDPOINT_PARAMS.postAP,
           choices: [
           ],
         },

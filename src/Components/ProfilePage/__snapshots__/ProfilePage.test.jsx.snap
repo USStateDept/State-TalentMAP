@@ -33,6 +33,10 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
         path="/profile/searches"
       />
       <Route
+        path="/profile/bidtracker/public/:id"
+        render={[Function]}
+      />
+      <Route
         component={[Function]}
         path="/profile/bidtracker/:id?"
       />

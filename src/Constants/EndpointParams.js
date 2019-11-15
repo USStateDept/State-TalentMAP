@@ -13,6 +13,7 @@ export const ENDPOINT_PARAMS = {
   domestic: 'is_domestic',
   mission: 'position__post__location__country__in',
   post: 'position__post__in',
+  postAP: 'position__post__code__in',
   available: 'is_available_in_current_bidcycle',
   bidCycle: 'is_available_in_bidcycle',
   bidSeason: 'is_available_in_bidseason',
@@ -40,7 +41,9 @@ export const VALID_PARAMS = [
   'q',
 ];
 
+// Params that need their data fetched on-the-fly in order to populate pill text
 export const ASYNC_PARAMS = [
   ENDPOINT_PARAMS.mission,
   ENDPOINT_PARAMS.post,
+  ENDPOINT_PARAMS.postAP,
 ];

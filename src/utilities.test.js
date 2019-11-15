@@ -583,6 +583,11 @@ describe('getPostName', () => {
     expect(getPostName(post)).toBe('Arlington, VA');
   });
 
+  it('returns a domestic post name when country === USA', () => {
+    const post = { location: { city: 'Arlington', state: 'VA', country: 'USA' } };
+    expect(getPostName(post)).toBe('Arlington, VA');
+  });
+
   it('returns an overseas post name', () => {
     const post = { location: { city: 'London', state: null, country: 'United Kingdom' } };
     expect(getPostName(post)).toBe('London, United Kingdom');

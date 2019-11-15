@@ -15,11 +15,14 @@ const browserHandler = () => {
   switch (getBrowserName()) {
     // Dark mode breaks in IE11.
     // Attempt to disable dark mode if for some reason it is set to true.
-    case 'Internet Explorer': {
-      return null;
+    // Also set in src/Containers/DarkMode/DarkMode.jsx
+    case 'Chrome':
+    case 'Firefox':
+    case 'Safari': {
+      return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
     }
     default: {
-      return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
+      return null;
     }
   }
 };

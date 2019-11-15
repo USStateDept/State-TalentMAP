@@ -38,11 +38,14 @@ class DarkMode extends Component {
     switch (getBrowserName()) {
       // Dark mode breaks in IE11.
       // Attempt to disable dark mode if for some reason it is set to true.
-      case 'Internet Explorer': {
-        return <div>{this.props.isDarkMode && setMode(false)}</div>;
+      // Also set in src/Components/AccountDropdown/AccountDropdown.jsx
+      case 'Chrome':
+      case 'Firefox':
+      case 'Safari': {
+        return <div />;
       }
       default: {
-        return <div />;
+        return <div>{this.props.isDarkMode && setMode(false)}</div>;
       }
     }
   }

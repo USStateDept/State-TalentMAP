@@ -32,6 +32,7 @@ const HEADERS = [
   { label: 'Bid Cycle/Season', key: 'bidcycle__name' },
   { label: 'Posted date', key: 'posted_date' },
   { label: 'Status code', key: 'status_code' },
+  { label: 'Capsule Description', key: 'position__description__content' },
 ];
 
 // Processes results before sending to the download component to allow for custom formatting.
@@ -74,17 +75,19 @@ class SearchResultsExportLink extends Component {
 
   onClick() {
     const { isLoading } = this.state;
+    const { isProjectedVacancy } = this.context;
+    const useExportEndpoint = getUseAP() && !isProjectedVacancy;
     if (!isLoading) {
       // reset the state to support multiple clicks
       this.setState({ data: '', isLoading: true });
       const query = {
-        ordering: getUseAP() ?
+        ordering: useExportEndpoint ?
           POSITION_SEARCH_SORTS_DYNAMIC.defaultSort : POSITION_SEARCH_SORTS.defaultSort,
         ...queryString.parse(this.state.query.value),
         limit: this.props.count,
         page: 1,
       };
-      if (getUseAP()) {
+      if (useExportEndpoint) {
         downloadAvailablePositionData(queryString.stringify(query))
         .then(() => {
           this.setState({ isLoading: false });
@@ -128,6 +131,10 @@ class SearchResultsExportLink extends Component {
     );
   }
 }
+
+SearchResultsExportLink.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 SearchResultsExportLink.propTypes = {
   count: PropTypes.number,

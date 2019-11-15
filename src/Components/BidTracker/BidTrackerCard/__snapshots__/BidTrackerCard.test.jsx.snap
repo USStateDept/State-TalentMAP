@@ -73,6 +73,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
       questionText={Object {}}
       showBidCount={true}
       showQuestion={true}
+      useCDOView={false}
     />
     <div
       className="usa-grid-full padded-container-inner bid-tracker-bid-steps-container bid-tracker-bid-steps-container--draft"

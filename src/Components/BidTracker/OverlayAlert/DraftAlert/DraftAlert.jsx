@@ -22,6 +22,7 @@ class DraftAlert extends Component {
   }
   render() {
     const { bid } = this.props;
+    const { readOnly } = this.context;
     const { position } = bid;
     const positionTitle = position.title;
     const post = getPostName(position.post, NO_POST);
@@ -32,22 +33,30 @@ class DraftAlert extends Component {
         <div className="usa-grid-full" style={{ display: 'flex' }}>
           <div className="draft-submission-container" style={{ flex: 1 }}>
             <div className="sub-submission-text">
-              Would you like to submit your bid?
+              { readOnly ?
+                  'This bid is in draft' :
+                  'Would you like to submit your bid?'
+              }
             </div>
             <div className="usa-grid-full draft-submission-buttons-container">
-              <button
-                className="tm-button-transparent tm-button-submit-bid"
-                onClick={this.onSubmitBid}
-              >
-                <FontAwesome name="paper-plane-o" /> Submit Bid
-              </button>
-              <InteractiveElement
-                className="remove-bid-link"
-                role="link"
-                onClick={this.onDeleteBid}
-              >
-                Remove Bid
-              </InteractiveElement>
+              {
+                !readOnly &&
+                  <div>
+                    <button
+                      className="tm-button-transparent tm-button-submit-bid"
+                      onClick={this.onSubmitBid}
+                    >
+                      <FontAwesome name="paper-plane-o" /> Submit Bid
+                    </button>
+                    <InteractiveElement
+                      className="remove-bid-link"
+                      role="link"
+                      onClick={this.onDeleteBid}
+                    >
+                      Remove Bid
+                    </InteractiveElement>
+                  </div>
+              }
             </div>
           </div>
           <div className="draft-position-details" style={{ flex: 1 }}>
@@ -72,6 +81,10 @@ class DraftAlert extends Component {
     );
   }
 }
+
+DraftAlert.contextTypes = {
+  readOnly: PropTypes.bool,
+};
 
 DraftAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
