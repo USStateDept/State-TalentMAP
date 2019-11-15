@@ -88,6 +88,21 @@ describe('SelectForm', () => {
     expect(instance.state.selection).toBe(defaultSort);
   });
 
+  it('can call the setDefaultValue function', () => {
+    wrapper = shallow(<SelectForm
+      id={1}
+      label="Some label"
+      defaultSort="test"
+      options={POSITION_SEARCH_SORTS.options}
+      onSelectOption={() => {}}
+    />);
+    // define the instance
+    const instance = wrapper.instance();
+    const sort = 'other';
+    instance.setDefaultValue({ includeFirstEmptyOption: true, defaultSort: sort });
+    expect(instance.state.selection).toBe(sort);
+  });
+
   it('matches snapshot', () => {
     wrapper = shallow(<SelectForm
       id={1}
