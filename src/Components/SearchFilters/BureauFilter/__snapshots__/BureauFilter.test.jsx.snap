@@ -52,20 +52,6 @@ exports[`BureauFilterComponent matches snapshot 1`] = `
         className="tm-checkbox-transparent"
         disabled={false}
         id="checkbox-functional-bureau-undefined"
-        label="Name1"
-        labelSrOnly={false}
-        name="Name1"
-        onCheckBoxClick={[Function]}
-        selectionRef="bureau"
-        small={false}
-        title="Name1"
-        value={false}
-      />
-      <CheckBox
-        checkboxProps={Object {}}
-        className="tm-checkbox-transparent"
-        disabled={false}
-        id="checkbox-functional-bureau-undefined"
         label="Name2"
         labelSrOnly={false}
         name="Name2"
