@@ -1,4 +1,4 @@
-import { get, isArray, union } from 'lodash';
+import { get, isArray, orderBy, union } from 'lodash';
 import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
@@ -255,7 +255,6 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
     } else {
       // our static filters
       const staticFilters = items.filters.slice().filter(item => (!item.item.endpoint));
-      responses.filters.push(...staticFilters);
 
       // our dynamic filters
       let dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
@@ -279,6 +278,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
                     },
                   }));
             }
+
             // We have a mix of server-supplied and hard-coded data, so we combine them with union.
             // Also determine whether the results array exists,
             // or if the array is passed at the top-level.
@@ -287,6 +287,25 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             } else if (isArray(response.data)) {
               itemFilter.data = union(response.data, data$);
             }
+
+            // We handle skills differently depending on whether getUseAP === true,
+            // and we override what ever was done in the union prior to this block.
+            // Here we map the AP cone/code model to the old model so that it plays nice
+            // with our existing components.
+            if (item.item.description === 'skillCone' && getUseAP()) {
+              const skills = [];
+              itemFilter.data = response.data.map(m => ({ name: m.category, id: m.category }));
+              itemFilter.data = orderBy(itemFilter.data, 'name');
+              response.data.forEach((m) => {
+                m.skills.forEach(s => skills.push({
+                  ...s,
+                  cone: m.category,
+                }));
+              });
+              const skillObject = staticFilters.find(f => f.item.description === 'skill');
+              skillObject.data = [...skills];
+            }
+
             return itemFilter;
           })
       ));
@@ -301,6 +320,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             // Else, return the correct structure, but with no data. Include hasErrored prop.
             responses.filters.push({ data: [], item: {}, hasErrored: true });
           }
+          responses.filters.push(...staticFilters);
           dispatchSuccess();
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));
