@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
 import ProfileSectionTitle from '../ProfileSectionTitle';
@@ -9,19 +10,24 @@ import ContactCDOButton from './ContactCDOButton';
 
 const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
 notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
-userProfileIsLoading }) => {
+userProfileIsLoading, isPublic, useCDOView }) => {
   const isLoading = bidListIsLoading || userProfileIsLoading;
+  const title = isPublic && get(userProfile, 'display_name') && !userProfileIsLoading ?
+    `${userProfile.display_name}'s Bid Tracker` : 'Bid Tracker';
   return (
     <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
-      <NotificationsSection
-        notifications={notifications}
-        notificationsIsLoading={notificationsIsLoading}
-        markBidTrackerNotification={markBidTrackerNotification}
-      />
+      {
+        !isPublic &&
+        <NotificationsSection
+          notifications={notifications}
+          notificationsIsLoading={notificationsIsLoading}
+          markBidTrackerNotification={markBidTrackerNotification}
+        />
+      }
       <div className="usa-grid-full">
         <div className="usa-width-one-half bid-tracker-greeting-container">
           <div className="usa-grid-full">
-            <ProfileSectionTitle title="Bid Tracker" />
+            <ProfileSectionTitle title={title} />
           </div>
         </div>
         <div className="usa-width-one-half bid-tracker-cdo-email-container">
@@ -45,6 +51,7 @@ userProfileIsLoading }) => {
                 submitBid={submitBid}
                 deleteBid={deleteBid}
                 userProfile={userProfile}
+                useCDOView={useCDOView}
               />
             </div>
         }
@@ -65,6 +72,13 @@ BidTracker.propTypes = {
   markBidTrackerNotification: PropTypes.func.isRequired,
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
+  isPublic: PropTypes.bool,
+  useCDOView: PropTypes.bool,
+};
+
+BidTracker.defaultProps = {
+  isPublic: false,
+  useCDOView: false,
 };
 
 export default BidTracker;

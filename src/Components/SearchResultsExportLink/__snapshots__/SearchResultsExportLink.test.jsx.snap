@@ -85,6 +85,10 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
           "key": "status_code",
           "label": "Status code",
         },
+        Object {
+          "key": "position__description__content",
+          "label": "Capsule Description",
+        },
       ]
     }
     separator=","
