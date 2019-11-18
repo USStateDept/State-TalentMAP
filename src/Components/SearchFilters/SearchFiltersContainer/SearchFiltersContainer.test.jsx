@@ -201,7 +201,7 @@ describe('SearchFiltersContainerComponent', () => {
     });
   });
 
-  it('contains BooleanFilterContainer', () => {
+  it('calls the onBooleanFilterClick function', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
         {...props}
