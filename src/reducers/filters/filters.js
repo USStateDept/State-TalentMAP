@@ -317,22 +317,6 @@ const items =
           { code: 'false', short_description: 'Overseas' },
         ],
       },
-      {
-        item: {
-          title: 'Available (No handshakes)',
-          sort: 950,
-          bool: true,
-          description: 'available',
-          selectionRef: ENDPOINT_PARAMS.available,
-          text: 'Include only available positions',
-          choices: [
-          ],
-        },
-        data: [
-          { code: 'true', short_description: 'Yes' },
-        ],
-      },
-
       /* Currently we don't display this as a filter, but will appear
       as a pill if the query param exists (e.g., the user clicked on Featured positions
       positions from the home page). */
