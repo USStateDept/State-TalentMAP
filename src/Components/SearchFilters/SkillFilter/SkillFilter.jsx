@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, uniq } from 'lodash';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
@@ -46,7 +46,8 @@ class BureauFilter extends Component {
     const { item, queryParamUpdate } = this.props;
     const { cone } = props;
     const shouldRemoveChildren = !value;
-    const qArr = [];
+    let qArr = [];
+
     item.data.forEach((itemData) => {
       if (itemData.cone === cone.name && !shouldRemoveChildren) {
         qArr.push(itemData.code);
@@ -54,6 +55,17 @@ class BureauFilter extends Component {
         qArr.push(itemData.code);
       }
     });
+
+    // clean up any duplicate codes from a removed cone that are in other cones
+    if (shouldRemoveChildren) {
+      const filteredCodes = [...item.data].filter(f => f.cone === cone.name) || [];
+      const mappedCodes = filteredCodes.map(f => f.code);
+      qArr = qArr.filter(f => !mappedCodes.includes(f));
+    }
+
+    // ensure the array has no duplicate values
+    qArr = uniq(qArr);
+
     const q = { [item.item.selectionRef]: qArr.join() };
     this.setState({ [cone.id]: !value });
     queryParamUpdate(q);
