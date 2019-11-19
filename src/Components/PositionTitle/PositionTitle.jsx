@@ -24,13 +24,20 @@ class PositionTitle extends Component {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
     this.renderBidCount = this.renderBidCount.bind(this);
+    this.getIsAvailableToBid = this.getIsAvailableToBid.bind(this);
+  }
+
+  getIsAvailableToBid() {
+    const { details } = this.props;
+    const availability = get(details, 'availability.availability');
+    const availableToBid = isNull(availability) || !!availability;
+    return availableToBid;
   }
 
   renderBidListButton() {
     const { details, bidList } = this.props;
     const { isClient } = this.context;
-    const availability = get(details, 'availability.availability');
-    const available = isNull(availability) || !!availability;
+    const available = this.getIsAvailableToBid();
     return (
       <PermissionsWrapper permissions={isClient ? [] : 'bidder'}>
         <BidListButton
@@ -56,8 +63,7 @@ class PositionTitle extends Component {
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
-    const availability = get(details, 'availability.availability');
-    const availableToBid = isNull(availability) || !!availability;
+    const availableToBid = this.getIsAvailableToBid();
     return (
       <div className="position-details-header-container">
         <Helmet>
