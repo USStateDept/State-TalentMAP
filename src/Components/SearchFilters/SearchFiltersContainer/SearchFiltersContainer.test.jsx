@@ -201,7 +201,7 @@ describe('SearchFiltersContainerComponent', () => {
     });
   });
 
-  it('orders the filters in the correct order', () => {
+  it('calls the onBooleanFilterClick function', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
         {...props}

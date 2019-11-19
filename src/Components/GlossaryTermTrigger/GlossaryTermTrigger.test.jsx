@@ -30,6 +30,9 @@ describe('GlossaryTermTriggerComponent', () => {
     );
     wrapper.find('InteractiveElement').simulate('click');
     sinon.assert.calledOnce(spy);
+
+    wrapper.instance().onClickLink();
+    sinon.assert.calledTwice(spy);
   });
 });
 

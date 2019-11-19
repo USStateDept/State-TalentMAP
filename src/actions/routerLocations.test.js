@@ -4,7 +4,7 @@ import routerLocations from '../__mocks__/routerLocations';
 
 describe('routerLocations', () => {
   it('maps routes to names', () => {
-    ['/results', '/', '/details', 'fakeroute', '/profile', '/compare', '/profile/bidtracker/'].map(route => (
+    ['/results', '/', '/details', 'fakeroute', '/profile', '/compare', '/profile/bidtracker/', '/profile/dashboard'].map(route => (
       expect(actions.mapRoutesToNames(route)).toBeDefined()
     ));
   });
