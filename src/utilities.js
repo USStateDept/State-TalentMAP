@@ -1,7 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, intersection, isArray, isEqual, isNumber, isObject, keys, lowerCase,
-  merge as merge$, orderBy, toString, transform } from 'lodash';
+import { cloneDeep, get, intersection, isArray, isEqual, isNumber, isObject, isString,
+  keys, lowerCase, merge as merge$, orderBy, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -616,7 +616,7 @@ export const getFormattedNumCSV = (v) => {
 };
 
 export const spliceStringForCSV = (v) => {
-  if (v[1] === '=') {
+  if (v[1] === '=' && isString(v)) {
     return `=${v.slice(0, 1)}${v.slice(2)}`;
   }
   return v;
