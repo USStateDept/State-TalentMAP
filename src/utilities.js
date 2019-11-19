@@ -125,9 +125,9 @@ export const sortTods = (data) => {
 };
 
 export const propSort = (propName, nestedPropName) => (a, b) => {
-  let A = a[propName][nestedPropName] || a[propName];
+  let A = get(a, `${propName}.${nestedPropName}`) || get(a, propName);
   A = lowerCase(toString(A));
-  let B = b[propName][nestedPropName] || b[propName];
+  let B = get(b, `${propName}.${nestedPropName}`) || get(b, propName);
   B = lowerCase(toString(B));
   if (A < B) { // sort string ascending
     return -1;
