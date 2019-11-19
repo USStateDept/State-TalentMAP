@@ -34,6 +34,15 @@ describe('BidTracker', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is calls fetchUserData() when isPublic === true', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <BidTracker.WrappedComponent {...props} isPublic fetchUserData={spy} />,
+    );
+    sinon.assert.calledOnce(spy);
+    expect(wrapper).toBeDefined();
+  });
+
   it('calls scrollToId when componentDidUpdate is called', () => {
     const wrapper = shallow(<BidTracker.WrappedComponent
       {...props}
