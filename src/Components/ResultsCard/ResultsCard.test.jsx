@@ -58,6 +58,8 @@ describe('ResultsCardComponent', () => {
 
   it('renders bid count', () => {
     expect(renderBidCount({})).toBeDefined();
+    const BidCount = () => renderBidCount();
+    expect(shallow(<BidCount />)).toBeDefined();
   });
 
   it('matches snapshot', () => {

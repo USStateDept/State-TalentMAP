@@ -5,9 +5,6 @@ import Ribbon from '../Ribbon';
 const Featured = ({ featuredType, ...props }) => {
   let text;
   switch (featuredType) {
-    case 'featured':
-      text = 'Featured';
-      break;
     case 'volunteer':
       text = 'Volunteer';
       break;
@@ -17,6 +14,7 @@ const Featured = ({ featuredType, ...props }) => {
     case 'hardToFill':
       text = 'Hard to fill';
       break;
+    case 'featured':
     default:
       text = 'Featured';
       break;
