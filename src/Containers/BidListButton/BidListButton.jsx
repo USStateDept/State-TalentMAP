@@ -10,14 +10,14 @@ const BidListButtonContainer = (
   { isClient },
   ) => (
     <BidListButton
+      {...rest}
       toggleBidPosition={(id$, remove) => // eslint-disable-line no-confusing-arrow
         isClient ?
           toggleClientBid(id$, remove) :
           toggleBid(id$, remove)}
       id={id}
       isLoading={isLoading.has(id)}
-      compareArray={[isClient ? clientCompareArray : compareArray].results}
-      {...rest}
+      compareArray={(isClient ? clientCompareArray : compareArray).results}
     />
 );
 
