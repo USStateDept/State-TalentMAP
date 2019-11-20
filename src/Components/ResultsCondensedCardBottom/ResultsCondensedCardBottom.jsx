@@ -19,10 +19,11 @@ class ResultsCondensedCardBottom extends Component {
   renderStats() {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
+    const stats = position.bid_statistics || pos.bid_statistics;
     return showBidCount ?
       <Flag
         name="flags.bid_count"
-        render={() => <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />}
+        render={() => <ResultsCondensedCardStats bidStatisticsArray={[stats]} />}
       />
     :
     null;

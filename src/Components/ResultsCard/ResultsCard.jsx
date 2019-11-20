@@ -17,7 +17,7 @@ import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 
-import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString,
+import { formatDate, propOrDefault, getPostName, shortenString,
 getDifferentialPercentage } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
@@ -108,7 +108,7 @@ class ResultsCard extends Component {
 
     const post = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
 
-    const stats = getBidStatisticsObject(pos.bid_statistics);
+    const stats = result.bid_statistics || pos.bid_statistics;
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 750);
     const descriptionMobile = shortenString(get(pos, 'description.content') || 'No description.', 500);
