@@ -417,11 +417,13 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 export const propOrDefault = (obj, path, defaultToReturn = null) =>
   get(obj, path, defaultToReturn);
 
-// Return the correct object from the bidStatisticsArray.
+// Return the correct object from the bidStatistics array/object.
 // If it doesn't exist, return an empty object.
-export const getBidStatisticsObject = (bidStatisticsArray) => {
-  if (Array.isArray(bidStatisticsArray) && bidStatisticsArray.length) {
-    return bidStatisticsArray[0];
+export const getBidStatisticsObject = (bidStatistics) => {
+  if (Array.isArray(bidStatistics) && bidStatistics.length) {
+    return bidStatistics[0];
+  } else if (isObject(bidStatistics)) {
+    return bidStatistics;
   }
   return {};
 };
