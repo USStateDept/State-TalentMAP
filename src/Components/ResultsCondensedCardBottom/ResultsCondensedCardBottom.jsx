@@ -9,6 +9,7 @@ import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
 import CompareCheck from '../CompareCheck';
+import { getBidStatisticsObject } from '../../utilities';
 
 class ResultsCondensedCardBottom extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class ResultsCondensedCardBottom extends Component {
   renderStats() {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
-    const stats = position.bid_statistics || pos.bid_statistics;
+    const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
     return showBidCount ?
       <Flag
         name="flags.bid_count"

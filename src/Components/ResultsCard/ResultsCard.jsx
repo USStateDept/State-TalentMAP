@@ -18,7 +18,7 @@ import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 
 import { formatDate, propOrDefault, getPostName, shortenString,
-getDifferentialPercentage } from '../../utilities';
+getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
@@ -108,7 +108,7 @@ class ResultsCard extends Component {
 
     const post = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
 
-    const stats = result.bid_statistics || pos.bid_statistics;
+    const stats = getBidStatisticsObject(result.bid_statistics || pos.bid_statistics);
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 750);
     const descriptionMobile = shortenString(get(pos, 'description.content') || 'No description.', 500);
