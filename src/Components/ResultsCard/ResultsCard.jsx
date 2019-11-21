@@ -214,7 +214,7 @@ class ResultsCard extends Component {
                   </Row>
               }
               <Flag
-                name="flags.bidding"
+                name="flags.available_positions"
                 render={() =>
                 (<Row id={innerId} fluid>
                   <Column columns="6">
