@@ -27,7 +27,7 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
     <div
       className="usa-grid-full search-filters-container"
     >
-      <SearchFiltersContainer
+      <SearchFiltersContainerLoadable
         fetchMissionAutocomplete={[Function]}
         fetchPostAutocomplete={[Function]}
         filters={
@@ -91,7 +91,7 @@ exports[`ResultsFilterContainerComponent matches snapshot when isLoading === tru
     <div
       className="usa-grid-full search-filters-container"
     >
-      <SearchFiltersContainer
+      <SearchFiltersContainerLoadable
         fetchMissionAutocomplete={[Function]}
         fetchPostAutocomplete={[Function]}
         filters={

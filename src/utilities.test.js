@@ -40,6 +40,7 @@ import { validStateEmail,
          isUrl,
          hasValidToken,
          getScrollDistanceFromBottom,
+         spliceStringForCSV,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -781,5 +782,15 @@ describe('getScrollDistanceFromBottom', () => {
     Object.setPrototypeOf(z, { offsetHeight: 3000 });
     document.body = z;
     expect(getScrollDistanceFromBottom()).toBe(2100);
+  });
+});
+
+describe('spliceStringForCSV', () => {
+  it('splices the string correctly when index 1 === "="', () => {
+    expect(spliceStringForCSV('"=jjj"')).toBe('="jjj"');
+  });
+
+  it('returns the value unchanged when index 1 !== "="', () => {
+    expect(spliceStringForCSV('"jjj"')).toBe('"jjj"');
   });
 });

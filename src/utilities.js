@@ -1,7 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, intersection, isArray, isEqual, isNumber, isObject, keys, lowerCase,
-  merge as merge$, orderBy, toString, transform } from 'lodash';
+import { cloneDeep, get, intersection, isArray, isEqual, isNumber, isObject, isString,
+  keys, lowerCase, merge as merge$, orderBy, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -125,9 +125,9 @@ export const sortTods = (data) => {
 };
 
 export const propSort = (propName, nestedPropName) => (a, b) => {
-  let A = a[propName][nestedPropName] || a[propName];
+  let A = get(a, `${propName}.${nestedPropName}`) || get(a, propName);
   A = lowerCase(toString(A));
-  let B = b[propName][nestedPropName] || b[propName];
+  let B = get(b, `${propName}.${nestedPropName}`) || get(b, propName);
   B = lowerCase(toString(B));
   if (A < B) { // sort string ascending
     return -1;
@@ -417,11 +417,13 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 export const propOrDefault = (obj, path, defaultToReturn = null) =>
   get(obj, path, defaultToReturn);
 
-// Return the correct object from the bidStatisticsArray.
+// Return the correct object from the bidStatistics array/object.
 // If it doesn't exist, return an empty object.
-export const getBidStatisticsObject = (bidStatisticsArray) => {
-  if (Array.isArray(bidStatisticsArray) && bidStatisticsArray.length) {
-    return bidStatisticsArray[0];
+export const getBidStatisticsObject = (bidStatistics) => {
+  if (Array.isArray(bidStatistics) && bidStatistics.length) {
+    return bidStatistics[0];
+  } else if (isObject(bidStatistics)) {
+    return bidStatistics;
   }
   return {};
 };
@@ -616,7 +618,7 @@ export const getFormattedNumCSV = (v) => {
 };
 
 export const spliceStringForCSV = (v) => {
-  if (v[1] === '=') {
+  if (v[1] === '=' && isString(v)) {
     return `=${v.slice(0, 1)}${v.slice(2)}`;
   }
   return v;
