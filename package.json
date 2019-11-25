@@ -19,7 +19,7 @@
     "flag": "^3.0.0-1",
     "flat": "^4.1.0",
     "font-awesome": "^4.7.0",
-    "helmet": "^3.21.1",
+    "helmet": "^3.21.2",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "lodash": "^4.17.13",
@@ -29,7 +29,7 @@
     "prop-types": "^15.6.0",
     "q": "^1.5.1",
     "query-string": "^5.0.1",
-    "rc-steps": "^3.1.0",
+    "rc-steps": "^3.4.1",
     "react": "^15.6.2",
     "react-autosuggest": "^9.4.3",
     "react-countup": "3.0.3",
@@ -103,7 +103,7 @@
     "jest": "24.9.0",
     "jest-localstorage-mock": "^1.2.0",
     "mock-local-storage": "^1.1.11",
-    "node-mocks-http": "^1.7.6",
+    "node-mocks-http": "^1.8.0",
     "node-sass": "^4.7.2",
     "object-assign": "4.1.1",
     "object.entries": "^1.1.0",
@@ -129,7 +129,7 @@
     "webpack-dev-server": "2.10.1",
     "webpack-manifest-plugin": "1.3.2",
     "whatwg-fetch": "2.0.3",
-    "yarn": "^1.19.0"
+    "yarn": "^1.19.2"
   },
   "scripts": {
     "start": "node scripts/start.js",
