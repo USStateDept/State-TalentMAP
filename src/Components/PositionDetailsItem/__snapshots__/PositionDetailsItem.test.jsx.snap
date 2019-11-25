@@ -8,7 +8,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
     className="handshake-offset-container"
   >
     <Flag
-      name="flags.bidding"
+      name="flags.available_positions"
       render={[Function]}
     />
   </div>
@@ -367,7 +367,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
     className="handshake-offset-container"
   >
     <Flag
-      name="flags.bidding"
+      name="flags.available_positions"
       render={[Function]}
     />
   </div>
@@ -728,7 +728,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
     className="handshake-offset-container"
   >
     <Flag
-      name="flags.bidding"
+      name="flags.available_positions"
       render={[Function]}
     />
   </div>
