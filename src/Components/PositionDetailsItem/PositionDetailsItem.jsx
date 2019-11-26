@@ -87,14 +87,14 @@ const PositionDetailsItem = (props) => {
   };
   const postedDate = getPostedDate();
 
-  const stats = getBidStatisticsObject(get(position, 'bid_statistics'));
+  const stats = getBidStatisticsObject(get(details, 'bid_statistics'));
 
   const isHighlighted = get(position, 'is_highlighted');
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
         <Flag
-          name="flags.bidding"
+          name="flags.available_positions"
           render={() => renderHandshake(stats, position)}
         />
         {
