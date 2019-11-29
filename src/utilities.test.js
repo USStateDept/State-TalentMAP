@@ -41,6 +41,7 @@ import { validStateEmail,
          hasValidToken,
          getScrollDistanceFromBottom,
          spliceStringForCSV,
+         scrollToGlossaryTerm,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -792,5 +793,24 @@ describe('spliceStringForCSV', () => {
 
   it('returns the value unchanged when index 1 !== "="', () => {
     expect(spliceStringForCSV('"jjj"')).toBe('"jjj"');
+  });
+});
+
+describe('scrollToGlossaryTerm', () => {
+  it("calls element's functions", (done) => {
+    const scrollSpy = sinon.spy();
+    const clickSpy = sinon.spy();
+
+    window.document.getElementById = () => ({
+      scrollIntoView: scrollSpy, getAttribute: () => false, click: clickSpy, focus: () => {},
+    });
+
+    scrollToGlossaryTerm('term');
+
+    setTimeout(() => {
+      sinon.assert.calledOnce(scrollSpy);
+      sinon.assert.calledOnce(clickSpy);
+      done();
+    }, 500);
   });
 });
