@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import flatten from 'flat';
 import { CSVLink } from '../CSV';
 import { POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
-import { fetchResultData, downloadAvailablePositionData } from '../../actions/results';
+import { fetchResultData, downloadPositionData } from '../../actions/results';
 import { formatDate, getFormattedNumCSV, spliceStringForCSV } from '../../utilities';
 import ExportButton from '../ExportButton';
 import { checkFlag } from '../../flags';
@@ -76,7 +76,7 @@ class SearchResultsExportLink extends Component {
   onClick() {
     const { isLoading } = this.state;
     const { isProjectedVacancy } = this.context;
-    const useExportEndpoint = getUseAP() && !isProjectedVacancy;
+    const useExportEndpoint = getUseAP() || isProjectedVacancy;
     if (!isLoading) {
       // reset the state to support multiple clicks
       this.setState({ data: '', isLoading: true });
@@ -88,7 +88,7 @@ class SearchResultsExportLink extends Component {
         page: 1,
       };
       if (useExportEndpoint) {
-        downloadAvailablePositionData(queryString.stringify(query))
+        downloadPositionData(queryString.stringify(query), isProjectedVacancy)
         .then(() => {
           this.setState({ isLoading: false });
         })
