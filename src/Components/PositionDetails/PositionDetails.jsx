@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { get } from 'lodash';
 import { Row } from '../Layout';
 import Spinner from '../Spinner/Spinner';
 import PositionTitle from '../PositionTitle/PositionTitle';
@@ -76,8 +77,8 @@ class PositionDetails extends Component {
             details={{
               ...position,
               cpId: details.id,
-              availability: details.availability,
-              bidStatistics: details.bid_statistics,
+              availability: get(details, 'availability', {}),
+              bidStatistics: get(details, 'bid_statistics', [{}]),
             }}
             goBackLink={goBackLink}
             bidList={bidList}
