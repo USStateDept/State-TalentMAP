@@ -73,8 +73,8 @@ export function resultsFetchSimilarPositions(id) {
   };
 }
 
-export function downloadAvailablePositionData(query) {
-  const prefix = '/fsbid/available_positions/export';
+export function downloadPositionData(query, isPV) {
+  const prefix = `fsbid/${!isPV ? '/fsbid/available_positions' : '/fsbid/projected_vacancies'}/export`;
   return api()
   .get(`${prefix}/?${query}`, {
     cancelToken: new CancelToken((c) => { cancel = c; }),
