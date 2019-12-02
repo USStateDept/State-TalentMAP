@@ -74,7 +74,7 @@ export function resultsFetchSimilarPositions(id) {
 }
 
 export function downloadAvailablePositionData(query) {
-  const prefix = 'fsbid/available_positions/export';
+  const prefix = '/fsbid/available_positions/export';
   return api()
   .get(`${prefix}/?${query}`, {
     cancelToken: new CancelToken((c) => { cancel = c; }),
