@@ -43,7 +43,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
         className="ribbon-container"
       >
         <Flag
-          name="flags.bidding"
+          name="flags.available_positions"
           render={[Function]}
         />
       </div>
@@ -95,7 +95,7 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
         className="ribbon-container"
       >
         <Flag
-          name="flags.bidding"
+          name="flags.available_positions"
           render={[Function]}
         />
       </div>

@@ -28,8 +28,7 @@ export const renderBidCounts = (compareArray, emptyArray) => (
     </th>
     {
         compareArray.map((c) => {
-          const { position } = c.position || c;
-          const bidStatistics = get(position, 'bid_statistics[0]', {});
+          const bidStatistics = get(c, 'bid_statistics[0]', {});
           return (
             <td key={shortId.generate()}>
               <span className="bid-stats">

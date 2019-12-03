@@ -59,6 +59,17 @@ describe('CDOAutoSuggest', () => {
     expect(getDisplayProperty({ first_name: 'John', last_name: 'Smith' })).toBe(output);
   });
 
+  it('calls this.hideDropdown on this.handleOutsideClick when !!isActive and element does not contain target', () => {
+    window.document.getElementById = () => ({
+      contains: () => false,
+    });
+    const wrapper = shallow(<CDOAutoSuggest />);
+    wrapper.instance().setState({ isActive: true });
+    wrapper.update();
+    wrapper.instance().handleOutsideClick({ target: 1 });
+    expect(wrapper.instance().state.isActive).toBe(false);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
