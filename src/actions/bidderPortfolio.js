@@ -1,5 +1,5 @@
 import { stringify } from 'query-string';
-import { get } from 'lodash';
+import { get, isObject } from 'lodash';
 import api from '../api';
 
 export function bidderPortfolioHasErrored(bool) {
@@ -99,24 +99,19 @@ export function bidderPortfolioCDOsFetchData() {
     if (!cdos.length) {
       dispatch(bidderPortfolioCDOsIsLoading(true));
       dispatch(bidderPortfolioCDOsHasErrored(false));
-      api().get('/client/statistics/')
-        .then(() => {
-          const data = [
-            { first_name: 'Bob', last_name: 'Smith', id: 1 },
-            { first_name: 'Mike', last_name: 'Jones', id: 2 },
-            { first_name: 'John', last_name: 'Daniels', id: 3 },
-            { first_name: 'Mary', last_name: 'Brown', id: 4 },
-            { first_name: 'Elizabeth', last_name: 'Walters', id: 5 },
-            { first_name: 'Maria', last_name: 'Smith', id: 6 },
-            { first_name: 'Daniel', last_name: 'Garcia', id: 7 },
-            { first_name: 'Marcus', last_name: 'Johnson', id: 8 },
-            { first_name: 'Jennifer', last_name: 'McAndrew', id: 9 },
-            { first_name: 'Madeline', last_name: 'Lee', id: 10 },
-            { first_name: 'Leah', last_name: 'Shadtrach', id: 11, isCurrentUser: true },
-          ];
+      api().get('/fsbid/cdo')
+        .then((result) => {
+          const data = get(result, 'data', []).map(m => ({
+            ...m,
+            first_name: m.name,
+            last_name: '',
+          }));
           dispatch(bidderPortfolioCDOsFetchDataSuccess(data));
           if (!getState().bidderPortfolioSelectedCDO.id) {
-            dispatch(bidderPortfolioSelectCDO(data.find(f => f.isCurrentUser)) || {});
+            dispatch(bidderPortfolioSelectCDO(data.find(f => f.isCurrentUser) || {}));
+          }
+          if (!getState().bidderPortfolioSelectedCDO.id) {
+            dispatch(bidderPortfolioSelectCDO(isObject(data[0]) ? data[0] : {}));
           }
           dispatch(bidderPortfolioCDOsHasErrored(false));
           dispatch(bidderPortfolioCDOsIsLoading(false));
