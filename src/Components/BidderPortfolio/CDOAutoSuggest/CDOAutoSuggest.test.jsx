@@ -63,7 +63,7 @@ describe('CDOAutoSuggest', () => {
     window.document.getElementById = () => ({
       contains: () => false,
     });
-    const wrapper = shallow(<CDOAutoSuggest />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent />);
     wrapper.instance().setState({ isActive: true });
     wrapper.update();
     wrapper.instance().handleOutsideClick({ target: 1 });
