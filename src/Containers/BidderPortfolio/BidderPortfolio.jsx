@@ -10,6 +10,9 @@ import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS } from '../../Cons
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from '../../Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
 import BidderPortfolioPage from '../../Components/BidderPortfolio/BidderPortfolioPage';
+import { checkFlag } from '../../flags';
+
+const getUseClientCounts = () => checkFlag('flags.client_counts');
 
 class BidderPortfolio extends Component {
   constructor(props) {
@@ -27,7 +30,9 @@ class BidderPortfolio extends Component {
   // Fetch bidder list and bidder statistics.
   componentWillMount() {
     this.getBidderPortfolio();
-    this.props.fetchBidderPortfolioCounts();
+    if (getUseClientCounts()) {
+      this.props.fetchBidderPortfolioCounts();
+    }
     this.props.fetchBidderPortfolioCDOs();
   }
 

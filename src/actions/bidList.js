@@ -176,7 +176,7 @@ export function clientBidListFetchData(ordering = 'draft_date') {
   return (dispatch, getState) => {
     if (shouldUseClient(getState)) {
       const { id } = getState().clientView.client;
-      const endpoint = `/client/${id}/bids/?ordering=${ordering}`;
+      const endpoint = `/fsbid/cdo/client/${id}/?ordering=${ordering}`;
 
       dispatch(clientBidListIsLoading(true));
       dispatch(clientBidListHasErrored(false));
@@ -207,7 +207,7 @@ export function submitBid(id, clientId) {
     let url = `/fsbid/bidlist/position/${idString}/submit/`;
 
     if (clientId) {
-      url = `/fsbid/bidlist/position/${clientId}/${idString}/submit/`; /* TODO - use bid as client endpoint */
+      url = `/fsbid/cdo/position/${idString}/client/${clientId}/submit/`;
     }
 
     api().put(url)
@@ -303,12 +303,13 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
     if (isClient) {
       const { client: client$ } = getState().clientView;
       client = client$;
-      config.url = `/fsbid/bidlist/position/${client.id}/${idString}/`; /* TODO - use bid as client endpoint */
+
+      config.url = `/fsbid/cdo/position/${idString}/client/${client.id}/`;
     }
 
     // explicitly using a clientId
     if (clientId) {
-      config.url = `/fsbid/bidlist/position/${clientId}/${idString}/`; /* TODO - use bid as client endpoint */
+      config.url = `/fsbid/cdo/position/${idString}/client/${clientId}/`;
     }
 
     api()(config)
