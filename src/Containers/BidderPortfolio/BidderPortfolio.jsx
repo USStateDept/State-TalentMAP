@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { get, isEqual } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -37,7 +37,7 @@ class BidderPortfolio extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.cdo, this.props.cdo)) {
+    if (!isEqual(nextProps.cdo, this.props.cdo) && get(this.props, 'cdo.id')) {
       this.getBidderPortfolio();
       this.props.fetchBidderPortfolioCounts();
     }

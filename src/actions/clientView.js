@@ -25,11 +25,13 @@ export function unsetClientView() {
 export function setClient(id) {
   return (dispatch) => {
     dispatch(setClientViewAs({ client: {}, isLoading: true, hasErrored: false }));
-    api().get(`/client/${id}/`)
+    api().get('/fsbid/client/')
       .then(({ data }) => {
-        dispatch(setClientViewAs({ client: data, isLoading: false, hasErrored: false }));
+        const data$ = data.find(f => f.perdet_seq_number === id) || {};
+        dispatch(setClientViewAs({ client: data$, isLoading: false, hasErrored: false }));
         dispatch(clientBidListFetchData());
-        dispatch(toastSuccess(GET_CLIENT_SUCCESS_MESSAGE(data.user), SET_CLIENT_SUCCESS));
+        dispatch(toastSuccess(GET_CLIENT_SUCCESS_MESSAGE(data$), SET_CLIENT_SUCCESS),
+        );
       })
       .catch(() => {
         dispatch(setClientViewAs({ client: {}, isLoading: false, hasErrored: true }));

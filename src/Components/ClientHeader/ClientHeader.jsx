@@ -59,15 +59,15 @@ export class ClientHeader extends Component {
   render() {
     const { showReturnLink } = this.state;
     const { client, isLoading, hasErrored } = this.props;
-    const name = client && client.user ? `${client.user.first_name} ${client.user.last_name}` : 'Unknown user';
+    const name = client && client.name ? client.name : 'Unknown user';
 
-    const isSuccess = client && !!client.id && !isLoading && !hasErrored;
+    const isSuccess = client && !!client.perdet_seq_number && !isLoading && !hasErrored;
 
     const renderHeader = () => (
       <div className="usa-banner client-header">
         <div className="usa-grid usa-banner-inner">
           <div className={!showReturnLink ? 'hidden' : ''}>
-            <Link to={`/profile/public/${client.id}`}>
+            <Link to={`/profile/public/${client.perdet_seq_number}`}>
               <FA name="chevron-left" />
               <span>Client Dashboard</span>
             </Link>

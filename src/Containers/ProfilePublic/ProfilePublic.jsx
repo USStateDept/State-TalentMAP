@@ -21,7 +21,7 @@ class ProfilePublic extends Component {
     const { assignments, bidList } = userProfile;
     const assignment = get(assignments, '[0]');
     return (
-      hasErrored ?
+      (hasErrored && 1 === false) ?
         <Alert type="error" title="User not found" />
       :
         <ProfileDashboard

@@ -1,5 +1,5 @@
 import { stringify } from 'query-string';
-import { get, isObject } from 'lodash';
+import { get, isArray, isObject } from 'lodash';
 import { CancelToken } from 'axios';
 import api from '../api';
 
@@ -104,7 +104,7 @@ export function bidderPortfolioCDOsFetchData() {
     if (!cdos.length) {
       dispatch(bidderPortfolioCDOsIsLoading(true));
       dispatch(bidderPortfolioCDOsHasErrored(false));
-      api().get('/fsbid/cdo', {
+      api().get('/fsbid/cdo/', {
         cancelToken: new CancelToken((c) => {
           cancelCDOs = c;
         }),
@@ -165,8 +165,8 @@ export function bidderPortfolioFetchData(query = {}) {
     const isCurrentUser = get(state, 'bidderPortfolioSelectedCDO.isCurrentUser');
     const query$ = { ...query };
     const query$$ = stringify(query$);
-    let endpoint = isCurrentUser || !id ? '/client/' : `/client/${id}/`; // TODO get real portfolio list
-    endpoint = '/client/'; // TODO get real portfolio list
+    let endpoint = isCurrentUser || !id ? '/fsbid/client/' : `/fsbid/client/${id}/`; // TODO get real portfolio list
+    endpoint = '/fsbid/client/'; // TODO get real portfolio list
     const q = `${endpoint}?${query$$}`;
     api().get(q, {
       cancelToken: new CancelToken((c) => {
@@ -174,14 +174,21 @@ export function bidderPortfolioFetchData(query = {}) {
       }),
     })
       .then(({ data }) => {
-        dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
-        dispatch(bidderPortfolioFetchDataSuccess(data));
+        const data$ = isArray(data) ? data : [];
+        const data$$ = {
+          results: data$,
+          count: data$.length,
+        };
+        dispatch(bidderPortfolioLastQuery(query$$, data$$.count, endpoint));
+        dispatch(bidderPortfolioFetchDataSuccess(data$$));
         dispatch(bidderPortfolioHasErrored(false));
         dispatch(bidderPortfolioIsLoading(false));
       })
       .catch((m) => {
-        if (get(m, 'message') !== 'cancel') {
-          dispatch(bidderPortfolioFetchDataSuccess({}));
+        if (get(m, 'message') === 'cancel') {
+          dispatch(bidderPortfolioHasErrored(false));
+          dispatch(bidderPortfolioIsLoading(true));
+        } else {
           dispatch(bidderPortfolioHasErrored(true));
           dispatch(bidderPortfolioIsLoading(false));
         }
@@ -196,7 +203,12 @@ export function bidderPortfolioFetchDataFromLastQuery() {
     const q = getState().bidderPortfolioLastQuery;
     api().get(q)
       .then(({ data }) => {
-        dispatch(lastBidderPortfolioFetchDataSuccess(data));
+        const data$ = isArray(data) ? data : [];
+        const data$$ = {
+          results: data$,
+          count: data$.length,
+        };
+        dispatch(bidderPortfolioFetchDataSuccess(data$$));
         dispatch(lastBidderPortfolioHasErrored(false));
         dispatch(lastBidderPortfolioIsLoading(false));
       })

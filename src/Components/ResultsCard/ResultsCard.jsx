@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isNumber } from 'lodash';
+import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
@@ -161,10 +161,13 @@ class ResultsCard extends Component {
 
     const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}`}>View position</Link>;
 
+    const availability = get(result, 'availability.availability');
+    const availableToBid = isNull(availability) || !!availability;
+
     const renderBidListButton = () => (
       <BidListButton
         id={result.id}
-        disabled={!get(result, 'availability.availability', true)}
+        disabled={!availableToBid}
       />
     );
 

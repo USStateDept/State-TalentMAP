@@ -1,6 +1,7 @@
 import { get } from 'lodash';
 import api from '../api';
 import { toastSuccess, toastError } from './toast';
+import { userProfilePublicFetchData } from './userProfilePublic';
 import * as SystemMessages from '../Constants/SystemMessages';
 
 export function bidListHasErrored(bool) {
@@ -175,7 +176,7 @@ export function bidListFetchData(ordering = 'draft_date') {
 export function clientBidListFetchData(ordering = 'draft_date') {
   return (dispatch, getState) => {
     if (shouldUseClient(getState)) {
-      const { id } = getState().clientView.client;
+      const { perdet_seq_number: id } = getState().clientView.client;
       const endpoint = `/fsbid/cdo/client/${id}/?ordering=${ordering}`;
 
       dispatch(clientBidListIsLoading(true));
@@ -216,7 +217,11 @@ export function submitBid(id, clientId) {
         dispatch(submitBidHasErrored(false));
         dispatch(submitBidIsLoading(false));
         dispatch(submitBidSuccess(SystemMessages.SUBMIT_BID_SUCCESS));
-        dispatch(bidListFetchData());
+        if (clientId) {
+          dispatch(userProfilePublicFetchData(clientId));
+        } else {
+          dispatch(bidListFetchData());
+        }
       })
       .catch(() => {
         dispatch(submitBidHasErrored(SystemMessages.SUBMIT_BID_ERROR));
@@ -245,7 +250,11 @@ export function acceptBid(id, clientId) {
         dispatch(acceptBidHasErrored(false));
         dispatch(acceptBidIsLoading(false));
         dispatch(acceptBidSuccess(SystemMessages.ACCEPT_BID_SUCCESS));
-        dispatch(bidListFetchData());
+        if (clientId) {
+          dispatch(userProfilePublicFetchData(clientId));
+        } else {
+          dispatch(bidListFetchData());
+        }
       })
       .catch(() => {
         dispatch(acceptBidHasErrored(SystemMessages.ACCEPT_BID_ERROR));
@@ -274,7 +283,11 @@ export function declineBid(id, clientId) {
         dispatch(declineBidHasErrored(false));
         dispatch(declineBidIsLoading(false));
         dispatch(declineBidSuccess(SystemMessages.DECLINE_BID_SUCCESS));
-        dispatch(bidListFetchData());
+        if (clientId) {
+          dispatch(userProfilePublicFetchData(clientId));
+        } else {
+          dispatch(bidListFetchData());
+        }
       })
       .catch(() => {
         dispatch(declineBidHasErrored(SystemMessages.DECLINE_BID_ERROR));
@@ -304,7 +317,7 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
       const { client: client$ } = getState().clientView;
       client = client$;
 
-      config.url = `/fsbid/cdo/position/${idString}/client/${client.id}/`;
+      config.url = `/fsbid/cdo/position/${idString}/client/${client.perdet_seq_number}/`;
     }
 
     // explicitly using a clientId
@@ -323,6 +336,8 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
         dispatch(bidListToggleHasErrored(false));
         if (isClient) {
           dispatch(clientBidListFetchData());
+        } else if (clientId) {
+          dispatch(userProfilePublicFetchData(clientId));
         } else {
           dispatch(bidListFetchData());
         }
