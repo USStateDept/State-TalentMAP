@@ -28,7 +28,11 @@ describe('ClientHeader', () => {
 
   it('calls unset() on click', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<ClientHeader {...props} unset={spy} client={{ id: 1 }} />);
+    const wrapper = shallow(<ClientHeader
+      {...props}
+      unset={spy}
+      client={{ perdet_seq_number: 1 }}
+    />);
     wrapper.find('button').simulate('click');
     sinon.assert.calledOnce(spy);
   });

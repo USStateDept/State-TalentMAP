@@ -9,7 +9,7 @@
     "static_content": true,
     "notifications": true,
     "data_sync_admin": true,
-    "available_positions": true,
+    "available_positions": false,
     "bid_count": true,
     "personalization": true,
     "persona_auth": true,

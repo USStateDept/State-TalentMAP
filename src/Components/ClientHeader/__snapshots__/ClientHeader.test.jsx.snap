@@ -3,51 +3,5 @@
 exports[`ClientHeader matches snapshot 1`] = `
 <div
   id="client-header"
->
-  <div
-    className="usa-banner client-header"
-  >
-    <div
-      className="usa-grid usa-banner-inner"
-    >
-      <div
-        className=""
-      >
-        <Link
-          replace={false}
-          to="/profile/public/1"
-        >
-          <FontAwesome
-            name="chevron-left"
-          />
-          <span>
-            Client Dashboard
-          </span>
-        </Link>
-      </div>
-      <div>
-        <FontAwesome
-          name="clipboard"
-        />
-        <span>
-          Position Search for 
-          Unknown user
-        </span>
-      </div>
-      <div>
-        <button
-          className="unstyled-button"
-          onClick={[Function]}
-        >
-          <FontAwesome
-            name="close"
-          />
-          <span>
-            Exit client view
-          </span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+/>
 `;
