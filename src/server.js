@@ -4,6 +4,8 @@ const bunyan = require('bunyan');
 const helmet = require('helmet');
 const path = require('path');
 const url = require('url');
+const https = require('https');
+const pem = require('pem');
 const routesArray = require('./routes.js');
 const { metadata, login } = require('./saml2-config');
 
@@ -168,7 +170,15 @@ app.get('*', (request, response) => {
   response.status(404).sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 
-const server = app.listen(port);
+let server;
+
+if (!process.env.USE_HTTPS) {
+  server = app.listen(port);
+} else {
+  pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
+    https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(port);
+  });
+}
 
 // export the the app and server separately
 module.exports = { app, server, removeCacheControl };
