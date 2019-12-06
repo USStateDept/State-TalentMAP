@@ -4,30 +4,6 @@ exports[`PostFilterComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  <AutoSuggest
-    autoSuggestProps={Object {}}
-    className="post-auto-suggest-container"
-    customInputProps={
-      Object {
-        "disabled": false,
-      }
-    }
-    debounceMillis={350}
-    displayProperty="prop"
-    getSuggestions={[Function]}
-    id="id"
-    inputId="id"
-    label="Search locations"
-    labelSrOnly={true}
-    onSuggestionSelected={[Function]}
-    onSuggestionsClearRequested={[Function]}
-    placeholder="Remove regional filters"
-    queryProperty="id"
-    shouldClearOnSelect={true}
-    suggestionTemplate={[Function]}
-    suggestions={Array []}
-    templateProps={Object {}}
-  />
   <div
     className="usa-grid-full tm-nested-accordions"
   >
