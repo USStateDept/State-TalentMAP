@@ -134,7 +134,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
-            <CondensedCardDataPoint title="Posted" content={postedDate} />
+            { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
           </div>
         </div>
         <div className="usa-width-one-third position-details-contact-container">
