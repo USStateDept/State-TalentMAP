@@ -334,9 +334,8 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
         dispatch(toastSuccess(message));
         dispatch(bidListToggleIsLoading(false, id));
         dispatch(bidListToggleHasErrored(false));
-        if (isClient) {
+        if (isClient || clientId) { // could be optimized to reduce duplicate calls
           dispatch(clientBidListFetchData());
-        } else if (clientId) {
           dispatch(userProfilePublicFetchData(clientId));
         } else {
           dispatch(bidListFetchData());
