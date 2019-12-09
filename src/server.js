@@ -154,14 +154,13 @@ app.get('*', (request, response) => {
   response.status(404).sendFile(path.resolve(STATIC_PATH, 'index.html'));
 });
 
-let server;
+const server = app.listen(port);
 
 // for local https testing
-if (!process.env.USE_HTTPS) {
-  server = app.listen(port);
-} else {
+if (process.env.HTTPS_PORT) {
   pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
-    https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app).listen(port);
+    https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app)
+    .listen(process.env.HTTPS_PORT);
   });
 }
 
