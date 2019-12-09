@@ -41,17 +41,17 @@ export function userProfilePublicFetchData(id, bypass) {
      * create functions to fetch user's profile and other data
      */
     // profile
-    const getUserAccount = () => api().get('/fsbid/client/');
+    const getUserAccount = () => api().get(`/fsbid/client/${id}/`);
 
     // bids
-    const getUserBids = () => api().get(`fsbid/cdo/client/${id}/`); // TODO use fsbid
+    const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/`); // TODO use fsbid
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
     axios.all([getUserAccount(), getUserBids()])
       .then(axios.spread((acct, bids) => {
         // form the userProfile object
-        const acct$ = get(acct, 'data', []).find(f => `${f.perdet_seq_number}` === id) || {};
+        const acct$ = get(acct, 'data', {});
         if (!get(acct$, 'perdet_seq_number')) {
           dispatch(userProfilePublicHasErrored(true));
           dispatch(userProfilePublicIsLoading(false));
