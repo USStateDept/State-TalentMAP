@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { POSITION_DETAILS } from '../../../../Constants/PropTypes';
 import InformationDataPoint from '../../../ProfileDashboard/InformationDataPoint';
 import FavoriteContent from './FavoriteContent';
 import LinkButton from '../../../LinkButton';
 
-const FavoritesListResultsCard = ({ position }) => (
+const FavoritesListResultsCard = ({ position, isPV }) => (
   <div className="usa-grid-full saved-search-card favorites-card" key={position.id}>
     <div className="usa-grid-full">
       <div className="usa-width-two-thirds favorites-card-section">
@@ -16,7 +17,7 @@ const FavoritesListResultsCard = ({ position }) => (
         />
       </div>
       <div className="usa-width-one-third favorites-card-section">
-        <LinkButton toLink={`/details/${position.cpId}`}>View Position</LinkButton>
+        <LinkButton toLink={`/${isPV ? 'vacancy' : 'details'}/${position.cpId}`}>View Position</LinkButton>
       </div>
     </div>
   </div>
@@ -24,6 +25,11 @@ const FavoritesListResultsCard = ({ position }) => (
 
 FavoritesListResultsCard.propTypes = {
   position: POSITION_DETAILS.isRequired,
+  isPV: PropTypes.bool,
+};
+
+FavoritesListResultsCard.defaultProps = {
+  isPV: false,
 };
 
 export default FavoritesListResultsCard;
