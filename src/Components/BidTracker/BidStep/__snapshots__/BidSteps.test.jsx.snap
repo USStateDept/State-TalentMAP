@@ -5,6 +5,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   current={0}
   direction="horizontal"
   iconPrefix="rc"
+  initial={0}
   labelPlacement="vertical"
   prefixCls="rc-steps"
   progressDot={false}
