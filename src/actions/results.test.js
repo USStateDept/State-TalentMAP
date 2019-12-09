@@ -106,33 +106,4 @@ describe('async actions', () => {
     };
     f();
   });
-
-  it('downloads available positions client-side', (done) => {
-    const clickSpy = sinon.spy();
-    window.document = {
-      body: { appendChild: () => {} },
-      createElement: () => (
-        {
-          click: clickSpy,
-          href: '',
-          setAttribute: () => {},
-        }
-      ),
-    };
-    window.URL = { createObjectURL: () => {} };
-    mockAdapter.reset();
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/available_positions/export/?').reply(404,
-      null,
-    );
-
-    const f = () => {
-      setTimeout(() => {
-        actions.downloadAvailablePositionData('');
-        sinon.assert.calledOnce(clickSpy);
-        done();
-      }, 0);
-    };
-    f();
-  });
 });
