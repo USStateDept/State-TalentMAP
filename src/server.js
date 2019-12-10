@@ -4,8 +4,10 @@ const bunyan = require('bunyan');
 const helmet = require('helmet');
 const path = require('path');
 const url = require('url');
+const https = require('https');
+const pem = require('pem');
 const routesArray = require('./routes.js');
-const { metadata, login } = require('./saml2-config');
+const { metadata, login, loginAlt } = require('./saml2-config');
 
 // middleware to override helmet.noCache
 const removeCacheControl = (req, res, next) => {
@@ -31,29 +33,14 @@ const forceCacheControl = (req, res, next) => {
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
 
-// Are we using a mock SAML for demo purposes?
-// If so, the env var USE_MOCK_SAML should be 1.
-const USE_MOCK_SAML = process.env.USE_MOCK_SAML === '1';
-
-// define the API root url
-const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
-
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
 
-/* eslint-disable no-unused-vars */
 // Define the SAML login redirect
-let SAML_LOGIN = `${API_ROOT}/saml2/acs/`;
-if (USE_MOCK_SAML) {
-  SAML_LOGIN = `${PUBLIC_URL}login.html`;
-}
-/* eslint-enable no-unused-vars */
+const SAML_LOGIN = process.env.SAML_LOGIN_URL;
 
 // Define the SAML logout redirect
-let SAML_LOGOUT = `${API_ROOT}/saml2/logout/`;
-if (USE_MOCK_SAML) {
-  SAML_LOGOUT = `${PUBLIC_URL}login.html`;
-}
+const SAML_LOGOUT = process.env.SAML_LOGOUT_URL;
 
 // Routes from React, with wildcard added to the end if the route is not exact
 const ROUTES = routesArray.map(route => `${PUBLIC_URL}${route.path}${route.exact ? '' : '*'}`.replace('//', '/'));
@@ -131,8 +118,7 @@ app.post(PUBLIC_URL, (request, response) => {
 
 // saml2 login
 app.get(`${PUBLIC_URL}login`, (request, response) => {
-  // check if using SAML auth mode
-  // create handler
+  const { adfs } = request.query;
   // eslint-disable-next-line no-unused-vars
   const loginHandler = (err, loginUrl, requestId) => {
     if (err) {
@@ -141,7 +127,7 @@ app.get(`${PUBLIC_URL}login`, (request, response) => {
       response.redirect(loginUrl);
     }
   };
-  login(loginHandler);
+  return !adfs ? loginAlt(loginHandler) : login(loginHandler);
 });
 
 // saml2 metadata
@@ -169,6 +155,14 @@ app.get('*', (request, response) => {
 });
 
 const server = app.listen(port);
+
+// for local https testing
+if (process.env.HTTPS_PORT) {
+  pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
+    https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app)
+    .listen(process.env.HTTPS_PORT);
+  });
+}
 
 // export the the app and server separately
 module.exports = { app, server, removeCacheControl };
