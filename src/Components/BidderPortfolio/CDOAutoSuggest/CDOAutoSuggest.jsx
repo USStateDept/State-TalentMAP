@@ -98,7 +98,7 @@ class CDOAutoSuggest extends Component {
     let icon = 'chevron-down';
     let altPrefix = 'Open';
     if (isActive) {
-      triggerLabel = 'See client list as';
+      triggerLabel = 'Select alternate client list';
       icon = 'chevron-up';
       altPrefix = 'Close';
     }
@@ -111,9 +111,8 @@ class CDOAutoSuggest extends Component {
         removeElement
         active={isActive}
       >
-        <h2>Client Profiles</h2>
         <div className="usa-grid-full dropdown-trigger-container" id={dropdownTriggerID}>
-          <span>Client list:</span>
+          <span>Proxy CDO View:</span>
           <InteractiveElement
             onClick={this.toggleDropdown}
             className="account-dropdown--name"
@@ -129,7 +128,7 @@ class CDOAutoSuggest extends Component {
             <DropdownContent>
               <div className="autosuggest-container">
                 <AutoSuggest
-                  label="Client list"
+                  label="Proxy CDO View"
                   inputId="cdo-portfolio-autosuggest"
                   debounceMillis={0}
                   suggestions={suggestions}
