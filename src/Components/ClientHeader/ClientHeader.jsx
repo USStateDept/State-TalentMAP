@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import FA from 'react-fontawesome';
+import { get } from 'lodash';
 import { BIDDER_OBJECT } from '../../Constants/PropTypes';
 import { unsetClient } from '../../actions/clientView';
 import { isCurrentPath } from '../ProfileMenu/navigation';
@@ -58,10 +59,13 @@ export class ClientHeader extends Component {
 
   render() {
     const { showReturnLink } = this.state;
-    const { client, isLoading, hasErrored } = this.props;
+    const { client, isLoading, hasErrored, bidderPortfolioSelectedCDO } = this.props;
     const name = client && client.name ? client.name : 'Unknown user';
 
     const isSuccess = client && !!client.perdet_seq_number && !isLoading && !hasErrored;
+
+    const proxyName = get(bidderPortfolioSelectedCDO, 'name') && !get(bidderPortfolioSelectedCDO, 'isCurrentUser') ?
+      get(bidderPortfolioSelectedCDO, 'name') : '';
 
     const renderHeader = () => (
       <div className="usa-banner client-header">
@@ -74,7 +78,7 @@ export class ClientHeader extends Component {
           </div>
           <div>
             <FA name="clipboard" />
-            <span>Position Search for {name}</span>
+            <span id="search-as-name">Position Search for {name}{!!proxyName && ` (Proxying as ${proxyName})`}</span>
           </div>
           <div>
             <button className="unstyled-button" onClick={this.unsetClient}>
@@ -99,16 +103,21 @@ ClientHeader.propTypes = {
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   history: PropTypes.shape({}).isRequired,
+  bidderPortfolioSelectedCDO: PropTypes.shape({}),
 };
 
 ClientHeader.defaultProps = {
   isLoading: false,
   hasErrored: false,
+  bidderPortfolioSelectedCDO: {},
 };
 
-const mapStateToProps = ({ clientView: { client, isLoading, hasErrored } }) => ({
-  client, isLoading, hasErrored,
-});
+const mapStateToProps = ({
+  bidderPortfolioSelectedCDO,
+  clientView: { client, isLoading, hasErrored },
+  }) => ({
+    client, isLoading, hasErrored, bidderPortfolioSelectedCDO,
+  });
 
 export const mapDispatchToProps = dispatch => ({
   unset: () => dispatch(unsetClient()),
