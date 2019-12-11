@@ -97,50 +97,15 @@ export function bidderPortfolioLastQuery(query, count) {
   };
 }
 
-export function bidderPortfolioCDOsFetchData() {
-  return (dispatch, getState) => {
-    if (cancelCDOs) { cancelCDOs('cancel'); }
-    const cdos = get(getState(), 'bidderPortfolioCDOs', []);
-    if (!cdos.length) {
-      dispatch(bidderPortfolioCDOsIsLoading(true));
-      dispatch(bidderPortfolioCDOsHasErrored(false));
-      api().get('/fsbid/cdo/', {
-        cancelToken: new CancelToken((c) => {
-          cancelCDOs = c;
-        }),
-      })
-        .then((result) => {
-          const data = get(result, 'data', []).map(m => ({
-            ...m,
-            first_name: m.name,
-            last_name: '',
-          }));
-          dispatch(bidderPortfolioCDOsFetchDataSuccess(data));
-          if (!getState().bidderPortfolioSelectedCDO.id) {
-            dispatch(bidderPortfolioSelectCDO(data.find(f => f.isCurrentUser) || {}));
-          }
-          if (!getState().bidderPortfolioSelectedCDO.id) {
-            dispatch(bidderPortfolioSelectCDO(isObject(data[0]) ? data[0] : {}));
-          }
-          dispatch(bidderPortfolioCDOsHasErrored(false));
-          dispatch(bidderPortfolioCDOsIsLoading(false));
-        })
-        .catch(() => {
-          dispatch(bidderPortfolioCDOsHasErrored(true));
-          dispatch(bidderPortfolioCDOsIsLoading(false));
-        });
-    }
-  };
-}
-
 export function bidderPortfolioCountsFetchData() {
   return (dispatch, getState) => {
     dispatch(bidderPortfolioCountsIsLoading(true));
     dispatch(bidderPortfolioCountsHasErrored(false));
     const state = getState();
-    const id = get(state, 'bidderPortfolioSelectedCDO.id');
+    const id = get(state, 'bidderPortfolioSelectedCDO.hru_id');
     const isCurrentUser = get(state, 'bidderPortfolioSelectedCDO.isCurrentUser');
-    const endpoint = isCurrentUser || !id ? '/client/statistics/' : `/client/${id}/statistics/`;
+    let endpoint = isCurrentUser || !id ? '/client/statistics/' : `/client/${id}/statistics/`;
+    endpoint = '/client/statistics/'; // TODO update
     api().get(endpoint)
       .then(({ data }) => {
         dispatch(bidderPortfolioCountsFetchDataSuccess(data));
@@ -161,12 +126,13 @@ export function bidderPortfolioFetchData(query = {}) {
     dispatch(bidderPortfolioIsLoading(true));
     dispatch(bidderPortfolioHasErrored(false));
     const state = getState();
-    const id = get(state, 'bidderPortfolioSelectedCDO.id');
-    const isCurrentUser = get(state, 'bidderPortfolioSelectedCDO.isCurrentUser');
+    const id = get(state, 'bidderPortfolioSelectedCDO.hru_id');
     const query$ = { ...query };
+    if (id) {
+      query$.hru_id = id;
+    }
     const query$$ = stringify(query$);
-    let endpoint = isCurrentUser || !id ? '/fsbid/client/' : `/fsbid/client/${id}/`; // TODO get real portfolio list
-    endpoint = '/fsbid/client/'; // TODO get real portfolio list
+    const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
     api().get(q, {
       cancelToken: new CancelToken((c) => {
@@ -193,6 +159,45 @@ export function bidderPortfolioFetchData(query = {}) {
           dispatch(bidderPortfolioIsLoading(false));
         }
       });
+  };
+}
+
+export function bidderPortfolioCDOsFetchData() {
+  return (dispatch, getState) => {
+    if (cancelCDOs) { cancelCDOs('cancel'); }
+    const cdos = get(getState(), 'bidderPortfolioCDOs', []);
+    if (!cdos.length) {
+      dispatch(bidderPortfolioCDOsIsLoading(true));
+      dispatch(bidderPortfolioCDOsHasErrored(false));
+      api().get('/fsbid/cdo/', {
+        cancelToken: new CancelToken((c) => {
+          cancelCDOs = c;
+        }),
+      })
+        .then((result) => {
+          const data = get(result, 'data', []).map(m => ({
+            ...m,
+            hru_id: m.hru_id || m.id,
+            first_name: m.name,
+            last_name: '',
+          }));
+          dispatch(bidderPortfolioCDOsFetchDataSuccess(data));
+          if (!getState().bidderPortfolioSelectedCDO.id) {
+            dispatch(bidderPortfolioSelectCDO(data.find(f => f.isCurrentUser) || {}));
+            dispatch(bidderPortfolioFetchData());
+          }
+          if (!getState().bidderPortfolioSelectedCDO.id) {
+            dispatch(bidderPortfolioSelectCDO(isObject(data[0]) ? data[0] : {}));
+            dispatch(bidderPortfolioFetchData());
+          }
+          dispatch(bidderPortfolioCDOsHasErrored(false));
+          dispatch(bidderPortfolioCDOsIsLoading(false));
+        })
+        .catch(() => {
+          dispatch(bidderPortfolioCDOsHasErrored(true));
+          dispatch(bidderPortfolioCDOsIsLoading(false));
+        });
+    }
   };
 }
 
