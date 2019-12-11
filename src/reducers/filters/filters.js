@@ -73,7 +73,7 @@ const items =
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
-          endpointAP: 'fsbid/reference/codes/',
+          endpointAP: null, // because we check for 'has' in filterAPFilters()
           selectionRef: ENDPOINT_PARAMS.skill,
           text: 'Choose Skills',
         },
@@ -87,6 +87,7 @@ const items =
           title: 'Skill Cone',
           description: 'skillCone',
           endpoint: 'skill/cone/',
+          endpointAP: 'fsbid/reference/cones/',
         },
         data: [
         ],
@@ -112,6 +113,8 @@ const items =
             short_description: 'No language requirement',
             custom_description: 'No language requirement',
           },
+        ],
+        initialDataAP: [
         ],
       },
       {
@@ -217,7 +220,7 @@ const items =
           sort: 100,
           description: 'region',
           endpoint: 'organization/?is_bureau=true&is_regional=true',
-          endpointAP: 'fsbid/reference/bureaus/?is_bureau=true&is_regional=true',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=true',
           selectionRef: ENDPOINT_PARAMS.org,
           text: 'Choose bureau',
           choices: [
@@ -232,7 +235,9 @@ const items =
           sort: 105,
           description: 'functionalRegion',
           endpoint: 'organization/group/',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=false',
           selectionRef: ENDPOINT_PARAMS.functionalOrg,
+          selectionRefAP: ENDPOINT_PARAMS.org,
           text: 'Choose functional bureau',
           choices: [
           ],
@@ -312,22 +317,6 @@ const items =
           { code: 'false', short_description: 'Overseas' },
         ],
       },
-      {
-        item: {
-          title: 'Available (No handshakes)',
-          sort: 950,
-          bool: true,
-          description: 'available',
-          selectionRef: ENDPOINT_PARAMS.available,
-          text: 'Include only available positions',
-          choices: [
-          ],
-        },
-        data: [
-          { code: 'true', short_description: 'Yes' },
-        ],
-      },
-
       /* Currently we don't display this as a filter, but will appear
       as a pill if the query param exists (e.g., the user clicked on Featured positions
       positions from the home page). */

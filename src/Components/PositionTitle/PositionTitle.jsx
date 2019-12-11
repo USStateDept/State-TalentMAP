@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { get } from 'lodash';
+import { get, isNull } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { Flag } from 'flag';
@@ -9,7 +9,7 @@ import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import Favorite from '../../Containers/Favorite';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
+import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from '../../utilities';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BidCount from '../BidCount';
@@ -24,17 +24,26 @@ class PositionTitle extends Component {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
     this.renderBidCount = this.renderBidCount.bind(this);
+    this.getIsAvailableToBid = this.getIsAvailableToBid.bind(this);
+  }
+
+  getIsAvailableToBid() {
+    const { details } = this.props;
+    const availability = get(details, 'availability.availability');
+    const availableToBid = isNull(availability) || !!availability;
+    return availableToBid;
   }
 
   renderBidListButton() {
     const { details, bidList } = this.props;
     const { isClient } = this.context;
+    const available = this.getIsAvailableToBid();
     return (
       <PermissionsWrapper permissions={isClient ? [] : 'bidder'}>
         <BidListButton
           compareArray={bidList.results}
           id={details.cpId}
-          disabled={!get(details, 'availability.availability', true)}
+          disabled={!available}
         />
       </PermissionsWrapper>
     );
@@ -42,7 +51,7 @@ class PositionTitle extends Component {
 
   renderBidCount() {
     const { details } = this.props;
-    const stats = details.bidStatistics;
+    const stats = getBidStatisticsObject(details.bidStatistics);
     return (
       <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
     );
@@ -54,6 +63,7 @@ class PositionTitle extends Component {
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
+    const availableToBid = this.getIsAvailableToBid();
     return (
       <div className="position-details-header-container">
         <Helmet>
@@ -104,7 +114,7 @@ class PositionTitle extends Component {
               this.renderBidCount()
           }
           {
-            !get(details, 'availability.availability', true) &&
+            !availableToBid &&
             <Flag
               name="flags.bidding"
               render={() => (

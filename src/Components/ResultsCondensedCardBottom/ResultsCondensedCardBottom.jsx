@@ -9,6 +9,7 @@ import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
 import CompareCheck from '../CompareCheck';
+import { getBidStatisticsObject } from '../../utilities';
 
 class ResultsCondensedCardBottom extends Component {
   constructor(props) {
@@ -19,22 +20,22 @@ class ResultsCondensedCardBottom extends Component {
   renderStats() {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
+    const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
     return showBidCount ?
       <Flag
         name="flags.bid_count"
-        render={() => <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />}
+        render={() => <ResultsCondensedCardStats bidStatisticsArray={[stats]} />}
       />
     :
     null;
   }
   renderBidListButton() {
     const { showBidListButton, position } = this.props;
-    const pos = position.position || position;
     return showBidListButton ?
       <PermissionsWrapper permissions="bidder">
         <BidListButton
-          id={pos.id}
-          disabled={!get(pos, 'availability.availability', true)}
+          id={position.id}
+          disabled={!get(position, 'availability.availability', true)}
         />
       </PermissionsWrapper>
     :
@@ -55,7 +56,7 @@ class ResultsCondensedCardBottom extends Component {
       <div className="condensed-card-bottom-container">
         <div className="usa-grid-full condensed-card-bottom">
           <Flag
-            name="flags.bidding"
+            name="flags.bid_count"
             render={this.renderStats}
           />
           <CondensedCardData position={position} />

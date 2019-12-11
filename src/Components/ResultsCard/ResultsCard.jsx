@@ -17,14 +17,16 @@ import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 
-import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString,
-getDifferentialPercentage } from '../../utilities';
+import { formatDate, propOrDefault, getPostName, shortenString,
+getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
   NO_BUREAU, NO_BID_CYCLE, NO_DANGER_PAY, NO_GRADE, NO_POST_DIFFERENTIAL, NO_POSITION_NUMBER,
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
+
+const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
 
 const getResult = (result, path, defaultValue, isRate = false) => {
   let value = get(result, path, defaultValue);
@@ -108,7 +110,8 @@ class ResultsCard extends Component {
 
     const post = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
 
-    const stats = getBidStatisticsObject(pos.bid_statistics);
+    const bidStatsToUse = getBidStatsToUse(result, pos);
+    const stats = getBidStatisticsObject(bidStatsToUse);
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 750);
     const descriptionMobile = shortenString(get(pos, 'description.content') || 'No description.', 500);
@@ -214,7 +217,7 @@ class ResultsCard extends Component {
                   </Row>
               }
               <Flag
-                name="flags.bidding"
+                name="flags.available_positions"
                 render={() =>
                 (<Row id={innerId} fluid>
                   <Column columns="6">

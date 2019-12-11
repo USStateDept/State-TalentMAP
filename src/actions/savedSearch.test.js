@@ -10,6 +10,14 @@ describe('saved search async actions', () => {
     mockAdapter.reset();
   });
 
+  it('it can call toggleViewSavedSearchDialog()', () => {
+    expect(actions.toggleViewSavedSearchDialog());
+  });
+
+  it('it can call viewSavedSearchDialog()', () => {
+    expect(actions.viewSavedSearchDialog());
+  });
+
   it('can submit request to save a search', (done) => {
     const store = mockStore({ share: false });
 

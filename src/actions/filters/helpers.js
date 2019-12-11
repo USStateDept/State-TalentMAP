@@ -1,6 +1,8 @@
 import { getPostName } from '../../utilities';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
+import { checkFlag } from '../../flags';
 
+const getUseAP = () => checkFlag('flags.available_positions');
 // Attempt to map the non-numeric grade codes to a full description.
 // If no match is found, return the unmodified code.
 export function getCustomGradeDescription(gradeCode) {
@@ -20,9 +22,13 @@ export function getCustomGradeDescription(gradeCode) {
 
 function getLanguageNameByIfNull(filterItemObject = {}) {
   return filterItemObject.code === COMMON_PROPERTIES.NULL_LANGUAGE ?
-    filterItemObject.customDescription
+    filterItemObject.customDescription || filterItemObject.formal_description
     :
     `${filterItemObject.formal_description} (${filterItemObject.code})`;
+}
+
+function getFuncRegionCustomDescription(shortDescription, longDescription) {
+  return getUseAP() ? `(${shortDescription}) ${longDescription}` : false;
 }
 
 function getRegionCustomDescription(shortDescription, longDescription) {
@@ -42,6 +48,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
   switch (descriptionPrimary) {
     case 'region':
       return getRegionCustomDescription(shortDescription, longDescription);
+    case 'functionalRegion':
+      return getFuncRegionCustomDescription(shortDescription, longDescription);
     case 'skill':
       return getSkillCustomDescription(description, code);
     case 'post':
@@ -53,7 +61,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
       return getLanguageNameByIfNull(filterItemObject);
     case 'grade':
       return getCustomGradeDescription(code);
-    case 'postDiff': case 'dangerPay': case 'functionalRegion': case 'bidSeason':
+    case 'postDiff': case 'dangerPay': case 'bidSeason':
       return description;
     default:
       return false;

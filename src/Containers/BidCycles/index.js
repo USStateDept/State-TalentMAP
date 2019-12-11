@@ -1,1 +1,1 @@
-export { default } from './BidCycles';
+export { default } from './BidCyclesLoadable';
