@@ -9,7 +9,7 @@ const SORT_PREFERENCES_WITHOUT_OPTIONS = Object.assign(
   )),
 );
 
-export default function sortPreferences(state = SORT_PREFERENCES_WITHOUT_OPTIONS, action) {
+export function sortPreferences(state = SORT_PREFERENCES_WITHOUT_OPTIONS, action) {
   switch (action.type) {
     case 'SET_SORT_PREFERENCE': {
       const { key, value } = action;
