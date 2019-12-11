@@ -38,7 +38,7 @@ describe('SavedSearchesListResultsCardComponent', () => {
         deleteSearch={spy}
       />,
     );
-    wrapper.find('button').at(0).simulate('click');
+    wrapper.find('button').at(1).simulate('click');
     sinon.assert.calledOnce(spy);
   });
 
@@ -51,7 +51,7 @@ describe('SavedSearchesListResultsCardComponent', () => {
       />,
     );
 
-    wrapper.find('button').at(1).simulate('click');
+    wrapper.find('button').at(0).simulate('click');
     sinon.assert.calledOnce(spy);
   });
 
