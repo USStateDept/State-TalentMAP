@@ -12,6 +12,7 @@
     "available_positions": true,
     "bid_count": true,
     "personalization": true,
-    "persona_auth": true
+    "persona_auth": true,
+    "client_counts": false
   }
 }

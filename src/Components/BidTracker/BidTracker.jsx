@@ -13,8 +13,8 @@ const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid, submitBi
 notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
 userProfileIsLoading, isPublic, useCDOView }) => {
   const isLoading = bidListIsLoading || userProfileIsLoading;
-  const title = isPublic && get(userProfile, 'display_name') && !userProfileIsLoading ?
-    `${userProfile.display_name}'s Bid Tracker` : 'Bid Tracker';
+  const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
+    `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
   return (
     <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
       <BackButton />

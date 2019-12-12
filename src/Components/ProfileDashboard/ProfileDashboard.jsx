@@ -113,7 +113,7 @@ const ProfileDashboard = ({
                         <BidList
                           bids={bidList}
                           isPublic={isPublic}
-                          userId={userProfile.id}
+                          userId={userProfile.perdet_seq_number}
                         />
                       </BoxShadow>
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
