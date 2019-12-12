@@ -7,6 +7,7 @@ import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import NotificationsSection from './NotificationsSection';
 import ContactCDOButton from './ContactCDOButton';
+import BackButton from '../BackButton';
 
 const BidTracker = ({ bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
 notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
@@ -16,6 +17,7 @@ userProfileIsLoading, isPublic, useCDOView }) => {
     `${userProfile.display_name}'s Bid Tracker` : 'Bid Tracker';
   return (
     <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
+      <BackButton />
       {
         !isPublic &&
         <NotificationsSection
