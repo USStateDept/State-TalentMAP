@@ -21,6 +21,7 @@ class GlossaryEditorCard extends Component {
     this.cancel = this.cancel.bind(this);
     this.submitDefinition = this.submitDefinition.bind(this);
     this.showInvalidLinkWarning = this.showInvalidLinkWarning.bind(this);
+    this.getTextToRender = this.getTextToRender.bind(this);
 
     this.state = {
       editorHidden: true,
@@ -80,6 +81,19 @@ class GlossaryEditorCard extends Component {
     const emptyTitleWarning = displayZeroLengthAlert.title;
     const emptyDefinitionWarning = displayZeroLengthAlert.definition;
     return emptyTitleWarning || emptyDefinitionWarning;
+  }
+
+  getTextToRender() {
+    const { term } = this.props;
+    const {
+      newTitle,
+      newLink,
+      newDefinition,
+    } = this.state;
+    const renderedTitle = newTitle || term.title;
+    const renderedLink = newLink || term.link;
+    const renderedDefinition = newDefinition || term.definition;
+    return { renderedTitle, renderedLink, renderedDefinition };
   }
 
   showInvalidLinkWarning() {
@@ -157,17 +171,11 @@ class GlossaryEditorCard extends Component {
 
   render() {
     const { term, isNewTerm, hasErrored, submitGlossaryTerm } = this.props;
-    const {
-      editorHidden,
-      newTitle,
-      newLink,
-      newDefinition,
-    } = this.state;
+    const { editorHidden } = this.state;
 
-    const renderedTitle = newTitle || term.title;
-    const renderedLink = newLink || term.link;
-    const renderedDefinition = newDefinition || term.definition;
+    const { renderedTitle, renderedLink, renderedDefinition } = this.getTextToRender();
     const shouldHideEditor = editorHidden && !isNewTerm;
+
     const {
       editorHiddenClass,
       editorContainerHiddenClass,
