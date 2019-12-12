@@ -41,23 +41,29 @@ export function userProfilePublicFetchData(id, bypass) {
      * create functions to fetch user's profile and other data
      */
     // profile
-    const getUserAccount = () => api().get(`/client/${id}/`);
+    const getUserAccount = () => api().get(`/fsbid/client/${id}/`);
 
     // bids
-    const getUserBids = () => api().get(`/client/${id}/bids/`); // TODO use fsbid
+    const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/`); // TODO use fsbid
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
     axios.all([getUserAccount(), getUserBids()])
       .then(axios.spread((acct, bids) => {
         // form the userProfile object
-        if (!get(acct, 'data.id')) {
+        const acct$ = get(acct, 'data', {});
+        if (!get(acct$, 'perdet_seq_number')) {
           dispatch(userProfilePublicHasErrored(true));
           dispatch(userProfilePublicIsLoading(false));
         } else {
-          const account = acct.data;
           const newProfileObject = {
-            ...account,
+            ...acct$,
+            user: {
+              username: acct$.employee_id,
+              email: null,
+              first_name: acct$.name,
+              last_name: null,
+            },
             assignments: [],
             bidList: get(bids, 'data.results', []),
             // any other profile info we want to add in the future

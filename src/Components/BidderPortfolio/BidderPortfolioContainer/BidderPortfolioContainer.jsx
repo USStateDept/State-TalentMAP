@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { BIDDER_LIST } from '../../../Constants/PropTypes';
 import { scrollToId } from '../../../utilities';
 import BidderPortfolioCardList from '../BidderPortfolioCardList';
@@ -22,7 +23,7 @@ class BidderPortfolioContainer extends Component {
   }
   render() {
     const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit } = this.props;
-    const noResults = bidderPortfolio.results.length === 0;
+    const noResults = get(bidderPortfolio, 'results', []).length === 0;
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
