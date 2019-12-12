@@ -58,6 +58,9 @@ export function unsetUserProfile() {
 export function userProfileFetchData(bypass, cb) {
   const usePV = getUsePV();
   return (dispatch) => {
+    dispatch(userProfileIsLoading(true));
+    dispatch(userProfileHasErrored(false));
+
     if (!bypass) {
       dispatch(userProfileHasErrored(false));
     }
