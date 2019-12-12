@@ -26,6 +26,10 @@ import {
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
+const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+
+const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
+
 const getResult = (result, path, defaultValue, isRate = false) => {
   let value = get(result, path, defaultValue);
 
@@ -106,9 +110,10 @@ class ResultsCard extends Component {
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-    const post = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+    const post = getPostNameText(pos);
 
-    const stats = getBidStatisticsObject(result.bid_statistics || pos.bid_statistics);
+    const bidStatsToUse = getBidStatsToUse(result, pos);
+    const stats = getBidStatisticsObject(bidStatsToUse);
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 750);
     const descriptionMobile = shortenString(get(pos, 'description.content') || 'No description.', 500);
