@@ -22,7 +22,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup }) 
       </div>
       { showEditLink && <StaticDevContent><EditProfile /></StaticDevContent> }
       <div className="name-group">
-        <SectionTitle small title={`${userProfile.user.last_name}, ${userProfile.user.first_name}`} className="current-user-name" />
+        <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
         {
           useGroup ?
             <StaticDevContent>
