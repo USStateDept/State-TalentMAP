@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import Dropdown, { DropdownContent } from 'react-simple-dropdown';
 import FA from 'react-fontawesome';
+import { connect } from 'react-redux';
+import { bidderPortfolioSelectCDO } from '../../../actions/bidderPortfolio';
 import AutoSuggest from '../../AutoSuggest';
 import SuggestionChoiceCDOName from '../../AutoSuggest/SuggestionChoiceCDOName';
-import { getCurrentUser, filterUsers } from '../temporyHelpers';
+import filterUsers from '../helpers';
 import BoxShadow from '../../BoxShadow';
 import InteractiveElement from '../../InteractiveElement';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 // we'll reference this to return focus after making a selection
 const dropdownID = 'cdo-portfolio-dropdown-trigger';
@@ -25,8 +30,7 @@ class CDOAutoSuggest extends Component {
     this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.dropdown = {};
     this.state = {
-      suggestions: filterUsers(''),
-      selection: getCurrentUser(),
+      suggestions: filterUsers('', props.cdos),
       isActive: false,
     };
   }
@@ -35,19 +39,25 @@ class CDOAutoSuggest extends Component {
     window.addEventListener('click', this.handleOutsideClick);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.cdos, nextProps.cdos)) {
+      this.setState({ suggestions: filterUsers('', nextProps.cdos) });
+    }
+  }
+
   componentWillUnmount() {
     window.removeEventListener('click', this.handleOutsideClick);
   }
 
   onSuggestionSelected(selection) {
-    this.setState({ selection }, () => {
-      this.hideDropdown();
-      document.getElementById(dropdownID).focus();
-    });
+    this.hideDropdown();
+    document.getElementById(dropdownID).focus();
+    this.props.setCDO(selection);
   }
 
   getFilteredUsers(term) {
-    this.setState({ suggestions: filterUsers(term) });
+    const { cdos } = this.props;
+    this.setState({ suggestions: filterUsers(term, cdos) });
   }
 
   hideDropdown() {
@@ -82,7 +92,8 @@ class CDOAutoSuggest extends Component {
   }
 
   render() {
-    const { isActive, selection, suggestions } = this.state;
+    const { isActive, suggestions } = this.state;
+    const { isLoading, hasErrored, selection } = this.props;
     let triggerLabel = `${selection.first_name} ${selection.last_name}`;
     let icon = 'chevron-down';
     let altPrefix = 'Open';
@@ -93,6 +104,7 @@ class CDOAutoSuggest extends Component {
     }
     const alt = `${altPrefix} client list search`;
     return (
+      !isLoading && !hasErrored &&
       <Dropdown
         className="portfolio-account-dropdown"
         ref={(dropdown) => { this.dropdown = dropdown; }}
@@ -143,4 +155,31 @@ class CDOAutoSuggest extends Component {
   }
 }
 
-export default CDOAutoSuggest;
+CDOAutoSuggest.propTypes = {
+  cdos: PropTypes.arrayOf(PropTypes.shape({})),
+  isLoading: PropTypes.bool,
+  hasErrored: PropTypes.bool,
+  selection: PropTypes.shape({}),
+  setCDO: PropTypes.func,
+};
+
+CDOAutoSuggest.defaultProps = {
+  cdos: [],
+  isLoading: false,
+  hasErrored: false,
+  selection: {},
+  setCDO: EMPTY_FUNCTION,
+};
+
+const mapStateToProps = state => ({
+  cdos: state.bidderPortfolioCDOs,
+  isLoading: state.bidderPortfolioCDOsIsLoading,
+  hasErrored: state.bidderPortfolioCDOsHasErrored,
+  selection: state.bidderPortfolioSelectedCDO,
+});
+
+export const mapDispatchToProps = dispatch => ({
+  setCDO: obj => dispatch(bidderPortfolioSelectCDO(obj)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CDOAutoSuggest);

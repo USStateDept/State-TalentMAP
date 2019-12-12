@@ -18,7 +18,8 @@ export class SearchAsClientButton extends Component {
   componentWillReceiveProps(nextProps) {
     const { hasPushed } = this.state;
     const { client, isLoading, hasErrored, history, id } = nextProps;
-    if (client.id === id && client && client.id && !isLoading && !hasErrored && !hasPushed) {
+    if (client.perdet_seq_number === id && client && client.perdet_seq_number &&
+      !isLoading && !hasErrored && !hasPushed) {
       this.setState({ hasPushed: true }, () => {
         setTimeout(() => {
           history.push('/results');
