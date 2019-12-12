@@ -26,6 +26,8 @@ import {
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
+const getpostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+
 const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
 
 const getResult = (result, path, defaultValue, isRate = false) => {
@@ -108,7 +110,7 @@ class ResultsCard extends Component {
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-    const post = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+    const post = getpostNameText(pos);
 
     const bidStatsToUse = getBidStatsToUse(result, pos);
     const stats = getBidStatisticsObject(bidStatsToUse);
