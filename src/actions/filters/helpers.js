@@ -20,31 +20,49 @@ export function getCustomGradeDescription(gradeCode) {
   }
 }
 
+function getLanguageNameByIfNull(filterItemObject = {}) {
+  return filterItemObject.code === COMMON_PROPERTIES.NULL_LANGUAGE ?
+    filterItemObject.customDescription || filterItemObject.formal_description
+    :
+    `${filterItemObject.formal_description} (${filterItemObject.code})`;
+}
+
+function getFuncRegionCustomDescription(shortDescription, longDescription) {
+  return getUseAP() ? `(${shortDescription}) ${longDescription}` : false;
+}
+
+function getRegionCustomDescription(shortDescription, longDescription) {
+  return `(${shortDescription}) ${longDescription}`;
+}
+
+function getSkillCustomDescription(description, code) {
+  return `${description} (${code})`;
+}
+
 // create a custom description based on the filter type
+// eslint-disable-next-line complexity
 export function getFilterCustomDescription(filterItem, filterItemObject) {
-  switch (filterItem.item.description) {
+  const { item: { description: descriptionPrimary } } = filterItem;
+  const { short_description: shortDescription, long_description: longDescription, description,
+    code, name } = filterItemObject;
+  switch (descriptionPrimary) {
     case 'region':
-      return `(${filterItemObject.short_description}) ${filterItemObject.long_description}`;
+      return getRegionCustomDescription(shortDescription, longDescription);
     case 'functionalRegion':
-      return (getUseAP() ? `(${filterItemObject.short_description}) ${filterItemObject.long_description}` : false);
+      return getFuncRegionCustomDescription(shortDescription, longDescription);
     case 'skill':
-      return `${filterItemObject.description} (${filterItemObject.code})`;
+      return getSkillCustomDescription(description, code);
     case 'post':
       return getPostName(filterItemObject);
     case 'bidCycle':
-      return filterItemObject.name;
+      return name;
     case 'language':
       // language code NONE gets displayed differently
-      return filterItemObject.code === COMMON_PROPERTIES.NULL_LANGUAGE ?
-        filterItemObject.customDescription || filterItemObject.formal_description
-        :
-        `${filterItemObject.formal_description} (${filterItemObject.code})`;
+      return getLanguageNameByIfNull(filterItemObject);
     case 'grade':
-      return getCustomGradeDescription(filterItemObject.code);
-    case 'postDiff':
-    case 'dangerPay':
-    case 'bidSeason':
-      return filterItemObject.description;
+      return getCustomGradeDescription(code);
+    case 'postDiff': case 'dangerPay': case 'bidSeason':
+      return description;
     default:
       return false;
   }
