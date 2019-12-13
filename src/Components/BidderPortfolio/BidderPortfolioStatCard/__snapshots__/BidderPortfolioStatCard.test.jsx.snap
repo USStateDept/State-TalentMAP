@@ -17,7 +17,7 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
   >
     <div>
       <h3>
-        Kara Batisak
+        N/A
       </h3>
     </div>
     <div
@@ -58,7 +58,7 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
         Location:
       </dt>
       <dd>
-        Freetown, Sierra Leone
+        None listed
       </dd>
     </div>
   </div>
@@ -97,14 +97,12 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
       <LinkButton
         className="usa-button-secondary"
         isExternal={false}
-        toLink="/profile/public/5"
+        toLink="/profile/public/undefined"
         useDefaultClass={true}
       >
         View Profile
       </LinkButton>
-      <Connect(withRouter(SearchAsClientButton))
-        id={5}
-      />
+      <Connect(withRouter(SearchAsClientButton)) />
     </div>
   </div>
 </BoxShadow>

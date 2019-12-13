@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shortId from 'shortid';
-import { get } from 'lodash';
+import { isNull, get } from 'lodash';
 import FA from 'react-fontawesome';
 import { Flag } from 'flag';
 import BackButton from '../BackButton';
@@ -55,17 +55,21 @@ class CompareList extends Component {
       <tr>
         <th scope="row">Add to Bid List</th>
         {
-          compareArray.map(c => (
-            <td key={shortId.generate()}>
-              <PermissionsWrapper permissions="bidder">
-                <BidListButton
-                  compareArray={bidList.results}
-                  id={c.id}
-                  disabled={!get(c.position, 'availability.availability', true)}
-                />
-              </PermissionsWrapper>
-            </td>
-          ))
+          compareArray.map((c) => {
+            const availability = get(c.position, 'availability.availability');
+            const availableToBid = isNull(availability) || !!availability;
+            return (
+              <td key={shortId.generate()}>
+                <PermissionsWrapper permissions="bidder">
+                  <BidListButton
+                    compareArray={bidList.results}
+                    id={c.id}
+                    disabled={!availableToBid}
+                  />
+                </PermissionsWrapper>
+              </td>
+            );
+          })
         }
         {
           emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
