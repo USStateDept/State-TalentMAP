@@ -29,9 +29,11 @@ exports[`ClientHeader matches snapshot 1`] = `
         <FontAwesome
           name="clipboard"
         />
-        <span>
+        <span
+          id="search-as-name"
+        >
           Position Search for 
-          Unknown user
+          Mary
         </span>
       </div>
       <div>

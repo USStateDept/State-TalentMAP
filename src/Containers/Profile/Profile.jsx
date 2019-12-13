@@ -17,9 +17,10 @@ class Profile extends Component {
   }
 
   render() {
-    const { userProfile } = this.props;
+    const { userProfile, isLoading } = this.props;
     return (
       <ProfilePage
+        isLoading={isLoading}
         user={userProfile}
       />
     );
@@ -30,10 +31,11 @@ Profile.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE,
+  isLoading: PropTypes.bool,
 };
 
 Profile.defaultProps = {
-  isLoading: true,
+  isLoading: false,
   userProfile: DEFAULT_USER_PROFILE,
 };
 
@@ -43,6 +45,7 @@ Profile.contextTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   userProfile: state.userProfile,
+  isLoading: state.userProfileIsLoading,
   id: ownProps,
 });
 

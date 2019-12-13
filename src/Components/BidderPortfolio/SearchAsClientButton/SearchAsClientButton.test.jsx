@@ -33,7 +33,7 @@ describe('SearchAsClientButton', () => {
       ...props,
       id: 1,
       history: { push: spy },
-      client: { id: 1 },
+      client: { perdet_seq_number: 1 },
       isLoading: false,
       hasErrored: false,
     });

@@ -7,6 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
+import { includes } from 'lodash';
 import ClientHeaderContainer, { ClientHeader, mapDispatchToProps } from './ClientHeader';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 
@@ -18,7 +19,7 @@ describe('ClientHeader', () => {
     id: 1,
     unset: () => {},
     history: { listen: () => {} },
-    client: {},
+    client: { perdet_seq_number: 1, name: 'Mary' },
   };
 
   it('is defined', () => {
@@ -26,9 +27,19 @@ describe('ClientHeader', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is displays the proxy CDO when is exists and is not the current user', () => {
+    const wrapper = shallow(<ClientHeader {...props} bidderPortfolioSelectedCDO={{ name: 'Mike', isCurrentUser: false }} />);
+    const text = wrapper.find('#search-as-name').text();
+    expect(includes(text, '(Proxying as Mike)')).toBe(true);
+  });
+
   it('calls unset() on click', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<ClientHeader {...props} unset={spy} client={{ id: 1 }} />);
+    const wrapper = shallow(<ClientHeader
+      {...props}
+      unset={spy}
+      client={{ perdet_seq_number: 1 }}
+    />);
     wrapper.find('button').simulate('click');
     sinon.assert.calledOnce(spy);
   });
@@ -44,7 +55,7 @@ describe('ClientHeader', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<ClientHeader {...props} client={{ id: 1 }} />);
+    const wrapper = shallow(<ClientHeader {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

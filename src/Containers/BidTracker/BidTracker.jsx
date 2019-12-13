@@ -232,7 +232,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     markBidTrackerNotification: id => dispatch(markNotification(id)),
   };
   // Different configs based on whether this is the public view or not
-  if (isPublic) {
+  if (!isPublic) {
     config = {
       ...config,
       submitBidPosition: id => dispatch(submitBid(id)),

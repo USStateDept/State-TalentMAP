@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { isNull, get } from 'lodash';
 import { Flag } from 'flag';
 import CondensedCardData from '../CondensedCardData';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
@@ -31,11 +31,13 @@ class ResultsCondensedCardBottom extends Component {
   }
   renderBidListButton() {
     const { showBidListButton, position } = this.props;
+    const availability = get(position, 'availability.availability');
+    const availableToBid = isNull(availability) || !!availability;
     return showBidListButton ?
       <PermissionsWrapper permissions="bidder">
         <BidListButton
           id={position.id}
-          disabled={!get(position, 'availability.availability', true)}
+          disabled={!availableToBid}
         />
       </PermissionsWrapper>
     :
