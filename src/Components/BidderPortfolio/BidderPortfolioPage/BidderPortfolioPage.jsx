@@ -6,6 +6,9 @@ import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
 import BidControls from '../BidControls';
 import BidderPortfolioSearch from '../BidderPortfolioSearch';
+import ProfileSectionTitle from '../../ProfileSectionTitle';
+import ExportLink from '../ExportLink';
+import EditButtons from '../EditButtons';
 import { checkFlag } from '../../../flags';
 
 const getUseClientCounts = () => checkFlag('flags.client_counts');
@@ -59,6 +62,15 @@ class BidderPortfolioPage extends Component {
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
+          <div className="usa-grid-full">
+            <div className="usa-width-one-half">
+              <ProfileSectionTitle title="Clients" icon="users" />
+            </div>
+            <div className="usa-width-one-half" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              {isListView && <EditButtons onChange={this.changeEditType} />}
+              <ExportLink />
+            </div>
+          </div>
           {
             !navDataIsLoading &&
             <div>
@@ -69,8 +81,6 @@ class BidderPortfolioPage extends Component {
                 queryParamUpdate={queryParamUpdate}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
-                showEditButtons={isListView}
-                onEditChange={this.changeEditType}
               />
             </div>
           }

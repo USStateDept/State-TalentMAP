@@ -1,6 +1,7 @@
 import { filter } from 'lodash';
 
-export const POSITION_SEARCH_SORTS = {
+// BEGIN: KEEP THESE CONSTANTS TOGETHER IN THIS ORDER
+const POSITION_SEARCH_SORTS$ = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
     { value: 'position__title', text: 'Position title: A-Z' },
@@ -14,7 +15,14 @@ export const POSITION_SEARCH_SORTS = {
   ],
 };
 
+POSITION_SEARCH_SORTS$.defaultSort = POSITION_SEARCH_SORTS$.options.find(o =>
+  o.value === 'ted',
+).value;
+
+export const POSITION_SEARCH_SORTS = POSITION_SEARCH_SORTS$;
+
 export const POSITION_SEARCH_SORTS_DYNAMIC = {
+  ...POSITION_SEARCH_SORTS,
   options: [
     ...POSITION_SEARCH_SORTS.options.map((m) => {
       const obj = { ...m };
@@ -25,16 +33,13 @@ export const POSITION_SEARCH_SORTS_DYNAMIC = {
     }),
   ],
 };
+// END: KEEP THESE CONSTANTS TOGETHER IN THIS ORDER
 
 export const filterPVSorts = (sorts) => {
   const v = { ...sorts };
   v.options = filter(v.options, f => !f.availableOnly);
   return v;
 };
-
-POSITION_SEARCH_SORTS.defaultSort = POSITION_SEARCH_SORTS.options.find(o =>
-  o.value === 'ted',
-).value;
 
 export const POSITION_PAGE_SIZES = {
   options: [

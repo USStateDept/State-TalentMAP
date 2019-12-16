@@ -1,3 +1,3 @@
-import preferences, { darkModePreference } from './preferences';
+import { sortPreferences, darkModePreference } from './preferences';
 
-export default { preferences, darkModePreference };
+export default { sortPreferences, darkModePreference };

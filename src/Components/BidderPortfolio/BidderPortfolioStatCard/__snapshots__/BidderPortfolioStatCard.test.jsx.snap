@@ -19,6 +19,12 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
       <h3>
         N/A
       </h3>
+      <Link
+        replace={false}
+        to="/profile/public/undefined"
+      >
+        View Profile
+      </Link>
     </div>
     <div
       className="stat-card-data-point"
@@ -69,7 +75,7 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
       <span
         className="updates"
       >
-        Updates
+        Bidder classifications
       </span>
       <Connect(StaticDevContent)>
         <ClientBadgeList
@@ -94,14 +100,6 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
         }
       }
     >
-      <LinkButton
-        className="usa-button-secondary"
-        isExternal={false}
-        toLink="/profile/public/undefined"
-        useDefaultClass={true}
-      >
-        View Profile
-      </LinkButton>
       <Connect(withRouter(SearchAsClientButton)) />
     </div>
   </div>

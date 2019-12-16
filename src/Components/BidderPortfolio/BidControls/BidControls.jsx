@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SelectForm from '../../SelectForm';
 import { BID_PORTFOLIO_SORTS } from '../../../Constants/Sort';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
-import ExportLink from '../ExportLink';
-import EditButtons from '../EditButtons';
 import BidCyclePicker from './BidCyclePicker';
+import CDOAutoSuggest from '../CDOAutoSuggest';
 
 class BidControls extends Component {
   constructor(props) {
@@ -18,10 +16,13 @@ class BidControls extends Component {
     this.props.queryParamUpdate(orderingObject);
   }
   render() {
-    const { viewType, changeViewType, onEditChange, showEditButtons } = this.props;
+    const { viewType, changeViewType } = this.props;
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
+          <div className="portfolio-sort-container-contents" style={{ float: 'left' }}>
+            <CDOAutoSuggest />
+          </div>
           <div className="portfolio-sort-container-contents">
             <BidCyclePicker />
             <SelectForm
@@ -30,10 +31,10 @@ class BidControls extends Component {
               label="Sort by:"
               onSelectOption={this.onSortChange}
             />
-            <ResultsViewBy initial={viewType} onClick={changeViewType} />
-            {showEditButtons && <EditButtons onChange={onEditChange} />}
-            <ExportLink />
           </div>
+        </div>
+        <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
+          <ResultsViewBy initial={viewType} onClick={changeViewType} />
         </div>
       </div>
     );
@@ -44,13 +45,6 @@ BidControls.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   viewType: PropTypes.string.isRequired,
   changeViewType: PropTypes.func.isRequired,
-  onEditChange: PropTypes.func.isRequired,
-  showEditButtons: PropTypes.bool,
-};
-
-BidControls.defaultProps = {
-  onEditChange: EMPTY_FUNCTION,
-  showEditButtons: false,
 };
 
 export default BidControls;
