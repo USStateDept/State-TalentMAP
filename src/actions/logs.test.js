@@ -15,7 +15,7 @@ describe('async actions', () => {
     mockAdapter.onGet('http://localhost:8000/api/v1/logs/permissions/').reply(200,
       { data: 'log text' },
     );
-    mockAdapter.onGet('http://localhost:8000/api/v1/logs/test/').reply(200,
+    mockAdapter.onGet('http://localhost:8000/api/v1/logs/test.log/').reply(200,
       { data: 'more log text' },
     );
   });
@@ -93,7 +93,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when fetching a log by id', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/logs/test/').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/logs/test.log/').reply(404,
       null,
     );
 
@@ -121,7 +121,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when fetching a log by id, formatted to download', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/logs/test/').reply(404,
+    mockAdapter.onGet('http://localhost:8000/api/v1/logs/test.log/').reply(404,
       null,
     );
 
