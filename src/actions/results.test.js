@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import * as actions from './results';
 
