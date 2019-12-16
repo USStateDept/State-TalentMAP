@@ -6,15 +6,12 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
   className="portfolio-account-dropdown"
   removeElement={true}
 >
-  <h2>
-    Client Profiles
-  </h2>
   <div
     className="usa-grid-full dropdown-trigger-container"
     id="cdo-portfolio-dropdown-trigger"
   >
     <span>
-      Client list:
+      Proxy CDO View:
     </span>
     <InteractiveElement
       alt="Open client list search"
@@ -61,7 +58,7 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
             displayProperty={[Function]}
             getSuggestions={[Function]}
             inputId="cdo-portfolio-autosuggest"
-            label="Client list"
+            label="Proxy CDO View"
             labelSrOnly={true}
             onSuggestionSelected={[Function]}
             onSuggestionsClearRequested={[Function]}
@@ -106,15 +103,12 @@ exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
   className="portfolio-account-dropdown"
   removeElement={true}
 >
-  <h2>
-    Client Profiles
-  </h2>
   <div
     className="usa-grid-full dropdown-trigger-container"
     id="cdo-portfolio-dropdown-trigger"
   >
     <span>
-      Client list:
+      Proxy CDO View:
     </span>
     <InteractiveElement
       alt="Close client list search"
@@ -123,7 +117,7 @@ exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
       onClick={[Function]}
       type="div"
     >
-      See client list as
+      Select alternate client list
       <FontAwesome
         name="chevron-up"
       />
@@ -161,7 +155,7 @@ exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
             displayProperty={[Function]}
             getSuggestions={[Function]}
             inputId="cdo-portfolio-autosuggest"
-            label="Client list"
+            label="Proxy CDO View"
             labelSrOnly={true}
             onSuggestionSelected={[Function]}
             onSuggestionsClearRequested={[Function]}

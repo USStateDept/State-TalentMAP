@@ -7,9 +7,14 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
   <div>
     <Avatar
       className=""
-      firstName="Kara"
+      fallback={
+        <FontAwesome
+          name="user-o"
+        />
+      }
+      firstName=""
       initials=""
-      lastName="Batisak"
+      lastName=""
       onClick={[Function]}
       small={false}
     />
@@ -18,7 +23,13 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
     <div
       className="stat-card-data-point stat-card-data-point--name"
     >
-      Kara Batisak
+      N/A
+      <Link
+        replace={false}
+        to="/profile/public/undefined"
+      >
+        View Profile
+      </Link>
     </div>
     <div
       className="stat-card-data-point"
@@ -58,7 +69,7 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
         Location:
       </dt>
       <dd>
-        Freetown, Sierra Leone
+        None listed
       </dd>
     </div>
   </div>
@@ -81,17 +92,7 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
   <div
     className="button-container"
   >
-    <LinkButton
-      className="usa-button-secondary"
-      isExternal={false}
-      toLink="/profile/public/5"
-      useDefaultClass={true}
-    >
-      View Details
-    </LinkButton>
-    <Connect(withRouter(SearchAsClientButton))
-      id={5}
-    />
+    <Connect(withRouter(SearchAsClientButton)) />
   </div>
 </div>
 `;
