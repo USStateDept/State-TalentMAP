@@ -46,6 +46,6 @@ describe('lastBidderPortfolio reducers', () => {
 
   it('can set reducer SET_BIDDER_PORTFOLIO_LAST_QUERY', () => {
     expect(reducers.bidderPortfolioLastQuery(
-      {}, { type: 'SET_BIDDER_PORTFOLIO_LAST_QUERY', query: '&ordering=id', count: 5 })).toBe('/client/?limit=5&ordering=id&page=1');
+      {}, { type: 'SET_BIDDER_PORTFOLIO_LAST_QUERY', query: '&ordering=id', count: 5 })).toBe('/fsbid/client/?limit=5&ordering=id&page=1');
   });
 });
