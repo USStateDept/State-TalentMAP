@@ -34,6 +34,15 @@ describe('Toggle', () => {
     expect(wrapper.find('button').at(2).hasClass(class$)).toBe(true);
   });
 
+  it('updates state with updateVal', () => {
+    const wrapper = shallow(
+      <Toggle {...props} initialIndex={2} />,
+    );
+    const value = 2;
+    wrapper.instance().updateVal(2);
+    expect(wrapper.instance().state.val).toBe(value);
+  });
+
   it('updates the selected value with onSelect()', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
