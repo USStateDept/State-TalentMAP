@@ -182,6 +182,14 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$"
     ],
     "moduleNameMapper": {
+      "^src(.*)$": "<rootDir>/src$1",
+      "^Components(.*)$": "<rootDir>/src/Components$1",
+      "^actions(.*)$": "<rootDir>/src/actions$1",
+      "^Constants(.*)$": "<rootDir>/src/Constants$1",
+      "^Containers(.*)$": "<rootDir>/src/Containers$1",
+      "^reducers(.*)$": "<rootDir>/src/reducers$1",
+      "^utilities": "<rootDir>/src/utilities.js",
+      "^flags": "<rootDir>/src/flags.js",
       "^react-native$": "react-native-web"
     }
   },
