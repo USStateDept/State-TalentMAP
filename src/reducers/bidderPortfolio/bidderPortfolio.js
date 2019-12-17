@@ -109,7 +109,7 @@ export function bidderPortfolioSelectedCDO(state = {}, action) {
   }
 }
 
-export function bidderPortfolioLastQuery(state = '/client/', action, endpoint = '/client/') {
+export function bidderPortfolioLastQuery(state = '/fsbid/client/', action, endpoint = '/fsbid/client/') {
   switch (action.type) {
     case 'SET_BIDDER_PORTFOLIO_LAST_QUERY': {
       const base = endpoint;

@@ -1,5 +1,5 @@
 import { stringify } from 'query-string';
-import { get, isArray, isObject } from 'lodash';
+import { get, isArray, isObject, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import api from '../api';
 
@@ -160,6 +160,23 @@ export function bidderPortfolioFetchData(query = {}) {
         }
       });
   };
+}
+
+// pass in a normal client endpoint and add export path
+export function downloadClientData(q = '') {
+  const q$ = replace(q, '/client/', '/client/export/');
+  return api()
+    .get(q$)
+    .then((response) => {
+      const cd = get(response, 'headers.content-disposition');
+      const filename = cd.replace('attachment; filename=', '') || 'TalentMap_client_export';
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const a = document.createElement('a');
+      a.href = url;
+      a.setAttribute('download', filename);
+      document.body.appendChild(a);
+      a.click();
+    });
 }
 
 export function bidderPortfolioCDOsFetchData() {
