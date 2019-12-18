@@ -6,10 +6,10 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('/client/1/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
       clientObject,
     );
-    mockAdapter.onGet('/client/2/').reply(404,
+    mockAdapter.onGet('/fsbid/client/2/').reply(404,
       null,
     );
   });
