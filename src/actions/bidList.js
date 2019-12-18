@@ -149,7 +149,7 @@ export function routeChangeResetState() {
 }
 
 export function shouldUseClient(getState = () => {}) {
-  return !!get(getState(), 'clientView.client.id');
+  return !!get(getState(), 'clientView.client.perdet_seq_number');
 }
 
 export function bidListFetchData(ordering = 'draft_date') {
@@ -183,9 +183,8 @@ export function clientBidListFetchData(ordering = 'draft_date') {
       dispatch(clientBidListHasErrored(false));
 
       api().get(endpoint)
-        .then(response => response.data.results)
-        .then((results) => {
-          dispatch(clientBidListFetchDataSuccess({ results }));
+        .then((response) => {
+          dispatch(clientBidListFetchDataSuccess({ results: get(response, 'data.results', []) }));
           dispatch(clientBidListHasErrored(false));
           dispatch(clientBidListIsLoading(false));
         })
@@ -310,19 +309,20 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
       url: `/fsbid/bidlist/position/${idString}/`,
     };
 
-    let client;
+    const { client: client$ } = getState().clientView;
+    const client = client$;
+
+    // Allow function param to override client in state, if it exists
+    const clientToUse = clientId || client.perdet_seq_number;
 
     // using the client context
     if (isClient) {
-      const { client: client$ } = getState().clientView;
-      client = client$;
-
-      config.url = `/fsbid/cdo/position/${idString}/client/${client.perdet_seq_number}/`;
+      config.url = `/fsbid/cdo/position/${idString}/client/${clientToUse}/`;
     }
 
     // explicitly using a clientId
     if (clientId) {
-      config.url = `/fsbid/cdo/position/${idString}/client/${clientId}/`;
+      config.url = `/fsbid/cdo/position/${idString}/client/${clientToUse}/`;
     }
 
     api()(config)
@@ -334,9 +334,9 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
         dispatch(toastSuccess(message));
         dispatch(bidListToggleIsLoading(false, id));
         dispatch(bidListToggleHasErrored(false));
-        if (isClient || clientId) { // could be optimized to reduce duplicate calls
+        if (clientToUse) { // could be optimized to reduce duplicate calls
           dispatch(clientBidListFetchData());
-          dispatch(userProfilePublicFetchData(clientId));
+          dispatch(userProfilePublicFetchData(clientToUse));
         } else {
           dispatch(bidListFetchData());
         }
