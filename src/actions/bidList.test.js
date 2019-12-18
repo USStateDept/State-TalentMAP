@@ -33,6 +33,16 @@ describe('async actions', () => {
     mockAdapter.reset();
   });
 
+  it('parses state for shouldUseClient', () => {
+    let id = 1;
+    const getResult = () => actions.shouldUseClient(() => (
+      { clientView: { client: { perdet_seq_number: id } } }),
+    );
+    expect(getResult()).toBe(true);
+    id = null;
+    expect(getResult()).toBe(false);
+  });
+
   it('can fetch a bid list', (done) => {
     const store = mockStore({ });
 
@@ -203,6 +213,38 @@ describe('async actions', () => {
     const f = () => {
       setTimeout(() => {
         store.dispatch(actions.declineBid('1'));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can fetch a client bid list', (done) => {
+    const store = mockStore({ clientView: { client: { perdet_seq_number: 1 } } });
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/cdo/client/1/?ordering=draft_date').reply(200,
+      { results: [] },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.clientBidListFetchData());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('can handle errors when fetching a client bid list', (done) => {
+    const store = mockStore({});
+
+    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/cdo/client/1/?ordering=draft_date').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.clientBidListFetchData());
         done();
       }, 0);
     };

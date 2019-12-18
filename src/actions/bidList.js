@@ -149,7 +149,7 @@ export function routeChangeResetState() {
 }
 
 export function shouldUseClient(getState = () => {}) {
-  return !!get(getState(), 'clientView.client.id');
+  return !!get(getState(), 'clientView.client.perdet_seq_number');
 }
 
 export function bidListFetchData(ordering = 'draft_date') {
@@ -183,9 +183,8 @@ export function clientBidListFetchData(ordering = 'draft_date') {
       dispatch(clientBidListHasErrored(false));
 
       api().get(endpoint)
-        .then(response => response.data.results)
-        .then((results) => {
-          dispatch(clientBidListFetchDataSuccess({ results }));
+        .then((response) => {
+          dispatch(clientBidListFetchDataSuccess({ results: get(response, 'data.results', []) }));
           dispatch(clientBidListHasErrored(false));
           dispatch(clientBidListIsLoading(false));
         })
