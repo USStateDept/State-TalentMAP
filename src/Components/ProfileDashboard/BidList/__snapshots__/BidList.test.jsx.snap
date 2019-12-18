@@ -97,7 +97,6 @@ exports[`BidListComponent matches snapshot 1`] = `
         showBidCount={true}
         submitBid={[Function]}
         useCDOView={false}
-        userProfile={Object {}}
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -163,7 +162,6 @@ exports[`BidListComponent matches snapshot 1`] = `
         showBidCount={true}
         submitBid={[Function]}
         useCDOView={false}
-        userProfile={Object {}}
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -226,7 +224,6 @@ exports[`BidListComponent matches snapshot 1`] = `
         showBidCount={true}
         submitBid={[Function]}
         useCDOView={false}
-        userProfile={Object {}}
       />
     </div>
     <div
