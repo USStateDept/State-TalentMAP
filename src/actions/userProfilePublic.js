@@ -44,7 +44,7 @@ export function userProfilePublicFetchData(id, bypass) {
     const getUserAccount = () => api().get(`/fsbid/client/${id}/`);
 
     // bids
-    const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/`); // TODO use fsbid
+    const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/`);
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
