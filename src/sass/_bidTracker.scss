@@ -936,6 +936,8 @@ $draft-icon-offset: 120px;
   }
 
   .draft-submission-buttons-container {
+    display: flex;
+    margin: auto;
     max-width: 350px;
   }
 
@@ -946,14 +948,13 @@ $draft-icon-offset: 120px;
 
   .sub-submission-text {
     margin-bottom: 15px;
-    margin-right: 14%;
   }
 
   .tm-button-submit-bid {
     float: left;
-    margin-right: 30px;
-    padding-left: 10%;
-    padding-right: 10%;
+    margin: auto;
+    padding-left: 16px;
+    padding-right: 16px;
 
     .fa {
       font-size: 1em;

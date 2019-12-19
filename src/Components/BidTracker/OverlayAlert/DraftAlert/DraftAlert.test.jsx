@@ -10,7 +10,6 @@ describe('DraftAlertComponent', () => {
     id: 1,
     bid: bidListObject.results[0],
     submitBid: () => {},
-    deleteBid: () => {},
   };
 
   it('is defined', () => {
@@ -37,15 +36,6 @@ describe('DraftAlertComponent', () => {
     );
     wrapper.find('.tm-button-submit-bid').simulate('click');
     sinon.assert.calledOnce(submitSpy);
-  });
-
-  it('can delete a bid', () => {
-    const deleteSpy = sinon.spy();
-    const wrapper = shallow(
-      <DraftAlert {...props} deleteBid={deleteSpy} />,
-    );
-    wrapper.find('.remove-bid-link').simulate('click');
-    sinon.assert.calledOnce(deleteSpy);
   });
 
   it('matches snapshot', () => {
