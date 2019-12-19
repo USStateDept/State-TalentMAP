@@ -1,6 +1,7 @@
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
 import { get } from 'lodash';
+import { downloadFromResponse } from 'utilities';
 import api from '../api';
 import { checkFlag } from '../flags';
 
@@ -81,14 +82,7 @@ export function downloadPositionData(query, isPV) {
     responseType: 'stream',
   })
   .then((response) => {
-    const cd = get(response, 'headers.content-disposition');
-    const filename = cd.replace('attachment; filename=', '') || 'TalentMap_search_export';
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const a = document.createElement('a');
-    a.href = url;
-    a.setAttribute('download', filename);
-    document.body.appendChild(a);
-    a.click();
+    downloadFromResponse(response, 'TalentMap_search_export');
   });
 }
 

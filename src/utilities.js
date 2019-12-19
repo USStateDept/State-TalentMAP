@@ -110,8 +110,8 @@ export function fetchJWT() {
 }
 
 export const pillSort = (a, b) => {
-  const A = lowerCase(toString((a.description || a.code)));
-  const B = lowerCase(toString((b.description || b.code)));
+  const A = lowerCase(toString((get(a, 'description') || get(a, 'code'))));
+  const B = lowerCase(toString((get(b, 'description') || get(b, 'code'))));
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -666,6 +666,27 @@ export const scrollToGlossaryTerm = (term) => {
 export const shouldUseAPFilters = () => checkFlag('flags.available_positions');
 
 export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName;
+
+export const downloadFromResponse = (response, fileNameAlt = '') => {
+  const cd = get(response, 'headers.content-disposition');
+  const filename = cd.replace('attachment; filename=', '') || fileNameAlt;
+
+  const a = document.createElement('a');
+  const url = window.URL.createObjectURL(new Blob([response.data]));
+  a.href = url;
+  a.setAttribute('download', filename);
+  document.body.appendChild(a);
+
+  if (window.navigator.msSaveOrOpenBlob) {
+    a.onclick = (() => {
+      const newBlob = new Blob([new Uint8Array(response.data)]);
+      window.navigator.msSaveOrOpenBlob(newBlob, filename);
+    });
+    a.click();
+  } else {
+    a.click();
+  }
+};
 
 export const getBidCycleName = (bidcycle) => {
   let text = isObject(bidcycle) && has(bidcycle, 'name') ? bidcycle.name : bidcycle;
