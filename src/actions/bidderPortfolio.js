@@ -1,6 +1,7 @@
 import { stringify } from 'query-string';
 import { get, isArray, isObject, replace } from 'lodash';
 import { CancelToken } from 'axios';
+import { downloadFromResponse } from 'utilities';
 import api from '../api';
 
 let cancelCDOs;
@@ -168,14 +169,7 @@ export function downloadClientData(q = '') {
   return api()
     .get(q$)
     .then((response) => {
-      const cd = get(response, 'headers.content-disposition');
-      const filename = cd.replace('attachment; filename=', '') || 'TalentMap_client_export';
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const a = document.createElement('a');
-      a.href = url;
-      a.setAttribute('download', filename);
-      document.body.appendChild(a);
-      a.click();
+      downloadFromResponse(response, 'TalentMap_client_export');
     });
 }
 
