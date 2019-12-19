@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import PropTypes from 'prop-types';
 import { get, compact, values } from 'lodash';
+import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
+import { checkFlag } from 'flags';
+import { getBrowserName } from 'utilities';
 import Avatar from '../Avatar';
 import DarkModeToggle from './DarkModeToggle';
-import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
-import { checkFlag } from '../../flags';
-import { getBrowserName } from '../../utilities';
 
 const getUseDarkMode = () => checkFlag('flags.personalization');
 
