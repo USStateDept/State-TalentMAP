@@ -2,9 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import q from 'query-string';
+import { identity, isArray, pickBy } from 'lodash';
+import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
 import { setClient } from '../../../actions/clientView';
 import { scrollTo } from '../../../utilities';
 import { ID } from '../../ClientHeader';
+
+export const genSearchParams = (user) => {
+  let qString = '';
+  let skills$;
+
+  const { skill: skillEndpoint, grade: gradeEndpoint } = ENDPOINT_PARAMS;
+
+  const { skills, grade } = user;
+
+  if (isArray(skills)) {
+    skills$ = skills.map(m => m.code).join(',');
+  }
+
+  let query = { [skillEndpoint]: skills$, [gradeEndpoint]: grade };
+  query = pickBy(query, identity);
+
+  qString = q.stringify(query);
+  return qString;
+};
 
 export class SearchAsClientButton extends Component {
   constructor(props) {
@@ -17,12 +39,14 @@ export class SearchAsClientButton extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { hasPushed } = this.state;
-    const { client, isLoading, hasErrored, history, id } = nextProps;
+    const { client, isLoading, hasErrored, history, user } = nextProps;
+    const { perdet_seq_number: id } = user;
     if (client.perdet_seq_number === id && client && client.perdet_seq_number &&
       !isLoading && !hasErrored && !hasPushed) {
+      const query = genSearchParams(user);
       this.setState({ hasPushed: true }, () => {
         setTimeout(() => {
-          history.push('/results');
+          history.push(`/results?${query}`);
           const offset = document.getElementById(ID).offsetTop;
           scrollTo(offset);
         }, 0);
@@ -31,7 +55,8 @@ export class SearchAsClientButton extends Component {
   }
 
   onClick() {
-    const { set, id, isLoading } = this.props;
+    const { set, user, isLoading } = this.props;
+    const { perdet_seq_number: id } = user;
     if (!isLoading) {
       set(id);
     }
@@ -52,7 +77,7 @@ export class SearchAsClientButton extends Component {
 }
 
 SearchAsClientButton.propTypes = {
-  id: PropTypes.number.isRequired,
+  user: PropTypes.shape({}).isRequired,
   buttonProps: PropTypes.shape({}),
   className: PropTypes.string,
   client: PropTypes.shape({}),
@@ -63,6 +88,7 @@ SearchAsClientButton.propTypes = {
 };
 
 SearchAsClientButton.defaultProps = {
+  user: {},
   buttonProps: {},
   className: '',
   client: {},

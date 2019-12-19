@@ -45,7 +45,7 @@ const BidderPortfolioStatCard = ({ userProfile }) => {
           </StaticDevContent>
         </div>
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          <SearchAsClientButton id={userProfile.perdet_seq_number} />
+          <SearchAsClientButton user={userProfile} />
         </div>
       </div>
     </BoxShadow>

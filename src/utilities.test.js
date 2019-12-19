@@ -42,6 +42,7 @@ import { validStateEmail,
          getScrollDistanceFromBottom,
          spliceStringForCSV,
          scrollToGlossaryTerm,
+         getBidCycleName,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -812,5 +813,23 @@ describe('scrollToGlossaryTerm', () => {
       sinon.assert.calledOnce(clickSpy);
       done();
     }, 500);
+  });
+
+  describe('getBidCycleName', () => {
+    const cyclename = 'Summer 2020';
+
+    it('returns the correct value for strings', () => {
+      expect(getBidCycleName(cyclename)).toBe(cyclename);
+    });
+
+    it('returns the correct value for objects', () => {
+      expect(getBidCycleName({ name: cyclename })).toBe(cyclename);
+    });
+
+    it('returns the correct value when it cannot find a name', () => {
+      expect(getBidCycleName({ a: cyclename })).not.toBe(cyclename);
+      expect(getBidCycleName([])).not.toBe(cyclename);
+      expect(getBidCycleName({ cyclename: 1 })).not.toBe(cyclename);
+    });
   });
 });
