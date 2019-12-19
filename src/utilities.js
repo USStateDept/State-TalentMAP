@@ -686,7 +686,7 @@ export const downloadFromResponse = (response, fileNameAlt = '') => {
   } else {
     a.click();
   }
-}
+};
 
 export const getBidCycleName = (bidcycle) => {
   let text = isObject(bidcycle) && has(bidcycle, 'name') ? bidcycle.name : bidcycle;
