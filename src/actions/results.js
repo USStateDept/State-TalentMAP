@@ -75,9 +75,9 @@ export function resultsFetchSimilarPositions(id) {
 }
 
 export function downloadPositionData(query, isPV) {
-  const prefix = `fsbid/${!isPV ? '/fsbid/available_positions' : '/fsbid/projected_vacancies'}/export`;
+  const prefix = `/fsbid${isPV ? '/projected_vacancies' : '/available_positions'}/export/`;
   return api()
-  .get(`${prefix}/?${query}`, {
+  .get(`${prefix}?${query}`, {
     cancelToken: new CancelToken((c) => { cancel = c; }),
     responseType: 'stream',
   })

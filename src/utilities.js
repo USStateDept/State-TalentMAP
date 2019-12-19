@@ -1,13 +1,14 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, intersection, isArray, isEqual, isNumber, isObject, isString,
+import { cloneDeep, get, has, intersection, isArray, isEqual, isNumber, isObject, isString,
   keys, lowerCase, merge as merge$, orderBy, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
 import Bowser from 'bowser';
-import { checkFlag } from './flags';
-import { VALID_PARAMS } from './Constants/EndpointParams';
+import { checkFlag } from 'flags';
+import { VALID_PARAMS } from 'Constants/EndpointParams';
+import { NO_BID_CYCLE } from 'Constants/SystemMessages';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
 const scroll = Scroll.animateScroll;
@@ -685,4 +686,10 @@ export const downloadFromResponse = (response, fileNameAlt = '') => {
   } else {
     a.click();
   }
+}
+
+export const getBidCycleName = (bidcycle) => {
+  let text = isObject(bidcycle) && has(bidcycle, 'name') ? bidcycle.name : bidcycle;
+  if (!isString(text) || !text) { text = NO_BID_CYCLE; }
+  return text;
 };
