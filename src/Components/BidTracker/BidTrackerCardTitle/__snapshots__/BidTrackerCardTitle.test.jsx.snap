@@ -27,13 +27,22 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
       </strong>
        
       Maseru, Lesotho
+    </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid cycle:
+      </strong>
+       
+      Summer 2020
     </div>
     <span
       className="bid-stats"
@@ -91,13 +100,22 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
       </strong>
        
       Maseru, Lesotho
+    </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid cycle:
+      </strong>
+       
+      Summer 2020
     </div>
     <span
       className="bid-stats"
@@ -155,13 +173,22 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
       </strong>
        
       Maseru, Lesotho
+    </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid cycle:
+      </strong>
+       
+      Summer 2020
     </div>
     <span
       className="bid-stats"
@@ -219,13 +246,22 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
       </strong>
        
       Maseru, Lesotho
+    </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid cycle:
+      </strong>
+       
+      Summer 2020
     </div>
     <span
       className="bid-stats"
@@ -283,13 +319,22 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
       </strong>
        
       Maseru, Lesotho
+    </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid cycle:
+      </strong>
+       
+      Summer 2020
     </div>
     <span
       className="bid-stats"

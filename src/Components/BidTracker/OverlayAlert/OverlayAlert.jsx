@@ -88,7 +88,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { co
           id={bid.id}
           bid={bid}
           submitBid={submitBid}
-          deleteBid={deleteBid}
         />);
       break;
     default:
