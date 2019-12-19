@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { BID_OBJECT } from '../../../../Constants/PropTypes';
-import InteractiveElement from '../../../InteractiveElement';
 import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessages';
 import { getPostName } from '../../../../utilities';
 
@@ -10,15 +9,10 @@ class DraftAlert extends Component {
   constructor(props) {
     super(props);
     this.onSubmitBid = this.onSubmitBid.bind(this);
-    this.onDeleteBid = this.onDeleteBid.bind(this);
   }
   onSubmitBid() {
     const { submitBid, bid } = this.props;
     submitBid(bid.position.id);
-  }
-  onDeleteBid() {
-    const { deleteBid, bid } = this.props;
-    deleteBid(bid.position.id);
   }
   render() {
     const { bid } = this.props;
@@ -41,21 +35,12 @@ class DraftAlert extends Component {
             <div className="usa-grid-full draft-submission-buttons-container">
               {
                 !readOnly &&
-                  <div>
-                    <button
-                      className="tm-button-transparent tm-button-submit-bid"
-                      onClick={this.onSubmitBid}
-                    >
-                      <FontAwesome name="paper-plane-o" /> Submit Bid
-                    </button>
-                    <InteractiveElement
-                      className="remove-bid-link"
-                      role="link"
-                      onClick={this.onDeleteBid}
-                    >
-                      Remove Bid
-                    </InteractiveElement>
-                  </div>
+                  <button
+                    className="tm-button-transparent tm-button-submit-bid"
+                    onClick={this.onSubmitBid}
+                  >
+                    <FontAwesome name="paper-plane-o" /> Submit Bid
+                  </button>
               }
             </div>
           </div>
@@ -89,7 +74,6 @@ DraftAlert.contextTypes = {
 DraftAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   submitBid: PropTypes.func.isRequired,
-  deleteBid: PropTypes.func.isRequired,
 };
 
 export default DraftAlert;
