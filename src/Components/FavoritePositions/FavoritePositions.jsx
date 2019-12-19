@@ -77,7 +77,7 @@ class FavoritePositions extends Component {
             <Spinner type="homepage-position-results" size="big" />
         }
         {
-          !favoritePositionsIsLoading && !favorites.length &&
+          !favoritePositionsIsLoading && !favorites.length && !favoritesPV.length &&
             <NoFavorites />
         }
         <HomePagePositionsList
