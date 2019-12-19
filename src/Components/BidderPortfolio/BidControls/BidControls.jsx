@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SelectForm from '../../SelectForm';
-import { BID_PORTFOLIO_SORTS } from '../../../Constants/Sort';
+import { BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS } from '../../../Constants/Sort';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
@@ -10,9 +10,14 @@ class BidControls extends Component {
   constructor(props) {
     super(props);
     this.onSortChange = this.onSortChange.bind(this);
+    this.onFilterChange = this.onFilterChange.bind(this);
   }
   onSortChange(q) {
     const orderingObject = { ordering: q.target.value };
+    this.props.queryParamUpdate(orderingObject);
+  }
+  onFilterChange(q) {
+    const orderingObject = { hasHandshake: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   }
   render() {
@@ -25,6 +30,12 @@ class BidControls extends Component {
           </div>
           <div className="portfolio-sort-container-contents">
             <BidCyclePicker />
+            <SelectForm
+              id="porfolio-filter"
+              options={BID_PORTFOLIO_FILTERS.options}
+              label="Filter by:"
+              onSelectOption={this.onFilterChange}
+            />
             <SelectForm
               id="porfolio-sort"
               options={BID_PORTFOLIO_SORTS.options}
