@@ -25,7 +25,7 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
     vacancyText = 'Now available';
   }
   const p = position.position || position;
-  const stats = getBidStatisticsObject(p.bid_statistics);
+  const stats = getBidStatisticsObject(position.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
 
   const title = get(position, 'position.title', '');
@@ -62,7 +62,7 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
         </div>
         <div className="ribbon-container">
           <Flag
-            name="flags.bidding"
+            name="flags.available_positions"
             render={() => (
               hasHandshake && <Handshake className="ribbon-condensed-card" />
             )}

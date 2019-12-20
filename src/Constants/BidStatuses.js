@@ -17,7 +17,7 @@ export const APPROVED = { property: APPROVED_PROP, class_name: 'approved', text:
 export const CLOSED = { property: CLOSED_PROP, class_name: 'closed', text: 'Closed' };
 export const DRAFT = { property: DRAFT_PROP, class_name: 'draft', text: 'Draft bid' };
 export const DECLINED = { property: DECLINED_PROP, class_name: 'declined', text: 'Bid unapproved' };
-export const HAND_SHAKE_ACCEPTED = { property: HAND_SHAKE_ACCEPTED_PROP, class_name: 'hand-shake-accepted', text: 'Handshake accepted' };
+export const HAND_SHAKE_ACCEPTED = { property: HAND_SHAKE_ACCEPTED_PROP, class_name: 'hand-shake-accepted', text: 'Handshake registered' };
 export const HAND_SHAKE_OFFERED = { property: HAND_SHAKE_OFFERED_PROP, class_name: 'hand-shake-offered', text: 'Handshake offered' };
 // TODO ensure HAND_SHAKE_DECLINED has accurate data
 export const HAND_SHAKE_DECLINED = { property: HAND_SHAKE_DECLINED_PROP, class_name: 'declined', text: 'Handshake declined' };

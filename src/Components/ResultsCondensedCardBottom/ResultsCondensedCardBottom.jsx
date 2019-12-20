@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { isNull, get } from 'lodash';
 import { Flag } from 'flag';
 import CondensedCardData from '../CondensedCardData';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
@@ -9,6 +9,7 @@ import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
 import CompareCheck from '../CompareCheck';
+import { getBidStatisticsObject } from '../../utilities';
 
 class ResultsCondensedCardBottom extends Component {
   constructor(props) {
@@ -19,22 +20,24 @@ class ResultsCondensedCardBottom extends Component {
   renderStats() {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
+    const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
     return showBidCount ?
       <Flag
         name="flags.bid_count"
-        render={() => <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />}
+        render={() => <ResultsCondensedCardStats bidStatisticsArray={[stats]} />}
       />
     :
     null;
   }
   renderBidListButton() {
     const { showBidListButton, position } = this.props;
-    const pos = position.position || position;
+    const availability = get(position, 'availability.availability');
+    const availableToBid = isNull(availability) || !!availability;
     return showBidListButton ?
       <PermissionsWrapper permissions="bidder">
         <BidListButton
-          id={pos.id}
-          disabled={!get(pos, 'availability.availability', true)}
+          id={position.id}
+          disabled={!availableToBid}
         />
       </PermissionsWrapper>
     :
@@ -55,7 +58,7 @@ class ResultsCondensedCardBottom extends Component {
       <div className="condensed-card-bottom-container">
         <div className="usa-grid-full condensed-card-bottom">
           <Flag
-            name="flags.bidding"
+            name="flags.bid_count"
             render={this.renderStats}
           />
           <CondensedCardData position={position} />

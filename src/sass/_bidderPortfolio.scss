@@ -35,17 +35,18 @@
 
 .portfolio-row {
   background-color: $color-white;
-  border: 1px solid $color-gray-light;
-  border-bottom: 0;
+  border-left: 8px solid $blue-primary;
   margin-bottom: 0;
 
-  &:last-of-type {
+  &:last-of-type > .bidder-portfolio-stat-row {
     border-bottom: 1px solid $color-gray-light;
   }
 }
 
 .bidder-portfolio-stat-row {
   align-items: center;
+  border: 1px solid $color-gray-light;
+  border-bottom: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -118,6 +119,12 @@
   .stat-card-data-point--name {
     font-size: 1.1em;
     font-weight: bold;
+
+    a {
+      font-size: .9em;
+      font-weight: normal;
+      margin-left: 5px;
+    }
   }
 
   .client-badge-list {
@@ -165,18 +172,24 @@
 }
 
 .bidder-portfolio-stat-card {
+  border-top: 8px solid $primary-blue;
   display: flex;
   flex-direction: column;
   height: 331px;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
   margin-left: 15px;
-  margin-right: auto;
-  width: 270px;
+  margin-right: 25px;
+  width: 330px;
+
+  a {
+    display: inline-block;
+  }
 
   h3 {
+    display: inline-block;
     font-family: inherit;
     font-size: inherit;
-    margin: 0;
+    margin: 0 5px 0 0;
 
     a {
       align-items: center;
@@ -205,7 +218,7 @@
     flex: 5;
     flex-direction: column;
     justify-content: space-between;
-    padding: 30px 16px 16px;
+    padding: 16px;
   }
 
   .bidder-portfolio-stat-card-bottom {
@@ -322,14 +335,6 @@ $cdo-search-container-padding: 10px;
     padding-left: 0 !important;
   }
 
-  h2 {
-    color: $color-white;
-    font-family: inherit;
-    font-size: 2.4rem;
-    font-weight: normal;
-    margin: 0;
-  }
-
   .bid-cycle-picker-container {
     > div {
       font-size: .8em;
@@ -338,9 +343,7 @@ $cdo-search-container-padding: 10px;
 
   .dropdown-trigger-container {
     align-items: center;
-    color: $color-white;
     display: flex;
-    margin-top: 10px;
 
     > span {
       margin-right: 10px;
@@ -348,8 +351,7 @@ $cdo-search-container-padding: 10px;
   }
 
   .account-dropdown--name {
-    border: 1px solid $color-white;
-    color: $color-white;
+    border: 1px solid $bg-gray-dark-2;
     display: flex;
     justify-content: space-between;
     margin-left: 0;
@@ -427,7 +429,7 @@ $cdo-search-container-padding: 10px;
   }
 
   .search-submit-button {
-    margin-top: 37px;
+    margin-top: 13px;
   }
 
   .total-results-container {
@@ -742,7 +744,7 @@ $cdo-search-container-padding: 10px;
     background-color: $unhighlighted-color;
     border: 1px solid $color-black;
     border-top: 0;
-    left: 74px;
+    left: 122px;
     padding: $cdo-search-container-padding $cdo-search-container-padding 0;
     top: -11px;
   }

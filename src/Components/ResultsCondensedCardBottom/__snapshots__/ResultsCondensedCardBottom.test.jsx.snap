@@ -8,7 +8,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
     className="usa-grid-full condensed-card-bottom"
   >
     <Flag
-      name="flags.bidding"
+      name="flags.bid_count"
       render={[Function]}
     />
     <CondensedCardData
@@ -139,7 +139,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot when context.isCli
     className="usa-grid-full condensed-card-bottom"
   >
     <Flag
-      name="flags.bidding"
+      name="flags.bid_count"
       render={[Function]}
     />
     <CondensedCardData
@@ -249,7 +249,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist butto
     className="usa-grid-full condensed-card-bottom"
   >
     <Flag
-      name="flags.bidding"
+      name="flags.bid_count"
       render={[Function]}
     />
     <CondensedCardData

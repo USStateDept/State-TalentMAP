@@ -1,13 +1,14 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, intersection, isArray, isEqual, isNumber, isObject, isString,
+import { cloneDeep, get, has, intersection, isArray, isEqual, isNumber, isObject, isString,
   keys, lowerCase, merge as merge$, orderBy, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
 import Bowser from 'bowser';
-import { checkFlag } from './flags';
-import { VALID_PARAMS } from './Constants/EndpointParams';
+import { checkFlag } from 'flags';
+import { VALID_PARAMS } from 'Constants/EndpointParams';
+import { NO_BID_CYCLE } from 'Constants/SystemMessages';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
 const scroll = Scroll.animateScroll;
@@ -109,8 +110,8 @@ export function fetchJWT() {
 }
 
 export const pillSort = (a, b) => {
-  const A = lowerCase(toString((a.description || a.code)));
-  const B = lowerCase(toString((b.description || b.code)));
+  const A = lowerCase(toString((get(a, 'description') || get(a, 'code'))));
+  const B = lowerCase(toString((get(b, 'description') || get(b, 'code'))));
   if (A < B) { // sort string ascending
     return -1;
   }
@@ -417,11 +418,13 @@ export const formatWaiverTitle = waiver => `${waiver.position} - ${waiver.catego
 export const propOrDefault = (obj, path, defaultToReturn = null) =>
   get(obj, path, defaultToReturn);
 
-// Return the correct object from the bidStatisticsArray.
+// Return the correct object from the bidStatistics array/object.
 // If it doesn't exist, return an empty object.
-export const getBidStatisticsObject = (bidStatisticsArray) => {
-  if (Array.isArray(bidStatisticsArray) && bidStatisticsArray.length) {
-    return bidStatisticsArray[0];
+export const getBidStatisticsObject = (bidStatistics) => {
+  if (Array.isArray(bidStatistics) && bidStatistics.length) {
+    return bidStatistics[0];
+  } else if (isObject(bidStatistics)) {
+    return bidStatistics;
   }
   return {};
 };
@@ -662,4 +665,31 @@ export const scrollToGlossaryTerm = (term) => {
 
 export const shouldUseAPFilters = () => checkFlag('flags.available_positions');
 
-export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName;
+export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
+
+export const downloadFromResponse = (response, fileNameAlt = '') => {
+  const cd = get(response, 'headers.content-disposition');
+  const filename = cd.replace('attachment; filename=', '') || fileNameAlt;
+
+  const a = document.createElement('a');
+  const url = window.URL.createObjectURL(new Blob([response.data]));
+  a.href = url;
+  a.setAttribute('download', filename);
+  document.body.appendChild(a);
+
+  if (window.navigator.msSaveOrOpenBlob) {
+    a.onclick = (() => {
+      const newBlob = new Blob([new Uint8Array(response.data)]);
+      window.navigator.msSaveOrOpenBlob(newBlob, filename);
+    });
+    a.click();
+  } else {
+    a.click();
+  }
+};
+
+export const getBidCycleName = (bidcycle) => {
+  let text = isObject(bidcycle) && has(bidcycle, 'name') ? bidcycle.name : bidcycle;
+  if (!isString(text) || !text) { text = NO_BID_CYCLE; }
+  return text;
+};

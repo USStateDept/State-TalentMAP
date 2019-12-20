@@ -41,6 +41,8 @@ import { validStateEmail,
          hasValidToken,
          getScrollDistanceFromBottom,
          spliceStringForCSV,
+         scrollToGlossaryTerm,
+         getBidCycleName,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -792,5 +794,42 @@ describe('spliceStringForCSV', () => {
 
   it('returns the value unchanged when index 1 !== "="', () => {
     expect(spliceStringForCSV('"jjj"')).toBe('"jjj"');
+  });
+});
+
+describe('scrollToGlossaryTerm', () => {
+  it("calls element's functions", (done) => {
+    const scrollSpy = sinon.spy();
+    const clickSpy = sinon.spy();
+
+    window.document.getElementById = () => ({
+      scrollIntoView: scrollSpy, getAttribute: () => false, click: clickSpy, focus: () => {},
+    });
+
+    scrollToGlossaryTerm('term');
+
+    setTimeout(() => {
+      sinon.assert.calledOnce(scrollSpy);
+      sinon.assert.calledOnce(clickSpy);
+      done();
+    }, 500);
+  });
+
+  describe('getBidCycleName', () => {
+    const cyclename = 'Summer 2020';
+
+    it('returns the correct value for strings', () => {
+      expect(getBidCycleName(cyclename)).toBe(cyclename);
+    });
+
+    it('returns the correct value for objects', () => {
+      expect(getBidCycleName({ name: cyclename })).toBe(cyclename);
+    });
+
+    it('returns the correct value when it cannot find a name', () => {
+      expect(getBidCycleName({ a: cyclename })).not.toBe(cyclename);
+      expect(getBidCycleName([])).not.toBe(cyclename);
+      expect(getBidCycleName({ cyclename: 1 })).not.toBe(cyclename);
+    });
   });
 });

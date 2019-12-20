@@ -5,8 +5,8 @@ import { assignmentFetchData } from '../../actions/assignment';
 import { notificationsFetchData } from '../../actions/notifications';
 import { bidListFetchData, toggleBidPosition, submitBid } from '../../actions/bidList';
 import { favoritePositionsFetchData } from '../../actions/favoritePositions';
-import { USER_PROFILE, NOTIFICATION_LIST, ASSIGNMENT_OBJECT, BID_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
+import { USER_PROFILE, NOTIFICATION_LIST, ASSIGNMENT_OBJECT, BID_LIST, FAVORITE_POSITIONS } from '../../Constants/PropTypes';
+import { DEFAULT_USER_PROFILE, DEFAULT_FAVORITES } from '../../Constants/DefaultProps';
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
 class DashboardContainer extends Component {
@@ -23,6 +23,7 @@ class DashboardContainer extends Component {
       notifications, notificationsIsLoading, bidList, bidListIsLoading, favoritePositions,
       favoritePositionsIsLoading, favoritePositionsHasErrored, submitBidPosition,
       deleteBid } = this.props;
+    const allFavorites = favoritePositions.favorites.concat(favoritePositions.favoritesPV);
     return (
       <ProfileDashboard
         userProfile={userProfile}
@@ -33,7 +34,7 @@ class DashboardContainer extends Component {
         notificationsIsLoading={notificationsIsLoading}
         bidList={bidList.results}
         bidListIsLoading={bidListIsLoading}
-        favoritePositions={favoritePositions.favorites}
+        favoritePositions={allFavorites}
         favoritePositionsIsLoading={favoritePositionsIsLoading}
         favoritePositionsHasErrored={favoritePositionsHasErrored}
         submitBidPosition={submitBidPosition}
@@ -56,7 +57,7 @@ DashboardContainer.propTypes = {
   bidList: BID_LIST.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
   fetchFavorites: PropTypes.func.isRequired,
-  favoritePositions: POSITION_SEARCH_RESULTS,
+  favoritePositions: FAVORITE_POSITIONS,
   favoritePositionsIsLoading: PropTypes.bool,
   favoritePositionsHasErrored: PropTypes.bool,
   submitBidPosition: PropTypes.func.isRequired,
@@ -72,7 +73,7 @@ DashboardContainer.defaultProps = {
   notifications: { results: [] },
   bidList: { results: [] },
   bidListIsLoading: false,
-  favoritePositions: POSITION_RESULTS_OBJECT,
+  favoritePositions: DEFAULT_FAVORITES,
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
 };
@@ -96,7 +97,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchBidList: () => dispatch(bidListFetchData()),
   fetchFavorites: () => dispatch(favoritePositionsFetchData()),
-  submitBidPosition: id => dispatch(submitBid(id, true)),
+  submitBidPosition: id => dispatch(submitBid(id)),
   deleteBid: id => dispatch(toggleBidPosition(id, true)),
 });
 

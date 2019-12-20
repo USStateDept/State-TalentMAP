@@ -5,6 +5,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   current={0}
   direction="horizontal"
   iconPrefix="rc"
+  initial={0}
   labelPlacement="vertical"
   prefixCls="rc-steps"
   progressDot={false}
@@ -127,11 +128,13 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-main-text"
         >
-          Handshake Accepted
+          Handshake Registered
         </div>
         <div
           className="step-title-sub-text"
-        />
+        >
+          12/20/2017
+        </div>
       </div>
     }
   />
