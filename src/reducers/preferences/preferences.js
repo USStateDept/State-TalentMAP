@@ -1,5 +1,5 @@
 import { findIndex } from 'lodash';
-import SORT_PREFERENCES from '../../Constants/Sort';
+import SORT_PREFERENCES from 'Constants/Sort';
 
 // no need to store options in localStorage
 const SORT_PREFERENCES_WITHOUT_OPTIONS = Object.assign(
@@ -9,6 +9,7 @@ const SORT_PREFERENCES_WITHOUT_OPTIONS = Object.assign(
   )),
 );
 
+// The name of this reducer is important because we whitelist it as a persistent reducer
 export function sortPreferences(state = SORT_PREFERENCES_WITHOUT_OPTIONS, action) {
   switch (action.type) {
     case 'SET_SORT_PREFERENCE': {
@@ -28,6 +29,7 @@ export function sortPreferences(state = SORT_PREFERENCES_WITHOUT_OPTIONS, action
   }
 }
 
+// The name of this reducer is important because we whitelist it as a persistent reducer
 export function darkModePreference(state = false, action) {
   switch (action.type) {
     case 'SET_DARK_MODE_PREFERENCE': {
