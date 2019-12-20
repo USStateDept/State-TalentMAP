@@ -64,7 +64,7 @@ exports[`BidStatusComponent matches snapshot for HAND_SHAKE_ACCEPTED 1`] = `
     name="handshake-o"
   />
    
-  Handshake accepted
+  Handshake registered
    for 
   Title
 </div>

@@ -7,7 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import sinon from 'sinon';
-import SearchAsClientButtonContainer, { SearchAsClientButton, mapDispatchToProps } from './SearchAsClientButton';
+import SearchAsClientButtonContainer, { SearchAsClientButton, genSearchParams, mapDispatchToProps } from './SearchAsClientButton';
 import { testDispatchFunctions } from '../../../testUtilities/testUtilities';
 
 const middlewares = [thunk];
@@ -15,7 +15,7 @@ const mockStore = configureStore(middlewares);
 
 describe('SearchAsClientButton', () => {
   const props = {
-    id: 1,
+    user: { perdet_seq_number: 1 },
     set: () => {},
     history: { push: () => {} },
   };
@@ -31,9 +31,9 @@ describe('SearchAsClientButton', () => {
     const wrapper = shallow(<SearchAsClientButton {...props} />);
     wrapper.setProps({
       ...props,
-      id: 1,
+      client: { perdet_seq_number: 1 },
       history: { push: spy },
-      client: { id: 1 },
+      client: { perdet_seq_number: 1 },
       isLoading: false,
       hasErrored: false,
     });
@@ -49,6 +49,22 @@ describe('SearchAsClientButton', () => {
     const wrapper = shallow(<SearchAsClientButton {...props} set={spy} />);
     wrapper.find('button').simulate('click');
     sinon.assert.calledOnce(spy);
+  });
+
+  it('generates a query string on genSearchParams()', () => {
+    const user = {
+      perdet_seq_number: 2,
+      skills: [{ code: 1 }, { code: '5A' }],
+      grade: '03',
+    };
+    const result = () => genSearchParams(user);
+    expect(result()).toBe('position__grade__code__in=03&position__skill__code__in=1%2C5A');
+
+    user.grade = null;
+    expect(result()).toBe('position__skill__code__in=1%2C5A');
+
+    user.skills = null;
+    expect(result()).toBe('');
   });
 
   it('it mounts', () => {

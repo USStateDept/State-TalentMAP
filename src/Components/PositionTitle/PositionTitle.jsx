@@ -5,15 +5,15 @@ import { get, isNull } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { Flag } from 'flag';
+import BidListButton from 'Containers/BidListButton';
+import Favorite from 'Containers/Favorite';
+import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from 'Constants/PropTypes';
+import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from 'Constants/SystemMessages';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
+import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from 'utilities';
+import { checkFlag } from 'flags';
 import OBCUrl from '../OBCUrl';
-import BidListButton from '../../Containers/BidListButton';
-import Favorite from '../../Containers/Favorite';
-import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
-import { getAssetPath, propOrDefault, getPostName } from '../../utilities';
-import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from '../../Constants/SystemMessages';
-import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BidCount from '../BidCount';
-import { checkFlag } from '../../flags';
 
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
@@ -51,7 +51,7 @@ class PositionTitle extends Component {
 
   renderBidCount() {
     const { details } = this.props;
-    const stats = details.bidStatistics;
+    const stats = getBidStatisticsObject(details.bidStatistics);
     return (
       <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
     );

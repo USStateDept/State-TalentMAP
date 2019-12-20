@@ -26,6 +26,7 @@ import {
   APPROVED_NUMBER,
 } from '../../../Constants/BidData';
 
+// eslint-disable-next-line complexity
 export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   // Configure defaults for a step that is incomplete (future stages).
   const DEFAULT_INCOMPLETE_OBJECT = {

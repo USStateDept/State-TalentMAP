@@ -154,9 +154,9 @@ class SearchFiltersContainer extends Component {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill' && f.data) {
-          f.data.sort(propSort('description'));
+          get(f, 'data', []).sort(propSort('description'));
         } else if (f.item.description === 'grade' && f.data) {
-          f.data.sort(sortGrades);
+          get(f, 'data', []).sort(sortGrades);
         } else if (f.item.description === 'language' && f.data) {
           // Push the "NONE" code choice to the bottom. We're already sorting
           // data, and this is readable, so the next line is eslint-disabled.

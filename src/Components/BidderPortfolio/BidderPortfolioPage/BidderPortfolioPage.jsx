@@ -6,7 +6,12 @@ import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
 import BidControls from '../BidControls';
 import BidderPortfolioSearch from '../BidderPortfolioSearch';
-import { propOrDefault } from '../../../utilities';
+import ProfileSectionTitle from '../../ProfileSectionTitle';
+import ExportLink from '../ExportLink';
+import EditButtons from '../EditButtons';
+import { checkFlag } from '../../../flags';
+
+const getUseClientCounts = () => checkFlag('flags.client_counts');
 
 class BidderPortfolioPage extends Component {
   constructor(props) {
@@ -27,14 +32,18 @@ class BidderPortfolioPage extends Component {
     this.setState({ editType: value });
   }
   render() {
+    const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
-    bidderPortfolioCounts } = this.props;
+    bidderPortfolioCounts, bidderPortfolioCountsIsLoading } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.
-    const navDataIsLoading = !propOrDefault(bidderPortfolioCounts, 'all_clients', false);
+    let navDataIsLoading = false;
+    if (useClientCounts) {
+      navDataIsLoading = bidderPortfolioCountsIsLoading && !bidderPortfolioCounts.all_clients;
+    }
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = bidderPortfolioIsLoading &&
       !bidderPortfolioHasErrored;
@@ -53,16 +62,25 @@ class BidderPortfolioPage extends Component {
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
+          <div className="usa-grid-full">
+            <div className="usa-width-one-half">
+              <ProfileSectionTitle title="Clients" icon="users" />
+            </div>
+            <div className="usa-width-one-half" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              {isListView && <EditButtons onChange={this.changeEditType} />}
+              <ExportLink />
+            </div>
+          </div>
           {
             !navDataIsLoading &&
             <div>
-              <TopNav bidderPortfolioCounts={bidderPortfolioCounts} />
+              { useClientCounts &&
+                <TopNav bidderPortfolioCounts={bidderPortfolioCounts} />
+              }
               <BidControls
                 queryParamUpdate={queryParamUpdate}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
-                showEditButtons={isListView}
-                onEditChange={this.changeEditType}
               />
             </div>
           }
@@ -97,6 +115,11 @@ BidderPortfolioPage.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   pageNumber: PropTypes.number.isRequired,
   bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
+  bidderPortfolioCountsIsLoading: PropTypes.bool.isRequired,
+};
+
+BidderPortfolioPage.defaultProps = {
+  bidderPortfolioCountsIsLoading: false,
 };
 
 export default BidderPortfolioPage;

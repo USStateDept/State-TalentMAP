@@ -5,20 +5,17 @@ exports[`BidderPortfolioSearchComponent matches snapshot 1`] = `
   className="bidder-portfolio-search-container"
 >
   <div
-    className="usa-grid-full"
-  >
-    <CDOAutoSuggest />
-  </div>
-  <div
     className="results-search-bar-container"
   >
     <ResultsSearchHeader
       defaultKeyword=""
       isHomePage={false}
       labelSrOnly={true}
+      legend="Client search bar"
+      legendSrOnly={true}
       onFilterChange={[Function]}
       onUpdate={[Function]}
-      placeholder="Search Bidder Last Name, Skill"
+      placeholder="Type name, position title, skill, post, etc."
       searchBarDisabled={false}
       searchBarDisabledPlaceholder="Free text search is unavailable when searching Projected Vacancies"
     />

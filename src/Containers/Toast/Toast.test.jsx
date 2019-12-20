@@ -33,6 +33,7 @@ describe('ToastContainer', () => {
     wrapper.instance().notify({ type: 'success', message: 'Success!' });
     wrapper.instance().notify({ type: 'error', message: 'Error!' });
     wrapper.instance().notify({}); // use defaults
+    wrapper.instance().notify({ title: 'test' }); // contains a title
     expect(wrapper).toBeDefined();
   });
 });
