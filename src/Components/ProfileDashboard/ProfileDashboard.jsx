@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
 import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
-  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
+import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -13,7 +15,6 @@ import MediaQueryWrapper from '../MediaQuery';
 import Favorites from './Favorites';
 import Assignments from './Assignments';
 import SavedSearches from './SavedSearches/SavedSearchesWrapper';
-import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
 import Updates from './Updates';
@@ -31,6 +32,7 @@ const ProfileDashboard = ({
       <div className="usa-grid-full">
         <div className="usa-grid-full dashboard-top-section">
           { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
+          <SearchAsClientButton user={userProfile} />
         </div>
         <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
           {(matches) => {
