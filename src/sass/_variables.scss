@@ -40,9 +40,9 @@ $tertiary-success-lighter: #94BFA2;
 $tertiary-success-lightest: #E7F4E4;
 
 $tertiary-cool-blue: #205493;
-$tertiary-cool-blue-light: #4773AA;
-$tertiary-cool-blue-lighter: #8BA6CA;
-$tertiary-cool-blue-lightest: #DCE4EF;
+$tertiary-cool-blue-light: $var-tertiary-cool-blue-light;
+$tertiary-cool-blue-lighter: $var-tertiary-cool-blue-lighter;
+$tertiary-cool-blue-lightest: $var-tertiary-cool-blue-lightest;
 
 // Background
 $bg-gray-dark-0: #323045; //# Base
