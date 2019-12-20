@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
+import { toString } from 'lodash';
 import ProfileDashboard from './ProfileDashboard';
 import { bidderUserObject } from '../../__mocks__/userObject';
 import assignmentObject from '../../__mocks__/assignmentObject';
@@ -34,10 +35,13 @@ describe('ProfileDashboardComponent', () => {
   it('displays the Search as Client button when isPublic', () => {
     const wrapper = shallow(
       <ProfileDashboard {...props} isPublic />);
-    expect(wrapper.find('SearchAsClientButton').exists()).toBe(true);
+
+    // Really hacky.
+    // This did not work: wrapper.find('Connect(withRouter(SearchAsClientButton))').exists()
+    expect(toString(wrapper.debug())).toMatch(/SearchAsClientButton/);
     wrapper.setProps({ ...props, isPublic: false });
     wrapper.update();
-    expect(wrapper.find('SearchAsClientButton').exists()).toBe(false);
+    expect(toString(wrapper.debug())).not.toMatch(/SearchAsClientButton/);
   });
 
   it('matches snapshot when loading', () => {

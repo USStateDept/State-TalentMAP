@@ -32,7 +32,7 @@ const ProfileDashboard = ({
       <div className="usa-grid-full">
         <div className="usa-grid-full dashboard-top-section">
           { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-          <SearchAsClientButton user={userProfile} />
+          { isPublic && <SearchAsClientButton user={userProfile} /> }
         </div>
         <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
           {(matches) => {
