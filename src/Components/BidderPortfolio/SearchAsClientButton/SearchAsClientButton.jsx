@@ -6,6 +6,7 @@ import q from 'query-string';
 import { identity, isArray, pickBy } from 'lodash';
 import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
 import { setClient } from '../../../actions/clientView';
+import { fetchClientSuggestions } from '../../../actions/clientSuggestions';
 import { scrollTo } from '../../../utilities';
 import { ID } from '../../ClientHeader';
 
@@ -39,29 +40,61 @@ export class SearchAsClientButton extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { clicked } = this.state;
-    const { client, isLoading, hasErrored, history, user } = nextProps;
+    const { client, isLoading, hasErrored, history,
+      user, useRecommended } = nextProps;
     const { perdet_seq_number: id } = user;
-    if (client.perdet_seq_number === id && client && client.perdet_seq_number &&
-      !isLoading && !hasErrored && clicked) {
-      const query = genSearchParams(user);
-      this.setState({ clicked: false }, () => {
-        setTimeout(() => {
-          history.push(`/results?${query}`);
-          const offset = document.getElementById(ID).offsetTop;
-          scrollTo(offset);
-        }, 0);
-      });
+    const clientHasLoaded = client && client.perdet_seq_number && client.perdet_seq_number === id &&
+      !isLoading && !hasErrored;
+    if (clientHasLoaded && clicked && !useRecommended) {
+      this.genSearchParamsAndNavigate(user, history);
+    }
+
+    const {
+      suggestions: NPsuggestions, recIsLoading: NPrecIsLoading,
+      recHasErrored: NPrecHasErrored, recId,
+    } = nextProps;
+    const { recIsLoading } = this.props;
+
+    if (recId === id && useRecommended && recIsLoading && !NPrecIsLoading &&
+      !NPrecHasErrored && NPsuggestions && clientHasLoaded && clicked) {
+      this.stringifyParamsAndNavigate(NPsuggestions, history);
     }
   }
 
   onClick() {
-    const { set, user, isLoading } = this.props;
+    const { fetchSuggestions, set, user, isLoading, recIsLoading, useRecommended } = this.props;
     const { perdet_seq_number: id } = user;
-    if (!isLoading) {
+    if (!isLoading && !useRecommended) {
       this.setState({
         clicked: true,
       }, () => set(id));
+    } else if (!recIsLoading && useRecommended) {
+      this.setState({
+        clicked: true,
+      }, () => {
+        set(id);
+        fetchSuggestions(id);
+      });
     }
+  }
+
+  genSearchParamsAndNavigate(user, history) {
+    const query = genSearchParams(user);
+    this.setState({ clicked: false }, () => this.navigate(query, history));
+  }
+
+  stringifyParamsAndNavigate(params, history) {
+    let query = pickBy(params, identity);
+    query = q.stringify(query);
+    this.setState({ clicked: false }, () => this.navigate(query, history));
+  }
+
+  navigate(query = '', history = this.props.history) {
+    setTimeout(() => {
+      history.push(`/results?${query}`);
+      const offset = document.getElementById(ID).offsetTop;
+      scrollTo(offset);
+    }, 0);
   }
 
   render() {
@@ -87,6 +120,12 @@ SearchAsClientButton.propTypes = {
   hasErrored: PropTypes.bool,
   set: PropTypes.func.isRequired,
   history: PropTypes.shape({}).isRequired,
+  fetchSuggestions: PropTypes.func.isRequired,
+  recId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  suggestions: PropTypes.shape({}),
+  recIsLoading: PropTypes.bool,
+  recHasErrored: PropTypes.bool,
+  useRecommended: PropTypes.bool,
 };
 
 SearchAsClientButton.defaultProps = {
@@ -96,14 +135,27 @@ SearchAsClientButton.defaultProps = {
   client: {},
   isLoading: false,
   hasErrored: false,
+  recId: '',
+  suggestions: {},
+  recIsLoading: false,
+  recHasErrored: false,
+  useRecommended: true,
 };
 
-const mapStateToProps = ({ clientView: { client, isLoading, hasErrored } }) => ({
-  client, isLoading, hasErrored,
+const mapStateToProps = (
+  {
+    clientView: { client, isLoading, hasErrored },
+    clientSuggestions: {
+      id: recId, suggestions, isLoading: recIsLoading, hasErrored: recHasErrored,
+    },
+  },
+) => ({
+  client, isLoading, hasErrored, recId, suggestions, recIsLoading, recHasErrored,
 });
 
 export const mapDispatchToProps = dispatch => ({
   set: id => dispatch(setClient(id)),
+  fetchSuggestions: id => dispatch(fetchClientSuggestions(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchAsClientButton));
