@@ -5,11 +5,18 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { BIDDER_OBJECT } from '../../Constants/PropTypes';
 import { unsetClient } from '../../actions/clientView';
 import { isCurrentPath } from '../ProfileMenu/navigation';
+import { tertiaryCoolBlueLighter, tertiaryCoolBlueLightest } from '../../sass/sass-vars/variables';
 
 export const ID = 'client-header';
+
+const skeletonColors = {
+  highlightColor: tertiaryCoolBlueLighter,
+  color: tertiaryCoolBlueLightest,
+};
 
 export class ClientHeader extends Component {
   constructor(props) {
@@ -62,36 +69,42 @@ export class ClientHeader extends Component {
     const { client, isLoading, hasErrored, bidderPortfolioSelectedCDO } = this.props;
     const name = client && client.name ? client.name : 'Unknown user';
 
-    const isSuccess = client && !!client.perdet_seq_number && !isLoading && !hasErrored;
+    const isSuccess = !!(client && !!client.perdet_seq_number && !isLoading && !hasErrored);
 
     const proxyName = get(bidderPortfolioSelectedCDO, 'name') && !get(bidderPortfolioSelectedCDO, 'isCurrentUser') ?
       get(bidderPortfolioSelectedCDO, 'name') : '';
 
     const renderHeader = () => (
-      <div className="usa-banner client-header">
+      <div className={`usa-banner client-header ${isLoading ? 'client-header--is-loading' : ''}`}>
         <div className="usa-grid usa-banner-inner">
           <div className={!showReturnLink ? 'hidden' : ''}>
-            <Link to={`/profile/public/${client.perdet_seq_number}`}>
-              <FA name="chevron-left" />
-              <span>Client Dashboard</span>
-            </Link>
+            <SkeletonTheme {...skeletonColors}>
+              {!isLoading ? <Link to={`/profile/public/${client.perdet_seq_number}`}>
+                <FA name="chevron-left" />
+                <span>Client Dashboard</span>
+              </Link> : <Skeleton width="75%" duration={1.8} />}
+            </SkeletonTheme>
           </div>
           <div>
-            <FA name="clipboard" />
-            <span id="search-as-name">Position Search for {name}{!!proxyName && ` (Proxying as ${proxyName})`}</span>
+            <SkeletonTheme {...skeletonColors}>
+              {!isLoading ? <span><FA name="clipboard" />
+                <span id="search-as-name">Position Search for {name}{!!proxyName && ` (Proxying as ${proxyName})`}</span></span> : <Skeleton width="75%" duration={1.8} />}
+            </SkeletonTheme>
           </div>
           <div>
-            <button className="unstyled-button" onClick={this.unsetClient}>
-              <FA name="close" />
-              <span>Exit client view</span>
-            </button>
+            <SkeletonTheme {...skeletonColors}>
+              {!isLoading ? <button className="unstyled-button" onClick={this.unsetClient}>
+                <FA name="close" />
+                <span>Exit client view</span>
+              </button> : <Skeleton width="75%" duration={1.8} />}
+            </SkeletonTheme>
           </div>
         </div>
       </div>
     );
     return (
       <div id={ID}>
-        {isSuccess && renderHeader()}
+        {isSuccess || isLoading ? renderHeader() : null}
       </div>
     );
   }
