@@ -18,6 +18,16 @@ module.exports = {
   get screenMdMaxNum() { return this.screenLgMinNum - 1; },
   get 'screen-md-max'() { return `${this.screenMdMaxNum}px`; },
 
+  // Colors
+  tertiaryCoolBlueLightest: '#DCE4EF',
+  get 'var-tertiary-cool-blue-lightest'() { return this.tertiaryCoolBlueLightest; },
+
+  tertiaryCoolBlueLighter: '#8BA6CA',
+  get 'var-tertiary-cool-blue-lighter'() { return this.tertiaryCoolBlueLighter; },
+
+  tertiaryCoolBlueLight: '#4773AA',
+  get 'var-tertiary-cool-blue-light'() { return this.tertiaryCoolBlueLight; },
+
   // Set our asset path. This is similar to getAssetPath in utilities, but
   // we wrap the environment variable in quotes so it can be used in .scss files.
   get 'asset-path'() { return process.env.PUBLIC_URL ? `"${process.env.PUBLIC_URL}"` : '"/"'; },

@@ -33,18 +33,18 @@ export class SearchAsClientButton extends Component {
     super(props);
     this.onClick = this.onClick.bind(this);
     this.state = {
-      hasPushed: false,
+      clicked: false,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const { hasPushed } = this.state;
+    const { clicked } = this.state;
     const { client, isLoading, hasErrored, history, user } = nextProps;
     const { perdet_seq_number: id } = user;
     if (client.perdet_seq_number === id && client && client.perdet_seq_number &&
-      !isLoading && !hasErrored && !hasPushed) {
+      !isLoading && !hasErrored && clicked) {
       const query = genSearchParams(user);
-      this.setState({ hasPushed: true }, () => {
+      this.setState({ clicked: false }, () => {
         setTimeout(() => {
           history.push(`/results?${query}`);
           const offset = document.getElementById(ID).offsetTop;
@@ -58,7 +58,9 @@ export class SearchAsClientButton extends Component {
     const { set, user, isLoading } = this.props;
     const { perdet_seq_number: id } = user;
     if (!isLoading) {
-      set(id);
+      this.setState({
+        clicked: true,
+      }, () => set(id));
     }
   }
 
@@ -66,7 +68,7 @@ export class SearchAsClientButton extends Component {
     const { buttonProps, className } = this.props;
     return (
       <button
-        className={`usa-button-primary ${className}`}
+        className={`usa-button-primary search-as-client-button ${className}`}
         onClick={this.onClick}
         {...buttonProps}
       >
