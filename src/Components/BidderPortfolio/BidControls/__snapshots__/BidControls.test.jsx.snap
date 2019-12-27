@@ -17,6 +17,71 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     >
       <Connect(CDOAutoSuggest) />
     </div>
+    <div
+      className="portfolio-sort-container-contents"
+    >
+      <BidCyclePicker />
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort=""
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="porfolio-filter"
+        includeFirstEmptyOption={false}
+        label="Filter by:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "All",
+              "value": "",
+            },
+            Object {
+              "text": "Handshake",
+              "value": "true",
+            },
+            Object {
+              "text": "No Handshake",
+              "value": "false",
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort=""
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="porfolio-sort"
+        includeFirstEmptyOption={false}
+        label="Sort by:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "Default sorting",
+              "value": "",
+            },
+            Object {
+              "text": "Grade",
+              "value": "grade",
+            },
+            Object {
+              "text": "Skill",
+              "value": "skill",
+            },
+            Object {
+              "text": "Grade & Skill",
+              "value": "grade_skill",
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
+    </div>
   </div>
   <div
     className="usa-width-one-whole portfolio-sort-container results-dropdown"
@@ -45,6 +110,71 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       }
     >
       <Connect(CDOAutoSuggest) />
+    </div>
+    <div
+      className="portfolio-sort-container-contents"
+    >
+      <BidCyclePicker />
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort=""
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="porfolio-filter"
+        includeFirstEmptyOption={false}
+        label="Filter by:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "All",
+              "value": "",
+            },
+            Object {
+              "text": "Handshake",
+              "value": "true",
+            },
+            Object {
+              "text": "No Handshake",
+              "value": "false",
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort=""
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="porfolio-sort"
+        includeFirstEmptyOption={false}
+        label="Sort by:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "Default sorting",
+              "value": "",
+            },
+            Object {
+              "text": "Grade",
+              "value": "grade",
+            },
+            Object {
+              "text": "Skill",
+              "value": "skill",
+            },
+            Object {
+              "text": "Grade & Skill",
+              "value": "grade_skill",
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
     </div>
   </div>
   <div

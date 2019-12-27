@@ -48,6 +48,7 @@ class BidTrackerCardTop extends Component {
             bidStatistics={bidStatistics}
             post={post}
             showBidCount={showBidCount}
+            bidCycle={bid.bidcycle}
           />
         </div>
         <div className="bid-tracker-card-title-outer-container-right">

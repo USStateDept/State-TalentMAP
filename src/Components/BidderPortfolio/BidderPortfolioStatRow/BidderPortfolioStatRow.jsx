@@ -59,7 +59,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
       {
         !showEdit && useCDOBidding() &&
         <div className="button-container">
-          <SearchAsClientButton id={userProfile.perdet_seq_number} />
+          <SearchAsClientButton user={userProfile} />
         </div>
       }
       {

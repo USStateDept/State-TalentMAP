@@ -42,4 +42,16 @@
       justify-content: right;
     }
   }
+
+  &.client-header--is-loading {
+    *[class^="react-loading-theme-"] {
+      width: 100%;
+    }
+
+    .usa-banner-inner {
+      > div {
+        display: initial;
+      }
+    }
+  }
 }
