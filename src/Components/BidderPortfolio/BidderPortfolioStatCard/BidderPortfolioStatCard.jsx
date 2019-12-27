@@ -1,6 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
+import { checkFlag } from 'flags';
 import { BIDDER_OBJECT } from '../../../Constants/PropTypes';
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
@@ -8,6 +9,8 @@ import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
 import ClientBadgeList from '../ClientBadgeList';
 import StaticDevContent from '../../StaticDevContent';
 import SearchAsClientButton from '../SearchAsClientButton';
+
+const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatCard = ({ userProfile }) => {
   const currentAssignmentText = get(userProfile, 'pos_location_code');
@@ -44,9 +47,10 @@ const BidderPortfolioStatCard = ({ userProfile }) => {
             />
           </StaticDevContent>
         </div>
+        {useCDOBidding() &&
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <SearchAsClientButton id={userProfile.perdet_seq_number} />
-        </div>
+        </div>}
       </div>
     </BoxShadow>
   );

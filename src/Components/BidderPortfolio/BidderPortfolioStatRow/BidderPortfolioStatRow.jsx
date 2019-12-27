@@ -2,6 +2,7 @@ import React from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { checkFlag } from 'flags';
 import { BIDDER_OBJECT } from '../../../Constants/PropTypes';
 import SkillCodeList from '../../SkillCodeList';
 import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
@@ -10,6 +11,8 @@ import StaticDevContent from '../../StaticDevContent';
 import Avatar from '../../Avatar';
 import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
+
+const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
   const currentAssignmentText = get(userProfile, 'pos_location_code');
@@ -54,7 +57,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
         </div>
       }
       {
-        !showEdit &&
+        !showEdit && useCDOBidding() &&
         <div className="button-container">
           <SearchAsClientButton id={userProfile.perdet_seq_number} />
         </div>
