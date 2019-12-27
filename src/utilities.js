@@ -677,10 +677,11 @@ export const downloadFromResponse = (response, fileNameAlt = '') => {
   a.setAttribute('download', filename);
   document.body.appendChild(a);
 
-  if (window.navigator.msSaveOrOpenBlob) {
+  if (window.navigator.msSaveBlob) {
     a.onclick = (() => {
-      const newBlob = new Blob([new Uint8Array(response.data)]);
-      window.navigator.msSaveOrOpenBlob(newBlob, filename);
+      const BOM = '\uFEFF';
+      const blobObject = new Blob([BOM + response.data], { type: ' type: "text/csv; charset=utf-8"' });
+      window.navigator.msSaveOrOpenBlob(blobObject, filename);
     });
     a.click();
   } else {
