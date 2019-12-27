@@ -14,7 +14,6 @@
     "personalization": true,
     "persona_auth": true,
     "client_counts": false,
-    "classifications": false,
     "cycle_filter": false
   }
 }
