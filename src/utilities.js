@@ -1,7 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, intersection, isArray, isEqual, isNumber, isObject, isString,
-  keys, lowerCase, merge as merge$, orderBy, toString, transform } from 'lodash';
+  keys, lowerCase, merge as merge$, orderBy, startCase, toLower, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -693,3 +693,5 @@ export const getBidCycleName = (bidcycle) => {
   if (!isString(text) || !text) { text = NO_BID_CYCLE; }
   return text;
 };
+
+export const anyToTitleCase = (str = '') => startCase(toLower(str));
