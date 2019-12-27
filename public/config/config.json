@@ -14,6 +14,6 @@
     "personalization": true,
     "persona_auth": true,
     "client_counts": false,
-    "cdo_season_filter": true
+    "cdo_season_filter": false
   }
 }
