@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkFlag } from 'flags';
 import SelectForm from '../../SelectForm';
 import { BID_PORTFOLIO_SORTS } from '../../../Constants/Sort';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
+
+const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
 
 class BidControls extends Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class BidControls extends Component {
           <div className="portfolio-sort-container-contents" style={{ float: 'left' }}>
             <CDOAutoSuggest />
           </div>
+          {useCDOSeasonFilter() &&
           <div className="portfolio-sort-container-contents">
             <BidCyclePicker />
             <SelectForm
@@ -31,7 +35,7 @@ class BidControls extends Component {
               label="Sort by:"
               onSelectOption={this.onSortChange}
             />
-          </div>
+          </div>}
         </div>
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
