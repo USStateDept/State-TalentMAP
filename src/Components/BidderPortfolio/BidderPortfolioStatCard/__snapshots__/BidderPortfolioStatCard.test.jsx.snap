@@ -90,18 +90,6 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
         />
       </Connect(StaticDevContent)>
     </div>
-    <div
-      className="button-container"
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
-        }
-      }
-    >
-      <Connect(withRouter(SearchAsClientButton)) />
-    </div>
   </div>
 </BoxShadow>
 `;

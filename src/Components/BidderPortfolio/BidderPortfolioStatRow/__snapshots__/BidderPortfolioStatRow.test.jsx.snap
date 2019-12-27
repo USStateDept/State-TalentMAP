@@ -89,10 +89,5 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
       />
     </Connect(StaticDevContent)>
   </div>
-  <div
-    className="button-container"
-  >
-    <Connect(withRouter(SearchAsClientButton)) />
-  </div>
 </div>
 `;

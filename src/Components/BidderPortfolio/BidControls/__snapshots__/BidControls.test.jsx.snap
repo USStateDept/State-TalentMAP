@@ -17,39 +17,6 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     >
       <Connect(CDOAutoSuggest) />
     </div>
-    <div
-      className="portfolio-sort-container-contents"
-    >
-      <BidCyclePicker />
-      <SelectForm
-        className="select-offset select-black"
-        defaultSort=""
-        disabled={false}
-        emptyOptionText="- Select -"
-        id="porfolio-sort"
-        includeFirstEmptyOption={false}
-        label="Sort by:"
-        labelSrOnly={false}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "Default sorting",
-              "value": "",
-            },
-            Object {
-              "text": "Age",
-              "value": "date_of_birth",
-            },
-            Object {
-              "text": "Priority Need",
-              "value": "bid_statistics__handshake_offered",
-            },
-          ]
-        }
-        transformValue={[Function]}
-      />
-    </div>
   </div>
   <div
     className="usa-width-one-whole portfolio-sort-container results-dropdown"
@@ -78,39 +45,6 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       }
     >
       <Connect(CDOAutoSuggest) />
-    </div>
-    <div
-      className="portfolio-sort-container-contents"
-    >
-      <BidCyclePicker />
-      <SelectForm
-        className="select-offset select-black"
-        defaultSort=""
-        disabled={false}
-        emptyOptionText="- Select -"
-        id="porfolio-sort"
-        includeFirstEmptyOption={false}
-        label="Sort by:"
-        labelSrOnly={false}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "Default sorting",
-              "value": "",
-            },
-            Object {
-              "text": "Age",
-              "value": "date_of_birth",
-            },
-            Object {
-              "text": "Priority Need",
-              "value": "bid_statistics__handshake_offered",
-            },
-          ]
-        }
-        transformValue={[Function]}
-      />
     </div>
   </div>
   <div
