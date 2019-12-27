@@ -1,11 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
-<ul
-  className="usa-grid-full user-dashboard portfolio-row-list"
+<Accordion
+  className="usa-grid-full accordion-inverse user-dashboard portfolio-row-list"
+  isMultiselectable={true}
 >
-  <li
+  <AccordionItem
+    buttonClass=""
+    childClass=""
     className="portfolio-row"
+    expanded={false}
+    id="5-row"
+    setAccordion={[Function]}
+    title=""
+    useIdClass={true}
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -51,9 +59,16 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
         }
       }
     />
-  </li>
-  <li
+  </AccordionItem>
+  <AccordionItem
+    buttonClass=""
+    childClass=""
     className="portfolio-row"
+    expanded={false}
+    id="3-row"
+    setAccordion={[Function]}
+    title=""
+    useIdClass={true}
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -84,9 +99,16 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
         }
       }
     />
-  </li>
-  <li
+  </AccordionItem>
+  <AccordionItem
+    buttonClass=""
+    childClass=""
     className="portfolio-row"
+    expanded={false}
+    id="1-row"
+    setAccordion={[Function]}
+    title=""
+    useIdClass={true}
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -117,9 +139,16 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
         }
       }
     />
-  </li>
-  <li
+  </AccordionItem>
+  <AccordionItem
+    buttonClass=""
+    childClass=""
     className="portfolio-row"
+    expanded={false}
+    id="6-row"
+    setAccordion={[Function]}
+    title=""
+    useIdClass={true}
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -165,9 +194,16 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
         }
       }
     />
-  </li>
-  <li
+  </AccordionItem>
+  <AccordionItem
+    buttonClass=""
+    childClass=""
     className="portfolio-row"
+    expanded={false}
+    id="2-row"
+    setAccordion={[Function]}
+    title=""
+    useIdClass={true}
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -198,9 +234,16 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
         }
       }
     />
-  </li>
-  <li
+  </AccordionItem>
+  <AccordionItem
+    buttonClass=""
+    childClass=""
     className="portfolio-row"
+    expanded={false}
+    id="4-row"
+    setAccordion={[Function]}
+    title=""
+    useIdClass={true}
   >
     <BidderPortfolioStatRow
       showEdit={false}
@@ -246,6 +289,6 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
         }
       }
     />
-  </li>
-</ul>
+  </AccordionItem>
+</Accordion>
 `;
