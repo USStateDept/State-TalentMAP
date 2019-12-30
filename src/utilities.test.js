@@ -864,7 +864,7 @@ describe('scrollToGlossaryTerm', () => {
   describe('anyToTitleCase', () => {
     it('converts a string to title case', () => {
       const result = 'The Quick Dog';
-      ['tHE qUick Dog', 'THE QUICK DOG', 'the quick dog', 'The Quick Dog', 'the quick dog']
+      ['tHE qUick Dog', 'THE QUICK DOG', 'the quick dog', 'The Quick Dog', 'tHe Quick dOg']
         .map(m => expect(anyToTitleCase(m)).toBe(result));
     });
   });
