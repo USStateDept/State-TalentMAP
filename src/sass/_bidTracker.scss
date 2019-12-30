@@ -5,6 +5,10 @@ $draft-icon-offset: 120px;
 .bid-tracker-page {
   position: relative;
 
+  .search-as-client-button {
+    float: right;
+  }
+
   .bid-tracker-greeting {
     margin-bottom: 40px;
   }
