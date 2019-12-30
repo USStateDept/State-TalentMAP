@@ -25,20 +25,19 @@ describe('SearchAsClientButton', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('sets state and pushes to history when newProps client.id matches id', (done) => {
+  it('sets pushes to history when newProps client.id matches id', (done) => {
     const spy = sinon.spy();
     global.document.getElementById = () => ({ offsetTop: '50px' });
     const wrapper = shallow(<SearchAsClientButton {...props} />);
+    wrapper.simulate('click');
     wrapper.setProps({
       ...props,
       client: { perdet_seq_number: 1 },
       history: { push: spy },
-      client: { perdet_seq_number: 1 },
       isLoading: false,
       hasErrored: false,
     });
     setTimeout(() => {
-      expect(wrapper.instance().state.hasPushed).toBe(true);
       sinon.assert.calledOnce(spy);
       done();
     }, 1);

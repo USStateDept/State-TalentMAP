@@ -1,7 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, intersection, isArray, isEqual, isNumber, isObject, isString,
-  keys, lowerCase, merge as merge$, orderBy, toString, transform } from 'lodash';
+  keys, lowerCase, merge as merge$, orderBy, startCase, toLower, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -677,10 +677,11 @@ export const downloadFromResponse = (response, fileNameAlt = '') => {
   a.setAttribute('download', filename);
   document.body.appendChild(a);
 
-  if (window.navigator.msSaveOrOpenBlob) {
+  if (window.navigator.msSaveBlob) {
     a.onclick = (() => {
-      const newBlob = new Blob([new Uint8Array(response.data)]);
-      window.navigator.msSaveOrOpenBlob(newBlob, filename);
+      const BOM = '\uFEFF';
+      const blobObject = new Blob([BOM + response.data], { type: ' type: "text/csv; charset=utf-8"' });
+      window.navigator.msSaveOrOpenBlob(blobObject, filename);
     });
     a.click();
   } else {
@@ -693,3 +694,5 @@ export const getBidCycleName = (bidcycle) => {
   if (!isString(text) || !text) { text = NO_BID_CYCLE; }
   return text;
 };
+
+export const anyToTitleCase = (str = '') => startCase(toLower(str));

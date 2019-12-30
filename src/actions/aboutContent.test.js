@@ -1,71 +1,57 @@
-import { setupAsyncMocks } from '../testUtilities/testUtilities';
+import { setupAsyncMocks, spyMockAdapter, expectMockWasCalled } from '../testUtilities/testUtilities';
 import * as actions from './aboutContent';
 
-const { mockStore, mockAdapter } = setupAsyncMocks();
+const { mockStore } = setupAsyncMocks();
 
 describe('async actions', () => {
-  beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/aboutpage/').reply(200,
-      { text: 'text', is_visible: true },
-    );
-    mockAdapter.onPatch('http://localhost:8000/api/v1/aboutpage/').reply(200,
-      null,
-    );
-  });
+  let mock;
+  let spy;
 
   it('fetches the about content', (done) => {
     const store = mockStore({});
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.aboutContentFetchData());
-        done();
-      }, 0);
-    };
-    f();
+    ({ mock, spy } = spyMockAdapter({
+      url: 'http://localhost:8000/api/v1/aboutpage/', response: [200, { text: 'text', is_visible: true }],
+    })); mock();
+
+    store.dispatch(actions.aboutContentFetchData());
+
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('handles errors when fetching the about content', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/aboutpage/').reply(404,
-      null,
-    );
+    ({ mock, spy } = spyMockAdapter({
+      url: 'http://localhost:8000/api/v1/aboutpage/', response: [404, null],
+    })); mock();
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.aboutContentFetchData());
-        done();
-      }, 0);
-    };
-    f();
+    store.dispatch(actions.aboutContentFetchData());
+
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('patches the home banner content', (done) => {
     const store = mockStore({});
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.aboutContentPatchData({ content: 'text' }));
-        done();
-      }, 0);
-    };
-    f();
+    ({ mock, spy } = spyMockAdapter({
+      url: 'http://localhost:8000/api/v1/aboutpage/', response: [200, null], type: 'onPatch',
+    })); mock();
+
+    store.dispatch(actions.aboutContentPatchData({ content: 'text' }));
+
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('handles errors when patching the home banner content', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/aboutpage/').reply(404,
-      null,
-    );
+    ({ mock, spy } = spyMockAdapter({
+      url: 'http://localhost:8000/api/v1/aboutpage/', response: [404, null], type: 'onPatch',
+    })); mock();
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.aboutContentPatchData({ content: 'text' }));
-        done();
-      }, 0);
-    };
-    f();
+    store.dispatch(actions.aboutContentPatchData({ content: 'text' }));
+
+    expectMockWasCalled({ spy, cb: done });
   });
 });
