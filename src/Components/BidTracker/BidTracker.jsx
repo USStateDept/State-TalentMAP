@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
 import ProfileSectionTitle from '../ProfileSectionTitle';
@@ -18,6 +19,7 @@ userProfileIsLoading, isPublic, useCDOView }) => {
   return (
     <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
       <BackButton />
+      { isPublic && <SearchAsClientButton user={userProfile} /> }
       {
         !isPublic &&
         <NotificationsSection
