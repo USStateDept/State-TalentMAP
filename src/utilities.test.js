@@ -43,6 +43,8 @@ import { validStateEmail,
          spliceStringForCSV,
          scrollToGlossaryTerm,
          getBidCycleName,
+         downloadFromResponse,
+         anyToTitleCase,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -830,6 +832,40 @@ describe('scrollToGlossaryTerm', () => {
       expect(getBidCycleName({ a: cyclename })).not.toBe(cyclename);
       expect(getBidCycleName([])).not.toBe(cyclename);
       expect(getBidCycleName({ cyclename: 1 })).not.toBe(cyclename);
+    });
+  });
+
+  describe('downloadFromResponse', () => {
+    let blobSpy;
+    let response;
+
+    beforeEach(() => {
+      blobSpy = sinon.spy();
+      response = {
+        headers: { 'content-disposition': 'attachment; filename=test.csv' },
+        data: 'some data',
+      };
+      global.window.navigator.msSaveOrOpenBlob = blobSpy;
+    });
+
+    it('calls msSaveOrOpenBlob if msSaveBlob exists', () => {
+      downloadFromResponse(response);
+      sinon.assert.calledOnce(blobSpy);
+      blobSpy.reset();
+    });
+
+    it('does not call msSaveOrOpenBlob if msSaveBlob does not exist', () => {
+      global.window.navigator.msSaveBlob = undefined;
+      downloadFromResponse(response);
+      sinon.assert.notCalled(blobSpy);
+    });
+  });
+
+  describe('anyToTitleCase', () => {
+    it('converts a string to title case', () => {
+      const result = 'The Quick Dog';
+      ['tHE qUick Dog', 'THE QUICK DOG', 'the quick dog', 'The Quick Dog', 'the quick dog']
+        .map(m => expect(anyToTitleCase(m)).toBe(result));
     });
   });
 });
