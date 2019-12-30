@@ -7,6 +7,8 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
   <div>
     <Avatar
       className=""
+      externalSource={Object {}}
+      externalSourceToUse={null}
       fallback={
         <FontAwesome
           name="user-o"
@@ -17,6 +19,7 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
       lastName=""
       onClick={[Function]}
       small={false}
+      useExternalImg={false}
     />
   </div>
   <div>

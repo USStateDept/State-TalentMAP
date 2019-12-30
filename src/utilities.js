@@ -696,3 +696,10 @@ export const getBidCycleName = (bidcycle) => {
 };
 
 export const anyToTitleCase = (str = '') => startCase(toLower(str));
+
+export const loadImg = (src, callback) => {
+  const sprite = new Image();
+  sprite.onload = callback;
+  sprite.onerror = callback;
+  sprite.src = src;
+};

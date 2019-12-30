@@ -43,6 +43,7 @@ import { validStateEmail,
          spliceStringForCSV,
          scrollToGlossaryTerm,
          getBidCycleName,
+         loadImg,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -830,6 +831,12 @@ describe('scrollToGlossaryTerm', () => {
       expect(getBidCycleName({ a: cyclename })).not.toBe(cyclename);
       expect(getBidCycleName([])).not.toBe(cyclename);
       expect(getBidCycleName({ cyclename: 1 })).not.toBe(cyclename);
+    });
+  });
+
+  describe('loadImg', () => {
+    it('does not throw an error', () => {
+      expect(loadImg).not.toThrowError();
     });
   });
 });

@@ -59,6 +59,8 @@ export class AccountDropdown extends Component {
       lastName: get(userProfile, 'user.last_name'),
       initials,
       displayName,
+      externalSource: get(userProfile, 'avatar'),
+      externalSourceToUse: 's',
     };
 
     const isLoading = compact(values(avatar)).length > 0;

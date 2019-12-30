@@ -12,7 +12,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
     >
       <Avatar
         className="dashboard-user-profile-picture"
-        display_name="John"
+        displayName="John"
+        externalSource={Object {}}
+        externalSourceToUse="m"
         fallback={
           <FontAwesome
             name="user-o"
@@ -23,6 +25,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         lastName="Doe"
         onClick={[Function]}
         small={false}
+        useExternalImg={false}
       />
     </div>
     <Connect(StaticDevContent)>
@@ -80,7 +83,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
     >
       <Avatar
         className="dashboard-user-profile-picture"
-        display_name="John"
+        displayName="John"
+        externalSource={Object {}}
+        externalSourceToUse="m"
         fallback={
           <FontAwesome
             name="user-o"
@@ -91,6 +96,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         lastName="Doe"
         onClick={[Function]}
         small={false}
+        useExternalImg={false}
       />
     </div>
     <Connect(StaticDevContent)>
@@ -148,7 +154,9 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
     >
       <Avatar
         className="dashboard-user-profile-picture"
-        display_name="John"
+        displayName="John"
+        externalSource={Object {}}
+        externalSourceToUse="m"
         fallback={
           <FontAwesome
             name="user-o"
@@ -159,6 +167,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         lastName="Doe"
         onClick={[Function]}
         small={false}
+        useExternalImg={false}
       />
     </div>
     <Connect(StaticDevContent)>

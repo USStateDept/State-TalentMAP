@@ -37,6 +37,9 @@ global.MutationObserver = class {
   observe(element, initObject) {}
 }
 
+// Mock imagediff
+jest.mock('imagediff', () => ({ default: jest.fn() }))
+
 beforeEach(() => {
   // mock sessionStorage - feature flags config
   sessionStorage.setItem('config', JSON.stringify(config));

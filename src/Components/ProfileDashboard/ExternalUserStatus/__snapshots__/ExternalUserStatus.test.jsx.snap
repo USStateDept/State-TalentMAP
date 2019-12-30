@@ -12,6 +12,8 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
     >
       <Avatar
         className=""
+        externalSource={Object {}}
+        externalSourceToUse={null}
         fallback={
           <FontAwesome
             name="user-o"
@@ -22,6 +24,7 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
         lastName="Doe"
         onClick={[Function]}
         small={true}
+        useExternalImg={false}
       />
     </div>
     <div
@@ -62,6 +65,8 @@ exports[`ExternalUserStatusComponent matches snapshot when showMail is true 1`] 
     >
       <Avatar
         className=""
+        externalSource={Object {}}
+        externalSourceToUse={null}
         fallback={
           <FontAwesome
             name="user-o"
@@ -72,6 +77,7 @@ exports[`ExternalUserStatusComponent matches snapshot when showMail is true 1`] 
         lastName="Doe"
         onClick={[Function]}
         small={true}
+        useExternalImg={false}
       />
     </div>
     <div

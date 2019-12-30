@@ -20,6 +20,15 @@ describe('breakpoints', () => {
     expect(variables.screenMdMaxNum).toBeDefined();
     expect(variables['screen-md-max']).toBe(`${variables.screenMdMaxNum}px`);
 
+    expect(variables.tertiaryCoolBlueLightest).toBeDefined();
+    expect(variables['var-tertiary-cool-blue-lightest']).toBe(variables.tertiaryCoolBlueLightest);
+
+    expect(variables.tertiaryCoolBlueLighter).toBeDefined();
+    expect(variables['var-tertiary-cool-blue-lighter']).toBe(variables.tertiaryCoolBlueLighter);
+
+    expect(variables.tertiaryCoolBlueLight).toBeDefined();
+    expect(variables['var-tertiary-cool-blue-light']).toBe(variables.tertiaryCoolBlueLight);
+
     expect(variables.fakeBreakpoint).toBeUndefined();
   });
 });

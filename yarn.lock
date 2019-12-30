@@ -2048,6 +2048,12 @@ caniuse-lite@^1.0.30000791, caniuse-lite@^1.0.30000792:
   version "1.0.30000810"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000810.tgz#47585fffce0e9f3593a6feea4673b945424351d9"
 
+canvas@~1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/canvas/-/canvas-1.1.6.tgz#d84b088f3bcd3840fe14977cd3625f5fe89f81ee"
+  dependencies:
+    nan "~1.2.0"
+
 capture-exit@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/capture-exit/-/capture-exit-2.0.0.tgz#fb953bfaebeb781f62898239dabb426d08a509a4"
@@ -4041,6 +4047,12 @@ fill-range@^4.0.0:
     repeat-string "^1.6.1"
     to-regex-range "^2.1.0"
 
+filter-invalid-dom-props@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/filter-invalid-dom-props/-/filter-invalid-dom-props-1.0.0.tgz#44d0d0306657b2584e04f71d428229ebb9867ca1"
+  dependencies:
+    html-attributes "1.1.0"
+
 finalhandler@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.1.2.tgz#b7e7d000ffd11938d0fdb053506f6ebabe9f587d"
@@ -4811,6 +4823,10 @@ hsts@2.2.0:
   dependencies:
     depd "2.0.0"
 
+html-attributes@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/html-attributes/-/html-attributes-1.1.0.tgz#82027a4fac7a6070ea6c18cc3886aea18d6dea09"
+
 html-comment-regex@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/html-comment-regex/-/html-comment-regex-1.1.1.tgz#668b93776eaae55ebde8f3ad464b307a4963625e"
@@ -5022,6 +5038,12 @@ iltorb@^1.0.9:
     nan "^2.6.2"
     node-gyp "^3.6.2"
     prebuild-install "^2.3.0"
+
+imagediff@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/imagediff/-/imagediff-1.0.8.tgz#7e23153e8104b0e0be125e3fa56d9dd37ada5505"
+  optionalDependencies:
+    canvas "~1.1.6"
 
 immutable@^3.8.2:
   version "3.8.2"
@@ -6952,6 +6974,10 @@ nan@^2.6.2:
   version "2.12.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
 
+nan@~1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-1.2.0.tgz#9c4d63ce9e4f8e95de2d574e18f7925554a8a8ef"
+
 nanoid@^2.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.2.tgz#5c63a913f4fbf4afff2004c7bb42dee8e627baf4"
@@ -8571,6 +8597,13 @@ react-helmet@^5.2.1:
     prop-types "^15.5.4"
     react-fast-compare "^2.0.2"
     react-side-effect "^1.1.0"
+
+react-image-fallback@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/react-image-fallback/-/react-image-fallback-8.0.0.tgz#18a88c3e011ee683f35fab1dd6e88eb5152b18ec"
+  dependencies:
+    filter-invalid-dom-props "1.0.0"
+    prop-types "^15.5.10"
 
 react-input-autosize@^2.1.2:
   version "2.2.1"
