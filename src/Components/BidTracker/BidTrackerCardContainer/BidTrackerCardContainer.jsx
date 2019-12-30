@@ -26,7 +26,7 @@ submitBid, deleteBid, useCDOView }) => {
       userProfile={userProfile}
       submitBid={submitBid}
       deleteBid={deleteBid}
-      showBidCount={bid.status !== DRAFT_PROP}
+      showBidCount
       useCDOView={useCDOView}
       {...props}
     />
