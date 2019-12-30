@@ -155,7 +155,8 @@
       "!src/actions/showStaticContent.js",
       "!src/reducers/showStaticContent.js",
       "!src/Components/CSV/**/*.{js,jsx}",
-      "!src/polyfills/**/*.{js,jsx}"
+      "!src/polyfills/**/*.{js,jsx}",
+      "!src/testUtilities/**/*"
     ],
     "coverageReporters": [
       "text-summary",
