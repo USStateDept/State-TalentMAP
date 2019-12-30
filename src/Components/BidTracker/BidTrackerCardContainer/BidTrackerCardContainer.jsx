@@ -4,7 +4,7 @@ import { BID_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidTrackerCard from '../BidTrackerCard';
 import IsPriority from '../PriorityCards/IsPriority';
 import IsOnStandby from '../PriorityCards/IsOnStandby';
-import { DRAFT_PROP, APPROVED_PROP } from '../../../Constants/BidData';
+import { APPROVED_PROP } from '../../../Constants/BidData';
 
 // assign values to constants for equality checks later
 const DEFAULT = 'default';
