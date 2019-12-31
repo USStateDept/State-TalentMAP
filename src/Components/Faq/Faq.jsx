@@ -6,10 +6,15 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import MediaQuery from '../MediaQuery';
 import Spinner from '../Spinner';
 import Alert from '../Alert';
+import markdownText from './text.markdown';
 
 class Faq extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      markdownText,
+      isLoading: true,
+    };
   }
 
   render() {
@@ -21,8 +26,7 @@ class Faq extends Component {
               <div>
                 <div className={`${matches ? 'usa-width-one-half' : 'usa-width-three-fourths'} about-content`}>
                   <div>
-                    <ReactMarkdown source={data} />
-                    <a type="submit" role="button" href="mailto:TalentMAP@State.gov" className="tm-button-feedback">Email TalentMAP</a>
+                    <ReactMarkdown source={markdownText} />
                   </div>
                 </div>
               </div>)
@@ -33,3 +37,5 @@ class Faq extends Component {
     );
   }
 }
+
+export default Faq;
