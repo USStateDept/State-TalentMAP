@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import Alert from 'Components/Alert';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
@@ -58,6 +59,10 @@ userProfileIsLoading, isPublic, useCDOView }) => {
                 useCDOView={useCDOView}
               />
             </div>
+        }
+        {
+          !isLoading && !get(bidList, 'results', []).length &&
+          <Alert type="info" title="Bid list empty" messages={[{ body: 'You do not have any bids in your bid list.' }]} />
         }
       </div>
     </div>
