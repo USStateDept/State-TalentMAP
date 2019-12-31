@@ -11,6 +11,7 @@ const routesArray = [
   { path: '/about', exact: true, componentName: 'About', pageTitle: 'About' },
   { path: '/tokenValidation', componentName: 'TokenValidation', pageTitle: 'Token Validation' },
   { path: '/loginRedirect', componentName: 'LoginRedirect', pageTitle: 'Login Redirect' },
+  { path: '/faq', componentName: 'Faq', pageTitle: 'Faq' },
 ];
 
 module.exports = routesArray;
