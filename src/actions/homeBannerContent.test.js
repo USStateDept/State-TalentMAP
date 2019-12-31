@@ -5,10 +5,10 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/homepage/banner/').reply(200,
+    mockAdapter.onGet('/homepage/banner/').reply(200,
       { text: 'text', is_visible: true },
     );
-    mockAdapter.onPatch('http://localhost:8000/api/v1/homepage/banner/').reply(200,
+    mockAdapter.onPatch('/homepage/banner/').reply(200,
       null,
     );
   });
@@ -25,10 +25,26 @@ describe('async actions', () => {
     f();
   });
 
+  it('fetches the home banner content when is_visible === false', (done) => {
+    const store = mockStore({ notifications: {} });
+
+    mockAdapter.onGet('/homepage/banner/').reply(200,
+      { text: 'text', is_visible: false },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.homeBannerContentFetchData());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it('handles errors when fetching the home banner content', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/homepage/banner/').reply(404,
+    mockAdapter.onGet('/homepage/banner/').reply(404,
       null,
     );
 
@@ -56,7 +72,7 @@ describe('async actions', () => {
   it('handles errors when patching the home banner content', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/homepage/banner/').reply(404,
+    mockAdapter.onPatch('/homepage/banner/').reply(404,
       null,
     );
 

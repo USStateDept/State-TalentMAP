@@ -12,7 +12,7 @@ describe('async actions', () => {
   it('can call the editDescriptionContent function', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
+    mockAdapter.onPatch('/capsule_description/1/').reply(200,
       'success',
     );
 
@@ -28,7 +28,7 @@ describe('async actions', () => {
   it('can call the editPocContent function', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
+    mockAdapter.onPatch('/capsule_description/1/').reply(200,
       'success',
     );
 
@@ -44,7 +44,7 @@ describe('async actions', () => {
   it('can call the editWebsiteContent function', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(200,
+    mockAdapter.onPatch('/capsule_description/1/').reply(200,
       'success',
     );
 
@@ -72,7 +72,7 @@ describe('async actions', () => {
   it('can handle a failed edit', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(404,
+    mockAdapter.onPatch('/capsule_description/1/').reply(404,
       { message: 'unauthorized' },
     );
 
@@ -88,7 +88,7 @@ describe('async actions', () => {
   it('can handle a failed edit when there is no error message', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/capsule_description/1/').reply(404,
+    mockAdapter.onPatch('/capsule_description/1/').reply(404,
       null,
     );
 

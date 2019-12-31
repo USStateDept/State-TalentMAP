@@ -11,7 +11,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'http://localhost:8000/api/v1/aboutpage/', response: [200, { text: 'text', is_visible: true }],
+      url: '/aboutpage/', response: [200, { text: 'text', is_visible: true }],
     })); mock();
 
     store.dispatch(actions.aboutContentFetchData());
@@ -23,7 +23,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'http://localhost:8000/api/v1/aboutpage/', response: [404, null],
+      url: '/aboutpage/', response: [404, null],
     })); mock();
 
     store.dispatch(actions.aboutContentFetchData());
@@ -35,7 +35,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'http://localhost:8000/api/v1/aboutpage/', response: [200, null], type: 'onPatch',
+      url: '/aboutpage/', response: [200, null], type: 'onPatch',
     })); mock();
 
     store.dispatch(actions.aboutContentPatchData({ content: 'text' }));
@@ -47,7 +47,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'http://localhost:8000/api/v1/aboutpage/', response: [404, null], type: 'onPatch',
+      url: '/aboutpage/', response: [404, null], type: 'onPatch',
     })); mock();
 
     store.dispatch(actions.aboutContentPatchData({ content: 'text' }));

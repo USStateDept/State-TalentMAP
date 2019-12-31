@@ -19,11 +19,11 @@ describe('async actions', () => {
       languages: [{ id: 1, language: 'French (FR)', reading_proficiency: '2', spoken_proficiency: '2', representation: 'French (FR) 2/2' }],
     };
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/100/').reply(200,
+    mockAdapter.onGet('/orgpost/100/').reply(200,
       post,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/orgpost/200/').reply(404,
+    mockAdapter.onGet('/orgpost/200/').reply(404,
       null,
     );
   });

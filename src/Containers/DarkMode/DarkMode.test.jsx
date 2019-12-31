@@ -13,4 +13,13 @@ describe('DarkMode', () => {
     );
     expect(wrapper).toBeDefined();
   });
+
+  it('is defined after it receives new props', () => {
+    const wrapper = shallow(
+      <DarkMode.WrappedComponent {...props} />,
+    );
+    wrapper.setProps({ isDarkMode: false });
+    wrapper.update();
+    expect(wrapper).toBeDefined();
+  });
 });

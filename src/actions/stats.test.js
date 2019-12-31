@@ -17,7 +17,7 @@ describe('async actions', () => {
       '/stats/distinctlogins/?date_of_login__gt=2010-01-13T17%3A00%3A00.000Z&date_of_login__lte=2010-01-20T17%3A00%3A00.000Z&limit=1',
       '/stats/distinctlogins/?date_of_login__gt=2009-12-21T17%3A00%3A00.000Z&date_of_login__lte=2010-01-20T17%3A00%3A00.000Z&limit=1',
     ].map(m => (
-      mockAdapter.onGet(`http://localhost:8000/api/v1${m}`).reply(200,
+      mockAdapter.onGet(`${m}`).reply(200,
         {
           count: 1,
           results: [
@@ -46,7 +46,7 @@ describe('async actions', () => {
   it('handles errors when fetching stats', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/stats/distinctlogins/?date_of_login__gt=2009-12-21T17%3A00%3A00.000Z&date_of_login__lte=2010-01-20T17%3A00%3A00.000Z&limit=1').reply(404,
+    mockAdapter.onGet('/stats/distinctlogins/?date_of_login__gt=2009-12-21T17%3A00%3A00.000Z&date_of_login__lte=2010-01-20T17%3A00%3A00.000Z&limit=1').reply(404,
       null,
     );
 

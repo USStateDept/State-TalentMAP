@@ -1,18 +1,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import LogRow from './LogRow';
+import LogRow, { stopProp } from './LogRow';
 
 describe('LogRow', () => {
   const props = {
     name: 'name',
-    isLoading: false,
+    isSelected: false,
     LogRowIsLoading: false,
     onDownloadClick: () => {},
   };
 
   it('is defined', () => {
     const wrapper = shallow(<LogRow {...props} />);
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined when isSelected === true', () => {
+    const wrapper = shallow(<LogRow {...props} isSelected />);
     expect(wrapper).toBeDefined();
   });
 
@@ -32,6 +37,13 @@ describe('LogRow', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<LogRow {...props} onClick={spy} />);
     wrapper.find('InteractiveElement').props().onClick();
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('calls stopPropagation on stopProp', () => {
+    const spy = sinon.spy();
+    const e = { stopPropagation: spy };
+    stopProp(e);
     sinon.assert.calledOnce(spy);
   });
 });

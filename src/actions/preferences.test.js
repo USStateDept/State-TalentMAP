@@ -11,6 +11,6 @@ describe('toast actions', () => {
 
   it('can call the darkModePreference function', () => {
     const store = mockStore({});
-    store.dispatch(actions.darkModePreference(false));
+    store.dispatch(actions.setDarkModePreference(false));
   });
 });

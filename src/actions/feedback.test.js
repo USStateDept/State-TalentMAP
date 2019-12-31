@@ -11,7 +11,7 @@ describe('async actions', () => {
   it('can submit request to send email', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/feedback/').reply(200,
+    mockAdapter.onPost('/feedback/').reply(200,
       'success',
     );
 
@@ -33,7 +33,7 @@ describe('async actions', () => {
   it('can handle a failed submission', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/feedback/').reply(400,
+    mockAdapter.onPost('/feedback/').reply(400,
       { comment: ['error'] },
     );
 
