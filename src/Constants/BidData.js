@@ -44,6 +44,11 @@ export const BID_EXPLANATION_TEXT = {
   },
 };
 
+export const ALT_BID_EXPLANATION_TEXT = {
+  text: 'Your bid is likely in one of several steps in the process.',
+  link: 'Learn more here.',
+};
+
 // Numbers on the Bid Tracker for given statuses
 export const DRAFT_NUMBER = 1;
 export const SUBMITTED_NUMBER = 2;

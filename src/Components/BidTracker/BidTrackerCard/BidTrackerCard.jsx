@@ -16,7 +16,8 @@ import {
   // HAND_SHAKE_ACCEPTED_PROP,
   // PRE_PANEL_PROP,
   // IN_PANEL_PROP,
-  BID_EXPLANATION_TEXT,
+  // BID_EXPLANATION_TEXT,
+  ALT_BID_EXPLANATION_TEXT,
 } from '../../../Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../utilities';
 
@@ -45,7 +46,8 @@ class BidTrackerCard extends Component {
       priorityExists ? 'bid-tracker--priority-exists' : '',
     ].join(' ');
     const showBidCount$ = showBidCount && !priorityExists;
-    const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
+    const questionText = ALT_BID_EXPLANATION_TEXT;
+    // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
