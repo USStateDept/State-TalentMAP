@@ -7,7 +7,7 @@ exports[`BidControlsComponent matches snapshot 1`] = `
   <div
     className="label"
   >
-    Bid cycle:
+    Bid season:
   </div>
   <r
     dropdownHeight={600}
@@ -19,12 +19,12 @@ exports[`BidControlsComponent matches snapshot 1`] = `
     onChange={[Function]}
     options={
       Array [
-        "2020 PSP",
-        "Long-term training and details Summer 2020",
         "Summer 2020",
+        "Winter 2020",
+        "Summer 2021",
       ]
     }
-    placeholder="Select cycle"
+    placeholder="Select season"
     renderList={[Function]}
     selectAllMode="default"
     selectAllText="Select all"

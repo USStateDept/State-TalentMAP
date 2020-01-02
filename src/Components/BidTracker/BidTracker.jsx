@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import Alert from 'Components/Alert';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
@@ -16,6 +17,12 @@ userProfileIsLoading, isPublic, useCDOView }) => {
   const isLoading = bidListIsLoading || userProfileIsLoading;
   const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
     `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
+
+  const emptyBidListText = isPublic ?
+  'This user does not have any bids in their bid list.'
+  :
+  'You do not have any bids in your bid list.';
+
   return (
     <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
       <BackButton />
@@ -58,6 +65,10 @@ userProfileIsLoading, isPublic, useCDOView }) => {
                 useCDOView={useCDOView}
               />
             </div>
+        }
+        {
+          !isLoading && !get(bidList, 'results', []).length &&
+          <Alert type="info" title="Bid list empty" messages={[{ body: emptyBidListText }]} />
         }
       </div>
     </div>

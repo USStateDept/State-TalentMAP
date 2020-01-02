@@ -32,15 +32,15 @@ describe('async actions', () => {
   it('can fetch a position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(200,
+    mockAdapter.onGet('/profile/').reply(200,
       profile,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/permission/user/').reply(200,
+    mockAdapter.onGet('/permission/user/').reply(200,
       permission,
     );
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/stats/login/').reply(200,
+    mockAdapter.onPost('/stats/login/').reply(200,
       null,
     );
 
@@ -56,7 +56,7 @@ describe('async actions', () => {
   it('can remove a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onDelete('http://localhost:8000/api/v1/cycleposition/1/favorite/').reply(204,
+    mockAdapter.onDelete('/cycleposition/1/favorite/').reply(204,
       null,
     );
 
@@ -72,11 +72,11 @@ describe('async actions', () => {
   it('can add a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/1/').reply(200,
+    mockAdapter.onGet('/cycleposition/1/').reply(200,
       {},
     );
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/cycleposition/1/favorite/').reply(204,
+    mockAdapter.onPut('/cycleposition/1/favorite/').reply(204,
       null,
     );
 
@@ -92,7 +92,7 @@ describe('async actions', () => {
   it('can handle favoriting errors when favoriting fails', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onPut('http://localhost:8000/api/v1/cycleposition/1/favorite/').reply(404,
+    mockAdapter.onPut('/cycleposition/1/favorite/').reply(404,
       null,
     );
 
@@ -110,11 +110,11 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/profile/').reply(404,
+    mockAdapter.onGet('/profile/').reply(404,
       {},
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/permission/user/').reply(404,
+    mockAdapter.onGet('/permission/user/').reply(404,
       {},
     );
 

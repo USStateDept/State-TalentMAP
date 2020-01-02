@@ -44,6 +44,8 @@ import { validStateEmail,
          scrollToGlossaryTerm,
          getBidCycleName,
          loadImg,
+         downloadFromResponse,
+         anyToTitleCase,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -837,6 +839,40 @@ describe('scrollToGlossaryTerm', () => {
   describe('loadImg', () => {
     it('does not throw an error', () => {
       expect(loadImg).not.toThrowError();
+    });
+  });
+
+  describe('downloadFromResponse', () => {
+    let blobSpy;
+    let response;
+
+    beforeEach(() => {
+      blobSpy = sinon.spy();
+      response = {
+        headers: { 'content-disposition': 'attachment; filename=test.csv' },
+        data: 'some data',
+      };
+      global.window.navigator.msSaveOrOpenBlob = blobSpy;
+    });
+
+    it('calls msSaveOrOpenBlob if msSaveBlob exists', () => {
+      downloadFromResponse(response);
+      sinon.assert.calledOnce(blobSpy);
+      blobSpy.reset();
+    });
+
+    it('does not call msSaveOrOpenBlob if msSaveBlob does not exist', () => {
+      global.window.navigator.msSaveBlob = undefined;
+      downloadFromResponse(response);
+      sinon.assert.notCalled(blobSpy);
+    });
+  });
+
+  describe('anyToTitleCase', () => {
+    it('converts a string to title case', () => {
+      const result = 'The Quick Dog';
+      ['tHE qUick Dog', 'THE QUICK DOG', 'the quick dog', 'The Quick Dog', 'tHe Quick dOg']
+        .map(m => expect(anyToTitleCase(m)).toBe(result));
     });
   });
 });

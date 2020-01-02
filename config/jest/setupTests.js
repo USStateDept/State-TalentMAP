@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { JSDOM } from 'jsdom';
 Object.entries = require('object.entries'); // because jest doesn't import babel
 import config from '../../public/config/config.json';
 
@@ -40,10 +41,19 @@ global.MutationObserver = class {
 // Mock imagediff
 jest.mock('imagediff', () => ({ default: jest.fn() }))
 
+const dom = new JSDOM();
+
+global.document = dom.window.document
+global.window = dom.window
+
 beforeEach(() => {
   // mock sessionStorage - feature flags config
   sessionStorage.setItem('config', JSON.stringify(config));
 
   // mock querySelector
   global.document.querySelector = () => ({ offsetParent: '50px', scrollIntoView: () => {} });
+
+  global.document.body.appendChild = () => {};
+
+  global.window.navigator.msSaveOrOpenBlob = () => {};
 });
