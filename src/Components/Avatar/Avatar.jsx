@@ -17,7 +17,7 @@ const propTypes = {
     s: PropTypes.string,
     m: PropTypes.string,
     l: PropTypes.string,
-    compare: PropTypes.string,
+    compare: PropTypes.arrayOf(PropTypes.string),
   }),
   externalSourceToUse: PropTypes.oneOf(['s', 'm', 'l', null]),
 };
