@@ -5,6 +5,7 @@ import { localStorageFetchValue, localStorageToggleValue } from '../../utilities
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import COMPARE_LIMIT from '../../Constants/Compare';
 import InteractiveElement from '../InteractiveElement';
+import Icon from './Icon';
 
 class CompareCheck extends Component {
   constructor(props) {
@@ -79,17 +80,17 @@ class CompareCheck extends Component {
     const isChecked = this.getSavedState();
     const options = {
       type,
-      className: [className, 'compare-check-box-container'],
+      className: [className, 'compare-check-box-container', isChecked ? 'compare-checked' : 'compare-not-checked'],
       onClick: this.toggleSaved,
       ...interactiveElementProps,
     };
 
     let text = 'Compare';
-    let icon = 'square-o';
+    let icon = <FontAwesome name="square-o" />;
 
     if (isChecked) {
       options.className.push('usa-button-active');
-      icon = 'check-square-o';
+      icon = <Icon />;
     }
 
     if (this.isDisabled()) {
@@ -108,7 +109,7 @@ class CompareCheck extends Component {
         <InteractiveElement {...options}>
           {
           !this.isDisabled() &&
-            <FontAwesome name={icon} />
+            icon
         } {text}
         </InteractiveElement>
     );
