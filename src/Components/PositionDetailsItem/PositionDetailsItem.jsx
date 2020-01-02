@@ -143,6 +143,7 @@ const PositionDetailsItem = (props) => {
             editWebsiteContent={editWebsiteContent}
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
+            isProjectedVacancy={isProjectedVacancy}
           />
           {
             !isProjectedVacancy &&
