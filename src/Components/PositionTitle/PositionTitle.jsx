@@ -10,11 +10,9 @@ import Favorite from 'Containers/Favorite';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from 'Constants/PropTypes';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from 'Constants/SystemMessages';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
-import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from 'utilities';
+import { getAssetPath, propOrDefault, getPostName } from 'utilities';
 import { checkFlag } from 'flags';
 import OBCUrl from '../OBCUrl';
-import BidCount from '../BidCount';
-
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 const useBidding = () => checkFlag('flags.bidding');
@@ -23,7 +21,6 @@ class PositionTitle extends Component {
   constructor(props) {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
-    this.renderBidCount = this.renderBidCount.bind(this);
     this.getIsAvailableToBid = this.getIsAvailableToBid.bind(this);
   }
 
@@ -46,14 +43,6 @@ class PositionTitle extends Component {
           disabled={!available}
         />
       </PermissionsWrapper>
-    );
-  }
-
-  renderBidCount() {
-    const { details } = this.props;
-    const stats = getBidStatisticsObject(details.bidStatistics);
-    return (
-      <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
     );
   }
 
@@ -109,10 +98,6 @@ class PositionTitle extends Component {
           />
         </div>
         <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
-          {
-            !isProjectedVacancy &&
-              this.renderBidCount()
-          }
           {
             !availableToBid &&
             <Flag
