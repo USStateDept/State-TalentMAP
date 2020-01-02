@@ -13,6 +13,7 @@ import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
 import { Featured, Handshake } from '../Ribbon';
+import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
@@ -241,6 +242,10 @@ class ResultsCard extends Component {
                       }
                       {
                         get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
+                      }
+                      {
+                        // conditional rendering occurs inside the container
+                        <InBidListContainer id={result.id} isWide className="ribbon-results-card" />
                       }
                     </div>
                   </Column>
