@@ -256,6 +256,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         }
         editPocContent={[Function]}
         editWebsiteContent={[Function]}
+        isProjectedVacancy={false}
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
@@ -615,6 +616,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         }
         editPocContent={[Function]}
         editWebsiteContent={[Function]}
+        isProjectedVacancy={false}
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
@@ -976,6 +978,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         }
         editPocContent={[Function]}
         editWebsiteContent={[Function]}
+        isProjectedVacancy={false}
         resetDescriptionEditMessages={[Function]}
       />
       <ServiceNeededToggle
