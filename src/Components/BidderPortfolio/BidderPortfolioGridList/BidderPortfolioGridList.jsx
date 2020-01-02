@@ -1,24 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Accordion, AccordionItem } from 'Components/Accordion';
 import { BIDDER_RESULTS } from '../../../Constants/PropTypes';
 import BidderPortfolioStatRow from '../BidderPortfolioStatRow';
 
 const BidderPortfolioGridList = ({ results, showEdit }) => (
-  <ul className="usa-grid-full user-dashboard portfolio-row-list">
+  <Accordion className="usa-grid-full accordion-inverse user-dashboard portfolio-row-list" isMultiselectable>
     {
       results.map(result => (
-        <li
+        <AccordionItem
           className="portfolio-row"
+          id={`${result.id}-row`}
           key={result.id}
+          title={result.name}
         >
           <BidderPortfolioStatRow
             userProfile={result}
             showEdit={showEdit}
           />
-        </li>
+        </AccordionItem>
       ))
     }
-  </ul>
+  </Accordion>
 );
 
 BidderPortfolioGridList.propTypes = {

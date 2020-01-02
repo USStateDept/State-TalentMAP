@@ -34,84 +34,100 @@
 }
 
 .portfolio-row {
-  background-color: $color-white;
-  border-left: 8px solid $blue-primary;
-  margin-bottom: 0;
+  background-color: $blue-primary;
+  // border-left: 8px solid $blue-primary;
+  margin-bottom: 1em !important;
 
-  &:last-of-type > .bidder-portfolio-stat-row {
-    border-bottom: 1px solid $color-gray-light;
+  .usa-accordion-button {
+    background-color: $blue-primary;
+    background-position: right 2rem center;
+    color: $color-white;
+    font-weight: normal;
+    padding: .7em;
+  }
+
+  .usa-accordion-content {
+    margin: .75em 0 0;
+    padding: 0;
   }
 }
 
 .bidder-portfolio-stat-row {
-  align-items: center;
   border: 1px solid $color-gray-light;
-  border-bottom: 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 27px 20px 25px 32px;
+  flex-direction: column;
+  padding: 12px 20px;
 
-  > div {
-    margin-right: 1em;
-
-    > .tm-avatar {
-      font-size: 3rem;
-      height: 65px;
-      line-height: 6.5rem;
-      width: 65px;
-    }
-  }
-
-  > div:last-child {
-    margin-right: 0;
-  }
-
-  // setup flex values
-  > div:nth-child(1) {
-    flex: 3;
-    margin-right: 50px;
+  h4 {
+    font-family: inherit;
+    font-size: 1em;
+    margin: 0;
   }
 
   > div:nth-child(2) {
-    flex: 3 1 280px;
-  }
 
-  > div:nth-child(3) {
+    align-items: flex-start;
     display: flex;
-    flex: 6 0 100px;
-    justify-content: flex-end;
-  }
+    flex-wrap: wrap;
+    justify-content: space-between;
 
-  > div:nth-child(4) {
-    flex: 8 0 225px;
+    > div {
+      margin-right: 1em;
 
-    > span {
+      > .tm-avatar {
+        font-size: 3rem;
+        height: 65px;
+        line-height: 6.5rem;
+        width: 65px;
+      }
+    }
+
+    > div:last-child {
+      margin-right: 0;
+    }
+
+    // setup flex values
+    > div:nth-child(1) {
+      flex: 3 1 280px;
+    }
+
+    > div:nth-child(2) {
       display: flex;
+      flex: 6 0 100px;
       justify-content: flex-end;
     }
-  }
 
-  // Disable to override the >div:nth-child() styles
-  // scss-lint:disable MergeableSelector
-  // scss-lint:disable QualifyingElement
-  > div.client-checkbox-list {
-  // scss-lint:enable MergeableSelector
-  // scss-lint:enable QualifyingElement
-    display: flex;
-    flex: 16 1 450px;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    > div:nth-child(3) {
+      flex: 8 0 225px;
+      padding-top: 1em;
 
-    .tm-checkbox {
-      margin: 0 auto;
-      margin-left: 0;
-      margin-right: 2rem;
-      min-width: 10rem;
+      > span {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
 
-      label {
-        margin-bottom: 1rem;
-        margin-top: 1rem;
+    // Disable to override the >div:nth-child() styles
+    // scss-lint:disable MergeableSelector
+    // scss-lint:disable QualifyingElement
+    > div.client-checkbox-list {
+    // scss-lint:enable MergeableSelector
+    // scss-lint:enable QualifyingElement
+      display: flex;
+      flex: 16 1 450px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+
+      .tm-checkbox {
+        margin: 0 auto;
+        margin-left: 0;
+        margin-right: 2rem;
+        min-width: 10rem;
+
+        label {
+          margin-bottom: 1rem;
+          margin-top: 1rem;
+        }
       }
     }
   }
@@ -119,11 +135,12 @@
   .stat-card-data-point--name {
     font-size: 1.1em;
     font-weight: bold;
+    margin-bottom: 1.1em;
 
     a {
       font-size: .9em;
       font-weight: normal;
-      margin-left: 5px;
+      margin-left: 15px;
     }
   }
 
