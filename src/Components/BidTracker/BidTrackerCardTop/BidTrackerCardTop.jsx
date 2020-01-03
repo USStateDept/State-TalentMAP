@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
 import { Tooltip } from 'react-tippy';
+import { Link } from 'react-router-dom';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
@@ -65,7 +66,8 @@ class BidTrackerCardTop extends Component {
                     useContext
                   >
                     <span>
-                      <FontAwesome name="question-circle" /> Why is it taking so long?
+                      <FontAwesome name="question-circle" /> Why is it taking so long? -
+                      <Link to="/biddingProcess"> Learn More Here</Link>
                     </span>
                   </Tooltip>
                 </div>
