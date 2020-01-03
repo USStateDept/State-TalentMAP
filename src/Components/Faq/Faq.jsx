@@ -26,11 +26,11 @@ class Faq extends Component {
   render() {
     return (
       <div className="usa-grid-full content-container padded-main-content">
-        <div className="usa-grid-full about-page">
+        <div className="usa-grid-full faq-page">
           <MediaQuery breakpoint="screenSmMax" widthType="min">
             {matches => (
               <div>
-                <div className={`${matches ? 'usa-width-one-half' : 'usa-width-three-fourths'} about-content`}>
+                <div className={`${matches ? 'usa-width-one-half' : 'usa-width-three-fourths'} faq-content`}>
                   <div>
                     <ReactMarkdown source={markdownText} />
                   </div>
