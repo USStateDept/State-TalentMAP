@@ -26,11 +26,11 @@ class BidCyclePicker extends Component {
     const { arrayValue } = this.state;
     return (
       <div className="bid-cycle-picker-container">
-        <div className="label">Bid cycle:</div>
+        <div className="label">Bid season:</div>
         <Picky
-          placeholder="Select cycle"
+          placeholder="Select season"
           value={arrayValue}
-          options={['2020 PSP', 'Long-term training and details Summer 2020', 'Summer 2020']}
+          options={['Summer 2020', 'Winter 2020', 'Summer 2021']}
           onChange={this.selectMultipleOption}
           numberDisplayed={1}
           multiple

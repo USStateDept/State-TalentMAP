@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { propOrDefault, formatDate, getBidStatisticsObject } from 'utilities';
+import BidCount from 'Components/BidCount';
 import PositionTitleSubDescription from '../../PositionTitleSubDescription';
 import ViewPostDataButton from '../../ViewPostDataButton';
 import { POSITION_DETAILS } from '../../../Constants/PropTypes';
 import { COMING_SOON } from '../../../Constants/SystemMessages';
-import { propOrDefault, formatDate } from '../../../utilities';
 
 class PositionDetailsContact extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class PositionDetailsContact extends Component {
     this.togglePocEditor = this.togglePocEditor.bind(this);
     this.submitWebsiteEdit = this.submitWebsiteEdit.bind(this);
     this.submitPocEdit = this.submitPocEdit.bind(this);
+    this.renderBidCount = this.renderBidCount.bind(this);
     this.state = {
       shouldShowWebsiteEditor: { value: false },
       shouldShowPocEditor: { value: false },
@@ -80,8 +82,16 @@ class PositionDetailsContact extends Component {
     this.togglePocEditor();
   }
 
-  render() {
+  renderBidCount() {
     const { details } = this.props;
+    const stats = getBidStatisticsObject(details.bidStatistics);
+    return (
+      <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
+    );
+  }
+
+  render() {
+    const { details, isProjectedVacancy } = this.props;
     const { shouldShowWebsiteEditor, shouldShowPocEditor } = this.state;
 
     const { plainTextPostWebsite, formattedPostWebsite } = this.postWebsite;
@@ -118,8 +128,12 @@ class PositionDetailsContact extends Component {
               isAllowedToEdit={isAllowedToEdit}
             />
           </div>
+          {
+            !isProjectedVacancy &&
+              this.renderBidCount()
+          }
         </div>
-        <div className={`contact-container ${!OBCUrl ? 'no-button' : ''}`}>
+        <div className={`contact-container ${isProjectedVacancy ? '' : 'has-bid-count'} ${!OBCUrl ? 'no-button' : ''}`}>
           <strong>Capsule Last Updated</strong>: {formattedDate}
         </div>
         <div className="offset-bid-button-container">
@@ -137,11 +151,13 @@ PositionDetailsContact.propTypes = {
   editWebsiteContent: PropTypes.func.isRequired,
   editPocContent: PropTypes.func.isRequired,
   resetDescriptionEditMessages: PropTypes.func.isRequired,
+  isProjectedVacancy: PropTypes.bool,
 };
 
 PositionDetailsContact.defaultProps = {
   details: null,
   bidListToggleIsLoading: false,
+  isProjectedVacancy: false,
 };
 
 export default PositionDetailsContact;
