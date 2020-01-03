@@ -75,12 +75,6 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   <div
     className="offset-bid-button-container"
   >
-    <BidCountFeatureFlagWrapper
-      altStyle={true}
-      bidStatistics={Object {}}
-      hideLabel={true}
-      isCondensed={true}
-    />
     <Flag
       name="flags.bidding"
       render={[Function]}
@@ -161,12 +155,6 @@ exports[`PositionTitleComponent matches snapshot when context.client === true 1`
   <div
     className="offset-bid-button-container"
   >
-    <BidCountFeatureFlagWrapper
-      altStyle={true}
-      bidStatistics={Object {}}
-      hideLabel={true}
-      isCondensed={true}
-    />
     <Flag
       name="flags.bidding"
       render={[Function]}
