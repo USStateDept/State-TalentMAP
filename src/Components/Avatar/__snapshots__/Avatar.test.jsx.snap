@@ -7,6 +7,8 @@ exports[`Avatar matches snapshot 1`] = `
   onClick={[Function]}
   role="img"
 >
-  JD
+  <span>
+    JD
+  </span>
 </div>
 `;

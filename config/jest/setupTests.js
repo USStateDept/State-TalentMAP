@@ -38,6 +38,9 @@ global.MutationObserver = class {
   observe(element, initObject) {}
 }
 
+// Mock imagediff
+jest.mock('imagediff', () => ({ default: jest.fn() }))
+
 const dom = new JSDOM();
 
 global.document = dom.window.document
