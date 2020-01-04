@@ -70,7 +70,12 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
       }
       deleteBid={[Function]}
       hideDelete={false}
-      questionText={Object {}}
+      questionText={
+        Object {
+          "link": "Learn more here.",
+          "text": "Your bid is likely in one of several steps in the process.",
+        }
+      }
       showBidCount={true}
       showQuestion={true}
       useCDOView={false}
