@@ -242,10 +242,19 @@ $condensed-card-data-padding: 15px 20px 9px;
 
     .compare-check-box-container {
       align-items: center;
+      border: 1px solid $blue-primary;
+      border-radius: 5px;
+      color: $blue-primary;
       display: flex;
       flex-grow: 1;
       font-size: .8em;
-      justify-content: flex-end;
+      justify-content: center;
+      margin-bottom: 8px;
+
+      &.compare-checked {
+        background-color: $blue-primary;
+        color: $color-white;
+      }
 
       .fa {
         margin-right: 5px;

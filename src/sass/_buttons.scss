@@ -267,3 +267,17 @@
     cursor: pointer;
   }
 }
+
+.compare-rectangle-container {
+  margin-right: 3px;
+}
+
+.compare-rectangle {
+  border: 1px solid $color-white;
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 10px;
+  margin-right: 1px;
+  width: 4px;
+}
