@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
-import Notifications from '../Notifications';
+import NotificationsPopover from '../NotificationsPopover';
 import GlossaryIcon from '../GlossaryIcon';
 import NavLink from '../NavLink';
 import AccountDropdown from '../../AccountDropdown/AccountDropdown';
@@ -38,7 +38,7 @@ const DesktopNav = ({
             isLoggedIn &&
               <span>
                 <Flag name="flags.notifications">
-                  <Notifications className="notifications-icon" />
+                  <NotificationsPopover />
                 </Flag>
                 <div className="icon-alert-container glossary-link-container">
                   <GlossaryIcon />

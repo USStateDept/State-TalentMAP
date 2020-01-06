@@ -6,7 +6,7 @@ export function notificationsHasErrored(state = false, action) {
       return state;
   }
 }
-export function notificationsIsLoading(state = true, action) {
+export function notificationsIsLoading(state = false, action) {
   switch (action.type) {
     case 'NOTIFICATIONS_IS_LOADING':
       return action.isLoading;
@@ -17,6 +17,31 @@ export function notificationsIsLoading(state = true, action) {
 export function notifications(state = { results: [] }, action) {
   switch (action.type) {
     case 'NOTIFICATIONS_FETCH_DATA_SUCCESS':
+      return action.notifications;
+    default:
+      return state;
+  }
+}
+
+export function notificationsPopoverHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'NOTIFICATIONS_POPOVER_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function notificationsPopoverIsLoading(state = true, action) {
+  switch (action.type) {
+    case 'NOTIFICATIONS_POPOVER_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function notificationsPopover(state = { results: [] }, action) {
+  switch (action.type) {
+    case 'NOTIFICATIONS_POPOVER_FETCH_DATA_SUCCESS':
       return action.notifications;
     default:
       return state;
