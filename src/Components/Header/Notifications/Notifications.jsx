@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { notificationsCountFetchData } from '../../../actions/notifications';
+import { notificationsCountFetchData, notificationsFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
 
 class Notifications extends Component {
@@ -24,14 +24,18 @@ class Notifications extends Component {
       }
     });
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.notificationsCount !== this.props.notificationsCount) {
+      // only fetch notifications if the count has changed
+      this.props.fetchNotifications();
+    }
+  }
   render() {
     const { notificationsCount, ...rest } = this.props;
     return (
       <IconAlert
         type="globe"
         number={notificationsCount}
-        link="/profile/notifications/"
-        alt="Notifications"
         title="View your notifications"
         {...rest}
       />
@@ -42,6 +46,7 @@ class Notifications extends Component {
 Notifications.propTypes = {
   notificationsCount: PropTypes.number.isRequired,
   fetchNotificationsCount: PropTypes.func.isRequired,
+  fetchNotifications: PropTypes.func.isRequired,
   history: PropTypes.shape({}).isRequired,
 };
 
@@ -55,6 +60,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchNotificationsCount: () => dispatch(notificationsCountFetchData()),
+  fetchNotifications: () => dispatch(notificationsFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Notifications));

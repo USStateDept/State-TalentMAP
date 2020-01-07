@@ -46,3 +46,21 @@ export function setupAsyncMocks() {
 
   return { mockStore, mockAdapter };
 }
+
+// Form a mock adapter using a url, response, type, and callbackType.
+// Spy on the mock and return the mock and the spy.
+export const spyMockAdapter = ({ url = '', response = [], type = 'onGet', callbackType = 'reply' }) => {
+  const mockAdapter = new MockAdapter(api());
+  const spy = sinon.spy(() => response);
+  const mock = () => mockAdapter[type](url)[callbackType](spy);
+  return { mock, spy };
+};
+
+// Expect that some assertion was performed on a provided spy.
+// Optional callback once complete.
+export const expectMockWasCalled = ({ spy = () => {}, cb = () => {}, timeout = 0, assertion = 'calledOnce' }) => {
+  setTimeout(() => {
+    sinon.assert[assertion](spy);
+    cb();
+  }, timeout);
+};

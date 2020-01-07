@@ -1,7 +1,9 @@
 import axios from 'axios';
 import { get, indexOf } from 'lodash';
 import Q from 'q';
+import imagediff from 'imagediff';
 
+import { loadImg } from 'utilities';
 import api from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 import { toastSuccess, toastError } from './toast';
@@ -104,14 +106,51 @@ export function userProfileFetchData(bypass, cb) {
           favorite_positions: apFavorites,
         };
 
-        // then perform dispatches
-        if (cb) {
-          dispatch(cb());
+        // function to success perform dispatches
+        const dispatchSuccess = () => {
+          if (cb) {
+            dispatch(cb());
+          }
+          dispatch(userProfileFetchDataSuccess(newProfileObject));
+          dispatch(userProfileIsLoading(false));
+          dispatch(userProfileHasErrored(false));
+          dispatch(userProfileFavoritePositionHasErrored(false));
+        };
+
+        function unsetAvatar() { newProfileObject.avatar = {}; }
+
+        // Compare the images in the compare array. One of the URLs
+        // is a link to a default profile picture. If the user's
+        // profile picture (the other URL in the array)
+        // is the same as the default, then return an empty object so that
+        // it doesn't get displayed.
+        const compare = get(newProfileObject, 'avatar.compare', []);
+        if (compare.length) {
+          const proms = compare.map(path => (
+            new Promise((resolve, reject) => {
+              loadImg(path, (img) => {
+                if (get(img, 'path[0]')) {
+                  resolve(img.path[0]);
+                } else {
+                  reject();
+                }
+              });
+            })
+          ));
+
+          Promise.all(proms)
+            .then((res) => {
+              const equal$ = imagediff.equal(res[0], res[1]);
+              if (equal$) {
+                unsetAvatar();
+              }
+              dispatchSuccess();
+            })
+            .catch(() => {
+              unsetAvatar();
+              dispatchSuccess();
+            });
         }
-        dispatch(userProfileFetchDataSuccess(newProfileObject));
-        dispatch(userProfileIsLoading(false));
-        dispatch(userProfileHasErrored(false));
-        dispatch(userProfileFavoritePositionHasErrored(false));
       })
       .catch(() => {
         if (cb) {

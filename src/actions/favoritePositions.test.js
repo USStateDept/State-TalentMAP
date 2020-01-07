@@ -6,11 +6,11 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/favorites/').reply(200,
+    mockAdapter.onGet('/cycleposition/favorites/').reply(200,
       resultsObject,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/projected_vacancy/favorites/').reply(200,
+    mockAdapter.onGet('/projected_vacancy/favorites/').reply(200,
       resultsObject,
     );
   });
@@ -46,7 +46,7 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/favorites/').reply(404,
+    mockAdapter.onGet('/cycleposition/favorites/').reply(404,
       null,
     );
 

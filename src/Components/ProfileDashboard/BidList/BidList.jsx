@@ -46,7 +46,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
           {
             bids$.length === 0 && !isLoading &&
               <div className="usa-grid-full section-padded-inner-container">
-                You have not added any bids to your bid list.
+                {isPublic ? 'This user has not added any bids to their bid list.' : 'You have not added any bids to your bid list.'}
               </div>
           }
           {!!bids$.length && !isLoading && bids$}

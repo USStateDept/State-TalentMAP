@@ -213,6 +213,8 @@ export function submitBid(id, clientId) {
     api().put(url)
       .then(response => response.data)
       .then(() => {
+        const message = SystemMessages.SUBMIT_BID_SUCCESS;
+        dispatch(toastSuccess(message));
         dispatch(submitBidHasErrored(false));
         dispatch(submitBidIsLoading(false));
         dispatch(submitBidSuccess(SystemMessages.SUBMIT_BID_SUCCESS));
@@ -223,6 +225,9 @@ export function submitBid(id, clientId) {
         }
       })
       .catch(() => {
+        const message = SystemMessages.SUBMIT_BID_ERROR;
+        dispatch(bidListToggleHasErrored(message));
+        dispatch(toastError(message));
         dispatch(submitBidHasErrored(SystemMessages.SUBMIT_BID_ERROR));
         dispatch(submitBidIsLoading(false));
       });

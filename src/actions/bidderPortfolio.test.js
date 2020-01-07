@@ -1,124 +1,87 @@
-import { setupAsyncMocks } from '../testUtilities/testUtilities';
+import { setupAsyncMocks, spyMockAdapter, expectMockWasCalled } from '../testUtilities/testUtilities';
 import * as actions from './bidderPortfolio';
 import bidderListObject from '../__mocks__/bidderListObject';
 import bidderPortfolioCountsObject from '../__mocks__/bidderPortfolioCountsObject';
 
-const { mockStore, mockAdapter } = setupAsyncMocks();
+const { mockStore } = setupAsyncMocks();
 
 describe('bidderPortfolio async actions', () => {
+  let [mock, spy, store] = Array(3);
+
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?').reply(200,
-      bidderListObject,
-    );
+    store = mockStore({ results: [] });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?test=true').reply(200,
-      bidderListObject,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/statistics/').reply(200,
-      bidderPortfolioCountsObject,
-    );
-
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?q=failure').reply(404,
-      null,
-    );
+    ({ mock, spy } = spyMockAdapter({
+      url: '/fsbid/client/?', response: [200, bidderListObject],
+    })); mock();
   });
 
   it("can fetch a CDO's client/bidder list", (done) => {
-    const store = mockStore({ results: [] });
-
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.bidderPortfolioFetchData());
-        store.dispatch(actions.bidderPortfolioIsLoading());
-        done();
-      }, 0);
-    };
-    f();
+    store.dispatch(actions.bidderPortfolioFetchData());
+    store.dispatch(actions.bidderPortfolioIsLoading());
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('can fetch data from the last query', (done) => {
-    const store = mockStore({ results: [], bidderPortfolioLastQuery: '/client/?test=true' });
+    store = mockStore({ results: [], bidderPortfolioLastQuery: '/client/?test=true' });
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.bidderPortfolioFetchDataFromLastQuery());
-        store.dispatch(actions.lastBidderPortfolioIsLoading());
-        done();
-      }, 0);
-    };
-    f();
+    ({ mock, spy } = spyMockAdapter({
+      url: '/client/?test=true', response: [200, bidderListObject],
+    })); mock();
+
+    store.dispatch(actions.bidderPortfolioFetchDataFromLastQuery());
+    store.dispatch(actions.lastBidderPortfolioIsLoading());
+
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('can handle errors when fetching data from the last query', (done) => {
-    const store = mockStore({ results: [], bidderPortfolioLastQuery: undefined });
+    store = mockStore({ results: [], bidderPortfolioLastQuery: '/client/?test=true' });
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.bidderPortfolioFetchDataFromLastQuery());
-        store.dispatch(actions.lastBidderPortfolioIsLoading());
-        done();
-      }, 0);
-    };
-    f();
+    ({ mock, spy } = spyMockAdapter({
+      url: '/client/?test=true', response: [404, bidderListObject],
+    })); mock();
+
+    store.dispatch(actions.bidderPortfolioFetchDataFromLastQuery());
+    store.dispatch(actions.lastBidderPortfolioIsLoading());
+
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('can handle failures when fetching data from the last query', (done) => {
-    const store = mockStore({ results: [] });
+    ({ mock, spy } = spyMockAdapter({
+      url: '/fsbid/client/?q=failure', response: [404],
+    })); mock();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/?').reply(404,
-      null,
-    );
+    store.dispatch(actions.bidderPortfolioFetchData({ q: 'failure' }));
+    store.dispatch(actions.bidderPortfolioIsLoading());
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.bidderPortfolioFetchData('q=failure'));
-        store.dispatch(actions.bidderPortfolioIsLoading());
-        done();
-      }, 0);
-    };
-    f();
-  });
-
-  it("can handle failures when fetching a CDO's client/bidder list", (done) => {
-    const store = mockStore({ results: [] });
-
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.bidderPortfolioFetchData('q=failure'));
-        store.dispatch(actions.bidderPortfolioIsLoading());
-        done();
-      }, 0);
-    };
-    f();
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('can fetch client statistics', (done) => {
-    const store = mockStore({});
+    store = mockStore({});
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.bidderPortfolioCountsFetchData());
-        store.dispatch(actions.bidderPortfolioCountsIsLoading());
-        done();
-      }, 0);
-    };
-    f();
+    ({ mock, spy } = spyMockAdapter({
+      url: '/client/statistics/', response: [200, bidderPortfolioCountsObject],
+    })); mock();
+
+    store.dispatch(actions.bidderPortfolioCountsFetchData());
+    store.dispatch(actions.bidderPortfolioCountsIsLoading());
+
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('can handle failures when fetching client statistics', (done) => {
-    const store = mockStore({});
+    store = mockStore({});
 
-    // reset() so that http requests fail.
-    mockAdapter.reset();
+    ({ mock, spy } = spyMockAdapter({
+      url: '/client/statistics/', response: [404, null],
+    })); mock();
 
-    const f = () => {
-      setTimeout(() => {
-        store.dispatch(actions.bidderPortfolioCountsFetchData());
-        store.dispatch(actions.bidderPortfolioCountsIsLoading());
-        done();
-      }, 0);
-    };
-    f();
+    store.dispatch(actions.bidderPortfolioCountsFetchData());
+    store.dispatch(actions.bidderPortfolioCountsIsLoading());
+
+    expectMockWasCalled({ spy, cb: done });
   });
 });

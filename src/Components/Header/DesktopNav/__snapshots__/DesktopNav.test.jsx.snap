@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['DesktopNav matches snapshot when logged in 1'] = `
+exports[`DesktopNav matches snapshot when logged in 1`] = `
 <div
   className="navigation-container"
 >
@@ -107,9 +107,7 @@ exports['DesktopNav matches snapshot when logged in 1'] = `
           <Flag
             name="flags.notifications"
           >
-            <Connect(withRouter(Notifications))
-              className="notifications-icon"
-            />
+            <NotificationsPopover />
           </Flag>
           <div
             className="icon-alert-container glossary-link-container"
@@ -123,7 +121,7 @@ exports['DesktopNav matches snapshot when logged in 1'] = `
 </div>
 `;
 
-exports['DesktopNav matches snapshot when logged out 1'] = `
+exports[`DesktopNav matches snapshot when logged out 1`] = `
 <div
   className="navigation-container"
 >

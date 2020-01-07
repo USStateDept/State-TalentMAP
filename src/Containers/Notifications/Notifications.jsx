@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { difference, get, intersection } from 'lodash';
 import { notificationsFetchData, markNotification, markNotifications } from '../../actions/notifications';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
-import Notifications from '../../Components/Notifications';
 import { scrollToTop } from '../../utilities';
 
 const PAGE_SIZE = 10;
@@ -26,7 +25,15 @@ class NotificationsContainer extends Component {
   }
 
   componentWillMount() {
-    this.getNotifications();
+    const { useCached } = this.props;
+    if (!useCached) { this.getNotifications(); }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { useCached, isLoading, notifications } = nextProps;
+    if (useCached && !isLoading && !notifications.count) {
+      this.getNotifications();
+    }
   }
 
   onPageChange({ page }) {
@@ -116,8 +123,12 @@ class NotificationsContainer extends Component {
       notifications,
       isLoading,
       hasErrored,
+      notificationsPopover,
+      isLoadingPopover,
+      hasErroredPopover,
       markNotificationIsLoading,
       markNotificationsIsLoading,
+      children,
     } = this.props;
 
     const { page } = this.state;
@@ -128,6 +139,9 @@ class NotificationsContainer extends Component {
       notifications,
       isLoading: isLoading || markNotificationIsLoading || markNotificationsIsLoading,
       hasErrored,
+      notificationsPopover,
+      isLoadingPopover,
+      hasErroredPopover,
       deleteOne: this.delete,
       page,
       pageSize: PAGE_SIZE,
@@ -138,9 +152,16 @@ class NotificationsContainer extends Component {
       markNotificationsByType: this.markNotificationsByType,
       selectionsExist,
     };
-    return (
-      <Notifications {...props} />
-    );
+    let toReturn = null;
+    if (React.isValidElement(children)) {
+      toReturn = React.cloneElement(children, props);
+    } else if (typeof children === 'function') {
+      toReturn = this.props.children({
+        props: this.props,
+        state: this.state,
+      });
+    }
+    return toReturn;
   }
 }
 
@@ -150,9 +171,14 @@ NotificationsContainer.propTypes = {
   notifications: PropTypes.shape({}),
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
+  notificationsPopover: PropTypes.shape({}),
+  isLoadingPopover: PropTypes.bool,
+  hasErroredPopover: PropTypes.bool,
   markNotificationIsLoading: PropTypes.bool,
   markNotificationsIsLoading: PropTypes.bool,
   markNotifications: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]).isRequired,
+  useCached: PropTypes.bool,
 };
 
 NotificationsContainer.defaultProps = {
@@ -161,15 +187,22 @@ NotificationsContainer.defaultProps = {
   notifications: {},
   isLoading: false,
   hasErrored: false,
+  notificationsPopover: {},
+  isLoadingPopover: false,
+  hasErroredPopover: false,
   markNotificationIsLoading: false,
   markNotificationsIsLoading: false,
   markNotifications: EMPTY_FUNCTION,
+  useCached: false,
 };
 
 const mapStateToProps = state => ({
   notifications: state.notifications,
   hasErrored: state.notificationsHasErrored,
   isLoading: state.notificationsIsLoading,
+  notificationsPopover: state.notificationsPopover,
+  hasErroredPopover: state.notificationsPopoverHasErrored,
+  isLoadingPopover: state.notificationsPopoverIsLoading,
   markNotificationIsLoading: state.markNotificationIsLoading,
   markNotificationsIsLoading: state.markNotificationsIsLoading,
 });

@@ -48,7 +48,7 @@ describe('async actions', () => {
   });
 
   it('can fetch a bid list', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/bidlist/?ordering=draft_date').reply(200,
+    mockAdapter.onGet('/fsbid/bidlist/?ordering=draft_date').reply(200,
       bidList,
     );
 
@@ -62,7 +62,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when fetching a bid list', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/bidlist/?ordering=draft_date').reply(404,
+    mockAdapter.onGet('/fsbid/bidlist/?ordering=draft_date').reply(404,
       null,
     );
 
@@ -76,7 +76,7 @@ describe('async actions', () => {
   });
 
   it('can remove a position from the bid list', (done) => {
-    mockAdapter.onDelete('http://localhost:8000/api/v1/fsbid/bidlist/position/1/').reply(204,
+    mockAdapter.onDelete('/fsbid/bidlist/position/1/').reply(204,
       null,
     );
 
@@ -90,7 +90,7 @@ describe('async actions', () => {
   });
 
   it('can add a position to the bid list', (done) => {
-    mockAdapter.onPut('http://localhost:8000/api/v1/fsbid/bidlist/position/1/').reply(204,
+    mockAdapter.onPut('/fsbid/bidlist/position/1/').reply(204,
       null,
     );
 
@@ -104,7 +104,7 @@ describe('async actions', () => {
   });
 
   it('can submit a bid', (done) => {
-    mockAdapter.onPut('http://localhost:8000/api/v1/fsbid/bidlist/position/1/submit/').reply(204,
+    mockAdapter.onPut('/fsbid/bidlist/position/1/submit/').reply(204,
       null,
     );
 
@@ -118,7 +118,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when submitting a bid', (done) => {
-    mockAdapter.onPut('http://localhost:8000/api/v1/fsbid/bidlist/position/1/submit/').reply(404,
+    mockAdapter.onPut('/fsbid/bidlist/position/1/submit/').reply(404,
       null,
     );
 
@@ -132,7 +132,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when adding a position to the bid list', (done) => {
-    mockAdapter.onPut('http://localhost:8000/api/v1/fsbid/bidlist/position/1/').reply(404,
+    mockAdapter.onPut('/fsbid/bidlist/position/1/').reply(404,
       null,
     );
 
@@ -146,7 +146,7 @@ describe('async actions', () => {
   });
 
   it('can accept a bid', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/accept_handshake/').reply(204,
+    mockAdapter.onGet('/bid/1/accept_handshake/').reply(204,
       null,
     );
 
@@ -160,7 +160,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when accepting a bid', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/accept_handshake/').reply(404,
+    mockAdapter.onGet('/bid/1/accept_handshake/').reply(404,
       null,
     );
 
@@ -174,7 +174,7 @@ describe('async actions', () => {
   });
 
   it('can decline a bid', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/decline_handshake/').reply(204,
+    mockAdapter.onGet('/bid/1/decline_handshake/').reply(204,
       null,
     );
 
@@ -188,7 +188,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when declining a bid', (done) => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/bid/1/decline_handshake/').reply(404,
+    mockAdapter.onGet('/bid/1/decline_handshake/').reply(404,
       null,
     );
 
@@ -202,9 +202,9 @@ describe('async actions', () => {
   });
 
   it('can fetch a client bid list', (done) => {
-    const store = mockStore({ clientView: { client: { perdet_seq_number: 1 } } });
+    store = mockStore({ clientView: { client: { perdet_seq_number: 1 } } });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/cdo/client/1/?ordering=draft_date').reply(200,
+    mockAdapter.onGet('/fsbid/cdo/client/1/?ordering=draft_date').reply(200,
       { results: [] },
     );
 
@@ -218,9 +218,9 @@ describe('async actions', () => {
   });
 
   it('can handle errors when fetching a client bid list', (done) => {
-    const store = mockStore({});
+    store = mockStore({});
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/fsbid/cdo/client/1/?ordering=draft_date').reply(404,
+    mockAdapter.onGet('/fsbid/cdo/client/1/?ordering=draft_date').reply(404,
       null,
     );
 
