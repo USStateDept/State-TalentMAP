@@ -1,8 +1,5 @@
 import api from '../api';
 import { positionDetailsPatchState } from './positionDetails';
-import { checkFlag } from '../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 export const HIGHLIGHT_POSITION_HAS_ERRORED = 'HIGHLIGHT_POSITION_HAS_ERRORED';
 export const HIGHLIGHT_POSITION_IS_LOADING = 'HIGHLIGHT_POSITION_IS_LOADING';
@@ -25,8 +22,7 @@ export const highlightPositionFetchDataSuccess = results => ({
 
 export function highlightPositionFetchData() {
   return (dispatch) => {
-    const useAP = getUseAP();
-    const url = useAP ? '/available_position/highlight/' : '/position/highlighted/';
+    const url = '/available_position/highlight/';
 
     dispatch(highlightPositionIsLoading(true));
 
@@ -47,8 +43,7 @@ export function highlightPositionFetchData() {
 
 export function getHighlightedPosition(id) {
   return (dispatch) => {
-    const useAP = getUseAP();
-    const url = useAP ? `/available_position/${id}/highlight/` : `/position/${id}/highlight/`;
+    const url = `/available_position/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
 
@@ -68,8 +63,7 @@ export function getHighlightedPosition(id) {
 
 export function putHighlightedPosition(id) {
   return (dispatch) => {
-    const useAP = getUseAP();
-    const url = useAP ? `/available_position/${id}/highlight/` : `/position/${id}/highlight/`;
+    const url = `/available_position/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
 
@@ -93,8 +87,7 @@ export function putHighlightedPosition(id) {
 
 export function deleteHighlightPosition(id) {
   return (dispatch) => {
-    const useAP = getUseAP();
-    const url = useAP ? `/available_position/${id}/highlight/` : `/position/${id}/highlight/`;
+    const url = `/available_position/${id}/highlight/`;
 
     dispatch(highlightPositionIsLoading(true));
     dispatch(highlightPositionHasErrored(false));

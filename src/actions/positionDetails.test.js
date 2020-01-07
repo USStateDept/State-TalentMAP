@@ -19,11 +19,11 @@ describe('async actions', () => {
         languages: [],
       }] };
 
-    mockAdapter.onGet('/cycleposition/00011111/').reply(200,
+    mockAdapter.onGet('/fsbid/available_positions/00011111/').reply(200,
       details,
     );
 
-    mockAdapter.onGet('/cycleposition/00011112/').reply(404,
+    mockAdapter.onGet('/fsbid/available_positions/00011112/').reply(404,
       null,
     );
   });

@@ -15,6 +15,12 @@ describe('async actions', () => {
     languages: [],
     favorite_positions: [{ id: 1 }],
     received_shares: [],
+    avatar: {
+      s: '',
+      m: '',
+      l: '',
+      compare: ['', ''],
+    },
   };
 
   const permission = {
@@ -29,7 +35,7 @@ describe('async actions', () => {
     mockAdapter.reset();
   });
 
-  it('can fetch a position', (done) => {
+  it('fetches a profile', (done) => {
     const store = mockStore({ profile: {} });
 
     mockAdapter.onGet('/profile/').reply(200,
@@ -38,6 +44,10 @@ describe('async actions', () => {
 
     mockAdapter.onGet('/permission/user/').reply(200,
       permission,
+    );
+
+    mockAdapter.onGet('/available_position/favorites/?limit=500').reply(200,
+      { results: [] },
     );
 
     mockAdapter.onPost('/stats/login/').reply(200,
@@ -56,7 +66,7 @@ describe('async actions', () => {
   it('can remove a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onDelete('/cycleposition/1/favorite/').reply(204,
+    mockAdapter.onDelete('/available_position/1/favorite/').reply(204,
       null,
     );
 
@@ -72,11 +82,11 @@ describe('async actions', () => {
   it('can add a favorite position', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('/cycleposition/1/').reply(200,
+    mockAdapter.onGet('/available_position/1/').reply(200,
       {},
     );
 
-    mockAdapter.onPut('/cycleposition/1/favorite/').reply(204,
+    mockAdapter.onPut('/available_position/1/favorite/').reply(204,
       null,
     );
 
@@ -92,7 +102,7 @@ describe('async actions', () => {
   it('can handle favoriting errors when favoriting fails', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onPut('/cycleposition/1/favorite/').reply(404,
+    mockAdapter.onPut('/available_position/1/favorite/').reply(404,
       null,
     );
 
@@ -105,7 +115,7 @@ describe('async actions', () => {
     f();
   });
 
-  it('can handle errors', (done) => {
+  it('handles errors', (done) => {
     const store = mockStore({ profile: {} });
 
     mockAdapter.reset();
@@ -116,6 +126,10 @@ describe('async actions', () => {
 
     mockAdapter.onGet('/permission/user/').reply(404,
       {},
+    );
+
+    mockAdapter.onGet('/available_position/favorites/?limit=500').reply(404,
+      null,
     );
 
     const f = () => {

@@ -8,9 +8,6 @@ import { POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_DYNAMIC } from '../../Cons
 import { fetchResultData, downloadPositionData } from '../../actions/results';
 import { formatDate, getFormattedNumCSV, spliceStringForCSV } from '../../utilities';
 import ExportButton from '../ExportButton';
-import { checkFlag } from '../../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 // Mapping columns to data fields
 // Use custom delimiter of flattened data
@@ -76,7 +73,7 @@ class SearchResultsExportLink extends Component {
   onClick() {
     const { isLoading } = this.state;
     const { isProjectedVacancy } = this.context;
-    const useExportEndpoint = getUseAP() || isProjectedVacancy;
+    const useExportEndpoint = isProjectedVacancy;
     if (!isLoading) {
       // reset the state to support multiple clicks
       this.setState({ data: '', isLoading: true });

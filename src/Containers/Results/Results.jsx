@@ -22,17 +22,13 @@ USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
+import { POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
   POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
-import { checkFlag } from '../../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 const DEFAULT_PAGE_NUMBER = 1;
 
 // eslint-disable-next-line no-confusing-arrow
-const POSITION_SEARCH_SORT$ = () =>
-  getUseAP() ? POSITION_SEARCH_SORTS_DYNAMIC : POSITION_SEARCH_SORTS;
+const POSITION_SEARCH_SORT$ = () => POSITION_SEARCH_SORTS_DYNAMIC;
 
 class Results extends Component {
   constructor(props) {

@@ -11,7 +11,6 @@ import * as SystemMessages from '../Constants/SystemMessages';
 import { checkFlag } from '../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
-const getUseAP = () => checkFlag('flags.available_positions');
 
 export function userProfileHasErrored(bool) {
   return {
@@ -75,9 +74,7 @@ export function userProfileFetchData(bypass, cb) {
     // permissions
     const getUserPermissions = () => api().get('/permission/user/');
     // AP favorites
-    const getAPFavorites = () => api().get(getUseAP() ?
-      '/available_position/favorites/?limit=500' : 'cycleposition/favorites/?include=id&limit=500',
-    );
+    const getAPFavorites = () => api().get('/available_position/favorites/?limit=500');
 
     // PV favorites
     const getPVFavorites = () => api().get('/projected_vacancy/favorites/');
@@ -174,7 +171,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
   isPV = false) {
   const idString = id.toString();
   return (dispatch) => {
-    const APUrl = getUseAP() ? `/available_position/${idString}/favorite/` : `/cycleposition/${idString}/favorite/`;
+    const APUrl = `/available_position/${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
       url: isPV ? `/projected_vacancy/${idString}/favorite/` : APUrl,
@@ -187,7 +184,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     const getAction = () => api()(config);
 
     // position
-    const posURL = getUseAP() ? `/fsbid/available_positions/${id}/` : `/cycleposition/${id}/`;
+    const posURL = `/fsbid/available_positions/${id}/`;
     const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/${id}/` : posURL);
 
     dispatch(userProfileFavoritePositionIsLoading(true, id));

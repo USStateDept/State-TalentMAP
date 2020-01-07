@@ -1,7 +1,4 @@
 import api from '../api';
-import { checkFlag } from '../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 export function positionCountHasErrored(bool) {
   return {
@@ -28,8 +25,7 @@ export function positionCountFetchData() {
   return (dispatch) => {
     dispatch(positionCountIsLoading(true));
     dispatch(positionCountHasErrored(false));
-    const useAP = getUseAP();
-    const prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+    const prefix = '/fsbid/available_positions';
     api().get(`${prefix}/?limit=1`)
       .then((response) => {
         const { count } = response.data;

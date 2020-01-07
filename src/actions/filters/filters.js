@@ -8,7 +8,6 @@ import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescrip
   doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
-const getUseAP = () => checkFlag('flags.available_positions');
 
 export function filtersHasErrored(bool) {
   return {
@@ -78,8 +77,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         if (item.selectionRef === ENDPOINT_PARAMS.post
           || item.selectionRef === ENDPOINT_PARAMS.postAP) {
           dispatch(filtersIsLoading(true));
-          const endpoint = getUseAP() ?
-            '/fsbid/reference/locations/' : `/orgpost/${item.codeRef}/`;
+          const endpoint = '/fsbid/reference/locations/';
           return api().get(endpoint)
           .then((response) => {
             // TODO - this is dummy logic to get a single location,
@@ -96,7 +94,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
               };
             };
 
-            const results$ = !getUseAP() ? get(response, 'data', {}) : getAPLocation();
+            const results$ = getAPLocation();
             const obj = Object.assign(results$, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
@@ -265,10 +263,10 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         api().get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
-            const data$ = getUseAP() ? item.initialDataAP : item.initialData;
+            const data$ = item.initialDataAP;
             let results$ = response.data.results;
             if (item.item.description === 'post') {
-              results$ = !getUseAP() ? get(response, 'data.results', []) :
+              results$ =
                 get(response, 'data', [])
                   .map(m => ({
                     ...m,
@@ -292,7 +290,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             // and we override what ever was done in the union prior to this block.
             // Here we map the AP cone/code model to the old model so that it plays nice
             // with our existing components.
-            if (item.item.description === 'skillCone' && getUseAP()) {
+            if (item.item.description === 'skillCone') {
               const skills = [];
               itemFilter.data = response.data.map(m => ({ name: m.category, id: m.category }));
               itemFilter.data = orderBy(itemFilter.data, 'name');
