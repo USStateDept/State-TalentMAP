@@ -5,7 +5,7 @@ exports[`ClientHeader matches snapshot 1`] = `
   id="client-header"
 >
   <div
-    className="usa-banner client-header "
+    className="usa-banner client-header  "
   >
     <div
       className="usa-grid usa-banner-inner"
@@ -14,8 +14,8 @@ exports[`ClientHeader matches snapshot 1`] = `
         className=""
       >
         <SkeletonTheme
-          color="#DCE4EF"
-          highlightColor="#8BA6CA"
+          color="#FFF1D2"
+          highlightColor="#FAD980"
         >
           <Link
             replace={false}
@@ -32,8 +32,8 @@ exports[`ClientHeader matches snapshot 1`] = `
       </div>
       <div>
         <SkeletonTheme
-          color="#DCE4EF"
-          highlightColor="#8BA6CA"
+          color="#FFF1D2"
+          highlightColor="#FAD980"
         >
           <span>
             <FontAwesome
@@ -50,8 +50,8 @@ exports[`ClientHeader matches snapshot 1`] = `
       </div>
       <div>
         <SkeletonTheme
-          color="#DCE4EF"
-          highlightColor="#8BA6CA"
+          color="#FFF1D2"
+          highlightColor="#FAD980"
         >
           <button
             className="unstyled-button"
