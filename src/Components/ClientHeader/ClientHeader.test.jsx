@@ -15,15 +15,33 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('ClientHeader', () => {
-  const props = {
-    id: 1,
-    unset: () => {},
-    history: { listen: () => {} },
-    client: { perdet_seq_number: 1, name: 'Mary' },
-  };
+  let props;
+  beforeEach(() => {
+    props = {
+      id: 1,
+      unset: () => {},
+      history: { listen: () => {} },
+      client: { perdet_seq_number: 1, name: 'Mary' },
+    };
+  });
 
   it('is defined', () => {
     const wrapper = shallow(<ClientHeader {...props} />);
+    expect(wrapper).toBeDefined();
+  });
+
+  it("displays a proxied CDO's name", () => {
+    const wrapper = shallow(<ClientHeader {...props} bidderPortfolioSelectedCDO={{ name: 'Andrew Proxy' }} />);
+    expect(wrapper.find('#search-as-name').text()).toMatch(/Proxying as Andrew Proxy/);
+    expect(wrapper).toBeDefined();
+  });
+
+  it('uses different colors when proxied as another CDO', () => {
+    const wrapper = shallow(<ClientHeader {...props} bidderPortfolioSelectedCDO={{ name: 'Andrew Proxy' }} />);
+    expect(wrapper.find('SkeletonTheme').at(0).props().color).toBe('#FFF1D2');
+    wrapper.setProps({ ...props, bidderPortfolioSelectedCDO: { name: 'Self', isCurrentUser: true } });
+    wrapper.update();
+    expect(wrapper.find('SkeletonTheme').at(0).props().color).toBe('#DCE4EF');
     expect(wrapper).toBeDefined();
   });
 
@@ -56,6 +74,11 @@ describe('ClientHeader', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(<ClientHeader {...props} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when proxying as another CDO', () => {
+    const wrapper = shallow(<ClientHeader {...props} bidderPortfolioSelectedCDO={{ name: 'Andrew Proxy' }} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
