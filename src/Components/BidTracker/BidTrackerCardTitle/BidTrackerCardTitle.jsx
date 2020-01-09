@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { BID_STATISTICS_OBJECT, POST_DETAILS, BID_CYCLE_NAME_TYPE } from 'Constants/PropTypes';
-import { getPostName, getBidCycleName } from 'utilities';
+import { getPostName, getBidCycleName, formatDate } from 'utilities';
 import { getStatusProperty } from 'Constants/BidStatuses';
 import { APPROVED_PROP } from 'Constants/BidData';
 import BidCount from '../../BidCount';
@@ -16,6 +16,7 @@ const BidTrackerCardTitle = ({
   showBidCount,
   status,
   bidCycle,
+  ted,
 },
 { condensedView, priorityExists, isPriority }) => {
   const viewPosition = (
@@ -58,6 +59,14 @@ const BidTrackerCardTitle = ({
               <BidCount bidStatistics={bidStatistics} altStyle />
             </span>
         }
+        {
+          !condensedView &&
+          <div className="bid-tracker-card-title-bottom">
+            <strong>TED:</strong> {formatDate('2020-07-02T05:00:00Z')}
+            {/* placeholder while back-end gets built out. change to:
+            <strong>TED:</strong> {formatDate(ted)} */}
+          </div>
+        }
       </div>
     </div>
   );
@@ -72,6 +81,7 @@ BidTrackerCardTitle.propTypes = {
   showBidCount: PropTypes.bool,
   status: PropTypes.string.isRequired,
   bidCycle: BID_CYCLE_NAME_TYPE,
+  ted: PropTypes.number.isRequired,
 };
 
 BidTrackerCardTitle.defaultProps = {
