@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import q from 'query-string';
 import { identity, isArray, pickBy } from 'lodash';
 import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { setClient } from '../../../actions/clientView';
 import { fetchClientSuggestions } from '../../../actions/clientSuggestions';
 import { scrollTo } from '../../../utilities';
@@ -100,13 +101,15 @@ export class SearchAsClientButton extends Component {
   render() {
     const { buttonProps, className } = this.props;
     return (
-      <button
-        className={`usa-button-primary search-as-client-button ${className}`}
-        onClick={this.onClick}
-        {...buttonProps}
-      >
-        Search as Client
-      </button>
+      <PermissionsWrapper permissions="cdo">
+        <button
+          className={`usa-button-primary search-as-client-button ${className}`}
+          onClick={this.onClick}
+          {...buttonProps}
+        >
+          Search as Client
+        </button>
+      </PermissionsWrapper>
     );
   }
 }

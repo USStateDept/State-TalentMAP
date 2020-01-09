@@ -22,7 +22,7 @@ describe('SearchAsClientButton', () => {
     const spy = sinon.spy();
     global.document.getElementById = () => ({ offsetTop: '50px' });
     const wrapper = shallow(<SearchAsClientButton {...props} />);
-    wrapper.simulate('click');
+    wrapper.find('button').simulate('click');
     wrapper.setProps({
       ...props,
       client: { perdet_seq_number: 1 },
