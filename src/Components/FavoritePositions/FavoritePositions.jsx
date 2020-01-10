@@ -4,7 +4,7 @@ import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import SelectForm from '../SelectForm';
-import { POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from '../../Constants/Sort';
 import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
@@ -13,41 +13,50 @@ import { checkFlag } from '../../flags';
 const getUsePV = () => checkFlag('flags.projected_vacancy');
 const getUseAP = () => checkFlag('flags.available_positions');
 
+const TYPE_PV = 'pv';
+const TYPE_OPEN = 'open';
+const TYPE_ALL = 'all';
+
 class FavoritePositions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: 'all',
+      selected: TYPE_ALL,
     };
   }
   getPositions() {
     const { favorites, favoritesPV } = this.props;
     const { selected } = this.state;
     switch (selected) {
-      case 'open':
+      case TYPE_OPEN:
         return favorites;
-      case 'pv':
+      case TYPE_PV:
         return favoritesPV;
       default:
         return [...favorites, ...favoritesPV];
     }
   }
   render() {
+    const { selected } = this.state;
     const { favorites, favoritesPV, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList, onSortChange } = this.props;
     const positions = this.getPositions();
-    let options = [{ title: 'All Favorites', value: 'all', numerator: favorites.length + favoritesPV.length }];
+    let options = [{ title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length }];
     if (getUsePV()) {
       options = [
         ...options,
-        { title: 'Open Positions', value: 'open', numerator: favorites.length },
-        { title: 'Projected Vacancies', value: 'pv', numerator: favoritesPV.length },
+        { title: 'Open Positions', value: TYPE_OPEN, numerator: favorites.length },
+        { title: 'Projected Vacancies', value: TYPE_PV, numerator: favoritesPV.length },
       ];
     }
-    let selectOptions$ = POSITION_SEARCH_SORTS.options;
+    let selectOptions$ = POSITION_SEARCH_SORTS;
     if (getUseAP()) {
-      selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC.options;
+      selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
     }
+    if (selected === TYPE_PV) {
+      selectOptions$ = filterPVSorts(selectOptions$);
+    }
+    selectOptions$ = selectOptions$.options;
     return (
       <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
         <div className="usa-grid-full favorites-top-section">
@@ -57,7 +66,7 @@ class FavoritePositions extends Component {
         </div>
         <Nav
           options={options}
-          onClick={selected => this.setState({ selected })}
+          onClick={s => this.setState({ selected: s })}
           selected={this.state.selected}
           denominator={favorites.length + favoritesPV.length}
         />
