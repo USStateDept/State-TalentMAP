@@ -2,7 +2,7 @@
 
 exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
 <div
-  className="ap-container"
+  className=""
 >
   <MultiSelectFilterContainer
     multiSelectFilterList={

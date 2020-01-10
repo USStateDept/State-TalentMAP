@@ -6,7 +6,6 @@ import SectionTitle from '../SectionTitle';
 import BidTrackerCard from '../../BidTracker/BidTrackerCard';
 import BidListHeader from './BidListHeader';
 import StaticDevContent from '../../StaticDevContent';
-import { DRAFT_PROP } from '../../../Constants/BidData';
 import Spinner from '../../Spinner';
 
 const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
@@ -23,7 +22,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
       key={bid.id}
       bid={bid}
       condensedView
-      showBidCount={bid.status !== DRAFT_PROP}
+      showBidCount
       submitBid={submitBidPosition}
       deleteBid={deleteBid}
       priorityExists={doesPriorityExist}
