@@ -23,7 +23,7 @@ class DraftAlert extends Component {
     const post = getPostName(position.post, NO_POST);
     const skillCode = position.skill ? position.skill : NO_SKILL;
     const grade = position.grade ? position.grade : NO_GRADE;
-    const ted = true ? formatDate('2020-07-02T05:00:00Z') : NO_TOUR_END_DATE;
+    const ted = formatDate('2020-07-02T05:00:00Z');
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
     return (
       <div className="bid-tracker-alert-container bid-tracker-alert-container--draft">
