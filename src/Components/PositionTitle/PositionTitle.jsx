@@ -99,7 +99,7 @@ class PositionTitle extends Component {
         </div>
         <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
           {
-            !availableToBid &&
+            !availableToBid && !isProjectedVacancy &&
             <Flag
               name="flags.bidding"
               render={() => (
