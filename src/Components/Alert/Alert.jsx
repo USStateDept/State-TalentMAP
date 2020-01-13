@@ -10,7 +10,7 @@ class Alert extends Component {
     return !isEqual(this.props, nextProps);
   }
   render() {
-    const { type, title, messages, isAriaLive } = this.props;
+    const { type, title, messages, isAriaLive, isDivided } = this.props;
     // 'type' is injected into the class name
     // type 'error' requires an ARIA role
     let ariaLiveProps = {};
@@ -20,16 +20,31 @@ class Alert extends Component {
         'aria-atomic': 'true',
       };
     }
+    const h3 = <h3 className="usa-alert-heading">{title}</h3>;
+    const body = messages.map(message =>
+      (<p className="usa-alert-text" key={shortid.generate()}>
+        {message.body}
+      </p>),
+    );
     return (
       <div className={`usa-alert usa-alert-${type}`} role={(type === 'error') ? 'alert' : null} {...ariaLiveProps}>
-        <div className="usa-alert-body">
-          <h3 className="usa-alert-heading">{title}</h3>
-          {messages.map(message =>
-            (<p className="usa-alert-text" key={shortid.generate()}>
-              {message.body}
-            </p>),
-          )}
-        </div>
+        {
+          isDivided ?
+            <div>
+              <div className="usa-alert-body">
+                {h3}
+              </div>
+              <div className="divider" />
+              <div className="usa-alert-body">
+                {body}
+              </div>
+            </div>
+            :
+            <div className="usa-alert-body">
+              {h3}
+              {body}
+            </div>
+        }
       </div>
     );
   }
@@ -43,12 +58,14 @@ Alert.propTypes = {
       body: PropTypes.node,
     })),
   isAriaLive: PropTypes.bool,
+  isDivided: PropTypes.bool,
 };
 
 Alert.defaultProps = {
   type: 'info', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   messages: [{ body: '' }],
   isAriaLive: false,
+  isDivided: false,
 };
 
 export default Alert;
