@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import { debounce, get, keys, isString, omit, pickBy } from 'lodash';
 import queryParamUpdate from '../queryParams';
-import { scrollToTop, cleanQueryParams, getAssetPath, shouldUseAPFilters } from '../../utilities';
+import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
@@ -22,17 +22,13 @@ USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
 EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
+import { POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
   POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';
-import { checkFlag } from '../../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 const DEFAULT_PAGE_NUMBER = 1;
 
 // eslint-disable-next-line no-confusing-arrow
-const POSITION_SEARCH_SORT$ = () =>
-  getUseAP() ? POSITION_SEARCH_SORTS_DYNAMIC : POSITION_SEARCH_SORTS;
+const POSITION_SEARCH_SORT$ = () => POSITION_SEARCH_SORTS_DYNAMIC;
 
 class Results extends Component {
   constructor(props) {
@@ -159,8 +155,8 @@ class Results extends Component {
 
   createQueryParams() {
     const { query, defaultSort, defaultPageSize, defaultPageNumber, defaultKeyword } = this.state;
-    const { filters, filtersAP, fetchFilters } = this.props;
-    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
+    const { filters, fetchFilters } = this.props;
+    const filters$ = { ...filters };
     // set our current query
     const parsedQuery = queryString.parse(query.value);
     const { ordering, limit, page, q } = parsedQuery;
@@ -246,14 +242,14 @@ class Results extends Component {
   }
 
   render() {
-    const { results, hasErrored, isLoading, filters, filtersAP,
+    const { results, hasErrored, isLoading, filters,
             selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
             missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
             fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
             postSearchHasErrored, shouldShowSearchBar, bidList,
             client, clientIsLoading, clientHasErrored } = this.props;
     const { filtersIsLoading } = this.state;
-    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
+    const filters$ = { ...filters };
     const showClear = this.getQueryExists();
     const isClient = client && !!client.id && !clientIsLoading && !clientHasErrored;
     return (
@@ -311,7 +307,6 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
-  filtersAP: FILTERS_PARENT,
   filtersIsLoading: PropTypes.bool,
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,
@@ -341,7 +336,6 @@ Results.defaultProps = {
   hasErrored: false,
   isLoading: true,
   filters: { filters: [] },
-  filtersAP: { filters: [] },
   filtersHasErrored: false,
   filtersIsLoading: true,
   selectedAccordion: ACCORDION_SELECTION,
@@ -368,7 +362,6 @@ const mapStateToProps = state => ({
   hasErrored: state.resultsHasErrored,
   isLoading: state.resultsIsLoading,
   filters: state.filters,
-  filtersAP: state.filtersAP,
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
   selectedAccordion: state.selectedAccordion,

@@ -6,6 +6,7 @@ exports[`SaveNewSearchAlertComponent matches snapshot 1`] = `
 >
   <Alert
     isAriaLive={true}
+    isDivided={false}
     messages={
       Array [
         Object {

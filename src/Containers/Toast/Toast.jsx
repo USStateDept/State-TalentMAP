@@ -23,7 +23,7 @@ export class Toast extends Component {
     if (type === 'error') { title$ = 'Error'; }
     if (title) { title$ = title; }
     toast[type](
-      <Alert type={type} title={title$} messages={[{ body: message }]} />,
+      <Alert type={type} title={title$} messages={[{ body: message }]} isDivided />,
     );
   }
 

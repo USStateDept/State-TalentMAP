@@ -110,6 +110,7 @@ exports[`GlossaryEditorCardListComponent matches snapshot when there are no term
   />
   <Alert
     isAriaLive={false}
+    isDivided={false}
     messages={
       Array [
         Object {

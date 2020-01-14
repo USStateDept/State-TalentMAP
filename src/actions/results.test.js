@@ -1,4 +1,3 @@
-import sinon from 'sinon';
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import * as actions from './results';
 
@@ -35,16 +34,16 @@ describe('async actions', () => {
       },
     ];
 
-    mockAdapter.onGet('/cycleposition/?').reply(200,
+    mockAdapter.onGet('/fsbid/available_positions/?').reply(200,
       results,
     );
 
-    mockAdapter.onGet('/cycleposition/1/similar/?limit=3').reply(200,
+    mockAdapter.onGet('/fsbid/available_positions/1/similar/?limit=3').reply(200,
       results,
     );
 
     // We'll use this mock to provide coverage in /src/api.js
-    mockAdapter.onGet('/cycleposition/2/similar/?limit=3').reply(401,
+    mockAdapter.onGet('/fsbid/available_positions/2/similar/?limit=3').reply(401,
       'Invalid token',
     );
   });

@@ -4,14 +4,13 @@ import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import SelectForm from '../SelectForm';
-import { POSITION_SEARCH_SORTS, POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from '../../Constants/Sort';
+import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from '../../Constants/Sort';
 import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
 import { checkFlag } from '../../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
-const getUseAP = () => checkFlag('flags.available_positions');
 
 const TYPE_PV = 'pv';
 const TYPE_OPEN = 'open';
@@ -49,10 +48,7 @@ class FavoritePositions extends Component {
         { title: 'Projected Vacancies', value: TYPE_PV, numerator: favoritesPV.length },
       ];
     }
-    let selectOptions$ = POSITION_SEARCH_SORTS;
-    if (getUseAP()) {
-      selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
-    }
+    let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
     if (selected === TYPE_PV) {
       selectOptions$ = filterPVSorts(selectOptions$);
     }
