@@ -2,9 +2,6 @@ import { CancelToken } from 'axios';
 import { toNumber } from 'lodash';
 import api from '../api';
 import { localStorageToggleValue } from '../utilities';
-import { checkFlag } from '../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 let cancel;
 
@@ -34,8 +31,7 @@ export function comparisonsFetchData(query) {
   return (dispatch) => {
     if (cancel) { cancel(); }
 
-    const useAP = getUseAP();
-    const url = useAP ? `/fsbid/available_positions/?id=${query}` : `/cycleposition/?has_id=${query}`;
+    const url = `/fsbid/available_positions/?id=${query}`;
 
     dispatch(comparisonsIsLoading(true));
     if (!query) {
