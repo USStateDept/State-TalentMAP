@@ -1,7 +1,7 @@
 import { has } from 'lodash';
 import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
-const filterAPFilters = (data, useAP) => {
+const filterAPFilters = (data) => {
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
@@ -10,10 +10,10 @@ const filterAPFilters = (data, useAP) => {
       ...m,
       item: {
         ...m.item,
-        endpoint: useAP && hasAPEndpoint ? m.item.endpointAP : m.item.endpoint,
-        selectionRef: useAP && hasAPRef ? m.item.selectionRefAP : m.item.selectionRef,
+        endpoint: hasAPEndpoint ? m.item.endpointAP : m.item.endpoint,
+        selectionRef: hasAPRef ? m.item.selectionRefAP : m.item.selectionRef,
       },
-      data: useAP && hasAltData ? m.dataAP : m.data,
+      data: hasAltData ? m.dataAP : m.data,
     };
   });
   const output = { ...data, filters: filters$ };
@@ -372,15 +372,7 @@ export function filtersIsLoading(state = true, action) {
       return state;
   }
 }
-export function filters(state = filterAPFilters(items, false), action) {
-  switch (action.type) {
-    case 'FILTERS_FETCH_DATA_SUCCESS':
-      return action.filters;
-    default:
-      return state;
-  }
-}
-export function filtersAP(state = filterAPFilters(items, true), action) {
+export function filters(state = filterAPFilters(items), action) {
   switch (action.type) {
     case 'FILTERS_FETCH_DATA_SUCCESS':
       return action.filters;
