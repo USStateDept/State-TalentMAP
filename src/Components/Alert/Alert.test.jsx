@@ -69,6 +69,18 @@ describe('Alert', () => {
     expect(alert.find('.usa-alert-text').length).toBe(errorBody.length);
   });
 
+  it('displays the divider when isDivided === true', () => {
+    const title = 'Error title';
+    alert = shallow(<Alert type="error" title={title} messages={errorBody} isDivided />);
+    expect(alert.find('.divider').exists()).toBe(true);
+  });
+
+  it('does not display the divider when isDivided === false', () => {
+    const title = 'Error title';
+    alert = shallow(<Alert type="error" title={title} messages={errorBody} isDivided={false} />);
+    expect(alert.find('.divider').exists()).toBe(false);
+  });
+
   it('matches snapshot when isAriaLive is true', () => {
     const title = 'Success title';
     alert = shallow(<Alert type="success" title={title} messages={alertBody} isAriaLive />);
