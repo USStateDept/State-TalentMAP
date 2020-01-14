@@ -1,3 +1,3 @@
-import { filters, filtersAP, filtersHasErrored, filtersIsLoading } from './filters';
+import { filters, filtersHasErrored, filtersIsLoading } from './filters';
 
-export default { filters, filtersAP, filtersHasErrored, filtersIsLoading };
+export default { filters, filtersHasErrored, filtersIsLoading };
