@@ -234,6 +234,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
   >
     <Alert
       isAriaLive={false}
+      isDivided={false}
       messages={
         Array [
           Object {
