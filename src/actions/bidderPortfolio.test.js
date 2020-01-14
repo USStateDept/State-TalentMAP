@@ -16,13 +16,13 @@ describe('bidderPortfolio async actions', () => {
     })); mock();
   });
 
-  it("can fetch a CDO's client/bidder list", (done) => {
+  it("fetches a CDO's client/bidder list", (done) => {
     store.dispatch(actions.bidderPortfolioFetchData());
     store.dispatch(actions.bidderPortfolioIsLoading());
     expectMockWasCalled({ spy, cb: done });
   });
 
-  it('can fetch data from the last query', (done) => {
+  it('fetches data from the last query', (done) => {
     store = mockStore({ results: [], bidderPortfolioLastQuery: '/client/?test=true' });
 
     ({ mock, spy } = spyMockAdapter({
@@ -35,7 +35,7 @@ describe('bidderPortfolio async actions', () => {
     expectMockWasCalled({ spy, cb: done });
   });
 
-  it('can handle errors when fetching data from the last query', (done) => {
+  it('handles errors when fetching data from the last query', (done) => {
     store = mockStore({ results: [], bidderPortfolioLastQuery: '/client/?test=true' });
 
     ({ mock, spy } = spyMockAdapter({
@@ -48,7 +48,7 @@ describe('bidderPortfolio async actions', () => {
     expectMockWasCalled({ spy, cb: done });
   });
 
-  it('can handle failures when fetching data from the last query', (done) => {
+  it('handles failures when fetching data from the last query', (done) => {
     ({ mock, spy } = spyMockAdapter({
       url: '/fsbid/client/?q=failure', response: [404],
     })); mock();
@@ -59,7 +59,7 @@ describe('bidderPortfolio async actions', () => {
     expectMockWasCalled({ spy, cb: done });
   });
 
-  it('can fetch client statistics', (done) => {
+  it('fetches client statistics', (done) => {
     store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
@@ -72,7 +72,7 @@ describe('bidderPortfolio async actions', () => {
     expectMockWasCalled({ spy, cb: done });
   });
 
-  it('can handle failures when fetching client statistics', (done) => {
+  it('handles failures when fetching client statistics', (done) => {
     store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
@@ -81,6 +81,30 @@ describe('bidderPortfolio async actions', () => {
 
     store.dispatch(actions.bidderPortfolioCountsFetchData());
     store.dispatch(actions.bidderPortfolioCountsIsLoading());
+
+    expectMockWasCalled({ spy, cb: done });
+  });
+
+  it('fetches client bidder portfolio CDOs', (done) => {
+    store = mockStore({});
+
+    ({ mock, spy } = spyMockAdapter({
+      url: '/fsbid/cdo/', response: [200, [{ hru_id: 1, name: 'name' }]],
+    })); mock();
+
+    store.dispatch(actions.bidderPortfolioCDOsFetchData());
+
+    expectMockWasCalled({ spy, cb: done });
+  });
+
+  it('handles errors when fetching client bidder portfolio CDOs', (done) => {
+    store = mockStore({});
+
+    ({ mock, spy } = spyMockAdapter({
+      url: '/fsbid/cdo/', response: [404, null],
+    })); mock();
+
+    store.dispatch(actions.bidderPortfolioCDOsFetchData());
 
     expectMockWasCalled({ spy, cb: done });
   });

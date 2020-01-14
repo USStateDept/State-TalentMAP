@@ -6,7 +6,7 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('/cycleposition/favorites/').reply(200,
+    mockAdapter.onGet('/available_position/favorites/').reply(200,
       resultsObject,
     );
 
