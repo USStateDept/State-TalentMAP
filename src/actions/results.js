@@ -3,9 +3,6 @@ import queryString from 'query-string';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
-import { checkFlag } from '../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 let cancel;
 let cancelSimilar;
@@ -51,8 +48,7 @@ export function resultsSimilarPositionsFetchDataSuccess(results) {
 export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
     if (cancelSimilar) { cancelSimilar(); }
-    const useAP = getUseAP();
-    const prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+    const prefix = '/fsbid/available_positions';
 
     dispatch(resultsSimilarPositionsIsLoading(true));
     api().get(`${prefix}/${id}/similar/?limit=3`, {
@@ -87,9 +83,7 @@ export function downloadPositionData(query, isPV) {
 }
 
 export function fetchResultData(query) {
-  const useAP = getUseAP();
-
-  let prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+  let prefix = '/fsbid/available_positions';
   const parsed = queryString.parse(query);
   const isPV = parsed.projectedVacancy;
 

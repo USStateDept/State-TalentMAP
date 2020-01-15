@@ -42,7 +42,7 @@ describe('async actions', () => {
     store = mockStore({ comparisons: [] });
 
     ({ mock, spy } = spyMockAdapter({
-      url: '/cycleposition/?has_id=6,60', response: [200, comparisons],
+      url: '/fsbid/available_positions/?id=6,60', response: [200, comparisons],
     })); mock();
   });
 
@@ -54,7 +54,7 @@ describe('async actions', () => {
 
   it('can handle errors when fetching positions', (done) => {
     ({ mock, spy } = spyMockAdapter({
-      url: '/cycleposition/?has_id=5,20', response: [404],
+      url: '/fsbid/available_positions/?id=5,20', response: [404],
     })); mock();
     store.dispatch(actions.comparisonsFetchData('5,20'));
     store.dispatch(actions.comparisonsIsLoading());

@@ -25,14 +25,14 @@ describe('async actions', () => {
     mockAdapter.reset();
   });
 
-  it('can fetch a client', (done) => {
+  it('fetches a client', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('/client/1/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
       profile,
     );
 
-    mockAdapter.onGet('/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(200,
       { results: bids },
     );
 
@@ -48,11 +48,11 @@ describe('async actions', () => {
   it('handles errors when perdet_seq_number is undefined', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('/client/1/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
       { ...profile, perdet_seq_number: undefined },
     );
 
-    mockAdapter.onGet('/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(200,
       { results: bids },
     );
 
@@ -65,14 +65,14 @@ describe('async actions', () => {
     f();
   });
 
-  it('can fetch a client when user id is undefined', (done) => {
+  it('fetches a client when user id is undefined', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('/client/1/').reply(200,
-      { ...profile, id: null },
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
+      { ...profile, id: undefined },
     );
 
-    mockAdapter.onGet('/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(200,
       { results: bids },
     );
 
@@ -85,17 +85,17 @@ describe('async actions', () => {
     f();
   });
 
-  it('can handle errors', (done) => {
+  it('handles errors', (done) => {
     const store = mockStore({ profile: {} });
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('/client/1/').reply(404,
-      {},
+    mockAdapter.onGet('/fsbid/client/1/').reply(404,
+      null,
     );
 
-    mockAdapter.onGet('/client/1/bids/').reply(404,
-      {},
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(404,
+      null,
     );
 
     const f = () => {
