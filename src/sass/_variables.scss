@@ -32,8 +32,8 @@ $secondary-lightest: #F9DEDE;
 // Tertiary
 $tertiary-gold: #FDB81E;
 $tertiary-gold-light: #F9C642;
-$tertiary-gold-lighter: #FAD980;
-$tertiary-gold-lightest: #FFF1D2;
+$tertiary-gold-lighter: $var-tertiary-gold-lighter;
+$tertiary-gold-lightest: $var-tertiary-gold-lightest;
 
 $tertiary-success: #2E8540;
 $tertiary-success-light: #4AA564;
