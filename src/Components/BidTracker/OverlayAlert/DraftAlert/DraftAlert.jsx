@@ -3,7 +3,7 @@ import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { BID_OBJECT } from '../../../../Constants/PropTypes';
-import { NO_POST, NO_SKILL, NO_GRADE, NO_TOUR_END_DATE } from '../../../../Constants/SystemMessages';
+import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessages';
 import { getPostName, formatDate } from '../../../../utilities';
 
 class DraftAlert extends Component {
@@ -25,6 +25,7 @@ class DraftAlert extends Component {
     const grade = position.grade ? position.grade : NO_GRADE;
     const ted = formatDate('2020-07-02T05:00:00Z');
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
+    // modify line 6: import NO_TOUR_END_DATE from SystemMessages
     return (
       <div className="bid-tracker-alert-container bid-tracker-alert-container--draft">
         <div className="usa-grid-full" style={{ display: 'flex' }}>
