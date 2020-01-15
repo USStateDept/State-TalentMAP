@@ -3,7 +3,8 @@ import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { BID_OBJECT } from '../../../../Constants/PropTypes';
-import { NO_POST, NO_SKILL, NO_GRADE, NO_TOUR_END_DATE } from '../../../../Constants/SystemMessages';
+import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessages';
+// add NO_TOUR_END_DATE above when TED back-end complete
 import { getPostName, formatDate } from '../../../../utilities';
 
 class DraftAlert extends Component {

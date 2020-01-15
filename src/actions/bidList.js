@@ -332,6 +332,8 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
 
     api()(config)
       .then(() => {
+        console.log('------config-----');
+        console.log(config);
         const message = remove ?
           SystemMessages.DELETE_BID_ITEM_SUCCESS :
           SystemMessages.ADD_BID_ITEM_SUCCESS({ client, hideLink: !!fromTracker });

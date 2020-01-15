@@ -134,14 +134,14 @@ class Favorite extends Component {
     }
     return spinnerClass;
   }
-
+// this gets called when a favortie is removed or added
   toggleSaved() {
     const { onToggle, refKey, refresh } = this.props;
-
     this.setState({
       loading: true,
-      alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
-        this position ${this.getSavedState() ? 'from' : 'to'} your favorites list.`,
+      /* i dont see the below text being used anywhere??? */
+      alertMessage: `You have ------- ${this.getSavedState() ? 'removed' : 'added'} 
+        this position ${this.getSavedState() ? 'from' : 'to'} your favorites list ------.`,
     });
 
     // pass the key and the "remove" param
@@ -172,7 +172,7 @@ class Favorite extends Component {
       <span>
         {
           this.state.alertMessage &&
-          <span className="usa-sr-only" aria-live="polite" aria-atomic="true">{this.state.alertMessage}</span>
+          <span className="usa-sr-only" aria-live="polite" aria-atomic="true">:){this.state.alertMessage}:)</span>
         }
         <InteractiveElement {...options}>
           {loading ?

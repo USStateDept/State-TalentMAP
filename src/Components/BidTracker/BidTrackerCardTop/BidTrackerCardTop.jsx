@@ -8,6 +8,7 @@ import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
 import GlossaryTermTrigger from '../../GlossaryTermTrigger';
+// import BidRemoveSuccess from '../../BidListMessages/RemoveSuccess';
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
@@ -19,7 +20,9 @@ class BidTrackerCardTop extends Component {
   }
 
   onDeleteBid() {
+    // console.log('in onDeleteBid func');
     const { deleteBid, bid } = this.props;
+    // console.log(deleteBid);
     deleteBid(bid.position.id);
   }
 
@@ -74,12 +77,13 @@ class BidTrackerCardTop extends Component {
             }
             <div className="bid-tracker-actions-container">
               { bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
-                <ConfirmLink
-                  className="remove-bid-link"
-                  defaultText={<span><FontAwesome name="close" />Remove bid</span>}
-                  role="link"
-                  onClick={this.onDeleteBid}
-                /> }
+                // <BidRemoveSuccess />
+              <ConfirmLink
+                className="remove-bid-link"
+                defaultText={<span><FontAwesome name="close" />Remove from Bid List</span>}
+                role="link"
+                onClick={this.onDeleteBid}
+              /> }
             </div>
           </div>
         </div>
