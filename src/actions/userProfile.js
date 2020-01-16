@@ -4,7 +4,7 @@ import Q from 'q';
 import imagediff from 'imagediff';
 
 import { loadImg } from 'utilities';
-import api from '../api';
+import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
@@ -70,7 +70,7 @@ export function userProfileFetchData(bypass, cb) {
     // profile
     const getUserAccount = () => api().get('/profile/');
     // permissions
-    const getUserPermissions = () => api().get('/permission/user/');
+    const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
     const getAPFavorites = () => api().get('/available_position/favorites/?limit=500');
 
@@ -232,5 +232,5 @@ export function updateSavedSearches() {
 }
 
 export function setUserEmpId() {
-  api().put('/fsbid/employee/perdet_seq_num/');
+  return api().put('/fsbid/employee/perdet_seq_num/');
 }
