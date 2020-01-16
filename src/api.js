@@ -10,6 +10,10 @@ import { logoutRequest } from './login/actions';
 // Headers that can be set to denote a certain interceptor to be performed
 export const INTERCEPTORS = new Enum({ PUT_PERDET: 'AXIOS_ONLY_PUT_PERDET' });
 
+const interceptorCounts = {
+  [INTERCEPTORS.PUT_PERDET.value]: 0,
+};
+
 // Make sure the user isn't spammed with redirects
 const debouncedLogout = throttle(
   // eslint-disable-next-line global-require
@@ -50,14 +54,26 @@ const api = (useInterceptor = true) => {
 
   // Call the /perdet_seq_num endpoint if the required header is there
   api$.interceptors.request.use((request) => {
-    const request$ = request;
     const header = INTERCEPTORS.PUT_PERDET.value;
-    if (get(request$, `headers.${header}`)) {
+    if (get(request, `headers.${header}`)) {
+      // clone the request
+      const request$ = { ...request };
+      // delete the header as we don't want to send it to the server
       delete request$.headers[INTERCEPTORS.PUT_PERDET.value];
-      return setUserEmpId()
-        .then(() => Promise.resolve(request))
-        .catch(() => Promise.resolve(request));
+      // only perform the additional action if count === 0
+      if (get(interceptorCounts, header, 0) === 0) {
+        return setUserEmpId()
+          .then(() => {
+            // increment the counter
+            interceptorCounts[header] += 1;
+            return Promise.resolve(request$);
+          })
+          .catch(() => Promise.resolve(request$));
+      }
+      // otherwise return the request with the header removed
+      return request$;
     }
+    // otherwise return the original request
     return request;
   });
 
