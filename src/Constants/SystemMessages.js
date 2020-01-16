@@ -34,6 +34,7 @@ export const NO_SKILL = DEFAULT_TEXT;
 export const NO_TOUR_OF_DUTY = DEFAULT_TEXT;
 export const NO_USER_LISTED = DEFAULT_TEXT;
 export const NO_USER_SKILL_CODE = 'No Skills listed';
+export const NO_TOUR_END_DATE = DEFAULT_TEXT;
 
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
 
