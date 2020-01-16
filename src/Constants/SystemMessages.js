@@ -39,21 +39,18 @@ export const NO_TOUR_END_DATE = DEFAULT_TEXT;
 
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
 
-const T_S = 'can you see this string?';
-// export const DELETE_BID_ITEM_SUCCESS = 'Bid successfully removed.';
-// export const DELETE_BID_ITEM_SUCCESS = BidRemoveSuccess({ T_S }); works!
-export const DELETE_BID_ITEM_SUCCESS = pos => BidRemoveSuccess({ pos });
+export const DELETE_BID_ITEM_SUCCESS = (pos, onToggle) => BidRemoveSuccess({ pos, onToggle });
 export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
-export const ADD_BID_ITEM_SUCCESS = (pos, props = {}) => BidAddSuccess({ pos, props, T_S });
+export const ADD_BID_ITEM_SUCCESS = (pos, props = {}) => BidAddSuccess({ pos, props });
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
 
 export const ADD_FAVORITE_TITLE = 'Favorite Added';
 export const DELETE_FAVORITE_TITLE = 'Favorite Removed';
 export const ERROR_FAVORITE_TITLE = 'Favorite Error';
 export const DELETE_FAVORITE_SUCCESS = (pos, onToggle) => RemoveSuccess({ pos, onToggle });
-export const DELETE_FAVORITE_ERROR = () => "We're experiencing an error attemtping to remove this position to your Favorites. Please try again.";
+export const DELETE_FAVORITE_ERROR = () => "We're experiencing an error attempting to remove this position from your Favorites. Please try again.";
 export const ADD_FAVORITE_SUCCESS = pos => FavoriteSuccess({ pos });
-export const ADD_FAVORITE_ERROR = () => "We're experiencing an error attemtping to add this position to your Favorites. Please try again.";
+export const ADD_FAVORITE_ERROR = () => "We're experiencing an error attempting to add this position to your Favorites. Please try again.";
 
 export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
 export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';

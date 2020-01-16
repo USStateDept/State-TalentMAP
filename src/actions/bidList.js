@@ -1,8 +1,12 @@
+import axios from 'axios';
 import { get } from 'lodash';
 import api from '../api';
 import { toastSuccess, toastError } from './toast';
 import { userProfilePublicFetchData } from './userProfilePublic';
 import * as SystemMessages from '../Constants/SystemMessages';
+import { checkFlag } from '../flags';
+
+const getUseAP = () => checkFlag('flags.available_positions');
 
 export function bidListHasErrored(bool) {
   return {
@@ -330,24 +334,33 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
       config.url = `/fsbid/cdo/position/${idString}/client/${clientToUse}/`;
     }
 
-    api()(config)
-      .then(() => {
-        console.log('------config-----');
-        console.log(config);
-        const message = remove ?
-          SystemMessages.DELETE_BID_ITEM_SUCCESS :
-          SystemMessages.ADD_BID_ITEM_SUCCESS({ client, hideLink: !!fromTracker });
-        dispatch(bidListToggleSuccess(message));
-        dispatch(toastSuccess(message));
-        dispatch(bidListToggleIsLoading(false, id));
-        dispatch(bidListToggleHasErrored(false));
-        if (clientToUse) { // could be optimized to reduce duplicate calls
-          dispatch(clientBidListFetchData());
-          dispatch(userProfilePublicFetchData(clientToUse));
-        } else {
-          dispatch(bidListFetchData());
-        }
-      })
+    // action
+    const getAction = () => api()(config);
+
+    // position
+    const posURL = getUseAP() ? `/fsbid/available_positions/${id}/` : `/cycleposition/${id}/`;
+    const getPosition = () => api().get(posURL);
+
+    axios.all([getAction(), getPosition()])
+        .then(axios.spread((action, position) => {
+          const pos = position.data;
+          const undo = () => dispatch(toggleBidPosition(
+              id, !remove, isClient, clientId, fromTracker,
+          ));
+          const message = remove ?
+          SystemMessages.DELETE_BID_ITEM_SUCCESS(pos.position, undo) :
+          SystemMessages.ADD_BID_ITEM_SUCCESS(pos.position, { client, hideLink: !!fromTracker });
+          dispatch(bidListToggleSuccess(message));
+          dispatch(toastSuccess(message));
+          dispatch(bidListToggleIsLoading(false, id));
+          dispatch(bidListToggleHasErrored(false));
+          if (clientToUse) { // could be optimized to reduce duplicate calls
+            dispatch(clientBidListFetchData());
+            dispatch(userProfilePublicFetchData(clientToUse));
+          } else {
+            dispatch(bidListFetchData());
+          }
+        }))
       .catch(() => {
         const message = remove ?
           SystemMessages.DELETE_BID_ITEM_ERROR : SystemMessages.ADD_BID_ITEM_ERROR;

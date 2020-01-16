@@ -1,23 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import InteractiveElement from '../InteractiveElement';
+import InteractiveElement from '../InteractiveElement';
+import { POSITION_DETAILS } from '../../Constants/PropTypes';
 
-// const BidRemoveSuccess = ({ onToggle }) => (
-const BidRemoveSuccess = ({ pos }) => (
+const RemoveSuccess = ({ pos, onToggle }) => (
   <span>
-    Bid successfully removed {pos} from Bid List.&nbsp;
-    {/* <InteractiveElement
-      type="b"
+    {pos.title} ({pos.position_number}) has been successfully removed from Bid List.&nbsp;
+    <InteractiveElement
+      type="a"
       onClick={onToggle}
     >
         Undo
-    </InteractiveElement>. */}
+    </InteractiveElement>.
   </span>
 );
 
-BidRemoveSuccess.propTypes = {
-  // onToggle: PropTypes.func.isRequired,
-  pos: PropTypes.string.isRequired,
+RemoveSuccess.propTypes = {
+  pos: POSITION_DETAILS.isRequired,
+  onToggle: PropTypes.func.isRequired,
 };
 
-export default BidRemoveSuccess;
+export default RemoveSuccess;
