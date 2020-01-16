@@ -1,9 +1,14 @@
 import axios from 'axios';
 import memoize from 'memoize-one';
-import { throttle } from 'lodash';
-import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from './utilities';
+import { get, throttle } from 'lodash';
+import Enum from 'enum';
+import { setUserEmpId } from 'actions/userProfile';
+import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from 'utilities';
+import { checkFlag } from 'flags';
 import { logoutRequest } from './login/actions';
-import { checkFlag } from './flags';
+
+// Headers that can be set to denote a certain interceptor to be performed
+export const INTERCEPTORS = new Enum({ PUT_PERDET: 'AXIOS_ONLY_PUT_PERDET' });
 
 // Make sure the user isn't spammed with redirects
 const debouncedLogout = throttle(
@@ -20,7 +25,7 @@ export const config = () => ({
 });
 
 // Called as a function so that sessionStorage can be set first
-const api = () => {
+const api = (useInterceptor = true) => {
   const api$ = axios.create(config());
 
   api$.interceptors.request.use((request) => {
@@ -43,30 +48,45 @@ const api = () => {
     return requestWithJwt;
   });
 
-  api$.interceptors.response.use(response => response, (error) => {
-    switch (propOrDefault(error, 'response.status')) {
-      case 401: {
-        // Due to timing of import store before history is created, importing store here causes
-        // exports of api to be undefined. So this causes an error for `userProfile.js` when
-        // attempting to login. Went with the eslint quick re-enable to get around this.
-        debouncedLogout();
-        break;
-      }
+  // Call the /perdet_seq_num endpoint if the required header is there
+  api$.interceptors.request.use((request) => {
+    const request$ = request;
+    const header = INTERCEPTORS.PUT_PERDET.value;
+    if (get(request$, `headers.${header}`)) {
+      delete request$.headers[INTERCEPTORS.PUT_PERDET.value];
+      return setUserEmpId()
+        .then(() => Promise.resolve(request))
+        .catch(() => Promise.resolve(request));
+    }
+    return request;
+  });
 
-      default: {
-        // We don't want to stop the pipeline even if there's a problem with the dispatch
-        // and if there is, that should be resolved. This is just a placeholder until we
-        // actually need a default case to satisfy eslint.
-        const serverMessage = propOrDefault(error, 'response.data.detail');
+  if (useInterceptor) {
+    api$.interceptors.response.use(response => response, (error) => {
+      switch (propOrDefault(error, 'response.status')) {
+        case 401: {
+          // Due to timing of import store before history is created, importing store here causes
+          // exports of api to be undefined. So this causes an error for `userProfile.js` when
+          // attempting to login. Went with the eslint quick re-enable to get around this.
+          debouncedLogout();
+          break;
+        }
 
-        if (serverMessage === 'Invalid token') {
-          redirectToLoginRedirect();
+        default: {
+          // We don't want to stop the pipeline even if there's a problem with the dispatch
+          // and if there is, that should be resolved. This is just a placeholder until we
+          // actually need a default case to satisfy eslint.
+          const serverMessage = propOrDefault(error, 'response.data.detail');
+
+          if (serverMessage === 'Invalid token') {
+            redirectToLoginRedirect();
+          }
         }
       }
-    }
 
-    return Promise.reject(error);
-  });
+      return Promise.reject(error);
+    });
+  }
 
   return api$;
 };
