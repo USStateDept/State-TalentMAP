@@ -197,6 +197,7 @@ export function updateSavedSearches() {
   api().put('/searches/listcount/');
 }
 
+// IMPORTANT: return the function instead of calling it, since this is used in the interceptor
 export function setUserEmpId() {
   return api().put('/fsbid/employee/perdet_seq_num/');
 }
