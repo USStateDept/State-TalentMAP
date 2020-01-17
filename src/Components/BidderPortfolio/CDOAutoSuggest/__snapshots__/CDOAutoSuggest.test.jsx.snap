@@ -1,100 +1,48 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CDOAutoSuggest matches snapshot 1`] = `
-<Dropdown
-  active={false}
-  className="portfolio-account-dropdown"
-  removeElement={true}
+<div
+  className="cdo-autosuggest"
 >
-  <div
-    className="usa-grid-full dropdown-trigger-container"
-    id="cdo-portfolio-dropdown-trigger"
-  >
-    <span>
-      Proxy CDO View:
-    </span>
-    <InteractiveElement
-      alt="Open client list search"
-      className="account-dropdown--name"
-      id="cdo-portfolio-dropdown-trigger"
-      onClick={[Function]}
-      type="div"
-    >
-      Mary Brown
-      <FontAwesome
-        name="chevron-down"
-      />
-    </InteractiveElement>
-  </div>
-  <BoxShadow
-    blurRadius={10}
-    color="rgba(0,0,0,.15)"
-    inset={false}
-    is="div"
-    offsetX={3}
-    offsetY={2}
-    spreadRadius={1}
-    style={Object {}}
-  >
-    <div
-      className="dropdown-content-outer-container"
-      id="cdo-portfolio-dropdown-content"
-    >
-      <DropdownContent
-        className=""
-      >
-        <div
-          className="autosuggest-container"
-        >
-          <AutoSuggest
-            autoSuggestProps={
-              Object {
-                "alwaysRenderSuggestions": true,
-                "shouldRenderSuggestions": [Function],
-              }
-            }
-            customInputProps={Object {}}
-            debounceMillis={0}
-            displayProperty={[Function]}
-            getSuggestions={[Function]}
-            inputId="cdo-portfolio-autosuggest"
-            label="Proxy CDO View"
-            labelSrOnly={true}
-            onSuggestionSelected={[Function]}
-            onSuggestionsClearRequested={[Function]}
-            placeholder="Start typing CDO name"
-            queryProperty=""
-            shouldClearOnSelect={false}
-            suggestionTemplate={[Function]}
-            suggestions={
-              Array [
-                Object {
-                  "first_name": "Mary",
-                  "id": 4,
-                  "last_name": "Brown",
-                },
-                Object {
-                  "first_name": "John",
-                  "id": 3,
-                  "last_name": "Daniels",
-                },
-              ]
-            }
-            templateProps={
-              Object {
-                "value": Object {
-                  "first_name": "Mary",
-                  "id": 4,
-                  "last_name": "Brown",
-                },
-              }
-            }
-          />
-        </div>
-      </DropdownContent>
-    </div>
-  </BoxShadow>
-</Dropdown>
+  <r
+    dropdownHeight={600}
+    filterDebounce={150}
+    id="picky"
+    includeFilter={true}
+    keepOpen={true}
+    labelKey="name"
+    multiple={true}
+    numberDisplayed={2}
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "first_name": "Mary",
+          "id": 4,
+          "last_name": "Brown",
+        },
+        Object {
+          "first_name": "John",
+          "id": 3,
+          "last_name": "Daniels",
+        },
+      ]
+    }
+    placeholder="Select CDOs"
+    renderList={[Function]}
+    selectAllMode="default"
+    selectAllText="Select all"
+    tabIndex={0}
+    value={
+      Object {
+        "first_name": "Mary",
+        "id": 4,
+        "last_name": "Brown",
+      }
+    }
+    valueKey="id"
+  />
+</div>
 `;
 
 exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
