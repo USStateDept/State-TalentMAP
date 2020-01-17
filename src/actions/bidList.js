@@ -4,9 +4,6 @@ import api from '../api';
 import { toastSuccess, toastError } from './toast';
 import { userProfilePublicFetchData } from './userProfilePublic';
 import * as SystemMessages from '../Constants/SystemMessages';
-import { checkFlag } from '../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 export function bidListHasErrored(bool) {
   return {
@@ -338,7 +335,7 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
     const getAction = () => api()(config);
 
     // position
-    const posURL = getUseAP() ? `/fsbid/available_positions/${id}/` : `/cycleposition/${id}/`;
+    const posURL = `/fsbid/available_positions/${id}/`;
     const getPosition = () => api().get(posURL);
 
     axios.all([getAction(), getPosition()])
