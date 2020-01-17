@@ -4,7 +4,8 @@ import { isEqual } from 'lodash';
 import Dropdown, { DropdownContent } from 'react-simple-dropdown';
 import FA from 'react-fontawesome';
 import { connect } from 'react-redux';
-import { bidderPortfolioSelectCDO } from '../../../actions/bidderPortfolio';
+import { bidderPortfolioSelectCDO } from 'actions/bidderPortfolio';
+import { unsetClientView } from 'actions/clientView';
 import AutoSuggest from '../../AutoSuggest';
 import SuggestionChoiceCDOName from '../../AutoSuggest/SuggestionChoiceCDOName';
 import filterUsers from '../helpers';
@@ -178,7 +179,10 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  setCDO: obj => dispatch(bidderPortfolioSelectCDO(obj)),
+  setCDO: (obj) => {
+    dispatch(bidderPortfolioSelectCDO(obj));
+    dispatch(unsetClientView());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CDOAutoSuggest);
