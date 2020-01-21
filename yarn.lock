@@ -3329,6 +3329,12 @@ entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
+enum@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/enum/-/enum-2.5.0.tgz#f205b8c65a335a8ace8081105df971b18568b984"
+  dependencies:
+    is-buffer "^1.1.0"
+
 enzyme-to-json@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/enzyme-to-json/-/enzyme-to-json-1.6.0.tgz#9d9bba706e8b500c673b7a4fa9ff7ce57b8b9254"
@@ -8853,9 +8859,9 @@ react-scroll-up-button@^1.6.4:
     prop-types "^15.6.2"
     tween-functions "^1.2.0"
 
-react-scroll@^1.7.15:
-  version "1.7.15"
-  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.15.tgz#90da4a1e953e620ae37be42747e0835b473158db"
+react-scroll@^1.7.16:
+  version "1.7.16"
+  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.7.16.tgz#814f0b97ed171aad1f27e45dad16a8444817fec8"
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.5.8"
