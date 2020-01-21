@@ -19,9 +19,7 @@ export function renderList({ items, selected, ...rest }) {
 class CDOAutoSuggest extends Component {
   constructor(props) {
     super(props);
-    this.getFilteredUsers = this.getFilteredUsers.bind(this);
     this.selectMultipleOption = this.selectMultipleOption.bind(this);
-    this.dropdown = {};
     this.state = {
       suggestions: filterUsers('', props.cdos),
     };
@@ -33,13 +31,7 @@ class CDOAutoSuggest extends Component {
     }
   }
 
-  getFilteredUsers(term) {
-    const { cdos } = this.props;
-    this.setState({ suggestions: filterUsers(term, cdos) });
-  }
-
   selectMultipleOption(value) {
-    this.setState({ value });
     this.props.setCDOsToSearchBy(value);
   }
 

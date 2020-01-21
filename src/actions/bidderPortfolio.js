@@ -146,7 +146,7 @@ export function bidderPortfolioFetchData(query = {}) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
     const query$ = { ...query };
-    if (ids) {
+    if (ids.length) {
       query$.hru_id__in = ids.join();
     }
     const query$$ = stringify(query$);
