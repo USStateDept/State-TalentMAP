@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
-import GlossaryTermTrigger from '../../GlossaryTermTrigger';
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
@@ -24,18 +23,16 @@ class BidTrackerCardTop extends Component {
   }
 
   render() {
-    const { bid, hideDelete, showBidCount, questionText, useCDOView } = this.props;
+    const { bid, hideDelete, showBidCount, useCDOView } = this.props;
     const { readOnly } = this.context;
     const { position } = bid;
     const bidStatistics = get(bid, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
-    const showQuestion = !!(questionText && questionText.text);
     const positionNumber = get(position, 'position_number');
 
     const getQuestionElement = () => (
       <span>
-        <span>{questionText.text} </span>
-        <GlossaryTermTrigger className="tooltip-link" text={questionText.link} term={questionText.term} />
+        Your bid is likely in one of several steps in the process. <Link className="tooltip-link" to="/biddingProcess">Learn more here.</Link>
       </span>
     );
     return (
@@ -54,24 +51,20 @@ class BidTrackerCardTop extends Component {
         </div>
         <div className="bid-tracker-card-title-outer-container-right">
           <div className="bid-tracker-card-title-container-right">
-            {
-              showQuestion &&
-                <div className="bid-tracker-question-text-container">
-                  <Tooltip
-                    html={getQuestionElement()}
-                    arrow
-                    tabIndex="0"
-                    interactive
-                    interactiveBorder={5}
-                    useContext
-                  >
-                    <span>
-                      <FontAwesome name="question-circle" /> Why is it taking so long? -
-                      <Link to="/biddingProcess"> Learn More Here</Link>
-                    </span>
-                  </Tooltip>
-                </div>
-            }
+            <div className="bid-tracker-question-text-container">
+              <Tooltip
+                html={getQuestionElement()}
+                arrow
+                tabIndex="0"
+                interactive
+                interactiveBorder={5}
+                useContext
+              >
+                <span>
+                  <FontAwesome name="question-circle" /> Why is it taking so long?
+                </span>
+              </Tooltip>
+            </div>
             <div className="bid-tracker-actions-container">
               { bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
                 <ConfirmLink
@@ -94,11 +87,6 @@ BidTrackerCardTop.contextTypes = {
 
 BidTrackerCardTop.propTypes = {
   bid: BID_OBJECT.isRequired,
-  questionText: PropTypes.shape({
-    text: PropTypes.string,
-    link: PropTypes.string,
-    term: PropTypes.string,
-  }),
   deleteBid: PropTypes.func.isRequired,
   showBidCount: PropTypes.bool,
   hideDelete: PropTypes.bool,

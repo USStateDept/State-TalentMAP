@@ -45,7 +45,7 @@ class BidTrackerCard extends Component {
       priorityExists ? 'bid-tracker--priority-exists' : '',
     ].join(' ');
     const showBidCount$ = showBidCount && !priorityExists;
-    const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
+    const questionText = get(BID_EXPLANATION_TEXT, '[STANDARD_PROP]');
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
