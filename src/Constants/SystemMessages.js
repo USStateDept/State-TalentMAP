@@ -41,7 +41,7 @@ export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this
 
 export const DELETE_BID_ITEM_SUCCESS = (pos, onToggle) => BidRemoveSuccess({ pos, onToggle });
 export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
-export const ADD_BID_ITEM_SUCCESS = (pos, props = {}) => BidAddSuccess({ pos, props });
+export const ADD_BID_ITEM_SUCCESS = (pos, props = {}) => BidAddSuccess({ pos, ...props });
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
 
 export const ADD_FAVORITE_TITLE = 'Favorite Added';
