@@ -4,9 +4,12 @@ import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
 import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
+import { checkFlag } from 'flag';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
+
+const useBiddingTips = () => checkFlag('flags.bidding_tips');
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
@@ -29,6 +32,7 @@ class BidTrackerCardTop extends Component {
     const bidStatistics = get(bid, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
     const positionNumber = get(position, 'position_number');
+    const biddingTips = useBiddingTips();
 
     const getQuestionElement = () => (
       <span>
@@ -51,6 +55,7 @@ class BidTrackerCardTop extends Component {
         </div>
         <div className="bid-tracker-card-title-outer-container-right">
           <div className="bid-tracker-card-title-container-right">
+            {biddingTips() &&
             <div className="bid-tracker-question-text-container">
               <Tooltip
                 html={getQuestionElement()}
@@ -64,7 +69,7 @@ class BidTrackerCardTop extends Component {
                   <FontAwesome name="question-circle" /> Why is it taking so long?
                 </span>
               </Tooltip>
-            </div>
+            </div>}
             <div className="bid-tracker-actions-container">
               { bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
                 <ConfirmLink

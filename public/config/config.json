@@ -15,6 +15,7 @@
     "client_counts": false,
     "cdo_season_filter": true,
     "cdo_bidding": true,
-    "confetti": true
+    "confetti": true,
+    "bidding_tips": true
   }
 }
