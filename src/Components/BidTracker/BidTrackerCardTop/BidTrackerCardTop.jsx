@@ -55,7 +55,7 @@ class BidTrackerCardTop extends Component {
         </div>
         <div className="bid-tracker-card-title-outer-container-right">
           <div className="bid-tracker-card-title-container-right">
-            {biddingTips() &&
+            {biddingTips &&
             <div className="bid-tracker-question-text-container">
               <Tooltip
                 html={getQuestionElement()}
