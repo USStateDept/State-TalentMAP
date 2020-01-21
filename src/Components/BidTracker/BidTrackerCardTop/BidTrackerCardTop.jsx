@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
 import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
-import { checkFlag } from 'flag';
+import { checkFlag } from 'flags';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 import ConfirmLink from '../../ConfirmLink';
