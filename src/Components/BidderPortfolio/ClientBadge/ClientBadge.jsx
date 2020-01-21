@@ -24,6 +24,83 @@ const icons = {
   },
 };
 
+// const iconIdeas = {
+//   thirdtour: {
+//     isIcon: true,
+//     name: 'chess-pawn',
+//     text: '3rd Tour Bidders',
+//   },
+//   tenured: {
+//     isIcon: true,
+//     name: 'anchor',
+//     text: 'Tenured',
+//   },
+//   sixeight: {
+//     name: '6/8',
+//     text: '6/8 Rule',
+//   },
+//   ambassador: {
+//     isIcon: true,
+//     name: 'chess-queen',
+//     text: 'Ambassador or Deputy Assistant Secretary',
+//   },
+//   criticallanguage: {
+//     isIcon: true,
+//     name: 'language',
+//     text: 'Critical Need Language',
+//   },
+//   criticallanguageone: {
+//     isIcon: true,
+//     name: 'language',
+//     text: 'Critical Need Language 1st Tour Complete',
+//   },
+//   criticallanguagefinal: {
+//     isIcon: true,
+//     name: 'language',
+//     text: 'Critical Need Language Final Tour Complete',
+//   },
+//   differential: {
+//     isIcon: true,
+//     name: 'percent',
+//     text: 'Differential Bidder',
+//   },
+//   fairshare: {
+//     isIcon: true,
+//     name: 'balance-scale',
+//     text: 'Fair Share Bidders',
+//   },
+//   pickering: {
+//     isIcon: true,
+//     name: 'user-graduate',
+//     text: 'Pickering Fellows',
+//   },
+//   rangel: {
+//     isIcon: true,
+//     name: 'user-graduate',
+//     text: 'Rangel Fellows',
+//   },
+//   meritorious: {
+//     isIcon: true,
+//     name: 'medal',
+//     text: 'Meritorious Step Increases',
+//   },
+//   fellow: {
+//     isIcon: true,
+//     name: 'user-graduate',
+//     text: 'Pickering/Rangel Fellows',
+//   },
+//   tenure: {
+//     isIcon: true,
+//     name: 'water',
+//     text: 'Recommended for Tenure',
+//   },
+//   tandem: {
+//     isIcon: true,
+//     name: 'user-friends',
+//     text: 'Tandem Bidder',
+//   },
+// };
+
 const status$ = ['none', 'warning', 'success'];
 
 const ClientBadge = ({ type, status }) => {
