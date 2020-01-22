@@ -53,8 +53,8 @@ class Favorite extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.state.loading && !nextProps.isLoading) {
-            // Only update the loading state if current state.loading
-            // and prop change detected is turning it off
+      // Only update the loading state if current state.loading
+      // and prop change detected is turning it off
       this.setState({
         loading: nextProps.isLoading,
       });
@@ -69,14 +69,14 @@ class Favorite extends Component {
     const newState = existsInArray(refKey, compareArray);
 
     isUpdate = (oldState !== newState) ||
-            (this.state.loading !== nextState.isLoading) ||
-            nextProps.hasErrored;
+    (this.state.loading !== nextState.isLoading) ||
+    nextProps.hasErrored;
 
     return isUpdate;
   }
 
   getSavedState() {
-        // Is the refKey in the array? If so, return true
+    // Is the refKey in the array? If so, return true
     const { compareArray, refKey } = this.props;
     return existsInArray(refKey, compareArray);
   }
@@ -104,7 +104,7 @@ class Favorite extends Component {
 
     const classNames = ['favorite-container'];
 
-        // Class configs
+    // Class configs
     if (hasBorder && !useButtonClass) {
       classNames.push('favorites-button-border');
     }
@@ -143,7 +143,7 @@ class Favorite extends Component {
         this position ${this.getSavedState() ? 'from' : 'to'} your favorites list.`,
     });
 
-        // pass the key and the "remove" param
+    // pass the key and the "remove" param
     onToggle(refKey, this.getSavedState(), refresh);
   }
 
@@ -170,8 +170,8 @@ class Favorite extends Component {
     return (
       <span>
         {
-            this.state.alertMessage &&
-            <span className="usa-sr-only" aria-live="polite" aria-atomic="true">{this.state.alertMessage}</span>
+          this.state.alertMessage &&
+          <span className="usa-sr-only" aria-live="polite" aria-atomic="true">{this.state.alertMessage}</span>
         }
         <InteractiveElement {...options}>
           {loading ?
