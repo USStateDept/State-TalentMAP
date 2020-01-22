@@ -32,7 +32,7 @@ BidCount.propTypes = {
 BidCount.defaultProps = {
   bidStatistics: {},
   hideLabel: false,
-  label: 'Bid count:',
+  label: 'Bid Count:',
   altStyle: false,
   isCondensed: false,
 };

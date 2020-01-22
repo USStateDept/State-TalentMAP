@@ -1,6 +1,7 @@
 import FavoriteSuccess from '../Components/FavoriteMessages/Success';
 import RemoveSuccess from '../Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from '../Components/BidListMessages/Success';
+import BidRemoveSuccess from '../Components/BidListMessages/RemoveSuccess';
 import SavedSearchSuccess from '../Components/SavedSearchMessages/Success';
 
 export const DEFAULT_TEXT = 'None listed';
@@ -38,9 +39,9 @@ export const NO_TOUR_END_DATE = DEFAULT_TEXT;
 
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
 
-export const DELETE_BID_ITEM_SUCCESS = 'Bid successfully removed.';
+export const DELETE_BID_ITEM_SUCCESS = (pos, onToggle) => BidRemoveSuccess({ pos, onToggle });
 export const DELETE_BID_ITEM_ERROR = 'Error trying to delete this bid.';
-export const ADD_BID_ITEM_SUCCESS = (props = {}) => BidAddSuccess(props);
+export const ADD_BID_ITEM_SUCCESS = (pos, props = {}) => BidAddSuccess({ pos, ...props });
 export const ADD_BID_ITEM_ERROR = 'Error trying to add this bid.';
 
 export const ADD_FAVORITE_TITLE = 'Favorite Added';

@@ -6,7 +6,6 @@ import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
-import ConfirmLink from '../../ConfirmLink';
 import GlossaryTermTrigger from '../../GlossaryTermTrigger';
 
 class BidTrackerCardTop extends Component {
@@ -56,30 +55,27 @@ class BidTrackerCardTop extends Component {
           <div className="bid-tracker-card-title-container-right">
             {
               showQuestion &&
-                <div className="bid-tracker-question-text-container">
-                  <Tooltip
-                    html={getQuestionElement()}
-                    arrow
-                    tabIndex="0"
-                    interactive
-                    interactiveBorder={5}
-                    useContext
-                  >
-                    <span>
-                      <FontAwesome name="question-circle" /> Why is it taking so long? -
-                      <Link to="/biddingProcess"> Learn More Here</Link>
-                    </span>
-                  </Tooltip>
-                </div>
+              <div className="bid-tracker-question-text-container">
+                <Tooltip
+                  html={getQuestionElement()}
+                  arrow
+                  tabIndex="0"
+                  interactive
+                  interactiveBorder={5}
+                  useContext
+                >
+                  <span>
+                    <FontAwesome name="question-circle" /> Why is it taking so long? -
+                    <Link to="/biddingProcess"> Learn More Here</Link>
+                  </span>
+                </Tooltip>
+              </div>
             }
             <div className="bid-tracker-actions-container">
-              { bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
-                <ConfirmLink
-                  className="remove-bid-link"
-                  defaultText={<span><FontAwesome name="close" />Remove bid</span>}
-                  role="link"
-                  onClick={this.onDeleteBid}
-                /> }
+              {bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
+                <button className="unstyled-button" onClick={this.onDeleteBid}>
+                  <FontAwesome name="close" />Remove from Bid List</button>
+              }
             </div>
           </div>
         </div>
