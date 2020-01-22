@@ -1,5 +1,6 @@
 // NOTE: We've comments some things out around showing contact information for bids,
 // since we don't have that information yet.
+// Information needed for the glossary tooltip for bid tracker card top is commented out.
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
@@ -16,7 +17,7 @@ import {
   // HAND_SHAKE_ACCEPTED_PROP,
   // PRE_PANEL_PROP,
   // IN_PANEL_PROP,
-  BID_EXPLANATION_TEXT,
+  // BID_EXPLANATION_TEXT,
 } from '../../../Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../utilities';
 
@@ -45,7 +46,7 @@ class BidTrackerCard extends Component {
       priorityExists ? 'bid-tracker--priority-exists' : '',
     ].join(' ');
     const showBidCount$ = showBidCount && !priorityExists;
-    const questionText = get(BID_EXPLANATION_TEXT, '[STANDARD_PROP]');
+    // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
@@ -54,7 +55,7 @@ class BidTrackerCard extends Component {
             deleteBid={deleteBid}
             showBidCount={showBidCount$}
             hideDelete={priorityExists}
-            questionText={questionText}
+            // questionText={questionText}
             useCDOView={useCDOView}
           />
           <div className={`usa-grid-full padded-container-inner bid-tracker-bid-steps-container ${statusClass}`}>
