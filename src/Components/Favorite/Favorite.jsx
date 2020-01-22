@@ -69,8 +69,8 @@ class Favorite extends Component {
     const newState = existsInArray(refKey, compareArray);
 
     isUpdate = (oldState !== newState) ||
-               (this.state.loading !== nextState.isLoading) ||
-               nextProps.hasErrored;
+    (this.state.loading !== nextState.isLoading) ||
+    nextProps.hasErrored;
 
     return isUpdate;
   }
@@ -137,7 +137,6 @@ class Favorite extends Component {
 
   toggleSaved() {
     const { onToggle, refKey, refresh } = this.props;
-
     this.setState({
       loading: true,
       alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
@@ -176,8 +175,8 @@ class Favorite extends Component {
         }
         <InteractiveElement {...options}>
           {loading ?
-            (<span className={this.spinnerClass} />) :
-            (<FontAwesome name={icon} />)}
+              (<span className={this.spinnerClass} />) :
+              (<FontAwesome name={icon} />)}
           <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
             {matches => (
               <span>{this.getText(matches)}</span>

@@ -1,11 +1,11 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import Success from './Success';
+import RemoveSuccess from './RemoveSuccess';
 import detailsObject from '../../__mocks__/detailsObject';
 
-describe('Success', () => {
+describe('RemoveSuccess', () => {
   it('is defined', () => {
-    const wrapper = shallow(<Success pos={detailsObject} />);
+    const wrapper = shallow(<RemoveSuccess pos={detailsObject} onToggle={() => {}} />);
     expect(wrapper).toBeDefined();
   });
 });

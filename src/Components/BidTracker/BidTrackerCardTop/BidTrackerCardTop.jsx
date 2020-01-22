@@ -7,11 +7,12 @@ import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
-import ConfirmLink from '../../ConfirmLink';
+// import ConfirmLink from '../../ConfirmLink';
 // import GlossaryTermTrigger from '../../GlossaryTermTrigger';
 // Note that all glossary logic is commented out for tooltip
 
 const useBiddingTips = () => checkFlag('flags.bidding_tips');
+
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
@@ -77,13 +78,10 @@ class BidTrackerCardTop extends Component {
               </Tooltip>
             </div>}
             <div className="bid-tracker-actions-container">
-              { bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
-                <ConfirmLink
-                  className="remove-bid-link"
-                  defaultText={<span><FontAwesome name="close" />Remove bid</span>}
-                  role="link"
-                  onClick={this.onDeleteBid}
-                /> }
+              {bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
+                <button className="unstyled-button" onClick={this.onDeleteBid}>
+                  <FontAwesome name="close" />Remove from Bid List</button>
+              }
             </div>
           </div>
         </div>
