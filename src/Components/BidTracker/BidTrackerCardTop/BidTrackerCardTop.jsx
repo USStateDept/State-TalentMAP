@@ -4,9 +4,15 @@ import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
 import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
+import { checkFlag } from 'flags';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
-import GlossaryTermTrigger from '../../GlossaryTermTrigger';
+// import ConfirmLink from '../../ConfirmLink';
+// import GlossaryTermTrigger from '../../GlossaryTermTrigger';
+// Note that all glossary logic is commented out for tooltip
+
+const useBiddingTips = () => checkFlag('flags.bidding_tips');
+
 
 class BidTrackerCardTop extends Component {
   constructor(props) {
@@ -23,18 +29,21 @@ class BidTrackerCardTop extends Component {
   }
 
   render() {
-    const { bid, hideDelete, showBidCount, questionText, useCDOView } = this.props;
+    const { bid, hideDelete, showBidCount, useCDOView /* , questionText */ } = this.props;
     const { readOnly } = this.context;
     const { position } = bid;
+    // const showQuestion = !!(questionText && questionText.text);
     const bidStatistics = get(bid, 'bid_statistics[0]', {});
     const post = get(position, 'post', {});
-    const showQuestion = !!(questionText && questionText.text);
     const positionNumber = get(position, 'position_number');
+    const biddingTips = useBiddingTips();
 
     const getQuestionElement = () => (
+      // <span>{questionText.text} </span>
+      // eslint-disable-next-line max-len
+      // <GlossaryTermTrigger className="tooltip-link" text={questionText.link} term={questionText.term} />
       <span>
-        <span>{questionText.text} </span>
-        <GlossaryTermTrigger className="tooltip-link" text={questionText.link} term={questionText.term} />
+        Your bid is likely in one of several steps in the process. <Link className="tooltip-link" to="/biddingProcess">Learn more here.</Link>
       </span>
     );
     return (
@@ -53,24 +62,21 @@ class BidTrackerCardTop extends Component {
         </div>
         <div className="bid-tracker-card-title-outer-container-right">
           <div className="bid-tracker-card-title-container-right">
-            {
-              showQuestion &&
-              <div className="bid-tracker-question-text-container">
-                <Tooltip
-                  html={getQuestionElement()}
-                  arrow
-                  tabIndex="0"
-                  interactive
-                  interactiveBorder={5}
-                  useContext
-                >
-                  <span>
-                    <FontAwesome name="question-circle" /> Why is it taking so long? -
-                    <Link to="/biddingProcess"> Learn More Here</Link>
-                  </span>
-                </Tooltip>
-              </div>
-            }
+            {biddingTips &&
+            <div className="bid-tracker-question-text-container">
+              <Tooltip
+                html={getQuestionElement()}
+                arrow
+                tabIndex="0"
+                interactive
+                interactiveBorder={5}
+                useContext
+              >
+                <span>
+                  <FontAwesome name="question-circle" /> Why is it taking so long?
+                </span>
+              </Tooltip>
+            </div>}
             <div className="bid-tracker-actions-container">
               {bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
                 <button className="unstyled-button" onClick={this.onDeleteBid}>
@@ -90,11 +96,11 @@ BidTrackerCardTop.contextTypes = {
 
 BidTrackerCardTop.propTypes = {
   bid: BID_OBJECT.isRequired,
-  questionText: PropTypes.shape({
-    text: PropTypes.string,
-    link: PropTypes.string,
-    term: PropTypes.string,
-  }),
+  // questionText: PropTypes.shape({
+  //   text: PropTypes.string,
+  //   link: PropTypes.string,
+  //   term: PropTypes.string,
+  // }),
   deleteBid: PropTypes.func.isRequired,
   showBidCount: PropTypes.bool,
   hideDelete: PropTypes.bool,
