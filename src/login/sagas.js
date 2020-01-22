@@ -3,7 +3,7 @@ import { take, call, put, cancelled, race } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import api from '../api';
 import { unsetNotificationsCount } from '../actions/notifications';
-import { userProfileFetchData, unsetUserProfile, trackLogin, updateSavedSearches, setUserEmpId } from '../actions/userProfile';
+import { userProfileFetchData, unsetUserProfile, trackLogin, updateSavedSearches } from '../actions/userProfile';
 import { setClient, unsetClient } from '../client/actions';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
 import { redirectToLogout, redirectToLogin } from '../utilities';
@@ -41,7 +41,6 @@ export const auth = {
       // Track login. Don't attempt without a token, or endless redirect will occur.
       if (!loginHasBeenTracked && token) {
         trackLogin();
-        setUserEmpId();
         updateSavedSearches();
         loginHasBeenTracked = true;
       }
