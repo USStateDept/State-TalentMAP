@@ -53,6 +53,9 @@ class CDOAutoSuggest extends Component {
             renderList={renderList}
             valueKey="id"
             labelKey="name"
+
+            // TODO - Once React 16 is integrated, upgrade to react-picky >=5.2.0 to use this prop
+            // filterTermProcessor={trim} // import trim from lodash
           />
         </div>
     );
