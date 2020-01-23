@@ -2,7 +2,7 @@ import axios from 'axios';
 import { get, indexOf } from 'lodash';
 import Q from 'q';
 
-import api from '../api';
+import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
@@ -71,7 +71,7 @@ export function userProfileFetchData(bypass, cb) {
     // profile
     const getUserAccount = () => api().get('/profile/');
     // permissions
-    const getUserPermissions = () => api().get('/permission/user/');
+    const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
     const getAPFavorites = () => api().get(getUseAP() ?
       '/available_position/favorites/?limit=500' : 'cycleposition/favorites/?include=id&limit=500',
@@ -197,6 +197,7 @@ export function updateSavedSearches() {
   api().put('/searches/listcount/');
 }
 
+// IMPORTANT: return the function instead of calling it, since this is used in the interceptor
 export function setUserEmpId() {
-  api().put('/fsbid/employee/perdet_seq_num/');
+  return api().put('/fsbid/employee/perdet_seq_num/');
 }
