@@ -4,13 +4,14 @@ import { findIndex, findLastIndex, get, isEqual, last, startsWith } from 'lodash
 export function mapRoutesToNames(route) {
   const preText = 'Back to';
   // Special cases
-  if (startsWith(route, '/details')) {
+  if (startsWith(route, '/details') || startsWith(route, '/vacancy')) {
     return `${preText} Position Details`;
+  }
+  if (startsWith(route, '/results')) {
+    return `${preText} Search Results`;
   }
   // Use switch for others
   switch (route) {
-    case '/results':
-      return `${preText} Search Results`;
     case '/':
       return `${preText} Home Page`;
     case '/profile':
