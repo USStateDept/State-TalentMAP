@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { get } from 'lodash';
 import api from '../api';
 import { toastSuccess, toastError } from './toast';
@@ -330,11 +331,22 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
       config.url = `/fsbid/cdo/position/${idString}/client/${clientToUse}/`;
     }
 
-    api()(config)
-      .then(() => {
+    // action
+    const getAction = () => api()(config);
+
+    // position
+    const posURL = `/fsbid/available_positions/${id}/`;
+    const getPosition = () => api().get(posURL);
+
+    axios.all([getAction(), getPosition()])
+      .then(axios.spread((action, position) => {
+        const pos = position.data;
+        const undo = () => dispatch(toggleBidPosition(
+            id, !remove, isClient, clientId, fromTracker,
+        ));
         const message = remove ?
-          SystemMessages.DELETE_BID_ITEM_SUCCESS :
-          SystemMessages.ADD_BID_ITEM_SUCCESS({ client, hideLink: !!fromTracker });
+        SystemMessages.DELETE_BID_ITEM_SUCCESS(pos.position, undo) :
+        SystemMessages.ADD_BID_ITEM_SUCCESS(pos.position, { client, hideLink: !!fromTracker });
         dispatch(bidListToggleSuccess(message));
         dispatch(toastSuccess(message));
         dispatch(bidListToggleIsLoading(false, id));
@@ -345,7 +357,7 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
         } else {
           dispatch(bidListFetchData());
         }
-      })
+      }))
       .catch(() => {
         const message = remove ?
           SystemMessages.DELETE_BID_ITEM_ERROR : SystemMessages.ADD_BID_ITEM_ERROR;
