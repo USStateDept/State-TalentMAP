@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
+import PropTypes from 'prop-types';
 import { APPROVED } from 'Constants/BidStatuses';
 import { checkFlag } from 'flags';
 import ConfettiIcon from './ConfettiIcon';
@@ -22,24 +23,9 @@ const getUseConfetti = () => checkFlag('flags.confetti');
 // by bidClassesFromCurrentStatus.
 // These classes determine colors, whether to use an icon or a number, the title text, etc.
 class BidSteps extends Component {
-  constructor(props) {
-    super(props);
-    this.celebrate = this.celebrate.bind(this);
-    this.state = {
-      confettiActive: false,
-    };
-  }
-  celebrate() {
-    this.setState({
-      confettiActive: true,
-    }, () => {
-      setTimeout(() => {
-        this.setState({ confettiActive: false });
-      }, 0);
-    });
-  }
   render() {
     const { bid } = this.props;
+    const { condensedView } = this.context;
     const bidData = bidClassesFromCurrentStatus(bid).stages || {};
     const getIcon = (status) => {
       const icon = (
@@ -52,7 +38,7 @@ class BidSteps extends Component {
         />
       );
       if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
-      && getUseConfetti()) {
+      && getUseConfetti() && !condensedView) {
         return (
           <ConfettiIcon>
             {icon}
@@ -90,6 +76,10 @@ class BidSteps extends Component {
     );
   }
 }
+
+BidSteps.contextTypes = {
+  condensedView: PropTypes.bool,
+};
 
 BidSteps.propTypes = {
   bid: BID_OBJECT.isRequired,
