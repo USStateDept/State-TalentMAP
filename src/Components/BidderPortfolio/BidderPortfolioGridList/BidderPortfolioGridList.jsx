@@ -6,12 +6,13 @@ import { BIDDER_RESULTS } from '../../../Constants/PropTypes';
 import BidderPortfolioStatRow from '../BidderPortfolioStatRow';
 
 const isAllFalse = a => a === false;
+const isAllTrue = a => a === true;
 
 class BidderPortfolioGridList extends Component {
   constructor(props) {
     super(props);
     this.toggleExpand = this.toggleExpand.bind(this);
-    this.accordionItemsStates = this.accordionItemsStates.bind(this);
+    this.onSetAccordion = this.onSetAccordion.bind(this);
     this.setExpandAllValue = this.setExpandAllValue.bind(this);
     this.state = {
       expandAll: true,
@@ -21,6 +22,11 @@ class BidderPortfolioGridList extends Component {
   // Refs don't exist until after the first render,
   // so perform logic on them after component mounts.
   componentDidMount() {
+    this.debouncedSetValue();
+  }
+
+  // Get an update value for expandAll every time an individual accordion is clicked.
+  onSetAccordion() {
     this.debouncedSetValue();
   }
 
@@ -37,10 +43,10 @@ class BidderPortfolioGridList extends Component {
       return false;
     });
 
-    // set the expandAll value accordingly
+    // the expandAll value accordingly
     if (accStates.every(isAllFalse)) {
       this.setState({ expandAll: false });
-    } else {
+    } else if (accStates.every(isAllTrue)) {
       this.setState({ expandAll: true });
     }
   }
@@ -48,15 +54,9 @@ class BidderPortfolioGridList extends Component {
   // Determine what to do the AccordionItems when the toggle button is clicked.
   toggleExpand() {
     const { results } = this.props;
-    const accStates = [...results].map((r) => {
-      if (this[`accordion-${r.id}`]) { // refs are defined from the id of the result
-        return this[`accordion-${r.id}`].isExpanded();
-      }
-      return false;
-    });
 
-    // If they're all false, set them all to expanded.
-    if (accStates.every(isAllFalse)) {
+    // If expandAll false, set them all to expanded.
+    if (!this.state.expandAll) {
       results.forEach((f) => {
         this[`accordion-${f.id}`].setExpandedFromRef(true);
       });
@@ -67,11 +67,6 @@ class BidderPortfolioGridList extends Component {
     }
 
     // Then get our value for expandAll, since ref methods will not force a re-render to the parent.
-    this.debouncedSetValue();
-  }
-
-  // Get an update value for expandAll every time an individual accordion is clicked.
-  accordionItemsStates() {
     this.debouncedSetValue();
   }
 
@@ -104,7 +99,7 @@ class BidderPortfolioGridList extends Component {
                 id={`${result.id}-row`}
                 key={result.id}
                 title={result.name}
-                setAccordion={this.accordionItemsStates}
+                setAccordion={this.onSetAccordion}
                 ref={(ref) => { this[`accordion-${result.id}`] = ref; }} // refs are defined from the id of the result
               >
                 <BidderPortfolioStatRow
