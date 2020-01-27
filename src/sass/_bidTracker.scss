@@ -85,7 +85,6 @@ $draft-icon-offset: 120px;
   overflow: hidden;
 }
 
-.bid-tracker-overlay-alert--draft,
 .bid-tracker-overlay-alert--success {
   background: $color-green-dark;
 }
@@ -99,7 +98,14 @@ $draft-icon-offset: 120px;
 }
 
 .bid-tracker-overlay-alert--draft {
+  background: $bg-blue-dark-2;
+  color: $color-black;
   margin-left: $draft-icon-offset;
+
+  .tm-button-transparent {
+    box-shadow: 0 0 0 2px $color-black inset;
+    color: $color-black;
+  }
 
   .bid-tracker-overlay-alert-content-container {
     padding-right: $draft-icon-offset;
@@ -127,6 +133,11 @@ $draft-icon-offset: 120px;
   font-size: 16px;
   margin-bottom: 20px;
   min-width: $card-width;
+
+  .confetti-container {
+    left: 17px;
+    position: relative;
+  }
 
   .fa-close {
     color: $color-red;
@@ -936,7 +947,7 @@ $draft-icon-offset: 120px;
   }
 
   .draft-submission-container {
-    border-right: 1px solid $color-white;
+    border-right: 1px solid $color-black;
   }
 
   .draft-submission-buttons-container {

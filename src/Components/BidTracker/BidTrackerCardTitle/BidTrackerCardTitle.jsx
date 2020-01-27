@@ -48,7 +48,7 @@ const BidTrackerCardTitle = ({
         {
           !condensedView &&
           <div className="bid-tracker-card-title-bottom">
-            <strong>Bid cycle:</strong> {getBidCycleName(bidCycle)}
+            <strong>Bid Cycle:</strong> {getBidCycleName(bidCycle)}
           </div>
         }
         {condensedView && viewPosition}
