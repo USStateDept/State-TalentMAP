@@ -1,33 +1,57 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isEqual, isUndefined } from 'lodash';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import { formatIdSpacing } from '../../../utilities';
 
 class AccordionItem extends Component {
   constructor(props) {
     super(props);
-    this.myAccordion = this.myAccordion.bind(this);
+    this.setExpanded = this.setExpanded.bind(this);
+    this.state = {
+      expanded: props.expanded,
+    };
   }
 
-  myAccordion() {
-    this.props.setAccordion(this.props.id, this.props.expanded);
-    return (this.props.expanded || !this.props.title ? '' : this.props.title);
+  // Update the value of expanded, only if the prop value changed and the new value is not undefined
+  componentWillReceiveProps(nextProps) {
+    if (!isUndefined(nextProps.expanded) && !(isEqual(nextProps.expanded, this.props.expanded))) {
+      this.setState({ expanded: nextProps.expanded });
+    }
+  }
+
+  // Update local state and emit to the parent
+  setExpanded() {
+    this.setState({ expanded: !this.state.expanded }, () => {
+      this.props.setAccordion(this.props.id, this.state.expanded);
+    });
+  }
+
+  // helper function for parents to use via ref, to set the expanded state to a desired value
+  setExpandedFromRef(expanded) {
+    this.setState({ expanded });
+  }
+
+  // helper function for parents to use via ref, to get current expanded state value
+  isExpanded() {
+    return this.state.expanded;
   }
 
   render() {
-    const { id, title, expanded, children, className, useIdClass,
+    const { expanded } = this.state;
+    const { id, title, children, className, useIdClass,
       buttonClass, childClass, preContent } = this.props;
     const formattedId = formatIdSpacing(id);
     const idClass = useIdClass ? `accordion-${(formattedId || 'accordion').toLowerCase()}` : '';
     return (
       <li className={className}>
-        {preContent}{this.props.expanded}{expanded}
+        {preContent}
         <button
           id={`${id}-button`}
           className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''}`}
           aria-expanded={expanded}
           aria-controls={formattedId}
-          onClick={() => this.myAccordion()}
+          onClick={this.setExpanded}
         >
           <div className="accordion-item-title">{title}</div>
         </button>
