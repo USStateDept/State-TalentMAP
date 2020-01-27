@@ -8,7 +8,6 @@ import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 // Actions
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import { putHighlightedPosition, deleteHighlightPosition } from '../../actions/highlightPosition';
-import { getLastRouteLink } from '../../actions/routerLocations';
 import { bidListFetchData } from '../../actions/bidList';
 import {
   editDescriptionContent,
@@ -21,7 +20,6 @@ import { LOGIN_REDIRECT } from '../../login/routes';
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
   POSITION_DETAILS,
-  ROUTER_LOCATIONS,
   USER_PROFILE,
   BID_LIST,
   BID_LIST_TOGGLE_HAS_ERRORED,
@@ -77,7 +75,6 @@ class Position extends Component {
       positionDetails,
       isLoading,
       hasErrored,
-      routerLocations,
       userProfile,
       userProfileIsLoading,
       bidList,
@@ -104,7 +101,6 @@ class Position extends Component {
         details={positionDetails}
         isLoading={isLoading}
         hasErrored={hasErrored}
-        goBackLink={getLastRouteLink(routerLocations)}
         userProfile={userProfile}
         userProfileIsLoading={userProfileIsLoading}
         bidList={bidList}
@@ -145,7 +141,6 @@ Position.propTypes = {
   isLoading: PropTypes.bool,
   positionDetails: POSITION_DETAILS,
   isAuthorized: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
   fetchBidList: PropTypes.func,
@@ -175,7 +170,6 @@ Position.defaultProps = {
   fetchPVData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
-  routerLocations: [],
   userProfile: {},
   userProfileIsLoading: false,
   fetchBidList: EMPTY_FUNCTION,
@@ -202,7 +196,6 @@ const mapStateToProps = (state, ownProps) => ({
   positionDetails: state.positionDetails,
   hasErrored: state.positionDetailsHasErrored,
   isLoading: state.positionDetailsIsLoading,
-  routerLocations: state.routerLocations,
   id: ownProps,
   userProfile: state.userProfile,
   userProfileIsLoading: state.userProfileIsLoading,
