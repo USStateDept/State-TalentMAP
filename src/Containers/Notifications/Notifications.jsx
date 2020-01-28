@@ -21,6 +21,7 @@ class NotificationsContainer extends Component {
     this.state = {
       page: 1,
       selectedNotifications: new Set(),
+      hasCalled: false,
     };
   }
 
@@ -30,8 +31,11 @@ class NotificationsContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { useCached, isLoading, notifications } = nextProps;
-    if (useCached && !isLoading && !notifications.count) {
+    const { hasCalled } = this.state;
+    const { useCached, isLoading } = nextProps;
+    // force at least one call, then rely on external refreshes of notifications
+    if (useCached && !isLoading && !hasCalled) {
+      this.setState({ hasCalled: true });
       this.getNotifications();
     }
   }
