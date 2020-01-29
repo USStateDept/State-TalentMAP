@@ -4,15 +4,15 @@ import Confetti from 'react-dom-confetti';
 import { throttle } from 'lodash';
 import InteractiveElement from 'Components/InteractiveElement';
 
-const DURATION = 4000;
-const DURATION_CLICK_OFFSET = -800;
+const THROTTLE_DURATION = 3000;
+const ANIMATION_DURATION = 3000;
 
 class ConfettiIcon extends Component {
   constructor(props) {
     super(props);
     this.celebrate = throttle(
       this.celebrate.bind(this),
-      DURATION + DURATION_CLICK_OFFSET,
+      THROTTLE_DURATION,
       { trailing: true, leading: true },
     );
     this.state = {
@@ -37,7 +37,7 @@ class ConfettiIcon extends Component {
       startVelocity: '30',
       elementCount: 50,
       dragFriction: 0.1,
-      duration: `${DURATION}`,
+      duration: `${ANIMATION_DURATION}`,
       stagger: 2,
       width: '10px',
       height: '10px',

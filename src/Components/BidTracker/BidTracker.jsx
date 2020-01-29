@@ -40,7 +40,7 @@ userProfileIsLoading, isPublic, useCDOView }) => {
       <div className="usa-grid-full">
         <div className="usa-width-one-half bid-tracker-greeting-container">
           <div className="usa-grid-full">
-            <ProfileSectionTitle title={title} />
+            <ProfileSectionTitle title={title} icon="clipboard" />
           </div>
         </div>
         <div className="usa-width-one-half bid-tracker-cdo-email-container">
