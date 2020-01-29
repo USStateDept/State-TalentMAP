@@ -99,6 +99,7 @@ export function userProfileFetchData(bypass, cb) {
           permissions: permissions.permissions,
           favorite_positions_pv: pvFavorites,
           favorite_positions: apFavorites,
+          cdo: account.cdo_info, // don't use deprecated CDO API model
         };
 
         // function to success perform dispatches
