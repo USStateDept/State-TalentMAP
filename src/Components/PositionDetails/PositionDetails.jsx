@@ -12,7 +12,6 @@ import GoBackLink from '../BackButton';
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
   BID_LIST,
-  GO_BACK_TO_LINK,
   POSITION_DETAILS,
   USER_PROFILE,
   HIGHLIGHT_POSITION,
@@ -46,7 +45,6 @@ class PositionDetails extends Component {
       details,
       isLoading,
       hasErrored,
-      goBackLink,
       userProfile,
       bidList,
       editPocContent,
@@ -80,7 +78,6 @@ class PositionDetails extends Component {
               availability: get(details, 'availability', {}),
               bidStatistics: get(details, 'bid_statistics', [{}]),
             }}
-            goBackLink={goBackLink}
             bidList={bidList}
             editDescriptionContent={this.editDescriptionContent}
             editPocContent={editPocContent}
@@ -125,7 +122,6 @@ PositionDetails.propTypes = {
   details: POSITION_DETAILS,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  goBackLink: GO_BACK_TO_LINK.isRequired,
   userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,

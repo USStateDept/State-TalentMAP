@@ -45,7 +45,7 @@ describe('AccordionItemComponent', () => {
       </AccordionItem>,
     );
     wrapper.find('button').simulate('click');
-    expect(expanded.value).toBe('title');
+    expect(expanded.value).toBe('id');
   });
 
   it('matches snapshot', () => {

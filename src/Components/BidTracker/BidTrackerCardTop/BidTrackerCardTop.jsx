@@ -80,7 +80,7 @@ class BidTrackerCardTop extends Component {
             <div className="bid-tracker-actions-container">
               {bid.can_delete && !hideDelete && (!readOnly || useCDOView) &&
                 <button className="unstyled-button" onClick={this.onDeleteBid}>
-                  <FontAwesome name="close" />Remove from Bid List</button>
+                  <FontAwesome name="trash" />Remove from Bid List</button>
               }
             </div>
           </div>
