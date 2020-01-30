@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
+import Differentials from 'Components/Differentials';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -23,13 +24,21 @@ getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
-  NO_BUREAU, NO_BID_CYCLE, NO_DANGER_PAY, NO_GRADE, NO_POST_DIFFERENTIAL, NO_POSITION_NUMBER,
+  NO_BUREAU, NO_BID_CYCLE, NO_GRADE, NO_POSITION_NUMBER,
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
 
 const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
+
+const getDifferentials = (result) => {
+  const dangerPay = get(result, 'post.danger_pay');
+  const postDifferential = get(result, 'post.differential_rate');
+  const obcUrl = get(result, 'post.post_bidding_considerations_url');
+  const props = { dangerPay, postDifferential, obcUrl };
+  return <Differentials {...props} />;
+};
 
 const getResult = (result, path, defaultValue, isRate = false) => {
   let value = get(result, path, defaultValue);
@@ -138,8 +147,7 @@ class ResultsCard extends Component {
       {
         'Tour of duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
         'Language': language,
-        'Post differential': getResult(pos, 'post.differential_rate', NO_POST_DIFFERENTIAL, true),
-        'Danger pay': getResult(pos, 'post.danger_pay', NO_DANGER_PAY, true),
+        'Post differential | Danger Pay': getDifferentials(pos),
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
       },
       {
