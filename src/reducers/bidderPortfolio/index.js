@@ -1,10 +1,16 @@
-import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
+import { bidderPortfolioSelectedSeasons, bidderPortfolioSeasons, bidderPortfolioSeasonsIsLoading,
+  bidderPortfolioSeasonsHasErrored,
+  bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
   bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored,
   bidderPortfolioCDOs, bidderPortfolioCDOsIsLoading, bidderPortfolioCDOsHasErrored,
   bidderPortfolioLastQuery, lastBidderPortfolioHasErrored, lastBidderPortfolioIsLoading,
   bidderPortfolioSelectedCDO, lastBidderPortfolio } from './bidderPortfolio';
 
-export default { bidderPortfolio,
+export default { bidderPortfolioSelectedSeasons,
+  bidderPortfolioSeasons,
+  bidderPortfolioSeasonsIsLoading,
+  bidderPortfolioSeasonsHasErrored,
+  bidderPortfolio,
   bidderPortfolioIsLoading,
   bidderPortfolioHasErrored,
   bidderPortfolioCounts,

@@ -108,4 +108,28 @@ describe('bidderPortfolio async actions', () => {
 
     expectMockWasCalled({ spy, cb: done });
   });
+
+  it('fetches bid seasons', (done) => {
+    store = mockStore({});
+
+    ({ mock, spy } = spyMockAdapter({
+      url: '/fsbid/bid_seasons/', response: [200, [{ id: 1, description: 'a' }]],
+    })); mock();
+
+    store.dispatch(actions.bidderPortfolioSeasonsFetchData());
+
+    expectMockWasCalled({ spy, cb: done });
+  });
+
+  it('handles errors when fetching client bidder portfolio CDOs', (done) => {
+    store = mockStore({});
+
+    ({ mock, spy } = spyMockAdapter({
+      url: '/fsbid/bid_seasons/', response: [404, null],
+    })); mock();
+
+    store.dispatch(actions.bidderPortfolioSeasonsFetchData());
+
+    expectMockWasCalled({ spy, cb: done });
+  });
 });
