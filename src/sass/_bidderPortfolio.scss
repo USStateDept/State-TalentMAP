@@ -588,6 +588,13 @@ $cdo-search-container-padding: 10px;
 
   .bidder-portfolio-listing {
     margin-right: inherit;
+    .usa-accordion-button-all {
+      background-color: $blue-primary;
+      float: right;
+      color: $color-white;
+      font-weight: normal;
+      padding: .7em;
+    }
   }
 
   .dashboard-user-profile-picture {

@@ -144,14 +144,15 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           title="Language"
         />
         <CondensedCardDataPoint
-          content="30%"
+          content={
+            <DefinitionList
+              dangerPay={0}
+              obcUrl=""
+              postDifferential={30}
+            />
+          }
           hasFixedTitleWidth={false}
-          title="Post differential"
-        />
-        <CondensedCardDataPoint
-          content="0%"
-          hasFixedTitleWidth={false}
-          title="Danger pay"
+          title="Post differential | Danger Pay"
         />
         <CondensedCardDataPoint
           content="None listed"
@@ -504,14 +505,15 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
           title="Language"
         />
         <CondensedCardDataPoint
-          content="30%"
+          content={
+            <DefinitionList
+              dangerPay={0}
+              obcUrl=""
+              postDifferential={30}
+            />
+          }
           hasFixedTitleWidth={false}
-          title="Post differential"
-        />
-        <CondensedCardDataPoint
-          content="0%"
-          hasFixedTitleWidth={false}
-          title="Danger pay"
+          title="Post differential | Danger Pay"
         />
         <CondensedCardDataPoint
           content="None listed"
@@ -866,14 +868,15 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
           title="Language"
         />
         <CondensedCardDataPoint
-          content="30%"
+          content={
+            <DefinitionList
+              dangerPay={0}
+              obcUrl=""
+              postDifferential={30}
+            />
+          }
           hasFixedTitleWidth={false}
-          title="Post differential"
-        />
-        <CondensedCardDataPoint
-          content="0%"
-          hasFixedTitleWidth={false}
-          title="Danger pay"
+          title="Post differential | Danger Pay"
         />
         <CondensedCardDataPoint
           content="None listed"
