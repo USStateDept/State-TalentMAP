@@ -2,7 +2,8 @@ import { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
   bidderPortfolioCounts, bidderPortfolioCountsIsLoading, bidderPortfolioCountsHasErrored,
   bidderPortfolioCDOs, bidderPortfolioCDOsIsLoading, bidderPortfolioCDOsHasErrored,
   bidderPortfolioLastQuery, lastBidderPortfolioHasErrored, lastBidderPortfolioIsLoading,
-  bidderPortfolioSelectedCDO, lastBidderPortfolio } from './bidderPortfolio';
+  bidderPortfolioSelectedCDO, bidderPortfolioSelectedCDOsToSearchBy,
+  lastBidderPortfolio } from './bidderPortfolio';
 
 export default { bidderPortfolio,
   bidderPortfolioIsLoading,
@@ -17,4 +18,5 @@ export default { bidderPortfolio,
   lastBidderPortfolioHasErrored,
   lastBidderPortfolioIsLoading,
   bidderPortfolioSelectedCDO,
+  bidderPortfolioSelectedCDOsToSearchBy,
   lastBidderPortfolio };

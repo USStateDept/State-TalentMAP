@@ -6,9 +6,10 @@ import q from 'query-string';
 import { identity, isArray, pickBy } from 'lodash';
 import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
-import { setClient } from '../../../actions/clientView';
-import { fetchClientSuggestions } from '../../../actions/clientSuggestions';
-import { scrollTo } from '../../../utilities';
+import { lookupAndSetCDO } from 'actions/bidderPortfolio';
+import { setClient } from 'actions/clientView';
+import { fetchClientSuggestions } from 'actions/clientSuggestions';
+import { scrollTo } from 'utilities';
 import { ID } from '../../ClientHeader';
 
 export const genSearchParams = (user) => {
@@ -54,9 +55,8 @@ export class SearchAsClientButton extends Component {
       suggestions: NPsuggestions, recIsLoading: NPrecIsLoading,
       recHasErrored: NPrecHasErrored, recId,
     } = nextProps;
-    const { recIsLoading } = this.props;
 
-    if (recId === id && useRecommended && recIsLoading && !NPrecIsLoading &&
+    if (recId === id && useRecommended && !NPrecIsLoading &&
       !NPrecHasErrored && NPsuggestions && clientHasLoaded && clicked) {
       this.stringifyParamsAndNavigate(NPsuggestions, history);
     }
@@ -157,7 +157,10 @@ const mapStateToProps = (
 });
 
 export const mapDispatchToProps = dispatch => ({
-  set: id => dispatch(setClient(id)),
+  set: (id, cdoId) => {
+    dispatch(lookupAndSetCDO(cdoId));
+    dispatch(setClient(id));
+  },
   fetchSuggestions: id => dispatch(fetchClientSuggestions(id)),
 });
 
