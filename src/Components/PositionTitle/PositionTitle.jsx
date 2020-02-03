@@ -47,7 +47,7 @@ class PositionTitle extends Component {
   }
 
   render() {
-    const { details, isProjectedVacancy, userProfile } = this.props;
+    const { details, isProjectedVacancy, isArchived, userProfile } = this.props;
     const { isClient } = this.context;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
@@ -68,6 +68,7 @@ class PositionTitle extends Component {
                 <div className="usa-width-one-half header-title-container">
                   <div className="position-details-header-title">
                     {isProjectedVacancy && <span>Projected Vacancy</span>}
+                    {isArchived && <span>Filled Position</span>}
                     <h1>{details.title}</h1>
                   </div>
                   <div className="post-title">
@@ -77,7 +78,7 @@ class PositionTitle extends Component {
                 </div>
                 <div className="usa-width-one-half title-actions-section">
                   {
-                  !isClient &&
+                  !isClient && !isArchived &&
                     <Favorite
                       refKey={details.cpId}
                       compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
@@ -99,7 +100,7 @@ class PositionTitle extends Component {
         </div>
         <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
           {
-            !availableToBid && !isProjectedVacancy &&
+            !availableToBid && !isProjectedVacancy && !isArchived &&
             <Flag
               name="flags.bidding"
               render={() => (
@@ -119,7 +120,7 @@ class PositionTitle extends Component {
             />
           }
           {
-            !isProjectedVacancy &&
+            !isProjectedVacancy && !isArchived &&
             <Flag
               name="flags.bidding"
               render={this.renderBidListButton}
@@ -140,12 +141,14 @@ PositionTitle.propTypes = {
   bidList: BID_LIST.isRequired,
   userProfile: USER_PROFILE,
   isProjectedVacancy: PropTypes.bool,
+  isArchived: PropTypes.bool,
 };
 
 PositionTitle.defaultProps = {
   details: null,
   userProfile: {},
   isProjectedVacancy: false,
+  isArchived: false,
 };
 
 
