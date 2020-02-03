@@ -178,7 +178,15 @@ exports[`BidStepsComponent matches snapshot 1`] = `
               step-incomplete
             "
     icon={
-      <ConfettiIcon>
+      <ConfettiIcon
+        colors={
+          Array [
+            "#0072c6",
+            "#fff",
+            "#1eb53a",
+          ]
+        }
+      >
         <BidStepIcon
           hasRescheduledTooltip={false}
           isComplete={false}

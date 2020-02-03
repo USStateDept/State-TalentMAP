@@ -788,4 +788,8 @@ $cdo-search-container-padding: 10px;
     top: 0;
   }
 }
+
+.cdo-autosuggest > .picky {
+  width: 250px;
+}
 // scss-lint:enable SelectorFormat

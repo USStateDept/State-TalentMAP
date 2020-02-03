@@ -1,13 +1,15 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, intersection, isArray, isEmpty, isEqual, isNumber, isObject, isString,
-  keys, lowerCase, merge as merge$, orderBy, split, startCase, toLower, toString, transform } from 'lodash';
+  keys, lowerCase, merge as merge$, orderBy, split, startCase, take, toLower, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
 import Bowser from 'bowser';
+import Fuse from 'fuse.js';
 import { VALID_PARAMS } from 'Constants/EndpointParams';
 import { NO_BID_CYCLE } from 'Constants/SystemMessages';
+import FLAG_COLORS from 'Constants/FlagColors';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
 
 const scroll = Scroll.animateScroll;
@@ -702,3 +704,34 @@ export const loadImg = (src, callback) => {
 };
 
 export const isNumeric = value => isNumber(value) || (!isEmpty(value) && !isNaN(value));
+
+// BEGIN FUSE SEARCH //
+const fuseOptions = {
+  shouldSort: true,
+  tokenize: true,
+  includeScore: true,
+  threshold: 0.5,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 3,
+  keys: [
+    'name',
+  ],
+};
+
+const flagFuse = new Fuse(FLAG_COLORS, fuseOptions);
+
+export const getFlagColorsByTextSearch = (t = '', limit = 5) => {
+  let value = false;
+  if (t && isString(t)) {
+    const result = flagFuse.search(t);
+    const colors = get(result, '[0].item.colors', false);
+    value = colors;
+  }
+  if (value) {
+    value = take(value, limit);
+  }
+  return value;
+};
+// END FUSE SEARCH //

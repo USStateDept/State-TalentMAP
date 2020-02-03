@@ -142,6 +142,15 @@ export function bidderPortfolioSelectedCDO(state = {}, action) {
   }
 }
 
+export function bidderPortfolioSelectedCDOsToSearchBy(state = [], action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SELECTED_CDOS_TO_SEARCH_BY':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
 export function bidderPortfolioLastQuery(state = '/fsbid/client/', action, endpoint = '/fsbid/client/') {
   switch (action.type) {
     case 'SET_BIDDER_PORTFOLIO_LAST_QUERY': {

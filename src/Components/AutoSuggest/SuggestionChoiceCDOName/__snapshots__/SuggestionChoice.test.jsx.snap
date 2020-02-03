@@ -22,16 +22,6 @@ exports[`SuggestionChoiceCDONameComponent matches snapshot when isCurrentUser ==
     }
   }
 >
-  <FontAwesome
-    name="check"
-    style={
-      Object {
-        "left": "-20px",
-        "position": "absolute",
-        "top": "2px",
-      }
-    }
-  />
   Bob Smith (me)
 </div>
 `;

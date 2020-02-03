@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Confetti from 'react-dom-confetti';
-import { throttle } from 'lodash';
+import { isArray, throttle } from 'lodash';
 import InteractiveElement from 'Components/InteractiveElement';
 
 const THROTTLE_DURATION = 3000;
@@ -30,7 +30,7 @@ class ConfettiIcon extends Component {
   }
   render() {
     const { isPartyTime } = this.state;
-    const { children } = this.props;
+    const { children, colors } = this.props;
     const config = {
       angle: 90,
       spread: 45,
@@ -43,6 +43,9 @@ class ConfettiIcon extends Component {
       height: '10px',
       colors: ['#0071BC', '#205493', '#9BDAF1', '#FAD980', '#E31C3D'],
     };
+    if (colors && isArray(colors) && colors.length > 1) {
+      config.colors = colors;
+    }
     return (
       <InteractiveElement onMouseOver={this.celebrate}>
         <div className="confetti-container">
@@ -56,6 +59,11 @@ class ConfettiIcon extends Component {
 
 ConfettiIcon.propTypes = {
   children: PropTypes.node.isRequired,
+  colors: PropTypes.arrayOf(PropTypes.string),
+};
+
+ConfettiIcon.defaultProps = {
+  colors: [],
 };
 
 export default ConfettiIcon;

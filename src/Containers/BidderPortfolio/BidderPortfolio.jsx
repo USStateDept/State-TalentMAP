@@ -29,18 +29,18 @@ class BidderPortfolio extends Component {
 
   // Fetch bidder list and bidder statistics.
   componentWillMount() {
-    this.getBidderPortfolio();
-    if (getUseClientCounts()) {
-      this.props.fetchBidderPortfolioCounts();
+    if (get(this.props, 'cdos', []).length) {
+      this.getBidderPortfolio();
+      if (getUseClientCounts()) {
+        this.props.fetchBidderPortfolioCounts();
+      }
     }
     this.props.fetchBidderPortfolioCDOs();
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      (!isEqual(nextProps.cdo, this.props.cdo) && get(this.props, 'cdo.id')) ||
-      !isEqual(nextProps.selectedSeasons, this.props.selectedSeasons)
-    ) {
+    if ((!isEqual(nextProps.cdos, this.props.cdos) && get(nextProps, 'cdos', []).length) ||
+    !isEqual(nextProps.selectedSeasons, this.props.selectedSeasons)) {
       this.getBidderPortfolio();
       this.props.fetchBidderPortfolioCounts();
     }
@@ -126,7 +126,7 @@ BidderPortfolio.propTypes = {
   bidderPortfolioCountsHasErrored: PropTypes.bool.isRequired,
   fetchBidderPortfolioCounts: PropTypes.func.isRequired,
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
-  cdo: PropTypes.shape({}),
+  cdos: PropTypes.arrayOf(PropTypes.shape({})),
   selectedSeasons: PropTypes.arrayOf(PropTypes.string),
 };
 
@@ -139,7 +139,7 @@ BidderPortfolio.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
   bidderPortfolioCountsHasErrored: false,
   fetchBidderPortfolioCDOs: EMPTY_FUNCTION,
-  cdo: {},
+  cdos: [],
   selectedSeasons: [],
 };
 
@@ -153,7 +153,7 @@ const mapStateToProps = state => ({
   bidderPortfolioCDOs: state.bidderPortfolioCDOs,
   bidderPortfolioCDOsIsLoading: state.bidderPortfolioCDOsIsLoading,
   bidderPortfolioCDOsHasErrored: state.bidderPortfolioCDOsHasErrored,
-  cdo: state.bidderPortfolioSelectedCDO,
+  cdos: state.bidderPortfolioSelectedCDOsToSearchBy,
   selectedSeasons: state.bidderPortfolioSelectedSeasons,
 });
 
