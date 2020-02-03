@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Flag } from 'flag';
+import Differentials from 'Components/Differentials';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
-import OBCUrl from '../OBCUrl';
 import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
@@ -15,7 +15,6 @@ import {
   formatDate,
   propOrDefault,
   getAccessiblePositionNumber,
-  getDifferentialPercentage,
   getBidStatisticsObject,
 } from '../../utilities';
 
@@ -32,8 +31,6 @@ import {
   NO_SKILL,
   NO_END_DATE,
   NO_TOUR_OF_DUTY,
-  NO_POST_DIFFERENTIAL,
-  NO_DANGER_PAY,
   NO_USER_LISTED,
   NO_UPDATE_DATE,
 } from '../../Constants/SystemMessages';
@@ -53,6 +50,7 @@ const PositionDetailsItem = (props) => {
     highlightPosition,
     onHighlight,
     isProjectedVacancy,
+    isArchived,
   } = props;
 
   const { position } = details;
@@ -64,17 +62,11 @@ const PositionDetailsItem = (props) => {
   const formattedBureau = get(position, 'bureau', NO_BUREAU);
   const formattedTOD = propOrDefault(position, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
 
-  const postDifferential = getDifferentialPercentage(propOrDefault(position, 'post.differential_rate'), NO_POST_DIFFERENTIAL);
-  const dangerPay = getDifferentialPercentage(propOrDefault(position, 'post.danger_pay'), NO_DANGER_PAY);
-
-  const OBCUrl$ = propOrDefault(position, 'post.post_bidding_considerations_url');
-  const getFormattedObcData = (prefix) => {
-    if (OBCUrl$) {
-      return (<span> {prefix} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
-    }
-
-    return prefix;
-  };
+  const dangerPay = get(position, 'post.danger_pay');
+  const postDifferential = get(position, 'post.differential_rate');
+  const obcUrl = get(position, 'post.post_bidding_considerations_url');
+  const diffProps = { dangerPay, postDifferential, obcUrl };
+  const differentials = <Differentials {...diffProps} />;
 
   const incumbent = propOrDefault(position, 'current_assignment.user', NO_USER_LISTED);
 
@@ -130,8 +122,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
             <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
             <CondensedCardDataPoint title="Language" content={<LanguageList languages={position.languages} propToUse="representation" />} />
-            <CondensedCardDataPoint title="Post differential" content={getFormattedObcData(postDifferential)} />
-            <CondensedCardDataPoint title="Danger pay" content={getFormattedObcData(dangerPay)} />
+            <CondensedCardDataPoint title="Post differential | Danger Pay" content={differentials} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
@@ -146,7 +137,7 @@ const PositionDetailsItem = (props) => {
             isProjectedVacancy={isProjectedVacancy}
           />
           {
-            !isProjectedVacancy &&
+            !isProjectedVacancy && !isArchived &&
             <ServiceNeededToggle
               userProfile={userProfile}
               position={details}
@@ -170,6 +161,7 @@ PositionDetailsItem.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isArchived: PropTypes.bool,
 };
 
 PositionDetailsItem.defaultProps = {
@@ -178,6 +170,7 @@ PositionDetailsItem.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
+  isArchived: false,
 };
 
 export default PositionDetailsItem;

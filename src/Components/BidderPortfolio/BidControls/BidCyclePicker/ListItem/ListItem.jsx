@@ -7,22 +7,23 @@ import InteractiveElement from '../../../../InteractiveElement';
 
 export const stopProp = e => e.stopPropagation();
 
-const ListItem = ({ item, selectValue, getIsSelected }) => {
+const ListItem = ({ item, selectValue, getIsSelected, queryProp }) => {
+  const item$ = queryProp ? item[queryProp] : item;
   const isSelected = getIsSelected(item);
   return (
     <InteractiveElement
       type="li"
-      key={item}
+      key={item$}
       onClick={() => selectValue(item)}
       data-selected={isSelected ? 'selected' : ''}
       aria-selected={isSelected}
     >
       <CheckBox
         small
-        id={item}
-        label={item}
+        id={item$}
+        label={item$}
         onClick={stopProp}
-        value={getIsSelected(item)}
+        value={isSelected}
         checkboxProps={{ readOnly: true, tabIndex: '-1' }}
       />
     </InteractiveElement>
@@ -33,6 +34,11 @@ ListItem.propTypes = {
   item: PropTypes.string.isRequired,
   selectValue: PropTypes.func.isRequired,
   getIsSelected: PropTypes.func.isRequired,
+  queryProp: PropTypes.string,
+};
+
+ListItem.defaultProps = {
+  queryProp: '',
 };
 
 export default ListItem;

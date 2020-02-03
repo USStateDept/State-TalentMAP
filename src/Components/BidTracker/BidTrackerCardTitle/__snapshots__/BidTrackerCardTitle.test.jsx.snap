@@ -17,7 +17,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
     >
       <Link
         replace={false}
-        to="/details/100"
+        to="/archived/100"
       >
         View position
       </Link>
@@ -90,7 +90,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
     >
       <Link
         replace={false}
-        to="/details/100"
+        to="/archived/100"
       >
         View position
       </Link>

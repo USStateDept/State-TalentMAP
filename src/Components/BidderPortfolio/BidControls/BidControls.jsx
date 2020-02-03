@@ -28,7 +28,8 @@ class BidControls extends Component {
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
-          <div className="portfolio-sort-container-contents" style={{ float: 'left' }}>
+          <div className="portfolio-sort-container-contents bid-cycle-picker-container" style={{ float: 'left' }}>
+            <div className="label">Proxy CDO View:</div>
             <CDOAutoSuggest />
           </div>
           {useCDOSeasonFilter() &&
