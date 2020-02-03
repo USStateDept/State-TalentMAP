@@ -1,45 +1,50 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Flag } from 'flag';
+import { get } from 'lodash';
 import { USER_PROFILE, ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
 import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
-import StaticDevContent from '../../StaticDevContent';
 import PositionInformation from '../PositionInformation';
 
 const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
-showContactInformation, useGroup, assignment }) => (
-  <div className="usa-grid-full current-user">
-    {
-      showGeneralInformation &&
-      <UserProfileGeneralInformation
-        userProfile={userProfile}
-        showEditLink={showEditLink}
-        useGroup={useGroup}
-      />
-    }
-    {
-      showContactInformation &&
-      <div className="current-user-bottom">
-        <Flag
-          name="flags.static_content"
-          render={() => (
-            <div className="current-user-section-border cdo-section">
-              <StaticDevContent>
-                <ExternalUserStatus type="cdo" initials="LS" firstName="Leah" lastName="Shadtrach" small />
-              </StaticDevContent>
-            </div>
-          )}
+showContactInformation, useGroup, assignment }) => {
+  const cdo = get(userProfile, 'cdo', {});
+  return (
+    <div className="usa-grid-full current-user">
+      {
+        showGeneralInformation &&
+        <UserProfileGeneralInformation
+          userProfile={userProfile}
+          showEditLink={showEditLink}
+          useGroup={useGroup}
         />
-        <div className="current-user-section-border">
-          <PositionInformation assignment={assignment} />
+      }
+      {
+        showContactInformation &&
+        <div className="current-user-bottom">
+          {
+            cdo.name &&
+            <div className="current-user-section-border cdo-section">
+              <ExternalUserStatus
+                type="cdo"
+                initials={cdo.initials}
+                firstName={cdo.name}
+                email={cdo.email}
+                showMail
+                small
+              />
+            </div>
+          }
+          <div className="current-user-section-border">
+            <PositionInformation assignment={assignment} />
+          </div>
+          <UserProfileContactInformation userProfile={userProfile} />
         </div>
-        <UserProfileContactInformation userProfile={userProfile} />
-      </div>
-    }
-  </div>
-);
+      }
+    </div>
+  );
+};
 
 UserProfile.propTypes = {
   userProfile: USER_PROFILE.isRequired,
