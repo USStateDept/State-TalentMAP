@@ -139,7 +139,7 @@ $draft-icon-offset: 120px;
     position: relative;
   }
 
-  .fa-close {
+  .fa-trash {
     color: $color-red;
     margin-right: .25em;
   }
@@ -628,6 +628,21 @@ $draft-icon-offset: 120px;
     button {
       flex: 1;
       margin: 0;
+    }
+
+    // fix in IE11
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      button {
+        margin-left: 5px;
+        min-height: 35px;
+      }
+    }
+  }
+
+  // fix in IE11
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .bid-count-list {
+      margin-left: 30px;
     }
   }
 

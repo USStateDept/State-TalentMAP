@@ -44,7 +44,7 @@ class BidListButton extends Component {
     const { isClient } = this.context;
     const isClientText = isClient ? ' Client' : '';
     const text = isSaved ? `Remove from${isClientText} Bid List` : `Add to${isClientText} Bid List`;
-    const iconClass = isSaved ? 'minus-circle' : 'plus-circle';
+    const iconClass = isSaved ? 'trash' : 'plus-circle';
     const { className, disabled, isLoading } = this.props;
 
     const disabled$ = disabled || !canDelete;
