@@ -41,6 +41,10 @@ export function logsListIsLoading(bool) {
 }
 
 export function logsListSuccess(data) {
+  // eslint-disable-next-line no-console
+  console.log('in logsListSuccess');
+  // eslint-disable-next-line no-console
+  console.log(data);
   return {
     type: 'LOGS_LIST_SUCCESS',
     success: data,

@@ -5,6 +5,7 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Dashboard from './Dashboard';
 import Logs from './Logs';
 import Stats from './Stats';
+import UserRoles from './UserRoles';
 
 const AdministratorPage = (props) => {
   const {
@@ -24,6 +25,15 @@ const AdministratorPage = (props) => {
     runAllJobs,
     patchSyncJob,
     patchSyncIsLoading,
+    users,
+    usersIsLoading,
+    usersHasErrored,
+    user,
+    userIsLoading,
+    userHasErrored,
+    getUserPermissions,
+    onUpdatePermission,
+    usersList,
   } = props;
 
   const dashboardProps = {
@@ -48,12 +58,25 @@ const AdministratorPage = (props) => {
     onDownloadOne,
   };
 
+  const userProps = {
+    users,
+    usersIsLoading,
+    usersHasErrored,
+    user,
+    userIsLoading,
+    userHasErrored,
+    getUserPermissions,
+    onUpdatePermission,
+    usersList,
+  };
+
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
         <Route path="/profile/administrator/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
         <Route path="/profile/administrator/stats" render={() => <Stats />} />
+        <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
       </Switch>
     </div>
   );
@@ -76,6 +99,15 @@ AdministratorPage.propTypes = {
   runAllJobs: PropTypes.func,
   patchSyncIsLoading: PropTypes.bool,
   patchSyncJob: PropTypes.func,
+  users: PropTypes.arrayOf(PropTypes.shape({})),
+  usersIsLoading: PropTypes.bool,
+  usersHasErrored: PropTypes.bool,
+  user: PropTypes.arrayOf(PropTypes.shape({})),
+  userIsLoading: PropTypes.bool,
+  userHasErrored: PropTypes.bool,
+  getUserPermissions: PropTypes.func,
+  onUpdatePermission: PropTypes.func,
+  usersList: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 AdministratorPage.defaultProps = {
@@ -95,6 +127,15 @@ AdministratorPage.defaultProps = {
   runAllJobs: EMPTY_FUNCTION,
   patchSyncIsLoading: false,
   patchSyncJob: EMPTY_FUNCTION,
+  users: [],
+  usersIsLoading: false,
+  usersHasErrored: false,
+  user: [],
+  userIsLoading: false,
+  userHasErrored: false,
+  getUserPermissions: EMPTY_FUNCTION,
+  onUpdatePermission: EMPTY_FUNCTION,
+  usersList: [],
 };
 
 export default AdministratorPage;

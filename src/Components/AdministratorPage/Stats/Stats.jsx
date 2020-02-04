@@ -20,7 +20,9 @@ class Stats extends Component {
 
   componentWillMount() {
     const { getStats } = this.props;
-    getStats();
+    const idk = getStats();
+    // eslint-disable-next-line no-console
+    console.log(idk);
   }
 
   render() {
@@ -44,6 +46,12 @@ class Stats extends Component {
         <div className="usa-grid-full">
           <ProfileSectionTitle title="Login Statistics" icon="sitemap" />
         </div>
+        {
+          statsSuccess &&
+          <div>
+            hello there im in stats
+          </div>
+        }
         {
           statsSuccess &&
           <div className="usa-grid-full bid-stat-card-list">
