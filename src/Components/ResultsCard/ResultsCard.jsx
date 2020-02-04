@@ -230,46 +230,31 @@ class ResultsCard extends Component {
                     }
                   </Row>
               }
-              <Flag
-                name="flags.available_positions"
-                render={() =>
-                (<Row id={innerId} fluid>
-                  <Column columns="6">
-                    <DefinitionList items={sections[0]} />
-                  </Column>
-                  {
-                    !matches &&
-                    <Column columns="4">
-                      <DefinitionList items={sections[1]} />
-                    </Column>
-                  }
-                  <Column columns="2">
-                    <div className="ribbon-container">
-                      {
-                        get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
-                      }
-                      {
-                        get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
-                      }
-                      {
-                        // conditional rendering occurs inside the container
-                        <InBidListContainer id={result.id} isWide className="ribbon-results-card" />
-                      }
-                    </div>
-                  </Column>
-                </Row>)
-              }
-                fallbackRender={() =>
-                (<Row id={`${id}-inner`} fluid>
-                  <Column columns="6">
-                    <DefinitionList items={sections[0]} />
-                  </Column>
-                  <Column columns="6">
+              <Row id={innerId} fluid>
+                <Column columns="5">
+                  <DefinitionList items={sections[0]} />
+                </Column>
+                {
+                  !matches &&
+                  <Column columns="5">
                     <DefinitionList items={sections[1]} />
                   </Column>
-                </Row>)
-              }
-              />
+                }
+                <Column columns="2">
+                  <div className="ribbon-container">
+                    {
+                      get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                    }
+                    {
+                      get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
+                    }
+                    {
+                      // conditional rendering occurs inside the container
+                      <InBidListContainer id={result.id} isWide className="ribbon-results-card" />
+                    }
+                  </div>
+                </Column>
+              </Row>
               <Row className="footer results-card-padded-section" fluid>
                 <Column columns={matches ? 8 : 6} as="section">
                   {
