@@ -1,7 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, intersection, isArray, isEmpty, isEqual, isNumber, isObject, isString,
-  keys, lowerCase, merge as merge$, orderBy, startCase, take, toLower, toString, transform } from 'lodash';
+  keys, lowerCase, merge as merge$, orderBy, split, startCase, take, toLower, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -432,9 +432,9 @@ export const getBidStatisticsObject = (bidStatistics) => {
 
 // replace spaces with hyphens so that id attributes are valid
 export const formatIdSpacing = (id) => {
-  if (id) {
+  if (id && toString(id)) {
     let idString = toString(id);
-    idString = idString.split(' ').join('-');
+    idString = split(idString, ' ').join('-');
     // remove any non-alphanumeric character, excluding hyphen
     idString = idString.replace(/[^a-zA-Z0-9 -]/g, '');
     return idString;
