@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
@@ -85,10 +84,7 @@ const PositionDetailsItem = (props) => {
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
-        <Flag
-          name="flags.available_positions"
-          render={() => renderHandshake(stats, position)}
-        />
+        {renderHandshake(stats, position)}
         {
           isHighlighted && <Featured cutSide="both" className="ribbon-position-details" />
         }
