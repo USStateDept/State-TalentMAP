@@ -39,7 +39,8 @@ class BidderPortfolio extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(nextProps.cdos, this.props.cdos) && get(nextProps, 'cdos', []).length) {
+    if ((!isEqual(nextProps.cdos, this.props.cdos) && get(nextProps, 'cdos', []).length) ||
+    !isEqual(nextProps.selectedSeasons, this.props.selectedSeasons)) {
       this.getBidderPortfolio();
       this.props.fetchBidderPortfolioCounts();
     }
@@ -126,6 +127,7 @@ BidderPortfolio.propTypes = {
   fetchBidderPortfolioCounts: PropTypes.func.isRequired,
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
+  selectedSeasons: PropTypes.arrayOf(PropTypes.string),
 };
 
 BidderPortfolio.defaultProps = {
@@ -138,6 +140,7 @@ BidderPortfolio.defaultProps = {
   bidderPortfolioCountsHasErrored: false,
   fetchBidderPortfolioCDOs: EMPTY_FUNCTION,
   cdos: [],
+  selectedSeasons: [],
 };
 
 const mapStateToProps = state => ({
@@ -151,6 +154,7 @@ const mapStateToProps = state => ({
   bidderPortfolioCDOsIsLoading: state.bidderPortfolioCDOsIsLoading,
   bidderPortfolioCDOsHasErrored: state.bidderPortfolioCDOsHasErrored,
   cdos: state.bidderPortfolioSelectedCDOsToSearchBy,
+  selectedSeasons: state.bidderPortfolioSelectedSeasons,
 });
 
 export const mapDispatchToProps = dispatch => ({

@@ -25,7 +25,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     <div
       className="portfolio-sort-container-contents"
     >
-      <BidCyclePicker />
+      <Connect(BidCyclePicker) />
       <SelectForm
         className="select-offset select-black"
         defaultSort=""
@@ -124,7 +124,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     <div
       className="portfolio-sort-container-contents"
     >
-      <BidCyclePicker />
+      <Connect(BidCyclePicker) />
       <SelectForm
         className="select-offset select-black"
         defaultSort=""

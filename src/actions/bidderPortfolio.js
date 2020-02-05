@@ -1,11 +1,36 @@
 import { stringify } from 'query-string';
-import { find, get, isArray, replace } from 'lodash';
+import { find, get, isArray, join, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
 
 let cancelCDOs;
 let cancelPortfolio;
+
+export function bidderPortfolioSelectedSeasons(arr = []) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SELECTED_SEASONS',
+    data: arr,
+  };
+}
+export function bidderPortfolioSeasonsHasErrored(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SEASONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bidderPortfolioSeasonsIsLoading(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SEASONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bidderPortfolioSeasonsSuccess(results) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SEASONS_SUCCESS',
+    results,
+  };
+}
 
 export function bidderPortfolioHasErrored(bool) {
   return {
@@ -105,6 +130,31 @@ export function bidderPortfolioLastQuery(query, count) {
   };
 }
 
+export function bidderPortfolioSetSeasons(seasons = []) {
+  return (dispatch) => {
+    dispatch(bidderPortfolioSelectedSeasons(seasons));
+  };
+}
+
+export function bidderPortfolioSeasonsFetchData() {
+  return (dispatch) => {
+    dispatch(bidderPortfolioSeasonsIsLoading(true));
+    dispatch(bidderPortfolioSeasonsHasErrored(false));
+    const endpoint = '/fsbid/bid_seasons/';
+    api().get(endpoint)
+      .then(({ data }) => {
+        dispatch(bidderPortfolioSeasonsSuccess(data));
+        dispatch(bidderPortfolioSeasonsHasErrored(false));
+        dispatch(bidderPortfolioSeasonsIsLoading(false));
+      })
+      .catch(() => {
+        dispatch(bidderPortfolioSeasonsSuccess([]));
+        dispatch(bidderPortfolioSeasonsHasErrored(true));
+        dispatch(bidderPortfolioSeasonsIsLoading(false));
+      });
+  };
+}
+
 export function lookupAndSetCDO(id) {
   return (dispatch, getState) => {
     const cdo = find(get(getState(), 'bidderPortfolioCDOs', []), f => f.hru_id === id);
@@ -145,9 +195,13 @@ export function bidderPortfolioFetchData(query = {}) {
     const state = getState();
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
+    const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
     const query$ = { ...query };
     if (ids.length) {
       query$.hru_id__in = ids.join();
+    }
+    if (isArray(seasons) && seasons.length) {
+      query$.bid_seasons = join(seasons, ',');
     }
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
