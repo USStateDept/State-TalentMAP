@@ -10,7 +10,7 @@ const DefinitionList = ({ dangerPay, postDifferential, obcUrl }) => (
     <span>{dangerPay}{!!isNumeric(dangerPay) && '%'}</span>
     {
       !!obcUrl &&
-      <span style={{ paddingLeft: 5 }}><OBCUrl url={obcUrl} type="post-data" label="OBC Details" /></span>
+      <span style={{ paddingLeft: 5, position: 'absolute' }}><OBCUrl url={obcUrl} type="post-data" label="OBC Details" /></span>
     }
   </div>
 );
