@@ -44,11 +44,11 @@ class AdministratorContainer extends Component {
       downloadFile(nextProps.log);
     }
     if (this.props.logToDownloadIsLoading && !nextProps.logToDownloadIsLoading
-      && nextProps.logToDownload) {
+            && nextProps.logToDownload) {
       downloadFile(nextProps.logToDownload);
     }
     if (this.props.patchSyncIsLoading && !nextProps.patchSyncIsLoading
-      && !nextProps.patchSyncHasErrored) {
+            && !nextProps.patchSyncHasErrored) {
       this.props.getSyncJobs();
     }
   }
@@ -77,10 +77,11 @@ class AdministratorContainer extends Component {
   }
 
   render() {
-    const { logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
-    logsList, logsListIsLoading, logsListHasErrored,
-    log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, usersList,
-    } = this.props;
+    const {
+            logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
+            logsList, logsListIsLoading, logsListHasErrored,
+            log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, usersList,
+        } = this.props;
     const props = {
       logs,
       logsIsLoading,

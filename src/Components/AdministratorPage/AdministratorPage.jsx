@@ -25,14 +25,8 @@ const AdministratorPage = (props) => {
     runAllJobs,
     patchSyncJob,
     patchSyncIsLoading,
-    users,
     usersIsLoading,
     usersHasErrored,
-    user,
-    userIsLoading,
-    userHasErrored,
-    getUserPermissions,
-    onUpdatePermission,
     usersList,
   } = props;
 
@@ -59,15 +53,9 @@ const AdministratorPage = (props) => {
   };
 
   const userProps = {
-    users,
+    usersList,
     usersIsLoading,
     usersHasErrored,
-    user,
-    userIsLoading,
-    userHasErrored,
-    getUserPermissions,
-    onUpdatePermission,
-    usersList,
   };
 
   return (
@@ -99,14 +87,8 @@ AdministratorPage.propTypes = {
   runAllJobs: PropTypes.func,
   patchSyncIsLoading: PropTypes.bool,
   patchSyncJob: PropTypes.func,
-  users: PropTypes.arrayOf(PropTypes.shape({})),
   usersIsLoading: PropTypes.bool,
   usersHasErrored: PropTypes.bool,
-  user: PropTypes.arrayOf(PropTypes.shape({})),
-  userIsLoading: PropTypes.bool,
-  userHasErrored: PropTypes.bool,
-  getUserPermissions: PropTypes.func,
-  onUpdatePermission: PropTypes.func,
   usersList: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
@@ -127,14 +109,8 @@ AdministratorPage.defaultProps = {
   runAllJobs: EMPTY_FUNCTION,
   patchSyncIsLoading: false,
   patchSyncJob: EMPTY_FUNCTION,
-  users: [],
   usersIsLoading: false,
   usersHasErrored: false,
-  user: [],
-  userIsLoading: false,
-  userHasErrored: false,
-  getUserPermissions: EMPTY_FUNCTION,
-  onUpdatePermission: EMPTY_FUNCTION,
   usersList: [],
 };
 

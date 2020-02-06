@@ -317,6 +317,43 @@
     }
   }
 
+  .delegateRole--table {
+    border: 1px solid #a9a9a9;
+    tr {
+      th {
+        background-color: #00293F;
+        color: white;
+        padding: 15px;
+        text-align:center
+      }
+      td {
+        border: none;
+        border-left: 1px solid #a9a9a9;
+        padding: 10px;
+        text-align:center
+      }
+      td:nth-child(1) {
+        border-left: none!important;
+      }
+      td:active {
+        cursor: grabbing;
+      }
+    }
+    tr:nth-child(odd) {
+      td {
+        background-color: rgba(0, 172, 255, 0.09);
+      }
+    }
+    tr:hover {
+      td {
+        background-color: #E0E0E0!important;
+      }
+    }
+    .delegateRoleCell{
+      cursor: pointer;
+    }
+  }
+
   // IE11 fix for input text not displaying
   @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
     input:not([type="select"]),

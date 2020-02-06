@@ -37,6 +37,7 @@ export function usersSuccess(results) {
   console.log('in usersSuccess');
   // eslint-disable-next-line no-console
   console.log(results);
+  // results.groups is where the permissions we want to check are.
   return {
     type: 'USERS_SUCCESS',
     results,

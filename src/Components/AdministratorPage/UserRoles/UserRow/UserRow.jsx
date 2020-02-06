@@ -1,50 +1,65 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { get } from 'lodash';
-import { Row, Column } from '../../../Layout';
+import { userHasPermissions } from '../../../../utilities';
+import DELEGATE_ROLES from '../../../../Constants/DelegateRoles';
 import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
-import InteractiveElement from '../../../InteractiveElement';
 
-export const stopProp = (e) => { if (e && e.stopPropagation) { e.stopPropagation(); } };
+class UserRow extends Component {
+  constructor(props) {
+    super(props);
+    this.updatePermission = this.updatePermission.bind(this);
+    // this.checkPermission = this.checkPermission.bind(this);
+  }
 
-const UserRow = (props) => {
-  const {
-    name, onClick, isSelected,
-  } = props;
+  checkPermission(permission) {
+    const isEmpty = !this.props.permissionGroups.length;
+    if (isEmpty) return false;
 
-  const onClick$ = (e) => {
-    if (get(e, 'target.name') !== 'download') {
-      onClick(props.name);
-    }
-  };
+    const hasPermission = userHasPermissions(permission, this.props.permissionGroups || []);
 
-  return (
-    <InteractiveElement
-      onClick={onClick$}
-      title={`View contents of ${name}`}
-      type={Row}
-      role="radio"
-      aria-checked={isSelected}
-      className={`usa-grid-full log-list-row ${isSelected ? 'log-list-row--selected' : ''}`}
-    >
-      <Column columns={1}>
-        <FA name={isSelected ? 'dot-circle-o' : 'circle-o'} />
-      </Column>
-      <Column columns={9}>
-        <span>{name}</span>
-      </Column>
-    </InteractiveElement>
-  );
-};
+    return hasPermission;
+  }
+
+  updatePermission(addPerm) {
+    // for now i just want to capture the click event. later connect to action that will
+    // update user permissions via endpoint
+    console.log(addPerm);
+    console.log(this.props.permissionGroups);
+  }
+
+  render() {
+    const {
+                username, name,
+            } = this.props;
+
+    return (
+      <tr>
+        <td>{username}</td>
+        <td>{name}</td>
+        {DELEGATE_ROLES.map(role => (
+          <td key={role} className={'delegateRoleCell'}>
+            <FA
+              onClick={this.updatePermission(role)}
+              name={this.checkPermission([role]) ? 'check-square-o' : 'square-o'}
+            />
+          </td>
+        ))}
+      </tr>
+    );
+  }
+}
 
 UserRow.propTypes = {
-  name: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
-  isSelected: PropTypes.bool,
+  username: PropTypes.string,
+  name: PropTypes.string,
+  permissionGroups: PropTypes.arrayOf(PropTypes.string),
 };
 
 UserRow.defaultProps = {
+  username: '',
+  name: '',
+  permissionGroups: [],
   onClick: EMPTY_FUNCTION,
   isSelected: false,
 };

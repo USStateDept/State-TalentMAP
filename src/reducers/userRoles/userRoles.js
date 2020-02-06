@@ -17,7 +17,7 @@ export function usersIsLoading(state = false, action) {
 export function usersSuccess(state = [], action) {
   switch (action.type) {
     case 'USERS_SUCCESS':
-      return action.success;
+      return action.results;
     default:
       return state;
   }
