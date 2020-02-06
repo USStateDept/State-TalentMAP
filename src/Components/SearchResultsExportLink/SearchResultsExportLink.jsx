@@ -26,18 +26,20 @@ class SearchResultsExportLink extends Component {
     const { isLoading } = this.state;
     const { isProjectedVacancy } = this.context;
     if (!isLoading) {
-      const query = {
-        ordering: POSITION_SEARCH_SORTS_DYNAMIC.defaultSort,
-        ...queryString.parse(this.state.query.value),
-        limit: this.props.count,
-        page: 1,
-      };
-      downloadPositionData(queryString.stringify(query), isProjectedVacancy)
-      .then(() => {
-        this.setState({ isLoading: false });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
+      this.setState({ isLoading: true }, () => {
+        const query = {
+          ordering: POSITION_SEARCH_SORTS_DYNAMIC.defaultSort,
+          ...queryString.parse(this.state.query.value),
+          limit: this.props.count,
+          page: 1,
+        };
+        downloadPositionData(queryString.stringify(query), isProjectedVacancy)
+        .then(() => {
+          this.setState({ isLoading: false });
+        })
+        .catch(() => {
+          this.setState({ isLoading: false });
+        });
       });
     }
   }
