@@ -52,7 +52,6 @@ class GlossaryComponent extends Component {
 
     // re-instantiate the search index if glossaryItems changes
     if (!isEqual(this.props.glossaryItems, nextProps.glossaryItems)) {
-      console.log(nextProps.glossaryItems);
       this.fuse = new Fuse(nextProps.glossaryItems, fuseOptions);
     }
   }
@@ -75,7 +74,6 @@ class GlossaryComponent extends Component {
     const { glossaryItems } = this.props;
     // filter where the keyword matches part of the title, definition, or link
     if (searchText.value) {
-      console.log(this.fuse.search(searchText.value));
       return this.fuse.search(searchText.value);
     }
     return glossaryItems;
