@@ -26,15 +26,18 @@ const ExternalUserStatus = ({ initials, firstName, lastName, type, showMail, ema
 );
 
 ExternalUserStatus.propTypes = {
-  initials: PropTypes.string.isRequired,
-  firstName: PropTypes.string.isRequired,
-  lastName: PropTypes.string.isRequired,
+  initials: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
   type: PropTypes.oneOf(['cdo', 'ao', 'hr']).isRequired,
   showMail: PropTypes.bool,
   email: PropTypes.string,
 };
 
 ExternalUserStatus.defaultProps = {
+  initials: '',
+  firstName: '',
+  lastName: '',
   showMail: false,
   email: '',
 };

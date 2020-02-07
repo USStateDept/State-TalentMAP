@@ -10,6 +10,7 @@ exports[`BidControlsComponent matches snapshot 1`] = `
     Bid season:
   </div>
   <r
+    disabled={false}
     dropdownHeight={600}
     filterDebounce={150}
     id="picky"
@@ -17,14 +18,8 @@ exports[`BidControlsComponent matches snapshot 1`] = `
     multiple={true}
     numberDisplayed={1}
     onChange={[Function]}
-    options={
-      Array [
-        "Summer 2020",
-        "Winter 2020",
-        "Summer 2021",
-      ]
-    }
-    placeholder="Select season"
+    options={Array []}
+    placeholder="Select season(s)"
     renderList={[Function]}
     selectAllMode="default"
     selectAllText="Select all"

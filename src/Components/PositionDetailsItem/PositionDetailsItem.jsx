@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
@@ -50,6 +49,7 @@ const PositionDetailsItem = (props) => {
     highlightPosition,
     onHighlight,
     isProjectedVacancy,
+    isArchived,
   } = props;
 
   const { position } = details;
@@ -84,10 +84,7 @@ const PositionDetailsItem = (props) => {
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
-        <Flag
-          name="flags.available_positions"
-          render={() => renderHandshake(stats, position)}
-        />
+        {renderHandshake(stats, position)}
         {
           isHighlighted && <Featured cutSide="both" className="ribbon-position-details" />
         }
@@ -136,7 +133,7 @@ const PositionDetailsItem = (props) => {
             isProjectedVacancy={isProjectedVacancy}
           />
           {
-            !isProjectedVacancy &&
+            !isProjectedVacancy && !isArchived &&
             <ServiceNeededToggle
               userProfile={userProfile}
               position={details}
@@ -160,6 +157,7 @@ PositionDetailsItem.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isArchived: PropTypes.bool,
 };
 
 PositionDetailsItem.defaultProps = {
@@ -168,6 +166,7 @@ PositionDetailsItem.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
+  isArchived: false,
 };
 
 export default PositionDetailsItem;
