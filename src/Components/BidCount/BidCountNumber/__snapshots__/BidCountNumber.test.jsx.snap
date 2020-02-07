@@ -3,7 +3,6 @@
 exports[`BidCountNumberComponent matches snapshot where type = atGradeBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="At-Grade bids"
 >
   <Tooltip
     animateFill={true}
@@ -55,7 +54,6 @@ exports[`BidCountNumberComponent matches snapshot where type = atGradeBids 1`] =
 exports[`BidCountNumberComponent matches snapshot where type = atGradeInSkillBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="At-Grade and in-Skill bids"
 >
   <Tooltip
     animateFill={true}
@@ -107,7 +105,6 @@ exports[`BidCountNumberComponent matches snapshot where type = atGradeInSkillBid
 exports[`BidCountNumberComponent matches snapshot where type = inSkillBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="In-Skill bids"
 >
   <Tooltip
     animateFill={true}
@@ -159,7 +156,6 @@ exports[`BidCountNumberComponent matches snapshot where type = inSkillBids 1`] =
 exports[`BidCountNumberComponent matches snapshot where type = totalBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="Total bids"
 >
   <Tooltip
     animateFill={true}

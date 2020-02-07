@@ -198,7 +198,7 @@ $draft-icon-offset: 120px;
   }
 
   .bid-tracker-title-content-container {
-    flex-grow: 1;
+    flex: 5;
   }
 
   .bid-tracker-card-title-container-right {
@@ -708,6 +708,8 @@ $draft-icon-offset: 120px;
   }
 
   .bid-tracker-card-title-outer-container-right {
+    flex: 3;
+
     .bid-tracker-question-text-container {
       display: none;
     }
