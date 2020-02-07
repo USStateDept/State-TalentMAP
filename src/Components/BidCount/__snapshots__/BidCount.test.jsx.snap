@@ -20,15 +20,15 @@ exports[`BidCountComponent matches snapshot 1`] = `
     />
     <BidCountNumber
       number={5}
-      type="inGradeBids"
+      type="atGradeBids"
     />
     <BidCountNumber
       number={5}
-      type="atSkillBids"
+      type="inSkillBids"
     />
     <BidCountNumber
       number={5}
-      type="inGradeAtSkillBids"
+      type="atGradeInSkillBids"
     />
   </ul>
 </div>
@@ -54,15 +54,15 @@ exports[`BidCountComponent matches snapshot when hideLabel is true 1`] = `
     />
     <BidCountNumber
       number={5}
-      type="inGradeBids"
+      type="atGradeBids"
     />
     <BidCountNumber
       number={5}
-      type="atSkillBids"
+      type="inSkillBids"
     />
     <BidCountNumber
       number={5}
-      type="inGradeAtSkillBids"
+      type="atGradeInSkillBids"
     />
   </ul>
 </div>
