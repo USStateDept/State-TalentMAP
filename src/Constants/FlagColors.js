@@ -1870,6 +1870,14 @@ export default [
     ],
   },
   {
+    name: 'USA',
+    colors: [
+      '#b22234',
+      '#fff',
+      '#3c3b6e',
+    ],
+  },
+  {
     name: 'Uruguay',
     colors: [
       '#fff',
