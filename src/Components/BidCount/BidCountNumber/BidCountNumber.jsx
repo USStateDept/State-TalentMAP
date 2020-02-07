@@ -20,7 +20,7 @@ const BidCountNumber = ({ type, number }) => (
 
 BidCountNumber.propTypes = {
   number: PropTypes.number.isRequired,
-  type: PropTypes.oneOf(['totalBids', 'inGradeBids', 'atSkillBids', 'inGradeAtSkillBids']).isRequired,
+  type: PropTypes.oneOf(['totalBids', 'atGradeBids', 'inSkillBids', 'atGradeInSkillBids']).isRequired,
 };
 
 export default BidCountNumber;
