@@ -3,103 +3,81 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 
 const icons = {
-  handshake: {
+  thirdtour: {
     isIcon: true,
-    name: 'handshake-o',
-    text: 'Handshake',
+    name: 'chess-pawn',
+    text: '3rd Tour Bidders',
+  },
+  tenured: {
+    isIcon: true,
+    name: 'anchor',
+    text: 'Tenured',
   },
   sixeight: {
     name: '6/8',
-    text: '6/8',
+    text: '6/8 Rule',
+  },
+  ambassador: {
+    isIcon: true,
+    name: 'chess-queen',
+    text: 'Ambassador or Deputy Assistant Secretary',
+  },
+  criticallanguage: {
+    isIcon: true,
+    name: 'language',
+    text: 'Critical Need Language',
+  },
+  criticallanguageone: {
+    isIcon: true,
+    name: 'language',
+    text: 'Critical Need Language 1st Tour Complete',
+  },
+  criticallanguagefinal: {
+    isIcon: true,
+    name: 'language',
+    text: 'Critical Need Language Final Tour Complete',
+  },
+  differential: {
+    isIcon: true,
+    name: 'percent',
+    text: 'Differential Bidder',
   },
   fairshare: {
     isIcon: true,
     name: 'balance-scale',
-    text: 'Fair Share',
+    text: 'Fair Share Bidders',
   },
-  retirement: {
+  pickering: {
     isIcon: true,
-    name: 'trophy',
-    text: 'Retirement',
+    name: 'user-graduate',
+    text: 'Pickering Fellows',
+  },
+  rangel: {
+    isIcon: true,
+    name: 'user-graduate',
+    text: 'Rangel Fellows',
+  },
+  meritorious: {
+    isIcon: true,
+    name: 'medal',
+    text: 'Meritorious Step Increases',
+  },
+  fellow: {
+    isIcon: true,
+    name: 'user-graduate',
+    text: 'Pickering/Rangel Fellows',
+  },
+  tenure: {
+    isIcon: true,
+    name: 'water',
+    text: 'Recommended for Tenure',
+  },
+  tandem: {
+    isIcon: true,
+    name: 'user-friends',
+    text: 'Tandem Bidder',
   },
 };
-
-// const iconIdeas = {
-//   thirdtour: {
-//     isIcon: true,
-//     name: 'chess-pawn',
-//     text: '3rd Tour Bidders',
-//   },
-//   tenured: {
-//     isIcon: true,
-//     name: 'anchor',
-//     text: 'Tenured',
-//   },
-//   sixeight: {
-//     name: '6/8',
-//     text: '6/8 Rule',
-//   },
-//   ambassador: {
-//     isIcon: true,
-//     name: 'chess-queen',
-//     text: 'Ambassador or Deputy Assistant Secretary',
-//   },
-//   criticallanguage: {
-//     isIcon: true,
-//     name: 'language',
-//     text: 'Critical Need Language',
-//   },
-//   criticallanguageone: {
-//     isIcon: true,
-//     name: 'language',
-//     text: 'Critical Need Language 1st Tour Complete',
-//   },
-//   criticallanguagefinal: {
-//     isIcon: true,
-//     name: 'language',
-//     text: 'Critical Need Language Final Tour Complete',
-//   },
-//   differential: {
-//     isIcon: true,
-//     name: 'percent',
-//     text: 'Differential Bidder',
-//   },
-//   fairshare: {
-//     isIcon: true,
-//     name: 'balance-scale',
-//     text: 'Fair Share Bidders',
-//   },
-//   pickering: {
-//     isIcon: true,
-//     name: 'user-graduate',
-//     text: 'Pickering Fellows',
-//   },
-//   rangel: {
-//     isIcon: true,
-//     name: 'user-graduate',
-//     text: 'Rangel Fellows',
-//   },
-//   meritorious: {
-//     isIcon: true,
-//     name: 'medal',
-//     text: 'Meritorious Step Increases',
-//   },
-//   fellow: {
-//     isIcon: true,
-//     name: 'user-graduate',
-//     text: 'Pickering/Rangel Fellows',
-//   },
-//   tenure: {
-//     isIcon: true,
-//     name: 'water',
-//     text: 'Recommended for Tenure',
-//   },
-//   tandem: {
-//     isIcon: true,
-//     name: 'user-friends',
-//     text: 'Tandem Bidder',
-//   },
-// };
 
 const status$ = ['none', 'warning', 'success'];
 
@@ -126,26 +104,26 @@ ClientBadge.propTypes = {
   status: PropTypes.oneOf([0, 1, 2]),
 };
 
-// ClientBadge.propTypes = {
-//   type: PropTypes.oneOf([
-//     'thirdtour',
-//     'tenured',
-//     'sixeight',
-//     'ambassador',
-//     'criticallanguage',
-//     'criticallanguageone',
-//     'criticallanguagefinal',
-//     'differential',
-//     'fairshare',
-//     'pickering',
-//     'rangel',
-//     'meritorious',
-//     'fellow',
-//     'tenure',
-//     'tandem',
-//   ]).isRequired,
-//   status: PropTypes.oneOf([0, 1, 2]),
-// };
+ClientBadge.propTypes = {
+  type: PropTypes.oneOf([
+    'thirdtour',
+    'tenured',
+    'sixeight',
+    'ambassador',
+    'criticallanguage',
+    'criticallanguageone',
+    'criticallanguagefinal',
+    'differential',
+    'fairshare',
+    'pickering',
+    'rangel',
+    'meritorious',
+    'fellow',
+    'tenure',
+    'tandem',
+  ]).isRequired,
+  status: PropTypes.oneOf([0, 1, 2]),
+};
 
 ClientBadge.defaultProps = {
   status: 0,
