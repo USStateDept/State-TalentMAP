@@ -6,6 +6,7 @@ import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { checkFlag } from 'flags';
+import StaticDevContent from 'Components/StaticDevContent';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -121,9 +122,11 @@ const ProfileDashboard = ({
                           userId={userProfile.perdet_seq_number}
                         />
                       </BoxShadow>
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments assignments={userProfile.assignments} />
-                      </BoxShadow>
+                      <StaticDevContent> {/* TODO - remove StaticDevContent wrapper */}
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                          <Assignments /* assignments={userProfile.assignments} TODO add back */ />
+                        </BoxShadow>
+                      </StaticDevContent>
                     </Column>
                 }
               </Row>
