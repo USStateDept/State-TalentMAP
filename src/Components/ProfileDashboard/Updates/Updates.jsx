@@ -25,14 +25,14 @@ class Updates extends Component {
       <div className="usa-grid-full profile-section-container updates-container">
         <div className="usa-grid-full section-padded-inner-container">
           <div className="usa-width-one-whole">
-            <SectionTitle title="Updates" icon="tasks" />
+            <SectionTitle title="Bidder Classifications" icon="tasks" />
           </div>
           <div className="usa-width-one-whole">
             <CheckboxList isDisabled={!isEditable} id="updates" />
           </div>
         </div>
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
-          { !isEditable && <button className="unstyled-button" onClick={this.enableEdit}><FA name="pencil" /> Edit Updates</button> }
+          { !isEditable && <button className="unstyled-button" onClick={this.enableEdit}><FA name="pencil" /> Edit Classifications</button> }
           { isEditable && <EditButtons initialShowSave onChange={this.disableEdit} /> }
         </div>
       </div>

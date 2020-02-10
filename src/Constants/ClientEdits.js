@@ -1,13 +1,18 @@
 const CLIENT_EDITS = [
-  { value: 'is_third_tour', label: '3rd tour' },
-  { value: 'is_six_eight', label: '6/8' },
-  { value: 'is_differential', label: 'Differential' },
-  { value: 'is_fair_share', label: 'Fair Share' },
-  { value: 'is_msi_recipient', label: 'MSI recipient' },
-  { value: 'is_tenure', label: 'Tenure' },
-  { value: 'is_tandem', label: 'Tandem' },
-  { value: 'has_handshake', label: 'Handshake' },
-  { value: 'has_linked_handshake', label: 'Linked Handshake' },
+  { value: 'thirdtour', label: '3rd Tour' },
+  { value: 'tenured', label: 'Tenured' },
+  { value: 'tenure', label: 'Recommended for Tenure' },
+  { value: 'ambassador', label: 'Ambassador / Deputy Assistant Secretary' },
+  { value: 'criticallanguage', label: 'Critical Need Language' },
+  { value: 'criticallanguageone', label: 'Critical Need Language 1st Tour' },
+  { value: 'criticallanguagefinal', label: 'Critical Need Language Final Tour' },
+  { value: 'differential', label: 'Differential' },
+  { value: 'fairshare', label: 'Fair Share' },
+  { value: 'pickering', label: 'Pickering Fellows' },
+  { value: 'rangel', label: 'Rangel Fellows' },
+  { value: 'meritorious', label: 'Meritorious Step Increases' },
+  { value: 'fellow', label: 'Pickering/Rangel Fellows' },
+  { value: 'tandem', label: 'Tandem' },
 ];
 
 export default CLIENT_EDITS;
