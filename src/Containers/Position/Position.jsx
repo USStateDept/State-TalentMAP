@@ -8,7 +8,6 @@ import PositionDetails from '../../Components/PositionDetails/PositionDetails';
 // Actions
 import { positionDetailsFetchData } from '../../actions/positionDetails';
 import { putHighlightedPosition, deleteHighlightPosition } from '../../actions/highlightPosition';
-import { getLastRouteLink } from '../../actions/routerLocations';
 import { bidListFetchData } from '../../actions/bidList';
 import {
   editDescriptionContent,
@@ -21,7 +20,6 @@ import { LOGIN_REDIRECT } from '../../login/routes';
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
   POSITION_DETAILS,
-  ROUTER_LOCATIONS,
   USER_PROFILE,
   BID_LIST,
   BID_LIST_TOGGLE_HAS_ERRORED,
@@ -41,14 +39,16 @@ class Position extends Component {
   }
 
   componentWillMount() {
-    const { isProjectedVacancy } = this.props;
+    const { isArchived, isProjectedVacancy } = this.props;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
-    } else if (!isProjectedVacancy) {
+    } else if (isArchived) {
+      this.getUPDetails(this.props.match.params.id);
+    } else if (isProjectedVacancy) {
+      this.getPVDetails(this.props.match.params.id);
+    } else {
       this.getDetails(this.props.match.params.id);
       this.props.fetchBidList();
-    } else {
-      this.getPVDetails(this.props.match.params.id);
     }
   }
 
@@ -58,6 +58,10 @@ class Position extends Component {
 
   getPVDetails(id) {
     this.props.fetchPVData(id);
+  }
+
+  getUPDetails(id) {
+    this.props.fetchUPData(id);
   }
 
   editDescriptionContent(content) {
@@ -77,7 +81,6 @@ class Position extends Component {
       positionDetails,
       isLoading,
       hasErrored,
-      routerLocations,
       userProfile,
       userProfileIsLoading,
       bidList,
@@ -92,6 +95,7 @@ class Position extends Component {
       highlightPosition,
       onHighlight,
       isProjectedVacancy,
+      isArchived,
       client,
       clientIsLoading,
       clientHasErrored,
@@ -104,7 +108,6 @@ class Position extends Component {
         details={positionDetails}
         isLoading={isLoading}
         hasErrored={hasErrored}
-        goBackLink={getLastRouteLink(routerLocations)}
         userProfile={userProfile}
         userProfileIsLoading={userProfileIsLoading}
         bidList={bidList}
@@ -122,6 +125,7 @@ class Position extends Component {
         highlightPosition={highlightPosition}
         onHighlight={onHighlight}
         isProjectedVacancy={isProjectedVacancy}
+        isArchived={isArchived}
         isClient={isClient}
       />
     );
@@ -141,11 +145,11 @@ Position.propTypes = {
   }).isRequired,
   fetchData: PropTypes.func,
   fetchPVData: PropTypes.func,
+  fetchUPData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   positionDetails: POSITION_DETAILS,
   isAuthorized: PropTypes.func.isRequired,
-  routerLocations: ROUTER_LOCATIONS,
   userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
   fetchBidList: PropTypes.func,
@@ -164,6 +168,7 @@ Position.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isArchived: PropTypes.bool,
   client: BIDDER_OBJECT,
   clientIsLoading: PropTypes.bool,
   clientHasErrored: PropTypes.bool,
@@ -173,9 +178,9 @@ Position.defaultProps = {
   positionDetails: {},
   fetchData: EMPTY_FUNCTION,
   fetchPVData: EMPTY_FUNCTION,
+  fetchUPData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
-  routerLocations: [],
   userProfile: {},
   userProfileIsLoading: false,
   fetchBidList: EMPTY_FUNCTION,
@@ -193,6 +198,7 @@ Position.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
+  isArchived: false,
   client: {},
   clientIsLoading: false,
   clientHasErrored: false,
@@ -202,7 +208,6 @@ const mapStateToProps = (state, ownProps) => ({
   positionDetails: state.positionDetails,
   hasErrored: state.positionDetailsHasErrored,
   isLoading: state.positionDetailsIsLoading,
-  routerLocations: state.routerLocations,
   id: ownProps,
   userProfile: state.userProfile,
   userProfileIsLoading: state.userProfileIsLoading,
@@ -223,6 +228,7 @@ const mapStateToProps = (state, ownProps) => ({
 export const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(positionDetailsFetchData(id)),
   fetchPVData: id => dispatch(positionDetailsFetchData(id, true)),
+  fetchUPData: id => dispatch(positionDetailsFetchData(id, false, true)),
   onNavigateTo: dest => dispatch(push(dest)),
   fetchBidList: () => dispatch(bidListFetchData()),
   editDescriptionContent: (id, content) => dispatch(editDescriptionContent(id, content)),

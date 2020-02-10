@@ -23,6 +23,8 @@ userProfileIsLoading, isPublic, useCDOView }) => {
   :
   'You do not have any bids in your bid list.';
 
+  const cdoEmail = get(userProfile, 'cdo.email');
+
   return (
     <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
       <BackButton />
@@ -38,14 +40,14 @@ userProfileIsLoading, isPublic, useCDOView }) => {
       <div className="usa-grid-full">
         <div className="usa-width-one-half bid-tracker-greeting-container">
           <div className="usa-grid-full">
-            <ProfileSectionTitle title={title} />
+            <ProfileSectionTitle title={title} icon="clipboard" />
           </div>
         </div>
         <div className="usa-width-one-half bid-tracker-cdo-email-container">
           <div className="bid-tracker-cdo-email">
             {
-              userProfile.cdo && !userProfileIsLoading &&
-              <ContactCDOButton email={userProfile.cdo.email} />
+              cdoEmail && !userProfileIsLoading &&
+              <ContactCDOButton email={cdoEmail} />
             }
           </div>
         </div>

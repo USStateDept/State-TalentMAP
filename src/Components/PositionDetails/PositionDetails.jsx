@@ -12,7 +12,6 @@ import GoBackLink from '../BackButton';
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
   BID_LIST,
-  GO_BACK_TO_LINK,
   POSITION_DETAILS,
   USER_PROFILE,
   HIGHLIGHT_POSITION,
@@ -46,7 +45,6 @@ class PositionDetails extends Component {
       details,
       isLoading,
       hasErrored,
-      goBackLink,
       userProfile,
       bidList,
       editPocContent,
@@ -56,6 +54,7 @@ class PositionDetails extends Component {
       onHighlight,
       userProfileIsLoading,
       isProjectedVacancy,
+      isArchived,
     } = this.props;
 
     const isReady = details.id && userProfile.id && !isLoading && !hasErrored;
@@ -80,7 +79,6 @@ class PositionDetails extends Component {
               availability: get(details, 'availability', {}),
               bidStatistics: get(details, 'bid_statistics', [{}]),
             }}
-            goBackLink={goBackLink}
             bidList={bidList}
             editDescriptionContent={this.editDescriptionContent}
             editPocContent={editPocContent}
@@ -88,6 +86,7 @@ class PositionDetails extends Component {
             resetDescriptionEditMessages={resetDescriptionEditMessages}
             userProfile={userProfile}
             isProjectedVacancy={isProjectedVacancy}
+            isArchived={isArchived}
           />
           <PositionDetailsItem
             details={details}
@@ -99,10 +98,11 @@ class PositionDetails extends Component {
             highlightPosition={highlightPosition}
             onHighlight={onHighlight}
             isProjectedVacancy={isProjectedVacancy}
+            isArchived={isArchived}
           />
           <hr />
           <Row className="position-details-description-container padded-main-content" fluid>
-            { !isProjectedVacancy && <PositionSimilarPositions id={details.id} /> }
+            { !isProjectedVacancy && !isArchived && <PositionSimilarPositions id={details.id} /> }
           </Row>
         </div>}
         {isLoading$ && <Spinner type="position-details" size="big" />}
@@ -125,7 +125,6 @@ PositionDetails.propTypes = {
   details: POSITION_DETAILS,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  goBackLink: GO_BACK_TO_LINK.isRequired,
   userProfile: USER_PROFILE,
   userProfileIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
@@ -136,6 +135,7 @@ PositionDetails.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isArchived: PropTypes.bool,
   isClient: PropTypes.bool,
 };
 
@@ -151,6 +151,7 @@ PositionDetails.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
+  isArchived: false,
   isClient: false,
 };
 

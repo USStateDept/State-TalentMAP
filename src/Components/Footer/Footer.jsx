@@ -2,10 +2,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getAssetPath } from 'utilities';
-import logo from '../../assets/logos/png/horizontal_color.png';
 
-const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white.png');
-const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_white_thin.png');
+const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white-sm.png');
+const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_white_thin-sm.png');
 
 const version = process.env.VERSION;
 

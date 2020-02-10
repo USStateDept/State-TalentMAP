@@ -1,15 +1,19 @@
-import { findIndex, get, isEqual, last } from 'lodash';
+import { findIndex, findLastIndex, get, isEqual, last, startsWith } from 'lodash';
 
 // map paths to readable link text
 export function mapRoutesToNames(route) {
   const preText = 'Back to';
+  // Special cases
+  if (startsWith(route, '/details') || startsWith(route, '/vacancy')) {
+    return `${preText} Position Details`;
+  }
+  if (startsWith(route, '/results')) {
+    return `${preText} Search Results`;
+  }
+  // Use switch for others
   switch (route) {
-    case '/results':
-      return `${preText} Search Results`;
     case '/':
       return `${preText} Home Page`;
-    case '/details':
-      return `${preText} Position Details`;
     case '/profile':
       return `${preText} Profile`;
     case '/profile/dashboard':
@@ -28,7 +32,7 @@ export function mapRoutesToNames(route) {
 // routerLocations is the array of history objects, created by the routerLocations reducer
 // location is the current location object, created by withRouter
 // ignoreCurrentPath determines whether subsequent history pushes to the same path should be ignored
-export function getLastRoute(routerLocations, location = {}, ignoreCurrentPath = false) {
+export function getLastRoute(routerLocations = [], location = {}, ignoreCurrentPath = false) {
   // no history, return false
   if (!routerLocations || routerLocations.length <= 1) {
     return false;
@@ -39,7 +43,7 @@ export function getLastRoute(routerLocations, location = {}, ignoreCurrentPath =
   const currentRoute = location;
 
   // set up routerLocations$ to be used by ignoreCurrentPath branch if needed
-  let routerLocations$ = routerLocations;
+  let routerLocations$ = [...routerLocations];
 
   // Ignore any history that matches the current route
   // This is good for the Compare page, where new history is written, but the user
@@ -58,7 +62,7 @@ export function getLastRoute(routerLocations, location = {}, ignoreCurrentPath =
   // The key prop is unique to an explicit navigation to a page.
   // In other words, navigating to a single page via 'Link's will return a new key,
   // but using back/forward won't affect the key
-  const lastVisitedIndex = routerLocations$.indexOf(currentRoute);
+  const lastVisitedIndex = findLastIndex(routerLocations$, f => f.key === currentRoute.key);
   const previousRoute = routerLocations$[lastVisitedIndex - 1];
   // was there a previous route within this session?
   if (previousRoute && previousRoute.pathname) {

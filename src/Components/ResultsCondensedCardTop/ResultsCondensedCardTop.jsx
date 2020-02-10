@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { Flag } from 'flag';
 import { Link } from 'react-router-dom';
 import { Featured, Handshake } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
@@ -61,12 +60,9 @@ const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvail
           </span></span>
         </div>
         <div className="ribbon-container">
-          <Flag
-            name="flags.available_positions"
-            render={() => (
-              hasHandshake && <Handshake className="ribbon-condensed-card" />
-            )}
-          />
+          {
+            hasHandshake && <Handshake className="ribbon-condensed-card" />
+          }
           {
             get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
           }
