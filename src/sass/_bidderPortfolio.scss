@@ -297,6 +297,10 @@
   overflow-x: auto;
 }
 
+.client-badge-list::-webkit-scrollbar {
+  display: none;
+}
+
 .client-badge-container {
   flex: 1;
   text-align: center;

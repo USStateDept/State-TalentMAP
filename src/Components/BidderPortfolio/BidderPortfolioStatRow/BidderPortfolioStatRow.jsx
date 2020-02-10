@@ -40,10 +40,21 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
               <h4>Bidder Classifications</h4>
               <ClientBadgeList
                 statuses={{
-                  handshake: 1,
-                  sixeight: 0,
-                  fairshare: 1,
-                  retirement: 2,
+                  thirdtour: 'true',
+                  tenured: 'false',
+                  sixeight: 'true',
+                  ambassador: 'false',
+                  criticallanguage: 'true',
+                  criticallanguageone: 'false',
+                  criticallanguagefinal: 'true',
+                  differential: 'false',
+                  fairshare: 'true',
+                  pickering: 'false',
+                  rangel: 'true',
+                  meritorious: 'false',
+                  fellow: 'true',
+                  tenure: 'false',
+                  tandem: 'true',
                 }}
               />
             </StaticDevContent>

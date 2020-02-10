@@ -6,7 +6,7 @@ const icons = {
   thirdtour: {
     isIcon: true,
     name: 'bath',
-    text: '3rd Tour Bidders',
+    text: '3rd Tour',
   },
   tenured: {
     isIcon: true,
@@ -25,7 +25,7 @@ const icons = {
   ambassador: {
     isIcon: true,
     name: 'ship',
-    text: 'Ambassador or Deputy Assistant Secretary',
+    text: 'Ambassador / Deputy Assistant Secretary',
   },
   criticallanguage: {
     isIcon: true,
@@ -35,22 +35,22 @@ const icons = {
   criticallanguageone: {
     isIcon: true,
     name: 'language',
-    text: 'Critical Need Language 1st Tour Complete',
+    text: 'Critical Need Language 1st Tour',
   },
   criticallanguagefinal: {
     isIcon: true,
     name: 'language',
-    text: 'Critical Need Language Final Tour Complete',
+    text: 'Critical Need Language Final Tour',
   },
   differential: {
     isIcon: true,
     name: 'percent',
-    text: 'Differential Bidder',
+    text: 'Differential',
   },
   fairshare: {
     isIcon: true,
     name: 'balance-scale',
-    text: 'Fair Share Bidders',
+    text: 'Fair Share',
   },
   pickering: {
     isIcon: true,
@@ -75,7 +75,7 @@ const icons = {
   tandem: {
     isIcon: true,
     name: 'users',
-    text: 'Tandem Bidder',
+    text: 'Tandem',
   },
 };
 
