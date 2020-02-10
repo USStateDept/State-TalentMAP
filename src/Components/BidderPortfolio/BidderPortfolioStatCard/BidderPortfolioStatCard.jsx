@@ -7,13 +7,13 @@ import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
 import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
 import ClientBadgeList from '../ClientBadgeList';
-import StaticDevContent from '../../StaticDevContent';
 import SearchAsClientButton from '../SearchAsClientButton';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatCard = ({ userProfile }) => {
   const currentAssignmentText = get(userProfile, 'pos_location_code');
+  const classifications = get(userProfile, 'classifications');
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
@@ -36,16 +36,7 @@ const BidderPortfolioStatCard = ({ userProfile }) => {
       <div className="bidder-portfolio-stat-card-bottom">
         <div>
           <span className="updates">Bidder classifications</span>
-          <StaticDevContent>
-            <ClientBadgeList
-              statuses={{
-                handshake: 1,
-                sixeight: 0,
-                fairshare: 1,
-                retirement: 2,
-              }}
-            />
-          </StaticDevContent>
+          <ClientBadgeList statuses={classifications} />
         </div>
         {useCDOBidding() &&
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>

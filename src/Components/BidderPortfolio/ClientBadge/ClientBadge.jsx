@@ -126,6 +126,27 @@ ClientBadge.propTypes = {
   status: PropTypes.oneOf([0, 1, 2]),
 };
 
+// ClientBadge.propTypes = {
+//   type: PropTypes.oneOf([
+//     'thirdtour',
+//     'tenured',
+//     'sixeight',
+//     'ambassador',
+//     'criticallanguage',
+//     'criticallanguageone',
+//     'criticallanguagefinal',
+//     'differential',
+//     'fairshare',
+//     'pickering',
+//     'rangel',
+//     'meritorious',
+//     'fellow',
+//     'tenure',
+//     'tandem',
+//   ]).isRequired,
+//   status: PropTypes.oneOf([0, 1, 2]),
+// };
+
 ClientBadge.defaultProps = {
   status: 0,
 };
