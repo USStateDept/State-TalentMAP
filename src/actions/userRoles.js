@@ -3,21 +3,6 @@
 // import { get } from 'lodash';
 import api from '../api';
 
-// export const getTitle = (string = '', isUnique =
-// false) => `${isUnique ? 'Unique' : 'Total'} logins in the past ${string}`;
-export function fetchPermissions(id) {
-  const url = `permission/user/${id}/`;
-  // eslint-disable-next-line no-console
-  console.log('url: ', url);
-  return (
-      api().get(url)
-          .then(({ data }) => data)
-          .then(client => client)
-          .catch(error => error)
-  );
-}
-
-
 export function usersHasErrored(bool) {
   return {
     type: 'USERS_HAS_ERRORED',
@@ -44,15 +29,36 @@ export function usersSuccess(results) {
   };
 }
 
-/* export const fetchUsers = () => {
-  const url = 'permission/user/all/';
-  return (
-      api().get(url)
-          .then(({ data }) => data)
-          .then(client => client)
-          .catch(error => error)
-  );
-}; */
+export function modifyPermissionHasErrored(bool) {
+  // eslint-disable-next-line no-console
+  console.log('in modifyPermissionHasErrored');
+  return {
+    type: 'MODIFY_PERMISSION_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function modifyPermissionIsLoading(bool) {
+  // eslint-disable-next-line no-console
+  console.log('in modifyPermissionIsLoading');
+  return {
+    type: 'MODIFY_PERMISSION_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function modifyPermissionSuccess(results) {
+  // eslint-disable-next-line no-console
+  console.log('in modifyPermissionSuccess');
+  // eslint-disable-next-line no-console
+  console.log(results);
+  // results.groups is where the permissions we want to check are.
+  return {
+    type: 'MODIFY_PERMISSION_SUCCESS',
+    results,
+  };
+}
+
 
 export function getUsers() {
   return (dispatch) => {
@@ -62,13 +68,41 @@ export function getUsers() {
     // fetchUsers() old call to API placed in ()
     api().get('permission/user/all/')
         .then((results) => {
+          console.log('in then');
           dispatch(usersSuccess(results.data.results));
           dispatch(usersIsLoading(false));
           dispatch(usersHasErrored(false));
         })
         .catch(() => {
+          console.log('in then');
           dispatch(usersIsLoading(false));
           dispatch(usersHasErrored(true));
+        });
+  };
+}
+
+export function modifyPermission(addPermission, userID, groupID) {
+  // eslint-disable-next-line no-console
+  console.log('--modifyPermission in userRoles.js--');
+
+  const apiURL = `permission/group/${groupID}/user/${userID}/`;
+
+  // eslint-disable-next-line no-console
+  console.log(apiURL);
+
+  return (dispatch) => {
+    dispatch(modifyPermissionIsLoading(true));
+    dispatch(modifyPermissionHasErrored(false));
+
+    api().put(apiURL)
+        .then((results) => {
+          dispatch(modifyPermissionSuccess(results));
+          dispatch(modifyPermissionIsLoading(false));
+          dispatch(modifyPermissionHasErrored(false));
+        })
+        .catch(() => {
+          dispatch(modifyPermissionIsLoading(false));
+          dispatch(modifyPermissionHasErrored(true));
         });
   };
 }

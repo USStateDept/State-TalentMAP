@@ -48,12 +48,6 @@ class Stats extends Component {
         </div>
         {
           statsSuccess &&
-          <div>
-            hello there im in stats
-          </div>
-        }
-        {
-          statsSuccess &&
           <div className="usa-grid-full bid-stat-card-list">
             <div className="usa-grid-full">
               <h3>Total Logins</h3>

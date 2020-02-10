@@ -351,6 +351,9 @@
     }
     .delegateRoleCell{
       cursor: pointer;
+      label {
+        margin-top: 0;
+      }
     }
   }
 

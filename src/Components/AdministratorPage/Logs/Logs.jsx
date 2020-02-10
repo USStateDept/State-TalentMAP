@@ -64,15 +64,6 @@ class LogsPage extends Component {
         className={`usa-grid-full profile-content-inner-container administrator-page
         ${(logsListIsLoading) ? 'results-loading' : ''}`}
       >
-        {console.log(logsList)}
-        {
-          !logsListIsLoading && !logsListHasErrored &&
-          <div>
-            For dev
-            logsList[0]: {logsList[0].toString()}
-            logsLen: {logsLen.toString()}
-          </div>
-        }
         {
           logsListIsLoading && !logsListHasErrored &&
             <Spinner type="homepage-position-results" size="big" />

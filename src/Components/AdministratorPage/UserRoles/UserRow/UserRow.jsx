@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import FA from 'react-fontawesome';
 import { userHasPermissions } from '../../../../utilities';
 import DELEGATE_ROLES from '../../../../Constants/DelegateRoles';
+import CheckBox from '../../../CheckBox';
 import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
+import { modifyPermission } from '../../../../actions/userRoles';
 
 class UserRow extends Component {
   constructor(props) {
     super(props);
-    this.updatePermission = this.updatePermission.bind(this);
+    this.state = {
+      permAddRemoveSuccess: false,
+      // isSelected: { value: 'Bonjour' },
+    };
+    // this.updatePermission = this.updatePermission.bind(this);
     // this.checkPermission = this.checkPermission.bind(this);
   }
 
@@ -21,27 +26,35 @@ class UserRow extends Component {
     return hasPermission;
   }
 
-  updatePermission(addPerm) {
-    // for now i just want to capture the click event. later connect to action that will
-    // update user permissions via endpoint
-    console.log(addPerm);
-    console.log(this.props.permissionGroups);
+  updatePermission(addRole, groupID) {
+    console.log('--updatePermission--');
+    console.log(addRole, groupID);
+    console.log(this.props.userID);
+    modifyPermission(addRole, groupID, this.props.userID)
+        .then(() => {
+          this.setState({ permAddRemoveSuccess: true });
+          console.log(this.checkPermission(groupID));
+        })
+        .catch(() => {
+          this.setState({ permAddRemoveSuccess: false });
+        });
   }
 
   render() {
     const {
-                username, name,
+                username, name, userID,
             } = this.props;
 
     return (
       <tr>
         <td>{username}</td>
         <td>{name}</td>
-        {DELEGATE_ROLES.map(role => (
-          <td key={role} className={'delegateRoleCell'}>
-            <FA
-              onClick={this.updatePermission(role)}
-              name={this.checkPermission([role]) ? 'check-square-o' : 'square-o'}
+        {Object.keys(DELEGATE_ROLES).map(role => (
+          <td key={DELEGATE_ROLES[role].group_id} className="delegateRoleCell">
+            <CheckBox
+              id={`${userID}-${DELEGATE_ROLES[role].group_name}`}
+              value={this.checkPermission([DELEGATE_ROLES[role].group_name])}
+              onCheckBoxClick={e => this.updatePermission(e, DELEGATE_ROLES[role].group_id)}
             />
           </td>
         ))}
@@ -52,14 +65,15 @@ class UserRow extends Component {
 
 UserRow.propTypes = {
   username: PropTypes.string,
+  userID: PropTypes.number.isRequired,
   name: PropTypes.string,
-  permissionGroups: PropTypes.arrayOf(PropTypes.string),
+  permissionGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  // isSelected: this.state.isSelected,
 };
 
 UserRow.defaultProps = {
   username: '',
   name: '',
-  permissionGroups: [],
   onClick: EMPTY_FUNCTION,
   isSelected: false,
 };

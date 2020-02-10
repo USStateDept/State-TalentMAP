@@ -57,17 +57,18 @@ class UserRoles extends Component {
               <table className={'delegateRole--table'}>
                 <thead>
                   <tr>
-                    <th>User Name</th>
+                    <th>userName</th>
                     <th>Last, First</th>
-                    {DELEGATE_ROLES.map(role => (
-                      <th key={role}>{role}</th>
-                    ))}
+                    {Object.keys(DELEGATE_ROLES).map(m => (
+                      <th key={DELEGATE_ROLES[m].group_id}>{DELEGATE_ROLES[m].title}</th>
+                      ),
+                    )}
                   </tr>
                 </thead>
                 <tbody>
                   {paginate(usersList, range, page).map(m => (
                     <UserRow
-                      key={m.id}
+                      userID={m.id}
                       username={m.username}
                       name={`${m.last_name}, ${m.first_name}`}
                       permissionGroups={m.groups}

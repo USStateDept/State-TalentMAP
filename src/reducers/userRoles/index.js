@@ -1,7 +1,10 @@
-import { usersHasErrored, usersIsLoading, usersSuccess } from './userRoles';
+import { usersHasErrored, usersIsLoading, usersSuccess, modifyPermissionHasErrored, modifyPermissionIsLoading, modifyPermissionSuccess } from './userRoles';
 
 export default {
   usersHasErrored,
   usersIsLoading,
   usersSuccess,
+  modifyPermissionHasErrored,
+  modifyPermissionIsLoading,
+  modifyPermissionSuccess,
 };
