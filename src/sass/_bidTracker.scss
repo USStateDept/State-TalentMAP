@@ -5,6 +5,14 @@ $draft-icon-offset: 120px;
 .bid-tracker-page {
   position: relative;
 
+  .searches-top-section {
+    margin-bottom: 1.2em;
+  }
+
+  .results-dropdown-sort {
+    float: right;
+  }
+
   .search-as-client-button {
     float: right;
   }
@@ -36,6 +44,7 @@ $draft-icon-offset: 120px;
 
   .bid-tracker-cdo-button {
     font-weight: normal;
+    margin-right: 0;
     margin-top: 0;
 
     .fa {
