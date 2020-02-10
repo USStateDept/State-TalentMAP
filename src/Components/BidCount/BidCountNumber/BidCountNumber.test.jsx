@@ -4,7 +4,7 @@ import toJSON from 'enzyme-to-json';
 import BidCountNumber from './BidCountNumber';
 
 describe('BidCountNumberComponent', () => {
-  ['totalBids', 'inGradeBids', 'atSkillBids', 'inGradeAtSkillBids'].forEach((type) => {
+  ['totalBids', 'atGradeBids', 'inSkillBids', 'atGradeInSkillBids'].forEach((type) => {
     it(`is defined where type = ${type}`, () => {
       const wrapper = shallow(
         <BidCountNumber type={type} number={10} />,
