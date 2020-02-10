@@ -9,7 +9,7 @@ exports[`HomePageBanner Component matches snapshot 1`] = `
   >
     <img
       alt="TalentMAP logo"
-      src="/assets/logos/png/horizontal_color_thin.png"
+      src="/assets/logos/png/horizontal_color_thin-sm.png"
     />
     <div>
       

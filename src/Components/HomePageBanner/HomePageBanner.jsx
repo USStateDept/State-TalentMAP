@@ -9,7 +9,7 @@ import LinkButton from '../LinkButton';
 import { positionCountFetchData } from '../../actions/positionCount';
 import { getAssetPath } from '../../utilities';
 
-const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
+const logo = getAssetPath('/assets/logos/png/horizontal_color_thin-sm.png');
 
 export const formatNum = n => numeral(n).format('0,0');
 
