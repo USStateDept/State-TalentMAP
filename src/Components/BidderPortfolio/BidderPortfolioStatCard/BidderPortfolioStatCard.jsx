@@ -13,7 +13,7 @@ const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatCard = ({ userProfile }) => {
   const currentAssignmentText = get(userProfile, 'pos_location_code');
-  const classifications = get(userProfile, 'classifications');
+  // const classifications = get(userProfile, 'classifications');
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
@@ -36,7 +36,25 @@ const BidderPortfolioStatCard = ({ userProfile }) => {
       <div className="bidder-portfolio-stat-card-bottom">
         <div>
           <span className="updates">Bidder classifications</span>
-          <ClientBadgeList statuses={classifications} />
+          <ClientBadgeList
+            statuses={{
+              thirdtour: 'true',
+              tenured: 'false',
+              sixeight: 'true',
+              ambassador: 'false',
+              criticallanguage: 'true',
+              criticallanguageone: 'false',
+              criticallanguagefinal: 'true',
+              differential: 'false',
+              fairshare: 'true',
+              pickering: 'false',
+              rangel: 'true',
+              meritorious: 'false',
+              fellow: 'true',
+              tenure: 'false',
+              tandem: 'true',
+            }}
+          />
         </div>
         {useCDOBidding() &&
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>

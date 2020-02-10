@@ -294,6 +294,7 @@
 .client-badge-list {
   display: flex;
   margin: 0;
+  overflow-x: auto;
 }
 
 .client-badge-container {

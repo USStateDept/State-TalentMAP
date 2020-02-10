@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 const icons = {
   thirdtour: {
     isIcon: true,
-    name: 'chess-pawn',
+    name: 'bath',
     text: '3rd Tour Bidders',
   },
   tenured: {
@@ -13,13 +13,18 @@ const icons = {
     name: 'anchor',
     text: 'Tenured',
   },
+  tenure: {
+    isIcon: true,
+    name: 'life-ring',
+    text: 'Recommended for Tenure',
+  },
   sixeight: {
     name: '6/8',
     text: '6/8 Rule',
   },
   ambassador: {
     isIcon: true,
-    name: 'chess-queen',
+    name: 'ship',
     text: 'Ambassador or Deputy Assistant Secretary',
   },
   criticallanguage: {
@@ -49,42 +54,38 @@ const icons = {
   },
   pickering: {
     isIcon: true,
-    name: 'user-graduate',
+    name: 'graduation-cap',
     text: 'Pickering Fellows',
   },
   rangel: {
     isIcon: true,
-    name: 'user-graduate',
+    name: 'graduation-cap',
     text: 'Rangel Fellows',
   },
   meritorious: {
     isIcon: true,
-    name: 'medal',
+    name: 'trophy',
     text: 'Meritorious Step Increases',
   },
   fellow: {
     isIcon: true,
-    name: 'user-graduate',
+    name: 'graduation-cap',
     text: 'Pickering/Rangel Fellows',
-  },
-  tenure: {
-    isIcon: true,
-    name: 'water',
-    text: 'Recommended for Tenure',
   },
   tandem: {
     isIcon: true,
-    name: 'user-friends',
+    name: 'users',
     text: 'Tandem Bidder',
   },
 };
 
-const status$ = ['none', 'warning', 'success'];
+const status$ = ['none', 'success'];
 
 const ClientBadge = ({ type, status }) => {
+  const isHighlighted = (status === 'true') ? 'success' : 'none';
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
   return (
-    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${status$[status]}`}>
+    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
       <div className="client-badge">
         {
           icons[type].isIcon ?
