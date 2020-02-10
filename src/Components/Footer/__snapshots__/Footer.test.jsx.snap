@@ -80,7 +80,7 @@ exports[`Footer Component matches snapshot 1`] = `
           <img
             alt="Bureau of Human Resources logo"
             className="usa-footer-logo-img logo-img-hr"
-            src="/assets/logos/png/hr-logo-white.png"
+            src="/assets/logos/png/hr-logo-white-sm.png"
           />
         </div>
         <div
@@ -89,7 +89,7 @@ exports[`Footer Component matches snapshot 1`] = `
           <img
             alt="TalentMAP logo"
             className="usa-footer-logo-img-tm logo-img-tm"
-            src="/assets/logos/png/horizontal_white_thin.png"
+            src="/assets/logos/png/horizontal_white_thin-sm.png"
           />
         </div>
       </div>
