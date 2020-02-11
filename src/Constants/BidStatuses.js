@@ -31,6 +31,19 @@ const statusArray = [
   HAND_SHAKE_OFFERED, IN_PANEL, SUBMITTED, HAND_SHAKE_DECLINED,
 ];
 
+export const BID_STATUS_ORDER = {
+  [DECLINED_PROP]: 1,
+  [CLOSED_PROP]: 2,
+  [HAND_SHAKE_DECLINED_PROP]: 3,
+  [DRAFT_PROP]: 4,
+  [SUBMITTED_PROP]: 5,
+  [HAND_SHAKE_OFFERED_PROP]: 6,
+  [HAND_SHAKE_ACCEPTED_PROP]: 7,
+  [PRE_PANEL_PROP]: 8,
+  [IN_PANEL_PROP]: 9,
+  [APPROVED_PROP]: 10,
+};
+
 // find the correct object based on status, then return the class_name
 export const getStatusProperty = (statusName, property = 'class_name') => {
   const matchingStatus = statusArray.find(s => s.property === statusName);
