@@ -58,7 +58,7 @@ export const BID_PORTFOLIO_SORTS = {
     { value: '', text: 'Default sorting' },
     { value: 'grade', text: 'Grade' },
     { value: 'skill', text: 'Skill' },
-    { value: 'grade_skill', text: 'Grade & Skill' },
+    { value: 'grade,skill', text: 'Grade & Skill' },
   ],
 };
 
