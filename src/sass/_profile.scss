@@ -116,8 +116,17 @@
   .saved-searches-container {
     position: relative;
 
+    .export-button-container > button {
+      margin-top: 0;
+    }
+
     .favorites-top-section {
       margin-bottom: 1.2em;
+
+      &.favorites-top-section--controls {
+        display: flex;
+        justify-content: flex-end;
+      }
     }
 
     .condensed-card {

@@ -41,7 +41,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
     selected="all"
   />
   <div
-    className="usa-grid-full favorites-top-section"
+    className="usa-grid-full favorites-top-section favorites-top-section--controls"
   >
     <div
       className="results-dropdown results-dropdown-sort"
@@ -101,6 +101,17 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           ]
         }
         transformValue={[Function]}
+      />
+    </div>
+    <div
+      className="export-button-container"
+    >
+      <ExportButton
+        className=""
+        isLoading={false}
+        onClick={[Function]}
+        primaryClass="usa-button-secondary"
+        text="Export"
       />
     </div>
   </div>
