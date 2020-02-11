@@ -88,6 +88,43 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
     </div>
   </div>
   <div
+    className="usa-grid-full searches-top-section"
+  >
+    <div
+      className="results-dropdown results-dropdown-sort"
+    >
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort="status"
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="sort"
+        includeFirstEmptyOption={false}
+        label="Sort by:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "defaultSort": true,
+              "text": "Bid Status",
+              "value": "status",
+            },
+            Object {
+              "text": "Recently updated",
+              "value": "update_date",
+            },
+            Object {
+              "text": "City name (A-Z)",
+              "value": "position.post.location.city",
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
+    </div>
+  </div>
+  <div
     className="bid-tracker-content-container"
   >
     <div
@@ -158,19 +195,19 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
               "handshake_accepted_date": "2017-12-20",
               "handshake_declined_date": "2017-12-20",
               "handshake_offered_date": "2017-12-20",
-              "id": 1,
+              "id": 2,
               "in_panel_date": "2017-12-20",
-              "is_priority": true,
+              "is_priority": false,
               "position": Object {
-                "id": 1,
+                "id": 79,
                 "position": Object {
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
-                  "grade": "05",
-                  "id": 1,
-                  "position_number": "00003026",
+                  "grade": "04",
+                  "id": 84,
+                  "position_number": "56001600",
                   "post": Object {
-                    "id": 235,
+                    "id": 195,
                     "location": Object {
                       "city": "Freetown",
                       "code": "00A",
@@ -179,8 +216,8 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
                       "state": "",
                     },
                   },
-                  "skill": "OFFICE MANAGEMENT (9017)",
-                  "title": "OMS (COM)",
+                  "skill": "SECURITY (2501)",
+                  "title": "SPECIAL AGENT",
                   "update_date": "2017-06-08",
                 },
               },
@@ -210,19 +247,19 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
               "handshake_accepted_date": "2017-12-20",
               "handshake_declined_date": "2017-12-20",
               "handshake_offered_date": "2017-12-20",
-              "id": 2,
+              "id": 1,
               "in_panel_date": "2017-12-20",
-              "is_priority": false,
+              "is_priority": true,
               "position": Object {
-                "id": 79,
+                "id": 1,
                 "position": Object {
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
-                  "grade": "04",
-                  "id": 84,
-                  "position_number": "56001600",
+                  "grade": "05",
+                  "id": 1,
+                  "position_number": "00003026",
                   "post": Object {
-                    "id": 195,
+                    "id": 235,
                     "location": Object {
                       "city": "Freetown",
                       "code": "00A",
@@ -231,8 +268,8 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
                       "state": "",
                     },
                   },
-                  "skill": "SECURITY (2501)",
-                  "title": "SPECIAL AGENT",
+                  "skill": "OFFICE MANAGEMENT (9017)",
+                  "title": "OMS (COM)",
                   "update_date": "2017-06-08",
                 },
               },
@@ -408,6 +445,43 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
           email="shadtrachl@state.gov"
         />
       </div>
+    </div>
+  </div>
+  <div
+    className="usa-grid-full searches-top-section"
+  >
+    <div
+      className="results-dropdown results-dropdown-sort"
+    >
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort="status"
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="sort"
+        includeFirstEmptyOption={false}
+        label="Sort by:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "defaultSort": true,
+              "text": "Bid Status",
+              "value": "status",
+            },
+            Object {
+              "text": "Recently updated",
+              "value": "update_date",
+            },
+            Object {
+              "text": "City name (A-Z)",
+              "value": "position.post.location.city",
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
     </div>
   </div>
   <div
