@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ExportButton from 'Components/ExportButton';
+import { downloadPositionData } from 'actions/favoritePositions';
 import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
@@ -19,8 +21,10 @@ const TYPE_ALL = 'all';
 class FavoritePositions extends Component {
   constructor(props) {
     super(props);
+    this.export = this.export.bind(this);
     this.state = {
       selected: TYPE_ALL,
+      isLoading: false,
     };
   }
   getPositions() {
@@ -35,8 +39,25 @@ class FavoritePositions extends Component {
         return [...favorites, ...favoritesPV];
     }
   }
-  render() {
+  export() {
     const { selected } = this.state;
+    const args = [
+      !!(selected === TYPE_PV),
+      !!(selected === TYPE_OPEN),
+    ];
+
+    this.setState({ isLoading: true }, () => {
+      downloadPositionData(...args)
+      .then(() => {
+        this.setState({ isLoading: false });
+      })
+      .catch(() => {
+        this.setState({ isLoading: false });
+      });
+    });
+  }
+  render() {
+    const { isLoading, selected } = this.state;
     const { favorites, favoritesPV, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList, onSortChange } = this.props;
     const positions = this.getPositions();
@@ -66,7 +87,7 @@ class FavoritePositions extends Component {
           selected={this.state.selected}
           denominator={favorites.length + favoritesPV.length}
         />
-        <div className="usa-grid-full favorites-top-section">
+        <div className="usa-grid-full favorites-top-section favorites-top-section--controls">
           <div className="results-dropdown results-dropdown-sort">
             <SelectForm
               id="sort"
@@ -75,6 +96,9 @@ class FavoritePositions extends Component {
               options={selectOptions$}
               disabled={favoritePositionsIsLoading}
             />
+          </div>
+          <div className="export-button-container">
+            <ExportButton onClick={this.export} isLoading={isLoading} />
           </div>
         </div>
         {
