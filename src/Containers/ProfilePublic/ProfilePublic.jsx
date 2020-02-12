@@ -5,8 +5,8 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { get } from 'lodash';
 import ProfileDashboard from 'Components/ProfileDashboard';
-import { fetchBidderClassifications } from 'Actions/bidderClassifications';
-import { userProfilePublicFetchData } from 'Actions/userProfilePublic';
+import { fetchBidderClassifications } from 'actions/bidderClassifications';
+import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 
