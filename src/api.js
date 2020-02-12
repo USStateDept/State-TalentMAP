@@ -1,11 +1,16 @@
 import axios from 'axios';
+import { setupCache } from 'axios-cache-adapter';
+import localforage from 'localforage';
 import memoize from 'memoize-one';
 import { get, throttle } from 'lodash';
 import Enum from 'enum';
 import { setUserEmpId } from 'actions/userProfile';
 import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from 'utilities';
 import { checkFlag } from 'flags';
+import { staticFilters } from './reducers/filters/filters';
 import { logoutRequest } from './login/actions';
+
+const version = process.env.VERSION;
 
 // Headers that can be set to denote a certain interceptor to be performed
 export const INTERCEPTORS = new Enum({ PUT_PERDET: 'AXIOS_ONLY_PUT_PERDET' });
@@ -22,9 +27,61 @@ const debouncedLogout = throttle(
   { leading: true, trailing: false },
 );
 
+// Request paths that we want cached. In case they fail, an older response can be used.
+const pathsToCache = [
+  ...staticFilters.filters.filter(f => f.item.tryCache).map(m => m.item.endpoint)
+    .filter(f => f),
+  // could add other paths here...
+];
+
+// Create localforage instance
+const localforageStore = localforage.createInstance({
+  // List of drivers used. Use IndexedDB.
+  driver: [
+    localforage.INDEXEDDB,
+  ],
+  // Prefix all storage keys to prevent conflicts.
+  // Base this on the app version to prevent data structure conflicts.
+  name: `talentmap-api-cache-${version}`,
+});
+
+// Create `axios-cache-adapter` instance
+const cache = setupCache({
+  maxAge: 1,
+  store: localforageStore,
+  readOnError: (error) => {
+    const err = get(error, 'response.status');
+    if (err === 401) { // ingore 401s (unauthenticated)
+      return false;
+    }
+    return true;
+  },
+  // Deactivate `clearOnStale` option so that we can actually read stale cache data
+  clearOnStale: false,
+  // {Boolean} Clear all cache when a cache write error occurs
+  // (prevents size quota problems in `localStorage`).
+  clearOnError: true,
+  exclude: {
+    // {Boolean} Exclude requests with query parameters.
+    query: false,
+    // {Function} Method which returns a `Boolean` to determine if request
+    // should be excluded from cache.
+    filter: (r) => {
+      const paths$ = pathsToCache || [];
+      const url = get(r, 'url');
+      const includesValue = paths$.some(value => url.indexOf(value) !== -1);
+      if (includesValue) {
+        return false;
+      }
+      return true;
+    },
+  },
+});
+
 export const config = () => ({
   // use API_URL by default, but can be overriden from within api_config flag if exists
   baseURL: process.env.API_URL || 'http://localhost:8000/api/v1',
+  adapter: cache.adapter,
   ...(checkFlag('api_config') || {}),
 });
 
