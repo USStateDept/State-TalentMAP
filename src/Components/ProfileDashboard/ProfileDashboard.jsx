@@ -19,7 +19,7 @@ import Assignments from './Assignments';
 import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
-import Updates from './Updates';
+import Classifications from './Classifications';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
@@ -105,7 +105,7 @@ const ProfileDashboard = ({
                       className="user-dashboard-section-container user-dashboard-column-2"
                     >
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Updates />
+                        <Classifications />
                       </BoxShadow>
                     </Column>
                 }

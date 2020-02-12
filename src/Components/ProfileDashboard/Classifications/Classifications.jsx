@@ -4,7 +4,7 @@ import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
 import EditButtons from '../../BidderPortfolio/EditButtons';
 
-class Updates extends Component {
+class Classifications extends Component {
   constructor(props) {
     super(props);
     this.enableEdit = this.enableEdit.bind(this);
@@ -43,4 +43,4 @@ class Updates extends Component {
   }
 }
 
-export default Updates;
+export default Classifications;

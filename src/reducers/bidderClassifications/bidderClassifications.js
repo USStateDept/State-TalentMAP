@@ -16,7 +16,7 @@ export function bidderClassificationsIsLoading(state = false, action) {
   }
 }
 
-export function bidderClassifications(state = {}, action) {
+export function bidderClassifications(state = [], action) {
   switch (action.type) {
     case 'BIDDER_CLASSIFICATIONS_FETCH_DATA_SUCCESS':
       return action.classifications;
