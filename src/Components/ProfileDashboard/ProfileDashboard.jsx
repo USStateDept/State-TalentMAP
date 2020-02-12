@@ -26,7 +26,7 @@ const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
-  submitBidPosition, deleteBid,
+  submitBidPosition, deleteBid, classifications,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading || assignmentIsLoading ||
@@ -105,7 +105,7 @@ const ProfileDashboard = ({
                       className="user-dashboard-section-container user-dashboard-column-2"
                     >
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Classifications />
+                        <Classifications classifications={classifications} />
                       </BoxShadow>
                     </Column>
                 }
@@ -152,6 +152,7 @@ ProfileDashboard.propTypes = {
   isPublic: PropTypes.bool,
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
+  classifications: [],
 };
 
 ProfileDashboard.defaultProps = {
@@ -167,6 +168,7 @@ ProfileDashboard.defaultProps = {
   isPublic: false,
   submitBidPosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
+  classifications: [],
 };
 
 export default ProfileDashboard;

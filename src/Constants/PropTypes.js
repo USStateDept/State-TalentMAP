@@ -561,3 +561,12 @@ export const HIGHLIGHT_POSITION = PropTypes.shape({
 });
 
 export { SetType };
+
+export const CLASSIFICATION = PropTypes.shape({
+  id: PropTypes.string,
+  show: PropTypes.string,
+  text: PropTypes.string,
+});
+
+export const CLASSIFICATIONS = PropTypes.arrayOf(CLASSIFICATION);
+
