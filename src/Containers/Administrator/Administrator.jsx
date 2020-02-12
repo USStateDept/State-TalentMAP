@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AdministratorPage from '../../Components/AdministratorPage';
 import { getLogs, getLogsList, getLog, getLogToDownload } from '../../actions/logs';
-import { getUsers } from '../../actions/userRoles';
+import { getUsers, getTableStats } from '../../actions/userRoles';
 import { syncsFetchData, putAllSyncs, patchSync } from '../../actions/synchronizations';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
@@ -36,6 +36,7 @@ class AdministratorContainer extends Component {
   componentWillMount() {
     this.props.getLogsList();
     this.props.getUsers();
+    this.props.getTableStats();
     this.props.getSyncJobs();
   }
 
@@ -78,9 +79,9 @@ class AdministratorContainer extends Component {
 
   render() {
     const {
-            logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
-            logsList, logsListIsLoading, logsListHasErrored,
-            log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, usersList,
+          logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
+          logsList, logsListIsLoading, logsListHasErrored,
+          log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, usersList,
         } = this.props;
     const props = {
       logs,
@@ -137,6 +138,7 @@ AdministratorContainer.propTypes = {
   patchSyncJob: PropTypes.func,
   patchSyncHasErrored: PropTypes.bool,
   getUsers: PropTypes.func,
+  getTableStats: PropTypes.func,
   usersList: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
@@ -167,6 +169,7 @@ AdministratorContainer.defaultProps = {
   patchSyncJob: EMPTY_FUNCTION,
   patchSyncHasErrored: false,
   getUsers: EMPTY_FUNCTION,
+  getTableStats: EMPTY_FUNCTION,
   usersList: [],
 };
 
@@ -200,6 +203,7 @@ export const mapDispatchToProps = dispatch => ({
   putAllSyncJobs: () => dispatch(putAllSyncs()),
   patchSyncJob: data => dispatch(patchSync(data)),
   getUsers: () => dispatch(getUsers()),
+  getTableStats: () => dispatch(getTableStats()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((AdministratorContainer));

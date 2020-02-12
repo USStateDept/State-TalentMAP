@@ -60,7 +60,7 @@ class UserRoles extends Component {
                     <th>userName</th>
                     <th>Last, First</th>
                     {Object.keys(DELEGATE_ROLES).map(m => (
-                      <th key={DELEGATE_ROLES[m].group_id}>{DELEGATE_ROLES[m].title}</th>
+                      <th key={DELEGATE_ROLES[m].group_name}>{DELEGATE_ROLES[m].title}</th>
                       ),
                     )}
                   </tr>
@@ -68,6 +68,7 @@ class UserRoles extends Component {
                 <tbody>
                   {paginate(usersList, range, page).map(m => (
                     <UserRow
+                      key={m.id}
                       userID={m.id}
                       username={m.username}
                       name={`${m.last_name}, ${m.first_name}`}

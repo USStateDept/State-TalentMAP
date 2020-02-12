@@ -1,4 +1,4 @@
-import { usersHasErrored, usersIsLoading, usersSuccess, modifyPermissionHasErrored, modifyPermissionIsLoading, modifyPermissionSuccess } from './userRoles';
+import { usersHasErrored, usersIsLoading, usersSuccess, modifyPermissionHasErrored, modifyPermissionIsLoading, modifyPermissionSuccess, getTableStatsHasErrored, getTableStatsIsLoading, getTableStatsSuccess } from './userRoles';
 
 export default {
   usersHasErrored,
@@ -7,4 +7,7 @@ export default {
   modifyPermissionHasErrored,
   modifyPermissionIsLoading,
   modifyPermissionSuccess,
+  getTableStatsHasErrored,
+  getTableStatsIsLoading,
+  getTableStatsSuccess,
 };
