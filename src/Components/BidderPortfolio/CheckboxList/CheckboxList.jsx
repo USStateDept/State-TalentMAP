@@ -1,32 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';
-import CLIENT_EDITS from '../../../Constants/ClientEdits';
+import { CLASSIFICATIONS } from '../../../Constants/PropTypes';
 
-const CheckboxList = ({ id, isDisabled }) => (
+const CheckboxList = ({ list }) => (
 
   <div className="client-checkbox-list">
-    {CLIENT_EDITS.map(c => (
+    {list.map(c => (
       <CheckBox
-        id={`${id}-${c.value}`}
+        id={c.id}
         label={c.label}
         small
         value
         key={c.value}
-        disabled={isDisabled}
-        className={isDisabled ? 'tm-checkbox-disabled-alternate' : ''}
+        disabled={c.isDisabled}
+        className={c.isDisabled ? 'tm-checkbox-disabled-alternate' : ''}
       />
     ))}
   </div>
 );
 
 CheckboxList.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  isDisabled: PropTypes.bool,
+  list: CLASSIFICATIONS,
 };
 
 CheckboxList.defaultProps = {
   isDisabled: false,
+  list: [],
 };
 
 export default CheckboxList;
