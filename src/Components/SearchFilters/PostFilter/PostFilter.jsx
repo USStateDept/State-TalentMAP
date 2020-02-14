@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { orderBy } from 'lodash';
+import { getItemLabel, formatIdSpacing, mapDuplicates } from 'utilities';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
-import { getItemLabel, formatIdSpacing, mapDuplicates, propSort } from '../../../utilities';
 
 /* eslint-disable react/no-unused-prop-types */
 class PostFilter extends Component {
@@ -81,10 +82,10 @@ class PostFilter extends Component {
     let domesticPosts = this.getAllDomesticCodes() || [];
     domesticPosts = mapDuplicates(domesticPosts);
 
-    const overseasPosts = this.getAllOverseasCodes();
+    let overseasPosts = this.getAllOverseasCodes();
 
-    (domesticPosts || []).sort(propSort('location', 'city'));
-    (overseasPosts || []).sort(propSort('location', 'city'));
+    domesticPosts = orderBy(domesticPosts || [], 'location.city', 'asc');
+    overseasPosts = orderBy(overseasPosts || [], 'location.city', 'asc');
 
     const postSelectionDisabled = allDomesticSelected || allOverseasSelected;
 
