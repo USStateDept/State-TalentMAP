@@ -84,8 +84,8 @@ class PostFilter extends Component {
 
     let overseasPosts = this.getAllOverseasCodes();
 
-    domesticPosts = orderBy(domesticPosts || [], 'location.city', 'asc');
-    overseasPosts = orderBy(overseasPosts || [], 'location.city', 'asc');
+    domesticPosts = orderBy(domesticPosts || [], 'location.city');
+    overseasPosts = orderBy(overseasPosts || [], 'location.city');
 
     const postSelectionDisabled = allDomesticSelected || allOverseasSelected;
 
