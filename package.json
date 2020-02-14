@@ -1,6 +1,6 @@
 {
   "name": "talentmap",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "@cmsgov/design-system-core": "^1.18.0",
