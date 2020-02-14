@@ -7,7 +7,7 @@ describe('async actions', () => {
   beforeEach(() => {
     const details = { count: 1867 };
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/?limit=1').reply(200,
+    mockAdapter.onGet('/fsbid/available_positions/?limit=1').reply(200,
       details,
     );
   });
@@ -27,7 +27,7 @@ describe('async actions', () => {
   it('can handle errors when fetching a position', (done) => {
     const store = mockStore({});
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/?limit=1').reply(404,
+    mockAdapter.onGet('/fsbid/available_positions/?limit=1').reply(404,
       null,
     );
 

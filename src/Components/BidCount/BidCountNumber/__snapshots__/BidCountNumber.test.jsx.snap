@@ -1,9 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BidCountNumberComponent matches snapshot where type = atSkillBids 1`] = `
+exports[`BidCountNumberComponent matches snapshot where type = atGradeBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="At-skill bids"
 >
   <Tooltip
     animateFill={true}
@@ -38,7 +37,7 @@ exports[`BidCountNumberComponent matches snapshot where type = atSkillBids 1`] =
     style={Object {}}
     tabIndex="0"
     theme="dark"
-    title="Number of bidders who are at Skill."
+    title="Number of bidders who are at-Grade."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
@@ -52,10 +51,9 @@ exports[`BidCountNumberComponent matches snapshot where type = atSkillBids 1`] =
 </li>
 `;
 
-exports[`BidCountNumberComponent matches snapshot where type = inGradeAtSkillBids 1`] = `
+exports[`BidCountNumberComponent matches snapshot where type = atGradeInSkillBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="In-grade and at-skill bids"
 >
   <Tooltip
     animateFill={true}
@@ -90,7 +88,7 @@ exports[`BidCountNumberComponent matches snapshot where type = inGradeAtSkillBid
     style={Object {}}
     tabIndex="0"
     theme="dark"
-    title="Number of bidders who are at Grade and Skill."
+    title="Number of bidders at-Grade and in-Skill."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
@@ -104,10 +102,9 @@ exports[`BidCountNumberComponent matches snapshot where type = inGradeAtSkillBid
 </li>
 `;
 
-exports[`BidCountNumberComponent matches snapshot where type = inGradeBids 1`] = `
+exports[`BidCountNumberComponent matches snapshot where type = inSkillBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="In-grade bids"
 >
   <Tooltip
     animateFill={true}
@@ -142,7 +139,7 @@ exports[`BidCountNumberComponent matches snapshot where type = inGradeBids 1`] =
     style={Object {}}
     tabIndex="0"
     theme="dark"
-    title="Number of bidders who are at Grade."
+    title="Number of bidders in-Skill."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
@@ -159,7 +156,6 @@ exports[`BidCountNumberComponent matches snapshot where type = inGradeBids 1`] =
 exports[`BidCountNumberComponent matches snapshot where type = totalBids 1`] = `
 <li
   className="bid-count-list-item"
-  title="Total bids"
 >
   <Tooltip
     animateFill={true}
@@ -194,7 +190,7 @@ exports[`BidCountNumberComponent matches snapshot where type = totalBids 1`] = `
     style={Object {}}
     tabIndex="0"
     theme="dark"
-    title="Number of bids on this position."
+    title="Total number of bids on this position."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}

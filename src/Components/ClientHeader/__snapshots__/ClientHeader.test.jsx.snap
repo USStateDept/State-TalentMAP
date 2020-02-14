@@ -5,7 +5,7 @@ exports[`ClientHeader matches snapshot 1`] = `
   id="client-header"
 >
   <div
-    className="usa-banner client-header "
+    className="usa-banner client-header  "
   >
     <div
       className="usa-grid usa-banner-inner"
@@ -52,6 +52,78 @@ exports[`ClientHeader matches snapshot 1`] = `
         <SkeletonTheme
           color="#DCE4EF"
           highlightColor="#8BA6CA"
+        >
+          <button
+            className="unstyled-button"
+            onClick={[Function]}
+          >
+            <FontAwesome
+              name="close"
+            />
+            <span>
+              Exit client view
+            </span>
+          </button>
+        </SkeletonTheme>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ClientHeader matches snapshot when proxying as another CDO 1`] = `
+<div
+  id="client-header"
+>
+  <div
+    className="usa-banner client-header client-header--alternate "
+  >
+    <div
+      className="usa-grid usa-banner-inner"
+    >
+      <div
+        className=""
+      >
+        <SkeletonTheme
+          color="#FFF1D2"
+          highlightColor="#FAD980"
+        >
+          <Link
+            replace={false}
+            to="/profile/public/1"
+          >
+            <FontAwesome
+              name="chevron-left"
+            />
+            <span>
+              Client Dashboard
+            </span>
+          </Link>
+        </SkeletonTheme>
+      </div>
+      <div>
+        <SkeletonTheme
+          color="#FFF1D2"
+          highlightColor="#FAD980"
+        >
+          <span>
+            <FontAwesome
+              name="clipboard"
+            />
+            <span
+              id="search-as-name"
+            >
+              Position Search for 
+              Mary
+               (Proxying as Andrew Proxy)
+            </span>
+          </span>
+        </SkeletonTheme>
+      </div>
+      <div>
+        <SkeletonTheme
+          color="#FFF1D2"
+          highlightColor="#FAD980"
         >
           <button
             className="unstyled-button"

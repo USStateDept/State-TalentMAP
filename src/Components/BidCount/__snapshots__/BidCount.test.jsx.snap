@@ -8,7 +8,7 @@ exports[`BidCountComponent matches snapshot 1`] = `
     className="bid-count-label"
     id="bid-counts"
   >
-    Bid count:
+    Bid Count:
   </div>
   <ul
     aria-labelledby="bid-counts"
@@ -20,15 +20,15 @@ exports[`BidCountComponent matches snapshot 1`] = `
     />
     <BidCountNumber
       number={5}
-      type="inGradeBids"
+      type="atGradeBids"
     />
     <BidCountNumber
       number={5}
-      type="atSkillBids"
+      type="inSkillBids"
     />
     <BidCountNumber
       number={5}
-      type="inGradeAtSkillBids"
+      type="atGradeInSkillBids"
     />
   </ul>
 </div>
@@ -42,7 +42,7 @@ exports[`BidCountComponent matches snapshot when hideLabel is true 1`] = `
     className="bid-count-label usa-sr-only"
     id="bid-counts"
   >
-    Bid count:
+    Bid Count:
   </div>
   <ul
     aria-labelledby="bid-counts"
@@ -54,15 +54,15 @@ exports[`BidCountComponent matches snapshot when hideLabel is true 1`] = `
     />
     <BidCountNumber
       number={5}
-      type="inGradeBids"
+      type="atGradeBids"
     />
     <BidCountNumber
       number={5}
-      type="atSkillBids"
+      type="inSkillBids"
     />
     <BidCountNumber
       number={5}
-      type="inGradeAtSkillBids"
+      type="atGradeInSkillBids"
     />
   </ul>
 </div>

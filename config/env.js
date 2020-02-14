@@ -57,6 +57,7 @@ const REACT_APP = /^REACT_APP_/i;
 const ENV = NODE_ENV || 'development';
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
 const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
+const VERSION = require('../package.json').version;
 
 function getClientEnvironment(publicUrl) {
   const initial = {
@@ -69,6 +70,7 @@ function getClientEnvironment(publicUrl) {
     // images into the `src` and `import` them in code to get their paths.
     PUBLIC_URL: publicUrl,
     API_URL,
+    VERSION,
   };
 
   const raw = Object.keys(process.env)

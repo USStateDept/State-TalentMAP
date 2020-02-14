@@ -65,7 +65,7 @@ class About extends Component {
                         data={data}
                       /> :
                       <div>
-                        <ReactMarkdown source={data} />
+                        <ReactMarkdown source={data} linkTarget="_blank" />
                         <a type="submit" role="button" href="mailto:TalentMAP@State.gov" className="tm-button-feedback">Email TalentMAP</a>
                       </div>
                     }

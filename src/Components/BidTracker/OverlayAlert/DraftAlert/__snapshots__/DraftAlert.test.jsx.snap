@@ -59,6 +59,16 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         Freetown, Sierra Leone
       </div>
       <div>
+        <Connect(StaticDevContent)>
+          <span
+            className="title"
+          >
+            TED: 
+          </span>
+          07/02/2020
+        </Connect(StaticDevContent)>
+      </div>
+      <div>
         <span
           className="title"
         >

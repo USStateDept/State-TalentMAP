@@ -39,6 +39,7 @@ exports[`Content matches snapshot 1`] = `
   </p>
   <Alert
     isAriaLive={false}
+    isDivided={false}
     messages={
       Array [
         Object {

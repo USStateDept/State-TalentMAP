@@ -1,9 +1,24 @@
 import { get } from 'lodash';
+import { downloadFromResponse } from 'utilities';
+import { toastError } from './toast';
 import api from '../api';
 import { checkFlag } from '../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
-const getUseAP = () => checkFlag('flags.available_positions');
+
+export function downloadPositionData(excludeAP = false, excludePV = false) {
+  const url = `/available_position/favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
+  return api().get(url, {
+    responseType: 'stream',
+  })
+  .then((response) => {
+    downloadFromResponse(response, 'TalentMap_favorites_export');
+  })
+  .catch(() => {
+    // eslint-disable-next-line global-require
+    require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+  });
+}
 
 export function favoritePositionsHasErrored(bool) {
   return {
@@ -32,8 +47,7 @@ export function favoritePositionsFetchData(sortType) {
     dispatch(favoritePositionsIsLoading(true));
     dispatch(favoritePositionsHasErrored(false));
     const data$ = { favorites: [], favoritesPV: [] };
-    const useAP = getUseAP();
-    let url = useAP ? '/available_position/favorites/' : '/cycleposition/favorites/';
+    let url = '/available_position/favorites/';
     let urlPV = '/projected_vacancy/favorites/';
     if (sortType) {
       const append = `?ordering=${sortType}`;

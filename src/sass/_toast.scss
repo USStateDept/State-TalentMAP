@@ -9,12 +9,99 @@
 .Toastify__toast { // scss-lint:disable SelectorFormat
   padding: 0;
 
+  .usa-alert-heading {
+    font-family: 'Merriweather';
+  }
+
   .usa-alert {
+    background-position-x: -11px;
+    background-position-y: -21px;
+    background-size: 86px;
     margin-top: 0;
+    padding-bottom: 1.4rem;
+
+    h3 {
+      font-size: 1.7rem;
+    }
+  }
+
+  .divider {
+    border-bottom: 2px solid $color-black;
+    margin-left: 30px;
+    position: relative;
+    top: 2px;
+  }
+
+  .usa-alert::before {
+    width: 0;
   }
 
   .usa-alert-body {
     color: $color-black;
+    padding-left: 7rem;
+  }
+
+  .usa-alert-text {
+    font-size: .9em;
+  }
+
+  .usa-alert-text:only-child {
+    padding-top: 1rem;
+  }
+
+  .usa-alert-success,
+  .usa-alert-error,
+  .usa-alert-info {
+    .usa-alert-body {
+      * {
+        color: $color-white;
+      }
+    }
+  }
+
+  .usa-alert-success {
+    background-color: $tertiary-success;
+    background-image: url('#{$asset-path}assets/img/success.svg');
+
+    .divider {
+      border-bottom-color: $tertiary-success-lighter;
+    }
+  }
+
+  .usa-alert-error {
+    background-color: $secondary-darkest;
+    background-image: url('#{$asset-path}assets/img/times-circle.svg');
+
+    .divider {
+      border-bottom-color: $secondary-darkest-2;
+    }
+  }
+
+  .usa-alert-warning {
+    background-color: $tertiary-gold;
+    background-image: url('#{$asset-path}assets/img/warning.svg');
+
+    .divider {
+      border-bottom-color: $tertiary-gold-light;
+    }
+  }
+
+  .usa-alert-info {
+    background-color: $tertiary-cool-blue;
+    background-image: url('#{$asset-path}assets/img/info.svg');
+    background-position-y: -14px;
+
+    .divider {
+      border-bottom-color: $tertiary-cool-blue-lightest;
+    }
+  }
+
+  &.Toastify__toast--success,
+  &.Toastify__toast--error,
+  &.Toastify__toast--info {
+    .Toastify__close-button {
+      color: $color-white;
+    }
   }
 }
 

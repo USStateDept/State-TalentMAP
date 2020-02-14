@@ -387,35 +387,21 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post differential
+              Post differential | Danger Pay
             </th>
             <td>
-              30%
+              <DefinitionList
+                dangerPay={0}
+                obcUrl=""
+                postDifferential={30}
+              />
             </td>
             <td>
-              20%
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Danger pay
-            </th>
-            <td>
-              0%
-            </td>
-            <td>
-              15%
+              <DefinitionList
+                dangerPay={15}
+                obcUrl=""
+                postDifferential={20}
+              />
             </td>
             <td
               className="empty"
@@ -894,35 +880,21 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Post differential
+              Post differential | Danger Pay
             </th>
             <td>
-              30%
+              <DefinitionList
+                dangerPay={0}
+                obcUrl=""
+                postDifferential={30}
+              />
             </td>
             <td>
-              20%
-            </td>
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-            <td
-              className="empty"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Danger pay
-            </th>
-            <td>
-              0%
-            </td>
-            <td>
-              15%
+              <DefinitionList
+                dangerPay={15}
+                obcUrl=""
+                postDifferential={20}
+              />
             </td>
             <td
               className="empty"

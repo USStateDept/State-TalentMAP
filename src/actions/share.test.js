@@ -14,7 +14,7 @@ describe('async actions', () => {
 
     const response = { email: { to: testEmail, subject: '[TalentMAP] Shared position', body: 'Shared' } };
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/share/').reply(200,
+    mockAdapter.onPost('/share/').reply(200,
       response,
     );
 
@@ -38,7 +38,7 @@ describe('async actions', () => {
   it('can handle a failed submission', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/share/').reply(404,
+    mockAdapter.onPost('/share/').reply(404,
       {},
     );
 

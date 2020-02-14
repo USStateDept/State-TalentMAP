@@ -72,10 +72,6 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   <div
     className="current-user-bottom"
   >
-    <Flag
-      name="flags.static_content"
-      render={[Function]}
-    />
     <div
       className="current-user-section-border"
     >

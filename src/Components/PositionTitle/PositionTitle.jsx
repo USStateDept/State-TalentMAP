@@ -10,11 +10,9 @@ import Favorite from 'Containers/Favorite';
 import { POSITION_DETAILS, BID_LIST, USER_PROFILE } from 'Constants/PropTypes';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_SUFFIX, NO_POST } from 'Constants/SystemMessages';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
-import { getAssetPath, propOrDefault, getPostName, getBidStatisticsObject } from 'utilities';
+import { getAssetPath, propOrDefault, getPostName } from 'utilities';
 import { checkFlag } from 'flags';
 import OBCUrl from '../OBCUrl';
-import BidCount from '../BidCount';
-
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
 const useBidding = () => checkFlag('flags.bidding');
@@ -23,7 +21,6 @@ class PositionTitle extends Component {
   constructor(props) {
     super(props);
     this.renderBidListButton = this.renderBidListButton.bind(this);
-    this.renderBidCount = this.renderBidCount.bind(this);
     this.getIsAvailableToBid = this.getIsAvailableToBid.bind(this);
   }
 
@@ -49,16 +46,8 @@ class PositionTitle extends Component {
     );
   }
 
-  renderBidCount() {
-    const { details } = this.props;
-    const stats = getBidStatisticsObject(details.bidStatistics);
-    return (
-      <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
-    );
-  }
-
   render() {
-    const { details, isProjectedVacancy, userProfile } = this.props;
+    const { details, isProjectedVacancy, isArchived, userProfile } = this.props;
     const { isClient } = this.context;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
@@ -79,6 +68,7 @@ class PositionTitle extends Component {
                 <div className="usa-width-one-half header-title-container">
                   <div className="position-details-header-title">
                     {isProjectedVacancy && <span>Projected Vacancy</span>}
+                    {isArchived && <span>Filled Position</span>}
                     <h1>{details.title}</h1>
                   </div>
                   <div className="post-title">
@@ -88,7 +78,7 @@ class PositionTitle extends Component {
                 </div>
                 <div className="usa-width-one-half title-actions-section">
                   {
-                  !isClient &&
+                  !isClient && !isArchived &&
                     <Favorite
                       refKey={details.cpId}
                       compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
@@ -110,11 +100,7 @@ class PositionTitle extends Component {
         </div>
         <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
           {
-            !isProjectedVacancy &&
-              this.renderBidCount()
-          }
-          {
-            !availableToBid &&
+            !availableToBid && !isProjectedVacancy && !isArchived &&
             <Flag
               name="flags.bidding"
               render={() => (
@@ -134,7 +120,7 @@ class PositionTitle extends Component {
             />
           }
           {
-            !isProjectedVacancy &&
+            !isProjectedVacancy && !isArchived &&
             <Flag
               name="flags.bidding"
               render={this.renderBidListButton}
@@ -155,12 +141,14 @@ PositionTitle.propTypes = {
   bidList: BID_LIST.isRequired,
   userProfile: USER_PROFILE,
   isProjectedVacancy: PropTypes.bool,
+  isArchived: PropTypes.bool,
 };
 
 PositionTitle.defaultProps = {
   details: null,
   userProfile: {},
   isProjectedVacancy: false,
+  isArchived: false,
 };
 
 

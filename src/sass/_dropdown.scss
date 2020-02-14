@@ -48,19 +48,22 @@
   width: $avatar-dropdown-size;
 }
 
+.notifications-dropdown,
 .account-dropdown {
   position: relative;
 
-  .dropdown__trigger {
-    display: inline-block;
-    height: $avatar-dropdown-size;
+  &:not(.notifications-dropdown) {
+    .dropdown__trigger {
+      display: inline-block;
+      height: $avatar-dropdown-size;
 
-    &::after {
-      content: '\f107';
-      font-family: 'FontAwesome';
-      font-size: 2rem;
-      margin: 0 0 0 5px;
-      vertical-align: middle;
+      &::after {
+        content: '\f107';
+        font-family: 'FontAwesome';
+        font-size: 2rem;
+        margin: 0 0 0 5px;
+        vertical-align: middle;
+      }
     }
   }
 
@@ -68,6 +71,102 @@
     background: $avatar-dropdown-background;
     border-top: $avatar-dropdown-border-top-color 1px solid;
     box-shadow: 0 5px 8px $avatar-dropdown-box-shadow-color;
+  }
+}
+
+.notifications-dropdown {
+  $width: 320px;
+  display: inline-block;
+  height: 17px;
+
+  &.dropdown--active .dropdown__content::before {
+    border: 10px solid transparent;
+    border-right-color: $color-white;
+    content: ' ';
+    height: 0;
+    left: 62%;
+    position: absolute;
+    top: -20px;
+    transform: rotate(90deg);
+    width: 0;
+  }
+
+  .dropdown__trigger {
+    display: block;
+    height: auto;
+
+    &:hover,
+    &:active {
+      .fa {
+        color: $primary-alt-light;
+      }
+    }
+  }
+
+  .notifications-title {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+
+  .dropdown__content {
+    border-radius: 5px;
+    min-width: $width;
+    right: calc(#{$width} / -3);
+    top: 37px;
+  }
+
+  .account-dropdown--segment {
+    color: $color-black;
+    padding-bottom: 8px;
+  }
+
+  .notifications-list {
+    max-height: 250px;
+    overflow-y: auto;
+
+    > div {
+      border-bottom: 2px solid $color-gray-light;
+    }
+
+    > div:nth-child(odd) {
+      background: $color-cornflower-blue;
+    }
+
+    .unread {
+      font-weight: bold;
+    }
+
+    .notification-time {
+      font-size: .9em;
+      font-weight: normal;
+      margin-top: 3px;
+    }
+  }
+
+  .account-dropdown-link {
+    padding: 7px 15px;
+
+    > span {
+      display: table;
+      font-size: .9em;
+      margin: 0 auto;
+    }
+  }
+
+  .notifications-alert {
+    color: $color-black;
+    display: table;
+    margin: 8px auto;
+
+    .fa {
+      color: $color-black;
+    }
+  }
+
+  .notifications-error {
+    .fa {
+      margin: 0 5px 3px 0;
+    }
   }
 }
 

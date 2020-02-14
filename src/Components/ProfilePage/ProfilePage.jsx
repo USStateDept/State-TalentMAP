@@ -11,7 +11,7 @@ import BidTracker from '../../Containers/BidTracker';
 import BidStatistics from '../../Containers/BidStatistics';
 import SavedSearchesWrapper from '../../Components/SavedSearches/SavedSearchesWrapper';
 import ProfilePublic from '../../Containers/ProfilePublic';
-import Notifications from '../../Containers/Notifications';
+import Notifications from './Notifications';
 import Administrator from '../../Containers/Administrator';
 import GLOSSARY_EDITOR_PERM from '../../Constants/Permissions';
 import { USER_PROFILE } from '../../Constants/PropTypes';

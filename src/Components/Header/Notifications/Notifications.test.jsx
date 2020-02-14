@@ -17,7 +17,7 @@ const history = createHistory();
 describe('NotificationsComponent', () => {
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Notifications history={history} notificationsCount={4} fetchNotificationsCount={() => {}} location={{ pathname: '/results' }} />
+      <Notifications history={history} fetchNotifications={() => {}} notificationsCount={4} fetchNotificationsCount={() => {}} location={{ pathname: '/results' }} />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
@@ -30,6 +30,7 @@ describe('NotificationsComponent', () => {
         notificationsCount={4}
         fetchNotificationsCount={spy}
         location={{ pathname: '/results' }}
+        fetchNotifications={() => {}}
       />,
     );
     wrapper.instance().props.history.push('/home');

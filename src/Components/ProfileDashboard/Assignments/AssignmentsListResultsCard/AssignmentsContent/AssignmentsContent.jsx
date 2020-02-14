@@ -9,13 +9,22 @@ import StartEnd from '../../../PositionInformation/StartEnd';
 
 const AssignmentsContent = ({ assignment }) => (
   <div className="usa-grid-full bid-content-container">
-    <div>
+    <div className="bid-list-card-title-lg">
       <span className="bid-list-card-title-post">{get(assignment, 'position.title')} </span>
-      <Link to={`/details/${get(assignment, 'position.id')}`}>View Position</Link>
     </div>
     <div>
-      <span className="bid-list-card-title-post">Position number: </span>
-      {propOrDefault(assignment, 'position.position_number', NO_POSITION_NUMBER)}
+      <span className="usa-sr-only">Position number: </span>
+      <span className="bid-list-card-title-post bid-list-card-title-lg">
+        {
+          propOrDefault(assignment, 'position.position_number') ?
+          `(${propOrDefault(assignment, 'position.position_number')}) ` : NO_POSITION_NUMBER
+        }
+      </span>
+      <Link to={`/position/${get(assignment, 'position.position_number')}`}>View Position</Link>
+    </div>
+    <div>
+      <span className="bid-list-card-title-post">Location: </span>
+      {getPostName(get(assignment, 'position.post', NO_POST))}
     </div>
     <div>
       <span className="bid-list-card-title-post">Skill: </span>
@@ -24,10 +33,6 @@ const AssignmentsContent = ({ assignment }) => (
     <div>
       <span className="bid-list-card-title-post">Language: </span>
       <LanguageList languages={get(assignment, 'position.languages')} propToUse="representation" />
-    </div>
-    <div>
-      <span className="bid-list-card-title-post">Location: </span>
-      {getPostName(get(assignment, 'position.post', NO_POST))}
     </div>
     <div>
       <span className="bid-list-card-title-post">Start date and End date: </span>

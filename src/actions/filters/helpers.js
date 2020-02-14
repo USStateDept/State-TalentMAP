@@ -1,8 +1,6 @@
 import { getPostName } from '../../utilities';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
-import { checkFlag } from '../../flags';
 
-const getUseAP = () => checkFlag('flags.available_positions');
 // Attempt to map the non-numeric grade codes to a full description.
 // If no match is found, return the unmodified code.
 export function getCustomGradeDescription(gradeCode) {
@@ -28,7 +26,7 @@ function getLanguageNameByIfNull(filterItemObject = {}) {
 }
 
 function getFuncRegionCustomDescription(shortDescription, longDescription) {
-  return getUseAP() ? `(${shortDescription}) ${longDescription}` : false;
+  return `(${shortDescription}) ${longDescription}`;
 }
 
 function getRegionCustomDescription(shortDescription, longDescription) {
@@ -68,9 +66,19 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
   }
 }
 
+const getDefaultPillText = filterItemObject => (
+  filterItemObject.short_description ||
+  filterItemObject.description ||
+  filterItemObject.long_description ||
+  filterItemObject.code ||
+  filterItemObject.name ||
+  ''
+);
+
 // Our standard method for getting a pill description.
 // Pass a customType string for special rendering.
 export function getPillDescription(filterItemObject, customType) {
+  const defaultText = getDefaultPillText(filterItemObject);
   switch (customType) {
     case 'dangerPay':
       return `Danger pay: ${filterItemObject.description}`;
@@ -79,12 +87,7 @@ export function getPillDescription(filterItemObject, customType) {
     case 'language':
       return filterItemObject.custom_description;
     default:
-      return filterItemObject.short_description ||
-      filterItemObject.description ||
-      filterItemObject.long_description ||
-      filterItemObject.code ||
-      filterItemObject.name ||
-      '';
+      return defaultText;
   }
 }
 

@@ -9,7 +9,7 @@ import {
 } from './helpers';
 
 describe('filter helpers', () => {
-  it('can return custom grade descriptions', () => {
+  it('returns custom grade descriptions', () => {
     expect(getCustomGradeDescription('CM')).toBe('CM Career Minister (FE-CM)');
     expect(getCustomGradeDescription('MC')).toBe('MC Minister-Counselor (FE-MC)');
     expect(getCustomGradeDescription('OC')).toBe('OC Counselor (FE-OC)');
@@ -17,14 +17,11 @@ describe('filter helpers', () => {
     expect(getCustomGradeDescription('06')).toBe('06');
   });
 
-  it('can return correct values for the getFilterCustomDescription function', () => {
+  it('returns correct values for the getFilterCustomDescription function', () => {
     // templated strings are returned based on the description value
     expect(getFilterCustomDescription(
       { item: { description: 'region' } }, { short_description: 't', long_description: 'test' }),
     ).toBe('(t) test');
-    expect(getFilterCustomDescription(
-      { item: { description: 'functionalRegion' } }, { short_description: 't', long_description: 'test' }),
-    ).toBeFalsy();
     expect(getFilterCustomDescription(
       { item: { description: 'skill' } }, { description: 'test', code: 't' }),
     ).toBe('test (t)');
