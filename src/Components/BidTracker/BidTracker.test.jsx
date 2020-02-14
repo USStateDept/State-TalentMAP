@@ -28,6 +28,14 @@ describe('BidTrackerComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('displays an alert when bidListIsLoading is false and bidList.results.length === 0', () => {
+    const wrapper = shallow(
+      <BidTracker {...props} bidListIsLoading={false} bidList={{ results: [] }} />,
+    );
+    expect(wrapper.find('Alert').exists()).toBe(true);
+    expect(wrapper.find('Alert').props().title).toBe('Bid list empty');
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <BidTracker {...props} />,

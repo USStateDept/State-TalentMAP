@@ -1,11 +1,12 @@
 /* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getAssetPath } from '../../utilities';
-import logo from '../../assets/logos/png/horizontal_color.png';
+import { getAssetPath } from 'utilities';
 
-const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white.png');
-const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_white_thin.png');
+const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white-sm.png');
+const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_white_thin-sm.png');
+
+const version = process.env.VERSION;
 
 const Footer = () => (
   <footer className="usa-footer usa-footer-medium tm-footer" role="contentinfo">
@@ -55,6 +56,12 @@ const Footer = () => (
           <div className="tm-footer-body-contact-item">
             To share your feedback with us, please contact <a href="mailto:TalentMAP@state.gov">TalentMAP@state.gov</a>
           </div>
+          {
+            !!version &&
+              <div className="tm-footer-body-contact-item">
+                {`Version ${version}`}
+              </div>
+          }
         </div>
       </div>
     </div>

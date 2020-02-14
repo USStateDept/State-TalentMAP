@@ -20,7 +20,7 @@ const BidTrackerCardTitle = ({
 { condensedView, priorityExists, isPriority }) => {
   const viewPosition = (
     <div className="bid-tracker-card-title-link">
-      <Link to={`/details/${id}`}>View position</Link>
+      <Link to={`/${status === APPROVED_PROP ? 'archived' : 'details'}/${id}`}>View position</Link>
     </div>
   );
   let title$ = `${title}${positionNumber ? ` (${positionNumber})` : ''}`;
@@ -48,7 +48,7 @@ const BidTrackerCardTitle = ({
         {
           !condensedView &&
           <div className="bid-tracker-card-title-bottom">
-            <strong>Bid cycle:</strong> {getBidCycleName(bidCycle)}
+            <strong>Bid Cycle:</strong> {getBidCycleName(bidCycle)}
           </div>
         }
         {condensedView && viewPosition}

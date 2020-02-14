@@ -6,19 +6,19 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('async actions', () => {
   beforeEach(() => {
-    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?limit=500').reply(200,
+    mockAdapter.onGet('/glossary/?limit=500').reply(200,
       { results: glossaryItems },
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?is_archived=false&limit=500').reply(200,
+    mockAdapter.onGet('/glossary/?is_archived=false&limit=500').reply(200,
       { results: glossaryItems },
     );
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/glossary/').reply(200,
+    mockAdapter.onPost('/glossary/').reply(200,
       glossaryItems[0],
     );
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/glossary/3/').reply(200,
+    mockAdapter.onPatch('/glossary/3/').reply(200,
       glossaryItems[0],
     );
   });
@@ -41,7 +41,7 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/?is_archived=false').reply(404,
+    mockAdapter.onGet('/glossary/?is_archived=false').reply(404,
       null,
     );
 
@@ -73,7 +73,7 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/glossary/').reply(404,
+    mockAdapter.onGet('/glossary/').reply(404,
       null,
     );
 
@@ -106,7 +106,7 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/glossary/').reply(404,
+    mockAdapter.onPost('/glossary/').reply(404,
       null,
     );
 
@@ -140,7 +140,7 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/glossary/3/').reply(404,
+    mockAdapter.onPatch('/glossary/3/').reply(404,
       null,
     );
 

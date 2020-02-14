@@ -9,7 +9,7 @@ import LinkButton from '../LinkButton';
 import { positionCountFetchData } from '../../actions/positionCount';
 import { getAssetPath } from '../../utilities';
 
-const logo = getAssetPath('/assets/logos/png/horizontal_color_thin.png');
+const logo = getAssetPath('/assets/logos/png/horizontal_color_thin-sm.png');
 
 export const formatNum = n => numeral(n).format('0,0');
 
@@ -31,6 +31,9 @@ class HomePageBanner extends Component {
     // Subtract the count by 6 to ensure that it will always be rounded down to the nearest 10 (-1)
     const shouldRound = positionCount > 50;
     const roundedCount = shouldRound ? round(positionCount - 6, -1) : positionCount;
+    let preText = shouldRound ? 'There are more than' : 'There are';
+    if (positionCount === 1) { preText = 'There is'; }
+    const positionTextPlural = positionCount === 1 ? 'position' : 'positions';
     return (
       <div className="usa-grid-full homepage-search-banner">
         <div className="usa-grid-full">
@@ -52,7 +55,7 @@ class HomePageBanner extends Component {
                   !roundedCount && !isLoading ?
                   null :
                   <span className="stats-text--position">
-                    <span>There are more than&nbsp;</span>
+                    <span>{preText}&nbsp;</span>
                     {
                       isLoading ?
                         <Skeleton width="25px" duration={1.1} />
@@ -63,7 +66,7 @@ class HomePageBanner extends Component {
                         )}
                         </CountUp>
                     }
-                    <span>&nbsp;positions available for bidding.</span>
+                    <span>&nbsp;{positionTextPlural} available for bidding.</span>
                   </span>
                 }
               </span>

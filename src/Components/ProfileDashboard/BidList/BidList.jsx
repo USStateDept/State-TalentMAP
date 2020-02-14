@@ -6,7 +6,6 @@ import SectionTitle from '../SectionTitle';
 import BidTrackerCard from '../../BidTracker/BidTrackerCard';
 import BidListHeader from './BidListHeader';
 import StaticDevContent from '../../StaticDevContent';
-import { DRAFT_PROP } from '../../../Constants/BidData';
 import Spinner from '../../Spinner';
 
 const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
@@ -23,7 +22,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
       key={bid.id}
       bid={bid}
       condensedView
-      showBidCount={bid.status !== DRAFT_PROP}
+      showBidCount
       submitBid={submitBidPosition}
       deleteBid={deleteBid}
       priorityExists={doesPriorityExist}
@@ -46,7 +45,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
           {
             bids$.length === 0 && !isLoading &&
               <div className="usa-grid-full section-padded-inner-container">
-                You have not added any bids to your bid list.
+                {isPublic ? 'This user has not added any bids to their bid list.' : 'You have not added any bids to your bid list.'}
               </div>
           }
           {!!bids$.length && !isLoading && bids$}

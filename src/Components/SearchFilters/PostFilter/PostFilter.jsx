@@ -4,10 +4,6 @@ import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
 import { getItemLabel, formatIdSpacing, mapDuplicates, propSort } from '../../../utilities';
-import AutoSuggest from '../../AutoSuggest';
-import { checkFlag } from '../../../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 /* eslint-disable react/no-unused-prop-types */
 class PostFilter extends Component {
@@ -94,12 +90,11 @@ class PostFilter extends Component {
 
     if (postSelectionDisabled) { autoSuggestProps.placeholder = 'Remove regional filters'; }
 
-    const useAP = getUseAP();
-
     return (
       <div className="usa-grid-full">
-        {
+        {/*
           // No autosuggest from available positions API
+          // Could re-add in future
           !useAP &&
           <AutoSuggest
             {...autoSuggestProps}
@@ -109,7 +104,7 @@ class PostFilter extends Component {
             }}
             shouldClearOnSelect
           />
-        }
+        */}
         <div className="usa-grid-full tm-nested-accordions">
           <Accordion>
             <AccordionItem

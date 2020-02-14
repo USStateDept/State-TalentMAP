@@ -25,14 +25,14 @@ describe('async actions', () => {
     mockAdapter.reset();
   });
 
-  it('can fetch a client', (done) => {
+  it('fetches a client', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
       profile,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(200,
       { results: bids },
     );
 
@@ -45,14 +45,14 @@ describe('async actions', () => {
     f();
   });
 
-  it('can fetch a client when user id is undefined', (done) => {
+  it('handles errors when perdet_seq_number is undefined', (done) => {
     const store = mockStore({ profile: {} });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/').reply(200,
-      { ...profile, id: null },
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
+      { ...profile, perdet_seq_number: undefined },
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(200,
       { results: bids },
     );
 
@@ -65,17 +65,37 @@ describe('async actions', () => {
     f();
   });
 
-  it('can handle errors', (done) => {
+  it('fetches a client when user id is undefined', (done) => {
+    const store = mockStore({ profile: {} });
+
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
+      { ...profile, id: undefined },
+    );
+
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(200,
+      { results: bids },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.userProfilePublicFetchData(1));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('handles errors', (done) => {
     const store = mockStore({ profile: {} });
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/').reply(404,
-      {},
+    mockAdapter.onGet('/fsbid/client/1/').reply(404,
+      null,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/client/1/bids/').reply(404,
-      {},
+    mockAdapter.onGet('/fsbid/cdo/client/1/').reply(404,
+      null,
     );
 
     const f = () => {

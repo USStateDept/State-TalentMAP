@@ -116,8 +116,17 @@
   .saved-searches-container {
     position: relative;
 
+    .export-button-container > button {
+      margin-top: 0;
+    }
+
     .favorites-top-section {
       margin-bottom: 1.2em;
+
+      &.favorites-top-section--controls {
+        display: flex;
+        justify-content: flex-end;
+      }
     }
 
     .condensed-card {
@@ -737,6 +746,10 @@ $padding-no-border: $total-padding - $border;
 
   .bid-list-card-title-post {
     font-weight: bold;
+  }
+
+  .bid-list-card-title-lg {
+    font-size: 1.1em;
   }
 
   .bid-list-card-title-status {

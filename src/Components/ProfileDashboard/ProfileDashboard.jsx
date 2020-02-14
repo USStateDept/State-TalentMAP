@@ -5,6 +5,8 @@ import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
   FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
+import { checkFlag } from 'flags';
+import StaticDevContent from 'Components/StaticDevContent';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -19,6 +21,8 @@ import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
 import Updates from './Updates';
 
+const useCDOBidding = () => checkFlag('flags.cdo_bidding');
+
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
@@ -32,7 +36,7 @@ const ProfileDashboard = ({
       <div className="usa-grid-full">
         <div className="usa-grid-full dashboard-top-section">
           { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-          { isPublic && <SearchAsClientButton user={userProfile} /> }
+          { isPublic && useCDOBidding() && <SearchAsClientButton user={userProfile} /> }
         </div>
         <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
           {(matches) => {
@@ -118,9 +122,11 @@ const ProfileDashboard = ({
                           userId={userProfile.perdet_seq_number}
                         />
                       </BoxShadow>
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments assignments={userProfile.assignments} />
-                      </BoxShadow>
+                      <StaticDevContent> {/* TODO - remove StaticDevContent wrapper */}
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                          <Assignments /* assignments={userProfile.assignments} TODO add back */ />
+                        </BoxShadow>
+                      </StaticDevContent>
                     </Column>
                 }
               </Row>

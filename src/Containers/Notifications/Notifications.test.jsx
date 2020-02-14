@@ -24,7 +24,7 @@ describe('NotificationsContainer', () => {
   };
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <NotificationsContainer {...props} />
+      <NotificationsContainer {...props}>{() => <div /> }</NotificationsContainer>
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
@@ -35,7 +35,7 @@ describe('NotificationsContainer', () => {
       <NotificationsContainer.WrappedComponent
         {...props}
         fetchData={spy}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
     wrapper.instance().getNotifications();
 
@@ -49,7 +49,7 @@ describe('NotificationsContainer', () => {
       <NotificationsContainer.WrappedComponent
         {...props}
         delete={spy}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
     wrapper.instance().delete();
     sinon.assert.calledOnce(spy);
@@ -59,7 +59,7 @@ describe('NotificationsContainer', () => {
     const wrapper = shallow(
       <NotificationsContainer.WrappedComponent
         {...props}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
     wrapper.instance().onPageChange({ page: 5 });
     expect(wrapper.instance().state.page).toBe(5);
@@ -69,7 +69,7 @@ describe('NotificationsContainer', () => {
     const wrapper = shallow(
       <NotificationsContainer.WrappedComponent
         {...props}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
     wrapper.instance().onCheck(true, { _id: 2 });
     expect(wrapper.instance().state.selectedNotifications.has(2)).toBe(true);
@@ -79,7 +79,7 @@ describe('NotificationsContainer', () => {
     const wrapper = shallow(
       <NotificationsContainer.WrappedComponent
         {...props}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
     expect(wrapper.instance().getCheckedValueById(2)).toBe(false);
     wrapper.instance().setState({ selectedNotifications: new Set([2]) });
@@ -92,7 +92,7 @@ describe('NotificationsContainer', () => {
       <NotificationsContainer.WrappedComponent
         {...props}
         notifications={notifications}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
     expect(wrapper.instance().getCurrentResults()).toEqual(notifications.results);
   });
@@ -103,7 +103,7 @@ describe('NotificationsContainer', () => {
       <NotificationsContainer.WrappedComponent
         {...props}
         notifications={notifications}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
     wrapper.instance().selectAll();
     const { selectedNotifications } = wrapper.instance().state;
@@ -124,7 +124,7 @@ describe('NotificationsContainer', () => {
         {...props}
         notifications={notifications}
         markNotifications={a => output = a} // eslint-disable-line
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
 
     // contains id from another page (3)
@@ -143,7 +143,7 @@ describe('NotificationsContainer', () => {
         {...props}
         notifications={notifications}
         markNotifications={a => output = a} // eslint-disable-line
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
 
     // contains id from another page (3)
@@ -163,7 +163,7 @@ describe('NotificationsContainer', () => {
         {...props}
         notifications={notifications}
         markNotifications={a => output = a} // eslint-disable-line
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
 
     // contains id from another page (3)
@@ -179,7 +179,7 @@ describe('NotificationsContainer', () => {
     const wrapper = shallow(
       <NotificationsContainer.WrappedComponent
         {...props}
-      />,
+      >{() => <div /> }</NotificationsContainer.WrappedComponent>,
     );
 
     wrapper.instance().setState({ selectedNotifications: new Set([1, 2, 3]) });

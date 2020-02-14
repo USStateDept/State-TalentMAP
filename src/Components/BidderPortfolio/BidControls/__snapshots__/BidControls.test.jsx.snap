@@ -8,19 +8,24 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     className="usa-width-one-whole portfolio-sort-container results-dropdown"
   >
     <div
-      className="portfolio-sort-container-contents"
+      className="portfolio-sort-container-contents bid-cycle-picker-container"
       style={
         Object {
           "float": "left",
         }
       }
     >
+      <div
+        className="label"
+      >
+        Proxy CDO View:
+      </div>
       <Connect(CDOAutoSuggest) />
     </div>
     <div
       className="portfolio-sort-container-contents"
     >
-      <BidCyclePicker />
+      <Connect(BidCyclePicker) />
       <SelectForm
         className="select-offset select-black"
         defaultSort=""
@@ -67,15 +72,15 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
             },
             Object {
               "text": "Grade",
-              "value": "grade",
+              "value": "client_grade",
             },
             Object {
               "text": "Skill",
-              "value": "skill",
+              "value": "client_skill",
             },
             Object {
               "text": "Grade & Skill",
-              "value": "grade_skill",
+              "value": "client_grade,client_skill",
             },
           ]
         }
@@ -102,19 +107,24 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     className="usa-width-one-whole portfolio-sort-container results-dropdown"
   >
     <div
-      className="portfolio-sort-container-contents"
+      className="portfolio-sort-container-contents bid-cycle-picker-container"
       style={
         Object {
           "float": "left",
         }
       }
     >
+      <div
+        className="label"
+      >
+        Proxy CDO View:
+      </div>
       <Connect(CDOAutoSuggest) />
     </div>
     <div
       className="portfolio-sort-container-contents"
     >
-      <BidCyclePicker />
+      <Connect(BidCyclePicker) />
       <SelectForm
         className="select-offset select-black"
         defaultSort=""
@@ -161,15 +171,15 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
             },
             Object {
               "text": "Grade",
-              "value": "grade",
+              "value": "client_grade",
             },
             Object {
               "text": "Skill",
-              "value": "skill",
+              "value": "client_skill",
             },
             Object {
               "text": "Grade & Skill",
-              "value": "grade_skill",
+              "value": "client_grade,client_skill",
             },
           ]
         }
