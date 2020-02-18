@@ -72,15 +72,15 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
             },
             Object {
               "text": "Grade",
-              "value": "grade",
+              "value": "client_grade",
             },
             Object {
               "text": "Skill",
-              "value": "skill",
+              "value": "client_skill",
             },
             Object {
               "text": "Grade & Skill",
-              "value": "grade_skill",
+              "value": "client_grade,client_skill",
             },
           ]
         }
@@ -171,15 +171,15 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
             },
             Object {
               "text": "Grade",
-              "value": "grade",
+              "value": "client_grade",
             },
             Object {
               "text": "Skill",
-              "value": "skill",
+              "value": "client_skill",
             },
             Object {
               "text": "Grade & Skill",
-              "value": "grade_skill",
+              "value": "client_grade,client_skill",
             },
           ]
         }

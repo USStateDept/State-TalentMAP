@@ -56,9 +56,9 @@ POSITION_PAGE_SIZES.defaultSort = POSITION_PAGE_SIZES.options[1].value;
 export const BID_PORTFOLIO_SORTS = {
   options: [
     { value: '', text: 'Default sorting' },
-    { value: 'grade', text: 'Grade' },
-    { value: 'skill', text: 'Skill' },
-    { value: 'grade_skill', text: 'Grade & Skill' },
+    { value: 'client_grade', text: 'Grade' },
+    { value: 'client_skill', text: 'Skill' },
+    { value: 'client_grade,client_skill', text: 'Grade & Skill' },
   ],
 };
 
