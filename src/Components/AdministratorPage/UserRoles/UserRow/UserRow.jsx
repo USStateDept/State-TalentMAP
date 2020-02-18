@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { userHasPermissions } from '../../../../utilities';
-import DELEGATE_ROLES from '../../../../Constants/DelegateRoles';
-import CheckBox from '../../../CheckBox';
-import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
-import { modifyPermission } from '../../../../actions/userRoles';
+import { userHasPermissions } from 'utilities';
+import DELEGATE_ROLES from 'Constants/DelegateRoles';
+import CheckBox from 'Components/CheckBox';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { modifyPermission } from 'actions/userRoles';
 
 class UserRow extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      permAddRemoveSuccess: false,
     };
   }
 
@@ -19,11 +18,7 @@ class UserRow extends Component {
     const isEmpty = !this.props.permissionGroups.length;
     if (isEmpty) return false;
 
-    const userPerms = [];
-
-    this.props.permissionGroups.forEach((permObj) => {
-      userPerms.push(permObj.name);
-    });
+    const userPerms = this.props.permissionGroups.map(permObj => permObj.name);
 
     return userHasPermissions(permission, userPerms || []);
   }
@@ -36,29 +31,22 @@ class UserRow extends Component {
 
   render() {
     const {
-      username, name, userID, modifyPermissionSuccess, modifyPermissionIsLoading,
-      modifyPermissionHasErrored,
+      username, name, userID,
     } = this.props;
-
-    const props = {
-      modifyPermissionSuccess,
-      modifyPermissionIsLoading,
-      modifyPermissionHasErrored,
-    };
 
     return (
       <tr>
-        { props.modifyPermissionSuccess &&
         <td>{username}</td>
-        }
         <td>{name}</td>
         {Object.keys(DELEGATE_ROLES).map(role => (
           <td key={DELEGATE_ROLES[role].group_name} className="delegateRoleCell">
             <CheckBox
-              label=""
+              label={`${this.checkPermission([DELEGATE_ROLES[role].group_name]) ? 'Add' : 'Remove'}
+                ${DELEGATE_ROLES[role].group_name} Permission`}
               id={`${userID}-${DELEGATE_ROLES[role].group_name}`}
               value={this.checkPermission([DELEGATE_ROLES[role].group_name])}
               onCheckBoxClick={e => this.updatePermission(e, DELEGATE_ROLES[role].group_id)}
+              labelSrOnly
             />
           </td>
         ))}
@@ -73,18 +61,12 @@ UserRow.propTypes = {
   name: PropTypes.string,
   permissionGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   modifyPermission: PropTypes.func.isRequired,
-  modifyPermissionSuccess: PropTypes.string,
-  modifyPermissionIsLoading: PropTypes.bool,
-  modifyPermissionHasErrored: PropTypes.bool,
 };
 
 UserRow.defaultProps = {
   username: '',
   name: '',
   onClick: EMPTY_FUNCTION,
-  modifyPermissionSuccess: '',
-  modifyPermissionIsLoading: false,
-  modifyPermissionHasErrored: false,
 };
 
 const mapStateToProps = state => ({
