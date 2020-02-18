@@ -79,7 +79,7 @@ class PostFilter extends Component {
     const { item, autoSuggestProps } = this.props;
     const { allOverseasSelected, allDomesticSelected } = this.state;
 
-    let domesticPosts = this.getAllDomesticCodes() || [];
+    let domesticPosts = this.getAllDomesticCodes();
     domesticPosts = mapDuplicates(domesticPosts);
 
     let overseasPosts = this.getAllOverseasCodes();
