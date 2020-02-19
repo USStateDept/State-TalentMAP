@@ -59,36 +59,62 @@ class BidTracker extends Component {
     return results$;
   }
 
+  checkForApprovedBid() {
+    const { bidList: { results } } = this.props;
+    const results$ = [...results];
+    const approvedBids = [];
+    const nonApprovedBids = [];
+
+    results$.forEach((bid) => {
+      if (bid.status === 'approved') approvedBids.push(bid.position.position_number);
+    }, approvedBids);
+    results$.forEach((bid) => {
+      if (bid.status !== 'approved') nonApprovedBids.push(bid.position.position_number);
+    }, nonApprovedBids);
+
+    return { approvedBids, nonApprovedBids };
+  }
+
   render() {
     const { sortValue } = this.state;
     const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
-    notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
-    userProfileIsLoading, isPublic, useCDOView } = this.props;
+      notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
+      userProfileIsLoading, isPublic, useCDOView } = this.props;
     const isLoading = bidListIsLoading || userProfileIsLoading;
     const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
-      `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
+        `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
 
     const emptyBidListText = isPublic ?
-    'This user does not have any bids in their bid list.'
-    :
-    'You do not have any bids in your bid list.';
+        'This user does not have any bids in their bid list.'
+        :
+        'You do not have any bids in your bid list.';
 
     const cdoEmail = get(userProfile, 'cdo.email');
 
     const sortedBids = this.getSortedBids();
+
+    const apprBidStats = this.checkForApprovedBid();
+
+    const approvedBidText = apprBidStats.nonApprovedBids.length > 1 ?
+        `Your bids on Position Numbers: ${apprBidStats.nonApprovedBids} are no longer applicable, 
+        because your bid on Position Number: ${apprBidStats.approvedBids} has been approved.`
+    :
+        `Your bid on Position Number: ${apprBidStats.nonApprovedBids} is no longer applicable, 
+        because your bid on Position Number: ${apprBidStats.approvedBids} has been approved.`
+    ;
 
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
         <BackButton />
         { isPublic && <SearchAsClientButton user={userProfile} /> }
         {
-          !isPublic &&
-          <NotificationsSection
-            notifications={notifications}
-            notificationsIsLoading={notificationsIsLoading}
-            markBidTrackerNotification={markBidTrackerNotification}
-          />
-        }
+            !isPublic &&
+            <NotificationsSection
+              notifications={notifications}
+              notificationsIsLoading={notificationsIsLoading}
+              markBidTrackerNotification={markBidTrackerNotification}
+            />
+          }
         <div className="usa-grid-full">
           <div className="usa-width-one-half bid-tracker-greeting-container">
             <div className="usa-grid-full">
@@ -98,9 +124,9 @@ class BidTracker extends Component {
           <div className="usa-width-one-half bid-tracker-cdo-email-container">
             <div className="bid-tracker-cdo-email">
               {
-                cdoEmail && !userProfileIsLoading &&
-                <ContactCDOButton email={cdoEmail} />
-              }
+                  cdoEmail && !userProfileIsLoading &&
+                  <ContactCDOButton email={cdoEmail} />
+                }
             </div>
           </div>
         </div>
@@ -117,24 +143,30 @@ class BidTracker extends Component {
         </div>
         <div className="bid-tracker-content-container">
           {
-            isLoading ?
-              <Spinner type="homepage-position-results" size="big" /> :
-              <div className="usa-grid-full">
-                <BidTrackerCardList
-                  bids={sortedBids}
-                  acceptBid={acceptBid}
-                  declineBid={declineBid}
-                  submitBid={submitBid}
-                  deleteBid={deleteBid}
-                  userProfile={userProfile}
-                  useCDOView={useCDOView}
-                />
-              </div>
+            !isLoading && (apprBidStats.approvedBids.length !== 0) &&
+            <div style={{ paddingBottom: '3em' }}>
+              <Alert type="info" title="Approved Bid" messages={[{ body: approvedBidText }]} />
+            </div>
           }
           {
-            !isLoading && !get(bidList, 'results', []).length &&
-            <Alert type="info" title="Bid list empty" messages={[{ body: emptyBidListText }]} />
-          }
+              isLoading ?
+                <Spinner type="homepage-position-results" size="big" /> :
+                <div className="usa-grid-full">
+                  <BidTrackerCardList
+                    bids={sortedBids}
+                    acceptBid={acceptBid}
+                    declineBid={declineBid}
+                    submitBid={submitBid}
+                    deleteBid={deleteBid}
+                    userProfile={userProfile}
+                    useCDOView={useCDOView}
+                  />
+                </div>
+            }
+          {
+              !isLoading && !get(bidList, 'results', []).length &&
+              <Alert type="info" title="Bid list empty" messages={[{ body: emptyBidListText }]} />
+            }
         </div>
       </div>
     );
