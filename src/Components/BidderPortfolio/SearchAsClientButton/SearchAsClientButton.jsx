@@ -21,8 +21,8 @@ export const genSearchParams = (user) => {
   const { skills, grade } = user;
 
   if (isArray(skills)) {
-    skills$ = uniqBy(skills$, 'code');
-    skills$ = skills.map(m => m.code).join(',');
+    skills$ = uniqBy(skills, 'code');
+    skills$ = skills$.map(m => m.code).join(',');
   }
 
   let query = { [skillEndpoint]: skills$, [gradeEndpoint]: grade };
