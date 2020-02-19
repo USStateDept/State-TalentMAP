@@ -128,6 +128,28 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
     className="bid-tracker-content-container"
   >
     <div
+      style={
+        Object {
+          "paddingBottom": "3em",
+        }
+      }
+    >
+      <Alert
+        isAriaLive={false}
+        isDivided={false}
+        messages={
+          Array [
+            Object {
+              "body": "Your bids on Position Numbers: , are no longer applicable, 
+        because your bid on Position Number: 10035561 has been approved.",
+            },
+          ]
+        }
+        title="Approved Bid"
+        type="info"
+      />
+    </div>
+    <div
       className="usa-grid-full"
     >
       <BidTrackerCardList
