@@ -4,7 +4,7 @@ import ClientHeader from './ClientHeader';
 
 
 export const ClientHeaderSticky = props => (
-  <Sticky topOffset={200} disableCompensation={false}>
+  <Sticky topOffset={200}>
     {({ style }) => (
       <ClientHeader {...props} style={style} />
     )}
