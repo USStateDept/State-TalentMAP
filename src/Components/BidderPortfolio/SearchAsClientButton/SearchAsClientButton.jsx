@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import q from 'query-string';
-import { identity, isArray, pickBy } from 'lodash';
+import { get, identity, isArray, pickBy } from 'lodash';
 import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { lookupAndSetCDO } from 'actions/bidderPortfolio';
@@ -93,8 +93,10 @@ export class SearchAsClientButton extends Component {
   navigate(query = '', history = this.props.history) {
     setTimeout(() => {
       history.push(`/results?${query}`);
-      const offset = document.getElementById(ID).offsetTop;
-      scrollTo(offset);
+      const offset = get(document.getElementById(ID), 'offsetTop');
+      if (offset) {
+        scrollTo(offset);
+      }
     }, 0);
   }
 

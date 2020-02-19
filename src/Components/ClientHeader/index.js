@@ -1,1 +1,2 @@
-export { default, ID } from './ClientHeader';
+export { default } from './ClientHeaderSticky';
+export { ID } from './ClientHeader';
