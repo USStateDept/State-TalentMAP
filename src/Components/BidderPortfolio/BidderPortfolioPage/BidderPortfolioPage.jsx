@@ -34,7 +34,7 @@ class BidderPortfolioPage extends Component {
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading,
+    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
@@ -98,6 +98,8 @@ class BidderPortfolioPage extends Component {
                   pageNumber={pageNumber}
                   showListView={isListView}
                   showEdit={showEdit}
+                  isLoading={bidderPortfolioIsLoading}
+                  cdosLength={cdosLength}
                 />
             }
           </div>
@@ -116,10 +118,12 @@ BidderPortfolioPage.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
   bidderPortfolioCountsIsLoading: PropTypes.bool.isRequired,
+  cdosLength: PropTypes.number,
 };
 
 BidderPortfolioPage.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
+  cdosLength: 0,
 };
 
 export default BidderPortfolioPage;

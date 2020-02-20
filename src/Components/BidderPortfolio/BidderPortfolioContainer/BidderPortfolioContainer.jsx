@@ -22,20 +22,24 @@ class BidderPortfolioContainer extends Component {
     }, 600);
   }
   render() {
-    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit } = this.props;
+    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit, isLoading,
+      cdosLength } = this.props;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
+    const showNoCdosAlert = !cdosLength;
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
-          showListView ?
-            <BidderPortfolioGridList showEdit={showEdit} results={bidderPortfolio.results} />
-            :
-            <BidderPortfolioCardList results={bidderPortfolio.results} />
+          !showNoCdosAlert &&
+          (
+            showListView ?
+              <BidderPortfolioGridList showEdit={showEdit} results={bidderPortfolio.results} />
+              :
+              <BidderPortfolioCardList results={bidderPortfolio.results} />
+          )
         }
         {
            // if there's no results, don't show pagination
-           !!bidderPortfolio.results && !!bidderPortfolio.results.length &&
-           // finally, render the pagination
+           !noResults && !showNoCdosAlert &&
            <div className="usa-grid-full react-paginate">
              <PaginationWrapper
                totalResults={bidderPortfolio.count}
@@ -46,7 +50,13 @@ class BidderPortfolioContainer extends Component {
            </div>
         }
         {
-          noResults &&
+          showNoCdosAlert &&
+          <div className="usa-width-two-thirds">
+            <Alert title="You have not selected any CDOs" messages={[{ body: 'Please select at least one CDO from the "Proxy CDO View" filter above.' }]} />
+          </div>
+        }
+        {
+          noResults && !isLoading && !showNoCdosAlert &&
           <div className="usa-width-two-thirds">
             <Alert title="You have no clients within this search criteria." messages={[{ body: 'Try removing filters or using another bid status tab.' }]} />
           </div>
@@ -63,11 +73,15 @@ BidderPortfolioContainer.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   showListView: PropTypes.bool,
   showEdit: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  cdosLength: PropTypes.number,
 };
 
 BidderPortfolioContainer.defaultProps = {
   showListView: false,
   showEdit: false,
+  isLoading: false,
+  cdosLength: 0,
 };
 
 export default BidderPortfolioContainer;
