@@ -10,7 +10,7 @@ import { lookupAndSetCDO } from 'actions/bidderPortfolio';
 import { setClient } from 'actions/clientView';
 import { fetchClientSuggestions } from 'actions/clientSuggestions';
 import { scrollTo } from 'utilities';
-import { ID } from '../../ClientHeader';
+import { CONTAINER_ID as ID } from '../../ClientHeader';
 
 export const genSearchParams = (user) => {
   let qString = '';
@@ -97,7 +97,7 @@ export class SearchAsClientButton extends Component {
       if (offset) {
         scrollTo(offset);
       }
-    }, 0);
+    }, 10);
   }
 
   render() {
