@@ -1,3 +1,7 @@
+.client-header-container {
+  z-index: $client-header-z;
+}
+
 .client-header {
   background-color: $tertiary-cool-blue-lightest;
 

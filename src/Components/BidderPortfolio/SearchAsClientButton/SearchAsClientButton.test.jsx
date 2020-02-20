@@ -38,7 +38,7 @@ describe('SearchAsClientButton', () => {
     setTimeout(() => {
       sinon.assert.calledOnce(spy);
       done();
-    }, 1);
+    }, 100);
   });
 
   it('calls set() on click', () => {
@@ -58,7 +58,7 @@ describe('SearchAsClientButton', () => {
     setTimeout(() => {
       sinon.assert.calledOnce(history.push);
       done();
-    }, 0);
+    }, 100);
   });
 
   it('generates a deduplicated query string on genSearchParams()', () => {
