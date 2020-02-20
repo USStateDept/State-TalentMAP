@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Sticky } from 'react-sticky';
+import { get } from 'lodash';
 import ClientHeader from './ClientHeader';
 
 export const CONTAINER_ID = 'sticky-container-client-header';
@@ -13,8 +14,10 @@ export class ClientHeaderSticky extends Component {
   }
   componentWillReceiveProps() {
     const d = document.getElementById(CONTAINER_ID);
-    const topPos = d.offsetTop;
-    this.setState({ topOffset: topPos });
+    const topPos = get(d, 'offsetTop');
+    if (topPos) {
+      this.setState({ topOffset: topPos });
+    }
   }
   render() {
     return (
