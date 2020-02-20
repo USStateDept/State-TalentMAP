@@ -2,8 +2,8 @@ import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import { SearchAsClientButton, genSearchParams, mapDispatchToProps } from './SearchAsClientButton';
-import { testDispatchFunctions } from '../../../testUtilities/testUtilities';
+import { SearchAsClientButton, genSearchParams /* , mapDispatchToProps */ } from './SearchAsClientButton';
+// import { testDispatchFunctions } from '../../../testUtilities/testUtilities';
 
 describe('SearchAsClientButton', () => {
   let props;
@@ -61,10 +61,10 @@ describe('SearchAsClientButton', () => {
     }, 100);
   });
 
-  it('generates a query string on genSearchParams()', () => {
+  it('generates a deduplicated query string on genSearchParams()', () => {
     const user = {
       perdet_seq_number: 2,
-      skills: [{ code: 1 }, { code: '5A' }],
+      skills: [{ code: 1 }, { code: '5A' }, { code: 1 /* the duplicate */ }],
       grade: '03',
     };
     const result = () => genSearchParams(user);

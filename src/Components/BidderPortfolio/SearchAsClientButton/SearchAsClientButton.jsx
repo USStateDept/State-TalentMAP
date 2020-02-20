@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import q from 'query-string';
-import { get, identity, isArray, pickBy } from 'lodash';
+import { get, identity, isArray, pickBy, uniqBy } from 'lodash';
 import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { lookupAndSetCDO } from 'actions/bidderPortfolio';
@@ -21,7 +21,8 @@ export const genSearchParams = (user) => {
   const { skills, grade } = user;
 
   if (isArray(skills)) {
-    skills$ = skills.map(m => m.code).join(',');
+    skills$ = uniqBy(skills, 'code');
+    skills$ = skills$.map(m => m.code).join(',');
   }
 
   let query = { [skillEndpoint]: skills$, [gradeEndpoint]: grade };
