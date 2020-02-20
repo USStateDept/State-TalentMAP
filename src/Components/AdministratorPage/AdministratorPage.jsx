@@ -28,6 +28,7 @@ const AdministratorPage = (props) => {
     usersIsLoading,
     usersHasErrored,
     usersList,
+    totalUsers,
   } = props;
 
   const dashboardProps = {
@@ -56,6 +57,7 @@ const AdministratorPage = (props) => {
     usersList,
     usersIsLoading,
     usersHasErrored,
+    totalUsers,
   };
 
   return (
@@ -90,6 +92,7 @@ AdministratorPage.propTypes = {
   usersIsLoading: PropTypes.bool,
   usersHasErrored: PropTypes.bool,
   usersList: PropTypes.arrayOf(PropTypes.shape({})),
+  totalUsers: PropTypes.number,
 };
 
 AdministratorPage.defaultProps = {
@@ -112,6 +115,7 @@ AdministratorPage.defaultProps = {
   usersIsLoading: false,
   usersHasErrored: false,
   usersList: [],
+  totalUsers: 0, // ?mike? this feels excessive 2 of 3
 };
 
 export default AdministratorPage;

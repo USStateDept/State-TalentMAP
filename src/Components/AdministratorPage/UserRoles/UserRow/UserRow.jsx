@@ -24,7 +24,9 @@ class UserRow extends Component {
   }
 
   updatePermission(addRole, groupID) {
+    // eslint-disable-next-line no-console
     console.log('updatePermission()');
+    // eslint-disable-next-line no-console
     console.log('addRole: ', addRole, ' groupID: ', groupID, ' this.props.userID: ', this.props.userID);
     this.props.modifyPermission(addRole, this.props.userID, groupID);
   }
@@ -41,8 +43,7 @@ class UserRow extends Component {
         {Object.keys(DELEGATE_ROLES).map(role => (
           <td key={DELEGATE_ROLES[role].group_name} className="delegateRoleCell">
             <CheckBox
-              label={`${this.checkPermission([DELEGATE_ROLES[role].group_name]) ? 'Add' : 'Remove'}
-                ${DELEGATE_ROLES[role].group_name} Permission`}
+              label={`Toggle ${DELEGATE_ROLES[role].group_name} permission.`}
               id={`${userID}-${DELEGATE_ROLES[role].group_name}`}
               value={this.checkPermission([DELEGATE_ROLES[role].group_name])}
               onCheckBoxClick={e => this.updatePermission(e, DELEGATE_ROLES[role].group_id)}

@@ -19,21 +19,21 @@ export function usersIsLoading(bool) {
 }
 
 export function usersSuccess(results) {
-  // eslint-disable-next-line no-console
-  console.log('usersSuccess(results) | results:', results);
   return {
     type: 'USERS_SUCCESS',
     results,
   };
 }
 
-export function getUsers() {
+export function getUsers(page = 1, limit = 100) {
+  const qString = queryString.stringify({ page, limit });
+  const fullURL = `permission/user/all/?${qString}`; // ??mike?? should this one have a ? at end too
   return (dispatch) => {
     dispatch(usersIsLoading(true));
     dispatch(usersHasErrored(false));
-    api().get('permission/user/all/')
+    api().get(fullURL)
         .then((results) => {
-          dispatch(usersSuccess(results.data.results));
+          dispatch(usersSuccess(results.data));
           dispatch(usersIsLoading(false));
           dispatch(usersHasErrored(false));
         })
@@ -45,8 +45,6 @@ export function getUsers() {
 }
 
 export function modifyPermissionHasErrored(bool) {
-  // eslint-disable-next-line no-console
-  console.log('modifyPermissionHasErrored()');
   return {
     type: 'MODIFY_PERMISSION_HAS_ERRORED',
     hasErrored: bool,
@@ -61,7 +59,7 @@ export function modifyPermissionIsLoading(bool) {
 }
 
 export function modifyPermissionSuccess(results) {
-  getUsers();
+  getUsers(); // ?mike? is this wise?
   return {
     type: 'MODIFY_PERMISSION_SUCCESS',
     results,
@@ -83,6 +81,7 @@ export function getTableStatsIsLoading(bool) {
 }
 
 export function getTableStatsSuccess(results) {
+  // ?mike? is there a better way?
    // eslint-disable-next-line no-return-assign
   results.map(m => (
       DELEGATE_ROLES[m.name].group_id = m.id
@@ -101,11 +100,11 @@ export function getTableStats() {
       tableCols.push(DELEGATE_ROLES[m].group_name)
   ));
   const qString = queryString.stringify({ name__in: tableCols.join(',') });
-  const apiURL = `${baseURL}?${qString}?`;
+  const apiURL = `${baseURL}?${qString}?`; // ?mike? why ? at the end. see '??mike??'
 
   // old URL for reference:
   // permission/group/?name__in=superuser%2Cglossary_editors%2Caboutpage_editor%2C?
-  // new one missing %2C form the end of the string
+  // new one's missing %2C from the end of the string ?mike? is that ok?
 
   return (dispatch) => {
     dispatch(getTableStatsIsLoading(true));

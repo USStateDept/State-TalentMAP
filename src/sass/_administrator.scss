@@ -317,6 +317,11 @@
     }
   }
 
+  .delegate-roles-loading {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   .delegateRole--table {
     border: 1px solid #a9a9a9;
     tr {
@@ -355,6 +360,10 @@
         margin-top: 0;
       }
     }
+  }
+
+  .selectUsers {
+    float: right;
   }
 
   // IE11 fix for input text not displaying
