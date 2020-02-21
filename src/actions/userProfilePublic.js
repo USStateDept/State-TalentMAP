@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { get } from 'lodash';
+import { get, isArray } from 'lodash';
+import { clientBidListFetchDataSuccess } from './bidList';
 import api from '../api';
 
 export function userProfilePublicHasErrored(bool) {
@@ -31,7 +32,7 @@ export function unsetUserProfilePublic() {
 
 // include an optional bypass for when we want to silently update the profile
 export function userProfilePublicFetchData(id, bypass) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     if (!bypass) {
       dispatch(userProfilePublicIsLoading(true));
       dispatch(userProfilePublicHasErrored(false));
@@ -73,6 +74,15 @@ export function userProfilePublicFetchData(id, bypass) {
           dispatch(userProfilePublicFetchDataSuccess(newProfileObject));
           dispatch(userProfilePublicIsLoading(false));
           dispatch(userProfilePublicHasErrored(false));
+
+          // Set this user's bid list to the clientView's bidl ist, if they are the same user.
+          const clientView = get(getState(), 'clientView');
+          const selectedEmpId = get(clientView, 'client.employee_id');
+          const empId = get(newProfileObject, 'employee_id');
+          if (empId && selectedEmpId &&
+            empId === selectedEmpId && isArray(newProfileObject.bidList)) {
+            dispatch(clientBidListFetchDataSuccess({ results: newProfileObject.bidList }));
+          }
         }
       }))
       .catch(() => {
