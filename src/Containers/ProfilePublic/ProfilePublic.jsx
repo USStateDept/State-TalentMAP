@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { get } from 'lodash';
 import ProfileDashboard from 'Components/ProfileDashboard';
-import { fetchBidderClassifications } from 'actions/bidderClassifications';
+import { fetchClassifications } from 'actions/classifications';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
@@ -80,15 +80,15 @@ const mapStateToProps = (state, ownProps) => ({
   isLoading: state.userProfilePublicIsLoading,
   hasErrored: state.userProfilePublicHasErrored,
   id: ownProps,
-  classificationsIsLoading: state.bidderClassificationsIsLoading,
-  classificationsHasErrored: state.bidderClassificationsHasErrored,
+  classificationsIsLoading: state.classificationsIsLoading,
+  classificationsHasErrored: state.classificationsHasErrored,
   classifications: state.classifications,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(userProfilePublicFetchData(id)),
   onNavigateTo: dest => dispatch(push(dest)),
-  fetchClassifications: id => dispatch(fetchBidderClassifications(id)),
+  fetchClassifications: () => dispatch(fetchClassifications()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfilePublic));

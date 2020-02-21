@@ -45,7 +45,7 @@ import positionCount from './positionCount';
 import showMobileFilter from './showMobileFilter';
 import stats from './stats';
 import clientSuggestions from './clientSuggestions';
-import bidderClassifications from './bidderClassifications';
+import classifications from './classifications';
 
 export default combineReducers({
   ...results,
@@ -89,7 +89,7 @@ export default combineReducers({
   ...showMobileFilter,
   ...stats,
   ...clientSuggestions,
-  ...bidderClassifications,
+  ...classifications,
   router,
   client,
   login,

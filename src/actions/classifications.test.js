@@ -1,6 +1,6 @@
 import { setupAsyncMocks, spyMockAdapter, expectMockWasCalled } from '../testUtilities/testUtilities';
 import * as actions from './classifications';
-// import bidderClassifications object
+// import classifications object
 
 const { mockStore } = setupAsyncMocks();
 
@@ -11,7 +11,7 @@ describe('classifications async actions', () => {
     store = mockStore({ results: [] });
 
     ({ mock, spy } = spyMockAdapter({
-      // url: '/fsbid/reference/classifications/', response: [200, bidderClassificationObject],
+      // url: '/fsbid/reference/classifications/', response: [200, classificationObject],
     })); mock();
   });
 
