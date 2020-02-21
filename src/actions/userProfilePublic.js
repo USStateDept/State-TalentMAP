@@ -75,7 +75,7 @@ export function userProfilePublicFetchData(id, bypass) {
           dispatch(userProfilePublicIsLoading(false));
           dispatch(userProfilePublicHasErrored(false));
 
-          // Set this user's bid list to the clientView's bidl ist, if they are the same user.
+          // Set this user's bid list to the clientView's bid list, if they are the same user.
           const clientView = get(getState(), 'clientView');
           const selectedEmpId = get(clientView, 'client.employee_id');
           const empId = get(newProfileObject, 'employee_id');
