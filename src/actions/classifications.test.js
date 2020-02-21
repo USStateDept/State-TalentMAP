@@ -11,7 +11,7 @@ describe('classifications async actions', () => {
     store = mockStore({ results: [] });
 
     ({ mock, spy } = spyMockAdapter({
-      // url: '/fsbid/bidderTrackingProgram/?', response: [200, bidderClassificationObject],
+      // url: '/fsbid/reference/classifications/', response: [200, bidderClassificationObject],
     })); mock();
   });
 
