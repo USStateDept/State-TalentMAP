@@ -1,5 +1,6 @@
-import { getPostName } from '../../utilities';
-import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
+import { isUndefined } from 'lodash';
+import { getPostName } from 'utilities';
+import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 
 // Attempt to map the non-numeric grade codes to a full description.
 // If no match is found, return the unmodified code.
@@ -104,11 +105,11 @@ export function doesCodeOrIdMatch(filterItem, filterItemObject, mappedObject) {
   const filterRef = filterItem.item.selectionRef;
   const filterId = filterItemObject.id;
 
-  const codeAndRefMatch = filterCode &&
+  const codeAndRefMatch = !isUndefined(filterCode) &&
     filterCode.toString() === mappedObject.codeRef.toString() &&
     filterRef === mappedObject.selectionRef;
 
-  const idAndRefMatch = filterId &&
+  const idAndRefMatch = !isUndefined(filterId) &&
   filterItemObject.id.toString() === mappedObject.codeRef.toString() &&
   filterRef === mappedObject.selectionRef;
 
