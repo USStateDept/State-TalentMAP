@@ -40,7 +40,7 @@ class BidTracker extends Component {
 
   getSortedBids() {
     const { sortValue } = this.state;
-    const { bidList: { results } } = this.props;
+    const results = get(this.props, 'bidList.results', []);
     let results$ = [...results];
     switch (sortValue) {
       case UPDATED:
