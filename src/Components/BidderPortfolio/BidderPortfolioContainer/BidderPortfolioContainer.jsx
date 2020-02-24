@@ -23,16 +23,22 @@ class BidderPortfolioContainer extends Component {
   }
   render() {
     const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit, isLoading,
-      cdosLength } = this.props;
+      cdosLength, hideControls } = this.props;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
     const showNoCdosAlert = !cdosLength;
+    const showEdit$ = showEdit && !hideControls;
+    const showExpand = !hideControls;
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
           !showNoCdosAlert &&
           (
             showListView ?
-              <BidderPortfolioGridList showEdit={showEdit} results={bidderPortfolio.results} />
+              <BidderPortfolioGridList
+                showEdit={showEdit$}
+                showExpand={showExpand}
+                results={bidderPortfolio.results}
+              />
               :
               <BidderPortfolioCardList results={bidderPortfolio.results} />
           )
@@ -75,6 +81,7 @@ BidderPortfolioContainer.propTypes = {
   showEdit: PropTypes.bool,
   isLoading: PropTypes.bool,
   cdosLength: PropTypes.number,
+  hideControls: PropTypes.bool,
 };
 
 BidderPortfolioContainer.defaultProps = {
@@ -82,6 +89,7 @@ BidderPortfolioContainer.defaultProps = {
   showEdit: false,
   isLoading: false,
   cdosLength: 0,
+  hideControls: false,
 };
 
 export default BidderPortfolioContainer;
