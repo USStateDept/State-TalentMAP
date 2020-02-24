@@ -8,12 +8,6 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { modifyPermission } from 'actions/userRoles';
 
 class UserRow extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
   checkPermission(permission) {
     const isEmpty = !this.props.permissionGroups.length;
     if (isEmpty) return false;
@@ -71,7 +65,6 @@ UserRow.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  modifyPermissionSuccess: state.modifyPermissionSuccess,
   modifyPermissionIsLoading: state.modifyPermissionIsLoading,
   modifyPermissionHasErrored: state.modifyPermissionHasErrored,
 });

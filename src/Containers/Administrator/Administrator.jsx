@@ -180,7 +180,7 @@ AdministratorContainer.defaultProps = {
   usersIsLoading: false,
   usersHasErrored: false,
   usersList: [],
-  totalUsers: 0, // ?mike? this feels excessive 1 of 3
+  totalUsers: 0,
 };
 
 const mapStateToProps = state => ({

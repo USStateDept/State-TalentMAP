@@ -25,9 +25,6 @@ const AdministratorPage = (props) => {
     runAllJobs,
     patchSyncJob,
     patchSyncIsLoading,
-    usersIsLoading,
-    usersHasErrored,
-    usersList,
     totalUsers,
   } = props;
 
@@ -54,9 +51,6 @@ const AdministratorPage = (props) => {
   };
 
   const userProps = {
-    usersList,
-    usersIsLoading,
-    usersHasErrored,
     totalUsers,
   };
 
@@ -89,9 +83,6 @@ AdministratorPage.propTypes = {
   runAllJobs: PropTypes.func,
   patchSyncIsLoading: PropTypes.bool,
   patchSyncJob: PropTypes.func,
-  usersIsLoading: PropTypes.bool,
-  usersHasErrored: PropTypes.bool,
-  usersList: PropTypes.arrayOf(PropTypes.shape({})),
   totalUsers: PropTypes.number,
 };
 
@@ -112,10 +103,7 @@ AdministratorPage.defaultProps = {
   runAllJobs: EMPTY_FUNCTION,
   patchSyncIsLoading: false,
   patchSyncJob: EMPTY_FUNCTION,
-  usersIsLoading: false,
-  usersHasErrored: false,
-  usersList: [],
-  totalUsers: 0, // ?mike? this feels excessive 2 of 3
+  totalUsers: 0,
 };
 
 export default AdministratorPage;
