@@ -242,6 +242,9 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
             ],
           }
         }
+        cdosLength={0}
+        hideControls={true}
+        isLoading={false}
         pageNumber={1}
         pageSize={8}
         queryParamUpdate={[Function]}

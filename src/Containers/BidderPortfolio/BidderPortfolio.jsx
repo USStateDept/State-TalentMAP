@@ -39,7 +39,7 @@ class BidderPortfolio extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((!isEqual(nextProps.cdos, this.props.cdos) && get(nextProps, 'cdos', []).length) ||
+    if ((!isEqual(nextProps.cdos, this.props.cdos)) ||
     !isEqual(nextProps.selectedSeasons, this.props.selectedSeasons)) {
       this.getBidderPortfolio();
       this.props.fetchBidderPortfolioCounts();
@@ -98,12 +98,13 @@ class BidderPortfolio extends Component {
   render() {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
-    bidderPortfolioCountsHasErrored } = this.props;
+    bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading } = this.props;
     const { defaultPageSize, defaultPageNumber } = this.state;
+    const isLoading = bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading;
     return (
       <BidderPortfolioPage
         bidderPortfolio={bidderPortfolio}
-        bidderPortfolioIsLoading={bidderPortfolioIsLoading}
+        bidderPortfolioIsLoading={isLoading}
         bidderPortfolioHasErrored={bidderPortfolioHasErrored}
         pageSize={defaultPageSize.value}
         queryParamUpdate={this.onQueryParamUpdate}
@@ -111,6 +112,7 @@ class BidderPortfolio extends Component {
         bidderPortfolioCounts={bidderPortfolioCounts}
         bidderPortfolioCountsIsLoading={bidderPortfolioCountsIsLoading}
         bidderPortfolioCountsHasErrored={bidderPortfolioCountsHasErrored}
+        cdosLength={cdos.length}
       />
     );
   }
@@ -128,6 +130,7 @@ BidderPortfolio.propTypes = {
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
   selectedSeasons: PropTypes.arrayOf(PropTypes.string),
+  bidderPortfolioCDOsIsLoading: PropTypes.bool,
 };
 
 BidderPortfolio.defaultProps = {
@@ -141,6 +144,7 @@ BidderPortfolio.defaultProps = {
   fetchBidderPortfolioCDOs: EMPTY_FUNCTION,
   cdos: [],
   selectedSeasons: [],
+  bidderPortfolioCDOsIsLoading: false,
 };
 
 const mapStateToProps = state => ({
