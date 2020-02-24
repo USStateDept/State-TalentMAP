@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import { ScrollContext } from 'react-router-scroll-4';
 import { FlagsProvider } from 'flag';
+import { StickyContainer } from 'react-sticky';
 import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
@@ -20,27 +21,29 @@ const isAuthorized = () => checkIndexAuthentication(store);
 const flags = () => getFlags();
 
 const Main = props => (
-  <FlagsProvider flags={flags()}>
-    <Provider store={store} history={history}>
-      <ConnectedRouter history={history}>
-        <ScrollContext>
-          <div>
-            <DarkMode />
-            <PageMeta history={history} />
-            <Header {...props} isAuthorized={isAuthorized} />
-            <main id="main-content">
-              <Routes {...props} isAuthorized={isAuthorized} />
-            </main>
-            <Footer />
-            <AuthorizedWrapper {...props} isAuthorized={isAuthorized}>
-              <Glossary />
-            </AuthorizedWrapper>
-            <Toast />
-          </div>
-        </ScrollContext>
-      </ConnectedRouter>
-    </Provider>
-  </FlagsProvider>
+  <StickyContainer>
+    <FlagsProvider flags={flags()}>
+      <Provider store={store} history={history}>
+        <ConnectedRouter history={history}>
+          <ScrollContext>
+            <div>
+              <DarkMode />
+              <PageMeta history={history} />
+              <Header {...props} isAuthorized={isAuthorized} />
+              <main id="main-content">
+                <Routes {...props} isAuthorized={isAuthorized} />
+              </main>
+              <Footer />
+              <AuthorizedWrapper {...props} isAuthorized={isAuthorized}>
+                <Glossary />
+              </AuthorizedWrapper>
+              <Toast />
+            </div>
+          </ScrollContext>
+        </ConnectedRouter>
+      </Provider>
+    </FlagsProvider>
+  </StickyContainer>
 );
 
 export default Main;

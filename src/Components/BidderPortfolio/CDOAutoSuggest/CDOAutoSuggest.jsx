@@ -49,7 +49,7 @@ class CDOAutoSuggest extends Component {
             numberDisplayed={2}
             multiple
             includeFilter
-            dropdownHeight={600}
+            dropdownHeight={255}
             renderList={renderList}
             valueKey="id"
             labelKey="name"
