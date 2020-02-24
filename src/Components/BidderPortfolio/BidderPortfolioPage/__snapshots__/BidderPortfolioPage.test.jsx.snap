@@ -36,6 +36,8 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
     <div>
       <BidControls
         changeViewType={[Function]}
+        defaultHandshake=""
+        defaultOrdering=""
         queryParamUpdate={[Function]}
         viewType="card"
       />

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
+import PreferenceWrapper from 'Containers/PreferenceWrapper';
 import SelectForm from '../../SelectForm';
-import { BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS } from '../../../Constants/Sort';
+import { BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
+  BID_PORTFOLIO_FILTERS_TYPE } from '../../../Constants/Sort';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
@@ -24,7 +26,7 @@ class BidControls extends Component {
     this.props.queryParamUpdate(orderingObject);
   }
   render() {
-    const { viewType, changeViewType } = this.props;
+    const { viewType, changeViewType, defaultHandshake, defaultOrdering } = this.props;
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
@@ -35,18 +37,28 @@ class BidControls extends Component {
           {useCDOSeasonFilter() &&
           <div className="portfolio-sort-container-contents">
             <BidCyclePicker />
-            <SelectForm
-              id="porfolio-filter"
-              options={BID_PORTFOLIO_FILTERS.options}
-              label="Filter by:"
-              onSelectOption={this.onFilterChange}
-            />
-            <SelectForm
-              id="porfolio-sort"
-              options={BID_PORTFOLIO_SORTS.options}
-              label="Sort by:"
-              onSelectOption={this.onSortChange}
-            />
+            <PreferenceWrapper
+              onSelect={this.onFilterChange}
+              keyRef={BID_PORTFOLIO_FILTERS_TYPE}
+            >
+              <SelectForm
+                id="porfolio-filter"
+                options={BID_PORTFOLIO_FILTERS.options}
+                label="Filter by:"
+                defaultSort={defaultHandshake}
+              />
+            </PreferenceWrapper>
+            <PreferenceWrapper
+              onSelect={this.onSortChange}
+              keyRef={BID_PORTFOLIO_SORTS_TYPE}
+            >
+              <SelectForm
+                id="porfolio-sort"
+                options={BID_PORTFOLIO_SORTS.options}
+                label="Sort by:"
+                defaultSort={defaultOrdering}
+              />
+            </PreferenceWrapper>
           </div>}
         </div>
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
@@ -61,6 +73,8 @@ BidControls.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   viewType: PropTypes.string.isRequired,
   changeViewType: PropTypes.func.isRequired,
+  defaultHandshake: PropTypes.string.isRequired,
+  defaultOrdering: PropTypes.string.isRequired,
 };
 
 export default BidControls;
