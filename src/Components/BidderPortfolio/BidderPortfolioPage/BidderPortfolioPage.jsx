@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
 import BidderPortfolioContainer from '../BidderPortfolioContainer';
@@ -34,7 +35,7 @@ class BidderPortfolioPage extends Component {
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading,
+    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
@@ -58,6 +59,8 @@ class BidderPortfolioPage extends Component {
     if (isLoading) { loadingClass = 'results-loading'; }
 
     const showEdit = editType.show;
+
+    const hideControls = get(bidderPortfolio, 'results', []).length === 0 || !cdosLength;
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
@@ -67,7 +70,7 @@ class BidderPortfolioPage extends Component {
               <ProfileSectionTitle title="Clients" icon="users" />
             </div>
             <div className="usa-width-one-half" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              {isListView && <EditButtons onChange={this.changeEditType} />}
+              {isListView && !hideControls && <EditButtons onChange={this.changeEditType} />}
               <ExportLink />
             </div>
           </div>
@@ -98,6 +101,9 @@ class BidderPortfolioPage extends Component {
                   pageNumber={pageNumber}
                   showListView={isListView}
                   showEdit={showEdit}
+                  isLoading={bidderPortfolioIsLoading}
+                  cdosLength={cdosLength}
+                  hideControls={hideControls}
                 />
             }
           </div>
@@ -116,10 +122,12 @@ BidderPortfolioPage.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
   bidderPortfolioCountsIsLoading: PropTypes.bool.isRequired,
+  cdosLength: PropTypes.number,
 };
 
 BidderPortfolioPage.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
+  cdosLength: 0,
 };
 
 export default BidderPortfolioPage;
