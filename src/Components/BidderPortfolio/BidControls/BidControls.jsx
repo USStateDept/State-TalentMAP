@@ -16,6 +16,10 @@ class BidControls extends Component {
     super(props);
     this.onSortChange = this.onSortChange.bind(this);
     this.onFilterChange = this.onFilterChange.bind(this);
+    this.onSeasonChange = this.onSeasonChange.bind(this);
+    this.state = {
+      hasSeasons: true,
+    };
   }
   onSortChange(q) {
     const orderingObject = { ordering: q.target.value };
@@ -25,8 +29,15 @@ class BidControls extends Component {
     const orderingObject = { hasHandshake: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   }
+  onSeasonChange(seasons) {
+    const hasSeasons = !!seasons.length;
+    if (hasSeasons !== this.state.hasSeasons) {
+      this.setState({ hasSeasons });
+    }
+  }
   render() {
     const { viewType, changeViewType, defaultHandshake, defaultOrdering } = this.props;
+    const { hasSeasons } = this.state;
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
@@ -36,18 +47,21 @@ class BidControls extends Component {
           </div>
           {useCDOSeasonFilter() &&
           <div className="portfolio-sort-container-contents">
-            <BidCyclePicker />
-            <PreferenceWrapper
-              onSelect={this.onFilterChange}
-              keyRef={BID_PORTFOLIO_FILTERS_TYPE}
-            >
-              <SelectForm
-                id="porfolio-filter"
-                options={BID_PORTFOLIO_FILTERS.options}
-                label="Filter by:"
-                defaultSort={defaultHandshake}
-              />
-            </PreferenceWrapper>
+            {
+              hasSeasons &&
+                <PreferenceWrapper
+                  onSelect={this.onFilterChange}
+                  keyRef={BID_PORTFOLIO_FILTERS_TYPE}
+                >
+                  <SelectForm
+                    id="porfolio-filter"
+                    options={BID_PORTFOLIO_FILTERS.options}
+                    label="Filter by:"
+                    defaultSort={defaultHandshake}
+                  />
+                </PreferenceWrapper>
+            }
+            <BidCyclePicker setSeasonsCb={this.onSeasonChange} />
             <PreferenceWrapper
               onSelect={this.onSortChange}
               keyRef={BID_PORTFOLIO_SORTS_TYPE}

@@ -1,5 +1,5 @@
 import { stringify } from 'query-string';
-import { find, get, isArray, join, replace } from 'lodash';
+import { find, get, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
@@ -196,12 +196,15 @@ export function bidderPortfolioFetchData(query = {}) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
     const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
-    const query$ = { ...query };
+    let query$ = { ...query };
     if (ids.length) {
       query$.hru_id__in = ids.join();
     }
     if (isArray(seasons) && seasons.length) {
       query$.bid_seasons = join(seasons, ',');
+    }
+    if (!query$.bid_seasons || !query$.bid_seasons.length) {
+      query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
     }
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
