@@ -4,6 +4,7 @@ import localforage from 'localforage';
 import memoize from 'memoize-one';
 import { get, throttle } from 'lodash';
 import Enum from 'enum';
+import bowser from 'bowser';
 import { setUserEmpId } from 'actions/userProfile';
 import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from 'utilities';
 import { checkFlag } from 'flags';
@@ -18,6 +19,9 @@ export const INTERCEPTORS = new Enum({ PUT_PERDET: 'AXIOS_ONLY_PUT_PERDET' });
 const interceptorCounts = {
   [INTERCEPTORS.PUT_PERDET.value]: 0,
 };
+
+const browser = bowser.getParser(window.navigator.userAgent);
+const isIE = browser.satisfies({ 'internet explorer': '<=11' });
 
 // Make sure the user isn't spammed with redirects
 const debouncedLogout = throttle(
@@ -81,7 +85,7 @@ const cache = setupCache({
 export const config = () => ({
   // use API_URL by default, but can be overriden from within api_config flag if exists
   baseURL: process.env.API_URL || 'http://localhost:8000/api/v1',
-  adapter: cache.adapter,
+  adapter: !isIE ? cache.adapter : undefined, // axios-cache-adapter does not work in IE11
   ...(checkFlag('api_config') || {}),
 });
 

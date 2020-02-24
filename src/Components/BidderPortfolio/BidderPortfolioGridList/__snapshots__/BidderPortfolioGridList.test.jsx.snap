@@ -2,15 +2,6 @@
 
 exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
 <div>
-  <button
-    className="usa-accordion-button-all"
-    onClick={[Function]}
-    title="Collapse All"
-  >
-    <FontAwesome
-      name="minus"
-    />
-  </button>
   <Accordion
     className="usa-grid-full accordion-inverse user-dashboard portfolio-row-list"
     isMultiselectable={true}
