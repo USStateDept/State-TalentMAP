@@ -102,7 +102,7 @@ const ClientBadge = ({ type, status }) => {
 
 ClientBadge.propTypes = {
   type: PropTypes.oneOf(['handshake', 'sixeight', 'fairshare', 'retirement']).isRequired,
-  status: PropTypes.oneOf([0, 1, 2]),
+  status: PropTypes.oneOf([0, 1]),
 };
 
 ClientBadge.propTypes = {
@@ -123,7 +123,7 @@ ClientBadge.propTypes = {
     'tenure',
     'tandem',
   ]).isRequired,
-  status: PropTypes.oneOf([0, 1, 2]),
+  status: PropTypes.oneOf([0, 1]),
 };
 
 ClientBadge.defaultProps = {

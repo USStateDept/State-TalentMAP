@@ -5,14 +5,19 @@ import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/Prop
 
 const ClientBadgeList = ({ classifications, clientClassifications }) => (
   <div className="usa-grid-full client-badge-list">
-    {classifications.sort(c => (clientClassifications.includes(c.code) ? -1 : 1))
-                    .slice(0, 4)
-                    .map(c => (
-                      <ClientBadge
-                        type={c.code}
-                        status={clientClassifications.indexOf(c.code) > -1}
-                      />
-                    ))
+    {classifications.sort((c) => {
+      const checked = clientClassifications.includes(c.code);
+      return (checked ? -1 : 1);
+    }).slice(0, 4)
+      .map((c) => {
+        const checked = clientClassifications.includes(c.code);
+        return (
+          <ClientBadge
+            type={c.code}
+            status={checked}
+          />
+        );
+      })
     }
   </div>
 );

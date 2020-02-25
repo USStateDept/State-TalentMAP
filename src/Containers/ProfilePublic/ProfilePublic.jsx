@@ -9,7 +9,6 @@ import { fetchClassifications } from 'actions/classifications';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
-
 import Alert from '../../Components/Alert';
 
 class ProfilePublic extends Component {
