@@ -23,15 +23,15 @@ export function classificationsFetchDataSuccess(classifications) {
 
 export function fetchClassifications() {
   return (dispatch) => {
-    dispatch(classificationsHasErrored(false));
     dispatch(classificationsIsLoading(true));
+    dispatch(classificationsHasErrored(false));
 
     api()
       .get('/fsbid/reference/classifications/')
       .then(({ data }) => {
         dispatch(classificationsHasErrored(false));
-        dispatch(classificationsIsLoading(false));
         dispatch(classificationsFetchDataSuccess(data));
+        dispatch(classificationsIsLoading(false));
       })
       .catch(() => {
         dispatch(classificationsHasErrored(true));
