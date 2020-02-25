@@ -206,31 +206,36 @@ export function bidderPortfolioFetchData(query = {}) {
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
-    api().get(q, {
-      cancelToken: new CancelToken((c) => {
-        cancelPortfolio = c;
-      }),
-    })
-      .then(({ data }) => {
-        const data$ = isArray(data) ? data : [];
-        const data$$ = {
-          results: data$,
-          count: data$.length,
-        };
-        dispatch(bidderPortfolioLastQuery(query$$, data$$.count, endpoint));
-        dispatch(bidderPortfolioFetchDataSuccess(data$$));
-        dispatch(bidderPortfolioHasErrored(false));
-        dispatch(bidderPortfolioIsLoading(false));
+
+    if (ids.length) {
+      api().get(q, {
+        cancelToken: new CancelToken((c) => {
+          cancelPortfolio = c;
+        }),
       })
-      .catch((m) => {
-        if (get(m, 'message') === 'cancel') {
+        .then(({ data }) => {
+          const data$ = isArray(data) ? data : [];
+          const data$$ = {
+            results: data$,
+            count: data$.length,
+          };
+          dispatch(bidderPortfolioLastQuery(query$$, data$$.count, endpoint));
+          dispatch(bidderPortfolioFetchDataSuccess(data$$));
           dispatch(bidderPortfolioHasErrored(false));
-          dispatch(bidderPortfolioIsLoading(true));
-        } else {
-          dispatch(bidderPortfolioHasErrored(true));
           dispatch(bidderPortfolioIsLoading(false));
-        }
-      });
+        })
+        .catch((m) => {
+          if (get(m, 'message') === 'cancel') {
+            dispatch(bidderPortfolioIsLoading(true));
+            dispatch(bidderPortfolioHasErrored(false));
+          } else {
+            dispatch(bidderPortfolioHasErrored(true));
+            dispatch(bidderPortfolioIsLoading(false));
+          }
+        });
+    } else {
+      dispatch(bidderPortfolioIsLoading(false));
+    }
   };
 }
 
