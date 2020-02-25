@@ -1,4 +1,4 @@
-FROM node:6.11.5-slim
+FROM node:6.11.5
 
 # Create certificates for testing
 RUN mkdir /certs

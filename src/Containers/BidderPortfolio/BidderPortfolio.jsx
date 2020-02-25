@@ -41,7 +41,7 @@ class BidderPortfolio extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((!isEqual(nextProps.cdos, this.props.cdos) && get(nextProps, 'cdos', []).length) ||
+    if ((!isEqual(nextProps.cdos, this.props.cdos)) ||
     !isEqual(nextProps.selectedSeasons, this.props.selectedSeasons)) {
       this.getBidderPortfolio();
       this.props.fetchBidderPortfolioCounts();
@@ -100,12 +100,14 @@ class BidderPortfolio extends Component {
   render() {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
-    bidderPortfolioCountsHasErrored, classifications } = this.props;
+    bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
+    classifications } = this.props;
     const { defaultPageSize, defaultPageNumber } = this.state;
+    const isLoading = bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading;
     return (
       <BidderPortfolioPage
         bidderPortfolio={bidderPortfolio}
-        bidderPortfolioIsLoading={bidderPortfolioIsLoading}
+        bidderPortfolioIsLoading={isLoading}
         bidderPortfolioHasErrored={bidderPortfolioHasErrored}
         pageSize={defaultPageSize.value}
         queryParamUpdate={this.onQueryParamUpdate}
@@ -116,6 +118,7 @@ class BidderPortfolio extends Component {
         classificationsIsLoading={classificationsIsLoading}
         classificationsHasErrored={classificationsHasErrored}
         classifications={classifications}
+        cdosLength={cdos.length}
       />
     );
   }
@@ -135,6 +138,7 @@ BidderPortfolio.propTypes = {
   selectedSeasons: PropTypes.arrayOf(PropTypes.string),
   fetchClassifications: PropTypes.func.isRequired,
   classifications: CLASSIFICATIONS,
+  bidderPortfolioCDOsIsLoading: PropTypes.bool,
 };
 
 BidderPortfolio.defaultProps = {
@@ -152,6 +156,7 @@ BidderPortfolio.defaultProps = {
   cdos: [],
   selectedSeasons: [],
   classifications: [],
+  bidderPortfolioCDOsIsLoading: false,
 };
 
 const mapStateToProps = state => ({

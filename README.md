@@ -66,6 +66,8 @@ There is a brief deployment guide [here](deploy/DEPLOY.md) that discusses deploy
 
 Accessibility tests can be run in a CI environment using `pa11y-ci`. By default, it tests the URL array found in `.pa11yci` using the WCAG 2.0 AA standard. Be sure to update the array of URLs with IDs that exist in your environment's database.
 
+[USWDS Documentation](https://v1.designsystem.digital.gov/components/) 
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md) for additional information.

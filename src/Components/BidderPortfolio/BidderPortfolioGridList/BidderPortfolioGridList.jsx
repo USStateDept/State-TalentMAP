@@ -78,7 +78,7 @@ class BidderPortfolioGridList extends Component {
   }
 
   render() {
-    const { results, showEdit, classifications } = this.props;
+    const { results, showEdit, showExpand, classifications } = this.props;
     const { expandAll } = this.state;
     let expandText = 'Expand All';
     let expandIcon = 'plus';
@@ -88,9 +88,12 @@ class BidderPortfolioGridList extends Component {
     }
     return (
       <div>
-        <button className="usa-accordion-button-all" title={expandText} onClick={this.toggleExpand}>
-          <FontAwesome name={expandIcon} />
-        </button>
+        {
+          showExpand &&
+          <button className="usa-accordion-button-all" title={expandText} onClick={this.toggleExpand}>
+            <FontAwesome name={expandIcon} />
+          </button>
+        }
         <Accordion className="usa-grid-full accordion-inverse user-dashboard portfolio-row-list" isMultiselectable>
           {
             results.map(result => (
@@ -120,11 +123,13 @@ BidderPortfolioGridList.propTypes = {
   results: BIDDER_RESULTS.isRequired,
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  showExpand: PropTypes.bool,
 };
 
 BidderPortfolioGridList.defaultProps = {
   showEdit: false,
   classifications: [],
+  showExpand: false,
 };
 
 export default BidderPortfolioGridList;

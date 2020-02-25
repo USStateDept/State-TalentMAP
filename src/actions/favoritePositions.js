@@ -1,8 +1,24 @@
 import { get } from 'lodash';
+import { downloadFromResponse } from 'utilities';
+import { toastError } from './toast';
 import api from '../api';
 import { checkFlag } from '../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
+
+export function downloadPositionData(excludeAP = false, excludePV = false) {
+  const url = `/available_position/favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
+  return api().get(url, {
+    responseType: 'stream',
+  })
+  .then((response) => {
+    downloadFromResponse(response, 'TalentMap_favorites_export');
+  })
+  .catch(() => {
+    // eslint-disable-next-line global-require
+    require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+  });
+}
 
 export function favoritePositionsHasErrored(bool) {
   return {
