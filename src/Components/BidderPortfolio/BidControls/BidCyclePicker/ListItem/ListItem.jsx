@@ -5,16 +5,17 @@ import PropTypes from 'prop-types';
 import CheckBox from '../../../../CheckBox';
 import InteractiveElement from '../../../../InteractiveElement';
 
-export const stopProp = e => e.stopPropagation();
-
 const ListItem = ({ item, selectValue, getIsSelected, queryProp }) => {
   const item$ = queryProp ? item[queryProp] : item;
   const isSelected = getIsSelected(item);
+  const onClick = () => {
+    selectValue(item);
+  };
   return (
     <InteractiveElement
       type="li"
       key={item$}
-      onClick={() => selectValue(item)}
+      onClick={onClick}
       data-selected={isSelected ? 'selected' : ''}
       aria-selected={isSelected}
     >
@@ -22,8 +23,8 @@ const ListItem = ({ item, selectValue, getIsSelected, queryProp }) => {
         small
         id={item$}
         label={item$}
-        onClick={stopProp}
         value={isSelected}
+        overrideLifecycle
         checkboxProps={{ readOnly: true, tabIndex: '-1' }}
       />
     </InteractiveElement>

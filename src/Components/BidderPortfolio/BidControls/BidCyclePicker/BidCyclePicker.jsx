@@ -2,9 +2,18 @@ import React, { Component } from 'react';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { filter, indexOf, isArray, map } from 'lodash';
+import bowser from 'bowser';
+import { filter, indexOf, isArray, map, throttle } from 'lodash';
 import { bidderPortfolioSeasonsFetchData, bidderPortfolioSetSeasons } from 'actions/bidderPortfolio';
 import ListItem from './ListItem';
+
+// TODO - Running into an issue where the label/span element is also
+// passing up an event almost concurrently (400ms difference).
+// This only happens in IE11, so we add a leading throttle so that
+// any additional events within 1000ms do not get called.
+const browser = bowser.getParser(window.navigator.userAgent);
+const isIE = browser.satisfies({ 'internet explorer': '<=11' });
+const THROTTLE_MS = isIE ? 1000 : 0;
 
 export function renderList({ items, ...rest }) {
   return items.map(item => <ListItem {...rest} key={item.id} item={item.description} />);
@@ -16,7 +25,11 @@ class BidCyclePicker extends Component {
     this.state = {
       arrayValue: [],
     };
-    this.selectMultipleOption = this.selectMultipleOption.bind(this);
+    this.selectMultipleOption = throttle(
+      this.selectMultipleOption.bind(this),
+      THROTTLE_MS,
+      { trailing: false, leading: true },
+    );
     this.bidSeasonsToIds = this.bidSeasonsToIds.bind(this);
   }
   componentWillMount() {

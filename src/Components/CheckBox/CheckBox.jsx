@@ -18,11 +18,14 @@ class CheckBox extends Component {
   }
 
   onCheck() {
-    const { checked } = this.state;
-    checked.value = !checked.value;
-    this.setState({ checked },
-      this.props.onCheckBoxClick(checked.value, { ...this.props }),
-    );
+    const { overrideLifecycle } = this.props;
+    if (!overrideLifecycle) {
+      const { checked } = this.state;
+      checked.value = !checked.value;
+      this.setState({ checked },
+        this.props.onCheckBoxClick(checked.value, { ...this.props }),
+      );
+    }
   }
 
   render() {
@@ -38,7 +41,7 @@ class CheckBox extends Component {
           title={title}
           name={name}
           value={checked.value}
-          onChange={() => this.onCheck()}
+          onChange={e => this.onCheck(e)}
           checked={checked.value}
           disabled={disabled}
           {...checkboxProps}
@@ -61,6 +64,7 @@ CheckBox.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   checkboxProps: PropTypes.shape({}),
+  overrideLifecycle: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {
@@ -72,6 +76,7 @@ CheckBox.defaultProps = {
   className: '',
   disabled: false,
   checkboxProps: {},
+  overrideLifecycle: false,
 };
 
 export default CheckBox;
