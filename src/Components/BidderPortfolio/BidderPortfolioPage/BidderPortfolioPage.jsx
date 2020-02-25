@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS } from '../../../Constants/PropTypes';
+import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS } from 'Constants/PropTypes';
+import StaticDevContent from 'Components/StaticDevContent';
 import Spinner from '../../Spinner';
 import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
@@ -70,7 +71,9 @@ class BidderPortfolioPage extends Component {
               <ProfileSectionTitle title="Clients" icon="users" />
             </div>
             <div className="usa-width-one-half" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              {isListView && !hideControls && <EditButtons onChange={this.changeEditType} />}
+              <StaticDevContent>
+                {isListView && !hideControls && <EditButtons onChange={this.changeEditType} />}
+              </StaticDevContent>
               <ExportLink />
             </div>
           </div>
