@@ -36,7 +36,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         {
           !showEdit &&
           <div className="bidder-portfolio-stat-row-updates">
-            <h4>Bidder Classifications</h4>
+            <h4>Classifications: </h4>
             <ClientBadgeList
               clientClassifications={clientClassifications}
               classifications={classifications}

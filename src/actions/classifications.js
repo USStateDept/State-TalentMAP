@@ -30,8 +30,8 @@ export function fetchClassifications() {
       .get('/fsbid/reference/classifications/')
       .then(({ data }) => {
         dispatch(classificationsHasErrored(false));
-        dispatch(classificationsFetchDataSuccess(data));
         dispatch(classificationsIsLoading(false));
+        dispatch(classificationsFetchDataSuccess(data));
       })
       .catch(() => {
         dispatch(classificationsHasErrored(true));

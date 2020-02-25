@@ -35,7 +35,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
         <div>
-          <span className="updates">Bidder classifications</span>
+          <span className="updates">Classifications: </span>
           <ClientBadgeList
             clientClassifications={clientClassifications}
             classifications={classifications}
