@@ -17,8 +17,6 @@ export function usersIsLoading(bool) {
 }
 
 export function usersSuccess(results) {
-  console.log('usersSuccess');
-  console.log(results);
   return {
     type: 'USERS_SUCCESS',
     results,
@@ -28,7 +26,6 @@ export function usersSuccess(results) {
 export function getUsers(page = 1, limit = 100) {
   const qString = queryString.stringify({ page, limit });
   const fullURL = `permission/user/all/?${qString}`;
-  console.log(fullURL);
   return (dispatch) => {
     dispatch(usersIsLoading(true));
     dispatch(usersHasErrored(false));
@@ -81,12 +78,6 @@ export function getTableStatsIsLoading(bool) {
 }
 
 export function getTableStatsSuccess(results) {
-  // ?mike? is there a better way?
-   // eslint-disable-next-line no-return-assign
-  results.map(m => (
-      DELEGATE_ROLES[m.name].group_id = m.id
-  ));
-
   return {
     type: 'GET_TABLE_STATS_SUCCESS',
     results,
@@ -120,9 +111,6 @@ export function getTableStats() {
 
 
 export function modifyPermission(addPermission, userID, groupID) {
-  // eslint-disable-next-line no-console
-  console.log('modifyPermission(addPermission', addPermission, ', userID', userID, ', groupID', groupID, ')');
-
   const apiURL = `permission/group/${groupID}/user/${userID}/`;
 
   return (dispatch) => {

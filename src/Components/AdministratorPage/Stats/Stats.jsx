@@ -20,9 +20,7 @@ class Stats extends Component {
 
   componentWillMount() {
     const { getStats } = this.props;
-    const idk = getStats();
-    // eslint-disable-next-line no-console
-    console.log(idk);
+    getStats();
   }
 
   render() {

@@ -81,8 +81,7 @@ class AdministratorContainer extends Component {
     const {
           logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
           logsList, logsListIsLoading, logsListHasErrored,
-          log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, usersIsLoading,
-          usersHasErrored, usersList, totalUsers,
+          log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, totalUsers,
         } = this.props;
     const props = {
       logs,
@@ -104,10 +103,7 @@ class AdministratorContainer extends Component {
       runAllJobs: this.runAllJobs,
       patchSyncJob,
       patchSyncIsLoading,
-      usersIsLoading,
-      usersHasErrored,
-      usersList,
-      totalUsers,
+      totalUsers: totalUsers.count,
     };
     return (
       <AdministratorPage {...props} />
@@ -143,10 +139,7 @@ AdministratorContainer.propTypes = {
   patchSyncHasErrored: PropTypes.bool,
   getUsers: PropTypes.func,
   getTableStats: PropTypes.func,
-  usersIsLoading: PropTypes.bool,
-  usersHasErrored: PropTypes.bool,
-  usersList: PropTypes.arrayOf(PropTypes.shape({})),
-  totalUsers: PropTypes.number,
+  totalUsers: PropTypes.shape({}),
 };
 
 AdministratorContainer.defaultProps = {
@@ -177,10 +170,7 @@ AdministratorContainer.defaultProps = {
   patchSyncHasErrored: false,
   getUsers: EMPTY_FUNCTION,
   getTableStats: EMPTY_FUNCTION,
-  usersIsLoading: false,
-  usersHasErrored: false,
-  usersList: [],
-  totalUsers: 0,
+  totalUsers: {},
 };
 
 const mapStateToProps = state => ({
@@ -201,10 +191,7 @@ const mapStateToProps = state => ({
   putAllSyncsIsLoading: state.putAllSyncsIsLoading,
   patchSyncIsLoading: state.patchSyncIsLoading,
   patchSyncHasErrored: state.patchSyncHasErrored,
-  usersList: state.usersSuccess.results, /* ?mike? to do test failing */
-  usersIsLoading: state.usersIsLoading,
-  usersHasErrored: state.usersHasErrored,
-  totalUsers: state.usersSuccess.count,
+  totalUsers: state.usersSuccess,
 });
 
 export const mapDispatchToProps = dispatch => ({

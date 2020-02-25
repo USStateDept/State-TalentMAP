@@ -18,10 +18,6 @@ class UserRow extends Component {
   }
 
   updatePermission(addRole, groupID) {
-    // eslint-disable-next-line no-console
-    console.log('updatePermission()');
-    // eslint-disable-next-line no-console
-    console.log('addRole: ', addRole, ' groupID: ', groupID, ' this.props.userID: ', this.props.userID);
     this.props.modifyPermission(addRole, this.props.userID, groupID);
   }
 

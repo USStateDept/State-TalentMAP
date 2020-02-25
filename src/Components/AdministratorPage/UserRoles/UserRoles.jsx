@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import DELEGATE_ROLES from 'Constants/DelegateRoles';
-import { paginate } from 'utilities';
 import { getUsers } from 'actions/userRoles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
@@ -33,10 +32,14 @@ class UserRoles extends Component {
       usersIsLoading,
       usersHasErrored,
       modifyPermissionIsLoading,
+      tableStats,
     } = this.props;
-
     const { page, range } = this.state;
     const usersSuccess = !usersIsLoading && !usersHasErrored;
+    // eslint-disable-next-line no-return-assign
+    tableStats.map(m => (
+        DELEGATE_ROLES[m.name].group_id = m.id
+    ));
 
     return (
       <div
@@ -46,7 +49,6 @@ class UserRoles extends Component {
         {
             usersIsLoading &&
             <div>
-              { usersList.toString() }
               <Spinner type="homepage-position-results" size="big" />
             </div>
         }
@@ -75,7 +77,7 @@ class UserRoles extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {paginate(usersList, range, page).map(m => (
+                    {usersList.map(m => (
                       <UserRow
                         key={m.id}
                         userID={m.id}
@@ -83,7 +85,7 @@ class UserRoles extends Component {
                         name={`${m.last_name}, ${m.first_name}`}
                         permissionGroups={m.groups}
                       />
-                    ),
+                      ),
                   )}
                   </tbody>
                 </table>
@@ -110,6 +112,7 @@ UserRoles.propTypes = {
   usersIsLoading: PropTypes.bool,
   usersHasErrored: PropTypes.bool,
   modifyPermissionIsLoading: PropTypes.bool,
+  tableStats: PropTypes.arrayOf(PropTypes.shape([])),
   updateUsers: PropTypes.func,
 };
 
@@ -119,6 +122,7 @@ UserRoles.defaultProps = {
   usersIsLoading: false,
   usersHasErrored: false,
   modifyPermissionIsLoading: false,
+  tableStats: [],
   updateUsers: EMPTY_FUNCTION,
 };
 
@@ -127,6 +131,7 @@ const mapStateToProps = state => ({
   usersIsLoading: state.usersIsLoading,
   usersHasErrored: state.usersHasErrored,
   modifyPermissionIsLoading: state.modifyPermissionIsLoading,
+  tableStats: state.getTableStatsSuccess,
 });
 
 export const mapDispatchToProps = dispatch => ({
