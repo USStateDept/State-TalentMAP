@@ -82,7 +82,7 @@ const icons = {
 const status$ = ['none', 'success'];
 
 const ClientBadge = ({ type, status }) => {
-  const isHighlighted = (status === true) ? 'success' : 'none';
+  const isHighlighted = status === true ? 'success' : 'none';
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
   return (
     <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
