@@ -22,6 +22,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
           labelSrOnly={true}
           name=""
           onCheckBoxClick={[Function]}
+          overrideLifecycle={false}
           small={true}
           title=""
           value={false}
