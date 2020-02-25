@@ -5,7 +5,7 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
   className="cdo-autosuggest"
 >
   <r
-    dropdownHeight={600}
+    dropdownHeight={255}
     filterDebounce={150}
     id="picky"
     includeFilter={true}
