@@ -4,9 +4,10 @@ import { get, isEqual } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { fetchClassifications, classificationsIsLoading, classificationsHasErrored } from 'actions/classifications';
 import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData,
   bidderPortfolioCDOsFetchData } from '../../actions/bidderPortfolio';
-import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS } from '../../Constants/PropTypes';
+import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from '../../Constants/PropTypes';
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from '../../Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
 import BidderPortfolioPage from '../../Components/BidderPortfolio/BidderPortfolioPage';
@@ -36,6 +37,7 @@ class BidderPortfolio extends Component {
       }
     }
     this.props.fetchBidderPortfolioCDOs();
+    this.props.fetchClassifications();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -98,7 +100,7 @@ class BidderPortfolio extends Component {
   render() {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
-    bidderPortfolioCountsHasErrored } = this.props;
+    bidderPortfolioCountsHasErrored, classifications } = this.props;
     const { defaultPageSize, defaultPageNumber } = this.state;
     return (
       <BidderPortfolioPage
@@ -111,6 +113,9 @@ class BidderPortfolio extends Component {
         bidderPortfolioCounts={bidderPortfolioCounts}
         bidderPortfolioCountsIsLoading={bidderPortfolioCountsIsLoading}
         bidderPortfolioCountsHasErrored={bidderPortfolioCountsHasErrored}
+        classificationsIsLoading={classificationsIsLoading}
+        classificationsHasErrored={classificationsHasErrored}
+        classifications={classifications}
       />
     );
   }
@@ -128,6 +133,8 @@ BidderPortfolio.propTypes = {
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
   selectedSeasons: PropTypes.arrayOf(PropTypes.string),
+  fetchClassifications: PropTypes.func.isRequired,
+  classifications: CLASSIFICATIONS,
 };
 
 BidderPortfolio.defaultProps = {
@@ -139,8 +146,12 @@ BidderPortfolio.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
   bidderPortfolioCountsHasErrored: false,
   fetchBidderPortfolioCDOs: EMPTY_FUNCTION,
+  classificationsIsLoading: false,
+  clssificationsHasErrored: false,
+  fetchClassifications: EMPTY_FUNCTION,
   cdos: [],
   selectedSeasons: [],
+  classifications: [],
 };
 
 const mapStateToProps = state => ({
@@ -155,12 +166,16 @@ const mapStateToProps = state => ({
   bidderPortfolioCDOsHasErrored: state.bidderPortfolioCDOsHasErrored,
   cdos: state.bidderPortfolioSelectedCDOsToSearchBy,
   selectedSeasons: state.bidderPortfolioSelectedSeasons,
+  classificationsIsLoading: state.classificationsIsLoading,
+  classificationsHasErrored: state.classificationsHasErrored,
+  classifications: state.classifications,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolio: query => dispatch(bidderPortfolioFetchData(query)),
   fetchBidderPortfolioCounts: () => dispatch(bidderPortfolioCountsFetchData()),
   fetchBidderPortfolioCDOs: () => dispatch(bidderPortfolioCDOsFetchData()),
+  fetchClassifications: () => dispatch(fetchClassifications()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidderPortfolio));

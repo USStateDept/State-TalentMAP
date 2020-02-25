@@ -12,7 +12,9 @@ const CheckboxList = ({ list, clientClassifications }) => (
         small
         value={clientClassifications.indexOf(c.code) > -1}
         key={c.code}
-        disabled={clientClassifications.indexOf(c.code) < 0}
+        disabled
+        checked={clientClassifications.indexOf(c.code) > -1}
+        className={'tm-checkbox-disabled-alternate'}
       />
     ))}
   </div>

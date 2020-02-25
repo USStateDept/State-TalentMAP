@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS } from '../../../Constants/PropTypes';
+import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
 import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
@@ -36,7 +36,8 @@ class BidderPortfolioPage extends Component {
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
-    bidderPortfolioCounts, bidderPortfolioCountsIsLoading } = this.props;
+    bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
+    classificationsHasErrored, classifications } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.
@@ -45,8 +46,8 @@ class BidderPortfolioPage extends Component {
       navDataIsLoading = bidderPortfolioCountsIsLoading && !bidderPortfolioCounts.all_clients;
     }
     // for bidder results, however, we'll wait until everything is loaded
-    const bidderPortfolioIsLoadingNotErrored = bidderPortfolioIsLoading &&
-      !bidderPortfolioHasErrored;
+    const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading &&
+      !bidderPortfolioHasErrored) && (classificationsIsLoading && !classificationsHasErrored);
     const isLoading = bidderPortfolioIsLoadingNotErrored || navDataIsLoading;
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';
@@ -98,6 +99,7 @@ class BidderPortfolioPage extends Component {
                   pageNumber={pageNumber}
                   showListView={isListView}
                   showEdit={showEdit}
+                  classifications={classifications}
                 />
             }
           </div>
@@ -116,10 +118,14 @@ BidderPortfolioPage.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   bidderPortfolioCounts: BIDDER_PORTFOLIO_COUNTS.isRequired,
   bidderPortfolioCountsIsLoading: PropTypes.bool.isRequired,
+  classificationsIsLoading: PropTypes.bool.isRequired,
+  classificationsHasErrored: PropTypes.bool.isRequired,
+  classifications: CLASSIFICATIONS,
 };
 
 BidderPortfolioPage.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
+  classifications: [],
 };
 
 export default BidderPortfolioPage;

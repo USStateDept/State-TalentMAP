@@ -3,76 +3,76 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 
 const icons = {
-  thirdtour: {
+  3: {
     isIcon: true,
     name: 'bath',
     text: '3rd Tour',
   },
-  tenured: {
+  4: {
     isIcon: true,
     name: 'anchor',
     text: 'Tenured',
   },
-  tenure: {
+  R: {
     isIcon: true,
     name: 'life-ring',
     text: 'Recommended for Tenure',
   },
-  sixeight: {
+  6: {
     name: '6/8',
     text: '6/8 Rule',
   },
-  ambassador: {
+  A: {
     isIcon: true,
     name: 'ship',
     text: 'Ambassador / Deputy Assistant Secretary',
   },
-  criticallanguage: {
+  C: {
     isIcon: true,
     name: 'language',
     text: 'Critical Need Language',
   },
-  criticallanguageone: {
+  C1: {
     isIcon: true,
     name: 'language',
     text: 'Critical Need Language 1st Tour',
   },
-  criticallanguagefinal: {
+  CC: {
     isIcon: true,
     name: 'language',
     text: 'Critical Need Language Final Tour',
   },
-  differential: {
+  D: {
     isIcon: true,
     name: 'percent',
     text: 'Differential',
   },
-  fairshare: {
+  F: {
     isIcon: true,
     name: 'balance-scale',
     text: 'Fair Share',
   },
-  pickering: {
+  F1: {
     isIcon: true,
     name: 'graduation-cap',
     text: 'Pickering Fellows',
   },
-  rangel: {
+  F2: {
     isIcon: true,
     name: 'graduation-cap',
     text: 'Rangel Fellows',
   },
-  meritorious: {
+  M: {
     isIcon: true,
     name: 'trophy',
     text: 'Meritorious Step Increases',
   },
-  fellow: {
+  P: {
     isIcon: true,
     name: 'graduation-cap',
     text: 'Pickering/Rangel Fellows',
   },
-  tandem: {
+  T: {
     isIcon: true,
     name: 'users',
     text: 'Tandem',
@@ -82,7 +82,7 @@ const icons = {
 const status$ = ['none', 'success'];
 
 const ClientBadge = ({ type, status }) => {
-  const isHighlighted = (status === 'true') ? 'success' : 'none';
+  const isHighlighted = (status === true) ? 'success' : 'none';
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
   return (
     <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>

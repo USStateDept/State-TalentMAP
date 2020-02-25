@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { BIDDER_LIST } from '../../../Constants/PropTypes';
+import { BIDDER_LIST, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import { scrollToId } from '../../../utilities';
 import BidderPortfolioCardList from '../BidderPortfolioCardList';
 import BidderPortfolioGridList from '../BidderPortfolioGridList';
@@ -22,15 +22,23 @@ class BidderPortfolioContainer extends Component {
     }, 600);
   }
   render() {
-    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit } = this.props;
+    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit,
+      classifications } = this.props;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
           showListView ?
-            <BidderPortfolioGridList showEdit={showEdit} results={bidderPortfolio.results} />
+            <BidderPortfolioGridList
+              showEdit={showEdit}
+              results={bidderPortfolio.results}
+              classifications={classifications}
+            />
             :
-            <BidderPortfolioCardList results={bidderPortfolio.results} />
+            <BidderPortfolioCardList
+              results={bidderPortfolio.results}
+              classifications={classifications}
+            />
         }
         {
            // if there's no results, don't show pagination
@@ -63,11 +71,13 @@ BidderPortfolioContainer.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   showListView: PropTypes.bool,
   showEdit: PropTypes.bool,
+  classifications: CLASSIFICATIONS,
 };
 
 BidderPortfolioContainer.defaultProps = {
   showListView: false,
   showEdit: false,
+  classifications: [],
 };
 
 export default BidderPortfolioContainer;

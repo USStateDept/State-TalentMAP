@@ -2,7 +2,7 @@ import React from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
-import { BIDDER_OBJECT } from '../../../Constants/PropTypes';
+import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
 import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
@@ -11,9 +11,9 @@ import SearchAsClientButton from '../SearchAsClientButton';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
-const BidderPortfolioStatCard = ({ userProfile }) => {
+const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location_code');
-  // const classifications = get(userProfile, 'classifications');
+  const clientClassifications = userProfile.classifications;
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
@@ -37,23 +37,8 @@ const BidderPortfolioStatCard = ({ userProfile }) => {
         <div>
           <span className="updates">Bidder classifications</span>
           <ClientBadgeList
-            statuses={{
-              thirdtour: 'true',
-              tenured: 'false',
-              sixeight: 'true',
-              ambassador: 'false',
-              criticallanguage: 'true',
-              criticallanguageone: 'false',
-              criticallanguagefinal: 'true',
-              differential: 'false',
-              fairshare: 'true',
-              pickering: 'false',
-              rangel: 'true',
-              meritorious: 'false',
-              fellow: 'true',
-              tenure: 'false',
-              tandem: 'true',
-            }}
+            clientClassifications={clientClassifications}
+            classifications={classifications}
           />
         </div>
         {useCDOBidding() &&
@@ -67,6 +52,11 @@ const BidderPortfolioStatCard = ({ userProfile }) => {
 
 BidderPortfolioStatCard.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
+  classifications: CLASSIFICATIONS,
+};
+
+BidderPortfolioStatCard.defaultProps = {
+  classifications: [],
 };
 
 export default BidderPortfolioStatCard;
