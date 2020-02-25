@@ -23,8 +23,8 @@ export function classificationsFetchDataSuccess(classifications) {
 
 export function fetchClassifications() {
   return (dispatch) => {
-    dispatch(classificationsIsLoading(true));
     dispatch(classificationsHasErrored(false));
+    dispatch(classificationsIsLoading(true));
 
     api()
       .get('/fsbid/reference/classifications/')
