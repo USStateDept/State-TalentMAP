@@ -17,7 +17,7 @@ class ProfilePublic extends Component {
   componentWillMount() {
     const id = get(this.props, 'match.params.id');
     this.props.fetchData(id);
-    this.props.fetchClassifications(id);
+    this.props.fetchClassifications();
   }
 
   render() {
@@ -30,6 +30,7 @@ class ProfilePublic extends Component {
       classificationsHasErrored,
     } = this.props;
     const { assignments, bidList } = userProfile;
+    const clientClassifications = userProfile.classifications;
     const assignment = get(assignments, '[0]');
     const combinedLoading = isLoading && classificationsIsLoading;
     const combinedErrored = hasErrored && classificationsHasErrored;
@@ -43,6 +44,7 @@ class ProfilePublic extends Component {
           isLoading={combinedLoading}
           bidList={bidList}
           classifications={classifications}
+          clientClassifications={clientClassifications}
           isPublic
         />
     );

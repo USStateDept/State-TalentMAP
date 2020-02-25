@@ -570,3 +570,7 @@ export const CLASSIFICATION = PropTypes.shape({
 
 export const CLASSIFICATIONS = PropTypes.arrayOf(CLASSIFICATION);
 
+export const CLIENT_CLASSIFICATION = PropTypes.string;
+
+export const CLIENT_CLASSIFICATIONS = PropTypes.arrayOf(CLIENT_CLASSIFICATION);
+
