@@ -94,7 +94,7 @@ const ClientBadge = ({ type, status }) => {
         }
       </div>
       <div className="client-badge-text">
-        <span>{icons[type].text}</span>
+        <span>{type}</span>
       </div>
     </div>
   );
