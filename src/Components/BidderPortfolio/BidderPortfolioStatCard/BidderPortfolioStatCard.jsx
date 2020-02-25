@@ -13,7 +13,7 @@ import SearchAsClientButton from '../SearchAsClientButton';
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatCard = ({ userProfile }) => {
-  const currentAssignmentText = get(userProfile, 'pos_location_code');
+  const currentAssignmentText = get(userProfile, 'pos_location');
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
