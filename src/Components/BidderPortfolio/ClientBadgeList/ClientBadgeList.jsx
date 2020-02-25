@@ -12,7 +12,8 @@ const ClientBadgeList = ({ classifications, clientClassifications }) => (
                         type={c.code}
                         status={clientClassifications.indexOf(c.code) > -1}
                       />
-    ))}
+                    ))
+    }
   </div>
 );
 

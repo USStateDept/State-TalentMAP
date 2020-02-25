@@ -14,7 +14,7 @@ const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location_code');
-  const clientClassifications = userProfile.classifications;
+  const clientClassifications = get(userProfile, 'classifications');
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">

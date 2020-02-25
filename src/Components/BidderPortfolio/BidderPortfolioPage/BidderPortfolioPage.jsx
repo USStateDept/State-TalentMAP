@@ -46,8 +46,8 @@ class BidderPortfolioPage extends Component {
       navDataIsLoading = bidderPortfolioCountsIsLoading && !bidderPortfolioCounts.all_clients;
     }
     // for bidder results, however, we'll wait until everything is loaded
-    const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading &&
-      !bidderPortfolioHasErrored) && (classificationsIsLoading && !classificationsHasErrored);
+    const bidderPortfolioIsLoadingNotErrored = bidderPortfolioIsLoading &&
+      !bidderPortfolioHasErrored && classificationsIsLoading && !classificationsHasErrored;
     const isLoading = bidderPortfolioIsLoadingNotErrored || navDataIsLoading;
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';

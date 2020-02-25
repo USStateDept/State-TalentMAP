@@ -13,7 +13,7 @@ const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location_code');
-  const clientClassifications = userProfile.classifications;
+  const clientClassifications = get(userProfile, 'classifications');
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
