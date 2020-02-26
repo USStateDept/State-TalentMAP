@@ -31,8 +31,8 @@ class ProfilePublic extends Component {
     const { assignments, bidList } = userProfile;
     const clientClassifications = userProfile.classifications;
     const assignment = get(assignments, '[0]');
-    const combinedLoading = isLoading && classificationsIsLoading;
-    const combinedErrored = hasErrored && classificationsHasErrored;
+    const combinedLoading = isLoading || classificationsIsLoading;
+    const combinedErrored = hasErrored || classificationsHasErrored;
     return (
       combinedErrored ?
         <Alert type="error" title="User not found" />
