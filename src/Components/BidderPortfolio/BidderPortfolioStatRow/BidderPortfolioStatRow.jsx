@@ -14,7 +14,7 @@ import SearchAsClientButton from '../SearchAsClientButton';
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
-  const currentAssignmentText = get(userProfile, 'pos_location_code');
+  const currentAssignmentText = get(userProfile, 'pos_location');
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">

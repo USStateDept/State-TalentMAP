@@ -26,18 +26,20 @@ exports[`UpdatesComponent matches snapshot 1`] = `
       />
     </div>
   </div>
-  <div
-    className="section-padded-inner-container small-link-container view-more-link-centered"
-  >
-    <button
-      className="unstyled-button"
-      onClick={[Function]}
+  <Connect(StaticDevContent)>
+    <div
+      className="section-padded-inner-container small-link-container view-more-link-centered"
     >
-      <FontAwesome
-        name="pencil"
-      />
-       Edit Updates
-    </button>
-  </div>
+      <button
+        className="unstyled-button"
+        onClick={[Function]}
+      >
+        <FontAwesome
+          name="pencil"
+        />
+         Edit Updates
+      </button>
+    </div>
+  </Connect(StaticDevContent)>
 </div>
 `;
