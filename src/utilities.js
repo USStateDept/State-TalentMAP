@@ -738,7 +738,7 @@ export const getFlagColorsByTextSearch = (t = '', limit = 5) => {
 // END FUSE SEARCH //
 
 export const stopProp = (event) => {
-  const e = event.target || event;
+  const e = get(event, 'target') || event;
   if (e && e.stopPropagation && isFunction(e.stopPropagation)) {
     e.stopPropagation();
   }
