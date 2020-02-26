@@ -1,7 +1,7 @@
 import React from 'react';
 import { POSITION_DETAILS } from '../../../../Constants/PropTypes';
 import InformationDataPoint from '../../../ProfileDashboard/InformationDataPoint';
-import FavoriteContent from './AssignmentsContent';
+import AssignmentsContent from './AssignmentsContent';
 
 const FavoritesListResultsCard = ({ assignment }) => (
   <div className="usa-grid-full saved-search-card favorites-card" key={assignment.id}>
@@ -10,7 +10,7 @@ const FavoritesListResultsCard = ({ assignment }) => (
         <InformationDataPoint
           titleOnBottom
           content={
-            <FavoriteContent assignment={assignment} />
+            <AssignmentsContent assignment={assignment} />
           }
         />
       </div>

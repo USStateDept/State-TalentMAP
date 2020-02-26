@@ -1,10 +1,9 @@
 import React from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { formatDate, propOrDefault, getPostName } from '../../../../../utilities';
-import { NO_POST, NO_SKILL, NO_POSITION_NUMBER } from '../../../../../Constants/SystemMessages';
+import { formatDate, getPostName } from '../../../../../utilities';
+import { NO_POST, NO_SKILL, NO_POSITION_NUMBER, NO_LANGUAGES } from '../../../../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../../../../Constants/PropTypes';
-import LanguageList from '../../../../LanguageList';
 import StartEnd from '../../../PositionInformation/StartEnd';
 
 const AssignmentsContent = ({ assignment }) => (
@@ -16,11 +15,11 @@ const AssignmentsContent = ({ assignment }) => (
       <span className="usa-sr-only">Position number: </span>
       <span className="bid-list-card-title-post bid-list-card-title-lg">
         {
-          propOrDefault(assignment, 'position.position_number') ?
-          `(${propOrDefault(assignment, 'position.position_number')}) ` : NO_POSITION_NUMBER
+          get(assignment, 'position.position_number') ?
+          `(${get(assignment, 'position.position_number')}) ` : NO_POSITION_NUMBER
         }
       </span>
-      <Link to={`/position/${get(assignment, 'position.position_number')}`}>View Position</Link>
+      <Link to={`/archived/${get(assignment, 'position.position_number')}`}>View Position</Link>
     </div>
     <div>
       <span className="bid-list-card-title-post">Location: </span>
@@ -28,17 +27,17 @@ const AssignmentsContent = ({ assignment }) => (
     </div>
     <div>
       <span className="bid-list-card-title-post">Skill: </span>
-      {propOrDefault(assignment, 'position.skill', NO_SKILL)}
+      {get(assignment, 'position.skill', NO_SKILL)}
     </div>
     <div>
       <span className="bid-list-card-title-post">Language: </span>
-      <LanguageList languages={get(assignment, 'position.languages')} propToUse="representation" />
+      {get(assignment, 'position.language', NO_LANGUAGES)}
     </div>
     <div>
       <span className="bid-list-card-title-post">Start date and End date: </span>
       <StartEnd
         start={formatDate(assignment.start_date)}
-        end={formatDate(assignment.estimated_end_date)}
+        end={formatDate(assignment.end_date)}
       />
     </div>
   </div>

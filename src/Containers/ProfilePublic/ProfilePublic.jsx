@@ -18,15 +18,13 @@ class ProfilePublic extends Component {
 
   render() {
     const { isLoading, hasErrored, userProfile } = this.props;
-    const { assignments, bidList } = userProfile;
-    const assignment = get(assignments, '[0]');
+    const { bidList } = userProfile;
     return (
       hasErrored ?
         <Alert type="error" title="User not found" />
       :
         <ProfileDashboard
           userProfile={userProfile}
-          assignment={assignment}
           isLoading={isLoading}
           bidList={bidList}
           isPublic
