@@ -39,7 +39,7 @@ class BidderPortfolioPage extends Component {
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
     bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
-    classificationsHasErrored, classifications } = this.props;
+    classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.
@@ -88,6 +88,8 @@ class BidderPortfolioPage extends Component {
                 queryParamUpdate={queryParamUpdate}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
+                defaultHandshake={defaultHandshake}
+                defaultOrdering={defaultOrdering}
               />
             </div>
           }
@@ -131,6 +133,8 @@ BidderPortfolioPage.propTypes = {
   classificationsHasErrored: PropTypes.bool.isRequired,
   classifications: CLASSIFICATIONS,
   cdosLength: PropTypes.number,
+  defaultHandshake: PropTypes.string.isRequired,
+  defaultOrdering: PropTypes.string.isRequired,
 };
 
 BidderPortfolioPage.defaultProps = {

@@ -275,7 +275,6 @@ export function bidderPortfolioCDOsFetchData() {
               dispatch(bidderPortfolioSelectCDOsToSearchBy([currentUser]));
               dispatch(bidderPortfolioSelectCDO(currentUser));
             }
-            dispatch(bidderPortfolioFetchData());
           }
           dispatch(bidderPortfolioCDOsHasErrored(false));
           dispatch(bidderPortfolioCDOsIsLoading(false));

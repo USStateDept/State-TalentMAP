@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, isEqual } from 'lodash';
+import { get, isEqual, pick } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fetchClassifications, classificationsIsLoading, classificationsHasErrored } from 'actions/classifications';
+import { BID_PORTFOLIO_SORTS_TYPE, BID_PORTFOLIO_FILTERS_TYPE } from 'Constants/Sort';
 import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData,
   bidderPortfolioCDOsFetchData } from '../../actions/bidderPortfolio';
 import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from '../../Constants/PropTypes';
@@ -25,6 +26,8 @@ class BidderPortfolio extends Component {
       defaultPageSize: { value: 24 },
       defaultPageNumber: { value: 1 },
       defaultKeyword: { value: '' },
+      hasHandshake: { value: props.defaultHandshakeFilter },
+      ordering: { value: props.defaultSort },
     };
   }
 
@@ -41,8 +44,8 @@ class BidderPortfolio extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if ((!isEqual(nextProps.cdos, this.props.cdos)) ||
-    !isEqual(nextProps.selectedSeasons, this.props.selectedSeasons)) {
+    const props = ['cdos', 'selectedSeasons'];
+    if (!isEqual(pick(this.props, props), pick(nextProps, props))) {
       this.getBidderPortfolio();
       this.props.fetchBidderPortfolioCounts();
     }
@@ -52,16 +55,20 @@ class BidderPortfolio extends Component {
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
   onQueryParamUpdate(q) {
+    const { query, defaultPageNumber } = this.state;
+    this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
     // returns the new query string
-    const newQuery = queryParamUpdate(q, this.state.query.value);
+    const newQuery = queryParamUpdate(q, query.value);
     // returns the new query object
-    const newQueryObject = queryParamUpdate(q, this.state.query.value, true);
+    const newQueryObject = queryParamUpdate(q, query.value, true);
     // and update the query state
-    this.state.query.value = newQuery;
+    query.value = newQuery;
     // convert to a number, if it exists
     const newQueryObjectPage = parseInt(newQueryObject.page, 10);
-    this.state.defaultPageNumber.value = newQueryObjectPage || this.state.defaultPageNumber.value;
-    this.getBidderPortfolio();
+    defaultPageNumber.value = newQueryObjectPage || defaultPageNumber.value;
+    this.setState({ query, defaultPageNumber }, () => {
+      this.getBidderPortfolio();
+    });
   }
 
   // Form our query and then retrieve bidders.
@@ -83,17 +90,26 @@ class BidderPortfolio extends Component {
       delete parsedQuery.type;
     }
     this.state.query.value = queryString.stringify(parsedQuery);
+    this.setState({ query });
   }
 
   // When we trigger a new search, we reset the page number and limit.
   createSearchQuery() {
+    const { defaultPageNumber, defaultPageSize, hasHandshake, ordering } = this.state;
     this.mapTypeToQuery();
     const query = {
-      page: this.state.defaultPageNumber.value,
-      limit: this.state.defaultPageSize.value,
+      page: defaultPageNumber.value,
+      limit: defaultPageSize.value,
+      hasHandshake: hasHandshake.value,
+      ordering: ordering.value,
     };
     const queryState = queryString.parse(this.state.query.value);
-    const newQuery = { ...query, ...queryState };
+    let newQuery = { ...queryState, ...query };
+    newQuery = queryParamUpdate(
+      {},
+      queryString.stringify(newQuery),
+      true,
+    ); // filter undefined values
     return newQuery;
   }
 
@@ -102,7 +118,7 @@ class BidderPortfolio extends Component {
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
     bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
     classifications } = this.props;
-    const { defaultPageSize, defaultPageNumber } = this.state;
+    const { defaultPageSize, defaultPageNumber, hasHandshake, ordering } = this.state;
     const isLoading = bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading;
     return (
       <BidderPortfolioPage
@@ -119,6 +135,8 @@ class BidderPortfolio extends Component {
         classificationsHasErrored={classificationsHasErrored}
         classifications={classifications}
         cdosLength={cdos.length}
+        defaultHandshake={hasHandshake.value}
+        defaultOrdering={ordering.value}
       />
     );
   }
@@ -135,10 +153,12 @@ BidderPortfolio.propTypes = {
   fetchBidderPortfolioCounts: PropTypes.func.isRequired,
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
-  selectedSeasons: PropTypes.arrayOf(PropTypes.string),
+  selectedSeasons: PropTypes.arrayOf(PropTypes.string), // eslint-disable-line
   fetchClassifications: PropTypes.func.isRequired,
   classifications: CLASSIFICATIONS,
   bidderPortfolioCDOsIsLoading: PropTypes.bool,
+  defaultHandshakeFilter: PropTypes.string,
+  defaultSort: PropTypes.string,
 };
 
 BidderPortfolio.defaultProps = {
@@ -157,6 +177,8 @@ BidderPortfolio.defaultProps = {
   selectedSeasons: [],
   classifications: [],
   bidderPortfolioCDOsIsLoading: false,
+  defaultHandshakeFilter: '',
+  defaultSort: '',
 };
 
 const mapStateToProps = state => ({
@@ -174,6 +196,8 @@ const mapStateToProps = state => ({
   classificationsIsLoading: state.classificationsIsLoading,
   classificationsHasErrored: state.classificationsHasErrored,
   classifications: state.classifications,
+  defaultHandshakeFilter: get(state, `sortPreferences.${BID_PORTFOLIO_FILTERS_TYPE}.defaultSort`, BID_PORTFOLIO_FILTERS_TYPE.defaultSort),
+  defaultSort: get(state, `sortPreferences.${BID_PORTFOLIO_SORTS_TYPE}.defaultSort`, BID_PORTFOLIO_SORTS_TYPE.defaultSort),
 });
 
 export const mapDispatchToProps = dispatch => ({
