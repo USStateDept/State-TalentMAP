@@ -117,9 +117,8 @@ class BidderPortfolio extends Component {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
     bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
-    classifications } = this.props;
-    const { defaultPageSize, defaultPageNumber, hasHandshake, ordering, classificationsIsLoading,
-    classificationsHasErrored } = this.state;
+    classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
+    const { defaultPageSize, defaultPageNumber, hasHandshake, ordering } = this.state;
     const isLoading = bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading;
     return (
       <BidderPortfolioPage
@@ -157,6 +156,8 @@ BidderPortfolio.propTypes = {
   selectedSeasons: PropTypes.arrayOf(PropTypes.string), // eslint-disable-line
   fetchClassifications: PropTypes.func.isRequired,
   classifications: CLASSIFICATIONS,
+  classificationsHasErrored: PropTypes.bool.isRequired,
+  classificationsIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioCDOsIsLoading: PropTypes.bool,
   defaultHandshakeFilter: PropTypes.string,
   defaultSort: PropTypes.string,
