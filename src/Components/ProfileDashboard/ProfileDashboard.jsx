@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
 import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
-  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION } from 'Constants/PropTypes';
+  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION, CLIENT_CLASSIFICATIONS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { checkFlag } from 'flags';
@@ -19,14 +19,14 @@ import Assignments from './Assignments';
 import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
-import Updates from './Updates';
+import Classifications from './Classifications';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
-  submitBidPosition, deleteBid,
+  submitBidPosition, deleteBid, classifications, clientClassifications,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading || assignmentIsLoading ||
@@ -105,7 +105,10 @@ const ProfileDashboard = ({
                       className="user-dashboard-section-container user-dashboard-column-2"
                     >
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Updates />
+                        <Classifications
+                          classifications={classifications}
+                          clientClassifications={clientClassifications}
+                        />
                       </BoxShadow>
                     </Column>
                 }
@@ -152,6 +155,8 @@ ProfileDashboard.propTypes = {
   isPublic: PropTypes.bool,
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
+  classifications: CLASSIFICATIONS,
+  clientClassifications: CLIENT_CLASSIFICATIONS,
 };
 
 ProfileDashboard.defaultProps = {
@@ -167,6 +172,8 @@ ProfileDashboard.defaultProps = {
   isPublic: false,
   submitBidPosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
+  classifications: [],
+  clientClassifications: [],
 };
 
 export default ProfileDashboard;
