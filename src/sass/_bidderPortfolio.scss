@@ -62,6 +62,7 @@
     font-family: inherit;
     font-size: 1em;
     margin: 0;
+    margin-right: 1em;
   }
 
   > div:nth-child(2) {
@@ -94,7 +95,6 @@
     > div:nth-child(2) {
       display: flex;
       flex: 6 0 100px;
-      justify-content: flex-end;
     }
 
     > div:nth-child(3) {
@@ -103,7 +103,6 @@
 
       > span {
         display: flex;
-        justify-content: flex-end;
       }
     }
 
@@ -294,6 +293,7 @@
 .client-badge-list {
   display: flex;
   margin: 0;
+
 }
 
 .client-badge-container {

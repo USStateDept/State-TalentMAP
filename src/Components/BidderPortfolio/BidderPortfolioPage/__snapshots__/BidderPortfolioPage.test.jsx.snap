@@ -246,6 +246,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
           }
         }
         cdosLength={0}
+        classifications={Array []}
         hideControls={true}
         isLoading={false}
         pageNumber={1}
