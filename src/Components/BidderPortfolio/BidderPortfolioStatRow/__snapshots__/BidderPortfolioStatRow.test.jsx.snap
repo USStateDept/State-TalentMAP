@@ -62,21 +62,13 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
     <div
       className="bidder-portfolio-stat-row-updates"
     >
-      <Connect(StaticDevContent)>
-        <h4>
-          Bidder Classifications
-        </h4>
-        <ClientBadgeList
-          statuses={
-            Object {
-              "fairshare": 1,
-              "handshake": 1,
-              "retirement": 2,
-              "sixeight": 0,
-            }
-          }
-        />
-      </Connect(StaticDevContent)>
+      <h4>
+        Classifications: 
+      </h4>
+      <ClientBadgeList
+        classifications={Array []}
+        clientClassifications={Array []}
+      />
     </div>
     <div
       className="button-container"

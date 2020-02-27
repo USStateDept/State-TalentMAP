@@ -75,20 +75,12 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
       <span
         className="updates"
       >
-        Bidder classifications
+        Classifications: 
       </span>
-      <Connect(StaticDevContent)>
-        <ClientBadgeList
-          statuses={
-            Object {
-              "fairshare": 1,
-              "handshake": 1,
-              "retirement": 2,
-              "sixeight": 0,
-            }
-          }
-        />
-      </Connect(StaticDevContent)>
+      <ClientBadgeList
+        classifications={Array []}
+        clientClassifications={Array []}
+      />
     </div>
     <div
       className="button-container"

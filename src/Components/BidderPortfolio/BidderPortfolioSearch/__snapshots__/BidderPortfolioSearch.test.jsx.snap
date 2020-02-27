@@ -15,7 +15,7 @@ exports[`BidderPortfolioSearchComponent matches snapshot 1`] = `
       legendSrOnly={true}
       onFilterChange={[Function]}
       onUpdate={[Function]}
-      placeholder="Type name, position title, skill, post, etc."
+      placeholder="Client name, skill, grade, and location"
       searchBarDisabled={false}
       searchBarDisabledPlaceholder="Free text search is unavailable when searching Projected Vacancies"
     />

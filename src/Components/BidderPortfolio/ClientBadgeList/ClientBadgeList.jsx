@@ -1,27 +1,34 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { orderBy } from 'lodash';
 import ClientBadge from '../ClientBadge';
+import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
 
-const ClientBadgeList = ({ statuses }) => (
+const ClientBadgeList = ({ classifications, clientClassifications }) => (
   <div className="usa-grid-full client-badge-list">
-    <ClientBadge type="handshake" status={statuses.handshake} />
-    <ClientBadge type="sixeight" status={statuses.sixeight} />
-    <ClientBadge type="fairshare" status={statuses.fairshare} />
-    <ClientBadge type="retirement" status={statuses.retirement} />
+    {orderBy(classifications, c => clientClassifications.includes(c.code), ['desc'])
+      .slice(0, 4)
+      .map((c) => {
+        const checked = clientClassifications.includes(c.code);
+        return (
+          <ClientBadge
+            key={c.code}
+            type={c.code}
+            status={checked}
+          />
+        );
+      })
+    }
   </div>
 );
 
 ClientBadgeList.propTypes = {
-  statuses: PropTypes.shape({
-    handshake: PropTypes.oneOf([0, 1, 2]),
-    sixeight: PropTypes.oneOf([0, 1, 2]),
-    fairshare: PropTypes.oneOf([0, 1, 2]),
-    retirement: PropTypes.oneOf([0, 1, 2]),
-  }).isRequired,
+  classifications: CLASSIFICATIONS,
+  clientClassifications: CLIENT_CLASSIFICATIONS,
 };
 
 ClientBadgeList.defaultProps = {
-  statuses: {},
+  classifications: [],
+  clientClassifications: [],
 };
 
 export default ClientBadgeList;
