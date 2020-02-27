@@ -99,11 +99,17 @@
       flex-wrap: wrap;
     }
 
+    .client-checkbox-list > :first-child {
+      border: 0;
+      border-top: 1px solid $bg-gray-dark-2;
+      border-bottom: 1px solid $bg-gray-dark-2;
+    }
+
     .tm-checkbox {
       margin: 0 auto;
       margin-left: 0;
       margin-right: 2%;
-      min-width: 48%;
+      min-width: 100%;
     }
 
     label {

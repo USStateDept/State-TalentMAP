@@ -16,6 +16,8 @@ describe('BidderPortfolioPageComponent', () => {
     bidderPortfolioCounts: bidderPortfolioCountsObject,
     defaultHandshake: '',
     defaultOrdering: '',
+    classificationsIsLoading: false,
+    classificationsHasErrored: false,
   };
 
   it('is defined', () => {

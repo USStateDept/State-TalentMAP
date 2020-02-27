@@ -1,32 +1,50 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { indexOf } from 'lodash';
 import CheckBox from '../../CheckBox';
-import CLIENT_EDITS from '../../../Constants/ClientEdits';
+import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
 
-const CheckboxList = ({ id, isDisabled }) => (
+const CheckboxList = ({ list, clientClassifications }) => (
 
   <div className="client-checkbox-list">
-    {CLIENT_EDITS.map(c => (
-      <CheckBox
-        id={`${id}-${c.value}`}
-        label={c.label}
-        small
-        value
-        key={c.value}
-        disabled={isDisabled}
-        className={isDisabled ? 'tm-checkbox-disabled-alternate' : ''}
-      />
-    ))}
+    <CheckBox
+      id="key"
+      label="Bidder Has Classification"
+      small
+      value
+      key="key"
+      disabled
+      checked
+      className="tm-checkbox-disabled-alternate"
+    />
+    <hr />
+    {list.map((c) => {
+      const checked = indexOf(clientClassifications, c.code) > -1;
+      return (
+        <CheckBox
+          id={c.id}
+          label={c.text}
+          small
+          value={checked}
+          key={c.code}
+          disabled
+          checked={checked}
+          className="tm-checkbox-disabled-alternate"
+        />
+      );
+    })
+  }
   </div>
 );
 
 CheckboxList.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  isDisabled: PropTypes.bool,
+  list: CLASSIFICATIONS,
+  clientClassifications: CLIENT_CLASSIFICATIONS,
 };
 
 CheckboxList.defaultProps = {
   isDisabled: false,
+  list: [],
+  clientClassifications: [],
 };
 
 export default CheckboxList;
