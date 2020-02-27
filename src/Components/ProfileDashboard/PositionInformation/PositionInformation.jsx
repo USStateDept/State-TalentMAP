@@ -50,7 +50,11 @@ const PositionInformation = ({ assignment = {} }) => {
 };
 
 PositionInformation.propTypes = {
-  assignment: ASSIGNMENT_OBJECT.isRequired,
+  assignment: ASSIGNMENT_OBJECT,
+};
+
+PositionInformation.defaultProps = {
+  assignment: {},
 };
 
 export default PositionInformation;
