@@ -173,7 +173,7 @@ BidderPortfolio.defaultProps = {
   bidderPortfolioCountsHasErrored: false,
   fetchBidderPortfolioCDOs: EMPTY_FUNCTION,
   classificationsIsLoading: false,
-  clssificationsHasErrored: false,
+  classificationsHasErrored: false,
   fetchClassifications: EMPTY_FUNCTION,
   cdos: [],
   selectedSeasons: [],
