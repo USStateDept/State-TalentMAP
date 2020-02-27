@@ -1,18 +1,17 @@
 import React from 'react';
-// import { } from 'lodash';
+import { orderBy } from 'lodash';
 import ClientBadge from '../ClientBadge';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
 
 const ClientBadgeList = ({ classifications, clientClassifications }) => (
   <div className="usa-grid-full client-badge-list">
-    {classifications.sort((c) => {
-      const checked = clientClassifications.includes(c.code);
-      return (checked ? -1 : 1);
-    }).slice(0, 4)
+    {orderBy(classifications, c => clientClassifications.includes(c.code), ['desc'])
+      .slice(0, 4)
       .map((c) => {
         const checked = clientClassifications.includes(c.code);
         return (
           <ClientBadge
+            key={c.code}
             type={c.code}
             status={checked}
           />
