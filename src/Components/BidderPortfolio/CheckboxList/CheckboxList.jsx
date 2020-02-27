@@ -6,6 +6,17 @@ import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/Prop
 const CheckboxList = ({ list, clientClassifications }) => (
 
   <div className="client-checkbox-list">
+    <CheckBox
+      id="key"
+      label="Bidder Has Classification"
+      small
+      value
+      key="key"
+      disabled
+      checked
+      className="tm-checkbox-disabled-alternate"
+    />
+    <hr />
     {list.map((c) => {
       const checked = indexOf(clientClassifications, c.code) > -1;
       return (

@@ -99,6 +99,12 @@
       flex-wrap: wrap;
     }
 
+    .client-checkbox-list > :first-child {
+      border: 0;
+      border-top: 1px solid #AEB0B5;
+      border-bottom: 1px solid #AEB0B5;
+    }
+
     .tm-checkbox {
       margin: 0 auto;
       margin-left: 0;
