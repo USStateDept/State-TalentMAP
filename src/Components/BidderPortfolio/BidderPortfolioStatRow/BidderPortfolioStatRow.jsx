@@ -3,18 +3,18 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
-import { BIDDER_OBJECT } from '../../../Constants/PropTypes';
+import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import SkillCodeList from '../../SkillCodeList';
 import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
 import ClientBadgeList from '../ClientBadgeList';
-import StaticDevContent from '../../StaticDevContent';
 import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
-const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
+const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
+  const clientClassifications = get(userProfile, 'classifications');
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">
@@ -36,17 +36,11 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
         {
           !showEdit &&
           <div className="bidder-portfolio-stat-row-updates">
-            <StaticDevContent>
-              <h4>Bidder Classifications</h4>
-              <ClientBadgeList
-                statuses={{
-                  handshake: 1,
-                  sixeight: 0,
-                  fairshare: 1,
-                  retirement: 2,
-                }}
-              />
-            </StaticDevContent>
+            <h4>Classifications: </h4>
+            <ClientBadgeList
+              clientClassifications={clientClassifications}
+              classifications={classifications}
+            />
           </div>
         }
         {
@@ -67,10 +61,12 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit }) => {
 BidderPortfolioStatRow.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
   showEdit: PropTypes.bool,
+  classifications: CLASSIFICATIONS,
 };
 
 BidderPortfolioStatRow.defaultProps = {
   showEdit: false,
+  classifications: [],
 };
 
 export default BidderPortfolioStatRow;
