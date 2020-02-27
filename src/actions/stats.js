@@ -19,10 +19,6 @@ export function statsIsLoading(bool) {
 }
 
 export function statsSuccess(count) {
-  // eslint-disable-next-line no-console
-  console.log('count:');
-  // eslint-disable-next-line no-console
-  console.log(count);
   return {
     type: 'STATS_SUCCESS',
     count,

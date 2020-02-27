@@ -87,7 +87,7 @@ export function getTableStatsSuccess(results) {
 export function getTableStats() {
   const baseURL = 'permission/group/';
   const tableCols = [];
-  Object.keys(DELEGATE_ROLES).map(m => (
+  Object.keys(DELEGATE_ROLES).forEach(m => (
       tableCols.push(DELEGATE_ROLES[m].group_name)
   ));
   const qString = queryString.stringify({ name__in: tableCols.join(',') });
@@ -111,36 +111,23 @@ export function getTableStats() {
 
 
 export function modifyPermission(addPermission, userID, groupID) {
+  const action = addPermission ? 'put' : 'delete';
   const apiURL = `permission/group/${groupID}/user/${userID}/`;
 
   return (dispatch) => {
     dispatch(modifyPermissionIsLoading(true));
     dispatch(modifyPermissionHasErrored(false));
 
-    if (addPermission) {
-      api().put(apiURL)
-        .then(() => {
-          dispatch(modifyPermissionSuccess(true));
-          dispatch(modifyPermissionHasErrored(false));
-          dispatch(modifyPermissionIsLoading(false));
-        })
-        .catch(() => {
-          dispatch(modifyPermissionSuccess(false));
-          dispatch(modifyPermissionHasErrored(true));
-          dispatch(modifyPermissionIsLoading(false));
-        });
-    } else {
-      api().delete(apiURL)
-          .then(() => {
-            dispatch(modifyPermissionSuccess(true));
-            dispatch(modifyPermissionHasErrored(false));
-            dispatch(modifyPermissionIsLoading(false));
-          })
-          .catch(() => {
-            dispatch(modifyPermissionSuccess(false));
-            dispatch(modifyPermissionHasErrored(true));
-            dispatch(modifyPermissionIsLoading(false));
-          });
-    }
+    api()[action](apiURL)
+      .then(() => {
+        dispatch(modifyPermissionSuccess(true));
+        dispatch(modifyPermissionHasErrored(false));
+        dispatch(modifyPermissionIsLoading(false));
+      })
+      .catch(() => {
+        dispatch(modifyPermissionSuccess(false));
+        dispatch(modifyPermissionHasErrored(true));
+        dispatch(modifyPermissionIsLoading(false));
+      });
   };
 }
