@@ -101,33 +101,29 @@ const ClientBadge = ({ type, status }) => {
 };
 
 ClientBadge.propTypes = {
-  type: PropTypes.oneOf(['handshake', 'sixeight', 'fairshare', 'retirement']).isRequired,
-  status: PropTypes.oneOf([0, 1]),
-};
-
-ClientBadge.propTypes = {
   type: PropTypes.oneOf([
-    'thirdtour',
-    'tenured',
-    'sixeight',
-    'ambassador',
-    'criticallanguage',
-    'criticallanguageone',
-    'criticallanguagefinal',
-    'differential',
-    'fairshare',
-    'pickering',
-    'rangel',
-    'meritorious',
-    'fellow',
-    'tenure',
-    'tandem',
+    3,
+    4,
+    'R',
+    6,
+    'A',
+    'C',
+    'C1',
+    'CC',
+    'D',
+    'F',
+    'F1',
+    'F2',
+    'M',
+    'P',
+    'T',
   ]).isRequired,
-  status: PropTypes.oneOf([0, 1]),
+  status: PropTypes.bool,
 };
 
 ClientBadge.defaultProps = {
-  status: 0,
+  type: [],
+  status: false,
 };
 
 export default ClientBadge;

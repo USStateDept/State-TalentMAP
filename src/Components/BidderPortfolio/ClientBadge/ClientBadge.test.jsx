@@ -5,8 +5,8 @@ import ClientBadge from './ClientBadge';
 
 describe('ClientBadge', () => {
   const props = {
-    type: 'handshake',
-    status: 1,
+    type: 3,
+    status: true,
   };
   it('is defined', () => {
     const wrapper = shallow(<ClientBadge

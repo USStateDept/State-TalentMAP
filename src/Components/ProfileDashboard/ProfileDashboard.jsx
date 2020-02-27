@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
 import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
-  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION, CLIENT_CLASSIFICATIONS } from 'Constants/PropTypes';
+  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION, CLIENT_CLASSIFICATIONS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { checkFlag } from 'flags';
@@ -155,7 +155,7 @@ ProfileDashboard.propTypes = {
   isPublic: PropTypes.bool,
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
-  classifications: [],
+  classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
 };
 
