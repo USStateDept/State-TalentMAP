@@ -13,6 +13,7 @@ exports[`BidderPortfolioCardComponent matches snapshot 1`] = `
   style={Object {}}
 >
   <UserProfileGeneralInformation
+    isPublic={false}
     showEditLink={false}
     useGroup={true}
     userProfile={
