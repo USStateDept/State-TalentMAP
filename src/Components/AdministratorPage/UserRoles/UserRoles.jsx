@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DELEGATE_ROLES from 'Constants/DelegateRoles';
 import { getUsers } from 'actions/userRoles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { omit, get } from 'lodash';
+import { omit, get, isNil } from 'lodash';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
@@ -42,12 +42,13 @@ class UserRoles extends Component {
     const getDelegateRoles = () => {
       const roles = { ...DELEGATE_ROLES };
       tableStats.forEach((m) => {
-        roles[m.name].group_id = m.id;
+        const roleGroup = get(roles, `${m.name}`);
+        if (roleGroup) { roles[m.name].group_id = m.id; }
       });
       // remove role if did not match with tableStats(no id in roles)
       const removeRoles = [];
       Object.keys(roles).forEach((role) => {
-        if (roles[role].group_id === null) {
+        if (isNil(get(roles, `${role}.group_id`))) {
           removeRoles.push(role);
         }
       });
@@ -62,19 +63,18 @@ class UserRoles extends Component {
         <th key={get(DELEGATE_ROLES$, `${m}.group_name`)}>{get(DELEGATE_ROLES$, `${m}.title`)}</th>,
       )
     ));
-    const userRows = [];
-    usersList.forEach(m => (
-      userRows.push(
-        <UserRow
-          key={m.id}
-          userID={m.id}
-          username={m.username}
-          name={`${m.last_name}, ${m.first_name}`}
-          permissionGroups={m.groups}
-          delegateRoles={DELEGATE_ROLES$}
-        />,
-      )
-    ));
+
+    const userRows = usersList.map(m => (
+      <UserRow
+        key={m.id}
+        userID={m.id}
+        username={m.username}
+        name={`${m.last_name}, ${m.first_name}`}
+        permissionGroups={m.groups}
+        delegateRoles={DELEGATE_ROLES$}
+      />
+    ),
+    );
 
     return (
       <div

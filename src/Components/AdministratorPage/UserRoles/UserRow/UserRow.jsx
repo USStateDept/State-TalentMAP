@@ -34,7 +34,7 @@ class UserRow extends Component {
             label={`Toggle ${get(delegateRoles, `${role}.group_name`)} permission.`}
             id={`${userID}-${get(delegateRoles, `${role}.group_name`)}`}
             value={this.checkPermission([get(delegateRoles, `${role}.group_name`)])}
-            onCheckBoxClick={e => this.updatePermission(e, get(delegateRoles, `${role}.group_name`))}
+            onCheckBoxClick={e => this.updatePermission(e, get(delegateRoles, `${role}.group_id`))}
             labelSrOnly
           />
         </td>,
