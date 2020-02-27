@@ -4,7 +4,7 @@ import { get, isEqual, pick } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { fetchClassifications, classificationsIsLoading, classificationsHasErrored } from 'actions/classifications';
+import { fetchClassifications } from 'actions/classifications';
 import { BID_PORTFOLIO_SORTS_TYPE, BID_PORTFOLIO_FILTERS_TYPE } from 'Constants/Sort';
 import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData,
   bidderPortfolioCDOsFetchData } from '../../actions/bidderPortfolio';
@@ -118,7 +118,8 @@ class BidderPortfolio extends Component {
     bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
     bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
     classifications } = this.props;
-    const { defaultPageSize, defaultPageNumber, hasHandshake, ordering } = this.state;
+    const { defaultPageSize, defaultPageNumber, hasHandshake, ordering, classificationsIsLoading,
+    classificationsHasErrored } = this.state;
     const isLoading = bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading;
     return (
       <BidderPortfolioPage
