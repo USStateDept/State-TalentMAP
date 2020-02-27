@@ -3,22 +3,5 @@
 exports[`ClientBadgeList matches snapshot 1`] = `
 <div
   className="usa-grid-full client-badge-list"
->
-  <ClientBadge
-    status={0}
-    type="handshake"
-  />
-  <ClientBadge
-    status={1}
-    type="sixeight"
-  />
-  <ClientBadge
-    status={2}
-    type="fairshare"
-  />
-  <ClientBadge
-    status={1}
-    type="retirement"
-  />
-</div>
+/>
 `;

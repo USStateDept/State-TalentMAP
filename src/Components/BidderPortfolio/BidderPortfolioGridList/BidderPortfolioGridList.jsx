@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Accordion, AccordionItem } from 'Components/Accordion';
-import { BIDDER_RESULTS } from '../../../Constants/PropTypes';
+import { BIDDER_RESULTS, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import BidderPortfolioStatRow from '../BidderPortfolioStatRow';
 
 const isAllFalse = a => a === false;
@@ -78,7 +78,7 @@ class BidderPortfolioGridList extends Component {
   }
 
   render() {
-    const { results, showEdit, showExpand } = this.props;
+    const { results, showEdit, showExpand, classifications } = this.props;
     const { expandAll } = this.state;
     let expandText = 'Expand All';
     let expandIcon = 'plus';
@@ -108,6 +108,7 @@ class BidderPortfolioGridList extends Component {
                 <BidderPortfolioStatRow
                   userProfile={result}
                   showEdit={showEdit}
+                  classifications={classifications}
                 />
               </AccordionItem>
             ))
@@ -121,11 +122,13 @@ class BidderPortfolioGridList extends Component {
 BidderPortfolioGridList.propTypes = {
   results: BIDDER_RESULTS.isRequired,
   showEdit: PropTypes.bool,
+  classifications: CLASSIFICATIONS,
   showExpand: PropTypes.bool,
 };
 
 BidderPortfolioGridList.defaultProps = {
   showEdit: false,
+  classifications: [],
   showExpand: false,
 };
 
