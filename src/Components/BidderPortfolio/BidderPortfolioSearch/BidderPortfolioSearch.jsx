@@ -9,7 +9,7 @@ const BidderPortfolioSearch = ({ onUpdate }) => (
         labelSrOnly
         legendSrOnly
         legend="Client search bar"
-        placeholder="Type name, position title, skill, post, etc."
+        placeholder="Client name, skill, grade, and location"
         onUpdate={onUpdate}
       />
     </div>

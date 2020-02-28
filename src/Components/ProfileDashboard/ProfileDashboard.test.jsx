@@ -7,6 +7,7 @@ import { bidderUserObject } from '../../__mocks__/userObject';
 import assignmentObject from '../../__mocks__/assignmentObject';
 import notificationsObject from '../../__mocks__/notificationsObject';
 import bidListObject from '../../__mocks__/bidListObject';
+import classificationsObject from '../../__mocks__/classificationsObject';
 
 describe('ProfileDashboardComponent', () => {
   const props = {
@@ -18,6 +19,7 @@ describe('ProfileDashboardComponent', () => {
     notificationsIsLoading: false,
     bidList: bidListObject.results,
     bidListIsLoading: false,
+    classifications: classificationsObject,
   };
 
   it('is defined', () => {
