@@ -5,17 +5,14 @@ TODAY=`date +"%Y-%m-%d-%H%M%S"`
 DEPLOYMENT_TYPE="tst"
 ZIP_PATH="./talentmap.zip"
 BACKUP_PATH="/tmp/backup"
+
 TEST_PATH="/talentmap"
 PRD_PATH="/talentmap"
 IVV_PATH="/talentmap-ivv"
 UAT_PATH="/talentmap-uat"
 
-echo ${TODAY}
-
 # Default case is for moving to IVV
 DEPLOYMENT_BASE="/data/www/html"
-PATH_REPLACE_FROM="talentmap"
-PATH_REPLACE_TO="talentmap-ivv"
 
 usage()
 {
@@ -85,56 +82,90 @@ case $i in
 esac
 done
 
-# update the to/from paths if $1 = uat
-if [ ${DEPLOYMENT_TYPE} = "uat" ]; then
-        PATH_REPLACE_FROM="talentmap-ivv"
-        PATH_REPLACE_TO="talentmap-uat"
-fi
-
-if [ ${DEPLOYMENT_TYPE} = "prd" ]; then
-        TEST_PATH=${PRD_PATH}
-fi
-
-ORIGINAL_PATH="$(pwd)"
-
-TST_DEPLOY_PATH="${DEPLOYMENT_BASE}"/"${PATH_REPLACE_FROM}"
 BACKUP_PATH="${BACKUP_PATH}"
 ZIP_ABS_PATH="$(pwd)"/"$ZIP_PATH"
 
-FULL_DEPLOYMENT_PATH="${DEPLOYMENT_BASE}"/"${PATH_REPLACE_TO}"
-FULL_DEPLOYMENT_FROM_PATH="${DEPLOYMENT_BASE}"/"${PATH_REPLACE_FROM}"
-
-if [ ${DEPLOYMENT_TYPE} = "tst" ] || [ ${DEPLOYMENT_TYPE} = "prd" ]; then
+if [ ${DEPLOYMENT_TYPE} = "tst" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${TEST_PATH}"
         if [[ -f ${ZIP_PATH} ]]; then
                 mkdir -p "${BACKUP_PATH}"
-                zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-${DEPLOYMENT_TYPE}-${TODAY}.zip" "${TST_DEPLOY_PATH}"/*
-                cp "${TST_DEPLOY_PATH}/config/config.json" ${BACKUP_PATH}
-                cd "${TST_DEPLOY_PATH}"
+                zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-talentmap-${TODAY}.zip" "${DEPLOY_PATH}"/*
+                yes | sudo cp "${DEPLOY_PATH}/config/config.json" ${BACKUP_PATH}
+                rm -rf ${DEPLOY_PATH}/*
+                cd "${DEPLOY_PATH}"
                 unzip "${ZIP_ABS_PATH}"
-                yes | mv "${ORIGINAL_PATH}"/"${BACKUP_PATH}/config.json" "${ORIGINAL_PATH}"/"${TST_DEPLOY_PATH}"/config/
-                service httpd restart
+                yes | cp -r ./build/* ./
+                yes | mv "${BACKUP_PATH}/config.json" "${DEPLOY_PATH}"/config/
+                sudo service httpd restart
+                sudo service httpd status
         else
                 echo "Deployment zip file not found"
         fi
 fi
 
-if [ ${DEPLOYMENT_TYPE} = "ivv" ] || [ ${DEPLOYMENT_TYPE} = "uat" ]; then
+if [ ${DEPLOYMENT_TYPE} = "prd" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${PRD_PATH}"
+        if [[ -f ${ZIP_PATH} ]]; then
+                mkdir -p "${BACKUP_PATH}"
+                zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-talentmap-prd-${TODAY}.zip" "${DEPLOY_PATH}"/*
+                yes | sudo cp "${DEPLOY_PATH}/config/config.json" ${BACKUP_PATH}
+                rm -rf ${DEPLOY_PATH}/*
+                cd "${DEPLOY_PATH}"
+                unzip "${ZIP_ABS_PATH}"
+                yes | cp -r ./build/* ./
+                yes | sudo mv "${BACKUP_PATH}/config.json" "${DEPLOY_PATH}"/config/
+                cp index.html index.html.bak
+                sudo sed -i'.bak' "s:/talentmap-uat/:/talentmap/:g" index.html
+                cd ./static/css
+                cp main.css main.css.bak
+                sudo sed -i'.bak' "s:/talentmap-uat/:/talentmap/:g" main.css
+                cd ../js
+                sudo sed -i'.bak' "s:/talentmap-uat:/talentmap:g" main.js
+                sudo service httpd restart
+                sudo service httpd status
+        else
+                echo "Deployment zip file not found"
+        fi
+fi
+
+if [ ${DEPLOYMENT_TYPE} = "ivv" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${IVV_PATH}"
+        FROM_PATH="${DEPLOYMENT_BASE}""${TEST_PATH}"
         mkdir -p "${BACKUP_PATH}"
-        zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-${PATH_REPLACE_FROM}-${TODAY}.zip" "${FULL_DEPLOYMENT_PATH}"/*
-        cp "${FULL_DEPLOYMENT_PATH}/config/config.json" "${BACKUP_PATH}"
-        cd "${FULL_DEPLOYMENT_PATH}"
-        echo
-        cp -R "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_FROM_PATH}"/* "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_PATH}"
-        yes | cp "${ORIGINAL_PATH}"/"${BACKUP_PATH}/config.json" "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_PATH}"/config
+        zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-ivv-${TODAY}.zip" "${DEPLOY_PATH}"/*
+        yes | sudo cp "${DEPLOY_PATH}/config/config.json" "${BACKUP_PATH}"
+        rm -rf ${DEPLOY_PATH}/*
+        cd "${DEPLOY_PATH}"
+        yes | sudo cp -R "${FROM_PATH}"/* "${DEPLOY_PATH}"
+        yes | sudo cp "${BACKUP_PATH}/config.json" "${DEPLOY_PATH}"/config
         cp index.html index.html.bak
-        sed -i'.bak' "s:/${PATH_REPLACE_FROM}/:/${PATH_REPLACE_TO}/:g" index.html
+        sudo sed -i'.bak' "s:/talentmap/:/talentmap-ivv/:g" index.html
         cd ./static/css
         cp main.css main.css.bak
-        sed -i'.bak' "s:/${PATH_REPLACE_FROM}/:/${PATH_REPLACE_TO}/:g" main.css
+        sudo sed -i'.bak' "s:/talentmap/:/talentmap-ivv/:g" main.css
         cd ../js
-        for file in ./*
-          do
-            sed -i'.bak' "s:/${PATH_REPLACE_FROM}:/${PATH_REPLACE_TO}:g" ${file}
-          done
-        service httpd status
+        sudo sed -i'.bak' "s:/talentmap:/talentmap-ivv:g" main.js
+        sudo service httpd restart
+        sudo service httpd status
+fi
+
+if [ ${DEPLOYMENT_TYPE} = "uat" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${UAT_PATH}"
+        FROM_PATH="${DEPLOYMENT_BASE}""${IVV_PATH}"
+        mkdir -p "${BACKUP_PATH}"
+        zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-uat-${TODAY}.zip" "${DEPLOY_PATH}"/*
+        yes | sudo cp "${DEPLOY_PATH}/config/config.json" "${BACKUP_PATH}"
+        rm -rf ${DEPLOY_PATH}/*
+        cd "${DEPLOY_PATH}"
+        yes | sudo cp -R "${FROM_PATH}"/* "${DEPLOY_PATH}"
+        yes | sudo cp "${BACKUP_PATH}/config.json" "${DEPLOY_PATH}"/config
+        cp index.html index.html.bak
+        sudo sed -i'.bak' "s:/talentmap-ivv/:/talentmap-uat/:g" index.html
+        cd ./static/css
+        cp main.css main.css.bak
+        sudo sed -i'.bak' "s:/talentmap-ivv/:/talentmap-uat/:g" main.css
+        cd ../js
+        sudo sed -i'.bak' "s:/talentmap-ivv:/talentmap-uat:g" main.js
+        sudo service httpd restart
+        sudo service httpd status
 fi

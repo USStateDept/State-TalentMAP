@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import StaticDevContent from 'Components/StaticDevContent';
+import TotalResults from 'Components/TotalResults/TotalResults';
 import Spinner from '../../Spinner';
 import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
@@ -94,6 +95,16 @@ class BidderPortfolioPage extends Component {
             </div>
           }
           <div className={`usa-grid-full bidder-portfolio-listing ${loadingClass}`}>
+            {
+              !isLoading && !hideControls &&
+                <div className="total-results-container">
+                  <TotalResults
+                    total={get(bidderPortfolio, 'count')}
+                    pageNumber={pageNumber}
+                    pageSize={pageSize}
+                  />
+                </div>
+            }
             {
               isLoading &&
                 <Spinner type="homepage-position-results" size="big" />
