@@ -65,7 +65,6 @@ export function userProfilePublicFetchData(id, bypass) {
               first_name: acct$.name,
               last_name: null,
             },
-            assignments: [],
             bidList: get(bids, 'data.results', []),
             // any other profile info we want to add in the future
           };
