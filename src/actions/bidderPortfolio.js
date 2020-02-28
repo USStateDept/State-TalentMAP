@@ -217,13 +217,8 @@ export function bidderPortfolioFetchData(query = {}) {
         }),
       })
         .then(({ data }) => {
-          const data$ = isArray(data) ? data : [];
-          const data$$ = {
-            results: data$,
-            count: data$.length,
-          };
-          dispatch(bidderPortfolioLastQuery(query$$, data$$.count, endpoint));
-          dispatch(bidderPortfolioFetchDataSuccess(data$$));
+          dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+          dispatch(bidderPortfolioFetchDataSuccess(data));
           dispatch(bidderPortfolioHasErrored(false));
           dispatch(bidderPortfolioIsLoading(false));
         })

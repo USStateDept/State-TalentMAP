@@ -46,8 +46,14 @@ class BidderPortfolio extends Component {
   componentWillReceiveProps(nextProps) {
     const props = ['cdos', 'selectedSeasons'];
     if (!isEqual(pick(this.props, props), pick(nextProps, props))) {
-      this.getBidderPortfolio();
-      this.props.fetchBidderPortfolioCounts();
+      this.setState({
+         // Reset page number, since this filters are
+         // captured outside the normal query param lifecycle.
+        defaultPageNumber: { value: 1 },
+      }, () => {
+        this.getBidderPortfolio();
+        this.props.fetchBidderPortfolioCounts();
+      });
     }
   }
 
@@ -109,6 +115,7 @@ class BidderPortfolio extends Component {
       {},
       queryString.stringify(newQuery),
       true,
+      false,
     ); // filter undefined values
     return newQuery;
   }
