@@ -3,6 +3,7 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { filter, indexOf, isArray, map } from 'lodash';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSeasonsFetchData, bidderPortfolioSetSeasons } from 'actions/bidderPortfolio';
 import ListItem from './ListItem';
 
@@ -25,9 +26,18 @@ class BidCyclePicker extends Component {
       this.props.fetchSeasons();
     }
   }
+  componentDidMount() {
+    this.props.setSeasonsCb(this.getSeasons());
+  }
+  componentDidUpdate() {
+    this.props.setSeasonsCb(this.getSeasons());
+  }
   setSeasons() {
     const seasons = this.bidSeasonsToIds();
     this.props.setSeasons(seasons);
+  }
+  getSeasons() {
+    return this.bidSeasonsToIds();
   }
   bidSeasonsToIds() {
     const { arrayValue } = this.state;
@@ -68,12 +78,14 @@ BidCyclePicker.propTypes = {
   hasErrored: PropTypes.bool,
   fetchSeasons: PropTypes.func.isRequired,
   setSeasons: PropTypes.func.isRequired,
+  setSeasonsCb: PropTypes.func,
 };
 
 BidCyclePicker.defaultProps = {
   seasons: [],
   isLoading: false,
   hasErrored: false,
+  setSeasonsCb: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
