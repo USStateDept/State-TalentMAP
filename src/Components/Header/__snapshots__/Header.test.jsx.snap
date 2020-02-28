@@ -89,7 +89,7 @@ exports[`Header matches snapshot when logged in 1`] = `
     />
   </header>
   <Connect(BetaHeader) />
-  <Connect(withRouter(ClientHeader)) />
+  <ClientHeaderSticky />
 </div>
 `;
 
@@ -176,6 +176,6 @@ exports[`Header matches snapshot when logged out 1`] = `
     />
   </header>
   <Connect(BetaHeader) />
-  <Connect(withRouter(ClientHeader)) />
+  <ClientHeaderSticky />
 </div>
 `;

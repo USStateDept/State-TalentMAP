@@ -5,6 +5,11 @@ import toJSON from 'enzyme-to-json';
 import BidControls from './BidControls';
 
 describe('BidControlsComponent', () => {
+  const props = {
+    defaultHandshake: '',
+    defaultOrdering: '',
+  };
+
   it('is defined', () => {
     const wrapper = shallow(
       <BidControls
@@ -14,6 +19,7 @@ describe('BidControlsComponent', () => {
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        {...props}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -29,6 +35,7 @@ describe('BidControlsComponent', () => {
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        {...props}
       />,
     );
     wrapper.instance().onSortChange({ target: { value: 'test' } });
@@ -44,6 +51,7 @@ describe('BidControlsComponent', () => {
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        {...props}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -58,6 +66,7 @@ describe('BidControlsComponent', () => {
         isLoading={false}
         viewType="card"
         changeViewType={() => {}}
+        {...props}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

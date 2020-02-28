@@ -9,11 +9,12 @@ import StartEnd from './StartEnd';
 const PositionInformation = ({ assignment = {} }) => {
   const assignmentStartDate = assignment.start_date ? formatDate(assignment.start_date) : false;
   let assignmentEndDate;
-  assignmentEndDate = (assignment.status === 'active') ? assignment.estimated_end_date : assignment.end_date;
+  assignmentEndDate = (assignment.status === 'active' && assignment.estimated_end_date) ?
+    assignment.estimated_end_date : assignment.end_date;
   assignmentEndDate = assignmentEndDate ? formatDate(assignmentEndDate) : '';
 
   // format our values
-  const formattedAssignmentDates = assignment.start_date && assignment.estimated_end_date ?
+  const formattedAssignmentDates = assignmentStartDate && assignmentEndDate ?
     (<StartEnd
       start={assignmentStartDate}
       end={assignmentEndDate}
@@ -49,7 +50,11 @@ const PositionInformation = ({ assignment = {} }) => {
 };
 
 PositionInformation.propTypes = {
-  assignment: ASSIGNMENT_OBJECT.isRequired,
+  assignment: ASSIGNMENT_OBJECT,
+};
+
+PositionInformation.defaultProps = {
+  assignment: {},
 };
 
 export default PositionInformation;

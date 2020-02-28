@@ -30,12 +30,15 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
           }
         }
       >
+        <Connect(StaticDevContent) />
         <Connect(ExportLink) />
       </div>
     </div>
     <div>
       <BidControls
         changeViewType={[Function]}
+        defaultHandshake=""
+        defaultOrdering=""
         queryParamUpdate={[Function]}
         viewType="card"
       />
@@ -242,6 +245,10 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
             ],
           }
         }
+        cdosLength={0}
+        classifications={Array []}
+        hideControls={true}
+        isLoading={false}
         pageNumber={1}
         pageSize={8}
         queryParamUpdate={[Function]}

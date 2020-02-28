@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import q from 'query-string';
-import { identity, isArray, pickBy } from 'lodash';
+import { get, identity, isArray, pickBy, uniqBy } from 'lodash';
 import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { lookupAndSetCDO } from 'actions/bidderPortfolio';
 import { setClient } from 'actions/clientView';
 import { fetchClientSuggestions } from 'actions/clientSuggestions';
 import { scrollTo } from 'utilities';
-import { ID } from '../../ClientHeader';
+import { CONTAINER_ID as ID } from '../../ClientHeader';
 
 export const genSearchParams = (user) => {
   let qString = '';
@@ -21,7 +21,8 @@ export const genSearchParams = (user) => {
   const { skills, grade } = user;
 
   if (isArray(skills)) {
-    skills$ = skills.map(m => m.code).join(',');
+    skills$ = uniqBy(skills, 'code');
+    skills$ = skills$.map(m => m.code).join(',');
   }
 
   let query = { [skillEndpoint]: skills$, [gradeEndpoint]: grade };
@@ -93,9 +94,11 @@ export class SearchAsClientButton extends Component {
   navigate(query = '', history = this.props.history) {
     setTimeout(() => {
       history.push(`/results?${query}`);
-      const offset = document.getElementById(ID).offsetTop;
-      scrollTo(offset);
-    }, 0);
+      const offset = get(document.getElementById(ID), 'offsetTop');
+      if (offset) {
+        scrollTo(offset);
+      }
+    }, 10);
   }
 
   render() {

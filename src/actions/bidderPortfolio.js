@@ -1,5 +1,5 @@
 import { stringify } from 'query-string';
-import { find, get, isArray, join, replace } from 'lodash';
+import { find, get, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
@@ -196,41 +196,44 @@ export function bidderPortfolioFetchData(query = {}) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
     const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
-    const query$ = { ...query };
+    let query$ = { ...query };
     if (ids.length) {
       query$.hru_id__in = ids.join();
     }
     if (isArray(seasons) && seasons.length) {
       query$.bid_seasons = join(seasons, ',');
     }
+    if (!query$.bid_seasons || !query$.bid_seasons.length) {
+      query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
+    }
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
-    api().get(q, {
-      cancelToken: new CancelToken((c) => {
-        cancelPortfolio = c;
-      }),
-    })
-      .then(({ data }) => {
-        const data$ = isArray(data) ? data : [];
-        const data$$ = {
-          results: data$,
-          count: data$.length,
-        };
-        dispatch(bidderPortfolioLastQuery(query$$, data$$.count, endpoint));
-        dispatch(bidderPortfolioFetchDataSuccess(data$$));
-        dispatch(bidderPortfolioHasErrored(false));
-        dispatch(bidderPortfolioIsLoading(false));
+
+    if (ids.length) {
+      api().get(q, {
+        cancelToken: new CancelToken((c) => {
+          cancelPortfolio = c;
+        }),
       })
-      .catch((m) => {
-        if (get(m, 'message') === 'cancel') {
+        .then(({ data }) => {
+          dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+          dispatch(bidderPortfolioFetchDataSuccess(data));
           dispatch(bidderPortfolioHasErrored(false));
-          dispatch(bidderPortfolioIsLoading(true));
-        } else {
-          dispatch(bidderPortfolioHasErrored(true));
           dispatch(bidderPortfolioIsLoading(false));
-        }
-      });
+        })
+        .catch((m) => {
+          if (get(m, 'message') === 'cancel') {
+            dispatch(bidderPortfolioIsLoading(true));
+            dispatch(bidderPortfolioHasErrored(false));
+          } else {
+            dispatch(bidderPortfolioHasErrored(true));
+            dispatch(bidderPortfolioIsLoading(false));
+          }
+        });
+    } else {
+      dispatch(bidderPortfolioIsLoading(false));
+    }
   };
 }
 
@@ -270,7 +273,6 @@ export function bidderPortfolioCDOsFetchData() {
               dispatch(bidderPortfolioSelectCDOsToSearchBy([currentUser]));
               dispatch(bidderPortfolioSelectCDO(currentUser));
             }
-            dispatch(bidderPortfolioFetchData());
           }
           dispatch(bidderPortfolioCDOsHasErrored(false));
           dispatch(bidderPortfolioCDOsIsLoading(false));

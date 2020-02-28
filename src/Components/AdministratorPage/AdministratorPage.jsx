@@ -5,6 +5,7 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import Dashboard from './Dashboard';
 import Logs from './Logs';
 import Stats from './Stats';
+import UserRoles from './UserRoles';
 
 const AdministratorPage = (props) => {
   const {
@@ -24,6 +25,7 @@ const AdministratorPage = (props) => {
     runAllJobs,
     patchSyncJob,
     patchSyncIsLoading,
+    totalUsers,
   } = props;
 
   const dashboardProps = {
@@ -48,12 +50,17 @@ const AdministratorPage = (props) => {
     onDownloadOne,
   };
 
+  const userProps = {
+    totalUsers,
+  };
+
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
         <Route path="/profile/administrator/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
         <Route path="/profile/administrator/stats" render={() => <Stats />} />
+        <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
       </Switch>
     </div>
   );
@@ -76,6 +83,7 @@ AdministratorPage.propTypes = {
   runAllJobs: PropTypes.func,
   patchSyncIsLoading: PropTypes.bool,
   patchSyncJob: PropTypes.func,
+  totalUsers: PropTypes.number,
 };
 
 AdministratorPage.defaultProps = {
@@ -95,6 +103,7 @@ AdministratorPage.defaultProps = {
   runAllJobs: EMPTY_FUNCTION,
   patchSyncIsLoading: false,
   patchSyncJob: EMPTY_FUNCTION,
+  totalUsers: 0,
 };
 
 export default AdministratorPage;

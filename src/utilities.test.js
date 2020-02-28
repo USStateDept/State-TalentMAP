@@ -46,6 +46,7 @@ import { validStateEmail,
          loadImg,
          downloadFromResponse,
          anyToTitleCase,
+         stopProp,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -873,6 +874,15 @@ describe('scrollToGlossaryTerm', () => {
       const result = 'The Quick Dog';
       ['tHE qUick Dog', 'THE QUICK DOG', 'the quick dog', 'The Quick Dog', 'tHe Quick dOg']
         .map(m => expect(anyToTitleCase(m)).toBe(result));
+    });
+  });
+
+  describe('stopProp', () => {
+    it('calls stopPropagation on stopProp', () => {
+      const spy = sinon.spy();
+      const e = { stopPropagation: spy };
+      stopProp(e);
+      sinon.assert.calledOnce(spy);
     });
   });
 });

@@ -14,6 +14,10 @@ describe('BidderPortfolioPageComponent', () => {
     queryParamUpdate: () => {},
     pageNumber: 1,
     bidderPortfolioCounts: bidderPortfolioCountsObject,
+    defaultHandshake: '',
+    defaultOrdering: '',
+    classificationsIsLoading: false,
+    classificationsHasErrored: false,
   };
 
   it('is defined', () => {

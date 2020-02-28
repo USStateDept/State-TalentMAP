@@ -85,6 +85,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bidcycle_admin',
         ],
       },
+      checkFlag('flags.client_profiles') ?
       {
         text: 'Client Profiles', // aka Bidder Portfolio
         route: '/profile/bidderportfolio',
@@ -93,15 +94,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         params: {
           type: 'all',
         },
-      },
+      } : null,
     ],
   },
+  checkFlag('flags.bid_stats') ?
   {
     text: 'Statistics',
     icon: 'pie-chart',
     route: '/profile/statistics',
     isCDO: true,
-  },
+  } : null,
   {
     text: 'Administrator',
     route: '/profile/administrator/',
@@ -140,6 +142,20 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       {
+        text: 'User Roles',
+        route: '/profile/administrator/userroles/',
+        // icon: 'user-friends',
+        // icon: 'user-shield',
+        // icon: 'user-lock',
+        // icon: 'user-cog',
+        icon: 'users',
+        // icon: 'user-check',
+        // icon: 'users-cog',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
         text: 'Glossary Editor',
         route: '/profile/glossaryeditor/',
         icon: 'book',
@@ -149,6 +165,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   },
-]);
+].filter(x => x));
 
 export default GET_PROFILE_MENU;

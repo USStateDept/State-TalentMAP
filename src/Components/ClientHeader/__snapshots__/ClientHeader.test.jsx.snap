@@ -2,7 +2,9 @@
 
 exports[`ClientHeader matches snapshot 1`] = `
 <div
+  className="client-header-container"
   id="client-header"
+  style={Object {}}
 >
   <div
     className="usa-banner client-header  "
@@ -73,7 +75,9 @@ exports[`ClientHeader matches snapshot 1`] = `
 
 exports[`ClientHeader matches snapshot when proxying as another CDO 1`] = `
 <div
+  className="client-header-container"
   id="client-header"
+  style={Object {}}
 >
   <div
     className="usa-banner client-header client-header--alternate "

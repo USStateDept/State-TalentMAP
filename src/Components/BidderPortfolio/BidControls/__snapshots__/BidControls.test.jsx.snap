@@ -25,67 +25,79 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     <div
       className="portfolio-sort-container-contents"
     >
-      <Connect(BidCyclePicker) />
-      <SelectForm
-        className="select-offset select-black"
-        defaultSort=""
-        disabled={false}
-        emptyOptionText="- Select -"
-        id="porfolio-filter"
-        includeFirstEmptyOption={false}
-        label="Filter by:"
-        labelSrOnly={false}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "All",
-              "value": "",
-            },
-            Object {
-              "text": "Handshake",
-              "value": "true",
-            },
-            Object {
-              "text": "No Handshake",
-              "value": "false",
-            },
-          ]
-        }
-        transformValue={[Function]}
+      <Connect(PreferenceWrapper)
+        keyRef="BID_PORTFOLIO_FILTERS"
+        onSelect={[Function]}
+      >
+        <SelectForm
+          className="select-offset select-black"
+          defaultSort=""
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="porfolio-filter"
+          includeFirstEmptyOption={false}
+          label="Filter by:"
+          labelSrOnly={false}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "text": "All",
+                "value": "",
+              },
+              Object {
+                "text": "Handshake",
+                "value": "true",
+              },
+              Object {
+                "text": "No Handshake",
+                "value": "false",
+              },
+            ]
+          }
+          transformValue={[Function]}
+        />
+      </Connect(PreferenceWrapper)>
+      <Connect(BidCyclePicker)
+        setSeasonsCb={[Function]}
       />
-      <SelectForm
-        className="select-offset select-black"
-        defaultSort=""
-        disabled={false}
-        emptyOptionText="- Select -"
-        id="porfolio-sort"
-        includeFirstEmptyOption={false}
-        label="Sort by:"
-        labelSrOnly={false}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "Default sorting",
-              "value": "",
-            },
-            Object {
-              "text": "Grade",
-              "value": "client_grade",
-            },
-            Object {
-              "text": "Skill",
-              "value": "client_skill",
-            },
-            Object {
-              "text": "Grade & Skill",
-              "value": "client_grade,client_skill",
-            },
-          ]
-        }
-        transformValue={[Function]}
-      />
+      <Connect(PreferenceWrapper)
+        keyRef="BID_PORTFOLIO_SORTS"
+        onSelect={[Function]}
+      >
+        <SelectForm
+          className="select-offset select-black"
+          defaultSort=""
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="porfolio-sort"
+          includeFirstEmptyOption={false}
+          label="Sort by:"
+          labelSrOnly={false}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "text": "Default sorting",
+                "value": "",
+              },
+              Object {
+                "text": "Grade",
+                "value": "client_grade",
+              },
+              Object {
+                "text": "Skill",
+                "value": "client_skill",
+              },
+              Object {
+                "text": "Grade & Skill",
+                "value": "client_grade,client_skill",
+              },
+            ]
+          }
+          transformValue={[Function]}
+        />
+      </Connect(PreferenceWrapper)>
     </div>
   </div>
   <div
@@ -124,67 +136,79 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     <div
       className="portfolio-sort-container-contents"
     >
-      <Connect(BidCyclePicker) />
-      <SelectForm
-        className="select-offset select-black"
-        defaultSort=""
-        disabled={false}
-        emptyOptionText="- Select -"
-        id="porfolio-filter"
-        includeFirstEmptyOption={false}
-        label="Filter by:"
-        labelSrOnly={false}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "All",
-              "value": "",
-            },
-            Object {
-              "text": "Handshake",
-              "value": "true",
-            },
-            Object {
-              "text": "No Handshake",
-              "value": "false",
-            },
-          ]
-        }
-        transformValue={[Function]}
+      <Connect(PreferenceWrapper)
+        keyRef="BID_PORTFOLIO_FILTERS"
+        onSelect={[Function]}
+      >
+        <SelectForm
+          className="select-offset select-black"
+          defaultSort=""
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="porfolio-filter"
+          includeFirstEmptyOption={false}
+          label="Filter by:"
+          labelSrOnly={false}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "text": "All",
+                "value": "",
+              },
+              Object {
+                "text": "Handshake",
+                "value": "true",
+              },
+              Object {
+                "text": "No Handshake",
+                "value": "false",
+              },
+            ]
+          }
+          transformValue={[Function]}
+        />
+      </Connect(PreferenceWrapper)>
+      <Connect(BidCyclePicker)
+        setSeasonsCb={[Function]}
       />
-      <SelectForm
-        className="select-offset select-black"
-        defaultSort=""
-        disabled={false}
-        emptyOptionText="- Select -"
-        id="porfolio-sort"
-        includeFirstEmptyOption={false}
-        label="Sort by:"
-        labelSrOnly={false}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "text": "Default sorting",
-              "value": "",
-            },
-            Object {
-              "text": "Grade",
-              "value": "client_grade",
-            },
-            Object {
-              "text": "Skill",
-              "value": "client_skill",
-            },
-            Object {
-              "text": "Grade & Skill",
-              "value": "client_grade,client_skill",
-            },
-          ]
-        }
-        transformValue={[Function]}
-      />
+      <Connect(PreferenceWrapper)
+        keyRef="BID_PORTFOLIO_SORTS"
+        onSelect={[Function]}
+      >
+        <SelectForm
+          className="select-offset select-black"
+          defaultSort=""
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="porfolio-sort"
+          includeFirstEmptyOption={false}
+          label="Sort by:"
+          labelSrOnly={false}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "text": "Default sorting",
+                "value": "",
+              },
+              Object {
+                "text": "Grade",
+                "value": "client_grade",
+              },
+              Object {
+                "text": "Skill",
+                "value": "client_skill",
+              },
+              Object {
+                "text": "Grade & Skill",
+                "value": "client_grade,client_skill",
+              },
+            ]
+          }
+          transformValue={[Function]}
+        />
+      </Connect(PreferenceWrapper)>
     </div>
   </div>
   <div
