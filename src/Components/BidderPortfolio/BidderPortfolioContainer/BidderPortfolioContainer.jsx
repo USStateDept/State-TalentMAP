@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { BIDDER_LIST, CLASSIFICATIONS } from '../../../Constants/PropTypes';
-import { scrollToId } from '../../../utilities';
+import { scrollToId } from 'utilities';
+import { BIDDER_LIST, CLASSIFICATIONS } from 'Constants/PropTypes';
+import PaginationWrapper from 'Components/PaginationWrapper/PaginationWrapper';
+import Alert from 'Components/Alert/Alert';
 import BidderPortfolioCardList from '../BidderPortfolioCardList';
 import BidderPortfolioGridList from '../BidderPortfolioGridList';
-import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
-import Alert from '../../Alert/Alert';
 
 const ID = 'bidder-portfolio-container';
 
