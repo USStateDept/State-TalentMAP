@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
+import { stopProp } from 'utilities';
 import { Row, Column } from '../../../Layout';
 import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
 import InteractiveElement from '../../../InteractiveElement';
-
-export const stopProp = (e) => { if (e && e.stopPropagation) { e.stopPropagation(); } };
 
 const LogsPage = (props) => {
   const {
