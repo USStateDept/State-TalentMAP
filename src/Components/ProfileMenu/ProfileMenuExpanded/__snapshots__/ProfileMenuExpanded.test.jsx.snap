@@ -128,6 +128,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="users"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="book"
         link="/profile/glossaryeditor/"
         search=""
@@ -263,6 +270,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -404,6 +418,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="users"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="book"
         link="/profile/glossaryeditor/"
         search=""
@@ -539,6 +560,13 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
       />
       <withRouter(NavLink)
         hidden={true}
