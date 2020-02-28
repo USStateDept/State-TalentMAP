@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, isEqual, pick } from 'lodash';
+import { get, isEqual, omit, pick } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -87,9 +87,9 @@ class BidderPortfolio extends Component {
       parsedQuery = Object.assign(
         parsedQuery, { ...BIDDER_PORTFOLIO_PARAM_OBJECTS[parsedQuery.type] },
       );
-      delete parsedQuery.type;
+      parsedQuery = omit(parsedQuery, ['type']);
     }
-    this.state.query.value = queryString.stringify(parsedQuery);
+    query.value = queryString.stringify(parsedQuery);
     this.setState({ query });
   }
 
