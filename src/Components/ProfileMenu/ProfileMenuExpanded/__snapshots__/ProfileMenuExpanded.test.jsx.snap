@@ -86,13 +86,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={true}
-      iconName="pie-chart"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -230,13 +223,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         title="Client Profiles"
       />
     </withRouter(NavLink)>
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
     <withRouter(NavLink)
       expandedSection={
         Object {
@@ -376,13 +362,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -520,13 +499,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         title="Client Profiles"
       />
     </withRouter(NavLink)>
-    <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
     <withRouter(NavLink)
       expandedSection={
         Object {
