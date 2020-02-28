@@ -4,7 +4,7 @@ exports[`NavComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full portfolio-top-nav-container"
 >
-  <Component
+  <NavItem
     denominator={5}
     isActive={false}
     key="Test"
@@ -13,7 +13,7 @@ exports[`NavComponent matches snapshot 1`] = `
     title="Test"
     value="1"
   />
-  <Component
+  <NavItem
     denominator={5}
     isActive={false}
     key="Test 2"

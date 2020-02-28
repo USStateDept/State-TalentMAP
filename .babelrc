@@ -1,7 +1,11 @@
 {
   "plugins": [
-    "syntax-dynamic-import",
-    "transform-class-properties"
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties"
   ],
-  "presets": ["react-app"],
+  "presets": [
+    "react-app",
+    "@babel/preset-env"
+  ],
+  "sourceType": "unambiguous"
 }
