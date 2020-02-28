@@ -4,19 +4,20 @@
 TODAY=`date +"%Y-%m-%d-%H%M%S"`
 DEPLOYMENT_TYPE="tst"
 ZIP_PATH="./talentmap-api.zip"
+PYTHON_DEP_ZIP_PATH="/tmp/talentmap-api-dependencies.zip"
 BACKUP_PATH="/tmp/backup"
+
 TEST_PATH="/talentmap-dev-2"
 PRD_PATH="/talentmap"
 IVV_PATH="/ivv"
 UAT_PATH="/uat"
+
 PYTHON_PATH="/var/www/venv/bin/activate"
 
 echo ${TODAY}
 
 # Default case is for moving to IVV
 DEPLOYMENT_BASE="/data/www"
-PATH_REPLACE_FROM="talentmap"
-PATH_REPLACE_TO="ivv"
 
 usage()
 {
@@ -40,7 +41,9 @@ migrate()
     source ${PYTHON_PATH}
     source setup_environment.sh
     python manage.py migrate
-    service httpd restart
+    python manage.py makemigrations
+    python manage.py migrate
+    sudo service httpd restart
     service httpd status
 }
 
@@ -95,54 +98,88 @@ case $i in
 esac
 done
 
-# update the to/from paths if $1 = uat
-if [ ${DEPLOYMENT_TYPE} = "uat" ]; then
-        PATH_REPLACE_FROM="ivv"
-        PATH_REPLACE_TO="uat"
-fi
-
-if [ ${DEPLOYMENT_TYPE} = "prd" ]; then
-        TEST_PATH=${PRD_PATH}
-fi
-
-ORIGINAL_PATH="$(pwd)"
-
-TST_DEPLOY_PATH=${DEPLOYMENT_BASE}/${PATH_REPLACE_FROM}/api
-TST_DEPLOY_PATH=${TST_DEPLOY_PATH}
 BACKUP_PATH=${BACKUP_PATH}
 ZIP_ABS_PATH="$(pwd)"/$ZIP_PATH
 
-FULL_DEPLOYMENT_PATH=${DEPLOYMENT_BASE}/${PATH_REPLACE_TO}/api
-FULL_DEPLOYMENT_FROM_PATH=${DEPLOYMENT_BASE}/${PATH_REPLACE_FROM}/api
-
-if [ ${DEPLOYMENT_TYPE} = "tst" ] || [ ${DEPLOYMENT_TYPE} = "prd" ]; then
+if [ ${DEPLOYMENT_TYPE} = "tst" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${TEST_PATH}"/api
         if [[ -f ${ZIP_PATH} ]]; then
-                mkdir -p "${BACKUP_PATH}"
-                zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-${DEPLOYMENT_TYPE}-${TODAY}.zip" "${TST_DEPLOY_PATH}"/*
-                cp "${TST_DEPLOY_PATH}"/setup_environment.sh "${BACKUP_PATH}"
-                cp "${TST_DEPLOY_PATH}"/talentmap_api/settings.py "${BACKUP_PATH}"
-                cp "${TST_DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata/remote_metadata.xml "${BACKUP_PATH}"
+                sudo mkdir -p "${BACKUP_PATH}"
+                sudo zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-tst-${TODAY}.zip" "${DEPLOY_PATH}"/*
+                sudo cp "${TST_DEPLOY_PATH}"/setup_environment.sh "${BACKUP_PATH}"
+                sudo cp "${TST_DEPLOY_PATH}"/talentmap_api/settings.py "${BACKUP_PATH}"
+                sudo cp "${TST_DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata/remote_metadata.xml "${BACKUP_PATH}"
                 cd "${TST_DEPLOY_PATH}"
-                unzip "${ZIP_ABS_PATH}"
-                cp "${ORIGINAL_PATH}"/"${BACKUP_PATH}"/setup_environment.sh "${ORIGINAL_PATH}"/"${TST_DEPLOY_PATH}"
-                cp "${ORIGINAL_PATH}"/"${BACKUP_PATH}"/settings.py "${ORIGINAL_PATH}"/"${TST_DEPLOY_PATH}"/talentmap_api
-                cp "${ORIGINAL_PATH}"/"${BACKUP_PATH}"/remote_metadata.xml "${ORIGINAL_PATH}"/"${TST_DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata
+                yes | sudo unzip "${ZIP_ABS_PATH}"
+                sudo cp "${BACKUP_PATH}"/setup_environment.sh "${TST_DEPLOY_PATH}"
+                sudo cp "${BACKUP_PATH}"/settings.py "${TST_DEPLOY_PATH}"/talentmap_api
+                sudo cp "${BACKUP_PATH}"/remote_metadata.xml "${TST_DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata
                 migrate
         else
                 echo "Deployment zip file not found"
+        if [[ -f ${PYTHON_DEP_ZIP_PATH} ]]; then
+                cd "/var/www/venv/lib/python3.6/site-packages/"
+                sudo zip -r "${BACKUP_PATH}/DEPENDENCIES_BACKUP-prd-${TODAY}.zip" "./*"
+                sudo yes | unzip "${PYTHON_DEP_ZIP_PATH}"
         fi
 fi
 
-if [ ${DEPLOYMENT_TYPE} = "ivv" ] || [ ${DEPLOYMENT_TYPE} = "uat" ]; then
-        mkdir -p "${BACKUP_PATH}"
-        zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-${PATH_REPLACE_FROM}-${TODAY}.zip" "${FULL_DEPLOYMENT_PATH}"/*
-        cp "${FULL_DEPLOYMENT_PATH}"/setup_environment.sh "${BACKUP_PATH}"
-        cp "${FULL_DEPLOYMENT_PATH}"/talentmap_api/settings.py "${BACKUP_PATH}"
-        cp "${FULL_DEPLOYMENT_PATH}"/talentmap_api/saml2/remote_metadata/remote_metadata.xml "${BACKUP_PATH}"
-        cd "${FULL_DEPLOYMENT_PATH}"
-        cp -R "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_FROM_PATH}"/* "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_PATH}"
-        cp "${ORIGINAL_PATH}"/"${BACKUP_PATH}"/setup_environment.sh "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_PATH}"
-        cp "${ORIGINAL_PATH}"/"${BACKUP_PATH}"/settings.py "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_PATH}"/talentmap_api
-        cp "${ORIGINAL_PATH}"/"${BACKUP_PATH}"/remote_metadata.xml "${ORIGINAL_PATH}"/"${FULL_DEPLOYMENT_PATH}"/talentmap_api/saml2/remote_metadata
+if [ ${DEPLOYMENT_TYPE} = "prd" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${PRD_PATH}"/api
+        if [[ -f ${ZIP_PATH} ]]; then
+                sudo mkdir -p "${BACKUP_PATH}"
+                sudo zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-prd-${TODAY}.zip" "${DEPLOY_PATH}"/*
+                sudo cp "${DEPLOY_PATH}"/setup_environment.sh "${BACKUP_PATH}"
+                sudo cp "${DEPLOY_PATH}"/talentmap_api/settings.py "${BACKUP_PATH}"
+                sudo cp "${DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata/remote_metadata.xml "${BACKUP_PATH}"
+                cd "${DEPLOY_PATH}"
+                yes | sudo unzip "${ZIP_ABS_PATH}"
+                sudo cp "${BACKUP_PATH}"/setup_environment.sh "${DEPLOY_PATH}"
+                sudo cp "${BACKUP_PATH}"/settings.py "${DEPLOY_PATH}"/talentmap_api
+                sudo cp "${BACKUP_PATH}"/remote_metadata.xml "${DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata
+                migrate
+        else
+                echo "Deployment zip file not found"
+        if [[ -f ${PYTHON_DEP_ZIP_PATH} ]]; then
+                cd "/var/www/venv/lib/python3.6/site-packages/"
+                sudo zip -r "${BACKUP_PATH}/DEPENDENCIES_BACKUP-prd-${TODAY}.zip" "./*"
+                sudo yes | unzip "${PYTHON_DEP_ZIP_PATH}"
+        fi
+fi
+
+if [ ${DEPLOYMENT_TYPE} = "ivv" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${IVV_PATH}"/api
+        TST="${DEPLOYMENT_BASE}""${TST_PATH}"/api
+        sudo mkdir -p "${BACKUP_PATH}"
+        sudo zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-ivv-${TODAY}.zip" "${DEPLOY_PATH}"/*
+        sudo cp "${DEPLOY_PATH}"/setup_environment.sh "${BACKUP_PATH}"
+        sudo cp "${DEPLOY_PATH}"/talentmap_api/settings.py "${BACKUP_PATH}"
+        sudo cp "${DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata/remote_metadata.xml "${BACKUP_PATH}"
+        cd "${DEPLOY_PATH}"
+        yes | sudo cp -r "${TST}"/* "${DEPLOY_PATH}"
+        sudo cp "${BACKUP_PATH}"/setup_environment.sh "${DEPLOY_PATH}"
+        sudo cp "${BACKUP_PATH}"/settings.py "${DEPLOY_PATH}"/talentmap_api
+        sudo cp "${BACKUP_PATH}"/remote_metadata.xml "${DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata
         migrate
+fi
+
+if [ ${DEPLOYMENT_TYPE} = "uat" ]; then
+        DEPLOY_PATH="${DEPLOYMENT_BASE}""${UAT_PATH}"/api
+        IVV="${DEPLOYMENT_BASE}""${IVV_PATH}"/api
+        sudo mkdir -p "${BACKUP_PATH}"
+        sudo zip -r "${BACKUP_PATH}/UI_DEPLOYMENT_BACKUP-uat-${TODAY}.zip" "${DEPLOY_PATH}"/*
+        sudo cp "${DEPLOY_PATH}"/setup_environment.sh "${BACKUP_PATH}"
+        sudo cp "${DEPLOY_PATH}"/talentmap_api/settings.py "${BACKUP_PATH}"
+        sudo cp "${DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata/remote_metadata.xml "${BACKUP_PATH}"
+        cd "${DEPLOY_PATH}"
+        yes | sudo cp -r "${TST}"/* "${DEPLOY_PATH}"
+        sudo cp "${BACKUP_PATH}"/setup_environment.sh "${DEPLOY_PATH}"
+        sudo cp "${BACKUP_PATH}"/settings.py "${DEPLOY_PATH}"/talentmap_api
+        sudo cp "${BACKUP_PATH}"/remote_metadata.xml "${DEPLOY_PATH}"/talentmap_api/saml2/remote_metadata
+        migrate
+fi
+
+if [ ${DEPLOYMENT_TYPE} = "deps" ]; then
+        cd "/var/www/venv/lib/python3.6/site-packages/"
+        sudo zip -r "${BACKUP_PATH}/DEPENDENCIES-${TODAY}.zip" "./*"
 fi
