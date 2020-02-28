@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import LogRow, { stopProp } from './LogRow';
+import LogRow from './LogRow';
 
 describe('LogRow', () => {
   const props = {
@@ -37,13 +37,6 @@ describe('LogRow', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<LogRow {...props} onClick={spy} />);
     wrapper.find('InteractiveElement').props().onClick();
-    sinon.assert.calledOnce(spy);
-  });
-
-  it('calls stopPropagation on stopProp', () => {
-    const spy = sinon.spy();
-    const e = { stopPropagation: spy };
-    stopProp(e);
     sinon.assert.calledOnce(spy);
   });
 });

@@ -10,6 +10,7 @@ exports[`BooleanFilterComponent matches snapshot 1`] = `
   labelSrOnly={false}
   name="title"
   onCheckBoxClick={[Function]}
+  overrideLifecycle={false}
   selectionRef="ref"
   small={false}
   title="title"
