@@ -70,7 +70,7 @@ export class ClientHeader extends Component {
   render() {
     const skeletonColors$ = { ...skeletonColors };
     const { showReturnLink } = this.state;
-    const { client, isLoading, hasErrored, bidderPortfolioSelectedCDO } = this.props;
+    const { client, isLoading, hasErrored, bidderPortfolioSelectedCDO, style } = this.props;
     const name = client && client.name ? client.name : 'Unknown user';
 
     const isSuccess = !!(client && !!client.perdet_seq_number && !isLoading && !hasErrored);
@@ -112,7 +112,7 @@ export class ClientHeader extends Component {
       </div>
     );
     return (
-      <div id={ID}>
+      <div id={ID} style={style} className="client-header-container">
         {isSuccess || isLoading ? renderHeader() : null}
       </div>
     );
@@ -126,12 +126,14 @@ ClientHeader.propTypes = {
   hasErrored: PropTypes.bool,
   history: PropTypes.shape({}).isRequired,
   bidderPortfolioSelectedCDO: PropTypes.shape({}),
+  style: PropTypes.shape({}),
 };
 
 ClientHeader.defaultProps = {
   isLoading: false,
   hasErrored: false,
   bidderPortfolioSelectedCDO: {},
+  style: {},
 };
 
 const mapStateToProps = ({

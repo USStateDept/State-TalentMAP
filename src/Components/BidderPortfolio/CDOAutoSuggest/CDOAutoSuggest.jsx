@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { throttle, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
+import bowser from 'bowser';
 import { bidderPortfolioSelectCDOsToSearchBy } from 'actions/bidderPortfolio';
 import { unsetClientView } from 'actions/clientView';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import filterUsers from '../helpers';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+
+// TODO - Running into an issue where the label/span element is also
+// passing up an event almost concurrently (400ms difference).
+// This only happens in IE11, so we add a leading throttle so that
+// any additional events within 1000ms do not get called.
+const browser = bowser.getParser(window.navigator.userAgent);
+const isIE = browser.satisfies({ 'internet explorer': '<=11' });
+const THROTTLE_MS = isIE ? 1000 : 0;
 
 export const getDisplayProperty = o => `${o.first_name} ${o.last_name}`;
 
@@ -19,7 +28,11 @@ export function renderList({ items, selected, ...rest }) {
 class CDOAutoSuggest extends Component {
   constructor(props) {
     super(props);
-    this.selectMultipleOption = this.selectMultipleOption.bind(this);
+    this.selectMultipleOption = throttle(
+      this.selectMultipleOption.bind(this),
+      THROTTLE_MS,
+      { trailing: false, leading: true },
+    );
     this.state = {
       suggestions: filterUsers('', props.cdos),
     };
@@ -49,7 +62,7 @@ class CDOAutoSuggest extends Component {
             numberDisplayed={2}
             multiple
             includeFilter
-            dropdownHeight={600}
+            dropdownHeight={255}
             renderList={renderList}
             valueKey="id"
             labelKey="name"

@@ -14,30 +14,19 @@ exports[`UpdatesComponent matches snapshot 1`] = `
         className=""
         icon="tasks"
         small={false}
-        title="Updates"
+        title="Bidder Classifications"
       />
     </div>
     <div
       className="usa-width-one-whole"
     >
       <CheckboxList
+        clientClassifications={Array []}
         id="updates"
-        isDisabled={true}
+        isDisabled={false}
+        list={Array []}
       />
     </div>
-  </div>
-  <div
-    className="section-padded-inner-container small-link-container view-more-link-centered"
-  >
-    <button
-      className="unstyled-button"
-      onClick={[Function]}
-    >
-      <FontAwesome
-        name="pencil"
-      />
-       Edit Updates
-    </button>
   </div>
 </div>
 `;

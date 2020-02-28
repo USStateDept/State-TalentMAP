@@ -27,7 +27,7 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     </span>
     <Link
       replace={false}
-      to="/position/58348065"
+      to="/archived/58348065"
     >
       View Position
     </Link>
@@ -54,10 +54,7 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     >
       Language: 
     </span>
-    <LanguageList
-      languages={Array []}
-      propToUse="representation"
-    />
+    None
   </div>
   <div>
     <span

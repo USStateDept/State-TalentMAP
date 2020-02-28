@@ -155,6 +155,12 @@ $results-card-accent: $blue-primary;
 $results-card-border: $color-gray-lighter;
 
 //**
+//* Delegate Roles table
+//*
+$odd-td-background-color: #e6f1f8;
+
+
+//**
 //* Scrollbar
 //*
 $scrollbar-width: 10px;
@@ -185,6 +191,7 @@ $glossary-z: 20000;
 $glossary-close-z: 1;
 $ribbon-condensed-card-z: 1;
 $condensed-card-top-z: 1;
+$client-header-z: 9001;
 
 //**
 //* Images

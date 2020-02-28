@@ -6,18 +6,22 @@ import assignmentObject from '../../../__mocks__/assignmentObject';
 import UserProfile from './UserProfile';
 
 describe('UserProfileComponent', () => {
+  const props = {
+    userProfile: {
+      ...bidderUserObject,
+      current_assignment: assignmentObject,
+    },
+  };
   it('is defined', () => {
     const wrapper = shallow(<UserProfile
-      userProfile={bidderUserObject}
-      assignment={assignmentObject}
+      {...props}
     />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
     const wrapper = shallow(<UserProfile
-      userProfile={bidderUserObject}
-      assignment={assignmentObject}
+      {...props}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

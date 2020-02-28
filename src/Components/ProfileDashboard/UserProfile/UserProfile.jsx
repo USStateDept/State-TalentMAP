@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { USER_PROFILE, ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
+import { USER_PROFILE } from '../../../Constants/PropTypes';
 import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
 import PositionInformation from '../PositionInformation';
 
 const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
-showContactInformation, useGroup, assignment }) => {
+showContactInformation, useGroup, isPublic }) => {
   const cdo = get(userProfile, 'cdo', {});
   return (
     <div className="usa-grid-full current-user">
@@ -18,6 +18,7 @@ showContactInformation, useGroup, assignment }) => {
           userProfile={userProfile}
           showEditLink={showEditLink}
           useGroup={useGroup}
+          isPublic={isPublic}
         />
       }
       {
@@ -37,7 +38,7 @@ showContactInformation, useGroup, assignment }) => {
             </div>
           }
           <div className="current-user-section-border">
-            <PositionInformation assignment={assignment} />
+            <PositionInformation assignment={userProfile.current_assignment} />
           </div>
           <UserProfileContactInformation userProfile={userProfile} />
         </div>
@@ -52,7 +53,7 @@ UserProfile.propTypes = {
   showGeneralInformation: PropTypes.bool,
   showContactInformation: PropTypes.bool,
   useGroup: PropTypes.bool,
-  assignment: ASSIGNMENT_OBJECT.isRequired,
+  isPublic: PropTypes.bool,
 };
 
 UserProfile.defaultProps = {
@@ -60,6 +61,7 @@ UserProfile.defaultProps = {
   showGeneralInformation: true,
   showContactInformation: true,
   useGroup: false,
+  isPublic: false,
 };
 
 export default UserProfile;

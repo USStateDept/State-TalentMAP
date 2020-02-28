@@ -8523,6 +8523,12 @@ raf@^3.1.0:
   dependencies:
     performance-now "^2.1.0"
 
+raf@^3.3.0:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
+  dependencies:
+    performance-now "^2.1.0"
+
 ramda@^0.26:
   version "0.26.1"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
@@ -8942,6 +8948,13 @@ react-spring@4.0.0:
   resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-4.0.0.tgz#eaddd6ec51b77900646bb489ccb93734157420e7"
   dependencies:
     normalize-css-color "^1.0.2"
+
+react-sticky@^6.0.3:
+  version "6.0.3"
+  resolved "https://registry.yarnpkg.com/react-sticky/-/react-sticky-6.0.3.tgz#7a18b643e1863da113d7f7036118d2a75d9ecde4"
+  dependencies:
+    prop-types "^15.5.8"
+    raf "^3.3.0"
 
 react-test-renderer@^15.6.1:
   version "15.6.2"
