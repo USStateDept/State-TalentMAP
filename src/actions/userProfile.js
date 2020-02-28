@@ -2,7 +2,6 @@ import axios from 'axios';
 import { get, indexOf } from 'lodash';
 import Q from 'q';
 import imagediff from 'imagediff';
-
 import { loadImg } from 'utilities';
 import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
