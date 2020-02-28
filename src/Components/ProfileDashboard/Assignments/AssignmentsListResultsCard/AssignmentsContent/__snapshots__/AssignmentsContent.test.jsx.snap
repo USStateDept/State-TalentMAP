@@ -4,16 +4,30 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full bid-content-container"
 >
-  <div>
+  <div
+    className="bid-list-card-title-lg"
+  >
     <span
       className="bid-list-card-title-post"
     >
       PROJECT DIRECTOR
        
     </span>
+  </div>
+  <div>
+    <span
+      className="usa-sr-only"
+    >
+      Position number: 
+    </span>
+    <span
+      className="bid-list-card-title-post bid-list-card-title-lg"
+    >
+      (58348065) 
+    </span>
     <Link
       replace={false}
-      to="/details/undefined"
+      to="/archived/58348065"
     >
       View Position
     </Link>
@@ -22,9 +36,9 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     <span
       className="bid-list-card-title-post"
     >
-      Position number: 
+      Location: 
     </span>
-    58348065
+    Washington, DC
   </div>
   <div>
     <span
@@ -40,18 +54,7 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     >
       Language: 
     </span>
-    <LanguageList
-      languages={Array []}
-      propToUse="representation"
-    />
-  </div>
-  <div>
-    <span
-      className="bid-list-card-title-post"
-    >
-      Location: 
-    </span>
-    Washington, DC
+    None
   </div>
   <div>
     <span

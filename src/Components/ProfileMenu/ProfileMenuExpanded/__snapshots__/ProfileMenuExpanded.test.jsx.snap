@@ -94,14 +94,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={true}
-      iconName="pie-chart"
-      key="Statistics"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -138,6 +130,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] =
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="User Roles"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -246,14 +246,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      key="Statistics"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -290,6 +282,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = 
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="User Roles"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -398,14 +398,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      key="Statistics"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -442,6 +434,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="User Roles"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -550,14 +550,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
-      hidden={false}
-      iconName="pie-chart"
-      key="Statistics"
-      link="/profile/statistics"
-      search=""
-      title="Statistics"
-    />
-    <withRouter(NavLink)
       expandedSection={
         Object {
           "display": false,
@@ -594,6 +586,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="User Roles"
+        link="/profile/administrator/userroles/"
+        search=""
+        title="User Roles"
       />
       <withRouter(NavLink)
         hidden={true}

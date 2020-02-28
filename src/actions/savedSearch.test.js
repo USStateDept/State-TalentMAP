@@ -10,10 +10,18 @@ describe('saved search async actions', () => {
     mockAdapter.reset();
   });
 
+  it('it can call toggleViewSavedSearchDialog()', () => {
+    expect(actions.toggleViewSavedSearchDialog());
+  });
+
+  it('it can call viewSavedSearchDialog()', () => {
+    expect(actions.viewSavedSearchDialog());
+  });
+
   it('can submit request to save a search', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(200,
+    mockAdapter.onPost('/searches/').reply(200,
       {},
     );
 
@@ -32,7 +40,7 @@ describe('saved search async actions', () => {
   it('can submit request to patch an existing saved search', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onPatch('http://localhost:8000/api/v1/searches/1/').reply(200,
+    mockAdapter.onPatch('/searches/1/').reply(200,
       {},
     );
 
@@ -51,7 +59,7 @@ describe('saved search async actions', () => {
   it('can fetch saved searches', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/searches/?ordering=someSortType').reply(200,
+    mockAdapter.onGet('/searches/?ordering=someSortType').reply(200,
       searchObjectParent,
     );
 
@@ -67,7 +75,7 @@ describe('saved search async actions', () => {
   it('can handle errors when fetching saved searches', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/searches/').reply(404,
+    mockAdapter.onGet('/searches/').reply(404,
       'error',
     );
 
@@ -83,7 +91,7 @@ describe('saved search async actions', () => {
   it('can handle deleting a saved search', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onDelete('http://localhost:8000/api/v1/searches/1/').reply(204,
+    mockAdapter.onDelete('/searches/1/').reply(204,
       {},
     );
 
@@ -99,11 +107,11 @@ describe('saved search async actions', () => {
   it('can handle cloning a saved search', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/searches/1/').reply(200,
+    mockAdapter.onGet('/searches/1/').reply(200,
       { name: 'test', filters: {}, endpoint: '/api/v1/position' },
     );
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(204,
+    mockAdapter.onPost('/searches/').reply(204,
       { name: 'test 2' },
     );
 
@@ -119,11 +127,11 @@ describe('saved search async actions', () => {
   it('can handle errors at the first step when cloning a saved search', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/searches/1/').reply(404,
+    mockAdapter.onGet('/searches/1/').reply(404,
       'error',
     );
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(204,
+    mockAdapter.onPost('/searches/').reply(204,
       { name: 'test 2' },
     );
 
@@ -139,11 +147,11 @@ describe('saved search async actions', () => {
   it('can handle errors at the second step when cloning a saved search', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/searches/1/').reply(200,
+    mockAdapter.onGet('/searches/1/').reply(200,
       { name: 'test', filters: {}, endpoint: '/api/v1/position' },
     );
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(404,
+    mockAdapter.onPost('/searches/').reply(404,
       'error',
     );
 
@@ -159,7 +167,7 @@ describe('saved search async actions', () => {
   it('can handle errors when deleting a saved search', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onDelete('http://localhost:8000/api/v1/searches/1/').reply(404,
+    mockAdapter.onDelete('/searches/1/').reply(404,
       'error',
     );
 
@@ -175,7 +183,7 @@ describe('saved search async actions', () => {
   it('can handle a failed submission', (done) => {
     const store = mockStore({ share: false });
 
-    mockAdapter.onPost('http://localhost:8000/api/v1/searches/').reply(404,
+    mockAdapter.onPost('/searches/').reply(404,
       'error',
     );
 

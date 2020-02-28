@@ -22,8 +22,8 @@ import InteractiveElement from '../InteractiveElement';
 import BetaHeader from './BetaHeader';
 import ClientHeader from '../ClientHeader';
 
-const logo = getAssetPath('/assets/logos/png/horizontal_white_thin.png');
-const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white.png');
+const logo = getAssetPath('/assets/logos/png/horizontal_white_thin-sm.png');
+const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white-sm.png');
 
 export class Header extends Component {
   constructor(props) {

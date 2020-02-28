@@ -44,6 +44,9 @@ import synchronizations from './synchronizations';
 import positionCount from './positionCount';
 import showMobileFilter from './showMobileFilter';
 import stats from './stats';
+import clientSuggestions from './clientSuggestions';
+import userRoles from './userRoles';
+import classifications from './classifications';
 
 export default combineReducers({
   ...results,
@@ -86,6 +89,9 @@ export default combineReducers({
   ...positionCount,
   ...showMobileFilter,
   ...stats,
+  ...clientSuggestions,
+  ...userRoles,
+  ...classifications,
   router,
   client,
   login,

@@ -1,10 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchAsClientButton matches snapshot 1`] = `
-<button
-  className="usa-button-primary "
-  onClick={[Function]}
+<Connect(PermissionsWrapper)
+  permissions="cdo"
 >
-  Search as Client
-</button>
+  <button
+    className="usa-button-primary search-as-client-button "
+    onClick={[Function]}
+  >
+    Search as Client
+  </button>
+</Connect(PermissionsWrapper)>
 `;

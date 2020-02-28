@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isNumber } from 'lodash';
+import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
+import Differentials from 'Components/Differentials';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -13,17 +14,31 @@ import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
 import { Featured, Handshake } from '../Ribbon';
+import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
+import BidListButton from '../../Containers/BidListButton';
 
-import { formatDate, propOrDefault, getPostName, getBidStatisticsObject, shortenString,
-getDifferentialPercentage } from '../../utilities';
+import { formatDate, propOrDefault, getPostName, shortenString,
+getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
-  NO_BUREAU, NO_BID_CYCLE, NO_DANGER_PAY, NO_GRADE, NO_POST_DIFFERENTIAL, NO_POSITION_NUMBER,
+  NO_BUREAU, NO_BID_CYCLE, NO_GRADE, NO_POSITION_NUMBER,
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
+
+const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+
+const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
+
+const getDifferentials = (result) => {
+  const dangerPay = get(result, 'post.danger_pay');
+  const postDifferential = get(result, 'post.differential_rate');
+  const obcUrl = get(result, 'post.post_bidding_considerations_url');
+  const props = { dangerPay, postDifferential, obcUrl };
+  return <Differentials {...props} />;
+};
 
 const getResult = (result, path, defaultValue, isRate = false) => {
   let value = get(result, path, defaultValue);
@@ -95,7 +110,7 @@ class ResultsCard extends Component {
       favorites,
       favoritesPV,
     } = this.props;
-    const { isProjectedVacancy } = this.context;
+    const { isProjectedVacancy, isClient } = this.context;
 
     const pos = result.position || result;
 
@@ -105,9 +120,10 @@ class ResultsCard extends Component {
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-    const post = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+    const post = getPostNameText(pos);
 
-    const stats = getBidStatisticsObject(pos.bid_statistics);
+    const bidStatsToUse = getBidStatsToUse(result, pos);
+    const stats = getBidStatisticsObject(bidStatsToUse);
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 750);
     const descriptionMobile = shortenString(get(pos, 'description.content') || 'No description.', 500);
@@ -131,8 +147,7 @@ class ResultsCard extends Component {
       {
         'Tour of duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
         'Language': language,
-        'Post differential': getResult(pos, 'post.differential_rate', NO_POST_DIFFERENTIAL, true),
-        'Danger pay': getResult(pos, 'post.danger_pay', NO_DANGER_PAY, true),
+        'Post differential | Danger Pay': getDifferentials(pos),
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
       },
       {
@@ -160,6 +175,16 @@ class ResultsCard extends Component {
 
     const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}`}>View position</Link>;
 
+    const availability = get(result, 'availability.availability');
+    const availableToBid = isNull(availability) || !!availability;
+
+    const renderBidListButton = () => (
+      <BidListButton
+        id={result.id}
+        disabled={!availableToBid}
+      />
+    );
+
     return (
       <MediaQueryWrapper breakpoint="screenSmMax" widthType="max">
         {matches => (
@@ -179,7 +204,7 @@ class ResultsCard extends Component {
                     {
                       !isProjectedVacancy &&
                       <Flag
-                        name="flags.bidding"
+                        name="flags.bid_count"
                         render={() => renderBidCountMobile(stats)}
                       />
                     }
@@ -199,55 +224,51 @@ class ResultsCard extends Component {
                     {
                       !isProjectedVacancy &&
                       <Flag
-                        name="flags.bidding"
+                        name="flags.bid_count"
                         render={() => renderBidCount(stats)}
                       />
                     }
                   </Row>
               }
-              <Flag
-                name="flags.bidding"
-                render={() =>
-                (<Row id={innerId} fluid>
-                  <Column columns="6">
-                    <DefinitionList items={sections[0]} />
-                  </Column>
-                  {
-                    !matches &&
-                    <Column columns="4">
-                      <DefinitionList items={sections[1]} />
-                    </Column>
-                  }
-                  <Column columns="2">
-                    <div className="ribbon-container">
-                      {
-                        get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
-                      }
-                      {
-                        get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
-                      }
-                    </div>
-                  </Column>
-                </Row>)
-              }
-                fallbackRender={() =>
-                (<Row id={`${id}-inner`} fluid>
-                  <Column columns="6">
-                    <DefinitionList items={sections[0]} />
-                  </Column>
-                  <Column columns="6">
+              <Row id={innerId} fluid>
+                <Column columns="5">
+                  <DefinitionList items={sections[0]} />
+                </Column>
+                {
+                  !matches &&
+                  <Column columns="5">
                     <DefinitionList items={sections[1]} />
                   </Column>
-                </Row>)
-              }
-              />
+                }
+                <Column columns="2">
+                  <div className="ribbon-container">
+                    {
+                      get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                    }
+                    {
+                      get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
+                    }
+                    {
+                      // conditional rendering occurs inside the container
+                      <InBidListContainer id={result.id} isWide className="ribbon-results-card" />
+                    }
+                  </div>
+                </Column>
+              </Row>
               <Row className="footer results-card-padded-section" fluid>
                 <Column columns={matches ? 8 : 6} as="section">
                   {
-                    !!favorites &&
+                    !!favorites && !isClient &&
                       <Favorite {...options.favorite} />
                   }
-                  {!isProjectedVacancy && <CompareCheck {...options.compare} />}
+                  {
+                    isClient && !isProjectedVacancy &&
+                      <Flag
+                        name="flags.bidding"
+                        render={renderBidListButton}
+                      />
+                  }
+                  {!isProjectedVacancy && !isClient && <CompareCheck {...options.compare} />}
                 </Column>
                 <Column columns={matches ? 4 : 6} as="section">
                   <div>
@@ -271,6 +292,7 @@ class ResultsCard extends Component {
 
 ResultsCard.contextTypes = {
   isProjectedVacancy: PropTypes.bool,
+  isClient: PropTypes.bool,
 };
 
 ResultsCard.propTypes = {

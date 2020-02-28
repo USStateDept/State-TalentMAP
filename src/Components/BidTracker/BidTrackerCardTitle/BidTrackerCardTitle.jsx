@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { BID_STATISTICS_OBJECT, POST_DETAILS } from '../../../Constants/PropTypes';
+import { BID_STATISTICS_OBJECT, POST_DETAILS, BID_CYCLE_NAME_TYPE } from 'Constants/PropTypes';
+import { getPostName, getBidCycleName } from 'utilities';
+import { getStatusProperty } from 'Constants/BidStatuses';
+import { APPROVED_PROP } from 'Constants/BidData';
 import BidCount from '../../BidCount';
-import { getPostName } from '../../../utilities';
-import { getStatusProperty } from '../../../Constants/BidStatuses';
-import { APPROVED_PROP } from '../../../Constants/BidData';
 
 const BidTrackerCardTitle = ({
   title,
@@ -15,11 +15,12 @@ const BidTrackerCardTitle = ({
   post,
   showBidCount,
   status,
+  bidCycle,
 },
 { condensedView, priorityExists, isPriority }) => {
   const viewPosition = (
     <div className="bid-tracker-card-title-link">
-      <Link to={`/details/${id}`}>View position</Link>
+      <Link to={`/${status === APPROVED_PROP ? 'archived' : 'details'}/${id}`}>View position</Link>
     </div>
   );
   let title$ = `${title}${positionNumber ? ` (${positionNumber})` : ''}`;
@@ -41,9 +42,15 @@ const BidTrackerCardTitle = ({
         {!condensedView && viewPosition}
       </div>
       <div className="usa-grid-full bid-tracker-bottom-link-container">
-        <div className="bid-tracker-card-title-bottom">
+        <div className={`bid-tracker-card-title-bottom ${!condensedView ? 'bid-tracker-card-title-bottom--full-width' : ''}`}>
           <strong>Location:</strong> {getPostName(post)}
         </div>
+        {
+          !condensedView &&
+          <div className="bid-tracker-card-title-bottom">
+            <strong>Bid Cycle:</strong> {getBidCycleName(bidCycle)}
+          </div>
+        }
         {condensedView && viewPosition}
         {
           showBidCount && !condensedView &&
@@ -64,11 +71,13 @@ BidTrackerCardTitle.propTypes = {
   post: POST_DETAILS.isRequired,
   showBidCount: PropTypes.bool,
   status: PropTypes.string.isRequired,
+  bidCycle: BID_CYCLE_NAME_TYPE,
 };
 
 BidTrackerCardTitle.defaultProps = {
   positionNumber: '',
   showBidCount: true,
+  bidCycle: '',
 };
 
 BidTrackerCardTitle.contextTypes = {

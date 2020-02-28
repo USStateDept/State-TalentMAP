@@ -25,6 +25,13 @@ describe('BidTrackerCardContainerComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when isPublic === true', () => {
+    const wrapper = shallow(
+      <BidTrackerCardContainer {...props} isPublic />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot when priorityExists is false', () => {
     const wrapper = shallow(
       <BidTrackerCardContainer {...props} priorityExists={false} />,

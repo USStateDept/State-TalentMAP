@@ -41,6 +41,13 @@ import { validStateEmail,
          hasValidToken,
          getScrollDistanceFromBottom,
          getAriaValue,
+         spliceStringForCSV,
+         scrollToGlossaryTerm,
+         getBidCycleName,
+         loadImg,
+         downloadFromResponse,
+         anyToTitleCase,
+         stopProp,
        } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -584,6 +591,11 @@ describe('getPostName', () => {
     expect(getPostName(post)).toBe('Arlington, VA');
   });
 
+  it('returns a domestic post name when country === USA', () => {
+    const post = { location: { city: 'Arlington', state: 'VA', country: 'USA' } };
+    expect(getPostName(post)).toBe('Arlington, VA');
+  });
+
   it('returns an overseas post name', () => {
     const post = { location: { city: 'London', state: null, country: 'United Kingdom' } };
     expect(getPostName(post)).toBe('London, United Kingdom');
@@ -787,4 +799,100 @@ describe('getAriaValue', () => {
       expect(getAriaValue(m[0])).toBe(m[1]);
     })
   ));
+});
+
+describe('spliceStringForCSV', () => {
+  it('splices the string correctly when index 1 === "="', () => {
+    expect(spliceStringForCSV('"=jjj"')).toBe('="jjj"');
+  });
+
+  it('returns the value unchanged when index 1 !== "="', () => {
+    expect(spliceStringForCSV('"jjj"')).toBe('"jjj"');
+  });
+});
+
+describe('scrollToGlossaryTerm', () => {
+  it("calls element's functions", (done) => {
+    const scrollSpy = sinon.spy();
+    const clickSpy = sinon.spy();
+
+    window.document.getElementById = () => ({
+      scrollIntoView: scrollSpy, getAttribute: () => false, click: clickSpy, focus: () => {},
+    });
+
+    scrollToGlossaryTerm('term');
+
+    setTimeout(() => {
+      sinon.assert.calledOnce(scrollSpy);
+      sinon.assert.calledOnce(clickSpy);
+      done();
+    }, 500);
+  });
+
+  describe('getBidCycleName', () => {
+    const cyclename = 'Summer 2020';
+
+    it('returns the correct value for strings', () => {
+      expect(getBidCycleName(cyclename)).toBe(cyclename);
+    });
+
+    it('returns the correct value for objects', () => {
+      expect(getBidCycleName({ name: cyclename })).toBe(cyclename);
+    });
+
+    it('returns the correct value when it cannot find a name', () => {
+      expect(getBidCycleName({ a: cyclename })).not.toBe(cyclename);
+      expect(getBidCycleName([])).not.toBe(cyclename);
+      expect(getBidCycleName({ cyclename: 1 })).not.toBe(cyclename);
+    });
+  });
+
+  describe('loadImg', () => {
+    it('does not throw an error', () => {
+      expect(loadImg).not.toThrowError();
+    });
+  });
+
+  describe('downloadFromResponse', () => {
+    let blobSpy;
+    let response;
+
+    beforeEach(() => {
+      blobSpy = sinon.spy();
+      response = {
+        headers: { 'content-disposition': 'attachment; filename=test.csv' },
+        data: 'some data',
+      };
+      global.window.navigator.msSaveOrOpenBlob = blobSpy;
+    });
+
+    it('calls msSaveOrOpenBlob if msSaveBlob exists', () => {
+      downloadFromResponse(response);
+      sinon.assert.calledOnce(blobSpy);
+      blobSpy.reset();
+    });
+
+    it('does not call msSaveOrOpenBlob if msSaveBlob does not exist', () => {
+      global.window.navigator.msSaveBlob = undefined;
+      downloadFromResponse(response);
+      sinon.assert.notCalled(blobSpy);
+    });
+  });
+
+  describe('anyToTitleCase', () => {
+    it('converts a string to title case', () => {
+      const result = 'The Quick Dog';
+      ['tHE qUick Dog', 'THE QUICK DOG', 'the quick dog', 'The Quick Dog', 'tHe Quick dOg']
+        .map(m => expect(anyToTitleCase(m)).toBe(result));
+    });
+  });
+
+  describe('stopProp', () => {
+    it('calls stopPropagation on stopProp', () => {
+      const spy = sinon.spy();
+      const e = { stopPropagation: spy };
+      stopProp(e);
+      sinon.assert.calledOnce(spy);
+    });
+  });
 });

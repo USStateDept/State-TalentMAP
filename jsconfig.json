@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es6",
+      "baseUrl": "./src",
+      "paths": {
+        "*": [
+          "*",
+          "actions/*",
+          "Components/*",
+          "Constants/*",
+          "Containers/*",
+          "reducers/*",
+          "utilities",
+          "flags"
+        ]
+      }
+    },
+    "exclude": ["node_modules"]
+  }

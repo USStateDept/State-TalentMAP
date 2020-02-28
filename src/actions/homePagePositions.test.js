@@ -25,7 +25,7 @@ describe('async actions', () => {
     mockAdapter.reset();
 
     queries.forEach(query =>
-      mockAdapter.onGet(`http://localhost:8000/api/v1/cycleposition/${query}`).reply(200,
+      mockAdapter.onGet(`${query}`).reply(200,
         resultsObject,
       ),
     );
@@ -63,7 +63,7 @@ describe('async actions', () => {
     mockAdapter.reset();
 
     queries.forEach(query =>
-      mockAdapter.onGet(`http://localhost:8000/api/v1/cycleposition/${query}`).reply(404,
+      mockAdapter.onGet(`/cycleposition/${query}`).reply(404,
         null,
       ),
     );
@@ -84,7 +84,7 @@ describe('async actions', () => {
     mockAdapter.reset();
 
     queries.forEach(query =>
-      mockAdapter.onGet(`http://localhost:8000/api/v1/cycleposition/${query}`).reply(404,
+      mockAdapter.onGet(`/cycleposition/${query}`).reply(404,
         null,
       ),
     );

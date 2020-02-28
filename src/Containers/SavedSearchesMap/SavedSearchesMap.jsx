@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { merge } from 'lodash';
 import { filtersFetchData } from '../../actions/filters/filters';
-import { mapSavedSearchesToSingleQuery, shouldUseAPFilters } from '../../utilities';
+import { mapSavedSearchesToSingleQuery } from '../../utilities';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import {
   SAVED_SEARCH_PARENT_OBJECT,
@@ -28,14 +28,13 @@ class SavedSearchesMap extends Component {
   setupValues(props) {
     const {
       filters,
-      filtersAP,
       fetchFilters,
       savedSearches,
       savedSearchesIsLoading,
       deleteSavedSearchIsLoading,
     } = props;
 
-    const filters$ = shouldUseAPFilters() ? filtersAP : filters;
+    const filters$ = { ...filters };
 
     const { hasSetupValues } = this.state;
 
@@ -65,13 +64,13 @@ class SavedSearchesMap extends Component {
   }
 
   render() {
-    const { savedSearches, deleteSearch, filters, filtersAP, ChildElement,
+    const { savedSearches, deleteSearch, filters, ChildElement,
       savedSearchesHasErrored, savedSearchesIsLoading, goToSavedSearch,
       filtersIsLoading, onSortChange } = this.props;
     const props = {
       savedSearches,
       deleteSearch,
-      filters: shouldUseAPFilters() ? filtersAP : filters,
+      filters,
       savedSearchesHasErrored,
       savedSearchesIsLoading,
       goToSavedSearch,
@@ -92,7 +91,6 @@ SavedSearchesMap.propTypes = {
   savedSearchesHasErrored: PropTypes.bool.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
-  filtersAP: FILTERS_PARENT,
   goToSavedSearch: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
   ChildElement: PropTypes.func.isRequired,
@@ -108,7 +106,6 @@ SavedSearchesMap.defaultProps = {
   savedSearchesHasErrored: false,
   routeChangeResetState: EMPTY_FUNCTION,
   filters: { filters: [] },
-  filtersAP: { filters: [] },
   goToSavedSearch: EMPTY_FUNCTION,
   fetchFilters: EMPTY_FUNCTION,
   filtersIsLoading: true,
@@ -121,7 +118,6 @@ SavedSearchesMap.contextTypes = {
 
 const mapStateToProps = state => ({
   filters: state.filters,
-  filtersAP: state.filters,
   filtersHasErrored: state.filtersHasErrored,
   filtersIsLoading: state.filtersIsLoading,
 });

@@ -6,10 +6,10 @@ import SectionTitle from '../SectionTitle';
 import BidTrackerCard from '../../BidTracker/BidTrackerCard';
 import BidListHeader from './BidListHeader';
 import StaticDevContent from '../../StaticDevContent';
-import { DRAFT_PROP } from '../../../Constants/BidData';
 import Spinner from '../../Spinner';
 
-const BidList = ({ bids, showMoreLink, submitBidPosition, deleteBid, isLoading }) => {
+const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
+  userId }) => {
   // Push the priority bid to the top. There should only be one priority bid.
   // eslint rules seem to step over themselves here between using "return" and a ternary
   // eslint-disable-next-line no-confusing-arrow
@@ -22,10 +22,11 @@ const BidList = ({ bids, showMoreLink, submitBidPosition, deleteBid, isLoading }
       key={bid.id}
       bid={bid}
       condensedView
-      showBidCount={bid.status !== DRAFT_PROP}
+      showBidCount
       submitBid={submitBidPosition}
       deleteBid={deleteBid}
       priorityExists={doesPriorityExist}
+      readOnly={isPublic}
     />
   ));
   return (
@@ -44,15 +45,15 @@ const BidList = ({ bids, showMoreLink, submitBidPosition, deleteBid, isLoading }
           {
             bids$.length === 0 && !isLoading &&
               <div className="usa-grid-full section-padded-inner-container">
-                You have not added any bids to your bid list.
+                {isPublic ? 'This user has not added any bids to their bid list.' : 'You have not added any bids to your bid list.'}
               </div>
           }
           {!!bids$.length && !isLoading && bids$}
         </div>
         {
-          showMoreLink && !isLoading &&
+          !isLoading &&
             <div className="section-padded-inner-container small-link-container view-more-link-centered">
-              <Link to="/profile/bidtracker/">Go to Bid Tracker</Link>
+              <Link to={`/profile/bidtracker/${isPublic ? `public/${userId}` : ''}`}>Go to Bid Tracker</Link>
             </div>
         }
       </div>
@@ -62,18 +63,20 @@ const BidList = ({ bids, showMoreLink, submitBidPosition, deleteBid, isLoading }
 
 BidList.propTypes = {
   bids: BID_RESULTS.isRequired,
-  showMoreLink: PropTypes.bool,
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
   isLoading: PropTypes.bool,
+  isPublic: PropTypes.bool,
+  userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 BidList.defaultProps = {
   bids: [],
-  showMoreLink: true,
   submitBidPosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
   isLoading: false,
+  isPublic: false,
+  userId: '',
 };
 
 export default BidList;

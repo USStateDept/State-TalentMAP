@@ -43,6 +43,22 @@ describe('GlossaryComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('is defined after receiving props', (done) => {
+    const wrapper = shallow(
+      <Glossary
+        {...props}
+      />,
+    );
+    wrapper.setProps({ ...props, visible: true });
+    wrapper.update();
+    wrapper.setProps({ ...props, visible: false });
+    wrapper.update();
+    setTimeout(() => {
+      expect(wrapper).toBeDefined();
+      done();
+    }, 10);
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <Glossary

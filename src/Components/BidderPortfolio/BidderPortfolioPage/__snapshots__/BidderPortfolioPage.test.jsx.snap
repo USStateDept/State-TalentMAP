@@ -10,23 +10,36 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
   >
-    <div>
-      <TopNav
-        bidderPortfolioCounts={
+    <div
+      className="usa-grid-full"
+    >
+      <div
+        className="usa-width-one-half"
+      >
+        <ProfileSectionTitle
+          icon="users"
+          title="Clients"
+        />
+      </div>
+      <div
+        className="usa-width-one-half"
+        style={
           Object {
-            "all_clients": 100,
-            "bidding_clients": 50,
-            "bidding_no_handshake": 10,
-            "in_panel_clients": 20,
-            "on_post_clients": 30,
+            "display": "flex",
+            "justifyContent": "flex-end",
           }
         }
-      />
+      >
+        <Connect(StaticDevContent) />
+        <Connect(ExportLink) />
+      </div>
+    </div>
+    <div>
       <BidControls
         changeViewType={[Function]}
-        onEditChange={[Function]}
+        defaultHandshake=""
+        defaultOrdering=""
         queryParamUpdate={[Function]}
-        showEditButtons={false}
         viewType="card"
       />
     </div>
@@ -232,6 +245,10 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
             ],
           }
         }
+        cdosLength={0}
+        classifications={Array []}
+        hideControls={true}
+        isLoading={false}
         pageNumber={1}
         pageSize={8}
         queryParamUpdate={[Function]}

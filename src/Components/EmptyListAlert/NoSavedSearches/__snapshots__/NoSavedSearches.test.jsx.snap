@@ -5,7 +5,7 @@ exports[`NoSavedSearchesComponent matches snapshot 1`] = `
   textLineOne="You haven't saved any searches."
   textLineTwo={
     <span>
-      Reuse this job search in the future by clicking "Save this search".
+      Reuse this job search in the future by clicking "Save Search".
   Try naming your search something memorable, like "Summer Positions in My Grade".
     </span>
   }

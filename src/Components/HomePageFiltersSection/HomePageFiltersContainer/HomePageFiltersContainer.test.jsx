@@ -55,7 +55,7 @@ describe('HomePageFiltersContainerComponent', () => {
     const wrapper = shallow(
       <HomePageFiltersContainer.WrappedComponent {...props} onNavigateTo={onNavigateTo} />,
     );
-    wrapper.instance().onSkillSelect([{ code: '1' }]);
+    wrapper.instance().onSkillSelect([{ code: '1', other: '' }]);
     wrapper.instance().submitSearch({ preventDefault: () => {} });
     expect(qString).toBe('/results?position__skill__code__in=1');
   });

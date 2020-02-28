@@ -4,7 +4,7 @@ import { BID_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidTrackerCard from '../BidTrackerCard';
 import IsPriority from '../PriorityCards/IsPriority';
 import IsOnStandby from '../PriorityCards/IsOnStandby';
-import { DRAFT_PROP, APPROVED_PROP } from '../../../Constants/BidData';
+import { APPROVED_PROP } from '../../../Constants/BidData';
 
 // assign values to constants for equality checks later
 const DEFAULT = 'default';
@@ -17,7 +17,7 @@ const STANDBY = 'standby';
 // If it is, we'll wrap the card in the IsPriority component, and if not, we'll pass the bid
 // object to the IsOnStandby component.
 const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, priorityExists, userProfile,
-submitBid, deleteBid }) => {
+submitBid, deleteBid, useCDOView }) => {
   const getCard = ({ ...props }) => (
     <BidTrackerCard
       bid={bid}
@@ -26,7 +26,8 @@ submitBid, deleteBid }) => {
       userProfile={userProfile}
       submitBid={submitBid}
       deleteBid={deleteBid}
-      showBidCount={bid.status !== DRAFT_PROP}
+      showBidCount
+      useCDOView={useCDOView}
       {...props}
     />
   );
@@ -68,11 +69,13 @@ BidTrackerCardContainer.propTypes = {
   deleteBid: PropTypes.func.isRequired,
   priorityExists: PropTypes.bool,
   userProfile: USER_PROFILE.isRequired,
+  useCDOView: PropTypes.bool,
 };
 
 BidTrackerCardContainer.defaultProps = {
   priorityExists: false,
   isPriority: false,
+  useCDOView: false,
 };
 
 export default BidTrackerCardContainer;

@@ -1,10 +1,8 @@
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
 import { get } from 'lodash';
+import { downloadFromResponse } from 'utilities';
 import api from '../api';
-import { checkFlag } from '../flags';
-
-const getUseAP = () => checkFlag('flags.available_positions');
 
 let cancel;
 let cancelSimilar;
@@ -50,8 +48,7 @@ export function resultsSimilarPositionsFetchDataSuccess(results) {
 export function resultsFetchSimilarPositions(id) {
   return (dispatch) => {
     if (cancelSimilar) { cancelSimilar(); }
-    const useAP = getUseAP();
-    const prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+    const prefix = '/fsbid/available_positions';
 
     dispatch(resultsSimilarPositionsIsLoading(true));
     api().get(`${prefix}/${id}/similar/?limit=3`, {
@@ -73,29 +70,20 @@ export function resultsFetchSimilarPositions(id) {
   };
 }
 
-export function downloadAvailablePositionData(query) {
-  const prefix = 'fsbid/available_positions/export';
+export function downloadPositionData(query, isPV) {
+  const prefix = `/fsbid${isPV ? '/projected_vacancies' : '/available_positions'}/export/`;
   return api()
-  .get(`${prefix}/?${query}`, {
+  .get(`${prefix}?${query}`, {
     cancelToken: new CancelToken((c) => { cancel = c; }),
     responseType: 'stream',
   })
   .then((response) => {
-    const cd = get(response, 'headers.content-disposition');
-    const filename = cd.replace('attachment; filename=', '') || 'TalentMap_search_export';
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const a = document.createElement('a');
-    a.href = url;
-    a.setAttribute('download', filename);
-    document.body.appendChild(a);
-    a.click();
+    downloadFromResponse(response, 'TalentMap_search_export');
   });
 }
 
 export function fetchResultData(query) {
-  const useAP = getUseAP();
-
-  let prefix = useAP ? '/fsbid/available_positions' : '/cycleposition';
+  let prefix = '/fsbid/available_positions';
   const parsed = queryString.parse(query);
   const isPV = parsed.projectedVacancy;
 

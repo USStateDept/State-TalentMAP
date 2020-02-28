@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { isNull, get } from 'lodash';
 import { Flag } from 'flag';
 import CondensedCardData from '../CondensedCardData';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
@@ -9,6 +9,7 @@ import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import ResultsCondensedCardStats from '../ResultsCondensedCardStats';
 import CompareCheck from '../CompareCheck';
+import { getBidStatisticsObject } from '../../utilities';
 
 class ResultsCondensedCardBottom extends Component {
   constructor(props) {
@@ -19,19 +20,24 @@ class ResultsCondensedCardBottom extends Component {
   renderStats() {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
+    const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
     return showBidCount ?
-      <ResultsCondensedCardStats bidStatisticsArray={pos.bid_statistics} />
+      <Flag
+        name="flags.bid_count"
+        render={() => <ResultsCondensedCardStats bidStatisticsArray={[stats]} />}
+      />
     :
     null;
   }
   renderBidListButton() {
     const { showBidListButton, position } = this.props;
-    const pos = position.position || position;
+    const availability = get(position, 'availability.availability');
+    const availableToBid = isNull(availability) || !!availability;
     return showBidListButton ?
       <PermissionsWrapper permissions="bidder">
         <BidListButton
-          id={pos.id}
-          disabled={!get(pos, 'availability.availability', true)}
+          id={position.id}
+          disabled={!availableToBid}
         />
       </PermissionsWrapper>
     :
@@ -46,27 +52,31 @@ class ResultsCondensedCardBottom extends Component {
         showCompareButton,
         isProjectedVacancy,
       } = this.props;
+    const { isClient } = this.context;
     const pos = position.position || position;
     return (
       <div className="condensed-card-bottom-container">
         <div className="usa-grid-full condensed-card-bottom">
           <Flag
-            name="flags.bidding"
+            name="flags.bid_count"
             render={this.renderStats}
           />
           <CondensedCardData position={position} />
           <div className="usa-grid-full condensed-card-buttons-section">
-            <Favorite
-              useLongText
-              hideText={useShortFavButton}
-              hasBorder
-              refKey={position.id}
-              isPV={pos.isPV || position.isPV}
-              compareArray={pos.isPV || position.isPV ? favoritesPV : favorites}
-              useButtonClass={!useShortFavButton}
-              useButtonClassSecondary={useShortFavButton}
-              refresh={refreshFavorites}
-            />
+            {
+              !isClient &&
+              <Favorite
+                useLongText
+                hideText={useShortFavButton}
+                hasBorder
+                refKey={position.id}
+                isPV={pos.isPV || position.isPV}
+                compareArray={pos.isPV || position.isPV ? favoritesPV : favorites}
+                useButtonClass={!useShortFavButton}
+                useButtonClassSecondary={useShortFavButton}
+                refresh={refreshFavorites}
+              />
+            }
             <Flag
               name="flags.bidding"
               render={this.renderBidListButton}
@@ -81,6 +91,10 @@ class ResultsCondensedCardBottom extends Component {
     );
   }
 }
+
+ResultsCondensedCardBottom.contextTypes = {
+  isClient: PropTypes.bool,
+};
 
 ResultsCondensedCardBottom.propTypes = {
   position: PropTypes.shape({

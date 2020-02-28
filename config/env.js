@@ -57,6 +57,7 @@ const REACT_APP = /^REACT_APP_/i;
 const ENV = NODE_ENV || 'development';
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
 const API_URL = process.env.API_URL || 'http://localhost:8000/api/v1';
+const VERSION = require('../package.json').version;
 
 function getClientEnvironment(publicUrl) {
   const initial = {
@@ -69,6 +70,7 @@ function getClientEnvironment(publicUrl) {
     // images into the `src` and `import` them in code to get their paths.
     PUBLIC_URL: publicUrl,
     API_URL,
+    VERSION,
   };
 
   const raw = Object.keys(process.env)
@@ -89,4 +91,18 @@ function getClientEnvironment(publicUrl) {
   return { raw, stringified };
 }
 
-module.exports = getClientEnvironment;
+const aliases = {
+  src: path.resolve(__dirname, '../src/'),
+  actions: path.resolve(__dirname, '../src/actions/'),
+  Components: path.resolve(__dirname, '../src/Components/'),
+  Constants: path.resolve(__dirname, '../src/Constants/'),
+  Containers: path.resolve(__dirname, '../src/Containers/'),
+  reducers: path.resolve(__dirname, '../src/reducers/'),
+  utilities: path.resolve(__dirname, '../src/utilities.js'),
+  flags: path.resolve(__dirname, '../src/flags.js'),
+  // Support React Native Web
+  // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+  'react-native': 'react-native-web',
+}
+
+module.exports = { getClientEnvironment, aliases };

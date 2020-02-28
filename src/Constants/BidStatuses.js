@@ -17,7 +17,7 @@ export const APPROVED = { property: APPROVED_PROP, class_name: 'approved', text:
 export const CLOSED = { property: CLOSED_PROP, class_name: 'closed', text: 'Closed' };
 export const DRAFT = { property: DRAFT_PROP, class_name: 'draft', text: 'Draft bid' };
 export const DECLINED = { property: DECLINED_PROP, class_name: 'declined', text: 'Bid unapproved' };
-export const HAND_SHAKE_ACCEPTED = { property: HAND_SHAKE_ACCEPTED_PROP, class_name: 'hand-shake-accepted', text: 'Handshake accepted' };
+export const HAND_SHAKE_ACCEPTED = { property: HAND_SHAKE_ACCEPTED_PROP, class_name: 'hand-shake-accepted', text: 'Handshake registered' };
 export const HAND_SHAKE_OFFERED = { property: HAND_SHAKE_OFFERED_PROP, class_name: 'hand-shake-offered', text: 'Handshake offered' };
 // TODO ensure HAND_SHAKE_DECLINED has accurate data
 export const HAND_SHAKE_DECLINED = { property: HAND_SHAKE_DECLINED_PROP, class_name: 'declined', text: 'Handshake declined' };
@@ -30,6 +30,19 @@ const statusArray = [
   APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED, PRE_PANEL,
   HAND_SHAKE_OFFERED, IN_PANEL, SUBMITTED, HAND_SHAKE_DECLINED,
 ];
+
+export const BID_STATUS_ORDER = {
+  [DECLINED_PROP]: 1,
+  [CLOSED_PROP]: 2,
+  [HAND_SHAKE_DECLINED_PROP]: 3,
+  [DRAFT_PROP]: 4,
+  [SUBMITTED_PROP]: 5,
+  [HAND_SHAKE_OFFERED_PROP]: 6,
+  [HAND_SHAKE_ACCEPTED_PROP]: 7,
+  [PRE_PANEL_PROP]: 8,
+  [IN_PANEL_PROP]: 9,
+  [APPROVED_PROP]: 10,
+};
 
 // find the correct object based on status, then return the class_name
 export const getStatusProperty = (statusName, property = 'class_name') => {

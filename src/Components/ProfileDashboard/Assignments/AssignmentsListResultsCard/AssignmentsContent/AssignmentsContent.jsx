@@ -1,39 +1,43 @@
 import React from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { formatDate, propOrDefault, getPostName } from '../../../../../utilities';
-import { NO_POST, NO_SKILL, NO_POSITION_NUMBER } from '../../../../../Constants/SystemMessages';
+import { formatDate, getPostName } from '../../../../../utilities';
+import { NO_POST, NO_SKILL, NO_POSITION_NUMBER, NO_LANGUAGES } from '../../../../../Constants/SystemMessages';
 import { POSITION_DETAILS } from '../../../../../Constants/PropTypes';
-import LanguageList from '../../../../LanguageList';
 import StartEnd from '../../../PositionInformation/StartEnd';
 
 const AssignmentsContent = ({ assignment }) => (
   <div className="usa-grid-full bid-content-container">
-    <div>
+    <div className="bid-list-card-title-lg">
       <span className="bid-list-card-title-post">{get(assignment, 'position.title')} </span>
-      <Link to={`/details/${get(assignment, 'position.id')}`}>View Position</Link>
     </div>
     <div>
-      <span className="bid-list-card-title-post">Position number: </span>
-      {propOrDefault(assignment, 'position.position_number', NO_POSITION_NUMBER)}
-    </div>
-    <div>
-      <span className="bid-list-card-title-post">Skill: </span>
-      {propOrDefault(assignment, 'position.skill', NO_SKILL)}
-    </div>
-    <div>
-      <span className="bid-list-card-title-post">Language: </span>
-      <LanguageList languages={get(assignment, 'position.languages')} propToUse="representation" />
+      <span className="usa-sr-only">Position number: </span>
+      <span className="bid-list-card-title-post bid-list-card-title-lg">
+        {
+          get(assignment, 'position.position_number') ?
+          `(${get(assignment, 'position.position_number')}) ` : NO_POSITION_NUMBER
+        }
+      </span>
+      <Link to={`/archived/${get(assignment, 'position.position_number')}`}>View Position</Link>
     </div>
     <div>
       <span className="bid-list-card-title-post">Location: </span>
       {getPostName(get(assignment, 'position.post', NO_POST))}
     </div>
     <div>
+      <span className="bid-list-card-title-post">Skill: </span>
+      {get(assignment, 'position.skill', NO_SKILL)}
+    </div>
+    <div>
+      <span className="bid-list-card-title-post">Language: </span>
+      {get(assignment, 'position.language', NO_LANGUAGES)}
+    </div>
+    <div>
       <span className="bid-list-card-title-post">Start date and End date: </span>
       <StartEnd
         start={formatDate(assignment.start_date)}
-        end={formatDate(assignment.estimated_end_date)}
+        end={formatDate(assignment.end_date)}
       />
     </div>
   </div>

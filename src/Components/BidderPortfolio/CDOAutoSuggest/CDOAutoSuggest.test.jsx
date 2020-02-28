@@ -1,62 +1,35 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import CDOAutoSuggest, { getDisplayProperty } from './CDOAutoSuggest';
+import sinon from 'sinon';
+import CDOAutoSuggest from './CDOAutoSuggest';
 
 describe('CDOAutoSuggest', () => {
+  const props = {
+    cdos: [
+      { first_name: 'John', last_name: 'Daniels', id: 3, hru_id: 3 },
+      { first_name: 'Mary', last_name: 'Brown', id: 4, hru_ud: 4 },
+    ],
+    selection: [{ first_name: 'Mary', last_name: 'Brown', id: 4 }],
+    isLoading: false,
+    hasErrored: false,
+    setCDOsToSearchBy: () => {},
+  };
+
   it('is defined', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     expect(wrapper).toBeDefined();
   });
 
-  it('sets state on onSuggestionSelected()', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
-    global.document.getElementById = () => ({ focus: () => {} });
-    wrapper.instance().onSuggestionSelected({ id: 1 });
-    expect(wrapper.instance().state.isActive).toBe(false);
-  });
-
-  it('sets state on getFilteredUsers()', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
-    wrapper.instance().getFilteredUsers('daniels');
-    expect(wrapper.instance().state.suggestions.length).toBe(1);
-  });
-
-  it('sets state on hideDropdown()', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
-    wrapper.instance().hideDropdown();
-    expect(wrapper.instance().state.isActive).toBe(false);
-  });
-
-  it('sets state on showDropdown()', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
-    wrapper.instance().showDropdown();
-    expect(wrapper.instance().state.isActive).toBe(true);
-  });
-
-  it('toggles state on toggleDropdown()', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
-    wrapper.instance().toggleDropdown();
-    expect(wrapper.instance().state.isActive).toBe(true);
-    wrapper.instance().toggleDropdown();
-    expect(wrapper.instance().state.isActive).toBe(false);
-    wrapper.instance().toggleDropdown();
-    expect(wrapper.instance().state.isActive).toBe(true);
-  });
-
-  it('toggles state on toggleDropdown()', () => {
-    const output = 'John Smith';
-    expect(getDisplayProperty({ first_name: 'John', last_name: 'Smith' })).toBe(output);
+  it('calls the prop on onSuggestionSelected()', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} setCDOsToSearchBy={spy} />);
+    wrapper.instance().selectMultipleOption([props.cdos[0]]);
+    sinon.assert.calledOnce(spy);
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
-  it('matches snapshot after toggling', () => {
-    const wrapper = shallow(<CDOAutoSuggest />);
-    wrapper.find('InteractiveElement').simulate('click');
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

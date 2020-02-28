@@ -2,7 +2,7 @@
 // The react-picky module uses two underscores in its class names.
 .picky {
 
-  width: 135px;
+  width: 160px;
 
   * {
     font-size: 1.3rem;
@@ -28,7 +28,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 80%;
+      width: 81%;
+
+      // fix offset in IE11
+      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        margin-top: 4px;
+      }
     }
 
     &::after {

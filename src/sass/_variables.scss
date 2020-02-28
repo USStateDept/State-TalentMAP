@@ -22,6 +22,7 @@ $primary-alt-light: #9BDAF1;
 $primary-alt-lightest: #E1F3F8;
 
 // Secondary
+$secondary-darkest-2: #711415;
 $secondary-darkest: #981B1E;
 $secondary-dark: #CD2026;
 $secondary-base: #E31C3D;
@@ -31,8 +32,8 @@ $secondary-lightest: #F9DEDE;
 // Tertiary
 $tertiary-gold: #FDB81E;
 $tertiary-gold-light: #F9C642;
-$tertiary-gold-lighter: #FAD980;
-$tertiary-gold-lightest: #FFF1D2;
+$tertiary-gold-lighter: $var-tertiary-gold-lighter;
+$tertiary-gold-lightest: $var-tertiary-gold-lightest;
 
 $tertiary-success: #2E8540;
 $tertiary-success-light: #4AA564;
@@ -40,9 +41,9 @@ $tertiary-success-lighter: #94BFA2;
 $tertiary-success-lightest: #E7F4E4;
 
 $tertiary-cool-blue: #205493;
-$tertiary-cool-blue-light: #4773AA;
-$tertiary-cool-blue-lighter: #8BA6CA;
-$tertiary-cool-blue-lightest: #DCE4EF;
+$tertiary-cool-blue-light: $var-tertiary-cool-blue-light;
+$tertiary-cool-blue-lighter: $var-tertiary-cool-blue-lighter;
+$tertiary-cool-blue-lightest: $var-tertiary-cool-blue-lightest;
 
 // Background
 $bg-gray-dark-0: #323045; //# Base
@@ -103,6 +104,7 @@ $color-gold-darker: #976E12;
 $color-gold-darkest: #4B3709;
 $color-dodger-blue: #1E90FF;
 $color-botticelli-blue: #D9E3EB;
+$color-cornflower-blue: #DDE4EF;
 
 $tm-dark-blue: $bg-blue-dark-1;
 $tm-white-smoke: #F5F5F5;
@@ -153,6 +155,12 @@ $results-card-accent: $blue-primary;
 $results-card-border: $color-gray-lighter;
 
 //**
+//* Delegate Roles table
+//*
+$odd-td-background-color: #e6f1f8;
+
+
+//**
 //* Scrollbar
 //*
 $scrollbar-width: 10px;
@@ -183,6 +191,7 @@ $glossary-z: 20000;
 $glossary-close-z: 1;
 $ribbon-condensed-card-z: 1;
 $condensed-card-top-z: 1;
+$client-header-z: 9001;
 
 //**
 //* Images

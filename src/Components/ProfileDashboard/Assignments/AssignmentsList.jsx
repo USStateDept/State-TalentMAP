@@ -20,7 +20,7 @@ const AssignmentList = ({ assignments }) => {
     <div className="usa-grid-full profile-section-container">
       <div className="usa-grid-full section-padded-inner-container">
         <div className="usa-width-one-whole">
-          <SectionTitle title="Position History" icon="clipboard" len={assignments.length} />
+          <SectionTitle title="Position and Detail History" icon="clipboard" />
         </div>
       </div>
       <div className="favorites-list-container">

@@ -1,5 +1,38 @@
 import queryString from 'query-string';
 
+export function bidderPortfolioSelectedSeasons(state = [], action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SELECTED_SEASONS':
+      return action.data;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioSeasonsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASONS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioSeasonsIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASONS_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioSeasons(state = [], action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SEASONS_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
 export function bidderPortfolioHasErrored(state = false, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_HAS_ERRORED':
@@ -75,10 +108,53 @@ export function bidderPortfolioCounts(state = {}, action) {
   }
 }
 
-export function bidderPortfolioLastQuery(state = '/client/', action) {
+export function bidderPortfolioCDOsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_CDOS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioCDOsIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_CDOS_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioCDOs(state = [], action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_CDOS_FETCH_DATA_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function bidderPortfolioSelectedCDO(state = {}, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SELECTED_CDO':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function bidderPortfolioSelectedCDOsToSearchBy(state = [], action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SELECTED_CDOS_TO_SEARCH_BY':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function bidderPortfolioLastQuery(state = '/fsbid/client/', action, endpoint = '/fsbid/client/') {
   switch (action.type) {
     case 'SET_BIDDER_PORTFOLIO_LAST_QUERY': {
-      const base = '/client/';
+      const base = endpoint;
       const q = queryString.parse(action.query);
       q.limit = action.count;
       q.page = 1;

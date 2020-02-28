@@ -6,13 +6,18 @@ import LogRow from './LogRow';
 describe('LogRow', () => {
   const props = {
     name: 'name',
-    isLoading: false,
+    isSelected: false,
     LogRowIsLoading: false,
     onDownloadClick: () => {},
   };
 
   it('is defined', () => {
     const wrapper = shallow(<LogRow {...props} />);
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined when isSelected === true', () => {
+    const wrapper = shallow(<LogRow {...props} isSelected />);
     expect(wrapper).toBeDefined();
   });
 

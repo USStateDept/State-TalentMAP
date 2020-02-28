@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import { JSDOM } from 'jsdom';
 Object.entries = require('object.entries'); // because jest doesn't import babel
 import config from '../../public/config/config.json';
 import { configure as configureEnzyme } from 'enzyme';
@@ -59,6 +60,14 @@ jest.mock('shortid', () => {
   };
 });
 
+// Mock imagediff
+jest.mock('imagediff', () => ({ default: jest.fn() }))
+
+const dom = new JSDOM();
+
+global.document = dom.window.document
+global.window = dom.window
+
 beforeEach(() => {
   // reset to 0 before each test
   mockShortIdValue = 0;
@@ -68,4 +77,8 @@ beforeEach(() => {
 
   // mock querySelector
   global.document.querySelector = () => ({ offsetParent: '50px', scrollIntoView: () => {} });
+
+  global.document.body.appendChild = () => {};
+
+  global.window.navigator.msSaveOrOpenBlob = () => {};
 });

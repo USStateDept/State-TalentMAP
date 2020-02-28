@@ -37,14 +37,6 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
           />
            Submit Bid
         </button>
-        <InteractiveElement
-          className="remove-bid-link"
-          onClick={[Function]}
-          role="link"
-          type="div"
-        >
-          Remove Bid
-        </InteractiveElement>
       </div>
     </div>
     <div
@@ -65,6 +57,16 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
           Location: 
         </span>
         Freetown, Sierra Leone
+      </div>
+      <div>
+        <Connect(StaticDevContent)>
+          <span
+            className="title"
+          >
+            TED: 
+          </span>
+          07/02/2020
+        </Connect(StaticDevContent)>
       </div>
       <div>
         <span

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Splash matches snapshot 1`] = `
+<div
+  className="usa-grid-full"
+  style={
+    Object {
+      "height": "100vh",
+      "padding": "3em",
+    }
+  }
+>
+  <h1
+    style={
+      Object {
+        "fontSize": 28,
+        "textAlign": "center",
+      }
+    }
+  >
+    Loading TalentMAP...
+  </h1>
+  <Spinner
+    size="small"
+    style={
+      Object {
+        "paddingLeft": 5,
+      }
+    }
+    type=""
+  />
+</div>
+`;

@@ -39,6 +39,7 @@ a {
   }
 }
 
+.dropdown__trigger,
 .tooltip-link,
 .static-content-toggle {
   &:focus {
@@ -48,8 +49,7 @@ a {
 
 .portfolio-account-dropdown {
   .label-input-wrapper > input,
-  .usa-button,
-  .account-dropdown--name {
+  .usa-button {
     &:focus {
       outline-color: $tm-focus-outline-color-alt !important;
     }

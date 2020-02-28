@@ -1,123 +1,108 @@
 import React, { Component } from 'react';
-import Dropdown, { DropdownContent } from 'react-simple-dropdown';
-import FA from 'react-fontawesome';
-import AutoSuggest from '../../AutoSuggest';
-import SuggestionChoiceCDOName from '../../AutoSuggest/SuggestionChoiceCDOName';
-import { getCurrentUser, filterUsers } from '../temporyHelpers';
-import BoxShadow from '../../BoxShadow';
-import InteractiveElement from '../../InteractiveElement';
+import PropTypes from 'prop-types';
+import { throttle, isEqual } from 'lodash';
+import { connect } from 'react-redux';
+import Picky from 'react-picky';
+import bowser from 'bowser';
+import { bidderPortfolioSelectCDOsToSearchBy } from 'actions/bidderPortfolio';
+import { unsetClientView } from 'actions/clientView';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import filterUsers from '../helpers';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-// we'll reference this to return focus after making a selection
-const dropdownID = 'cdo-portfolio-dropdown-trigger';
+// TODO - Running into an issue where the label/span element is also
+// passing up an event almost concurrently (400ms difference).
+// This only happens in IE11, so we add a leading throttle so that
+// any additional events within 1000ms do not get called.
+const browser = bowser.getParser(window.navigator.userAgent);
+const isIE = browser.satisfies({ 'internet explorer': '<=11' });
+const THROTTLE_MS = isIE ? 1000 : 0;
 
 export const getDisplayProperty = o => `${o.first_name} ${o.last_name}`;
+
+export function renderList({ items, selected, ...rest }) {
+  const getIsSelected = item => !!selected.find(f => f.id === item.id);
+  return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="name" getIsSelected={getIsSelected} />);
+}
 
 class CDOAutoSuggest extends Component {
   constructor(props) {
     super(props);
-    this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
-    this.getFilteredUsers = this.getFilteredUsers.bind(this);
-    this.toggleDropdown = this.toggleDropdown.bind(this);
-    this.dropdown = {};
+    this.selectMultipleOption = throttle(
+      this.selectMultipleOption.bind(this),
+      THROTTLE_MS,
+      { trailing: false, leading: true },
+    );
     this.state = {
-      suggestions: filterUsers(''),
-      selection: getCurrentUser(),
-      isActive: false,
+      suggestions: filterUsers('', props.cdos),
     };
   }
 
-  onSuggestionSelected(selection) {
-    this.setState({ selection }, () => {
-      this.hideDropdown();
-      document.getElementById(dropdownID).focus();
-    });
-  }
-
-  getFilteredUsers(term) {
-    this.setState({ suggestions: filterUsers(term) });
-  }
-
-  hideDropdown() {
-    // Explicitly hide the dropdown using the built-in hide() function from react-simple-dropdown
-    if (this.dropdown && this.dropdown.hide) { this.dropdown.hide(); }
-    this.setState({ isActive: false });
-  }
-
-  showDropdown() {
-    // Explicitly show the dropdown using the built-in show() function from react-simple-dropdown
-    if (this.dropdown && this.dropdown.show) { this.dropdown.show(); }
-    this.setState({ isActive: true });
-  }
-
-  toggleDropdown() {
-    const { isActive } = this.state;
-    if (isActive) {
-      this.hideDropdown();
-    } else {
-      this.showDropdown();
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.cdos, nextProps.cdos)) {
+      this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }
+  }
+
+  selectMultipleOption(value) {
+    this.props.setCDOsToSearchBy(value);
   }
 
   render() {
-    const { isActive, selection, suggestions } = this.state;
-    let triggerLabel = `${selection.first_name} ${selection.last_name}`;
-    let icon = 'chevron-down';
-    let altPrefix = 'Open';
-    if (isActive) {
-      triggerLabel = 'See client list as';
-      icon = 'chevron-up';
-      altPrefix = 'Close';
-    }
-    const alt = `${altPrefix} client list search`;
+    const { suggestions } = this.state;
+    const { isLoading, hasErrored, selection, cdoSelections } = this.props; // eslint-disable-line
     return (
-      <Dropdown
-        className="portfolio-account-dropdown"
-        ref={(dropdown) => { this.dropdown = dropdown; }}
-        removeElement
-        active={isActive}
-      >
-        <h2>Client Profiles</h2>
-        <div className="usa-grid-full dropdown-trigger-container">
-          <span>Client list:</span>
-          <InteractiveElement
-            onClick={this.toggleDropdown}
-            className="account-dropdown--name"
-            id={dropdownID}
-            alt={alt}
-          >
-            {triggerLabel}
-            <FA name={icon} />
-          </InteractiveElement>
+      !isLoading && !hasErrored &&
+        <div className="cdo-autosuggest">
+          <Picky
+            placeholder="Select CDOs"
+            value={selection}
+            options={suggestions}
+            onChange={this.selectMultipleOption}
+            numberDisplayed={2}
+            multiple
+            includeFilter
+            dropdownHeight={255}
+            renderList={renderList}
+            valueKey="id"
+            labelKey="name"
+
+            // TODO - Once React 16 is integrated, upgrade to react-picky >=5.2.0 to use this prop
+            // filterTermProcessor={trim} // import trim from lodash
+          />
         </div>
-        <BoxShadow>
-          <div className="dropdown-content-outer-container">
-            <DropdownContent>
-              <div className="autosuggest-container">
-                <AutoSuggest
-                  label="Client list"
-                  inputId="cdo-portfolio-autosuggest"
-                  debounceMillis={0}
-                  suggestions={suggestions}
-                  getSuggestions={this.getFilteredUsers}
-                  displayProperty={getDisplayProperty}
-                  suggestionTemplate={SuggestionChoiceCDOName}
-                  onSuggestionSelected={this.onSuggestionSelected}
-                  placeholder="Start typing CDO name"
-                  autoSuggestProps={{
-                    shouldRenderSuggestions: () => true,
-                    alwaysRenderSuggestions: true,
-                  }}
-                  templateProps={{
-                    value: selection,
-                  }}
-                />
-              </div>
-            </DropdownContent>
-          </div>
-        </BoxShadow>
-      </Dropdown>
     );
   }
 }
 
-export default CDOAutoSuggest;
+CDOAutoSuggest.propTypes = {
+  cdos: PropTypes.arrayOf(PropTypes.shape({})),
+  isLoading: PropTypes.bool,
+  hasErrored: PropTypes.bool,
+  selection: PropTypes.arrayOf(PropTypes.shape({})),
+  setCDOsToSearchBy: PropTypes.func,
+};
+
+CDOAutoSuggest.defaultProps = {
+  cdos: [],
+  isLoading: false,
+  hasErrored: false,
+  selection: [],
+  setCDOsToSearchBy: EMPTY_FUNCTION,
+};
+
+const mapStateToProps = state => ({
+  cdos: state.bidderPortfolioCDOs,
+  isLoading: state.bidderPortfolioCDOsIsLoading,
+  hasErrored: state.bidderPortfolioCDOsHasErrored,
+  selection: state.bidderPortfolioSelectedCDOsToSearchBy,
+});
+
+export const mapDispatchToProps = dispatch => ({
+  setCDOsToSearchBy: (arr) => {
+    dispatch(bidderPortfolioSelectCDOsToSearchBy(arr));
+    dispatch(unsetClientView());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CDOAutoSuggest);

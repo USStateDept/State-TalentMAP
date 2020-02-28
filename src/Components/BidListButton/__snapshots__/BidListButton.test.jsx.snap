@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`BidListButtonComponent matches snapshot when context.client === true 1`] = `
+<button
+  className=" bid-list-button"
+  disabled={false}
+  onClick={[Function]}
+  style={
+    Object {
+      "pointerEvents": "inherit",
+    }
+  }
+>
+  <span
+    className="button-icon"
+  >
+    <FontAwesome
+      name="trash"
+    />
+  </span>
+  <span>
+    Remove from Client Bid List
+  </span>
+</button>
+`;
+
 exports[`BidListButtonComponent matches snapshot when the user can add the position 1`] = `
 <button
   className=" bid-list-button"
@@ -39,7 +63,7 @@ exports[`BidListButtonComponent matches snapshot when the user can remove the po
     className="button-icon"
   >
     <FontAwesome
-      name="minus-circle"
+      name="trash"
     />
   </span>
   <span>

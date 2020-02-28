@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
+import { focusById } from 'utilities';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import MediaQuery from '../MediaQuery';
-import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import EditContentButton from '../EditContentButton';
 import Editor from './Editor';
 import Spinner from '../Spinner';
 import Alert from '../Alert';
 import { SUBMIT_BUTTON_ID } from './Editor/Editor';
-import { focusById } from '../../utilities';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 const EDIT_BUTTON_ID = 'edit-about-content';
 
@@ -65,7 +65,7 @@ class About extends Component {
                         data={data}
                       /> :
                       <div>
-                        <ReactMarkdown source={data} />
+                        <ReactMarkdown source={data} linkTarget="_blank" />
                         <a type="submit" role="button" href="mailto:TalentMAP@State.gov" className="tm-button-feedback">Email TalentMAP</a>
                       </div>
                     }

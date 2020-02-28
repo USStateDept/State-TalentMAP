@@ -224,7 +224,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             />
           </tr>
           <Flag
-            name="flags.static_content"
+            name="flags.bid_count"
             render={[Function]}
           />
           <tr>
@@ -457,17 +457,25 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Post differential
+              Post differential | Danger Pay
             </th>
             <td
               key="51"
             >
-              30%
+              <DefinitionList
+                dangerPay={0}
+                obcUrl=""
+                postDifferential={30}
+              />
             </td>
             <td
               key="52"
             >
-              20%
+              <DefinitionList
+                dangerPay={15}
+                obcUrl=""
+                postDifferential={20}
+              />
             </td>
             <td
               className="empty"
@@ -486,39 +494,10 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Danger pay
-            </th>
-            <td
-              key="56"
-            >
-              0%
-            </td>
-            <td
-              key="57"
-            >
-              15%
-            </td>
-            <td
-              className="empty"
-              key="58"
-            />
-            <td
-              className="empty"
-              key="59"
-            />
-            <td
-              className="empty"
-              key="60"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
               Favorite
             </th>
             <td
-              key="61"
+              key="56"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -534,7 +513,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </td>
             <td
-              key="62"
+              key="57"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -551,15 +530,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td
               className="empty"
-              key="63"
+              key="58"
             />
             <td
               className="empty"
-              key="64"
+              key="59"
             />
             <td
               className="empty"
-              key="65"
+              key="60"
             />
           </tr>
           <Flag
@@ -822,7 +801,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             />
           </tr>
           <Flag
-            name="flags.static_content"
+            name="flags.bid_count"
             render={[Function]}
           />
           <tr>
@@ -1055,17 +1034,25 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Post differential
+              Post differential | Danger Pay
             </th>
             <td
               key="51"
             >
-              30%
+              <DefinitionList
+                dangerPay={0}
+                obcUrl=""
+                postDifferential={30}
+              />
             </td>
             <td
               key="52"
             >
-              20%
+              <DefinitionList
+                dangerPay={15}
+                obcUrl=""
+                postDifferential={20}
+              />
             </td>
             <td
               className="empty"
@@ -1084,39 +1071,10 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Danger pay
-            </th>
-            <td
-              key="56"
-            >
-              0%
-            </td>
-            <td
-              key="57"
-            >
-              15%
-            </td>
-            <td
-              className="empty"
-              key="58"
-            />
-            <td
-              className="empty"
-              key="59"
-            />
-            <td
-              className="empty"
-              key="60"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
               Favorite
             </th>
             <td
-              key="61"
+              key="56"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -1132,7 +1090,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               />
             </td>
             <td
-              key="62"
+              key="57"
             >
               <Connect(FavoriteContainer)
                 compareArray={
@@ -1149,15 +1107,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td
               className="empty"
-              key="63"
+              key="58"
             />
             <td
               className="empty"
-              key="64"
+              key="59"
             />
             <td
               className="empty"
-              key="65"
+              key="60"
             />
           </tr>
           <Flag

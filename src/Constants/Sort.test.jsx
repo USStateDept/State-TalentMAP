@@ -1,4 +1,4 @@
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from './Sort';
+import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, filterPVSorts } from './Sort';
 
 describe('Dropdown options', () => {
   it('POSITION_SEARCH_SORTS should be defined', () => {
@@ -11,5 +11,16 @@ describe('Dropdown options', () => {
 
   it('POSITION_PAGE_SIZES should be defined', () => {
     expect(POSITION_PAGE_SIZES).toBeDefined();
+  });
+
+  it('returns objects where availableOnly === false on filterPVSorts()', () => {
+    const result = filterPVSorts(POSITION_SEARCH_SORTS);
+    let hasFailed = false;
+    result.options.forEach((f) => {
+      if (f.availableOnly) {
+        hasFailed = true;
+      }
+    });
+    expect(hasFailed).toBe(false);
   });
 });

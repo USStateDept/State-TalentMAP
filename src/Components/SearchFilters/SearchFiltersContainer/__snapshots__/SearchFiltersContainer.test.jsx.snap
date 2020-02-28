@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
-<div>
+<div
+  className="ap-container"
+>
   <MultiSelectFilterContainer
     multiSelectFilterList={
       Array [

@@ -2,19 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shortId from 'shortid';
-import { get } from 'lodash';
+import { isNull, get } from 'lodash';
 import FA from 'react-fontawesome';
 import { Flag } from 'flag';
+import Differentials from 'Components/Differentials';
 import BackButton from '../BackButton';
 import { BID_LIST, COMPARE_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import COMPARE_LIMIT from '../../Constants/Compare';
-import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE,
-  NO_POST_DIFFERENTIAL, NO_DANGER_PAY, NO_GRADE } from '../../Constants/SystemMessages';
+import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_GRADE } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
-import { propOrDefault, formatDate, getPostName, getDifferentialPercentage, getAccessiblePositionNumber } from '../../utilities';
-import OBCUrl from '../OBCUrl';
+import { propOrDefault, formatDate, getPostName, getAccessiblePositionNumber } from '../../utilities';
 import BidCount from '../BidCount';
 import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
@@ -28,8 +27,7 @@ export const renderBidCounts = (compareArray, emptyArray) => (
     </th>
     {
         compareArray.map((c) => {
-          const { position } = c.position || c;
-          const bidStatistics = get(position, 'bid_statistics[0]', {});
+          const bidStatistics = get(c, 'bid_statistics[0]', {});
           return (
             <td key={shortId.generate()}>
               <span className="bid-stats">
@@ -56,17 +54,21 @@ class CompareList extends Component {
       <tr>
         <th scope="row">Add to Bid List</th>
         {
-          compareArray.map(c => (
-            <td key={shortId.generate()}>
-              <PermissionsWrapper permissions="bidder">
-                <BidListButton
-                  compareArray={bidList.results}
-                  id={c.id}
-                  disabled={!get(c.position, 'availability.availability', true)}
-                />
-              </PermissionsWrapper>
-            </td>
-          ))
+          compareArray.map((c) => {
+            const availability = get(c.position, 'availability.availability');
+            const availableToBid = isNull(availability) || !!availability;
+            return (
+              <td key={shortId.generate()}>
+                <PermissionsWrapper permissions="bidder">
+                  <BidListButton
+                    compareArray={bidList.results}
+                    id={c.id}
+                    disabled={!availableToBid}
+                  />
+                </PermissionsWrapper>
+              </td>
+            );
+          })
         }
         {
           emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
@@ -165,7 +167,7 @@ class CompareList extends Component {
                       }
                     </tr>
                     <Flag
-                      name="flags.static_content"
+                      name="flags.bid_count"
                       render={() => renderBidCounts(compareArray, emptyArray)}
                     />
                     <tr>
@@ -260,30 +262,19 @@ class CompareList extends Component {
                       }
                     </tr>
                     <tr>
-                      <th scope="row">Post differential</th>
+                      <th scope="row">Post differential | Danger Pay</th>
                       {
-                        compareArray.map(c => (
-                          <td key={shortId.generate()}>
-                            {getDifferentialPercentage(propOrDefault(c.position, 'post.differential_rate'), NO_POST_DIFFERENTIAL)}
-                            {propOrDefault(c.position, 'post.post_bidding_considerations_url') ? <span> | <OBCUrl type="post-data" url={c.position.post.post_bidding_considerations_url} label="View OBC Data" /></span> : null }
-                          </td>
-                        ))
-                      }
-                      {
-                        emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
-                      }
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        Danger pay
-                      </th>
-                      {
-                        compareArray.map(c => (
-                          <td key={shortId.generate()}>
-                            {getDifferentialPercentage(propOrDefault(c.position, 'post.danger_pay'), NO_DANGER_PAY)}
-                            {propOrDefault(c.position, 'post.post_bidding_considerations_url') ? <span> | <OBCUrl type="post-data" url={c.position.post.post_bidding_considerations_url} label="View OBC Data" /></span> : null }
-                          </td>
-                        ))
+                        compareArray.map((c) => {
+                          const dangerPay = get(c, 'position.post.danger_pay');
+                          const postDifferential = get(c, 'position.post.differential_rate');
+                          const obcUrl = get(c, 'position.post.post_bidding_considerations_url');
+                          const props = { dangerPay, postDifferential, obcUrl };
+                          return (
+                            <td key={shortId.generate()}>
+                              <Differentials {...props} />
+                            </td>
+                          );
+                        })
                       }
                       {
                         emptyArray.map(() => <td className="empty" key={shortId.generate()} />)

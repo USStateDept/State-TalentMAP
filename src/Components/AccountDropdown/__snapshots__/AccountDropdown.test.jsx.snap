@@ -14,11 +14,19 @@ exports[`AccountDropdown matches snapshot 1`] = `
     <Avatar
       className="account-dropdown--avatar"
       displayName="John Doe"
+      externalSource={Object {}}
+      externalSourceToUse="s"
+      fallback={
+        <FontAwesome
+          name="user-o"
+        />
+      }
       firstName="John"
       initials=""
       lastName="Doe"
       onClick={[Function]}
       small={false}
+      useExternalImg={false}
     />
   </DropdownTrigger>
   <div
@@ -76,11 +84,19 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
     <Avatar
       className="account-dropdown--avatar"
       displayName="John Doe"
+      externalSource={Object {}}
+      externalSourceToUse="s"
+      fallback={
+        <FontAwesome
+          name="user-o"
+        />
+      }
       firstName="John"
       initials=""
       lastName="Doe"
       onClick={[Function]}
       small={false}
+      useExternalImg={false}
     />
     <span
       className="account-dropdown--name"

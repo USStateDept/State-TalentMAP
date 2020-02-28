@@ -66,6 +66,17 @@ $results-container-width: 100% - $filter-container-width;
     font-size: .8em;
   }
 
+  .compare-check-box-container {
+    border: 1px solid $blue-primary;
+    border-radius: 5px;
+    color: $blue-primary;
+
+    &.compare-checked {
+      background-color: $blue-primary;
+      color: $color-white;
+    }
+  }
+
   .header {
     margin-bottom: 1rem;
     margin-top: .2rem;
@@ -726,6 +737,12 @@ $results-container-width: 100% - $filter-container-width;
     .tm-checkbox {
       float: left;
     }
+  }
+}
+
+.ap-container {
+  .accordion-checkbox-post {
+    min-height: inherit;
   }
 }
 

@@ -10,22 +10,24 @@ exports[`IconAlertComponent matches snapshot 1`] = `
     title="title"
     to="/profile/"
   >
-    <div
-      className="alert-icon"
-    />
-    <span
-      className="usa-sr-only"
-    >
-      text
-    </span>
-    <FontAwesome
-      name="message-o"
-    />
-    <span
-      className="alert-icon-badge"
-    >
-      4
-    </span>
+    <div>
+      <div
+        className="alert-icon"
+      />
+      <span
+        className="usa-sr-only"
+      >
+        text
+      </span>
+      <FontAwesome
+        name="message-o"
+      />
+      <span
+        className="alert-icon-badge"
+      >
+        4
+      </span>
+    </div>
   </Link>
 </div>
 `;
@@ -40,17 +42,19 @@ exports[`IconAlertComponent matches snapshot when number = 0 1`] = `
     title="title"
     to="/profile/"
   >
-    <div
-      className="alert-icon"
-    />
-    <span
-      className="usa-sr-only"
-    >
-      text
-    </span>
-    <FontAwesome
-      name="message-o"
-    />
+    <div>
+      <div
+        className="alert-icon"
+      />
+      <span
+        className="usa-sr-only"
+      >
+        text
+      </span>
+      <FontAwesome
+        name="message-o"
+      />
+    </div>
   </Link>
 </div>
 `;
@@ -65,22 +69,24 @@ exports[`IconAlertComponent matches snapshot with a number greater than the limi
     title="title"
     to="/profile/"
   >
-    <div
-      className="alert-icon"
-    />
-    <span
-      className="usa-sr-only"
-    >
-      text
-    </span>
-    <FontAwesome
-      name="message-o"
-    />
-    <span
-      className="alert-icon-badge"
-    >
-      5+
-    </span>
+    <div>
+      <div
+        className="alert-icon"
+      />
+      <span
+        className="usa-sr-only"
+      >
+        text
+      </span>
+      <FontAwesome
+        name="message-o"
+      />
+      <span
+        className="alert-icon-badge"
+      >
+        5+
+      </span>
+    </div>
   </Link>
 </div>
 `;

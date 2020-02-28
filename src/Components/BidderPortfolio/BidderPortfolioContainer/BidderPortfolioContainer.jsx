@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { BIDDER_LIST } from '../../../Constants/PropTypes';
-import { scrollToId } from '../../../utilities';
+import { get } from 'lodash';
+import { scrollToId } from 'utilities';
+import { BIDDER_LIST, CLASSIFICATIONS } from 'Constants/PropTypes';
+import PaginationWrapper from 'Components/PaginationWrapper/PaginationWrapper';
+import Alert from 'Components/Alert/Alert';
 import BidderPortfolioCardList from '../BidderPortfolioCardList';
 import BidderPortfolioGridList from '../BidderPortfolioGridList';
-import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
-import Alert from '../../Alert/Alert';
 
 const ID = 'bidder-portfolio-container';
 
@@ -21,20 +22,34 @@ class BidderPortfolioContainer extends Component {
     }, 600);
   }
   render() {
-    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit } = this.props;
-    const noResults = bidderPortfolio.results.length === 0;
+    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit, isLoading,
+      cdosLength, hideControls, classifications } = this.props;
+    const noResults = get(bidderPortfolio, 'results', []).length === 0;
+    const showNoCdosAlert = !cdosLength;
+    const showEdit$ = showEdit && !hideControls;
+    const showExpand = !hideControls;
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
-          showListView ?
-            <BidderPortfolioGridList showEdit={showEdit} results={bidderPortfolio.results} />
-            :
-            <BidderPortfolioCardList results={bidderPortfolio.results} />
+          !showNoCdosAlert &&
+          (
+            showListView ?
+              <BidderPortfolioGridList
+                showEdit={showEdit$}
+                showExpand={showExpand}
+                results={bidderPortfolio.results}
+                classifications={classifications}
+              />
+              :
+              <BidderPortfolioCardList
+                results={bidderPortfolio.results}
+                classifications={classifications}
+              />
+          )
         }
         {
            // if there's no results, don't show pagination
-           !!bidderPortfolio.results && !!bidderPortfolio.results.length &&
-           // finally, render the pagination
+           !noResults && !showNoCdosAlert &&
            <div className="usa-grid-full react-paginate">
              <PaginationWrapper
                totalResults={bidderPortfolio.count}
@@ -45,7 +60,13 @@ class BidderPortfolioContainer extends Component {
            </div>
         }
         {
-          noResults &&
+          showNoCdosAlert &&
+          <div className="usa-width-two-thirds">
+            <Alert title="You have not selected any CDOs" messages={[{ body: 'Please select at least one CDO from the "Proxy CDO View" filter above.' }]} />
+          </div>
+        }
+        {
+          noResults && !isLoading && !showNoCdosAlert &&
           <div className="usa-width-two-thirds">
             <Alert title="You have no clients within this search criteria." messages={[{ body: 'Try removing filters or using another bid status tab.' }]} />
           </div>
@@ -62,11 +83,19 @@ BidderPortfolioContainer.propTypes = {
   pageNumber: PropTypes.number.isRequired,
   showListView: PropTypes.bool,
   showEdit: PropTypes.bool,
+  classifications: CLASSIFICATIONS,
+  isLoading: PropTypes.bool,
+  cdosLength: PropTypes.number,
+  hideControls: PropTypes.bool,
 };
 
 BidderPortfolioContainer.defaultProps = {
   showListView: false,
   showEdit: false,
+  classifications: [],
+  isLoading: false,
+  cdosLength: 0,
+  hideControls: false,
 };
 
 export default BidderPortfolioContainer;

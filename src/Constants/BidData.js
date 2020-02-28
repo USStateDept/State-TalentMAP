@@ -59,6 +59,6 @@ export const GET_SUBMIT_BID_COMPLETE_TITLE = () => ['Bid Submitted'];
 export const GET_HAND_SHAKE_EVALUATE_TITLE = () => ['Evaluate Bid'];
 export const GET_HAND_SHAKE_EVALUATING_TITLE = () => ['Pending Review'];
 export const GET_HAND_SHAKE_OFFERED_TITLE = () => ['Handshake Offered'];
-export const GET_HAND_SHAKE_ACCEPTED_TITLE = () => ['Handshake Accepted'];
+export const GET_HAND_SHAKE_ACCEPTED_TITLE = () => ['Handshake Registered'];
 export const GET_PANEL_TITLE = () => ['Panel'];
 export const GET_APPROVAL_TITLE = () => ['Approval'];

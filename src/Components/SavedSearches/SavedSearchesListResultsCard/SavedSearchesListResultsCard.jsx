@@ -63,8 +63,8 @@ const SavedSearchListResultsCard = (props) => {
               <Column columns={columns[2]}>
                 <div className="button-container">
                   <div className="button-content">
-                    <button className="usa-button-secondary" onClick={() => deleteSearch(savedSearch.id)} >Delete</button>
                     <button className="usa-button" onClick={() => goToSavedSearch(savedSearch)} >View Search</button>
+                    <button className="usa-button-secondary" onClick={() => deleteSearch(savedSearch.id)} >Delete</button>
                   </div>
                 </div>
               </Column>

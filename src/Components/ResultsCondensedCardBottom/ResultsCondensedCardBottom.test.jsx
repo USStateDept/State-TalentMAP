@@ -85,6 +85,18 @@ describe('ResultsCondensedCardBottomComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when context.isClient === true', () => {
+    const wrapper = shallow(
+      <ResultsCondensedCardBottom
+        position={resultsObject.results[0]}
+        bidList={bidListObject.results}
+        favorites={favorites}
+        favoritesPV={favoritesPV}
+      />, { context: { isClient: true } },
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   it('matches snapshot with bidlist button', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom

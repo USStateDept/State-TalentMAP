@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { get, indexOf } from 'lodash';
 import Q from 'q';
-
-import api from '../api';
+import imagediff from 'imagediff';
+import { loadImg } from 'utilities';
+import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
 import { checkFlag } from '../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
-const getUseAP = () => checkFlag('flags.available_positions');
 
 export function userProfileHasErrored(bool) {
   return {
@@ -59,6 +59,7 @@ export function userProfileFetchData(bypass, cb) {
   const usePV = getUsePV();
   return (dispatch) => {
     if (!bypass) {
+      dispatch(userProfileIsLoading(true));
       dispatch(userProfileHasErrored(false));
     }
 
@@ -68,11 +69,9 @@ export function userProfileFetchData(bypass, cb) {
     // profile
     const getUserAccount = () => api().get('/profile/');
     // permissions
-    const getUserPermissions = () => api().get('/permission/user/');
+    const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
-    const getAPFavorites = () => api().get(getUseAP() ?
-      '/available_position/favorites/?limit=500' : 'cycleposition/favorites/?include=id&limit=500',
-    );
+    const getAPFavorites = () => api().get('/available_position/favorites/?limit=500');
 
     // PV favorites
     const getPVFavorites = () => api().get('/projected_vacancy/favorites/');
@@ -99,16 +98,54 @@ export function userProfileFetchData(bypass, cb) {
           permissions: permissions.permissions,
           favorite_positions_pv: pvFavorites,
           favorite_positions: apFavorites,
+          cdo: account.cdo_info, // don't use deprecated CDO API model
         };
 
-        // then perform dispatches
-        if (cb) {
-          dispatch(cb());
+        // function to success perform dispatches
+        const dispatchSuccess = () => {
+          if (cb) {
+            dispatch(cb());
+          }
+          dispatch(userProfileFetchDataSuccess(newProfileObject));
+          dispatch(userProfileIsLoading(false));
+          dispatch(userProfileHasErrored(false));
+          dispatch(userProfileFavoritePositionHasErrored(false));
+        };
+
+        function unsetAvatar() { newProfileObject.avatar = {}; }
+
+        // Compare the images in the compare array. One of the URLs
+        // is a link to a default profile picture. If the user's
+        // profile picture (the other URL in the array)
+        // is the same as the default, then return an empty object so that
+        // it doesn't get displayed.
+        const compare = get(newProfileObject, 'avatar.compare', []);
+        if (compare.length) {
+          const proms = compare.map(path => (
+            new Promise((resolve, reject) => {
+              loadImg(path, (img) => {
+                if (get(img, 'path[0]')) {
+                  resolve(img.path[0]);
+                } else {
+                  reject();
+                }
+              });
+            })
+          ));
+
+          Promise.all(proms)
+            .then((res) => {
+              const equal$ = imagediff.equal(res[0], res[1]);
+              if (equal$) {
+                unsetAvatar();
+              }
+              dispatchSuccess();
+            })
+            .catch(() => {
+              unsetAvatar();
+              dispatchSuccess();
+            });
         }
-        dispatch(userProfileFetchDataSuccess(newProfileObject));
-        dispatch(userProfileIsLoading(false));
-        dispatch(userProfileHasErrored(false));
-        dispatch(userProfileFavoritePositionHasErrored(false));
       })
       .catch(() => {
         if (cb) {
@@ -132,7 +169,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
   isPV = false) {
   const idString = id.toString();
   return (dispatch) => {
-    const APUrl = getUseAP() ? `/available_position/${idString}/favorite/` : `/cycleposition/${idString}/favorite/`;
+    const APUrl = `/available_position/${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
       url: isPV ? `/projected_vacancy/${idString}/favorite/` : APUrl,
@@ -145,7 +182,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     const getAction = () => api()(config);
 
     // position
-    const posURL = getUseAP() ? `/fsbid/available_positions/${id}/` : `/cycleposition/${id}/`;
+    const posURL = `/fsbid/available_positions/${id}/`;
     const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/${id}/` : posURL);
 
     dispatch(userProfileFavoritePositionIsLoading(true, id));
@@ -154,8 +191,14 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     axios.all([getAction(), getPosition()])
       .then(axios.spread((action, position) => {
         const pos = position.data;
+        // The undo action. Take the props that were already passed in,
+        // except declare the second argument (remove) to the opposite of what was
+        // originally provided.
+        const undo = () => dispatch(userProfileToggleFavoritePosition(
+          id, !remove, refreshFavorites, isPV,
+        ));
         const message = remove ?
-          SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position) :
+          SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position, undo) :
           SystemMessages.ADD_FAVORITE_SUCCESS(pos.position);
         const title = remove ? SystemMessages.DELETE_FAVORITE_TITLE
           : SystemMessages.ADD_FAVORITE_TITLE;
@@ -188,6 +231,7 @@ export function updateSavedSearches() {
   api().put('/searches/listcount/');
 }
 
+// IMPORTANT: return the function instead of calling it, since this is used in the interceptor
 export function setUserEmpId() {
-  api().put('/fsbid/employee/perdet_seq_num/');
+  return api().put('/fsbid/employee/perdet_seq_num/');
 }

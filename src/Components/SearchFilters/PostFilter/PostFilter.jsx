@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { orderBy } from 'lodash';
+import { getItemLabel, formatIdSpacing, mapDuplicates } from 'utilities';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
-import { getItemLabel, formatIdSpacing, mapDuplicates, propSort } from '../../../utilities';
-import AutoSuggest from '../../AutoSuggest';
 
 /* eslint-disable react/no-unused-prop-types */
 class PostFilter extends Component {
@@ -61,24 +61,31 @@ class PostFilter extends Component {
   }
 
   getAllDomesticCodes(props = this.props) {
-    return props.item.data.slice().filter(b => (b.location && b.location.country === 'United States'));
+    return props.item.data.slice().filter(b => (
+      b.location &&
+      (b.location.country === 'United States' || b.location.country === 'USA')
+    ));
   }
 
   getAllOverseasCodes(props = this.props) {
-    return props.item.data.slice().filter(b => (b.location && b.location.country !== 'United States'));
+    return props.item.data.slice().filter(b => (
+      b.location &&
+      b.location.country !== 'United States' &&
+      b.location.country !== 'USA'
+    ));
   }
 
   render() {
     const { item, autoSuggestProps } = this.props;
     const { allOverseasSelected, allDomesticSelected } = this.state;
 
-    let domesticPosts = this.getAllDomesticCodes() || [];
+    let domesticPosts = this.getAllDomesticCodes();
     domesticPosts = mapDuplicates(domesticPosts);
 
-    const overseasPosts = this.getAllOverseasCodes();
+    let overseasPosts = this.getAllOverseasCodes();
 
-    domesticPosts.sort(propSort('location', 'city'));
-    overseasPosts.sort(propSort('location', 'city'));
+    domesticPosts = orderBy(domesticPosts || [], 'location.city');
+    overseasPosts = orderBy(overseasPosts || [], 'location.city');
 
     const postSelectionDisabled = allDomesticSelected || allOverseasSelected;
 
@@ -86,14 +93,19 @@ class PostFilter extends Component {
 
     return (
       <div className="usa-grid-full">
-        <AutoSuggest
-          {...autoSuggestProps}
-          className="post-auto-suggest-container"
-          customInputProps={{
-            disabled: postSelectionDisabled,
-          }}
-          shouldClearOnSelect
-        />
+        {/*
+          // No autosuggest from available positions API
+          // Could re-add in future
+          !useAP &&
+          <AutoSuggest
+            {...autoSuggestProps}
+            className="post-auto-suggest-container"
+            customInputProps={{
+              disabled: postSelectionDisabled,
+            }}
+            shouldClearOnSelect
+          />
+        */}
         <div className="usa-grid-full tm-nested-accordions">
           <Accordion>
             <AccordionItem

@@ -83,6 +83,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
       questionText={Object {}}
       showBidCount={false}
       showQuestion={false}
+      useCDOView={false}
     />
   </div>
 </div>

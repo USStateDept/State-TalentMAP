@@ -117,7 +117,6 @@ exports[`OverlayAlertComponent matches snapshot when type is "draft" 1`] = `
             "user": "rehmant",
           }
         }
-        deleteBid={[Function]}
         id={3}
         submitBid={[Function]}
       />

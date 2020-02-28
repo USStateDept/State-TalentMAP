@@ -21,7 +21,10 @@ class Results extends Component {
   }
 
   getChildContext() {
-    return { isProjectedVacancy: this.props.isProjectedVacancy };
+    return {
+      isProjectedVacancy: this.props.isProjectedVacancy,
+      isClient: this.props.isClient,
+    };
   }
 
   shouldComponentUpdate(nextProps) {
@@ -145,6 +148,7 @@ Results.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   showClear: PropTypes.bool,
   shouldShowMobileFilter: PropTypes.bool,
+  isClient: PropTypes.bool,
 };
 
 Results.defaultProps = {
@@ -166,6 +170,7 @@ Results.defaultProps = {
   isProjectedVacancy: false,
   showClear: false,
   shouldShowMobileFilter: false,
+  isClient: false,
 };
 
 Results.contextTypes = {
@@ -174,6 +179,7 @@ Results.contextTypes = {
 
 Results.childContextTypes = {
   isProjectedVacancy: PropTypes.bool,
+  isClient: PropTypes.bool,
 };
 
 export const mapStateToProps = state => ({

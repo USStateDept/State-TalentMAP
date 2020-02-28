@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Splash matches snapshot 1`] = `
+<MediaQueryWrapper
+  breakpoint="screenSmMax"
+  widthType="max"
+>
+  <Component />
+</MediaQueryWrapper>
+`;

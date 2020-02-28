@@ -148,7 +148,7 @@
   .data-point-section {
     .condensed-card-data-title {
       font-weight: bold;
-      min-width: 200px;
+      min-width: 225px;
     }
 
     .condensed-card-data-point {
@@ -289,6 +289,21 @@
       white-space: nowrap;
     }
   }
+
+  .bid-count-container {
+    margin-right: 7.5px;
+  }
+}
+
+.offset-bid-button-container-no-button {
+  bottom: 17%;
+  left: 71%;
+  position: absolute;
+
+  @media screen and (max-width: $screen-xs-max) {
+    min-width: 0px;
+    left: 63%;
+  }
 }
 
 .offset-bid-count-container {
@@ -308,6 +323,7 @@
   align-content: flex-start;
   display: flex;
   margin-bottom: 15px;
+  word-break: break-word;
 
   .usa-grid-full {
     margin: 0;
@@ -376,10 +392,22 @@
 
   .contact-container:first-of-type {
     border-bottom: 0;
+    position: relative;
+  }
+
+  .contact-container:nth-of-type(2) {
+    &.has-bid-count {
+      padding-top: 2em;
+    }
+  }
+
+  .bid-count-container {
+    bottom: -12px;
+    position: absolute;
   }
 
   .contact-container:nth-of-type(2):not(.no-button) {
-    padding-bottom: 4em;
+    padding-bottom: 2em;
   }
 
   .offset-bid-button-container {

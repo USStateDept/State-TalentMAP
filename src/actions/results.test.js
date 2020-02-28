@@ -34,16 +34,16 @@ describe('async actions', () => {
       },
     ];
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/?').reply(200,
+    mockAdapter.onGet('/fsbid/available_positions/?').reply(200,
       results,
     );
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/1/similar/?limit=3').reply(200,
+    mockAdapter.onGet('/fsbid/available_positions/1/similar/?limit=3').reply(200,
       results,
     );
 
     // We'll use this mock to provide coverage in /src/api.js
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/2/similar/?limit=3').reply(401,
+    mockAdapter.onGet('/fsbid/available_positions/2/similar/?limit=3').reply(401,
       'Invalid token',
     );
   });
@@ -92,7 +92,7 @@ describe('async actions', () => {
 
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/cycleposition/?').reply(404,
+    mockAdapter.onGet('/cycleposition/?').reply(404,
       null,
     );
 

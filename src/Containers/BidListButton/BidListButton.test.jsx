@@ -16,6 +16,14 @@ describe('BidListButton', () => {
     );
     expect(wrapper).toBeDefined();
   });
+
+  it('is defined when isClient === true', () => {
+    const wrapper = shallow(
+      <BidListButton.WrappedComponent {...props} />,
+      { context: { isClient: true } },
+    );
+    expect(wrapper).toBeDefined();
+  });
 });
 
 describe('mapDispatchToProps', () => {

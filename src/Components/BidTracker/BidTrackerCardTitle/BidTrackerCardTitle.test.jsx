@@ -1,18 +1,19 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import { APPROVED_PROP, DRAFT_PROP, SUBMITTED_PROP } from 'Constants/BidData';
 import BidTrackerCardTitle from './BidTrackerCardTitle';
-import { APPROVED_PROP, DRAFT_PROP, SUBMITTED_PROP } from '../../../Constants/BidData';
 import bidStatistics from '../../../__mocks__/bidStatistics';
 import postObject from '../../../__mocks__/postObject';
 
 const props = {
   title: 'Title',
-  positionNumber: "12345",
+  positionNumber: '12345',
   id: 100,
   status: DRAFT_PROP,
   bidStatistics,
   post: postObject,
+  bidCycle: 'Summer 2020',
 };
 
 describe('BidTrackerCardTitleComponent', () => {
@@ -70,17 +71,17 @@ describe('BidTrackerCardTitleComponent', () => {
 
   it('displays the title correctly if positionNumber is not truthy', () => {
     const wrapper = shallow(
-      <BidTrackerCardTitle {...props} positionNumber={undefined} />
+      <BidTrackerCardTitle {...props} positionNumber={undefined} />,
     );
     expect(wrapper.find('.bid-tracker-card-title-text').text()).toBe('Title');
   });
 
   it('displays the title correctly if positionNumber is truthy', () => {
     const wrapper = shallow(
-      <BidTrackerCardTitle {...props} />
+      <BidTrackerCardTitle {...props} />,
     );
     expect(wrapper.find('.bid-tracker-card-title-text').text()).toBe('Title (12345)');
-  })
+  });
 
   it('matches snapshot when status is not "submitted"', () => {
     const wrapper = shallow(

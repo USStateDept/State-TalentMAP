@@ -21,6 +21,25 @@ export function notificationsFetchDataSuccess(notifications) {
   };
 }
 
+export function notificationsPopoverHasErrored(bool) {
+  return {
+    type: 'NOTIFICATIONS_POPOVER_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function notificationsPopoverIsLoading(bool) {
+  return {
+    type: 'NOTIFICATIONS_POPOVER_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function notificationsPopoverFetchDataSuccess(notifications) {
+  return {
+    type: 'NOTIFICATIONS_POPOVER_FETCH_DATA_SUCCESS',
+    notifications,
+  };
+}
+
 export function notificationsCountHasErrored(bool) {
   return {
     type: 'NOTIFICATIONS_COUNT_HAS_ERRORED',
@@ -104,19 +123,39 @@ export function notificationsCountFetchData() {
   };
 }
 
-export function notificationsFetchData(limit = 3, page = 1, ordering = '-date_created', tags = undefined, isRead = undefined) {
+export function notificationsFetchData(limit = 5, page = 1, ordering = '-date_created', tags = undefined, isRead = undefined) {
   return (dispatch) => {
+    // Make use of any notifications request that could be used in the notifications popover
+    const isForPopover = page === 1 && limit >= 5 && tags === undefined && isRead === undefined;
+
     dispatch(notificationsIsLoading(true));
     dispatch(notificationsHasErrored(false));
+
+    if (isForPopover) {
+      dispatch(notificationsPopoverIsLoading(true));
+      dispatch(notificationsPopoverHasErrored(false));
+    }
+
     api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
       .then(({ data }) => {
         dispatch(notificationsFetchDataSuccess(data));
         dispatch(notificationsHasErrored(false));
         dispatch(notificationsIsLoading(false));
+
+        if (isForPopover) {
+          dispatch(notificationsPopoverFetchDataSuccess(data));
+          dispatch(notificationsPopoverHasErrored(false));
+          dispatch(notificationsPopoverIsLoading(false));
+        }
       })
       .catch(() => {
         dispatch(notificationsHasErrored(true));
         dispatch(notificationsIsLoading(false));
+
+        if (isForPopover) {
+          dispatch(notificationsPopoverHasErrored(true));
+          dispatch(notificationsPopoverIsLoading(false));
+        }
       });
   };
 }

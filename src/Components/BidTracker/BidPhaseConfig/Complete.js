@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+import { anyToTitleCase } from 'utilities';
 import {
   APPROVED_PROP,
   CLOSED_PROP,
@@ -26,6 +28,7 @@ import {
   APPROVED_NUMBER,
 } from '../../../Constants/BidData';
 
+// eslint-disable-next-line complexity
 export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   // Configure defaults for a step that is incomplete (future stages).
   const DEFAULT_INCOMPLETE_OBJECT = {
@@ -205,7 +208,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
         date: IN_PANEL_DATE,
-        title: PANEL_TITLE,
+        title: `${PANEL_TITLE}${get(bid, 'panel_status') ? ` (${anyToTitleCase(bid.panel_status)})` : ''}`,
         needsAction: false,
         isCurrent: true,
         // Only show the rescheduled tooltip if it has a

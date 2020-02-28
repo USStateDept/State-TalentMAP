@@ -23,6 +23,7 @@ class Toggle extends Component {
     }
   }
 
+  // used by consumer components as ref
   updateVal(val) {
     this.setState({ val });
   }

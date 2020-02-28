@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import { orderBy } from 'lodash';
 import { FILTERS } from '../../../Constants/PropTypes';
-import { propSort, wrapForMultiSelect, returnObjectsWherePropMatches } from '../../../utilities';
+import { wrapForMultiSelect, returnObjectsWherePropMatches } from '../../../utilities';
 
 const SKILL_CODE = 'code';
 const SKILL_DESCRIPTION = 'custom_description';
@@ -62,7 +63,7 @@ class SkillCodeFilter extends Component {
     const { filters, isLoading, label, labelSrOnly } = this.props;
     const { selectedOptions } = this.state;
     const options = wrapFilters(filters);
-    const sortedOptions = options.sort(propSort('custom_description'));
+    const sortedOptions = orderBy(options, 'custom_description');
     const labelClass = labelSrOnly ? 'usa-sr-only' : '';
     return (
       <div>

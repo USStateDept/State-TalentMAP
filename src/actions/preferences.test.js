@@ -8,4 +8,9 @@ describe('toast actions', () => {
     const store = mockStore({});
     store.dispatch(actions.setSortPreference('someKey', 'aValue'));
   });
+
+  it('can call the darkModePreference function', () => {
+    const store = mockStore({});
+    store.dispatch(actions.setDarkModePreference(false));
+  });
 });

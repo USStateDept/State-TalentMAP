@@ -41,8 +41,10 @@ class BidListButton extends Component {
     // is the bid currently saved?
     // save value and avoid interrogating the array more than once
     const { isSaved, canDelete } = this.getBidData();
-    const text = isSaved ? 'Remove from Bid List' : 'Add to Bid List';
-    const iconClass = isSaved ? 'minus-circle' : 'plus-circle';
+    const { isClient } = this.context;
+    const isClientText = isClient ? ' Client' : '';
+    const text = isSaved ? `Remove from${isClientText} Bid List` : `Add to${isClientText} Bid List`;
+    const iconClass = isSaved ? 'trash' : 'plus-circle';
     const { className, disabled, isLoading } = this.props;
 
     const disabled$ = disabled || !canDelete;
@@ -59,6 +61,10 @@ class BidListButton extends Component {
     );
   }
 }
+
+BidListButton.contextTypes = {
+  isClient: PropTypes.bool,
+};
 
 BidListButton.propTypes = {
   id: PropTypes.number.isRequired,

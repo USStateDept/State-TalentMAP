@@ -6,7 +6,6 @@ import SearchResultsExportLink from '../SearchResultsExportLink';
 import PreferenceWrapper from '../../Containers/PreferenceWrapper';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT } from '../../Constants/PropTypes';
 import { POSITION_PAGE_SIZES_TYPE } from '../../Constants/Sort';
-import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import { Trigger } from '../SaveNewSearch';
 import MediaQuery from '../MediaQuery';
 
@@ -28,7 +27,7 @@ class ResultsControls extends Component {
   render() {
     const { results, hasLoaded, defaultSort, pageSizes,
             defaultPageSize, defaultPageNumber, sortBy } = this.props;
-    const { isProjectedVacancy } = this.context;
+    const { isClient } = this.context;
     return (
       <div className="usa-grid-full results-controls">
         <div className="usa-width-one-fifth total-results">
@@ -76,23 +75,14 @@ class ResultsControls extends Component {
                       </div>
                     }
                     <div className="results-download">
-                      <PermissionsWrapper
-                        permissions="superuser"
-                        fallback={
-                          <span>
-                            {
-                              !isProjectedVacancy &&
-                              <SearchResultsExportLink count={results.count} />
-                            }
-                          </span>
-                        }
-                      >
-                        <SearchResultsExportLink count={results.count} />
-                      </PermissionsWrapper>
+                      <SearchResultsExportLink count={results.count} />
                     </div>
-                    <Trigger isPrimary>
-                      <button className="usa-button">Save Search</button>
-                    </Trigger>
+                    {
+                      !isClient &&
+                      <Trigger isPrimary>
+                        <button className="usa-button">Save Search</button>
+                      </Trigger>
+                    }
                   </div>
                 </div>
               )
@@ -106,6 +96,7 @@ class ResultsControls extends Component {
 
 ResultsControls.contextTypes = {
   isProjectedVacancy: PropTypes.bool,
+  isClient: PropTypes.bool,
 };
 
 ResultsControls.propTypes = {

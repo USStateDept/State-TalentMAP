@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT,
   MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
-import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer/SearchFiltersContainer';
+import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer';
 import ResetFilters from '../ResetFilters/ResetFilters';
 import MobileControls from './MobileControls';
 import Spinner from '../Spinner';

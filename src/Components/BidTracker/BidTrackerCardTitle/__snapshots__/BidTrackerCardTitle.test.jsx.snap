@@ -17,7 +17,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
     >
       <Link
         replace={false}
-        to="/details/100"
+        to="/archived/100"
       >
         View position
       </Link>
@@ -27,7 +27,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
@@ -35,10 +35,19 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
        
       Maseru, Lesotho
     </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid Cycle:
+      </strong>
+       
+      Summer 2020
+    </div>
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -58,9 +67,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when condensedView is tru
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -84,7 +90,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
     >
       <Link
         replace={false}
-        to="/details/100"
+        to="/archived/100"
       >
         View position
       </Link>
@@ -94,7 +100,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
@@ -102,10 +108,19 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
        
       Maseru, Lesotho
     </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid Cycle:
+      </strong>
+       
+      Summer 2020
+    </div>
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -125,9 +140,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "approved"
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -161,7 +173,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
@@ -169,10 +181,19 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
        
       Maseru, Lesotho
     </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid Cycle:
+      </strong>
+       
+      Summer 2020
+    </div>
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -192,9 +213,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -228,7 +246,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
@@ -236,10 +254,19 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
        
       Maseru, Lesotho
     </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid Cycle:
+      </strong>
+       
+      Summer 2020
+    </div>
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -259,9 +286,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is "submitted
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>
@@ -295,7 +319,7 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
     className="usa-grid-full bid-tracker-bottom-link-container"
   >
     <div
-      className="bid-tracker-card-title-bottom"
+      className="bid-tracker-card-title-bottom bid-tracker-card-title-bottom--full-width"
     >
       <strong>
         Location:
@@ -303,10 +327,19 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
        
       Maseru, Lesotho
     </div>
+    <div
+      className="bid-tracker-card-title-bottom"
+    >
+      <strong>
+        Bid Cycle:
+      </strong>
+       
+      Summer 2020
+    </div>
     <span
       className="bid-stats"
     >
-      <BidCount
+      <BidCountFeatureFlagWrapper
         altStyle={true}
         bidStatistics={
           Object {
@@ -326,9 +359,6 @@ exports[`BidTrackerCardTitleComponent matches snapshot when status is not "submi
             "total_positions": 251,
           }
         }
-        hideLabel={false}
-        isCondensed={false}
-        label="Bid count:"
       />
     </span>
   </div>

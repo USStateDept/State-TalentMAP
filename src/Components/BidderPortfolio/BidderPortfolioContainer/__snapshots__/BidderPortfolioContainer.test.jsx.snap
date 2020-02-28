@@ -5,217 +5,21 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
   className="usa-grid-full user-dashboard"
   id="bidder-portfolio-container"
 >
-  <BidderPortfolioCardList
-    results={
-      Array [
-        Object {
-          "bid_statistics": Array [
-            Object {
-              "approved": 0,
-              "bidcycle": "Demo BidCycle 2018-01-10 15:52:20.583434",
-              "closed": 0,
-              "declined": 0,
-              "draft": 6,
-              "handshake_accepted": 0,
-              "handshake_declined": 0,
-              "handshake_offered": 1,
-              "id": 1,
-              "in_panel": 0,
-              "submitted": 3,
-              "user": "Kara Batisak",
-            },
-          ],
-          "current_assignment": "(active) Kara Batisak at [58312265] PROJECT DIRECTOR (Guatemala, Guatemala)",
-          "grade": "01",
-          "id": 5,
-          "is_cdo": false,
-          "language_qualifications": Array [],
-          "primary_nationality": "United States",
-          "secondary_nationality": null,
-          "skills": Array [
-            Object {
-              "code": "6218",
-              "cone": null,
-              "description": "CONSTRUCTION ENGINEERING",
-              "id": 63,
-            },
-          ],
-          "user": Object {
-            "email": "batisak@state.gov",
-            "first_name": "Kara",
-            "last_name": "Batisak",
-            "username": "batisak",
-          },
-        },
-        Object {
-          "bid_statistics": Array [],
-          "current_assignment": "(active) John Doe at [10181012] INTERNATIONAL RELATIONS OFF (Singapore, Singapore)",
-          "grade": "02",
-          "id": 3,
-          "is_cdo": false,
-          "language_qualifications": Array [],
-          "primary_nationality": "United States",
-          "secondary_nationality": null,
-          "skills": Array [
-            Object {
-              "code": "6080",
-              "cone": null,
-              "description": "INTERFUNCTIONAL OFFICER OPER",
-              "id": 55,
-            },
-          ],
-          "user": Object {
-            "email": "doej@talentmap.us",
-            "first_name": "John",
-            "last_name": "Doe",
-            "username": "doej",
-          },
-        },
-        Object {
-          "bid_statistics": Array [],
-          "current_assignment": "(active) Guest McGuestson at [58312870] CONSTRUCTION MANAGER (Nogales, Mexico)",
-          "grade": "03",
-          "id": 1,
-          "is_cdo": false,
-          "language_qualifications": Array [],
-          "primary_nationality": "United States",
-          "secondary_nationality": null,
-          "skills": Array [
-            Object {
-              "code": "6218",
-              "cone": null,
-              "description": "CONSTRUCTION ENGINEERING",
-              "id": 63,
-            },
-          ],
-          "user": Object {
-            "email": "guest@state.gov",
-            "first_name": "Guest",
-            "last_name": "McGuestson",
-            "username": "guest",
-          },
-        },
-        Object {
-          "bid_statistics": Array [
-            Object {
-              "approved": 0,
-              "bidcycle": "Demo BidCycle 2018-01-10 15:52:20.583434",
-              "closed": 0,
-              "declined": 0,
-              "draft": 5,
-              "handshake_accepted": 0,
-              "handshake_declined": 0,
-              "handshake_offered": 3,
-              "id": 2,
-              "in_panel": 0,
-              "submitted": 2,
-              "user": "Tarek Rehman",
-            },
-          ],
-          "current_assignment": "(active) Tarek Rehman at [56457009] ASST REGIONAL SECURITY OFCR (Adana, Turkey)",
-          "grade": "04",
-          "id": 6,
-          "is_cdo": false,
-          "language_qualifications": Array [],
-          "primary_nationality": "United States",
-          "secondary_nationality": null,
-          "skills": Array [
-            Object {
-              "code": "2501",
-              "cone": null,
-              "description": "SECURITY",
-              "id": 20,
-            },
-          ],
-          "user": Object {
-            "email": "rehmant@state.gov",
-            "first_name": "Tarek",
-            "last_name": "Rehman",
-            "username": "rehmant",
-          },
-        },
-        Object {
-          "bid_statistics": Array [],
-          "current_assignment": "(active) Administrator TalentMAP at [58312869] PROJECT DIRECTOR (Nogales, Mexico)",
-          "grade": "01",
-          "id": 2,
-          "is_cdo": false,
-          "language_qualifications": Array [],
-          "primary_nationality": "United States",
-          "secondary_nationality": null,
-          "skills": Array [
-            Object {
-              "code": "6218",
-              "cone": null,
-              "description": "CONSTRUCTION ENGINEERING",
-              "id": 63,
-            },
-          ],
-          "user": Object {
-            "email": "admin@talentmap.us",
-            "first_name": "Administrator",
-            "last_name": "TalentMAP",
-            "username": "admin",
-          },
-        },
-        Object {
-          "bid_statistics": Array [
-            Object {
-              "approved": 0,
-              "bidcycle": "Demo BidCycle 2018-01-10 15:52:20.583434",
-              "closed": 0,
-              "declined": 0,
-              "draft": 3,
-              "handshake_accepted": 0,
-              "handshake_declined": 0,
-              "handshake_offered": 3,
-              "id": 4,
-              "in_panel": 0,
-              "submitted": 4,
-              "user": "Jenny Townpost",
-            },
-          ],
-          "current_assignment": "(active) Jenny Townpost at [10026129] INTERNATIONAL RELATIONS OFF (Port Moresby, Papua New Guinea)",
-          "grade": "02",
-          "id": 4,
-          "is_cdo": false,
-          "language_qualifications": Array [],
-          "primary_nationality": "United States",
-          "secondary_nationality": null,
-          "skills": Array [
-            Object {
-              "code": "6080",
-              "cone": null,
-              "description": "INTERFUNCTIONAL OFFICER OPER",
-              "id": 55,
-            },
-          ],
-          "user": Object {
-            "email": "townpostj@state.gov",
-            "first_name": "Jenny",
-            "last_name": "Townpost",
-            "username": "townpostj",
-          },
-        },
-      ]
-    }
-  />
   <div
-    className="usa-grid-full react-paginate"
+    className="usa-width-two-thirds"
   >
-    <PaginationWrapper
-      activeClassName="active"
-      containerClassName="pagination"
-      forcePage={1}
-      marginPagesDisplayed={1}
-      nextLabel="Next"
-      onPageChange={[Function]}
-      pageRangeDisplayed={2}
-      pageSize={8}
-      paginationStyle="pagination"
-      previousLabel="Previous"
-      subContainerClassName="pages pagination"
-      totalResults={6}
+    <Alert
+      isAriaLive={false}
+      isDivided={false}
+      messages={
+        Array [
+          Object {
+            "body": "Please select at least one CDO from the \\"Proxy CDO View\\" filter above.",
+          },
+        ]
+      }
+      title="You have not selected any CDOs"
+      type="info"
     />
   </div>
 </div>
@@ -226,22 +30,20 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
   className="usa-grid-full user-dashboard"
   id="bidder-portfolio-container"
 >
-  <BidderPortfolioCardList
-    results={Array []}
-  />
   <div
     className="usa-width-two-thirds"
   >
     <Alert
       isAriaLive={false}
+      isDivided={false}
       messages={
         Array [
           Object {
-            "body": "Try removing filters or using another bid status tab.",
+            "body": "Please select at least one CDO from the \\"Proxy CDO View\\" filter above.",
           },
         ]
       }
-      title="You have no clients within this search criteria."
+      title="You have not selected any CDOs"
       type="info"
     />
   </div>

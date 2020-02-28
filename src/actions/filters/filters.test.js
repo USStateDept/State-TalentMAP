@@ -203,6 +203,23 @@ describe('async actions', () => {
     f();
   });
 
+  it('can fetch filters when some filters do not have data nested within the results property', (done) => {
+    mockAdapter.onGet('http://localhost:8000/api/v1/grade/').reply(200,
+      [{ id: 1 }],
+    );
+
+    const store = mockStore({ filters: [] });
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.filtersFetchData(items));
+        store.dispatch(actions.filtersIsLoading());
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it('can handle returning a query param mapping', (done) => {
     const store = mockStore({ filters: [] });
 

@@ -25,6 +25,11 @@ export const POSITION_RESULTS_OBJECT = {
   results: [],
 };
 
+export const DEFAULT_FAVORITES = {
+  favorites: [],
+  favoritesPV: [],
+};
+
 export const PROFILE_MENU_SECTION_EXPANDED_OBJECT = {
   title: '',
   display: false,

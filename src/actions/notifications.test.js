@@ -7,25 +7,25 @@ const { mockStore, mockAdapter } = setupAsyncMocks();
 describe('async actions', () => {
   beforeEach(() => {
     // limit = 3 is the default param in the function
-    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=3&ordering=-date_updated').reply(200,
+    mockAdapter.onGet('/notification/?limit=3&ordering=-date_updated').reply(200,
       notificationsObject,
     );
-    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=2&ordering=-date_updated').reply(200,
+    mockAdapter.onGet('/notification/?limit=2&ordering=-date_updated').reply(200,
       notificationsObject,
     );
-    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=2&ordering=date_updated').reply(200,
+    mockAdapter.onGet('/notification/?limit=2&ordering=date_updated').reply(200,
       notificationsObject,
     );
-    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&is_read=false').reply(200,
+    mockAdapter.onGet('/notification/?limit=1&is_read=false').reply(200,
       notificationsObject,
     );
-    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&ordering=-date_created&tags=bidding').reply(200,
+    mockAdapter.onGet('/notification/?limit=1&ordering=-date_created&tags=bidding').reply(200,
       notificationsObject,
     );
-    mockAdapter.onPatch('http://localhost:8000/api/v1/notification/1/').reply(200,
+    mockAdapter.onPatch('/notification/1/').reply(200,
       notificationsObject,
     );
-    mockAdapter.onPatch('http://localhost:8000/api/v1/notification/2/').reply(404,
+    mockAdapter.onPatch('/notification/2/').reply(404,
       null,
     );
   });
@@ -136,7 +136,7 @@ describe('async actions', () => {
     // check that it can handle errors
     mockAdapter.reset();
 
-    mockAdapter.onGet('http://localhost:8000/api/v1/notification/?limit=1&is_read=false').reply(404,
+    mockAdapter.onGet('/notification/?limit=1&is_read=false').reply(404,
       null,
     );
 

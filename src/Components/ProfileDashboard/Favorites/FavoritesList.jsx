@@ -16,6 +16,7 @@ const FavoriteList = ({ favorites }) => {
       positionArray.push(
         <FavoriteListResultsCard
           position={{ ...position, cpId: pos.id }}
+          isPV={pos.isPV}
           condensedView
           /* pass a parentClassName that we can use from the BorderedList component */
           parentClassName="parent-list-container"

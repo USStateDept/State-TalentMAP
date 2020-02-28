@@ -1,291 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CDOAutoSuggest matches snapshot 1`] = `
-<Dropdown
-  active={false}
-  className="portfolio-account-dropdown"
-  removeElement={true}
+<div
+  className="cdo-autosuggest"
 >
-  <h2>
-    Client Profiles
-  </h2>
-  <div
-    className="usa-grid-full dropdown-trigger-container"
-  >
-    <span>
-      Client list:
-    </span>
-    <InteractiveElement
-      alt="Open client list search"
-      className="account-dropdown--name"
-      id="cdo-portfolio-dropdown-trigger"
-      onClick={[Function]}
-      type="div"
-    >
-      Leah Shadtrach
-      <FontAwesome
-        name="chevron-down"
-      />
-    </InteractiveElement>
-  </div>
-  <BoxShadow
-    blurRadius={10}
-    color="rgba(0,0,0,.15)"
-    inset={false}
-    is="div"
-    offsetX={3}
-    offsetY={2}
-    spreadRadius={1}
-    style={Object {}}
-  >
-    <div
-      className="dropdown-content-outer-container"
-    >
-      <DropdownContent
-        className=""
-      >
-        <div
-          className="autosuggest-container"
-        >
-          <AutoSuggest
-            autoSuggestProps={
-              Object {
-                "alwaysRenderSuggestions": true,
-                "shouldRenderSuggestions": [Function],
-              }
-            }
-            customInputProps={Object {}}
-            debounceMillis={0}
-            displayProperty={[Function]}
-            getSuggestions={[Function]}
-            inputId="cdo-portfolio-autosuggest"
-            label="Client list"
-            labelSrOnly={true}
-            onSuggestionSelected={[Function]}
-            onSuggestionsClearRequested={[Function]}
-            placeholder="Start typing CDO name"
-            queryProperty=""
-            shouldClearOnSelect={false}
-            suggestionTemplate={[Function]}
-            suggestions={
-              Array [
-                Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
-                Object {
-                  "first_name": "Mary",
-                  "id": 4,
-                  "last_name": "Brown",
-                },
-                Object {
-                  "first_name": "John",
-                  "id": 3,
-                  "last_name": "Daniels",
-                },
-                Object {
-                  "first_name": "Daniel",
-                  "id": 7,
-                  "last_name": "Garcia",
-                },
-                Object {
-                  "first_name": "Marcus",
-                  "id": 8,
-                  "last_name": "Johnson",
-                },
-                Object {
-                  "first_name": "Mike",
-                  "id": 2,
-                  "last_name": "Jones",
-                },
-                Object {
-                  "first_name": "Madeline",
-                  "id": 10,
-                  "last_name": "Lee",
-                },
-                Object {
-                  "first_name": "Jennifer",
-                  "id": 9,
-                  "last_name": "McAndrew",
-                },
-                Object {
-                  "first_name": "Bob",
-                  "id": 1,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Maria",
-                  "id": 6,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Elizabeth",
-                  "id": 5,
-                  "last_name": "Walters",
-                },
-              ]
-            }
-            templateProps={
-              Object {
-                "value": Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
-              }
-            }
-          />
-        </div>
-      </DropdownContent>
-    </div>
-  </BoxShadow>
-</Dropdown>
-`;
-
-exports[`CDOAutoSuggest matches snapshot after toggling 1`] = `
-<Dropdown
-  active={true}
-  className="portfolio-account-dropdown"
-  removeElement={true}
->
-  <h2>
-    Client Profiles
-  </h2>
-  <div
-    className="usa-grid-full dropdown-trigger-container"
-  >
-    <span>
-      Client list:
-    </span>
-    <InteractiveElement
-      alt="Close client list search"
-      className="account-dropdown--name"
-      id="cdo-portfolio-dropdown-trigger"
-      onClick={[Function]}
-      type="div"
-    >
-      See client list as
-      <FontAwesome
-        name="chevron-up"
-      />
-    </InteractiveElement>
-  </div>
-  <BoxShadow
-    blurRadius={10}
-    color="rgba(0,0,0,.15)"
-    inset={false}
-    is="div"
-    offsetX={3}
-    offsetY={2}
-    spreadRadius={1}
-    style={Object {}}
-  >
-    <div
-      className="dropdown-content-outer-container"
-    >
-      <DropdownContent
-        className=""
-      >
-        <div
-          className="autosuggest-container"
-        >
-          <AutoSuggest
-            autoSuggestProps={
-              Object {
-                "alwaysRenderSuggestions": true,
-                "shouldRenderSuggestions": [Function],
-              }
-            }
-            customInputProps={Object {}}
-            debounceMillis={0}
-            displayProperty={[Function]}
-            getSuggestions={[Function]}
-            inputId="cdo-portfolio-autosuggest"
-            label="Client list"
-            labelSrOnly={true}
-            onSuggestionSelected={[Function]}
-            onSuggestionsClearRequested={[Function]}
-            placeholder="Start typing CDO name"
-            queryProperty=""
-            shouldClearOnSelect={false}
-            suggestionTemplate={[Function]}
-            suggestions={
-              Array [
-                Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
-                Object {
-                  "first_name": "Mary",
-                  "id": 4,
-                  "last_name": "Brown",
-                },
-                Object {
-                  "first_name": "John",
-                  "id": 3,
-                  "last_name": "Daniels",
-                },
-                Object {
-                  "first_name": "Daniel",
-                  "id": 7,
-                  "last_name": "Garcia",
-                },
-                Object {
-                  "first_name": "Marcus",
-                  "id": 8,
-                  "last_name": "Johnson",
-                },
-                Object {
-                  "first_name": "Mike",
-                  "id": 2,
-                  "last_name": "Jones",
-                },
-                Object {
-                  "first_name": "Madeline",
-                  "id": 10,
-                  "last_name": "Lee",
-                },
-                Object {
-                  "first_name": "Jennifer",
-                  "id": 9,
-                  "last_name": "McAndrew",
-                },
-                Object {
-                  "first_name": "Bob",
-                  "id": 1,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Maria",
-                  "id": 6,
-                  "last_name": "Smith",
-                },
-                Object {
-                  "first_name": "Elizabeth",
-                  "id": 5,
-                  "last_name": "Walters",
-                },
-              ]
-            }
-            templateProps={
-              Object {
-                "value": Object {
-                  "first_name": "Leah",
-                  "id": 11,
-                  "isCurrentUser": true,
-                  "last_name": "Shadtrach",
-                },
-              }
-            }
-          />
-        </div>
-      </DropdownContent>
-    </div>
-  </BoxShadow>
-</Dropdown>
+  <r
+    dropdownHeight={255}
+    filterDebounce={150}
+    id="picky"
+    includeFilter={true}
+    keepOpen={true}
+    labelKey="name"
+    multiple={true}
+    numberDisplayed={2}
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "first_name": "Mary",
+          "hru_ud": 4,
+          "id": 4,
+          "last_name": "Brown",
+        },
+        Object {
+          "first_name": "John",
+          "hru_id": 3,
+          "id": 3,
+          "last_name": "Daniels",
+        },
+      ]
+    }
+    placeholder="Select CDOs"
+    renderList={[Function]}
+    selectAllMode="default"
+    selectAllText="Select all"
+    tabIndex={0}
+    value={
+      Array [
+        Object {
+          "first_name": "Mary",
+          "id": 4,
+          "last_name": "Brown",
+        },
+      ]
+    }
+    valueKey="id"
+  />
+</div>
 `;

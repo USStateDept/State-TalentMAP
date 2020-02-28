@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { get } from 'lodash';
 import { bidListFetchData, toggleBidPosition, routeChangeResetState,
 submitBid, acceptBid, declineBid } from '../../actions/bidList';
+import { userProfilePublicFetchData } from '../../actions/userProfilePublic';
 import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
 SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
@@ -14,10 +16,15 @@ import BidTracker from '../../Components/BidTracker';
 class BidTrackerContainer extends Component {
 
   componentWillMount() {
-    this.getBidList();
+    const { isPublic, match: { params: { id } } } = this.props;
+    if (isPublic) {
+      this.getPublicBidList(id);
+    } else {
+      this.getBidList();
+      this.props.fetchNotifications();
+    }
     // reset the alert messages
     this.props.bidListRouteChangeResetState();
-    this.props.fetchNotifications();
     this.state = {
       hasScrolled: false,
     };
@@ -34,6 +41,10 @@ class BidTrackerContainer extends Component {
     this.props.fetchBidList();
   }
 
+  getPublicBidList(id) {
+    this.props.fetchUserData(id);
+  }
+
   // Scroll to the bid provided by route id.
   // Only perform once.
   scrollToId(id) {
@@ -47,7 +58,7 @@ class BidTrackerContainer extends Component {
   }
 
   render() {
-    const { bidList, deleteBid,
+    const { bidList, deleteBid, isPublic,
       bidListHasErrored, bidListIsLoading, bidListToggleHasErrored,
       bidListToggleSuccess, submitBidPosition,
       submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
@@ -55,12 +66,22 @@ class BidTrackerContainer extends Component {
       declineBidPosition, declineBidHasErrored, declineBidIsLoading,
       declineBidSuccess, notifications, notificationsIsLoading,
       markNotificationHasErrored, markNotificationIsLoading, markNotificationSuccess,
-      markBidTrackerNotification, userProfile, userProfileIsLoading } = this.props;
+      markBidTrackerNotification, userProfile, userProfileIsLoading,
+      userProfilePublic, userProfilePublicIsLoading, userProfilePublicHasErrored } = this.props;
+
+    const bidList$ = isPublic ? { results: userProfilePublic.bidList } : bidList;
+    const bidListHasErrored$ = isPublic ? userProfilePublicHasErrored : bidListHasErrored;
+    const bidListIsLoading$ = isPublic ? userProfilePublicIsLoading : bidListIsLoading;
+    const userProfile$ = isPublic ? userProfilePublic : userProfile;
+    const userProfileIsLoading$ = isPublic ? userProfilePublicIsLoading : userProfileIsLoading;
+
+    const useCDOView = get(userProfile, 'is_cdo') && isPublic && !userProfileIsLoading;
+
     return (
       <BidTracker
-        bidList={bidList}
-        bidListHasErrored={bidListHasErrored}
-        bidListIsLoading={bidListIsLoading}
+        bidList={bidList$}
+        bidListHasErrored={bidListHasErrored$}
+        bidListIsLoading={bidListIsLoading$}
         bidListToggleHasErrored={bidListToggleHasErrored}
         bidListToggleSuccess={bidListToggleSuccess}
         deleteBid={deleteBid}
@@ -82,8 +103,10 @@ class BidTrackerContainer extends Component {
         markNotificationIsLoading={markNotificationIsLoading}
         markNotificationSuccess={markNotificationSuccess}
         markBidTrackerNotification={markBidTrackerNotification}
-        userProfile={userProfile}
-        userProfileIsLoading={userProfileIsLoading}
+        userProfile={userProfile$}
+        userProfileIsLoading={userProfileIsLoading$}
+        isPublic={isPublic}
+        useCDOView={useCDOView}
       />
     );
   }
@@ -91,7 +114,9 @@ class BidTrackerContainer extends Component {
 
 BidTrackerContainer.propTypes = {
   bidListRouteChangeResetState: PropTypes.func.isRequired,
+  isPublic: PropTypes.bool,
   fetchBidList: PropTypes.func,
+  fetchUserData: PropTypes.func,
   deleteBid: PropTypes.func,
   bidListHasErrored: PropTypes.bool,
   bidListIsLoading: PropTypes.bool,
@@ -120,10 +145,15 @@ BidTrackerContainer.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
   match: PropTypes.shape({ params: PropTypes.shape({}) }),
+  userProfilePublic: USER_PROFILE,
+  userProfilePublicIsLoading: PropTypes.bool,
+  userProfilePublicHasErrored: PropTypes.bool,
 };
 
 BidTrackerContainer.defaultProps = {
   fetchBidList: EMPTY_FUNCTION,
+  isPublic: false,
+  fetchUserData: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
@@ -151,6 +181,9 @@ BidTrackerContainer.defaultProps = {
   markBidTrackerNotification: EMPTY_FUNCTION,
   userProfile: DEFAULT_USER_PROFILE,
   userProfileIsLoading: false,
+  userProfilePublic: DEFAULT_USER_PROFILE,
+  userProfilePublicIsLoading: false,
+  userProfilePublicHasErrored: false,
   match: { params: {} },
 };
 
@@ -180,20 +213,43 @@ const mapStateToProps = state => ({
   markNotificationSuccess: state.markNotificationSuccess,
   userProfile: state.userProfile,
   userProfileIsLoading: state.userProfileIsLoading,
+  userProfilePublic: state.userProfilePublic,
+  userProfilePublicIsLoading: state.userProfilePublicIsLoading,
+  userProfilePublicHasErrored: state.userProfilePublicHasErrored,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  fetchBidList: () => dispatch(bidListFetchData()),
-  bidListRouteChangeResetState: () => dispatch(routeChangeResetState()),
-  submitBidPosition: id => dispatch(submitBid(id)),
-  acceptBidPosition: id => dispatch(acceptBid(id)),
-  declineBidPosition: id => dispatch(declineBid(id)),
-  deleteBid: id => dispatch(toggleBidPosition(id, true)),
-  // Here, we only want the newest bidding-related notification.
-  // We'll perform a client-side check to see if it's unread, as that's would be the only
-  // case that we'd display this notification.
-  fetchNotifications: () => dispatch(bidTrackerNotificationsFetchData()),
-  markBidTrackerNotification: id => dispatch(markNotification(id)),
-});
+export const mapDispatchToProps = (dispatch, ownProps) => {
+  const isPublic = get(ownProps, 'isPublic');
+  const id$ = get(ownProps, 'match.params.id');
+  let config = {
+    fetchUserData: id => dispatch(userProfilePublicFetchData(id)),
+    fetchBidList: () => dispatch(bidListFetchData()),
+    bidListRouteChangeResetState: () => dispatch(routeChangeResetState()),
+    // Here, we only want the newest bidding-related notification.
+    // We'll perform a client-side check to see if it's unread, as that's would be the only
+    // case that we'd display this notification.
+    fetchNotifications: () => dispatch(bidTrackerNotificationsFetchData()),
+    markBidTrackerNotification: id => dispatch(markNotification(id)),
+  };
+  // Different configs based on whether this is the public view or not
+  if (!isPublic) {
+    config = {
+      ...config,
+      submitBidPosition: id => dispatch(submitBid(id)),
+      acceptBidPosition: id => dispatch(acceptBid(id)),
+      declineBidPosition: id => dispatch(declineBid(id)),
+      deleteBid: id => dispatch(toggleBidPosition(id, true, false, false, true)),
+    };
+  } else {
+    config = {
+      ...config,
+      submitBidPosition: id => dispatch(submitBid(id, id$)),
+      acceptBidPosition: id => dispatch(acceptBid(id, id$)),
+      declineBidPosition: id => dispatch(declineBid(id, id$)),
+      deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
+    };
+  }
+  return config;
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidTrackerContainer));

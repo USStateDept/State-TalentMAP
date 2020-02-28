@@ -58,6 +58,8 @@ describe('ResultsCardComponent', () => {
 
   it('renders bid count', () => {
     expect(renderBidCount({})).toBeDefined();
+    const BidCount = () => renderBidCount();
+    expect(shallow(<BidCount />)).toBeDefined();
   });
 
   it('matches snapshot', () => {
@@ -68,6 +70,17 @@ describe('ResultsCardComponent', () => {
         onToggle={() => {}}
         bidList={[]}
       />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot when context.isClient === true', () => {
+    wrapper = shallow(
+      <ResultsCard
+        id={1}
+        result={resultsObject.results[0]}
+        onToggle={() => {}}
+        bidList={[]}
+      />, { context: { isClient: true } });
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 

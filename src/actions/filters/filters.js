@@ -1,4 +1,4 @@
-import { get, isArray, union } from 'lodash';
+import { get, isArray, orderBy, union } from 'lodash';
 import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
@@ -74,11 +74,28 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         // Else, we'll want to retrieve it.
         // We'll do this for posts and missions.
         }
-        if (item.selectionRef === ENDPOINT_PARAMS.post) {
+        if (item.selectionRef === ENDPOINT_PARAMS.post
+          || item.selectionRef === ENDPOINT_PARAMS.postAP) {
           dispatch(filtersIsLoading(true));
-          return api().get(`/orgpost/${item.codeRef}/`)
+          const endpoint = '/fsbid/reference/locations/';
+          return api().get(endpoint)
           .then((response) => {
-            const obj = Object.assign(response.data, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
+            // TODO - this is dummy logic to get a single location,
+            // since there is no fsbid endpoint to do so. Once that exists,
+            // we can update this.
+            const getAPLocation = () => {
+              const obj = get(response, 'data', [])
+                .find(f => f.code === item.codeRef) || {};
+              return {
+                id: obj.code,
+                location: {
+                  ...obj,
+                },
+              };
+            };
+
+            const results$ = getAPLocation();
+            const obj = Object.assign(results$, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
             // push the object to cache
             responses.asyncFilterCache.push(obj);
             // and return the object
@@ -236,7 +253,6 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
     } else {
       // our static filters
       const staticFilters = items.filters.slice().filter(item => (!item.item.endpoint));
-      responses.filters.push(...staticFilters);
 
       // our dynamic filters
       let dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
@@ -247,14 +263,47 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
         api().get(`/${item.item.endpoint}`)
           .then((response) => {
             const itemFilter = Object.assign({}, item);
+            const data$ = item.initialDataAP;
+            let results$ = response.data.results;
+            if (item.item.description === 'post') {
+              results$ =
+                get(response, 'data', [])
+                  .map(m => ({
+                    ...m,
+                    id: m.code,
+                    location: {
+                      ...m,
+                    },
+                  }));
+            }
+
             // We have a mix of server-supplied and hard-coded data, so we combine them with union.
             // Also determine whether the results array exists,
             // or if the array is passed at the top-level.
-            if (response.data.results) {
-              itemFilter.data = union(response.data.results, item.initialData);
+            if (results$) {
+              itemFilter.data = union(results$, data$);
             } else if (isArray(response.data)) {
-              itemFilter.data = union(response.data, item.initialData);
+              itemFilter.data = union(response.data, data$);
             }
+
+            // We handle skills differently depending on whether getUseAP === true,
+            // and we override what ever was done in the union prior to this block.
+            // Here we map the AP cone/code model to the old model so that it plays nice
+            // with our existing components.
+            if (item.item.description === 'skillCone') {
+              const skills = [];
+              itemFilter.data = response.data.map(m => ({ name: m.category, id: m.category }));
+              itemFilter.data = orderBy(itemFilter.data, 'name');
+              response.data.forEach((m) => {
+                m.skills.forEach(s => skills.push({
+                  ...s,
+                  cone: m.category,
+                }));
+              });
+              const skillObject = staticFilters.find(f => f.item.description === 'skill');
+              skillObject.data = [...skills];
+            }
+
             return itemFilter;
           })
       ));
@@ -269,6 +318,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             // Else, return the correct structure, but with no data. Include hasErrored prop.
             responses.filters.push({ data: [], item: {}, hasErrored: true });
           }
+          responses.filters.push(...staticFilters);
           dispatchSuccess();
           dispatch(filtersHasErrored(false));
           dispatch(filtersIsLoading(false));

@@ -38,9 +38,15 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
         toggleEditor={[Function]}
       />
     </div>
+    <BidCountFeatureFlagWrapper
+      altStyle={true}
+      bidStatistics={Object {}}
+      hideLabel={true}
+      isCondensed={true}
+    />
   </div>
   <div
-    className="contact-container no-button"
+    className="contact-container has-bid-count no-button"
   >
     <strong>
       Capsule Last Updated

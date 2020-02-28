@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { get } from 'lodash';
+import { get, isArray } from 'lodash';
+import { clientBidListFetchDataSuccess } from './bidList';
 import api from '../api';
 
 export function userProfilePublicHasErrored(bool) {
@@ -31,7 +32,7 @@ export function unsetUserProfilePublic() {
 
 // include an optional bypass for when we want to silently update the profile
 export function userProfilePublicFetchData(id, bypass) {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     if (!bypass) {
       dispatch(userProfilePublicIsLoading(true));
       dispatch(userProfilePublicHasErrored(false));
@@ -41,24 +42,29 @@ export function userProfilePublicFetchData(id, bypass) {
      * create functions to fetch user's profile and other data
      */
     // profile
-    const getUserAccount = () => api().get(`/client/${id}/`);
+    const getUserAccount = () => api().get(`/fsbid/client/${id}/`);
 
     // bids
-    const getUserBids = () => api().get(`/client/${id}/bids/`);
+    const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/`);
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
     axios.all([getUserAccount(), getUserBids()])
       .then(axios.spread((acct, bids) => {
         // form the userProfile object
-        if (!get(acct, 'data.id')) {
+        const acct$ = get(acct, 'data', {});
+        if (!get(acct$, 'perdet_seq_number')) {
           dispatch(userProfilePublicHasErrored(true));
           dispatch(userProfilePublicIsLoading(false));
         } else {
-          const account = acct.data;
           const newProfileObject = {
-            ...account,
-            assignments: [],
+            ...acct$,
+            user: {
+              username: acct$.employee_id,
+              email: null,
+              first_name: acct$.name,
+              last_name: null,
+            },
             bidList: get(bids, 'data.results', []),
             // any other profile info we want to add in the future
           };
@@ -67,6 +73,15 @@ export function userProfilePublicFetchData(id, bypass) {
           dispatch(userProfilePublicFetchDataSuccess(newProfileObject));
           dispatch(userProfilePublicIsLoading(false));
           dispatch(userProfilePublicHasErrored(false));
+
+          // Set this user's bid list to the clientView's bid list, if they are the same user.
+          const clientView = get(getState(), 'clientView');
+          const selectedEmpId = get(clientView, 'client.employee_id');
+          const empId = get(newProfileObject, 'employee_id');
+          if (empId && selectedEmpId &&
+            empId === selectedEmpId && isArray(newProfileObject.bidList)) {
+            dispatch(clientBidListFetchDataSuccess({ results: newProfileObject.bidList }));
+          }
         }
       }))
       .catch(() => {

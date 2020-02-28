@@ -64,6 +64,23 @@ describe('Home', () => {
     expect(wrapper.instance().state.hasFetched).toBe(true);
     sinon.assert.notCalled(spy);
   });
+
+  it('does not fetch data on prop update when hasFetched is true', (done) => {
+    const wrapper = shallow(
+      <HomePagePositionsContainer.WrappedComponent
+        {...props}
+        userProfile={{}}
+        homePagePositionsIsLoading
+      />);
+    wrapper.instance().componentWillReceiveProps({
+      ...props,
+      homePagePositionsIsLoading: false,
+    });
+    setTimeout(() => {
+      expect(wrapper.instance().state.hasFetched).toBe(true);
+      done();
+    }, 5);
+  });
 });
 
 describe('mapDispatchToProps', () => {

@@ -61,8 +61,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
     declineBid={[Function]}
     deleteBid={[Function]}
     priorityExists={false}
+    readOnly={false}
     showBidCount={true}
     submitBid={[Function]}
+    useCDOView={false}
     userProfile={
       Object {
         "bid_statistics": Array [
@@ -253,8 +255,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
       declineBid={[Function]}
       deleteBid={[Function]}
       priorityExists={false}
+      readOnly={false}
       showBidCount={false}
       submitBid={[Function]}
+      useCDOView={false}
       userProfile={
         Object {
           "bid_statistics": Array [

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
 import PropTypes from 'prop-types';
 import { get, compact, values } from 'lodash';
+import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
+import { checkFlag } from 'flags';
+import { getBrowserName } from 'utilities';
 import Avatar from '../Avatar';
 import DarkModeToggle from './DarkModeToggle';
-import { EMPTY_FUNCTION, USER_PROFILE } from '../../Constants/PropTypes';
-import { checkFlag } from '../../flags';
-import { getBrowserName } from '../../utilities';
 
 const getUseDarkMode = () => checkFlag('flags.personalization');
 
@@ -15,11 +15,14 @@ const browserHandler = () => {
   switch (getBrowserName()) {
     // Dark mode breaks in IE11.
     // Attempt to disable dark mode if for some reason it is set to true.
-    case 'Internet Explorer': {
-      return null;
+    // Also set in src/Containers/DarkMode/DarkMode.jsx
+    case 'Chrome':
+    case 'Firefox':
+    case 'Safari': {
+      return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
     }
     default: {
-      return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
+      return null;
     }
   }
 };
@@ -56,6 +59,8 @@ export class AccountDropdown extends Component {
       lastName: get(userProfile, 'user.last_name'),
       initials,
       displayName,
+      externalSource: get(userProfile, 'avatar'),
+      externalSourceToUse: 's',
     };
 
     const isLoading = compact(values(avatar)).length > 0;

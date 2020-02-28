@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, mapValues } from 'lodash';
 import { CSVLink } from '../../CSV';
-import { bidderPortfolioFetchDataFromLastQuery } from '../../../actions/bidderPortfolio';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { downloadClientData } from '../../../actions/bidderPortfolio';
 import ExportButton from '../../ExportButton';
 import { getFormattedNumCSV, spliceStringForCSV } from '../../../utilities';
 
@@ -56,13 +55,17 @@ export class ExportLink extends Component {
   }
 
   onClick() {
+    const { bidderPortfolioLastQuery } = this.props;
     const { isLoading } = this.state;
-    const { fetchData } = this.props;
     if (!isLoading) {
-      this.setState({
-        isLoading: true,
-      }, () => {
-        fetchData();
+      // reset the state to support multiple clicks
+      this.setState({ data: '', isLoading: true });
+      downloadClientData(bidderPortfolioLastQuery)
+      .then(() => {
+        this.setState({ isLoading: false });
+      })
+      .catch(() => {
+        this.setState({ isLoading: false });
       });
     }
   }
@@ -96,7 +99,7 @@ ExportLink.propTypes = {
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   data: PropTypes.shape({ results: PropTypes.arrayOf(PropTypes.shape({})) }),
-  fetchData: PropTypes.func,
+  bidderPortfolioLastQuery: PropTypes.shape({}),
 };
 
 ExportLink.defaultProps = {
@@ -104,17 +107,16 @@ ExportLink.defaultProps = {
   hasErrored: false,
   isLoading: false,
   data: {},
-  fetchData: EMPTY_FUNCTION,
+  bidderPortfolioLastQuery: {},
 };
 
 const mapStateToProps = state => ({
   hasErrored: state.lastBidderPortfolioHasErrored,
   isLoading: state.lastBidderPortfolioIsLoading,
   data: state.lastBidderPortfolio,
+  bidderPortfolioLastQuery: state.bidderPortfolioLastQuery,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(bidderPortfolioFetchDataFromLastQuery()),
-});
+export const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExportLink);

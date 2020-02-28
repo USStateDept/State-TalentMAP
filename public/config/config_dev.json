@@ -9,8 +9,15 @@
     "static_content": true,
     "notifications": true,
     "data_sync_admin": true,
-    "available_positions": false,
+    "bid_count": true,
     "personalization": true,
-    "persona_auth": true
+    "persona_auth": true,
+    "client_counts": false,
+    "cdo_season_filter": true,
+    "cdo_bidding": true,
+    "confetti": true,
+    "bidding_tips": true,
+    "bid_stats": false,
+    "client_profiles": true
   }
 }

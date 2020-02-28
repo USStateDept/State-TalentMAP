@@ -5,6 +5,7 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   className="usa-grid-full current-user"
 >
   <UserProfileGeneralInformation
+    isPublic={false}
     showEditLink={true}
     useGroup={false}
     userProfile={
@@ -21,6 +22,26 @@ exports[`UserProfileComponent matches snapshot 1`] = `
           "initials": "LS",
           "last_name": "Shadtrach",
           "username": "shadtrachl",
+        },
+        "current_assignment": Object {
+          "end_date": "10-10-2018",
+          "estimated_end_date": "10-10-2018",
+          "position": Object {
+            "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
+            "position_number": "58348065",
+            "post": Object {
+              "location": Object {
+                "city": "Washington",
+                "code": "500",
+                "country": "United States",
+                "id": 4,
+                "state": "DC",
+              },
+            },
+            "skill": "CONSTRUCTION ENGINEERING (6218)",
+            "title": "PROJECT DIRECTOR",
+          },
+          "start_date": "10-10-2016",
         },
         "display_name": "John",
         "favorite_positions": Array [
@@ -72,10 +93,6 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   <div
     className="current-user-bottom"
   >
-    <Flag
-      name="flags.static_content"
-      render={[Function]}
-    />
     <div
       className="current-user-section-border"
     >
@@ -120,6 +137,26 @@ exports[`UserProfileComponent matches snapshot 1`] = `
             "initials": "LS",
             "last_name": "Shadtrach",
             "username": "shadtrachl",
+          },
+          "current_assignment": Object {
+            "end_date": "10-10-2018",
+            "estimated_end_date": "10-10-2018",
+            "position": Object {
+              "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
+              "position_number": "58348065",
+              "post": Object {
+                "location": Object {
+                  "city": "Washington",
+                  "code": "500",
+                  "country": "United States",
+                  "id": 4,
+                  "state": "DC",
+                },
+              },
+              "skill": "CONSTRUCTION ENGINEERING (6218)",
+              "title": "PROJECT DIRECTOR",
+            },
+            "start_date": "10-10-2016",
           },
           "display_name": "John",
           "favorite_positions": Array [

@@ -9,6 +9,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     key="5"
   >
     <BidderPortfolioStatCard
+      classifications={Array []}
       userProfile={
         Object {
           "bid_statistics": Array [
@@ -57,6 +58,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     key="3"
   >
     <BidderPortfolioStatCard
+      classifications={Array []}
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -90,6 +92,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     key="1"
   >
     <BidderPortfolioStatCard
+      classifications={Array []}
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -123,6 +126,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     key="6"
   >
     <BidderPortfolioStatCard
+      classifications={Array []}
       userProfile={
         Object {
           "bid_statistics": Array [
@@ -171,6 +175,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     key="2"
   >
     <BidderPortfolioStatCard
+      classifications={Array []}
       userProfile={
         Object {
           "bid_statistics": Array [],
@@ -204,6 +209,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
     key="4"
   >
     <BidderPortfolioStatCard
+      classifications={Array []}
       userProfile={
         Object {
           "bid_statistics": Array [

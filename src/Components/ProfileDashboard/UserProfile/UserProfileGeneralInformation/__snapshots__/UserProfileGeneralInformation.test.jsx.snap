@@ -12,12 +12,20 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
     >
       <Avatar
         className="dashboard-user-profile-picture"
-        display_name="John"
+        displayName="John"
+        externalSource={Object {}}
+        externalSourceToUse="m"
+        fallback={
+          <FontAwesome
+            name="user-o"
+          />
+        }
         firstName="John"
         initials="JD"
         lastName="Doe"
         onClick={[Function]}
         small={false}
+        useExternalImg={false}
       />
     </div>
     <Connect(StaticDevContent)>
@@ -32,6 +40,15 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         small={true}
         title="Doe, John"
       />
+      <Connect(StaticDevContent)>
+        <InformationDataPoint
+          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+          content="Generalist • F2"
+          sideBySide={false}
+          title=""
+          titleOnBottom={false}
+        />
+      </Connect(StaticDevContent)>
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
@@ -75,12 +92,20 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
     >
       <Avatar
         className="dashboard-user-profile-picture"
-        display_name="John"
+        displayName="John"
+        externalSource={Object {}}
+        externalSourceToUse="m"
+        fallback={
+          <FontAwesome
+            name="user-o"
+          />
+        }
         firstName="John"
         initials="JD"
         lastName="Doe"
         onClick={[Function]}
         small={false}
+        useExternalImg={false}
       />
     </div>
     <Connect(StaticDevContent)>
@@ -95,6 +120,15 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         small={true}
         title="Doe, John"
       />
+      <Connect(StaticDevContent)>
+        <InformationDataPoint
+          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+          content="Generalist • F2"
+          sideBySide={false}
+          title=""
+          titleOnBottom={false}
+        />
+      </Connect(StaticDevContent)>
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
@@ -138,12 +172,20 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
     >
       <Avatar
         className="dashboard-user-profile-picture"
-        display_name="John"
+        displayName="John"
+        externalSource={Object {}}
+        externalSourceToUse="m"
+        fallback={
+          <FontAwesome
+            name="user-o"
+          />
+        }
         firstName="John"
         initials="JD"
         lastName="Doe"
         onClick={[Function]}
         small={false}
+        useExternalImg={false}
       />
     </div>
     <Connect(StaticDevContent)>

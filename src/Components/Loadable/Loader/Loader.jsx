@@ -8,10 +8,11 @@ import LoadingWrapper from '../LoadingWrapper';
 // This path should be relative to the source component, not this file.
 // Then to set a component as loadable, it's simple as doing the following:
 // const TextEditorLoadable = createLoader({path: () => System.import('../TextEditor')});
-const createLoader = ({ path, delay = 500, shouldPreload = true, timeout = 3000, size = 'small' }) => {
+const createLoader = ({ path, delay = 500, shouldPreload = true, timeout = 3000, size = 'small', usePlaceholder = true, placeholder }) => {
   const Loader = Loadable({
     loader: path,
-    loading: props => <LoadingWrapper {...props} size={size} />,
+    loading: props => usePlaceholder ?
+      <LoadingWrapper {...props} size={size} placeholder={placeholder} /> : null,
     delay,
   });
 

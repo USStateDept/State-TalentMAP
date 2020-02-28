@@ -45,12 +45,12 @@ exports[`Header matches snapshot when logged in 1`] = `
             <img
               alt="Bureau of Human Resources logo"
               className="logo-img-hr"
-              src="/assets/logos/png/hr-logo-white.png"
+              src="/assets/logos/png/hr-logo-white-sm.png"
             />
             <img
               alt="TalentMAP logo"
               className="logo-img-tm"
-              src="/assets/logos/png/horizontal_white_thin.png"
+              src="/assets/logos/png/horizontal_white_thin-sm.png"
             />
           </Link>
         </div>
@@ -89,7 +89,7 @@ exports[`Header matches snapshot when logged in 1`] = `
     />
   </header>
   <Connect(BetaHeader) />
-  <Connect(withRouter(ClientHeader)) />
+  <ClientHeaderSticky />
 </div>
 `;
 
@@ -138,12 +138,12 @@ exports[`Header matches snapshot when logged out 1`] = `
             <img
               alt="Bureau of Human Resources logo"
               className="logo-img-hr"
-              src="/assets/logos/png/hr-logo-white.png"
+              src="/assets/logos/png/hr-logo-white-sm.png"
             />
             <img
               alt="TalentMAP logo"
               className="logo-img-tm"
-              src="/assets/logos/png/horizontal_white_thin.png"
+              src="/assets/logos/png/horizontal_white_thin-sm.png"
             />
           </Link>
         </div>
@@ -176,6 +176,6 @@ exports[`Header matches snapshot when logged out 1`] = `
     />
   </header>
   <Connect(BetaHeader) />
-  <Connect(withRouter(ClientHeader)) />
+  <ClientHeaderSticky />
 </div>
 `;

@@ -65,6 +65,16 @@ describe('PositionTitleComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
+  it('matches snapshot when context.client === true', () => {
+    const wrapper = shallow(
+      <PositionTitle
+        {...props}
+        details={detailsObject}
+      />, { context: { isClient: true } },
+    );
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
   // will include once new Go Back button is added
   xit('handles go back link click', () => {
     const stub = sinon.stub(window.history, 'back');

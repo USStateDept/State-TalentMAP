@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Default URL used when env vars are not present
-const DEFAULT_URL = 'http://localhost:3000/talentmap/';
+const DEFAULT_URL = 'https://localhost:3000/talentmap/';
 
 // load constants from env vars
 const ENTITY_ID = process.env.ENTITY_ID || DEFAULT_URL;
@@ -14,8 +14,10 @@ const certFile = process.env.CERT_FILE || path.join(__dirname, '../certs', 'tale
 const keyFile = process.env.KEY_FILE || path.join(__dirname, '../certs', 'talentmap-dev.key');
 
 // identity provider config
-const SSO_LOGIN_URL = process.env.SSO_LOGIN_URL || `${DEFAULT_URL}login.html`;
-const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL || DEFAULT_URL;
+const SSO_LOGIN_URL = process.env.SSO_LOGIN_URL || `${ASSERT_ENDPOINT}login.html`;
+const SSO_LOGOUT_URL = process.env.SSO_LOGOUT_URL || ASSERT_ENDPOINT;
+const SSO_LOGIN_URL_ALT = process.env.SSO_LOGIN_URL_ALT || `${ASSERT_ENDPOINT}login.html`;
+const SSO_LOGOUT_URL_ALT = process.env.SSO_LOGOUT_URL_ALT || ASSERT_ENDPOINT;
 const ssoCertFile = process.env.SSO_CERT_FILE || path.join(__dirname, '../certs', 'talentmap-dev.crt');
 
 let privateKey = null;
@@ -41,6 +43,12 @@ const identityProvider = new saml2.IdentityProvider({
   certificates: [ssoCert],
 });
 
+const identityProviderAlt = new saml2.IdentityProvider({
+  sso_login_url: SSO_LOGIN_URL_ALT,
+  sso_logout_url: SSO_LOGOUT_URL_ALT,
+  certificates: [ssoCert],
+});
+
 // Example use of service provider.
 // Call metadata to get XML metatadata used in configuration.
 const metadata = serviceProvider.create_metadata();
@@ -49,8 +57,12 @@ const login = (handler) => {
   serviceProvider.create_login_request_url(identityProvider, {}, handler);
 };
 
+const loginAlt = (handler) => {
+  serviceProvider.create_login_request_url(identityProviderAlt, {}, handler);
+};
+
 const logout = (handler) => {
   serviceProvider.create_logout_request_url(identityProvider, {}, handler);
 };
 
-module.exports = { metadata, login, logout };
+module.exports = { metadata, login, loginAlt, logout };

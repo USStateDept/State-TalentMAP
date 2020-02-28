@@ -50,6 +50,26 @@ describe('Position', () => {
     sinon.assert.calledOnce(websiteSpy);
   });
 
+  it('calls fetchPVData() on this.getPVDetails()', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Position.WrappedComponent
+        isAuthorized={() => true}
+        onNavigateTo={() => {}}
+        routerLocations={routerLocations}
+        positionDetails={{ id: 1, description: { id: 1 } }}
+        editDescriptionContent={() => {}}
+        editPocContent={() => {}}
+        editWebsiteContent={() => {}}
+        match={{ params: { id: '1' } }}
+        resetDescriptionEditMessages={() => {}}
+        fetchPVData={spy}
+      />,
+    );
+    wrapper.instance().getPVDetails(1);
+    sinon.assert.calledOnce(spy);
+  });
+
   it('can handle authentication redirects', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
       <Position

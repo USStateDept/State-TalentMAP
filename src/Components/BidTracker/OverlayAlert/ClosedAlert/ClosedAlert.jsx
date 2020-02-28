@@ -6,7 +6,7 @@ import LinkButton from '../../../LinkButton';
 const ClosedAlert = ({ title, date, id }, { condensedView }) => (
   <div className="bid-tracker-alert-container bid-tracker-alert-container--closed">
     <div className="top-text">
-      {title} has been filled
+        Your bid  on {title} is no longer applicable.
     </div>
     {
       date &&
