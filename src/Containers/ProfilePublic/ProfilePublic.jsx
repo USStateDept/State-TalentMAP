@@ -28,9 +28,8 @@ class ProfilePublic extends Component {
       classificationsIsLoading,
       classificationsHasErrored,
     } = this.props;
-    const { assignments, bidList } = userProfile;
+    const { bidList } = userProfile;
     const clientClassifications = userProfile.classifications;
-    const assignment = get(assignments, '[0]');
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
     return (
@@ -39,7 +38,6 @@ class ProfilePublic extends Component {
       :
         <ProfileDashboard
           userProfile={userProfile}
-          assignment={assignment}
           isLoading={combinedLoading}
           bidList={bidList}
           classifications={classifications}

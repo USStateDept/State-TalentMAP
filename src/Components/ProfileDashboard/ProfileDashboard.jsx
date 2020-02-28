@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
-import { USER_PROFILE, NOTIFICATION_RESULTS, ASSIGNMENT_OBJECT, BID_RESULTS,
+import { USER_PROFILE, NOTIFICATION_RESULTS, BID_RESULTS,
   FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION, CLIENT_CLASSIFICATIONS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { checkFlag } from 'flags';
-import StaticDevContent from 'Components/StaticDevContent';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -24,12 +23,12 @@ import Classifications from './Classifications';
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 const ProfileDashboard = ({
-  userProfile, isLoading, notifications, assignment, assignmentIsLoading, isPublic,
+  userProfile, isLoading, notifications, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
   submitBidPosition, deleteBid, classifications, clientClassifications,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
-    {isLoading || favoritePositionsIsLoading || assignmentIsLoading ||
+    {isLoading || favoritePositionsIsLoading ||
       notificationsIsLoading ? (
         <Spinner type="homepage-position-results" size="big" />
     ) : (
@@ -51,8 +50,8 @@ const ProfileDashboard = ({
                   <BoxShadow className="usa-width-one-whole user-dashboard-section current-user-section">
                     <UserProfile
                       userProfile={userProfile}
-                      assignment={assignment}
                       showEditLink={!isPublic}
+                      isPublic={isPublic}
                     />
                   </BoxShadow>
                 </Column>
@@ -125,11 +124,9 @@ const ProfileDashboard = ({
                           userId={userProfile.perdet_seq_number}
                         />
                       </BoxShadow>
-                      <StaticDevContent> {/* TODO - remove StaticDevContent wrapper */}
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                          <Assignments /* assignments={userProfile.assignments} TODO add back */ />
-                        </BoxShadow>
-                      </StaticDevContent>
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                        <Assignments assignments={userProfile.assignments} />
+                      </BoxShadow>
                     </Column>
                 }
               </Row>
@@ -144,8 +141,6 @@ const ProfileDashboard = ({
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  assignment: ASSIGNMENT_OBJECT,
-  assignmentIsLoading: PropTypes.bool,
   notifications: NOTIFICATION_RESULTS,
   notificationsIsLoading: PropTypes.bool,
   bidList: BID_RESULTS,
@@ -162,9 +157,7 @@ ProfileDashboard.propTypes = {
 ProfileDashboard.defaultProps = {
   favoritePositions: [],
   isLoading: false,
-  assignment: {},
   favoritePositionsIsLoading: false,
-  assignmentIsLoading: false,
   notifications: [],
   notificationsIsLoading: false,
   bidList: [],
