@@ -1,7 +1,8 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, has, intersection, isArray, isEmpty, isEqual, isNumber, isObject, isString,
-  keys, lowerCase, merge as merge$, orderBy, split, startCase, take, toLower, toString, transform } from 'lodash';
+import { cloneDeep, get, has, intersection, isArray, isEmpty, isEqual, isFunction,
+  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, split,
+  startCase, take, toLower, toString, transform } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -735,3 +736,10 @@ export const getFlagColorsByTextSearch = (t = '', limit = 5) => {
   return value;
 };
 // END FUSE SEARCH //
+
+export const stopProp = (event) => {
+  const e = get(event, 'target') || event;
+  if (e && e.stopPropagation && isFunction(e.stopPropagation)) {
+    e.stopPropagation();
+  }
+};
