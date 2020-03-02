@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
 import PropTypes from 'prop-types';
@@ -23,67 +23,65 @@ const getUseConfetti = () => checkFlag('flags.confetti');
 // based on the status, which should match up with the object returned
 // by bidClassesFromCurrentStatus.
 // These classes determine colors, whether to use an icon or a number, the title text, etc.
-class BidSteps extends Component {
-  render() {
-    const { bid } = this.props;
-    const { condensedView } = this.context;
-    const bidData = bidClassesFromCurrentStatus(bid).stages || {};
-    const getIcon = (status) => {
-      const icon = (
-        <BidStepIcon
-          isComplete={bidData[status.prop].isComplete}
-          needsAction={bidData[status.prop].needsAction}
-          isCurrent={bidData[status.prop].isCurrent}
-          number={bidData[status.prop].number}
-          hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
-        />
-      );
-      if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
-      && getUseConfetti() && !condensedView) {
-        let colors;
-        const country = get(bid, 'position.post.location.country');
-        if (country) {
-          colors = getFlagColorsByTextSearch(country);
-        }
-        return (
-          <ConfettiIcon colors={colors}>
-            {icon}
-          </ConfettiIcon>
-        );
-      }
-      return icon;
-    };
-    return (
-      <Steps labelPlacement="vertical">
-        {
-          BID_STEPS.map((status) => {
-            const icon = getIcon(status);
-            return (<Step
-              key={shortId.generate()}
-              className={`
-              ${status.className}
-              ${bidData[status.prop].isCurrent ? 'step-current' : ''}
-              ${bidData[status.prop].isPendingLine ? 'pending-line' : ''}
-              ${bidData[status.prop].isComplete ? 'step-complete' : 'step-incomplete'}
-            `}
-              title={
-                <div>
-                  <div className="step-title-main-text">{bidData[status.prop].title}</div>
-                  <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
-                </div>
-              }
-              tailContent={
-                bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null
-              }
-              icon={icon}
-            />
-            );
-          })
-        }
-      </Steps>
+const BidSteps = props => {
+  const { bid } = props;
+  const { condensedView } = this.context;
+  const bidData = bidClassesFromCurrentStatus(bid).stages || {};
+  const getIcon = (status) => {
+    const icon = (
+      <BidStepIcon
+        isComplete={bidData[status.prop].isComplete}
+        needsAction={bidData[status.prop].needsAction}
+        isCurrent={bidData[status.prop].isCurrent}
+        number={bidData[status.prop].number}
+        hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
+      />
     );
-  }
-}
+    if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
+    && getUseConfetti() && !condensedView) {
+      let colors;
+      const country = get(bid, 'position.post.location.country');
+      if (country) {
+        colors = getFlagColorsByTextSearch(country);
+      }
+      return (
+        <ConfettiIcon colors={colors}>
+          {icon}
+        </ConfettiIcon>
+      );
+    }
+    return icon;
+  };
+  return (
+    <Steps labelPlacement="vertical">
+      {
+        BID_STEPS.map((status) => {
+          const icon = getIcon(status);
+          return (<Step
+            key={shortId.generate()}
+            className={`
+            ${status.className}
+            ${bidData[status.prop].isCurrent ? 'step-current' : ''}
+            ${bidData[status.prop].isPendingLine ? 'pending-line' : ''}
+            ${bidData[status.prop].isComplete ? 'step-complete' : 'step-incomplete'}
+          `}
+            title={
+              <div>
+                <div className="step-title-main-text">{bidData[status.prop].title}</div>
+                <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
+              </div>
+            }
+            tailContent={
+              bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null
+            }
+            icon={icon}
+          />
+          );
+        })
+      }
+    </Steps>
+  );
+};
 
 BidSteps.contextTypes = {
   condensedView: PropTypes.bool,
