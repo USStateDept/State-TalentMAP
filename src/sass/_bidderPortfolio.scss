@@ -98,7 +98,7 @@
     }
 
     > div:nth-child(3) {
-      flex: 8 0 225px;
+      flex: 8 0 50%;
       padding-top: 1em;
 
       > span {
@@ -148,6 +148,7 @@
 
     .client-badge-container {
       margin-right: 1em;
+      min-width: 30px; //Fixes ie11 issues
     }
   }
 
@@ -293,7 +294,6 @@
 .client-badge-list {
   display: flex;
   margin: 0;
-
 }
 
 .client-badge-container {
