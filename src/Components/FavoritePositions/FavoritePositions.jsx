@@ -46,8 +46,7 @@ class FavoritePositions extends Component {
   navSelected(s) {
     this.setState({ selected: s });
     // reset page to 1
-    // this.onPageChange(1);
-    // this.props.page = 1;
+    this.props.onPageChange(1);
   }
 
   export() {
@@ -106,18 +105,25 @@ class FavoritePositions extends Component {
           selected={this.state.selected}
           denominator={favorites.length + favoritesPV.length}
         />
-        <div className="usa-grid-full favorites-top-section favorites-top-section--controls">
-          <div className="results-dropdown results-dropdown-sort">
-            <SelectForm
-              id="sort"
-              label="Sort by:"
-              onSelectOption={onSortChange}
-              options={selectOptions$}
-              disabled={favoritePositionsIsLoading}
-            />
-          </div>
-          <div className="export-button-container">
-            <ExportButton onClick={this.export} isLoading={isLoading} />
+        <div className="usa-grid-full favorites-top-section">
+          <TotalResults
+            total={paginationTotal[selected]}
+            pageNumber={page}
+            pageSize={pageSize}
+          />
+          <div className="favorites-top-section--controls">
+            <div className="results-dropdown results-dropdown-sort">
+              <SelectForm
+                id="sort"
+                label="Sort by:"
+                onSelectOption={onSortChange}
+                options={selectOptions$}
+                disabled={favoritePositionsIsLoading}
+              />
+            </div>
+            <div className="export-button-container">
+              <ExportButton onClick={this.export} isLoading={isLoading} />
+            </div>
           </div>
         </div>
         {
@@ -128,13 +134,6 @@ class FavoritePositions extends Component {
           !favoritePositionsIsLoading && !favorites.length && !favoritesPV.length &&
             <NoFavorites />
         }
-        <div className="usa-grid-full total-results">
-          <TotalResults
-            total={paginationTotal[selected]}
-            pageNumber={page}
-            pageSize={pageSize}
-          />
-        </div>
         <HomePagePositionsList
           positions={positions}
           favorites={favorites}
