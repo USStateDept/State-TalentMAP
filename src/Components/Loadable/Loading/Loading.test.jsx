@@ -9,11 +9,6 @@ describe('Loading', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('accepts props', () => {
-    const wrapper = shallow(<Loading className="test-class" />);
-    expect(wrapper.instance().props.className).toBe('test-class');
-  });
-
   it('matches snapshot', () => {
     const wrapper = <Loading />;
     expect(toJSON(wrapper)).toMatchSnapshot();

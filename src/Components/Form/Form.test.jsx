@@ -31,7 +31,7 @@ describe('FormComponent', () => {
         <span>child</span>
       </Form>,
     );
-    wrapper.instance().props.onFormSubmit();
+    wrapper.find('form').props().onSubmit();
     sinon.assert.calledOnce(spy);
   });
 

@@ -16,7 +16,6 @@ describe('FavoritePositionsTitleComponent', () => {
     const wrapper = shallow(
       <FavoritePositionsTitle title={title} />,
     );
-    expect(wrapper.instance().props.title).toBe(title);
     expect(wrapper.find('test')).toBeDefined();
   });
 

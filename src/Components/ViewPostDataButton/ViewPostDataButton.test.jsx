@@ -15,13 +15,6 @@ describe('ViewPostDataButtonComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can take props', () => {
-    const wrapper = shallow(
-      <ViewPostDataButton {...props} />,
-    );
-    expect(wrapper.instance().props.url).toBe(props.url);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ViewPostDataButton {...props} />,
