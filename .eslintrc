@@ -38,9 +38,12 @@
   },
   // overrides to the Airbnb style follow
   "rules": {
-    "indent": ["warn"],
-    "padded-blocks": ["warn"],
-    "complexity": ["warn", { "max": 12 }],
+    "react/jsx-no-target-blank": [0],
+    "react/prop-types": ["warn"],
+    "indent": ["error", 2, { "ignoredNodes": ["JSXAttribute", "JSXSpreadAttribute"], "SwitchCase": 1 }],
+    "react/jsx-indent": [0],
+    "react/jsx-indent-props": ["error", 2],
+    "complexity": ["warn", { "max": 20 }],
     "no-confusing-arrow": [0],
     // allow names to be the same as the default for Redux container testing
     "import/no-named-as-default": [0],

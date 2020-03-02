@@ -156,7 +156,7 @@ describe('Header', () => {
         client={{}}
         login={Object.assign({}, loginObject, { successful: false })}
       />,
-      );
+    );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

@@ -38,9 +38,9 @@ class BidderPortfolioPage extends Component {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
-    bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
-    bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
-    classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
+      bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
+      bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
+      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.

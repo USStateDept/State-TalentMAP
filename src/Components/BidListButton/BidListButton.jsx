@@ -6,7 +6,6 @@ import { existsInNestedObject } from '../../utilities';
 import { BID_RESULTS } from '../../Constants/PropTypes';
 
 class BidListButton extends Component {
-
   constructor(props) {
     super(props);
     this.getBidData = this.getBidData.bind(this);

@@ -19,11 +19,11 @@ describe('CompareCheck', () => {
   it('can accept different kinds of props', () => {
     const wrapper = shallow(
       <CompareCheck refKey="0037" type="compare" />,
-     );
+    );
     expect(wrapper).toBeDefined();
     const compareCheckOther = shallow(
       <CompareCheck refKey="0037" type="other" />,
-     );
+    );
     expect(compareCheckOther).toBeDefined();
   });
 

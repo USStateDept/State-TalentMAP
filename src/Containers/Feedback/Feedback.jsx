@@ -7,7 +7,6 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import FeedbackForm from '../../Components/FeedbackForm';
 
 class FeedbackContainer extends Component {
-
   constructor(props) {
     super(props);
     this.toggleVisibility = this.toggleVisibility.bind(this);

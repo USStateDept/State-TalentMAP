@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { localStorageFetchValue } from '../../utilities';
 
 class ViewComparisonLink extends Component {
-
   render() {
     // does the compare key exists and is count > 0?
     const exists = () => {

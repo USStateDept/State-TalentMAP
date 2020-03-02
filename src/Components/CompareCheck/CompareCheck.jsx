@@ -71,8 +71,8 @@ class CompareCheck extends Component {
   // eslint-disable-next-line class-methods-use-this
   joinClassNames(className) {
     return className
-    .join(' ')
-    .trim();
+      .join(' ')
+      .trim();
   }
 
   render() {
@@ -108,9 +108,9 @@ class CompareCheck extends Component {
         :
         <InteractiveElement {...options}>
           {
-          !this.isDisabled() &&
+            !this.isDisabled() &&
             icon
-        } {text}
+          } {text}
         </InteractiveElement>
     );
   }

@@ -40,18 +40,18 @@ class ProfileMenu extends Component {
     };
 
     return (
-        profileMenuExpanded ?
-          <ProfileMenuExpanded
-            {...options}
-            collapse={this.collapseMenu}
-            expandedSection={profileMenuSectionExpanded}
-            toggleMenuSection={onSetProfileMenuSectionExpanded}
-          /> :
-          <ProfileMenuCollapsed
-            {...options}
-            expand={this.expandMenu}
-            toggleMenu={onSetProfileMenuExpanded}
-          />
+      profileMenuExpanded ?
+        <ProfileMenuExpanded
+          {...options}
+          collapse={this.collapseMenu}
+          expandedSection={profileMenuSectionExpanded}
+          toggleMenuSection={onSetProfileMenuSectionExpanded}
+        /> :
+        <ProfileMenuCollapsed
+          {...options}
+          expand={this.expandMenu}
+          toggleMenu={onSetProfileMenuExpanded}
+        />
     );
   }
 }

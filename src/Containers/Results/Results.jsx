@@ -18,8 +18,8 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import CompareDrawer from '../../Components/CompareDrawer';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
-EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
+  USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
+  EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 import { POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
@@ -243,11 +243,11 @@ class Results extends Component {
 
   render() {
     const { results, hasErrored, isLoading, filters,
-            selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
-            missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
-            fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
-            postSearchHasErrored, shouldShowSearchBar, bidList,
-            client, clientIsLoading, clientHasErrored } = this.props;
+      selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
+      missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
+      fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
+      postSearchHasErrored, shouldShowSearchBar, bidList,
+      client, clientIsLoading, clientHasErrored } = this.props;
     const { filtersIsLoading } = this.state;
     const filters$ = { ...filters };
     const showClear = this.getQueryExists();

@@ -1,9 +1,9 @@
 import { aboutContentHasErrored,
-aboutContentIsLoading,
-aboutContent,
-aboutContentPatchHasErrored,
-aboutContentPatchIsLoading,
-aboutContentPatchSuccess } from './aboutContent';
+  aboutContentIsLoading,
+  aboutContent,
+  aboutContentPatchHasErrored,
+  aboutContentPatchIsLoading,
+  aboutContentPatchSuccess } from './aboutContent';
 
 export default {
   aboutContentHasErrored,

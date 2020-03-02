@@ -7,7 +7,6 @@ import { POSITION_SEARCH_RESULTS, USER_PROFILE, BID_LIST, EMPTY_FUNCTION } from 
 import HomePagePositionsSection from '../../Components/HomePagePositionsSection';
 
 class Position extends Component {
-
   componentWillMount() {
     const { fetchSimilarPositions, id, positionDetailsIsLoading } = this.props;
     if (!positionDetailsIsLoading) { fetchSimilarPositions(id); }

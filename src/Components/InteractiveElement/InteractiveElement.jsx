@@ -22,17 +22,17 @@ const InteractiveElement = ({ children, type, className, ...rest }) => {
   };
 
   switch (type) {
-    case 'submit':
-      Node = 'button';
-      props.type = 'submit';
-      break;
+  case 'submit':
+    Node = 'button';
+    props.type = 'submit';
+    break;
 
-    case 'button':
-      break;
+  case 'button':
+    break;
 
-    default:
-      // Set where type != (button|input)
-      defaultProps.role = 'button';
+  default:
+    // Set where type != (button|input)
+    defaultProps.role = 'button';
   }
 
   return (

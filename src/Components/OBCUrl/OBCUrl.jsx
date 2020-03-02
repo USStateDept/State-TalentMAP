@@ -7,17 +7,17 @@ const OBCUrl = ({ type, label, isButton, altStyle, url }) => {
 
   // define the URL according to the type
   switch (type) {
-    case 'country':
-      text = 'Country';
-      break;
+  case 'country':
+    text = 'Country';
+    break;
 
-    case 'post-data':
-      text = 'Post';
-      break;
+  case 'post-data':
+    text = 'Post';
+    break;
 
-    default:
-    case 'post':
-      text = 'Post';
+  default:
+  case 'post':
+    text = 'Post';
   }
 
   text = label || `${text} details`;

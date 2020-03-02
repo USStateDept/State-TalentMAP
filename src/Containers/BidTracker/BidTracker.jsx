@@ -4,17 +4,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
 import { bidListFetchData, toggleBidPosition, routeChangeResetState,
-submitBid, acceptBid, declineBid } from '../../actions/bidList';
+  submitBid, acceptBid, declineBid } from '../../actions/bidList';
 import { userProfilePublicFetchData } from '../../actions/userProfilePublic';
 import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
-SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
-DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS } from '../../Constants/PropTypes';
+  SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
+  DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import BidTracker from '../../Components/BidTracker';
 
 class BidTrackerContainer extends Component {
-
   componentWillMount() {
     const { isPublic, match: { params: { id } } } = this.props;
     if (isPublic) {

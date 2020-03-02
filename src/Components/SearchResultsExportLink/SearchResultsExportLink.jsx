@@ -34,12 +34,12 @@ class SearchResultsExportLink extends Component {
           page: 1,
         };
         downloadPositionData(queryString.stringify(query), isProjectedVacancy)
-        .then(() => {
-          this.setState({ isLoading: false });
-        })
-        .catch(() => {
-          this.setState({ isLoading: false });
-        });
+          .then(() => {
+            this.setState({ isLoading: false });
+          })
+          .catch(() => {
+            this.setState({ isLoading: false });
+          });
       });
     }
   }

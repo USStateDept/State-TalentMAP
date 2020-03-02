@@ -160,7 +160,7 @@ const server = app.listen(port);
 if (process.env.HTTPS_PORT) {
   pem.createCertificate({ days: 1, selfSigned: true }, (err, keys) => {
     https.createServer({ key: keys.serviceKey, cert: keys.certificate }, app)
-    .listen(process.env.HTTPS_PORT);
+      .listen(process.env.HTTPS_PORT);
   });
 }
 

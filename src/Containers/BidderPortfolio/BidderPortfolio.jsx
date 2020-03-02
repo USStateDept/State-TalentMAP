@@ -47,8 +47,8 @@ class BidderPortfolio extends Component {
     const props = ['cdos', 'selectedSeasons'];
     if (!isEqual(pick(this.props, props), pick(nextProps, props))) {
       this.setState({
-         // Reset page number, since this filters are
-         // captured outside the normal query param lifecycle.
+        // Reset page number, since this filters are
+        // captured outside the normal query param lifecycle.
         defaultPageNumber: { value: 1 },
       }, () => {
         this.getBidderPortfolio();
@@ -122,9 +122,9 @@ class BidderPortfolio extends Component {
 
   render() {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
-    bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
-    bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
-    classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
+      bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
+      bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
+      classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { defaultPageSize, defaultPageNumber, hasHandshake, ordering } = this.state;
     const isLoading = bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading;
     return (

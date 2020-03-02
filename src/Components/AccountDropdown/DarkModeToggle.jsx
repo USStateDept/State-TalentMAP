@@ -5,7 +5,6 @@ import { setDarkModePreference } from '../../actions/preferences';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class DarkModeToggle extends Component {
-
   constructor(props) {
     super(props);
     this.onClickUnset = this.onClickUnset.bind(this);

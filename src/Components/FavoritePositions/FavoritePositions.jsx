@@ -31,12 +31,12 @@ class FavoritePositions extends Component {
     const { favorites, favoritesPV } = this.props;
     const { selected } = this.state;
     switch (selected) {
-      case TYPE_OPEN:
-        return favorites;
-      case TYPE_PV:
-        return favoritesPV;
-      default:
-        return [...favorites, ...favoritesPV];
+    case TYPE_OPEN:
+      return favorites;
+    case TYPE_PV:
+      return favoritesPV;
+    default:
+      return [...favorites, ...favoritesPV];
     }
   }
   export() {
@@ -48,18 +48,18 @@ class FavoritePositions extends Component {
 
     this.setState({ isLoading: true }, () => {
       downloadPositionData(...args)
-      .then(() => {
-        this.setState({ isLoading: false });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
-      });
+        .then(() => {
+          this.setState({ isLoading: false });
+        })
+        .catch(() => {
+          this.setState({ isLoading: false });
+        });
     });
   }
   render() {
     const { isLoading, selected } = this.state;
     const { favorites, favoritesPV, favoritePositionsIsLoading,
-    favoritePositionsHasErrored, bidList, onSortChange } = this.props;
+      favoritePositionsHasErrored, bidList, onSortChange } = this.props;
     const positions = this.getPositions();
     let options = [{ title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length }];
     if (getUsePV()) {

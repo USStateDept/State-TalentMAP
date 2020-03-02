@@ -209,14 +209,14 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
     ));
 
     Q.allSettled(queryProms)
-    .then(() => {
-      cb();
-      setTimeout(() => {
-        dispatch(notificationsCountFetchData());
-        dispatch(markNotificationsSuccess(true));
-        dispatch(markNotificationsHasErrored(false));
-        dispatch(markNotificationsIsLoading(false));
-      }, 0);
-    });
+      .then(() => {
+        cb();
+        setTimeout(() => {
+          dispatch(notificationsCountFetchData());
+          dispatch(markNotificationsSuccess(true));
+          dispatch(markNotificationsHasErrored(false));
+          dispatch(markNotificationsIsLoading(false));
+        }, 0);
+      });
   };
 }

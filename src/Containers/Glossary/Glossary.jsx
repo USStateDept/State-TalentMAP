@@ -7,7 +7,6 @@ import { EMPTY_FUNCTION, GLOSSARY_LIST } from '../../Constants/PropTypes';
 import Glossary from '../../Components/Glossary';
 
 class GlossaryContainer extends Component {
-
   constructor(props) {
     super(props);
     this.toggleVisibility = this.toggleVisibility.bind(this);

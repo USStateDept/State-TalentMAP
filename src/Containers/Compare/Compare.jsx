@@ -46,7 +46,7 @@ export class Compare extends Component {
 
   render() {
     const { comparisons, hasErrored, isLoading, favoritePositions, bidList,
-    bidListToggleIsLoading } = this.props;
+      bidListToggleIsLoading } = this.props;
     return (
       <CompareList
         compare={comparisons}

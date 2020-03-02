@@ -13,22 +13,21 @@ const getUseDarkMode = () => checkFlag('flags.personalization');
 
 const browserHandler = () => {
   switch (getBrowserName()) {
-    // Dark mode breaks in IE11.
-    // Attempt to disable dark mode if for some reason it is set to true.
-    // Also set in src/Containers/DarkMode/DarkMode.jsx
-    case 'Chrome':
-    case 'Firefox':
-    case 'Safari': {
-      return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
-    }
-    default: {
-      return null;
-    }
+  // Dark mode breaks in IE11.
+  // Attempt to disable dark mode if for some reason it is set to true.
+  // Also set in src/Containers/DarkMode/DarkMode.jsx
+  case 'Chrome':
+  case 'Firefox':
+  case 'Safari': {
+    return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
+  }
+  default: {
+    return null;
+  }
   }
 };
 
 export class AccountDropdown extends Component {
-
   constructor(props) {
     super(props);
     this.hideDropdown = this.hideDropdown.bind(this);

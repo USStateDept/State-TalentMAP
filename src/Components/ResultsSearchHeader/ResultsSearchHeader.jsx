@@ -46,7 +46,7 @@ class ResultsSearchHeader extends Component {
 
   render() {
     const { defaultKeyword, isHomePage, placeholder, searchBarDisabled,
-    searchBarDisabledPlaceholder, legend, legendSrOnly } = this.props;
+      searchBarDisabledPlaceholder, legend, legendSrOnly } = this.props;
     return (
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
         <div className="usa-grid-full results-search-bar-container">

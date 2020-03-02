@@ -8,11 +8,11 @@ import outer from '../../assets/spinner/outer.svg';
 const Spinner = ({ type, size, style }) => {
   let sizeClass = '';
   switch (size) {
-    case ('small'):
-      sizeClass = 'tm-spinner-small';
-      break;
-    default:
-      break;
+  case ('small'):
+    sizeClass = 'tm-spinner-small';
+    break;
+  default:
+    break;
   }
   return (
     <div className={`tm-spinner tm-spinner-${type} ${sizeClass}`} style={style}>

@@ -20,11 +20,11 @@ describe('BidCyclesContainer', () => {
   beforeEach(() => {
     mockAdapter.onAny().reply((config) => {
       switch (config.method) {
-        case 'get':
-          return [200, { results: mock }];
+      case 'get':
+        return [200, { results: mock }];
 
-        default:
-          break;
+      default:
+        break;
       }
 
       return [500, null];

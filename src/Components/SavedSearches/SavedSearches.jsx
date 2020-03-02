@@ -32,14 +32,14 @@ class SavedSearches extends Component {
 
     const checkBy = useType || selected;
     switch (checkBy) {
-      case 'open':
-        return savedSearches.results.filter(f => f.endpoint === cycle || f.endpoint === pos);
-      case 'pv':
-        return getUsePV() ?
+    case 'open':
+      return savedSearches.results.filter(f => f.endpoint === cycle || f.endpoint === pos);
+    case 'pv':
+      return getUsePV() ?
         savedSearches.results.filter(f => f.endpoint === pv) : [];
-      default:
-        return savedSearches.results
-               .filter(f => f.endpoint === cycle || f.endpoint === pos || f.endpoint === pv);
+    default:
+      return savedSearches.results
+        .filter(f => f.endpoint === cycle || f.endpoint === pos || f.endpoint === pv);
     }
   }
 

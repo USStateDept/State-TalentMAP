@@ -139,9 +139,9 @@ ClientHeader.defaultProps = {
 const mapStateToProps = ({
   bidderPortfolioSelectedCDO,
   clientView: { client, isLoading, hasErrored },
-  }) => ({
-    client, isLoading, hasErrored, bidderPortfolioSelectedCDO,
-  });
+}) => ({
+  client, isLoading, hasErrored, bidderPortfolioSelectedCDO,
+});
 
 export const mapDispatchToProps = dispatch => ({
   unset: () => dispatch(unsetClient()),

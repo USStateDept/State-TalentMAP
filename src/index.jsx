@@ -45,12 +45,12 @@ export const init = (config) => {
   if (auth) {
     renderLoading();
     axios
-    .get(auth, { headers })
-    .then((response) => {
-      sessionStorage.setItem('jwt', response.data);
-      render();
-    })
-    .catch(() => render());
+      .get(auth, { headers })
+      .then((response) => {
+        sessionStorage.setItem('jwt', response.data);
+        render();
+      })
+      .catch(() => render());
   } else {
     render();
   }
@@ -61,10 +61,10 @@ export const getConfig = () => {
   sessionStorage.removeItem('config');
 
   axios
-  .get(getAssetPath('/config/config.json'))
-  .then((response) => {
-    init(get(response, 'data', {}));
-  })
-  .catch(() => init({}));
+    .get(getAssetPath('/config/config.json'))
+    .then((response) => {
+      init(get(response, 'data', {}));
+    })
+    .catch(() => init({}));
 };
 getConfig();

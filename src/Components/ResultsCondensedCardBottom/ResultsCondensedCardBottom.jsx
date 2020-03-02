@@ -26,8 +26,8 @@ class ResultsCondensedCardBottom extends Component {
         name="flags.bid_count"
         render={() => <ResultsCondensedCardStats bidStatisticsArray={[stats]} />}
       />
-    :
-    null;
+      :
+      null;
   }
   renderBidListButton() {
     const { showBidListButton, position } = this.props;
@@ -40,18 +40,18 @@ class ResultsCondensedCardBottom extends Component {
           disabled={!availableToBid}
         />
       </PermissionsWrapper>
-    :
-    null;
+      :
+      null;
   }
   render() {
     const { position,
-        favorites,
-        favoritesPV,
-        refreshFavorites,
-        useShortFavButton,
-        showCompareButton,
-        isProjectedVacancy,
-      } = this.props;
+      favorites,
+      favoritesPV,
+      refreshFavorites,
+      useShortFavButton,
+      showCompareButton,
+      isProjectedVacancy,
+    } = this.props;
     const { isClient } = this.context;
     const pos = position.position || position;
     return (

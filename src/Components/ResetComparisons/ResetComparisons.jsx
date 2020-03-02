@@ -4,13 +4,12 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { localStorageSetKey } from '../../utilities';
 
 class ResetComparisons extends Component {
-
   render() {
     const { onToggle, ...rest } = this.props;
     const exists = () => {
       let result = false;
       const retrievedKey = localStorage
-                            .getItem('compare');
+        .getItem('compare');
       const parsedKey = JSON.parse(retrievedKey);
       if (parsedKey && parsedKey.length) {
         result = true;

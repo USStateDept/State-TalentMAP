@@ -8,7 +8,6 @@ import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import Spinner from '../../Components/Spinner';
 
 class HomePagePositionsContainer extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -49,15 +48,17 @@ class HomePagePositionsContainer extends Component {
       <div className="content-container">
         {
           (userProfileIsLoading || homePagePositionsIsLoading || !hasFetched)
-          ?
+            ?
             <div className="usa-grid-full homepage-positions-section-container">
+
               <Spinner type="homepage-position-results" size="big" />
             </div>
-          :
+            :
             <HomePagePositions
               homePagePositions={homePagePositions}
               homePagePositionsIsLoading={homePagePositionsIsLoading}
               userProfile={userProfile}
+
               bidList={bidList}
             />
         }

@@ -53,7 +53,7 @@ class PageMetaContainer extends Component {
             <meta property="og:image" content={`${getApplicationPath()}${getAssetPath('/assets/logos/png/logo_color.png')}`} />
           </Helmet>
         </div>
-      :
+        :
         null
     );
   }

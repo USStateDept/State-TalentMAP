@@ -62,14 +62,14 @@ export function localStorageToggleValue(key, value, useDispatch = true, onlyDele
   if (indexOfId !== -1) {
     existingArray.splice(indexOfId, 1);
     localStorage.setItem(key,
-        JSON.stringify(existingArray));
+      JSON.stringify(existingArray));
     if (useDispatch) {
       dispatchLs(key);
     }
   } else if (!onlyDelete) {
     existingArray.push(value);
     localStorage.setItem(key,
-        JSON.stringify(existingArray));
+      JSON.stringify(existingArray));
     if (useDispatch) {
       dispatchLs(key);
     }
@@ -299,7 +299,7 @@ export const formQueryString = queryObject => queryString.stringify(queryObject)
 
 // remove duplicates from an array by object property
 export const removeDuplicates = (myArr, prop) => (
-    myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
+  myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
 );
 
 // Format date for notifications.

@@ -20,7 +20,7 @@ export class PermissionsWrapper extends Component {
       userHasPermissions(permissions$, userProfile.permissions || []);
     if (minimum) {
       doesUserHavePermissions = () =>
-      isEmpty || userHasSomePermissions(permissions$, userProfile.permission_groups || []) ||
+        isEmpty || userHasSomePermissions(permissions$, userProfile.permission_groups || []) ||
       userHasSomePermissions(permissions$, userProfile.permissions || []);
     }
     if (!isLoading) {

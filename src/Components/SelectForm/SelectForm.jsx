@@ -33,7 +33,7 @@ class SelectForm extends Component {
   }
   render() {
     const { id, label, options, includeFirstEmptyOption, emptyOptionText,
-    disabled, className, labelSrOnly } = this.props;
+      disabled, className, labelSrOnly } = this.props;
     const optionList = options.map(option =>
       (
         <option

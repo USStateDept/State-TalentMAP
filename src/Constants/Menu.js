@@ -86,24 +86,24 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       checkFlag('flags.client_profiles') ?
-      {
-        text: 'Client Profiles', // aka Bidder Portfolio
-        route: '/profile/bidderportfolio',
-        icon: 'users',
-        isCDO: true,
-        params: {
-          type: 'all',
-        },
-      } : null,
+        {
+          text: 'Client Profiles', // aka Bidder Portfolio
+          route: '/profile/bidderportfolio',
+          icon: 'users',
+          isCDO: true,
+          params: {
+            type: 'all',
+          },
+        } : null,
     ],
   },
   checkFlag('flags.bid_stats') ?
-  {
-    text: 'Statistics',
-    icon: 'pie-chart',
-    route: '/profile/statistics',
-    isCDO: true,
-  } : null,
+    {
+      text: 'Statistics',
+      icon: 'pie-chart',
+      route: '/profile/statistics',
+      isCDO: true,
+    } : null,
   {
     text: 'Administrator',
     route: '/profile/administrator/',
@@ -116,23 +116,23 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       checkFlag('flags.data_sync_admin') ?
-      {
-        text: 'Dashboard',
-        route: '/profile/administrator/dashboard/',
-        icon: 'tachometer',
-        roles: [
-          'superuser',
-        ],
-      } : null,
+        {
+          text: 'Dashboard',
+          route: '/profile/administrator/dashboard/',
+          icon: 'tachometer',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.data_sync_admin') ?
-      {
-        text: 'Logs',
-        route: '/profile/administrator/logs/',
-        icon: 'sitemap',
-        roles: [
-          'superuser',
-        ],
-      } : null,
+        {
+          text: 'Logs',
+          route: '/profile/administrator/logs/',
+          icon: 'sitemap',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       {
         text: 'Statistics',
         route: '/profile/administrator/stats/',

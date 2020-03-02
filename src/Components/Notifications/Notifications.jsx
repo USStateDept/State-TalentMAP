@@ -80,7 +80,7 @@ const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, 
             </div>
           </Column>
         </div>
-    }
+      }
     </div>
   );
 };

@@ -84,7 +84,7 @@ class SearchBar extends Component {
                 ) : <FA name="search" />
               }
             </span>
-          :
+            :
             input
         }
         <div id={`enabled-search-${id}`}>

@@ -175,8 +175,8 @@ class Favorite extends Component {
         }
         <InteractiveElement {...options}>
           {loading ?
-              (<span className={this.spinnerClass} />) :
-              (<FontAwesome name={icon} />)}
+            (<span className={this.spinnerClass} />) :
+            (<FontAwesome name={icon} />)}
           <MediaQueryWrapper breakpoint="screenMdMax" widthType="max">
             {matches => (
               <span>{this.getText(matches)}</span>

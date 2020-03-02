@@ -1,54 +1,54 @@
 import sinon from 'sinon';
 import { isEqual } from 'lodash';
 import { validStateEmail,
-         localStorageFetchValue,
-         localStorageToggleValue,
-         fetchUserToken,
-         pillSort,
-         formExploreRegionDropdown,
-         scrollToTop,
-         getItemLabel,
-         shortenString,
-         cleanQueryParams,
-         ifEnter,
-         formQueryString,
-         propSort,
-         existsInNestedObject,
-         removeDuplicates,
-         getTimeDistanceInWords,
-         formatDate,
-         focusById,
-         focusByFirstOfHeader,
-         wrapForMultiSelect,
-         returnObjectsWherePropMatches,
-         numbersToPercentString,
-         formatBidTitle,
-         formatWaiverTitle,
-         propOrDefault,
-         formatIdSpacing,
-         userHasPermissions,
-         getAssetPath,
-         sortGrades,
-         getApplicationPath,
-         getAccessiblePositionNumber,
-         getPostName,
-         getDifferentialPercentage,
-         mapSavedSearchesToSingleQuery,
-         mapSavedSearchToDescriptions,
-         difference,
-         redirectToLoginRedirect,
-         isUrl,
-         hasValidToken,
-         getScrollDistanceFromBottom,
-         getAriaValue,
-         spliceStringForCSV,
-         scrollToGlossaryTerm,
-         getBidCycleName,
-         loadImg,
-         downloadFromResponse,
-         anyToTitleCase,
-         stopProp,
-       } from './utilities';
+  localStorageFetchValue,
+  localStorageToggleValue,
+  fetchUserToken,
+  pillSort,
+  formExploreRegionDropdown,
+  scrollToTop,
+  getItemLabel,
+  shortenString,
+  cleanQueryParams,
+  ifEnter,
+  formQueryString,
+  propSort,
+  existsInNestedObject,
+  removeDuplicates,
+  getTimeDistanceInWords,
+  formatDate,
+  focusById,
+  focusByFirstOfHeader,
+  wrapForMultiSelect,
+  returnObjectsWherePropMatches,
+  numbersToPercentString,
+  formatBidTitle,
+  formatWaiverTitle,
+  propOrDefault,
+  formatIdSpacing,
+  userHasPermissions,
+  getAssetPath,
+  sortGrades,
+  getApplicationPath,
+  getAccessiblePositionNumber,
+  getPostName,
+  getDifferentialPercentage,
+  mapSavedSearchesToSingleQuery,
+  mapSavedSearchToDescriptions,
+  difference,
+  redirectToLoginRedirect,
+  isUrl,
+  hasValidToken,
+  getScrollDistanceFromBottom,
+  getAriaValue,
+  spliceStringForCSV,
+  scrollToGlossaryTerm,
+  getBidCycleName,
+  loadImg,
+  downloadFromResponse,
+  anyToTitleCase,
+  stopProp,
+} from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
 describe('local storage', () => {
@@ -794,11 +794,11 @@ describe('getScrollDistanceFromBottom', () => {
 
 describe('getAriaValue', () => {
   [[true, 'true'], [false, 'false'], ['true', 'true'], ['false', 'false'], [null, 'false'], [1, 'true']]
-  .map(m => (
-    it(`returns ${m[1]} for ${m[0]}`, () => {
-      expect(getAriaValue(m[0])).toBe(m[1]);
-    })
-  ));
+    .map(m => (
+      it(`returns ${m[1]} for ${m[0]}`, () => {
+        expect(getAriaValue(m[0])).toBe(m[1]);
+      })
+    ));
 });
 
 describe('spliceStringForCSV', () => {

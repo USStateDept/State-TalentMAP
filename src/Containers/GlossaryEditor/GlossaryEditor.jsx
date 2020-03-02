@@ -6,7 +6,6 @@ import { EMPTY_FUNCTION, GLOSSARY_LIST, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_
 import GlossaryEditor from '../../Components/GlossaryEditor';
 
 class GlossaryEditorContainer extends Component {
-
   constructor(props) {
     super(props);
     this.submitGlossaryTerm = this.submitGlossaryTerm.bind(this);

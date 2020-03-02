@@ -43,18 +43,18 @@ class BidTracker extends Component {
     const results = get(this.props, 'bidList.results', []);
     let results$ = [...results];
     switch (sortValue) {
-      case UPDATED:
-        results$ = orderBy(results$, UPDATED);
-        break;
-      case LOCATION:
-        results$ = orderBy(results$, LOCATION);
-        break;
-      case STATUS:
-        results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
-        results$ = reverse(results$);
-        break;
-      default:
-        results$ = results;
+    case UPDATED:
+      results$ = orderBy(results$, UPDATED);
+      break;
+    case LOCATION:
+      results$ = orderBy(results$, LOCATION);
+      break;
+    case STATUS:
+      results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
+      results$ = reverse(results$);
+      break;
+    default:
+      results$ = results;
     }
     return results$;
   }
@@ -62,16 +62,16 @@ class BidTracker extends Component {
   render() {
     const { sortValue } = this.state;
     const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
-    notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
-    userProfileIsLoading, isPublic, useCDOView } = this.props;
+      notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
+      userProfileIsLoading, isPublic, useCDOView } = this.props;
     const isLoading = bidListIsLoading || userProfileIsLoading;
     const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
       `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
 
     const emptyBidListText = isPublic ?
-    'This user does not have any bids in their bid list.'
-    :
-    'You do not have any bids in your bid list.';
+      'This user does not have any bids in their bid list.'
+      :
+      'You do not have any bids in your bid list.';
 
     const cdoEmail = get(userProfile, 'cdo.email');
 

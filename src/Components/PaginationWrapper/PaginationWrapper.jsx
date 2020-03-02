@@ -18,18 +18,18 @@ class PaginationWrapper extends Component {
   }
   render() {
     const {
-        previousLabel,
-        nextLabel,
-        pageSize,
-        marginPagesDisplayed,
-        pageRangeDisplayed,
-        paginationStyle,
-        containerClassName,
-        subContainerClassName,
-        totalResults,
-        forcePage,
-        activeClassName,
-      } = this.props;
+      previousLabel,
+      nextLabel,
+      pageSize,
+      marginPagesDisplayed,
+      pageRangeDisplayed,
+      paginationStyle,
+      containerClassName,
+      subContainerClassName,
+      totalResults,
+      forcePage,
+      activeClassName,
+    } = this.props;
     // calculate how many pages there are
     const count = Math.ceil(totalResults / pageSize);
     return (

@@ -79,7 +79,7 @@ export class Compare extends Component {
     /* sort based on any prior compare list, so the cards don't get jumbled
     after one is removed, as it persists until the new request completes */
     const sortedComparisons = comparisons.sort((a, b) =>
-    (comparisonsToUse.indexOf(a.id) >
+      (comparisonsToUse.indexOf(a.id) >
         comparisonsToUse.indexOf(b.id) ? 1 : -1),
     );
 

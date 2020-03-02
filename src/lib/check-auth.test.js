@@ -17,10 +17,10 @@ describe('check-auth', () => {
 
     function configureStore(initialState) {
       return createStore(
-            rootReducer,
-            initialState,
-            applyMiddleware(thunk, middleware, sagaMiddleware),
-        );
+        rootReducer,
+        initialState,
+        applyMiddleware(thunk, middleware, sagaMiddleware),
+      );
     }
 
     store = configureStore();

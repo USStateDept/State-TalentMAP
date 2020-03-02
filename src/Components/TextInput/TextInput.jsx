@@ -24,20 +24,20 @@ class TextInput extends Component {
     let parentClass;
     // check the "type" prop
     switch (type) {
-      case 'error':
-        labelClass = 'usa-input-error-message';
-        inputClass = 'input-error';
-        parentClass = 'usa-input-error';
-        break;
-      case 'success':
-        inputClass = 'usa-input-success';
-        break;
-      case 'focus':
-        inputClass = 'usa-input-focus';
-        break;
-      default:
-        inputClass = '';
-        parentClass = '';
+    case 'error':
+      labelClass = 'usa-input-error-message';
+      inputClass = 'input-error';
+      parentClass = 'usa-input-error';
+      break;
+    case 'success':
+      inputClass = 'usa-input-success';
+      break;
+    case 'focus':
+      inputClass = 'usa-input-focus';
+      break;
+    default:
+      inputClass = '';
+      parentClass = '';
     }
     // set an optional message
     const message = labelMessage.length ?

@@ -30,7 +30,7 @@ const defaultProps = {
 };
 
 const HomePagePositionsList = ({ positions, favorites, favoritesPV, isLoading, bidList, type,
-refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton }) => (
+  refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton }) => (
   <div className={`condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full condensed-card-grid">
       {positions.map((p) => {

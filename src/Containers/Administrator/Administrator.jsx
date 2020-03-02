@@ -79,10 +79,10 @@ class AdministratorContainer extends Component {
 
   render() {
     const {
-          logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
-          logsList, logsListIsLoading, logsListHasErrored,
-          log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, totalUsers,
-        } = this.props;
+      logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
+      logsList, logsListIsLoading, logsListHasErrored,
+      log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, totalUsers,
+    } = this.props;
     const props = {
       logs,
       logsIsLoading,

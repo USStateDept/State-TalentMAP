@@ -19,7 +19,7 @@ const PillList = ({ items, onPillClick }) => (
         )
     }
   </div>
-  );
+);
 
 PillList.propTypes = {
   items: PILL_ITEM_ARRAY,

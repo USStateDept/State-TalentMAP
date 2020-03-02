@@ -12,7 +12,6 @@ import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import Alert from '../../Components/Alert';
 
 class ProfilePublic extends Component {
-
   componentWillMount() {
     const id = get(this.props, 'match.params.id');
     this.props.fetchData(id);
@@ -35,7 +34,7 @@ class ProfilePublic extends Component {
     return (
       combinedErrored ?
         <Alert type="error" title="User not found" />
-      :
+        :
         <ProfileDashboard
           userProfile={userProfile}
           isLoading={combinedLoading}

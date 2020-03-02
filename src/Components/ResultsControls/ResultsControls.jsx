@@ -26,7 +26,7 @@ class ResultsControls extends Component {
 
   render() {
     const { results, hasLoaded, defaultSort, pageSizes,
-            defaultPageSize, defaultPageNumber, sortBy } = this.props;
+      defaultPageSize, defaultPageNumber, sortBy } = this.props;
     const { isClient } = this.context;
     return (
       <div className="usa-grid-full results-controls">

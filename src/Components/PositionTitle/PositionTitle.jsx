@@ -78,7 +78,7 @@ class PositionTitle extends Component {
                 </div>
                 <div className="usa-width-one-half title-actions-section">
                   {
-                  !isClient && !isArchived &&
+                    !isClient && !isArchived &&
                     <Favorite
                       refKey={details.cpId}
                       compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
@@ -87,7 +87,7 @@ class PositionTitle extends Component {
                       useButtonClass
                       isPV={isProjectedVacancy}
                     />
-                }
+                  }
                 </div>
               </div>
             </div>

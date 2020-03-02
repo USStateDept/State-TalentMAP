@@ -20,7 +20,7 @@ import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 
 import { formatDate, propOrDefault, getPostName, shortenString,
-getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
+  getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
@@ -130,7 +130,7 @@ class ResultsCard extends Component {
 
     const innerId = this.getInnerId();
 
-  // TODO - update this to a real property once API is updateds
+    // TODO - update this to a real property once API is updateds
     const recentlyAvailable = pos.recently_available;
 
     const bidTypeTitle = isProjectedVacancy ? 'Bid season' : 'Bid cycle';
@@ -284,7 +284,7 @@ class ResultsCard extends Component {
               />
             </div>
           </BoxShadow>
-      )}
+        )}
       </MediaQueryWrapper>
     );
   }

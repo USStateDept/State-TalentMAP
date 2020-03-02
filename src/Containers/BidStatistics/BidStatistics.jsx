@@ -6,7 +6,6 @@ import { BID_STATISTICS_OBJECT } from '../../Constants/PropTypes';
 import BidStatistics from '../../Components/BidStatistics';
 
 class BidStatisticsContainer extends Component {
-
   componentWillMount() {
     this.getBidStats();
   }
