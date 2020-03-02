@@ -23,9 +23,9 @@ const getUseConfetti = () => checkFlag('flags.confetti');
 // based on the status, which should match up with the object returned
 // by bidClassesFromCurrentStatus.
 // These classes determine colors, whether to use an icon or a number, the title text, etc.
-const BidSteps = props => {
+const BidSteps = (props, context) => {
   const { bid } = props;
-  const { condensedView } = this.context;
+  const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
   const getIcon = (status) => {
     const icon = (
