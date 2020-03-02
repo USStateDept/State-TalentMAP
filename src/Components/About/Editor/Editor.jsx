@@ -9,21 +9,19 @@ export const SUBMIT_BUTTON_ID = 'about-content-submit';
 class Editor extends Component {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
-    this.onContentChange = this.onContentChange.bind(this);
     this.state = {
       data: props.data,
     };
   }
 
-  onContentChange(e) {
+  onContentChange = e => {
     this.setState({ data: e });
-  }
+  };
 
-  submit() {
+  submit = () => {
     const { data } = this.state;
     this.props.submit(data);
-  }
+  };
 
   render() {
     const { data } = this.props;

@@ -9,19 +9,16 @@ import BidActions from './BidActions';
 import { formatDate, getTimeDistanceInWords } from '../../utilities';
 
 class BidListResultsCard extends Component {
-  constructor(props) {
-    super(props);
-    this.removeBidPosition = this.removeBidPosition.bind(this);
-    this.submitBid = this.submitBid.bind(this);
-  }
-  removeBidPosition() {
+  removeBidPosition = () => {
     const { bid, toggleBidPosition } = this.props;
     toggleBidPosition(bid.position.id, true);
-  }
-  submitBid() {
+  };
+
+  submitBid = () => {
     const { bid, submitBid } = this.props;
     submitBid(bid.id);
-  }
+  };
+
   render() {
     const { bid, condensedView } = this.props;
     const { position } = bid.position;

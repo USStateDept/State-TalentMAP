@@ -12,12 +12,7 @@ import CompareCheck from '../CompareCheck';
 import { getBidStatisticsObject } from '../../utilities';
 
 class ResultsCondensedCardBottom extends Component {
-  constructor(props) {
-    super(props);
-    this.renderStats = this.renderStats.bind(this);
-    this.renderBidListButton = this.renderBidListButton.bind(this);
-  }
-  renderStats() {
+  renderStats = () => {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
     const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
@@ -28,8 +23,9 @@ class ResultsCondensedCardBottom extends Component {
       />
       :
       null;
-  }
-  renderBidListButton() {
+  };
+
+  renderBidListButton = () => {
     const { showBidListButton, position } = this.props;
     const availability = get(position, 'availability.availability');
     const availableToBid = isNull(availability) || !!availability;
@@ -42,7 +38,8 @@ class ResultsCondensedCardBottom extends Component {
       </PermissionsWrapper>
       :
       null;
-  }
+  };
+
   render() {
     const { position,
       favorites,

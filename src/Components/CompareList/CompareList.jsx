@@ -44,11 +44,7 @@ export const renderBidCounts = (compareArray, emptyArray) => (
 );
 
 class CompareList extends Component {
-  constructor(props) {
-    super(props);
-    this.renderBidListButtons = this.renderBidListButtons.bind(this);
-  }
-  renderBidListButtons(compareArray, emptyArray) {
+  renderBidListButtons = (compareArray, emptyArray) => {
     const { bidList } = this.props;
     return (
       <tr>
@@ -75,7 +71,8 @@ class CompareList extends Component {
         }
       </tr>
     );
-  }
+  };
+
   render() {
     const { compare, isLoading, favorites, onToggle } = this.props;
     const limit = 5;

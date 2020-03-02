@@ -24,7 +24,6 @@ const skeletonColors = {
 export class ClientHeader extends Component {
   constructor(props) {
     super(props);
-    this.unsetClient = this.unsetClient.bind(this);
     this.state = {
       showReturnLink: true,
       useResultsExitFunction: false,
@@ -41,7 +40,7 @@ export class ClientHeader extends Component {
     this.setState({ useResultsExitFunction: pathMatches });
   }
 
-  unsetClient() {
+  unsetClient = () => {
     const { history } = this.props;
     const { useResultsExitFunction } = this.state;
     this.props.unset();
@@ -49,7 +48,7 @@ export class ClientHeader extends Component {
     if (useResultsExitFunction) {
       history.push('/results');
     }
-  }
+  };
 
   matchCurrentPath(historyObject) {
     // hide if on the public profile

@@ -33,10 +33,6 @@ const POSITION_SEARCH_SORT$ = () => POSITION_SEARCH_SORTS_DYNAMIC;
 class Results extends Component {
   constructor(props) {
     super(props);
-    this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
-    this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
-    this.resetFilters = this.resetFilters.bind(this);
-    this.getQueryExists = this.getQueryExists.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -71,14 +67,14 @@ class Results extends Component {
   }
 
   // for when we need to UPDATE the ENTIRE value of a filter
-  onQueryParamUpdate(q) {
+  onQueryParamUpdate = q => {
     const newQueryString = queryParamUpdate(q, this.state.query.value);
     // and push to history
     this.updateHistory(newQueryString);
-  }
+  };
 
   // for when we need to ADD or DELETE a NESTED value of a filter
-  onQueryParamToggle(param, value, remove) {
+  onQueryParamToggle = (param, value, remove) => {
     const stringifiedValue = value.toString();
     const parsedQuery = queryString.parse(this.state.query.value);
     // was the key found?
@@ -126,10 +122,10 @@ class Results extends Component {
     if (newQueryString !== this.state.query.value) {
       this.updateHistory(newQueryString);
     }
-  }
+  };
 
   // check if there are filters selected so that the clear filters button can be displayed or hidden
-  getQueryExists() {
+  getQueryExists = () => {
     const { query: { value } } = this.state;
     let query = queryString.parse(value);
     // omit page size and ordering
@@ -138,7 +134,7 @@ class Results extends Component {
     query = pickBy(query, v => v || v === 0);
     // query exists if it has keys
     return !!keys(query).length;
-  }
+  };
 
   getStringifiedQuery(q) {
     // ResultsPage is connected so we access the ref's functions slightly differently
@@ -221,11 +217,11 @@ class Results extends Component {
   }
 
   // reset to no query params
-  resetFilters() {
+  resetFilters = () => {
     this.context.router.history.push({
       search: '',
     });
-  }
+  };
 
   callFetchData(q) {
     this.props.fetchData(q);

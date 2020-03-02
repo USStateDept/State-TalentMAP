@@ -18,20 +18,14 @@ const seal = getAssetPath('/assets/img/us-flag.jpg');
 const useBidding = () => checkFlag('flags.bidding');
 
 class PositionTitle extends Component {
-  constructor(props) {
-    super(props);
-    this.renderBidListButton = this.renderBidListButton.bind(this);
-    this.getIsAvailableToBid = this.getIsAvailableToBid.bind(this);
-  }
-
-  getIsAvailableToBid() {
+  getIsAvailableToBid = () => {
     const { details } = this.props;
     const availability = get(details, 'availability.availability');
     const availableToBid = isNull(availability) || !!availability;
     return availableToBid;
-  }
+  };
 
-  renderBidListButton() {
+  renderBidListButton = () => {
     const { details, bidList } = this.props;
     const { isClient } = this.context;
     const available = this.getIsAvailableToBid();
@@ -44,7 +38,7 @@ class PositionTitle extends Component {
         />
       </PermissionsWrapper>
     );
-  }
+  };
 
   render() {
     const { details, isProjectedVacancy, isArchived, userProfile } = this.props;

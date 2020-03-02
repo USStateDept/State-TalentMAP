@@ -21,7 +21,7 @@ class AlertAlt extends Component {
       case 'success':
         icon = 'check-circle';
         break;
-    // default to info
+        // default to info
       default:
         icon = 'info-circle';
         break;

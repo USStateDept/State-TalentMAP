@@ -12,7 +12,6 @@ export const wrapFilters = filters => wrapForMultiSelect(filters, SKILL_CODE, SK
 class SkillCodeFilter extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       selectedOptions: { value: [], hasBeenUpdated: false },
     };
@@ -44,7 +43,7 @@ class SkillCodeFilter extends Component {
   // Set local state with new selected options, and also return them via the prop function.
   // we also update the hasBeenUpdated property to true ao that we don't try to re-set userSkills.
   // We set bypass to true when inorganic/programatic calls to this function are made.
-  handleChange(selectedOptions, bypass = false) {
+  handleChange = (selectedOptions, bypass = false) => {
     // set state with new values
     const { selectedOptions: selectedOptionsState } = this.state;
     this.setState({ selectedOptions: Object.assign(
@@ -57,7 +56,7 @@ class SkillCodeFilter extends Component {
         selectedOptionsState, { hasBeenUpdated: true }) });
       this.props.onFilterSelect(selectedOptions);
     }
-  }
+  };
 
   render() {
     const { filters, isLoading, label, labelSrOnly } = this.props;

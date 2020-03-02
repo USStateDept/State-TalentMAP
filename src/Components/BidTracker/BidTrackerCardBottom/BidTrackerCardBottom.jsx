@@ -9,13 +9,13 @@ import { BID_REVIEWER_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes'
 const BidTrackerCardBottom = (props) => {
   const { bureau, userProfile } = props;
   const getUser = user => (user ?
-  {
-    email: user.email,
-    initials: user.initials,
-    firstName: user.first_name,
-    lastName: user.last_name,
-  } :
-  null);
+    {
+      email: user.email,
+      initials: user.initials,
+      firstName: user.first_name,
+      lastName: user.last_name,
+    } :
+    null);
 
   const reviewer = getUser(props.reviewer);
   const cdo = getUser(userProfile.cdo);

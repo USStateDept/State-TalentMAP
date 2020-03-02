@@ -6,20 +6,14 @@ import { existsInNestedObject } from '../../utilities';
 import { BID_RESULTS } from '../../Constants/PropTypes';
 
 class BidListButton extends Component {
-  constructor(props) {
-    super(props);
-    this.getBidData = this.getBidData.bind(this);
-    this.toggleSaved = this.toggleSaved.bind(this);
-  }
-
-  getBidData() {
+  getBidData = () => {
     const { compareArray, id } = this.props;
     const exists = existsInNestedObject(id, compareArray);
     return {
       isSaved: exists,
       canDelete: get(exists, 'can_delete', true),
     };
-  }
+  };
 
   get style() {
     return {
@@ -27,14 +21,14 @@ class BidListButton extends Component {
     };
   }
 
-  toggleSaved() {
+  toggleSaved = () => {
     const { disabled, toggleBidPosition, id, isLoading } = this.props;
     const { isSaved } = this.getBidData();
     // pass the id and the "remove" param
     if (!isLoading && !disabled) {
       toggleBidPosition(id, isSaved);
     }
-  }
+  };
 
   render() {
     // is the bid currently saved?

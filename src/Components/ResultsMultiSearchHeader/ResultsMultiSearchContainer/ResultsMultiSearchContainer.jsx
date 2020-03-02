@@ -14,8 +14,6 @@ import { isCurrentPathIn } from '../../ProfileMenu/navigation';
 class ResultsMultiSearchHeaderContainer extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFilterChange = this.onFilterChange.bind(this);
     this.state = {
       query: {
         position_q: '',
@@ -43,12 +41,12 @@ class ResultsMultiSearchHeaderContainer extends Component {
     }
   }
 
-  onFilterChange(q) {
+  onFilterChange = q => {
     const { searchbarFilters, setSearchFilters } = this.props;
     setSearchFilters({ ...searchbarFilters, ...q });
-  }
+  };
 
-  onSubmit(q) {
+  onSubmit = q => {
     const query = q;
     const stringifiedFilterValues = {};
     // Form query object by iterating through keys.
@@ -72,7 +70,7 @@ class ResultsMultiSearchHeaderContainer extends Component {
     const qString = queryString.stringify(stringifiedFilterValues);
     // Navigate to results with the formed query.
     this.props.onNavigateTo(`/results?${qString}`);
-  }
+  };
 
   render() {
     const { filters, userProfile, filtersIsLoading,

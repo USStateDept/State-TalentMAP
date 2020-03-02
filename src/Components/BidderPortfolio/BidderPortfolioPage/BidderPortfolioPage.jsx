@@ -19,21 +19,22 @@ const getUseClientCounts = () => checkFlag('flags.client_counts');
 class BidderPortfolioPage extends Component {
   constructor(props) {
     super(props);
-    this.changeViewType = this.changeViewType.bind(this);
-    this.changeEditType = this.changeEditType.bind(this);
     this.state = {
       viewType: { value: 'card' },
       editType: { show: false },
     };
   }
-  changeViewType(value) {
+
+  changeViewType = value => {
     const { viewType } = this.state;
     viewType.value = value;
     this.setState({ viewType });
-  }
-  changeEditType(value) {
+  };
+
+  changeEditType = value => {
     this.setState({ editType: value });
-  }
+  };
+
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;

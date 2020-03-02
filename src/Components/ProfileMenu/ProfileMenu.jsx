@@ -8,19 +8,13 @@ import ProfileMenuExpanded from './ProfileMenuExpanded';
 import ProfileMenuCollapsed from './ProfileMenuCollapsed';
 
 class ProfileMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.collapseMenu = this.collapseMenu.bind(this);
-    this.expandMenu = this.expandMenu.bind(this);
-  }
-
-  collapseMenu() {
+  collapseMenu = () => {
     this.props.onSetProfileMenuExpanded(false);
-  }
+  };
 
-  expandMenu() {
+  expandMenu = () => {
     this.props.onSetProfileMenuExpanded(true);
-  }
+  };
 
   render() {
     const {

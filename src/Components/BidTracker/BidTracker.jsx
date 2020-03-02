@@ -31,30 +31,29 @@ class BidTracker extends Component {
     this.state = {
       sortValue: find(SORT_OPTIONS, f => f.defaultSort).value,
     };
-    this.onSelectOption = this.onSelectOption.bind(this);
   }
 
-  onSelectOption(e) {
+  onSelectOption = e => {
     this.setState({ sortValue: get(e, 'target.value') });
-  }
+  };
 
   getSortedBids() {
     const { sortValue } = this.state;
     const results = get(this.props, 'bidList.results', []);
     let results$ = [...results];
     switch (sortValue) {
-    case UPDATED:
-      results$ = orderBy(results$, UPDATED);
-      break;
-    case LOCATION:
-      results$ = orderBy(results$, LOCATION);
-      break;
-    case STATUS:
-      results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
-      results$ = reverse(results$);
-      break;
-    default:
-      results$ = results;
+      case UPDATED:
+        results$ = orderBy(results$, UPDATED);
+        break;
+      case LOCATION:
+        results$ = orderBy(results$, LOCATION);
+        break;
+      case STATUS:
+        results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
+        results$ = reverse(results$);
+        break;
+      default:
+        results$ = results;
     }
     return results$;
   }

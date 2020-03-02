@@ -11,7 +11,6 @@ import { propOrDefault } from '../../../utilities';
 class NavLink extends Component {
   constructor(props) {
     super(props);
-    this.toggleNestedLinksVisibility = this.toggleNestedLinksVisibility.bind(this);
     this.state = {
       showNestedLinks: { value: false },
     };
@@ -75,7 +74,7 @@ class NavLink extends Component {
   }
 
   // toggles visibility of grouped children links
-  toggleNestedLinksVisibility() {
+  toggleNestedLinksVisibility = () => {
     const { children, toggleMenuSection, title } = this.props;
     if (children) {
       const { showNestedLinks } = this.state;
@@ -83,7 +82,7 @@ class NavLink extends Component {
       this.setState({ showNestedLinks });
       toggleMenuSection({ title, display: showNestedLinks.value });
     }
-  }
+  };
 
   render() {
     const { title, iconName, children, link, hidden } = this.props;

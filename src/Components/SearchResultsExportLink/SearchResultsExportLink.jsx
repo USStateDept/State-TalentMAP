@@ -8,7 +8,6 @@ import ExportButton from '../ExportButton';
 class SearchResultsExportLink extends Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
     this.state = {
       isLoading: false,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -22,7 +21,7 @@ class SearchResultsExportLink extends Component {
     }
   }
 
-  onClick() {
+  onClick = () => {
     const { isLoading } = this.state;
     const { isProjectedVacancy } = this.context;
     if (!isLoading) {
@@ -42,7 +41,7 @@ class SearchResultsExportLink extends Component {
           });
       });
     }
-  }
+  };
 
   render() {
     const { isLoading } = this.state;

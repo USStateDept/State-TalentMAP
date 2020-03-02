@@ -10,19 +10,13 @@ import { Trigger } from '../SaveNewSearch';
 import MediaQuery from '../MediaQuery';
 
 class ResultsControls extends Component {
-  constructor(props) {
-    super(props);
-    this.onSelectOrdering = this.onSelectOrdering.bind(this);
-    this.onSelectLimit = this.onSelectLimit.bind(this);
-  }
-
-  onSelectOrdering(e) {
+  onSelectOrdering = e => {
     this.props.queryParamUpdate({ ordering: e.target.value });
-  }
+  };
 
-  onSelectLimit(e) {
+  onSelectLimit = e => {
     this.props.queryParamUpdate({ limit: e.target.value });
-  }
+  };
 
   render() {
     const { results, hasLoaded, defaultSort, pageSizes,

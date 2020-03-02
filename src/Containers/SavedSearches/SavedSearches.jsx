@@ -13,12 +13,6 @@ import { formQueryString } from '../../utilities';
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
 // that use this container.
 class SavedSearchesContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.goToSavedSearch = this.goToSavedSearch.bind(this);
-    this.getSortedSearches = this.getSortedSearches.bind(this);
-  }
-
   componentWillMount() {
     this.getSavedSearches();
   }
@@ -27,14 +21,14 @@ class SavedSearchesContainer extends Component {
     this.props.savedSearchesFetchData();
   }
 
-  getSortedSearches(type) {
+  getSortedSearches = type => {
     if (type.target && type.target.value) {
       this.props.savedSearchesFetchData(type.target.value);
       this.setState({ defaultSort: type.target.value });
     }
-  }
+  };
 
-  goToSavedSearch(savedSearchObject) {
+  goToSavedSearch = savedSearchObject => {
     const q = { ...savedSearchObject.filters };
     if (savedSearchObject.endpoint === '/api/v1/fsbid/projected_vacancies/') {
       q.projectedVacancy = 'projected';
@@ -42,7 +36,7 @@ class SavedSearchesContainer extends Component {
     const stringifiedQuery = formQueryString(q);
     this.props.setCurrentSavedSearch(savedSearchObject);
     this.props.onNavigateTo(`/results?${stringifiedQuery}`);
-  }
+  };
 
   render() {
     const { savedSearches, deleteSearch, ChildElement, savedSearchesIsLoading } = this.props;

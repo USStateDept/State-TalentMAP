@@ -7,14 +7,9 @@ import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import { getItemLabel } from '../../../utilities';
 
 class MultiSelectFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.onCheckBoxClick = this.onCheckBoxClick.bind(this);
-  }
-
-  onCheckBoxClick(value, props) {
+  onCheckBoxClick = (value, props) => {
     this.props.queryParamToggle(props.selectionRef, props[this.props.queryProperty], !value);
-  }
+  };
 
   getGroupedFilters() {
     const { item } = this.props;
@@ -69,26 +64,26 @@ class MultiSelectFilter extends Component {
               <div key={group} className={`usa-grid-full term-group ${i === 0 ? 'term-group-first' : ''}`}>
                 <div className="term-title">{group}</div>
                 {
-                    itemsGroupedByAlpha[group].map((itemData) => {
-                      const itemLabel = getItemLabel(itemData);
-                      return (
-                        <CheckBox
-                          _id={itemData.id} /* when we need the original id */
-                          id={`checkbox${itemLabel}-${item.item.description}`}
-                          key={`checkbox${itemLabel}-${item.item.description}`}
-                          label={itemLabel}
-                          title={itemLabel}
-                          name={itemLabel}
-                          value={itemData.isSelected || false}
-                          code={itemData.code}
-                          selectionRef={item.item.selectionRef}
-                          onCheckBoxClick={this.onCheckBoxClick}
-                          className="tm-checkbox-transparent"
-                        />
-                      );
-                    },
+                  itemsGroupedByAlpha[group].map((itemData) => {
+                    const itemLabel = getItemLabel(itemData);
+                    return (
+                      <CheckBox
+                        _id={itemData.id} /* when we need the original id */
+                        id={`checkbox${itemLabel}-${item.item.description}`}
+                        key={`checkbox${itemLabel}-${item.item.description}`}
+                        label={itemLabel}
+                        title={itemLabel}
+                        name={itemLabel}
+                        value={itemData.isSelected || false}
+                        code={itemData.code}
+                        selectionRef={item.item.selectionRef}
+                        onCheckBoxClick={this.onCheckBoxClick}
+                        className="tm-checkbox-transparent"
+                      />
+                    );
+                  },
                   )
-                  }
+                }
               </div>
             ))
         }

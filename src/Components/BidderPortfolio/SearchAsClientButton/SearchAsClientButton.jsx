@@ -35,7 +35,6 @@ export const genSearchParams = (user) => {
 export class SearchAsClientButton extends Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
     this.state = {
       clicked: false,
     };
@@ -63,7 +62,7 @@ export class SearchAsClientButton extends Component {
     }
   }
 
-  onClick() {
+  onClick = () => {
     const { fetchSuggestions, set, user, isLoading, recIsLoading, useRecommended } = this.props;
     const { perdet_seq_number: id } = user;
     if (!isLoading && !useRecommended) {
@@ -78,7 +77,7 @@ export class SearchAsClientButton extends Component {
         fetchSuggestions(id);
       });
     }
-  }
+  };
 
   genSearchParamsAndNavigate(user, history) {
     const query = genSearchParams(user);

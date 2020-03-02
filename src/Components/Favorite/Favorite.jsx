@@ -45,7 +45,6 @@ const getText$ = (state, type) => Texts[state][type];
 class Favorite extends Component {
   constructor(props) {
     super(props);
-    this.toggleSaved = this.toggleSaved.bind(this);
     this.state = {
       loading: props.isLoading,
     };
@@ -135,7 +134,7 @@ class Favorite extends Component {
     return spinnerClass;
   }
 
-  toggleSaved() {
+  toggleSaved = () => {
     const { onToggle, refKey, refresh } = this.props;
     this.setState({
       loading: true,
@@ -145,7 +144,7 @@ class Favorite extends Component {
 
     // pass the key and the "remove" param
     onToggle(refKey, this.getSavedState(), refresh);
-  }
+  };
 
   render() {
     const { loading } = this.state;

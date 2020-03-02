@@ -56,28 +56,30 @@ class BidSteps extends Component {
     return (
       <Steps labelPlacement="vertical">
         {
-        BID_STEPS.map((status) => {
-          const icon = getIcon(status);
-          return (<Step
-            key={shortId.generate()}
-            className={`
+          BID_STEPS.map((status) => {
+            const icon = getIcon(status);
+            return (<Step
+              key={shortId.generate()}
+              className={`
               ${status.className}
               ${bidData[status.prop].isCurrent ? 'step-current' : ''}
               ${bidData[status.prop].isPendingLine ? 'pending-line' : ''}
               ${bidData[status.prop].isComplete ? 'step-complete' : 'step-incomplete'}
             `}
-            title={
-              <div>
-                <div className="step-title-main-text">{bidData[status.prop].title}</div>
-                <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
-              </div>
-            }
-            tailContent={bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null}
-            icon={icon}
-          />
-          );
-        })
-      }
+              title={
+                <div>
+                  <div className="step-title-main-text">{bidData[status.prop].title}</div>
+                  <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
+                </div>
+              }
+              tailContent={
+                bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null
+              }
+              icon={icon}
+            />
+            );
+          })
+        }
       </Steps>
     );
   }

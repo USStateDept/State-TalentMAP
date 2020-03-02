@@ -16,9 +16,6 @@ export const INPUT_ID = 'saved-search';
 export class SaveNewSearchDialog extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.changeNewSearchName = this.changeNewSearchName.bind(this);
-    this.onCancel = this.onCancel.bind(this);
     this.state = {
       newSearchName: '',
     };
@@ -32,7 +29,7 @@ export class SaveNewSearchDialog extends Component {
     }
   }
 
-  onSubmit(e) {
+  onSubmit = e => {
     if (e && e.preventDefault) { e.preventDefault(); }
     const { currentSearch } = this.props;
     const hasPV = get(currentSearch, 'projectedVacancy') === 'projected';
@@ -47,16 +44,16 @@ export class SaveNewSearchDialog extends Component {
       endpoint,
       filters,
     });
-  }
+  };
 
-  onCancel() {
+  onCancel = () => {
     this.props.toggle(false);
     focusById(ID, 0);
-  }
+  };
 
-  changeNewSearchName(e) {
+  changeNewSearchName = e => {
     this.setState({ newSearchName: e });
-  }
+  };
 
   render() {
     const { isLoading, isOpen, hasErrored } = this.props;
@@ -103,7 +100,7 @@ export class SaveNewSearchDialog extends Component {
             </div>
           </Form>
         </div>
-      :
+        :
         <div className="usa-grid-full" style={{ marginTop: '20px' }} />
     );
   }

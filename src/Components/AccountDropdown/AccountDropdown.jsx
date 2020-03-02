@@ -16,38 +16,31 @@ const browserHandler = () => {
   // Dark mode breaks in IE11.
   // Attempt to disable dark mode if for some reason it is set to true.
   // Also set in src/Containers/DarkMode/DarkMode.jsx
-  case 'Chrome':
-  case 'Firefox':
-  case 'Safari': {
-    return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
-  }
-  default: {
-    return null;
-  }
+    case 'Chrome':
+    case 'Firefox':
+    case 'Safari': {
+      return <DarkModeToggle className="unstyled-button account-dropdown--identity account-dropdown--segment account-dropdown-link account-dropdown-link--button" />;
+    }
+    default: {
+      return null;
+    }
   }
 };
 
 export class AccountDropdown extends Component {
-  constructor(props) {
-    super(props);
-    this.hideDropdown = this.hideDropdown.bind(this);
-    this.showDropdown = this.showDropdown.bind(this);
-    this.logout = this.logout.bind(this);
-  }
-
-  logout() {
+  logout = () => {
     this.props.logoutRequest();
-  }
+  };
 
-  hideDropdown() {
+  hideDropdown = () => {
     // Explicitly hide the dropdown using the built-in hide() function from react-simple-dropdown
     this.dropdown.hide();
-  }
+  };
 
-  showDropdown() {
+  showDropdown = () => {
     // Explicitly show the dropdown using the built-in hide() function from react-simple-dropdown
     this.dropdown.show();
-  }
+  };
 
   render() {
     const { shouldDisplayName, userProfile } = this.props;

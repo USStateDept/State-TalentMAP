@@ -80,18 +80,12 @@ export const renderBidCountMobile = stats => (
 );
 
 class ResultsCard extends Component {
-  constructor(props) {
-    super(props);
-    this.getOffsetPx = this.getOffsetPx.bind(this);
-    this.getInnerId = this.getInnerId.bind(this);
-  }
-
-  getInnerId() {
+  getInnerId = () => {
     const { id } = this.props;
     return `${id}-inner`;
-  }
+  };
 
-  getOffsetPx() {
+  getOffsetPx = () => {
     const { id } = this.props;
     const innerId = this.getInnerId();
     const maxHeightOffset = document.getElementById(innerId).offsetTop;
@@ -100,7 +94,7 @@ class ResultsCard extends Component {
     const offset = cardHeight - maxHeightOffset;
 
     return `${offset}px`;
-  }
+  };
 
   render() {
     const options = {};

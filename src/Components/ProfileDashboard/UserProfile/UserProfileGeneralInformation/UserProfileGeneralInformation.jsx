@@ -25,13 +25,13 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, is
       content={`Grade: ${get(userProfile, 'grade', NO_GRADE)}`}
       className={infoDataPointClassName}
     />)
-  :
-  (<StaticDevContent>
-    <InformationDataPoint
-      content="Generalist • F2"
-      className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-    />
-  </StaticDevContent>);
+    :
+    (<StaticDevContent>
+      <InformationDataPoint
+        content="Generalist • F2"
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+      />
+    </StaticDevContent>);
   return (
     <div className="current-user-top current-user-section-border current-user-section-container">
       <div className="section-padded-inner-container">

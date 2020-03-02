@@ -10,8 +10,6 @@ import { getScrollDistanceFromBottom } from '../../utilities';
 export class Compare extends Component {
   constructor(props) {
     super(props);
-    this.lsListener = this.lsListener.bind(this);
-    this.scrollListener = this.scrollListener.bind(this);
 
     /* set to 0 for now, but could change to the distance in px from the bottom of the screen
     that you want the drawer to hide at */
@@ -52,14 +50,14 @@ export class Compare extends Component {
     this.props.fetchData(ids);
   }
 
-  lsListener() {
+  lsListener = () => {
     const comparisons = JSON.parse(localStorage.getItem('compare') || []);
     this.setState({ prevComparisons: this.state.comparisons, comparisons }, () => {
       this.getComparisons(this.state.comparisons.toString());
     });
-  }
+  };
 
-  scrollListener() {
+  scrollListener = () => {
     const { isHidden } = this.state;
 
     // eslint-disable-next-line no-unused-expressions
@@ -67,7 +65,7 @@ export class Compare extends Component {
       !isHidden && this.setState({ isHidden: true })
       :
       isHidden && this.setState({ isHidden: false });
-  }
+  };
 
   render() {
     const { isHidden, comparisons: comparisonsState, prevComparisons } = this.state;

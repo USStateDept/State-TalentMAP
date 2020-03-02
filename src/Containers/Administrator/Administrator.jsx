@@ -26,10 +26,6 @@ export const downloadFile = (text) => {
 class AdministratorContainer extends Component {
   constructor(props) {
     super(props);
-    this.onDownloadClick = this.onDownloadClick.bind(this);
-    this.getLogById = this.getLogById.bind(this);
-    this.onDownloadOne = this.onDownloadOne.bind(this);
-    this.runAllJobs = this.runAllJobs.bind(this);
     this.state = {};
   }
 
@@ -54,28 +50,28 @@ class AdministratorContainer extends Component {
     }
   }
 
-  onDownloadClick() {
+  onDownloadClick = () => {
     if (!this.props.isLoading) {
       this.props.getLogs();
     }
-  }
+  };
 
-  onDownloadOne(id) {
+  onDownloadOne = id => {
     if (!this.props.logToDownloadIsLoading) {
       this.props.getLogToDownload(id);
     }
-  }
+  };
 
-  getLogById(id) {
+  getLogById = id => {
     this.props.getLog(id);
-  }
+  };
 
-  runAllJobs() {
+  runAllJobs = () => {
     const { putAllSyncJobs, putAllSyncsIsLoading } = this.props;
     if (!putAllSyncsIsLoading) {
       putAllSyncJobs();
     }
-  }
+  };
 
   render() {
     const {

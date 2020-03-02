@@ -7,34 +7,28 @@ import SearchBar from '../SearchBar/SearchBar';
 class ResultsSearchHeader extends Component {
   constructor(props) {
     super(props);
-    this.onChangeQueryText = this.onChangeQueryText.bind(this);
-    this.submitSearch = this.submitSearch.bind(this);
-    this.onClear = this.onClear.bind(this);
-    this.getValue = this.getValue.bind(this);
     this.state = {
       q: { value: this.props.defaultKeyword || '' },
     };
   }
 
-  onChangeQueryText(e) {
+  onChangeQueryText = e => {
     this.changeText('q', e);
-  }
+  };
 
-  onClear() {
+  onClear = () => {
     this.changeText('q', { target: { value: '' } }, () => this.submitSearch());
-  }
+  };
 
-  getValue() {
-    return this.state.q.value;
-  }
+  getValue = () => this.state.q.value;
 
-  submitSearch(e) {
+  submitSearch = e => {
     // resolves “Form submission canceled because the form is not connected” warning
     if (e && e.preventDefault) { e.preventDefault(); }
     const { q } = this.state;
     // send any updates to q and location back to the Results container, and reset our page number
     this.props.onUpdate({ q: q.value });
-  }
+  };
 
   changeText(type, e, cb = EMPTY_FUNCTION) {
     const { q } = this.state;

@@ -6,12 +6,7 @@ import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import { userHasPermissions, userHasSomePermissions } from '../../utilities';
 
 export class PermissionsWrapper extends Component {
-  constructor(props) {
-    super(props);
-    this.checkPermissions = this.checkPermissions.bind(this);
-  }
-
-  checkPermissions() {
+  checkPermissions = () => {
     const { isLoading, minimum, permissions, userProfile } = this.props;
     const isEmpty = !permissions.length;
     const permissions$ = typeof permissions === 'string' ? [permissions] : permissions;
@@ -27,7 +22,7 @@ export class PermissionsWrapper extends Component {
       return doesUserHavePermissions();
     }
     return false;
-  }
+  };
 
   render() {
     const { children, fallback } = this.props;

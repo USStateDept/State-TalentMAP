@@ -29,8 +29,6 @@ const fuseOptions = {
 class GlossaryComponent extends Component {
   constructor(props) {
     super(props);
-    this.changeText = this.changeText.bind(this);
-    this.handleOutsideClick = this.handleOutsideClick.bind(this);
     this.state = {
       searchText: { value: '' },
     };
@@ -56,18 +54,18 @@ class GlossaryComponent extends Component {
     }
   }
 
-  handleOutsideClick(e) {
+  handleOutsideClick = e => {
     const { toggleVisibility, visible } = this.props;
     if (visible && !document.getElementById(ID).contains(e.target)) {
       toggleVisibility();
     }
-  }
+  };
 
-  changeText(text) {
+  changeText = text => {
     const { searchText } = this.state;
     searchText.value = text;
     this.setState({ searchText });
-  }
+  };
 
   filteredGlossary() {
     const { searchText } = this.state;

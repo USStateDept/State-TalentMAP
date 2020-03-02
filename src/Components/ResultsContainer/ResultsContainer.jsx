@@ -19,24 +19,18 @@ import InteractiveElement from '../InteractiveElement';
 import { toggleMobileFilter } from '../../actions/showMobileFilter';
 
 class ResultsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.onPageChange = this.onPageChange.bind(this);
-    this.onSelectOrdering = this.onSelectOrdering.bind(this);
-  }
-
   shouldComponentUpdate(nextProps) {
     return !isEqual(nextProps, this.props);
   }
 
-  onPageChange(q) {
+  onPageChange = q => {
     this.props.queryParamUpdate(q);
     this.props.scrollToTop();
-  }
+  };
 
-  onSelectOrdering(e) {
+  onSelectOrdering = e => {
     this.props.queryParamUpdate({ ordering: e.target.value });
-  }
+  };
 
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,

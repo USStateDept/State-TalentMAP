@@ -19,7 +19,6 @@ const getUseClientCounts = () => checkFlag('flags.client_counts');
 class BidderPortfolio extends Component {
   constructor(props) {
     super(props);
-    this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -60,7 +59,7 @@ class BidderPortfolio extends Component {
   // For when we need to UPDATE the ENTIRE value of a filter.
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
-  onQueryParamUpdate(q) {
+  onQueryParamUpdate = q => {
     const { query, defaultPageNumber } = this.state;
     this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
     // returns the new query string
@@ -75,7 +74,7 @@ class BidderPortfolio extends Component {
     this.setState({ query, defaultPageNumber }, () => {
       this.getBidderPortfolio();
     });
-  }
+  };
 
   // Form our query and then retrieve bidders.
   getBidderPortfolio() {

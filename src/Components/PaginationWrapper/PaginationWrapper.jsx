@@ -7,15 +7,12 @@ import ReactPaginate from 'react-paginate';
 // wrapper performs reconciliation for react-paginate's zero-based pagination
 
 class PaginationWrapper extends Component {
-  constructor(props) {
-    super(props);
-    this.onPageChange = this.onPageChange.bind(this);
-  }
   // reconciles zero-base
-  onPageChange(e) {
+  onPageChange = e => {
     const selected = e.selected + 1;
     this.props.onPageChange({ page: selected });
-  }
+  };
+
   render() {
     const {
       previousLabel,

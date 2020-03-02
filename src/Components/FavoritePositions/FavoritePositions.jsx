@@ -21,7 +21,6 @@ const TYPE_ALL = 'all';
 class FavoritePositions extends Component {
   constructor(props) {
     super(props);
-    this.export = this.export.bind(this);
     this.state = {
       selected: TYPE_ALL,
       isLoading: false,
@@ -31,15 +30,16 @@ class FavoritePositions extends Component {
     const { favorites, favoritesPV } = this.props;
     const { selected } = this.state;
     switch (selected) {
-    case TYPE_OPEN:
-      return favorites;
-    case TYPE_PV:
-      return favoritesPV;
-    default:
-      return [...favorites, ...favoritesPV];
+      case TYPE_OPEN:
+        return favorites;
+      case TYPE_PV:
+        return favoritesPV;
+      default:
+        return [...favorites, ...favoritesPV];
     }
   }
-  export() {
+
+  export = () => {
     const { selected } = this.state;
     const args = [
       !!(selected === TYPE_PV),
@@ -55,7 +55,8 @@ class FavoritePositions extends Component {
           this.setState({ isLoading: false });
         });
     });
-  }
+  };
+
   render() {
     const { isLoading, selected } = this.state;
     const { favorites, favoritesPV, favoritePositionsIsLoading,
