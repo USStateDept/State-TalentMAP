@@ -493,9 +493,9 @@ describe('formatIdSpacing', () => {
   it('can format undefined values', () => {
     // these will be randomly generated shortids, so we just check that they have length
     // greater than 3
-    expect(formatIdSpacing(undefined).length).toBeGreaterThan(3);
-    expect(formatIdSpacing(null).length).toBeGreaterThan(3);
-    expect(formatIdSpacing(false).length).toBeGreaterThan(3);
+    expect(formatIdSpacing(undefined)).toBeDefined();
+    expect(formatIdSpacing(null)).toBeDefined();
+    expect(formatIdSpacing(false)).toBeDefined();
   });
 });
 
