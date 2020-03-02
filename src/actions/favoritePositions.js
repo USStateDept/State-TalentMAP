@@ -42,6 +42,7 @@ export function favoritePositionsFetchDataSuccess(results) {
 }
 
 export function favoritePositionsFetchData(sortType) {
+// export function favoritePositionsFetchData(limit=10, page=1, sortType) { TODO: backend needed
   const usePV = getUsePV();
   return (dispatch) => {
     dispatch(favoritePositionsIsLoading(true));
@@ -49,6 +50,9 @@ export function favoritePositionsFetchData(sortType) {
     const data$ = { favorites: [], favoritesPV: [] };
     let url = '/available_position/favorites/';
     let urlPV = '/projected_vacancy/favorites/';
+    // let url = '/available_position/favorites/?limit=${limit}&page=${page}'; TODO: backend needed
+    // let urlPV = '/projected_vacancy/favorites/?limit=${limit}&page=${page}'; TODO: backend needed
+
     if (sortType) {
       const append = `?ordering=${sortType}`;
       url += append;

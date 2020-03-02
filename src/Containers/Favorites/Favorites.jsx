@@ -9,12 +9,19 @@ import { POSITION_SEARCH_RESULTS, BID_LIST, EMPTY_FUNCTION } from '../../Constan
 import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import FavoritePositions from '../../Components/FavoritePositions';
 import CompareDrawer from '../../Components/CompareDrawer';
+import { scrollToTop } from '../../utilities';
+
+const PAGE_SIZE = 12;
 
 class FavoritePositionsContainer extends Component {
   constructor(props) {
     super(props);
     this.onToggleFavorite = this.onToggleFavorite.bind(this);
     this.getSortedFavorites = this.getSortedFavorites.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
+    this.state = {
+      page: 1,
+    };
   }
 
   componentWillMount() {
@@ -26,9 +33,18 @@ class FavoritePositionsContainer extends Component {
     this.props.toggleFavorite(id, remove);
   }
 
+  onPageChange({ page }) {
+    this.setState({ page }, () => {
+      scrollToTop({ delay: 0, duration: 400 });
+      this.getFavorites();
+    });
+  }
   getFavorites() {
+    // const { page } = this.state; TODO: backend needed
+    // this.props.fetchData(page);
     this.props.fetchData();
   }
+
 
   getSortedFavorites(type) {
     if (type.target && type.target.value) {
@@ -39,6 +55,9 @@ class FavoritePositionsContainer extends Component {
   render() {
     const { favoritePositions, favoritePositionsIsLoading,
       favoritePositionsHasErrored, bidList } = this.props;
+
+    const { page } = this.state;
+
     return (
       <div>
         <FavoritePositions
@@ -49,6 +68,9 @@ class FavoritePositionsContainer extends Component {
           toggleFavorite={this.onToggleFavorite}
           bidList={bidList.results}
           onSortChange={this.getSortedFavorites}
+          page={page}
+          pageSize={PAGE_SIZE}
+          onPageChange={this.onPageChange}
         />
         <CompareDrawer />
       </div>
@@ -71,7 +93,7 @@ FavoritePositionsContainer.defaultProps = {
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
   bidList: { results: [] },
-  bidListFecthData: EMPTY_FUNCTION,
+  bidListFetchData: EMPTY_FUNCTION,
 };
 
 FavoritePositionsContainer.contextTypes = {
@@ -87,6 +109,8 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   fetchData: sortType => dispatch(favoritePositionsFetchData(sortType)),
+  // eslint-disable-next-line max-len
+  // fetchData: sortType => dispatch(favoritePositionsFetchData(sortType, PAGE_SIZE, page)), TODO: backend needed
   toggleFavorite: (id, remove) =>
     // Since this page references the full Favorites route, pass true to explicitly refresh them
     dispatch(userProfileToggleFavoritePosition(id, remove, true)),

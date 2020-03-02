@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import TotalResults from '../TotalResults';
 import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import SelectForm from '../SelectForm';
 import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from '../../Constants/Sort';
+import PaginationWrapper from '../PaginationWrapper';
 import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
@@ -39,6 +42,14 @@ class FavoritePositions extends Component {
         return [...favorites, ...favoritesPV];
     }
   }
+
+  navSelected(s) {
+    this.setState({ selected: s });
+    // reset page to 1
+    // this.onPageChange(1);
+    // this.props.page = 1;
+  }
+
   export() {
     const { selected } = this.state;
     const args = [
@@ -59,7 +70,8 @@ class FavoritePositions extends Component {
   render() {
     const { isLoading, selected } = this.state;
     const { favorites, favoritesPV, favoritePositionsIsLoading,
-    favoritePositionsHasErrored, bidList, onSortChange } = this.props;
+    favoritePositionsHasErrored, bidList, onSortChange, page,
+      pageSize, onPageChange } = this.props;
     const positions = this.getPositions();
     let options = [{ title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length }];
     if (getUsePV()) {
@@ -74,6 +86,13 @@ class FavoritePositions extends Component {
       selectOptions$ = filterPVSorts(selectOptions$);
     }
     selectOptions$ = selectOptions$.options;
+
+    const paginationTotal = {
+      all: favorites.length + favoritesPV.length,
+      open: favorites.length,
+      pv: favoritesPV.length,
+    };
+
     return (
       <div className={`usa-grid-full favorite-positions-container profile-content-inner-container ${favoritePositionsIsLoading ? 'results-loading' : ''}`}>
         <div className="usa-grid-full favorites-top-section">
@@ -83,7 +102,7 @@ class FavoritePositions extends Component {
         </div>
         <Nav
           options={options}
-          onClick={s => this.setState({ selected: s })}
+          onClick={s => this.navSelected(s)}
           selected={this.state.selected}
           denominator={favorites.length + favoritesPV.length}
         />
@@ -109,6 +128,13 @@ class FavoritePositions extends Component {
           !favoritePositionsIsLoading && !favorites.length && !favoritesPV.length &&
             <NoFavorites />
         }
+        <div className="usa-grid-full total-results">
+          <TotalResults
+            total={paginationTotal[selected]}
+            pageNumber={page}
+            pageSize={pageSize}
+          />
+        </div>
         <HomePagePositionsList
           positions={positions}
           favorites={favorites}
@@ -121,6 +147,14 @@ class FavoritePositions extends Component {
           useShortFavButton
           showCompareButton
         />
+        <div className="usa-grid-full react-paginate">
+          <PaginationWrapper
+            pageSize={pageSize}
+            forcePage={page}
+            onPageChange={onPageChange}
+            totalResults={paginationTotal[selected]}
+          />
+        </div>
       </div>
     );
   }
@@ -133,11 +167,17 @@ FavoritePositions.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool.isRequired,
   bidList: BID_RESULTS.isRequired,
   onSortChange: PropTypes.func.isRequired,
+  page: PropTypes.number,
+  pageSize: PropTypes.number,
+  onPageChange: PropTypes.func,
 };
 
 FavoritePositions.defaultProps = {
   favorites: [],
   favoritesPV: [],
+  page: 1,
+  pageSize: 12,
+  onPageChange: EMPTY_FUNCTION,
 };
 
 export default FavoritePositions;
