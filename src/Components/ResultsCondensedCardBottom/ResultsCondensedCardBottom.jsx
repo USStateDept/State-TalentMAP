@@ -94,7 +94,7 @@ ResultsCondensedCardBottom.contextTypes = {
 };
 
 ResultsCondensedCardBottom.propTypes = {
-  position: POSITION_DETAILS.isRequired,
+  position: PropTypes.oneOf([POSITION_DETAILS, { position: POSITION_DETAILS }]).isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   favoritesPV: FAVORITE_POSITIONS_ARRAY.isRequired,
   refreshFavorites: PropTypes.bool,
