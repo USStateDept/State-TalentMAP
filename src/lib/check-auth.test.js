@@ -1,5 +1,5 @@
 import createSagaMiddleware from 'redux-saga';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -11,7 +11,7 @@ describe('check-auth', () => {
   beforeEach(() => {
     const sagaMiddleware = createSagaMiddleware();
 
-    const history = createHistory();
+    const history = createBrowserHistory();
 
     const middleware = routerMiddleware(history);
 

@@ -2,7 +2,7 @@ import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import { Header, mapDispatchToProps } from './Header';
 
@@ -12,7 +12,7 @@ describe('Header', () => {
     successful: true,
   };
 
-  const history = createHistory();
+  const history = createBrowserHistory();
   const location = { pathname: '/results' };
 
   const client = {
