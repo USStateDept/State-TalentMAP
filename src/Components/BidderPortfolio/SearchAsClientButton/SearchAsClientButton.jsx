@@ -10,6 +10,7 @@ import { lookupAndSetCDO } from 'actions/bidderPortfolio';
 import { setClient } from 'actions/clientView';
 import { fetchClientSuggestions } from 'actions/clientSuggestions';
 import { scrollTo } from 'utilities';
+import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { CONTAINER_ID as ID } from '../../ClientHeader';
 
 export const genSearchParams = (user) => {
@@ -128,7 +129,7 @@ SearchAsClientButton.propTypes = {
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   set: PropTypes.func.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
   fetchSuggestions: PropTypes.func.isRequired,
   recId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   suggestions: PropTypes.shape({}),

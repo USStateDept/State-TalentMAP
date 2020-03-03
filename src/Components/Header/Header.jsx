@@ -6,12 +6,12 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { Flag } from 'flag';
 import FA from 'react-fontawesome';
+import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT, HISTORY_OBJECT } from 'Constants/PropTypes';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
 import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
-import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
@@ -176,7 +176,7 @@ Header.propTypes = {
   location: ROUTER_LOCATION_OBJECT.isRequired,
   toggleSearchBarVisibility: PropTypes.func.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
-  history: PropTypes.shape({ listen: PropTypes.func }).isRequired,
+  history: HISTORY_OBJECT.isRequired,
   searchbarFilters: PropTypes.shape({}),
   setSearchFilters: PropTypes.func.isRequired,
 };

@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { BIDDER_OBJECT } from '../../Constants/PropTypes';
+import { BIDDER_OBJECT, HISTORY_OBJECT } from 'Constants/PropTypes';
 import { unsetClient } from '../../actions/clientView';
 import { isCurrentPath } from '../ProfileMenu/navigation';
 import {
@@ -123,10 +123,7 @@ ClientHeader.propTypes = {
   unset: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-    listen: PropTypes.func,
-  }).isRequired,
+  history: HISTORY_OBJECT.isRequired,
   bidderPortfolioSelectedCDO: PropTypes.shape({}),
   style: PropTypes.shape({}),
 };

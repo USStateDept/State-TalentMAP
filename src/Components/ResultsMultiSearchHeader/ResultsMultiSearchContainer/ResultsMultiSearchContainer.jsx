@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { setSelectedSearchbarFilters } from '../../../actions/selectedSearchbarFilters';
-import { FILTERS_PARENT, USER_PROFILE, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { FILTERS_PARENT, USER_PROFILE, EMPTY_FUNCTION, HISTORY_OBJECT } from '../../../Constants/PropTypes';
 import { filtersFetchData } from '../../../actions/filters/filters';
 import ResultsMultiSearchHeader from '../ResultsMultiSearchHeader';
 import bypassRoutes from '../bypassRoutes';
@@ -96,7 +96,7 @@ ResultsMultiSearchHeaderContainer.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   setSearchFilters: PropTypes.func.isRequired,
   searchbarFilters: PropTypes.shape({}),
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
 };
 
 ResultsMultiSearchHeaderContainer.defaultProps = {
