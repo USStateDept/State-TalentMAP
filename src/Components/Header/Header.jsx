@@ -176,7 +176,7 @@ Header.propTypes = {
   location: ROUTER_LOCATION_OBJECT.isRequired,
   toggleSearchBarVisibility: PropTypes.func.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({ listen: PropTypes.func }).isRequired,
   searchbarFilters: PropTypes.shape({}),
   setSearchFilters: PropTypes.func.isRequired,
 };

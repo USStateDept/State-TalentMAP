@@ -135,7 +135,7 @@ AdministratorContainer.propTypes = {
   patchSyncHasErrored: PropTypes.bool,
   getUsers: PropTypes.func,
   getTableStats: PropTypes.func,
-  totalUsers: PropTypes.shape({}),
+  totalUsers: PropTypes.shape({ count: PropTypes.number }),
 };
 
 AdministratorContainer.defaultProps = {

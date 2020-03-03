@@ -60,7 +60,10 @@ class PageMetaContainer extends Component {
 }
 
 PageMetaContainer.propTypes = {
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    listen: PropTypes.func,
+    location: PropTypes.object,
+  }).isRequired,
 };
 
 export default withRouter(PageMetaContainer);

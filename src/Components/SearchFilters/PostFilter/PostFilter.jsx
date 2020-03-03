@@ -202,7 +202,7 @@ PostFilter.propTypes = {
   item: FILTER_ITEM.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
   queryProperty: PropTypes.string,
-  autoSuggestProps: PropTypes.shape({}).isRequired,
+  autoSuggestProps: PropTypes.shape({ placeholder: PropTypes.string }).isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   // these props are used by function param, so ignore lines:
   overseasIsSelected: PropTypes.bool, // eslint-disable-line

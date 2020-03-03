@@ -123,7 +123,10 @@ ClientHeader.propTypes = {
   unset: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+    listen: PropTypes.func,
+  }).isRequired,
   bidderPortfolioSelectedCDO: PropTypes.shape({}),
   style: PropTypes.shape({}),
 };

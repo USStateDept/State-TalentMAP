@@ -117,10 +117,10 @@ export class SearchAsClientButton extends Component {
 }
 
 SearchAsClientButton.propTypes = {
-  user: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({ perdet_seq_number: PropTypes.number }).isRequired,
   buttonProps: PropTypes.shape({}),
   className: PropTypes.string,
-  client: PropTypes.shape({}),
+  client: PropTypes.shape({ perdet_seq_number: PropTypes.number }),
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   set: PropTypes.func.isRequired,

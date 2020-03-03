@@ -47,7 +47,7 @@ Notifications.propTypes = {
   notificationsCount: PropTypes.number.isRequired,
   fetchNotificationsCount: PropTypes.func.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({ listen: PropTypes.func }).isRequired,
 };
 
 Notifications.defaultProps = {

@@ -12,7 +12,10 @@ const Success = ({ pos, client, hideLink }) => (
 
 Success.propTypes = {
   pos: POSITION_DETAILS.isRequired,
-  client: PropTypes.shape({}),
+  client: PropTypes.shape({
+    perdet_seq_number: PropTypes.number,
+    name: PropTypes.string,
+  }),
   hideLink: PropTypes.bool,
 };
 
