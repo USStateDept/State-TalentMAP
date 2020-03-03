@@ -25,6 +25,7 @@ class FavoritePositions extends Component {
   constructor(props) {
     super(props);
     this.export = this.export.bind(this);
+    this.navSelected = this.navSelected.bind(this);
     this.state = {
       selected: TYPE_ALL,
       isLoading: false,
@@ -101,7 +102,7 @@ class FavoritePositions extends Component {
         </div>
         <Nav
           options={options}
-          onClick={s => this.navSelected(s)}
+          onClick={this.navSelected}
           selected={this.state.selected}
           denominator={favorites.length + favoritesPV.length}
         />
