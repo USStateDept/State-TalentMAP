@@ -252,7 +252,7 @@ export const shortenString = (string, shortenTo = 250, suffix = '...') => {
 export const existsInArray = (ref, array) => {
   let found = false;
   array.forEach((i) => {
-    if (i.id === ref) {
+    if (get(i, 'id') && ref && `${i.id}` === `${ref}`) {
       found = true;
     }
   });

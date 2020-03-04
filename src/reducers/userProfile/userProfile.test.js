@@ -9,8 +9,11 @@ describe('reducers', () => {
     expect(reducers.userProfileIsLoading(false, { type: 'USER_PROFILE_IS_LOADING', isLoading: true })).toBe(true);
   });
 
-  it('can set reducer USER_PROFILE_FETCH_DATA_SUCCESS', () => {
-    expect(reducers.userProfile({}, { type: 'USER_PROFILE_FETCH_DATA_SUCCESS', userProfile: true })).toBe(true);
+  it('can spread new props on the reducer USER_PROFILE_FETCH_DATA_SUCCESS', () => {
+    const original = { a: 1, b: 2 };
+    const updated = { a: 'one', c: 'two' };
+    const expected = { ...original, ...updated };
+    expect(reducers.userProfile(original, { type: 'USER_PROFILE_FETCH_DATA_SUCCESS', userProfile: updated })).toEqual(expected);
   });
 
   it('can set reducer USER_PROFILE_FAVORITE_POSITION_HAS_ERRORED', () => {
