@@ -24,7 +24,7 @@
     "flat": "^4.1.0",
     "font-awesome": "^4.7.0",
     "fuse.js": "^3.4.6",
-    "helmet": "^3.21.2",
+    "helmet": "^3.21.3",
     "history": "^4.7.2",
     "imagediff": "^1.0.8",
     "immutable": "^3.8.2",
@@ -149,7 +149,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom --no-cache --coverage --runInBand",
+    "test": "node scripts/test.js --env=jsdom --no-cache --coverage --maxWorkers=3",
     "test:local": "node scripts/test.js --env=jsdom --cache --coverage -u",
     "server": "yarn run build && node src/server.js",
     "analyze": "codeclimate analyze -f html > codeclimate.html",

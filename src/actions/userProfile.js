@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { get, indexOf } from 'lodash';
+import { get, indexOf, omit } from 'lodash';
 import Q from 'q';
 import imagediff from 'imagediff';
 import { loadImg } from 'utilities';
@@ -7,9 +7,6 @@ import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
 import { toastSuccess, toastError } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
-import { checkFlag } from '../flags';
-
-const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 export function userProfileHasErrored(bool) {
   return {
@@ -56,7 +53,6 @@ export function unsetUserProfile() {
 
 // include an optional bypass for when we want to silently update the profile
 export function userProfileFetchData(bypass, cb) {
-  const usePV = getUsePV();
   return (dispatch) => {
     if (!bypass) {
       dispatch(userProfileIsLoading(true));
@@ -71,15 +67,15 @@ export function userProfileFetchData(bypass, cb) {
     // permissions
     const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
-    const getAPFavorites = () => api().get('/available_position/favorites/?limit=500');
+    const getAPFavorites = () => api().get('/available_position/favorites/ids/');
 
     // PV favorites
-    const getPVFavorites = () => api().get('/projected_vacancy/favorites/');
+    const getPVFavorites = () => api().get('/projected_vacancy/favorites/ids/');
 
-    const promises = [getUserAccount(), getUserPermissions(), getAPFavorites()];
+    const promises = [getUserPermissions(), getAPFavorites(), getPVFavorites()];
 
-    if (usePV) {
-      promises.push(getPVFavorites());
+    if (!bypass) {
+      promises.push(getUserAccount());
     }
 
     // use api' Promise.all to fetch the profile and permissions, and then combine them
@@ -87,12 +83,11 @@ export function userProfileFetchData(bypass, cb) {
     Q.allSettled(promises)
       .then((results) => {
         // form the userProfile object
-        const account = get(results, '[0].value.data', {});
-        const permissions = get(results, '[1].value.data', {});
-        const apFavorites = get(results[2], 'value.data.results', []).map(m => ({ id: m.id }));
-        const pvFavorites = get(results[3], 'value.data.results', []).map(m => ({ id: m.id }));
-        const newProfileObject = {
-          ...account,
+        const permissions = get(results, '[0].value.data', {});
+        const apFavorites = get(results, '[1].value.data', []).map(id => ({ id }));
+        const pvFavorites = get(results, '[2].value.data', []).map(id => ({ id }));
+        const account = get(results, '[3].value.data', {});
+        let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
           permissions: permissions.permissions,
@@ -100,6 +95,13 @@ export function userProfileFetchData(bypass, cb) {
           favorite_positions: apFavorites,
           cdo: account.cdo_info, // don't use deprecated CDO API model
         };
+
+        if (!bypass) {
+          newProfileObject = {
+            ...account,
+            ...newProfileObject,
+          };
+        }
 
         // function to success perform dispatches
         const dispatchSuccess = () => {
@@ -120,7 +122,11 @@ export function userProfileFetchData(bypass, cb) {
         // is the same as the default, then return an empty object so that
         // it doesn't get displayed.
         const compare = get(newProfileObject, 'avatar.compare', []);
-        if (compare.length) {
+
+        if (bypass) { // use existing avatar and let reducer use it
+          newProfileObject = omit(newProfileObject, ['avatar']);
+          dispatchSuccess();
+        } else if (compare.length) {
           const proms = compare.map(path => (
             new Promise((resolve, reject) => {
               loadImg(path, (img) => {

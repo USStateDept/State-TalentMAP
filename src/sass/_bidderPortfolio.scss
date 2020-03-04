@@ -106,6 +106,12 @@
       }
     }
 
+    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+      > div:nth-child(3) {
+        flex: 8 0 50%;
+      }
+    }
+
     // Disable to override the >div:nth-child() styles
     // scss-lint:disable MergeableSelector
     // scss-lint:disable QualifyingElement
@@ -148,6 +154,7 @@
 
     .client-badge-container {
       margin-right: 1em;
+      min-width: 30px; //Fixes ie11 issues
     }
   }
 
@@ -293,7 +300,6 @@
 .client-badge-list {
   display: flex;
   margin: 0;
-
 }
 
 .client-badge-container {
