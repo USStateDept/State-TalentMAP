@@ -158,6 +158,7 @@
     "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json",
     "bundlesize": "bundlesize"
   },
+  "engines" : { "node" : ">=12" },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
