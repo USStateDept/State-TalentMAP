@@ -2,6 +2,7 @@ import { stringify } from 'query-string';
 import { find, get, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
+import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
 import api from '../api';
 
 let cancelCDOs;
@@ -205,6 +206,9 @@ export function bidderPortfolioFetchData(query = {}) {
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
+    }
+    if (!query$.ordering) {
+      query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
     }
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
