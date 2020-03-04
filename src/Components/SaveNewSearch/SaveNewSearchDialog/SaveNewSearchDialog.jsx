@@ -21,7 +21,7 @@ export class SaveNewSearchDialog extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // close after successful save
     if (this.props.isLoading && !nextProps.isLoading && !nextProps.hasErrored) {
       this.onCancel();

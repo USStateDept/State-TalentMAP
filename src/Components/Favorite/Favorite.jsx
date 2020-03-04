@@ -50,7 +50,7 @@ class Favorite extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.state.loading && !nextProps.isLoading) {
       // Only update the loading state if current state.loading
       // and prop change detected is turning it off

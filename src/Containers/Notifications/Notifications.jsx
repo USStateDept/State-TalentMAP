@@ -18,12 +18,12 @@ class NotificationsContainer extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { useCached } = this.props;
     if (!useCached) { this.getNotifications(); }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { hasCalled } = this.state;
     const { useCached, isLoading } = nextProps;
     // force at least one call, then rely on external refreshes of notifications

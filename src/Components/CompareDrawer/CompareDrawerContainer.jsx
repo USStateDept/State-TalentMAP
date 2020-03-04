@@ -22,7 +22,7 @@ export class Compare extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // initialize with any existing comparison choices
     const ls = localStorage.getItem('compare') || '[]';
     const initialArr = JSON.parse(ls);

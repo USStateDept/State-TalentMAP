@@ -20,7 +20,7 @@ export class Compare extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {

@@ -16,7 +16,7 @@ class NavLink extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.shouldExpandIfChildActive();
   }
 

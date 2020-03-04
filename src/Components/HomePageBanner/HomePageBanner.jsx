@@ -21,7 +21,7 @@ class HomePageBanner extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchCount();
   }
 

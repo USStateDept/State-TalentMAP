@@ -16,7 +16,7 @@ class HomePageFiltersContainer extends Component {
   }
 
   // Set all available filter arrays on mount
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { filterValues } = this.state;
     filterValues[ENDPOINT_PARAMS.skill] = [];
   }

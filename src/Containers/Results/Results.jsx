@@ -47,7 +47,7 @@ class Results extends Component {
     this.debounced = debounce(() => {});
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { isAuthorized, onNavigateTo } = this.props;
     // store default search
     this.storeSearch();
@@ -60,7 +60,7 @@ class Results extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.filtersIsLoading === false) {
       this.setState({ filtersIsLoading: false });
     }
@@ -303,6 +303,8 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
+  // Used via nextProps
+  // eslint-disable-next-line react/no-unused-prop-types
   filtersIsLoading: PropTypes.bool,
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,

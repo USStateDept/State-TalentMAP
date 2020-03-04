@@ -41,7 +41,7 @@ export class SearchAsClientButton extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { clicked } = this.state;
     const { client, isLoading, hasErrored, history,
       user, useRecommended } = nextProps;

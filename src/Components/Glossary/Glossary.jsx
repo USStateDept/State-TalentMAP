@@ -35,7 +35,7 @@ class GlossaryComponent extends Component {
     this.fuse = new Fuse([], fuseOptions);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // The listener only needs to exist if the Glossary is visible.
     if (nextProps.visible) {
       /* This needs to be in a timeout, otherwise the glossary will immediately

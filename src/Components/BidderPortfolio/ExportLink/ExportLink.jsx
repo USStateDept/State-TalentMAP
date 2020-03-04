@@ -38,7 +38,7 @@ export class ExportLink extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoading) {
       this.setState({ isLoading: false });
     }
@@ -94,6 +94,8 @@ export class ExportLink extends Component {
 
 ExportLink.propTypes = {
   filename: PropTypes.string,
+  // Used via nextProps
+  // eslint-disable-next-line react/no-unused-prop-types
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   data: PropTypes.shape({ results: PropTypes.arrayOf(PropTypes.shape({})) }),

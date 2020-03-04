@@ -21,7 +21,7 @@ class ResultsMultiSearchHeaderContainer extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchFilters, filters, history } = this.props;
 
     // We have a nested Saved Search container that fetches all of the data that this one needs.

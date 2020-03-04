@@ -80,7 +80,7 @@ describe('SkillFilterComponent', () => {
       />,
     );
     const spy = sinon.spy(wrapper.instance(), 'setParentCheckboxes');
-    wrapper.instance().componentWillReceiveProps(props);
+    wrapper.instance().UNSAFE_componentWillReceiveProps(props);
     sinon.assert.calledOnce(spy);
   });
 

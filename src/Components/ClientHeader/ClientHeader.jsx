@@ -30,7 +30,7 @@ export class ClientHeader extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.checkPath();
   }
 

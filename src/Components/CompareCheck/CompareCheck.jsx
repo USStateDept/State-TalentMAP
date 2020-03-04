@@ -17,7 +17,7 @@ class CompareCheck extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const localStorageKey = this.props.type;
     this.setState({ localStorageKey });
 

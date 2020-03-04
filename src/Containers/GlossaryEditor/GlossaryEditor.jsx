@@ -6,7 +6,7 @@ import { EMPTY_FUNCTION, GLOSSARY_LIST, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_
 import GlossaryEditor from '../../Components/GlossaryEditor';
 
 class GlossaryEditorContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchGlossary } = this.props;
     fetchGlossary();
   }

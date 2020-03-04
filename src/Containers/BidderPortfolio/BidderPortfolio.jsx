@@ -31,7 +31,7 @@ class BidderPortfolio extends Component {
   }
 
   // Fetch bidder list and bidder statistics.
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (get(this.props, 'cdos', []).length) {
       this.getBidderPortfolio();
       if (getUseClientCounts()) {
@@ -42,7 +42,7 @@ class BidderPortfolio extends Component {
     this.props.fetchClassifications();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const props = ['cdos', 'selectedSeasons'];
     if (!isEqual(pick(this.props, props), pick(nextProps, props))) {
       this.setState({

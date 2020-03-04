@@ -11,7 +11,7 @@ import FavoritePositions from '../../Components/FavoritePositions';
 import CompareDrawer from '../../Components/CompareDrawer';
 
 class FavoritePositionsContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getFavorites();
     this.props.bidListFetchData();
   }

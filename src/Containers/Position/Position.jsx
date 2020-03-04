@@ -31,7 +31,7 @@ import {
 } from '../../Constants/PropTypes';
 
 class Position extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { isArchived, isProjectedVacancy } = this.props;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);

@@ -7,7 +7,7 @@ import { EMPTY_FUNCTION, GLOSSARY_LIST } from '../../Constants/PropTypes';
 import Glossary from '../../Components/Glossary';
 
 class GlossaryContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchGlossary();
   }
 

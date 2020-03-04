@@ -14,7 +14,7 @@ import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import BidTracker from '../../Components/BidTracker';
 
 class BidTrackerContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { isPublic, match: { params: { id } } } = this.props;
     if (isPublic) {
       this.getPublicBidList(id);

@@ -13,7 +13,7 @@ class AccordionItem extends Component {
   }
 
   // Update the value of expanded, only if the prop value changed and the new value is not undefined
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isUndefined(nextProps.expanded) && !(isEqual(nextProps.expanded, this.props.expanded))) {
       this.setState({ expanded: nextProps.expanded });
     }

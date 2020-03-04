@@ -23,12 +23,13 @@ const setMode = (value) => {
 };
 
 class DarkMode extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { isDarkMode } = this.props;
     setMode(isDarkMode);
   }
 
-  componentWillReceiveProps(nextProps) {
+  // eslint-disable-next-line class-methods-use-this
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { isDarkMode } = nextProps;
     setMode(isDarkMode);
   }

@@ -16,11 +16,11 @@ class PostFilter extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setSelectedStates();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setSelectedStates(nextProps);
   }
 

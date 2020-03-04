@@ -5,7 +5,7 @@ import Toggle from '../../Toggle';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 class ProjectedVacancyFilter extends Component {
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const item = nextProps.items.find(f => f.isSelected);
     if (item && item.code && this.toggleRef) {
       this.toggleRef.updateVal(item.code);

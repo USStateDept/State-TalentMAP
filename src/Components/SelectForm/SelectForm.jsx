@@ -10,7 +10,7 @@ class SelectForm extends Component {
     };
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setDefaultValue(props);
   }
 

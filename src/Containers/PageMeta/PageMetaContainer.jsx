@@ -14,7 +14,7 @@ class PageMetaContainer extends Component {
     this.state = { pageTitle: null };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getPageTitle();
   }
 

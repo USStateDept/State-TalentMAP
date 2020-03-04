@@ -7,11 +7,11 @@ import CheckBox from '../../CheckBox';
 import { getItemLabel, formatIdSpacing } from '../../../utilities';
 
 class LanguageFilter extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setParentCheckboxes();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setParentCheckboxes(nextProps);
   }
 

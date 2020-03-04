@@ -7,7 +7,7 @@ import { notificationsCountFetchData, notificationsFetchData } from '../../../ac
 import IconAlert from '../../IconAlert';
 
 class Notifications extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchNotificationsCount, history } = this.props;
 
     // If the user is on the login page, don't try to pull notifications.
@@ -25,7 +25,7 @@ class Notifications extends Component {
       }
     });
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.notificationsCount !== this.props.notificationsCount) {
       // only fetch notifications if the count has changed
       this.props.fetchNotifications();

@@ -29,14 +29,14 @@ class AdministratorContainer extends Component {
     this.state = {};
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.getLogsList();
     this.props.getUsers();
     this.props.getTableStats();
     this.props.getSyncJobs();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.logsIsLoading && !nextProps.logsIsLoading && nextProps.logs) {
       downloadFile(nextProps.log);
     }

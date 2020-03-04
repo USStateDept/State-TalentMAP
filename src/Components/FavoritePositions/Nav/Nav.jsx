@@ -11,7 +11,7 @@ class Nav extends Component {
       selected: props.selected || get(props, 'options[0].title'),
     };
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.selected !== this.state.selected) {
       this.setState({ selected: nextProps.selected });
     }

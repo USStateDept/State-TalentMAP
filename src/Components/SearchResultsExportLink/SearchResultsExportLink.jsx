@@ -14,7 +14,7 @@ class SearchResultsExportLink extends Component {
     };
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     const query = window.location.search.replace('?', '') || '';
     if (this.state.query.value !== query) {
       this.setState({ query: { value: query } });

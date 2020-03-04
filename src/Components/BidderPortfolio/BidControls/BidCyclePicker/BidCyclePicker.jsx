@@ -32,7 +32,7 @@ class BidCyclePicker extends Component {
       { trailing: false, leading: true },
     );
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // Only perform once in the session since this will rarely change.
     if (!this.props.seasons.length) {
       this.props.fetchSeasons();

@@ -13,7 +13,7 @@ import { formQueryString } from '../../utilities';
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
 // that use this container.
 class SavedSearchesContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getSavedSearches();
   }
 

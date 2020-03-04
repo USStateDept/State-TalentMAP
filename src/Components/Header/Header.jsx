@@ -26,7 +26,7 @@ const logo = getAssetPath('/assets/logos/png/horizontal_white_thin-sm.png');
 const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white-sm.png');
 
 export class Header extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.isAuthorized()) {
       this.props.fetchData();
     }

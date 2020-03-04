@@ -22,7 +22,7 @@ class LogsPage extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.log, this.props.log)) {
       setTimeout(() => {
         const objDiv = document.getElementById(LOG_CONTAINER);

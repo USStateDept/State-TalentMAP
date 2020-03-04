@@ -6,7 +6,7 @@ import About from '../../Components/About';
 import { aboutContentFetchData, aboutContentPatchData } from '../../actions/aboutContent';
 
 class AboutContainer extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getData();
   }
 

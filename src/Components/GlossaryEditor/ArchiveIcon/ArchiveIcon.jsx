@@ -11,7 +11,7 @@ class ArchiveIcon extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProp) {
+  UNSAFE_componentWillReceiveProps(nextProp) {
     // Reset the isArchived state to the object's value if
     // hasErrored becomes true after the initial mount.
     if (nextProp.hasErrored) {
