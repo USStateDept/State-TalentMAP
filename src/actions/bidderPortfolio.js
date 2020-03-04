@@ -206,6 +206,9 @@ export function bidderPortfolioFetchData(query = {}) {
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
     }
+    if (!query$.ordering) {
+      query$.ordering = 'client_last_name';
+    }
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
