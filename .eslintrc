@@ -15,7 +15,8 @@
     "localStorage": true,
     "sessionStorage": true,
     "Blob": true,
-    "Image": true
+    "Image": true,
+    "System": true
   },
   "parser": "babel-eslint",
   "parserOptions": {
