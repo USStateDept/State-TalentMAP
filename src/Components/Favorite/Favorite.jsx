@@ -201,7 +201,7 @@ Favorite.propTypes = {
   useButtonClassSecondary: PropTypes.bool,
   useSpinnerWhite: PropTypes.bool,
   refresh: PropTypes.bool.isRequired,
-  hasErrored: PropTypes.bool.isRequired,
+  hasErrored: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -216,6 +216,7 @@ Favorite.defaultProps = {
   useButtonClassSecondary: false,
   useSpinnerWhite: false,
   refresh: false,
+  hasErrored: false,
 };
 
 export default Favorite;

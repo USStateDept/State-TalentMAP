@@ -144,7 +144,7 @@ BidTrackerContainer.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
   match: PropTypes.shape({
-    params: PropTypes.shape({ id: PropTypes.oneOf([PropTypes.string, PropTypes.number]) }),
+    params: PropTypes.shape({ id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]) }),
   }),
   userProfilePublic: USER_PROFILE,
   userProfilePublicIsLoading: PropTypes.bool,

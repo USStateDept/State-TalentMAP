@@ -12,7 +12,7 @@ SuggestionChoicePost.propTypes = {
   suggestion: PropTypes.shape({
     location: PropTypes.shape({}),
     hasDuplicateDescription: PropTypes.bool,
-    code: PropTypes.number,
+    code: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }).isRequired,
 };
 
