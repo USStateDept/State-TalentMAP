@@ -244,8 +244,8 @@ export function bidderPortfolioFetchData(query = {}) {
         .catch((m) => {
           if (get(m, 'message') === 'cancel') {
             batch(() => {
-              dispatch(bidderPortfolioIsLoading(true));
               dispatch(bidderPortfolioHasErrored(false));
+              dispatch(bidderPortfolioIsLoading(true));
             });
           } else {
             batch(() => {
@@ -254,8 +254,6 @@ export function bidderPortfolioFetchData(query = {}) {
             });
           }
         });
-    } else {
-      dispatch(bidderPortfolioIsLoading(false));
     }
   };
 }

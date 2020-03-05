@@ -125,7 +125,7 @@ class BidderPortfolio extends Component {
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { defaultPageSize, defaultPageNumber, hasHandshake, ordering } = this.state;
-    const isLoading = bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading;
+    const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading) && cdos.length;
     return (
       <BidderPortfolioPage
         bidderPortfolio={bidderPortfolio}
