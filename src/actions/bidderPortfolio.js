@@ -228,8 +228,8 @@ export function bidderPortfolioFetchData(query = {}) {
         })
         .catch((m) => {
           if (get(m, 'message') === 'cancel') {
-            dispatch(bidderPortfolioIsLoading(true));
             dispatch(bidderPortfolioHasErrored(false));
+            dispatch(bidderPortfolioIsLoading(false));
           } else {
             dispatch(bidderPortfolioHasErrored(true));
             dispatch(bidderPortfolioIsLoading(false));
