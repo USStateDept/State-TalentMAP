@@ -20,14 +20,6 @@ describe('ResultsListComponent', () => {
     expect(results).toBeDefined();
   });
 
-  it('can receive props', () => {
-    wrapper = shallow(<ResultsList
-      results={resultsObject}
-      bidList={[]}
-    />);
-    expect(wrapper.instance().props.results.results[0].position.id).toBe(6);
-  });
-
   it('handles an empty result set', () => {
     wrapper = shallow(<ResultsList
       results={{}}

@@ -31,12 +31,11 @@ class BidTracker extends Component {
     this.state = {
       sortValue: find(SORT_OPTIONS, f => f.defaultSort).value,
     };
-    this.onSelectOption = this.onSelectOption.bind(this);
   }
 
-  onSelectOption(e) {
+  onSelectOption = e => {
     this.setState({ sortValue: get(e, 'target.value') });
-  }
+  };
 
   getSortedBids() {
     const { sortValue } = this.state;
@@ -62,16 +61,16 @@ class BidTracker extends Component {
   render() {
     const { sortValue } = this.state;
     const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
-    notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
-    userProfileIsLoading, isPublic, useCDOView } = this.props;
+      notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
+      userProfileIsLoading, isPublic, useCDOView } = this.props;
     const isLoading = bidListIsLoading || userProfileIsLoading;
     const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
       `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
 
     const emptyBidListText = isPublic ?
-    'This user does not have any bids in their bid list.'
-    :
-    'You do not have any bids in your bid list.';
+      'This user does not have any bids in their bid list.'
+      :
+      'You do not have any bids in your bid list.';
 
     const cdoEmail = get(userProfile, 'cdo.email');
 

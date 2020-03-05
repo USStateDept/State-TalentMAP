@@ -36,7 +36,7 @@ const defaultProps = {
 };
 
 const Avatar = ({ initials, firstName, lastName, className, small, onClick, fallback,
-externalSource, externalSourceToUse }) => {
+  externalSource, externalSourceToUse }) => {
   const avatar = <span>{initials || fallback}</span>;
   /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
   /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -55,8 +55,8 @@ externalSource, externalSourceToUse }) => {
             alt="avatar"
             style={style}
           />
-        :
-        avatar
+          :
+          avatar
       }
     </div>
     /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */

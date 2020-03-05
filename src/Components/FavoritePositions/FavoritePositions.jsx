@@ -21,7 +21,6 @@ const TYPE_ALL = 'all';
 class FavoritePositions extends Component {
   constructor(props) {
     super(props);
-    this.export = this.export.bind(this);
     this.state = {
       selected: TYPE_ALL,
       isLoading: false,
@@ -39,7 +38,8 @@ class FavoritePositions extends Component {
         return [...favorites, ...favoritesPV];
     }
   }
-  export() {
+
+  export = () => {
     const { selected } = this.state;
     const args = [
       !!(selected === TYPE_PV),
@@ -48,18 +48,19 @@ class FavoritePositions extends Component {
 
     this.setState({ isLoading: true }, () => {
       downloadPositionData(...args)
-      .then(() => {
-        this.setState({ isLoading: false });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
-      });
+        .then(() => {
+          this.setState({ isLoading: false });
+        })
+        .catch(() => {
+          this.setState({ isLoading: false });
+        });
     });
-  }
+  };
+
   render() {
     const { isLoading, selected } = this.state;
     const { favorites, favoritesPV, favoritePositionsIsLoading,
-    favoritePositionsHasErrored, bidList, onSortChange } = this.props;
+      favoritePositionsHasErrored, bidList, onSortChange } = this.props;
     const positions = this.getPositions();
     let options = [{ title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length }];
     if (getUsePV()) {

@@ -11,16 +11,11 @@ import {
 } from '../../../Constants/PropTypes';
 
 export default class ServiceNeededToggle extends Component {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick() {
+  onClick = () => {
     const { position, onChange } = this.props;
     const id = position.id;
     onChange(id, !this.checked);
-  }
+  };
 
   get checked() {
     const { position } = this.props;

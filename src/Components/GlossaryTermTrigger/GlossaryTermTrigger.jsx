@@ -7,16 +7,11 @@ import { toggleGlossary } from '../../actions/showGlossary';
 import InteractiveElement from '../InteractiveElement';
 
 class GlossaryTermTrigger extends Component {
-  constructor(props) {
-    super(props);
-    this.onClickLink = this.onClickLink.bind(this);
-  }
-
-  onClickLink() {
+  onClickLink = () => {
     const { term, toggle } = this.props;
     toggle();
     scrollToGlossaryTerm(term);
-  }
+  };
 
   render() {
     const { text, term, ...rest } = this.props;

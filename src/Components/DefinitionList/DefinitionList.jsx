@@ -34,7 +34,7 @@ const DefinitionList = ({ truncate = true, ...props }) => {
           items.map(item => (
             <Definition key={shortid.generate()} {...item} />
           ))
-       }
+      }
     </dl>
   );
 };

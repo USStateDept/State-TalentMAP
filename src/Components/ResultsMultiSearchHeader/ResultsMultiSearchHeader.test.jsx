@@ -124,9 +124,9 @@ describe('ResultsMultiSearchHeaderComponent', () => {
       {...props}
     />);
     // define the instance
-    const spy = sinon.spy(wrapper.instance(), 'componentWillReceiveProps');
+    const spy = sinon.spy(wrapper.instance(), 'UNSAFE_componentWillReceiveProps');
     wrapper.update();
-    wrapper.instance().componentWillReceiveProps(updatedProps);
+    wrapper.instance().UNSAFE_componentWillReceiveProps(updatedProps);
     sinon.assert.calledOnce(spy);
   });
 

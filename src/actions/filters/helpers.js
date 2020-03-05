@@ -56,7 +56,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     case 'bidCycle':
       return name;
     case 'language':
-      // language code NONE gets displayed differently
+    // language code NONE gets displayed differently
       return getLanguageNameByIfNull(filterItemObject);
     case 'grade':
       return getCustomGradeDescription(code);

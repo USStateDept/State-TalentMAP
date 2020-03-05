@@ -40,7 +40,7 @@ const FavoriteList = ({ favorites }) => {
             <div className="usa-grid-full section-padded-inner-container">
               <NoFavorites />
             </div>
-          :
+            :
             <BorderedList contentArray={positionArray} />
         }
       </div>

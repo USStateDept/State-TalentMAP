@@ -6,12 +6,12 @@ import { withRouter } from 'react-router';
 import { push } from 'react-router-redux';
 import { Flag } from 'flag';
 import FA from 'react-fontawesome';
+import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT, HISTORY_OBJECT } from 'Constants/PropTypes';
 import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
 import { logoutRequest } from '../../login/actions';
 import { toggleSearchBar } from '../../actions/showSearchBar';
-import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT } from '../../Constants/PropTypes';
 import { isCurrentPath, isCurrentPathIn } from '../ProfileMenu/navigation';
 import { searchBarRoutes, searchBarRoutesForce, searchBarRoutesForceHidden } from './searchRoutes';
 import MobileNav from './MobileNav';
@@ -26,16 +26,7 @@ const logo = getAssetPath('/assets/logos/png/horizontal_white_thin-sm.png');
 const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white-sm.png');
 
 export class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.toggleSearchVisibility = this.toggleSearchVisibility.bind(this);
-    this.submitSearch = this.submitSearch.bind(this);
-    this.isOnHasOwnSearchRoute = this.isOnHasOwnSearchRoute.bind(this);
-    this.isOnForceHideSearchRoute = this.isOnForceHideSearchRoute.bind(this);
-    this.onFilterChange = this.onFilterChange.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (this.props.isAuthorized()) {
       this.props.fetchData();
     }
@@ -43,10 +34,10 @@ export class Header extends Component {
     this.checkPath();
   }
 
-  onFilterChange(q) {
+  onFilterChange = (q) => {
     const { searchbarFilters, setSearchFilters } = this.props;
     setSearchFilters({ ...searchbarFilters, ...q });
-  }
+  };
 
   isOnResultsPage() {
     return isCurrentPath('/results', this.props.location.pathname);
@@ -66,31 +57,31 @@ export class Header extends Component {
     });
   }
 
-  toggleSearchVisibility() {
+  toggleSearchVisibility = () => {
     const { shouldShowSearchBar, location } = this.props;
     // if we're not on one of the pages where the search bar is forced,
     // then toggle the search bar visibility
     if (searchBarRoutesForce.indexOf(location.pathname) <= -1) {
       this.props.toggleSearchBarVisibility(!shouldShowSearchBar);
     }
-  }
+  };
 
-  submitSearch(q) {
+  submitSearch = (q) => {
     this.props.onNavigateTo(`/results?q=${q.q || ''}`);
-  }
+  };
 
   // The results page uses its own search bar, so we don't
   // display the header's search bar if we're on the results page
-  isOnHasOwnSearchRoute() {
+  isOnHasOwnSearchRoute = () => {
     const { location } = this.props;
     return isCurrentPathIn(location.pathname, searchBarRoutesForce);
-  }
+  };
 
   // We want to ensure pages like the login page never display the search bar
-  isOnForceHideSearchRoute() {
+  isOnForceHideSearchRoute = () => {
     const { location } = this.props;
     return isCurrentPathIn(location.pathname, searchBarRoutesForceHidden);
-  }
+  };
 
   render() {
     const {
@@ -185,7 +176,7 @@ Header.propTypes = {
   location: ROUTER_LOCATION_OBJECT.isRequired,
   toggleSearchBarVisibility: PropTypes.func.isRequired,
   shouldShowSearchBar: PropTypes.bool.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
   searchbarFilters: PropTypes.shape({}),
   setSearchFilters: PropTypes.func.isRequired,
 };

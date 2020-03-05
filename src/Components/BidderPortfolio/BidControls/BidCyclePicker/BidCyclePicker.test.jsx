@@ -32,8 +32,8 @@ describe('BidControlsComponent', () => {
         { id: 2, description: 'b' },
         { id: 3, description: 'c' },
       ],
-        selectValue: () => {},
-        getIsSelected: () => false },
+      selectValue: () => {},
+      getIsSelected: () => false },
     );
     expect(output.length).toBe(3);
   });

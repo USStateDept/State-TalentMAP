@@ -7,16 +7,15 @@ import Alert from '../../Alert';
 class GlossaryEditorPage extends Component {
   constructor(props) {
     super(props);
-    this.toggleNewTermEditor = this.toggleNewTermEditor.bind(this);
     this.state = {
       showNewTerm: false,
     };
   }
 
-  toggleNewTermEditor() {
+  toggleNewTermEditor = () => {
     this.props.onGlossaryEditorCancel(null);
     this.setState({ showNewTerm: !this.state.showNewTerm });
-  }
+  };
 
   render() {
     const { submitNewGlossaryTerm, glossaryPostHasErrored, glossaryPostSuccess } = this.props;

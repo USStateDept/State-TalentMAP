@@ -9,18 +9,13 @@ import { focusById } from '../../../utilities';
 export const ID = 'save-search-toggle-button';
 
 export class Trigger extends Component {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick() {
+  onClick = () => {
     const { isOpen, isPrimary } = this.props;
     this.props.toggle(!isOpen);
     if (isPrimary) {
       focusById(INPUT_ID, 0);
     }
-  }
+  };
 
   render() {
     const { children, isPrimary } = this.props;

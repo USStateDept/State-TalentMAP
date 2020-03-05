@@ -8,16 +8,6 @@ describe('MultiSelectFilterContainerComponent', () => {
     title: 'title', expanded: true,
   }];
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <MultiSelectFilterContainer
-        queryParamToggle={() => {}}
-        multiSelectFilterList={items}
-      />,
-    );
-    expect(wrapper.instance().props.multiSelectFilterList[0].title).toBe(items[0].title);
-  });
-
   it('is defined title does not exist', () => {
     const wrapper = shallow(
       <MultiSelectFilterContainer

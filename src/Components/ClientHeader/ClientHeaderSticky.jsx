@@ -12,7 +12,7 @@ export class ClientHeaderSticky extends Component {
       topOffset: 200,
     };
   }
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     const d = document.getElementById(CONTAINER_ID);
     const topPos = get(d, 'offsetTop');
     if (topPos) {

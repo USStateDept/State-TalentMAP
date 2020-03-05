@@ -12,14 +12,14 @@ const FavoriteContainer = ({
   hasErrored,
   refKey,
   ...rest }) => (
-    <Favorite
-      onToggle={onToggle}
-      isLoading={!!isLoading.has(refKey)}
-      hasErrored={hasErrored}
-      refKey={refKey}
-      {...rest}
-    />
-  );
+  <Favorite
+    onToggle={onToggle}
+    isLoading={!!isLoading.has(refKey)}
+    hasErrored={hasErrored}
+    refKey={refKey}
+    {...rest}
+  />
+);
 
 FavoriteContainer.propTypes = {
   onToggle: PropTypes.func.isRequired,

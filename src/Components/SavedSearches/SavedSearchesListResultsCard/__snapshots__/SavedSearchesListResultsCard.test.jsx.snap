@@ -4,19 +4,25 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
 <MediaQueryWrapper
   breakpoint="screenSmMax"
   widthType="max"
-/>
+>
+  <Component />
+</MediaQueryWrapper>
 `;
 
 exports[`SavedSearchesListResultsCardComponent matches snapshot when availableCount and addedCount are truthy 1`] = `
 <MediaQueryWrapper
   breakpoint="screenSmMax"
   widthType="max"
-/>
+>
+  <Component />
+</MediaQueryWrapper>
 `;
 
 exports[`SavedSearchesListResultsCardComponent matches snapshot when saved search has no date 1`] = `
 <MediaQueryWrapper
   breakpoint="screenSmMax"
   widthType="max"
-/>
+>
+  <Component />
+</MediaQueryWrapper>
 `;

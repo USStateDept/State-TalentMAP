@@ -5,15 +5,12 @@ import { connect } from 'react-redux';
 import { setSortPreference } from '../../actions/preferences';
 
 export class PreferenceWrapper extends Component {
-  constructor(props) {
-    super(props);
-    this.cb = this.cb.bind(this);
-  }
-  cb(e) {
+  cb = e => {
     const { keyRef, onSelect, setPreference } = this.props;
     onSelect(e);
     setPreference(keyRef, e.target.value);
-  }
+  };
+
   render() {
     const { children, childCallback } = this.props;
     return (

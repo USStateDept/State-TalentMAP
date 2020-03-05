@@ -17,7 +17,7 @@ const BidListButtonContainer = (
         {...rest}
         id={id}
       />
-    : null
+      : null
   );
 };
 

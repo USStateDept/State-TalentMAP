@@ -31,7 +31,7 @@ const InteractiveElement = ({ children, type, className, ...rest }) => {
       break;
 
     default:
-      // Set where type != (button|input)
+    // Set where type != (button|input)
       defaultProps.role = 'button';
   }
 

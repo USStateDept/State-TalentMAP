@@ -108,24 +108,24 @@ export function putAllSyncs() {
           api().put(`/data_sync/run/${sync.id}/`)
             .then(() => true)
             .catch(() => false),
-          );
+        );
         // execute queries
         Q.allSettled(queryProms)
-        .then((results) => {
-          const successCount = results.filter(r => r.state === 'fulfilled' && r.value).length || 0;
-          const queryPromsLen = queryProms.length || 0;
-          const countDiff = queryPromsLen - successCount;
-          if (successCount === 0) {
-            dispatch(toastError('There was an error scheduling synchronization jobs. Please try again.', 'Error'));
-          } else if (countDiff === 0) {
-            dispatch(toastSuccess('Synchronization jobs have been scheduled to run now', 'Success'));
-          } else if (countDiff > 0) {
-            dispatch(toastWarning(`All but ${countDiff} jobs have been scheduled to run now`, 'Warning'));
-          }
-          dispatch(putAllSyncsSuccess(true));
-          dispatch(putAllSyncsHasErrored(false));
-          dispatch(putAllSyncsIsLoading(false));
-        });
+          .then((results) => {
+            const successCount = results.filter(r => r.state === 'fulfilled' && r.value).length || 0;
+            const queryPromsLen = queryProms.length || 0;
+            const countDiff = queryPromsLen - successCount;
+            if (successCount === 0) {
+              dispatch(toastError('There was an error scheduling synchronization jobs. Please try again.', 'Error'));
+            } else if (countDiff === 0) {
+              dispatch(toastSuccess('Synchronization jobs have been scheduled to run now', 'Success'));
+            } else if (countDiff > 0) {
+              dispatch(toastWarning(`All but ${countDiff} jobs have been scheduled to run now`, 'Warning'));
+            }
+            dispatch(putAllSyncsSuccess(true));
+            dispatch(putAllSyncsHasErrored(false));
+            dispatch(putAllSyncsIsLoading(false));
+          });
       })
       .catch(() => {
         dispatch(putAllSyncsHasErrored(true));

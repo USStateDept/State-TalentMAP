@@ -7,20 +7,14 @@ import CheckBox from '../../CheckBox';
 import { getItemLabel } from '../../../utilities';
 
 class BureauFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.onCheckBoxClick = this.onCheckBoxClick.bind(this);
-    this.onFunctionalBureauCheckBoxClick = this.onFunctionalBureauCheckBoxClick.bind(this);
-  }
-
-  onCheckBoxClick(value, props) {
+  onCheckBoxClick = (value, props) => {
     this.props.queryParamToggle(props.selectionRef, props[this.props.queryProperty], !value);
-  }
+  };
 
-  onFunctionalBureauCheckBoxClick(value, props) {
+  onFunctionalBureauCheckBoxClick = (value, props) => {
     const { functionalBureaus, queryProperty } = this.props;
     this.props.queryParamToggle(functionalBureaus.item.selectionRef, props[queryProperty], !value);
-  }
+  };
 
   render() {
     const { item, functionalBureaus } = this.props;

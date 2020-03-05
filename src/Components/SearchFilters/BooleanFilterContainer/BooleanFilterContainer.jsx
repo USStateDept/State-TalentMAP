@@ -16,18 +16,18 @@ const BooleanFilterContainer = ({ filters, onBooleanFilterClick, legendTitle }) 
               key={shortid.generate()}
               item={item}
               onBooleanFilterClick={
-              (e, code, ref, isSelected) => {
-                onBooleanFilterClick(
-                  e, code, ref, i, isSelected,
-                );
+                (e, code, ref, isSelected) => {
+                  onBooleanFilterClick(
+                    e, code, ref, i, isSelected,
+                  );
+                }
               }
-            }
             />
-        ),
+          ),
         )
     }
   </FieldSet>
-  );
+);
 
 BooleanFilterContainer.propTypes = {
   filters: FILTER_ITEMS_ARRAY.isRequired,

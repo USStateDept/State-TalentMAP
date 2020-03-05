@@ -9,8 +9,7 @@ import ProfilePage from '../../Components/ProfilePage';
 import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Profile extends Component {
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
     }

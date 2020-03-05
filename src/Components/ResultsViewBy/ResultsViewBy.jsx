@@ -6,22 +6,23 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 class ResultsViewBy extends Component {
   constructor(props) {
     super(props);
-    this.selectCard = this.selectCard.bind(this);
-    this.selectGrid = this.selectGrid.bind(this);
     this.state = {
       selected: { value: this.props.initial },
     };
   }
-  selectCard() {
+
+  selectCard = () => {
     const { selected } = this.state;
     selected.value = 'card';
     this.setState({ selected }, this.props.onClick('card'));
-  }
-  selectGrid() {
+  };
+
+  selectGrid = () => {
     const { selected } = this.state;
     selected.value = 'grid';
     this.setState({ selected }, this.props.onClick('grid'));
-  }
+  };
+
   isSelected(type) {
     if (type === this.state.selected.value) {
       return 'is-selected';

@@ -19,21 +19,13 @@ const useBidding = () => checkFlag('flags.bidding');
 const usePV = () => checkFlag('flags.projected_vacancy');
 
 class SearchFiltersContainer extends Component {
-
-  constructor(props) {
-    super(props);
-    this.onMissionSuggestionSelected = this.onMissionSuggestionSelected.bind(this);
-    this.onPostSuggestionSelected = this.onPostSuggestionSelected.bind(this);
-    this.onProjectedVacancyFilterClick = this.onProjectedVacancyFilterClick.bind(this);
-  }
-
-  onMissionSuggestionSelected(value) {
+  onMissionSuggestionSelected = value => {
     this.props.queryParamToggle(ENDPOINT_PARAMS.mission, value);
-  }
+  };
 
-  onPostSuggestionSelected(value) {
+  onPostSuggestionSelected = value => {
     this.props.queryParamToggle(ENDPOINT_PARAMS.post, value);
-  }
+  };
 
   onBooleanFilterClick(isChecked, code, selectionRef) {
     const object = Object.assign({});
@@ -43,7 +35,7 @@ class SearchFiltersContainer extends Component {
 
   // Some filters aren't compatible with projected vs non-projected,
   // so we reset any of those here.
-  onProjectedVacancyFilterClick(value) {
+  onProjectedVacancyFilterClick = value => {
     let config = {};
     if (value === 'open') {
       config = {
@@ -61,19 +53,19 @@ class SearchFiltersContainer extends Component {
       };
     }
     this.props.queryParamUpdate(config);
-  }
+  };
 
   render() {
     const { isProjectedVacancy } = this.context;
     const { fetchPostAutocomplete, postSearchResults, filters } = this.props;
 
     const filters$ = filters
-    .filter((f) => {
-      if (isProjectedVacancy) {
-        return f.item.onlyProjectedVacancy || !f.item.onlyAvailablePositions;
-      }
-      return f.item.onlyAvailablePositions || !f.item.onlyProjectedVacancy;
-    });
+      .filter((f) => {
+        if (isProjectedVacancy) {
+          return f.item.onlyProjectedVacancy || !f.item.onlyAvailablePositions;
+        }
+        return f.item.onlyAvailablePositions || !f.item.onlyProjectedVacancy;
+      });
 
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
@@ -88,11 +80,11 @@ class SearchFiltersContainer extends Component {
     // store filters in Map
     const booleanFiltersMap = new Map();
     filters$
-    .forEach((searchFilter) => {
-      if (searchFilter.item.bool) {
-        booleanFiltersMap.set(searchFilter.item.description, searchFilter);
-      }
-    });
+      .forEach((searchFilter) => {
+        if (searchFilter.item.bool) {
+          booleanFiltersMap.set(searchFilter.item.description, searchFilter);
+        }
+      });
 
     // sort boolean filters by sortedBooleanNames
     // pull from Map

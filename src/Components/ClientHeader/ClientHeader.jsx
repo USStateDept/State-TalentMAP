@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { BIDDER_OBJECT } from '../../Constants/PropTypes';
+import { BIDDER_OBJECT, HISTORY_OBJECT } from 'Constants/PropTypes';
 import { unsetClient } from '../../actions/clientView';
 import { isCurrentPath } from '../ProfileMenu/navigation';
 import {
@@ -24,14 +24,13 @@ const skeletonColors = {
 export class ClientHeader extends Component {
   constructor(props) {
     super(props);
-    this.unsetClient = this.unsetClient.bind(this);
     this.state = {
       showReturnLink: true,
       useResultsExitFunction: false,
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.checkPath();
   }
 
@@ -41,7 +40,7 @@ export class ClientHeader extends Component {
     this.setState({ useResultsExitFunction: pathMatches });
   }
 
-  unsetClient() {
+  unsetClient = () => {
     const { history } = this.props;
     const { useResultsExitFunction } = this.state;
     this.props.unset();
@@ -49,7 +48,7 @@ export class ClientHeader extends Component {
     if (useResultsExitFunction) {
       history.push('/results');
     }
-  }
+  };
 
   matchCurrentPath(historyObject) {
     // hide if on the public profile
@@ -124,7 +123,7 @@ ClientHeader.propTypes = {
   unset: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
   bidderPortfolioSelectedCDO: PropTypes.shape({}),
   style: PropTypes.shape({}),
 };
@@ -139,9 +138,9 @@ ClientHeader.defaultProps = {
 const mapStateToProps = ({
   bidderPortfolioSelectedCDO,
   clientView: { client, isLoading, hasErrored },
-  }) => ({
-    client, isLoading, hasErrored, bidderPortfolioSelectedCDO,
-  });
+}) => ({
+  client, isLoading, hasErrored, bidderPortfolioSelectedCDO,
+});
 
 export const mapDispatchToProps = dispatch => ({
   unset: () => dispatch(unsetClient()),

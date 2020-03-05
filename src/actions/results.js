@@ -73,13 +73,13 @@ export function resultsFetchSimilarPositions(id) {
 export function downloadPositionData(query, isPV) {
   const prefix = `/fsbid${isPV ? '/projected_vacancies' : '/available_positions'}/export/`;
   return api()
-  .get(`${prefix}?${query}`, {
-    cancelToken: new CancelToken((c) => { cancel = c; }),
-    responseType: 'stream',
-  })
-  .then((response) => {
-    downloadFromResponse(response, 'TalentMap_search_export');
-  });
+    .get(`${prefix}?${query}`, {
+      cancelToken: new CancelToken((c) => { cancel = c; }),
+      responseType: 'stream',
+    })
+    .then((response) => {
+      downloadFromResponse(response, 'TalentMap_search_export');
+    });
 }
 
 export function fetchResultData(query) {
@@ -95,18 +95,18 @@ export function fetchResultData(query) {
   const query$ = queryString.stringify(parsed);
 
   return api()
-  .get(`${prefix}/?${query$}`, {
-    cancelToken: new CancelToken((c) => { cancel = c; }),
-  })
-  .then((response) => {
-    if (isPV) {
-      return {
-        ...response.data,
-        isProjectedVacancy: true,
-      };
-    }
-    return response.data;
-  });
+    .get(`${prefix}/?${query$}`, {
+      cancelToken: new CancelToken((c) => { cancel = c; }),
+    })
+    .then((response) => {
+      if (isPV) {
+        return {
+          ...response.data,
+          isProjectedVacancy: true,
+        };
+      }
+      return response.data;
+    });
 }
 
 export function resultsFetchData(query) {

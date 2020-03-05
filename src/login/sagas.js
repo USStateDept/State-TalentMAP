@@ -68,8 +68,8 @@ export const auth = {
 /**
  * API Requests
  */
- // This creates short chainable axios object similar to Observables.map()
- // Mainly so we can do some data pre-processing first for sake of reusability
+// This creates short chainable axios object similar to Observables.map()
+// Mainly so we can do some data pre-processing first for sake of reusability
 export const requests = {
   saml: (token) => {
     if (!token) {

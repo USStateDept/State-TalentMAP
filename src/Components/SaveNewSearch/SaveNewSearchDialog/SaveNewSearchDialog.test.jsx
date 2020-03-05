@@ -61,7 +61,7 @@ describe('SaveNewSearchDialogComponent', () => {
     sinon.assert.calledOnce(formSubmitSpy);
   });
 
-  it('performs logic on componentWillReceiveProps()', () => {
+  it('performs logic on UNSAFE_componentWillReceiveProps()', () => {
     const toggleSpy = sinon.spy();
 
     const props$ = {

@@ -32,7 +32,7 @@ const CheckboxList = ({ list, clientClassifications }) => (
         />
       );
     })
-  }
+    }
   </div>
 );
 

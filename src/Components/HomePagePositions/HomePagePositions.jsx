@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS,
-USER_SKILL_CODE_POSITIONS, SERVICE_NEED_POSITIONS, FAVORITED_POSITIONS } from '../../Constants/PropTypes';
+  USER_SKILL_CODE_POSITIONS, SERVICE_NEED_POSITIONS, FAVORITED_POSITIONS } from '../../Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,

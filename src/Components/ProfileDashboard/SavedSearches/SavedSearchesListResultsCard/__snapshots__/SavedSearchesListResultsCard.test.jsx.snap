@@ -3,6 +3,7 @@
 exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full saved-search-card profile-section-container"
+  key="7"
 >
   <div
     className="usa-grid-full"

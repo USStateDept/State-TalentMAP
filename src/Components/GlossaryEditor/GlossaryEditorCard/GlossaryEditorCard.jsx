@@ -13,16 +13,6 @@ class GlossaryEditorCard extends Component {
   constructor(props) {
     super(props);
 
-    this.toggleEditorState = this.toggleEditorState.bind(this);
-    this.toggleEmptyAlert = this.toggleEmptyAlert.bind(this);
-    this.updateTitle = this.updateTitle.bind(this);
-    this.updateLink = this.updateLink.bind(this);
-    this.updateDefinition = this.updateDefinition.bind(this);
-    this.cancel = this.cancel.bind(this);
-    this.submitDefinition = this.submitDefinition.bind(this);
-    this.showInvalidLinkWarning = this.showInvalidLinkWarning.bind(this);
-    this.getTextToRender = this.getTextToRender.bind(this);
-
     this.state = {
       editorHidden: true,
       newTitle: null,
@@ -83,7 +73,7 @@ class GlossaryEditorCard extends Component {
     return emptyTitleWarning || emptyDefinitionWarning;
   }
 
-  getTextToRender() {
+  getTextToRender = () => {
     const { term } = this.props;
     const {
       newTitle,
@@ -94,40 +84,40 @@ class GlossaryEditorCard extends Component {
     const renderedLink = newLink || term.link;
     const renderedDefinition = newDefinition || term.definition;
     return { renderedTitle, renderedLink, renderedDefinition };
-  }
+  };
 
-  showInvalidLinkWarning() {
+  showInvalidLinkWarning = () => {
     const { newLink } = this.state;
     if (isEmpty(newLink)) {
       return false;
     }
     return !isUrl(newLink);
-  }
+  };
 
-  toggleEditorState() {
+  toggleEditorState = () => {
     this.setState({ editorHidden: !this.state.editorHidden, displayZeroLengthAlert: false });
-  }
+  };
 
-  toggleEmptyAlert(displayZeroLengthAlert = true) {
+  toggleEmptyAlert = (displayZeroLengthAlert = true) => {
     this.setState({ displayZeroLengthAlert });
-  }
+  };
 
-  updateTitle(newTitle) {
+  updateTitle = newTitle => {
     this.setState({ newTitle });
     this.toggleEmptyAlert(false);
-  }
+  };
 
-  updateLink(newLink) {
+  updateLink = newLink => {
     this.setState({ newLink });
     this.toggleEmptyAlert(false);
-  }
+  };
 
-  updateDefinition(newDefinition) {
+  updateDefinition = newDefinition => {
     this.setState({ newDefinition });
     this.toggleEmptyAlert(false);
-  }
+  };
 
-  cancel() {
+  cancel = () => {
     this.props.onCancel(this.props.term.id);
     this.setState({
       editorHidden: true,
@@ -135,9 +125,9 @@ class GlossaryEditorCard extends Component {
       newDefinition: null,
       displayZeroLengthAlert: false,
     });
-  }
+  };
 
-  submitDefinition() {
+  submitDefinition = () => {
     const { term, isNewTerm } = this.props;
     const { newTitle, newLink, newDefinition, newIsArchived } = this.state;
 
@@ -167,7 +157,7 @@ class GlossaryEditorCard extends Component {
         definition: isEmpty(newDefinition),
       });
     }
-  }
+  };
 
   render() {
     const { term, isNewTerm, hasErrored, submitGlossaryTerm } = this.props;
@@ -228,15 +218,15 @@ class GlossaryEditorCard extends Component {
         <div className={`usa-grid-full glossary-editor-card-definition ${editorHiddenClass} ${definitionContainerClass}`}>
           {
             shouldHideEditor ?
-            renderedDefinition :
-            <TextEditor
-              id="input-error"
-              initialText={renderedDefinition}
-              onSubmitText={this.submitDefinition}
-              cancel={this.cancel}
-              onChangeText={this.updateDefinition}
-              draftJsProps={{ placeholder: 'Definition' }}
-            />
+              renderedDefinition :
+              <TextEditor
+                id="input-error"
+                initialText={renderedDefinition}
+                onSubmitText={this.submitDefinition}
+                cancel={this.cancel}
+                onChangeText={this.updateDefinition}
+                draftJsProps={{ placeholder: 'Definition' }}
+              />
           }
         </div>
         <GlossaryEditorCardBottom

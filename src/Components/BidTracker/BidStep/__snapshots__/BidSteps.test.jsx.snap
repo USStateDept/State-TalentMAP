@@ -14,11 +14,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
 >
   <Step
     className="
-              step-draft
-              
-              
-              step-complete
-            "
+            step-draft
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasRescheduledTooltip={false}
@@ -28,6 +28,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={1}
       />
     }
+    key="1"
     tailContent={null}
     title={
       <div>
@@ -46,11 +47,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-submitted
-              
-              
-              step-complete
-            "
+            step-submitted
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasRescheduledTooltip={false}
@@ -60,6 +61,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    key="2"
     tailContent={null}
     title={
       <div>
@@ -78,11 +80,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-handshake-offered
-              
-              
-              step-complete
-            "
+            step-handshake-offered
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasRescheduledTooltip={false}
@@ -92,6 +94,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={2}
       />
     }
+    key="3"
     tailContent={null}
     title={
       <div>
@@ -108,11 +111,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-handshake-accepted
-              
-              
-              step-complete
-            "
+            step-handshake-accepted
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasRescheduledTooltip={false}
@@ -122,6 +125,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={4}
       />
     }
+    key="4"
     tailContent={null}
     title={
       <div>
@@ -140,11 +144,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-in-panel
-              
-              
-              step-complete
-            "
+            step-in-panel
+            
+            
+            step-complete
+          "
     icon={
       <BidStepIcon
         hasRescheduledTooltip={false}
@@ -154,6 +158,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         number={5}
       />
     }
+    key="5"
     tailContent={null}
     title={
       <div>
@@ -172,11 +177,11 @@ exports[`BidStepsComponent matches snapshot 1`] = `
   />
   <Step
     className="
-              step-approval
-              step-current
-              
-              step-incomplete
-            "
+            step-approval
+            step-current
+            
+            step-incomplete
+          "
     icon={
       <ConfettiIcon
         colors={
@@ -196,6 +201,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         />
       </ConfettiIcon>
     }
+    key="6"
     tailContent={null}
     title={
       <div>

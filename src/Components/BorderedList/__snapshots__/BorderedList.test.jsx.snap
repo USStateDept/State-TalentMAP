@@ -5,7 +5,9 @@ exports[`BorderedListComponent matches snapshot 1`] = `
   className="usa-grid-full bordered-list"
 >
   <ul>
-    <li>
+    <li
+      key="1"
+    >
       <div
         className="bordered-list-content"
       >
@@ -14,7 +16,9 @@ exports[`BorderedListComponent matches snapshot 1`] = `
         </span>
       </div>
     </li>
-    <li>
+    <li
+      key="2"
+    >
       <div
         className="bordered-list-content"
       >
@@ -25,7 +29,9 @@ exports[`BorderedListComponent matches snapshot 1`] = `
         </div>
       </div>
     </li>
-    <li>
+    <li
+      key="3"
+    >
       <div
         className="bordered-list-content"
       >
