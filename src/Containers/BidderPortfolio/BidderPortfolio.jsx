@@ -19,7 +19,6 @@ const getUseClientCounts = () => checkFlag('flags.client_counts');
 class BidderPortfolio extends Component {
   constructor(props) {
     super(props);
-    this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -32,7 +31,7 @@ class BidderPortfolio extends Component {
   }
 
   // Fetch bidder list and bidder statistics.
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (get(this.props, 'cdos', []).length) {
       this.getBidderPortfolio();
       if (getUseClientCounts()) {
@@ -43,12 +42,12 @@ class BidderPortfolio extends Component {
     this.props.fetchClassifications();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const props = ['cdos', 'selectedSeasons'];
     if (!isEqual(pick(this.props, props), pick(nextProps, props))) {
       this.setState({
-         // Reset page number, since this filters are
-         // captured outside the normal query param lifecycle.
+        // Reset page number, since this filters are
+        // captured outside the normal query param lifecycle.
         defaultPageNumber: { value: 1 },
       }, () => {
         this.getBidderPortfolio();
@@ -60,7 +59,7 @@ class BidderPortfolio extends Component {
   // For when we need to UPDATE the ENTIRE value of a filter.
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
-  onQueryParamUpdate(q) {
+  onQueryParamUpdate = q => {
     const { query, defaultPageNumber } = this.state;
     this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
     // returns the new query string
@@ -75,7 +74,7 @@ class BidderPortfolio extends Component {
     this.setState({ query, defaultPageNumber }, () => {
       this.getBidderPortfolio();
     });
-  }
+  };
 
   // Form our query and then retrieve bidders.
   getBidderPortfolio() {
@@ -122,9 +121,9 @@ class BidderPortfolio extends Component {
 
   render() {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
-    bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
-    bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
-    classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
+      bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
+      bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
+      classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { defaultPageSize, defaultPageNumber, hasHandshake, ordering } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading) && cdos.length;
     return (

@@ -29,7 +29,7 @@ const ProfilePage = ({ user, isLoading }) => (
     <div className="usa-grid-full profile-content-container">
       {isLoading ?
         <Spinner size="small" type="homepage-positions-results" />
-      :
+        :
         <Switch>
           <Route path="/profile/dashboard" component={Dashboard} />
           <Route path="/profile/bidderportfolio" component={BidderPortfolio} />
@@ -50,10 +50,10 @@ const ProfilePage = ({ user, isLoading }) => (
             name="flags.bidding"
             render={() => (
               <Route path="/profile/bidtracker" component={BidTracker} />
-          )}
+            )}
           />
         </Switch>
-    }
+      }
     </div>
   </div>
 );

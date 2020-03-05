@@ -40,7 +40,7 @@ const CompareDrawer = ({ comparisons, isHidden }) => {
                 <strong>Location:</strong> {getPostName(c.position.post, NO_POST)}
               </span>
             </div>
-        ))
+          ))
         }
         {
           emptyArray.map(() => (

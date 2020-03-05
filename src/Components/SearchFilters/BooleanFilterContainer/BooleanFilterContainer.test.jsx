@@ -10,17 +10,6 @@ describe('BooleanFilterContainerComponent', () => {
     data: [{ isSelected: true }],
   }];
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <BooleanFilterContainer
-        onBooleanFilterClick={() => {}}
-        filters={items}
-        legendTitle="Legend"
-      />,
-    );
-    expect(wrapper.instance().props.filters[0].item.title).toBe(items[0].item.title);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <BooleanFilterContainer

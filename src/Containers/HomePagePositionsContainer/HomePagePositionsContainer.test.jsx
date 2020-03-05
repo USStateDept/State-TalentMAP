@@ -72,7 +72,7 @@ describe('Home', () => {
         userProfile={{}}
         homePagePositionsIsLoading
       />);
-    wrapper.instance().componentWillReceiveProps({
+    wrapper.instance().UNSAFE_componentWillReceiveProps({
       ...props,
       homePagePositionsIsLoading: false,
     });

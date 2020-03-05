@@ -7,25 +7,24 @@ import { formatIdSpacing } from '../../../utilities';
 class AccordionItem extends Component {
   constructor(props) {
     super(props);
-    this.setExpanded = this.setExpanded.bind(this);
     this.state = {
       expanded: props.expanded,
     };
   }
 
   // Update the value of expanded, only if the prop value changed and the new value is not undefined
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isUndefined(nextProps.expanded) && !(isEqual(nextProps.expanded, this.props.expanded))) {
       this.setState({ expanded: nextProps.expanded });
     }
   }
 
   // Update local state and emit to the parent
-  setExpanded() {
+  setExpanded = () => {
     this.setState({ expanded: !this.state.expanded }, () => {
       this.props.setAccordion(this.props.id, this.state.expanded);
     });
-  }
+  };
 
   // helper function for parents to use via ref, to set the expanded state to a desired value
   setExpandedFromRef(expanded) {

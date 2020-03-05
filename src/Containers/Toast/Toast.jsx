@@ -5,11 +5,6 @@ import PropTypes from 'prop-types';
 import Alert from '../../Components/Alert';
 
 export class Toast extends Component {
-  constructor(props) {
-    super(props);
-    this.notify = this.notify.bind(this);
-  }
-
   componentDidUpdate() {
     const { toastData } = this.props;
     if (toastData.message) {
@@ -17,7 +12,7 @@ export class Toast extends Component {
     }
   }
 
-  notify({ type = 'success', message = 'Message', title = '' }) { // eslint-disable-line
+  notify = ({ type = 'success', message = 'Message', title = '' }) => { // eslint-disable-line
     let title$;
     if (type === 'success') { title$ = 'Success'; }
     if (type === 'error') { title$ = 'Error'; }
@@ -25,7 +20,7 @@ export class Toast extends Component {
     toast[type](
       <Alert type={type} title={title$} messages={[{ body: message }]} isDivided />,
     );
-  }
+  };
 
   render() {
     return (

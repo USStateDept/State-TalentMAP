@@ -8,18 +8,19 @@ import SectionTitle from '../SectionTitle';
 class Updates extends Component {
   constructor(props) {
     super(props);
-    this.enableEdit = this.enableEdit.bind(this);
-    this.disableEdit = this.disableEdit.bind(this);
     this.state = {
       isEditable: false,
     };
   }
-  enableEdit() {
+
+  enableEdit = () => {
     this.setState({ isEditable: true });
-  }
-  disableEdit() {
+  };
+
+  disableEdit = () => {
     this.setState({ isEditable: false });
-  }
+  };
+
   render() {
     const { isEditable } = this.state;
     return (

@@ -3,7 +3,7 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import BidStatus from './BidStatus';
 import { APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED, HAND_SHAKE_OFFERED,
-HAND_SHAKE_DECLINED, IN_PANEL, SUBMITTED } from '../../../Constants/BidStatuses';
+  HAND_SHAKE_DECLINED, IN_PANEL, SUBMITTED } from '../../../Constants/BidStatuses';
 
 const props = {
   status: APPROVED.property,

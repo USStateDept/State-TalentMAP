@@ -13,16 +13,6 @@ describe('PositionsSectionTitleHeaderComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const title = 'title';
-    const wrapper = shallow(
-      <PositionsSectionTitleHeader
-        title={title}
-      />,
-    );
-    expect(wrapper.instance().props.title).toBe(title);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <PositionsSectionTitleHeader

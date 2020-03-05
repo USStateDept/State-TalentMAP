@@ -4,7 +4,9 @@ exports[`RadioListComponent matches snapshot 1`] = `
 <ul
   className="usa-unstyled-list"
 >
-  <li>
+  <li
+    key="a"
+  >
     <input
       checked={false}
       id="a"
@@ -19,7 +21,9 @@ exports[`RadioListComponent matches snapshot 1`] = `
       a-label
     </label>
   </li>
-  <li>
+  <li
+    key="b"
+  >
     <input
       checked={true}
       id="b"

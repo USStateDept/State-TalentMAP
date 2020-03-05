@@ -30,7 +30,7 @@ describe('HomePagePositionsList', () => {
   });
 
   it('displays two rows', () => {
-        // test with 7 positions and a max of 6
+    // test with 7 positions and a max of 6
     const positions = Array(7).fill(resultsObject.results[0]);
 
     const wrapper = shallow(<HomePagePositionsList

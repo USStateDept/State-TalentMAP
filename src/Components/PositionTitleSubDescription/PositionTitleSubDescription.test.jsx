@@ -4,7 +4,7 @@ import toJSON from 'enzyme-to-json';
 import PositionTitleSubDescription from './PositionTitleSubDescription';
 
 describe('PositionTitleSubDescriptionComponent', () => {
-  it('can receive props', () => {
+  it('is defined', () => {
     const wrapper = shallow(
       <PositionTitleSubDescription
         title="title"
@@ -16,7 +16,7 @@ describe('PositionTitleSubDescriptionComponent', () => {
         isAllowedToEdit
       />,
     );
-    expect(wrapper.instance().props.title).toBe('title');
+    expect(wrapper).toBeDefined();
   });
 
   it('shows the editor button when the user has permission', () => {

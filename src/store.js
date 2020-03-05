@@ -8,7 +8,7 @@ import { routerMiddleware } from 'react-router-redux';
 
 import createSagaMiddleware from 'redux-saga';
 
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
 import rootReducer from './reducers';
 
@@ -23,7 +23,7 @@ const persistConfig = {
 // Setup the middleware to watch between the Reducers and the Actions
 const sagaMiddleware = createSagaMiddleware();
 
-const history = createHistory({ basename: process.env.PUBLIC_URL });
+const history = createBrowserHistory({ basename: process.env.PUBLIC_URL });
 
 const middleware = routerMiddleware(history);
 

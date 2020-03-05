@@ -14,15 +14,6 @@ describe('CondensedCardDataComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <CondensedCardData
-        position={resultsObject.results[0]}
-      />,
-    );
-    expect(wrapper.instance().props.position.id).toBe(resultsObject.results[0].id);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <CondensedCardData

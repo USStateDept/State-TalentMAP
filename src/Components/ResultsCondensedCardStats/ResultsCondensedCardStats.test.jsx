@@ -21,13 +21,6 @@ describe('ResultsCondensedCardStatsComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <ResultsCondensedCardStats {...props} />,
-    );
-    expect(wrapper.instance().props.bidStatisticsArray).toBe(props.bidStatisticsArray);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ResultsCondensedCardStats {...props} />,

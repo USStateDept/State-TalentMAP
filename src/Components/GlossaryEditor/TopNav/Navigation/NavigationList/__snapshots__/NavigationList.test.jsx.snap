@@ -4,19 +4,19 @@ exports[`NavigationListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  <withRouter()
+  <withRouter(NavigationItem)
     link="?type=all"
     title="All Items"
   />
-  <withRouter()
+  <withRouter(NavigationItem)
     link="?type=new"
     title="New Items"
   />
-  <withRouter()
+  <withRouter(NavigationItem)
     link="?type=pending"
     title="Pending Approval"
   />
-  <withRouter()
+  <withRouter(NavigationItem)
     link="?type=lorem"
     title="Lorem"
   />

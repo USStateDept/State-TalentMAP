@@ -8,17 +8,17 @@ import BidListButton from '../../Components/BidListButton';
 const BidListButtonContainer = (
   { toggleBid, toggleClientBid, isLoading, id, compareArray, clientCompareArray, ...rest },
   { isClient },
-  ) => (
-    <BidListButton
-      {...rest}
-      toggleBidPosition={(id$, remove) => // eslint-disable-line no-confusing-arrow
-        isClient ?
-          toggleClientBid(id$, remove) :
-          toggleBid(id$, remove)}
-      id={id}
-      isLoading={isLoading.has(id)}
-      compareArray={(isClient ? clientCompareArray : compareArray).results}
-    />
+) => (
+  <BidListButton
+    {...rest}
+    toggleBidPosition={(id$, remove) => // eslint-disable-line no-confusing-arrow
+      isClient ?
+        toggleClientBid(id$, remove) :
+        toggleBid(id$, remove)}
+    id={id}
+    isLoading={isLoading.has(id)}
+    compareArray={(isClient ? clientCompareArray : compareArray).results}
+  />
 );
 
 BidListButtonContainer.contextTypes = {

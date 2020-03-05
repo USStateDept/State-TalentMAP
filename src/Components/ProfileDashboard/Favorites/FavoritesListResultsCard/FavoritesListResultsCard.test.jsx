@@ -15,15 +15,6 @@ describe('FavoritesListResultsCardComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <FavoritesListResultsCard
-        position={position}
-      />,
-    );
-    expect(wrapper.instance().props.position.id).toBe(position.id);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <FavoritesListResultsCard

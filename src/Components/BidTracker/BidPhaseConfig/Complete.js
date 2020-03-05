@@ -65,8 +65,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
 
   // Perform a switch to check the status.
   switch (bid.status) {
-
-    // Draft stage
+  // Draft stage
     case DRAFT_PROP:
       bidClassObject.stages[DRAFT_PROP] = {
         ...DEFAULT_COMPLETE_OBJECT, date: DRAFT_DATE, title: DRAFT_TITLE };

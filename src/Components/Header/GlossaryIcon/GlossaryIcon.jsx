@@ -6,14 +6,11 @@ import Icon from './Icon';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 class GlossaryIcon extends Component {
-  constructor(props) {
-    super(props);
-    this.toggleVisibility = this.toggleVisibility.bind(this);
-  }
-  toggleVisibility() {
+  toggleVisibility = () => {
     const { toggleGlossaryVisibility, shouldShowGlossary } = this.props;
     toggleGlossaryVisibility(!shouldShowGlossary);
-  }
+  };
+
   render() {
     return (
       <Icon onClick={this.toggleVisibility} />

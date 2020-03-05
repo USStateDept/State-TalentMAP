@@ -4,16 +4,17 @@ import PropTypes from 'prop-types';
 class TextInput extends Component {
   constructor(props) {
     super(props);
-    this.changeText = this.changeText.bind(this);
     this.state = {
       input: { value: this.props.value || '' },
     };
   }
-  changeText(e) {
+
+  changeText = e => {
     const { input } = this.state;
     input.value = e.target.value;
     this.setState({ input }, this.props.changeText(e.target.value));
-  }
+  };
+
   render() {
     const { id, labelSrOnly, type, label, labelMessage, placeholder, inputProps } = this.props;
     const { input } = this.state;

@@ -8,10 +8,10 @@ class AuthorizedWrapper extends Component {
       isAuthorized: { value: false },
     };
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setAuthorization();
   }
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     this.setAuthorization();
   }
   setAuthorization() {

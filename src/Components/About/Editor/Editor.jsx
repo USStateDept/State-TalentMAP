@@ -9,24 +9,23 @@ export const SUBMIT_BUTTON_ID = 'about-content-submit';
 class Editor extends Component {
   constructor(props) {
     super(props);
-    this.submit = this.submit.bind(this);
-    this.onContentChange = this.onContentChange.bind(this);
     this.state = {
       data: props.data,
     };
   }
 
-  onContentChange(e) {
+  onContentChange = e => {
     this.setState({ data: e });
-  }
+  };
 
-  submit() {
+  submit = () => {
     const { data } = this.state;
     this.props.submit(data);
-  }
+  };
 
   render() {
-    const { cancel, data } = this.props;
+    const { data } = this.props;
+    const { cancel } = this.props;
     return (
       <div className="usa-grid-full">
         <TextEditorSubmit
@@ -35,15 +34,20 @@ class Editor extends Component {
           submitProps={{ id: SUBMIT_BUTTON_ID }}
         />
         <div className="usa-grid-full markdown-editor">
-          <MarkdownEditor
-            onContentChange={this.onContentChange}
-            styles={{
-              styleMarkdownPreviewArea: { overflow: 'auto' },
-              styleMarkdownTextArea: { paddingTop: '10px' },
-            }}
-            initialContent={data}
-            iconsSet="font-awesome"
-          />
+          {
+
+            <MarkdownEditor
+              onContentChange={this.onContentChange}
+              styles={{
+                /*
+                  Do not add styles - they break starting with React 16
+                */
+              }}
+              initialContent={data}
+              iconsSet="font-awesome"
+            />
+
+          }
         </div>
       </div>
     );

@@ -14,17 +14,16 @@ import UserRow from './UserRow';
 class UserRoles extends Component {
   constructor(props) {
     super(props);
-    this.onPageChange = this.onPageChange.bind(this);
     this.state = {
       page: 1,
       range: 100,
     };
   }
 
-  onPageChange({ page }) {
+  onPageChange = ({ page }) => {
     this.setState({ page });
     this.props.updateUsers(page);
-  }
+  };
 
   render() {
     const {
@@ -82,7 +81,7 @@ class UserRoles extends Component {
         ${(usersIsLoading) ? 'results-loading' : ''}`}
       >
         {
-            usersIsLoading &&
+          usersIsLoading &&
             <div>
               <Spinner type="homepage-position-results" size="big" />
             </div>

@@ -16,22 +16,23 @@ const EDIT_BUTTON_ID = 'edit-about-content';
 class About extends Component {
   constructor(props) {
     super(props);
-    this.toggleEditor = this.toggleEditor.bind(this);
-    this.submit = this.submit.bind(this);
     this.state = {
       editorVisible: false,
     };
   }
-  toggleEditor() {
+
+  toggleEditor = () => {
     const { editorVisible } = this.state;
     this.setState({ editorVisible: !editorVisible }, () => {
       const elToFocus = this.state.editorVisible ? SUBMIT_BUTTON_ID : EDIT_BUTTON_ID;
       focusById(elToFocus, 1);
     });
-  }
-  submit(data) {
+  };
+
+  submit = data => {
     this.props.patchData(data);
-  }
+  };
+
   render() {
     const { data, isLoading, hasErrored } = this.props;
     const { editorVisible } = this.state;

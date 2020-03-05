@@ -17,7 +17,7 @@ const BidCycleList = ({ cycles }) => (
       ))}
     </Column>
   </Row>
-  );
+);
 
 BidCycleList.propTypes = {
   cycles: BID_CYCLES,

@@ -38,7 +38,7 @@ class CDOAutoSuggest extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.cdos, nextProps.cdos)) {
       this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }

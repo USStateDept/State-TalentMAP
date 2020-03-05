@@ -7,16 +7,17 @@ import { getAssetPath } from '../../utilities';
 class Explore extends Component {
   constructor(props) {
     super(props);
-    this.onRegionChange = this.onRegionChange.bind(this);
     this.state = {
       selectedRegion: { value: '' },
     };
   }
-  onRegionChange(e) {
+
+  onRegionChange = e => {
     const { selectedRegion } = this.state;
     selectedRegion.value = e;
     this.setState({ selectedRegion });
-  }
+  };
+
   render() {
     const { filters, onRegionSubmit } = this.props;
     const { selectedRegion } = this.state;

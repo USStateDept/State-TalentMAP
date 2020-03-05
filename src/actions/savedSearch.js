@@ -249,10 +249,10 @@ export function saveSearch(data, id) {
         dispatch(newSavedSearchSuccess(
           // if an ID was passed, we know to use the UPDATED message
           id ?
-          { title: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS_TITLE,
-            message: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) } :
-          { title: SystemMessages.NEW_SAVED_SEARCH_SUCCESS_TITLE,
-            message: SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name) },
+            { title: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS_TITLE,
+              message: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) } :
+            { title: SystemMessages.NEW_SAVED_SEARCH_SUCCESS_TITLE,
+              message: SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name) },
         ));
         // eslint-disable-next-line
         const success = id => id ?

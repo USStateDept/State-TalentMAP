@@ -342,11 +342,11 @@ export function toggleBidPosition(id, remove, isClient, clientId, fromTracker) {
       .then(axios.spread((action, position) => {
         const pos = position.data;
         const undo = () => dispatch(toggleBidPosition(
-            id, !remove, isClient, clientId, fromTracker,
+          id, !remove, isClient, clientId, fromTracker,
         ));
         const message = remove ?
-        SystemMessages.DELETE_BID_ITEM_SUCCESS(pos.position, undo) :
-        SystemMessages.ADD_BID_ITEM_SUCCESS(pos.position, { client, hideLink: !!fromTracker });
+          SystemMessages.DELETE_BID_ITEM_SUCCESS(pos.position, undo) :
+          SystemMessages.ADD_BID_ITEM_SUCCESS(pos.position, { client, hideLink: !!fromTracker });
         dispatch(bidListToggleSuccess(message));
         dispatch(toastSuccess(message));
         dispatch(bidListToggleIsLoading(false, id));

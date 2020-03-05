@@ -44,7 +44,7 @@ describe('DesktopNav', () => {
         logout={() => {}}
         toggleSearchVisibility={() => {}}
       />,
-      );
+    );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

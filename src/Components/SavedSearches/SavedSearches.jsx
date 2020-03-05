@@ -17,13 +17,12 @@ const getUsePV = () => checkFlag('flags.projected_vacancy');
 class SavedSearches extends Component {
   constructor(props) {
     super(props);
-    this.getSearches = this.getSearches.bind(this);
     this.state = {
       selected: 'all',
     };
   }
 
-  getSearches(useType) {
+  getSearches = useType => {
     const cycle = '/api/v1/cycleposition/';
     const pos = '/api/v1/position/';
     const pv = '/api/v1/fsbid/projected_vacancies/';
@@ -36,12 +35,12 @@ class SavedSearches extends Component {
         return savedSearches.results.filter(f => f.endpoint === cycle || f.endpoint === pos);
       case 'pv':
         return getUsePV() ?
-        savedSearches.results.filter(f => f.endpoint === pv) : [];
+          savedSearches.results.filter(f => f.endpoint === pv) : [];
       default:
         return savedSearches.results
-               .filter(f => f.endpoint === cycle || f.endpoint === pos || f.endpoint === pv);
+          .filter(f => f.endpoint === cycle || f.endpoint === pos || f.endpoint === pv);
     }
-  }
+  };
 
   render() {
     const {

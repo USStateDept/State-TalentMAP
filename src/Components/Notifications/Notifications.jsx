@@ -80,14 +80,14 @@ const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, 
             </div>
           </Column>
         </div>
-    }
+      }
     </div>
   );
 };
 
 Notifications.propTypes = {
   deleteOne: PropTypes.func.isRequired,
-  notifications: PropTypes.shape({}),
+  notifications: PropTypes.shape({ count: PropTypes.number }),
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   page: PropTypes.number,

@@ -21,15 +21,6 @@ describe('SavedSearchesListResultsCardComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <SavedSearchesListResultsCard
-        {...props}
-      />,
-    );
-    expect(wrapper.instance().props.savedSearch.id).toBe(searchObject.id);
-  });
-
   it('can click the delete button', () => {
     const spy = sinon.spy();
     const wrapper = mount(

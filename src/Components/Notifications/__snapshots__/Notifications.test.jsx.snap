@@ -93,6 +93,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
         deleteOne={[Function]}
         id={1}
         isRead={false}
+        key="1"
         message="message"
         onCheck={[Function]}
         tags={Array []}

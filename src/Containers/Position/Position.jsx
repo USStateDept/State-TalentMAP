@@ -31,14 +31,7 @@ import {
 } from '../../Constants/PropTypes';
 
 class Position extends Component {
-  constructor(props) {
-    super(props);
-    this.editDescriptionContent = this.editDescriptionContent.bind(this);
-    this.editPocContent = this.editPocContent.bind(this);
-    this.editWebsiteContent = this.editWebsiteContent.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { isArchived, isProjectedVacancy } = this.props;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
@@ -64,17 +57,17 @@ class Position extends Component {
     this.props.fetchUPData(id);
   }
 
-  editDescriptionContent(content) {
+  editDescriptionContent = content => {
     this.props.editDescriptionContent(this.props.positionDetails.description.id, content);
-  }
+  };
 
-  editPocContent(content) {
+  editPocContent = content => {
     this.props.editPocContent(this.props.positionDetails.description.id, content);
-  }
+  };
 
-  editWebsiteContent(content) {
+  editWebsiteContent = content => {
     this.props.editWebsiteContent(this.props.positionDetails.description.id, content);
-  }
+  };
 
   render() {
     const {

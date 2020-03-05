@@ -19,9 +19,9 @@ export function positionDetails(state = {}, action) {
     case 'POSITION_DETAILS_FETCH_DATA_SUCCESS':
       return action.positionDetails;
     case 'POSITION_DETAILS_PATCH_STATE': {
-      // Patch state array so redux doesn't refresh for a simple update.
-      // Pushes specifically to the "position" substate since this is
-      // only currently being used for updating highlighted status.
+    // Patch state array so redux doesn't refresh for a simple update.
+    // Pushes specifically to the "position" substate since this is
+    // only currently being used for updating highlighted status.
       const state$ = { ...state };
       const objectToCheck = state.id;
       if (objectToCheck === action.positionDetails.id) {

@@ -26,21 +26,17 @@ export const downloadFile = (text) => {
 class AdministratorContainer extends Component {
   constructor(props) {
     super(props);
-    this.onDownloadClick = this.onDownloadClick.bind(this);
-    this.getLogById = this.getLogById.bind(this);
-    this.onDownloadOne = this.onDownloadOne.bind(this);
-    this.runAllJobs = this.runAllJobs.bind(this);
     this.state = {};
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.getLogsList();
     this.props.getUsers();
     this.props.getTableStats();
     this.props.getSyncJobs();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.logsIsLoading && !nextProps.logsIsLoading && nextProps.logs) {
       downloadFile(nextProps.log);
     }
@@ -54,35 +50,35 @@ class AdministratorContainer extends Component {
     }
   }
 
-  onDownloadClick() {
+  onDownloadClick = () => {
     if (!this.props.isLoading) {
       this.props.getLogs();
     }
-  }
+  };
 
-  onDownloadOne(id) {
+  onDownloadOne = id => {
     if (!this.props.logToDownloadIsLoading) {
       this.props.getLogToDownload(id);
     }
-  }
+  };
 
-  getLogById(id) {
+  getLogById = id => {
     this.props.getLog(id);
-  }
+  };
 
-  runAllJobs() {
+  runAllJobs = () => {
     const { putAllSyncJobs, putAllSyncsIsLoading } = this.props;
     if (!putAllSyncsIsLoading) {
       putAllSyncJobs();
     }
-  }
+  };
 
   render() {
     const {
-          logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
-          logsList, logsListIsLoading, logsListHasErrored,
-          log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, totalUsers,
-        } = this.props;
+      logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
+      logsList, logsListIsLoading, logsListHasErrored,
+      log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, totalUsers,
+    } = this.props;
     const props = {
       logs,
       logsIsLoading,
@@ -139,7 +135,7 @@ AdministratorContainer.propTypes = {
   patchSyncHasErrored: PropTypes.bool,
   getUsers: PropTypes.func,
   getTableStats: PropTypes.func,
-  totalUsers: PropTypes.shape({}),
+  totalUsers: PropTypes.shape({ count: PropTypes.number }),
 };
 
 AdministratorContainer.defaultProps = {

@@ -6,7 +6,7 @@ import GroupedCardList from './GroupedCardList';
 import Alert from '../../Alert';
 
 const GlossaryEditorCardList = ({ terms, submitGlossaryTerm, submitGlossaryFirstLetter,
-availableLetters, glossaryPatchHasErrored, glossaryPatchSuccess }) => {
+  availableLetters, glossaryPatchHasErrored, glossaryPatchSuccess }) => {
   const showNoResultsAlerts = !Object.keys(terms).length;
   return (
     <div className="usa-grid-full">

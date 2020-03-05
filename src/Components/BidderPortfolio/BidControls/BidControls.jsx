@@ -14,27 +14,28 @@ const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
 class BidControls extends Component {
   constructor(props) {
     super(props);
-    this.onSortChange = this.onSortChange.bind(this);
-    this.onFilterChange = this.onFilterChange.bind(this);
-    this.onSeasonChange = this.onSeasonChange.bind(this);
     this.state = {
       hasSeasons: true,
     };
   }
-  onSortChange(q) {
+
+  onSortChange = q => {
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
-  }
-  onFilterChange(q) {
+  };
+
+  onFilterChange = q => {
     const orderingObject = { hasHandshake: q.target.value };
     this.props.queryParamUpdate(orderingObject);
-  }
-  onSeasonChange(seasons) {
+  };
+
+  onSeasonChange = seasons => {
     const hasSeasons = !!seasons.length;
     if (hasSeasons !== this.state.hasSeasons) {
       this.setState({ hasSeasons });
     }
-  }
+  };
+
   render() {
     const { viewType, changeViewType, defaultHandshake, defaultOrdering } = this.props;
     const { hasSeasons } = this.state;

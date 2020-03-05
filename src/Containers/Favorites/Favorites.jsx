@@ -11,30 +11,24 @@ import FavoritePositions from '../../Components/FavoritePositions';
 import CompareDrawer from '../../Components/CompareDrawer';
 
 class FavoritePositionsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.onToggleFavorite = this.onToggleFavorite.bind(this);
-    this.getSortedFavorites = this.getSortedFavorites.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getFavorites();
     this.props.bidListFetchData();
   }
 
-  onToggleFavorite(id, remove) {
+  onToggleFavorite = (id, remove) => {
     this.props.toggleFavorite(id, remove);
-  }
+  };
 
   getFavorites() {
     this.props.fetchData();
   }
 
-  getSortedFavorites(type) {
+  getSortedFavorites = type => {
     if (type.target && type.target.value) {
       this.props.fetchData(type.target.value);
     }
-  }
+  };
 
   render() {
     const { favoritePositions, favoritePositionsIsLoading,

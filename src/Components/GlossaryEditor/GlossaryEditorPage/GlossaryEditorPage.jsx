@@ -12,8 +12,6 @@ import GlossaryEditorPageHeader from '../GlossaryEditorPageHeader';
 class GlossaryEditorPage extends Component {
   constructor(props) {
     super(props);
-    this.debouncedChangeText = this.debouncedChangeText.bind(this);
-    this.debouncedChangeLetter = this.debouncedChangeLetter.bind(this);
     this.state = {
       searchText: '',
       firstLetter: null,
@@ -38,19 +36,19 @@ class GlossaryEditorPage extends Component {
 
   // Perform client-side search but apply loading prop to provide
   // a more natural search exprience.
-  debouncedChangeText(text) {
+  debouncedChangeText = text => {
     this.setState({ localSearchIsLoading: true });
     this.debouncedText.cancel();
     this.debouncedText = debounce(q => this.changeText(q), this.debounceTimeMs);
     this.debouncedText(text);
-  }
+  };
 
-  debouncedChangeLetter(letter) {
+  debouncedChangeLetter = letter => {
     this.setState({ localSearchIsLoading: true });
     this.debouncedLetter.cancel();
     this.debouncedLetter = debounce(q => this.changeFirstLetter(q), this.debounceTimeMs);
     this.debouncedLetter(letter);
-  }
+  };
 
   filteredTermsBySearch() {
     const { searchText } = this.state;

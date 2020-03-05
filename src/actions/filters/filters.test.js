@@ -14,8 +14,8 @@ const items = {
       selectionRef: 'skill__code__in',
       text: 'Choose Skill',
     },
-      data: [
-      ],
+    data: [
+    ],
     },
     {
       item: {
@@ -41,7 +41,7 @@ const items = {
         ],
       },
       data: [
-      { code: '0', description: 'Yes' }, // use a code of 0 to specify we want to return results where COLA > 0
+        { code: '0', description: 'Yes' }, // use a code of 0 to specify we want to return results where COLA > 0
       ],
     },
     {

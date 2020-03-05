@@ -10,8 +10,7 @@ import { DEFAULT_USER_PROFILE, DEFAULT_FAVORITES } from '../../Constants/Default
 import ProfileDashboard from '../../Components/ProfileDashboard';
 
 class DashboardContainer extends Component {
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchAssignment();
     this.props.fetchNotifications();
     this.props.fetchBidList();

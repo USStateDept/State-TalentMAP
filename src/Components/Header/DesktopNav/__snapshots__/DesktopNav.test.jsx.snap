@@ -7,12 +7,12 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
   <div
     className="nav-link-container header-nav-desktop desktop-nav-only"
   >
-    <withRouter()
+    <withRouter(NavLink)
       link="/"
       routeToRight="/results"
       title="Home"
     />
-    <withRouter()
+    <withRouter(NavLink)
       link="/results"
       title="Search"
     />
@@ -128,12 +128,12 @@ exports[`DesktopNav matches snapshot when logged out 1`] = `
   <div
     className="nav-link-container header-nav-desktop desktop-nav-only"
   >
-    <withRouter()
+    <withRouter(NavLink)
       link="/"
       routeToRight="/results"
       title="Home"
     />
-    <withRouter()
+    <withRouter(NavLink)
       link="/results"
       title="Search"
     />

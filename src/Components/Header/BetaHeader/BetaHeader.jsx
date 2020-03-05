@@ -17,16 +17,12 @@ const SUBMIT_BUTTON_ID = 'submit-home-content';
 class BetaHeader extends Component {
   constructor(props) {
     super(props);
-    this.patchData = this.patchData.bind(this);
-    this.submit = this.submit.bind(this);
-    this.cancel = this.cancel.bind(this);
-    this.toggleEditor = this.toggleEditor.bind(this);
     this.state = {
       editorVisible: false,
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getData();
   }
 
@@ -34,26 +30,26 @@ class BetaHeader extends Component {
     this.props.fetchData();
   }
 
-  patchData(data) {
+  patchData = data => {
     this.props.patchData(data);
-  }
+  };
 
-  toggleEditor() {
+  toggleEditor = () => {
     const { editorVisible } = this.state;
     this.setState({ editorVisible: !editorVisible }, () => {
       const elToFocus = this.state.editorVisible ? SUBMIT_BUTTON_ID : EDIT_BUTTON_ID;
       focusById(elToFocus, 0);
     });
-  }
+  };
 
-  submit(data) {
+  submit = data => {
     this.props.patchData(data);
     this.setState({ editorVisible: false });
-  }
+  };
 
-  cancel() {
+  cancel = () => {
     this.setState({ editorVisible: false });
-  }
+  };
 
   render() {
     const { data, isLoading, userProfile } = this.props;

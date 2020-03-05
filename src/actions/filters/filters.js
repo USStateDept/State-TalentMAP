@@ -79,31 +79,31 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           dispatch(filtersIsLoading(true));
           const endpoint = '/fsbid/reference/locations/';
           return api().get(endpoint)
-          .then((response) => {
+            .then((response) => {
             // TODO - this is dummy logic to get a single location,
             // since there is no fsbid endpoint to do so. Once that exists,
             // we can update this.
-            const getAPLocation = () => {
-              const obj = get(response, 'data', [])
-                .find(f => f.code === item.codeRef) || {};
-              return {
-                id: obj.code,
-                location: {
-                  ...obj,
-                },
+              const getAPLocation = () => {
+                const obj = get(response, 'data', [])
+                  .find(f => f.code === item.codeRef) || {};
+                return {
+                  id: obj.code,
+                  location: {
+                    ...obj,
+                  },
+                };
               };
-            };
 
-            const results$ = getAPLocation();
-            const obj = Object.assign(results$, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
-            // push the object to cache
-            responses.asyncFilterCache.push(obj);
-            // and return the object
-            return obj;
-          })
-          .catch((error) => {
-            throw error;
-          });
+              const results$ = getAPLocation();
+              const obj = Object.assign(results$, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
+              // push the object to cache
+              responses.asyncFilterCache.push(obj);
+              // and return the object
+              return obj;
+            })
+            .catch((error) => {
+              throw error;
+            });
         }
         return {};
       });
@@ -309,21 +309,21 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       ));
 
       Q.allSettled(queryProms)
-      .then((results) => {
-        results.forEach((result) => {
-          if (result.state === 'fulfilled') {
+        .then((results) => {
+          results.forEach((result) => {
+            if (result.state === 'fulfilled') {
             // if fulfilled, return the formatted data
-            responses.filters.push({ data: get(result, 'value.data', []), item: get(result, 'value.item', {}) });
-          } else {
+              responses.filters.push({ data: get(result, 'value.data', []), item: get(result, 'value.item', {}) });
+            } else {
             // Else, return the correct structure, but with no data. Include hasErrored prop.
-            responses.filters.push({ data: [], item: {}, hasErrored: true });
-          }
-          responses.filters.push(...staticFilters);
-          dispatchSuccess();
-          dispatch(filtersHasErrored(false));
-          dispatch(filtersIsLoading(false));
+              responses.filters.push({ data: [], item: {}, hasErrored: true });
+            }
+            responses.filters.push(...staticFilters);
+            dispatchSuccess();
+            dispatch(filtersHasErrored(false));
+            dispatch(filtersIsLoading(false));
+          });
         });
-      });
     }
   };
 }
