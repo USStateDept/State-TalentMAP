@@ -186,4 +186,4 @@ export const mapStateToProps = state => ({
   shouldShowMobileFilter: state.shouldShowMobileFilter,
 });
 
-export default connect(mapStateToProps, null, null, { withRef: true })(Results);
+export default connect(mapStateToProps, null, null, { forwardRef: true })(Results);

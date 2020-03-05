@@ -13,11 +13,27 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
   >
     <Switch>
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(DashboardContainer)",
+            "type": [Function],
+          }
+        }
         path="/profile/dashboard"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(withRouter(BidderPortfolio))",
+            "type": [Function],
+          }
+        }
         path="/profile/bidderportfolio"
       />
       <Route
@@ -25,7 +41,15 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
         path="/profile/cycles"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(withRouter(FavoritePositionsContainer))",
+            "type": [Function],
+          }
+        }
         path="/profile/favorites"
       />
       <Route
@@ -37,19 +61,51 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
         render={[Function]}
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(withRouter(BidTrackerContainer))",
+            "type": [Function],
+          }
+        }
         path="/profile/bidtracker/:id?"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(BidStatisticsContainer)",
+            "type": [Function],
+          }
+        }
         path="/profile/statistics"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(GlossaryEditorContainer)",
+            "type": [Function],
+          }
+        }
         path="/profile/glossaryeditor"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(withRouter(ProfilePublic))",
+            "type": [Function],
+          }
+        }
         path="/profile/public/:id"
       />
       <Route
@@ -57,7 +113,15 @@ exports[`ProfilePageComponent matches snapshot 1`] = `
         path="/profile/notifications"
       />
       <Route
-        component={[Function]}
+        component={
+          Object {
+            "$$typeof": Symbol(react.memo),
+            "WrappedComponent": [Function],
+            "compare": null,
+            "displayName": "Connect(AdministratorContainer)",
+            "type": [Function],
+          }
+        }
         path="/profile/administrator"
       />
       <Flag

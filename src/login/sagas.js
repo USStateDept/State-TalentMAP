@@ -1,6 +1,6 @@
 import { isObject, merge } from 'lodash';
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import api from '../api';
 import { unsetNotificationsCount } from '../actions/notifications';
 import { userProfileFetchData, unsetUserProfile, trackLogin, updateSavedSearches } from '../actions/userProfile';
