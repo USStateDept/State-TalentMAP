@@ -24,8 +24,8 @@
 
 // IE11 fix for input text not displaying
 @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-  .bidder-portfolio-stat-card-list {
-    max-width: calc(100vw - 250px);
+  .user-dashboard > .bidder-portfolio-stat-card-list {
+    max-width: calc(100vw - 260px);
   }
 }
 
