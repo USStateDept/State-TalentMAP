@@ -6,6 +6,7 @@
     "@babel/core": "^7.8.6",
     "@babel/polyfill": "^7.0.0",
     "@cmsgov/design-system-core": "^1.18.0",
+    "@fortawesome/fontawesome-free": "^5.12.1",
     "axios": "^0.18.1",
     "axios-cache-adapter": "^2.5.0",
     "babel-plugin-lodash": "^3.3.4",
@@ -158,7 +159,9 @@
     "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json",
     "bundlesize": "bundlesize"
   },
-  "engines" : { "node" : ">=12" },
+  "engines": {
+    "node": ">=12"
+  },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
