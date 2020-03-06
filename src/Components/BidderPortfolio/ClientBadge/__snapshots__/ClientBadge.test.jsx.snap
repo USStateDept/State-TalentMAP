@@ -7,10 +7,49 @@ exports[`ClientBadge matches snapshot 1`] = `
   <div
     className="client-badge"
   >
-    <FontAwesome
-      aria-label="type of \\"3\\" with status of \\"undefined\\""
-      name="bath"
-    />
+    <Tooltip
+      animateFill={true}
+      animation="shift"
+      arrow={true}
+      arrowSize="regular"
+      className=""
+      delay={0}
+      disabled={false}
+      distance={10}
+      duration={375}
+      followCursor={false}
+      hideDelay={0}
+      hideDuration={375}
+      hideOnClick={true}
+      html={null}
+      inertia={false}
+      interactive={false}
+      interactiveBorder={2}
+      multiple={false}
+      offset={-95}
+      onHidden={[Function]}
+      onHide={[Function]}
+      onRequestClose={[Function]}
+      onShow={[Function]}
+      onShown={[Function]}
+      popperOptions={Object {}}
+      position="top-end"
+      size="regular"
+      sticky={false}
+      stickyDuration={200}
+      style={Object {}}
+      tabIndex="0"
+      theme="dark"
+      title="3rd Tour"
+      touchHold={false}
+      trigger="mouseenter focus"
+      unmountHTMLWhenHide={false}
+    >
+      <FontAwesome
+        aria-label="type of \\"3\\" with status of \\"undefined\\""
+        name="bath"
+      />
+    </Tooltip>
   </div>
   <div
     className="client-badge-text"
