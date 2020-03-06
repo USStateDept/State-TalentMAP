@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
 
 const icons = {
   3: {
@@ -87,11 +88,19 @@ const ClientBadge = ({ type, status }) => {
   return (
     <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
       <div className="client-badge">
-        {
-          icons[type].isIcon ?
-            <FA aria-label={ariaLabel} name={icons[type].name} /> :
-            <span aria-label={ariaLabel}>{icons[type].name}</span>
-        }
+        <Tooltip
+          title={icons[type].text}
+          arrow
+          offset={-95}
+          position="top-end"
+          tabIndex="0"
+        >
+          {
+            icons[type].isIcon ?
+              <FA aria-label={ariaLabel} name={icons[type].name} /> :
+              <span aria-label={ariaLabel}>{icons[type].name}</span>
+          }
+        </Tooltip>
       </div>
       <div className="client-badge-text">
         <span>{type}</span>
