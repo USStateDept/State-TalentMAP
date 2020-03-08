@@ -53,7 +53,7 @@
     "react-loading-skeleton": "0.5.0",
     "react-markdown": "^4.3.1",
     "react-markdown-editor": "1.0.0",
-    "react-paginate": "^6.3.0",
+    "react-paginate": "^6.3.2",
     "react-picky": "^4.7.2",
     "react-redux": "^5.0.5",
     "react-responsive": "^8.0.3",
