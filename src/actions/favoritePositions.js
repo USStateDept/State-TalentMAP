@@ -42,7 +42,8 @@ export function favoritePositionsFetchDataSuccess(results) {
 }
 
 export function favoritePositionsFetchData(sortType) {
-// export function favoritePositionsFetchData(limit=10, page=1, sortType) { TODO: backend needed
+  console.log('in favoritePositionsFetchData');
+  // export function favoritePositionsFetchData(limit=10, page=1, sortType) { TODO: backend needed
   const usePV = getUsePV();
   return (dispatch) => {
     dispatch(favoritePositionsIsLoading(true));

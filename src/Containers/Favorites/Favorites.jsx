@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -11,62 +11,60 @@ import FavoritePositions from '../../Components/FavoritePositions';
 import CompareDrawer from '../../Components/CompareDrawer';
 import { scrollToTop } from '../../utilities';
 
-const PAGE_SIZE = 12;
+const FavoritePositionsContainer = props => {
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 12;
+  const { favoritePositions, favoritePositionsIsLoading,
+    favoritePositionsHasErrored, bidList } = props;
 
-class FavoritePositionsContainer extends Component {
-  UNSAFE_componentWillMount() {
-    this.getFavorites();
-    this.props.bidListFetchData();
-  }
-
-  onToggleFavorite = (id, remove) => {
-    this.props.toggleFavorite(id, remove);
-  };
-
-  onPageChange({ page }) {
-    this.setState({ page }, () => {
-      scrollToTop({ delay: 0, duration: 400 });
-      this.getFavorites();
-    });
-  }
-  getFavorites() {
+  function getFavorites() {
     // const { page } = this.state; TODO: backend needed
     // this.props.fetchData(page);
-    this.props.fetchData();
+    props.fetchData();
   }
 
+  useEffect(() => {
+    console.log('in useEffect');
+    getFavorites();
+    props.bidListFetchData();
+    // passing an empty array bc i want useEffect to run only once, on load
+  }, []);
 
-  getSortedFavorites = type => {
+  function onToggleFavorite({ id, remove }) {
+    props.toggleFavorite(id, remove);
+  }
+
+  function onPageChange(e) {
+    setPage(e);
+    scrollToTop({ delay: 0, duration: 400 });
+    getFavorites();
+  }
+
+  function getSortedFavorites(type) {
     if (type.target && type.target.value) {
-      this.props.fetchData(type.target.value);
+      // props.fetchData(type.target.value);
     }
-  };
-
-  render() {
-    const { favoritePositions, favoritePositionsIsLoading,
-      favoritePositionsHasErrored, bidList } = this.props;
-
-    const { page } = this.state;
-
-    return (
-      <div>
-        <FavoritePositions
-          favorites={favoritePositions.favorites}
-          favoritesPV={favoritePositions.favoritesPV}
-          favoritePositionsIsLoading={favoritePositionsIsLoading}
-          favoritePositionsHasErrored={favoritePositionsHasErrored}
-          toggleFavorite={this.onToggleFavorite}
-          bidList={bidList.results}
-          onSortChange={this.getSortedFavorites}
-          page={page}
-          pageSize={PAGE_SIZE}
-          onPageChange={this.onPageChange}
-        />
-        <CompareDrawer />
-      </div>
-    );
   }
-}
+
+  return (
+    <div>
+      ||{favoritePositionsIsLoading.toString()}||
+      <FavoritePositions
+        favorites={favoritePositions.favorites}
+        favoritesPV={favoritePositions.favoritesPV}
+        favoritePositionsIsLoading={favoritePositionsIsLoading}
+        favoritePositionsHasErrored={favoritePositionsHasErrored}
+        toggleFavorite={onToggleFavorite}
+        bidList={bidList.results}
+        onSortChange={getSortedFavorites}
+        page={page}
+        pageSize={PAGE_SIZE}
+        onPageChange={onPageChange}
+      />
+      <CompareDrawer />
+    </div>
+  );
+};
 
 FavoritePositionsContainer.propTypes = {
   fetchData: PropTypes.func.isRequired,
