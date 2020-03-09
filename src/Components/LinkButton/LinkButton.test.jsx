@@ -15,16 +15,6 @@ describe('LinkButtonComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can take props', () => {
-    const wrapper = shallow(
-      <LinkButton className="test-class" toLink={toLink}>
-        {child}
-      </LinkButton>,
-    );
-    expect(wrapper.instance().props.toLink).toBe(toLink);
-    expect(wrapper.find('.test-class')).toBeDefined();
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <LinkButton toLink={toLink}>
@@ -41,7 +31,7 @@ describe('LinkButtonComponent', () => {
         {child}
       </LinkButton>,
     );
-    expect(wrapper.instance().props.toLink).toBe(toLink);
+    expect(wrapper.find('a').props().href).toBe(toLink);
     expect(wrapper.find('a.test-class')).toBeDefined();
   });
 
@@ -53,7 +43,7 @@ describe('LinkButtonComponent', () => {
         {child}
       </LinkButton>,
     );
-    expect(wrapper.instance().props.toLink).toBe(toLink);
+    expect(wrapper.find('a').props().href).toBe(toLink);
     expect(wrapper.find('a')).toBeDefined();
   });
 
@@ -64,7 +54,7 @@ describe('LinkButtonComponent', () => {
         {child}
       </LinkButton>,
     );
-    expect(wrapper.instance().props.toLink).toBe(toLink);
+    expect(wrapper.find('Link').props().to).toBe(toLink);
     expect(wrapper.find('Link')).toBeDefined();
   });
 });

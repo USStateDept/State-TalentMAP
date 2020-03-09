@@ -1,53 +1,54 @@
 import sinon from 'sinon';
 import { isEqual } from 'lodash';
 import { validStateEmail,
-         localStorageFetchValue,
-         localStorageToggleValue,
-         fetchUserToken,
-         pillSort,
-         formExploreRegionDropdown,
-         scrollToTop,
-         getItemLabel,
-         shortenString,
-         cleanQueryParams,
-         ifEnter,
-         formQueryString,
-         propSort,
-         existsInNestedObject,
-         removeDuplicates,
-         getTimeDistanceInWords,
-         formatDate,
-         focusById,
-         focusByFirstOfHeader,
-         wrapForMultiSelect,
-         returnObjectsWherePropMatches,
-         numbersToPercentString,
-         formatBidTitle,
-         formatWaiverTitle,
-         propOrDefault,
-         formatIdSpacing,
-         userHasPermissions,
-         getAssetPath,
-         sortGrades,
-         getApplicationPath,
-         getAccessiblePositionNumber,
-         getPostName,
-         getDifferentialPercentage,
-         mapSavedSearchesToSingleQuery,
-         mapSavedSearchToDescriptions,
-         difference,
-         redirectToLoginRedirect,
-         isUrl,
-         hasValidToken,
-         getScrollDistanceFromBottom,
-         spliceStringForCSV,
-         scrollToGlossaryTerm,
-         getBidCycleName,
-         loadImg,
-         downloadFromResponse,
-         anyToTitleCase,
-         stopProp,
-       } from './utilities';
+  localStorageFetchValue,
+  localStorageToggleValue,
+  fetchUserToken,
+  pillSort,
+  formExploreRegionDropdown,
+  scrollToTop,
+  getItemLabel,
+  shortenString,
+  cleanQueryParams,
+  ifEnter,
+  formQueryString,
+  propSort,
+  existsInNestedObject,
+  removeDuplicates,
+  getTimeDistanceInWords,
+  formatDate,
+  focusById,
+  focusByFirstOfHeader,
+  wrapForMultiSelect,
+  returnObjectsWherePropMatches,
+  numbersToPercentString,
+  formatBidTitle,
+  formatWaiverTitle,
+  propOrDefault,
+  formatIdSpacing,
+  userHasPermissions,
+  getAssetPath,
+  sortGrades,
+  getApplicationPath,
+  getAccessiblePositionNumber,
+  getPostName,
+  getDifferentialPercentage,
+  mapSavedSearchesToSingleQuery,
+  mapSavedSearchToDescriptions,
+  difference,
+  redirectToLoginRedirect,
+  isUrl,
+  hasValidToken,
+  getScrollDistanceFromBottom,
+  getAriaValue,
+  spliceStringForCSV,
+  scrollToGlossaryTerm,
+  getBidCycleName,
+  loadImg,
+  downloadFromResponse,
+  anyToTitleCase,
+  stopProp,
+} from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
 describe('local storage', () => {
@@ -492,9 +493,9 @@ describe('formatIdSpacing', () => {
   it('can format undefined values', () => {
     // these will be randomly generated shortids, so we just check that they have length
     // greater than 3
-    expect(formatIdSpacing(undefined).length).toBeGreaterThan(3);
-    expect(formatIdSpacing(null).length).toBeGreaterThan(3);
-    expect(formatIdSpacing(false).length).toBeGreaterThan(3);
+    expect(formatIdSpacing(undefined)).toBeDefined();
+    expect(formatIdSpacing(null)).toBeDefined();
+    expect(formatIdSpacing(false)).toBeDefined();
   });
 });
 
@@ -789,6 +790,15 @@ describe('getScrollDistanceFromBottom', () => {
     document.body = z;
     expect(getScrollDistanceFromBottom()).toBe(2100);
   });
+});
+
+describe('getAriaValue', () => {
+  [[true, 'true'], [false, 'false'], ['true', 'true'], ['false', 'false'], [null, 'false'], [1, 'true']]
+    .map(m => (
+      it(`returns ${m[1]} for ${m[0]}`, () => {
+        expect(getAriaValue(m[0])).toBe(m[1]);
+      })
+    ));
 });
 
 describe('spliceStringForCSV', () => {

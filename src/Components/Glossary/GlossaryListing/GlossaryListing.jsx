@@ -46,7 +46,7 @@ class GlossaryComponent extends Component {
                       {item.definition} {item.link && <a href={item.link} rel="noopener noreferrer" target="_blank">Read more here</a>}
                     </div>
                   </AccordionItem>),
-               )
+                )
               }
             </div>
           ))

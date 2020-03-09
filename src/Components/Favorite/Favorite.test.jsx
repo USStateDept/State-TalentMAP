@@ -52,11 +52,11 @@ describe('Favorite', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('sets state on componentWillReceiveProps() when this.state.loading && !nextProps.isLoading', () => {
+  it('sets state on UNSAFE_componentWillReceiveProps() when this.state.loading && !nextProps.isLoading', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<Favorite onToggle={spy} compareArray={[]} refKey={refKey} />);
     wrapper.setState({ loading: true });
-    wrapper.instance().componentWillReceiveProps({ isLoading: false, compareArray: [] }, {});
+    wrapper.instance().UNSAFE_componentWillReceiveProps({ isLoading: false, compareArray: [] }, {});
     expect(wrapper.instance().state.loading).toBe(false);
   });
 

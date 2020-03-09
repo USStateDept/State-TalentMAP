@@ -7,10 +7,10 @@ describe('reducers', () => {
         hasErrored: true,
         other: 1,
       } })).toEqual({
-        ...INITIAL_STATE,
-        hasErrored: true,
-        other: 1,
-      });
+      ...INITIAL_STATE,
+      hasErrored: true,
+      other: 1,
+    });
   });
 
   it('can set reducer UNSET_CLIENT_SUGGESTIONS', () => {

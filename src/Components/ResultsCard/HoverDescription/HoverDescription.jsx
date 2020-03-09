@@ -10,9 +10,6 @@ import InteractiveElement from '../../InteractiveElement';
 class HoverDescription extends Component {
   constructor(props) {
     super(props);
-    this.expand = this.expand.bind(this);
-    this.close = this.close.bind(this);
-    this.toggle = this.toggle.bind(this);
 
     // Debouncing function to 260ms and binding this.
     // Used to create a delay and prevent multiple actions within a small
@@ -30,17 +27,17 @@ class HoverDescription extends Component {
     this.setState({ expanded: !!shouldExpand });
   }
 
-  toggle() {
+  toggle = () => {
     this.toggleVisibility(!this.state.expanded);
-  }
+  };
 
-  expand() {
+  expand = () => {
     this.toggleVisibility(true);
-  }
+  };
 
-  close() {
+  close = () => {
     this.toggleVisibility(false);
-  }
+  };
 
   toggleCardHovered(cardHovered = false) {
     this.setState({ cardHovered });

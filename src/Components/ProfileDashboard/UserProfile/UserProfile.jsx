@@ -8,7 +8,7 @@ import ExternalUserStatus from '../ExternalUserStatus';
 import PositionInformation from '../PositionInformation';
 
 const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
-showContactInformation, useGroup, isPublic }) => {
+  showContactInformation, useGroup, isPublic }) => {
   const cdo = get(userProfile, 'cdo', {});
   return (
     <div className="usa-grid-full current-user">

@@ -10,8 +10,6 @@ import { getScrollDistanceFromBottom } from '../../utilities';
 export class Compare extends Component {
   constructor(props) {
     super(props);
-    this.lsListener = this.lsListener.bind(this);
-    this.scrollListener = this.scrollListener.bind(this);
 
     /* set to 0 for now, but could change to the distance in px from the bottom of the screen
     that you want the drawer to hide at */
@@ -24,7 +22,7 @@ export class Compare extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // initialize with any existing comparison choices
     const ls = localStorage.getItem('compare') || '[]';
     const initialArr = JSON.parse(ls);
@@ -52,14 +50,14 @@ export class Compare extends Component {
     this.props.fetchData(ids);
   }
 
-  lsListener() {
+  lsListener = () => {
     const comparisons = JSON.parse(localStorage.getItem('compare') || []);
     this.setState({ prevComparisons: this.state.comparisons, comparisons }, () => {
       this.getComparisons(this.state.comparisons.toString());
     });
-  }
+  };
 
-  scrollListener() {
+  scrollListener = () => {
     const { isHidden } = this.state;
 
     // eslint-disable-next-line no-unused-expressions
@@ -67,7 +65,7 @@ export class Compare extends Component {
       !isHidden && this.setState({ isHidden: true })
       :
       isHidden && this.setState({ isHidden: false });
-  }
+  };
 
   render() {
     const { isHidden, comparisons: comparisonsState, prevComparisons } = this.state;
@@ -79,7 +77,7 @@ export class Compare extends Component {
     /* sort based on any prior compare list, so the cards don't get jumbled
     after one is removed, as it persists until the new request completes */
     const sortedComparisons = comparisons.sort((a, b) =>
-    (comparisonsToUse.indexOf(a.id) >
+      (comparisonsToUse.indexOf(a.id) >
         comparisonsToUse.indexOf(b.id) ? 1 : -1),
     );
 

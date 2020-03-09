@@ -4,31 +4,31 @@ exports[`NavigationListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full"
 >
-  <withRouter()
+  <withRouter(NavigationItem)
     denominator={100}
     link="?type=all"
     numerator={100}
     title="All Clients"
   />
-  <withRouter()
+  <withRouter(NavigationItem)
     denominator={100}
     link="?type=bidding"
     numerator={50}
     title="Clients Bidding"
   />
-  <withRouter()
+  <withRouter(NavigationItem)
     denominator={100}
     link="?type=inpanel"
     numerator={20}
     title="Clients in Panel"
   />
-  <withRouter()
+  <withRouter(NavigationItem)
     denominator={100}
     link="?type=onpost"
     numerator={30}
     title="Clients in Post"
   />
-  <withRouter()
+  <withRouter(NavigationItem)
     denominator={100}
     link="?type=handshakeneeded"
     numerator={10}

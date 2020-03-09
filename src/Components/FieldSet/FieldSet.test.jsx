@@ -4,7 +4,7 @@ import toJSON from 'enzyme-to-json';
 import FieldSet from './FieldSet';
 
 describe('FieldSetComponent', () => {
-  it('can receive props', () => {
+  it('is defined', () => {
     const wrapper = shallow(
       <FieldSet
         legend="legend"
@@ -12,7 +12,7 @@ describe('FieldSetComponent', () => {
         <span>child</span>
       </FieldSet>,
     );
-    expect(wrapper.instance().props.legend).toBe('legend');
+    expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
@@ -36,7 +36,6 @@ describe('FieldSetComponent', () => {
         <span>child</span>
       </FieldSet>,
     );
-    expect(wrapper.instance().props.legend).toBe('legend');
-    expect(wrapper.find('legend.usa-sr-only')).toBeDefined();
+    expect(wrapper.find('legend.usa-sr-only').exists()).toBe(true);
   });
 });

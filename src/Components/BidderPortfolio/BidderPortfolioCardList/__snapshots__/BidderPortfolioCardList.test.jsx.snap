@@ -6,6 +6,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
 >
   <div
     className="bidder-portfolio-stat-card-container"
+    key="5"
   >
     <BidderPortfolioStatCard
       classifications={Array []}
@@ -54,6 +55,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
   </div>
   <div
     className="bidder-portfolio-stat-card-container"
+    key="3"
   >
     <BidderPortfolioStatCard
       classifications={Array []}
@@ -87,6 +89,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
   </div>
   <div
     className="bidder-portfolio-stat-card-container"
+    key="1"
   >
     <BidderPortfolioStatCard
       classifications={Array []}
@@ -120,6 +123,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
   </div>
   <div
     className="bidder-portfolio-stat-card-container"
+    key="6"
   >
     <BidderPortfolioStatCard
       classifications={Array []}
@@ -168,6 +172,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
   </div>
   <div
     className="bidder-portfolio-stat-card-container"
+    key="2"
   >
     <BidderPortfolioStatCard
       classifications={Array []}
@@ -201,6 +206,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
   </div>
   <div
     className="bidder-portfolio-stat-card-container"
+    key="4"
   >
     <BidderPortfolioStatCard
       classifications={Array []}

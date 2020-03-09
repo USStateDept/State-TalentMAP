@@ -19,7 +19,7 @@ describe('AccordionItemComponent', () => {
         {child}
       </Accordion>,
     );
-    expect(wrapper.instance().props.children).toBe(child);
+    expect(wrapper.find('ul').props().children).toBe(child);
   });
 
   it('receives className prop', () => {

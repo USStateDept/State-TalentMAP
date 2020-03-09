@@ -14,7 +14,7 @@ import DraftAlert from './DraftAlert';
 
 // Alert rendering based on status is handled here.
 // eslint-disable-next-line complexity
-const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, deleteBid }, { condensedView }) => {
+const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid }, { condensedView }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -109,7 +109,6 @@ OverlayAlert.propTypes = {
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
-  deleteBid: PropTypes.func.isRequired,
 };
 
 OverlayAlert.contextTypes = {

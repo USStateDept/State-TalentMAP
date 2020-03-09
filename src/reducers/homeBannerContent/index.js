@@ -1,9 +1,9 @@
 import { homeBannerContentHasErrored,
-homeBannerContentIsLoading,
-homeBannerContent,
-homeBannerContentPatchHasErrored,
-homeBannerContentPatchIsLoading,
-homeBannerContentPatchSuccess } from './homeBannerContent';
+  homeBannerContentIsLoading,
+  homeBannerContent,
+  homeBannerContentPatchHasErrored,
+  homeBannerContentPatchIsLoading,
+  homeBannerContentPatchSuccess } from './homeBannerContent';
 
 export default {
   homeBannerContentHasErrored,

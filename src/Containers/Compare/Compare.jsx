@@ -15,13 +15,12 @@ import { LOGIN_REDIRECT } from '../../login/routes';
 export class Compare extends Component {
   constructor(props) {
     super(props);
-    this.onToggle = this.onToggle.bind(this);
     this.state = {
       key: 0,
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
     } else {
@@ -32,13 +31,13 @@ export class Compare extends Component {
     }
   }
 
-  onToggle(id) {
+  onToggle = id => {
     let compareArray = this.props.match.params.ids.split(',');
     compareArray = compareArray.filter(f => f !== String(id));
     const compareString = compareArray.toString();
     this.props.onNavigateTo(`/compare/${compareString}`);
     this.getComparisons(`${compareString}`);
-  }
+  };
 
   getComparisons(ids) {
     this.props.fetchData(ids);
@@ -46,7 +45,7 @@ export class Compare extends Component {
 
   render() {
     const { comparisons, hasErrored, isLoading, favoritePositions, bidList,
-    bidListToggleIsLoading } = this.props;
+      bidListToggleIsLoading } = this.props;
     return (
       <CompareList
         compare={comparisons}

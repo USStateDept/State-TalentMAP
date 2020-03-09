@@ -26,29 +26,25 @@ export const renderBidCounts = (compareArray, emptyArray) => (
         Bid Count
     </th>
     {
-        compareArray.map((c) => {
-          const bidStatistics = get(c, 'bid_statistics[0]', {});
-          return (
-            <td key={shortId.generate()}>
-              <span className="bid-stats">
-                <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" hideLabel />
-              </span>
-            </td>
-          );
-        })
-      }
+      compareArray.map((c) => {
+        const bidStatistics = get(c, 'bid_statistics[0]', {});
+        return (
+          <td key={shortId.generate()}>
+            <span className="bid-stats">
+              <BidCount bidStatistics={bidStatistics} altStyle label="Bid Count" hideLabel />
+            </span>
+          </td>
+        );
+      })
+    }
     {
-        emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
-      }
+      emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+    }
   </tr>
 );
 
 class CompareList extends Component {
-  constructor(props) {
-    super(props);
-    this.renderBidListButtons = this.renderBidListButtons.bind(this);
-  }
-  renderBidListButtons(compareArray, emptyArray) {
+  renderBidListButtons = (compareArray, emptyArray) => {
     const { bidList } = this.props;
     return (
       <tr>
@@ -75,7 +71,8 @@ class CompareList extends Component {
         }
       </tr>
     );
-  }
+  };
+
   render() {
     const { compare, isLoading, favorites, onToggle } = this.props;
     const limit = 5;
@@ -91,7 +88,7 @@ class CompareList extends Component {
           {
             isLoading ?
               <Spinner type="homepage-position-results" size="big" />
-            :
+              :
               <div className="comparison-table-container">
                 <table className="tm-table">
                   <caption className="usa-sr-only">Position details comparison:</caption>
@@ -137,7 +134,7 @@ class CompareList extends Component {
                               </div>
                               <span aria-labelledby={
                                 getAccessiblePositionNumber(position.position_number)
-                                }
+                              }
                               >
                                 {position.position_number}
                               </span>
@@ -160,7 +157,7 @@ class CompareList extends Component {
                               <Link to={`/details/${c.id}`}>View position</Link>
                             </div>
                           </td>
-                          ))
+                        ))
                       }
                       {
                         emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
@@ -240,7 +237,7 @@ class CompareList extends Component {
                               c.position.post && c.position.post.tour_of_duty
                                 ? c.position.post.tour_of_duty
                                 : NO_TOUR_OF_DUTY
-                              }
+                            }
                           </td>
                         ))
                       }

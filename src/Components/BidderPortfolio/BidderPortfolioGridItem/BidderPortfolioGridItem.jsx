@@ -10,16 +10,17 @@ import CheckBox from '../../CheckBox';
 class BidderPortfolioGridItem extends Component {
   constructor(props) {
     super(props);
-    this.expandSection = this.expandSection.bind(this);
     this.state = {
       expanded: false,
     };
   }
-  expandSection() {
+
+  expandSection = () => {
     this.setState({
       expanded: !this.state.expanded,
     });
-  }
+  };
+
   render() {
     const { userProfile } = this.props;
     const { expanded } = this.state;

@@ -6,7 +6,6 @@ import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 class ShareButton extends Component {
   constructor(props) {
     super(props);
-    this.changeEmail = this.changeEmail.bind(this);
     this.state = {
       recipient: '',
       warning: false,
@@ -14,12 +13,12 @@ class ShareButton extends Component {
     };
   }
 
-  changeEmail(e) {
+  changeEmail = e => {
     const recipient = e.target.value;
     this.setState({ recipient });
     const warning = !validStateEmail(recipient);
     this.setState({ warning });
-  }
+  };
 
   createTimeout(ms) {
     this.setState({ timeout: true });

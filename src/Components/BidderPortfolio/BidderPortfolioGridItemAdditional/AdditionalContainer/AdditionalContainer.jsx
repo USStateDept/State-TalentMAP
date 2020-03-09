@@ -12,7 +12,7 @@ class BidderPortfolioGridItemAdditional extends Component {
       hasErrored: false,
     };
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.fetchClient();
   }
   // Since displaying each set of additional details is a one-off request,

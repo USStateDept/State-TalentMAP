@@ -12,12 +12,7 @@ import CompareCheck from '../CompareCheck';
 import { getBidStatisticsObject } from '../../utilities';
 
 class ResultsCondensedCardBottom extends Component {
-  constructor(props) {
-    super(props);
-    this.renderStats = this.renderStats.bind(this);
-    this.renderBidListButton = this.renderBidListButton.bind(this);
-  }
-  renderStats() {
+  renderStats = () => {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
     const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
@@ -26,10 +21,11 @@ class ResultsCondensedCardBottom extends Component {
         name="flags.bid_count"
         render={() => <ResultsCondensedCardStats bidStatisticsArray={[stats]} />}
       />
-    :
-    null;
-  }
-  renderBidListButton() {
+      :
+      null;
+  };
+
+  renderBidListButton = () => {
     const { showBidListButton, position } = this.props;
     const availability = get(position, 'availability.availability');
     const availableToBid = isNull(availability) || !!availability;
@@ -40,18 +36,19 @@ class ResultsCondensedCardBottom extends Component {
           disabled={!availableToBid}
         />
       </PermissionsWrapper>
-    :
-    null;
-  }
+      :
+      null;
+  };
+
   render() {
     const { position,
-        favorites,
-        favoritesPV,
-        refreshFavorites,
-        useShortFavButton,
-        showCompareButton,
-        isProjectedVacancy,
-      } = this.props;
+      favorites,
+      favoritesPV,
+      refreshFavorites,
+      useShortFavButton,
+      showCompareButton,
+      isProjectedVacancy,
+    } = this.props;
     const { isClient } = this.context;
     const pos = position.position || position;
     return (
@@ -97,9 +94,10 @@ ResultsCondensedCardBottom.contextTypes = {
 };
 
 ResultsCondensedCardBottom.propTypes = {
-  position: PropTypes.shape({
-    position: POSITION_DETAILS.isRequired,
-  }).isRequired,
+  position: PropTypes.oneOfType([
+    POSITION_DETAILS,
+    PropTypes.shape({ position: POSITION_DETAILS }),
+  ]).isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   favoritesPV: FAVORITE_POSITIONS_ARRAY.isRequired,
   refreshFavorites: PropTypes.bool,

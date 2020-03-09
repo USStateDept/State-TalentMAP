@@ -4,19 +4,16 @@ import FontAwesome from 'react-fontawesome';
 import LinkButton from '../../../LinkButton';
 
 class HandshakeOfferedAlert extends Component {
-  constructor(props) {
-    super(props);
-    this.onAcceptBid = this.onAcceptBid.bind(this);
-    this.onDeclineBid = this.onDeclineBid.bind(this);
-  }
-  onAcceptBid() {
+  onAcceptBid = () => {
     const { acceptBid, id } = this.props;
     acceptBid(id);
-  }
-  onDeclineBid() {
+  };
+
+  onDeclineBid = () => {
     const { declineBid, id } = this.props;
     declineBid(id);
-  }
+  };
+
   render() {
     const { userName, id } = this.props;
     const { condensedView } = this.context;

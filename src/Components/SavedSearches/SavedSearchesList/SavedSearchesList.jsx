@@ -9,9 +9,6 @@ import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 class SavedSearchesList extends Component {
   constructor(props) {
     super(props);
-    this.updateScroll = this.updateScroll.bind(this);
-    this.setScrollRef = this.setScrollRef.bind(this);
-    this.setContainerRef = this.setContainerRef.bind(this);
     this.state = {
       container$: null,
       scroll$: null,
@@ -44,15 +41,15 @@ class SavedSearchesList extends Component {
     window.addEventListener('resize', null);
   }
 
-  setContainerRef(el) {
+  setContainerRef = el => {
     this.container$ = el;
-  }
+  };
 
-  setScrollRef(el) {
+  setScrollRef = el => {
     this.scroll$ = el;
-  }
+  };
 
-  updateScroll() {
+  updateScroll = () => {
     const scroll = merge({}, this.state.scroll);
     const header = document.getElementById('header');
     const list = this.container$;
@@ -61,7 +58,7 @@ class SavedSearchesList extends Component {
       scroll.style.height = (window.innerHeight - header.offsetHeight - 110);
       this.setState({ scroll });
     }
-  }
+  };
 
   render() {
     const savedSearchArray = [];

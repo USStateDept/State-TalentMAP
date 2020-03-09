@@ -8,16 +8,15 @@ class ConfirmLink extends Component {
     this.state = {
       confirm: false,
     };
-    this.onClick = this.onClick.bind(this);
   }
 
-  onClick() {
+  onClick = () => {
     if (this.state.confirm) {
       this.props.onClick();
     } else {
       this.setState({ confirm: true });
     }
-  }
+  };
 
   render() {
     const { confirm } = this.state;

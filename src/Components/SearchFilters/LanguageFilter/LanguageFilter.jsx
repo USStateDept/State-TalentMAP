@@ -7,30 +7,24 @@ import CheckBox from '../../CheckBox';
 import { getItemLabel, formatIdSpacing } from '../../../utilities';
 
 class LanguageFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.onCheckBoxClick = this.onCheckBoxClick.bind(this);
-    this.onGroupCheckBoxClick = this.onGroupCheckBoxClick.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setParentCheckboxes();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setParentCheckboxes(nextProps);
   }
 
-  onCheckBoxClick(value, props) {
+  onCheckBoxClick = (value, props) => {
     this.props.queryParamToggle(props.selectionRef, props[this.props.queryProperty], !value);
-  }
+  };
 
   // Click handler for group check box.
   // Gather all the currently selected languages from other
   // groups, and place them in an array with all of the selected group's
   // languages, if new value is true. Otherwise, only set the currently
   // selected languages, excluding the selected groups's languages.
-  onGroupCheckBoxClick(value, props) {
+  onGroupCheckBoxClick = (value, props) => {
     // expand the accordion if the user selects that group
     const groupId = get(props, 'cone.id');
     if (value && groupId) {
@@ -59,7 +53,7 @@ class LanguageFilter extends Component {
     const q = { [item.item.selectionRef]: qArr.join() };
     this.setState({ [cone.id]: !value });
     queryParamUpdate(q);
-  }
+  };
 
   // Iterate through each group's children to determine if they're
   // all selected. If so, setState of that group's id to true, or false

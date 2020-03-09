@@ -18,12 +18,6 @@ const GRADE_PARAM = ENDPOINT_PARAMS.grade;
 class ResultsMultiSearchHeader extends Component {
   constructor(props) {
     super(props);
-    this.onChangeText = this.onChangeText.bind(this);
-    this.submitSearch = this.submitSearch.bind(this);
-    this.onChangeGrade = this.onChangeGrade.bind(this);
-    this.onChangeBureau = this.onChangeBureau.bind(this);
-    this.onChangeSkills = this.onChangeSkills.bind(this);
-    this.filterChange = this.filterChange.bind(this);
     this.state = {
       q: this.props.defaultFilters.q || '',
       defaultGrade: null,
@@ -38,29 +32,29 @@ class ResultsMultiSearchHeader extends Component {
     this.state[GRADE_PARAM] = null;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setupDefaultValues(this.props);
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setupDefaultValues(props);
   }
 
-  onChangeSkills(e) {
+  onChangeSkills = e => {
     this.setState({ [SKILL_PARAM]: e, skillsWasUpdated: true }, this.filterChange);
-  }
+  };
 
-  onChangeBureau(e) {
+  onChangeBureau = e => {
     this.setState({ [BUREAU_PARAM]: e.target.value, bureauWasUpdated: true }, this.filterChange);
-  }
+  };
 
-  onChangeGrade(e) {
+  onChangeGrade = e => {
     this.setState({ [GRADE_PARAM]: e.target.value, gradeWasUpdated: true }, this.filterChange);
-  }
+  };
 
-  onChangeText(e) {
+  onChangeText = e => {
     this.setState({ q: e.target.value, qWasUpdated: true }, this.filterChange);
-  }
+  };
 
   setupSkills(defaultSkills) {
     const { skillsWasUpdated } = this.state;
@@ -120,18 +114,18 @@ class ResultsMultiSearchHeader extends Component {
   }
 
   // return all the filters upon submission
-  submitSearch(e) {
+  submitSearch = e => {
     // resolves “Form submission canceled because the form is not connected” warning
     e.preventDefault();
     const query = this.formatQuery();
     this.props.onSubmit(query);
-  }
+  };
 
   // return all the filters as an object whenever any change is made
-  filterChange() {
+  filterChange = () => {
     const query = this.formatQuery();
     this.props.onFilterChange(query);
-  }
+  };
 
   render() {
     const { placeholder, filters, userProfile, filtersIsLoading } = this.props;

@@ -32,15 +32,13 @@ const processData = data => (
 export class ExportLink extends Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
-    this.setCsvRef = this.setCsvRef.bind(this);
     this.state = {
       data: '',
       isLoading: false,
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!nextProps.isLoading) {
       this.setState({ isLoading: false });
     }
@@ -54,25 +52,25 @@ export class ExportLink extends Component {
     }
   }
 
-  onClick() {
+  onClick = () => {
     const { bidderPortfolioLastQuery } = this.props;
     const { isLoading } = this.state;
     if (!isLoading) {
       // reset the state to support multiple clicks
       this.setState({ data: '', isLoading: true });
       downloadClientData(bidderPortfolioLastQuery)
-      .then(() => {
-        this.setState({ isLoading: false });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
-      });
+        .then(() => {
+          this.setState({ isLoading: false });
+        })
+        .catch(() => {
+          this.setState({ isLoading: false });
+        });
     }
-  }
+  };
 
-  setCsvRef(ref) {
+  setCsvRef = ref => {
     this.csvLink = ref;
-  }
+  };
 
   render() {
     const { data, isLoading } = this.state;
@@ -96,6 +94,8 @@ export class ExportLink extends Component {
 
 ExportLink.propTypes = {
   filename: PropTypes.string,
+  // Used via nextProps
+  // eslint-disable-next-line react/no-unused-prop-types
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   data: PropTypes.shape({ results: PropTypes.arrayOf(PropTypes.shape({})) }),

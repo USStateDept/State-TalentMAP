@@ -574,3 +574,7 @@ export const CLIENT_CLASSIFICATION = PropTypes.string;
 
 export const CLIENT_CLASSIFICATIONS = PropTypes.arrayOf(CLIENT_CLASSIFICATION);
 
+export const HISTORY_OBJECT = PropTypes.shape({
+  push: PropTypes.func,
+  listen: PropTypes.func,
+});

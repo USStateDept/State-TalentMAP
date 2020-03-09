@@ -17,16 +17,15 @@ const useBiddingTips = () => checkFlag('flags.bidding_tips');
 class BidTrackerCardTop extends Component {
   constructor(props) {
     super(props);
-    this.onDeleteBid = this.onDeleteBid.bind(this);
     this.state = {
       confirm: false,
     };
   }
 
-  onDeleteBid() {
+  onDeleteBid = () => {
     const { deleteBid, bid } = this.props;
     deleteBid(bid.position.id);
-  }
+  };
 
   render() {
     const { bid, hideDelete, showBidCount, useCDOView /* , questionText */ } = this.props;

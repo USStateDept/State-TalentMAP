@@ -53,9 +53,9 @@ export const searchObjectParent = {
 };
 
 export const mappedParams = [
-{ selectionRef: 'position__skill__code__in', codeRef: '6080', description: 'ADMINISTRATIVE SUPPORT' },
-{ selectionRef: 'position__post__tour_of_duty__code__in', codeRef: 'O', description: 'United States' },
-{ selectionRef: 'position__grade__code__in', codeRef: '02', description: 'two' },
+  { selectionRef: 'position__skill__code__in', codeRef: '6080', description: 'ADMINISTRATIVE SUPPORT' },
+  { selectionRef: 'position__post__tour_of_duty__code__in', codeRef: 'O', description: 'United States' },
+  { selectionRef: 'position__grade__code__in', codeRef: '02', description: 'two' },
 ];
 
 export default searchObject;

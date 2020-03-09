@@ -15,15 +15,6 @@ describe('AssignmentsListResultsCardComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <AssignmentsListResultsCard
-        assignment={assignment}
-      />,
-    );
-    expect(wrapper.instance().props.assignment.id).toBe(assignment.id);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <AssignmentsListResultsCard

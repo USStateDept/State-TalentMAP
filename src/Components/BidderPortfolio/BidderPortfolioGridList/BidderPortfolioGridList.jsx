@@ -11,9 +11,6 @@ const isAllTrue = a => a === true;
 class BidderPortfolioGridList extends Component {
   constructor(props) {
     super(props);
-    this.toggleExpand = this.toggleExpand.bind(this);
-    this.onSetAccordion = this.onSetAccordion.bind(this);
-    this.setExpandAllValue = this.setExpandAllValue.bind(this);
     this.state = {
       expandAll: true,
     };
@@ -26,13 +23,13 @@ class BidderPortfolioGridList extends Component {
   }
 
   // Get an update value for expandAll every time an individual accordion is clicked.
-  onSetAccordion() {
+  onSetAccordion = () => {
     this.debouncedSetValue();
-  }
+  };
 
   // Determine whether to display a + or - for the expand toggle button.
   // Never call this function directly (use debouncedSetValue()).
-  setExpandAllValue() {
+  setExpandAllValue = () => {
     const { results } = this.props;
     // map AccordionItem children expanded values to an array
     const accStates = [...results].map((r) => {
@@ -49,10 +46,10 @@ class BidderPortfolioGridList extends Component {
     } else if (accStates.every(isAllTrue)) {
       this.setState({ expandAll: true });
     }
-  }
+  };
 
   // Determine what to do the AccordionItems when the toggle button is clicked.
-  toggleExpand() {
+  toggleExpand = () => {
     const { results } = this.props;
 
     // If expandAll false, set them all to expanded.
@@ -68,7 +65,7 @@ class BidderPortfolioGridList extends Component {
 
     // Then get our value for expandAll, since ref methods will not force a re-render to the parent.
     this.debouncedSetValue();
-  }
+  };
 
   // Wrap in a setTimeout, so that the parent has time to get the correct value from the child.
   debouncedSetValue() {

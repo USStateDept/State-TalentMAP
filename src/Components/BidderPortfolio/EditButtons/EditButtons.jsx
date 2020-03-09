@@ -5,22 +5,23 @@ import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 class EditButtons extends Component {
   constructor(props) {
     super(props);
-    this.onShow = this.onShow.bind(this);
-    this.onCancel = this.onCancel.bind(this);
-    this.onSave = this.onSave.bind(this);
     this.state = {
       showSave: this.props.initialShowSave,
     };
   }
-  onShow() {
+
+  onShow = () => {
     this.setState({ showSave: true }, () => this.props.onChange({ show: true, type: 'show' }));
-  }
-  onCancel() {
+  };
+
+  onCancel = () => {
     this.setState({ showSave: false }, () => this.props.onChange({ show: false, type: 'cancel' }));
-  }
-  onSave() {
+  };
+
+  onSave = () => {
     this.setState({ showSave: false }, () => this.props.onChange({ show: false, type: 'save' }));
-  }
+  };
+
   changeSaveState(val) {
     this.setState({ showSave: val });
   }

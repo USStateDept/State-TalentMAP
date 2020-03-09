@@ -19,28 +19,29 @@ const getUseClientCounts = () => checkFlag('flags.client_counts');
 class BidderPortfolioPage extends Component {
   constructor(props) {
     super(props);
-    this.changeViewType = this.changeViewType.bind(this);
-    this.changeEditType = this.changeEditType.bind(this);
     this.state = {
       viewType: { value: 'card' },
       editType: { show: false },
     };
   }
-  changeViewType(value) {
+
+  changeViewType = value => {
     const { viewType } = this.state;
     viewType.value = value;
     this.setState({ viewType });
-  }
-  changeEditType(value) {
+  };
+
+  changeEditType = value => {
     this.setState({ editType: value });
-  }
+  };
+
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
-    bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
-    bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
-    classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
+      bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
+      bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
+      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.

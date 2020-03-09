@@ -11,13 +11,6 @@ const PAGE_SIZE = 10;
 class NotificationsContainer extends Component {
   constructor(props) {
     super(props);
-    this.onPageChange = this.onPageChange.bind(this);
-    this.delete = this.delete.bind(this);
-    this.onCheck = this.onCheck.bind(this);
-    this.getCheckedValueById = this.getCheckedValueById.bind(this);
-    this.selectAll = this.selectAll.bind(this);
-    this.markNotificationsByType = this.markNotificationsByType.bind(this);
-    this.selectionsExist = this.selectionsExist.bind(this);
     this.state = {
       page: 1,
       selectedNotifications: new Set(),
@@ -25,12 +18,12 @@ class NotificationsContainer extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { useCached } = this.props;
     if (!useCached) { this.getNotifications(); }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { hasCalled } = this.state;
     const { useCached, isLoading } = nextProps;
     // force at least one call, then rely on external refreshes of notifications
@@ -40,25 +33,25 @@ class NotificationsContainer extends Component {
     }
   }
 
-  onPageChange({ page }) {
+  onPageChange = ({ page }) => {
     this.setState({ page }, () => {
       scrollToTop({ delay: 0, duration: 400 });
       this.getNotifications();
     });
-  }
+  };
 
-  onCheck(value, props) {
+  onCheck = (value, props) => {
     const { selectedNotifications } = this.state;
     const { _id } = props;
     const action = value ? 'add' : 'delete';
     selectedNotifications[action](_id);
     this.setState({ selectedNotifications });
-  }
+  };
 
-  getCheckedValueById(id) {
+  getCheckedValueById = id => {
     const { selectedNotifications } = this.state;
     return selectedNotifications.has(id);
-  }
+  };
 
   getNotifications(p) {
     const { page } = this.state;
@@ -74,7 +67,7 @@ class NotificationsContainer extends Component {
     return () => this.getNotifications();
   }
 
-  selectAll() {
+  selectAll = () => {
     const { selectedNotifications } = this.state;
     const results = this.getCurrentResults();
     // does it contain all from results page?
@@ -86,9 +79,9 @@ class NotificationsContainer extends Component {
       results.forEach(r => selectedNotifications.add(r.id));
     }
     this.setState({ selectedNotifications });
-  }
+  };
 
-  markNotificationsByType(type) {
+  markNotificationsByType = type => {
     const { selectedNotifications } = this.state;
 
     const results = this.getCurrentResults();
@@ -109,18 +102,18 @@ class NotificationsContainer extends Component {
     }
 
     results.forEach(r => selectedNotifications.delete(r.id));
-  }
+  };
 
-  delete(id) {
+  delete = id => {
     const cb = this.getCallback();
     this.props.delete(id, cb);
     this.onPageChange({ page: 1 });
-  }
+  };
 
-  selectionsExist() {
+  selectionsExist = () => {
     const { selectedNotifications } = this.state;
     return !!selectedNotifications.size;
-  }
+  };
 
   render() {
     const {

@@ -6,12 +6,7 @@ import About from '../../Components/About';
 import { aboutContentFetchData, aboutContentPatchData } from '../../actions/aboutContent';
 
 class AboutContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.patchData = this.patchData.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getData();
   }
 
@@ -19,9 +14,9 @@ class AboutContainer extends Component {
     this.props.fetchData();
   }
 
-  patchData(data) {
+  patchData = data => {
     this.props.patchData(data);
-  }
+  };
 
   render() {
     const { data, hasErrored, isLoading, patchIsLoading, patchHasErrored } = this.props;

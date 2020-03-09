@@ -74,7 +74,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   modifyPermission: (addRole, groupID, userID) => dispatch(modifyPermission(addRole,
-      groupID, userID)),
+    groupID, userID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRow);

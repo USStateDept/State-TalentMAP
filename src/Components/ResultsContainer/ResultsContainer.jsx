@@ -6,8 +6,8 @@ import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
-         SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
-         BID_RESULTS } from '../../Constants/PropTypes';
+  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
+  BID_RESULTS } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';
@@ -19,30 +19,24 @@ import InteractiveElement from '../InteractiveElement';
 import { toggleMobileFilter } from '../../actions/showMobileFilter';
 
 class ResultsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.onPageChange = this.onPageChange.bind(this);
-    this.onSelectOrdering = this.onSelectOrdering.bind(this);
-  }
-
   shouldComponentUpdate(nextProps) {
     return !isEqual(nextProps, this.props);
   }
 
-  onPageChange(q) {
+  onPageChange = q => {
     this.props.queryParamUpdate(q);
     this.props.scrollToTop();
-  }
+  };
 
-  onSelectOrdering(e) {
+  onSelectOrdering = e => {
     this.props.queryParamUpdate({ ordering: e.target.value });
-  }
+  };
 
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
-            defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-            defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
-      } = this.props;
+      defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
+      defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
+    } = this.props;
     return (
       <div className="results-container">
         <MediaQuery breakpoint="screenSmMax" widthType="max">
@@ -116,18 +110,18 @@ class ResultsContainer extends Component {
           </div>
         }
         {
-         // if there's no results, don't show pagination
-         !!results.results && !!results.results.length &&
-         // finally, render the pagination
-         <div className="usa-grid-full react-paginate">
-           <PaginationWrapper
-             totalResults={totalResults}
-             pageSize={pageSize}
-             onPageChange={this.onPageChange}
-             forcePage={defaultPageNumber}
-           />
-           <ScrollUpButton />
-         </div>
+          // if there's no results, don't show pagination
+          !!results.results && !!results.results.length &&
+          // finally, render the pagination
+          <div className="usa-grid-full react-paginate">
+            <PaginationWrapper
+              totalResults={totalResults}
+              pageSize={pageSize}
+              onPageChange={this.onPageChange}
+              forcePage={defaultPageNumber}
+            />
+            <ScrollUpButton />
+          </div>
         }
       </div>
     );

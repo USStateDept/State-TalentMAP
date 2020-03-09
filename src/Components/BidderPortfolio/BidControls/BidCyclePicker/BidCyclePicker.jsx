@@ -31,9 +31,8 @@ class BidCyclePicker extends Component {
       THROTTLE_MS,
       { trailing: false, leading: true },
     );
-    this.bidSeasonsToIds = this.bidSeasonsToIds.bind(this);
   }
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // Only perform once in the session since this will rarely change.
     if (!this.props.seasons.length) {
       this.props.fetchSeasons();
@@ -52,14 +51,16 @@ class BidCyclePicker extends Component {
   getSeasons() {
     return this.bidSeasonsToIds();
   }
-  bidSeasonsToIds() {
+
+  bidSeasonsToIds = () => {
     const { arrayValue } = this.state;
     const { seasons } = this.props;
     let ids$ = isArray(seasons) ? [...seasons] : [];
     ids$ = filter(ids$, f => indexOf(arrayValue, f.description) > -1);
     ids$ = map(ids$, m => m.id);
     return ids$;
-  }
+  };
+
   selectMultipleOption(value) {
     this.setState({ arrayValue: value }, () => this.setSeasons());
   }

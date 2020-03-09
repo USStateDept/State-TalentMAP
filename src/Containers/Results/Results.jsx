@@ -18,8 +18,8 @@ import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import CompareDrawer from '../../Components/CompareDrawer';
 import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
-EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
+  USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
+  EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 import { POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,
@@ -33,10 +33,6 @@ const POSITION_SEARCH_SORT$ = () => POSITION_SEARCH_SORTS_DYNAMIC;
 class Results extends Component {
   constructor(props) {
     super(props);
-    this.onQueryParamUpdate = this.onQueryParamUpdate.bind(this);
-    this.onQueryParamToggle = this.onQueryParamToggle.bind(this);
-    this.resetFilters = this.resetFilters.bind(this);
-    this.getQueryExists = this.getQueryExists.bind(this);
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
@@ -51,7 +47,7 @@ class Results extends Component {
     this.debounced = debounce(() => {});
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { isAuthorized, onNavigateTo } = this.props;
     // store default search
     this.storeSearch();
@@ -64,21 +60,21 @@ class Results extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.filtersIsLoading === false) {
       this.setState({ filtersIsLoading: false });
     }
   }
 
   // for when we need to UPDATE the ENTIRE value of a filter
-  onQueryParamUpdate(q) {
+  onQueryParamUpdate = q => {
     const newQueryString = queryParamUpdate(q, this.state.query.value);
     // and push to history
     this.updateHistory(newQueryString);
-  }
+  };
 
   // for when we need to ADD or DELETE a NESTED value of a filter
-  onQueryParamToggle(param, value, remove) {
+  onQueryParamToggle = (param, value, remove) => {
     const stringifiedValue = value.toString();
     const parsedQuery = queryString.parse(this.state.query.value);
     // was the key found?
@@ -126,10 +122,10 @@ class Results extends Component {
     if (newQueryString !== this.state.query.value) {
       this.updateHistory(newQueryString);
     }
-  }
+  };
 
   // check if there are filters selected so that the clear filters button can be displayed or hidden
-  getQueryExists() {
+  getQueryExists = () => {
     const { query: { value } } = this.state;
     let query = queryString.parse(value);
     // omit page size and ordering
@@ -138,7 +134,7 @@ class Results extends Component {
     query = pickBy(query, v => v || v === 0);
     // query exists if it has keys
     return !!keys(query).length;
-  }
+  };
 
   getStringifiedQuery(q) {
     // ResultsPage is connected so we access the ref's functions slightly differently
@@ -221,11 +217,11 @@ class Results extends Component {
   }
 
   // reset to no query params
-  resetFilters() {
+  resetFilters = () => {
     this.context.router.history.push({
       search: '',
     });
-  }
+  };
 
   callFetchData(q) {
     this.props.fetchData(q);
@@ -243,11 +239,11 @@ class Results extends Component {
 
   render() {
     const { results, hasErrored, isLoading, filters,
-            selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
-            missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
-            fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
-            postSearchHasErrored, shouldShowSearchBar, bidList,
-            client, clientIsLoading, clientHasErrored } = this.props;
+      selectedAccordion, setAccordion, userProfile, fetchMissionAutocomplete,
+      missionSearchResults, missionSearchIsLoading, missionSearchHasErrored,
+      fetchPostAutocomplete, postSearchResults, postSearchIsLoading,
+      postSearchHasErrored, shouldShowSearchBar, bidList,
+      client, clientIsLoading, clientHasErrored } = this.props;
     const { filtersIsLoading } = this.state;
     const filters$ = { ...filters };
     const showClear = this.getQueryExists();
@@ -307,6 +303,8 @@ Results.propTypes = {
   results: POSITION_SEARCH_RESULTS,
   isAuthorized: PropTypes.func.isRequired,
   filters: FILTERS_PARENT,
+  // Used via nextProps
+  // eslint-disable-next-line react/no-unused-prop-types
   filtersIsLoading: PropTypes.bool,
   fetchFilters: PropTypes.func.isRequired,
   selectedAccordion: ACCORDION_SELECTION_OBJECT,

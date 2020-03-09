@@ -14,24 +14,14 @@ import { scrollToTop } from '../../utilities';
 const PAGE_SIZE = 12;
 
 class FavoritePositionsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.onToggleFavorite = this.onToggleFavorite.bind(this);
-    this.getSortedFavorites = this.getSortedFavorites.bind(this);
-    this.onPageChange = this.onPageChange.bind(this);
-    this.state = {
-      page: 1,
-    };
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getFavorites();
     this.props.bidListFetchData();
   }
 
-  onToggleFavorite(id, remove) {
+  onToggleFavorite = (id, remove) => {
     this.props.toggleFavorite(id, remove);
-  }
+  };
 
   onPageChange({ page }) {
     this.setState({ page }, () => {
@@ -46,11 +36,11 @@ class FavoritePositionsContainer extends Component {
   }
 
 
-  getSortedFavorites(type) {
+  getSortedFavorites = type => {
     if (type.target && type.target.value) {
       this.props.fetchData(type.target.value);
     }
-  }
+  };
 
   render() {
     const { favoritePositions, favoritePositionsIsLoading,

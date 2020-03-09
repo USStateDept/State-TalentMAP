@@ -7,20 +7,19 @@ import SaveNewSearchPrompt from '../SaveNewSearchPrompt';
 class SaveNewSearchContainer extends Component {
   constructor(props) {
     super(props);
-    this.toggleInput = this.toggleInput.bind(this);
     this.state = {
       showInput: { value: false },
     };
   }
 
-  toggleInput(e) {
+  toggleInput = e => {
     // preventDefault() to avoid query params getting added in MS Edge
     e.preventDefault();
     const { showInput } = this.state;
     // reset the input field, since the component will re-render and be out of sync with state
     showInput.value = !showInput.value;
     this.setState({ showInput });
-  }
+  };
 
   render() {
     const { showInput } = this.state;

@@ -8,7 +8,6 @@ import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import Spinner from '../../Components/Spinner';
 
 class HomePagePositionsContainer extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +24,7 @@ class HomePagePositionsContainer extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // Once we have a valid user profile, fetch the positions, but only
     // once. We'll set hasFetched to true to keep track.
     if (nextProps.userProfile.id && !this.state.hasFetched && !this.props.homePagePositionsIsLoading
@@ -49,15 +48,17 @@ class HomePagePositionsContainer extends Component {
       <div className="content-container">
         {
           (userProfileIsLoading || homePagePositionsIsLoading || !hasFetched)
-          ?
+            ?
             <div className="usa-grid-full homepage-positions-section-container">
+
               <Spinner type="homepage-position-results" size="big" />
             </div>
-          :
+            :
             <HomePagePositions
               homePagePositions={homePagePositions}
               homePagePositionsIsLoading={homePagePositionsIsLoading}
               userProfile={userProfile}
+
               bidList={bidList}
             />
         }

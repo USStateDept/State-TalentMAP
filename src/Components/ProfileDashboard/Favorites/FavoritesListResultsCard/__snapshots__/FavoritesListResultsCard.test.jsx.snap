@@ -3,6 +3,7 @@
 exports[`FavoritesListResultsCardComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full saved-search-card favorites-card"
+  key="1"
 >
   <div
     className="usa-grid-full"

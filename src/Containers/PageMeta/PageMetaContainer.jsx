@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import Helmet from 'react-helmet';
+import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import PageTitle from '../../Components/PageTitle';
 import routes from '../../routes';
 import { getApplicationPath, getAssetPath, focusById } from '../../utilities';
@@ -14,7 +14,7 @@ class PageMetaContainer extends Component {
     this.state = { pageTitle: null };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getPageTitle();
   }
 
@@ -53,14 +53,14 @@ class PageMetaContainer extends Component {
             <meta property="og:image" content={`${getApplicationPath()}${getAssetPath('/assets/logos/png/logo_color.png')}`} />
           </Helmet>
         </div>
-      :
+        :
         null
     );
   }
 }
 
 PageMetaContainer.propTypes = {
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
 };
 
 export default withRouter(PageMetaContainer);

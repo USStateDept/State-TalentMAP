@@ -33,7 +33,7 @@ describe('FavoriteContentComponent', () => {
     expect(wrapper.find('div').at(0).children().find('div')
       .at(0)
       .text())
-    .toBe('Projected Vacancy');
+      .toBe('Projected Vacancy');
   });
 
   it('matches snapshot', () => {

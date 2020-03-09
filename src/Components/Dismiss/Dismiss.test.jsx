@@ -11,18 +11,17 @@ describe('DismissComponent', () => {
     </div>
   );
 
-  it('can receive props', () => {
+  it('is defined', () => {
     const title = 'click';
     const wrapper = shallow(
       <Dismiss onDismiss={() => {}} buttonTitle={title}>
         {child}
       </Dismiss>,
     );
-    expect(wrapper.instance().props.children).toBe(child);
-    expect(wrapper.instance().props.buttonTitle).toBe(title);
+    expect(wrapper).toBeDefined();
   });
 
-  it('can render classes', () => {
+  it('renders classes', () => {
     const className = 'class1';
     const buttonClassName = 'class2';
     const wrapper = shallow(
@@ -34,7 +33,7 @@ describe('DismissComponent', () => {
     expect(wrapper.find(`.${buttonClassName}`).exists()).toBe(true);
   });
 
-  it('can click the button', () => {
+  it('calls onDismiss() on button click', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Dismiss onDismiss={spy}>

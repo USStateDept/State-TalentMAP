@@ -32,7 +32,6 @@ describe('HomePageComponent', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
     />);
-    expect(wrapper.instance().props.bidList).toBe(props.bidList);
     expect(wrapper.find('HomePagePositionsSection').at(0).prop('positions').length).toBeGreaterThan(0);
     expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions').length).toBeGreaterThan(0);
   });

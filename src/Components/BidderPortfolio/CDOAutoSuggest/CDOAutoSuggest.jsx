@@ -38,7 +38,7 @@ class CDOAutoSuggest extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.cdos, nextProps.cdos)) {
       this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }
@@ -66,6 +66,7 @@ class CDOAutoSuggest extends Component {
             renderList={renderList}
             valueKey="id"
             labelKey="name"
+            includeSelectAll
 
             // TODO - Once React 16 is integrated, upgrade to react-picky >=5.2.0 to use this prop
             // filterTermProcessor={trim} // import trim from lodash

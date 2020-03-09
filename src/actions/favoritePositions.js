@@ -11,13 +11,13 @@ export function downloadPositionData(excludeAP = false, excludePV = false) {
   return api().get(url, {
     responseType: 'stream',
   })
-  .then((response) => {
-    downloadFromResponse(response, 'TalentMap_favorites_export');
-  })
-  .catch(() => {
+    .then((response) => {
+      downloadFromResponse(response, 'TalentMap_favorites_export');
+    })
+    .catch(() => {
     // eslint-disable-next-line global-require
-    require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
-  });
+      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+    });
 }
 
 export function favoritePositionsHasErrored(bool) {
@@ -76,32 +76,32 @@ export function favoritePositionsFetchData(sortType) {
     }
 
     Promise.all(queryProms)
-    .then((results) => {
+      .then((results) => {
       // if any promise returned with errors, return the error
-      let err;
-      results.forEach((result) => {
-        if (result instanceof Error) {
-          err = result;
+        let err;
+        results.forEach((result) => {
+          if (result instanceof Error) {
+            err = result;
+          }
+        });
+        if (err) {
+          dispatch(favoritePositionsHasErrored(true));
+          dispatch(favoritePositionsIsLoading(false));
+        } else {
+        // object 0 is favorites
+          data$.favorites = get(results, '[0].results', []);
+          data$.results = get(results, '[0].results', []);
+          // object 1 is PV favorites
+          // add PV property
+          data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
+          dispatch(favoritePositionsFetchDataSuccess(data$));
+          dispatch(favoritePositionsHasErrored(false));
+          dispatch(favoritePositionsIsLoading(false));
         }
-      });
-      if (err) {
+      })
+      .catch(() => {
         dispatch(favoritePositionsHasErrored(true));
         dispatch(favoritePositionsIsLoading(false));
-      } else {
-        // object 0 is favorites
-        data$.favorites = get(results, '[0].results', []);
-        data$.results = get(results, '[0].results', []);
-        // object 1 is PV favorites
-        // add PV property
-        data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
-        dispatch(favoritePositionsFetchDataSuccess(data$));
-        dispatch(favoritePositionsHasErrored(false));
-        dispatch(favoritePositionsIsLoading(false));
-      }
-    })
-    .catch(() => {
-      dispatch(favoritePositionsHasErrored(true));
-      dispatch(favoritePositionsIsLoading(false));
-    });
+      });
   };
 }
