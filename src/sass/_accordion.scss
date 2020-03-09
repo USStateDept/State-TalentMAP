@@ -74,3 +74,12 @@ $accordion-content-small-padding-left: 2em;
     margin-bottom: 0;
   }
 }
+
+.usa-accordion {
+  .accordion-unclickable {
+    .usa-accordion-button {
+      background-image: none;
+      pointer-events: none;
+    }
+  }
+}
