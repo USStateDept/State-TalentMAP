@@ -102,7 +102,7 @@
     "dotenv": "4.0.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
-    "enzyme-to-json": "^3.4.3",
+    "enzyme-to-json": "^3.4.4",
     "eslint": "^6",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-react-app": "^5.2.0",
