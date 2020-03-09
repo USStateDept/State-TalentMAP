@@ -309,7 +309,7 @@
   .client-badge {
     min-width: 1em;
 
-    div {
+    svg {
       align-items: center;
       background-color: $bg-gray-medium-1;
       color: $bg-gray-dark-0;
@@ -322,12 +322,12 @@
     }
   }
 
-  &.client-badge-container--success > .client-badge > div {
+  &.client-badge-container--success > .client-badge > div > svg {
     background-color: $color-green-dark;
     color: $color-white;
   }
 
-  &.client-badge-container--warning > .client-badge > div {
+  &.client-badge-container--warning > .client-badge > svg {
     background-color: $color-gold-lighter;
     color: $color-black;
   }
