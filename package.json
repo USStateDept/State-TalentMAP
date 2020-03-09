@@ -110,7 +110,7 @@
     "eslint-plugin-flowtype": "2.41.0",
     "eslint-plugin-import": "2.20.1",
     "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react": "^7.19.0",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "1.1.11",
     "fs-extra": "3.0.1",
