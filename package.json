@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.8.6",
-    "@babel/polyfill": "^7.0.0",
+    "@babel/polyfill": "^7.8.7",
     "@cmsgov/design-system-core": "^1.18.0",
     "axios": "^0.18.1",
     "axios-cache-adapter": "^2.5.0",
