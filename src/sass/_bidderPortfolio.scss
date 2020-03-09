@@ -260,7 +260,7 @@
 
       .updates {
         font-weight: bold;
-        margin-bottom: 5px;
+        margin-bottom: 15px;
       }
     }
 
@@ -309,7 +309,7 @@
   .client-badge {
     min-width: 1em;
 
-    span {
+    div {
       align-items: center;
       background-color: $bg-gray-medium-1;
       color: $bg-gray-dark-0;
@@ -322,12 +322,12 @@
     }
   }
 
-  &.client-badge-container--success > .client-badge > span {
+  &.client-badge-container--success > .client-badge > div {
     background-color: $color-green-dark;
     color: $color-white;
   }
 
-  &.client-badge-container--warning > .client-badge > span {
+  &.client-badge-container--warning > .client-badge > div {
     background-color: $color-gold-lighter;
     color: $color-black;
   }

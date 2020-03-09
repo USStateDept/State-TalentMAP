@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
 
-import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen, faSeedling, faPercentage, faBalanceScaleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen,
+  faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
   3: {
     isIcon: true,
     name: faSeedling,
     text: '3rd Tour',
-    shortCode: '3Tr',
+    shortCode: '3TR',
   },
   4: {
     isIcon: true,
@@ -22,18 +23,18 @@ const icons = {
     isIcon: true,
     name: faRegistered,
     text: 'Recommended for Tenure',
-    shortCode: 'RFT',
+    shortCode: 'REC',
   },
   6: {
     name: '6/8',
-    text: '6/8 Rule',
+    text: faDiceSix,
     shortCode: '6/8',
   },
   A: {
     isIcon: true,
     name: faChessQueen,
     text: 'Ambassador / Deputy Assistant Secretary',
-    shortCode: 'A',
+    shortCode: 'AMB',
   },
   C: {
     isIcon: true,
@@ -45,49 +46,49 @@ const icons = {
     isIcon: true,
     name: faLanguage,
     text: 'Critical Need Language 1st Tour',
-    shortCode: 'CNL1',
+    shortCode: 'CL1',
   },
   CC: {
     isIcon: true,
     name: faLanguage,
     text: 'Critical Need Language Final Tour',
-    shortCode: 'CNLF',
+    shortCode: 'CLF',
   },
   D: {
     isIcon: true,
     name: faPercentage,
     text: 'Differential',
-    shortCode: 'D',
+    shortCode: 'DIF',
   },
   F: {
     isIcon: true,
     name: faBalanceScaleLeft,
     text: 'Fair Share',
-    shortCode: 'FS',
+    shortCode: 'FAIR',
   },
   F1: {
     isIcon: true,
     name: faGraduationCap,
     text: 'Pickering Fellows',
-    shortCode: 'PF',
+    shortCode: 'PIK',
   },
   F2: {
     isIcon: true,
     name: faGraduationCap,
     text: 'Rangel Fellows',
-    shortCode: 'RF',
+    shortCode: 'RGL',
   },
   M: {
     isIcon: true,
     name: faMedal,
     text: 'Meritorious Step Increases',
-    shortCode: 'M',
+    shortCode: 'MER',
   },
   P: {
     isIcon: true,
     name: faGraduationCap,
     text: 'Pickering/Rangel Fellows',
-    shortCode: 'F',
+    shortCode: 'FEL',
   },
   T: {
     isIcon: true,
@@ -112,14 +113,10 @@ const ClientBadge = ({ type, status }) => {
           position="top-end"
           tabIndex="0"
         >
-          {
-            icons[type].isIcon ?
-              <FontAwesomeIcon
-                aria-label={ariaLabel}
-                icon={icons[type].name}
-              /> :
-              <span aria-label={ariaLabel}>{icons[type].name}</span>
-          }
+          <FontAwesomeIcon
+            aria-label={ariaLabel}
+            icon={icons[type].name}
+          />
         </Tooltip>
       </div>
       <div className="client-badge-text">
