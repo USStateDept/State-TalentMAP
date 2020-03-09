@@ -67,6 +67,23 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
   }
 }
 
+// create custom attributes based on the filter type
+// eslint-disable-next-line complexity
+export function getFilterCustomAttributes(filterItem, filterItemObject) {
+  const { item: { description: descriptionPrimary } } = filterItem;
+  const { code } = filterItemObject;
+  switch (descriptionPrimary) {
+    case 'language':
+      if (code === 'NLR') {
+        return { group: 'no-language' };
+      }
+      return { group: 'languages' };
+    default:
+      break;
+  }
+  return null;
+}
+
 const getDefaultPillText = filterItemObject => (
   filterItemObject.short_description ||
   filterItemObject.description ||
