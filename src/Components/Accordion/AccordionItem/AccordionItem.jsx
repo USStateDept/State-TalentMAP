@@ -21,9 +21,12 @@ class AccordionItem extends Component {
 
   // Update local state and emit to the parent
   setExpanded = () => {
-    this.setState({ expanded: !this.state.expanded }, () => {
-      this.props.setAccordion(this.props.id, this.state.expanded);
-    });
+    const { disabled } = this.props;
+    if (!disabled) {
+      this.setState({ expanded: !this.state.expanded }, () => {
+        this.props.setAccordion(this.props.id, this.state.expanded);
+      });
+    }
   };
 
   // helper function for parents to use via ref, to set the expanded state to a desired value
@@ -39,22 +42,24 @@ class AccordionItem extends Component {
   render() {
     const { expanded } = this.state;
     const { id, title, children, className, useIdClass,
-      buttonClass, childClass, preContent } = this.props;
+      buttonClass, childClass, preContent, disabled } = this.props;
     const formattedId = formatIdSpacing(id);
     const idClass = useIdClass ? `accordion-${(formattedId || 'accordion').toLowerCase()}` : '';
+    const expanded$ = !disabled && expanded;
     return (
       <li className={className}>
         {preContent}
         <button
           id={`${id}-button`}
           className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''}`}
-          aria-expanded={expanded}
+          aria-expanded={expanded$}
           aria-controls={formattedId}
           onClick={this.setExpanded}
+          tabIndex={disabled ? '-1' : undefined}
         >
           <div className="accordion-item-title">{title}</div>
         </button>
-        <div id={formattedId} className={`usa-accordion-content ${childClass} ${idClass}`} aria-hidden={!expanded}>
+        <div id={formattedId} className={`usa-accordion-content ${childClass} ${idClass}`} aria-hidden={!expanded$}>
           {children}
         </div>
       </li>
@@ -73,6 +78,7 @@ AccordionItem.propTypes = {
   buttonClass: PropTypes.string,
   childClass: PropTypes.string,
   preContent: PropTypes.node,
+  disabled: PropTypes.bool,
 };
 
 AccordionItem.defaultProps = {
@@ -85,6 +91,7 @@ AccordionItem.defaultProps = {
   buttonClass: '',
   childClass: '',
   preContent: undefined,
+  disabled: false,
 };
 
 export default AccordionItem;

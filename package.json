@@ -88,7 +88,7 @@
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/preset-env": "^7.8.7",
     "@babel/runtime-corejs2": "^7.8.4",
-    "@epegzz/sass-vars-loader": "^3.2.0",
+    "@epegzz/sass-vars-loader": "^6.0.0",
     "autoprefixer": "7.2.5",
     "axios-mock-adapter": "^1.17.0",
     "babel-core": "7.0.0-bridge.0",
@@ -209,6 +209,7 @@
       "^reducers(.*)$": "<rootDir>/src/reducers$1",
       "^utilities": "<rootDir>/src/utilities.js",
       "^flags": "<rootDir>/src/flags.js",
+      "^hooks": "<rootDir>/src/hooks.js",
       "^react-native$": "react-native-web"
     }
   },
