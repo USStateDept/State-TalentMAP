@@ -78,7 +78,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
           options={
             Array [
               Object {
-                "text": "Default sorting",
+                "text": "Last Name: A-Z",
                 "value": "client_last_name",
               },
               Object {
@@ -189,7 +189,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
           options={
             Array [
               Object {
-                "text": "Default sorting",
+                "text": "Last Name: A-Z",
                 "value": "client_last_name",
               },
               Object {
