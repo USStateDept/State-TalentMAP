@@ -206,6 +206,7 @@
       "^reducers(.*)$": "<rootDir>/src/reducers$1",
       "^utilities": "<rootDir>/src/utilities.js",
       "^flags": "<rootDir>/src/flags.js",
+      "^hooks": "<rootDir>/src/hooks.js",
       "^react-native$": "react-native-web"
     }
   },
