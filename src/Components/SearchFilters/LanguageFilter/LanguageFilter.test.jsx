@@ -13,9 +13,9 @@ describe('LanguageFilterComponent', () => {
       selectionRef: 'skill',
     },
     data: [
-      { name: 'Name1', id: 1 },
-      { name: 'Name2', id: 2, isSelected: true },
-      { name: 'Name2', id: 3 },
+      { name: 'Name1', id: 1, group: 'g1' },
+      { name: 'Name2', id: 2, isSelected: true, group: 'g2' },
+      { name: 'Name2', id: 3, group: 'g1' },
     ],
   };
 
@@ -25,7 +25,8 @@ describe('LanguageFilterComponent', () => {
       description: 'languageGroup',
     },
     data: [
-      { name: 'Group1', id: 1, useAll: true },
+      { name: 'Group1', id: 1, code: 'g1' },
+      { name: 'Group2', id: 2, code: 'g2' },
     ],
   };
 

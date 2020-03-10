@@ -11,7 +11,70 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
     <AccordionItem
       buttonClass="tm-nested-accordion-button"
       childClass=""
-      className="accordion-content-small"
+      className="accordion-content-small "
+      disabled={false}
+      expanded={true}
+      id="language-group-accordion-2"
+      key="2"
+      preContent={
+        <CheckBox
+          checkboxProps={Object {}}
+          className="tm-checkbox-transparent"
+          cone={
+            Object {
+              "code": "g2",
+              "id": 2,
+              "languages": Array [
+                undefined,
+                undefined,
+                undefined,
+              ],
+              "name": "Group2",
+            }
+          }
+          disabled={false}
+          id="select-all-group-2"
+          label="Toggle filter by all positions with group name Group2"
+          labelSrOnly={true}
+          name=""
+          onCheckBoxClick={[Function]}
+          overrideLifecycle={false}
+          small={false}
+          title=""
+          value={true}
+        />
+      }
+      setAccordion={[Function]}
+      title="Group2"
+      useIdClass={true}
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <CheckBox
+          _id={2}
+          checkboxProps={Object {}}
+          className="tm-checkbox-transparent"
+          disabled={false}
+          id="checkboxName2-language-2"
+          key="checkboxName2-language-2"
+          label="Name2"
+          labelSrOnly={false}
+          name="Name2"
+          onCheckBoxClick={[Function]}
+          overrideLifecycle={false}
+          selectionRef="skill"
+          small={false}
+          title="Name2"
+          value={true}
+        />
+      </div>
+    </AccordionItem>
+    <AccordionItem
+      buttonClass="tm-nested-accordion-button"
+      childClass=""
+      className="accordion-content-small "
+      disabled={false}
       expanded={true}
       id="language-group-accordion-1"
       key="1"
@@ -21,6 +84,7 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
           className="tm-checkbox-transparent"
           cone={
             Object {
+              "code": "g1",
               "id": 1,
               "languages": Array [
                 undefined,
@@ -28,7 +92,6 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
                 undefined,
               ],
               "name": "Group1",
-              "useAll": true,
             }
           }
           disabled={false}
@@ -66,23 +129,6 @@ exports[`LanguageFilterComponent matches snapshot 1`] = `
           small={false}
           title="Name1"
           value={false}
-        />
-        <CheckBox
-          _id={2}
-          checkboxProps={Object {}}
-          className="tm-checkbox-transparent"
-          disabled={false}
-          id="checkboxName2-language-1"
-          key="checkboxName2-language-1"
-          label="Name2"
-          labelSrOnly={false}
-          name="Name2"
-          onCheckBoxClick={[Function]}
-          overrideLifecycle={false}
-          selectionRef="skill"
-          small={false}
-          title="Name2"
-          value={true}
         />
         <CheckBox
           _id={3}

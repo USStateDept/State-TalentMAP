@@ -5,7 +5,7 @@ import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { mapDuplicates, removeDuplicates } from '../../utilities';
 import { checkFlag } from '../../flags';
 import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
-  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
+  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter, getFilterCustomAttributes } from './helpers';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
 
@@ -188,8 +188,15 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       responses.filters.forEach((filterItem, i) => {
         filterItem.data.forEach((filterItemObject, j) => {
           const customDescription = getFilterCustomDescription(filterItem, filterItemObject);
+          const customAttributes = getFilterCustomAttributes(filterItem, filterItemObject);
           if (customDescription) {
             responses.filters[i].data[j].custom_description = customDescription;
+          }
+          if (customAttributes) {
+            responses.filters[i].data[j] = {
+              ...responses.filters[i].data[j],
+              ...customAttributes,
+            };
           }
         });
       });
