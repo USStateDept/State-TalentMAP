@@ -26,6 +26,7 @@ const icons = {
     shortCode: 'REC',
   },
   6: {
+    isIcon: true,
     name: faDiceSix,
     text: '6/8',
     shortCode: '6/8',
