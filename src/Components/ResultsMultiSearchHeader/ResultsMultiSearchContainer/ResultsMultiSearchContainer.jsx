@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';

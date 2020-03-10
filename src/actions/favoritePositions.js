@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import { toastError } from './toast';
@@ -44,8 +45,10 @@ export function favoritePositionsFetchDataSuccess(results) {
 export function favoritePositionsFetchData(sortType) {
   const usePV = getUsePV();
   return (dispatch) => {
-    dispatch(favoritePositionsIsLoading(true));
-    dispatch(favoritePositionsHasErrored(false));
+    batch(() => {
+      dispatch(favoritePositionsIsLoading(true));
+      dispatch(favoritePositionsHasErrored(false));
+    });
     const data$ = { favorites: [], favoritesPV: [] };
     let url = '/available_position/favorites/';
     let urlPV = '/projected_vacancy/favorites/';
@@ -81,8 +84,10 @@ export function favoritePositionsFetchData(sortType) {
           }
         });
         if (err) {
-          dispatch(favoritePositionsHasErrored(true));
-          dispatch(favoritePositionsIsLoading(false));
+          batch(() => {
+            dispatch(favoritePositionsHasErrored(true));
+            dispatch(favoritePositionsIsLoading(false));
+          });
         } else {
         // object 0 is favorites
           data$.favorites = get(results, '[0].results', []);
@@ -90,14 +95,18 @@ export function favoritePositionsFetchData(sortType) {
           // object 1 is PV favorites
           // add PV property
           data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
-          dispatch(favoritePositionsFetchDataSuccess(data$));
-          dispatch(favoritePositionsHasErrored(false));
-          dispatch(favoritePositionsIsLoading(false));
+          batch(() => {
+            dispatch(favoritePositionsFetchDataSuccess(data$));
+            dispatch(favoritePositionsHasErrored(false));
+            dispatch(favoritePositionsIsLoading(false));
+          });
         }
       })
       .catch(() => {
-        dispatch(favoritePositionsHasErrored(true));
-        dispatch(favoritePositionsIsLoading(false));
+        batch(() => {
+          dispatch(favoritePositionsHasErrored(true));
+          dispatch(favoritePositionsIsLoading(false));
+        });
       });
   };
 }
