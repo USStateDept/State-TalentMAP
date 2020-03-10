@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import axios from 'axios';
 import { get, indexOf, omit } from 'lodash';
 import Q from 'q';
@@ -55,8 +56,10 @@ export function unsetUserProfile() {
 export function userProfileFetchData(bypass, cb) {
   return (dispatch) => {
     if (!bypass) {
-      dispatch(userProfileIsLoading(true));
-      dispatch(userProfileHasErrored(false));
+      batch(() => {
+        dispatch(userProfileIsLoading(true));
+        dispatch(userProfileHasErrored(false));
+      });
     }
 
     /**
@@ -108,10 +111,12 @@ export function userProfileFetchData(bypass, cb) {
           if (cb) {
             dispatch(cb());
           }
-          dispatch(userProfileFetchDataSuccess(newProfileObject));
-          dispatch(userProfileIsLoading(false));
-          dispatch(userProfileHasErrored(false));
-          dispatch(userProfileFavoritePositionHasErrored(false));
+          batch(() => {
+            dispatch(userProfileFetchDataSuccess(newProfileObject));
+            dispatch(userProfileIsLoading(false));
+            dispatch(userProfileHasErrored(false));
+            dispatch(userProfileFavoritePositionHasErrored(false));
+          });
         };
 
         function unsetAvatar() { newProfileObject.avatar = {}; }
@@ -157,8 +162,10 @@ export function userProfileFetchData(bypass, cb) {
         if (cb) {
           dispatch(cb());
         }
-        dispatch(userProfileHasErrored(true));
-        dispatch(userProfileIsLoading(false));
+        batch(() => {
+          dispatch(userProfileHasErrored(true));
+          dispatch(userProfileIsLoading(false));
+        });
       });
   };
 }
@@ -191,8 +198,10 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     const posURL = `/fsbid/available_positions/${id}/`;
     const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/${id}/` : posURL);
 
-    dispatch(userProfileFavoritePositionIsLoading(true, id));
-    dispatch(userProfileFavoritePositionHasErrored(false));
+    batch(() => {
+      dispatch(userProfileFavoritePositionIsLoading(true, id));
+      dispatch(userProfileFavoritePositionHasErrored(false));
+    });
 
     axios.all([getAction(), getPosition()])
       .then(axios.spread((action, position) => {
@@ -209,8 +218,10 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         const title = remove ? SystemMessages.DELETE_FAVORITE_TITLE
           : SystemMessages.ADD_FAVORITE_TITLE;
         const cb = () => userProfileFavoritePositionIsLoading(false, id);
-        dispatch(userProfileFetchData(true, cb));
-        dispatch(userProfileFavoritePositionHasErrored(false));
+        batch(() => {
+          dispatch(userProfileFetchData(true, cb));
+          dispatch(userProfileFavoritePositionHasErrored(false));
+        });
         dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
           dispatch(favoritePositionsFetchData());
@@ -220,9 +231,11 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         const message = remove ?
           SystemMessages.DELETE_FAVORITE_ERROR() : SystemMessages.ADD_FAVORITE_ERROR();
         const title = SystemMessages.ERROR_FAVORITE_TITLE;
-        dispatch(userProfileFavoritePositionIsLoading(false, id));
-        dispatch(userProfileFavoritePositionHasErrored(true));
-        dispatch(toastError(message, title));
+        batch(() => {
+          dispatch(userProfileFavoritePositionIsLoading(false, id));
+          dispatch(userProfileFavoritePositionHasErrored(true));
+          dispatch(toastError(message, title));
+        });
       });
   };
 }

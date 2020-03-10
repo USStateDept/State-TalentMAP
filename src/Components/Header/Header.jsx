@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { Flag } from 'flag';
 import FA from 'react-fontawesome';
 import { USER_PROFILE, EMPTY_FUNCTION, ROUTER_LOCATION_OBJECT, HISTORY_OBJECT } from 'Constants/PropTypes';
