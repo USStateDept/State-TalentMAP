@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from 'Constants/Sort';
+import { checkFlag } from 'flags';
 import TotalResults from '../TotalResults';
-import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from '../../Constants/PropTypes';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import SelectForm from '../SelectForm';
-import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from '../../Constants/Sort';
 import PaginationWrapper from '../PaginationWrapper';
 import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
-import { checkFlag } from '../../flags';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
 
@@ -42,7 +41,6 @@ const FavoritePositions = props => {
 
   function navSelected(s) {
     setSelected(s);
-    // reset page to 1
     props.onPageChange(1);
   }
 
@@ -52,17 +50,13 @@ const FavoritePositions = props => {
       !!(selected === TYPE_OPEN),
     ];
 
-    useEffect(() => {
-      if (isLoading) {
-        downloadPositionData(...args)
-          .then(() => {
-            setIsLoading(false);
-          })
-          .catch(() => {
-            setIsLoading(false);
-          });
-      }
-    }, [isLoading]);
+    downloadPositionData(...args)
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   }
 
   const positions = getPositions();
@@ -116,7 +110,7 @@ const FavoritePositions = props => {
             />
           </div>
           <div className="export-button-container">
-            <ExportButton onClick={exportPositionData} isLoading={setIsLoading} />
+            <ExportButton onClick={exportPositionData} isLoading={isLoading} />
           </div>
         </div>
       </div>
@@ -155,8 +149,8 @@ const FavoritePositions = props => {
 FavoritePositions.propTypes = {
   favorites: FAVORITE_POSITIONS_ARRAY,
   favoritesPV: FAVORITE_POSITIONS_ARRAY,
-  favoritePositionsIsLoading: PropTypes.bool.isRequired,
-  favoritePositionsHasErrored: PropTypes.bool.isRequired,
+  favoritePositionsIsLoading: PropTypes.bool,
+  favoritePositionsHasErrored: PropTypes.bool,
   bidList: BID_RESULTS.isRequired,
   onSortChange: PropTypes.func.isRequired,
   page: PropTypes.number,
@@ -167,6 +161,8 @@ FavoritePositions.propTypes = {
 FavoritePositions.defaultProps = {
   favorites: [],
   favoritesPV: [],
+  favoritePositionsIsLoading: false,
+  favoritePositionsHasErrored: false,
   page: 1,
   pageSize: 12,
   onPageChange: EMPTY_FUNCTION,
