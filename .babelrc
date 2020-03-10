@@ -5,7 +5,17 @@
   ],
   "presets": [
     "react-app",
-    "@babel/preset-env"
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": "2",
+        "targets": {
+          "node": "current",
+          "browsers": ["last 2 versions", "ie >= 11"]
+        }
+      }
+    ]
   ],
   "sourceType": "unambiguous"
 }
