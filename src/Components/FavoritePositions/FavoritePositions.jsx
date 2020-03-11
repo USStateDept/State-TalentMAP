@@ -85,6 +85,7 @@ const FavoritePositions = props => {
       <div className="usa-grid-full favorites-top-section">
         <div className="favorites-title-container">
           <ProfileSectionTitle title="Favorites" icon="star" />
+          page:{page} pageSize:{pageSize}
         </div>
       </div>
       <Nav

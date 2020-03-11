@@ -14,13 +14,13 @@ import { scrollToTop } from 'utilities';
 
 const FavoritePositionsContainer = props => {
   const [page, setPage] = useState(1);
-  const PAGE_SIZE = 12;
+  const [sortType, setSortType] = useState();
+  const PAGE_SIZE = 5;
   const { favoritePositions, favoritePositionsIsLoading, favoritePositionsHasErrored,
     bidList } = props;
 
   function getFavorites() {
-    // props.fetchData(page); TODO: backend needed
-    props.fetchData();
+    props.fetchData(sortType, PAGE_SIZE, page);
   }
 
   useEffect(() => {
@@ -42,12 +42,16 @@ const FavoritePositionsContainer = props => {
 
   function getSortedFavorites(type) {
     if (type.target && type.target.value) {
-      props.fetchData(type.target.value);
+      setSortType(get(type, 'target.value'));
+      getFavorites();
     }
   }
 
   return (
     <div>
+      {console.log(favoritePositions)}
+      {console.log(favoritePositions.favorites)}
+      {console.log(favoritePositions.favoritesPV)}
       <FavoritePositions
         favorites={favoritePositions.favorites}
         favoritesPV={favoritePositions.favoritesPV}
@@ -97,9 +101,9 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: sortType => dispatch(favoritePositionsFetchData(sortType)),
-  // fetchData: sortType => dispatch(favoritePositionsFetchData(sortType,
-  // PAGE_SIZE, page)), TODO: backend needed
+  // fetchData: sortType => dispatch(favoritePositionsFetchData(sortType)),
+  fetchData: (sortType, PAGE_SIZE, page) => dispatch(favoritePositionsFetchData(sortType,
+    PAGE_SIZE, page)),
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleFavorite: (id, remove) =>
     // Since this page references the full Favorites route, pass true to explicitly refresh them

@@ -1,5 +1,5 @@
 import { batch } from 'react-redux';
-import { get } from 'lodash';
+import { get, isEqual } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import { toastError } from './toast';
 import api from '../api';
@@ -42,8 +42,20 @@ export function favoritePositionsFetchDataSuccess(results) {
   };
 }
 
-export function favoritePositionsFetchData(sortType) {
-  // export function favoritePositionsFetchData(limit=12, page=1, sortType) { TODO: backend needed
+export function tempfavoritePositionsFetchDataSuccess(results) {
+  return {
+    type: 'TEMP_FAVORITE_POSITIONS_FETCH_DATA_SUCCESS',
+    results,
+  };
+}
+
+// export function favoritePositionsFetchData(sortType) {
+export function favoritePositionsFetchData(sortType, limit = 12, page = 1) {
+  // const page = 1;
+  // const limit = 12;
+  // eslint-disable-next-line no-console
+  console.log('sortType, page, limit: ', sortType, page, limit);
+
   const usePV = getUsePV();
   return (dispatch) => {
     batch(() => {
@@ -51,10 +63,10 @@ export function favoritePositionsFetchData(sortType) {
       dispatch(favoritePositionsHasErrored(false));
     });
     const data$ = { favorites: [], favoritesPV: [] };
-    let url = '/available_position/favorites/';
-    let urlPV = '/projected_vacancy/favorites/';
-    // let url = '/available_position/favorites/?limit=${limit}&page=${page}'; TODO: backend needed
-    // let urlPV = '/projected_vacancy/favorites/?limit=${limit}&page=${page}'; TODO: backend needed
+    const tempdata$ = { favorites: [], favoritesPV: [],
+      counts: { favorites: 0, favoritesPV: 0, all: 0 } };
+    let url = `/available_position/favorites/?limit=${limit}&page=${page}`;
+    let urlPV = `/projected_vacancy/favorites/?limit=${limit}&page=${page}`;
 
     if (sortType) {
       const append = `?ordering=${sortType}`;
@@ -94,12 +106,21 @@ export function favoritePositionsFetchData(sortType) {
           });
         } else {
         // object 0 is favorites
+          tempdata$.counts.favorites = get(results, '[0].count', 0);
+          tempdata$.counts.favoritesPV = get(results, '[1].count', 0);
+          tempdata$.counts.all = get(results, '[0].count', 0) + get(results, '[1].count', 0);
+          tempdata$.favorites = get(results, '[0].results', []);
+          tempdata$.results = get(results, '[0].results', []);
           data$.favorites = get(results, '[0].results', []);
           data$.results = get(results, '[0].results', []);
           // object 1 is PV favorites
           // add PV property
+          tempdata$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
           data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
+          console.log('For dev: tempdata$.prop === data$.prop: ');
+          console.log(isEqual(tempdata$.favoritesPV, data$.favoritesPV));
           batch(() => {
+            dispatch(tempfavoritePositionsFetchDataSuccess(tempdata$));
             dispatch(favoritePositionsFetchDataSuccess(data$));
             dispatch(favoritePositionsHasErrored(false));
             dispatch(favoritePositionsIsLoading(false));
