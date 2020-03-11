@@ -5,7 +5,6 @@
   "hrAuthUrl": "https://mockfsbid.metaphasedev.com/Authorize?sAppCircuitID=32",
   "flags": {
     "bidding": true,
-    "projected_vacancy": true,
     "static_content": true,
     "notifications": true,
     "data_sync_admin": true,

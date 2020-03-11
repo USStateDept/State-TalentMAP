@@ -36,3 +36,37 @@ exports[`ConfettiIconComponent matches snapshot 1`] = `
   <div />
 </InteractiveElement>
 `;
+
+exports[`ConfettiIconComponent matches snapshot when colors are provided 1`] = `
+<InteractiveElement
+  className=""
+  onMouseOver={[Function]}
+  type="div"
+>
+  <div
+    className="confetti-container"
+  >
+    <Confetti
+      active={false}
+      config={
+        Object {
+          "angle": 90,
+          "colors": Array [
+            "#fff",
+            "#000",
+          ],
+          "dragFriction": 0.1,
+          "duration": "3000",
+          "elementCount": 50,
+          "height": "10px",
+          "spread": 45,
+          "stagger": 2,
+          "startVelocity": "30",
+          "width": "10px",
+        }
+      }
+    />
+  </div>
+  <div />
+</InteractiveElement>
+`;

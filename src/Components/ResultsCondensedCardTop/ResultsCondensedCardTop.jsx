@@ -6,20 +6,17 @@ import { Featured, Handshake } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
-import { checkFlag } from '../../flags';
-
-const useProjectedVacancy = () => checkFlag('flags.projected_vacancy');
 
 const ResultsCondensedCardTop = ({ position, isProjectedVacancy, isRecentlyAvailable }) => {
   let cardTopClass = '';
   let vacancyClass;
   let vacancyText;
 
-  if (isProjectedVacancy && useProjectedVacancy()) {
+  if (isProjectedVacancy) {
     vacancyClass = 'vacancy--projected';
     vacancyText = 'Projected Vacancy';
     cardTopClass = 'card-top-vacancy';
-  } else if (isRecentlyAvailable && useProjectedVacancy()) {
+  } else if (isRecentlyAvailable) {
     vacancyClass = 'vacancy--recent';
     vacancyText = 'Now available';
   }
