@@ -49,6 +49,8 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
 module.exports = {
+  // mode must be explicitly declared in webpack v4
+  mode: 'production',
   // Don't attempt to continue if there are any errors.
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
@@ -199,6 +201,7 @@ module.exports = {
                           '>1%',
                           'last 4 versions',
                           'Firefox ESR',
+                          'ie >= 11',
                           'not ie < 9', // React doesn't support IE8 anyway
                         ],
                         flexbox: 'no-2009',
@@ -219,7 +222,16 @@ module.exports = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            'sass-loader',
+            {
+              loader: 'resolve-url-loader',
+              options: { removeCR: true, sourceMap: true }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            },
             // Reads Sass vars from files or inlined in the options property
             {
               loader: '@epegzz/sass-vars-loader',
@@ -238,12 +250,6 @@ module.exports = {
     ],
   },
   plugins: [
-    // Makes some environment variables available in index.html.
-    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    // In production, it will be an empty string unless you specify "homepage"
-    // in `package.json`, in which case it will be the pathname of that URL.
-    new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
@@ -266,26 +272,17 @@ module.exports = {
       template: paths.loginHtml,
       filename: 'login.html'
     }),
+    // Makes some environment variables available in index.html.
+    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // In production, it will be an empty string unless you specify "homepage"
+    // in `package.json`, in which case it will be the pathname of that URL.
+    new InterpolateHtmlPlugin(env.raw),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
     // It is absolutely essential that NODE_ENV was set to production here.
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
-    // Minify the code.
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        // Disabled because of an issue with Uglify breaking seemingly valid code:
-        // https://github.com/facebookincubator/create-react-app/issues/2376
-        // Pending further investigation:
-        // https://github.com/mishoo/UglifyJS2/issues/2011
-        comparisons: false,
-      },
-      output: {
-        comments: false,
-      },
-      sourceMap: true,
-    }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,

@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import { toNumber } from 'lodash';
 import api from '../api';
@@ -35,8 +36,10 @@ export function comparisonsFetchData(query) {
 
     dispatch(comparisonsIsLoading(true));
     if (!query) {
-      dispatch(comparisonsFetchDataSuccess([]));
-      dispatch(comparisonsIsLoading(false));
+      batch(() => {
+        dispatch(comparisonsFetchDataSuccess([]));
+        dispatch(comparisonsIsLoading(false));
+      });
     } else {
       api().get(url, {
         cancelToken: new CancelToken((c) => { cancel = c; }),

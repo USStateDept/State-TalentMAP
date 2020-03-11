@@ -4,13 +4,13 @@ import thunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage
 
-import { routerMiddleware } from 'react-router-redux';
+import { routerMiddleware } from 'connected-react-router';
 
 import createSagaMiddleware from 'redux-saga';
 
 import { createBrowserHistory } from 'history';
 
-import rootReducer from './reducers';
+import createRootReducer from './reducers';
 
 import IndexSagas from './index-sagas';
 
@@ -35,7 +35,7 @@ const composeEnhancers = (
 ) || compose;
 /* eslint-enable no-underscore-dangle */
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, createRootReducer(history));
 
 function configureStore(initialState) {
   return createStore(

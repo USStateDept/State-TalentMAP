@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
 import { get } from 'lodash';
@@ -58,14 +59,18 @@ export function resultsFetchSimilarPositions(id) {
     })
       .then(response => response.data)
       .then((results) => {
-        dispatch(resultsSimilarPositionsFetchDataSuccess(results));
-        dispatch(resultsSimilarPositionsHasErrored(false));
-        dispatch(resultsSimilarPositionsIsLoading(false));
+        batch(() => {
+          dispatch(resultsSimilarPositionsFetchDataSuccess(results));
+          dispatch(resultsSimilarPositionsHasErrored(false));
+          dispatch(resultsSimilarPositionsIsLoading(false));
+        });
       })
       .catch(() => {
-        dispatch(resultsSimilarPositionsFetchDataSuccess({}));
-        dispatch(resultsSimilarPositionsHasErrored(true));
-        dispatch(resultsSimilarPositionsIsLoading(false));
+        batch(() => {
+          dispatch(resultsSimilarPositionsFetchDataSuccess({}));
+          dispatch(resultsSimilarPositionsHasErrored(true));
+          dispatch(resultsSimilarPositionsIsLoading(false));
+        });
       });
   };
 }
@@ -116,18 +121,24 @@ export function resultsFetchData(query) {
     dispatch(resultsHasErrored(false));
     fetchResultData(query)
       .then((results) => {
-        dispatch(resultsFetchDataSuccess(results));
-        dispatch(resultsHasErrored(false));
-        dispatch(resultsIsLoading(false));
+        batch(() => {
+          dispatch(resultsFetchDataSuccess(results));
+          dispatch(resultsHasErrored(false));
+          dispatch(resultsIsLoading(false));
+        });
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
-          dispatch(resultsHasErrored(false));
-          dispatch(resultsIsLoading(true));
+          batch(() => {
+            dispatch(resultsHasErrored(false));
+            dispatch(resultsIsLoading(true));
+          });
         } else {
-          dispatch(resultsFetchDataSuccess({ results: [] }));
-          dispatch(resultsHasErrored(true));
-          dispatch(resultsIsLoading(false));
+          batch(() => {
+            dispatch(resultsFetchDataSuccess({ results: [] }));
+            dispatch(resultsHasErrored(true));
+            dispatch(resultsIsLoading(false));
+          });
         }
       });
   };

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, includes, orderBy } from 'lodash';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
 import { getItemLabel, formatIdSpacing } from '../../../utilities';
+
+const hiddenGroups = ['no-language']; // hide the checkbox children
 
 class LanguageFilter extends Component {
   UNSAFE_componentWillMount() {
@@ -27,7 +29,8 @@ class LanguageFilter extends Component {
   onGroupCheckBoxClick = (value, props) => {
     // expand the accordion if the user selects that group
     const groupId = get(props, 'cone.id');
-    if (value && groupId) {
+    const groupCode = get(props, 'cone.code');
+    if (value && groupId && !includes(hiddenGroups, groupCode)) {
       const el = document.getElementById(`language-group-accordion-${groupId}-button`);
       if (el) {
         const isOpen = el.getAttribute('aria-expanded') === 'true';
@@ -42,12 +45,14 @@ class LanguageFilter extends Component {
     const shouldRemoveChildren = !value;
     const qArr = [];
     item.data.forEach((itemData) => {
-      if (!(cone.useAll && shouldRemoveChildren)) {
-        if ((itemData.group === cone.name || cone.useAll) && !shouldRemoveChildren) {
+      if (!shouldRemoveChildren) {
+        if ((itemData.group === cone.code) && !shouldRemoveChildren) {
           qArr.push(itemData.code);
-        } else if (itemData.group !== cone.name && itemData.isSelected) {
+        } else if (itemData.group !== cone.code && itemData.isSelected) {
           qArr.push(itemData.code);
         }
+      } else if (itemData.group !== cone.code && itemData.isSelected) {
+        qArr.push(itemData.code);
       }
     });
     const q = { [item.item.selectionRef]: qArr.join() };
@@ -63,7 +68,7 @@ class LanguageFilter extends Component {
     props.languageGroups.data.forEach((group) => {
       let allGroupChildrenSelected = true;
       props.item.data.some((itemData) => {
-        if ((itemData.group === group.name || group.useAll) && !itemData.isSelected) {
+        if ((itemData.group === group.code) && !itemData.isSelected) {
           allGroupChildrenSelected = false;
           return true;
         }
@@ -76,65 +81,69 @@ class LanguageFilter extends Component {
 
   render() {
     const { item, languageGroups } = this.props;
-    const languageGroups$ = (languageGroups.data || []).map((m) => {
+    let languageGroups$ = (languageGroups.data || []).map((m) => {
       const m$ = { ...m };
-      if (m.useAll) {
-        m$.languages = item.data.map(n => n.long_description);
-      }
+      m$.languages = item.data.map(n => n.long_description);
       return m$;
     });
+    languageGroups$ = orderBy(languageGroups$, 'code', 'desc');
     return (
       <div className="usa-grid-full tm-nested-accordions">
         <Accordion>
           {
-            languageGroups$.map(group => (
-              <AccordionItem
-                key={group.id}
-                className="accordion-content-small"
-                id={`language-group-accordion-${group.id}`}
-                title={group.name}
-                buttonClass="tm-nested-accordion-button"
-                expanded // keep expanded by default
-                preContent={(
-                  <CheckBox
-                    cone={group /* pass group to reference in onClick handler */}
-                    id={`select-all-group-${group.id}`}
-                    onCheckBoxClick={this.onGroupCheckBoxClick}
-                    className="tm-checkbox-transparent"
-                    value={this.state[group.id] || false}
-                    label={`Toggle filter by all positions with group name ${group.name}`}
-                    labelSrOnly
-                  />
-                )}
-              >
-                <div className="usa-grid-full">
-                  {
-                    item.data.map((itemData) => {
-                      const itemLabel = getItemLabel(itemData);
-                      const itemLabelNoSpaces = formatIdSpacing(itemLabel);
-                      const matchesCone = itemData.languageGroup === group.name || group.useAll;
-                      if (matchesCone) {
-                        return (
-                          <CheckBox
-                            _id={itemData.id} /* when we need the original id */
-                            id={`checkbox${itemLabelNoSpaces}-language-${group.id}`}
-                            key={`checkbox${itemLabel}-language-${group.id}`}
-                            label={itemLabel}
-                            title={itemLabel}
-                            name={itemLabel}
-                            value={itemData.isSelected || false}
-                            code={itemData.code}
-                            selectionRef={item.item.selectionRef}
-                            onCheckBoxClick={this.onCheckBoxClick}
-                            className="tm-checkbox-transparent"
-                          />);
-                      }
-                      return null;
-                    })
-                  }
-                </div>
-              </AccordionItem>
-            ))
+            languageGroups$.map(group => {
+              const isGroupHidden = includes(hiddenGroups, group.code);
+              return (
+                <AccordionItem
+                  key={group.id}
+                  className={`accordion-content-small ${isGroupHidden ? 'accordion-unclickable' : ''}`}
+                  id={`language-group-accordion-${group.id}`}
+                  title={group.name}
+                  buttonClass="tm-nested-accordion-button"
+                  disabled={isGroupHidden}
+                  expanded
+                  preContent={(
+                    <CheckBox
+                      cone={group /* pass group to reference in onClick handler */}
+                      id={`select-all-group-${group.id}`}
+                      onCheckBoxClick={this.onGroupCheckBoxClick}
+                      className="tm-checkbox-transparent"
+                      value={this.state[group.id] || false}
+                      label={`Toggle filter by all positions with group name ${group.name}`}
+                      labelSrOnly
+                    />
+                  )}
+                >
+                  <div className="usa-grid-full">
+                    {
+                      !isGroupHidden &&
+                      item.data.map((itemData) => {
+                        const itemLabel = getItemLabel(itemData);
+                        const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                        const matchesCone = itemData.group === group.code;
+                        if (matchesCone) {
+                          return (
+                            <CheckBox
+                              _id={itemData.id} /* when we need the original id */
+                              id={`checkbox${itemLabelNoSpaces}-language-${group.id}`}
+                              key={`checkbox${itemLabel}-language-${group.id}`}
+                              label={itemLabel}
+                              title={itemLabel}
+                              name={itemLabel}
+                              value={itemData.isSelected || false}
+                              code={itemData.code}
+                              selectionRef={item.item.selectionRef}
+                              onCheckBoxClick={this.onCheckBoxClick}
+                              className="tm-checkbox-transparent"
+                            />);
+                        }
+                        return null;
+                      })
+                    }
+                  </div>
+                </AccordionItem>
+              );
+            })
           }
         </Accordion>
       </div>

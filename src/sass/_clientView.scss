@@ -1,4 +1,5 @@
-.client-header-container {
+.client-header-sticky-container {
+  position: relative;
   z-index: $client-header-z;
 }
 

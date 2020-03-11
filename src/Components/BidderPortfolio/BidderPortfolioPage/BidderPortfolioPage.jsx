@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import StaticDevContent from 'Components/StaticDevContent';
 import TotalResults from 'Components/TotalResults/TotalResults';
+import ErrorBoundary from 'Components/ErrorBoundary';
 import Spinner from '../../Spinner';
 import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
@@ -112,18 +113,20 @@ class BidderPortfolioPage extends Component {
             }
             {
               !isLoading &&
-                <BidderPortfolioContainer
-                  bidderPortfolio={bidderPortfolio}
-                  pageSize={pageSize}
-                  queryParamUpdate={queryParamUpdate}
-                  pageNumber={pageNumber}
-                  showListView={isListView}
-                  showEdit={showEdit}
-                  classifications={classifications}
-                  isLoading={bidderPortfolioIsLoading}
-                  cdosLength={cdosLength}
-                  hideControls={hideControls}
-                />
+                <ErrorBoundary>
+                  <BidderPortfolioContainer
+                    bidderPortfolio={bidderPortfolio}
+                    pageSize={pageSize}
+                    queryParamUpdate={queryParamUpdate}
+                    pageNumber={pageNumber}
+                    showListView={isListView}
+                    showEdit={showEdit}
+                    classifications={classifications}
+                    isLoading={bidderPortfolioIsLoading}
+                    cdosLength={cdosLength}
+                    hideControls={hideControls}
+                  />
+                </ErrorBoundary>
             }
           </div>
         </div>

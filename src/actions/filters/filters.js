@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import { get, isArray, orderBy, union } from 'lodash';
 import Q from 'q';
 import api from '../../api';
@@ -5,7 +6,7 @@ import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { mapDuplicates, removeDuplicates } from '../../utilities';
 import { checkFlag } from '../../flags';
 import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
-  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
+  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter, getFilterCustomAttributes } from './helpers';
 
 const getUsePV = () => checkFlag('flags.projected_vacancy');
 
@@ -31,8 +32,10 @@ export function filtersFetchDataSuccess(filters) {
 export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses,
   fromResultsPage = false) {
   return (dispatch) => {
-    dispatch(filtersIsLoading(true));
-    dispatch(filtersHasErrored(false));
+    batch(() => {
+      dispatch(filtersIsLoading(true));
+      dispatch(filtersHasErrored(false));
+    });
 
     const queryParamObject = queryParams;
 
@@ -157,13 +160,17 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             return m$;
           });
           // Finally, dispatch a success
-          dispatch(filtersFetchDataSuccess(responses$));
-          dispatch(filtersHasErrored(false));
-          dispatch(filtersIsLoading(false));
+          batch(() => {
+            dispatch(filtersFetchDataSuccess(responses$));
+            dispatch(filtersHasErrored(false));
+            dispatch(filtersIsLoading(false));
+          });
         })
         .catch(() => {
-          dispatch(filtersHasErrored(true));
-          dispatch(filtersIsLoading(false));
+          batch(() => {
+            dispatch(filtersHasErrored(true));
+            dispatch(filtersIsLoading(false));
+          });
         });
     }
 
@@ -188,8 +195,15 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       responses.filters.forEach((filterItem, i) => {
         filterItem.data.forEach((filterItemObject, j) => {
           const customDescription = getFilterCustomDescription(filterItem, filterItemObject);
+          const customAttributes = getFilterCustomAttributes(filterItem, filterItemObject);
           if (customDescription) {
             responses.filters[i].data[j].custom_description = customDescription;
+          }
+          if (customAttributes) {
+            responses.filters[i].data[j] = {
+              ...responses.filters[i].data[j],
+              ...customAttributes,
+            };
           }
         });
       });
@@ -320,8 +334,10 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             }
             responses.filters.push(...staticFilters);
             dispatchSuccess();
-            dispatch(filtersHasErrored(false));
-            dispatch(filtersIsLoading(false));
+            batch(() => {
+              dispatch(filtersHasErrored(false));
+              dispatch(filtersIsLoading(false));
+            });
           });
         });
     }

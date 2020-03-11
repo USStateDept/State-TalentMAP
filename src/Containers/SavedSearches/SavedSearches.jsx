@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch } from '../../actions/savedSearch';
 import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';

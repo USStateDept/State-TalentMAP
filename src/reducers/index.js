@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer as router } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 import client from '../client/reducer';
 import login from '../login/reducer';
 import { reducer as bidCycles } from './bidCycles';
@@ -48,7 +48,7 @@ import clientSuggestions from './clientSuggestions';
 import userRoles from './userRoles';
 import classifications from './classifications';
 
-export default combineReducers({
+export default (history) => combineReducers({
   ...results,
   ...filters,
   ...post,
@@ -92,7 +92,7 @@ export default combineReducers({
   ...clientSuggestions,
   ...userRoles,
   ...classifications,
-  router,
+  router: connectRouter(history),
   client,
   login,
   bidCycles,
