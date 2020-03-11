@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
+import { get } from 'lodash';
 
 import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen,
   faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix } from '@fortawesome/free-solid-svg-icons';
@@ -104,11 +105,12 @@ const status$ = ['none', 'success'];
 const ClientBadge = ({ type, status }) => {
   const isHighlighted = status === true ? 'success' : 'none';
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
+  const icon = get(icons, type, 'None');
   return (
     <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
       <div className="client-badge">
         <Tooltip
-          title={icons[type].text}
+          title={get(icon, 'text', 'None')}
           arrow
           offset={-95}
           position="top-end"
@@ -116,7 +118,7 @@ const ClientBadge = ({ type, status }) => {
         >
           <FontAwesomeIcon
             aria-label={ariaLabel}
-            icon={icons[type].name}
+            icon={get(icon, 'name', 'None')}
           />
         </Tooltip>
       </div>
