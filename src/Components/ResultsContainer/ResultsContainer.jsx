@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
+import ErrorBoundary from 'Components/ErrorBoundary';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import ResultsList from '../ResultsList/ResultsList';
@@ -99,14 +100,16 @@ class ResultsContainer extends Component {
               isLoading && !hasErrored &&
                 <Spinner size="big" type="position-results" />
             }
-            <ResultsList
-              key={refreshKey}
-              results={results}
-              isLoading={!hasLoaded}
-              favorites={userProfile.favorite_positions}
-              favoritesPV={userProfile.favorite_positions_pv}
-              bidList={bidList}
-            />
+            <ErrorBoundary>
+              <ResultsList
+                key={refreshKey}
+                results={results}
+                isLoading={!hasLoaded}
+                favorites={userProfile.favorite_positions}
+                favoritesPV={userProfile.favorite_positions_pv}
+                bidList={bidList}
+              />
+            </ErrorBoundary>
           </div>
         }
         {

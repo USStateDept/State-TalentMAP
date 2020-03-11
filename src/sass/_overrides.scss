@@ -8,6 +8,10 @@ body {
   font-size: 1.6rem;
 }
 
+#main-content {
+  min-height: calc(100vh - 300px); // roughly the sum of the header and footer height
+}
+
 [type=button],
 [type=submit],
 [type=reset],
