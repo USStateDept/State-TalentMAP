@@ -123,7 +123,7 @@ const ClientBadge = ({ type, status }) => {
         </Tooltip>
       </div>
       <div className="client-badge-text">
-        <span>{icons[type].shortCode}</span>
+        <span>{get(icon, 'shortCode', 'None')}</span>
       </div>
     </div>
   );
