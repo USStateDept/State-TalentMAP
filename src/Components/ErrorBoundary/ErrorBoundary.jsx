@@ -19,9 +19,11 @@ class ErrorBoundary extends React.Component {
   }
 
   render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
+    const { fallback } = this.props;
+    const { hasError } = this.state;
+    if (hasError) {
       return (
+        fallback ||
         <Alert
           type="error"
           title="An unexpected error has occurred"
@@ -39,10 +41,12 @@ class ErrorBoundary extends React.Component {
 ErrorBoundary.propTypes = {
   children: PropTypes.element.isRequired,
   onCatch: PropTypes.func,
+  fallback: PropTypes.node,
 };
 
 ErrorBoundary.defaultProps = {
   onCatch: EMPTY_FUNCTION,
+  fallback: '',
 };
 
 export default ErrorBoundary;

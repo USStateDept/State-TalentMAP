@@ -3,9 +3,6 @@ import { get, isEqual } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import { toastError } from './toast';
 import api from '../api';
-import { checkFlag } from '../flags';
-
-const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 export function downloadPositionData(excludeAP = false, excludePV = false) {
   const url = `/available_position/favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
@@ -56,7 +53,6 @@ export function favoritePositionsFetchData(sortType, limit = 12, page = 1) {
   // eslint-disable-next-line no-console
   console.log('sortType, page, limit: ', sortType, page, limit);
 
-  const usePV = getUsePV();
   return (dispatch) => {
     batch(() => {
       dispatch(favoritePositionsIsLoading(true));
@@ -84,11 +80,7 @@ export function favoritePositionsFetchData(sortType, limit = 12, page = 1) {
         .then(({ data }) => data)
         .catch(error => error);
 
-    const queryProms = [fetchFavorites()];
-
-    if (usePV) {
-      queryProms.push(fetchPVFavorites());
-    }
+    const queryProms = [fetchFavorites(), fetchPVFavorites()];
 
     Promise.all(queryProms)
       .then((results) => {

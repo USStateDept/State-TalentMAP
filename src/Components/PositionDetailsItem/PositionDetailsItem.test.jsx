@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 import PositionDetailsItem, { renderHandshake } from './PositionDetailsItem';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -20,6 +21,15 @@ describe('PositionDetailsItem', () => {
   });
 
   it('is defined', () => {
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined when posted date is null', () => {
+    const details$ = { ...props.details };
+    details$.position[COMMON_PROPERTIES.posted] = null;
     const wrapper = shallow(
       <PositionDetailsItem {...props} />,
     );

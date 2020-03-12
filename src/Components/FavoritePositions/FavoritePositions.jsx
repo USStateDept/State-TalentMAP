@@ -14,8 +14,6 @@ import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
 
-const getUsePV = () => checkFlag('flags.projected_vacancy');
-
 const TYPE_PV = 'pv';
 const TYPE_OPEN = 'open';
 const TYPE_ALL = 'all';

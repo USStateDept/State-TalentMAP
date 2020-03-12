@@ -16,7 +16,6 @@ import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault, sortTo
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
 
 const useBidding = () => checkFlag('flags.bidding');
-const usePV = () => checkFlag('flags.projected_vacancy');
 
 class SearchFiltersContainer extends Component {
   onMissionSuggestionSelected = value => {
@@ -105,12 +104,7 @@ class SearchFiltersContainer extends Component {
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedToggleNames = [];
-    // show the 'Available' filter,
-    // but only if flags.bidding === true
-    if (usePV()) {
-      sortedToggleNames.push('projectedVacancy');
-    }
+    const sortedToggleNames = ['projectedVacancy'];
 
     // store filters in Map
     const toggleFiltersMap = new Map();

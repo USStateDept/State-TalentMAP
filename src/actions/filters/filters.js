@@ -4,11 +4,8 @@ import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { mapDuplicates, removeDuplicates } from '../../utilities';
-import { checkFlag } from '../../flags';
 import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
   doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter, getFilterCustomAttributes } from './helpers';
-
-const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 export function filtersHasErrored(bool) {
   return {
@@ -269,10 +266,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       const staticFilters = items.filters.slice().filter(item => (!item.item.endpoint));
 
       // our dynamic filters
-      let dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
-      if (!getUsePV()) {
-        dynamicFilters = dynamicFilters.filter(f => !get(f, 'item.onlyProjectedVacancy'));
-      }
+      const dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
       const queryProms = dynamicFilters.map(item => (
         api().get(`/${item.item.endpoint}`)
           .then((response) => {

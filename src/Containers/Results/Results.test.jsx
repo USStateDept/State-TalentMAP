@@ -129,6 +129,17 @@ describe('Results', () => {
     expect(value.newValue).toEqual({ q: 'German' });
   });
 
+  it('calls history.push on this.resetFilters()', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <Results.WrappedComponent
+        {...props}
+      />, { context: { router: { history: { push: spy } } } },
+    );
+    wrapper.instance().resetFilters();
+    sinon.assert.calledOnce(spy);
+  });
+
   [
     [{ q: '', ordering: 'order' }, false],
     [{ q: 'a' }, true],
