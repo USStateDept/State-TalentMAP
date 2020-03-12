@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import ErrorBoundary from 'Components/ErrorBoundary';
 import mappedRoutesArray from './RoutesMap';
 import NotFound from '../../Components/NotFound404';
 
@@ -11,7 +12,7 @@ const Routes = props => (
           key={route.key || route.path}
           exact={route.exact}
           path={route.path}
-          component={() => route.component(props)}
+          component={() => <ErrorBoundary>{route.component(props)}</ErrorBoundary>}
         />
       ))
     }
