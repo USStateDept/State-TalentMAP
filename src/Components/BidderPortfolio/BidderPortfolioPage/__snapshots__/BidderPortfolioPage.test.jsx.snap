@@ -47,6 +47,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
       className="usa-grid-full bidder-portfolio-listing "
     >
       <ErrorBoundary
+        fallback=""
         onCatch={[Function]}
       >
         <BidderPortfolioContainer
