@@ -22,9 +22,8 @@ export function favoritePositions(state = { favorites: [], favoritesPV: [] }, ac
       return state;
   }
 }
-export function tempFavoritePositions(state = { favorites: [], favoritesPV: [] }, action) {
-  console.log('action:');
-  console.log(action);
+export function tempfavoritePositions(state = {
+  favorites: [], favoritesPV: [], counts: [] }, action) {
   switch (action.type) {
     case 'TEMP_FAVORITE_POSITIONS_FETCH_DATA_SUCCESS':
       return action.results;

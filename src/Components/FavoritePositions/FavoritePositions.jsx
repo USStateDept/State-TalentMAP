@@ -23,7 +23,7 @@ const FavoritePositions = props => {
 
   const { favorites, favoritesPV, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList, onSortChange,
-    page, pageSize, onPageChange } = props;
+    page, pageSize, counts, onPageChange } = props;
 
   function getPositions() {
     switch (selected) {
@@ -58,9 +58,9 @@ const FavoritePositions = props => {
 
   const positions = getPositions();
   const options = [
-    { title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length },
-    { title: 'Open Positions', value: TYPE_OPEN, numerator: favorites.length },
-    { title: 'Projected Vacancies', value: TYPE_PV, numerator: favoritesPV.length },
+    { title: 'All Favorites', value: TYPE_ALL, numerator: counts.all },
+    { title: 'Open Positions', value: TYPE_OPEN, numerator: counts.favorites },
+    { title: 'Projected Vacancies', value: TYPE_PV, numerator: counts.favoritesPV },
   ];
 
   let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
@@ -70,9 +70,9 @@ const FavoritePositions = props => {
   selectOptions$ = selectOptions$.options;
 
   const paginationTotal = {
-    all: favorites.length + favoritesPV.length,
-    open: favorites.length,
-    pv: favoritesPV.length,
+    all: counts.all,
+    open: counts.favorites,
+    pv: counts.favoritesPV,
   };
 
   return (
@@ -80,14 +80,14 @@ const FavoritePositions = props => {
       <div className="usa-grid-full favorites-top-section">
         <div className="favorites-title-container">
           <ProfileSectionTitle title="Favorites" icon="star" />
-          page:{page} pageSize:{pageSize}
+          page:{page} pageSize:{pageSize} selected:{selected}
         </div>
       </div>
       <Nav
         options={options}
         onClick={navSelected}
         selected={selected}
-        denominator={favorites.length + favoritesPV.length}
+        denominator={counts.all}
       />
       <div className="usa-grid-full favorites-top-section">
         <TotalResults
@@ -151,6 +151,7 @@ FavoritePositions.propTypes = {
   onSortChange: PropTypes.func.isRequired,
   page: PropTypes.number,
   pageSize: PropTypes.number,
+  counts: PropTypes.shape({}),
   onPageChange: PropTypes.func,
 };
 
@@ -161,6 +162,7 @@ FavoritePositions.defaultProps = {
   favoritePositionsHasErrored: false,
   page: 1,
   pageSize: 12,
+  counts: {},
   onPageChange: EMPTY_FUNCTION,
 };
 
