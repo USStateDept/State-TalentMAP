@@ -10,9 +10,6 @@ import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from '../../Constants/So
 import HomePagePositionsList from '../HomePagePositionsList';
 import NoFavorites from '../EmptyListAlert/NoFavorites';
 import Nav from './Nav';
-import { checkFlag } from '../../flags';
-
-const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 const TYPE_PV = 'pv';
 const TYPE_OPEN = 'open';
@@ -62,14 +59,11 @@ class FavoritePositions extends Component {
     const { favorites, favoritesPV, favoritePositionsIsLoading,
       favoritePositionsHasErrored, bidList, onSortChange } = this.props;
     const positions = this.getPositions();
-    let options = [{ title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length }];
-    if (getUsePV()) {
-      options = [
-        ...options,
-        { title: 'Open Positions', value: TYPE_OPEN, numerator: favorites.length },
-        { title: 'Projected Vacancies', value: TYPE_PV, numerator: favoritesPV.length },
-      ];
-    }
+    const options = [
+      { title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length },
+      { title: 'Open Positions', value: TYPE_OPEN, numerator: favorites.length },
+      { title: 'Projected Vacancies', value: TYPE_PV, numerator: favoritesPV.length },
+    ];
     let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
     if (selected === TYPE_PV) {
       selectOptions$ = filterPVSorts(selectOptions$);

@@ -3,9 +3,6 @@ import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import { toastError } from './toast';
 import api from '../api';
-import { checkFlag } from '../flags';
-
-const getUsePV = () => checkFlag('flags.projected_vacancy');
 
 export function downloadPositionData(excludeAP = false, excludePV = false) {
   const url = `/available_position/favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
@@ -43,7 +40,6 @@ export function favoritePositionsFetchDataSuccess(results) {
 }
 
 export function favoritePositionsFetchData(sortType) {
-  const usePV = getUsePV();
   return (dispatch) => {
     batch(() => {
       dispatch(favoritePositionsIsLoading(true));
@@ -68,11 +64,7 @@ export function favoritePositionsFetchData(sortType) {
         .then(({ data }) => data)
         .catch(error => error);
 
-    const queryProms = [fetchFavorites()];
-
-    if (usePV) {
-      queryProms.push(fetchPVFavorites());
-    }
+    const queryProms = [fetchFavorites(), fetchPVFavorites()];
 
     Promise.all(queryProms)
       .then((results) => {

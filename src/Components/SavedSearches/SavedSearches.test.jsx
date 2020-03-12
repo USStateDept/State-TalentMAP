@@ -25,16 +25,6 @@ describe('SavedSearchesComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <SavedSearches
-        {...props}
-      />,
-    );
-    expect(wrapper.instance().props.savedSearches.results[0].id)
-      .toBe(searchObjectParent.results[0].id);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <SavedSearches

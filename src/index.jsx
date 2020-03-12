@@ -16,14 +16,14 @@ import './polyfills';
 
 const isPersonaAuth = () => checkFlag('flags.persona_auth');
 
-const render = () => {
+export const render = () => {
   ReactDOM.render((
     <App />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
 // Because the JWT request could be slow.
-const renderLoading = () => {
+export const renderLoading = () => {
   ReactDOM.render((
     <Splash />
   ), document.getElementById('root') || document.createElement('div'));

@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import Index, { init } from './index';
+import Index, { init, render } from './index';
 import config from '../public/config/config.json';
 
 describe('index', () => {
@@ -22,6 +22,11 @@ describe('index', () => {
 
   it('renders without crashing on init()', () => {
     init(config);
+    expect(ReactDOM.render).toHaveBeenCalled();
+  });
+
+  it('renders without crashing on render()', () => {
+    render();
     expect(ReactDOM.render).toHaveBeenCalled();
   });
 });
