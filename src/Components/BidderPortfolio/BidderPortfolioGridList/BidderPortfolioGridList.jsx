@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Accordion, AccordionItem } from 'Components/Accordion';
 import { BIDDER_RESULTS, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import BidderPortfolioStatRow from '../BidderPortfolioStatRow';
 
-const isAllFalse = a => a === false;
-const isAllTrue = a => a === true;
+export const isAllFalse = a => a === false;
+export const isAllTrue = a => a === true;
 
 class BidderPortfolioGridList extends Component {
   constructor(props) {
@@ -27,6 +28,11 @@ class BidderPortfolioGridList extends Component {
     this.debouncedSetValue();
   };
 
+  getRefById = id => {
+    const ref = get(this, `accordion-${id}`);
+    return ref;
+  }
+
   // Determine whether to display a + or - for the expand toggle button.
   // Never call this function directly (use debouncedSetValue()).
   setExpandAllValue = () => {
@@ -34,8 +40,9 @@ class BidderPortfolioGridList extends Component {
     // map AccordionItem children expanded values to an array
     const accStates = [...results].map((r) => {
       // refs will not exist on the first render
-      if (this[`accordion-${r.id}`]) { // refs are defined from the id of the result
-        return this[`accordion-${r.id}`].isExpanded();
+      const ref = this.getRefById(r.id);
+      if (ref) { // refs are defined from the id of the result
+        return ref.isExpanded();
       }
       return false;
     });
@@ -55,11 +62,17 @@ class BidderPortfolioGridList extends Component {
     // If expandAll false, set them all to expanded.
     if (!this.state.expandAll) {
       results.forEach((f) => {
-        this[`accordion-${f.id}`].setExpandedFromRef(true);
+        const ref = this.getRefById(f.id);
+        if (ref) {
+          ref.setExpandedFromRef(true);
+        }
       });
     } else { // Otherwise, set them all to collapsed.
       results.forEach((f) => {
-        this[`accordion-${f.id}`].setExpandedFromRef(false);
+        const ref = this.getRefById(f.id);
+        if (ref) {
+          ref.setExpandedFromRef(false);
+        }
       });
     }
 
