@@ -4,7 +4,6 @@ import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
 import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from 'Constants/Sort';
-import { checkFlag } from 'flags';
 import TotalResults from '../TotalResults';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
@@ -58,14 +57,12 @@ const FavoritePositions = props => {
   }
 
   const positions = getPositions();
-  let options = [{ title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length }];
-  if (getUsePV()) {
-    options = [
-      ...options,
-      { title: 'Open Positions', value: TYPE_OPEN, numerator: favorites.length },
-      { title: 'Projected Vacancies', value: TYPE_PV, numerator: favoritesPV.length },
-    ];
-  }
+  const options = [
+    { title: 'All Favorites', value: TYPE_ALL, numerator: favorites.length + favoritesPV.length },
+    { title: 'Open Positions', value: TYPE_OPEN, numerator: favorites.length },
+    { title: 'Projected Vacancies', value: TYPE_PV, numerator: favoritesPV.length },
+  ];
+
   let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
   if (selected === TYPE_PV) {
     selectOptions$ = filterPVSorts(selectOptions$);
