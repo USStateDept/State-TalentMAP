@@ -19,7 +19,85 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
       useIdClass={true}
     >
       <BidderPortfolioStatRow
-        classifications={Array []}
+        classifications={
+          Array [
+            Object {
+              "code": "3",
+              "disabled_ind": false,
+              "text": "3rd Tour Bidders",
+            },
+            Object {
+              "code": "4",
+              "disabled_ind": false,
+              "text": "Tenured 4",
+            },
+            Object {
+              "code": "D",
+              "disabled_ind": true,
+              "text": "Differential Bidder",
+            },
+            Object {
+              "code": "T",
+              "disabled_ind": false,
+              "text": "Tandem Bidder",
+            },
+            Object {
+              "code": "M",
+              "disabled_ind": false,
+              "text": "Meritorious Step Increases",
+            },
+            Object {
+              "code": "6",
+              "disabled_ind": false,
+              "text": "6/8 Rule",
+            },
+            Object {
+              "code": "F",
+              "disabled_ind": false,
+              "text": "Fair Share Bidders",
+            },
+            Object {
+              "code": "C",
+              "disabled_ind": false,
+              "text": "Critical Need Language",
+            },
+            Object {
+              "code": "C1",
+              "disabled_ind": false,
+              "text": "Critical Need Language 1st Tour Complete",
+            },
+            Object {
+              "code": "CC",
+              "disabled_ind": false,
+              "text": "Critical Need Language Final Tour Complete",
+            },
+            Object {
+              "code": "R",
+              "disabled_ind": false,
+              "text": "Recommended for Tenure",
+            },
+            Object {
+              "code": "A",
+              "disabled_ind": false,
+              "text": "Ambassador or Deputy Assistant Secretary",
+            },
+            Object {
+              "code": "F1",
+              "disabled_ind": false,
+              "text": "Pickering Fellows",
+            },
+            Object {
+              "code": "F2",
+              "disabled_ind": false,
+              "text": "Rangel Fellows",
+            },
+            Object {
+              "code": "P",
+              "disabled_ind": false,
+              "text": "Pickering/Rangel Fellows",
+            },
+          ]
+        }
         showEdit={false}
         userProfile={
           Object {
@@ -77,7 +155,85 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
       useIdClass={true}
     >
       <BidderPortfolioStatRow
-        classifications={Array []}
+        classifications={
+          Array [
+            Object {
+              "code": "3",
+              "disabled_ind": false,
+              "text": "3rd Tour Bidders",
+            },
+            Object {
+              "code": "4",
+              "disabled_ind": false,
+              "text": "Tenured 4",
+            },
+            Object {
+              "code": "D",
+              "disabled_ind": true,
+              "text": "Differential Bidder",
+            },
+            Object {
+              "code": "T",
+              "disabled_ind": false,
+              "text": "Tandem Bidder",
+            },
+            Object {
+              "code": "M",
+              "disabled_ind": false,
+              "text": "Meritorious Step Increases",
+            },
+            Object {
+              "code": "6",
+              "disabled_ind": false,
+              "text": "6/8 Rule",
+            },
+            Object {
+              "code": "F",
+              "disabled_ind": false,
+              "text": "Fair Share Bidders",
+            },
+            Object {
+              "code": "C",
+              "disabled_ind": false,
+              "text": "Critical Need Language",
+            },
+            Object {
+              "code": "C1",
+              "disabled_ind": false,
+              "text": "Critical Need Language 1st Tour Complete",
+            },
+            Object {
+              "code": "CC",
+              "disabled_ind": false,
+              "text": "Critical Need Language Final Tour Complete",
+            },
+            Object {
+              "code": "R",
+              "disabled_ind": false,
+              "text": "Recommended for Tenure",
+            },
+            Object {
+              "code": "A",
+              "disabled_ind": false,
+              "text": "Ambassador or Deputy Assistant Secretary",
+            },
+            Object {
+              "code": "F1",
+              "disabled_ind": false,
+              "text": "Pickering Fellows",
+            },
+            Object {
+              "code": "F2",
+              "disabled_ind": false,
+              "text": "Rangel Fellows",
+            },
+            Object {
+              "code": "P",
+              "disabled_ind": false,
+              "text": "Pickering/Rangel Fellows",
+            },
+          ]
+        }
         showEdit={false}
         userProfile={
           Object {
@@ -120,7 +276,85 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
       useIdClass={true}
     >
       <BidderPortfolioStatRow
-        classifications={Array []}
+        classifications={
+          Array [
+            Object {
+              "code": "3",
+              "disabled_ind": false,
+              "text": "3rd Tour Bidders",
+            },
+            Object {
+              "code": "4",
+              "disabled_ind": false,
+              "text": "Tenured 4",
+            },
+            Object {
+              "code": "D",
+              "disabled_ind": true,
+              "text": "Differential Bidder",
+            },
+            Object {
+              "code": "T",
+              "disabled_ind": false,
+              "text": "Tandem Bidder",
+            },
+            Object {
+              "code": "M",
+              "disabled_ind": false,
+              "text": "Meritorious Step Increases",
+            },
+            Object {
+              "code": "6",
+              "disabled_ind": false,
+              "text": "6/8 Rule",
+            },
+            Object {
+              "code": "F",
+              "disabled_ind": false,
+              "text": "Fair Share Bidders",
+            },
+            Object {
+              "code": "C",
+              "disabled_ind": false,
+              "text": "Critical Need Language",
+            },
+            Object {
+              "code": "C1",
+              "disabled_ind": false,
+              "text": "Critical Need Language 1st Tour Complete",
+            },
+            Object {
+              "code": "CC",
+              "disabled_ind": false,
+              "text": "Critical Need Language Final Tour Complete",
+            },
+            Object {
+              "code": "R",
+              "disabled_ind": false,
+              "text": "Recommended for Tenure",
+            },
+            Object {
+              "code": "A",
+              "disabled_ind": false,
+              "text": "Ambassador or Deputy Assistant Secretary",
+            },
+            Object {
+              "code": "F1",
+              "disabled_ind": false,
+              "text": "Pickering Fellows",
+            },
+            Object {
+              "code": "F2",
+              "disabled_ind": false,
+              "text": "Rangel Fellows",
+            },
+            Object {
+              "code": "P",
+              "disabled_ind": false,
+              "text": "Pickering/Rangel Fellows",
+            },
+          ]
+        }
         showEdit={false}
         userProfile={
           Object {
@@ -163,7 +397,85 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
       useIdClass={true}
     >
       <BidderPortfolioStatRow
-        classifications={Array []}
+        classifications={
+          Array [
+            Object {
+              "code": "3",
+              "disabled_ind": false,
+              "text": "3rd Tour Bidders",
+            },
+            Object {
+              "code": "4",
+              "disabled_ind": false,
+              "text": "Tenured 4",
+            },
+            Object {
+              "code": "D",
+              "disabled_ind": true,
+              "text": "Differential Bidder",
+            },
+            Object {
+              "code": "T",
+              "disabled_ind": false,
+              "text": "Tandem Bidder",
+            },
+            Object {
+              "code": "M",
+              "disabled_ind": false,
+              "text": "Meritorious Step Increases",
+            },
+            Object {
+              "code": "6",
+              "disabled_ind": false,
+              "text": "6/8 Rule",
+            },
+            Object {
+              "code": "F",
+              "disabled_ind": false,
+              "text": "Fair Share Bidders",
+            },
+            Object {
+              "code": "C",
+              "disabled_ind": false,
+              "text": "Critical Need Language",
+            },
+            Object {
+              "code": "C1",
+              "disabled_ind": false,
+              "text": "Critical Need Language 1st Tour Complete",
+            },
+            Object {
+              "code": "CC",
+              "disabled_ind": false,
+              "text": "Critical Need Language Final Tour Complete",
+            },
+            Object {
+              "code": "R",
+              "disabled_ind": false,
+              "text": "Recommended for Tenure",
+            },
+            Object {
+              "code": "A",
+              "disabled_ind": false,
+              "text": "Ambassador or Deputy Assistant Secretary",
+            },
+            Object {
+              "code": "F1",
+              "disabled_ind": false,
+              "text": "Pickering Fellows",
+            },
+            Object {
+              "code": "F2",
+              "disabled_ind": false,
+              "text": "Rangel Fellows",
+            },
+            Object {
+              "code": "P",
+              "disabled_ind": false,
+              "text": "Pickering/Rangel Fellows",
+            },
+          ]
+        }
         showEdit={false}
         userProfile={
           Object {
@@ -221,7 +533,85 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
       useIdClass={true}
     >
       <BidderPortfolioStatRow
-        classifications={Array []}
+        classifications={
+          Array [
+            Object {
+              "code": "3",
+              "disabled_ind": false,
+              "text": "3rd Tour Bidders",
+            },
+            Object {
+              "code": "4",
+              "disabled_ind": false,
+              "text": "Tenured 4",
+            },
+            Object {
+              "code": "D",
+              "disabled_ind": true,
+              "text": "Differential Bidder",
+            },
+            Object {
+              "code": "T",
+              "disabled_ind": false,
+              "text": "Tandem Bidder",
+            },
+            Object {
+              "code": "M",
+              "disabled_ind": false,
+              "text": "Meritorious Step Increases",
+            },
+            Object {
+              "code": "6",
+              "disabled_ind": false,
+              "text": "6/8 Rule",
+            },
+            Object {
+              "code": "F",
+              "disabled_ind": false,
+              "text": "Fair Share Bidders",
+            },
+            Object {
+              "code": "C",
+              "disabled_ind": false,
+              "text": "Critical Need Language",
+            },
+            Object {
+              "code": "C1",
+              "disabled_ind": false,
+              "text": "Critical Need Language 1st Tour Complete",
+            },
+            Object {
+              "code": "CC",
+              "disabled_ind": false,
+              "text": "Critical Need Language Final Tour Complete",
+            },
+            Object {
+              "code": "R",
+              "disabled_ind": false,
+              "text": "Recommended for Tenure",
+            },
+            Object {
+              "code": "A",
+              "disabled_ind": false,
+              "text": "Ambassador or Deputy Assistant Secretary",
+            },
+            Object {
+              "code": "F1",
+              "disabled_ind": false,
+              "text": "Pickering Fellows",
+            },
+            Object {
+              "code": "F2",
+              "disabled_ind": false,
+              "text": "Rangel Fellows",
+            },
+            Object {
+              "code": "P",
+              "disabled_ind": false,
+              "text": "Pickering/Rangel Fellows",
+            },
+          ]
+        }
         showEdit={false}
         userProfile={
           Object {
@@ -264,7 +654,85 @@ exports[`BidderPortfolioGridListComponent matches snapshot 1`] = `
       useIdClass={true}
     >
       <BidderPortfolioStatRow
-        classifications={Array []}
+        classifications={
+          Array [
+            Object {
+              "code": "3",
+              "disabled_ind": false,
+              "text": "3rd Tour Bidders",
+            },
+            Object {
+              "code": "4",
+              "disabled_ind": false,
+              "text": "Tenured 4",
+            },
+            Object {
+              "code": "D",
+              "disabled_ind": true,
+              "text": "Differential Bidder",
+            },
+            Object {
+              "code": "T",
+              "disabled_ind": false,
+              "text": "Tandem Bidder",
+            },
+            Object {
+              "code": "M",
+              "disabled_ind": false,
+              "text": "Meritorious Step Increases",
+            },
+            Object {
+              "code": "6",
+              "disabled_ind": false,
+              "text": "6/8 Rule",
+            },
+            Object {
+              "code": "F",
+              "disabled_ind": false,
+              "text": "Fair Share Bidders",
+            },
+            Object {
+              "code": "C",
+              "disabled_ind": false,
+              "text": "Critical Need Language",
+            },
+            Object {
+              "code": "C1",
+              "disabled_ind": false,
+              "text": "Critical Need Language 1st Tour Complete",
+            },
+            Object {
+              "code": "CC",
+              "disabled_ind": false,
+              "text": "Critical Need Language Final Tour Complete",
+            },
+            Object {
+              "code": "R",
+              "disabled_ind": false,
+              "text": "Recommended for Tenure",
+            },
+            Object {
+              "code": "A",
+              "disabled_ind": false,
+              "text": "Ambassador or Deputy Assistant Secretary",
+            },
+            Object {
+              "code": "F1",
+              "disabled_ind": false,
+              "text": "Pickering Fellows",
+            },
+            Object {
+              "code": "F2",
+              "disabled_ind": false,
+              "text": "Rangel Fellows",
+            },
+            Object {
+              "code": "P",
+              "disabled_ind": false,
+              "text": "Pickering/Rangel Fellows",
+            },
+          ]
+        }
         showEdit={false}
         userProfile={
           Object {
