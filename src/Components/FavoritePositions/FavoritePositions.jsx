@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
-import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, FAVORITE_POSITION_COUNTS, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { DEFAULT_FAVORITES_COUNTS } from 'Constants/DefaultProps';
 import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from 'Constants/Sort';
 import TotalResults from '../TotalResults';
 import ProfileSectionTitle from '../ProfileSectionTitle';
@@ -15,10 +16,9 @@ import Nav from './Nav';
 
 const TYPE_PV = 'pv';
 const TYPE_OPEN = 'open';
-const TYPE_ALL = 'all';
 
 const FavoritePositions = props => {
-  const [selected, setSelected] = useState(TYPE_ALL);
+  const [selected, setSelected] = useState(TYPE_OPEN);
   const [isLoading, setIsLoading] = useState(false);
 
   const { favorites, favoritesPV, favoritePositionsIsLoading,
@@ -32,7 +32,7 @@ const FavoritePositions = props => {
       case TYPE_PV:
         return favoritesPV;
       default:
-        return [...favorites, ...favoritesPV];
+        return favorites;
     }
   }
 
@@ -47,18 +47,19 @@ const FavoritePositions = props => {
       !!(selected === TYPE_OPEN),
     ];
 
-    downloadPositionData(...args)
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    setIsLoading(true, () => {
+      downloadPositionData(...args)
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
+    });
   }
 
   const positions = getPositions();
   const options = [
-    { title: 'All Favorites', value: TYPE_ALL, numerator: counts.all },
     { title: 'Open Positions', value: TYPE_OPEN, numerator: counts.favorites },
     { title: 'Projected Vacancies', value: TYPE_PV, numerator: counts.favoritesPV },
   ];
@@ -70,7 +71,6 @@ const FavoritePositions = props => {
   selectOptions$ = selectOptions$.options;
 
   const paginationTotal = {
-    all: counts.all,
     open: counts.favorites,
     pv: counts.favoritesPV,
   };
@@ -80,14 +80,13 @@ const FavoritePositions = props => {
       <div className="usa-grid-full favorites-top-section">
         <div className="favorites-title-container">
           <ProfileSectionTitle title="Favorites" icon="star" />
-          page:{page} pageSize:{pageSize} selected:{selected}
         </div>
       </div>
       <Nav
         options={options}
         onClick={navSelected}
         selected={selected}
-        denominator={counts.all}
+        denominator={null}
       />
       <div className="usa-grid-full favorites-top-section">
         <TotalResults
@@ -151,7 +150,7 @@ FavoritePositions.propTypes = {
   onSortChange: PropTypes.func.isRequired,
   page: PropTypes.number,
   pageSize: PropTypes.number,
-  counts: PropTypes.shape({}),
+  counts: FAVORITE_POSITION_COUNTS,
   onPageChange: PropTypes.func,
 };
 
@@ -162,7 +161,7 @@ FavoritePositions.defaultProps = {
   favoritePositionsHasErrored: false,
   page: 1,
   pageSize: 12,
-  counts: {},
+  counts: DEFAULT_FAVORITES_COUNTS,
   onPageChange: EMPTY_FUNCTION,
 };
 

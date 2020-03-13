@@ -6,8 +6,8 @@ import { get } from 'lodash';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import { userProfileToggleFavoritePosition } from 'actions/userProfile';
-import { POSITION_SEARCH_RESULTS, BID_LIST, EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { POSITION_RESULTS_OBJECT } from 'Constants/DefaultProps';
+import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import FavoritePositions from 'Components/FavoritePositions';
 import CompareDrawer from 'Components/CompareDrawer';
 import { scrollToTop } from 'utilities';
@@ -15,8 +15,8 @@ import { scrollToTop } from 'utilities';
 const FavoritePositionsContainer = props => {
   const [page, setPage] = useState(1);
   const [sortType, setSortType] = useState();
-  const PAGE_SIZE = 5;
-  const { tempfavoritePositions, favoritePositionsIsLoading,
+  const PAGE_SIZE = 15;
+  const { favoritePositions, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList } = props;
 
   function getFavorites() {
@@ -50,8 +50,8 @@ const FavoritePositionsContainer = props => {
   return (
     <div>
       <FavoritePositions
-        favorites={tempfavoritePositions.favorites}
-        favoritesPV={tempfavoritePositions.favoritesPV}
+        favorites={favoritePositions.favorites}
+        favoritesPV={favoritePositions.favoritesPV}
         favoritePositionsIsLoading={favoritePositionsIsLoading}
         favoritePositionsHasErrored={favoritePositionsHasErrored}
         toggleFavorite={onToggleFavorite}
@@ -59,7 +59,7 @@ const FavoritePositionsContainer = props => {
         onSortChange={getSortedFavorites}
         page={page}
         pageSize={PAGE_SIZE}
-        counts={tempfavoritePositions.counts}
+        counts={favoritePositions.counts}
         onPageChange={onPageChange}
       />
       <CompareDrawer />
@@ -71,8 +71,8 @@ FavoritePositionsContainer.propTypes = {
   fetchData: PropTypes.func,
   bidListFetchData: PropTypes.func,
   toggleFavorite: PropTypes.func,
-  tempfavoritePositions: POSITION_SEARCH_RESULTS,
-  favoritePositions: POSITION_SEARCH_RESULTS,
+  favoritePositions: FAVORITE_POSITIONS,
+  // favoritePositions: POSITION_SEARCH_RESULTS,
   favoritePositionsHasErrored: PropTypes.bool,
   favoritePositionsIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
@@ -82,8 +82,7 @@ FavoritePositionsContainer.defaultProps = {
   fetchData: EMPTY_FUNCTION,
   bidListFetchData: EMPTY_FUNCTION,
   toggleFavorite: EMPTY_FUNCTION,
-  tempfavoritePositions: POSITION_RESULTS_OBJECT,
-  favoritePositions: POSITION_RESULTS_OBJECT,
+  favoritePositions: DEFAULT_FAVORITES,
   favoritePositionsHasErrored: false,
   favoritePositionsIsLoading: false,
   bidList: { results: [] },
@@ -94,8 +93,7 @@ FavoritePositionsContainer.contextTypes = {
 };
 
 const mapStateToProps = state => ({
-  tempfavoritePositions: state.tempfavoritePositions,
-  favoritePositions: state.favoritePositions,
+  favoritePositions: state.tempfavoritePositions,
   favoritePositionsHasErrored: state.favoritePositionsHasErrored,
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
   bidList: state.bidListFetchDataSuccess,

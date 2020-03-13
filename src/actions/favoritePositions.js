@@ -54,8 +54,7 @@ export function tempfavoritePositionsFetchDataSuccess(results) {
   };
 }
 
-export function favoritePositionsFetchData(sortType, limit = 12, page = 1) {
-
+export function favoritePositionsFetchData(sortType, limit = 15, page = 1) {
   return (dispatch) => {
     batch(() => {
       dispatch(favoritePositionsIsLoading(true));
@@ -112,8 +111,6 @@ export function favoritePositionsFetchData(sortType, limit = 12, page = 1) {
           tempdata$.counts.all = get(results, '[0].count', 0) + get(results, '[1].count', 0);
           tempdata$.favorites = get(results, '[0].results', []);
           tempdata$.results = get(results, '[0].results', []);
-          // ??mike?? why is data$.favorites and data$.results the
-          // same? is it to 'save' an original?
           data$.favorites = get(results, '[0].results', []);
           data$.results = get(results, '[0].results', []);
           // object 1 is PV favorites
