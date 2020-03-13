@@ -90,6 +90,10 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               "value": "ted",
             },
             Object {
+              "text": "TED: Latest",
+              "value": "-ted",
+            },
+            Object {
               "text": "Position number: Low to high",
               "value": "position__position_number",
             },
