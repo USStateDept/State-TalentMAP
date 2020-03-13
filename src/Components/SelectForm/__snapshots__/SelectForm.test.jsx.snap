@@ -62,6 +62,12 @@ exports[`SelectForm matches snapshot 1`] = `
       TED: Soonest
     </option>
     <option
+      key="-ted"
+      value="-ted"
+    >
+      TED: Latest
+    </option>
+    <option
       key="position__position_number"
       value="position__position_number"
     >
@@ -137,6 +143,12 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       value="ted"
     >
       TED: Soonest
+    </option>
+    <option
+      key="-ted"
+      value="-ted"
+    >
+      TED: Latest
     </option>
     <option
       key="position__position_number"
