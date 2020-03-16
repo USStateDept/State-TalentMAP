@@ -10,6 +10,7 @@ const POSITION_SEARCH_SORTS$ = {
     { value: '-posted_date', text: 'Posted date: Most recent', availableOnly: true }, // sort by soonest posted_date
     { value: 'posted_date', text: 'Posted date: Oldest', availableOnly: true }, // sort by oldest posted_date
     { value: 'ted', text: 'TED: Soonest' },
+    { value: '-ted', text: 'TED: Latest' },
     { value: 'position__position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
     { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true }, // sort by service needs first
   ],
