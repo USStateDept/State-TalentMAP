@@ -8,6 +8,7 @@ describe('ClientBadge', () => {
     type: '3',
     status: true,
   };
+
   it('is defined', () => {
     const wrapper = shallow(<ClientBadge
       {...props}

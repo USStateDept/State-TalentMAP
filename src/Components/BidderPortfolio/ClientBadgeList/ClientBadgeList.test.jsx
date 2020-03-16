@@ -84,12 +84,14 @@ describe('ClientBadgeList', () => {
       },
     ],
   };
+
   it('is defined', () => {
     const wrapper = shallow(<ClientBadgeList
       {...props}
     />);
     expect(wrapper).toBeDefined();
   });
+
   it('matches snapshot', () => {
     const wrapper = shallow(<ClientBadgeList
       {...props}
