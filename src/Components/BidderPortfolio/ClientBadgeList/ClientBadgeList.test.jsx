@@ -96,9 +96,4 @@ describe('ClientBadgeList', () => {
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
-  // it('classifications are sorted according to client classifications', () => {
-  //   const wrapper = shallow(<ClientBadgeList
-  //     {...props}
-  //   />);
-  // });
 });
