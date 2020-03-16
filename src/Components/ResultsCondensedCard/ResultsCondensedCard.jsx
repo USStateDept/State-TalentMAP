@@ -67,7 +67,7 @@ ResultsCondensedCard.propTypes = {
   isRecentlyAvailable: PropTypes.bool,
   useShortFavButton: PropTypes.bool,
   showCompareButton: PropTypes.bool,
-  sortType: PropTypes.string.isRequired,
+  sortType: PropTypes.string,
   limit: PropTypes.number,
   page: PropTypes.number,
 };
@@ -81,6 +81,7 @@ ResultsCondensedCard.defaultProps = {
   isRecentlyAvailable: false,
   useShortFavButton: false,
   showCompareButton: false,
+  sortType: null,
   limit: 15,
   page: 1,
 };

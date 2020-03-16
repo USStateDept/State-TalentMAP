@@ -1,7 +1,9 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import toJSON from 'enzyme-to-json';
 import FavoritePositions from './FavoritePositions';
+import sinon from 'sinon';
 import resultsObject from '../../__mocks__/resultsObject';
 import bidListObject from '../../__mocks__/bidListObject';
 
@@ -26,10 +28,16 @@ describe('FavoritePositionsComponent', () => {
   });
 
   it('is defined when selected === open', () => {
-    const wrapper = shallow(
-      <FavoritePositions {...props} />,
-    );
-    wrapper.setState({ selected: 'open' });
+    const spy = sinon.spy();
+    let wrapper;
+    act(() => {
+      wrapper = mount(
+        <FavoritePositions
+          navSelected={spy}
+        />,
+      );
+    });
+    wrapper.find('Nav').simulate('onClick', 'open');
     expect(wrapper).toBeDefined();
   });
 

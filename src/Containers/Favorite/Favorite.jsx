@@ -30,7 +30,7 @@ FavoriteContainer.propTypes = {
   hasErrored: PropTypes.bool.isRequired,
   refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired]).isRequired,
   isPV: PropTypes.bool,
-  sortType: PropTypes.string.isRequired,
+  sortType: PropTypes.string,
   limit: PropTypes.number,
   page: PropTypes.number,
 };
@@ -38,6 +38,7 @@ FavoriteContainer.propTypes = {
 FavoriteContainer.defaultProps = {
   isLoading: new Set(),
   isPV: false,
+  sortType: null,
   limit: 15,
   page: 1,
 };

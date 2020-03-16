@@ -321,7 +321,7 @@ CompareList.propTypes = {
 CompareList.defaultProps = {
   compare: [],
   isLoading: false,
-  favorites: {},
+  favorites: [],
   bidList: { results: [] },
 };
 

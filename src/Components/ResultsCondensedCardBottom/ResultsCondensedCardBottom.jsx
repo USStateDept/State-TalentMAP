@@ -112,7 +112,7 @@ ResultsCondensedCardBottom.propTypes = {
   useShortFavButton: PropTypes.bool,
   showCompareButton: PropTypes.bool,
   isProjectedVacancy: PropTypes.bool,
-  sortType: PropTypes.string.isRequired,
+  sortType: PropTypes.string,
   limit: PropTypes.number,
   page: PropTypes.number,
 };
@@ -125,6 +125,7 @@ ResultsCondensedCardBottom.defaultProps = {
   useShortFavButton: false,
   showCompareButton: false,
   isProjectedVacancy: false,
+  sortType: null,
   limit: 15,
   page: 1,
 };

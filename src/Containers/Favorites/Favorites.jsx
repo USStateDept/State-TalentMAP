@@ -16,6 +16,7 @@ const FavoritePositionsContainer = props => {
   const [page, setPage] = useState(1);
   const [sortType, setSortType] = useState();
   const PAGE_SIZE = 15;
+
   const { favoritePositions, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList } = props;
 
@@ -24,13 +25,19 @@ const FavoritePositionsContainer = props => {
   }
 
   useEffect(() => {
-    getFavorites();
     props.bidListFetchData();
   }, []);
 
   useEffect(() => {
     getFavorites();
-  }, [page, sortType]);
+  }, [page]);
+
+  useEffect(() => {
+    if (page === 1) {
+      getFavorites();
+    }
+    setPage(1);
+  }, [sortType]);
 
   function onToggleFavorite({ id, remove }) {
     props.toggleFavorite(id, remove);
