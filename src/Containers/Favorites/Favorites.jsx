@@ -28,6 +28,10 @@ const FavoritePositionsContainer = props => {
     props.bidListFetchData();
   }, []);
 
+  useEffect(() => {
+    getFavorites();
+  }, [page, sortType]);
+
   function onToggleFavorite({ id, remove }) {
     props.toggleFavorite(id, remove);
   }
@@ -36,14 +40,12 @@ const FavoritePositionsContainer = props => {
     if (get(e, 'page', 1) !== page) {
       setPage(e.page);
       scrollToTop({ delay: 0, duration: 400 });
-      getFavorites();
     }
   }
 
   function getSortedFavorites(type) {
     if (type.target && type.target.value) {
       setSortType(get(type, 'target.value'));
-      getFavorites();
     }
   }
 

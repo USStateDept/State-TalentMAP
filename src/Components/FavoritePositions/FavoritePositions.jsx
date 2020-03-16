@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
@@ -36,9 +36,12 @@ const FavoritePositions = props => {
     }
   }
 
+  useEffect(() => {
+    props.onPageChange(1);
+  }, [selected]);
+
   function navSelected(s) {
     setSelected(s);
-    props.onPageChange(1);
   }
 
   function exportPositionData() {
