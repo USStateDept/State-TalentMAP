@@ -15,6 +15,9 @@ const propTypes = {
   showBidListButton: PropTypes.bool,
   useShortFavButton: PropTypes.bool,
   showCompareButton: PropTypes.bool,
+  sortType: PropTypes.string.isRequired,
+  limit: PropTypes.number,
+  page: PropTypes.number,
 };
 
 const defaultProps = {
@@ -27,10 +30,13 @@ const defaultProps = {
   showBidListButton: false,
   useShortFavButton: false,
   showCompareButton: false,
+  limit: 15,
+  page: 1,
 };
 
 const HomePagePositionsList = ({ positions, favorites, favoritesPV, isLoading, bidList, type,
-  refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton }) => (
+  refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton,
+  sortType, limit, page }) => (
   <div className={`condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full condensed-card-grid">
       {positions.map((p) => {
@@ -48,6 +54,9 @@ const HomePagePositionsList = ({ positions, favorites, favoritesPV, isLoading, b
               useShortFavButton={useShortFavButton}
               showCompareButton={showCompareButton}
               isProjectedVacancy={position.isPV || p.isPV}
+              sortType={sortType}
+              limit={limit}
+              page={page}
             />
           </div>
         );

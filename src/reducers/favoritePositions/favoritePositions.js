@@ -14,18 +14,11 @@ export function favoritePositionsIsLoading(state = false, action) {
       return state;
   }
 }
-export function favoritePositions(state = { favorites: [], favoritesPV: [] }, action) {
-  switch (action.type) {
-    case 'FAVORITE_POSITIONS_FETCH_DATA_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
-export function tempfavoritePositions(state = {
+
+export function favoritePositions(state = {
   favorites: [], favoritesPV: [], counts: [] }, action) {
   switch (action.type) {
-    case 'TEMP_FAVORITE_POSITIONS_FETCH_DATA_SUCCESS':
+    case 'FAVORITE_POSITIONS_FETCH_DATA_SUCCESS':
       return action.results;
     default:
       return state;

@@ -33,23 +33,8 @@ export function favoritePositionsIsLoading(bool) {
 }
 
 export function favoritePositionsFetchDataSuccess(results) {
-  // eslint-disable-next-line no-console
-  console.log('in favoritePositionsFetchDataSuccess');
-  // eslint-disable-next-line no-console
-  console.log(results);
   return {
     type: 'FAVORITE_POSITIONS_FETCH_DATA_SUCCESS',
-    results,
-  };
-}
-
-export function tempfavoritePositionsFetchDataSuccess(results) {
-  // eslint-disable-next-line no-console
-  console.log('in tempfavoritePositionsFetchDataSuccess');
-  // eslint-disable-next-line no-console
-  console.log(results);
-  return {
-    type: 'TEMP_FAVORITE_POSITIONS_FETCH_DATA_SUCCESS',
     results,
   };
 }
@@ -60,8 +45,7 @@ export function favoritePositionsFetchData(sortType, limit = 15, page = 1) {
       dispatch(favoritePositionsIsLoading(true));
       dispatch(favoritePositionsHasErrored(false));
     });
-    const data$ = { favorites: [], favoritesPV: [] };
-    const tempdata$ = {
+    const data$ = {
       favorites: [],
       favoritesPV: [],
       counts: {
@@ -106,19 +90,15 @@ export function favoritePositionsFetchData(sortType, limit = 15, page = 1) {
           });
         } else {
         // object 0 is favorites
-          tempdata$.counts.favorites = get(results, '[0].count', 0);
-          tempdata$.counts.favoritesPV = get(results, '[1].count', 0);
-          tempdata$.counts.all = get(results, '[0].count', 0) + get(results, '[1].count', 0);
-          tempdata$.favorites = get(results, '[0].results', []);
-          tempdata$.results = get(results, '[0].results', []);
+          data$.counts.favorites = get(results, '[0].count', 0);
+          data$.counts.favoritesPV = get(results, '[1].count', 0);
+          data$.counts.all = get(results, '[0].count', 0) + get(results, '[1].count', 0);
           data$.favorites = get(results, '[0].results', []);
           data$.results = get(results, '[0].results', []);
           // object 1 is PV favorites
           // add PV property
-          tempdata$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
           data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
           batch(() => {
-            dispatch(tempfavoritePositionsFetchDataSuccess(tempdata$));
             dispatch(favoritePositionsFetchDataSuccess(data$));
             dispatch(favoritePositionsHasErrored(false));
             dispatch(favoritePositionsIsLoading(false));

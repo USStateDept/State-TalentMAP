@@ -66,7 +66,7 @@ FavoriteList.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  favoritePositions: state.tempfavoritePositions,
+  favoritePositions: state.favoritePositions,
 });
 
 export default connect(mapStateToProps)(withRouter(FavoriteList));

@@ -59,6 +59,7 @@ const FavoritePositionsContainer = props => {
         toggleFavorite={onToggleFavorite}
         bidList={bidList.results}
         onSortChange={getSortedFavorites}
+        sortType={sortType}
         page={page}
         pageSize={PAGE_SIZE}
         counts={favoritePositions.counts}
@@ -95,7 +96,7 @@ FavoritePositionsContainer.contextTypes = {
 };
 
 const mapStateToProps = state => ({
-  favoritePositions: state.tempfavoritePositions,
+  favoritePositions: state.favoritePositions,
   favoritePositionsHasErrored: state.favoritePositionsHasErrored,
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
   bidList: state.bidListFetchDataSuccess,
@@ -105,9 +106,10 @@ export const mapDispatchToProps = dispatch => ({
   fetchData: (sortType, PAGE_SIZE, page) => dispatch(favoritePositionsFetchData(sortType,
     PAGE_SIZE, page)),
   bidListFetchData: () => dispatch(bidListFetchData()),
-  toggleFavorite: (id, remove) =>
+  toggleFavorite: (id, remove) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
-    dispatch(userProfileToggleFavoritePosition(id, remove, true)),
+    dispatch(userProfileToggleFavoritePosition(id, remove, true));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FavoritePositionsContainer));

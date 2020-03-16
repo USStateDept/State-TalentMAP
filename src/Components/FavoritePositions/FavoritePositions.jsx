@@ -22,7 +22,7 @@ const FavoritePositions = props => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { favorites, favoritesPV, favoritePositionsIsLoading,
-    favoritePositionsHasErrored, bidList, onSortChange,
+    favoritePositionsHasErrored, bidList, onSortChange, sortType,
     page, pageSize, counts, onPageChange } = props;
 
   function getPositions() {
@@ -131,6 +131,9 @@ const FavoritePositions = props => {
         showBidListButton
         useShortFavButton
         showCompareButton
+        sortType={sortType}
+        limit={pageSize}
+        page={page}
       />
       <div className="usa-grid-full react-paginate">
         <PaginationWrapper
@@ -151,6 +154,7 @@ FavoritePositions.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool,
   bidList: BID_RESULTS.isRequired,
   onSortChange: PropTypes.func.isRequired,
+  sortType: PropTypes.string.isRequired,
   page: PropTypes.number,
   pageSize: PropTypes.number,
   counts: FAVORITE_POSITION_COUNTS,

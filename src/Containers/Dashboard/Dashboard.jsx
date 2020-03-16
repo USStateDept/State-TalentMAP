@@ -94,7 +94,7 @@ const mapStateToProps = state => ({
   notificationsIsLoading: state.notificationsIsLoading,
   bidList: state.bidListFetchDataSuccess,
   bidListIsLoading: state.bidListIsLoading,
-  favoritePositions: state.tempfavoritePositions,
+  favoritePositions: state.favoritePositions,
   favoritePositionsHasErrored: state.favoritePositionsHasErrored,
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
 });
