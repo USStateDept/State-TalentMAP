@@ -79,7 +79,7 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.2",
     "redux-thunk": "^2.2.0",
-    "regenerator-runtime": "^0.13.3",
+    "regenerator-runtime": "^0.13.5",
     "saml2-js": "2.0.5",
     "shortid": "^2.2.15",
     "typeface-merriweather": "^0.0.72",
