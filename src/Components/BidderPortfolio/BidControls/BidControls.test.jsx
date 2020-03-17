@@ -42,6 +42,47 @@ describe('BidControlsComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('can call the onFilterChange function', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <BidControls
+        queryParamUpdate={spy}
+        biddersNumerator={5}
+        biddersDenominator={10}
+        isLoading={false}
+        viewType="card"
+        changeViewType={() => {}}
+        {...props}
+      />,
+    );
+    wrapper.instance().onFilterChange({ target: { value: 'test' } });
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('sets state when onSeasonChange() is called', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(
+      <BidControls
+        queryParamUpdate={spy}
+        biddersNumerator={5}
+        biddersDenominator={10}
+        isLoading={false}
+        viewType="card"
+        changeViewType={() => {}}
+        {...props}
+      />,
+    );
+    wrapper.instance().setState({ hasSeasons: false });
+
+    const valTrue = ['test'];
+    wrapper.instance().onSeasonChange(valTrue);
+    expect(wrapper.instance().state.hasSeasons).toEqual(true);
+
+    const valFalse = [];
+    wrapper.instance().onSeasonChange(valFalse);
+    expect(wrapper.instance().state.hasSeasons).toEqual(false);
+  });
+
   it('matches snapshot when isLoading is false', () => {
     const wrapper = shallow(
       <BidControls
