@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
 import PreferenceWrapper from 'Containers/PreferenceWrapper';
-import { BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
-  BID_PORTFOLIO_FILTERS_TYPE } from 'Constants/Sort';
+import {
+  BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
+  BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import SelectForm from '../../SelectForm';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
 
 const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
+
 
 class BidControls extends Component {
   constructor(props) {
@@ -36,9 +38,17 @@ class BidControls extends Component {
     }
   };
 
+  updateQueryLimit = q => {
+    let val = q.target.value;
+    if (q.target.value === 0) val = this.props.totalClients;
+    this.setState({ defaultClients: val });
+    this.props.queryParamUpdate({ limit: val });
+  };
   render() {
-    const { viewType, changeViewType, defaultHandshake, defaultOrdering } = this.props;
+    const { viewType, changeViewType, defaultHandshake, defaultOrdering, pageSize } = this.props;
     const { hasSeasons } = this.state;
+
+
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
@@ -62,6 +72,13 @@ class BidControls extends Component {
                   />
                 </PreferenceWrapper>
             }
+            <SelectForm
+              id="num-clients"
+              label="Display Clients:"
+              options={CLIENTS_PAGE_SIZES.options}
+              defaultSort={pageSize}
+              onSelectOption={this.updateQueryLimit}
+            />
             <BidCyclePicker setSeasonsCb={this.onSeasonChange} />
             <PreferenceWrapper
               onSelect={this.onSortChange}
@@ -86,10 +103,15 @@ class BidControls extends Component {
 
 BidControls.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
+  pageSize: PropTypes.number.isRequired,
   viewType: PropTypes.string.isRequired,
   changeViewType: PropTypes.func.isRequired,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
+  totalClients: PropTypes.number.isRequired,
+};
+
+BidControls.defaultProps = {
 };
 
 export default BidControls;

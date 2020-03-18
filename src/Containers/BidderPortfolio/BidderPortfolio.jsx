@@ -5,11 +5,11 @@ import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { fetchClassifications } from 'actions/classifications';
-import { BID_PORTFOLIO_SORTS_TYPE, BID_PORTFOLIO_FILTERS_TYPE } from 'Constants/Sort';
+import { BID_PORTFOLIO_SORTS_TYPE, BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData,
-  bidderPortfolioCDOsFetchData } from '../../actions/bidderPortfolio';
-import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from '../../Constants/PropTypes';
-import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from '../../Constants/EndpointParams';
+  bidderPortfolioCDOsFetchData } from 'actions/bidderPortfolio';
+import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from 'Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
 import BidderPortfolioPage from '../../Components/BidderPortfolio/BidderPortfolioPage';
 import { checkFlag } from '../../flags';
@@ -22,14 +22,13 @@ class BidderPortfolio extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      defaultPageSize: { value: 24 },
-      defaultPageNumber: { value: 1 },
+      limit: { value: CLIENTS_PAGE_SIZES.defaultSort },
+      page: { value: 1 },
       defaultKeyword: { value: '' },
       hasHandshake: { value: props.defaultHandshakeFilter },
       ordering: { value: props.defaultSort },
     };
   }
-
   // Fetch bidder list and bidder statistics.
   UNSAFE_componentWillMount() {
     if (get(this.props, 'cdos', []).length) {
@@ -48,7 +47,7 @@ class BidderPortfolio extends Component {
       this.setState({
         // Reset page number, since this filters are
         // captured outside the normal query param lifecycle.
-        defaultPageNumber: { value: 1 },
+        page: { value: 1 },
       }, () => {
         this.getBidderPortfolio();
         this.props.fetchBidderPortfolioCounts();
@@ -60,7 +59,7 @@ class BidderPortfolio extends Component {
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
   onQueryParamUpdate = q => {
-    const { query, defaultPageNumber } = this.state;
+    const { query, page } = this.state;
     this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
     // returns the new query string
     const newQuery = queryParamUpdate(q, query.value);
@@ -70,8 +69,8 @@ class BidderPortfolio extends Component {
     query.value = newQuery;
     // convert to a number, if it exists
     const newQueryObjectPage = parseInt(newQueryObject.page, 10);
-    defaultPageNumber.value = newQueryObjectPage || defaultPageNumber.value;
-    this.setState({ query, defaultPageNumber }, () => {
+    page.value = newQueryObjectPage || 1;
+    this.setState({ query, page }, () => {
       this.getBidderPortfolio();
     });
   };
@@ -100,11 +99,11 @@ class BidderPortfolio extends Component {
 
   // When we trigger a new search, we reset the page number and limit.
   createSearchQuery() {
-    const { defaultPageNumber, defaultPageSize, hasHandshake, ordering } = this.state;
+    const { page, limit, hasHandshake, ordering } = this.state;
     this.mapTypeToQuery();
     const query = {
-      page: defaultPageNumber.value,
-      limit: defaultPageSize.value,
+      page: page.value,
+      limit: limit.value,
       hasHandshake: hasHandshake.value,
       ordering: ordering.value,
     };
@@ -124,26 +123,29 @@ class BidderPortfolio extends Component {
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
-    const { defaultPageSize, defaultPageNumber, hasHandshake, ordering } = this.state;
+    const { limit, page, hasHandshake, ordering } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading) && cdos.length;
     return (
-      <BidderPortfolioPage
-        bidderPortfolio={bidderPortfolio}
-        bidderPortfolioIsLoading={isLoading}
-        bidderPortfolioHasErrored={bidderPortfolioHasErrored}
-        pageSize={defaultPageSize.value}
-        queryParamUpdate={this.onQueryParamUpdate}
-        pageNumber={defaultPageNumber.value}
-        bidderPortfolioCounts={bidderPortfolioCounts}
-        bidderPortfolioCountsIsLoading={bidderPortfolioCountsIsLoading}
-        bidderPortfolioCountsHasErrored={bidderPortfolioCountsHasErrored}
-        classificationsIsLoading={classificationsIsLoading}
-        classificationsHasErrored={classificationsHasErrored}
-        classifications={classifications}
-        cdosLength={cdos.length}
-        defaultHandshake={hasHandshake.value}
-        defaultOrdering={ordering.value}
-      />
+      <div>
+        <BidderPortfolioPage
+          bidderPortfolio={bidderPortfolio}
+          bidderPortfolioIsLoading={isLoading}
+          bidderPortfolioHasErrored={bidderPortfolioHasErrored}
+          pageSize={limit.value}
+          queryParamUpdate={this.onQueryParamUpdate}
+          pageNumber={page.value}
+          bidderPortfolioCounts={bidderPortfolioCounts}
+          bidderPortfolioCountsIsLoading={bidderPortfolioCountsIsLoading}
+          bidderPortfolioCountsHasErrored={bidderPortfolioCountsHasErrored}
+          classificationsIsLoading={classificationsIsLoading}
+          classificationsHasErrored={classificationsHasErrored}
+          classifications={classifications}
+          cdosLength={cdos.length}
+          defaultHandshake={hasHandshake.value}
+          defaultOrdering={ordering.value}
+        />
+      </div>
+
     );
   }
 }

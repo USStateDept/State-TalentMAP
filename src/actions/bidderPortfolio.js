@@ -202,6 +202,8 @@ export function bidderPortfolioCountsFetchData() {
 }
 
 export function bidderPortfolioFetchData(query = {}) {
+  // eslint-disable-next-line no-console
+  console.log('query:', query);
   return (dispatch, getState) => {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioIsLoading(true));
@@ -226,7 +228,6 @@ export function bidderPortfolioFetchData(query = {}) {
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
-
     if (ids.length) {
       api().get(q, {
         cancelToken: new CancelToken((c) => {
