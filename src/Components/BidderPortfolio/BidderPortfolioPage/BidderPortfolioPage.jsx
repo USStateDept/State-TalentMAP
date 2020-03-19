@@ -163,6 +163,3 @@ BidderPortfolioPage.defaultProps = {
 };
 
 export default BidderPortfolioPage;
-
-
-git add src/Components/BidderPortfolio/BidControls/BidControls.jsx src/Components/BidderPortfolio/BidControls/__snapshots__/BidControls.test.jsx.snap src/Components/BidderPortfolio/BidderPortfolioPage/BidderPortfolioPage.jsx src/Components/BidderPortfolio/BidderPortfolioPage/__snapshots__/BidderPortfolioPage.test.jsx.snap src/Containers/BidderPortfolio/BidderPortfolio.jsx src/actions/bidderPortfolio.js

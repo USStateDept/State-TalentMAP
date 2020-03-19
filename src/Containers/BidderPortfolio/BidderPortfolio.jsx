@@ -60,7 +60,8 @@ class BidderPortfolio extends Component {
   // the instance.
   onQueryParamUpdate = q => {
     let qmod;
-    if (isEqual(q, { limit: '99999' })) {
+    // just in case the dropdown did not get set
+    if (isEqual(q, { limit: '0' })) {
       qmod = { limit: get(this.props.bidderPortfolio, 'count') };
     } else {
       qmod = cloneDeep(q);
