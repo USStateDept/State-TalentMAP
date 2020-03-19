@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, isEqual, omit, pick } from 'lodash';
+import { get, isEqual, omit, pick, cloneDeep } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -59,12 +59,18 @@ class BidderPortfolio extends Component {
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
   onQueryParamUpdate = q => {
+    let qmod;
+    if (isEqual(q, { limit: '99999' })) {
+      qmod = { limit: get(this.props.bidderPortfolio, 'count') };
+    } else {
+      qmod = cloneDeep(q);
+    }
     const { query, page } = this.state;
-    this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
+    this.setState({ [Object.keys(qmod)[0]]: { value: Object.values(qmod)[0] } });
     // returns the new query string
-    const newQuery = queryParamUpdate(q, query.value);
+    const newQuery = queryParamUpdate(qmod, query.value);
     // returns the new query object
-    const newQueryObject = queryParamUpdate(q, query.value, true);
+    const newQueryObject = queryParamUpdate(qmod, query.value, true);
     // and update the query state
     query.value = newQuery;
     // convert to a number, if it exists
@@ -125,6 +131,7 @@ class BidderPortfolio extends Component {
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { limit, page, hasHandshake, ordering } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading) && cdos.length;
+    const totalClients = get(bidderPortfolio, 'count');
     return (
       <div>
         <BidderPortfolioPage
@@ -143,6 +150,7 @@ class BidderPortfolio extends Component {
           cdosLength={cdos.length}
           defaultHandshake={hasHandshake.value}
           defaultOrdering={ordering.value}
+          totalClients={totalClients}
         />
       </div>
 

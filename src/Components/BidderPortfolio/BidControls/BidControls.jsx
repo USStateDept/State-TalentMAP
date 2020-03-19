@@ -12,7 +12,6 @@ import CDOAutoSuggest from '../CDOAutoSuggest';
 
 const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
 
-
 class BidControls extends Component {
   constructor(props) {
     super(props);
@@ -39,15 +38,15 @@ class BidControls extends Component {
   };
 
   updateQueryLimit = q => {
-    let val = q.target.value;
-    if (q.target.value === 0) val = this.props.totalClients;
-    this.setState({ defaultClients: val });
-    this.props.queryParamUpdate({ limit: val });
+    this.props.queryParamUpdate({ limit: q.target.value });
   };
-  render() {
-    const { viewType, changeViewType, defaultHandshake, defaultOrdering, pageSize } = this.props;
-    const { hasSeasons } = this.state;
 
+  render() {
+    const { viewType, changeViewType, defaultHandshake,
+      defaultOrdering, pageSize, totalClients } = this.props;
+    const { hasSeasons } = this.state;
+    const pageSizes = CLIENTS_PAGE_SIZES.options;
+    pageSizes[4].value = totalClients;
 
     return (
       <div className="usa-grid-full portfolio-controls">
@@ -75,7 +74,7 @@ class BidControls extends Component {
             <SelectForm
               id="num-clients"
               label="Display Clients:"
-              options={CLIENTS_PAGE_SIZES.options}
+              options={pageSizes}
               defaultSort={pageSize}
               onSelectOption={this.updateQueryLimit}
             />
@@ -103,15 +102,17 @@ class BidControls extends Component {
 
 BidControls.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
-  pageSize: PropTypes.number.isRequired,
   viewType: PropTypes.string.isRequired,
   changeViewType: PropTypes.func.isRequired,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
-  totalClients: PropTypes.number.isRequired,
+  pageSize: PropTypes.number,
+  totalClients: PropTypes.number,
 };
 
 BidControls.defaultProps = {
+  totalClients: 0,
+  pageSize: 0,
 };
 
 export default BidControls;

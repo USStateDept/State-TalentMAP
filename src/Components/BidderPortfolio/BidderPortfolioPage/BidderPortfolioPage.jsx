@@ -39,7 +39,7 @@ class BidderPortfolioPage extends Component {
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
+    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, totalClients,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
@@ -94,7 +94,7 @@ class BidderPortfolioPage extends Component {
                 pageSize={pageSize}
                 defaultHandshake={defaultHandshake}
                 defaultOrdering={defaultOrdering}
-                totalClients={get(bidderPortfolio, 'count')}
+                totalClients={totalClients}
               />
             </div>
           }
@@ -152,12 +152,17 @@ BidderPortfolioPage.propTypes = {
   cdosLength: PropTypes.number,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
+  totalClients: PropTypes.number,
 };
 
 BidderPortfolioPage.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
   classifications: [],
   cdosLength: 0,
+  totalClients: 0,
 };
 
 export default BidderPortfolioPage;
+
+
+git add src/Components/BidderPortfolio/BidControls/BidControls.jsx src/Components/BidderPortfolio/BidControls/__snapshots__/BidControls.test.jsx.snap src/Components/BidderPortfolio/BidderPortfolioPage/BidderPortfolioPage.jsx src/Components/BidderPortfolio/BidderPortfolioPage/__snapshots__/BidderPortfolioPage.test.jsx.snap src/Containers/BidderPortfolio/BidderPortfolio.jsx src/actions/bidderPortfolio.js

@@ -202,8 +202,6 @@ export function bidderPortfolioCountsFetchData() {
 }
 
 export function bidderPortfolioFetchData(query = {}) {
-  // eslint-disable-next-line no-console
-  console.log('query:', query);
   return (dispatch, getState) => {
     if (cancelPortfolio) { cancelPortfolio('cancel'); }
     dispatch(bidderPortfolioIsLoading(true));

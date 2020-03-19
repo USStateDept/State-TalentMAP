@@ -58,6 +58,42 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
           transformValue={[Function]}
         />
       </Connect(PreferenceWrapper)>
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort={0}
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="num-clients"
+        includeFirstEmptyOption={false}
+        label="Display Clients:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "5",
+              "value": 5,
+            },
+            Object {
+              "text": "10",
+              "value": 10,
+            },
+            Object {
+              "text": "25",
+              "value": 25,
+            },
+            Object {
+              "text": "50",
+              "value": 50,
+            },
+            Object {
+              "text": "all",
+              "value": 0,
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
       <Connect(BidCyclePicker)
         setSeasonsCb={[Function]}
       />
@@ -169,6 +205,42 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
           transformValue={[Function]}
         />
       </Connect(PreferenceWrapper)>
+      <SelectForm
+        className="select-offset select-black"
+        defaultSort={0}
+        disabled={false}
+        emptyOptionText="- Select -"
+        id="num-clients"
+        includeFirstEmptyOption={false}
+        label="Display Clients:"
+        labelSrOnly={false}
+        onSelectOption={[Function]}
+        options={
+          Array [
+            Object {
+              "text": "5",
+              "value": 5,
+            },
+            Object {
+              "text": "10",
+              "value": 10,
+            },
+            Object {
+              "text": "25",
+              "value": 25,
+            },
+            Object {
+              "text": "50",
+              "value": 50,
+            },
+            Object {
+              "text": "all",
+              "value": 0,
+            },
+          ]
+        }
+        transformValue={[Function]}
+      />
       <Connect(BidCyclePicker)
         setSeasonsCb={[Function]}
       />
