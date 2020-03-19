@@ -59,14 +59,14 @@ class BidderPortfolio extends Component {
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
   onQueryParamUpdate = q => {
-    let qmod;
-    // just in case the dropdown did not get set
-    if (isEqual(q, { limit: '0' })) {
-      qmod = { limit: get(this.props.bidderPortfolio, 'count') };
-    } else {
-      qmod = cloneDeep(q);
-    }
     const { query, page } = this.state;
+    const { bidderPortfolio } = this.props;
+    // just in case the dropdown did not get set
+    let qmod;
+    if (isEqual(q, { limit: '0' })) {
+      qmod = { limit: get(bidderPortfolio, 'all_count') };
+    } else qmod = cloneDeep(q);
+
     this.setState({ [Object.keys(qmod)[0]]: { value: Object.values(qmod)[0] } });
     // returns the new query string
     const newQuery = queryParamUpdate(qmod, query.value);
@@ -132,7 +132,7 @@ class BidderPortfolio extends Component {
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { limit, page, hasHandshake, ordering } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading) && cdos.length;
-    const totalClients = get(bidderPortfolio, 'count');
+    const totalClients = get(bidderPortfolio, 'all_count');
     return (
       <div>
         <BidderPortfolioPage

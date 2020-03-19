@@ -60,7 +60,7 @@ export const CLIENTS_PAGE_SIZES = {
     { value: 10, text: '10' },
     { value: 25, text: '25' },
     { value: 50, text: '50' },
-    { value: 0, text: 'all' },
+    { value: 0, text: 'All' },
   ],
 };
 
