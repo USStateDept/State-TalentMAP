@@ -5,9 +5,10 @@ import ClientBadge from './ClientBadge';
 
 describe('ClientBadge', () => {
   const props = {
-    type: 3,
+    type: '3',
     status: true,
   };
+
   it('is defined', () => {
     const wrapper = shallow(<ClientBadge
       {...props}

@@ -131,10 +131,10 @@ const ClientBadge = ({ type, status }) => {
 
 ClientBadge.propTypes = {
   type: PropTypes.oneOf([
-    3,
-    4,
+    '3',
+    '4',
     'R',
-    6,
+    '6',
     'A',
     'C',
     'C1',
