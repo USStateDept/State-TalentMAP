@@ -18,8 +18,6 @@ const browser = bowser.getParser(window.navigator.userAgent);
 const isIE = browser.satisfies({ 'internet explorer': '<=11' });
 const THROTTLE_MS = isIE ? 1000 : 0;
 
-export const getDisplayProperty = o => `${o.first_name} ${o.last_name}`;
-
 export function renderList({ items, selected, ...rest }) {
   const getIsSelected = item => !!selected.find(f => f.id === item.id);
   return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="name" getIsSelected={getIsSelected} />);
