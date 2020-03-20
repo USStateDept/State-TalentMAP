@@ -39,7 +39,7 @@ class BidderPortfolioPage extends Component {
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, totalClients,
+    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
@@ -94,7 +94,6 @@ class BidderPortfolioPage extends Component {
                 pageSize={pageSize}
                 defaultHandshake={defaultHandshake}
                 defaultOrdering={defaultOrdering}
-                totalClients={totalClients}
               />
             </div>
           }
@@ -152,14 +151,12 @@ BidderPortfolioPage.propTypes = {
   cdosLength: PropTypes.number,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
-  totalClients: PropTypes.number,
 };
 
 BidderPortfolioPage.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
   classifications: [],
   cdosLength: 0,
-  totalClients: 0,
 };
 
 export default BidderPortfolioPage;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, isEqual, omit, pick, cloneDeep } from 'lodash';
+import { get, isEqual, omit, pick } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -60,31 +60,39 @@ class BidderPortfolio extends Component {
   // the instance.
   onQueryParamUpdate = q => {
     const { query, page } = this.state;
-    const { bidderPortfolio } = this.props;
-    // just in case the dropdown did not get set
-    let qmod;
-    if (isEqual(q, { limit: '0' })) {
-      qmod = { limit: get(bidderPortfolio, 'all_count') };
-    } else qmod = cloneDeep(q);
-
-    this.setState({ [Object.keys(qmod)[0]]: { value: Object.values(qmod)[0] } });
-    // returns the new query string
-    const newQuery = queryParamUpdate(qmod, query.value);
-    // returns the new query object
-    const newQueryObject = queryParamUpdate(qmod, query.value, true);
+    let removePageandLimit = false;
+    if (isEqual(q, { limit: 'all' })) {
+      removePageandLimit = true;
+    }
+    this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
+    let newQuery;
+    let newQueryObject;
+    // removing page and limit from query.value
+    if (removePageandLimit) {
+      let qV = query.value;
+      const pageFind = qV.match(/page=\d{1,3}/i);
+      const limitFind = qV.match(/limit=\d{1,3}/i);
+      qV = qV.replace(pageFind, '');
+      qV = qV.replace(limitFind, '');
+      newQuery = queryParamUpdate({}, qV);
+      newQueryObject = queryParamUpdate(q, qV, true);
+    } else {
+      newQuery = queryParamUpdate(q, query.value);
+      newQueryObject = queryParamUpdate(q, query.value, true);
+    }
     // and update the query state
     query.value = newQuery;
     // convert to a number, if it exists
     const newQueryObjectPage = parseInt(newQueryObject.page, 10);
     page.value = newQueryObjectPage || 1;
     this.setState({ query, page }, () => {
-      this.getBidderPortfolio();
+      this.getBidderPortfolio(removePageandLimit);
     });
   };
 
   // Form our query and then retrieve bidders.
-  getBidderPortfolio() {
-    const query = this.createSearchQuery();
+  getBidderPortfolio(removePageandLimit) {
+    const query = this.createSearchQuery(removePageandLimit);
     this.props.fetchBidderPortfolio(query);
   }
 
@@ -105,15 +113,23 @@ class BidderPortfolio extends Component {
   }
 
   // When we trigger a new search, we reset the page number and limit.
-  createSearchQuery() {
+  createSearchQuery(removePageandLimit) {
     const { page, limit, hasHandshake, ordering } = this.state;
     this.mapTypeToQuery();
-    const query = {
-      page: page.value,
-      limit: limit.value,
-      hasHandshake: hasHandshake.value,
-      ordering: ordering.value,
-    };
+    let query;
+    if (removePageandLimit) {
+      query = {
+        hasHandshake: hasHandshake.value,
+        ordering: ordering.value,
+      };
+    } else {
+      query = {
+        page: page.value,
+        limit: limit.value,
+        hasHandshake: hasHandshake.value,
+        ordering: ordering.value,
+      };
+    }
     const queryState = queryString.parse(this.state.query.value);
     let newQuery = { ...queryState, ...query };
     newQuery = queryParamUpdate(
@@ -132,7 +148,6 @@ class BidderPortfolio extends Component {
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { limit, page, hasHandshake, ordering } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading) && cdos.length;
-    const totalClients = get(bidderPortfolio, 'all_count');
     return (
       <div>
         <BidderPortfolioPage
@@ -151,7 +166,6 @@ class BidderPortfolio extends Component {
           cdosLength={cdos.length}
           defaultHandshake={hasHandshake.value}
           defaultOrdering={ordering.value}
-          totalClients={totalClients}
         />
       </div>
 

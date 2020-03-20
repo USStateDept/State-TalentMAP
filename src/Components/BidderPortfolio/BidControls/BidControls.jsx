@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { findIndex } from 'lodash';
 import { checkFlag } from 'flags';
 import PreferenceWrapper from 'Containers/PreferenceWrapper';
 import {
@@ -44,11 +43,9 @@ class BidControls extends Component {
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, pageSize, totalClients } = this.props;
+      defaultOrdering, pageSize } = this.props;
     const { hasSeasons } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
-    const allIndex = findIndex(pageSizes, ['text', 'All']);
-    pageSizes[allIndex].value = totalClients;
 
     return (
       <div className="usa-grid-full portfolio-controls">
@@ -109,11 +106,9 @@ BidControls.propTypes = {
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
-  totalClients: PropTypes.number,
 };
 
 BidControls.defaultProps = {
-  totalClients: 0,
   pageSize: 0,
 };
 
