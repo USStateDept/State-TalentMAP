@@ -7,14 +7,19 @@ const format = n => numeral(n).format('0,0');
 const TotalResults = ({ total, pageNumber, pageSize, suffix }) => {
   let beginning = ((pageNumber - 1) * pageSize) + 1;
   let through = Math.min((pageSize * (pageNumber)), total);
-
   beginning = format(beginning);
   through = format(through);
+  const sameNum = (beginning === through);
   const total$ = format(total);
   return (
-    <span id="total-results">
+    sameNum ?
+      <span id="total-results">
+        Viewing <strong>{total$}</strong> {suffix}
+      </span>
+      :
+      <span>
       Viewing <strong>{beginning}-{through}</strong> of <strong>{total$}</strong> {suffix}
-    </span>
+      </span>
   );
 };
 
