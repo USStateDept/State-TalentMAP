@@ -62,18 +62,18 @@ describe('TotalResults', () => {
     it('displays page numbers and total results correctly when reaching the last page of the results', () => {
       wrapper = shallow(
         <TotalResults total={total} pageNumber={pageNumber + 4} pageSize={pageSize} />,
-      ).dive();
+      );
       expect(wrapper.find('#total-results').text()).toBe(applyViewText(101, 103, 103));
       expect(toJSON(wrapper)).toMatchSnapshot();
     });
   });
 
-  it('beginning === through', () => {
+  describe('beginning === through', () => {
     let wrapper = null;
 
     const total = 93;
     const pageNumber = 1;
-    const pageSize = 50;
+    const pageSize = 'all';
 
     const applyViewText = (totalNum) => `Viewing ${totalNum} Results`;
 

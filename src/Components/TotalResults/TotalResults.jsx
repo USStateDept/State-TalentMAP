@@ -26,7 +26,7 @@ const TotalResults = ({ total, pageNumber, pageSize, suffix }) => {
 TotalResults.propTypes = {
   total: PropTypes.number.isRequired, // total number of results
   pageNumber: PropTypes.number.isRequired, // current page number
-  pageSize: PropTypes.number.isRequired, // paging size
+  pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   suffix: PropTypes.string,
 };
 
