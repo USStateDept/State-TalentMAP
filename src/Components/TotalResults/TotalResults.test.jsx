@@ -68,7 +68,7 @@ describe('TotalResults', () => {
     });
   });
 
-  describe('beginning === through', () => {
+  describe('pageSize === all', () => {
     let wrapper = null;
 
     const total = 93;

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
@@ -5,14 +6,20 @@ import numeral from 'numeral';
 const format = n => numeral(n).format('0,0');
 
 const TotalResults = ({ total, pageNumber, pageSize, suffix }) => {
-  let beginning = ((pageNumber - 1) * pageSize) + 1;
-  let through = Math.min((pageSize * (pageNumber)), total);
-  beginning = format(beginning);
-  through = format(through);
-  const sameNum = (beginning === through);
+  let beginning;
+  let through;
+  let isAll = false;
+  if (pageSize !== 'all') {
+    beginning = ((pageNumber - 1) * pageSize) + 1;
+    through = Math.min((pageSize * (pageNumber)), total);
+    beginning = format(beginning);
+    through = format(through);
+  } else isAll = true;
+
   const total$ = format(total);
+
   return (
-    sameNum ?
+    isAll ?
       <span id="total-results">
         Viewing <strong>{total$}</strong> {suffix}
       </span>
@@ -35,3 +42,5 @@ TotalResults.defaultProps = {
 };
 
 export default TotalResults;
+
+ git add src/Components/TotalResults/TotalResults.jsx src/Components/TotalResults/TotalResults.test.jsx src/Components/TotalResults/__snapshots__/TotalResults.test.jsx.snap
