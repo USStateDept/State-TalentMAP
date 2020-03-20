@@ -23,7 +23,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       <Connect(CDOAutoSuggest) />
     </div>
     <div
-      className="portfolio-sort-container-contents"
+      className="portfolio-sort-container-contents small-screen-stack"
     >
       <Connect(PreferenceWrapper)
         keyRef="BID_PORTFOLIO_FILTERS"
@@ -87,8 +87,8 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
               "value": 50,
             },
             Object {
-              "text": "all",
-              "value": 0,
+              "text": "All",
+              "value": "all",
             },
           ]
         }
@@ -170,7 +170,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       <Connect(CDOAutoSuggest) />
     </div>
     <div
-      className="portfolio-sort-container-contents"
+      className="portfolio-sort-container-contents small-screen-stack"
     >
       <Connect(PreferenceWrapper)
         keyRef="BID_PORTFOLIO_FILTERS"
@@ -234,8 +234,8 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
               "value": 50,
             },
             Object {
-              "text": "all",
-              "value": 0,
+              "text": "All",
+              "value": "all",
             },
           ]
         }

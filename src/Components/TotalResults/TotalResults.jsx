@@ -17,8 +17,8 @@ const TotalResults = ({ total, pageNumber, pageSize, suffix }) => {
         Viewing <strong>{total$}</strong> {suffix}
       </span>
       :
-      <span>
-      Viewing <strong>{beginning}-{through}</strong> of <strong>{total$}</strong> {suffix}
+      <span id="total-results">
+        Viewing <strong>{beginning}-{through}</strong> of <strong>{total$}</strong> {suffix}
       </span>
   );
 };

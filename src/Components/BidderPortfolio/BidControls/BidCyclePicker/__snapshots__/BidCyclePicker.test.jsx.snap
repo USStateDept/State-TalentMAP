@@ -2,7 +2,7 @@
 
 exports[`BidControlsComponent matches snapshot 1`] = `
 <div
-  className="bid-cycle-picker-container"
+  className="bid-cycle-picker-container usa-form"
 >
   <div
     className="label"

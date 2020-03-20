@@ -449,6 +449,31 @@ $cdo-search-container-padding: 10px;
     float: right;
   }
 
+    @media screen and (max-width: 1525px) {
+    .small-screen-stack {
+      flex-wrap: wrap;
+      float: none;
+    }
+    .small-screen-stack > div {
+      flex-basis: 45%;
+      margin: 5px 10px;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .small-screen-stack {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .small-screen-stack > div {
+      align-items: center;
+      display: flex;
+      float: right;
+      margin: 0 10px 0 0;
+    }
+  }
+
+
   .results-search-bar {
     background-color: inherit;
   }

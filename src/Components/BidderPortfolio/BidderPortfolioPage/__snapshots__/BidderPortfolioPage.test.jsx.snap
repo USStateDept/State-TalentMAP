@@ -41,7 +41,6 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         defaultOrdering=""
         pageSize={8}
         queryParamUpdate={[Function]}
-        totalClients={0}
         viewType="card"
       />
     </div>

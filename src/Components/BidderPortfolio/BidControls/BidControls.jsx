@@ -55,7 +55,7 @@ class BidControls extends Component {
             <CDOAutoSuggest />
           </div>
           {useCDOSeasonFilter() &&
-          <div className="portfolio-sort-container-contents">
+          <div className="portfolio-sort-container-contents small-screen-stack">
             {
               hasSeasons &&
                 <PreferenceWrapper
