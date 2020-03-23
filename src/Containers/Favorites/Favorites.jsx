@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
+import { usePrevious } from 'hooks';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import { userProfileToggleFavoritePosition } from 'actions/userProfile';
@@ -16,11 +17,14 @@ const FavoritePositionsContainer = props => {
   const [page, setPage] = useState(1);
   const [sortType, setSortType] = useState();
   const PAGE_SIZE = 15;
+  const prevPage = usePrevious(page);
 
   const { favoritePositions, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList } = props;
 
   function getFavorites() {
+    // eslint-disable-next-line no-console
+    console.log('in getFavorites');
     props.fetchData(sortType, PAGE_SIZE, page);
   }
 
@@ -33,9 +37,8 @@ const FavoritePositionsContainer = props => {
   }, [page]);
 
   useEffect(() => {
-    if (page === 1) {
-      getFavorites();
-    }
+    const shouldUpdate = (page === 1) && (!isNil(prevPage));
+    if (shouldUpdate) getFavorites();
     setPage(1);
   }, [sortType]);
 

@@ -63,8 +63,8 @@ const FavoritePositions = props => {
 
   const positions = getPositions();
   const options = [
-    { title: 'Open Positions', value: TYPE_OPEN, numerator: counts.favorites },
-    { title: 'Projected Vacancies', value: TYPE_PV, numerator: counts.favoritesPV },
+    { title: 'Open Positions ', value: TYPE_OPEN, numerator: counts.favorites },
+    { title: 'Projected Vacancies ', value: TYPE_PV, numerator: counts.favoritesPV },
   ];
 
   let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
