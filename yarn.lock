@@ -4153,9 +4153,9 @@ eslint-config-airbnb@^15.1.0:
   dependencies:
     eslint-config-airbnb-base "^11.3.0"
 
-eslint-config-react-app@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-5.2.0.tgz#135110ba56a9e378f7acfe5f36e2ae76a2317899"
+eslint-config-react-app@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-5.2.1.tgz#698bf7aeee27f0cea0139eaef261c7bf7dd623df"
   dependencies:
     confusing-browser-globals "^1.0.9"
 
