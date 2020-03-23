@@ -56,20 +56,6 @@ class BidControls extends Component {
           </div>
           {useCDOSeasonFilter() &&
           <div className="portfolio-sort-container-contents small-screen-stack">
-            {
-              hasSeasons &&
-                <PreferenceWrapper
-                  onSelect={this.onFilterChange}
-                  keyRef={BID_PORTFOLIO_FILTERS_TYPE}
-                >
-                  <SelectForm
-                    id="porfolio-filter"
-                    options={BID_PORTFOLIO_FILTERS.options}
-                    label="Filter by:"
-                    defaultSort={defaultHandshake}
-                  />
-                </PreferenceWrapper>
-            }
             <SelectForm
               id="num-clients"
               label="Display Clients:"
@@ -78,6 +64,20 @@ class BidControls extends Component {
               onSelectOption={this.updateQueryLimit}
             />
             <BidCyclePicker setSeasonsCb={this.onSeasonChange} />
+            {
+              <PreferenceWrapper
+                onSelect={this.onFilterChange}
+                keyRef={BID_PORTFOLIO_FILTERS_TYPE}
+              >
+                <SelectForm
+                  id="porfolio-filter"
+                  options={BID_PORTFOLIO_FILTERS.options}
+                  label="Filter by:"
+                  defaultSort={defaultHandshake}
+                  disabled={!hasSeasons}
+                />
+              </PreferenceWrapper>
+            }
             <PreferenceWrapper
               onSelect={this.onSortChange}
               keyRef={BID_PORTFOLIO_SORTS_TYPE}

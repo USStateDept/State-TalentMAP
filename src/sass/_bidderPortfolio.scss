@@ -472,7 +472,11 @@ $cdo-search-container-padding: 10px;
       margin: 0 10px 0 0;
     }
   }
-
+  @media screen and (max-width: 700px) {
+    .small-screen-stack > div {
+      min-width: 200px;
+    }
+  }
 
   .results-search-bar {
     background-color: inherit;
