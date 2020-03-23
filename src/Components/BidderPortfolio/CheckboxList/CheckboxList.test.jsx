@@ -1,12 +1,14 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import Classifications from 'Constants/Classifications';
 import CheckboxList from './CheckboxList';
 
 describe('CheckboxList', () => {
   const props = {
-    id: 'a',
-    isDisabled: false,
+    clientClassifications: ['3', 'T', 'C'],
+    list: Classifications,
   };
+
   it('is defined', () => {
     const wrapper = shallow(<CheckboxList
       {...props}
