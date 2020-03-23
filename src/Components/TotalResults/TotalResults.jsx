@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
@@ -42,5 +41,3 @@ TotalResults.defaultProps = {
 };
 
 export default TotalResults;
-
- git add src/Components/TotalResults/TotalResults.jsx src/Components/TotalResults/TotalResults.test.jsx src/Components/TotalResults/__snapshots__/TotalResults.test.jsx.snap
