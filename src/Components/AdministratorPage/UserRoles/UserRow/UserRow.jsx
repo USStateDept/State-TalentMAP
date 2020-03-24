@@ -52,18 +52,21 @@ class UserRow extends Component {
 }
 
 UserRow.propTypes = {
-  userID: PropTypes.number.isRequired,
+  userID: PropTypes.number,
   username: PropTypes.string,
   name: PropTypes.string,
-  permissionGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  permissionGroups: PropTypes.arrayOf(PropTypes.shape({})),
   delegateRoles: PropTypes.shape({}),
-  modifyPermission: PropTypes.func.isRequired,
+  modifyPermission: PropTypes.func,
 };
 
 UserRow.defaultProps = {
+  userID: null,
   username: '',
   name: '',
+  permissionGroups: [],
   delegateRoles: {},
+  modifyPermission: EMPTY_FUNCTION,
   onClick: EMPTY_FUNCTION,
 };
 
