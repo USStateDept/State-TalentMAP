@@ -39,7 +39,10 @@ export function favoritePositionsFetchDataSuccess(results) {
   };
 }
 
-export function favoritePositionsFetchData(sortType, limit = 15, page = 1) {
+export function favoritePositionsFetchData(sortType, limit = 15, page = 1, openPV) {
+  // eslint-disable-next-line no-console
+  console.log(openPV);
+  // open or pv
   return (dispatch) => {
     batch(() => {
       dispatch(favoritePositionsIsLoading(true));

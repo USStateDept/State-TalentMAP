@@ -37,7 +37,7 @@ const FavoritePositions = props => {
   }
 
   useEffect(() => {
-    props.onPageChange(1);
+    props.selectedNav(selected);
   }, [selected]);
 
   function navSelected(s) {
@@ -92,11 +92,14 @@ const FavoritePositions = props => {
         denominator={null}
       />
       <div className="usa-grid-full favorites-top-section">
-        <TotalResults
-          total={paginationTotal[selected]}
-          pageNumber={page}
-          pageSize={pageSize}
-        />
+        {
+          !favoritePositionsIsLoading &&
+          <TotalResults
+            total={paginationTotal[selected]}
+            pageNumber={page}
+            pageSize={pageSize}
+          />
+        }
         <div className="favorites-top-section--controls">
           <div className="results-dropdown results-dropdown-sort">
             <SelectForm
@@ -159,6 +162,7 @@ FavoritePositions.propTypes = {
   pageSize: PropTypes.number,
   counts: FAVORITE_POSITION_COUNTS,
   onPageChange: PropTypes.func,
+  selectedNav: PropTypes.func,
 };
 
 FavoritePositions.defaultProps = {
@@ -171,6 +175,7 @@ FavoritePositions.defaultProps = {
   pageSize: 12,
   counts: DEFAULT_FAVORITES_COUNTS,
   onPageChange: EMPTY_FUNCTION,
+  selectedNav: EMPTY_FUNCTION,
 };
 
 export default FavoritePositions;

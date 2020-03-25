@@ -16,6 +16,7 @@ import { scrollToTop } from 'utilities';
 const FavoritePositionsContainer = props => {
   const [page, setPage] = useState(1);
   const [sortType, setSortType] = useState();
+  const [navType, setNavType] = useState('open');
   const PAGE_SIZE = 15;
   const prevPage = usePrevious(page);
 
@@ -23,9 +24,7 @@ const FavoritePositionsContainer = props => {
     favoritePositionsHasErrored, bidList } = props;
 
   function getFavorites() {
-    // eslint-disable-next-line no-console
-    console.log('in getFavorites');
-    props.fetchData(sortType, PAGE_SIZE, page);
+    props.fetchData(sortType, PAGE_SIZE, page, navType);
   }
 
   useEffect(() => {
@@ -35,6 +34,10 @@ const FavoritePositionsContainer = props => {
   useEffect(() => {
     getFavorites();
   }, [page]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [navType]);
 
   useEffect(() => {
     const shouldUpdate = (page === 1) && (!isNil(prevPage));
@@ -51,6 +54,10 @@ const FavoritePositionsContainer = props => {
       setPage(e.page);
       scrollToTop({ delay: 0, duration: 400 });
     }
+  }
+
+  function selectedNav(navVal) {
+    setNavType(navVal);
   }
 
   function getSortedFavorites(type) {
@@ -74,6 +81,7 @@ const FavoritePositionsContainer = props => {
         pageSize={PAGE_SIZE}
         counts={favoritePositions.counts}
         onPageChange={onPageChange}
+        selectedNav={selectedNav}
       />
       <CompareDrawer />
     </div>
@@ -85,7 +93,6 @@ FavoritePositionsContainer.propTypes = {
   bidListFetchData: PropTypes.func,
   toggleFavorite: PropTypes.func,
   favoritePositions: FAVORITE_POSITIONS,
-  // favoritePositions: POSITION_SEARCH_RESULTS,
   favoritePositionsHasErrored: PropTypes.bool,
   favoritePositionsIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
@@ -113,8 +120,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: (sortType, PAGE_SIZE, page) => dispatch(favoritePositionsFetchData(sortType,
-    PAGE_SIZE, page)),
+  fetchData: (sortType, PAGE_SIZE, page, navType) => dispatch(favoritePositionsFetchData(sortType,
+    PAGE_SIZE, page, navType)),
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleFavorite: (id, remove) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
