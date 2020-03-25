@@ -458,6 +458,9 @@ $cdo-search-container-padding: 10px;
       flex-basis: 45%;
       margin: 0 10px;
     }
+    .small-screen-stack > div > label,.label {
+      min-width: 100px;
+    }
   }
   @media screen and (max-width: 1200px) {
     .small-screen-stack {
@@ -474,7 +477,7 @@ $cdo-search-container-padding: 10px;
   }
   @media screen and (max-width: 700px) {
     .small-screen-stack > div {
-      min-width: 200px;
+      min-width: 300px;
     }
   }
 

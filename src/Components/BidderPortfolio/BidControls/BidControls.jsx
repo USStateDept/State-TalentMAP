@@ -72,7 +72,7 @@ class BidControls extends Component {
                 <SelectForm
                   id="porfolio-filter"
                   options={BID_PORTFOLIO_FILTERS.options}
-                  label="Filter by:"
+                  label="Filter By:"
                   defaultSort={defaultHandshake}
                   disabled={!hasSeasons}
                 />
@@ -85,7 +85,7 @@ class BidControls extends Component {
               <SelectForm
                 id="porfolio-sort"
                 options={BID_PORTFOLIO_SORTS.options}
-                label="Sort by:"
+                label="Sort By:"
                 defaultSort={defaultOrdering}
               />
             </PreferenceWrapper>
