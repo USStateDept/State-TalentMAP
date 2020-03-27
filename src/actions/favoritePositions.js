@@ -1,5 +1,5 @@
 import { batch } from 'react-redux';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import { toastError } from './toast';
 import api from '../api';
@@ -39,10 +39,8 @@ export function favoritePositionsFetchDataSuccess(results) {
   };
 }
 
-export function favoritePositionsFetchData(sortType, limit = 15, page = 1, openPV) {
-  // eslint-disable-next-line no-console
-  console.log(openPV);
-  // open or pv
+export function favoritePositionsFetchData(sortType, limit = 15,
+  page = 1, openPV, prevfavoritePositions) {
   return (dispatch) => {
     batch(() => {
       dispatch(favoritePositionsIsLoading(true));
@@ -55,28 +53,33 @@ export function favoritePositionsFetchData(sortType, limit = 15, page = 1, openP
         favorites: 0,
         favoritesPV: 0,
         all: 0,
-      } };
-    let url = `/available_position/favorites/?limit=${limit}&page=${page}`;
-    let urlPV = `/projected_vacancy/favorites/?limit=${limit}&page=${page}`;
-
-    if (sortType) {
-      const append = `?ordering=${sortType}`;
-      url += append;
-      urlPV += append;
+      },
+    };
+    const queryProms = [];
+    if (openPV === 'open' || isNil(openPV)) {
+      let url = `/available_position/favorites/?limit=${limit}&page=${page}`;
+      if (sortType) {
+        const append = `?ordering=${sortType}`;
+        url += append;
+      }
+      const fetchFavorites = () =>
+        api().get(url)
+          .then(({ data }) => data)
+          .catch(error => error);
+      queryProms.push(fetchFavorites());
     }
-
-    const fetchFavorites = () =>
-      api().get(url)
-        .then(({ data }) => data)
-        .catch(error => error);
-
-    const fetchPVFavorites = () =>
-      api().get(urlPV)
-        .then(({ data }) => data)
-        .catch(error => error);
-
-    const queryProms = [fetchFavorites(), fetchPVFavorites()];
-
+    if (openPV === 'pv' || isNil(openPV)) {
+      let urlPV = `/projected_vacancy/favorites/?limit=${limit}&page=${page}`;
+      if (sortType) {
+        const append = `?ordering=${sortType}`;
+        urlPV += append;
+      }
+      const fetchPVFavorites = () =>
+        api().get(urlPV)
+          .then(({ data }) => data)
+          .catch(error => error);
+      queryProms.push(fetchPVFavorites());
+    }
     Promise.all(queryProms)
       .then((results) => {
       // if any promise returned with errors, return the error
@@ -92,15 +95,30 @@ export function favoritePositionsFetchData(sortType, limit = 15, page = 1, openP
             dispatch(favoritePositionsIsLoading(false));
           });
         } else {
-        // object 0 is favorites
-          data$.counts.favorites = get(results, '[0].count', 0);
-          data$.counts.favoritesPV = get(results, '[1].count', 0);
-          data$.counts.all = get(results, '[0].count', 0) + get(results, '[1].count', 0);
-          data$.favorites = get(results, '[0].results', []);
-          data$.results = get(results, '[0].results', []);
-          // object 1 is PV favorites
-          // add PV property
-          data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
+          if (openPV === 'open') {
+            data$.favorites = get(results, '[0].results', []);
+            // grabbing rest of data from prevfavoritePositions
+            data$.favoritesPV = get(prevfavoritePositions, 'favoritesPV', []);
+            data$.counts = get(prevfavoritePositions, 'counts', {});
+            data$.results = get(prevfavoritePositions, 'results', []);
+          } else if (openPV === 'pv') {
+            data$.favoritesPV = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
+            // grabbing rest of data from prevfavoritePositions
+            data$.favorites = get(prevfavoritePositions, 'favorites', []);
+            data$.counts = get(prevfavoritePositions, 'counts', {});
+            data$.results = get(prevfavoritePositions, 'results', []);
+          } else {
+            // object 0 is favorites if both calls made
+            data$.counts.favorites = get(results, '[0].count', 0);
+            // TODO: don't rely on indices, especially now that queryProms struc is fluid
+            data$.counts.favoritesPV = get(results, '[1].count', 0);
+            data$.counts.all = get(results, '[0].count', 0) + get(results, '[1].count', 0);
+            data$.favorites = get(results, '[0].results', []);
+            // object 1 is PV favorites if both calls made
+            // add PV property
+            data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
+            data$.results = get(results, '[0].results', []); // TODO: outdated? consider removing
+          }
           batch(() => {
             dispatch(favoritePositionsFetchDataSuccess(data$));
             dispatch(favoritePositionsHasErrored(false));

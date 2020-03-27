@@ -24,7 +24,7 @@ const FavoritePositionsContainer = props => {
     favoritePositionsHasErrored, bidList } = props;
 
   function getFavorites() {
-    props.fetchData(sortType, PAGE_SIZE, page, navType);
+    props.fetchData(sortType, PAGE_SIZE, page, navType, favoritePositions);
   }
 
   useEffect(() => {
@@ -36,12 +36,12 @@ const FavoritePositionsContainer = props => {
   }, [page]);
 
   useEffect(() => {
+    if ((page === 1) && !isNil(prevPage)) getFavorites();
     setPage(1);
   }, [navType]);
 
   useEffect(() => {
-    const shouldUpdate = (page === 1) && (!isNil(prevPage));
-    if (shouldUpdate) getFavorites();
+    if ((page === 1) && !isNil(prevPage)) getFavorites();
     setPage(1);
   }, [sortType]);
 
@@ -120,8 +120,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: (sortType, PAGE_SIZE, page, navType) => dispatch(favoritePositionsFetchData(sortType,
-    PAGE_SIZE, page, navType)),
+  fetchData: (sortType, PAGE_SIZE, page, navType, favoritePositions) =>
+    dispatch(favoritePositionsFetchData(sortType, PAGE_SIZE, page, navType, favoritePositions)),
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleFavorite: (id, remove) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
