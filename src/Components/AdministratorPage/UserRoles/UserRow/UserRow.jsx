@@ -62,7 +62,7 @@ UserRow.propTypes = {
 
 UserRow.defaultProps = {
   userID: null,
-  username: '',
+  username: 'haha',
   name: '',
   permissionGroups: [],
   delegateRoles: {},
