@@ -23,14 +23,6 @@ class DashboardContainer extends Component {
       favoritePositionsIsLoading, favoritePositionsHasErrored, submitBidPosition,
       deleteBid } = this.props;
     const allFavorites = favoritePositions.favorites.concat(favoritePositions.favoritesPV);
-    // eslint-disable-next-line no-console
-    console.log('favoritePositions: ');
-    // eslint-disable-next-line no-console
-    console.log(favoritePositions);
-    // eslint-disable-next-line no-console
-    console.log('all favorites: ');
-    // eslint-disable-next-line no-console
-    console.log(allFavorites);
     return (
       <ProfileDashboard
         userProfile={userProfile}

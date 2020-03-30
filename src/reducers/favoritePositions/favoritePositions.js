@@ -19,7 +19,7 @@ export function favoritePositions(state = {
   favorites: [], favoritesPV: [], counts: [] }, action) {
   switch (action.type) {
     case 'FAVORITE_POSITIONS_FETCH_DATA_SUCCESS':
-      return action.results;
+      return { ...state, ...action.results };
     default:
       return state;
   }

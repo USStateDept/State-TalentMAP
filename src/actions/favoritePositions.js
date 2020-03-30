@@ -40,21 +40,13 @@ export function favoritePositionsFetchDataSuccess(results) {
 }
 
 export function favoritePositionsFetchData(sortType, limit = 15,
-  page = 1, openPV, prevfavoritePositions) {
+  page = 1, openPV) {
   return (dispatch) => {
     batch(() => {
       dispatch(favoritePositionsIsLoading(true));
       dispatch(favoritePositionsHasErrored(false));
     });
-    const data$ = {
-      favorites: [],
-      favoritesPV: [],
-      counts: {
-        favorites: 0,
-        favoritesPV: 0,
-        all: 0,
-      },
-    };
+    let data$ = {};
     const queryProms = [];
     if (openPV === 'open' || isNil(openPV)) {
       let url = `/available_position/favorites/?limit=${limit}&page=${page}`;
@@ -97,25 +89,24 @@ export function favoritePositionsFetchData(sortType, limit = 15,
         } else {
           if (openPV === 'open') {
             data$.favorites = get(results, '[0].results', []);
-            // grabbing rest of data from prevfavoritePositions
-            data$.favoritesPV = get(prevfavoritePositions, 'favoritesPV', []);
-            data$.counts = get(prevfavoritePositions, 'counts', {});
-            data$.results = get(prevfavoritePositions, 'results', []);
           } else if (openPV === 'pv') {
             data$.favoritesPV = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
-            // grabbing rest of data from prevfavoritePositions
-            data$.favorites = get(prevfavoritePositions, 'favorites', []);
-            data$.counts = get(prevfavoritePositions, 'counts', {});
-            data$.results = get(prevfavoritePositions, 'results', []);
           } else {
+            data$ = {
+              favorites: [],
+              favoritesPV: [],
+              counts: {
+                favorites: 0,
+                favoritesPV: 0,
+                all: 0,
+              },
+            };
             // object 0 is favorites if both calls made
             data$.counts.favorites = get(results, '[0].count', 0);
-            // TODO: don't rely on indices, especially now that queryProms struc is fluid
             data$.counts.favoritesPV = get(results, '[1].count', 0);
             data$.counts.all = get(results, '[0].count', 0) + get(results, '[1].count', 0);
             data$.favorites = get(results, '[0].results', []);
             // object 1 is PV favorites if both calls made
-            // add PV property
             data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
             data$.results = get(results, '[0].results', []); // TODO: outdated? consider removing
           }
