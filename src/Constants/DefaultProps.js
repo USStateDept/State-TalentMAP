@@ -34,7 +34,7 @@ export const DEFAULT_FAVORITES_COUNTS = {
 export const DEFAULT_FAVORITES = {
   favorites: [],
   favoritesPV: [],
-  counts: [],
+  counts: DEFAULT_FAVORITES_COUNTS,
 };
 
 export const PROFILE_MENU_SECTION_EXPANDED_OBJECT = {
