@@ -45,9 +45,11 @@ class SearchResultsExportLink extends Component {
 
   render() {
     const { isLoading } = this.state;
+    const { count } = this.props;
+    const disabled = !count;
     return (
       <div className="export-button-container">
-        <ExportButton onClick={this.onClick} isLoading={isLoading} />
+        <ExportButton onClick={this.onClick} isLoading={isLoading} disabled={disabled} />
       </div>
     );
   }
