@@ -51,7 +51,7 @@ export function favoritePositionsFetchData(sortType, limit = 15,
     if (openPV === 'open' || isNil(openPV)) {
       let url = `/available_position/favorites/?limit=${limit}&page=${page}`;
       if (sortType) {
-        const append = `?ordering=${sortType}`;
+        const append = `&ordering=${sortType}`;
         url += append;
       }
       const fetchFavorites = () =>
@@ -63,7 +63,7 @@ export function favoritePositionsFetchData(sortType, limit = 15,
     if (openPV === 'pv' || isNil(openPV)) {
       let urlPV = `/projected_vacancy/favorites/?limit=${limit}&page=${page}`;
       if (sortType) {
-        const append = `?ordering=${sortType}`;
+        const append = `&ordering=${sortType}`;
         urlPV += append;
       }
       const fetchPVFavorites = () =>
