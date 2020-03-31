@@ -227,11 +227,18 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
           dispatch(favoritePositionsFetchData());
         }
       }))
-      .catch((res) => {
-        const message = remove ?
-        // eslint-disable-next-line no-constant-condition
-          SystemMessages.DELETE_FAVORITE_ERROR() : res.status = 507 ?
-            SystemMessages.ADD_FAVORITE_LIMIT_ERROR : SystemMessages.ADD_FAVORITE_ERROR();
+      .catch(({ response }) => {
+        const limit = response.data.limit;
+        let message = '';
+        if (remove) {
+          message = SystemMessages.DELETE_FAVORITE_ERROR();
+        } else if (response.status === 507 && isPV) {
+          message = SystemMessages.ADD_FAVORITE_LIMIT_ERROR_PV(limit);
+        } else if (response.status === 507) {
+          message = SystemMessages.ADD_FAVORITE_LIMIT_ERROR_AP(limit);
+        } else {
+          message = SystemMessages.ADD_FAVORITE_ERROR();
+        }
         const title = SystemMessages.ERROR_FAVORITE_TITLE;
         batch(() => {
           dispatch(userProfileFavoritePositionIsLoading(false, id));
