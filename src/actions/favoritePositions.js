@@ -40,7 +40,7 @@ export function favoritePositionsFetchDataSuccess(results) {
 }
 
 export function favoritePositionsFetchData(sortType, limit = 15,
-  page = 1, openPV) {
+  page = 1, openPV, favoritePositions) {
   return (dispatch) => {
     batch(() => {
       dispatch(favoritePositionsIsLoading(true));
@@ -48,7 +48,10 @@ export function favoritePositionsFetchData(sortType, limit = 15,
     });
     let data$ = {};
     const queryProms = [];
-    if (openPV === 'open' || isNil(openPV)) {
+    const favCounts = get(favoritePositions, 'counts');
+    const favsIncomplete = favCounts.length === 0;
+
+    if (openPV === 'open' || isNil(openPV || favsIncomplete)) {
       let url = `/available_position/favorites/?limit=${limit}&page=${page}`;
       if (sortType) {
         const append = `&ordering=${sortType}`;
@@ -60,7 +63,7 @@ export function favoritePositionsFetchData(sortType, limit = 15,
           .catch(error => error);
       queryProms.push(fetchFavorites());
     }
-    if (openPV === 'pv' || isNil(openPV)) {
+    if (openPV === 'pv' || isNil(openPV) || favsIncomplete) {
       let urlPV = `/projected_vacancy/favorites/?limit=${limit}&page=${page}`;
       if (sortType) {
         const append = `&ordering=${sortType}`;
@@ -87,9 +90,9 @@ export function favoritePositionsFetchData(sortType, limit = 15,
             dispatch(favoritePositionsIsLoading(false));
           });
         } else {
-          if (openPV === 'open') {
+          if (openPV === 'open' && !favsIncomplete) {
             data$.favorites = get(results, '[0].results', []);
-          } else if (openPV === 'pv') {
+          } else if (openPV === 'pv' && !favsIncomplete) {
             data$.favoritesPV = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
           } else {
             data$ = {
