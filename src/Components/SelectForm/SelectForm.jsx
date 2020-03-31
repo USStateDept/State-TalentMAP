@@ -34,6 +34,7 @@ class SelectForm extends Component {
   render() {
     const { id, label, options, includeFirstEmptyOption, emptyOptionText,
       disabled, className, labelSrOnly } = this.props;
+
     const optionList = options.map(option =>
       (
         <option
@@ -46,7 +47,7 @@ class SelectForm extends Component {
       ),
     );
     return (
-      <div className="usa-form">
+      <div className={`usa-form ${disabled ? 'results-loading' : ''}`}>
         <label className={labelSrOnly ? 'usa-sr-only' : ''} htmlFor={id}>{label}</label>
         <select
           name={id}

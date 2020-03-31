@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
 import PreferenceWrapper from 'Containers/PreferenceWrapper';
-import { BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
-  BID_PORTFOLIO_FILTERS_TYPE } from 'Constants/Sort';
+import {
+  BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
+  BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import SelectForm from '../../SelectForm';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import BidCyclePicker from './BidCyclePicker';
@@ -36,9 +37,16 @@ class BidControls extends Component {
     }
   };
 
+  updateQueryLimit = q => {
+    this.props.queryParamUpdate({ limit: q.target.value });
+  };
+
   render() {
-    const { viewType, changeViewType, defaultHandshake, defaultOrdering } = this.props;
+    const { viewType, changeViewType, defaultHandshake,
+      defaultOrdering, pageSize } = this.props;
     const { hasSeasons } = this.state;
+    const pageSizes = CLIENTS_PAGE_SIZES.options;
+
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
@@ -47,22 +55,29 @@ class BidControls extends Component {
             <CDOAutoSuggest />
           </div>
           {useCDOSeasonFilter() &&
-          <div className="portfolio-sort-container-contents">
-            {
-              hasSeasons &&
-                <PreferenceWrapper
-                  onSelect={this.onFilterChange}
-                  keyRef={BID_PORTFOLIO_FILTERS_TYPE}
-                >
-                  <SelectForm
-                    id="porfolio-filter"
-                    options={BID_PORTFOLIO_FILTERS.options}
-                    label="Filter by:"
-                    defaultSort={defaultHandshake}
-                  />
-                </PreferenceWrapper>
-            }
+          <div className="portfolio-sort-container-contents small-screen-stack">
+            <SelectForm
+              id="num-clients"
+              label="Display Clients:"
+              options={pageSizes}
+              defaultSort={pageSize}
+              onSelectOption={this.updateQueryLimit}
+            />
             <BidCyclePicker setSeasonsCb={this.onSeasonChange} />
+            {
+              <PreferenceWrapper
+                onSelect={this.onFilterChange}
+                keyRef={BID_PORTFOLIO_FILTERS_TYPE}
+              >
+                <SelectForm
+                  id="porfolio-filter"
+                  options={BID_PORTFOLIO_FILTERS.options}
+                  label="Filter By:"
+                  defaultSort={defaultHandshake}
+                  disabled={!hasSeasons}
+                />
+              </PreferenceWrapper>
+            }
             <PreferenceWrapper
               onSelect={this.onSortChange}
               keyRef={BID_PORTFOLIO_SORTS_TYPE}
@@ -70,7 +85,7 @@ class BidControls extends Component {
               <SelectForm
                 id="porfolio-sort"
                 options={BID_PORTFOLIO_SORTS.options}
-                label="Sort by:"
+                label="Sort By:"
                 defaultSort={defaultOrdering}
               />
             </PreferenceWrapper>
@@ -90,6 +105,11 @@ BidControls.propTypes = {
   changeViewType: PropTypes.func.isRequired,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
+  pageSize: PropTypes.number,
+};
+
+BidControls.defaultProps = {
+  pageSize: 0,
 };
 
 export default BidControls;
