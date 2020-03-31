@@ -68,8 +68,8 @@ class BidCyclePicker extends Component {
     const { arrayValue } = this.state;
     const { seasons, isLoading, hasErrored } = this.props; // eslint-disable-line
     return (
-      <div className="bid-cycle-picker-container">
-        <div className="label">Bid season:</div>
+      <div className="bid-cycle-picker-container usa-form">
+        <div className="label">Bid Season:</div>
         <Picky
           placeholder="Select season(s)"
           value={arrayValue}

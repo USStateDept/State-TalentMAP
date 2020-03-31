@@ -449,6 +449,38 @@ $cdo-search-container-padding: 10px;
     float: right;
   }
 
+    @media screen and (max-width: 1525px) {
+    .small-screen-stack {
+      flex-wrap: wrap;
+      float: none;
+    }
+    .small-screen-stack > div {
+      flex-basis: 45%;
+      margin: 0 10px;
+    }
+    .small-screen-stack > div > label,.label {
+      min-width: 100px;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .small-screen-stack {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .small-screen-stack > div {
+      align-items: center;
+      display: flex;
+      float: right;
+      margin: 0 10px 0 0;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .small-screen-stack > div {
+      min-width: 300px;
+    }
+  }
+
   .results-search-bar {
     background-color: inherit;
   }

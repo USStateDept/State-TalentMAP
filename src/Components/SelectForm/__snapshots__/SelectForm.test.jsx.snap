@@ -2,7 +2,7 @@
 
 exports[`SelectForm matches snapshot 1`] = `
 <div
-  className="usa-form"
+  className="usa-form "
 >
   <label
     className=""
@@ -85,7 +85,7 @@ exports[`SelectForm matches snapshot 1`] = `
 
 exports[`SelectForm matches snapshot when disabled 1`] = `
 <div
-  className="usa-form"
+  className="usa-form results-loading"
 >
   <label
     className=""
