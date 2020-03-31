@@ -91,6 +91,7 @@ class BidderPortfolioPage extends Component {
                 queryParamUpdate={queryParamUpdate}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
+                pageSize={pageSize}
                 defaultHandshake={defaultHandshake}
                 defaultOrdering={defaultOrdering}
               />
