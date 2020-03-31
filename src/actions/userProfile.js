@@ -227,9 +227,11 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
           dispatch(favoritePositionsFetchData());
         }
       }))
-      .catch(() => {
+      .catch((res) => {
         const message = remove ?
-          SystemMessages.DELETE_FAVORITE_ERROR() : SystemMessages.ADD_FAVORITE_ERROR();
+        // eslint-disable-next-line no-constant-condition
+          SystemMessages.DELETE_FAVORITE_ERROR() : res.status = 507 ?
+            SystemMessages.ADD_FAVORITE_LIMIT_ERROR : SystemMessages.ADD_FAVORITE_ERROR();
         const title = SystemMessages.ERROR_FAVORITE_TITLE;
         batch(() => {
           dispatch(userProfileFavoritePositionIsLoading(false, id));
