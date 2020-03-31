@@ -99,7 +99,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10",
     "babel-jest": "^25.1.0",
-    "babel-loader": "^8.0.0",
+    "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.1",
     "bundlesize": "^0.17.1",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
