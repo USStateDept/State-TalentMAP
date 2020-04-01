@@ -23,25 +23,28 @@ const FavoritePositionsContainer = props => {
   const { favoritePositions, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList } = props;
 
-  function getFavorites() {
-    props.fetchData(sortType, PAGE_SIZE, page, navType, favoritePositions);
+  function getFavorites(nav = navType) {
+    props.fetchData(sortType, PAGE_SIZE, page, nav);
   }
 
   useEffect(() => {
     props.bidListFetchData();
+    getFavorites('all');
   }, []);
 
   useEffect(() => {
-    getFavorites();
+    if (prevPage) {
+      getFavorites();
+    }
   }, [page]);
 
   useEffect(() => {
-    if ((page === 1) && !isNil(prevPage)) getFavorites();
+    if ((page === 1) && prevPage) { getFavorites(); }
     setPage(1);
   }, [navType]);
 
   useEffect(() => {
-    if ((page === 1) && !isNil(prevPage)) getFavorites();
+    if ((page === 1) && prevPage) { getFavorites(); }
     setPage(1);
   }, [sortType]);
 
