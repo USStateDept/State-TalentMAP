@@ -3,10 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-// eslint-disable-next-line no-unused-vars
-import { get, isEqual } from 'lodash';
+import { get } from 'lodash';
 import { comparisonsFetchData } from 'actions/comparisons';
-import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import CompareList from 'Components/CompareList/CompareList';
 import { COMPARE_LIST, USER_PROFILE, BID_LIST, SetType } from 'Constants/PropTypes';
@@ -27,7 +25,6 @@ export class Compare extends Component {
     } else {
       const ids = get(this, 'props.match.params.ids');
       if (ids) { this.getComparisons(ids); }
-      this.props.fetchFavorites();
       this.props.fetchBidList();
     }
   }
@@ -75,7 +72,6 @@ Compare.propTypes = {
   comparisons: COMPARE_LIST,
   isAuthorized: PropTypes.func.isRequired,
   userProfile: USER_PROFILE.isRequired,
-  fetchFavorites: PropTypes.func.isRequired,
   bidList: BID_LIST,
   bidListToggleIsLoading: SetType,
   fetchBidList: PropTypes.func.isRequired,
@@ -107,7 +103,6 @@ export const mapDispatchToProps = dispatch => ({
   fetchData: url => dispatch(comparisonsFetchData(url)),
   fetchBidList: () => dispatch(bidListFetchData()),
   onNavigateTo: dest => dispatch(push(dest)),
-  fetchFavorites: () => dispatch(favoritePositionsFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Compare));
