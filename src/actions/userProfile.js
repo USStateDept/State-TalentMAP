@@ -179,7 +179,7 @@ export function userProfileFetchData(bypass, cb) {
 // If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
 // we can pass a third arg, refreshFavorites.
 export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false,
-  isPV = false) {
+  isPV = false, sortType, limit, page) {
   const idString = id.toString();
   return (dispatch) => {
     const APUrl = `/available_position/${idString}/favorite/`;
@@ -224,7 +224,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         });
         dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
-          dispatch(favoritePositionsFetchData());
+          dispatch(favoritePositionsFetchData(sortType, limit, page));
         }
       }))
       .catch(() => {

@@ -6,18 +6,19 @@ import resultsObject from '../../../__mocks__/resultsObject';
 
 describe('FavoritesListComponent', () => {
   const positions = resultsObject.results;
+
   it('is defined', () => {
-    const wrapper = shallow(<FavoritesList favorites={positions} />);
+    const wrapper = shallow(<FavoritesList.WrappedComponent favorites={positions} />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<FavoritesList favorites={positions} />);
+    const wrapper = shallow(<FavoritesList.WrappedComponent favorites={positions} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
   it('matches snapshot when there are no bids', () => {
-    const wrapper = shallow(<FavoritesList favorites={[]} />);
+    const wrapper = shallow(<FavoritesList.WrappedComponent favorites={[]} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
