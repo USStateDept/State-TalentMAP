@@ -12,7 +12,7 @@ describe('reducers', () => {
   it('can set reducer FAVORITE_POSITIONS_FETCH_DATA_SUCCESS', () => {
     const original = { a: 1, b: 2 };
     const updated = { a: 'one', c: 'two' };
-    const expected = { ...original, ...updated };
+    const expected = { ...original, ...updated, counts: {} };
     expect(reducers.favoritePositions(original, { type: 'FAVORITE_POSITIONS_FETCH_DATA_SUCCESS', results: updated })).toEqual(expected);
   });
 });
