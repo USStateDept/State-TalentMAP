@@ -19,6 +19,9 @@ const ResultsCondensedCard = (
     isRecentlyAvailable,
     useShortFavButton,
     showCompareButton,
+    sortType,
+    limit,
+    page,
   }) => (
   <BoxShadow className="usa-grid-full condensed-card-inner">
     <ResultsCondensedCardTop
@@ -39,6 +42,9 @@ const ResultsCondensedCard = (
       useShortFavButton={useShortFavButton}
       showCompareButton={showCompareButton}
       isProjectedVacancy={isProjectedVacancy}
+      sortType={sortType}
+      limit={limit}
+      page={page}
     />
     <ResultsCondensedCardFooter
       position={position}
@@ -61,6 +67,9 @@ ResultsCondensedCard.propTypes = {
   isRecentlyAvailable: PropTypes.bool,
   useShortFavButton: PropTypes.bool,
   showCompareButton: PropTypes.bool,
+  sortType: PropTypes.string,
+  limit: PropTypes.number,
+  page: PropTypes.number,
 };
 
 ResultsCondensedCard.defaultProps = {
@@ -72,6 +81,9 @@ ResultsCondensedCard.defaultProps = {
   isRecentlyAvailable: false,
   useShortFavButton: false,
   showCompareButton: false,
+  sortType: null,
+  limit: 15,
+  page: 1,
 };
 
 export default ResultsCondensedCard;

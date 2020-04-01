@@ -173,6 +173,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
+        limit={15}
+        page={1}
         position={
           Object {
             "bidcycle": Object {
@@ -262,6 +264,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         refreshFavorites={false}
         showBidListButton={false}
         showCompareButton={false}
+        sortType={null}
         type="default"
         useShortFavButton={false}
       />
@@ -432,6 +435,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
+        limit={15}
+        page={1}
         position={
           Object {
             "bidcycle": Object {
@@ -521,6 +526,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         refreshFavorites={false}
         showBidListButton={false}
         showCompareButton={false}
+        sortType={null}
         type="default"
         useShortFavButton={false}
       />
@@ -691,6 +697,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
+        limit={15}
+        page={1}
         position={
           Object {
             "bidcycle": Object {
@@ -780,6 +788,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         refreshFavorites={false}
         showBidListButton={false}
         showCompareButton={false}
+        sortType={null}
         type="default"
         useShortFavButton={false}
       />
@@ -950,6 +959,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
+        limit={15}
+        page={1}
         position={
           Object {
             "bidcycle": Object {
@@ -1039,6 +1050,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         refreshFavorites={false}
         showBidListButton={false}
         showCompareButton={false}
+        sortType={null}
         type="default"
         useShortFavButton={false}
       />
@@ -1209,6 +1221,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
+        limit={15}
+        page={1}
         position={
           Object {
             "bidcycle": Object {
@@ -1298,6 +1312,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         refreshFavorites={false}
         showBidListButton={false}
         showCompareButton={false}
+        sortType={null}
         type="default"
         useShortFavButton={false}
       />
@@ -1468,6 +1483,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
+        limit={15}
+        page={1}
         position={
           Object {
             "bidcycle": Object {
@@ -1557,6 +1574,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         refreshFavorites={false}
         showBidListButton={false}
         showCompareButton={false}
+        sortType={null}
         type="default"
         useShortFavButton={false}
       />
@@ -1727,6 +1745,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         favoritesPV={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
+        limit={15}
+        page={1}
         position={
           Object {
             "bidcycle": Object {
@@ -1816,6 +1836,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         refreshFavorites={false}
         showBidListButton={false}
         showCompareButton={false}
+        sortType={null}
         type="default"
         useShortFavButton={false}
       />

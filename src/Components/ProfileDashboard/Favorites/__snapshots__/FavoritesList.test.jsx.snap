@@ -21,7 +21,7 @@ exports[`FavoritesListComponent matches snapshot 1`] = `
       <PositionInformation
         className=""
         icon="star"
-        len={2}
+        len={0}
         small={false}
         title="Favorites"
       />

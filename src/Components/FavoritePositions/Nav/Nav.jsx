@@ -52,14 +52,14 @@ Nav.propTypes = {
       numerator: PropTypes.number.isRequired,
     }),
   ),
-  denominator: PropTypes.number.isRequired,
+  denominator: PropTypes.number,
   selected: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 Nav.defaultProps = {
   options: [],
-  denominator: 1,
+  denominator: null,
   selected: '',
   onClick: EMPTY_FUNCTION,
 };

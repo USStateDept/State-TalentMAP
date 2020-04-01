@@ -48,6 +48,9 @@ class ResultsCondensedCardBottom extends Component {
       useShortFavButton,
       showCompareButton,
       isProjectedVacancy,
+      sortType,
+      limit,
+      page,
     } = this.props;
     const { isClient } = this.context;
     const pos = position.position || position;
@@ -72,6 +75,9 @@ class ResultsCondensedCardBottom extends Component {
                 useButtonClass={!useShortFavButton}
                 useButtonClassSecondary={useShortFavButton}
                 refresh={refreshFavorites}
+                sortType={sortType}
+                limit={limit}
+                page={page}
               />
             }
             <Flag
@@ -106,6 +112,9 @@ ResultsCondensedCardBottom.propTypes = {
   useShortFavButton: PropTypes.bool,
   showCompareButton: PropTypes.bool,
   isProjectedVacancy: PropTypes.bool,
+  sortType: PropTypes.string,
+  limit: PropTypes.number,
+  page: PropTypes.number,
 };
 
 ResultsCondensedCardBottom.defaultProps = {
@@ -116,6 +125,9 @@ ResultsCondensedCardBottom.defaultProps = {
   useShortFavButton: false,
   showCompareButton: false,
   isProjectedVacancy: false,
+  sortType: null,
+  limit: 15,
+  page: 1,
 };
 
 export default ResultsCondensedCardBottom;

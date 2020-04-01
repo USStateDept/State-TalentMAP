@@ -17,106 +17,111 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
     </div>
   </div>
   <Nav
-    denominator={4}
+    denominator={null}
     onClick={[Function]}
     options={
       Array [
         Object {
-          "numerator": 4,
-          "title": "All Favorites",
-          "value": "all",
-        },
-        Object {
           "numerator": 2,
-          "title": "Open Positions",
+          "title": "Open Positions ",
           "value": "open",
         },
         Object {
           "numerator": 2,
-          "title": "Projected Vacancies",
+          "title": "Projected Vacancies ",
           "value": "pv",
         },
       ]
     }
-    selected="all"
+    selected="open"
   />
   <div
-    className="usa-grid-full favorites-top-section favorites-top-section--controls"
+    className="usa-grid-full favorites-top-section"
   >
+    <TotalResults
+      pageNumber={1}
+      pageSize={12}
+      suffix="Results"
+      total={2}
+    />
     <div
-      className="results-dropdown results-dropdown-sort"
+      className="favorites-top-section--controls"
     >
-      <SelectForm
-        className="select-offset select-black"
-        defaultSort=""
-        disabled={false}
-        emptyOptionText="- Select -"
-        id="sort"
-        includeFirstEmptyOption={false}
-        label="Sort by:"
-        labelSrOnly={false}
-        onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "disabled": true,
-              "text": "Sort option",
-              "value": "",
-            },
-            Object {
-              "text": "Position title: A-Z",
-              "value": "position__title",
-            },
-            Object {
-              "text": "Grade: Low to high",
-              "value": "-position__grade",
-            },
-            Object {
-              "text": "Bureau: A-Z",
-              "value": "position__bureau",
-            },
-            Object {
-              "availableOnly": true,
-              "text": "Posted date: Most recent",
-              "value": "-posted_date",
-            },
-            Object {
-              "availableOnly": true,
-              "text": "Posted date: Oldest",
-              "value": "posted_date",
-            },
-            Object {
-              "text": "TED: Soonest",
-              "value": "ted",
-            },
-            Object {
-              "text": "TED: Latest",
-              "value": "-ted",
-            },
-            Object {
-              "text": "Position number: Low to high",
-              "value": "position__position_number",
-            },
-            Object {
-              "availableOnly": true,
-              "text": "Featured positions",
-              "value": "-position__post__has_service_needs_differential",
-            },
-          ]
-        }
-        transformValue={[Function]}
-      />
-    </div>
-    <div
-      className="export-button-container"
-    >
-      <ExportButton
-        className=""
-        isLoading={false}
-        onClick={[Function]}
-        primaryClass="usa-button-secondary"
-        text="Export"
-      />
+      <div
+        className="results-dropdown results-dropdown-sort"
+      >
+        <SelectForm
+          className="select-offset select-black"
+          defaultSort=""
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="sort"
+          includeFirstEmptyOption={false}
+          label="Sort by:"
+          labelSrOnly={false}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "disabled": true,
+                "text": "Sort option",
+                "value": "",
+              },
+              Object {
+                "text": "Position title: A-Z",
+                "value": "position__title",
+              },
+              Object {
+                "text": "Grade: Low to high",
+                "value": "-position__grade",
+              },
+              Object {
+                "text": "Bureau: A-Z",
+                "value": "position__bureau",
+              },
+              Object {
+                "availableOnly": true,
+                "text": "Posted date: Most recent",
+                "value": "-posted_date",
+              },
+              Object {
+                "availableOnly": true,
+                "text": "Posted date: Oldest",
+                "value": "posted_date",
+              },
+              Object {
+                "text": "TED: Soonest",
+                "value": "ted",
+              },
+              Object {
+                "text": "TED: Latest",
+                "value": "-ted",
+              },
+              Object {
+                "text": "Position number: Low to high",
+                "value": "position__position_number",
+              },
+              Object {
+                "availableOnly": true,
+                "text": "Featured positions",
+                "value": "-position__post__has_service_needs_differential",
+              },
+            ]
+          }
+          transformValue={[Function]}
+        />
+      </div>
+      <div
+        className="export-button-container"
+      >
+        <ExportButton
+          className=""
+          isLoading={false}
+          onClick={[Function]}
+          primaryClass="usa-button-secondary"
+          text="Export"
+        />
+      </div>
     </div>
   </div>
   <HomePagePositionsList
@@ -280,183 +285,234 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
     favorites={
       Array [
         Object {
-          "bidcycle": Object {
-            "name": "Bid Cycle 1",
+          "availability": Object {
+            "availability": null,
+            "reason": null,
           },
-          "id": 1,
+          "bid_statistics": Array [
+            Object {
+              "at_skill": null,
+              "has_handshake_accepted": null,
+              "has_handshake_offered": false,
+              "id": null,
+              "in_grade": null,
+              "in_grade_at_skill": null,
+              "total_bids": null,
+            },
+          ],
+          "bidcycle": Object {
+            "active": null,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 155,
+            "name": "2018 DCM/PO Cycle",
+          },
+          "id": 12325,
+          "is_hard_to_fill": false,
+          "is_urgent_vacancy": false,
+          "is_volunteer": false,
           "position": Object {
-            "bid_statistics": Array [
-              Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 6,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 2,
-              },
-            ],
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
+            "availability": Object {
+              "availability": null,
+              "reason": null,
+            },
+            "bureau": "(CA) BUREAU OF CONSULAR AFFAIRS",
+            "classifications": null,
+            "create_date": null,
             "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:11.478084Z",
-              "start_date": "2018-03-13T15:51:11.478084Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
+              "estimated_end_date": "2012-10-22T05:00:00Z",
+              "start_date": null,
+              "status": null,
+              "tour_of_duty": "INDEFINITE",
+              "user": null,
             },
             "description": Object {
-              "content": "The Office Management Specialist (OMS) for the Deputy Chief of Mission (DCM) provides office management services in this Mission of six agencies, 387 American and Locally Employed Staff (LES) positions, and 279 guard force contractors.  The OMS manages Executive Office operations and positionstains the DCM’s calendar in support of overall Mission goals and objectives.  The OMS (DCM) drafts routine correspondence, memoranda and cables as appropriate and ensures documents are cleared and delivered in a timely fashion. The OMS serves as back up to the Ambassador’s OMS.  POCs areSandra McInturff, DCM OMS, McInturffSL@state.gov, 231-77-677-7000, ext. 7452; Samue Watson, DCM, WatsonSR@state.gov, 231-77-677-7000, ext. 7452. Please submit lobbying documents to the 360 Community Lobbying Center http://appcenter.state.sbu/CLC. (Revised 1/2017)
-
-",
-              "date_created": "2018-03-08T18:00:33.241370Z",
-              "date_updated": "2018-03-13T15:55:00.018644Z",
-              "id": 90,
-              "is_editable_by_user": false,
+              "content": "Incumbent is the Office Manager for the Ambassador at a greater hardship post with a staff of 21 direct-hire Americans and 120 FSNs. She supervises an FSN protocol assistant and COM driver. She manages the Ambassador&#39;s calendar, work and travel schedules. She backs up the direct-hire DCM OMS who supports the DCM and Pol/Econ officer and who backs up COM OMS position. POC: COM OMS Shaye Palmer via e-mail:  PalmerSA&#64;state.gov. or DCM OMS Joanne Schmoll via e-mail, SchmollJL&#64;state.gov; 232-22-515-102.  &#40;Revised 07/2015&#41; &#13;&#10;AF 360 CLC- http://appcenter.state.sbu/CLC",
+              "date_created": null,
+              "date_updated": "2020-03-17T09:13:25.710000Z",
+              "id": null,
+              "is_editable_by_user": null,
               "last_editing_user": null,
               "point_of_contact": null,
               "website": null,
             },
-            "effective_date": "2012-10-22T00:00:00Z",
+            "effective_date": null,
             "grade": "06",
-            "id": 6,
+            "id": null,
             "is_highlighted": false,
-            "is_overseas": true,
-            "languages": Array [],
-            "latest_bidcycle": Object {
-              "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-            },
-            "organization": "(MONROVIA) MONROVIA LIBERIA",
-            "position_number": "10034001",
-            "post": Object {
-              "code": "LI6000000",
-              "cost_of_living_adjustment": 30,
-              "danger_pay": 0,
-              "differential_rate": 30,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 160,
-              "location": Object {
-                "city": "Freetown",
-                "code": "00A",
-                "country": "Sierra Leone",
-                "id": 103,
-                "state": "",
-              },
-              "obc_id": 1,
-              "rest_relaxation_point": "Paris",
-              "tour_of_duty": "2 YRS (2 R & R)",
-            },
-            "posted_date": "2012-10-22T00:00:00Z",
-            "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
-            "skill": "OFFICE MANAGEMENT (9017)",
-            "status": null,
-            "status_code": null,
-            "title": "OMS (DCM)",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
-          },
-        },
-        Object {
-          "bidcycle": Object {
-            "name": "Bid Cycle 1",
-          },
-          "id": 2,
-          "position": Object {
-            "bid_statistics": Array [
-              Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 60,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 0,
-              },
-            ],
-            "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
-            "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:13.126727Z",
-              "start_date": "2018-03-13T15:51:13.126727Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
-            },
-            "description": Object {
-              "content": "(updated August 2012) The incumbent serves as one of four Assistant Regional Security Officers (ARSO) in the Regional Security Office in a two year assignment with a rotating management portfolio that provides generous exposure to all aspects of Diplomatic Security’s overseas programs. RSO Port-au-Prince currently consists of a 6 member Marine Security Guard Detachment, 750+direct hire Mission guard force, 17 direct-hire Bodyguards, 2 FSN Investigators, 6 member Surveillance Detection Team, a 2-person Residential Security Unit, and one Office Management Specialist.  The incumbent has direct supervisory responsibilities.  The incumbent is expected to manage the Marine Security Guard program, Mission residential and physical security programs, operational and administrative oversight of the direct hire Mission guard force, and complex budget issues. The incumbent also coordinates security for large-scale Mission events and visiting high ranking USG officials and conducts personnel, terrorist, criminal, and counterintelligence investigations as required. Point of Contact is RSO Jeffrey M. Roberts.",
-              "date_created": "2018-03-08T18:00:32.971745Z",
-              "date_updated": "2018-03-13T15:54:59.677323Z",
-              "id": 26,
-              "is_editable_by_user": false,
-              "last_editing_user": null,
-              "point_of_contact": null,
-              "website": null,
-            },
-            "effective_date": "2016-10-02T00:00:00Z",
-            "grade": "04",
-            "id": 60,
-            "is_highlighted": false,
-            "is_overseas": true,
+            "is_overseas": null,
             "languages": Array [
               Object {
-                "id": 1,
-                "language": "French (FR)",
-                "reading_proficiency": "2",
-                "representation": "French (FR) 2/2",
-                "spoken_proficiency": "2",
+                "language": "Telugu",
+                "reading_proficiency": "1",
+                "representation": "Telugu (TE) 1/1",
+                "spoken_proficiency": "1",
               },
               Object {
-                "id": 20,
-                "language": "Haitian Creole (HC)",
-                "reading_proficiency": "0",
-                "representation": "Haitian Creole (HC) 0/0",
-                "spoken_proficiency": "0",
+                "language": "Czech",
+                "reading_proficiency": "1",
+                "representation": "Czech (CX) 1/1",
+                "spoken_proficiency": "1",
               },
             ],
             "latest_bidcycle": Object {
-              "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+              "active": null,
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 155,
+              "name": "2018 DCM/PO Cycle",
             },
-            "organization": "(PORT AU PRIN) PORT AU PRINCE HAITI",
-            "position_number": "56082000",
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "00003026",
             "post": Object {
-              "code": "HA7000000",
-              "cost_of_living_adjustment": 15,
-              "danger_pay": 15,
-              "differential_rate": 20,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 110,
+              "code": "PK4000000",
+              "cost_of_living_adjustment": null,
+              "danger_pay": 0,
+              "differential_rate": 25,
+              "has_consumable_allowance": null,
+              "has_service_needs_differential": null,
+              "id": null,
               "location": Object {
-                "city": "Chicago",
-                "code": "101",
-                "country": "United States",
-                "id": 7,
-                "state": "IL",
+                "city": "Kenvil",
+                "code": "PK4000000",
+                "country": "USA",
+                "state": "Connecticut",
               },
               "obc_id": null,
-              "rest_relaxation_point": "Miami",
-              "tour_of_duty": "2 YRS (2 R & R)",
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "rest_relaxation_point": null,
+              "tour_of_duty": "INDEFINITE",
             },
-            "posted_date": "2016-10-02T00:00:00Z",
-            "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
-            "skill": "SECURITY (2501)",
-            "status": null,
-            "status_code": null,
-            "title": "SPECIAL AGENT",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
+            "posted_date": "2020-03-17T19:13:25.970000Z",
+            "representation": null,
+            "skill": "CONSULAR AFFAIRS (3001)",
+            "skill_code": "3001",
+            "title": "OMS (COM)",
+            "tour_of_duty": "INDEFINITE",
+            "update_date": null,
           },
+          "posted_date": "2020-03-17T19:13:25.970000Z",
+          "status": null,
+          "status_code": "OP",
+          "ted": "2020-03-17T19:13:25.970000Z",
+        },
+        Object {
+          "availability": Object {
+            "availability": null,
+            "reason": null,
+          },
+          "bid_statistics": Array [
+            Object {
+              "at_skill": null,
+              "has_handshake_accepted": null,
+              "has_handshake_offered": false,
+              "id": null,
+              "in_grade": null,
+              "in_grade_at_skill": null,
+              "total_bids": null,
+            },
+          ],
+          "bidcycle": Object {
+            "active": null,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 155,
+            "name": "2018 DCM/PO Cycle",
+          },
+          "id": 12330,
+          "is_hard_to_fill": false,
+          "is_urgent_vacancy": false,
+          "is_volunteer": false,
+          "position": Object {
+            "availability": Object {
+              "availability": null,
+              "reason": null,
+            },
+            "bureau": "(CSO) BUREAU OF CONFLICT AND STABILIZATION OPERATIONS",
+            "classifications": null,
+            "create_date": null,
+            "current_assignment": Object {
+              "estimated_end_date": "2012-10-22T05:00:00Z",
+              "start_date": null,
+              "status": null,
+              "tour_of_duty": "2 YRS (4 R & R)",
+              "user": null,
+            },
+            "description": Object {
+              "content": "The Office Management Specialist &#40;OMS&#41; for the Deputy Chief of Mission &#40;DCM&#41; provides office management services in this Mission of six agencies, 387 American and Locally Employed Staff &#40;LES&#41; positions, and 279 guard force contractors.  The OMS manages Executive Office operations and positionstains the DCM&#8217;s calendar in support of overall Mission goals and objectives.  The OMS &#40;DCM&#41; drafts routine correspondence, memoranda and cables as appropriate and ensures documents are cleared and delivered in a timely fashion. The OMS serves as back up to the Ambassador&#8217;s OMS.  POCs areSandra McInturff, DCM OMS, McInturffSL&#64;state.gov, 231-77-677-7000, ext. 7452; Samue Watson, DCM, WatsonSR&#64;state.gov, 231-77-677-7000, ext. 7452. Please submit lobbying documents to the 360 Community Lobbying Center http://appcenter.state.sbu/CLC. &#40;Revised 1/2017&#41;&#13;&#10;&#13;&#10;",
+              "date_created": null,
+              "date_updated": "2020-03-17T09:13:25.710000Z",
+              "id": null,
+              "is_editable_by_user": null,
+              "last_editing_user": null,
+              "point_of_contact": null,
+              "website": null,
+            },
+            "effective_date": null,
+            "grade": "OC",
+            "id": null,
+            "is_highlighted": false,
+            "is_overseas": null,
+            "languages": Array [
+              Object {
+                "language": "Somali",
+                "reading_proficiency": "1",
+                "representation": "Somali (SM) 1/1",
+                "spoken_proficiency": "1",
+              },
+              Object {
+                "language": "Kirghiz",
+                "reading_proficiency": "1",
+                "representation": "Kirghiz (KM) 1/1",
+                "spoken_proficiency": "1",
+              },
+            ],
+            "latest_bidcycle": Object {
+              "active": null,
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 155,
+              "name": "2018 DCM/PO Cycle",
+            },
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "10034001",
+            "post": Object {
+              "code": "SU4000000",
+              "cost_of_living_adjustment": null,
+              "danger_pay": 20,
+              "differential_rate": 15,
+              "has_consumable_allowance": null,
+              "has_service_needs_differential": null,
+              "id": null,
+              "location": Object {
+                "city": "Darbydale",
+                "code": "SU4000000",
+                "country": "USA",
+                "state": "Arizona",
+              },
+              "obc_id": null,
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "rest_relaxation_point": null,
+              "tour_of_duty": "2 YRS (4 R & R)",
+            },
+            "posted_date": "2020-03-17T19:13:25.970000Z",
+            "representation": null,
+            "skill": "REFUGEE AFFAIRS (6090)",
+            "skill_code": "6090",
+            "title": "OMS (DCM)",
+            "tour_of_duty": "2 YRS (4 R & R)",
+            "update_date": null,
+          },
+          "posted_date": "2020-03-17T19:13:25.970000Z",
+          "status": null,
+          "status_code": "OP",
+          "ted": "2020-03-17T19:13:25.970000Z",
         },
       ]
     }
@@ -464,555 +520,427 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
       Array [
         Object {
           "bidcycle": Object {
-            "name": "Bid Cycle 1",
+            "active": true,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 12,
+            "name": "Summer 2020",
           },
-          "id": 1,
+          "id": 5284,
+          "isPV": true,
           "position": Object {
-            "bid_statistics": Array [
+            "availability": Object {
+              "availability": true,
+              "reason": null,
+            },
+            "bid_cycle_statuses": Array [
               Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 6,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 2,
+                "bidcycle": "Summer 2020",
+                "id": 5284,
+                "position": "POLITICAL OFFICER",
+                "status": null,
+                "status_code": null,
               },
             ],
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
+            "bureau": "(DRL) OFF OF THE ASST SEC BUR OF DEMO, H R,  AND LABOR",
             "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:11.478084Z",
-              "start_date": "2018-03-13T15:51:11.478084Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
+              "estimated_end_date": "2012-10-22T05:00:00Z",
+              "user": null,
             },
             "description": Object {
-              "content": "The Office Management Specialist (OMS) for the Deputy Chief of Mission (DCM) provides office management services in this Mission of six agencies, 387 American and Locally Employed Staff (LES) positions, and 279 guard force contractors.  The OMS manages Executive Office operations and positionstains the DCM’s calendar in support of overall Mission goals and objectives.  The OMS (DCM) drafts routine correspondence, memoranda and cables as appropriate and ensures documents are cleared and delivered in a timely fashion. The OMS serves as back up to the Ambassador’s OMS.  POCs areSandra McInturff, DCM OMS, McInturffSL@state.gov, 231-77-677-7000, ext. 7452; Samue Watson, DCM, WatsonSR@state.gov, 231-77-677-7000, ext. 7452. Please submit lobbying documents to the 360 Community Lobbying Center http://appcenter.state.sbu/CLC. (Revised 1/2017)
-
-",
-              "date_created": "2018-03-08T18:00:33.241370Z",
-              "date_updated": "2018-03-13T15:55:00.018644Z",
-              "id": 90,
-              "is_editable_by_user": false,
-              "last_editing_user": null,
-              "point_of_contact": null,
-              "website": null,
+              "content": "Internal Reporting Officer in a political section comprised of seven officers, one OMS, and three FSN political specialists.  Reports to the Political Counselor through the Deputy Counselor; supervises one FSN.  Monitors, analyzes, and reports on Saudi internal politics, including domestic policies and institutions, the Royal Family, Shura and Municipal Councils, tribes, and elections and political participation.  POC: John Godfrey &#40;godfreyjt&#64;state.gov&#41; and Abram Paley &#40;PaleyAW&#64;state.gov&#41;. This year NEA is once again collecting lobbying documents through its 360 Lobbying Center. Please submit your lobbying information at: http://appcenter.state.sbu/CLC. Also please send all inquiries and correspondence about this position to post at: saudibidders&#64;state.gov.",
+              "date_updated": "2020-03-17T09:13:25.710000Z",
             },
-            "effective_date": "2012-10-22T00:00:00Z",
-            "grade": "06",
-            "id": 6,
-            "is_highlighted": false,
-            "is_overseas": true,
-            "languages": Array [],
+            "grade": "03",
+            "languages": Array [
+              Object {
+                "language": "Chinese-Mandar",
+                "reading_proficiency": "1",
+                "representation": "Chinese-Mandar (CM) 1/1",
+                "spoken_proficiency": "1",
+              },
+              Object {
+                "language": "Arabic Egyptian",
+                "reading_proficiency": "1",
+                "representation": "Arabic Egyptian (AE) 1/1",
+                "spoken_proficiency": "1",
+              },
+            ],
             "latest_bidcycle": Object {
               "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 12,
+              "name": "Summer 2020",
             },
-            "organization": "(MONROVIA) MONROVIA LIBERIA",
-            "position_number": "10034001",
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "10059003",
             "post": Object {
-              "code": "LI6000000",
-              "cost_of_living_adjustment": 30,
-              "danger_pay": 0,
-              "differential_rate": 30,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 160,
+              "danger_pay": 25,
+              "differential_rate": 15,
               "location": Object {
-                "city": "Freetown",
-                "code": "00A",
-                "country": "Sierra Leone",
-                "id": 103,
+                "city": "Coral",
+                "code": "UP3000000",
+                "country": "Russian Federation",
                 "state": "",
               },
-              "obc_id": 1,
-              "rest_relaxation_point": "Paris",
-              "tour_of_duty": "2 YRS (2 R & R)",
+              "obc_id": null,
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "tour_of_duty": "1 YR (1 R & R)",
             },
-            "posted_date": "2012-10-22T00:00:00Z",
-            "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
-            "skill": "OFFICE MANAGEMENT (9017)",
-            "status": null,
-            "status_code": null,
-            "title": "OMS (DCM)",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
+            "skill": "ECON RESOURCES & COMMODITIES (5050)",
+            "title": "POLITICAL OFFICER",
+            "tour_of_duty": "1 YR (1 R & R)",
           },
+          "ted": "2012-10-22T05:00:00Z",
         },
         Object {
           "bidcycle": Object {
-            "name": "Bid Cycle 1",
+            "active": true,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 12,
+            "name": "Summer 2020",
           },
-          "id": 2,
+          "id": 5294,
+          "isPV": true,
           "position": Object {
-            "bid_statistics": Array [
+            "availability": Object {
+              "availability": true,
+              "reason": null,
+            },
+            "bid_cycle_statuses": Array [
               Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 60,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 0,
+                "bidcycle": "Summer 2020",
+                "id": 5294,
+                "position": "INFORMATION PROGRAMS OFFICER",
+                "status": null,
+                "status_code": null,
               },
             ],
-            "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
+            "bureau": "(BP) BUREAU OF BUDGET AND PLANNING",
             "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:13.126727Z",
-              "start_date": "2018-03-13T15:51:13.126727Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
+              "estimated_end_date": "2012-02-02T05:00:00Z",
+              "user": null,
             },
             "description": Object {
-              "content": "(updated August 2012) The incumbent serves as one of four Assistant Regional Security Officers (ARSO) in the Regional Security Office in a two year assignment with a rotating management portfolio that provides generous exposure to all aspects of Diplomatic Security’s overseas programs. RSO Port-au-Prince currently consists of a 6 member Marine Security Guard Detachment, 750+direct hire Mission guard force, 17 direct-hire Bodyguards, 2 FSN Investigators, 6 member Surveillance Detection Team, a 2-person Residential Security Unit, and one Office Management Specialist.  The incumbent has direct supervisory responsibilities.  The incumbent is expected to manage the Marine Security Guard program, Mission residential and physical security programs, operational and administrative oversight of the direct hire Mission guard force, and complex budget issues. The incumbent also coordinates security for large-scale Mission events and visiting high ranking USG officials and conducts personnel, terrorist, criminal, and counterintelligence investigations as required. Point of Contact is RSO Jeffrey M. Roberts.",
-              "date_created": "2018-03-08T18:00:32.971745Z",
-              "date_updated": "2018-03-13T15:54:59.677323Z",
-              "id": 26,
-              "is_editable_by_user": false,
-              "last_editing_user": null,
-              "point_of_contact": null,
-              "website": null,
+              "content": "The IPO is one of three Information Management Specialists &#40;IMS&#41; at Post. The incumbent is in charge of the Information Program Center &#40;IPC&#41; providing oversight, management, and security for all classified computer system, radio and telephone operations at Embassy Harare. The employee supervises one USDH, one Information Management Assistant and eight locally employed staff &#40;LES&#41;. The IPO reports to the Information Management Officer &#40;IMO&#41;. POC IPO John Miller via unclassified e-mail or telephone number 263-4-250-593 ext. 4900, IVG 778-0000 or IMO Mark Myelle.  Please submit lobbying documents to the AF 360 CLC- http://appcenter.state.sbu/CLC. ",
+              "date_updated": "2020-03-17T09:13:25.710000Z",
             },
-            "effective_date": "2016-10-02T00:00:00Z",
-            "grade": "04",
-            "id": 60,
-            "is_highlighted": false,
-            "is_overseas": true,
+            "grade": "08",
             "languages": Array [
               Object {
-                "id": 1,
-                "language": "French (FR)",
-                "reading_proficiency": "2",
-                "representation": "French (FR) 2/2",
-                "spoken_proficiency": "2",
+                "language": "Hindi",
+                "reading_proficiency": "1",
+                "representation": "Hindi (HJ) 1/1",
+                "spoken_proficiency": "1",
               },
               Object {
-                "id": 20,
-                "language": "Haitian Creole (HC)",
-                "reading_proficiency": "0",
-                "representation": "Haitian Creole (HC) 0/0",
-                "spoken_proficiency": "0",
+                "language": "Arabic Modern",
+                "reading_proficiency": "1",
+                "representation": "Arabic Modern (AD) 1/1",
+                "spoken_proficiency": "1",
               },
             ],
             "latest_bidcycle": Object {
               "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 12,
+              "name": "Summer 2020",
             },
-            "organization": "(PORT AU PRIN) PORT AU PRINCE HAITI",
-            "position_number": "56082000",
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "55007010",
             "post": Object {
-              "code": "HA7000000",
-              "cost_of_living_adjustment": 15,
-              "danger_pay": 15,
-              "differential_rate": 20,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 110,
+              "danger_pay": 20,
+              "differential_rate": 10,
               "location": Object {
-                "city": "Chicago",
-                "code": "101",
-                "country": "United States",
-                "id": 7,
-                "state": "IL",
+                "city": "Saranap",
+                "code": "RS8900000",
+                "country": "USA",
+                "state": "Maine",
               },
               "obc_id": null,
-              "rest_relaxation_point": "Miami",
-              "tour_of_duty": "2 YRS (2 R & R)",
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "tour_of_duty": "1 YEAR(2R&R)/HL/1 YEAR(2R&R)",
             },
-            "posted_date": "2016-10-02T00:00:00Z",
-            "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
-            "skill": "SECURITY (2501)",
-            "status": null,
-            "status_code": null,
-            "title": "SPECIAL AGENT",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
+            "skill": "DIPLOMATIC COURIER (2580)",
+            "title": "INFORMATION PROGRAMS OFFICER",
+            "tour_of_duty": "1 YEAR(2R&R)/HL/1 YEAR(2R&R)",
           },
+          "ted": "2012-02-02T05:00:00Z",
         },
       ]
     }
     isLoading={false}
+    limit={12}
     maxLength={300}
+    page={1}
     positions={
       Array [
         Object {
-          "bidcycle": Object {
-            "name": "Bid Cycle 1",
+          "availability": Object {
+            "availability": null,
+            "reason": null,
           },
-          "id": 1,
+          "bid_statistics": Array [
+            Object {
+              "at_skill": null,
+              "has_handshake_accepted": null,
+              "has_handshake_offered": false,
+              "id": null,
+              "in_grade": null,
+              "in_grade_at_skill": null,
+              "total_bids": null,
+            },
+          ],
+          "bidcycle": Object {
+            "active": null,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 155,
+            "name": "2018 DCM/PO Cycle",
+          },
+          "id": 12325,
+          "is_hard_to_fill": false,
+          "is_urgent_vacancy": false,
+          "is_volunteer": false,
           "position": Object {
-            "bid_statistics": Array [
-              Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 6,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 2,
-              },
-            ],
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
+            "availability": Object {
+              "availability": null,
+              "reason": null,
+            },
+            "bureau": "(CA) BUREAU OF CONSULAR AFFAIRS",
+            "classifications": null,
+            "create_date": null,
             "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:11.478084Z",
-              "start_date": "2018-03-13T15:51:11.478084Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
+              "estimated_end_date": "2012-10-22T05:00:00Z",
+              "start_date": null,
+              "status": null,
+              "tour_of_duty": "INDEFINITE",
+              "user": null,
             },
             "description": Object {
-              "content": "The Office Management Specialist (OMS) for the Deputy Chief of Mission (DCM) provides office management services in this Mission of six agencies, 387 American and Locally Employed Staff (LES) positions, and 279 guard force contractors.  The OMS manages Executive Office operations and positionstains the DCM’s calendar in support of overall Mission goals and objectives.  The OMS (DCM) drafts routine correspondence, memoranda and cables as appropriate and ensures documents are cleared and delivered in a timely fashion. The OMS serves as back up to the Ambassador’s OMS.  POCs areSandra McInturff, DCM OMS, McInturffSL@state.gov, 231-77-677-7000, ext. 7452; Samue Watson, DCM, WatsonSR@state.gov, 231-77-677-7000, ext. 7452. Please submit lobbying documents to the 360 Community Lobbying Center http://appcenter.state.sbu/CLC. (Revised 1/2017)
-
-",
-              "date_created": "2018-03-08T18:00:33.241370Z",
-              "date_updated": "2018-03-13T15:55:00.018644Z",
-              "id": 90,
-              "is_editable_by_user": false,
+              "content": "Incumbent is the Office Manager for the Ambassador at a greater hardship post with a staff of 21 direct-hire Americans and 120 FSNs. She supervises an FSN protocol assistant and COM driver. She manages the Ambassador&#39;s calendar, work and travel schedules. She backs up the direct-hire DCM OMS who supports the DCM and Pol/Econ officer and who backs up COM OMS position. POC: COM OMS Shaye Palmer via e-mail:  PalmerSA&#64;state.gov. or DCM OMS Joanne Schmoll via e-mail, SchmollJL&#64;state.gov; 232-22-515-102.  &#40;Revised 07/2015&#41; &#13;&#10;AF 360 CLC- http://appcenter.state.sbu/CLC",
+              "date_created": null,
+              "date_updated": "2020-03-17T09:13:25.710000Z",
+              "id": null,
+              "is_editable_by_user": null,
               "last_editing_user": null,
               "point_of_contact": null,
               "website": null,
             },
-            "effective_date": "2012-10-22T00:00:00Z",
+            "effective_date": null,
             "grade": "06",
-            "id": 6,
+            "id": null,
             "is_highlighted": false,
-            "is_overseas": true,
-            "languages": Array [],
-            "latest_bidcycle": Object {
-              "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-            },
-            "organization": "(MONROVIA) MONROVIA LIBERIA",
-            "position_number": "10034001",
-            "post": Object {
-              "code": "LI6000000",
-              "cost_of_living_adjustment": 30,
-              "danger_pay": 0,
-              "differential_rate": 30,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 160,
-              "location": Object {
-                "city": "Freetown",
-                "code": "00A",
-                "country": "Sierra Leone",
-                "id": 103,
-                "state": "",
-              },
-              "obc_id": 1,
-              "rest_relaxation_point": "Paris",
-              "tour_of_duty": "2 YRS (2 R & R)",
-            },
-            "posted_date": "2012-10-22T00:00:00Z",
-            "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
-            "skill": "OFFICE MANAGEMENT (9017)",
-            "status": null,
-            "status_code": null,
-            "title": "OMS (DCM)",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
-          },
-        },
-        Object {
-          "bidcycle": Object {
-            "name": "Bid Cycle 1",
-          },
-          "id": 2,
-          "position": Object {
-            "bid_statistics": Array [
-              Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 60,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 0,
-              },
-            ],
-            "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
-            "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:13.126727Z",
-              "start_date": "2018-03-13T15:51:13.126727Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
-            },
-            "description": Object {
-              "content": "(updated August 2012) The incumbent serves as one of four Assistant Regional Security Officers (ARSO) in the Regional Security Office in a two year assignment with a rotating management portfolio that provides generous exposure to all aspects of Diplomatic Security’s overseas programs. RSO Port-au-Prince currently consists of a 6 member Marine Security Guard Detachment, 750+direct hire Mission guard force, 17 direct-hire Bodyguards, 2 FSN Investigators, 6 member Surveillance Detection Team, a 2-person Residential Security Unit, and one Office Management Specialist.  The incumbent has direct supervisory responsibilities.  The incumbent is expected to manage the Marine Security Guard program, Mission residential and physical security programs, operational and administrative oversight of the direct hire Mission guard force, and complex budget issues. The incumbent also coordinates security for large-scale Mission events and visiting high ranking USG officials and conducts personnel, terrorist, criminal, and counterintelligence investigations as required. Point of Contact is RSO Jeffrey M. Roberts.",
-              "date_created": "2018-03-08T18:00:32.971745Z",
-              "date_updated": "2018-03-13T15:54:59.677323Z",
-              "id": 26,
-              "is_editable_by_user": false,
-              "last_editing_user": null,
-              "point_of_contact": null,
-              "website": null,
-            },
-            "effective_date": "2016-10-02T00:00:00Z",
-            "grade": "04",
-            "id": 60,
-            "is_highlighted": false,
-            "is_overseas": true,
+            "is_overseas": null,
             "languages": Array [
               Object {
-                "id": 1,
-                "language": "French (FR)",
-                "reading_proficiency": "2",
-                "representation": "French (FR) 2/2",
-                "spoken_proficiency": "2",
+                "language": "Telugu",
+                "reading_proficiency": "1",
+                "representation": "Telugu (TE) 1/1",
+                "spoken_proficiency": "1",
               },
               Object {
-                "id": 20,
-                "language": "Haitian Creole (HC)",
-                "reading_proficiency": "0",
-                "representation": "Haitian Creole (HC) 0/0",
-                "spoken_proficiency": "0",
+                "language": "Czech",
+                "reading_proficiency": "1",
+                "representation": "Czech (CX) 1/1",
+                "spoken_proficiency": "1",
               },
             ],
             "latest_bidcycle": Object {
-              "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+              "active": null,
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 155,
+              "name": "2018 DCM/PO Cycle",
             },
-            "organization": "(PORT AU PRIN) PORT AU PRINCE HAITI",
-            "position_number": "56082000",
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "00003026",
             "post": Object {
-              "code": "HA7000000",
-              "cost_of_living_adjustment": 15,
-              "danger_pay": 15,
-              "differential_rate": 20,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 110,
+              "code": "PK4000000",
+              "cost_of_living_adjustment": null,
+              "danger_pay": 0,
+              "differential_rate": 25,
+              "has_consumable_allowance": null,
+              "has_service_needs_differential": null,
+              "id": null,
               "location": Object {
-                "city": "Chicago",
-                "code": "101",
-                "country": "United States",
-                "id": 7,
-                "state": "IL",
+                "city": "Kenvil",
+                "code": "PK4000000",
+                "country": "USA",
+                "state": "Connecticut",
               },
               "obc_id": null,
-              "rest_relaxation_point": "Miami",
-              "tour_of_duty": "2 YRS (2 R & R)",
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "rest_relaxation_point": null,
+              "tour_of_duty": "INDEFINITE",
             },
-            "posted_date": "2016-10-02T00:00:00Z",
-            "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
-            "skill": "SECURITY (2501)",
-            "status": null,
-            "status_code": null,
-            "title": "SPECIAL AGENT",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
+            "posted_date": "2020-03-17T19:13:25.970000Z",
+            "representation": null,
+            "skill": "CONSULAR AFFAIRS (3001)",
+            "skill_code": "3001",
+            "title": "OMS (COM)",
+            "tour_of_duty": "INDEFINITE",
+            "update_date": null,
           },
+          "posted_date": "2020-03-17T19:13:25.970000Z",
+          "status": null,
+          "status_code": "OP",
+          "ted": "2020-03-17T19:13:25.970000Z",
         },
         Object {
-          "bidcycle": Object {
-            "name": "Bid Cycle 1",
+          "availability": Object {
+            "availability": null,
+            "reason": null,
           },
-          "id": 1,
+          "bid_statistics": Array [
+            Object {
+              "at_skill": null,
+              "has_handshake_accepted": null,
+              "has_handshake_offered": false,
+              "id": null,
+              "in_grade": null,
+              "in_grade_at_skill": null,
+              "total_bids": null,
+            },
+          ],
+          "bidcycle": Object {
+            "active": null,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 155,
+            "name": "2018 DCM/PO Cycle",
+          },
+          "id": 12330,
+          "is_hard_to_fill": false,
+          "is_urgent_vacancy": false,
+          "is_volunteer": false,
           "position": Object {
-            "bid_statistics": Array [
-              Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 6,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 2,
-              },
-            ],
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
+            "availability": Object {
+              "availability": null,
+              "reason": null,
+            },
+            "bureau": "(CSO) BUREAU OF CONFLICT AND STABILIZATION OPERATIONS",
+            "classifications": null,
+            "create_date": null,
             "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:11.478084Z",
-              "start_date": "2018-03-13T15:51:11.478084Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
+              "estimated_end_date": "2012-10-22T05:00:00Z",
+              "start_date": null,
+              "status": null,
+              "tour_of_duty": "2 YRS (4 R & R)",
+              "user": null,
             },
             "description": Object {
-              "content": "The Office Management Specialist (OMS) for the Deputy Chief of Mission (DCM) provides office management services in this Mission of six agencies, 387 American and Locally Employed Staff (LES) positions, and 279 guard force contractors.  The OMS manages Executive Office operations and positionstains the DCM’s calendar in support of overall Mission goals and objectives.  The OMS (DCM) drafts routine correspondence, memoranda and cables as appropriate and ensures documents are cleared and delivered in a timely fashion. The OMS serves as back up to the Ambassador’s OMS.  POCs areSandra McInturff, DCM OMS, McInturffSL@state.gov, 231-77-677-7000, ext. 7452; Samue Watson, DCM, WatsonSR@state.gov, 231-77-677-7000, ext. 7452. Please submit lobbying documents to the 360 Community Lobbying Center http://appcenter.state.sbu/CLC. (Revised 1/2017)
-
-",
-              "date_created": "2018-03-08T18:00:33.241370Z",
-              "date_updated": "2018-03-13T15:55:00.018644Z",
-              "id": 90,
-              "is_editable_by_user": false,
+              "content": "The Office Management Specialist &#40;OMS&#41; for the Deputy Chief of Mission &#40;DCM&#41; provides office management services in this Mission of six agencies, 387 American and Locally Employed Staff &#40;LES&#41; positions, and 279 guard force contractors.  The OMS manages Executive Office operations and positionstains the DCM&#8217;s calendar in support of overall Mission goals and objectives.  The OMS &#40;DCM&#41; drafts routine correspondence, memoranda and cables as appropriate and ensures documents are cleared and delivered in a timely fashion. The OMS serves as back up to the Ambassador&#8217;s OMS.  POCs areSandra McInturff, DCM OMS, McInturffSL&#64;state.gov, 231-77-677-7000, ext. 7452; Samue Watson, DCM, WatsonSR&#64;state.gov, 231-77-677-7000, ext. 7452. Please submit lobbying documents to the 360 Community Lobbying Center http://appcenter.state.sbu/CLC. &#40;Revised 1/2017&#41;&#13;&#10;&#13;&#10;",
+              "date_created": null,
+              "date_updated": "2020-03-17T09:13:25.710000Z",
+              "id": null,
+              "is_editable_by_user": null,
               "last_editing_user": null,
               "point_of_contact": null,
               "website": null,
             },
-            "effective_date": "2012-10-22T00:00:00Z",
-            "grade": "06",
-            "id": 6,
+            "effective_date": null,
+            "grade": "OC",
+            "id": null,
             "is_highlighted": false,
-            "is_overseas": true,
-            "languages": Array [],
-            "latest_bidcycle": Object {
-              "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-            },
-            "organization": "(MONROVIA) MONROVIA LIBERIA",
-            "position_number": "10034001",
-            "post": Object {
-              "code": "LI6000000",
-              "cost_of_living_adjustment": 30,
-              "danger_pay": 0,
-              "differential_rate": 30,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 160,
-              "location": Object {
-                "city": "Freetown",
-                "code": "00A",
-                "country": "Sierra Leone",
-                "id": 103,
-                "state": "",
-              },
-              "obc_id": 1,
-              "rest_relaxation_point": "Paris",
-              "tour_of_duty": "2 YRS (2 R & R)",
-            },
-            "posted_date": "2012-10-22T00:00:00Z",
-            "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
-            "skill": "OFFICE MANAGEMENT (9017)",
-            "status": null,
-            "status_code": null,
-            "title": "OMS (DCM)",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
-          },
-        },
-        Object {
-          "bidcycle": Object {
-            "name": "Bid Cycle 1",
-          },
-          "id": 2,
-          "position": Object {
-            "bid_statistics": Array [
-              Object {
-                "at_skill": 0,
-                "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
-                "id": 60,
-                "in_grade": 0,
-                "in_grade_at_skill": 0,
-                "total_bids": 0,
-              },
-            ],
-            "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
-            "classifications": Array [],
-            "create_date": "2006-09-20T00:00:00Z",
-            "current_assignment": Object {
-              "estimated_end_date": "2020-03-13T15:51:13.126727Z",
-              "start_date": "2018-03-13T15:51:13.126727Z",
-              "status": "active",
-              "tour_of_duty": "2 YRS (2 R & R)",
-              "user": "John Doe",
-            },
-            "description": Object {
-              "content": "(updated August 2012) The incumbent serves as one of four Assistant Regional Security Officers (ARSO) in the Regional Security Office in a two year assignment with a rotating management portfolio that provides generous exposure to all aspects of Diplomatic Security’s overseas programs. RSO Port-au-Prince currently consists of a 6 member Marine Security Guard Detachment, 750+direct hire Mission guard force, 17 direct-hire Bodyguards, 2 FSN Investigators, 6 member Surveillance Detection Team, a 2-person Residential Security Unit, and one Office Management Specialist.  The incumbent has direct supervisory responsibilities.  The incumbent is expected to manage the Marine Security Guard program, Mission residential and physical security programs, operational and administrative oversight of the direct hire Mission guard force, and complex budget issues. The incumbent also coordinates security for large-scale Mission events and visiting high ranking USG officials and conducts personnel, terrorist, criminal, and counterintelligence investigations as required. Point of Contact is RSO Jeffrey M. Roberts.",
-              "date_created": "2018-03-08T18:00:32.971745Z",
-              "date_updated": "2018-03-13T15:54:59.677323Z",
-              "id": 26,
-              "is_editable_by_user": false,
-              "last_editing_user": null,
-              "point_of_contact": null,
-              "website": null,
-            },
-            "effective_date": "2016-10-02T00:00:00Z",
-            "grade": "04",
-            "id": 60,
-            "is_highlighted": false,
-            "is_overseas": true,
+            "is_overseas": null,
             "languages": Array [
               Object {
-                "id": 1,
-                "language": "French (FR)",
-                "reading_proficiency": "2",
-                "representation": "French (FR) 2/2",
-                "spoken_proficiency": "2",
+                "language": "Somali",
+                "reading_proficiency": "1",
+                "representation": "Somali (SM) 1/1",
+                "spoken_proficiency": "1",
               },
               Object {
-                "id": 20,
-                "language": "Haitian Creole (HC)",
-                "reading_proficiency": "0",
-                "representation": "Haitian Creole (HC) 0/0",
-                "spoken_proficiency": "0",
+                "language": "Kirghiz",
+                "reading_proficiency": "1",
+                "representation": "Kirghiz (KM) 1/1",
+                "spoken_proficiency": "1",
               },
             ],
             "latest_bidcycle": Object {
-              "active": true,
-              "cycle_deadline_date": "2018-04-13T15:51:10.980554Z",
-              "cycle_end_date": "2018-06-13T15:51:10.980554Z",
-              "cycle_start_date": "2017-12-13T15:51:10.980554Z",
-              "id": 1,
-              "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+              "active": null,
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 155,
+              "name": "2018 DCM/PO Cycle",
             },
-            "organization": "(PORT AU PRIN) PORT AU PRINCE HAITI",
-            "position_number": "56082000",
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "10034001",
             "post": Object {
-              "code": "HA7000000",
-              "cost_of_living_adjustment": 15,
-              "danger_pay": 15,
-              "differential_rate": 20,
-              "has_consumable_allowance": true,
-              "has_service_needs_differential": true,
-              "id": 110,
+              "code": "SU4000000",
+              "cost_of_living_adjustment": null,
+              "danger_pay": 20,
+              "differential_rate": 15,
+              "has_consumable_allowance": null,
+              "has_service_needs_differential": null,
+              "id": null,
               "location": Object {
-                "city": "Chicago",
-                "code": "101",
-                "country": "United States",
-                "id": 7,
-                "state": "IL",
+                "city": "Darbydale",
+                "code": "SU4000000",
+                "country": "USA",
+                "state": "Arizona",
               },
               "obc_id": null,
-              "rest_relaxation_point": "Miami",
-              "tour_of_duty": "2 YRS (2 R & R)",
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "rest_relaxation_point": null,
+              "tour_of_duty": "2 YRS (4 R & R)",
             },
-            "posted_date": "2016-10-02T00:00:00Z",
-            "representation": "[56082000] SPECIAL AGENT (Port-Au-Prince, Haiti)",
-            "skill": "SECURITY (2501)",
-            "status": null,
-            "status_code": null,
-            "title": "SPECIAL AGENT",
-            "tour_of_duty": null,
-            "update_date": "2017-06-08T00:00:00Z",
+            "posted_date": "2020-03-17T19:13:25.970000Z",
+            "representation": null,
+            "skill": "REFUGEE AFFAIRS (6090)",
+            "skill_code": "6090",
+            "title": "OMS (DCM)",
+            "tour_of_duty": "2 YRS (4 R & R)",
+            "update_date": null,
           },
+          "posted_date": "2020-03-17T19:13:25.970000Z",
+          "status": null,
+          "status_code": "OP",
+          "ted": "2020-03-17T19:13:25.970000Z",
         },
       ]
     }
     refreshFavorites={true}
     showBidListButton={true}
     showCompareButton={true}
+    sortType=""
     title="favorites"
     type="default"
     useShortFavButton={true}
   />
+  <div
+    className="usa-grid-full react-paginate"
+  >
+    <PaginationWrapper
+      activeClassName="active"
+      containerClassName="pagination"
+      forcePage={1}
+      marginPagesDisplayed={1}
+      nextLabel="Next"
+      onPageChange={[Function]}
+      pageRangeDisplayed={2}
+      pageSize={12}
+      paginationStyle="pagination"
+      previousLabel="Previous"
+      subContainerClassName="pages pagination"
+      totalResults={2}
+    />
+  </div>
 </div>
 `;
