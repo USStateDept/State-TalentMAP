@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { get, isNil } from 'lodash';
+import { get } from 'lodash';
 import { usePrevious } from 'hooks';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';

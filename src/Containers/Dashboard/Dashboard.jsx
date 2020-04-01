@@ -95,7 +95,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchAssignment: () => dispatch(assignmentFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchBidList: () => dispatch(bidListFetchData()),
-  fetchFavorites: () => dispatch(favoritePositionsFetchData()),
+  fetchFavorites: () => dispatch(favoritePositionsFetchData(null, 5, 1, 'all')),
   submitBidPosition: id => dispatch(submitBid(id)),
   deleteBid: id => dispatch(toggleBidPosition(id, true)),
 });

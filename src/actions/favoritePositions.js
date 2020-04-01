@@ -113,6 +113,7 @@ export function favoritePositionsFetchData(sortType, limit = 15,
             data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
             data$.results = get(results, '[0].results', []); // TODO: outdated? consider removing
           }
+          data$.counts.all = data$.counts.favorites + data$.counts.favoritesPV;
           batch(() => {
             dispatch(favoritePositionsFetchDataSuccess(data$));
             dispatch(favoritePositionsHasErrored(false));
