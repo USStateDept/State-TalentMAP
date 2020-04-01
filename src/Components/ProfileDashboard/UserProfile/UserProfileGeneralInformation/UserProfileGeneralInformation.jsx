@@ -10,7 +10,8 @@ import Avatar from '../../../Avatar';
 import StaticDevContent from '../../../StaticDevContent';
 import SkillCodeList from '../../../SkillCodeList';
 
-const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, isPublic }) => {
+const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, isPublic,
+  colorProp, useColor }) => {
   const avatar = {
     firstName: get(userProfile, 'user.first_name'),
     lastName: get(userProfile, 'user.last_name'),
@@ -19,6 +20,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, is
     externalSource: get(userProfile, 'avatar'),
     externalSourceToUse: 'm',
   };
+  avatar.colorString = useColor ? avatar[colorProp] : undefined;
   const infoDataPointClassName = 'skill-code-data-point-container skill-code-data-point-container-gen-spec';
   const conditionalStaticDevContent = isPublic ?
     (<InformationDataPoint
@@ -63,12 +65,16 @@ UserProfileGeneralInformation.propTypes = {
   showEditLink: PropTypes.bool,
   useGroup: PropTypes.bool,
   isPublic: PropTypes.bool,
+  useColor: PropTypes.bool,
+  colorProp: PropTypes.bool,
 };
 
 UserProfileGeneralInformation.defaultProps = {
   showEditLink: true,
   useGroup: false,
   isPublic: false,
+  useColor: false,
+  colorProp: 'displayName',
 };
 
 export default UserProfileGeneralInformation;

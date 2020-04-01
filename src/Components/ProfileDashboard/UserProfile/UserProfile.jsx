@@ -19,6 +19,8 @@ const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
           showEditLink={showEditLink}
           useGroup={useGroup}
           isPublic={isPublic}
+          colorProp="firstName"
+          useColor={isPublic}
         />
       }
       {

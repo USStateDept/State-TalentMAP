@@ -757,3 +757,37 @@ export const stopProp = (event) => {
     e.stopPropagation();
   }
 };
+
+export const getContrastYIQ = hexcolor => {
+  const r = parseInt(hexcolor.substr(0, 2), 16);
+  const g = parseInt(hexcolor.substr(2, 2), 16);
+  const b = parseInt(hexcolor.substr(4, 2), 16);
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? 'black' : 'white';
+};
+
+// Supply a user's full name
+// Returns background color and text color
+export const getAvatarColor = str => {
+  if (str) {
+    let hash = 0;
+    [...str].forEach((s, i) => {
+      if (i) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line
+      }
+    });
+
+    const c = (hash & 0x00FFFFFF) // eslint-disable-line
+      .toString(16)
+      .toUpperCase();
+
+    const backgroundColor = '00000'.substring(0, 6 - c.length) + c;
+    const color = getContrastYIQ(backgroundColor);
+
+    const backgroundColorWithHash = `#${backgroundColor}`;
+
+    return { backgroundColor: backgroundColorWithHash, color };
+  }
+
+  return null;
+};
