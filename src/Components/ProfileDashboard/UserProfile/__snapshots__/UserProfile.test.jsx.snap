@@ -5,8 +5,10 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   className="usa-grid-full current-user"
 >
   <UserProfileGeneralInformation
+    colorProp="firstName"
     isPublic={false}
     showEditLink={true}
+    useColor={false}
     useGroup={false}
     userProfile={
       Object {

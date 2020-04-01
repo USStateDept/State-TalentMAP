@@ -66,7 +66,7 @@ UserProfileGeneralInformation.propTypes = {
   useGroup: PropTypes.bool,
   isPublic: PropTypes.bool,
   useColor: PropTypes.bool,
-  colorProp: PropTypes.bool,
+  colorProp: PropTypes.string,
 };
 
 UserProfileGeneralInformation.defaultProps = {

@@ -32,8 +32,10 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
         className="general-information-container"
       >
         <UserProfileGeneralInformation
+          colorProp="displayName"
           isPublic={false}
           showEditLink={false}
+          useColor={false}
           useGroup={true}
           userProfile={
             Object {
