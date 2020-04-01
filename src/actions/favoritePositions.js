@@ -1,5 +1,5 @@
 import { batch } from 'react-redux';
-import { get, isNil } from 'lodash';
+import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import { toastError } from './toast';
 import api from '../api';
