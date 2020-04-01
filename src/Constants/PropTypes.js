@@ -183,7 +183,7 @@ export const FAVORITE_POSITIONS_ARRAY = PropTypes.arrayOf(FAVORITE_POSITION);
 export const FAVORITE_POSITIONS = PropTypes.shape({
   favorites: PropTypes.arrayOf(FAVORITE_POSITION),
   favoritesPV: PropTypes.arrayOf(FAVORITE_POSITION),
-  counts: -1,
+  counts: PropTypes.shape({}),
 });
 
 export const USER_SKILL_CODE = PropTypes.shape({

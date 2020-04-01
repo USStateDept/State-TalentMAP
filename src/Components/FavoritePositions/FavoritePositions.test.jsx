@@ -2,8 +2,8 @@ import { shallow, mount } from 'enzyme';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import toJSON from 'enzyme-to-json';
-import FavoritePositions from './FavoritePositions';
 import sinon from 'sinon';
+import FavoritePositions from './FavoritePositions';
 import favoritesObject from '../../__mocks__/favoritesObject';
 import bidListObject from '../../__mocks__/bidListObject';
 
