@@ -6,10 +6,9 @@ import { isNull, get } from 'lodash';
 import FA from 'react-fontawesome';
 import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
+import { BID_LIST, COMPARE_LIST } from 'Constants/PropTypes';
+import COMPARE_LIMIT from 'Constants/Compare';
 import BackButton from '../BackButton';
-import { BID_LIST, COMPARE_LIST, POSITION_SEARCH_RESULTS } from '../../Constants/PropTypes';
-import { POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
-import COMPARE_LIMIT from '../../Constants/Compare';
 import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_GRADE } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
@@ -314,7 +313,7 @@ class CompareList extends Component {
 CompareList.propTypes = {
   compare: COMPARE_LIST,
   isLoading: PropTypes.bool,
-  favorites: POSITION_SEARCH_RESULTS,
+  favorites: PropTypes.arrayOf(PropTypes.shape({})),
   onToggle: PropTypes.func.isRequired,
   bidList: BID_LIST,
 };
@@ -322,7 +321,7 @@ CompareList.propTypes = {
 CompareList.defaultProps = {
   compare: [],
   isLoading: false,
-  favorites: POSITION_RESULTS_OBJECT,
+  favorites: [],
   bidList: { results: [] },
 };
 
