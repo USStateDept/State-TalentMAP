@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
 import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, FAVORITE_POSITION_COUNTS, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { DEFAULT_FAVORITES_COUNTS } from 'Constants/DefaultProps';
 import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from 'Constants/Sort';
 import TotalResults from '../TotalResults';
 import ProfileSectionTitle from '../ProfileSectionTitle';
@@ -172,7 +173,7 @@ FavoritePositions.defaultProps = {
   sortType: null,
   page: 1,
   pageSize: 12,
-  counts: {},
+  counts: DEFAULT_FAVORITES_COUNTS,
   onPageChange: EMPTY_FUNCTION,
   selectedNav: EMPTY_FUNCTION,
 };
