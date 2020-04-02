@@ -264,6 +264,8 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     favorites={Array []}
     favoritesPV={Array []}
     isProjectedVacancy={false}
+    limit={15}
+    page={1}
     position={
       Object {
         "bidcycle": Object {
@@ -353,6 +355,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     showBidCount={true}
     showBidListButton={false}
     showCompareButton={false}
+    sortType={null}
     type="default"
     useShortFavButton={false}
   />

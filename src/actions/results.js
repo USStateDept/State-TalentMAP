@@ -2,7 +2,11 @@ import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
 import { get } from 'lodash';
+import numeral from 'numeral';
+import shortid from 'shortid';
 import { downloadFromResponse } from 'utilities';
+import { store } from '../store';
+import { toastSuccess, toastError, toastInfo } from './toast';
 import api from '../api';
 
 let cancel;
@@ -77,6 +81,9 @@ export function resultsFetchSimilarPositions(id) {
 
 export function downloadPositionData(query, isPV) {
   const prefix = `/fsbid${isPV ? '/projected_vacancies' : '/available_positions'}/export/`;
+  // generate a unique ID to track the notification
+  const id = shortid.generate();
+  store.dispatch(toastInfo('Please wait while we process your position export.', 'Loading...', id));
   return api()
     .get(`${prefix}?${query}`, {
       cancelToken: new CancelToken((c) => { cancel = c; }),
@@ -84,6 +91,16 @@ export function downloadPositionData(query, isPV) {
     })
     .then((response) => {
       downloadFromResponse(response, 'TalentMap_search_export');
+      // display the position limit, if any, to the user
+      let limit = response.headers['position-limit'];
+      // format the number to include commas
+      if (limit) { limit = numeral(limit).format('0,0'); }
+      const text = `Your position export is complete.${limit ? ` Results have been limited to the first ${limit}.` : ''}`;
+      store.dispatch(toastSuccess(text, 'Success', id, true));
+    })
+    .catch(() => {
+      const text = 'Sorry, an error has occurred while processing your position export. Please try again.';
+      store.dispatch(toastError(text, 'Error', id, true));
     });
 }
 

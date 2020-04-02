@@ -1,115 +1,133 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TotalResults displays page numbers and total results correctly when on the first page of the results 1`] = `
+exports[`TotalResults beginning and through not equal displays page numbers and total results correctly when on the first page of the results 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
-  <strong>
-    1
-    -
-    25
-  </strong>
-   of 
-  <strong>
-    103
-  </strong>
-   
-  Results
+  <div>
+    Viewing 
+    <strong>
+      1
+      -
+      25
+    </strong>
+     of 
+    <strong>
+      103
+    </strong>
+     
+    Results
+  </div>
 </span>
 `;
 
-exports[`TotalResults displays page numbers and total results correctly when on the second page of the results 1`] = `
+exports[`TotalResults beginning and through not equal displays page numbers and total results correctly when on the second page of the results 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
-  <strong>
-    26
-    -
-    50
-  </strong>
-   of 
-  <strong>
-    103
-  </strong>
-   
-  Results
+  <div>
+    Viewing 
+    <strong>
+      26
+      -
+      50
+    </strong>
+     of 
+    <strong>
+      103
+    </strong>
+     
+    Results
+  </div>
 </span>
 `;
 
-exports[`TotalResults displays page numbers and total results correctly when on the third page of the results 1`] = `
+exports[`TotalResults beginning and through not equal displays page numbers and total results correctly when on the third page of the results 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
-  <strong>
-    51
-    -
-    75
-  </strong>
-   of 
-  <strong>
-    103
-  </strong>
-   
-  Results
+  <div>
+    Viewing 
+    <strong>
+      51
+      -
+      75
+    </strong>
+     of 
+    <strong>
+      103
+    </strong>
+     
+    Results
+  </div>
 </span>
 `;
 
-exports[`TotalResults displays page numbers and total results correctly when reaching the last page of the results 1`] = `
+exports[`TotalResults beginning and through not equal displays page numbers and total results correctly when reaching the last page of the results 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
-  <strong>
-    101
-    -
-    103
-  </strong>
-   of 
-  <strong>
-    103
-  </strong>
-   
-  Results
+  <div>
+    Viewing 
+    <strong>
+      101
+      -
+      103
+    </strong>
+     of 
+    <strong>
+      103
+    </strong>
+     
+    Results
+  </div>
 </span>
 `;
 
-exports[`TotalResults displays page numbers and total results correctly when reaching the second to last page of the results 1`] = `
+exports[`TotalResults beginning and through not equal displays page numbers and total results correctly when reaching the second to last page of the results 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
-  <strong>
-    76
-    -
-    100
-  </strong>
-   of 
-  <strong>
-    103
-  </strong>
-   
-  Results
+  <div>
+    Viewing 
+    <strong>
+      76
+      -
+      100
+    </strong>
+     of 
+    <strong>
+      103
+    </strong>
+     
+    Results
+  </div>
 </span>
 `;
 
-exports[`TotalResults matches snapshot 1`] = `
+exports[`TotalResults beginning and through not equal matches snapshot 1`] = `
+<span
+  id="total-results"
+/>
+`;
+
+exports[`TotalResults pageSize === all displays page numbers and total results correctly when on the first page of the results 1`] = `
 <span
   id="total-results"
 >
-  Viewing 
-  <strong>
-    1
-    -
-    0
-  </strong>
-   of 
-  <strong>
-    103
-  </strong>
-   
-  Results
+  <div>
+    Viewing 
+    <strong>
+      93
+    </strong>
+     
+    Results
+  </div>
 </span>
+`;
+
+exports[`TotalResults pageSize === all matches snapshot 1`] = `
+<span
+  id="total-results"
+/>
 `;

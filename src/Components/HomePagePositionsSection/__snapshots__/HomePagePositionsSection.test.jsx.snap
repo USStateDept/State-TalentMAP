@@ -184,6 +184,8 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
     favorites={Array []}
     favoritesPV={Array []}
     isLoading={false}
+    limit={15}
+    page={1}
     positions={
       Array [
         Object {
@@ -370,6 +372,7 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
     refreshFavorites={false}
     showBidListButton={false}
     showCompareButton={false}
+    sortType={null}
     title="Title"
     type="default"
     useShortFavButton={false}

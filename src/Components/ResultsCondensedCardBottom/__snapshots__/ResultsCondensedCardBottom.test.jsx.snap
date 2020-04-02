@@ -116,8 +116,11 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         }
         hasBorder={true}
         hideText={false}
+        limit={15}
+        page={1}
         refKey={1}
         refresh={false}
+        sortType={null}
         useButtonClass={true}
         useButtonClassSecondary={false}
         useLongText={true}
@@ -357,8 +360,11 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist butto
         }
         hasBorder={true}
         hideText={false}
+        limit={15}
+        page={1}
         refKey={1}
         refresh={false}
+        sortType={null}
         useButtonClass={true}
         useButtonClassSecondary={false}
         useLongText={true}
