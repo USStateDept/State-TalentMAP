@@ -50,15 +50,14 @@ const FavoritePositions = props => {
       !!(selected === TYPE_OPEN),
     ];
 
-    setIsLoading(true, () => {
-      downloadPositionData(...args)
-        .then(() => {
-          setIsLoading(false);
-        })
-        .catch(() => {
-          setIsLoading(false);
-        });
-    });
+    setIsLoading(true);
+    downloadPositionData(...args)
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   }
 
   const positions = getPositions();
