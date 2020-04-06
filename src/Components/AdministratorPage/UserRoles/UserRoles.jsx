@@ -132,11 +132,11 @@ UserRoles.propTypes = {
   totalUsers: PropTypes.number,
   usersList: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.node,
-      username: PropTypes.node,
-      last_name: PropTypes.node,
-      first_name: PropTypes.node,
-      groups: PropTypes.node,
+      id: PropTypes.number,
+      username: PropTypes.string,
+      last_name: PropTypes.string,
+      first_name: PropTypes.string,
+      groups: PropTypes.arrayOf(PropTypes.shape({})),
     })),
   usersIsLoading: PropTypes.bool,
   usersHasErrored: PropTypes.bool,
@@ -148,11 +148,11 @@ UserRoles.propTypes = {
 UserRoles.defaultProps = {
   totalUsers: 0,
   usersList: [{
-    id: '',
+    id: null,
     username: '',
     last_name: '',
     first_name: '',
-    groups: '',
+    groups: [],
   }],
   usersIsLoading: false,
   usersHasErrored: false,
