@@ -12,6 +12,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
     >
       <Avatar
         className="dashboard-user-profile-picture"
+        colorString=""
         displayName="John"
         externalSource={Object {}}
         externalSourceToUse="m"
@@ -92,6 +93,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
     >
       <Avatar
         className="dashboard-user-profile-picture"
+        colorString=""
         displayName="John"
         externalSource={Object {}}
         externalSourceToUse="m"
@@ -172,6 +174,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
     >
       <Avatar
         className="dashboard-user-profile-picture"
+        colorString=""
         displayName="John"
         externalSource={Object {}}
         externalSourceToUse="m"

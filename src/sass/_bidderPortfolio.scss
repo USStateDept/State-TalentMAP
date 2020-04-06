@@ -369,6 +369,23 @@ $cdo-search-container-padding: 10px;
     > div {
       font-size: .8em;
     }
+
+    li {
+      margin-bottom: 1px;
+      margin-top: 1px;
+    }
+
+    li:first-child {
+      margin-top: 3px;
+    }
+
+    li:last-child {
+      margin-bottom: 3px;
+    }
+
+    .picky--sublabel {
+      margin-left: 2em;
+    }
   }
 
   .dropdown-trigger-container {

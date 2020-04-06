@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bowser from 'bowser';
 import { filter, indexOf, isArray, map, throttle } from 'lodash';
+import { format } from 'date-fns';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSeasonsFetchData, bidderPortfolioSetSeasons } from 'actions/bidderPortfolio';
 import ListItem from './ListItem';
@@ -17,7 +18,31 @@ const isIE = browser.satisfies({ 'internet explorer': '<=11' });
 const THROTTLE_MS = isIE ? 1000 : 0;
 
 export function renderList({ items, ...rest }) {
-  return items.map(item => <ListItem {...rest} key={item.id} item={item.description} />);
+  return items.map(item => {
+    const props = {
+      ...rest,
+      key: item.id,
+      item: item.description,
+    };
+    const DATE_FORMAT = 'MMM YYYY';
+    const startDate = format(item.start_date, DATE_FORMAT);
+    const endDate = format(item.end_date, DATE_FORMAT);
+
+    if (startDate && endDate) {
+      const label = (
+        <span>
+          <span>{item.description}</span>
+          <div className="picky--sublabel picky--bold">
+            {startDate} - {endDate}
+          </div>
+        </span>
+      );
+      props.customLabel = label;
+    }
+    return (
+      <ListItem {...props} />
+    );
+  });
 }
 
 class BidCyclePicker extends Component {
