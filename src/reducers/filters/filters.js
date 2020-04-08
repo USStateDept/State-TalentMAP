@@ -358,6 +358,22 @@ const items =
         data: [
         ],
       },
+      {
+        item: {
+          title: 'test-Handshake',
+          sort: 300, // ?mike? does this mean the precedence we give to this particular sort?
+          description: 'handshake',
+          endpoint: 'cps_codes/',
+          endpointAP: 'fsbid/available_positions/',
+          selectionRef: ENDPOINT_PARAMS.available,
+          onlyAvailablePositions: true,
+          tryCache: true,
+        },
+        data: [
+          { id: 'withHandshake', code: 'HS', description: 'Has Handshake' },
+          { id: 'withoutHandshake', code: 'OP', description: 'No Handshake' },
+        ],
+      },
     ],
   };
 
