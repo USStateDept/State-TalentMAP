@@ -52,7 +52,7 @@ class UserRow extends Component {
 }
 
 UserRow.propTypes = {
-  userID: PropTypes.number,
+  userID: PropTypes.number.isRequired,
   username: PropTypes.string,
   name: PropTypes.string,
   permissionGroups: PropTypes.arrayOf(PropTypes.shape({})),
@@ -61,7 +61,6 @@ UserRow.propTypes = {
 };
 
 UserRow.defaultProps = {
-  userID: null,
   username: '',
   name: '',
   permissionGroups: [],

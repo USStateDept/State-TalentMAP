@@ -29,7 +29,7 @@ describe('UserRow', () => {
 
   xit('calls checkPermission()', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<UserRow.WrappedComponent checkPermission={spy} />);
+    const wrapper = shallow(<UserRow.WrappedComponent {...props} checkPermission={spy} />);
     wrapper.instance().checkPermission();
     sinon.assert.calledOnce(spy);
   });
@@ -45,21 +45,21 @@ describe('UserRow', () => {
 
   xit('calls updatePermission()', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<UserRow.WrappedComponent updatePermission={spy} />);
+    const wrapper = shallow(<UserRow.WrappedComponent {...props} updatePermission={spy} />);
     wrapper.instance().updatePermission();
     sinon.assert.calledOnce(spy);
   });
 
   it('calls modifyPermission() from updatePermission()', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<UserRow.WrappedComponent modifyPermission={spy} />);
+    const wrapper = shallow(<UserRow.WrappedComponent {...props} modifyPermission={spy} />);
     wrapper.instance().updatePermission();
     sinon.assert.calledOnce(spy);
   });
 
   xit('calls userHasPermissions() from checkPermission()', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(<UserRow.WrappedComponent userHasPermissions={spy} />);
+    const wrapper = shallow(<UserRow.WrappedComponent {...props} userHasPermissions={spy} />);
     wrapper.instance().checkPermission();
     sinon.assert.calledOnce(spy);
   });
