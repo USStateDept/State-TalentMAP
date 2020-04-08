@@ -6,7 +6,15 @@ $draft-icon-offset: 120px;
   position: relative;
 
   .searches-top-section {
+    display: flex;
+    justify-content: flex-end;
     margin-bottom: 1.2em;
+  }
+
+  .export-button-container {
+    button {
+      margin-top: 0;
+    }
   }
 
   .results-dropdown-sort {

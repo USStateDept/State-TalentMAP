@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, find, orderBy, reverse } from 'lodash';
 import Alert from 'Components/Alert';
+import ExportButton from 'Components/ExportButton';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import SelectForm from 'Components/SelectForm';
 import { BID_STATUS_ORDER } from 'Constants/BidStatuses';
+import { downloadBidlistData } from 'actions/bidList';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
 import ProfileSectionTitle from '../ProfileSectionTitle';
@@ -30,11 +32,16 @@ class BidTracker extends Component {
     super(props);
     this.state = {
       sortValue: find(SORT_OPTIONS, f => f.defaultSort).value,
+      exportIsLoading: false,
     };
   }
 
   onSelectOption = e => {
     this.setState({ sortValue: get(e, 'target.value') });
+  };
+
+  setIsLoading = exportIsLoading => {
+    this.setState({ exportIsLoading });
   };
 
   getSortedBids() {
@@ -58,8 +65,19 @@ class BidTracker extends Component {
     return results$;
   }
 
+  exportBidlistData = () => {
+    this.setIsLoading(true);
+    downloadBidlistData()
+      .then(() => {
+        this.setIsLoading(false);
+      })
+      .catch(() => {
+        this.setIsLoading(false);
+      });
+  }
+
   render() {
-    const { sortValue } = this.state;
+    const { exportIsLoading, sortValue } = this.state;
     const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
       notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
       userProfileIsLoading, isPublic, useCDOView } = this.props;
@@ -113,6 +131,12 @@ class BidTracker extends Component {
               onSelectOption={this.onSelectOption}
             />
           </div>
+          {
+            !isPublic &&
+              <div className="export-button-container">
+                <ExportButton onClick={this.exportBidlistData} isLoading={exportIsLoading} />
+              </div>
+          }
         </div>
         <div className="bid-tracker-content-container">
           {
