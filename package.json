@@ -98,7 +98,7 @@
     "axios-mock-adapter": "^1.18.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10",
-    "babel-jest": "^25.2.6",
+    "babel-jest": "^25.3.0",
     "babel-loader": "^8.1.0",
     "babel-preset-react-app": "^9.1.1",
     "bundlesize": "^0.17.1",
