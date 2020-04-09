@@ -130,7 +130,14 @@ class UserRoles extends Component {
 
 UserRoles.propTypes = {
   totalUsers: PropTypes.number,
-  usersList: PropTypes.arrayOf(PropTypes.shape({})),
+  usersList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      username: PropTypes.string,
+      last_name: PropTypes.string,
+      first_name: PropTypes.string,
+      groups: PropTypes.arrayOf(PropTypes.shape({})),
+    })),
   usersIsLoading: PropTypes.bool,
   usersHasErrored: PropTypes.bool,
   modifyPermissionIsLoading: PropTypes.bool,
@@ -140,7 +147,13 @@ UserRoles.propTypes = {
 
 UserRoles.defaultProps = {
   totalUsers: 0,
-  usersList: [],
+  usersList: [{
+    id: null,
+    username: '',
+    last_name: '',
+    first_name: '',
+    groups: [],
+  }],
   usersIsLoading: false,
   usersHasErrored: false,
   modifyPermissionIsLoading: false,
@@ -149,7 +162,7 @@ UserRoles.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  usersList: state.usersSuccess.results,
+  usersList: get(state, 'usersSuccess.results', []),
   usersIsLoading: state.usersIsLoading,
   usersHasErrored: state.usersHasErrored,
   modifyPermissionIsLoading: state.modifyPermissionIsLoading,
