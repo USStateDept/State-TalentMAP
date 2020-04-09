@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import UserRow, { mapDispatchToProps } from './UserRow';
-import { userHasPermissions } from 'utilities';
 import { testDispatchFunctions } from '../../../../testUtilities/testUtilities';
 
 describe('UserRow', () => {
@@ -26,14 +25,14 @@ describe('UserRow', () => {
     const wrapper = shallow(<UserRow.WrappedComponent {...props} />);
     expect(wrapper).toBeDefined();
   });
-
+  // TODO - revisit these tests per https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/814
   xit('calls checkPermission()', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<UserRow.WrappedComponent {...props} checkPermission={spy} />);
     wrapper.instance().checkPermission();
     sinon.assert.calledOnce(spy);
   });
-
+  // TODO - revisit these tests per https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/814
   xit('calls updatePermission() on checkbox click', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<UserRow.WrappedComponent {...props} updatePermission={spy} />);
@@ -42,7 +41,7 @@ describe('UserRow', () => {
 
     sinon.assert.calledOnce(spy);
   });
-
+  // TODO - revisit these tests per https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/814
   xit('calls updatePermission()', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<UserRow.WrappedComponent {...props} updatePermission={spy} />);
@@ -56,7 +55,7 @@ describe('UserRow', () => {
     wrapper.instance().updatePermission();
     sinon.assert.calledOnce(spy);
   });
-
+  // TODO - revisit these tests per https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/814
   xit('calls userHasPermissions() from checkPermission()', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<UserRow.WrappedComponent {...props} userHasPermissions={spy} />);
@@ -69,7 +68,7 @@ describe('UserRow', () => {
     expect(wrapper.find('td').at(0).props().children).toBe('myTestUsername');
     expect(wrapper.find('td').at(1).props().children).toBe('my test');
   });
-
+  // TODO - revisit these tests per https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/814
   xit('checks the td checkbox rendering', () => {
     const wrapper = shallow(<UserRow.WrappedComponent {...props} />);
     // expect(wrapper.find('td').at(2).props().children.id).toBe('0-superuser');

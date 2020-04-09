@@ -38,7 +38,7 @@ describe('UserRoles', () => {
     wrapper.instance().onPageChange({ page: 3 });
     sinon.assert.calledOnce(spy);
   });
-
+  // TODO - revisit these tests per https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/814
   xit('calls the getDelegateRoles function', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<UserRoles.WrappedComponent {...props} getDelegateRoles={spy} />);
