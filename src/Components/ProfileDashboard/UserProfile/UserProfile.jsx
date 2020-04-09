@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { USER_PROFILE } from '../../../Constants/PropTypes';
+import { USER_PROFILE } from 'Constants/PropTypes';
 import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
@@ -40,7 +40,7 @@ const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
             </div>
           }
           <div className="current-user-section-border">
-            <PositionInformation assignment={userProfile.current_assignment} />
+            <PositionInformation assignment={get(userProfile, 'current_assignment')} />
           </div>
           <UserProfileContactInformation userProfile={userProfile} />
         </div>

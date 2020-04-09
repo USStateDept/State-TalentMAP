@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { NO_GRADE } from 'Constants/SystemMessages';
-import { USER_PROFILE } from '../../../../Constants/PropTypes';
+import { USER_PROFILE } from 'Constants/PropTypes';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import EditProfile from '../EditProfile';
@@ -24,7 +24,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, is
   const infoDataPointClassName = 'skill-code-data-point-container skill-code-data-point-container-gen-spec';
   const conditionalStaticDevContent = isPublic ?
     (<InformationDataPoint
-      content={`Grade: ${get(userProfile, 'grade', NO_GRADE)}`}
+      content={`Grade: ${get(userProfile, 'grade') || NO_GRADE}`}
       className={infoDataPointClassName}
     />)
     :
