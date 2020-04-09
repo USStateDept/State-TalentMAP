@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { NO_GRADE } from 'Constants/SystemMessages';
-import { USER_PROFILE } from '../../../../Constants/PropTypes';
+import { USER_PROFILE } from 'Constants/PropTypes';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import EditProfile from '../EditProfile';
@@ -10,7 +10,8 @@ import Avatar from '../../../Avatar';
 import StaticDevContent from '../../../StaticDevContent';
 import SkillCodeList from '../../../SkillCodeList';
 
-const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, isPublic }) => {
+const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, isPublic,
+  colorProp, useColor }) => {
   const avatar = {
     firstName: get(userProfile, 'user.first_name'),
     lastName: get(userProfile, 'user.last_name'),
@@ -19,10 +20,11 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, is
     externalSource: get(userProfile, 'avatar'),
     externalSourceToUse: 'm',
   };
+  avatar.colorString = useColor ? avatar[colorProp] : undefined;
   const infoDataPointClassName = 'skill-code-data-point-container skill-code-data-point-container-gen-spec';
   const conditionalStaticDevContent = isPublic ?
     (<InformationDataPoint
-      content={`Grade: ${get(userProfile, 'grade', NO_GRADE)}`}
+      content={`Grade: ${get(userProfile, 'grade') || NO_GRADE}`}
       className={infoDataPointClassName}
     />)
     :
@@ -63,12 +65,16 @@ UserProfileGeneralInformation.propTypes = {
   showEditLink: PropTypes.bool,
   useGroup: PropTypes.bool,
   isPublic: PropTypes.bool,
+  useColor: PropTypes.bool,
+  colorProp: PropTypes.string,
 };
 
 UserProfileGeneralInformation.defaultProps = {
   showEditLink: true,
   useGroup: false,
   isPublic: false,
+  useColor: false,
+  colorProp: 'displayName',
 };
 
 export default UserProfileGeneralInformation;

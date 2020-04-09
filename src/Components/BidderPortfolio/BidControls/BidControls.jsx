@@ -47,6 +47,8 @@ class BidControls extends Component {
     const { hasSeasons } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
 
+    const displayCDOSeasonFilter = useCDOSeasonFilter();
+
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
@@ -54,7 +56,7 @@ class BidControls extends Component {
             <div className="label">Proxy CDO View:</div>
             <CDOAutoSuggest />
           </div>
-          {useCDOSeasonFilter() &&
+          {displayCDOSeasonFilter &&
           <div className="portfolio-sort-container-contents small-screen-stack">
             <SelectForm
               id="num-clients"

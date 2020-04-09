@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
 import ImageFallback from 'react-image-fallback';
+import { getAvatarColor } from 'utilities';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 const propTypes = {
@@ -20,6 +21,7 @@ const propTypes = {
     compare: PropTypes.arrayOf(PropTypes.string),
   }),
   externalSourceToUse: PropTypes.oneOf(['s', 'm', 'l', null]),
+  colorString: PropTypes.string,
 };
 
 const defaultProps = {
@@ -33,19 +35,27 @@ const defaultProps = {
   useExternalImg: false,
   externalSource: {},
   externalSourceToUse: null,
+  colorString: '',
 };
 
 const Avatar = ({ initials, firstName, lastName, className, small, onClick, fallback,
-  externalSource, externalSourceToUse }) => {
+  externalSource, externalSourceToUse, colorString }) => {
   const avatar = <span>{initials || fallback}</span>;
   /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
   /* eslint-disable jsx-a11y/no-static-element-interactions */
   const style = {
     borderRadius: 50,
   };
+  let containerStyle = {};
+  if (colorString) {
+    const output = getAvatarColor((colorString));
+    containerStyle = {
+      ...containerStyle, ...output,
+    };
+  }
   if (small) { style.borderRadius = 30; }
   return (
-    <div className={`tm-avatar ${small ? 'tm-avatar--small' : ''} ${className}`} onClick={onClick} role="img" aria-label={`${firstName} ${lastName}`}>
+    <div style={containerStyle} className={`tm-avatar ${small ? 'tm-avatar--small' : ''} ${className}`} onClick={onClick} role="img" aria-label={`${firstName} ${lastName}`}>
       {
         get(externalSource, externalSourceToUse) ?
           <ImageFallback
