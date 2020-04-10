@@ -98,7 +98,7 @@ jobs:
           command: mkdir server && cp package.json src/server.js src/saml2-config.js src/routes.js server/
       - run:
           name: Install dependencies
-          command: yarn install --production=true --no-lockfile --modules-folder server/
+          command: yarn install --production=true --no-lockfile --modules-folder server/node_modules/
       - run:
           name: Zip artifact
           command: zip talentmap-server.zip -r server/*
@@ -224,10 +224,10 @@ workflows:
             - build
       - site:
           requires:
-            - build
+            - yarn
       - server:
           requires:
-            - build
+            - yarn
       # Disabled see 1368 - pa11y:
       #    requires:
       #      - docker-build
