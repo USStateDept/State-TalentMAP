@@ -87,6 +87,24 @@ jobs:
       - store_artifacts:
           path: talentmap.zip
           destination: talentmap.zip
+  server:
+    <<: *default-docker-node
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run:
+          name: Build server
+          command: mkdir server && cp package.json src/server.js src/saml2-config.js src/routes.js server/
+      - run:
+          name: Install dependencies
+          command: yarn install --production=true --no-lockfile --modules-folder server/
+      - run:
+          name: Zip artifact
+          command: zip talentmap-server.zip -r server/*
+      - store_artifacts:
+          path: talentmap-server.zip
+          destination: talentmap-server.zip
  # Disabled see 1368 pa11y:
  #   <<: *default-docker-node
  #   steps:
@@ -205,6 +223,9 @@ workflows:
           requires:
             - build
       - site:
+          requires:
+            - build
+      - server:
           requires:
             - build
       # Disabled see 1368 - pa11y:
