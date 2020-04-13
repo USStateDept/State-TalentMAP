@@ -97,7 +97,7 @@ class SearchFiltersContainer extends Component {
 
     // get our normal multi-select filters
     const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
-      'postDiff', 'dangerPay', 'test-Handshake'];
+      'postDiff', 'dangerPay'];
     const blackList = []; // don't create accordions for these
 
     // START TOGGLE FILTERS
@@ -133,8 +133,7 @@ class SearchFiltersContainer extends Component {
 
     // create map
     const multiSelectFilterMap = new Map();
-    // eslint-disable-next-line no-console
-    console.log('filters$:', filters$);
+
     // pull filters from props and add to Map
     filters$.slice().forEach((f) => {
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
@@ -280,8 +279,7 @@ class SearchFiltersContainer extends Component {
         );
       }
     });
-    // eslint-disable-next-line no-console
-    console.log('sortedFilters:', sortedFilters);
+
     const apContainerClass = 'ap-container';
 
     return (
