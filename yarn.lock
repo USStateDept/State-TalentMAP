@@ -3245,9 +3245,9 @@ css-box-shadow@^1.0.0-3:
   version "1.0.0-3"
   resolved "https://registry.yarnpkg.com/css-box-shadow/-/css-box-shadow-1.0.0-3.tgz#9eaeb7140947bf5d649fc49a19e4bbaa5f602713"
 
-css-loader@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-3.5.1.tgz#db2b2336f4169edb68e6a829ad4fd36552647b77"
+css-loader@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-3.5.2.tgz#6483ae56f48a7f901fbe07dde2fc96b01eafab3c"
   dependencies:
     camelcase "^5.3.1"
     cssesc "^3.0.0"
@@ -7680,9 +7680,9 @@ mkdirp@0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-mock-local-storage@^1.1.11:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.11.tgz#2a36faeb30f76ef3c5005460b6bbf12f19555811"
+mock-local-storage@^1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.12.tgz#b1ee96d7bac6e46fc0a3a72a518d758cac4a1771"
   dependencies:
     core-js "^0.8.3"
     global "^4.3.2"
