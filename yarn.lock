@@ -7680,9 +7680,9 @@ mkdirp@0.5.1:
   dependencies:
     minimist "^1.2.5"
 
-mock-local-storage@^1.1.11:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.11.tgz#2a36faeb30f76ef3c5005460b6bbf12f19555811"
+mock-local-storage@^1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.12.tgz#b1ee96d7bac6e46fc0a3a72a518d758cac4a1771"
   dependencies:
     core-js "^0.8.3"
     global "^4.3.2"
