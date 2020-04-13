@@ -5,11 +5,11 @@ import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 import { get } from 'lodash';
 import ProfileDashboard from 'Components/ProfileDashboard';
+import Alert from 'Components/Alert';
 import { fetchClassifications } from 'actions/classifications';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
-import { USER_PROFILE, EMPTY_FUNCTION, CLASSIFICATIONS } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
-import Alert from '../../Components/Alert';
+import { USER_PROFILE, EMPTY_FUNCTION, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 
 class ProfilePublic extends Component {
   UNSAFE_componentWillMount() {

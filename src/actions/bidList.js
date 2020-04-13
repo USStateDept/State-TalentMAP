@@ -1,10 +1,24 @@
 import { batch } from 'react-redux';
 import axios from 'axios';
 import { get } from 'lodash';
+import { downloadFromResponse } from 'utilities';
 import api from '../api';
 import { toastSuccess, toastError } from './toast';
 import { userProfilePublicFetchData } from './userProfilePublic';
 import * as SystemMessages from '../Constants/SystemMessages';
+
+export function downloadBidlistData() {
+  return api().get('/fsbid/bidlist/export/', {
+    responseType: 'stream',
+  })
+    .then((response) => {
+      downloadFromResponse(response, 'TalentMap_BidList_export');
+    })
+    .catch(() => {
+      // eslint-disable-next-line global-require
+      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+    });
+}
 
 export function bidListHasErrored(bool) {
   return {
