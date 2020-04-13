@@ -1,11 +1,14 @@
 import api from '../api';
-import { USER_SKILL_CODE_POSITIONS, SERVICE_NEED_POSITIONS, FAVORITED_POSITIONS } from '../Constants/PropTypes';
+import { USER_SKILL_AND_GRADE_POSITIONS, USER_GRADE_POSITIONS, FAVORITED_POSITIONS } from '../Constants/PropTypes';
 import { COMMON_PROPERTIES } from '../Constants/EndpointParams';
 
 // Export our queries so that we can consistently test them.
+export const GET_GRADE_AND_SKILL_CODE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?position__skill__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+export const GET_GRADE_POSITIONS_QUERY_NEW = grade => `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3`;
+export const FAVORITE_POSITIONS_QUERY = () => '/available_position/favorites/?limit=3';
+
 export const HIGHLIGHTED_POSITIONS_QUERY = () => '/available_position/highlight/?limit=3';
 export const GET_SKILL_CODE_POSITIONS_QUERY = skillCodes => `/fsbid/available_positions/?position__skill__in=${skillCodes}&limit=3`;
-export const FAVORITE_POSITIONS_QUERY = () => '/available_position/favorites/?limit=3';
 export const GET_GRADE_POSITIONS_QUERY = grade => `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
 export const RECENTLY_POSTED_POSITIONS_QUERY = () => `/fsbid/available_positions/?limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
 
@@ -31,41 +34,42 @@ export function homePagePositionsFetchDataSuccess(results) {
 }
 
 // general positions search results
-export function homePagePositionsFetchData(skills = []) {
+export function homePagePositionsFetchData(skills = [], grade) {
   return (dispatch) => {
     dispatch(homePagePositionsIsLoading(true));
     dispatch(homePagePositionsHasErrored(false));
 
     // set the types of results we expect to return from the queries in queryTypes
     const resultsTypes = {
-      [SERVICE_NEED_POSITIONS]: [],
-      [USER_SKILL_CODE_POSITIONS]: [],
+      [USER_SKILL_AND_GRADE_POSITIONS]: [],
+      [USER_GRADE_POSITIONS]: [],
+      [FAVORITED_POSITIONS]: [],
     };
 
     // configure queries that match with properties in resultsTypes
-    let queryTypes = [
-      { name: SERVICE_NEED_POSITIONS, query: HIGHLIGHTED_POSITIONS_QUERY() },
-    ];
-
-    // Search for positions that match the user's skill, if it exists.
-    // Otherwise, search for positions with Skill code 0060.
-    if (skills && skills.length) {
+    const queryTypes = [];
+    // Search for positions that match the user's grade and skills.
+    // else search for just positions that match the user's grade.
+    // Otherwise, search for user favorites.
+    if (grade && skills && skills.length) {
       const ids = skills.map(s => s.id);
       const querySkillCodes = ids.join(',');
       queryTypes.push(
-        { name: USER_SKILL_CODE_POSITIONS, query: GET_SKILL_CODE_POSITIONS_QUERY(querySkillCodes) },
+        {
+          name: USER_SKILL_AND_GRADE_POSITIONS,
+          query: GET_GRADE_AND_SKILL_CODE_POSITIONS_QUERY(querySkillCodes, grade),
+        },
+      );
+    } else if (grade) {
+      queryTypes.push(
+        { name: USER_GRADE_POSITIONS, query: GET_GRADE_POSITIONS_QUERY_NEW(grade) },
       );
     } else {
-      // delete the property we're falling back against from resultsTypes and queryTypes
-      delete resultsTypes[USER_SKILL_CODE_POSITIONS];
-      queryTypes = queryTypes.filter(obj => obj.name !== USER_SKILL_CODE_POSITIONS);
-      // return a generic query
       queryTypes.push({ name: FAVORITED_POSITIONS, query: FAVORITE_POSITIONS_QUERY() });
     }
-
-    // create a promise with all the queries we defined
+    // create a promise with all the queries we defined.
+    // should be max of 2, one should be our fallback.
     const queryProms = queryTypes.map(type => api().get(type.query));
-
     Promise.all(queryProms)
       // Promise.all returns a single array which matches the order of the originating array...
       .then((results) => {
@@ -74,6 +78,8 @@ export function homePagePositionsFetchData(skills = []) {
         results.forEach((result, i) => {
           resultsTypes[queryTypes[i].name] = result.data.results;
         });
+        // eslint-disable-next-line no-console
+        console.log('resultsTypes:', resultsTypes);
         dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
         dispatch(homePagePositionsHasErrored(false));
         dispatch(homePagePositionsIsLoading(false));
