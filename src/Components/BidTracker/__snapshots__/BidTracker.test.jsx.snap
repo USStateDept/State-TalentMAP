@@ -123,6 +123,17 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         transformValue={[Function]}
       />
     </div>
+    <div
+      className="export-button-container"
+    >
+      <ExportButton
+        className=""
+        isLoading={false}
+        onClick={[Function]}
+        primaryClass="usa-button-secondary"
+        text="Export"
+      />
+    </div>
   </div>
   <div
     className="bid-tracker-content-container"
@@ -481,6 +492,17 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
           ]
         }
         transformValue={[Function]}
+      />
+    </div>
+    <div
+      className="export-button-container"
+    >
+      <ExportButton
+        className=""
+        isLoading={false}
+        onClick={[Function]}
+        primaryClass="usa-button-secondary"
+        text="Export"
       />
     </div>
   </div>
