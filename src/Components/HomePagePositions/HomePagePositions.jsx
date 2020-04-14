@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS,
-  USER_SKILL_AND_GRADE_POSITIONS, USER_GRADE_POSITIONS, FAVORITED_POSITIONS } from '../../Constants/PropTypes';
+  USER_SKILL_AND_GRADE_POSITIONS, USER_GRADE_POSITIONS, FAVORITED_POSITIONS, HIGHLIGHTED_POSITIONS } from '../../Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
@@ -9,14 +9,18 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   const userSkillAndGradePositions = homePagePositions[USER_SKILL_AND_GRADE_POSITIONS];
   const userGradePositions = homePagePositions[USER_GRADE_POSITIONS];
   const favoritedPositions = homePagePositions[FAVORITED_POSITIONS];
-
+  const serviceNeedPositions = homePagePositions[HIGHLIGHTED_POSITIONS];
   let positions;
   let title;
   let link;
   let icon;
 
+  // set View More link for service needs
+  const serviceNeedsLink = '/results?is_highlighted=true';
+
   // arrangement:
-  // 1: userSkillAndGradePositions 2: userGradePositions,
+  // 1: userSkillAndGradePositions
+  // 2: userGradePositions
   // 3: favoritedPositions
   if (userSkillAndGradePositions.length) {
     positions = userSkillAndGradePositions;
@@ -43,19 +47,31 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
         className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
       >
         {
-          !!positions.length &&
+          // don't display this section if there are none
+          serviceNeedPositions && !!serviceNeedPositions.length &&
           <HomePagePositionsSection
-            title={title}
+            title="Featured Positions"
             maxLength="3"
-            viewMoreLink={link}
-            icon={icon}
+            viewMoreLink={serviceNeedsLink}
+            icon="bolt"
             favorites={userProfile.favorite_positions}
-            positions={positions}
+            positions={serviceNeedPositions}
             isLoading={homePagePositionsIsLoading}
             bidList={bidList}
-            type="default"
+            type="serviceNeed"
           />
         }
+        <HomePagePositionsSection
+          title={title}
+          maxLength="3"
+          viewMoreLink={link}
+          icon={icon}
+          favorites={userProfile.favorite_positions}
+          positions={positions}
+          isLoading={homePagePositionsIsLoading}
+          bidList={bidList}
+          type="default"
+        />
       </div>
     </div>
   );

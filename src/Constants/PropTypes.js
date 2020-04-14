@@ -98,10 +98,12 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
 export const USER_SKILL_AND_GRADE_POSITIONS = 'userSkillAndGradePositions';
 export const USER_GRADE_POSITIONS = 'userGradePositions';
 export const FAVORITED_POSITIONS = 'favoritedPositions';
+export const HIGHLIGHTED_POSITIONS = 'highlightedPositions';
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
   [USER_SKILL_AND_GRADE_POSITIONS]: POSITION_DETAILS_ARRAY,
   [USER_GRADE_POSITIONS]: POSITION_DETAILS_ARRAY,
   [FAVORITED_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [HIGHLIGHTED_POSITIONS]: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({

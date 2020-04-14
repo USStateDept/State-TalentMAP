@@ -2,6 +2,7 @@ import {
   USER_SKILL_AND_GRADE_POSITIONS,
   USER_GRADE_POSITIONS,
   FAVORITED_POSITIONS,
+  HIGHLIGHTED_POSITIONS,
 } from './PropTypes';
 
 export { initialState as DEFAULT_HIGHLIGHT_POSITION } from '../reducers/highlightPosition';
@@ -12,6 +13,7 @@ export const DEFAULT_HOME_PAGE_POSITIONS = {
   [USER_SKILL_AND_GRADE_POSITIONS]: [],
   [USER_GRADE_POSITIONS]: [],
   [FAVORITED_POSITIONS]: [],
+  [HIGHLIGHTED_POSITIONS]: [],
 };
 
 export const DEFAULT_USER_PROFILE = {
