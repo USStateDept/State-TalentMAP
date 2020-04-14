@@ -17,6 +17,11 @@ describe('HomePageComponent', () => {
     userProfile: { skills: ['1', '2'], grade: '03' },
   };
 
+  const userSkillAndGradePositions = props.homePagePositions[USER_SKILL_AND_GRADE_POSITIONS];
+  const userGradePositions = props.homePagePositions[USER_GRADE_POSITIONS];
+  const favoritedPositions = props.homePagePositions[FAVORITED_POSITIONS];
+
+
   /*  const fallBackPositions = {
     [SERVICE_NEED_POSITIONS]: [{ position: { id: 3 } }],
     [FAVORITED_POSITIONS]: [{ position: { id: 101 } }],
@@ -34,48 +39,50 @@ describe('HomePageComponent', () => {
       {...props}
     />);
     expect(wrapper.find('HomePagePositionsSection').at(0).prop('positions').length).toBeGreaterThan(0);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions').length).toBeGreaterThan(0);
   });
 
-  it('does not display the Featured positions section when there are no featured positions', () => {
+  it('displays proper title when userSkillAndGradePositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={{ ...props.homePagePositions, [SERVICE_NEED_POSITIONS]: [] }}
+      homePagePositions={{ ...props.homePagePositions }}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Positions in skill 1');
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Relevant Positions');
     expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
   });
 
-  // fallback TBD
-  xit('sets fallback positions', () => {
+  it('displays proper title when userGradePositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={fallBackPositions}
+      homePagePositions={{ ...props.homePagePositions,
+        [USER_SKILL_AND_GRADE_POSITIONS]: [] }}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('positions')[0].position.id).toBe(101);
-  });
-  // fallback TBD
-  xit('sets titles correctly for fallback positions', () => {
-    const wrapper = shallow(<HomePagePositions
-      {...props}
-      homePagePositions={fallBackPositions}
-    />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorited Positions');
-  });
-  // fallback TBD
-  xit('sets links correctly for fallback positions', () => {
-    const wrapper = shallow(<HomePagePositions
-      {...props}
-      homePagePositions={fallBackPositions}
-    />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('viewMoreLink')).toBe('/profile/favorites/');
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Relevant Positions');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
   });
 
-  it('can set position section titles correctly', () => {
+  it('displays proper title when favoritedPositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
+      homePagePositions={{ ...props.homePagePositions,
+        [USER_SKILL_AND_GRADE_POSITIONS]: [],
+        [USER_GRADE_POSITIONS]: [],
+        [FAVORITED_POSITIONS]: [{ position: { id: 2, grade: '03' } }],
+      }}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Positions in skill 1');
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Favorited Positions');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
+  });
+
+  it('does not display HomePagePositionsSection component if no positions to show', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePagePositions={{ ...props.homePagePositions,
+        [USER_SKILL_AND_GRADE_POSITIONS]: [],
+        [USER_GRADE_POSITIONS]: [],
+      }}
+    />);
+    expect(wrapper).toBeDefined();
+    expect(wrapper.find('HomePagePositionsSection').exists()).toBeFalsy();
   });
 
   it('matches snapshot when the positions arrays are empty', () => {
