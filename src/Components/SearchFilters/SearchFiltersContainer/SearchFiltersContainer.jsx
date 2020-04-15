@@ -155,7 +155,6 @@ class SearchFiltersContainer extends Component {
         multiSelectFilterMap.set(f.item.description, f);
       }
     });
-
     // special handling for functional bureau
     const functionalBureaus = filters$.slice().find(f => f.item.description === 'functionalRegion');
 
