@@ -180,7 +180,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
           },
         ]
       }
-      title="Relevant Positions"
+      title="Positions That Match Your Grade And Skill(s)"
       type="default"
       useSpinner={false}
       viewMoreLink="/results?position__skill__in=,&position__grade__code__in=03"

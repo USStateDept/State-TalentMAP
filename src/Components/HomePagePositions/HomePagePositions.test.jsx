@@ -37,7 +37,7 @@ describe('HomePageComponent', () => {
       {...props}
       homePagePositions={{ ...props.homePagePositions }}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Relevant Positions');
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Positions That Match Your Grade And Skill(s)');
     expect(wrapper.find('HomePagePositionsSection').at(0).prop('icon')).toBe('briefcase');
     expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
   });
@@ -48,7 +48,7 @@ describe('HomePageComponent', () => {
       homePagePositions={{ ...props.homePagePositions,
         [USER_SKILL_AND_GRADE_POSITIONS]: [] }}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Relevant Positions');
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Positions That Match Your Grade');
     expect(wrapper.find('HomePagePositionsSection').at(0).prop('icon')).toBe('briefcase');
     expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
   });
