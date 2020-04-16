@@ -108,6 +108,7 @@ class BidderPortfolioGridList extends Component {
           {
             results.map(result => (
               <AccordionItem
+                controlled
                 className="portfolio-row"
                 id={`${result.id}-row`}
                 key={result.id}
