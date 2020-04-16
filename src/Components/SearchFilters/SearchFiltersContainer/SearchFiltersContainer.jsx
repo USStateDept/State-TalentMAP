@@ -97,7 +97,7 @@ class SearchFiltersContainer extends Component {
 
     // get our normal multi-select filters
     const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
-      'postDiff', 'dangerPay', 'test-Handshake'];
+      'postDiff', 'dangerPay', 'handshake'];
     const blackList = []; // don't create accordions for these
 
     // START TOGGLE FILTERS
@@ -123,7 +123,8 @@ class SearchFiltersContainer extends Component {
         toggleFilters.push(filter);
       }
     });
-
+    // eslint-disable-next-line no-console
+    console.log('hsf: toggleFilters:', toggleFilters);
     const projectedVacancyFilter = sortedToggleNames.length ?
       get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
 
@@ -134,9 +135,13 @@ class SearchFiltersContainer extends Component {
     // create map
     const multiSelectFilterMap = new Map();
     // eslint-disable-next-line no-console
-    console.log('filters$:', filters$);
+    console.log('hsf: multiSelectFilterNames:', multiSelectFilterNames);
+    // eslint-disable-next-line no-console
+    console.log('hsf: filters$:', filters$);
     // pull filters from props and add to Map
     filters$.slice().forEach((f) => {
+      // eslint-disable-next-line no-console
+      console.log('hsf: f.item.description:', f.item.description);
       if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
         // extra handling for skill
         if (f.item.description === 'skill' && f.data) {
@@ -152,7 +157,10 @@ class SearchFiltersContainer extends Component {
           // eslint-disable-next-line no-param-reassign
           f.data = sortTods(f.data);
         }
+        // eslint-disable-next-line no-console
+        console.log('hsf: here f:', f);
         // add to Map
+        // if (f.item.title !== 'Handshake')
         multiSelectFilterMap.set(f.item.description, f);
       }
     });
@@ -175,6 +183,8 @@ class SearchFiltersContainer extends Component {
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
     multiSelectFilterNames.forEach((n) => {
+      // eslint-disable-next-line no-console
+      console.log('hsf: n:', n);
       const item = multiSelectFilterMap.get(n);
       // let some variables that will change based on whether n is a post or mission
       let getSuggestions;
@@ -245,6 +255,15 @@ class SearchFiltersContainer extends Component {
                 languageGroups={languageGroups}
               />
             );
+          case 'test-Handshake':
+            return (
+              <LanguageFilter
+                item={item}
+                queryParamToggle={this.props.queryParamToggle}
+                queryParamUpdate={this.props.queryParamUpdate}
+                languageGroups={languageGroups}
+              />
+            );
           case includes(blackList, type) ? type : null:
             return null;
           default: {
@@ -269,7 +288,6 @@ class SearchFiltersContainer extends Component {
           }
         }
       };
-
       if (item && !includes(blackList, n)) {
         sortedFilters.push(
           { content: getFilter(n),
@@ -281,7 +299,7 @@ class SearchFiltersContainer extends Component {
       }
     });
     // eslint-disable-next-line no-console
-    console.log('sortedFilters:', sortedFilters);
+    console.log('hsf: sortedFilters:', sortedFilters);
     const apContainerClass = 'ap-container';
 
     return (

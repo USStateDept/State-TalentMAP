@@ -2,6 +2,8 @@ import { has } from 'lodash';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const filterAPFilters = (data) => {
+  // eslint-disable-next-line no-console
+  console.log('in here: data:', data);
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
@@ -16,7 +18,11 @@ const filterAPFilters = (data) => {
       data: hasAltData ? m.dataAP : m.data,
     };
   });
+  // eslint-disable-next-line no-console
+  console.log('in here: filters$:', filters$);
   const output = { ...data, filters: filters$ };
+  // eslint-disable-next-line no-console
+  console.log('in here: output:', output);
   return output;
 };
 
@@ -360,18 +366,17 @@ const items =
       },
       {
         item: {
-          title: 'test-Handshake',
-          sort: 300, // ?mike? does this mean the precedence we give to this particular sort?
+          title: 'Handshake',
+          sort: 700,
           description: 'handshake',
-          endpoint: 'cps_codes/',
-          endpointAP: 'fsbid/available_positions/',
-          selectionRef: ENDPOINT_PARAMS.available,
-          onlyAvailablePositions: true,
-          tryCache: true,
+          selectionRef: ENDPOINT_PARAMS.handshake,
+          text: 'Include positions with handshakes',
+          choices: [
+          ],
         },
         data: [
-          { id: 'withHandshake', code: 'HS', description: 'Has Handshake' },
-          { id: 'withoutHandshake', code: 'OP', description: 'No Handshake' },
+          { code: 'true', short_description: 'Has Handshake' },
+          { code: 'false', short_description: 'No Handshake' },
         ],
       },
     ],
