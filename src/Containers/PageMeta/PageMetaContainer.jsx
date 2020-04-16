@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import PageTitle from '../../Components/PageTitle';
 import routes from '../../routes';

@@ -138,6 +138,7 @@ class SearchFiltersContainer extends Component {
     console.log('hsf: multiSelectFilterNames:', multiSelectFilterNames);
     // eslint-disable-next-line no-console
     console.log('hsf: filters$:', filters$);
+
     // pull filters from props and add to Map
     filters$.slice().forEach((f) => {
       // eslint-disable-next-line no-console
@@ -298,8 +299,10 @@ class SearchFiltersContainer extends Component {
         );
       }
     });
+
     // eslint-disable-next-line no-console
     console.log('hsf: sortedFilters:', sortedFilters);
+
     const apContainerClass = 'ap-container';
 
     return (
