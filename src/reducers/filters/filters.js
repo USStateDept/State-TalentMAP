@@ -371,13 +371,12 @@ const items =
           description: 'handshake',
           selectionRef: ENDPOINT_PARAMS.handshake,
           text: 'Include positions with handshakes',
-          choices: [
-          ],
         },
         data: [
-          { code: 'true', short_description: 'Has Handshake' },
-          { code: 'false', short_description: 'No Handshake' },
+          { code: 'HS', description: 'Has Handshake' },
+          { code: 'OP', description: 'No Handshake' },
         ],
+        dataAP: [],
       },
     ],
   };

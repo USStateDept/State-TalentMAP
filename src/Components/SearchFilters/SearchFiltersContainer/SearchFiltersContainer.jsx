@@ -256,15 +256,6 @@ class SearchFiltersContainer extends Component {
                 languageGroups={languageGroups}
               />
             );
-          case 'test-Handshake':
-            return (
-              <LanguageFilter
-                item={item}
-                queryParamToggle={this.props.queryParamToggle}
-                queryParamUpdate={this.props.queryParamUpdate}
-                languageGroups={languageGroups}
-              />
-            );
           case includes(blackList, type) ? type : null:
             return null;
           default: {
