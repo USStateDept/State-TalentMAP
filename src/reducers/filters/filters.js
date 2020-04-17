@@ -2,8 +2,6 @@ import { has } from 'lodash';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const filterAPFilters = (data) => {
-  // eslint-disable-next-line no-console
-  console.log('in here: data:', data);
   const filters$ = data.filters.map((m) => {
     const hasAPEndpoint = has(m, 'item.endpointAP');
     const hasAltData = has(m, 'item.dataAP');
@@ -18,11 +16,7 @@ const filterAPFilters = (data) => {
       data: hasAltData ? m.dataAP : m.data,
     };
   });
-  // eslint-disable-next-line no-console
-  console.log('in here: filters$:', filters$);
   const output = { ...data, filters: filters$ };
-  // eslint-disable-next-line no-console
-  console.log('in here: output:', output);
   return output;
 };
 
