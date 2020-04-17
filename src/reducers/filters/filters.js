@@ -361,7 +361,7 @@ const items =
       {
         item: {
           title: 'Handshake',
-          sort: 700,
+          sort: 1200,
           description: 'handshake',
           selectionRef: ENDPOINT_PARAMS.handshake,
           text: 'Include positions with handshakes',
