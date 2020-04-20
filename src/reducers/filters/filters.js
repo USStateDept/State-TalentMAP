@@ -339,7 +339,6 @@ const items =
           { code: 'true', short_description: 'Featured' },
         ],
       },
-
       {
         item: {
           title: 'Post',
@@ -365,6 +364,7 @@ const items =
           description: 'handshake',
           selectionRef: ENDPOINT_PARAMS.handshake,
           text: 'Include positions with handshakes',
+          onlyAvailablePositions: true,
         },
         data: [
           { code: 'HS', description: 'Has Handshake' },
