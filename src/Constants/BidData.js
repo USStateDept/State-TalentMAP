@@ -10,6 +10,7 @@ export const PRE_PANEL_PROP = 'pre_panel';
 export const IN_PANEL_PROP = 'in_panel';
 export const SUBMITTED_PROP = 'submitted';
 export const PANEL_RESCHEDULED_PROP = 'panel_rescheduled';
+export const REGISTERED_PROP = 'handshake_registered';
 
 export const BID_EXPLANATION_TEXT = {
   [SUBMITTED_PROP]: {

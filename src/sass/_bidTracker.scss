@@ -143,6 +143,22 @@ $draft-icon-offset: 120px;
   width: 0;
 }
 
+.bid-tracker-overlay-alert--registered {
+  background: $primary-blue;
+  color: $color-white;
+  margin-left: $draft-icon-offset;
+
+  .tm-button-transparent {
+    box-shadow: 0 0 0 2px $color-white inset;
+    color: $color-white;
+  }
+
+  .bid-tracker-overlay-alert-content-container {
+    padding-right: $draft-icon-offset;
+    width: 95%;
+  }
+}
+
 .bid-tracker {
 
   background: $color-white;

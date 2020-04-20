@@ -149,3 +149,27 @@ export function declineBidSuccess(state = false, action) {
       return state;
   }
 }
+export function registerHandshakeHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'REGISTER_HANDSHAKE_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function registerHandshakeIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'REGISTER_HANDSHAKE_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function registerHandshakeSuccess(state = false, action) {
+  switch (action.type) {
+    case 'REGISTER_HANDSHAKE_SUCCESS':
+      return action.response;
+    default:
+      return state;
+  }
+}

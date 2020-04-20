@@ -146,6 +146,28 @@ export function declineBidSuccess(response) {
   };
 }
 
+export function registerHandshakeHasErrored(bool) {
+  return {
+    type: 'REGISTER_HANDSHAKE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function registerHandshakeIsLoading(bool) {
+  return {
+    type: 'REGISTER_HANDSHAKE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function registerHandshakeSuccess(response) {
+  return {
+    type: 'REGISTER_HANDSHAKE_SUCCESS',
+    response,
+  };
+}
+
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
@@ -343,6 +365,37 @@ export function declineBid(id, clientId) {
         batch(() => {
           dispatch(declineBidHasErrored(SystemMessages.DECLINE_BID_ERROR));
           dispatch(declineBidIsLoading(false));
+        });
+      });
+  };
+}
+
+export function registerHandshake(id, clientId) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    batch(() => {
+      dispatch(routeChangeResetState());
+      dispatch(registerHandshakeIsLoading(true));
+      dispatch(registerHandshakeHasErrored(false));
+    });
+
+    const url = `/fsbid/bidlist/position/${clientId}/${idString}/register_handshake/`;
+
+    api().get(url)
+      .then(response => response.data)
+      .then(() => {
+        batch(() => {
+          dispatch(registerHandshakeHasErrored(false));
+          dispatch(registerHandshakeIsLoading(false));
+          dispatch(registerHandshakeSuccess(SystemMessages.REGISTER_HANDSHAKE_SUCCESS));
+        });
+        dispatch(userProfilePublicFetchData(clientId));
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(registerHandshakeHasErrored(SystemMessages.REGISTER_HANDSHAKE_ERROR));
+          dispatch(registerHandshakeIsLoading(false));
         });
       });
   };
