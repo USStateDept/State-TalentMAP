@@ -126,7 +126,10 @@ const PositionDetailsItem = (props) => {
         </div>
         <div className="usa-width-one-third position-details-contact-container">
           <PositionDetailsContact
-            details={position}
+            details={{
+              ...position,
+              bidStatistics: get(details, 'bid_statistics', [{}]),
+            }}
             editWebsiteContent={editWebsiteContent}
             editPocContent={editPocContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
