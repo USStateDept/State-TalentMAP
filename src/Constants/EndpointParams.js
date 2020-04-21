@@ -19,6 +19,7 @@ export const ENDPOINT_PARAMS = {
   bidSeason: 'is_available_in_bidseason',
   highlighted: 'position__is_highlighted',
   projectedVacancy: 'projectedVacancy', // this isn't a real query param, but we'll use it to transform the request
+  handshake: 'cps_codes',
 };
 
 // any properties that we want to abstract to a common name

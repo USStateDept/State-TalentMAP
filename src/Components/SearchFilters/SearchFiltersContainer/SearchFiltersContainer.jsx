@@ -97,7 +97,7 @@ class SearchFiltersContainer extends Component {
 
     // get our normal multi-select filters
     const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
-      'postDiff', 'dangerPay'];
+      'postDiff', 'dangerPay', 'handshake'];
     const blackList = []; // don't create accordions for these
 
     // START TOGGLE FILTERS
@@ -123,7 +123,6 @@ class SearchFiltersContainer extends Component {
         toggleFilters.push(filter);
       }
     });
-
     const projectedVacancyFilter = sortedToggleNames.length ?
       get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
 
@@ -268,7 +267,6 @@ class SearchFiltersContainer extends Component {
           }
         }
       };
-
       if (item && !includes(blackList, n)) {
         sortedFilters.push(
           { content: getFilter(n),
