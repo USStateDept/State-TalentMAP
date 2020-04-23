@@ -5,7 +5,6 @@ import ProfileMenuExpanded from './ProfileMenuExpanded';
 
 describe('ProfileMenuExpandedComponent', () => {
   const props = {
-    isCDO: true,
     isGlossaryEditor: true,
     collapse: () => {},
     toggleMenuSection: () => {},
@@ -18,22 +17,10 @@ describe('ProfileMenuExpandedComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('matches snapshot when isCDO is false', () => {
-    const wrapper = shallow(
-      <ProfileMenuExpanded {...props} isCDO={false} />,
-    );
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
   it('matches snapshot when isGlossaryEditor is false', () => {
     const wrapper = shallow(
       <ProfileMenuExpanded {...props} isGlossaryEditor={false} />,
     );
-    expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
-  it('matches snapshot when isCDO is true', () => {
-    const wrapper = shallow(<ProfileMenuExpanded {...props} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
