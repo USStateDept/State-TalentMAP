@@ -104,7 +104,7 @@
     "bundlesize": "^0.17.1",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "chalk": "2.4.2",
-    "css-loader": "^3.5.2",
+    "css-loader": "^3.5.3",
     "dotenv": "4.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
