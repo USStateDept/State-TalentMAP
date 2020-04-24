@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import LinkButton from '../../../LinkButton';
 
 
-const ClosedAlert = ({ title, date, id }, { condensedView }) => (
+const ClosedAlert = ({ title, date, bidIdUrl }, { condensedView }) => (
   <div className="bid-tracker-alert-container bid-tracker-alert-container--closed">
     <div className="top-text">
         Your bid  on {title} is no longer applicable.
@@ -17,7 +17,7 @@ const ClosedAlert = ({ title, date, id }, { condensedView }) => (
     {
       condensedView &&
       <div className="usa-grid-full">
-        <LinkButton toLink={`/profile/bidtracker/${id || ''}`} className="tm-button-transparent">
+        <LinkButton toLink={bidIdUrl} className="tm-button-transparent">
           Go to Bid Tracker
         </LinkButton>
       </div>
@@ -28,12 +28,12 @@ const ClosedAlert = ({ title, date, id }, { condensedView }) => (
 ClosedAlert.propTypes = {
   title: PropTypes.string.isRequired,
   date: PropTypes.string,
-  id: PropTypes.number,
+  bidIdUrl: PropTypes.string,
 };
 
 ClosedAlert.defaultProps = {
-  id: 0,
   date: '',
+  bidIdUrl: '',
 };
 
 ClosedAlert.contextTypes = {

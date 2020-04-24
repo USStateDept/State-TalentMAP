@@ -46,10 +46,10 @@ describe('BidTracker', () => {
   it('calls scrollToId when componentDidUpdate is called', () => {
     const wrapper = shallow(<BidTracker.WrappedComponent
       {...props}
-      match={{ params: { id: 2 } }}
+      match={{ params: { bid: 2 } }}
     />);
     const spy = sinon.spy(wrapper.instance(), 'scrollToId');
-    wrapper.instance().componentDidUpdate({ ...props, match: { params: { id: 2 } } });
+    wrapper.instance().componentDidUpdate({ ...props, match: { params: { bid: 2 } } });
     sinon.assert.calledOnce(spy);
   });
 
