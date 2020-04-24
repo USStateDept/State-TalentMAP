@@ -9174,9 +9174,9 @@ react-countup@3.0.3:
   dependencies:
     countup.js "^1.9.3"
 
-react-day-picker@^7.4.1:
-  version "7.4.1"
-  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.4.1.tgz#a68af9b4c9ba557a5d748ee16bebce78d606de04"
+react-day-picker@^7.4.8:
+  version "7.4.8"
+  resolved "https://registry.yarnpkg.com/react-day-picker/-/react-day-picker-7.4.8.tgz#675625240d3fae1b41c0a9d5177c968c8517c1d4"
   dependencies:
     prop-types "^15.6.2"
 
