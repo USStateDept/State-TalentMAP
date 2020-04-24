@@ -9,12 +9,12 @@ import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../../Constants/Default
 import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
 import { GET_PROFILE_MENU } from '../../../Constants/Menu';
 
-function isHidden(options, roles, params) {
+function isHidden(options, roles) {
   let doesNotHaveRoles = false;
   if (get(options, 'roles', []).length) {
     doesNotHaveRoles = intersection(options.roles, roles).length === 0;
   }
-  return (options.isCDO && !params.isCDO) || doesNotHaveRoles;
+  return doesNotHaveRoles;
 }
 
 function getParamValueIfOption(option, param) {
@@ -49,7 +49,6 @@ function getProps(options, roles, params = {}) {
 const ProfileMenuExpanded = (props) => {
   const { roles } = props;
   const props$ = {
-    isCDO: props.isCDO,
     isGlossaryEditor: props.isGlossaryEditor,
     toggleMenuSection: props.toggleMenuSection,
     expandedSection: props.expandedSection,
@@ -90,14 +89,12 @@ ProfileMenuExpanded.propTypes = {
   collapse: PropTypes.func.isRequired,
   toggleMenuSection: PropTypes.func.isRequired,
   roles: PropTypes.arrayOf(PropTypes.string),
-  isCDO: PropTypes.bool,
   isGlossaryEditor: PropTypes.bool,
 };
 
 ProfileMenuExpanded.defaultProps = {
   expandedSection: PROFILE_MENU_SECTION_EXPANDED_OBJECT,
   roles: [],
-  isCDO: false,
   isGlossaryEditor: false,
 };
 
