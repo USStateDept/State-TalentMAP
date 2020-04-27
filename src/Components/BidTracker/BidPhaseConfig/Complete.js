@@ -165,7 +165,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         title: HAND_SHAKE_ACCEPTED_TITLE,
         needsAction: false,
         isPendingLine: true,
-        hasBidPreparingTooltip: true,
+        hasBidPreparingTooltip: false,
         number: HAND_SHAKE_ACCEPTED_NUMBER };
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
