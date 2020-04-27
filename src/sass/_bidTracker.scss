@@ -1,6 +1,7 @@
 // set a min-width for the bid tracker card, since it is not optimized for mobile
 $card-width: 775px;
 $draft-icon-offset: 120px;
+$register-icon-offset: 44%;
 
 .bid-tracker-page {
   position: relative;
@@ -102,6 +103,10 @@ $draft-icon-offset: 120px;
   overflow: hidden;
 }
 
+.bid-tracker-bid-steps-container--handshakeneedsregistered {
+  overflow: hidden;
+}
+
 .bid-tracker-overlay-alert--success {
   background: $color-green-dark;
 }
@@ -143,10 +148,10 @@ $draft-icon-offset: 120px;
   width: 0;
 }
 
-.bid-tracker-overlay-alert--registered {
-  background: $primary-blue;
+.bid-tracker-overlay-alert--register {
+  background: $blue-primary;
   color: $color-white;
-  margin-left: $draft-icon-offset;
+  margin-left: $register-icon-offset;
 
   .tm-button-transparent {
     box-shadow: 0 0 0 2px $color-white inset;
@@ -154,9 +159,22 @@ $draft-icon-offset: 120px;
   }
 
   .bid-tracker-overlay-alert-content-container {
-    padding-right: $draft-icon-offset;
+    padding-right: $register-icon-offset;
     width: 95%;
   }
+}
+
+.bid-tracker-overlay-alert--register::after {
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid $color-white;
+  border-top: 10px solid transparent;
+  clear: both;
+  content: '';
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: 43px;
+  width: 0;
 }
 
 .bid-tracker {
@@ -638,6 +656,14 @@ $draft-icon-offset: 120px;
     }
   }
 
+  .register-submission-container {
+    display: flex;
+
+    div {
+      flex: 1;
+    }
+  }
+
   .bid-tracker-alert-container--draft {
     margin-left: 1.5em;
 
@@ -651,8 +677,41 @@ $draft-icon-offset: 120px;
     }
   }
 
+  .bid-tracker-alert-container--register {
+    margin-left: 1.5em;
+
+    .register-submission-container {
+      border-right: 0;
+    }
+
+    .sub-submission-text {
+      margin-bottom: 0;
+      text-align: left;
+    }
+  }
+
   .sub-submission-text,
   .draft-submission-buttons-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+
+    button {
+      flex: 1;
+    }
+
+    // fix in IE11
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+      button {
+        margin-left: 5px;
+        min-height: 35px;
+      }
+    }
+  }
+
+  .sub-submission-text,
+  .register-submission-buttons-container {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -701,6 +760,13 @@ $draft-icon-offset: 120px;
     .bid-tracker-alert-container--draft {
       top: 0;
     }
+    .bid-tracker-alert-container--register {
+      top: 0;
+    }
+  }
+
+  .bid-tracker-overlay-alert--register {
+    margin-left: 0px;
   }
 
   .bid-tracker-alert-container {
@@ -716,6 +782,10 @@ $draft-icon-offset: 120px;
   }
 
   .draft-position-details {
+    display: none;
+  }
+
+  .register-position-details {
     display: none;
   }
 
@@ -869,6 +939,14 @@ $draft-icon-offset: 120px;
     }
   }
 
+  .bid-tracker-overlay-alert--register {
+    margin-left: 0%;
+
+    .bid-tracker-overlay-alert-content-container {
+      padding-right: 0px;
+    }
+  }
+
   .pending-line > .rc-steps-item-tail,
   .rc-steps-item-tail {
     &::after {
@@ -878,6 +956,10 @@ $draft-icon-offset: 120px;
 
   .bid-tracker-overlay-alert--draft::after {
     top: 13px;
+  }
+
+  .bid-tracker-overlay-alert--register::after {
+    display: none;
   }
 
   .bid-tracker-bid-steps-container--handshakeaccepted {
@@ -1007,6 +1089,54 @@ $draft-icon-offset: 120px;
   }
 
   .draft-position-details {
+    padding-left: 5%;
+    text-align: left;
+  }
+
+  .sub-submission-text {
+    margin-bottom: 15px;
+  }
+
+  .tm-button-submit-bid {
+    float: left;
+    margin: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    .fa {
+      font-size: 1em;
+      margin-bottom: 0;
+      margin-right: 5px;
+    }
+  }
+}
+
+.bid-tracker-alert-container--register {
+  top: 35px;
+
+  .remove-bid-link {
+    cursor: pointer;
+    float: left;
+    margin-right: 10px;
+    margin-top: 17px;
+    text-decoration: underline;
+  }
+
+  .title {
+    font-weight: bold;
+  }
+
+  .register-submission-container {
+    border-right: 1px solid $color-black;
+  }
+
+  .register-submission-buttons-container {
+    display: flex;
+    margin: auto;
+    max-width: 350px;
+  }
+
+  .register-position-details {
     padding-left: 5%;
     text-align: left;
   }

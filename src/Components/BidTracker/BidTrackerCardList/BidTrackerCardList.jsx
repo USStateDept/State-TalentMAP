@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { BID_RESULTS, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidTrackerCardContainer from '../BidTrackerCardContainer';
 
-const BidTrackerCardList = ({ bids, acceptBid, declineBid, submitBid, deleteBid, userProfile,
-  useCDOView }) => {
+const BidTrackerCardList = ({ bids, acceptBid, declineBid, registerHandshake, submitBid, deleteBid,
+  userProfile, useCDOView }) => {
   // Push the priority bid to the top. There should only be one priority bid.
   // We do this sorting client-side to maintain any sorts the user might select,
   // while ensuring the priority bid is stickied to the top.
@@ -26,6 +26,7 @@ const BidTrackerCardList = ({ bids, acceptBid, declineBid, submitBid, deleteBid,
             declineBid={declineBid}
             submitBid={submitBid}
             deleteBid={deleteBid}
+            registerHandshake={registerHandshake}
             userProfile={userProfile}
             priorityExists={doesPriorityExist}
             useCDOView={useCDOView}
@@ -40,6 +41,7 @@ BidTrackerCardList.propTypes = {
   bids: BID_RESULTS.isRequired,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
+  registerHandshake: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
   userProfile: USER_PROFILE.isRequired,

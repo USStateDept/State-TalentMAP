@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import { BID_OBJECT } from '../../../../Constants/PropTypes';
 import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessages';
 import { getPostName, formatDate } from '../../../../utilities';
 
-class HandshakeRegisteredAlert extends Component {
+class HandshakeRegisterAlert extends Component {
   onRegisterHandshake = () => {
     const { registerHandshake, bid } = this.props;
     registerHandshake(bid.position.id);
@@ -24,28 +23,27 @@ class HandshakeRegisteredAlert extends Component {
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
     // modify line 6: import NO_TOUR_END_DATE from SystemMessages
     return (
-      <div className="bid-tracker-alert-container bid-tracker-alert-container--draft">
+      <div className="bid-tracker-alert-container bid-tracker-alert-container--register">
         <div className="usa-grid-full" style={{ display: 'flex' }}>
-          <div className="draft-submission-container" style={{ flex: 1 }}>
+          <div className="register-submission-container" style={{ flex: 1 }}>
             <div className="sub-submission-text">
-              { readOnly ?
-                'This bid i' :
-                'Would you like to register this handshake?'
+              {
+                !readOnly ?
+                  'Would you like to register this handshake?'
+                  :
+                  'This handshake needs to be registered'
               }
             </div>
-            <div className="usa-grid-full draft-submission-buttons-container">
-              {
-                !readOnly &&
-                  <button
-                    className="tm-button-transparent tm-button-submit-bid"
-                    onClick={this.onSubmitBid}
-                  >
-                    <FontAwesome name="paper-plane-o" /> Submit Bid
-                  </button>
-              }
+            <div className="usa-grid-full register-submission-buttons-container">
+              <button
+                className="tm-button-transparent tm-button-submit-bid"
+                onClick={this.onRegisterHandshake}
+              >
+                  Register Handshake
+              </button>
             </div>
           </div>
-          <div className="draft-position-details" style={{ flex: 1 }}>
+          <div className="register-position-details" style={{ flex: 1 }}>
             <div>
               {positionTitle}
             </div>
@@ -74,13 +72,13 @@ class HandshakeRegisteredAlert extends Component {
   }
 }
 
-HandshakeRegisteredAlert.contextTypes = {
+HandshakeRegisterAlert.contextTypes = {
   readOnly: PropTypes.bool,
 };
 
-HandshakeRegisteredAlert.propTypes = {
+HandshakeRegisterAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   registerHandshake: PropTypes.func.isRequired,
 };
 
-export default HandshakeRegisteredAlert;
+export default HandshakeRegisterAlert;

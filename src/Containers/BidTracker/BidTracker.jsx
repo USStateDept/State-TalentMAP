@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
 import { bidListFetchData, toggleBidPosition, routeChangeResetState,
-  submitBid, acceptBid, declineBid } from '../../actions/bidList';
+  submitBid, acceptBid, declineBid, registerHandshake } from '../../actions/bidList';
 import { userProfilePublicFetchData } from '../../actions/userProfilePublic';
 import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
@@ -84,6 +84,7 @@ class BidTrackerContainer extends Component {
         bidListToggleHasErrored={bidListToggleHasErrored}
         bidListToggleSuccess={bidListToggleSuccess}
         deleteBid={deleteBid}
+        registerHandshake={registerHandshake}
         submitBid={submitBidPosition}
         submitBidHasErrored={submitBidHasErrored}
         submitBidIsLoading={submitBidIsLoading}
@@ -156,6 +157,7 @@ BidTrackerContainer.defaultProps = {
   isPublic: false,
   fetchUserData: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
+  registerHandshake: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
