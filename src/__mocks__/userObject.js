@@ -3,8 +3,12 @@ export const bidderUserObject = {
   employee_info: {
     skills: [
       {
-        code: '0020',
-        description: null,
+        code: '6218',
+        description: 'CONSTRUCTION ENGINEERING',
+      },
+      {
+        code: '6211',
+        description: 'COMPUTER SCIENCE',
       },
     ],
     grade: '00',
@@ -24,6 +28,7 @@ export const bidderUserObject = {
   is_cdo: false,
   cdo: {
     username: 'shadtrachl',
+    initials: 'LS',
     first_name: 'Leah',
     last_name: 'Shadtrach',
     email: 'shadtrachl@state.gov',
