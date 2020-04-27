@@ -112,7 +112,7 @@
     "eslint": "^6",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-react-app": "^5.2.1",
-    "eslint-loader": "4.0.1",
+    "eslint-loader": "4.0.2",
     "eslint-plugin-flowtype": "2.41.0",
     "eslint-plugin-import": "2.20.2",
     "eslint-plugin-jsx-a11y": "5.1.1",
