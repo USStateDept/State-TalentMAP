@@ -51,7 +51,7 @@ export function homePagePositionsFetchData(skills = [], grade) {
     // Otherwise, search for user favorites.
 
     if (grade && skills && skills.length) {
-      const ids = skills.map(s => s.id);
+      const ids = skills.map(s => s.code);
       const querySkillCodes = ids.join(',');
       queryTypes.push(
         {
@@ -68,7 +68,6 @@ export function homePagePositionsFetchData(skills = [], grade) {
     /*    queryTypes.push(
       { name: HIGHLIGHTED_POSITIONS, query: HIGHLIGHTED_POSITIONS_QUERY() },
     ); */
-
 
     const queryProms = queryTypes.map(type => api().get(type.query));
     Promise.all(queryProms)

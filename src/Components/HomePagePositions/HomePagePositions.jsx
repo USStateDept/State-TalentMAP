@@ -25,13 +25,13 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
   if (userSkillAndGradePositions.length) {
     positions = userSkillAndGradePositions;
     title = 'Positions That Match Your Grade And Skill(s)';
-    const ids = userProfile.skills.map(s => s.code);
-    link = `/results?position__skill__in=${ids.join(',')}&position__grade__code__in=${userProfile.grade}`;
+    const ids = userProfile.employee_info.skills.map(s => s.code);
+    link = `/results?position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
     icon = 'briefcase';
   } else if (userGradePositions.length) {
     positions = userGradePositions;
     title = 'Positions That Match Your Grade';
-    link = `/results?position__grade__code__in=${userProfile.grade}`;
+    link = `/results?position__grade__code__in=${userProfile.employee_info.grade}`;
     icon = 'briefcase';
   } else {
     positions = favoritedPositions;

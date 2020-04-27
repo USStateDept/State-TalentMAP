@@ -22,18 +22,26 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, is
   };
   avatar.colorString = useColor ? avatar[colorProp] : undefined;
   const infoDataPointClassName = 'skill-code-data-point-container skill-code-data-point-container-gen-spec';
+  const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
+
   const conditionalStaticDevContent = isPublic ?
     (<InformationDataPoint
-      content={`Grade: ${get(userProfile, 'grade') || NO_GRADE}`}
+      content={`Grade: ${userGrade}`}
       className={infoDataPointClassName}
     />)
     :
-    (<StaticDevContent>
+    (<div>
+      <StaticDevContent>
+        <InformationDataPoint
+          content="Generalist •"
+          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        />
+      </StaticDevContent>
       <InformationDataPoint
-        content="Generalist • F2"
+        content={userGrade}
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
       />
-    </StaticDevContent>);
+    </div>);
   return (
     <div className="current-user-top current-user-section-border current-user-section-container">
       <div className="section-padded-inner-container">
@@ -50,7 +58,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, is
           {
             !useGroup &&
               <InformationDataPoint
-                content={<SkillCodeList skillCodes={userProfile.skills} />}
+                content={<SkillCodeList skillCodes={userProfile.employee_info.skills} />}
                 className="skill-code-data-point-container skill-code-data-point-container-skill"
               />
           }

@@ -18,20 +18,24 @@ class HomePagePositionsContainer extends Component {
 
   componentDidMount() {
     // Don't try to pull positions until we've received the user's profile.
-    if (this.props.userProfile.id) {
-      this.props.homePagePositionsFetchData(this.props.userProfile.skills,
-        this.props.userProfile.grade);
+    if (this.props.userProfile.emp_id) {
+      this.props.homePagePositionsFetchData(this.props.userProfile.employee_info.skills,
+        this.props.userProfile.employee_info.grade);
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     // Once we have a valid user profile, fetch the positions, but only
     // once. We'll set hasFetched to true to keep track.
-    if (nextProps.userProfile.id && !this.state.hasFetched && !this.props.homePagePositionsIsLoading
-      && !nextProps.homePagePositionsIsLoading) {
-      this.props.homePagePositionsFetchData(nextProps.userProfile.skills,
-        nextProps.userProfile.grade);
+    if (nextProps.userProfile.emp_id && !this.state.hasFetched
+        && !this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
+      this.props.homePagePositionsFetchData(nextProps.userProfile.employee_info.skills,
+        nextProps.userProfile.employee_info.grade);
     }
+    // eslint-disable-next-line no-console
+    console.log('here: this.props.userProfile.employee_info: ', this.props.userProfile.employee_info);
+    // eslint-disable-next-line no-console
+    console.log('here: this.props.userProfile: ', this.props.userProfile);
 
     if (this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
       setTimeout(() => {
