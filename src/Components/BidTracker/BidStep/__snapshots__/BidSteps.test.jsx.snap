@@ -132,7 +132,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-main-text"
         >
-          Handshake Registered
+          Handshake Accepted
         </div>
         <div
           className="step-title-sub-text"
