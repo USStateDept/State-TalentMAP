@@ -186,6 +186,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         }
         declineBid={[Function]}
         deleteBid={[Function]}
+        registerHandshake={[Function]}
         submitBid={[Function]}
       />
     </div>

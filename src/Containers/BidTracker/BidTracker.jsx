@@ -183,6 +183,7 @@ BidTrackerContainer.defaultProps = {
   registerHandshakePosition: EMPTY_FUNCTION,
   registerHandshakeHasErrored: false,
   registerHandshakeSuccess: false,
+  registerHandshakeIsLoading: false,
   unregisterHandshakeHasErrored: false,
   unregisterHandshakeSuccess: false,
   unregisterHandshakeIsLoading: false,
