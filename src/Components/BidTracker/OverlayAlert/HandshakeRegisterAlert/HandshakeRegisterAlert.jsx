@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
-import { BID_OBJECT } from '../../../../Constants/PropTypes';
-import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessages';
-import { getPostName, formatDate } from '../../../../utilities';
+import { BID_OBJECT } from 'Constants/PropTypes';
+import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
+import { getPostName, formatDate } from 'utilities';
 
 class HandshakeRegisterAlert extends Component {
   onRegisterHandshake = () => {
