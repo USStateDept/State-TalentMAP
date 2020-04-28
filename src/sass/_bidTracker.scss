@@ -1259,3 +1259,17 @@ $register-icon-offset: 44%;
 .number-icon-is-current-no-action {
   animation: glowing 2000ms infinite;
 }
+
+@media screen and (max-width: 1450px) {
+  .bid-tracker-overlay-alert--register {
+    margin-left: 0%;
+
+    .bid-tracker-overlay-alert-content-container {
+      padding-right: 0%;
+    }
+  }
+
+  .bid-tracker-overlay-alert--register::after {
+    display: none;
+  }
+}
