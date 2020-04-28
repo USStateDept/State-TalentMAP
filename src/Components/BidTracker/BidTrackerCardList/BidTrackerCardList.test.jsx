@@ -14,6 +14,7 @@ describe('BidTrackerCardListComponent', () => {
     declineBid: () => {},
     submitBid: () => {},
     deleteBid: () => {},
+    registerHandshake: () => {},
     userProfile: bidderUserObject,
   };
 

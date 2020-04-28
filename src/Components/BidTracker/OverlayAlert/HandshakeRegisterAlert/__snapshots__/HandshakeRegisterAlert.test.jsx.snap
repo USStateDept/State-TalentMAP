@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HandshakeRegisterAlert matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--register"
+>
+  <div
+    className="usa-grid-full"
+    style={
+      Object {
+        "display": "flex",
+      }
+    }
+  >
+    <div
+      className="register-submission-container"
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <div
+        className="sub-submission-text"
+      >
+        Would you like to register this handshake?
+      </div>
+      <div
+        className="usa-grid-full register-submission-buttons-container"
+      >
+        <button
+          className="tm-button-transparent tm-button-submit-bid"
+          onClick={[Function]}
+        >
+          Register Handshake
+        </button>
+      </div>
+    </div>
+    <div
+      className="register-position-details"
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <div>
+        POLITICAL/ECONOMIC OFFICER
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Location: 
+        </span>
+        Freetown, Sierra Leone
+      </div>
+      <div>
+        <Connect(StaticDevContent)>
+          <span
+            className="title"
+          >
+            TED: 
+          </span>
+          07/02/2020
+        </Connect(StaticDevContent)>
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Skill: 
+        </span>
+        POLITICAL AND ECONOMIC AFFAIRS (6050)
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Grade: 
+        </span>
+        03
+      </div>
+    </div>
+  </div>
+</div>
+`;
