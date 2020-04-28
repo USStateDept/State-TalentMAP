@@ -434,7 +434,7 @@ export function unregisterHandshake(id, clientId) {
       dispatch(unregisterHandshakeHasErrored(false));
     });
 
-    const url = `/fsbid/bids/cdo/position/${idString}/${clientId}/register/`;
+    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
 
     api().delete(url)
       .then(response => response.data)
