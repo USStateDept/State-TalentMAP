@@ -167,7 +167,7 @@ export const SORT_BY_PARENT_OBJECT = PropTypes.shape({
 export const COMPARE_LIST = PropTypes.arrayOf(POSITION_DETAILS);
 
 export const FAVORITE_POSITION = PropTypes.shape({
-  id: PropTypes.string,
+  id: PropTypes.number,
   representation: PropTypes.string,
 });
 

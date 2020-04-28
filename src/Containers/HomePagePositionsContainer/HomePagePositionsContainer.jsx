@@ -32,11 +32,6 @@ class HomePagePositionsContainer extends Component {
       this.props.homePagePositionsFetchData(nextProps.userProfile.employee_info.skills,
         nextProps.userProfile.employee_info.grade);
     }
-    // eslint-disable-next-line no-console
-    console.log('here: this.props.userProfile.employee_info: ', this.props.userProfile.employee_info);
-    // eslint-disable-next-line no-console
-    console.log('here: this.props.userProfile: ', this.props.userProfile);
-
     if (this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
       setTimeout(() => {
         this.setState({ hasFetched: true });

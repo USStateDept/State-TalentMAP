@@ -183,7 +183,7 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       title="Positions That Match Your Grade And Skill(s)"
       type="default"
       useSpinner={false}
-      viewMoreLink="/results?position__skill__in=,&position__grade__code__in=03"
+      viewMoreLink="/results?position__skill__code__in=3001,2881&position__grade__code__in=03"
       wrapInLink={true}
     />
   </div>

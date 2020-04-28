@@ -15,15 +15,11 @@ exports[`UserProfilePersonalInformationComponent matches snapshot 1`] = `
             Array [
               Object {
                 "code": "6218",
-                "cone": null,
                 "description": "CONSTRUCTION ENGINEERING",
-                "id": 63,
               },
               Object {
                 "code": "6211",
-                "cone": null,
                 "description": "COMPUTER SCIENCE",
-                "id": 40,
               },
             ]
           }

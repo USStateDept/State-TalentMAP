@@ -58,7 +58,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup, is
           {
             !useGroup &&
               <InformationDataPoint
-                content={<SkillCodeList skillCodes={userProfile.employee_info.skills} />}
+                content={<SkillCodeList skillCodes={userProfile.skills} />}
                 className="skill-code-data-point-container skill-code-data-point-container-skill"
               />
           }
