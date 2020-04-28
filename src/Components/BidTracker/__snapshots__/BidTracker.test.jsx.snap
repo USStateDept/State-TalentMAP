@@ -302,6 +302,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         }
         declineBid={[Function]}
         deleteBid={[Function]}
+        registerHandshake={[Function]}
         submitBid={[Function]}
         useCDOView={false}
         userProfile={

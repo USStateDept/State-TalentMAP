@@ -59,6 +59,11 @@ export const DECLINE_BID_ERROR = 'Error trying to decline this bid.';
 export const SUBMIT_BID_SUCCESS = 'Bid successfully submitted.';
 export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 
+export const REGISTER_HANDSHAKE_SUCCESS = 'Handshake successfully registered.';
+export const REGISTER_HANDSHAKE_ERROR = 'Error trying to register handshake.';
+export const UNREGISTER_HANDSHAKE_SUCCESS = 'Handshake successfully unregistered.';
+export const UNREGISTER_HANDSHAKE_ERROR = 'Error trying to unregister handshake.';
+
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
 export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';
 export const DELETE_SAVED_SEARCH_SUCCESS_TITLE = 'Success';

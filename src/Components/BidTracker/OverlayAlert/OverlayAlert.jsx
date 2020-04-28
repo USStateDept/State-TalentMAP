@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from '../../../Constants/PropTypes';
 import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP,
-  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP } from '../../../Constants/BidData';
+  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP } from '../../../Constants/BidData';
 import ApprovedAlert from './ApprovedAlert';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
@@ -11,14 +11,18 @@ import DeclinedAlert from './DeclinedAlert';
 import ClosedAlert from './ClosedAlert';
 import PanelRescheduledAlert from './PanelRescheduledAlert';
 import DraftAlert from './DraftAlert';
+import HandshakeRegisterAlert from './HandshakeRegisterAlert';
 
 // Alert rendering based on status is handled here.
 // eslint-disable-next-line complexity
-const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid }, { condensedView }) => {
+const OverlayAlert = (
+  { bid, acceptBid, declineBid, submitBid, registerHandshake },
+  { condensedView }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
+  const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
 
   const { position } = bid;
   const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
@@ -42,6 +46,15 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid }, { condensedView
   };
 
   switch (bid.status) {
+    case HAND_SHAKE_NEEDS_REGISTER_PROP:
+      overlayClass = CLASS_REGISTER;
+      overlayContent = (
+        <HandshakeRegisterAlert
+          id={bid.id}
+          registerHandshake={registerHandshake}
+          bid={bid}
+        />);
+      break;
     case APPROVED_PROP:
       setApproved();
       break;
@@ -109,6 +122,7 @@ OverlayAlert.propTypes = {
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
+  registerHandshake: PropTypes.func.isRequired,
 };
 
 OverlayAlert.contextTypes = {
