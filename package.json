@@ -144,7 +144,7 @@
     "sass-lint": "^1.13.1",
     "sass-loader": "^8.0.2",
     "sinon": "^2.4.1",
-    "style-loader": "1.2.0",
+    "style-loader": "1.2.1",
     "supertest": "^4.0.2",
     "sw-precache-webpack-plugin": "^1.0.0",
     "url-loader": "^4.1.0",
