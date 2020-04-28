@@ -41,32 +41,27 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         small={true}
         title="Doe, John"
       />
-      <div>
-        <Connect(StaticDevContent)>
-          <InformationDataPoint
-            className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-            content="Generalist •"
-            sideBySide={false}
-            title=""
-            titleOnBottom={false}
-          />
-        </Connect(StaticDevContent)>
-        <InformationDataPoint
-          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-          content="00"
-          sideBySide={false}
-          title=""
-          titleOnBottom={false}
-        />
-      </div>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Grade: 00"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
           <SkillCodeList
             skillCodes={
               Array [
-                63,
-                40,
+                Object {
+                  "code": "6218",
+                  "description": "CONSTRUCTION ENGINEERING",
+                },
+                Object {
+                  "code": "6211",
+                  "description": "COMPUTER SCIENCE",
+                },
               ]
             }
           />
@@ -121,32 +116,27 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         small={true}
         title="Doe, John"
       />
-      <div>
-        <Connect(StaticDevContent)>
-          <InformationDataPoint
-            className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-            content="Generalist •"
-            sideBySide={false}
-            title=""
-            titleOnBottom={false}
-          />
-        </Connect(StaticDevContent)>
-        <InformationDataPoint
-          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-          content="00"
-          sideBySide={false}
-          title=""
-          titleOnBottom={false}
-        />
-      </div>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Grade: 00"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
           <SkillCodeList
             skillCodes={
               Array [
-                63,
-                40,
+                Object {
+                  "code": "6218",
+                  "description": "CONSTRUCTION ENGINEERING",
+                },
+                Object {
+                  "code": "6211",
+                  "description": "COMPUTER SCIENCE",
+                },
               ]
             }
           />
@@ -201,24 +191,13 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         small={true}
         title="Doe, John"
       />
-      <div>
-        <Connect(StaticDevContent)>
-          <InformationDataPoint
-            className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-            content="Generalist •"
-            sideBySide={false}
-            title=""
-            titleOnBottom={false}
-          />
-        </Connect(StaticDevContent)>
-        <InformationDataPoint
-          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-          content="00"
-          sideBySide={false}
-          title=""
-          titleOnBottom={false}
-        />
-      </div>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Grade: 00"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
     </div>
   </div>
 </div>

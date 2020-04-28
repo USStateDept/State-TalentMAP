@@ -33,7 +33,6 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
       >
         <UserProfileGeneralInformation
           colorProp="displayName"
-          isPublic={false}
           showEditLink={false}
           useColor={false}
           useGroup={true}
