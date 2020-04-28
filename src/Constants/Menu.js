@@ -14,7 +14,6 @@ import { checkFlag } from '../flags';
  *    toggleMenuSection?: boolean;
  *    expandedSection?: boolean;
  *    roles?: Array<string>;
- *    isCDO?: boolean;
  *    isGlossaryEditor?: boolean;
  *    children?: Array<MenuItem>;
  *  }
@@ -25,7 +24,6 @@ function MenuConfig(config) {
       toggleMenuSection: false,
       expandedSection: false,
       roles: [],
-      isCDO: false,
       isGlossaryEditor: false,
     }, item);
 
@@ -90,7 +88,9 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Client Profiles', // aka Bidder Portfolio
           route: '/profile/bidderportfolio',
           icon: 'users',
-          isCDO: true,
+          roles: [
+            'cdo',
+          ],
           params: {
             type: 'all',
           },
@@ -102,7 +102,9 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       text: 'Statistics',
       icon: 'pie-chart',
       route: '/profile/statistics',
-      isCDO: true,
+      roles: [
+        'cdo',
+      ],
     } : null,
   {
     text: 'Administrator',
