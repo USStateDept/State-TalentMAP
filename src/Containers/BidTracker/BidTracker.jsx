@@ -11,7 +11,7 @@ import { bidTrackerNotificationsFetchData, markNotification } from '../../action
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
   SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
   DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS,
-  REGISTER_HANDSHAKE_ERROR, REGISTER_HANDSHAKE_SUCCESS, UNREGISTER_HANDSHAKE_ERROR,
+  REGISTER_HANDSHAKE_HAS_ERRORED, REGISTER_HANDSHAKE_SUCCESS, UNREGISTER_HANDSHAKE_HAS_ERRORED,
   UNREGISTER_HANDSHAKE_SUCCESS,
 } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
@@ -151,11 +151,11 @@ BidTrackerContainer.propTypes = {
   declineBidIsLoading: PropTypes.bool.isRequired,
   declineBidSuccess: DECLINE_BID_SUCCESS.isRequired,
   registerHandshakePosition: PropTypes.func.isRequired,
-  registerHandshakeHasErrored: REGISTER_HANDSHAKE_ERROR.isRequired,
+  registerHandshakeHasErrored: REGISTER_HANDSHAKE_HAS_ERRORED.isRequired,
   registerHandshakeSuccess: REGISTER_HANDSHAKE_SUCCESS.isRequired,
   registerHandshakeIsLoading: PropTypes.bool.isRequired,
   unregisterHandshakePosition: PropTypes.func.isRequired,
-  unregisterHandshakeHasErrored: UNREGISTER_HANDSHAKE_ERROR.isRequired,
+  unregisterHandshakeHasErrored: UNREGISTER_HANDSHAKE_HAS_ERRORED.isRequired,
   unregisterHandshakeSuccess: UNREGISTER_HANDSHAKE_SUCCESS.isRequired,
   unregisterHandshakeIsLoading: PropTypes.bool.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
