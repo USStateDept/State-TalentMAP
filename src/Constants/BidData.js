@@ -43,11 +43,6 @@ export const BID_EXPLANATION_TEXT = {
     link: "Learn more about AO and HR Tech's roles.",
     term: 'AO - Assignments Officer',
   },
-  [HAND_SHAKE_NEEDS_REGISTER_PROP]: {
-    text: 'TEST.',
-    link: 'TEST.',
-    term: 'TEST',
-  },
 };
 
 // Numbers on the Bid Tracker for given statuses
