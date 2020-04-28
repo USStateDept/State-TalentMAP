@@ -66,8 +66,9 @@ class BidTracker extends Component {
   }
 
   exportBidlistData = () => {
+    const { isPublic, userProfile: { perdet_seq_number } } = this.props;
     this.setIsLoading(true);
-    downloadBidlistData()
+    downloadBidlistData(isPublic, perdet_seq_number)
       .then(() => {
         this.setIsLoading(false);
       })
@@ -131,12 +132,9 @@ class BidTracker extends Component {
               onSelectOption={this.onSelectOption}
             />
           </div>
-          {
-            !isPublic &&
-              <div className="export-button-container">
-                <ExportButton onClick={this.exportBidlistData} isLoading={exportIsLoading} />
-              </div>
-          }
+          <div className="export-button-container">
+            <ExportButton onClick={this.exportBidlistData} isLoading={exportIsLoading} />
+          </div>
         </div>
         <div className="bid-tracker-content-container">
           {
