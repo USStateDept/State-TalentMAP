@@ -167,6 +167,27 @@ export function registerHandshakeSuccess(response) {
   };
 }
 
+export function unregisterHandshakeHasErrored(bool) {
+  return {
+    type: 'UNREGISTER_HANDSHAKE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function unregisterHandshakeIsLoading(bool) {
+  return {
+    type: 'UNREGISTER_HANDSHAKE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function unregisterHandshakeSuccess(response) {
+  return {
+    type: 'UNREGISTER_HANDSHAKE_SUCCESS',
+    response,
+  };
+}
+
 
 // to reset state
 export function routeChangeResetState() {
@@ -380,9 +401,9 @@ export function registerHandshake(id, clientId) {
       dispatch(registerHandshakeHasErrored(false));
     });
 
-    const url = `/fsbid/bidlist/position/${clientId}/${idString}/register_handshake/`;
+    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
 
-    api().get(url)
+    api().put(url)
       .then(response => response.data)
       .then(() => {
         batch(() => {
@@ -396,6 +417,37 @@ export function registerHandshake(id, clientId) {
         batch(() => {
           dispatch(registerHandshakeHasErrored(SystemMessages.REGISTER_HANDSHAKE_ERROR));
           dispatch(registerHandshakeIsLoading(false));
+        });
+      });
+  };
+}
+
+export function unregisterHandshake(id, clientId) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    batch(() => {
+      dispatch(routeChangeResetState());
+      dispatch(unregisterHandshakeIsLoading(true));
+      dispatch(unregisterHandshakeHasErrored(false));
+    });
+
+    const url = `/fsbid/bids/cdo/position/${idString}/${clientId}/register/`;
+
+    api().delete(url)
+      .then(response => response.data)
+      .then(() => {
+        batch(() => {
+          dispatch(unregisterHandshakeHasErrored(false));
+          dispatch(unregisterHandshakeIsLoading(false));
+          dispatch(unregisterHandshakeSuccess(SystemMessages.UNREGISTER_HANDSHAKE_SUCCESS));
+        });
+        dispatch(userProfilePublicFetchData(clientId));
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(unregisterHandshakeHasErrored(SystemMessages.UNREGISTER_HANDSHAKE_ERROR));
+          dispatch(unregisterHandshakeIsLoading(false));
         });
       });
   };

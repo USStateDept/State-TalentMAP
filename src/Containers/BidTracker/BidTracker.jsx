@@ -9,7 +9,10 @@ import { userProfilePublicFetchData } from '../../actions/userProfilePublic';
 import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
   SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
-  DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS } from '../../Constants/PropTypes';
+  DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS,
+  // REGISTER_HANDSHAKE_ERROR, REGISTER_HANDSHAKE_SUCCESS, UNREGISTER_HANDSHAKE_ERROR,
+  // UNREGISTER_HANDSHAKE_SUCCESS
+} from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import BidTracker from '../../Components/BidTracker';
 
@@ -66,7 +69,8 @@ class BidTrackerContainer extends Component {
       declineBidSuccess, notifications, notificationsIsLoading,
       markNotificationHasErrored, markNotificationIsLoading, markNotificationSuccess,
       markBidTrackerNotification, userProfile, userProfileIsLoading,
-      userProfilePublic, userProfilePublicIsLoading, userProfilePublicHasErrored } = this.props;
+      userProfilePublic, userProfilePublicIsLoading, userProfilePublicHasErrored,
+      registerHandshakePosition } = this.props;
 
     const bidList$ = isPublic ? { results: userProfilePublic.bidList } : bidList;
     const bidListHasErrored$ = isPublic ? userProfilePublicHasErrored : bidListHasErrored;
@@ -84,7 +88,7 @@ class BidTrackerContainer extends Component {
         bidListToggleHasErrored={bidListToggleHasErrored}
         bidListToggleSuccess={bidListToggleSuccess}
         deleteBid={deleteBid}
-        registerHandshake={registerHandshake}
+        registerHandshake={registerHandshakePosition}
         submitBid={submitBidPosition}
         submitBidHasErrored={submitBidHasErrored}
         submitBidIsLoading={submitBidIsLoading}
@@ -135,6 +139,11 @@ BidTrackerContainer.propTypes = {
   declineBidHasErrored: DECLINE_BID_HAS_ERRORED.isRequired,
   declineBidIsLoading: PropTypes.bool.isRequired,
   declineBidSuccess: DECLINE_BID_SUCCESS.isRequired,
+  registerHandshakePosition: PropTypes.func.isRequired,
+  // registerHandshakeHasErrored: REGISTER_HANDSHAKE_ERROR.isRequired,
+  // registerHandshakeSuccess: REGISTER_HANDSHAKE_SUCCESS.isRequired,
+  // unregisterHandshakeHasErrored: UNREGISTER_HANDSHAKE_ERROR.isRequired,
+  // unregisterHandshakeSuccess: UNREGISTER_HANDSHAKE_SUCCESS.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
@@ -157,7 +166,7 @@ BidTrackerContainer.defaultProps = {
   isPublic: false,
   fetchUserData: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
-  registerHandshake: EMPTY_FUNCTION,
+  registerHandshakePosition: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
@@ -249,6 +258,8 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
       submitBidPosition: id => dispatch(submitBid(id, id$)),
       acceptBidPosition: id => dispatch(acceptBid(id, id$)),
       declineBidPosition: id => dispatch(declineBid(id, id$)),
+      registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),
+      // unregisterHanadshake: id => dispatch(unregisterHanadshake(id, id$)),
       deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
     };
   }
