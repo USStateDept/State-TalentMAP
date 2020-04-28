@@ -7,12 +7,14 @@ import { toastSuccess, toastError } from './toast';
 import { userProfilePublicFetchData } from './userProfilePublic';
 import * as SystemMessages from '../Constants/SystemMessages';
 
-export function downloadBidlistData() {
-  return api().get('/fsbid/bidlist/export/', {
+export function downloadBidlistData(useClient = false, clientId = '') {
+  const url = useClient && clientId ? `/fsbid/cdo/client/${clientId}/export/` : '/fsbid/bidlist/export/';
+  const clientId$ = useClient ? clientId : '';
+  return api().get(url, {
     responseType: 'stream',
   })
     .then((response) => {
-      downloadFromResponse(response, 'TalentMap_BidList_export');
+      downloadFromResponse(response, `TalentMap_BidList_export${clientId ? `_${clientId$}` : ''}`);
     })
     .catch(() => {
       // eslint-disable-next-line global-require
