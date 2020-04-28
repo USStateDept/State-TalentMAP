@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { NO_GRADE, NO_USER_SKILL_CODE } from 'Constants/SystemMessages';
+import { NO_GRADE } from 'Constants/SystemMessages';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
@@ -22,7 +22,7 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup,
   };
   avatar.colorString = useColor ? avatar[colorProp] : undefined;
   const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
-  const userSkills = get(userProfile, 'employee_info.skills') || NO_USER_SKILL_CODE;
+  const userSkills = get(userProfile, 'employee_info.skills');
   return (
     <div className="current-user-top current-user-section-border current-user-section-container">
       <div className="section-padded-inner-container">
