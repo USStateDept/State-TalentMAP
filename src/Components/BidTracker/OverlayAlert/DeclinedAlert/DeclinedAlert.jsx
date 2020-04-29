@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LinkButton from '../../../LinkButton';
 
-const DeclinedAlert = ({ bureau, id }, { condensedView }) => (
+const DeclinedAlert = ({ bureau, bidIdUrl }, { condensedView }) => (
   <div className="bid-tracker-alert-container bid-tracker-alert-container--declined">
     <div className="top-text">
       {bureau || 'The bureau'} has <strong>declined</strong> the bid
@@ -10,7 +10,7 @@ const DeclinedAlert = ({ bureau, id }, { condensedView }) => (
     {
       condensedView &&
       <div className="usa-grid-full">
-        <LinkButton toLink={`/profile/bidtracker/${id || ''}`} className="tm-button-transparent">
+        <LinkButton toLink={bidIdUrl} className="tm-button-transparent">
           Go to Bid Tracker
         </LinkButton>
       </div>
@@ -20,11 +20,11 @@ const DeclinedAlert = ({ bureau, id }, { condensedView }) => (
 
 DeclinedAlert.propTypes = {
   bureau: PropTypes.string.isRequired,
-  id: PropTypes.number,
+  bidIdUrl: PropTypes.string,
 };
 
 DeclinedAlert.defaultProps = {
-  id: 0,
+  bidIdUrl: '',
 };
 
 DeclinedAlert.contextTypes = {

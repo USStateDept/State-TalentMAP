@@ -66,6 +66,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
     showBidCount={true}
     submitBid={[Function]}
     useCDOView={false}
+    userId=""
     userProfile={
       Object {
         "bid_statistics": Array [
@@ -265,6 +266,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
       showBidCount={false}
       submitBid={[Function]}
       useCDOView={false}
+      userId=""
       userProfile={
         Object {
           "bid_statistics": Array [

@@ -28,6 +28,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
       deleteBid={deleteBid}
       priorityExists={doesPriorityExist}
       readOnly={isPublic}
+      userId={userId}
     />
   ));
   return (

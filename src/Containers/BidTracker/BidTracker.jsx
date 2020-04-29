@@ -35,8 +35,8 @@ class BidTrackerContainer extends Component {
 
   componentDidUpdate() {
     const { match: { params } } = this.props;
-    if (params.id) {
-      this.scrollToId(params.id);
+    if (params.bid) {
+      this.scrollToId(params.bid);
     }
   }
 
@@ -168,7 +168,10 @@ BidTrackerContainer.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
   match: PropTypes.shape({
-    params: PropTypes.shape({ id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]) }),
+    params: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      bid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    }),
   }),
   userProfilePublic: USER_PROFILE,
   userProfilePublicIsLoading: PropTypes.bool,
