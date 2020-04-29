@@ -207,6 +207,9 @@ export function routeChangeResetState() {
       dispatch(declineBidSuccess(false));
       dispatch(declineBidHasErrored(false));
       dispatch(declineBidSuccess(false));
+      dispatch(registerHandshakeSuccess(false));
+      dispatch(registerHandshakeHasErrored(false));
+      dispatch(registerHandshakeSuccess(false));
     });
   };
 }
@@ -408,16 +411,20 @@ export function registerHandshake(id, clientId) {
     api().put(url)
       .then(response => response.data)
       .then(() => {
+        const message = SystemMessages.REGISTER_HANDSHAKE_SUCCESS;
         batch(() => {
+          dispatch(toastSuccess(message));
           dispatch(registerHandshakeHasErrored(false));
           dispatch(registerHandshakeIsLoading(false));
-          dispatch(registerHandshakeSuccess(SystemMessages.REGISTER_HANDSHAKE_SUCCESS));
+          dispatch(registerHandshakeSuccess(message));
         });
         dispatch(userProfilePublicFetchData(clientId));
       })
       .catch(() => {
+        const message = SystemMessages.REGISTER_HANDSHAKE_ERROR;
         batch(() => {
-          dispatch(registerHandshakeHasErrored(SystemMessages.REGISTER_HANDSHAKE_ERROR));
+          dispatch(toastError(message));
+          dispatch(registerHandshakeHasErrored(message));
           dispatch(registerHandshakeIsLoading(false));
         });
       });
