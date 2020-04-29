@@ -15,7 +15,18 @@ describe('HomePageComponent', () => {
       [HIGHLIGHTED_POSITIONS]: [],
     },
     bidList: bidListObject.results,
-    userProfile: { skills: ['1', '2'], grade: '03' },
+    userProfile: {
+      employee_info: {
+        grade: '03',
+        skills: [{
+          code: '3001',
+          description: 'CONSULAR AFFAIRS',
+        }, {
+          code: '2881',
+          description: 'INFORMATION PROGRAMS ADMIN',
+        }],
+      },
+    },
   };
 
   it('is defined', () => {

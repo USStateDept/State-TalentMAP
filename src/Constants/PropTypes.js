@@ -186,8 +186,6 @@ export const FAVORITE_POSITIONS = PropTypes.shape({
 });
 
 export const USER_SKILL_CODE = PropTypes.shape({
-  id: PropTypes.number,
-  cone: PropTypes.string,
   code: PropTypes.string,
   description: PropTypes.string,
 });
@@ -202,6 +200,11 @@ export const USER_NESTED_OBJECT = PropTypes.shape({
 });
 
 export const USER_PROFILE = PropTypes.shape({
+  emp_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  employee_info: PropTypes.shape({
+    grade: PropTypes.string,
+    skills: USER_SKILL_CODE_ARRAY,
+  }),
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
   initials: PropTypes.string,

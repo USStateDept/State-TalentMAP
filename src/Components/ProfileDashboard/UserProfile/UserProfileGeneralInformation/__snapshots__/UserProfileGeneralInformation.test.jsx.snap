@@ -41,15 +41,13 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         small={true}
         title="Doe, John"
       />
-      <Connect(StaticDevContent)>
-        <InformationDataPoint
-          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-          content="Generalist • F2"
-          sideBySide={false}
-          title=""
-          titleOnBottom={false}
-        />
-      </Connect(StaticDevContent)>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Grade: 00"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
@@ -58,15 +56,11 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
               Array [
                 Object {
                   "code": "6218",
-                  "cone": null,
                   "description": "CONSTRUCTION ENGINEERING",
-                  "id": 63,
                 },
                 Object {
                   "code": "6211",
-                  "cone": null,
                   "description": "COMPUTER SCIENCE",
-                  "id": 40,
                 },
               ]
             }
@@ -122,15 +116,13 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         small={true}
         title="Doe, John"
       />
-      <Connect(StaticDevContent)>
-        <InformationDataPoint
-          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-          content="Generalist • F2"
-          sideBySide={false}
-          title=""
-          titleOnBottom={false}
-        />
-      </Connect(StaticDevContent)>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Grade: 00"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-skill"
         content={
@@ -139,15 +131,11 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
               Array [
                 Object {
                   "code": "6218",
-                  "cone": null,
                   "description": "CONSTRUCTION ENGINEERING",
-                  "id": 63,
                 },
                 Object {
                   "code": "6211",
-                  "cone": null,
                   "description": "COMPUTER SCIENCE",
-                  "id": 40,
                 },
               ]
             }
@@ -203,15 +191,13 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         small={true}
         title="Doe, John"
       />
-      <Connect(StaticDevContent)>
-        <InformationDataPoint
-          className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-          content="Generalist • F2"
-          sideBySide={false}
-          title=""
-          titleOnBottom={false}
-        />
-      </Connect(StaticDevContent)>
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Grade: 00"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
     </div>
   </div>
 </div>

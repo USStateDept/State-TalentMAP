@@ -65,6 +65,10 @@ export function userProfilePublicFetchData(id, bypass) {
               first_name: acct$.name,
               last_name: null,
             },
+            employee_info: {
+              skills: acct$.skills,
+              grade: acct$.grade,
+            },
             bidList: get(bids, 'data.results', []),
             // any other profile info we want to add in the future
           };
