@@ -57,7 +57,6 @@ class HomePagePositionsContainer extends Component {
               homePagePositions={homePagePositions}
               homePagePositionsIsLoading={homePagePositionsIsLoading}
               userProfile={userProfile}
-
               bidList={bidList}
             />
         }

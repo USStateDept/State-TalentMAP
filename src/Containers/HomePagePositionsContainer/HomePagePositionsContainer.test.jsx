@@ -16,7 +16,7 @@ const mockStore = configureStore(middlewares);
 describe('Home', () => {
   const props = {
     userProfile: {
-      emp_id: '4',
+      id: 4,
       employee_info: {
         grade: '03',
         skills: [{

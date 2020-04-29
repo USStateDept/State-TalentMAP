@@ -200,7 +200,7 @@ export const USER_NESTED_OBJECT = PropTypes.shape({
 });
 
 export const USER_PROFILE = PropTypes.shape({
-  emp_id: PropTypes.string,
+  emp_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   employee_info: PropTypes.shape({
     grade: PropTypes.string,
     skills: USER_SKILL_CODE_ARRAY,
