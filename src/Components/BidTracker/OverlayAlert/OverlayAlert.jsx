@@ -53,7 +53,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       overlayClass = CLASS_REGISTER;
       overlayContent = (
         <HandshakeRegisterAlert
-          id={bid.id}
           registerHandshake={registerHandshake}
           bid={bid}
         />);
@@ -82,7 +81,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
         <HandshakeDeclinedAlert
           userName={bid.user}
           bureau={position.bureau}
-          id={bid.id}
           bidIdUrl={bidIdUrl}
         />
       );
@@ -97,7 +95,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
         (<ClosedAlert
           title={BID_TITLE}
           date={bid.closed_date}
-          id={bid.id}
           bidIdUrl={bidIdUrl}
         />);
       break;
@@ -109,7 +106,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       overlayClass = CLASS_DRAFT;
       overlayContent = (
         <DraftAlert
-          id={bid.id}
           bid={bid}
           submitBid={submitBid}
         />);
