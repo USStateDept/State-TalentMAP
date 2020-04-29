@@ -23,7 +23,6 @@ const ProfilePage = ({ user, isLoading }) => (
   <div className="profile-page">
     <ProfileMenu
       roles={user.permission_groups}
-      isCDO={user.is_cdo}
       isGlossaryEditor={userHasPermissions([GLOSSARY_EDITOR_PERM], user.permission_groups)}
     />
     <div className="usa-grid-full profile-content-container">

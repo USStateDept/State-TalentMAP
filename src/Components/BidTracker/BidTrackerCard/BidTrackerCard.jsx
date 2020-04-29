@@ -28,7 +28,7 @@ class BidTrackerCard extends Component {
   }
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
-      showBidCount, /* userProfile, */ useCDOView, userId } = this.props;
+      registerHandshake, showBidCount, /* userProfile, */ useCDOView, userId } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
     // determine whether we should show the contacts section based on the status
@@ -69,6 +69,7 @@ class BidTrackerCard extends Component {
                   submitBid={submitBid}
                   deleteBid={deleteBid}
                   userId={userId}
+                  registerHandshake={registerHandshake}
                 />
             }
           </div>
@@ -105,6 +106,7 @@ BidTrackerCard.propTypes = {
   declineBid: PropTypes.func,
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
+  registerHandshake: PropTypes.func.isRequired,
   // userProfile: USER_PROFILE,
   showBidCount: PropTypes.bool,
   condensedView: PropTypes.bool,

@@ -66,8 +66,9 @@ class BidTracker extends Component {
   }
 
   exportBidlistData = () => {
+    const { isPublic, userProfile: { perdet_seq_number } } = this.props;
     this.setIsLoading(true);
-    downloadBidlistData()
+    downloadBidlistData(isPublic, perdet_seq_number)
       .then(() => {
         this.setIsLoading(false);
       })
@@ -80,7 +81,7 @@ class BidTracker extends Component {
     const { exportIsLoading, sortValue } = this.state;
     const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
       notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
-      userProfileIsLoading, isPublic, useCDOView } = this.props;
+      userProfileIsLoading, isPublic, useCDOView, registerHandshake } = this.props;
     const isLoading = bidListIsLoading || userProfileIsLoading;
     const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
       `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
@@ -131,12 +132,9 @@ class BidTracker extends Component {
               onSelectOption={this.onSelectOption}
             />
           </div>
-          {
-            !isPublic &&
-              <div className="export-button-container">
-                <ExportButton onClick={this.exportBidlistData} isLoading={exportIsLoading} />
-              </div>
-          }
+          <div className="export-button-container">
+            <ExportButton onClick={this.exportBidlistData} isLoading={exportIsLoading} />
+          </div>
         </div>
         <div className="bid-tracker-content-container">
           {
@@ -149,6 +147,7 @@ class BidTracker extends Component {
                   declineBid={declineBid}
                   submitBid={submitBid}
                   deleteBid={deleteBid}
+                  registerHandshake={registerHandshake}
                   userProfile={userProfile}
                   useCDOView={useCDOView}
                 />
@@ -171,6 +170,7 @@ BidTracker.propTypes = {
   declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
+  registerHandshake: PropTypes.func.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
   markBidTrackerNotification: PropTypes.func.isRequired,
