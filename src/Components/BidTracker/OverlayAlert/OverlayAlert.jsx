@@ -11,6 +11,7 @@ import HandshakeDeclinedAlert from './HandshakeDeclinedAlert';
 import DeclinedAlert from './DeclinedAlert';
 import ClosedAlert from './ClosedAlert';
 import PanelRescheduledAlert from './PanelRescheduledAlert';
+import HandshakeRegisterAlert from './HandshakeRegisterAlert';
 import DraftAlert from './DraftAlert';
 import { getBidIdUrl } from './helpers';
 
