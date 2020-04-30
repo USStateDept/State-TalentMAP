@@ -396,41 +396,6 @@ export function declineBid(id, clientId) {
   };
 }
 
-export function registerHandshake(id, clientId) {
-  return (dispatch) => {
-    const idString = id.toString();
-    // reset the states to ensure only one message can be shown
-    batch(() => {
-      dispatch(routeChangeResetState());
-      dispatch(registerHandshakeIsLoading(true));
-      dispatch(registerHandshakeHasErrored(false));
-    });
-
-    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
-
-    api().put(url)
-      .then(response => response.data)
-      .then(() => {
-        const message = SystemMessages.REGISTER_HANDSHAKE_SUCCESS;
-        batch(() => {
-          dispatch(toastSuccess(message));
-          dispatch(registerHandshakeHasErrored(false));
-          dispatch(registerHandshakeIsLoading(false));
-          dispatch(registerHandshakeSuccess(message));
-        });
-        dispatch(userProfilePublicFetchData(clientId));
-      })
-      .catch(() => {
-        const message = SystemMessages.REGISTER_HANDSHAKE_ERROR;
-        batch(() => {
-          dispatch(toastError(message));
-          dispatch(registerHandshakeHasErrored(message));
-          dispatch(registerHandshakeIsLoading(false));
-        });
-      });
-  };
-}
-
 export function unregisterHandshake(id, clientId) {
   return (dispatch) => {
     const idString = id.toString();
@@ -446,17 +411,57 @@ export function unregisterHandshake(id, clientId) {
     api().delete(url)
       .then(response => response.data)
       .then(() => {
+        const message = SystemMessages.UNREGISTER_HANDSHAKE_SUCCESS;
         batch(() => {
+          dispatch(toastSuccess(message));
           dispatch(unregisterHandshakeHasErrored(false));
           dispatch(unregisterHandshakeIsLoading(false));
-          dispatch(unregisterHandshakeSuccess(SystemMessages.UNREGISTER_HANDSHAKE_SUCCESS));
+          dispatch(unregisterHandshakeSuccess(message));
         });
         dispatch(userProfilePublicFetchData(clientId));
       })
       .catch(() => {
+        const message = SystemMessages.UNREGISTER_HANDSHAKE_ERROR;
         batch(() => {
-          dispatch(unregisterHandshakeHasErrored(SystemMessages.UNREGISTER_HANDSHAKE_ERROR));
+          dispatch(toastError(message));
+          dispatch(unregisterHandshakeHasErrored(message));
           dispatch(unregisterHandshakeIsLoading(false));
+        });
+      });
+  };
+}
+
+export function registerHandshake(id, clientId) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    batch(() => {
+      dispatch(routeChangeResetState());
+      dispatch(registerHandshakeIsLoading(true));
+      dispatch(registerHandshakeHasErrored(false));
+    });
+
+    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
+
+    api().put(url)
+      .then(response => response.data)
+      .then(() => {
+        const undo = () => dispatch(unregisterHandshake(id, clientId));
+        const message = SystemMessages.REGISTER_HANDSHAKE_SUCCESS(undo);
+        batch(() => {
+          dispatch(toastSuccess(message));
+          dispatch(registerHandshakeHasErrored(false));
+          dispatch(registerHandshakeIsLoading(false));
+          dispatch(registerHandshakeSuccess(message));
+        });
+        dispatch(userProfilePublicFetchData(clientId));
+      })
+      .catch(() => {
+        const message = SystemMessages.REGISTER_HANDSHAKE_ERROR;
+        batch(() => {
+          dispatch(toastError(message));
+          dispatch(registerHandshakeHasErrored(message));
+          dispatch(registerHandshakeIsLoading(false));
         });
       });
   };
