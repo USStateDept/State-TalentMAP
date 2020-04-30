@@ -197,19 +197,19 @@ export function routeChangeResetState() {
     batch(() => {
       dispatch(bidListToggleSuccess(false));
       dispatch(bidListToggleHasErrored(false));
-      dispatch(bidListToggleSuccess(false));
+      dispatch(bidListToggleIsLoading(false));
       dispatch(submitBidSuccess(false));
       dispatch(submitBidHasErrored(false));
-      dispatch(submitBidSuccess(false));
+      dispatch(submitBidIsLoading(false));
       dispatch(acceptBidSuccess(false));
       dispatch(acceptBidHasErrored(false));
-      dispatch(acceptBidSuccess(false));
+      dispatch(acceptBidIsLoading(false));
       dispatch(declineBidSuccess(false));
       dispatch(declineBidHasErrored(false));
-      dispatch(declineBidSuccess(false));
+      dispatch(declineBidIsLoading(false));
       dispatch(registerHandshakeSuccess(false));
       dispatch(registerHandshakeHasErrored(false));
-      dispatch(registerHandshakeSuccess(false));
+      dispatch(registerHandshakeIsLoading(false));
     });
   };
 }
