@@ -75,9 +75,11 @@ export function homePagePositionsFetchData(skills = [], grade) {
       .then((results) => {
         // ...and because of that, we can be sure results[x] aligns with queryTypes[x]
         // and set the relevant resultsType property accordingly
+        let shouldSkip = false;
         results.forEach((result, i) => {
           // if our query returned no results, we will want to fall to the next arrangement
           if (!result.data.results.length) {
+            shouldSkip = true;
             if (queryTypes[i].name === 'userSkillAndGradePositions') {
               dispatch(homePagePositionsFetchData([], grade));
             } else if (queryTypes[i].name === 'userGradePositions') {
@@ -86,9 +88,11 @@ export function homePagePositionsFetchData(skills = [], grade) {
           }
           resultsTypes[queryTypes[i].name] = result.data.results;
         });
-        dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
-        dispatch(homePagePositionsHasErrored(false));
-        dispatch(homePagePositionsIsLoading(false));
+        if (!shouldSkip) {
+          dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
+          dispatch(homePagePositionsHasErrored(false));
+          dispatch(homePagePositionsIsLoading(false));
+        }
       })
       .catch(() => {
         dispatch(homePagePositionsHasErrored(true));
