@@ -3,7 +3,7 @@ import { USER_SKILL_AND_GRADE_POSITIONS, USER_GRADE_POSITIONS, FAVORITED_POSITIO
 import { COMMON_PROPERTIES } from '../Constants/EndpointParams';
 
 // Export our queries so that we can consistently test them.
-export const GET_GRADE_AND_SKILL_CODE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?position__skill__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+export const GET_GRADE_AND_SKILL_CODE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
 export const GET_GRADE_POSITIONS_QUERY_NEW = grade => `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3`;
 export const FAVORITE_POSITIONS_QUERY = () => '/available_position/favorites/?limit=3';
 export const HIGHLIGHTED_POSITIONS_QUERY = () => '/available_position/highlight/?limit=3';
@@ -46,10 +46,10 @@ export function homePagePositionsFetchData(skills = [], grade) {
       [HIGHLIGHTED_POSITIONS]: [],
     };
     const queryTypes = [];
-    // Search for positions that match the user's grade and skills.
-    // else search for just positions that match the user's grade.
-    // Otherwise, search for user favorites.
-
+    // arrangement:
+    // 1: userSkillAndGradePositions
+    // 2: userGradePositions
+    // 3: favoritedPositions
     if (grade && skills && skills.length) {
       const ids = skills.map(s => s.code);
       const querySkillCodes = ids.join(',');
@@ -76,6 +76,14 @@ export function homePagePositionsFetchData(skills = [], grade) {
         // ...and because of that, we can be sure results[x] aligns with queryTypes[x]
         // and set the relevant resultsType property accordingly
         results.forEach((result, i) => {
+          // if our query returned no results, we will want to fall to the next arrangement
+          if (!result.data.results.length) {
+            if (queryTypes[i].name === 'userSkillAndGradePositions') {
+              dispatch(homePagePositionsFetchData([], grade));
+            } else if (queryTypes[i].name === 'userGradePositions') {
+              dispatch(homePagePositionsFetchData([], null));
+            }
+          }
           resultsTypes[queryTypes[i].name] = result.data.results;
         });
         dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
