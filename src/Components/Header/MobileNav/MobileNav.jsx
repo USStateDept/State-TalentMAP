@@ -34,7 +34,7 @@ const MobileNav = ({ user, logout, showLogin }) => (
               {
                 showLogin ?
                   <Link to="login" id="login-mobile">Login</Link>
-                :
+                  :
                   <Link to="/logout" id="logout-mobile" onClick={logout}>Logout</Link>
               }
             </li>

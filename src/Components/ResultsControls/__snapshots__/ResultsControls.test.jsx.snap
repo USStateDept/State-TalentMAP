@@ -17,7 +17,9 @@ exports[`ResultsControlsComponent matches snapshot 1`] = `
   <MediaQueryWrapper
     breakpoint="screenMdMin"
     widthType="min"
-  />
+  >
+    <Component />
+  </MediaQueryWrapper>
 </div>
 `;
 
@@ -38,6 +40,8 @@ exports[`ResultsControlsComponent matches snapshot when context.isClient === tru
   <MediaQueryWrapper
     breakpoint="screenMdMin"
     widthType="min"
-  />
+  >
+    <Component />
+  </MediaQueryWrapper>
 </div>
 `;

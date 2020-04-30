@@ -18,6 +18,12 @@ exports[`SkillCodeList renders content correctly with an array of one item 1`] =
 </span>
 `;
 
+exports[`SkillCodeList renders content correctly with an array of one item with no skill description 1`] = `
+<span>
+  5111
+</span>
+`;
+
 exports[`SkillCodeList takes props 1`] = `
 <span>
   CONSTRUCTION ENGINEERING (6218), COMPUTER SCIENCE (6211)

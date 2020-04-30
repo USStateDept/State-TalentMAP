@@ -4,21 +4,18 @@ import FontAwesome from 'react-fontawesome';
 import LinkButton from '../../../LinkButton';
 
 class HandshakeOfferedAlert extends Component {
-  constructor(props) {
-    super(props);
-    this.onAcceptBid = this.onAcceptBid.bind(this);
-    this.onDeclineBid = this.onDeclineBid.bind(this);
-  }
-  onAcceptBid() {
+  onAcceptBid = () => {
     const { acceptBid, id } = this.props;
     acceptBid(id);
-  }
-  onDeclineBid() {
+  };
+
+  onDeclineBid = () => {
     const { declineBid, id } = this.props;
     declineBid(id);
-  }
+  };
+
   render() {
-    const { userName, id } = this.props;
+    const { userName, bidIdUrl } = this.props;
     const { condensedView } = this.context;
     return (
       <div className="bid-tracker-alert-container bid-tracker-alert-container--handshake-offered">
@@ -26,7 +23,7 @@ class HandshakeOfferedAlert extends Component {
         <div className="usa-grid-full">
           {
             condensedView ?
-              <LinkButton toLink={`/profile/bidtracker/${id}`} className="tm-button-transparent">
+              <LinkButton toLink={bidIdUrl} className="tm-button-transparent">
                 Go to Bid Tracker
               </LinkButton>
               :
@@ -49,6 +46,11 @@ HandshakeOfferedAlert.propTypes = {
   userName: PropTypes.string.isRequired,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
+  bidIdUrl: PropTypes.string,
+};
+
+HandshakeOfferedAlert.defaultProps = {
+  bidIdUrl: '',
 };
 
 HandshakeOfferedAlert.contextTypes = {

@@ -17,6 +17,7 @@ describe('BidTracker', () => {
     fetchBidList: () => {},
     bidListRouteChangeResetState: () => {},
     submitBidPosition: () => {},
+    registerHandshakePosition: () => {},
   };
 
   it('is defined', () => {
@@ -46,12 +47,11 @@ describe('BidTracker', () => {
   it('calls scrollToId when componentDidUpdate is called', () => {
     const wrapper = shallow(<BidTracker.WrappedComponent
       {...props}
-      match={{ params: { id: 2 } }}
+      match={{ params: { bid: 2 } }}
     />);
     const spy = sinon.spy(wrapper.instance(), 'scrollToId');
-    wrapper.instance().componentDidUpdate();
-    // called once on mount, once after didUpdate()
-    sinon.assert.calledTwice(spy);
+    wrapper.instance().componentDidUpdate({ ...props, match: { params: { bid: 2 } } });
+    sinon.assert.calledOnce(spy);
   });
 
   it('calls scrollIntoView when scrollToId is called', () => {
@@ -84,6 +84,7 @@ describe('mapDispatchToProps', () => {
     submitBidPosition: [1],
     acceptBidPosition: [1],
     declineBidPosition: [1],
+    registerHandshakePosition: [1],
     deleteBid: [1],
   };
   testDispatchFunctions(mapDispatchToProps, config);

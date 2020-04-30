@@ -14,6 +14,7 @@ describe('BidTrackerCardContainerComponent', () => {
     declineBid: () => {},
     submitBid: () => {},
     deleteBid: () => {},
+    registerHandshake: () => {},
     isPriority: false,
     userProfile: bidderUserObject,
   };

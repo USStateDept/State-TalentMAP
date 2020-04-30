@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cssShadow from './BoxShadowUtility';
 
 const BoxShadow = ({ is, inset, offsetX, offsetY, blurRadius, spreadRadius, color, style,
-...props }) => {
+  ...props }) => {
   const Component = is;
   const sx = {
     ...style,

@@ -16,7 +16,7 @@ const InPanelAlert = ({ title, date }) => (
       </div>
     </div>
   </div>
-  );
+);
 
 InPanelAlert.propTypes = {
   title: PropTypes.string.isRequired,

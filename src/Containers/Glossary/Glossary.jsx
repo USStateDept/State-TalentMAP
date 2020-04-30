@@ -7,20 +7,14 @@ import { EMPTY_FUNCTION, GLOSSARY_LIST } from '../../Constants/PropTypes';
 import Glossary from '../../Components/Glossary';
 
 class GlossaryContainer extends Component {
-
-  constructor(props) {
-    super(props);
-    this.toggleVisibility = this.toggleVisibility.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchGlossary();
   }
 
-  toggleVisibility() {
+  toggleVisibility = () => {
     const { shouldShowGlossary, toggleGlossaryVisibility } = this.props;
     toggleGlossaryVisibility(!shouldShowGlossary);
-  }
+  };
 
   render() {
     const { shouldShowGlossary, glossaryItems, glossaryIsLoading } = this.props;

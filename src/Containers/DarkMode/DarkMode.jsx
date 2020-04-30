@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-    enable as enableDarkMode,
-    disable as disableDarkMode,
+  enable as enableDarkMode,
+  disable as disableDarkMode,
 } from 'darkreader';
 import { checkFlag } from '../../flags';
 import { getBrowserName } from '../../utilities';
@@ -23,22 +23,22 @@ const setMode = (value) => {
 };
 
 class DarkMode extends Component {
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { isDarkMode } = this.props;
     setMode(isDarkMode);
   }
 
-  componentWillReceiveProps(nextProps) {
+  // eslint-disable-next-line class-methods-use-this
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { isDarkMode } = nextProps;
     setMode(isDarkMode);
   }
 
   browserHandler() {
     switch (getBrowserName()) {
-      // Dark mode breaks in IE11.
-      // Attempt to disable dark mode if for some reason it is set to true.
-      // Also set in src/Components/AccountDropdown/AccountDropdown.jsx
+    // Dark mode breaks in IE11.
+    // Attempt to disable dark mode if for some reason it is set to true.
+    // Also set in src/Components/AccountDropdown/AccountDropdown.jsx
       case 'Chrome':
       case 'Firefox':
       case 'Safari': {

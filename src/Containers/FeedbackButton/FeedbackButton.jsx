@@ -6,16 +6,10 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import FeedbackButton from '../../Components/FeedbackButton';
 
 class FeedbackButtonContainer extends Component {
-
-  constructor(props) {
-    super(props);
-    this.toggleVisibility = this.toggleVisibility.bind(this);
-  }
-
-  toggleVisibility() {
+  toggleVisibility = () => {
     const { shouldShowFeedback, toggleFeedbackVisibility } = this.props;
     toggleFeedbackVisibility(!shouldShowFeedback);
-  }
+  };
 
   render() {
     return (

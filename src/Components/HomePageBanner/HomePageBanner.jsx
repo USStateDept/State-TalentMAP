@@ -21,7 +21,7 @@ class HomePageBanner extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.props.fetchCount();
   }
 
@@ -53,21 +53,21 @@ class HomePageBanner extends Component {
                 }
                 {
                   !roundedCount && !isLoading ?
-                  null :
-                  <span className="stats-text--position">
-                    <span>{preText}&nbsp;</span>
-                    {
-                      isLoading ?
-                        <Skeleton width="25px" duration={1.1} />
-                        :
-                        <CountUp end={roundedCount} duration={1.4} formattingFn={formatNum}>
-                          {({ countUpRef }) => (
-                            <span ref={countUpRef} />
-                        )}
-                        </CountUp>
-                    }
-                    <span>&nbsp;{positionTextPlural} available for bidding.</span>
-                  </span>
+                    null :
+                    <span className="stats-text--position">
+                      <span>{preText}&nbsp;</span>
+                      {
+                        isLoading ?
+                          <Skeleton width="25px" duration={1.1} />
+                          :
+                          <CountUp end={roundedCount} duration={1.4} formattingFn={formatNum}>
+                            {({ countUpRef }) => (
+                              <span ref={countUpRef} />
+                            )}
+                          </CountUp>
+                      }
+                      <span>&nbsp;{positionTextPlural} available for bidding.</span>
+                    </span>
                 }
               </span>
             </SkeletonTheme>

@@ -1,27 +1,26 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
+import { shallow } from 'enzyme';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
-import MockTestProvider from '../../testUtilities/MockProvider';
 import Profile, { mapDispatchToProps } from './Profile';
 
 describe('Profile', () => {
   it('is defined', () => {
-    const profile = TestUtils.renderIntoDocument(<MockTestProvider>
-      <Profile
+    const profile = shallow(
+      <Profile.WrappedComponent
         isAuthorized={() => true}
         onNavigateTo={() => {}}
-      />
-    </MockTestProvider>);
+      />,
+    );
     expect(profile).toBeDefined();
   });
 
   it('can handle authentication redirects', () => {
-    const profile = TestUtils.renderIntoDocument(<MockTestProvider>
-      <Profile
+    const profile = shallow(
+      <Profile.WrappedComponent
         isAuthorized={() => false}
         onNavigateTo={() => {}}
-      />
-    </MockTestProvider>);
+      />,
+    );
     expect(profile).toBeDefined();
   });
 });

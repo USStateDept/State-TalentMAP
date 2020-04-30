@@ -4,7 +4,12 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
 <div
   className="filter-container "
 >
-  <Connect(MobileControls) />
+  <ErrorBoundary
+    fallback=""
+    onCatch={[Function]}
+  >
+    <Connect(MobileControls) />
+  </ErrorBoundary>
   <div
     className="filter-container-bottom"
   >
@@ -27,33 +32,38 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
     <div
       className="usa-grid-full search-filters-container"
     >
-      <SearchFiltersContainerLoadable
-        fetchMissionAutocomplete={[Function]}
-        fetchPostAutocomplete={[Function]}
-        filters={
-          Array [
-            Object {
-              "expanded": true,
-              "title": "title",
-            },
-          ]
-        }
-        missionSearchHasErrored={false}
-        missionSearchIsLoading={false}
-        missionSearchResults={Array []}
-        postSearchHasErrored={false}
-        postSearchIsLoading={false}
-        postSearchResults={Array []}
-        queryParamToggle={[Function]}
-        queryParamUpdate={[Function]}
-        selectedAccordion={
-          Object {
-            "main": "",
-            "sub": "",
+      <ErrorBoundary
+        fallback=""
+        onCatch={[Function]}
+      >
+        <SearchFiltersContainerLoadable
+          fetchMissionAutocomplete={[Function]}
+          fetchPostAutocomplete={[Function]}
+          filters={
+            Array [
+              Object {
+                "expanded": true,
+                "title": "title",
+              },
+            ]
           }
-        }
-        setAccordion={[Function]}
-      />
+          missionSearchHasErrored={false}
+          missionSearchIsLoading={false}
+          missionSearchResults={Array []}
+          postSearchHasErrored={false}
+          postSearchIsLoading={false}
+          postSearchResults={Array []}
+          queryParamToggle={[Function]}
+          queryParamUpdate={[Function]}
+          selectedAccordion={
+            Object {
+              "main": "",
+              "sub": "",
+            }
+          }
+          setAccordion={[Function]}
+        />
+      </ErrorBoundary>
     </div>
   </div>
 </div>
@@ -68,7 +78,12 @@ exports[`ResultsFilterContainerComponent matches snapshot when isLoading === tru
     style={Object {}}
     type="results-filter"
   />
-  <Connect(MobileControls) />
+  <ErrorBoundary
+    fallback=""
+    onCatch={[Function]}
+  >
+    <Connect(MobileControls) />
+  </ErrorBoundary>
   <div
     className="filter-container-bottom"
   >
@@ -91,33 +106,38 @@ exports[`ResultsFilterContainerComponent matches snapshot when isLoading === tru
     <div
       className="usa-grid-full search-filters-container"
     >
-      <SearchFiltersContainerLoadable
-        fetchMissionAutocomplete={[Function]}
-        fetchPostAutocomplete={[Function]}
-        filters={
-          Array [
-            Object {
-              "expanded": true,
-              "title": "title",
-            },
-          ]
-        }
-        missionSearchHasErrored={false}
-        missionSearchIsLoading={false}
-        missionSearchResults={Array []}
-        postSearchHasErrored={false}
-        postSearchIsLoading={false}
-        postSearchResults={Array []}
-        queryParamToggle={[Function]}
-        queryParamUpdate={[Function]}
-        selectedAccordion={
-          Object {
-            "main": "",
-            "sub": "",
+      <ErrorBoundary
+        fallback=""
+        onCatch={[Function]}
+      >
+        <SearchFiltersContainerLoadable
+          fetchMissionAutocomplete={[Function]}
+          fetchPostAutocomplete={[Function]}
+          filters={
+            Array [
+              Object {
+                "expanded": true,
+                "title": "title",
+              },
+            ]
           }
-        }
-        setAccordion={[Function]}
-      />
+          missionSearchHasErrored={false}
+          missionSearchIsLoading={false}
+          missionSearchResults={Array []}
+          postSearchHasErrored={false}
+          postSearchIsLoading={false}
+          postSearchResults={Array []}
+          queryParamToggle={[Function]}
+          queryParamUpdate={[Function]}
+          selectedAccordion={
+            Object {
+              "main": "",
+              "sub": "",
+            }
+          }
+          setAccordion={[Function]}
+        />
+      </ErrorBoundary>
     </div>
   </div>
 </div>

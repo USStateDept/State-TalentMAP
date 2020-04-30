@@ -7,16 +7,83 @@ exports[`ClientBadge matches snapshot 1`] = `
   <div
     className="client-badge"
   >
-    <FontAwesome
-      aria-label="type of \\"3\\" with status of \\"undefined\\""
-      name="bath"
-    />
+    <Tooltip
+      animateFill={true}
+      animation="shift"
+      arrow={true}
+      arrowSize="regular"
+      className=""
+      delay={0}
+      disabled={false}
+      distance={10}
+      duration={375}
+      followCursor={false}
+      hideDelay={0}
+      hideDuration={375}
+      hideOnClick={true}
+      html={null}
+      inertia={false}
+      interactive={false}
+      interactiveBorder={2}
+      multiple={false}
+      offset={-95}
+      onHidden={[Function]}
+      onHide={[Function]}
+      onRequestClose={[Function]}
+      onShow={[Function]}
+      onShown={[Function]}
+      popperOptions={Object {}}
+      position="top-end"
+      size="regular"
+      sticky={false}
+      stickyDuration={200}
+      style={Object {}}
+      tabIndex="0"
+      theme="dark"
+      title="3rd Tour"
+      touchHold={false}
+      trigger="mouseenter focus"
+      unmountHTMLWhenHide={false}
+    >
+      <FontAwesomeIcon
+        aria-label="type of \\"3\\" with status of \\"undefined\\""
+        border={false}
+        className=""
+        fixedWidth={false}
+        flip={null}
+        icon={
+          Object {
+            "icon": Array [
+              512,
+              512,
+              Array [],
+              "f4d8",
+              "M64 96H0c0 123.7 100.3 224 224 224v144c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V320C288 196.3 187.7 96 64 96zm384-64c-84.2 0-157.4 46.5-195.7 115.2 27.7 30.2 48.2 66.9 59 107.6C424 243.1 512 147.9 512 32h-64z",
+            ],
+            "iconName": "seedling",
+            "prefix": "fas",
+          }
+        }
+        inverse={false}
+        listItem={false}
+        mask={null}
+        pull={null}
+        pulse={false}
+        rotation={null}
+        size={null}
+        spin={false}
+        swapOpacity={false}
+        symbol={false}
+        title=""
+        transform={null}
+      />
+    </Tooltip>
   </div>
   <div
     className="client-badge-text"
   >
     <span>
-      3
+      3TR
     </span>
   </div>
 </div>

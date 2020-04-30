@@ -11,16 +11,13 @@ import BidderPortfolioGridList from '../BidderPortfolioGridList';
 const ID = 'bidder-portfolio-container';
 
 class BidderPortfolioContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.onPageChange = this.onPageChange.bind(this);
-  }
-  onPageChange(q) {
+  onPageChange = q => {
     scrollToId({ el: '.bidder-portfolio-container', config: { duration: 400 } });
     setTimeout(() => {
       this.props.queryParamUpdate(q);
     }, 600);
-  }
+  };
+
   render() {
     const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit, isLoading,
       cdosLength, hideControls, classifications } = this.props;
@@ -48,8 +45,8 @@ class BidderPortfolioContainer extends Component {
           )
         }
         {
-           // if there's no results, don't show pagination
-           !noResults && !showNoCdosAlert &&
+          // if there's no results, don't show pagination
+          !noResults && !showNoCdosAlert &&
            <div className="usa-grid-full react-paginate">
              <PaginationWrapper
                totalResults={bidderPortfolio.count}

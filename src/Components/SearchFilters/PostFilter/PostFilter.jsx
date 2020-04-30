@@ -10,28 +10,25 @@ import CheckBox from '../../CheckBox';
 class PostFilter extends Component {
   constructor(props) {
     super(props);
-    this.onCheckBoxClick = this.onCheckBoxClick.bind(this);
-    this.onSelectAllDomesticPosts = this.onSelectAllDomesticPosts.bind(this);
-    this.onSelectAllOverseasPosts = this.onSelectAllOverseasPosts.bind(this);
     this.state = {
       allDomesticSelected: false,
       allOverseasSelected: false,
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setSelectedStates();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setSelectedStates(nextProps);
   }
 
-  onCheckBoxClick(value, props) {
+  onCheckBoxClick = (value, props) => {
     this.props.queryParamToggle(props.selectionRef, props[this.props.queryProperty], !value);
-  }
+  };
 
-  onSelectAllDomesticPosts(value) {
+  onSelectAllDomesticPosts = value => {
     const { allOverseasSelected } = this.state;
     const { queryParamUpdate, item } = this.props;
     this.setState({ allDomesticSelected: !value },
@@ -40,9 +37,9 @@ class PostFilter extends Component {
         is_domestic: [value ? 'true' : '', allOverseasSelected ? 'false' : ''].filter(n => n).join(),
       }),
     );
-  }
+  };
 
-  onSelectAllOverseasPosts(value) {
+  onSelectAllOverseasPosts = value => {
     const { allDomesticSelected } = this.state;
     const { queryParamUpdate, item } = this.props;
     this.setState({ allOverseasSelected: !value },
@@ -51,7 +48,7 @@ class PostFilter extends Component {
         is_domestic: [allDomesticSelected ? 'true' : '', value ? 'false' : ''].filter(n => n).join(),
       }),
     );
-  }
+  };
 
   setSelectedStates(props = this.props) {
     this.setState({
@@ -205,7 +202,7 @@ PostFilter.propTypes = {
   item: FILTER_ITEM.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
   queryProperty: PropTypes.string,
-  autoSuggestProps: PropTypes.shape({}).isRequired,
+  autoSuggestProps: PropTypes.shape({ placeholder: PropTypes.string }).isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
   // these props are used by function param, so ignore lines:
   overseasIsSelected: PropTypes.bool, // eslint-disable-line

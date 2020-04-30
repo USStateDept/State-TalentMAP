@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import ProfilePage from '../../Components/ProfilePage';
 import { LOGIN_REDIRECT } from '../../login/routes';
 
 class Profile extends Component {
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
     }

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { USER_PROFILE } from '../../../Constants/PropTypes';
+import { USER_PROFILE } from 'Constants/PropTypes';
 import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
 import PositionInformation from '../PositionInformation';
 
 const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
-showContactInformation, useGroup, isPublic }) => {
+  showContactInformation, useGroup, isPublic }) => {
   const cdo = get(userProfile, 'cdo', {});
   return (
     <div className="usa-grid-full current-user">
@@ -19,6 +19,8 @@ showContactInformation, useGroup, isPublic }) => {
           showEditLink={showEditLink}
           useGroup={useGroup}
           isPublic={isPublic}
+          colorProp="firstName"
+          useColor={isPublic}
         />
       }
       {
@@ -38,7 +40,7 @@ showContactInformation, useGroup, isPublic }) => {
             </div>
           }
           <div className="current-user-section-border">
-            <PositionInformation assignment={userProfile.current_assignment} />
+            <PositionInformation assignment={get(userProfile, 'current_assignment')} />
           </div>
           <UserProfileContactInformation userProfile={userProfile} />
         </div>

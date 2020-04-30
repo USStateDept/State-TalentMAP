@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import api from '../api';
 import { toastSuccess, toastError } from './toast';
 import { clientBidListFetchData } from './bidList';
@@ -27,21 +28,27 @@ export function setClient(id) {
     dispatch(setClientViewAs({ client: {}, isLoading: true, hasErrored: false }));
     api().get(`/fsbid/client/${id}/`)
       .then(({ data }) => {
-        dispatch(setClientViewAs({ client: data, isLoading: false, hasErrored: false }));
-        dispatch(clientBidListFetchData());
-        dispatch(toastSuccess(GET_CLIENT_SUCCESS_MESSAGE(data), SET_CLIENT_SUCCESS),
-        );
+        batch(() => {
+          dispatch(setClientViewAs({ client: data, isLoading: false, hasErrored: false }));
+          dispatch(clientBidListFetchData());
+          dispatch(toastSuccess(GET_CLIENT_SUCCESS_MESSAGE(data), SET_CLIENT_SUCCESS),
+          );
+        });
       })
       .catch(() => {
-        dispatch(setClientViewAs({ client: {}, isLoading: false, hasErrored: true }));
-        dispatch(toastError('Please try again.', SET_CLIENT_ERROR));
+        batch(() => {
+          dispatch(setClientViewAs({ client: {}, isLoading: false, hasErrored: true }));
+          dispatch(toastError('Please try again.', SET_CLIENT_ERROR));
+        });
       });
   };
 }
 
 export function unsetClient() {
   return (dispatch) => {
-    dispatch(unsetClientView());
-    dispatch(toastSuccess(UNSET_CLIENT_SUCCESS_MESSAGE, UNSET_CLIENT_SUCCESS));
+    batch(() => {
+      dispatch(unsetClientView());
+      dispatch(toastSuccess(UNSET_CLIENT_SUCCESS_MESSAGE, UNSET_CLIENT_SUCCESS));
+    });
   };
 }

@@ -7,30 +7,24 @@ import CheckBox from '../../CheckBox';
 import { getItemLabel, formatIdSpacing } from '../../../utilities';
 
 class BureauFilter extends Component {
-  constructor(props) {
-    super(props);
-    this.onCheckBoxClick = this.onCheckBoxClick.bind(this);
-    this.onConeCheckBoxClick = this.onConeCheckBoxClick.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setParentCheckboxes();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setParentCheckboxes(nextProps);
   }
 
-  onCheckBoxClick(value, props) {
+  onCheckBoxClick = (value, props) => {
     this.props.queryParamToggle(props.selectionRef, props[this.props.queryProperty], !value);
-  }
+  };
 
   // Click handler for cone check box.
   // Gather all the currently selected skills from other
   // cones, and place them in an array with all of the selected cone's
   // skills, if new value is true. Otherwise, only set the currently
   // selected skills, excluding the selected cone's skills.
-  onConeCheckBoxClick(value, props) {
+  onConeCheckBoxClick = (value, props) => {
     // expand the accordion if the user selects that cone
     const coneId = get(props, 'cone.id');
     if (value && coneId) {
@@ -69,7 +63,7 @@ class BureauFilter extends Component {
     const q = { [item.item.selectionRef]: qArr.join() };
     this.setState({ [cone.id]: !value });
     queryParamUpdate(q);
-  }
+  };
 
   // Iterate through each cones children to determine if they're
   // all selected. If so, setState of that cone's id to true, or false

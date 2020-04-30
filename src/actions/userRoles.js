@@ -30,15 +30,15 @@ export function getUsers(page = 1, limit = 100) {
     dispatch(usersIsLoading(true));
     dispatch(usersHasErrored(false));
     api().get(fullURL)
-        .then((results) => {
-          dispatch(usersSuccess(results.data));
-          dispatch(usersHasErrored(false));
-          dispatch(usersIsLoading(false));
-        })
-        .catch(() => {
-          dispatch(usersHasErrored(true));
-          dispatch(usersIsLoading(false));
-        });
+      .then((results) => {
+        dispatch(usersSuccess(results.data));
+        dispatch(usersHasErrored(false));
+        dispatch(usersIsLoading(false));
+      })
+      .catch(() => {
+        dispatch(usersHasErrored(true));
+        dispatch(usersIsLoading(false));
+      });
   };
 }
 
@@ -88,7 +88,7 @@ export function getTableStats() {
   const baseURL = 'permission/group/';
   const tableCols = [];
   Object.keys(DELEGATE_ROLES).forEach(m => (
-      tableCols.push(DELEGATE_ROLES[m].group_name)
+    tableCols.push(DELEGATE_ROLES[m].group_name)
   ));
   const qString = queryString.stringify({ name__in: tableCols.join(',') });
   const apiURL = `${baseURL}?${qString}`;
@@ -97,15 +97,15 @@ export function getTableStats() {
     dispatch(getTableStatsIsLoading(true));
     dispatch(getTableStatsHasErrored(false));
     api().get(apiURL)
-        .then((data) => {
-          dispatch(getTableStatsSuccess(data.data.results));
-          dispatch(getTableStatsHasErrored(false));
-          dispatch(getTableStatsIsLoading(false));
-        })
-        .catch(() => {
-          dispatch(getTableStatsHasErrored(true));
-          dispatch(getTableStatsIsLoading(false));
-        });
+      .then((data) => {
+        dispatch(getTableStatsSuccess(data.data.results));
+        dispatch(getTableStatsHasErrored(false));
+        dispatch(getTableStatsIsLoading(false));
+      })
+      .catch(() => {
+        dispatch(getTableStatsHasErrored(true));
+        dispatch(getTableStatsIsLoading(false));
+      });
   };
 }
 

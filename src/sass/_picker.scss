@@ -15,6 +15,14 @@
     width: 100%;
   }
 
+  .picky--sublabel {
+    font-size: .8em;
+  }
+
+  .picky--bold {
+    font-weight: bold;
+  }
+
   .picky__input {
     border: 1px solid $bg-gray-dark-2;
     border-radius: 0;

@@ -3,7 +3,8 @@ import React from 'react';
 import toJSON from 'enzyme-to-json';
 import OverlayAlert from './OverlayAlert';
 import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP,
-  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP } from '../../../Constants/BidData';
+  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP,
+  HAND_SHAKE_NEEDS_REGISTER_PROP } from '../../../Constants/BidData';
 import bidListObject from '../../../__mocks__/bidListObject';
 
 describe('OverlayAlertComponent', () => {
@@ -13,11 +14,12 @@ describe('OverlayAlertComponent', () => {
     declineBid: () => {},
     submitBid: () => {},
     deleteBid: () => {},
+    registerHandshake: () => {},
   };
 
   // All possible props, plus  fake prop to test the default case of the switch
   const types = [APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP,
-    HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP, 'fake prop'];
+    HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, 'fake prop'];
 
   it('is defined', () => {
     const wrapper = shallow(

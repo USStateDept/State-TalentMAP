@@ -6,12 +6,15 @@ exports[`ItemListingComponent matches snapshot 1`] = `
 >
   <Item
     item="Bid 1"
+    key="Bid 1"
   />
   <Item
     item="Bid 2"
+    key="Bid 2"
   />
   <Item
     item="Bid 3"
+    key="Bid 3"
   />
 </div>
 `;

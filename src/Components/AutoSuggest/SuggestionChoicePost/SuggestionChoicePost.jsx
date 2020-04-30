@@ -11,6 +11,8 @@ const SuggestionChoicePost = ({ suggestion }) => (
 SuggestionChoicePost.propTypes = {
   suggestion: PropTypes.shape({
     location: PropTypes.shape({}),
+    hasDuplicateDescription: PropTypes.bool,
+    code: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }).isRequired,
 };
 

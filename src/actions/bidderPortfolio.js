@@ -1,7 +1,9 @@
+import { batch } from 'react-redux';
 import { stringify } from 'query-string';
 import { find, get, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
+import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
 import api from '../api';
 
 let cancelCDOs;
@@ -138,19 +140,25 @@ export function bidderPortfolioSetSeasons(seasons = []) {
 
 export function bidderPortfolioSeasonsFetchData() {
   return (dispatch) => {
-    dispatch(bidderPortfolioSeasonsIsLoading(true));
-    dispatch(bidderPortfolioSeasonsHasErrored(false));
+    batch(() => {
+      dispatch(bidderPortfolioSeasonsIsLoading(true));
+      dispatch(bidderPortfolioSeasonsHasErrored(false));
+    });
     const endpoint = '/fsbid/bid_seasons/';
     api().get(endpoint)
       .then(({ data }) => {
-        dispatch(bidderPortfolioSeasonsSuccess(data));
-        dispatch(bidderPortfolioSeasonsHasErrored(false));
-        dispatch(bidderPortfolioSeasonsIsLoading(false));
+        batch(() => {
+          dispatch(bidderPortfolioSeasonsSuccess(data));
+          dispatch(bidderPortfolioSeasonsHasErrored(false));
+          dispatch(bidderPortfolioSeasonsIsLoading(false));
+        });
       })
       .catch(() => {
-        dispatch(bidderPortfolioSeasonsSuccess([]));
-        dispatch(bidderPortfolioSeasonsHasErrored(true));
-        dispatch(bidderPortfolioSeasonsIsLoading(false));
+        batch(() => {
+          dispatch(bidderPortfolioSeasonsSuccess([]));
+          dispatch(bidderPortfolioSeasonsHasErrored(true));
+          dispatch(bidderPortfolioSeasonsIsLoading(false));
+        });
       });
   };
 }
@@ -166,8 +174,10 @@ export function lookupAndSetCDO(id) {
 
 export function bidderPortfolioCountsFetchData() {
   return (dispatch, getState) => {
-    dispatch(bidderPortfolioCountsIsLoading(true));
-    dispatch(bidderPortfolioCountsHasErrored(false));
+    batch(() => {
+      dispatch(bidderPortfolioCountsIsLoading(true));
+      dispatch(bidderPortfolioCountsHasErrored(false));
+    });
     const state = getState();
     const id = get(state, 'bidderPortfolioSelectedCDO.hru_id');
     const isCurrentUser = get(state, 'bidderPortfolioSelectedCDO.isCurrentUser');
@@ -175,14 +185,18 @@ export function bidderPortfolioCountsFetchData() {
     endpoint = '/client/statistics/'; // TODO update
     api().get(endpoint)
       .then(({ data }) => {
-        dispatch(bidderPortfolioCountsFetchDataSuccess(data));
-        dispatch(bidderPortfolioCountsHasErrored(false));
-        dispatch(bidderPortfolioCountsIsLoading(false));
+        batch(() => {
+          dispatch(bidderPortfolioCountsFetchDataSuccess(data));
+          dispatch(bidderPortfolioCountsHasErrored(false));
+          dispatch(bidderPortfolioCountsIsLoading(false));
+        });
       })
       .catch(() => {
-        dispatch(bidderPortfolioCountsFetchDataSuccess({}));
-        dispatch(bidderPortfolioCountsHasErrored(true));
-        dispatch(bidderPortfolioCountsIsLoading(false));
+        batch(() => {
+          dispatch(bidderPortfolioCountsFetchDataSuccess({}));
+          dispatch(bidderPortfolioCountsHasErrored(true));
+          dispatch(bidderPortfolioCountsIsLoading(false));
+        });
       });
   };
 }
@@ -206,10 +220,12 @@ export function bidderPortfolioFetchData(query = {}) {
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
     }
+    if (!query$.ordering) {
+      query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
+    }
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
-
     if (ids.length) {
       api().get(q, {
         cancelToken: new CancelToken((c) => {
@@ -217,22 +233,26 @@ export function bidderPortfolioFetchData(query = {}) {
         }),
       })
         .then(({ data }) => {
-          dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
-          dispatch(bidderPortfolioFetchDataSuccess(data));
-          dispatch(bidderPortfolioHasErrored(false));
-          dispatch(bidderPortfolioIsLoading(false));
+          batch(() => {
+            dispatch(bidderPortfolioLastQuery(query$$, data.count, endpoint));
+            dispatch(bidderPortfolioFetchDataSuccess(data));
+            dispatch(bidderPortfolioHasErrored(false));
+            dispatch(bidderPortfolioIsLoading(false));
+          });
         })
         .catch((m) => {
           if (get(m, 'message') === 'cancel') {
-            dispatch(bidderPortfolioIsLoading(true));
-            dispatch(bidderPortfolioHasErrored(false));
+            batch(() => {
+              dispatch(bidderPortfolioHasErrored(false));
+              dispatch(bidderPortfolioIsLoading(true));
+            });
           } else {
-            dispatch(bidderPortfolioHasErrored(true));
-            dispatch(bidderPortfolioIsLoading(false));
+            batch(() => {
+              dispatch(bidderPortfolioHasErrored(true));
+              dispatch(bidderPortfolioIsLoading(false));
+            });
           }
         });
-    } else {
-      dispatch(bidderPortfolioIsLoading(false));
     }
   };
 }
@@ -270,16 +290,22 @@ export function bidderPortfolioCDOsFetchData() {
           if (!getState().bidderPortfolioSelectedCDOsToSearchBy.length) {
             const currentUser = data.find(f => f.isCurrentUser);
             if (currentUser) {
-              dispatch(bidderPortfolioSelectCDOsToSearchBy([currentUser]));
-              dispatch(bidderPortfolioSelectCDO(currentUser));
+              batch(() => {
+                dispatch(bidderPortfolioSelectCDOsToSearchBy([currentUser]));
+                dispatch(bidderPortfolioSelectCDO(currentUser));
+              });
             }
           }
-          dispatch(bidderPortfolioCDOsHasErrored(false));
-          dispatch(bidderPortfolioCDOsIsLoading(false));
+          batch(() => {
+            dispatch(bidderPortfolioCDOsHasErrored(false));
+            dispatch(bidderPortfolioCDOsIsLoading(false));
+          });
         })
         .catch(() => {
-          dispatch(bidderPortfolioCDOsHasErrored(true));
-          dispatch(bidderPortfolioCDOsIsLoading(false));
+          batch(() => {
+            dispatch(bidderPortfolioCDOsHasErrored(true));
+            dispatch(bidderPortfolioCDOsIsLoading(false));
+          });
         });
     }
   };
@@ -287,8 +313,10 @@ export function bidderPortfolioCDOsFetchData() {
 
 export function bidderPortfolioFetchDataFromLastQuery() {
   return (dispatch, getState) => {
-    dispatch(lastBidderPortfolioIsLoading(true));
-    dispatch(lastBidderPortfolioHasErrored(false));
+    batch(() => {
+      dispatch(lastBidderPortfolioIsLoading(true));
+      dispatch(lastBidderPortfolioHasErrored(false));
+    });
     const q = getState().bidderPortfolioLastQuery;
     api().get(q)
       .then(({ data }) => {
@@ -297,13 +325,17 @@ export function bidderPortfolioFetchDataFromLastQuery() {
           results: data$,
           count: data$.length,
         };
-        dispatch(bidderPortfolioFetchDataSuccess(data$$));
-        dispatch(lastBidderPortfolioHasErrored(false));
-        dispatch(lastBidderPortfolioIsLoading(false));
+        batch(() => {
+          dispatch(bidderPortfolioFetchDataSuccess(data$$));
+          dispatch(lastBidderPortfolioHasErrored(false));
+          dispatch(lastBidderPortfolioIsLoading(false));
+        });
       })
       .catch(() => {
-        dispatch(lastBidderPortfolioHasErrored(true));
-        dispatch(lastBidderPortfolioIsLoading(false));
+        batch(() => {
+          dispatch(lastBidderPortfolioHasErrored(true));
+          dispatch(lastBidderPortfolioIsLoading(false));
+        });
       });
   };
 }

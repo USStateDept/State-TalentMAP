@@ -37,7 +37,6 @@ describe('Menu', () => {
     toggleMenuSection: { type: 'boolean', required: false },
     expandedSection: { type: 'boolean', required: false },
     roles: { type: 'array', required: false },
-    isCDO: { type: 'boolean', required: false },
     isGlossaryEditor: { type: 'boolean', required: false },
     children: { type: 'array', required: false },
   };

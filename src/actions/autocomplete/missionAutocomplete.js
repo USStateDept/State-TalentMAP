@@ -34,14 +34,14 @@ export function missionSearchFetchData(query) {
         cancel = c;
       }),
     })
-    .then((response) => {
-      dispatch(missionSearchIsLoading(false));
-      return response.data.results;
-    })
-    .then(results => dispatch(missionSearchSuccess(results)))
-    .catch(() => {
-      dispatch(missionSearchHasErrored(true));
-      dispatch(missionSearchIsLoading(false));
-    });
+      .then((response) => {
+        dispatch(missionSearchIsLoading(false));
+        return response.data.results;
+      })
+      .then(results => dispatch(missionSearchSuccess(results)))
+      .catch(() => {
+        dispatch(missionSearchHasErrored(true));
+        dispatch(missionSearchIsLoading(false));
+      });
   };
 }

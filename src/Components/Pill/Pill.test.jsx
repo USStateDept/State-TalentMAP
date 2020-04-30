@@ -15,16 +15,6 @@ describe('PillComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can take different props', () => {
-    const wrapper = shallow(<Pill
-      description="test"
-      codeRef="code"
-      selectionRef="selection"
-      onPillClick={() => {}}
-    />);
-    expect(wrapper.instance().props.description).toBe('test');
-  });
-
   it('can click the button', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<Pill

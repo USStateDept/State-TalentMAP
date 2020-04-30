@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { notificationsCountFetchData, notificationsFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
 
 class Notifications extends Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchNotificationsCount, history } = this.props;
 
     // If the user is on the login page, don't try to pull notifications.
@@ -24,7 +25,7 @@ class Notifications extends Component {
       }
     });
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.notificationsCount !== this.props.notificationsCount) {
       // only fetch notifications if the count has changed
       this.props.fetchNotifications();
@@ -47,7 +48,7 @@ Notifications.propTypes = {
   notificationsCount: PropTypes.number.isRequired,
   fetchNotificationsCount: PropTypes.func.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
 };
 
 Notifications.defaultProps = {

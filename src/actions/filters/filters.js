@@ -1,13 +1,11 @@
+import { batch } from 'react-redux';
 import { get, isArray, orderBy, union } from 'lodash';
 import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { mapDuplicates, removeDuplicates } from '../../utilities';
-import { checkFlag } from '../../flags';
 import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
-  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter } from './helpers';
-
-const getUsePV = () => checkFlag('flags.projected_vacancy');
+  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter, getFilterCustomAttributes } from './helpers';
 
 export function filtersHasErrored(bool) {
   return {
@@ -31,8 +29,10 @@ export function filtersFetchDataSuccess(filters) {
 export function filtersFetchData(items = { filters: [] }, queryParams = {}, savedResponses,
   fromResultsPage = false) {
   return (dispatch) => {
-    dispatch(filtersIsLoading(true));
-    dispatch(filtersHasErrored(false));
+    batch(() => {
+      dispatch(filtersIsLoading(true));
+      dispatch(filtersHasErrored(false));
+    });
 
     const queryParamObject = queryParams;
 
@@ -79,31 +79,31 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           dispatch(filtersIsLoading(true));
           const endpoint = '/fsbid/reference/locations/';
           return api().get(endpoint)
-          .then((response) => {
+            .then((response) => {
             // TODO - this is dummy logic to get a single location,
             // since there is no fsbid endpoint to do so. Once that exists,
             // we can update this.
-            const getAPLocation = () => {
-              const obj = get(response, 'data', [])
-                .find(f => f.code === item.codeRef) || {};
-              return {
-                id: obj.code,
-                location: {
-                  ...obj,
-                },
+              const getAPLocation = () => {
+                const obj = get(response, 'data', [])
+                  .find(f => f.code === item.codeRef) || {};
+                return {
+                  id: obj.code,
+                  location: {
+                    ...obj,
+                  },
+                };
               };
-            };
 
-            const results$ = getAPLocation();
-            const obj = Object.assign(results$, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
-            // push the object to cache
-            responses.asyncFilterCache.push(obj);
-            // and return the object
-            return obj;
-          })
-          .catch((error) => {
-            throw error;
-          });
+              const results$ = getAPLocation();
+              const obj = Object.assign(results$, { type: 'post', selectionRef: item.selectionRef, codeRef: item.codeRef });
+              // push the object to cache
+              responses.asyncFilterCache.push(obj);
+              // and return the object
+              return obj;
+            })
+            .catch((error) => {
+              throw error;
+            });
         }
         return {};
       });
@@ -157,13 +157,17 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             return m$;
           });
           // Finally, dispatch a success
-          dispatch(filtersFetchDataSuccess(responses$));
-          dispatch(filtersHasErrored(false));
-          dispatch(filtersIsLoading(false));
+          batch(() => {
+            dispatch(filtersFetchDataSuccess(responses$));
+            dispatch(filtersHasErrored(false));
+            dispatch(filtersIsLoading(false));
+          });
         })
         .catch(() => {
-          dispatch(filtersHasErrored(true));
-          dispatch(filtersIsLoading(false));
+          batch(() => {
+            dispatch(filtersHasErrored(true));
+            dispatch(filtersIsLoading(false));
+          });
         });
     }
 
@@ -188,8 +192,15 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       responses.filters.forEach((filterItem, i) => {
         filterItem.data.forEach((filterItemObject, j) => {
           const customDescription = getFilterCustomDescription(filterItem, filterItemObject);
+          const customAttributes = getFilterCustomAttributes(filterItem, filterItemObject);
           if (customDescription) {
             responses.filters[i].data[j].custom_description = customDescription;
+          }
+          if (customAttributes) {
+            responses.filters[i].data[j] = {
+              ...responses.filters[i].data[j],
+              ...customAttributes,
+            };
           }
         });
       });
@@ -255,10 +266,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       const staticFilters = items.filters.slice().filter(item => (!item.item.endpoint));
 
       // our dynamic filters
-      let dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
-      if (!getUsePV()) {
-        dynamicFilters = dynamicFilters.filter(f => !get(f, 'item.onlyProjectedVacancy'));
-      }
+      const dynamicFilters = items.filters.slice().filter(item => (item.item.endpoint));
       const queryProms = dynamicFilters.map(item => (
         api().get(`/${item.item.endpoint}`)
           .then((response) => {
@@ -309,21 +317,23 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       ));
 
       Q.allSettled(queryProms)
-      .then((results) => {
-        results.forEach((result) => {
-          if (result.state === 'fulfilled') {
+        .then((results) => {
+          results.forEach((result) => {
+            if (result.state === 'fulfilled') {
             // if fulfilled, return the formatted data
-            responses.filters.push({ data: get(result, 'value.data', []), item: get(result, 'value.item', {}) });
-          } else {
+              responses.filters.push({ data: get(result, 'value.data', []), item: get(result, 'value.item', {}) });
+            } else {
             // Else, return the correct structure, but with no data. Include hasErrored prop.
-            responses.filters.push({ data: [], item: {}, hasErrored: true });
-          }
-          responses.filters.push(...staticFilters);
-          dispatchSuccess();
-          dispatch(filtersHasErrored(false));
-          dispatch(filtersIsLoading(false));
+              responses.filters.push({ data: [], item: {}, hasErrored: true });
+            }
+            responses.filters.push(...staticFilters);
+            dispatchSuccess();
+            batch(() => {
+              dispatch(filtersHasErrored(false));
+              dispatch(filtersIsLoading(false));
+            });
+          });
         });
-      });
     }
   };
 }

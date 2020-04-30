@@ -8,25 +8,23 @@ import { formExploreRegionDropdown } from '../../utilities';
 class ExploreRegionDropdown extends Component {
   constructor(props) {
     super(props);
-    this.selectRegion = this.selectRegion.bind(this);
-    this.searchRegion = this.searchRegion.bind(this);
     this.state = {
       selection: { value: '' },
     };
   }
 
-  selectRegion(e) {
+  selectRegion = e => {
     const { selection } = this.state;
     const { selectRegion } = this.props;
     selection.value = e.target.value;
     this.setState({ selection });
     selectRegion(e.target.value);
-  }
+  };
 
-  searchRegion(e) {
+  searchRegion = e => {
     e.preventDefault();
     this.props.onRegionSubmit(this.state.selection.value);
-  }
+  };
 
   render() {
     const { filters } = this.props;

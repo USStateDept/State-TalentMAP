@@ -44,7 +44,7 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
                 <div className="usa-grid-full section-padded-inner-container">
                   <NoSavedSearches />
                 </div>
-              :
+                :
                 <BorderedList contentArray={savedSearchArray} />
             }
           </div>

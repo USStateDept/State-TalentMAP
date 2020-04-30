@@ -11,6 +11,9 @@ const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const webpackDashboard = require('webpack-dashboard/plugin');
+
 const envVariables = require('./env');
 const paths = require('./paths');
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -27,6 +30,8 @@ const env = envVariables.getClientEnvironment(publicUrl);
 // It is focused on developer experience and fast rebuilds.
 // The production configuration is different and lives in a separate file.
 module.exports = {
+  // mode must be explicitly declared in webpack v4
+  mode: 'development',
   // You may want 'eval' instead if you prefer to see the compiled output in DevTools.
   // See the discussion in https://github.com/facebookincubator/create-react-app/issues/343.
   devtool: 'cheap-module-source-map',
@@ -42,9 +47,13 @@ module.exports = {
     // Note: instead of the default WebpackDevServer client, we use a custom one
     // to bring better experience for Create React App users. You can replace
     // the line below with these two lines if you prefer the stock client:
-    // require.resolve('webpack-dev-server/client') + '?/',
-    // require.resolve('webpack/hot/dev-server'),
-    require.resolve('react-dev-utils/webpackHotDevClient'),
+    require.resolve('webpack-dev-server/client') + '?/',
+    require.resolve('webpack/hot/dev-server'),
+
+    // NOTE: 3-10-2020 - webpackHotDevClient breaks in IE11. The above guidance to use
+    // the default WebpackDevServer client was followed.
+    // require.resolve('react-dev-utils/webpackHotDevClient'),
+
     // We ship a few polyfills by default:
     require.resolve('./polyfills'),
     // Errors should be considered fatal in development
@@ -196,6 +205,7 @@ module.exports = {
                     '>1%',
                     'last 4 versions',
                     'Firefox ESR',
+                    'ie >= 11',
                     'not ie < 9', // React doesn't support IE8 anyway
                   ],
                   flexbox: 'no-2009',
@@ -211,7 +221,16 @@ module.exports = {
           fallback: 'style-loader',
           use: [
             'css-loader',
-            'sass-loader',
+            {
+              loader: 'resolve-url-loader',
+              options: { removeCR: true, sourceMap: true }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
+            },
             // Reads Sass vars from files or inlined in the options property
             {
               loader: '@epegzz/sass-vars-loader',
@@ -230,12 +249,9 @@ module.exports = {
     ],
   },
   plugins: [
+    new webpackDashboard(),
+    new HardSourceWebpackPlugin(),
     new ExtractTextPlugin('style.css'),
-    // Makes some environment variables available in index.html.
-    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
-    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    // In development, this will be an empty string.
-    new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
@@ -246,6 +262,11 @@ module.exports = {
       template: paths.loginHtml,
       filename: 'login.html'
     }),
+    // Makes some environment variables available in index.html.
+    // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
+    // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    // In development, this will be an empty string.
+    new InterpolateHtmlPlugin(env.raw),
     // Makes some environment variables available to the JS code, for example:
     // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
     new webpack.DefinePlugin(env.stringified),

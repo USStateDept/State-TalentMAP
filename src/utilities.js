@@ -62,14 +62,14 @@ export function localStorageToggleValue(key, value, useDispatch = true, onlyDele
   if (indexOfId !== -1) {
     existingArray.splice(indexOfId, 1);
     localStorage.setItem(key,
-        JSON.stringify(existingArray));
+      JSON.stringify(existingArray));
     if (useDispatch) {
       dispatchLs(key);
     }
   } else if (!onlyDelete) {
     existingArray.push(value);
     localStorage.setItem(key,
-        JSON.stringify(existingArray));
+      JSON.stringify(existingArray));
     if (useDispatch) {
       dispatchLs(key);
     }
@@ -252,7 +252,7 @@ export const shortenString = (string, shortenTo = 250, suffix = '...') => {
 export const existsInArray = (ref, array) => {
   let found = false;
   array.forEach((i) => {
-    if (i.id === ref) {
+    if (get(i, 'id') && ref && `${i.id}` === `${ref}`) {
       found = true;
     }
   });
@@ -299,7 +299,7 @@ export const formQueryString = queryObject => queryString.stringify(queryObject)
 
 // remove duplicates from an array by object property
 export const removeDuplicates = (myArr, prop) => (
-    myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
+  myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
 );
 
 // Format date for notifications.
@@ -667,6 +667,20 @@ export const scrollToGlossaryTerm = (term) => {
 
 export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
 
+// Convert values used in aria-* attributes to 'true'/'false' string.
+// Perform a string check, if for some reason the value was already a string.
+// https://github.com/cerner/terra-core/wiki/React-16-Migration-Guide#noted-changes
+export const getAriaValue = (e) => {
+  if (e === 'true') {
+    return e;
+  } else if (e === 'false') {
+    return e;
+  } else if (e) {
+    return 'true';
+  }
+  return 'false';
+};
+
 export const downloadFromResponse = (response, fileNameAlt = '') => {
   const cd = get(response, 'headers.content-disposition');
   const filename = cd.replace('attachment; filename=', '') || fileNameAlt;
@@ -742,4 +756,38 @@ export const stopProp = (event) => {
   if (e && e.stopPropagation && isFunction(e.stopPropagation)) {
     e.stopPropagation();
   }
+};
+
+export const getContrastYIQ = hexcolor => {
+  const r = parseInt(hexcolor.substr(0, 2), 16);
+  const g = parseInt(hexcolor.substr(2, 2), 16);
+  const b = parseInt(hexcolor.substr(4, 2), 16);
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return (yiq >= 128) ? 'black' : 'white';
+};
+
+// Supply a user's full name
+// Returns background color and text color
+export const getAvatarColor = str => {
+  if (str) {
+    let hash = 0;
+    [...str].forEach((s, i) => {
+      if (i) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line
+      }
+    });
+
+    const c = (hash & 0x00FFFFFF) // eslint-disable-line
+      .toString(16)
+      .toUpperCase();
+
+    const backgroundColor = '00000'.substring(0, 6 - c.length) + c;
+    const color = getContrastYIQ(backgroundColor);
+
+    const backgroundColorWithHash = `#${backgroundColor}`;
+
+    return { backgroundColor: backgroundColorWithHash, color };
+  }
+
+  return null;
 };

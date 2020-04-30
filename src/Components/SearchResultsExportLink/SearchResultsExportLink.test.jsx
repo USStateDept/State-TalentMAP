@@ -22,10 +22,10 @@ describe('SearchResultsExportLink', () => {
     expect(fetchResultDataStub.calledOnce).toBe(true);
   });
 
-  it('sets state on componentWillReceiveProps()', () => {
+  it('sets state on UNSAFE_componentWillReceiveProps()', () => {
     const wrapper = shallow(<SearchResultsExportLink />);
     window.history.pushState({}, '', '?stuff=1&things=5');
-    wrapper.instance().componentWillReceiveProps();
+    wrapper.instance().UNSAFE_componentWillReceiveProps();
     expect(wrapper.instance().state.query.value).toBe('stuff=1&things=5');
   });
 

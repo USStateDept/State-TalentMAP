@@ -7,14 +7,11 @@ import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessage
 import { getPostName, formatDate } from '../../../../utilities';
 
 class DraftAlert extends Component {
-  constructor(props) {
-    super(props);
-    this.onSubmitBid = this.onSubmitBid.bind(this);
-  }
-  onSubmitBid() {
+  onSubmitBid = () => {
     const { submitBid, bid } = this.props;
     submitBid(bid.position.id);
-  }
+  };
+
   render() {
     const { bid } = this.props;
     const { readOnly } = this.context;
@@ -32,8 +29,8 @@ class DraftAlert extends Component {
           <div className="draft-submission-container" style={{ flex: 1 }}>
             <div className="sub-submission-text">
               { readOnly ?
-                  'This bid is in draft' :
-                  'Would you like to submit your bid?'
+                'This bid is in draft' :
+                'Would you like to submit your bid?'
               }
             </div>
             <div className="usa-grid-full draft-submission-buttons-container">

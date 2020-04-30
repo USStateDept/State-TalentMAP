@@ -55,15 +55,17 @@ UserRow.propTypes = {
   userID: PropTypes.number.isRequired,
   username: PropTypes.string,
   name: PropTypes.string,
-  permissionGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  permissionGroups: PropTypes.arrayOf(PropTypes.shape({})),
   delegateRoles: PropTypes.shape({}),
-  modifyPermission: PropTypes.func.isRequired,
+  modifyPermission: PropTypes.func,
 };
 
 UserRow.defaultProps = {
   username: '',
   name: '',
+  permissionGroups: [],
   delegateRoles: {},
+  modifyPermission: EMPTY_FUNCTION,
   onClick: EMPTY_FUNCTION,
 };
 
@@ -74,7 +76,7 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   modifyPermission: (addRole, groupID, userID) => dispatch(modifyPermission(addRole,
-      groupID, userID)),
+    groupID, userID)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRow);

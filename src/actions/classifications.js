@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import api from '../api';
 
 export function classificationsHasErrored(bool) {
@@ -23,20 +24,25 @@ export function classificationsFetchDataSuccess(classifications) {
 
 export function fetchClassifications() {
   return (dispatch) => {
-    dispatch(classificationsIsLoading(true));
-    dispatch(classificationsHasErrored(false));
+    batch(() => {
+      dispatch(classificationsIsLoading(true));
+      dispatch(classificationsHasErrored(false));
+    });
 
     api()
       .get('/fsbid/reference/classifications/')
       .then(({ data }) => {
-        dispatch(classificationsHasErrored(false));
-        dispatch(classificationsIsLoading(false));
-        dispatch(classificationsFetchDataSuccess(data));
+        batch(() => {
+          dispatch(classificationsHasErrored(false));
+          dispatch(classificationsIsLoading(false));
+          dispatch(classificationsFetchDataSuccess(data));
+        });
       })
       .catch(() => {
-        dispatch(classificationsHasErrored(true));
-        dispatch(classificationsIsLoading(false));
+        batch(() => {
+          dispatch(classificationsHasErrored(true));
+          dispatch(classificationsIsLoading(false));
+        });
       });
   };
 }
-

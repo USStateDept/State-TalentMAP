@@ -4,17 +4,19 @@ exports[`NavComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full portfolio-top-nav-container"
 >
-  <Component
+  <NavItem
     denominator={5}
     isActive={false}
+    key="Test"
     numerator={2}
     onClick={[Function]}
     title="Test"
     value="1"
   />
-  <Component
+  <NavItem
     denominator={5}
     isActive={false}
+    key="Test 2"
     numerator={3}
     onClick={[Function]}
     title="Test 2"

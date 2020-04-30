@@ -13,6 +13,7 @@ exports[`AccountDropdown matches snapshot 1`] = `
   >
     <Avatar
       className="account-dropdown--avatar"
+      colorString=""
       displayName="John Doe"
       externalSource={Object {}}
       externalSourceToUse="s"
@@ -83,6 +84,7 @@ exports[`AccountDropdown matches snapshot when shouldDisplayName is true 1`] = `
   >
     <Avatar
       className="account-dropdown--avatar"
+      colorString=""
       displayName="John Doe"
       externalSource={Object {}}
       externalSourceToUse="s"

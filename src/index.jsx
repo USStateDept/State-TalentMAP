@@ -1,5 +1,6 @@
 // important: babel-polyfill needs to be first to avoid any errors in IE11
-import 'babel-polyfill';
+import 'core-js/shim'; // included < Stage 4 proposals
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
@@ -15,14 +16,14 @@ import './polyfills';
 
 const isPersonaAuth = () => checkFlag('flags.persona_auth');
 
-const render = () => {
+export const render = () => {
   ReactDOM.render((
     <App />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
 // Because the JWT request could be slow.
-const renderLoading = () => {
+export const renderLoading = () => {
   ReactDOM.render((
     <Splash />
   ), document.getElementById('root') || document.createElement('div'));
@@ -44,12 +45,12 @@ export const init = (config) => {
   if (auth) {
     renderLoading();
     axios
-    .get(auth, { headers })
-    .then((response) => {
-      sessionStorage.setItem('jwt', response.data);
-      render();
-    })
-    .catch(() => render());
+      .get(auth, { headers })
+      .then((response) => {
+        sessionStorage.setItem('jwt', response.data);
+        render();
+      })
+      .catch(() => render());
   } else {
     render();
   }
@@ -60,10 +61,10 @@ export const getConfig = () => {
   sessionStorage.removeItem('config');
 
   axios
-  .get(getAssetPath('/config/config.json'))
-  .then((response) => {
-    init(get(response, 'data', {}));
-  })
-  .catch(() => init({}));
+    .get(getAssetPath('/config/config.json'))
+    .then((response) => {
+      init(get(response, 'data', {}));
+    })
+    .catch(() => init({}));
 };
 getConfig();

@@ -25,38 +25,38 @@ const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
-  submitBidPosition, deleteBid, classifications, clientClassifications,
+  submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
       notificationsIsLoading ? (
         <Spinner type="homepage-position-results" size="big" />
-    ) : (
-      <div className="usa-grid-full">
-        <div className="usa-grid-full dashboard-top-section">
-          { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-          { isPublic && useCDOBidding() && <SearchAsClientButton user={userProfile} /> }
-        </div>
-        <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
-          {(matches) => {
-            let columns = !matches ? [3, 4, 5] : [6, 6, 12];
-            if (isPublic) { columns = !matches ? [3, 4, 5] : [12, 12, 12]; }
-            return (
-              <Row className="usa-grid-full">
-                <Column
-                  columns={columns[0]}
-                  className={'user-dashboard-section-container user-dashboard-column-1'}
-                >
-                  <BoxShadow className="usa-width-one-whole user-dashboard-section current-user-section">
-                    <UserProfile
-                      userProfile={userProfile}
-                      showEditLink={!isPublic}
-                      isPublic={isPublic}
-                    />
-                  </BoxShadow>
-                </Column>
-                {
-                  !isPublic &&
+      ) : (
+        <div className="usa-grid-full">
+          <div className="usa-grid-full dashboard-top-section">
+            { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
+            { isPublic && useCDOBidding() && <SearchAsClientButton user={userProfile} /> }
+          </div>
+          <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
+            {(matches) => {
+              let columns = !matches ? [3, 4, 5] : [6, 6, 12];
+              if (isPublic) { columns = !matches ? [3, 4, 5] : [12, 12, 12]; }
+              return (
+                <Row className="usa-grid-full">
+                  <Column
+                    columns={columns[0]}
+                    className={'user-dashboard-section-container user-dashboard-column-1'}
+                  >
+                    <BoxShadow className="usa-width-one-whole user-dashboard-section current-user-section">
+                      <UserProfile
+                        userProfile={userProfile}
+                        showEditLink={!isPublic}
+                        isPublic={isPublic}
+                      />
+                    </BoxShadow>
+                  </Column>
+                  {
+                    !isPublic &&
                     <div>
                       <Column
                         columns={columns[1]}
@@ -86,6 +86,7 @@ const ProfileDashboard = ({
                                   submitBidPosition={submitBidPosition}
                                   deleteBid={deleteBid}
                                   isLoading={bidListIsLoading}
+                                  registerHandshake={registerHandshake}
                                 />
                               </BoxShadow>
                             </PermissionsWrapper>
@@ -96,9 +97,9 @@ const ProfileDashboard = ({
                         </BoxShadow>
                       </Column>
                     </div>
-                }
-                {
-                  isPublic &&
+                  }
+                  {
+                    isPublic &&
                     <Column
                       columns={columns[1]}
                       className="user-dashboard-section-container user-dashboard-column-2"
@@ -110,9 +111,9 @@ const ProfileDashboard = ({
                         />
                       </BoxShadow>
                     </Column>
-                }
-                {
-                  isPublic &&
+                  }
+                  {
+                    isPublic &&
                     <Column
                       columns={columns[2]}
                       className="user-dashboard-section-container user-dashboard-column-3"
@@ -121,6 +122,7 @@ const ProfileDashboard = ({
                         <BidList
                           bids={bidList}
                           isPublic={isPublic}
+                          registerHandshake={registerHandshake}
                           userId={userProfile.perdet_seq_number}
                         />
                       </BoxShadow>
@@ -128,13 +130,13 @@ const ProfileDashboard = ({
                         <Assignments assignments={userProfile.assignments} />
                       </BoxShadow>
                     </Column>
-                }
-              </Row>
-            );
-          }}
-        </MediaQueryWrapper>
-      </div>
-    )}
+                  }
+                </Row>
+              );
+            }}
+          </MediaQueryWrapper>
+        </div>
+      )}
   </div>
 );
 
@@ -150,6 +152,7 @@ ProfileDashboard.propTypes = {
   isPublic: PropTypes.bool,
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
+  registerHandshake: PropTypes.func,
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
 };
@@ -165,6 +168,7 @@ ProfileDashboard.defaultProps = {
   isPublic: false,
   submitBidPosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
+  registerHandshake: EMPTY_FUNCTION,
   classifications: [],
   clientClassifications: [],
 };

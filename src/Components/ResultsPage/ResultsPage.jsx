@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
-ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
-MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+  ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
+  MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { filterPVSorts } from '../../Constants/Sort';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
@@ -37,13 +37,13 @@ class Results extends Component {
 
   render() {
     const { results, isLoading, hasErrored, sortBy, defaultKeyword, defaultLocation, resetFilters,
-            pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
-            defaultPageNumber, onQueryParamUpdate, filters, userProfile,
-            selectedAccordion, setAccordion, scrollToTop,
-            fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
-            missionSearchHasErrored, fetchPostAutocomplete,
-            postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-            bidList, isProjectedVacancy, filtersIsLoading, showClear, shouldShowMobileFilter }
+      pillFilters, defaultSort, pageSizes, defaultPageSize, onQueryParamToggle,
+      defaultPageNumber, onQueryParamUpdate, filters, userProfile,
+      selectedAccordion, setAccordion, scrollToTop,
+      fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
+      missionSearchHasErrored, fetchPostAutocomplete,
+      postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
+      bidList, isProjectedVacancy, filtersIsLoading, showClear, shouldShowMobileFilter }
       = this.props;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
 
@@ -186,4 +186,4 @@ export const mapStateToProps = state => ({
   shouldShowMobileFilter: state.shouldShowMobileFilter,
 });
 
-export default connect(mapStateToProps, null, null, { withRef: true })(Results);
+export default connect(mapStateToProps, null, null, { forwardRef: true })(Results);

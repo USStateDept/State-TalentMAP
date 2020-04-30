@@ -1,7 +1,21 @@
 {
   "plugins": [
-    "syntax-dynamic-import",
-    "transform-class-properties"
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-class-properties"
   ],
-  "presets": ["react-app"],
+  "presets": [
+    "react-app",
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": "2",
+        "targets": {
+          "node": "current",
+          "browsers": ["last 2 versions", "ie >= 11"]
+        }
+      }
+    ]
+  ],
+  "sourceType": "unambiguous"
 }

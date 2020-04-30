@@ -8,26 +8,18 @@ import InteractiveElement from '../../InteractiveElement';
 
 // Export unconnected class for testing.
 export class ActionsDropdown extends Component {
-
-  constructor(props) {
-    super(props);
-    this.hideDropdown = this.hideDropdown.bind(this);
-    this.deleteBid = this.deleteBid.bind(this);
-    this.setDropdown = this.setDropdown.bind(this);
-  }
-
-  setDropdown(dropdown) {
+  setDropdown = dropdown => {
     this.dropdown = dropdown;
-  }
+  };
 
-  hideDropdown() {
+  hideDropdown = () => {
     this.dropdown.hide();
-  }
+  };
 
-  deleteBid() {
+  deleteBid = () => {
     const { positionId, toggleBid } = this.props;
     toggleBid(positionId, true);
-  }
+  };
 
   render() {
     // Use different props to display certain actions and disable them as well.

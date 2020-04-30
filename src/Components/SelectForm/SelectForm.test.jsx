@@ -51,9 +51,9 @@ describe('SelectForm', () => {
       onSelectOption={() => {}}
     />);
     // define the instance
-    const spy = sinon.spy(wrapper.instance(), 'componentWillReceiveProps');
+    const spy = sinon.spy(wrapper.instance(), 'UNSAFE_componentWillReceiveProps');
     wrapper.update();
-    wrapper.instance().componentWillReceiveProps({ includeFirstEmptyOption: true, defaultSort: '2' });
+    wrapper.instance().UNSAFE_componentWillReceiveProps({ includeFirstEmptyOption: true, defaultSort: '2' });
     sinon.assert.calledOnce(spy);
   });
 

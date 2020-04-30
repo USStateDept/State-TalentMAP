@@ -4,19 +4,25 @@ exports[`ResultsCardComponent matches snapshot 1`] = `
 <MediaQueryWrapper
   breakpoint="screenSmMax"
   widthType="max"
-/>
+>
+  <Component />
+</MediaQueryWrapper>
 `;
 
 exports[`ResultsCardComponent matches snapshot when context.isClient === true 1`] = `
 <MediaQueryWrapper
   breakpoint="screenSmMax"
   widthType="max"
-/>
+>
+  <Component />
+</MediaQueryWrapper>
 `;
 
 exports[`ResultsCardComponent matches snapshot with empty result 1`] = `
 <MediaQueryWrapper
   breakpoint="screenSmMax"
   widthType="max"
-/>
+>
+  <Component />
+</MediaQueryWrapper>
 `;

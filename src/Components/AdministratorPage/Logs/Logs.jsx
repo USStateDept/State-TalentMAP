@@ -15,8 +15,6 @@ const LOG_CONTAINER = 'log-scroll-container';
 class LogsPage extends Component {
   constructor(props) {
     super(props);
-    this.selectLog = this.selectLog.bind(this);
-    this.onPageChange = this.onPageChange.bind(this);
     this.state = {
       selected: '',
       page: 1,
@@ -24,7 +22,7 @@ class LogsPage extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(nextProps.log, this.props.log)) {
       setTimeout(() => {
         const objDiv = document.getElementById(LOG_CONTAINER);
@@ -33,15 +31,15 @@ class LogsPage extends Component {
     }
   }
 
-  onPageChange({ page }) {
+  onPageChange = ({ page }) => {
     this.setState({ page });
-  }
+  };
 
-  selectLog(selected) {
+  selectLog = selected => {
     this.setState({ selected }, () => {
       this.props.getLog(selected);
     });
-  }
+  };
 
   render() {
     const {

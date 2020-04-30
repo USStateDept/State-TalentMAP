@@ -103,26 +103,26 @@ export function getLogs() {
         // create promise array to retrieve individual logs
         const queryProms = data.map(log =>
           // get each log
-           api().get(`/logs/${log}/`)
+          api().get(`/logs/${log}/`)
             .then(response => ({ log, data: response.data })));
 
         // execute queries
         Q.allSettled(queryProms)
-        .then((results) => {
-          results.forEach((response) => {
-            const logText = get(response, 'value.data.data', '');
-            const logName = get(response, 'value.log', '');
-            if (response.state === 'fulfilled') {
-              const lb = '\n'; // line-break
+          .then((results) => {
+            results.forEach((response) => {
+              const logText = get(response, 'value.data.data', '');
+              const logName = get(response, 'value.log', '');
+              if (response.state === 'fulfilled') {
+                const lb = '\n'; // line-break
 
-              // add individual log text to running list, wrapped in a START/END with its name
-              text = `${text + lb}-- START ${logName} --${lb}${logText}${lb}-- END ${logName} --${lb}`;
-            }
+                // add individual log text to running list, wrapped in a START/END with its name
+                text = `${text + lb}-- START ${logName} --${lb}${logText}${lb}-- END ${logName} --${lb}`;
+              }
+            });
+            dispatch(logsSuccess(text));
+            dispatch(logsHasErrored(false));
+            dispatch(logsIsLoading(false));
           });
-          dispatch(logsSuccess(text));
-          dispatch(logsHasErrored(false));
-          dispatch(logsIsLoading(false));
-        });
       })
       .catch(() => {
         logsSuccess('');
@@ -163,24 +163,24 @@ export function getLog(id) {
         cancel = c;
       }),
     })
-    .then((logList) => {
-      let data = get(logList, 'data.data', []);
-      data = data.split('\n');
-      data = takeRight(data, 500);
-      if (data.length === 1 && !data[0]) {
-        data = [];
-      }
-      dispatch(logSuccess(data));
-      dispatch(logHasErrored(false));
-      dispatch(logIsLoading(false));
-    })
-    .catch((m) => {
-      if (get(m, 'message') !== 'cancel') {
-        logSuccess([]);
-        dispatch(logHasErrored(true));
+      .then((logList) => {
+        let data = get(logList, 'data.data', []);
+        data = data.split('\n');
+        data = takeRight(data, 500);
+        if (data.length === 1 && !data[0]) {
+          data = [];
+        }
+        dispatch(logSuccess(data));
+        dispatch(logHasErrored(false));
         dispatch(logIsLoading(false));
-      }
-    });
+      })
+      .catch((m) => {
+        if (get(m, 'message') !== 'cancel') {
+          logSuccess([]);
+          dispatch(logHasErrored(true));
+          dispatch(logIsLoading(false));
+        }
+      });
   };
 }
 

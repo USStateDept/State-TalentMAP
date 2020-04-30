@@ -8,26 +8,19 @@ import ProfileMenuExpanded from './ProfileMenuExpanded';
 import ProfileMenuCollapsed from './ProfileMenuCollapsed';
 
 class ProfileMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.collapseMenu = this.collapseMenu.bind(this);
-    this.expandMenu = this.expandMenu.bind(this);
-  }
-
-  collapseMenu() {
+  collapseMenu = () => {
     this.props.onSetProfileMenuExpanded(false);
-  }
+  };
 
-  expandMenu() {
+  expandMenu = () => {
     this.props.onSetProfileMenuExpanded(true);
-  }
+  };
 
   render() {
     const {
       profileMenuExpanded,
       profileMenuSectionExpanded,
       roles,
-      isCDO,
       isGlossaryEditor,
       onSetProfileMenuExpanded,
       onSetProfileMenuSectionExpanded,
@@ -35,23 +28,22 @@ class ProfileMenu extends Component {
 
     const options = {
       roles,
-      isCDO,
       isGlossaryEditor,
     };
 
     return (
-        profileMenuExpanded ?
-          <ProfileMenuExpanded
-            {...options}
-            collapse={this.collapseMenu}
-            expandedSection={profileMenuSectionExpanded}
-            toggleMenuSection={onSetProfileMenuSectionExpanded}
-          /> :
-          <ProfileMenuCollapsed
-            {...options}
-            expand={this.expandMenu}
-            toggleMenu={onSetProfileMenuExpanded}
-          />
+      profileMenuExpanded ?
+        <ProfileMenuExpanded
+          {...options}
+          collapse={this.collapseMenu}
+          expandedSection={profileMenuSectionExpanded}
+          toggleMenuSection={onSetProfileMenuSectionExpanded}
+        /> :
+        <ProfileMenuCollapsed
+          {...options}
+          expand={this.expandMenu}
+          toggleMenu={onSetProfileMenuExpanded}
+        />
     );
   }
 }
@@ -62,7 +54,6 @@ ProfileMenu.propTypes = {
   onSetProfileMenuExpanded: PropTypes.func.isRequired,
   onSetProfileMenuSectionExpanded: PropTypes.func.isRequired,
   roles: PropTypes.arrayOf(PropTypes.string),
-  isCDO: PropTypes.bool,
   isGlossaryEditor: PropTypes.bool,
 };
 
@@ -72,7 +63,6 @@ ProfileMenu.defaultProps = {
   onSetProfileMenuExpanded: EMPTY_FUNCTION,
   onSetProfileMenuSectionExpanded: EMPTY_FUNCTION,
   roles: [],
-  isCDO: false,
   isGlossaryEditor: false,
 };
 

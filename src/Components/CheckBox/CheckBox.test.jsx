@@ -98,7 +98,7 @@ describe('CheckBoxComponent', () => {
     );
 
     const newValue = 'newValue';
-    wrapper.instance().componentWillReceiveProps({ value: newValue });
+    wrapper.instance().UNSAFE_componentWillReceiveProps({ value: newValue });
     expect(wrapper.instance().state.checked.value).toBe(newValue);
   });
 

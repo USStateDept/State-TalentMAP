@@ -1,6 +1,6 @@
 import createSagaMiddleware from 'redux-saga';
-import createHistory from 'history/createBrowserHistory';
-import { routerMiddleware } from 'react-router-redux';
+import { createBrowserHistory } from 'history';
+import { routerMiddleware } from 'connected-react-router';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import checkIndexAuthentication from './check-auth';
@@ -11,16 +11,16 @@ describe('check-auth', () => {
   beforeEach(() => {
     const sagaMiddleware = createSagaMiddleware();
 
-    const history = createHistory();
+    const history = createBrowserHistory();
 
     const middleware = routerMiddleware(history);
 
     function configureStore(initialState) {
       return createStore(
-            rootReducer,
-            initialState,
-            applyMiddleware(thunk, middleware, sagaMiddleware),
-        );
+        rootReducer(history),
+        initialState,
+        applyMiddleware(thunk, middleware, sagaMiddleware),
+      );
     }
 
     store = configureStore();

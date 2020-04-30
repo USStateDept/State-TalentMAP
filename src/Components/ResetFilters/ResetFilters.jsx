@@ -4,14 +4,9 @@ import FontAwesome from 'react-fontawesome';
 import InteractiveElement from '../InteractiveElement';
 
 class ResetFilters extends Component {
-  constructor(props) {
-    super(props);
-    this.resetFilters = this.resetFilters.bind(this);
-  }
-
-  resetFilters() {
+  resetFilters = () => {
     this.props.resetFilters();
-  }
+  };
 
   render() {
     return (

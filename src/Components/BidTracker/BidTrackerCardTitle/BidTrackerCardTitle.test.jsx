@@ -114,7 +114,7 @@ describe('BidTrackerCardTitleComponent', () => {
   it('matches snapshot when condensedView is true, priorityExists is true, and isPriority is false', () => {
     const wrapper = shallow(
       <BidTrackerCardTitle {...props} status={APPROVED_PROP} priorityExists isPriority={false} />,
-    { condensedView: true });
+      { condensedView: true });
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

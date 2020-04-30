@@ -86,7 +86,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
-            "posted_date": "2012-10-22T00:00:00Z",
+            "posted_date": null,
             "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
             "skill": "OFFICE MANAGEMENT (9017)",
             "status": null,
@@ -160,7 +160,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           title="Incumbent"
         />
         <CondensedCardDataPoint
-          content="10/21/2012"
+          content="Unknown"
           hasFixedTitleWidth={false}
           title="Posted"
         />
@@ -173,6 +173,9 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         bidListToggleIsLoading={false}
         details={
           Object {
+            "bidStatistics": Array [
+              Object {},
+            ],
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,
@@ -240,7 +243,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
-            "posted_date": "2012-10-22T00:00:00Z",
+            "posted_date": null,
             "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
             "skill": "OFFICE MANAGEMENT (9017)",
             "status": null,
@@ -337,7 +340,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
                 "rest_relaxation_point": "Paris",
                 "tour_of_duty": "2 YRS (2 R & R)",
               },
-              "posted_date": "2012-10-22T00:00:00Z",
+              "posted_date": null,
               "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
               "skill": "OFFICE MANAGEMENT (9017)",
               "status": null,
@@ -442,7 +445,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
-            "posted_date": "2012-10-22T00:00:00Z",
+            "posted_date": null,
             "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
             "skill": "OFFICE MANAGEMENT (9017)",
             "status": null,
@@ -516,7 +519,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
           title="Incumbent"
         />
         <CondensedCardDataPoint
-          content="10/21/2012"
+          content="Unknown"
           hasFixedTitleWidth={false}
           title="Posted"
         />
@@ -529,6 +532,9 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         bidListToggleIsLoading={false}
         details={
           Object {
+            "bidStatistics": Array [
+              Object {},
+            ],
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,
@@ -596,7 +602,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
-            "posted_date": "2012-10-22T00:00:00Z",
+            "posted_date": null,
             "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
             "skill": "OFFICE MANAGEMENT (9017)",
             "status": null,
@@ -693,7 +699,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
                 "rest_relaxation_point": "Paris",
                 "tour_of_duty": "2 YRS (2 R & R)",
               },
-              "posted_date": "2012-10-22T00:00:00Z",
+              "posted_date": null,
               "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
               "skill": "OFFICE MANAGEMENT (9017)",
               "status": null,
@@ -800,7 +806,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
-            "posted_date": "2012-10-22T00:00:00Z",
+            "posted_date": null,
             "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
             "skill": "OFFICE MANAGEMENT (9017)",
             "status": null,
@@ -874,7 +880,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
           title="Incumbent"
         />
         <CondensedCardDataPoint
-          content="10/21/2012"
+          content="Unknown"
           hasFixedTitleWidth={false}
           title="Posted"
         />
@@ -887,6 +893,9 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         bidListToggleIsLoading={false}
         details={
           Object {
+            "bidStatistics": Array [
+              Object {},
+            ],
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,
@@ -954,7 +963,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
               "rest_relaxation_point": "Paris",
               "tour_of_duty": "2 YRS (2 R & R)",
             },
-            "posted_date": "2012-10-22T00:00:00Z",
+            "posted_date": null,
             "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
             "skill": "OFFICE MANAGEMENT (9017)",
             "status": null,
@@ -1055,7 +1064,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
                 "rest_relaxation_point": "Paris",
                 "tour_of_duty": "2 YRS (2 R & R)",
               },
-              "posted_date": "2012-10-22T00:00:00Z",
+              "posted_date": null,
               "representation": "[10034001] OMS (DCM) (Monrovia, Liberia)",
               "skill": "OFFICE MANAGEMENT (9017)",
               "status": null,

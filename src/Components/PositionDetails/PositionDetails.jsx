@@ -21,7 +21,6 @@ import {
 class PositionDetails extends Component {
   constructor(props) {
     super(props);
-    this.editDescriptionContent = this.editDescriptionContent.bind(this);
     this.state = {
       newDescriptionContent: { value: null },
     };
@@ -33,12 +32,12 @@ class PositionDetails extends Component {
 
   // The additional details section should match after edits are made,
   // so we set the content to a value in local state when ever any edits are made.
-  editDescriptionContent(content) {
+  editDescriptionContent = content => {
     this.props.editDescriptionContent(content);
     const { newDescriptionContent } = this.state;
     newDescriptionContent.value = content;
     this.setState({ newDescriptionContent });
-  }
+  };
 
   render() {
     const {
